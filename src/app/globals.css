@@ -4,23 +4,23 @@
   /* Richer, warmer greys -> inspired by Linear/Vercel/Arc */
   --background: #ffffff;
   --foreground: #0a0a0a;
-  
+
   /* Subtle, warm greys for UI elements */
   --card: #f9f9f9;
   --card-foreground: #0a0a0a;
-  
+
   --popover: #ffffff;
   --popover-foreground: #0a0a0a;
-  
+
   --muted: #737373;
   --muted-foreground: #525252;
-  
+
   --accent: #f5f5f5;
   --accent-foreground: #171717;
-  
+
   --border: #e5e5e5;
   --input: #e5e5e5;
-  
+
   --radius: 0.5rem;
 }
 
@@ -37,10 +37,10 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
-  
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  
+
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
@@ -48,21 +48,22 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #030303; /* Deep black, not pure #000 */
+    --background: #030303;
+    /* Deep black, not pure #000 */
     --foreground: #ededed;
-    
+
     --card: #0a0a0a;
     --card-foreground: #ededed;
-    
+
     --popover: #0a0a0a;
     --popover-foreground: #ededed;
-    
+
     --muted: #a3a3a3;
     --muted-foreground: #d4d4d4;
-    
+
     --accent: #262626;
     --accent-foreground: #ededed;
-    
+
     --border: #262626;
     --input: #262626;
   }
@@ -98,11 +99,65 @@ body {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: var(--border);
   border-radius: 20px;
 }
 
+/* Operation BROWSER-CO: Tech Utilities */
+
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+  display: flex;
+  white-space: nowrap;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--foreground), var(--muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shimmer remains useful for specific highlights */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
