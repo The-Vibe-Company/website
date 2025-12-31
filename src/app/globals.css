@@ -1,26 +1,108 @@
 @import "tailwindcss";
 
 :root {
+  /* Richer, warmer greys -> inspired by Linear/Vercel/Arc */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0a0a0a;
+  
+  /* Subtle, warm greys for UI elements */
+  --card: #f9f9f9;
+  --card-foreground: #0a0a0a;
+  
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  
+  --muted: #737373;
+  --muted-foreground: #525252;
+  
+  --accent: #f5f5f5;
+  --accent-foreground: #171717;
+  
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  
+  --radius: 0.5rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #030303; /* Deep black, not pure #000 */
     --foreground: #ededed;
+    
+    --card: #0a0a0a;
+    --card-foreground: #ededed;
+    
+    --popover: #0a0a0a;
+    --popover-foreground: #ededed;
+    
+    --muted: #a3a3a3;
+    --muted-foreground: #d4d4d4;
+    
+    --accent: #262626;
+    --accent-foreground: #ededed;
+    
+    --border: #262626;
+    --input: #262626;
   }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  min-height: 100%;
+  overflow-x: hidden;
 }
+
+/* Premium selection style */
+::selection {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* Scrollbar refinement */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 20px;
+}
+
