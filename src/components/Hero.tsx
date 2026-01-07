@@ -31,15 +31,16 @@ export function Hero() {
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm text-xs font-mono mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            by the cofounders of{" "}
+            a project from the{" "}
             <a
               href="https://quivr.com"
               target="_blank"
               rel="noopener noreferrer"
               className="underline underline-offset-2 hover:text-blue-400 transition-colors"
             >
-              Quivr.com
+              Quivr
             </a>
+            {" "}team
           </motion.div>
 
           <motion.h1
