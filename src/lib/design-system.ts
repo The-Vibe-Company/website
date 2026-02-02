@@ -291,7 +291,7 @@ export const components = {
   // Marquee container
   marquee: {
     container: 'relative flex overflow-hidden w-full border-y border-border/50 bg-background/50 backdrop-blur-sm select-none',
-    content: 'animate-marquee flex gap-8 py-3 items-center',
+    content: 'animate-marquee flex py-3 items-center whitespace-nowrap',
   },
   
   // Grid overlay
