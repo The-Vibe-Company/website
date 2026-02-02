@@ -32,25 +32,51 @@ export function Hero() {
         className={cn("relative z-10 mb-12", spacing.page.x)}
       >
         <div className={spacing.container.default}>
-          {/* Status Badge */}
-          <motion.div
-            initial={animations.variants.fadeInScale.initial}
-            animate={animations.variants.fadeInScale.animate}
-            transition={createTransition(0.8)}
-            className={cn(components.badge.default, "mb-8")}
-          >
-            <span className={components.statusDot.active} />
-            a project from the{" "}
-            <a
-              href="https://quivr.com"
+          {/* Status Badges */}
+          <div className={cn("flex flex-wrap items-center", spacing.gap.xs, "mb-8")}>
+            <motion.div
+              initial={animations.variants.fadeInScale.initial}
+              animate={animations.variants.fadeInScale.animate}
+              transition={createTransition(0.8)}
+              className={components.badge.default}
+            >
+              <span className={components.statusDot.active} />
+              a project from the{" "}
+              <a
+                href="https://quivr.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={components.link.underline}
+              >
+                Quivr
+              </a>
+              {" "}team
+            </motion.div>
+
+            <motion.a
+              href="https://www.ycombinator.com"
               target="_blank"
               rel="noopener noreferrer"
-              className={components.link.underline}
+              initial={animations.variants.fadeInScale.initial}
+              animate={animations.variants.fadeInScale.animate}
+              transition={createTransition(0.8, 0.1)}
+              className={cn(
+                components.badge.base,
+                "border border-orange-500/30 bg-orange-500/10 text-orange-500 hover:bg-orange-500/20 transition-colors"
+              )}
             >
-              Quivr
-            </a>
-            {" "}team
-          </motion.div>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="flex-shrink-0"
+              >
+                <path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z" />
+              </svg>
+              Backed by Y Combinator
+            </motion.a>
+          </div>
 
           {/* Main Headline */}
           <motion.h1
