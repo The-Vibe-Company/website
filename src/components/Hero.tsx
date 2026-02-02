@@ -33,7 +33,7 @@ export function Hero() {
       >
         <div className={spacing.container.default}>
           {/* Status Badges */}
-          <div className={cn("flex flex-wrap items-center", spacing.gap.xs, "mb-8")}>
+          <div className={cn("flex flex-wrap items-center", spacing.gap.xs, "mb-8 select-none")}>
             <motion.div
               initial={animations.variants.fadeInScale.initial}
               animate={animations.variants.fadeInScale.animate}
@@ -80,7 +80,7 @@ export function Hero() {
 
           {/* Main Headline */}
           <motion.h1
-            className={typography.display.hero}
+            className={cn(typography.display.hero, "select-text")}
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={createTransition(1)}
@@ -94,7 +94,7 @@ export function Hero() {
           <div className={cn(
             "flex flex-col md:flex-row items-start md:items-end justify-between",
             spacing.gap.lg,
-            "mt-12 border-t border-foreground pt-8"
+            "mt-12 border-t border-foreground pt-8 select-none"
           )}>
             <motion.p
               className={cn(
@@ -116,6 +116,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
+        className="select-none"
       >
         <Marquee>
           <span className={cn(typography.marquee, "px-8 text-foreground/10")}>
