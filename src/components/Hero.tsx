@@ -37,7 +37,7 @@ export function Hero() {
             initial={animations.variants.fadeInScale.initial}
             animate={animations.variants.fadeInScale.animate}
             transition={createTransition(0.8)}
-            className={cn(components.badge.default, "mb-8 select-none")}
+            className={cn(components.badge.default, "mb-8")}
           >
             <span className={components.statusDot.active} />
             a project from the{" "}
@@ -52,9 +52,9 @@ export function Hero() {
             {" "}team
           </motion.div>
 
-          {/* Main Headline - Company title remains selectable */}
+          {/* Main Headline */}
           <motion.h1
-            className={cn(typography.display.hero, "select-text")}
+            className={typography.display.hero}
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={createTransition(1)}
@@ -66,7 +66,7 @@ export function Hero() {
 
           {/* Tagline Section */}
           <div className={cn(
-            "flex flex-col md:flex-row items-start md:items-end justify-between select-none",
+            "flex flex-col md:flex-row items-start md:items-end justify-between",
             spacing.gap.lg,
             "mt-12 border-t border-foreground pt-8"
           )}>
