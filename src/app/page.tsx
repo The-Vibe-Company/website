@@ -1,9 +1,6 @@
 import { Hero } from "@/components/Hero";
+import { layout } from "@/lib/design-system";
 
 export default function Home() {
-  return (
-    <main className="min-h-screen">
-      <Hero />
-    </main>
-  );
+  return <main className={layout.fullScreen}>{Hero && <Hero />}</main>;
 }

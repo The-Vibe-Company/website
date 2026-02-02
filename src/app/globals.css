@@ -1,30 +1,57 @@
 @import "tailwindcss";
 
+/* =============================================================================
+   DESIGN SYSTEM - Theme Configuration
+   
+   This file contains only essential theme tokens and utilities that cannot
+   be expressed as Tailwind classes. All component styles are defined in
+   @/lib/design-system.ts for consistency.
+   ============================================================================= */
+
+/* -----------------------------------------------------------------------------
+   Color Tokens (Light Mode)
+   ----------------------------------------------------------------------------- */
 :root {
-  /* Richer, warmer greys -> inspired by Linear/Vercel/Arc */
   --background: #ffffff;
   --foreground: #0a0a0a;
-
-  /* Subtle, warm greys for UI elements */
   --card: #f9f9f9;
   --card-foreground: #0a0a0a;
-
   --popover: #ffffff;
   --popover-foreground: #0a0a0a;
-
   --muted: #737373;
   --muted-foreground: #525252;
-
   --accent: #f5f5f5;
   --accent-foreground: #171717;
-
   --border: #e5e5e5;
   --input: #e5e5e5;
-
   --radius: 0.5rem;
 }
 
+/* -----------------------------------------------------------------------------
+   Color Tokens (Dark Mode)
+   ----------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #030303;
+    --foreground: #ededed;
+    --card: #0a0a0a;
+    --card-foreground: #ededed;
+    --popover: #0a0a0a;
+    --popover-foreground: #ededed;
+    --muted: #a3a3a3;
+    --muted-foreground: #d4d4d4;
+    --accent: #262626;
+    --accent-foreground: #ededed;
+    --border: #262626;
+    --input: #262626;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Tailwind Theme Extension
+   ----------------------------------------------------------------------------- */
 @theme inline {
+  /* Colors mapped to CSS variables */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -38,64 +65,85 @@
   --color-border: var(--border);
   --color-input: var(--input);
 
+  /* Typography */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
+  /* Border radius */
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
+  /* Animation durations */
+  --animate-marquee: marquee 20s linear infinite;
+  --animate-shimmer: shimmer 2s infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #030303;
-    /* Deep black, not pure #000 */
-    --foreground: #ededed;
-
-    --card: #0a0a0a;
-    --card-foreground: #ededed;
-
-    --popover: #0a0a0a;
-    --popover-foreground: #ededed;
-
-    --muted: #a3a3a3;
-    --muted-foreground: #d4d4d4;
-
-    --accent: #262626;
-    --accent-foreground: #ededed;
-
-    --border: #262626;
-    --input: #262626;
+/* -----------------------------------------------------------------------------
+   Keyframe Animations
+   These are defined here as they cannot be expressed as Tailwind utilities
+   ----------------------------------------------------------------------------- */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
-* {
-  box-sizing: border-box;
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-  height: 100%;
+/* -----------------------------------------------------------------------------
+   Base Styles
+   Minimal global styles using Tailwind's @layer system
+   ----------------------------------------------------------------------------- */
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply scroll-smooth h-full;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased leading-normal min-h-full overflow-x-hidden;
+  }
+
+  /* Selection style */
+  ::selection {
+    @apply bg-foreground text-background;
+  }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
-  min-height: 100%;
-  overflow-x: hidden;
+/* -----------------------------------------------------------------------------
+   Custom Utilities
+   Only utilities that cannot be replicated with Tailwind classes
+   ----------------------------------------------------------------------------- */
+@layer utilities {
+  /* Grid background overlay utility */
+  .bg-grid {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    @apply fixed inset-0 -z-10 opacity-15 pointer-events-none;
+  }
+
+  /* Stroke text utility for outlined text effect */
+  .stroke-text {
+    -webkit-text-stroke: 1px var(--foreground);
+  }
 }
 
-/* Premium selection style */
-::selection {
-  background: var(--foreground);
-  color: var(--background);
-}
-
-/* Scrollbar refinement */
+/* Global scrollbar styling - browser-specific, not possible with Tailwind */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -105,59 +153,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--border);
-  border-radius: 20px;
-}
-
-/* Operation BROWSER-CO: Tech Utilities */
-
-.bg-grid {
-  background-size: 40px 40px;
-  background-image: linear-gradient(to right, var(--border) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
-  mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  opacity: 0.15;
-  pointer-events: none;
-}
-
-/* Marquee Animation */
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-marquee {
-  animation: marquee 20s linear infinite;
-  display: flex;
-  white-space: nowrap;
-}
-
-.text-gradient {
-  background: linear-gradient(to right, var(--foreground), var(--muted));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Shimmer remains useful for specific highlights */
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.animate-shimmer {
-  animation: shimmer 2s infinite;
+  @apply bg-border rounded-full;
 }

@@ -1,25 +1,53 @@
 "use client";
 
 import { motion } from "framer-motion";
+import {
+  typography,
+  spacing,
+  animations,
+  cn,
+  createTransition,
+  createViewportConfig,
+} from "@/lib/design-system";
 
 export function Philosophy() {
   return (
-    <section className="py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-foreground text-background">
-      <div className="max-w-4xl mx-auto text-center">
+    <section
+      className={cn(
+        spacing.section.paddingLarge,
+        "bg-foreground text-background"
+      )}
+    >
+      <div className={cn(spacing.container.narrow, "text-center")}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          initial={animations.variants.fadeInUp.initial}
+          whileInView={animations.variants.fadeInUp.animate}
+          viewport={createViewportConfig()}
+          transition={createTransition(0.8)}
         >
-          <h2 className="text-sm font-medium text-white/60 uppercase tracking-widest mb-16">
+          {/* Section Label */}
+          <h2 className={cn(typography.label.default, "text-white/60 mb-16")}>
             Philosophy
           </h2>
-          <blockquote className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-16">
-            &ldquo;Vibe coding isn&apos;t chaos. It&apos;s disciplined intuition.&rdquo;
+
+          {/* Main Quote */}
+          <blockquote className={cn(typography.heading.h2, "mb-16")}>
+            &ldquo;Vibe coding isn&apos;t chaos. It&apos;s disciplined
+            intuition.&rdquo;
           </blockquote>
-          <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-light max-w-2xl mx-auto">
-            We trust the process. We move fast but we don&apos;t cut corners. We build things that work, document what we learn, and share it all. That&apos;s the vibe.
+
+          {/* Description */}
+          <p
+            className={cn(
+              typography.body.default,
+              "text-white/80 font-light",
+              spacing.container.medium,
+              "mx-auto"
+            )}
+          >
+            We trust the process. We move fast but we don&apos;t cut corners. We
+            build things that work, document what we learn, and share it all.
+            That&apos;s the vibe.
           </p>
         </motion.div>
       </div>

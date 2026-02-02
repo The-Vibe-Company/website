@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroller } from "@/components/SmoothScroller";
 import { CustomCursor } from "@/components/CustomCursor";
+import { components } from "@/lib/design-system";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "The Vibe Company",
-  description: "We vibe. We ship. We show you how. A venture studio and training organization for vibe coding.",
+  description:
+    "We vibe. We ship. We show you how. A venture studio and training organization for vibe coding.",
 };
 
 export default function RootLayout({
@@ -31,7 +33,7 @@ export default function RootLayout({
       >
         <SmoothScroller />
         <CustomCursor />
-        <div className="bg-grid" />
+        <div className={components.gridOverlay} />
         {children}
       </body>
     </html>
