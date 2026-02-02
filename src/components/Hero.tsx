@@ -24,24 +24,47 @@ export function Hero() {
         className="relative z-10 px-6 md:px-12 lg:px-24 mb-12"
       >
         <div className="max-w-[120rem] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm text-xs font-mono mb-8"
-          >
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            a project from the{" "}
-            <a
-              href="https://quivr.com"
+          <div className="flex flex-wrap items-center gap-3 mb-8">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm text-xs font-mono"
+            >
+              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+              a project from the{" "}
+              <a
+                href="https://quivr.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-blue-400 transition-colors"
+              >
+                Quivr
+              </a>
+              {" "}team
+            </motion.div>
+
+            <motion.a
+              href="https://www.ycombinator.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-blue-400 transition-colors"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-orange-500/30 bg-orange-500/10 backdrop-blur-sm text-xs font-mono text-orange-500 hover:bg-orange-500/20 transition-colors"
             >
-              Quivr
-            </a>
-            {" "}team
-          </motion.div>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="flex-shrink-0"
+              >
+                <path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z" />
+              </svg>
+              Backed by Y Combinator
+            </motion.a>
+          </div>
 
           <motion.h1
             className="text-[12vw] leading-[0.8] font-bold tracking-tighter mb-8"
