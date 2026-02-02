@@ -39,12 +39,8 @@ export const colors = {
   
   // Border color
   border: 'border-border',
-  
-  // Opacity variants
-  foregroundMuted: 'text-foreground/10',
-  foregroundSubtle: 'text-foreground/60',
-  borderSubtle: 'border-border/50',
-  borderMuted: 'border-border/40',
+
+  // Opacity variants (only commonly used ones)
   backgroundTranslucent: 'bg-background/50',
   backgroundOpaque: 'bg-background/80',
 } as const;
@@ -250,10 +246,10 @@ export const components = {
   
   // Status indicator
   statusDot: {
-    active: 'w-2 h-2 rounded-full bg-blue-500 animate-pulse',
-    success: 'w-2 h-2 rounded-full bg-green-500',
-    warning: 'w-2 h-2 rounded-full bg-yellow-500',
-    error: 'w-2 h-2 rounded-full bg-red-500',
+    active: 'w-2 h-2 rounded-full bg-foreground animate-pulse',
+    success: 'w-2 h-2 rounded-full bg-accent',
+    warning: 'w-2 h-2 rounded-full bg-muted',
+    error: 'w-2 h-2 rounded-full bg-foreground',
   },
   
   // Button styles
