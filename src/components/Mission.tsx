@@ -34,17 +34,17 @@ export function Mission() {
             {/* Left - Headline */}
             <div>
               <h3 className={cn(typography.heading.h2, "mb-8")}>
-                An AI native agency for{" "}
-                <span className="text-muted-foreground">vibe coding</span>.
+                An AI native agency.{" "}
+                <span className="text-muted-foreground">100x efficiency.</span>
               </h3>
             </div>
 
             {/* Right - Description */}
             <div className={cn(components.bordered.left, "border-muted")}>
               <p className={cn(typography.body.default, "text-muted-foreground mb-8")}>
-                We build AI-powered products and teach others to do the same.
-                Our approach combines disciplined engineering with creative
-                intuition — what we call <em>vibe coding</em>.
+                We use AI everywhere we can to achieve 100x efficiency and
+                productivity. We vibe. We vibe code. We build products and teach
+                others to do the same.
               </p>
               <p className={cn(typography.body.default, "text-muted-foreground")}>
                 From the team behind{" "}
