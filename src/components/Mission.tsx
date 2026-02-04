@@ -34,7 +34,7 @@ export function Mission() {
             {/* Left - Headline */}
             <div>
               <h3 className={cn(typography.heading.h2, "mb-8")}>
-                A venture studio and training organization for{" "}
+                An AI native agency for{" "}
                 <span className="text-muted-foreground">vibe coding</span>.
               </h3>
             </div>
@@ -42,7 +42,7 @@ export function Mission() {
             {/* Right - Description */}
             <div className={cn(components.bordered.left, "border-muted")}>
               <p className={cn(typography.body.default, "text-muted-foreground mb-8")}>
-                We build products in public and teach others to do the same.
+                We build AI-powered products and teach others to do the same.
                 Our approach combines disciplined engineering with creative
                 intuition — what we call <em>vibe coding</em>.
               </p>
