@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "The Vibe Company",
   description:
-    "We vibe. We ship. We show you how. A venture studio and training organization for vibe coding.",
+    "We vibe. We ship. We show you how. An AI native agency using AI everywhere for 100x efficiency.",
 };
 
 export default function RootLayout({
