@@ -16,7 +16,7 @@ export function HomeLaunchpad() {
 
   const WHEEL_THRESHOLD = 250;
   const TRANSITION_LOCK_MS = 800;
-  const TOUCH_THRESHOLD = 80;
+  const TOUCH_THRESHOLD = 100;
 
   // Keep ref in sync with state
   useEffect(() => {
@@ -56,12 +56,14 @@ export function HomeLaunchpad() {
 
     const handleTouchEnd = (e: TouchEvent) => {
       if (isTransitioning.current) return;
-      const deltaY = Math.abs(
-        touchStartY.current - e.changedTouches[0].clientY
-      );
+      const deltaY = touchStartY.current - e.changedTouches[0].clientY;
 
-      if (deltaY > TOUCH_THRESHOLD) {
-        toggleOverlay(!overlayRef.current);
+      // Swipe up (positive delta) → open overlay
+      // Swipe down (negative delta) → close overlay
+      if (deltaY > TOUCH_THRESHOLD && !overlayRef.current) {
+        toggleOverlay(true);
+      } else if (deltaY < -TOUCH_THRESHOLD && overlayRef.current) {
+        toggleOverlay(false);
       }
     };
 

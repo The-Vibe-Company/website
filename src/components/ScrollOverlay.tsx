@@ -25,7 +25,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-xl"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-xl overflow-y-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -37,7 +37,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
         >
           {/* Content container */}
           <motion.div
-            className={cn("w-full max-w-5xl mx-auto", spacing.page.x)}
+            className={cn("w-full max-w-5xl mx-auto py-20 md:py-0", spacing.page.x)}
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
@@ -48,7 +48,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
             <motion.p
               className={cn(
                 typography.label.mono,
-                "text-muted-foreground text-center mb-10"
+                "text-muted-foreground text-center mb-6 md:mb-10"
               )}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -74,9 +74,9 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
                   scale: 1.02,
                   boxShadow: "8px 8px 0px 0px var(--background)",
                 }}
-                className="block bg-foreground text-background p-6 md:p-12 border border-foreground cursor-pointer group"
+                className="block bg-foreground text-background p-5 md:p-12 border border-foreground cursor-pointer group"
               >
-                <div className="flex items-center justify-between mb-12 md:mb-24">
+                <div className="flex items-center justify-between mb-6 md:mb-24">
                   <span className={cn(typography.label.mono, "text-background/50")}>
                     01
                   </span>
@@ -116,9 +116,9 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
                   scale: 1.02,
                   boxShadow: "8px 8px 0px 0px var(--foreground)",
                 }}
-                className="block border-2 border-foreground bg-background p-6 md:p-12 cursor-pointer group"
+                className="block border-2 border-foreground bg-background p-5 md:p-12 cursor-pointer group"
               >
-                <div className="flex items-center justify-between mb-12 md:mb-24">
+                <div className="flex items-center justify-between mb-6 md:mb-24">
                   <span className={cn(typography.label.mono, "text-muted-foreground")}>
                     02
                   </span>
@@ -154,14 +154,14 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
             <motion.p
               className={cn(
                 typography.label.mono,
-                "text-muted-foreground/50 text-center mt-12"
+                "text-muted-foreground/50 text-center mt-6 md:mt-12"
               )}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={createTransition(0.4, 0.4)}
             >
               <span className="hidden md:inline">ESC OR SCROLL BACK TO CLOSE</span>
-              <span className="md:hidden">TAP OUTSIDE TO CLOSE</span>
+              <span className="md:hidden">SWIPE DOWN TO CLOSE</span>
             </motion.p>
           </motion.div>
         </motion.div>
