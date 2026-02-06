@@ -6,8 +6,8 @@ import Lenis from "lenis";
 export function SmoothScroller() {
     useEffect(() => {
         const lenis = new Lenis({
-            duration: 0.5, // Much snappier (was 1.2)
-            easing: (t) => 1 - Math.pow(1 - t, 3), // Cubic out for responsiveness
+            duration: 0.5,
+            easing: (t) => 1 - Math.pow(1 - t, 3),
             orientation: "vertical",
             gestureOrientation: "vertical",
             smoothWheel: true,
@@ -15,17 +15,20 @@ export function SmoothScroller() {
             touchMultiplier: 2,
         });
 
+        let rafId: number;
+
         function raf(time: number) {
             lenis.raf(time);
-            requestAnimationFrame(raf);
+            rafId = requestAnimationFrame(raf);
         }
 
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
 
         return () => {
+            cancelAnimationFrame(rafId);
             lenis.destroy();
         };
     }, []);
 
-    return null; // Logic only component
+    return null;
 }

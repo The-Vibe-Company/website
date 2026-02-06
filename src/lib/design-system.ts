@@ -351,6 +351,9 @@ export const layout = {
   
   // Full screen sections
   fullScreen: 'min-h-screen',
+
+  // Viewport lock (no scroll)
+  viewportLock: 'h-screen overflow-hidden relative',
   
   // Sticky positioning
   sticky: {
