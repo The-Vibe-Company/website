@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.6...thevibecompany-v0.1.7) (2026-02-07)
+
+
+### Bug Fixes
+
+* **deps:** pin lexical@0.35.0 to match @payloadcms/richtext-lexical ([ab5dbd7](https://github.com/The-Vibe-Company/website/commit/ab5dbd79c4257bc7abb598d0dceb6b9251676b85))
+
 ## [0.1.6](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.5...thevibecompany-v0.1.6) (2026-02-07)
 
 
