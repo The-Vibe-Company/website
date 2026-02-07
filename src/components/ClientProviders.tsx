@@ -16,11 +16,12 @@ const CustomCursor = dynamic(
 export function ClientProviders() {
   const pathname = usePathname();
   const isHomepage = pathname === "/";
+  const isResources = pathname.startsWith("/resources");
 
   return (
     <>
-      {!isHomepage && <SmoothScroller />}
-      <CustomCursor />
+      {!isHomepage && !isResources && <SmoothScroller />}
+      {!isResources && <CustomCursor />}
     </>
   );
 }
