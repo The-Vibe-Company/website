@@ -7,10 +7,10 @@ import { resourcesTheme, typeLabels } from '@/lib/resources-theme';
 
 const typeLinks = [
   { label: 'All', href: '/resources' },
-  { label: 'Dailies', href: '/resources/daily' },
+  { label: 'Learnings', href: '/resources/daily' },
   { label: 'Tutorials', href: '/resources/tutorial' },
   { label: 'Articles', href: '/resources/article' },
-  { label: 'Tool Focus', href: '/resources/tool-focus' },
+  { label: 'Focus', href: '/resources/tool-focus' },
 ];
 
 function useBreadcrumbs(pathname: string) {
@@ -26,8 +26,13 @@ function useBreadcrumbs(pathname: string) {
     const typeLabel =
       typeLabels[type] ||
       type.charAt(0).toUpperCase() + type.slice(1).replace(/-/g, ' ');
+    const pluralMap: Record<string, string> = {
+      daily: 'Learnings',
+      'tool-focus': 'Focus',
+    };
+
     crumbs.push({
-      label: type === 'daily' ? 'Dailies' : typeLabel + 's',
+      label: pluralMap[type] || typeLabel + 's',
       href: `/resources/${type}`,
     });
   }
@@ -144,13 +149,13 @@ export function ResourcesNav() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 aria-hidden="true"
               >
                 <circle cx="11" cy="11" r="8" />
-                <path d="M21 21l-4.35-4.35" />
+                <path d="m21 21-4.3-4.3" />
               </svg>
             </button>
 
@@ -192,9 +197,8 @@ export function ResourcesNav() {
 
       {/* Mobile search bar */}
       <div
-        className={`fixed top-14 left-0 right-0 z-40 bg-res-surface border-b border-res-border px-6 py-3 transition-all duration-200 md:hidden ${
-          searchOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
-        }`}
+        className={`fixed top-14 left-0 right-0 z-40 bg-res-surface border-b border-res-border px-6 py-3 transition-all duration-200 md:hidden ${searchOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
+          }`}
       >
         <input
           ref={searchInputRef}
@@ -208,9 +212,8 @@ export function ResourcesNav() {
 
       {/* Mobile menu overlay */}
       <div
-        className={`fixed inset-0 z-30 bg-res-bg/95 backdrop-blur-lg flex flex-col pt-20 px-6 transition-all duration-200 md:hidden ${
-          mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
+        className={`fixed inset-0 z-30 bg-res-bg/95 backdrop-blur-lg flex flex-col pt-20 px-6 transition-all duration-200 md:hidden ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
         role="dialog"
         aria-label="Mobile navigation"
       >
@@ -225,11 +228,10 @@ export function ResourcesNav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`block py-3 px-4 rounded-lg text-sm font-mono uppercase tracking-wider transition-colors ${
-                  isActive
-                    ? 'bg-res-bg-secondary text-res-text'
-                    : 'text-res-text-muted hover:text-res-text hover:bg-res-bg-secondary'
-                }`}
+                className={`block py-3 px-4 rounded-lg text-sm font-mono uppercase tracking-wider transition-colors ${isActive
+                  ? 'bg-res-bg-secondary text-res-text'
+                  : 'text-res-text-muted hover:text-res-text hover:bg-res-bg-secondary'
+                  }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}

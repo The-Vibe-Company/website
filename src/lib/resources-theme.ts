@@ -7,64 +7,64 @@
 
 export const resourcesTheme = {
   card: {
-    base: 'bg-res-surface rounded-xl border border-res-border/50 transition-all duration-300',
-    hover: 'hover:shadow-lg hover:-translate-y-0.5',
+    base: 'bg-res-surface border border-res-border hover:border-res-text-muted/50 transition-colors duration-200',
+    hover: 'hover:shadow-sm',
     featured:
-      'bg-res-surface rounded-2xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1',
+      'bg-res-surface border border-res-border overflow-hidden transition-all duration-300 hover:border-res-text-muted/50',
   },
 
   badge: {
-    type: 'px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest',
+    type: 'px-2 py-0.5 border border-res-border text-[10px] font-mono uppercase tracking-widest text-res-text-muted',
     domain:
-      'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest border',
-    domainDot: 'inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest',
+      'inline-flex items-center gap-1.5 px-2 py-0.5 border border-res-border text-[10px] font-mono uppercase tracking-widest text-res-text',
+    domainDot: 'inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-res-text-muted',
   },
 
   nav: {
     container:
-      'fixed top-0 left-0 right-0 z-50 bg-res-surface/90 backdrop-blur-md border-b border-res-border',
+      'fixed top-0 left-0 right-0 z-50 bg-res-bg/80 backdrop-blur-md border-b border-res-border',
     inner: 'flex items-center justify-between h-14 px-6 md:px-12 lg:px-24',
     breadcrumb: 'text-xs font-mono uppercase tracking-widest text-res-text-muted',
     brandLink: 'text-xs font-mono uppercase tracking-widest text-res-text hover:text-res-text-muted transition-colors',
   },
 
   typeNav: {
-    container: 'flex items-center gap-2 overflow-x-auto pb-1',
-    pill: 'px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap shrink-0',
+    container: 'flex items-center gap-px bg-res-border p-px overflow-x-auto',
+    pill: 'px-4 py-2 text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap shrink-0 border-r border-res-border last:border-r-0',
     pillActive: 'bg-res-text text-res-surface',
     pillInactive:
-      'text-res-text-muted hover:text-res-text hover:bg-res-bg-secondary border border-res-border/50',
+      'bg-res-surface text-res-text-muted hover:text-res-text hover:bg-res-bg-secondary',
   },
 
   filter: {
-    pill: 'px-3 py-1.5 rounded-full text-[10px] font-mono uppercase tracking-widest transition-all border',
-    pillInactive: 'text-res-text-muted border-res-border hover:border-res-text-muted/50',
+    pill: 'px-3 py-1.5 border border-res-border text-[10px] font-mono uppercase tracking-widest transition-all hover:border-res-text-muted',
+    pillInactive: 'text-res-text-muted bg-res-surface',
   },
 
   section: {
     padding: 'px-6 md:px-12 lg:px-24',
     header:
-      'text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted flex items-center gap-2 mb-8',
-    headerIndicator: 'w-1.5 h-1.5 rounded-full bg-res-text-muted',
+      'text-xs font-mono uppercase tracking-widest text-res-text flex items-center gap-3 mb-8 pb-4 border-b border-res-border w-full',
+    headerIndicator: 'w-2 h-2 bg-res-text',
   },
 
   search: {
     input:
-      'w-full rounded-full bg-res-bg-secondary border border-res-border px-4 py-2 text-sm font-sans placeholder:text-res-text-muted/50 focus:outline-none focus:border-res-text-muted/50 transition-colors text-res-text',
+      'w-full bg-res-surface border border-res-border px-4 py-2 text-sm font-mono placeholder:text-res-text-muted/50 focus:outline-none focus:border-res-text transition-colors text-res-text rounded-none',
     compact:
-      'w-48 lg:w-64 rounded-full bg-res-bg-secondary border border-res-border px-3 py-1.5 text-xs font-sans placeholder:text-res-text-muted/50 focus:outline-none focus:w-72 transition-all text-res-text',
+      'w-48 lg:w-64 bg-res-surface border border-res-border px-3 py-1.5 text-xs font-mono placeholder:text-res-text-muted/50 focus:outline-none focus:w-72 focus:border-res-text transition-all text-res-text rounded-none',
   },
 
   daily: {
     dateHeader:
-      'text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted py-3 sticky top-14 bg-res-bg z-10',
-    card: 'flex items-baseline gap-6 py-3.5 rounded-lg hover:bg-res-bg-secondary transition-colors -mx-3 px-3',
+      'text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted py-3 sticky top-14 bg-res-bg z-10 border-b border-res-border/50 backdrop-blur-sm',
+    card: 'flex items-baseline gap-6 py-4 border-b border-res-border/50 hover:bg-res-surface transition-colors -mx-6 px-6',
   },
 
   stats: {
-    container: 'flex items-center gap-4 text-xs font-mono text-res-text-muted',
-    separator: 'text-res-border',
-    number: 'font-semibold text-res-text',
+    container: 'flex items-center gap-6 text-xs font-mono text-res-text-muted border-l border-res-border pl-6',
+    separator: 'hidden',
+    number: 'font-semibold text-res-text mr-1.5',
   },
 } as const;
 
@@ -87,9 +87,9 @@ export const domainLabels: Record<string, string> = {
 };
 
 export const typeLabels: Record<string, string> = {
-  daily: 'Daily',
+  daily: 'Learning',
   tutorial: 'Tutorial',
   article: 'Article',
-  'tool-focus': 'Tool Focus',
+  'tool-focus': 'Focus',
   'concept-focus': 'Concept',
 };

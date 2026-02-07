@@ -6,10 +6,10 @@ import { resourcesTheme } from '@/lib/resources-theme';
 
 const typeLinks = [
   { label: 'All', href: '/resources' },
-  { label: 'Dailies', href: '/resources/daily' },
+  { label: 'Learnings', href: '/resources/daily' },
   { label: 'Tutorials', href: '/resources/tutorial' },
   { label: 'Articles', href: '/resources/article' },
-  { label: 'Tool Focus', href: '/resources/tool-focus' },
+  { label: 'Focus', href: '/resources/tool-focus' },
 ];
 
 interface TypeNavProps {
@@ -43,11 +43,10 @@ export function TypeNav({ counts }: TypeNavProps) {
           <Link
             key={link.href}
             href={link.href}
-            className={`${resourcesTheme.typeNav.pill} ${
-              active
+            className={`${resourcesTheme.typeNav.pill} ${active
                 ? resourcesTheme.typeNav.pillActive
                 : resourcesTheme.typeNav.pillInactive
-            }`}
+              }`}
           >
             {link.label}
             {count !== undefined && (

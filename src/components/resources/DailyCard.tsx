@@ -19,7 +19,7 @@ export function DailyCard({ title, slug, publishedAt }: DailyCardProps) {
   return (
     <Link
       href={`/resources/daily/${slug}`}
-      className={`group ${resourcesTheme.daily.card}`}
+      className={`group ${resourcesTheme.daily.card} items-center`}
     >
       {publishedAt && (
         <span className="text-[11px] font-mono text-res-text-muted/60 shrink-0 w-14 tabular-nums">
@@ -32,6 +32,6 @@ export function DailyCard({ title, slug, publishedAt }: DailyCardProps) {
       <span className="text-xs text-res-text-muted/30 shrink-0 group-hover:text-res-text-muted/60 transition-colors hidden sm:block">
         &rarr;
       </span>
-    </Link>
+    </Link >
   );
 }
