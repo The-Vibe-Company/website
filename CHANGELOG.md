@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.2](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.1...thevibecompany-v0.1.2) (2026-02-07)
+
+
+### Features
+
+* **frontend-design:** add frontend-design skill and license documentation ([cb3a37b](https://github.com/The-Vibe-Company/website/commit/cb3a37ba99cfc3e91400b225e9d615dd92890d60))
+* **resources:** editorial redesign of resources section ([773385d](https://github.com/The-Vibe-Company/website/commit/773385d5e08885528c1244bef71a2e2ecbd82aa4))
+* **resources:** editorial redesign of resources section ([0b28848](https://github.com/The-Vibe-Company/website/commit/0b28848dc7cd1100edee27875b997178e54863b6))
+* **resources:** redesign resources section with warm "Calm Studio" theme ([84ad34d](https://github.com/The-Vibe-Company/website/commit/84ad34d09cab26a00e6bb65e766f6825203fc822))
+* **resources:** redesign with warm Calm Studio theme ([e00f42b](https://github.com/The-Vibe-Company/website/commit/e00f42b94ec861def2f73a3ff1b88ae6782360ef))
+
+
+### Bug Fixes
+
+* **security:** address Devin review comments on PR [#14](https://github.com/The-Vibe-Company/website/issues/14) ([ba22f46](https://github.com/The-Vibe-Company/website/commit/ba22f462d3b4d7541de271b4508f8476f15150d3))
+
 ## [0.1.1](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.0...thevibecompany-v0.1.1) (2026-02-06)
 
 
