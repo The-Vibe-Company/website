@@ -24,6 +24,7 @@ export const IngestionLog: CollectionConfig = {
         { label: 'Browser Extension', value: 'browser' },
         { label: 'Meeting', value: 'meeting' },
         { label: 'Manual', value: 'manual' },
+        { label: 'AI Generate', value: 'ai-generate' },
       ],
     },
     {

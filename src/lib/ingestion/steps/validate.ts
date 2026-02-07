@@ -1,6 +1,5 @@
 import type { PipelineStep, PipelineContext } from './types'
-
-const VALID_TYPES = ['daily', 'tutorial', 'article', 'tool-focus', 'concept-focus']
+import { VALID_TYPES } from '@/lib/ai/prompts'
 
 export const validateStep: PipelineStep = {
   name: 'validate',

@@ -28,6 +28,17 @@ export const persistStep: PipelineStep = {
         url: raw.sourceUrl,
         lastSyncedAt: new Date().toISOString(),
       },
+      ...(raw.metadata?.aiGenerated
+        ? {
+            aiMetadata: {
+              qualityScore: raw.metadata.qualityScore as number,
+              autoSummary: raw.summary,
+              autoTags: [...(raw.concepts ?? []), ...(raw.domain ?? [])],
+              detectedLanguage: raw.language ?? 'fr',
+              enrichedAt: new Date().toISOString(),
+            },
+          }
+        : {}),
     }
 
     if (existingId) {

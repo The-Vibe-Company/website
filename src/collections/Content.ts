@@ -200,6 +200,7 @@ export const Content: CollectionConfig = {
             { label: 'Slack', value: 'slack' },
             { label: 'Browser Extension', value: 'browser' },
             { label: 'Meeting', value: 'meeting' },
+            { label: 'AI Generate', value: 'ai-generate' },
           ],
           defaultValue: 'manual',
         },
