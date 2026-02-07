@@ -27,7 +27,7 @@ const typeConfig: Record<
   { title: string; description: string }
 > = {
   daily: {
-    title: 'Daily Learnings',
+    title: 'Learnings',
     description:
       'Quick daily insights and discoveries from the build trenches.',
   },
@@ -41,7 +41,7 @@ const typeConfig: Record<
       'Deep dives into the tools, patterns, and philosophies of vibe coding.',
   },
   'tool-focus': {
-    title: 'Tool Focus',
+    title: 'Focus',
     description: 'Focused breakdowns of the tools we use every day.',
   },
   'concept-focus': {
@@ -110,29 +110,31 @@ export default async function TypeListingPage({
   // Group dailies by date
   const dailyGroups = isDailyType
     ? (() => {
-        const groups: Map<string, typeof content.docs> = new Map();
-        for (const item of content.docs) {
-          const label = item.publishedAt ? getDateLabel(item.publishedAt) : 'Undated';
-          if (!groups.has(label)) groups.set(label, []);
-          groups.get(label)!.push(item);
-        }
-        return groups;
-      })()
+      const groups: Map<string, typeof content.docs> = new Map();
+      for (const item of content.docs) {
+        const label = item.publishedAt ? getDateLabel(item.publishedAt) : 'Undated';
+        if (!groups.has(label)) groups.set(label, []);
+        groups.get(label)!.push(item);
+      }
+      return groups;
+    })()
     : null;
 
   return (
     <main className="pt-14">
       {/* Header */}
-      <section className={`${resourcesTheme.section.padding} pt-24 pb-8`}>
-        <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-res-text-muted block mb-4">
-          Resources
-        </span>
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 leading-[0.95] text-res-text">
-          {cfg.title}
-        </h1>
-        <p className="text-lg text-res-text-muted max-w-xl leading-relaxed">
-          {cfg.description}
-        </p>
+      <section className={`${resourcesTheme.section.padding} pt-32 pb-16 border-b border-res-border mb-12`}>
+        <div className="max-w-4xl">
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-6">
+            Resources / {cfg.title}
+          </span>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-[0.9] text-res-text">
+            {cfg.title}
+          </h1>
+          <p className="text-xl md:text-2xl text-res-text-muted max-w-2xl leading-relaxed">
+            {cfg.description}
+          </p>
+        </div>
       </section>
 
       {/* Navigation + Filter */}

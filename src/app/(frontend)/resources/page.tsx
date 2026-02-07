@@ -8,6 +8,8 @@ import { DailyCard } from '@/components/resources/DailyCard';
 import { DailyDateGroup } from '@/components/resources/DailyDateGroup';
 import { TypeNav } from '@/components/resources/TypeNav';
 import { ConceptCloud } from '@/components/resources/ConceptCloud';
+import { ContentCard } from '@/components/resources/ContentCard';
+import { ContentGrid } from '@/components/resources/ContentGrid';
 import { resourcesTheme, typeLabels } from '@/lib/resources-theme';
 
 export const dynamic = 'force-dynamic';
@@ -47,9 +49,85 @@ function groupByDate(items: any[]) {
   return groups;
 }
 
-export default async function ResourcesPage() {
+export default async function ResourcesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q } = await searchParams;
   const payload = await getPayload({ config });
 
+  // Handle Search View
+  if (q) {
+    const results = await payload.find({
+      collection: 'content',
+      where: {
+        and: [
+          { status: { equals: 'published' } },
+          {
+            or: [
+              { title: { contains: q } },
+              { summary: { contains: q } },
+            ],
+          },
+        ],
+      },
+      sort: '-publishedAt',
+      limit: 50,
+    });
+
+    return (
+      <main className="pt-14">
+        {/* Search Header */}
+        <section className={`${resourcesTheme.section.padding} pt-32 pb-16 border-b border-res-border mb-12`}>
+          <div className="max-w-4xl">
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-6">
+              Search Results
+            </span>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-[0.9] text-res-text">
+              &ldquo;{q}&rdquo;
+            </h1>
+            <p className="text-xl md:text-2xl text-res-text-muted max-w-2xl leading-relaxed">
+              Found {results.totalDocs} result{results.totalDocs === 1 ? '' : 's'}.
+            </p>
+          </div>
+        </section>
+
+        {/* Results */}
+        <section className={`${resourcesTheme.section.padding} pb-32`}>
+          {results.docs.length > 0 ? (
+            <ContentGrid columns={3}>
+              {results.docs.map((item) => (
+                <ContentCard
+                  key={item.id}
+                  title={item.title}
+                  summary={item.summary}
+                  type={item.type}
+                  slug={item.slug}
+                  domain={item.domain as string[] | undefined}
+                  publishedAt={item.publishedAt ?? undefined}
+                />
+              ))}
+            </ContentGrid>
+          ) : (
+            <div className="rounded-xl border border-res-border p-12 text-center bg-res-surface">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
+                No results found
+              </p>
+              <p className="text-sm text-res-text-muted mt-2">
+                Try adjusting your search terms.
+              </p>
+              <Link href="/resources" className="inline-block mt-8 text-xs font-mono uppercase tracking-widest text-res-text border-b border-res-text pb-1 hover:text-res-text-muted hover:border-res-text-muted transition-colors">
+                Clear Search
+              </Link>
+            </div>
+          )}
+        </section>
+      </main>
+    );
+  }
+
+  // Default Dashboard View
   const [allContent, dailies, typeCounts] = await Promise.all([
     payload.find({
       collection: 'content',
@@ -77,7 +155,7 @@ export default async function ResourcesPage() {
   const [totalCount, dailyCount, tutorialCount, articleCount] = typeCounts;
   const stats = [
     { label: 'total', count: totalCount.totalDocs },
-    { label: 'dailies', count: dailyCount.totalDocs },
+    { label: 'learnings', count: dailyCount.totalDocs },
     { label: 'tutorials', count: tutorialCount.totalDocs },
     { label: 'articles', count: articleCount.totalDocs },
   ];
@@ -87,6 +165,7 @@ export default async function ResourcesPage() {
     daily: dailyCount.totalDocs,
     tutorial: tutorialCount.totalDocs,
     article: articleCount.totalDocs,
+    // Focus counts? 'tool-focus' is just a type.
   };
 
   const featuredItem = allContent.docs[0];
@@ -176,7 +255,7 @@ export default async function ResourcesPage() {
         <div className="flex justify-between items-end mb-8 border-b border-res-border pb-4">
           <span className={resourcesTheme.section.header}>
             <span className={resourcesTheme.section.headerIndicator} />
-            Daily Log
+            Learnings
           </span>
           <Link
             href="/resources/daily"

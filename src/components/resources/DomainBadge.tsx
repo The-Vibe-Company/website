@@ -13,8 +13,8 @@ export function DomainBadge({ domain, variant = 'default' }: DomainBadgeProps) {
     return (
       <span className={resourcesTheme.badge.domainDot}>
         <span
-          className="w-1.5 h-1.5 rounded-full shrink-0"
-          style={{ backgroundColor: `var(--${colorVar})` }}
+          className="w-1.5 h-1.5 bg-current"
+          style={{ color: `var(--${colorVar})` }}
         />
         {label}
       </span>
@@ -24,9 +24,9 @@ export function DomainBadge({ domain, variant = 'default' }: DomainBadgeProps) {
   if (variant === 'chip') {
     return (
       <span
-        className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest"
+        className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-widest border"
         style={{
-          backgroundColor: `color-mix(in srgb, var(--${colorVar}) 10%, transparent)`,
+          borderColor: `var(--${colorVar})`,
           color: `var(--${colorVar})`,
         }}
       >
@@ -38,11 +38,11 @@ export function DomainBadge({ domain, variant = 'default' }: DomainBadgeProps) {
   return (
     <span
       className={resourcesTheme.badge.domain}
-      style={{ borderColor: `color-mix(in srgb, var(--${colorVar}) 30%, transparent)` }}
+      style={{ borderColor: `var(--${colorVar})` }}
     >
       <span
-        className="w-1.5 h-1.5 rounded-full shrink-0"
-        style={{ backgroundColor: `var(--${colorVar})` }}
+        className="w-1.5 h-1.5 bg-current"
+        style={{ color: `var(--${colorVar})` }}
       />
       <span style={{ color: `var(--${colorVar})` }}>{label}</span>
     </span>

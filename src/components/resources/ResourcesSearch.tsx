@@ -43,18 +43,18 @@ export function ResourcesSearch({ compact = false }: ResourcesSearchProps) {
   return (
     <div className="relative">
       <svg
-        className="absolute left-3 top-1/2 -translate-y-1/2 text-res-text-muted/50 pointer-events-none"
+        className="absolute left-3 top-1/2 -translate-y-1/2 text-res-text-muted pointer-events-none transition-colors group-focus-within:text-res-text"
         width={compact ? 14 : 16}
         height={compact ? 14 : 16}
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
         <circle cx="11" cy="11" r="8" />
-        <path d="M21 21l-4.35-4.35" />
+        <path d="m21 21-4.3-4.3" />
       </svg>
       <input
         type="text"

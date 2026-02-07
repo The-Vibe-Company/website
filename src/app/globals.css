@@ -51,35 +51,55 @@
    Resources "Calm Studio" Theme (scoped to .resources-theme)
    ----------------------------------------------------------------------------- */
 .resources-theme {
-  --res-bg: #faf9f7;
-  --res-bg-secondary: #f5f3ef;
+  /* Constructed Editorial Palette */
+  --res-bg: #fdfbf7;
+  /* Warm Paper */
+  --res-bg-secondary: #f3f0ea;
+  /* Secondary Paper */
   --res-surface: #ffffff;
-  --res-border: #e8e5e0;
-  --res-text: #1a1a1a;
-  --res-text-muted: #6b6560;
+  --res-border: #dcd7ce;
+  /* Stronger Border */
+  --res-text: #111110;
+  /* Deep Ink */
+  --res-text-muted: #66605b;
+  /* Warm Grey */
 
-  --domain-dev: #4f46e5;
-  --domain-design: #7c3aed;
-  --domain-ops: #0891b2;
+  /* Technical Accents */
+  --domain-dev: #2563eb;
+  /* Royal Blue */
+  --domain-design: #db2777;
+  /* Ink Pink */
+  --domain-ops: #059669;
+  /* Emerald */
   --domain-business: #d97706;
-  --domain-ai: #059669;
+  /* Amber */
+  --domain-ai: #7c3aed;
+  /* Violet */
   --domain-marketing: #e11d48;
+  /* Rose */
 }
 
 @media (prefers-color-scheme: dark) {
   .resources-theme {
-    --res-bg: #0f0e0d;
-    --res-bg-secondary: #1a1918;
-    --res-surface: #141312;
-    --res-border: #2a2826;
-    --res-text: #e8e5e0;
-    --res-text-muted: #9b9590;
+    /* Dark Constructed Palette */
+    --res-bg: #0c0c0c;
+    /* Deep Matte Black */
+    --res-bg-secondary: #171717;
+    /* Lighter Matte */
+    --res-surface: #121212;
+    --res-border: #262626;
+    /* Subtle Border */
+    --res-text: #ededed;
+    /* Off-white */
+    --res-text-muted: #a1a1aa;
+    /* Cool Grey */
 
-    --domain-dev: #818cf8;
-    --domain-design: #a78bfa;
-    --domain-ops: #22d3ee;
+    /* Technical Accents (Dark) */
+    --domain-dev: #60a5fa;
+    --domain-design: #f472b6;
+    --domain-ops: #34d399;
     --domain-business: #fbbf24;
-    --domain-ai: #34d399;
+    --domain-ai: #a78bfa;
     --domain-marketing: #fb7185;
   }
 }
@@ -140,6 +160,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-50%);
   }
@@ -179,6 +200,7 @@
    Only utilities that cannot be replicated with Tailwind classes
    ----------------------------------------------------------------------------- */
 @layer utilities {
+
   /* Grid background overlay utility */
   .bg-grid {
     background-size: 40px 40px;
@@ -349,7 +371,10 @@
 
 /* Reduced motion - respect user preferences */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
