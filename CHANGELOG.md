@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.4...thevibecompany-v0.1.5) (2026-02-07)
+
+
+### Bug Fixes
+
+* **ci:** update bun.lock for new dependencies ([cf4211c](https://github.com/The-Vibe-Company/website/commit/cf4211c2a8bb8debe24e17f1327a7b925332de5b))
+
 ## [0.1.4](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.3...thevibecompany-v0.1.4) (2026-02-07)
 
 
