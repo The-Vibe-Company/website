@@ -18,7 +18,7 @@ export async function validateApiKey(
     where: {
       active: { equals: true },
     },
-    limit: 100,
+    pagination: false,
   })
 
   const matchedKey = allKeys.docs.find((doc) => {

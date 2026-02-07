@@ -14,7 +14,10 @@ export const deduplicateStep: PipelineStep = {
     const existing = await payload.find({
       collection: 'content',
       where: {
-        'source.externalId': { equals: raw.externalId },
+        and: [
+          { 'source.externalId': { equals: raw.externalId } },
+          { 'source.type': { equals: raw.metadata?.sourceType ?? 'manual' } },
+        ],
       },
       limit: 1,
       depth: 0,
