@@ -19,6 +19,43 @@ export interface GenerateContentOutput {
   qualityScore: number
 }
 
+const STRUCTURED_CONTENT_TOOL = {
+  name: 'save_structured_content' as const,
+  description:
+    'Save the structured content generated from raw notes. Always call this tool with the generated content.',
+  input_schema: {
+    type: 'object' as const,
+    required: ['title', 'summary', 'markdown', 'domain', 'tools', 'concepts', 'detectedLanguage', 'qualityScore'] as string[],
+    properties: {
+      title: { type: 'string' as const, description: 'Catchy descriptive title' },
+      summary: { type: 'string' as const, description: 'Concise summary, max 160 characters' },
+      markdown: { type: 'string' as const, description: 'Well-formatted markdown body (without the title)' },
+      domain: {
+        type: 'array' as const,
+        items: { type: 'string' as const, enum: [...VALID_DOMAINS] as string[] },
+        description: 'Content domains',
+      },
+      tools: {
+        type: 'array' as const,
+        items: { type: 'string' as const },
+        description: 'Tool slugs (lowercase with dashes)',
+      },
+      concepts: {
+        type: 'array' as const,
+        items: { type: 'string' as const },
+        description: 'Concept tags',
+      },
+      detectedLanguage: { type: 'string' as const, enum: ['fr', 'en'] as string[] },
+      qualityScore: {
+        type: 'number' as const,
+        minimum: 0,
+        maximum: 1,
+        description: 'Quality score: 0.7+ = ready to publish',
+      },
+    },
+  },
+}
+
 export async function generateContent(
   input: GenerateContentInput,
 ): Promise<GenerateContentOutput> {
@@ -33,14 +70,22 @@ export async function generateContent(
     max_tokens: config.maxTokens,
     system: getSystemPrompt(),
     messages: [{ role: 'user', content: userPrompt }],
+    tools: [STRUCTURED_CONTENT_TOOL],
+    tool_choice: { type: 'tool', name: 'save_structured_content' },
   })
 
-  const textBlock = response.content.find((b) => b.type === 'text')
-  if (!textBlock || textBlock.type !== 'text') {
-    throw new Error('AI response contained no text content')
+  if (response.stop_reason === 'max_tokens') {
+    throw new Error(
+      'AI response was truncated (output too long). Try shorter input or a simpler content type.',
+    )
   }
 
-  const parsed = parseAiResponse(textBlock.text)
+  const toolBlock = response.content.find((b) => b.type === 'tool_use')
+  if (!toolBlock || toolBlock.type !== 'tool_use') {
+    throw new Error('AI response contained no structured content')
+  }
+
+  const parsed = toolBlock.input as GenerateContentOutput
 
   // Validate domains against canonical list
   parsed.domain = (parsed.domain ?? []).filter((d: string) =>
@@ -59,20 +104,4 @@ export async function generateContent(
   parsed.qualityScore = Math.max(0, Math.min(1, parsed.qualityScore ?? 0.5))
 
   return parsed
-}
-
-function parseAiResponse(text: string): GenerateContentOutput {
-  const trimmed = text.trim()
-
-  // Try direct JSON parse
-  try {
-    return JSON.parse(trimmed)
-  } catch {
-    // Try extracting from markdown code block
-    const jsonMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/)
-    if (jsonMatch?.[1]) {
-      return JSON.parse(jsonMatch[1].trim())
-    }
-    throw new Error(`Failed to parse AI response as JSON: ${trimmed.slice(0, 200)}...`)
-  }
 }

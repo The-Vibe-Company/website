@@ -74,7 +74,7 @@ Structure du markdown :
 - Section conclusion
 
 Ton : Expert qui vulgarise. Pas de jargon inutile, mais technique quand nécessaire.`,
-    maxTokens: 4096,
+    maxTokens: 8192,
   },
 
   tutorial: {
@@ -90,7 +90,7 @@ Structure du markdown :
 - "## Résultat" (ce qu'on obtient à la fin)
 
 Ton : Prof bienveillant. Chaque étape est claire et autonome.`,
-    maxTokens: 4096,
+    maxTokens: 8192,
   },
 
   'tool-focus': {
