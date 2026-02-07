@@ -79,15 +79,15 @@ export default async function ResourcesPage({
     return (
       <main className="pt-14">
         {/* Search Header */}
-        <section className={`${resourcesTheme.section.padding} pt-32 pb-16 border-b border-res-border mb-12`}>
+        <section className={`${resourcesTheme.section.padding} pt-20 pb-8 border-b border-res-border mb-8`}>
           <div className="max-w-4xl">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-6">
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
               Search Results
             </span>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-[0.9] text-res-text">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-3 leading-[0.95] text-res-text">
               &ldquo;{q}&rdquo;
             </h1>
-            <p className="text-xl md:text-2xl text-res-text-muted max-w-2xl leading-relaxed">
+            <p className="text-base md:text-lg text-res-text-muted max-w-2xl leading-relaxed">
               Found {results.totalDocs} result{results.totalDocs === 1 ? '' : 's'}.
             </p>
           </div>

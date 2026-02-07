@@ -199,16 +199,16 @@ export default async function ContentDetailPage({
                 </div>
               </div>
 
-              <header className="mb-12 md:mb-20">
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter mb-8 leading-[0.95] text-res-text">
+              <header className="mb-8 md:mb-12">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter mb-4 leading-[0.95] text-res-text">
                   {item.title}
                 </h1>
-                <p className="text-xl md:text-2xl text-res-text-muted leading-relaxed">
+                <p className="text-base md:text-xl text-res-text-muted leading-relaxed">
                   {item.summary}
                 </p>
               </header>
 
-              <div className="w-full h-px bg-res-border mb-12 md:mb-20" />
+              <div className="w-full h-px bg-res-border mb-8 md:mb-12" />
 
               <div className="prose-vibe prose-vibe-warm max-w-none">
                 {bodyType === 'lexical' ? (
