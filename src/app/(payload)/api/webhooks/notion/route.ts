@@ -109,9 +109,42 @@ async function fetchNotionPageContent(pageId: string): Promise<string | null> {
   }
 }
 
+async function validateApiKey(
+  payload: Awaited<ReturnType<typeof getPayload>>,
+  apiKey: string | null,
+): Promise<boolean> {
+  if (!apiKey) return false
+
+  const result = await payload.find({
+    collection: 'api-keys',
+    where: {
+      key: { equals: apiKey },
+      active: { equals: true },
+    },
+    limit: 1,
+  })
+
+  if (result.docs.length === 0) return false
+
+  await payload.update({
+    collection: 'api-keys',
+    id: result.docs[0].id,
+    data: { lastUsedAt: new Date().toISOString() },
+  })
+
+  return true
+}
+
 export async function POST(request: NextRequest) {
   const startTime = Date.now()
   const payload = await getPayload({ config })
+
+  // Authenticate via API key
+  const apiKey = request.headers.get('x-api-key')
+  const isValid = await validateApiKey(payload, apiKey)
+  if (!isValid) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
 
   let webhookPayload: NotionWebhookPayload
   try {

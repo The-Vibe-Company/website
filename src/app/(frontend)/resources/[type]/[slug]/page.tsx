@@ -48,12 +48,16 @@ export async function generateMetadata({
 }: {
   params: Promise<{ type: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { type, slug } = await params;
   const payload = await getPayload({ config });
 
   const result = await payload.find({
     collection: 'content',
-    where: { slug: { equals: slug } },
+    where: {
+      slug: { equals: slug },
+      type: { equals: type },
+      status: { equals: 'published' },
+    },
     limit: 1,
   });
 
@@ -78,6 +82,7 @@ export default async function ContentDetailPage({
     collection: 'content',
     where: {
       slug: { equals: slug },
+      type: { equals: type },
       status: { equals: 'published' },
     },
     limit: 1,
