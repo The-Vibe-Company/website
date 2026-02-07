@@ -24,6 +24,14 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      afterNavLinks: [
+        {
+          path: '@/components/admin/GenerateNavLink',
+          exportName: 'GenerateNavLink',
+        },
+      ],
+    },
   },
   collections: [Users, Media, Content, Tools, ApiKeys, IngestionLog],
   editor: lexicalEditor(),
