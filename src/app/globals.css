@@ -48,6 +48,43 @@
 }
 
 /* -----------------------------------------------------------------------------
+   Resources "Calm Studio" Theme (scoped to .resources-theme)
+   ----------------------------------------------------------------------------- */
+.resources-theme {
+  --res-bg: #faf9f7;
+  --res-bg-secondary: #f5f3ef;
+  --res-surface: #ffffff;
+  --res-border: #e8e5e0;
+  --res-text: #1a1a1a;
+  --res-text-muted: #6b6560;
+
+  --domain-dev: #4f46e5;
+  --domain-design: #7c3aed;
+  --domain-ops: #0891b2;
+  --domain-business: #d97706;
+  --domain-ai: #059669;
+  --domain-marketing: #e11d48;
+}
+
+@media (prefers-color-scheme: dark) {
+  .resources-theme {
+    --res-bg: #0f0e0d;
+    --res-bg-secondary: #1a1918;
+    --res-surface: #141312;
+    --res-border: #2a2826;
+    --res-text: #e8e5e0;
+    --res-text-muted: #9b9590;
+
+    --domain-dev: #818cf8;
+    --domain-design: #a78bfa;
+    --domain-ops: #22d3ee;
+    --domain-business: #fbbf24;
+    --domain-ai: #34d399;
+    --domain-marketing: #fb7185;
+  }
+}
+
+/* -----------------------------------------------------------------------------
    Tailwind Theme Extension
    ----------------------------------------------------------------------------- */
 @theme inline {
@@ -64,6 +101,22 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
+
+  /* Resources theme tokens */
+  --color-res-bg: var(--res-bg, #faf9f7);
+  --color-res-bg-secondary: var(--res-bg-secondary, #f5f3ef);
+  --color-res-surface: var(--res-surface, #ffffff);
+  --color-res-border: var(--res-border, #e8e5e0);
+  --color-res-text: var(--res-text, #1a1a1a);
+  --color-res-text-muted: var(--res-text-muted, #6b6560);
+
+  /* Domain accent colors */
+  --color-domain-dev: var(--domain-dev, #4f46e5);
+  --color-domain-design: var(--domain-design, #7c3aed);
+  --color-domain-ops: var(--domain-ops, #0891b2);
+  --color-domain-business: var(--domain-business, #d97706);
+  --color-domain-ai: var(--domain-ai, #059669);
+  --color-domain-marketing: var(--domain-marketing, #e11d48);
 
   /* Typography */
   --font-sans: var(--font-geist-sans);
@@ -265,6 +318,33 @@
   max-width: 100%;
   height: auto;
   margin: 2em 0;
+}
+
+/* Warm variant for resources pages */
+.prose-vibe-warm {
+  color: var(--res-text);
+}
+
+.prose-vibe-warm blockquote {
+  border-left-color: var(--res-border);
+  color: var(--res-text-muted);
+}
+
+.prose-vibe-warm code {
+  background: var(--res-bg-secondary);
+}
+
+.prose-vibe-warm pre {
+  background: var(--res-bg-secondary);
+  border-color: var(--res-border);
+}
+
+.prose-vibe-warm hr {
+  border-top-color: var(--res-border);
+}
+
+.prose-vibe-warm a {
+  color: var(--domain-dev);
 }
 
 /* Reduced motion - respect user preferences */

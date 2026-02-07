@@ -3,12 +3,13 @@ import type { Where } from 'payload';
 import { notFound } from 'next/navigation';
 import { getPayload } from 'payload';
 import config from '@payload-config';
-import { TopNav } from '@/components/TopNav';
 import { ContentCard } from '@/components/resources/ContentCard';
 import { ContentGrid } from '@/components/resources/ContentGrid';
 import { DailyCard } from '@/components/resources/DailyCard';
+import { DailyDateGroup } from '@/components/resources/DailyDateGroup';
 import { FilterBar } from '@/components/resources/FilterBar';
 import { TypeNav } from '@/components/resources/TypeNav';
+import { resourcesTheme } from '@/lib/resources-theme';
 
 export const dynamic = 'force-dynamic';
 
@@ -48,6 +49,17 @@ const typeConfig: Record<
     description: 'Explorations of key concepts in AI-native development.',
   },
 };
+
+function getDateLabel(dateString: string): string {
+  const date = new Date(dateString);
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  if (date.toDateString() === today.toDateString()) return 'Today';
+  if (date.toDateString() === yesterday.toDateString()) return 'Yesterday';
+  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+}
 
 export async function generateMetadata({
   params,
@@ -95,71 +107,85 @@ export default async function TypeListingPage({
 
   const isDailyType = type === 'daily';
 
+  // Group dailies by date
+  const dailyGroups = isDailyType
+    ? (() => {
+        const groups: Map<string, typeof content.docs> = new Map();
+        for (const item of content.docs) {
+          const label = item.publishedAt ? getDateLabel(item.publishedAt) : 'Undated';
+          if (!groups.has(label)) groups.set(label, []);
+          groups.get(label)!.push(item);
+        }
+        return groups;
+      })()
+    : null;
+
   return (
-    <>
-      <TopNav />
-      <main className="min-h-screen pt-20">
-        {/* Header */}
-        <section className="px-6 md:px-12 lg:px-24 pt-32 pb-12">
-          <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground block mb-4">
-            Resources
-          </span>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 leading-[0.95]">
-            {cfg.title}
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-            {cfg.description}
-          </p>
-        </section>
+    <main className="pt-14">
+      {/* Header */}
+      <section className={`${resourcesTheme.section.padding} pt-24 pb-8`}>
+        <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-res-text-muted block mb-4">
+          Resources
+        </span>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 leading-[0.95] text-res-text">
+          {cfg.title}
+        </h1>
+        <p className="text-lg text-res-text-muted max-w-xl leading-relaxed">
+          {cfg.description}
+        </p>
+      </section>
 
-        {/* Navigation + Filter */}
-        <section className="px-6 md:px-12 lg:px-24 mb-12 space-y-6">
-          <TypeNav />
-          <FilterBar />
-        </section>
+      {/* Navigation + Filter */}
+      <section className={`${resourcesTheme.section.padding} mb-12 space-y-6`}>
+        <TypeNav />
+        <FilterBar />
+      </section>
 
-        {/* Content */}
-        <section className="px-6 md:px-12 lg:px-24 pb-32">
-          {content.docs.length > 0 ? (
-            isDailyType ? (
-              <div>
-                {content.docs.map((item) => (
-                  <DailyCard
-                    key={item.id}
-                    title={item.title}
-                    summary={item.summary}
-                    slug={item.slug}
-                    publishedAt={item.publishedAt ?? undefined}
-                  />
-                ))}
-              </div>
-            ) : (
-              <ContentGrid columns={2}>
-                {content.docs.map((item) => (
-                  <ContentCard
-                    key={item.id}
-                    title={item.title}
-                    summary={item.summary}
-                    type={item.type}
-                    slug={item.slug}
-                    domain={item.domain as string[] | undefined}
-                    publishedAt={item.publishedAt ?? undefined}
-                  />
-                ))}
-              </ContentGrid>
-            )
-          ) : (
-            <div className="border border-foreground/10 p-12 text-center">
-              <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
-                No {cfg.title.toLowerCase()} yet
-              </p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Content is on its way. Check back soon.
-              </p>
+      {/* Content */}
+      <section className={`${resourcesTheme.section.padding} pb-32`}>
+        {content.docs.length > 0 ? (
+          isDailyType && dailyGroups ? (
+            <div>
+              {Array.from(dailyGroups).map(([dateLabel, items]) => (
+                <DailyDateGroup key={dateLabel} label={dateLabel}>
+                  {items.map((item) => (
+                    <DailyCard
+                      key={item.id}
+                      title={item.title}
+                      summary={item.summary}
+                      slug={item.slug}
+                      publishedAt={item.publishedAt ?? undefined}
+                    />
+                  ))}
+                </DailyDateGroup>
+              ))}
             </div>
-          )}
-        </section>
-      </main>
-    </>
+          ) : (
+            <ContentGrid columns={2}>
+              {content.docs.map((item) => (
+                <ContentCard
+                  key={item.id}
+                  title={item.title}
+                  summary={item.summary}
+                  type={item.type}
+                  slug={item.slug}
+                  domain={item.domain as string[] | undefined}
+                  publishedAt={item.publishedAt ?? undefined}
+                />
+              ))}
+            </ContentGrid>
+          )
+        ) : (
+          <div className="rounded-xl border border-res-border p-12 text-center bg-res-surface">
+            <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
+              No {cfg.title.toLowerCase()} yet
+            </p>
+            <p className="text-sm text-res-text-muted mt-2">
+              Content is on its way. Check back soon.
+            </p>
+          </div>
+        )}
+      </section>
+    </main>
   );
 }

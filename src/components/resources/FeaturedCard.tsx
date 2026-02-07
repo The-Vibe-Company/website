@@ -1,14 +1,10 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
-  typography,
-  components,
-  animations,
-  cn,
-  createTransition,
-} from '@/lib/design-system';
+  resourcesTheme,
+  domainAccentMap,
+  typeLabels,
+  domainLabels,
+} from '@/lib/resources-theme';
 
 interface FeaturedCardProps {
   title: string;
@@ -19,23 +15,6 @@ interface FeaturedCardProps {
   publishedAt?: string;
   readingTime?: number;
 }
-
-const typeLabels: Record<string, string> = {
-  daily: 'Daily',
-  tutorial: 'Tutorial',
-  article: 'Article',
-  'tool-focus': 'Tool Focus',
-  'concept-focus': 'Concept Focus',
-};
-
-const domainLabels: Record<string, string> = {
-  dev: 'Dev',
-  design: 'Design',
-  ops: 'Ops',
-  business: 'Business',
-  'ai-automation': 'AI & Automation',
-  marketing: 'Marketing',
-};
 
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString('en-US', {
@@ -54,76 +33,72 @@ export function FeaturedCard({
   publishedAt,
   readingTime,
 }: FeaturedCardProps) {
+  const firstDomain = domain?.[0];
+  const colorVar = firstDomain ? domainAccentMap[firstDomain] || 'domain-dev' : 'domain-dev';
+
   return (
-    <motion.div
-      initial={animations.variants.fadeInUp.initial}
-      animate={animations.variants.fadeInUp.animate}
-      transition={createTransition(0.6)}
-    >
-      <Link
-        href={`/resources/${type}/${slug}`}
-        className="block group"
-      >
-        <div className="border-2 border-foreground p-8 md:p-12 lg:p-16 transition-all hover:shadow-[12px_12px_0px_0px_var(--foreground)]">
+    <Link href={`/resources/${type}/${slug}`} className="block group">
+      <article className={resourcesTheme.card.featured}>
+        {/* Domain accent top stripe */}
+        <div
+          className="h-[3px] w-full"
+          style={{ backgroundColor: `var(--${colorVar})` }}
+        />
+
+        <div className="p-8 md:p-10 lg:p-14">
           <div className="flex flex-wrap items-center gap-3 mb-6">
-            <span className={components.badge.solid}>
+            <span
+              className={resourcesTheme.badge.type}
+              style={{
+                backgroundColor: `color-mix(in srgb, var(--${colorVar}) 10%, transparent)`,
+                color: `var(--${colorVar})`,
+              }}
+            >
               {typeLabels[type] || type}
             </span>
             {publishedAt && (
-              <span className={cn(typography.label.mono, 'text-muted-foreground')}>
+              <span className="text-[11px] font-mono text-res-text-muted">
                 {formatDate(publishedAt)}
               </span>
             )}
             {readingTime && (
-              <span className={cn(typography.label.mono, 'text-muted-foreground')}>
+              <span className="text-[11px] font-mono text-res-text-muted">
                 {readingTime} MIN READ
               </span>
             )}
           </div>
 
-          <h2 className={cn(
-            'text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[0.95] mb-6',
-            'group-hover:text-muted-foreground transition-colors'
-          )}>
-            {title}
+          <h2
+            className="text-3xl md:text-4xl font-bold tracking-tighter leading-[0.95] mb-6 text-res-text transition-colors duration-300"
+            style={
+              {
+                '--hover-color': `var(--${colorVar})`,
+              } as React.CSSProperties
+            }
+          >
+            <span className="group-hover:text-[var(--hover-color)] transition-colors duration-300">
+              {title}
+            </span>
           </h2>
 
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mb-8">
+          <p className="text-lg text-res-text-muted leading-relaxed max-w-3xl mb-8">
             {summary}
           </p>
 
           {domain && domain.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {domain.map((d) => (
-                <span key={d} className={components.badge.default}>
+                <span
+                  key={d}
+                  className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/60"
+                >
                   {domainLabels[d] || d}
                 </span>
               ))}
             </div>
           )}
-
-          <div className={cn(
-            typography.label.mono,
-            'text-muted-foreground mt-8 group-hover:text-foreground transition-colors flex items-center gap-2'
-          )}>
-            READ MORE
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="transition-transform group-hover:translate-x-1"
-            >
-              <path d="M5 12h14" />
-              <path d="M12 5l7 7-7 7" />
-            </svg>
-          </div>
         </div>
-      </Link>
-    </motion.div>
+      </article>
+    </Link>
   );
 }

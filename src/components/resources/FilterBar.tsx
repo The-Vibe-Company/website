@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import { resourcesTheme, domainAccentMap } from '@/lib/resources-theme';
 
 const domains = [
   { label: 'All', value: '' },
@@ -29,20 +30,35 @@ export function FilterBar() {
 
   return (
     <div className="flex flex-wrap gap-2">
-      {domains.map((d) => (
-        <button
-          key={d.value}
-          onClick={() => handleFilter(d.value)}
-          className={[
-            'px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest transition-all duration-200 cursor-pointer',
-            activeDomain === d.value
-              ? 'bg-foreground text-background'
-              : 'text-muted-foreground/50 hover:text-foreground border border-foreground/10 hover:border-foreground/30',
-          ].join(' ')}
-        >
-          {d.label}
-        </button>
-      ))}
+      {domains.map((d) => {
+        const isActive = activeDomain === d.value;
+        const colorVar = d.value ? domainAccentMap[d.value] || 'domain-dev' : null;
+
+        return (
+          <button
+            key={d.value}
+            onClick={() => handleFilter(d.value)}
+            className={`${resourcesTheme.filter.pill} cursor-pointer ${
+              isActive && !colorVar
+                ? 'bg-res-text text-res-surface border-res-text'
+                : !isActive
+                  ? resourcesTheme.filter.pillInactive
+                  : ''
+            }`}
+            style={
+              isActive && colorVar
+                ? {
+                    backgroundColor: `color-mix(in srgb, var(--${colorVar}) 10%, transparent)`,
+                    color: `var(--${colorVar})`,
+                    borderColor: `color-mix(in srgb, var(--${colorVar}) 30%, transparent)`,
+                  }
+                : undefined
+            }
+          >
+            {d.label}
+          </button>
+        );
+      })}
     </div>
   );
 }

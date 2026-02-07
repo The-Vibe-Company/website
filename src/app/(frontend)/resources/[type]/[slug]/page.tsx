@@ -4,29 +4,18 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPayload } from 'payload';
 import config from '@payload-config';
-import { TopNav } from '@/components/TopNav';
 import { ContentCard } from '@/components/resources/ContentCard';
+import { DomainBadge } from '@/components/resources/DomainBadge';
 import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { estimateReadingTime } from '@/lib/reading-time';
+import { resourcesTheme, typeLabels as sharedTypeLabels } from '@/lib/resources-theme';
 
 export const dynamic = 'force-dynamic';
 
 const typeLabels: Record<string, string> = {
+  ...sharedTypeLabels,
   daily: 'Daily Learning',
-  tutorial: 'Tutorial',
-  article: 'Article',
-  'tool-focus': 'Tool Focus',
-  'concept-focus': 'Concept Focus',
-};
-
-const domainLabels: Record<string, string> = {
-  dev: 'Development',
-  design: 'Design',
-  ops: 'Operations',
-  business: 'Business',
-  'ai-automation': 'AI & Automation',
-  marketing: 'Marketing',
 };
 
 const complexityLabels: Record<string, string> = {
@@ -118,65 +107,59 @@ export default async function ContentDetailPage({
   return (
     <>
       <ReadingProgress />
-      <TopNav />
-      <main className="min-h-screen pt-20">
+      <main className="pt-14">
         {/* Back nav */}
-        <div className="px-6 md:px-12 lg:px-24 pt-8">
+        <div className={`${resourcesTheme.section.padding} pt-8`}>
           <Link
             href={`/resources/${type}`}
-            className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-res-border text-[10px] font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text hover:border-res-text-muted/50 transition-colors"
           >
             &larr; Back to {typeLabels[type] || type}
           </Link>
         </div>
 
         {/* Article */}
-        <article className="px-6 md:px-12 lg:px-24 pt-16 pb-24">
+        <article className={`${resourcesTheme.section.padding} pt-12 pb-24`}>
           {/* Header */}
           <header className="max-w-3xl mb-16">
             <div className="flex flex-wrap items-center gap-3 mb-8">
-              <span className="px-2 py-0.5 bg-foreground text-background text-[10px] font-mono uppercase tracking-widest">
+              <span className={`${resourcesTheme.badge.type} bg-res-text text-res-surface`}>
                 {typeLabels[item.type] || item.type}
               </span>
               {item.complexity && (
-                <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/50">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">
                   {complexityLabels[item.complexity] || item.complexity}
                 </span>
               )}
               {item.publishedAt && (
-                <span className="text-[11px] font-mono text-muted-foreground">
+                <span className="text-[11px] font-mono text-res-text-muted">
                   {formatDate(item.publishedAt)}
                 </span>
               )}
               {readingTime > 0 && (
-                <span className="text-[11px] font-mono text-muted-foreground">
+                <span className="text-[11px] font-mono text-res-text-muted">
                   {readingTime} min read
                 </span>
               )}
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-6 leading-[1.05]">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-6 leading-[1.05] text-res-text">
               {item.title}
             </h1>
 
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-xl text-res-text-muted leading-relaxed">
               {item.summary}
             </p>
 
             {(domains.length > 0 || (tools && tools.length > 0)) && (
               <div className="flex flex-wrap gap-2 mt-8">
                 {domains.map((d) => (
-                  <span
-                    key={d}
-                    className="px-2.5 py-1 border border-foreground/15 text-[10px] font-mono uppercase tracking-widest text-muted-foreground"
-                  >
-                    {domainLabels[d] || d}
-                  </span>
+                  <DomainBadge key={d} domain={d} variant="default" />
                 ))}
                 {tools?.map((t) => (
                   <span
                     key={t.id}
-                    className="px-2.5 py-1 border border-foreground/15 text-[10px] font-mono uppercase tracking-widest text-muted-foreground"
+                    className="px-2.5 py-1 rounded-full border border-res-border text-[10px] font-mono uppercase tracking-widest text-res-text-muted"
                   >
                     {t.name}
                   </span>
@@ -186,22 +169,22 @@ export default async function ContentDetailPage({
           </header>
 
           {/* Divider */}
-          <div className="border-t border-foreground/15 max-w-3xl mb-12" />
+          <div className="border-t border-res-border max-w-3xl mb-12" />
 
           {/* Body content */}
           <div className="max-w-[65ch]">
             {bodyType === 'lexical' ? (
               <RichTextRenderer
                 data={item.body as unknown as SerializedEditorState}
-                className="prose-vibe"
+                className="prose-vibe prose-vibe-warm"
               />
             ) : bodyType === 'text' ? (
-              <div className="prose-vibe whitespace-pre-wrap">
+              <div className="prose-vibe prose-vibe-warm whitespace-pre-wrap">
                 <p>{String(item.body)}</p>
               </div>
             ) : (
               <div className="py-16 text-center max-w-3xl">
-                <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+                <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
                   Content coming soon
                 </p>
               </div>
@@ -211,10 +194,10 @@ export default async function ContentDetailPage({
 
         {/* Related content */}
         {related.docs.length > 0 && (
-          <section className="px-6 md:px-12 lg:px-24 pb-32">
-            <div className="flex items-end mb-8 border-b border-foreground pb-4">
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-foreground" />
+          <section className={`${resourcesTheme.section.padding} pb-32`}>
+            <div className="flex items-end mb-8 border-b border-res-border pb-4">
+              <span className={resourcesTheme.section.header}>
+                <span className={resourcesTheme.section.headerIndicator} />
                 Related
               </span>
             </div>

@@ -1,5 +1,5 @@
 import { ClientProviders } from "@/components/ClientProviders";
-import { components } from "@/lib/design-system";
+import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
 
 export default function FrontendLayout({
   children,
@@ -9,7 +9,7 @@ export default function FrontendLayout({
   return (
     <>
       <ClientProviders />
-      <div className={components.gridOverlay} />
+      <ConditionalGridOverlay />
       {children}
     </>
   );

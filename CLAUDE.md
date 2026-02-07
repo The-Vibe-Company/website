@@ -32,6 +32,34 @@ Always add the link to the issue in the PR description.
 
 Always use frontend-design skill and ui-ux-pro-max skill for designing pages and components or when the user asks you to design something.
 
+## Design Architecture: Homepage vs Resources
+
+The site has **two distinct design identities** sharing the same codebase:
+
+| Aspect | Homepage / Agency | Resources (`/resources/*`) |
+|---|---|---|
+| **Personality** | Bold, brutalist | Calm, warm "knowledge platform" |
+| **Background** | Pure white `#fff` / black `#030303` | Warm off-white `#faf9f7` / charcoal `#0f0e0d` |
+| **Effects** | Custom cursor circle, grid overlay, brutal shadows | None — clean and functional |
+| **Cards** | Sharp borders, `shadow-[12px_12px_0px_0px]` on hover | Rounded-xl/2xl, soft `shadow-lg` + `-translate-y` on hover |
+| **Colors** | Monochrome (B&W only) | Domain accent colors (indigo, violet, emerald, cyan, amber, rose) |
+| **Nav** | `TopNav` with Framer Motion | `ResourcesNav` with breadcrumbs + search |
+| **CSS tokens** | `--background`, `--foreground`, etc. | `--res-bg`, `--res-surface`, `--domain-*`, etc. (scoped to `.resources-theme`) |
+
+### How the isolation works
+
+1. **`ClientProviders.tsx`** suppresses `CustomCursor` and `SmoothScroller` when `pathname.startsWith('/resources')`
+2. **`ConditionalGridOverlay.tsx`** hides the grid background on `/resources` routes
+3. **`src/app/(frontend)/resources/layout.tsx`** wraps children in `.resources-theme` div, renders `ResourcesNav` instead of `TopNav`
+4. All resources CSS variables are scoped under `.resources-theme` in `globals.css` — they never leak to the homepage
+
+### Resources design tokens
+
+- **Theme file**: `src/lib/resources-theme.ts` — all card, badge, nav, filter, search, section, daily, and stats tokens
+- **CSS variables**: `.resources-theme` block in `globals.css` with `--res-*` and `--domain-*` vars (light + dark mode)
+- **Tailwind classes**: Registered in `@theme inline` as `bg-res-bg`, `text-res-text-muted`, `text-domain-dev`, etc.
+- **Domain accent map**: `domainAccentMap` in `resources-theme.ts` maps domain slugs to CSS color var names
+
 ## Planning 
 
 When planning, always create a graph of tasks and dependencies between them. 
