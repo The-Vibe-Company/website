@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.2...thevibecompany-v0.1.3) (2026-02-07)
+
+
+### Bug Fixes
+
+* **resources:** compact and align resource page headers ([#18](https://github.com/The-Vibe-Company/website/issues/18)) ([7590169](https://github.com/The-Vibe-Company/website/commit/75901694e6983fa94b8f8a026aeb7fbaa491945e))
+
 ## [0.1.2](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.1...thevibecompany-v0.1.2) (2026-02-07)
 
 
