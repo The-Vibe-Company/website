@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.5...thevibecompany-v0.1.6) (2026-02-07)
+
+
+### Bug Fixes
+
+* **ci:** add lexical as direct dependency, remove pnpm-lock.yaml ([b381e34](https://github.com/The-Vibe-Company/website/commit/b381e34694a3eef8d07aab141b6d9913695066e1))
+
 ## [0.1.5](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.4...thevibecompany-v0.1.5) (2026-02-07)
 
 
