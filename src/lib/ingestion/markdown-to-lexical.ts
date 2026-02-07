@@ -1,53 +1,31 @@
-export interface LexicalNode {
-  type: string
-  version?: number
-  children?: LexicalNode[]
-  text?: string
-  format?: number | string
-  mode?: string
-  style?: string
-  detail?: number
-  direction?: string | null
-  indent?: number
-}
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import {
+  convertMarkdownToLexical,
+  editorConfigFactory,
+} from '@payloadcms/richtext-lexical'
+import type { SanitizedServerEditorConfig } from '@payloadcms/richtext-lexical'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
 
-export interface LexicalRoot {
-  root: LexicalNode
+let cachedEditorConfig: SanitizedServerEditorConfig | null = null
+
+async function getEditorConfig(): Promise<SanitizedServerEditorConfig> {
+  if (cachedEditorConfig) return cachedEditorConfig
+
+  const payload = await getPayload({ config: configPromise })
+  cachedEditorConfig = await editorConfigFactory.default({
+    config: payload.config,
+  })
+  return cachedEditorConfig
 }
 
 /**
- * Converts a markdown string into a basic Lexical rich text structure.
- * For now, wraps the entire markdown in a single paragraph text node.
- * This will be enhanced later with proper markdown parsing.
+ * Converts a markdown string into a Lexical editor state using Payload's built-in converter.
+ * Properly handles headings, lists, code blocks, links, bold, italic, etc.
  */
-export function markdownToLexical(markdown: string): LexicalRoot {
-  return {
-    root: {
-      type: 'root',
-      version: 1,
-      format: '',
-      indent: 0,
-      direction: null,
-      children: [
-        {
-          type: 'paragraph',
-          version: 1,
-          format: '',
-          indent: 0,
-          direction: null,
-          children: [
-            {
-              type: 'text',
-              version: 1,
-              text: markdown,
-              format: 0,
-              mode: 'normal',
-              style: '',
-              detail: 0,
-            },
-          ],
-        },
-      ],
-    },
-  }
+export async function markdownToLexical(
+  markdown: string,
+): Promise<SerializedEditorState> {
+  const editorConfig = await getEditorConfig()
+  return convertMarkdownToLexical({ editorConfig, markdown })
 }

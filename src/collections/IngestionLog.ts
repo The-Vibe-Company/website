@@ -3,8 +3,14 @@ import type { CollectionConfig } from 'payload'
 export const IngestionLog: CollectionConfig = {
   slug: 'ingestion-logs',
   admin: {
-    useAsTitle: 'sourceType',
-    defaultColumns: ['sourceType', 'status', 'contentTitle', 'createdAt'],
+    useAsTitle: 'contentTitle',
+    defaultColumns: ['sourceType', 'status', 'contentTitle', 'processingTimeMs', 'createdAt'],
+  },
+  access: {
+    read: ({ req: { user } }) => Boolean(user),
+    create: ({ req: { user } }) => Boolean(user),
+    update: ({ req: { user } }) => Boolean(user),
+    delete: ({ req: { user } }) => Boolean(user),
   },
   fields: [
     {
@@ -18,6 +24,7 @@ export const IngestionLog: CollectionConfig = {
         { label: 'Browser Extension', value: 'browser' },
         { label: 'Meeting', value: 'meeting' },
         { label: 'Manual', value: 'manual' },
+        { label: 'AI Generate', value: 'ai-generate' },
       ],
     },
     {
@@ -29,6 +36,7 @@ export const IngestionLog: CollectionConfig = {
         { label: 'Processing', value: 'processing' },
         { label: 'Success', value: 'success' },
         { label: 'Failed', value: 'failed' },
+        { label: 'Duplicate', value: 'duplicate' },
       ],
     },
     {
@@ -55,6 +63,13 @@ export const IngestionLog: CollectionConfig = {
       type: 'json',
       admin: {
         description: 'Raw incoming payload for debugging',
+      },
+    },
+    {
+      name: 'pipelineLog',
+      type: 'json',
+      admin: {
+        description: 'Step-by-step pipeline execution log',
       },
     },
     {
