@@ -153,6 +153,45 @@ export const Tools: CollectionConfig = {
         description: 'Similar or complementary tools',
       },
     },
+    // Stack tracking
+    {
+      name: 'costPerMonth',
+      type: 'number',
+      admin: {
+        position: 'sidebar',
+        step: 0.01,
+        description: 'Monthly cost in EUR',
+      },
+    },
+    {
+      name: 'licensesCount',
+      type: 'number',
+      admin: {
+        position: 'sidebar',
+        step: 1,
+        description: 'Number of active licenses',
+      },
+    },
+    {
+      name: 'leverageScore',
+      type: 'number',
+      min: 0,
+      max: 100,
+      admin: {
+        position: 'sidebar',
+        step: 5,
+        description: 'How well we leverage this tool (0-100%)',
+      },
+    },
+    {
+      name: 'isInStack',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Show this tool in Our Stack section',
+      },
+    },
     // Metadata
     {
       name: 'language',

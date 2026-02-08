@@ -78,7 +78,10 @@ export default buildConfig({
         if (collectionSlug === 'content') {
           return `https://thevibecompany.co/resources/${doc?.type}/${doc?.slug}`
         }
-        return `https://thevibecompany.co/resources/focus/${doc?.slug}`
+        if (collectionSlug === 'tools') {
+          return `https://thevibecompany.co/resources/tools/${doc?.slug}`
+        }
+        return `https://thevibecompany.co/${doc?.slug}`
       },
     }),
 

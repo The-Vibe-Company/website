@@ -10,6 +10,7 @@ const typeLinks = [
   { label: 'Tutorials', href: '/resources/tutorial' },
   { label: 'Articles', href: '/resources/article' },
   { label: 'Focus', href: '/resources/tool-focus' },
+  { label: 'Tools', href: '/resources/tools' },
 ];
 
 interface TypeNavProps {
