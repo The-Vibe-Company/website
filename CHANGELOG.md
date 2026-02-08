@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.7...thevibecompany-v0.1.8) (2026-02-08)
+
+
+### Features
+
+* **resources:** add Tools section with listing and detail pages ([#25](https://github.com/The-Vibe-Company/website/issues/25)) ([296f428](https://github.com/The-Vibe-Company/website/commit/296f428406f6df94b00c581bbb3dfe6571ddc2e6))
+
 ## [0.1.7](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.6...thevibecompany-v0.1.7) (2026-02-07)
 
 
