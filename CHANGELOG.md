@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.12](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.11...thevibecompany-v0.1.12) (2026-02-08)
+
+
+### Bug Fixes
+
+* **ci:** use Vercel prebuilt deploy to fix Lexical editor error ([#34](https://github.com/The-Vibe-Company/website/issues/34)) ([3d306d4](https://github.com/The-Vibe-Company/website/commit/3d306d4cdfc9689c06705b45197c2c0af3299ec0))
+
 ## [0.1.11](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.10...thevibecompany-v0.1.11) (2026-02-08)
 
 
