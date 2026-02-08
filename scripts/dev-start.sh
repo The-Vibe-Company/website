@@ -133,7 +133,7 @@ cmd_start() {
 
   # --- Start dev server on unique port ---
   warn "Starting dev server on port $DEV_PORT..."
-  nohup bun run dev --port "$DEV_PORT" > "$LOG_FILE" 2>&1 &
+  NODE_OPTIONS="--max-old-space-size=8192" nohup bun run dev --port "$DEV_PORT" > "$LOG_FILE" 2>&1 &
   echo $! > "$PID_FILE"
 
   # --- Wait for healthy response ---

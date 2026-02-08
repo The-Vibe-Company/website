@@ -4,32 +4,34 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { resourcesTheme } from '@/lib/resources-theme';
 
-const typeLinks = [
-  { label: 'All', href: '/resources' },
-  { label: 'Learnings', href: '/resources/daily' },
-  { label: 'Tutorials', href: '/resources/tutorial' },
-  { label: 'Articles', href: '/resources/article' },
-  { label: 'Focus', href: '/resources/tool-focus' },
-  { label: 'Tools', href: '/resources/tools' },
-];
+interface ContentTypeLink {
+  label: string;
+  href: string;
+  slug: string;
+}
 
 interface TypeNavProps {
+  types?: ContentTypeLink[];
   counts?: Record<string, number>;
 }
 
-export function TypeNav({ counts }: TypeNavProps) {
+export function TypeNav({ types, counts }: TypeNavProps) {
   const pathname = usePathname();
+
+  const typeLinks: ContentTypeLink[] = [
+    { label: 'All', href: '/resources', slug: 'all' },
+    ...(types ?? []),
+    { label: 'Tools', href: '/resources/tools', slug: 'tools' },
+  ];
 
   function isActive(href: string) {
     if (href === '/resources') return pathname === '/resources';
     return pathname.startsWith(href);
   }
 
-  function getCount(href: string): number | undefined {
+  function getCount(slug: string): number | undefined {
     if (!counts) return undefined;
-    if (href === '/resources') return counts['all'];
-    const type = href.split('/').pop();
-    return type ? counts[type] : undefined;
+    return counts[slug];
   }
 
   return (
@@ -39,7 +41,7 @@ export function TypeNav({ counts }: TypeNavProps) {
     >
       {typeLinks.map((link) => {
         const active = isActive(link.href);
-        const count = getCount(link.href);
+        const count = getCount(link.slug);
         return (
           <Link
             key={link.href}

@@ -4,6 +4,7 @@ export const IngestionLog: CollectionConfig = {
   slug: 'ingestion-logs',
   admin: {
     useAsTitle: 'contentTitle',
+    group: 'System',
     defaultColumns: ['sourceType', 'status', 'contentTitle', 'processingTimeMs', 'createdAt'],
   },
   access: {

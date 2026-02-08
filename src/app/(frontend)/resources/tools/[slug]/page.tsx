@@ -11,11 +11,8 @@ import { LeverageBar } from '@/components/resources/LeverageBar';
 import { PricingBadge } from '@/components/resources/PricingBadge';
 import { ToolCard } from '@/components/resources/ToolCard';
 import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
-import {
-  resourcesTheme,
-  categoryLabels,
-  domainAccentMap,
-} from '@/lib/resources-theme';
+import { resourcesTheme, categoryLabels } from '@/lib/resources-theme';
+import { normalizeDomains } from '@/lib/taxonomy';
 
 export const dynamic = 'force-dynamic';
 
@@ -81,7 +78,7 @@ export default async function ToolDetailPage({
   });
 
   const logo = tool.logo as { url: string; alt?: string } | null | undefined;
-  const domains = (tool.domain as string[] | undefined) ?? [];
+  const domains = normalizeDomains(tool.domain);
   const categories = (tool.category as string[] | undefined) ?? [];
   const pros = (tool.pros as string[] | undefined) ?? [];
   const cons = (tool.cons as string[] | undefined) ?? [];
@@ -92,15 +89,12 @@ export default async function ToolDetailPage({
     description: string;
     logo?: { url: string; alt?: string } | null;
     category?: string[] | null;
-    domain?: string[] | null;
+    domain?: unknown;
     pricing?: string | null;
     rating?: number | null;
   }>;
   const bodyType = getBodyType(tool.body);
-  const firstDomain = domains[0];
-  const colorVar = firstDomain
-    ? domainAccentMap[firstDomain] || 'domain-dev'
-    : undefined;
+  const firstDomainColor = domains[0]?.color ?? null;
 
   return (
     <main className="pt-24 min-h-screen bg-res-bg">
@@ -200,7 +194,7 @@ export default async function ToolDetailPage({
                   <div className="w-8 h-px bg-res-border" />
                   <LeverageBar
                     score={tool.leverageScore as number}
-                    color={colorVar}
+                    color={firstDomainColor}
                   />
                 </>
               )}
@@ -215,7 +209,7 @@ export default async function ToolDetailPage({
                     </span>
                     <div className="flex flex-wrap gap-2">
                       {domains.map((d) => (
-                        <DomainBadge key={d} domain={d} variant="chip" />
+                        <DomainBadge key={d.id} domain={d} variant="chip" />
                       ))}
                     </div>
                   </div>
@@ -345,8 +339,8 @@ export default async function ToolDetailPage({
                 <blockquote
                   className="border-l-2 pl-6 py-2 text-base text-res-text-muted leading-relaxed italic"
                   style={
-                    colorVar
-                      ? { borderColor: `var(--${colorVar})` }
+                    firstDomainColor
+                      ? { borderColor: firstDomainColor }
                       : undefined
                   }
                 >
@@ -406,7 +400,7 @@ export default async function ToolDetailPage({
                 summary={r.summary}
                 type={r.type}
                 slug={r.slug}
-                domain={r.domain as string[] | undefined}
+                domain={r.domain}
                 publishedAt={r.publishedAt ?? undefined}
               />
             ))}

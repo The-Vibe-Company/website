@@ -4,23 +4,6 @@ import { autoPublishedAt } from './hooks/autoPublishedAt'
 import { deduplicateContent } from './hooks/deduplicateContent'
 import { revalidateContent } from './hooks/revalidateContent'
 
-export const DOMAIN_OPTIONS = [
-  { label: 'Development', value: 'dev' },
-  { label: 'Design', value: 'design' },
-  { label: 'Operations', value: 'ops' },
-  { label: 'Business', value: 'business' },
-  { label: 'AI & Automation', value: 'ai-automation' },
-  { label: 'Marketing', value: 'marketing' },
-] as const
-
-export const CONTENT_TYPE_OPTIONS = [
-  { label: 'Daily Learning', value: 'daily' },
-  { label: 'Tutorial', value: 'tutorial' },
-  { label: 'Article', value: 'article' },
-  { label: 'Tool Focus', value: 'tool-focus' },
-  { label: 'Concept Focus', value: 'concept-focus' },
-] as const
-
 export const STATUS_OPTIONS = [
   { label: 'Draft', value: 'draft' },
   { label: 'In Review', value: 'review' },
@@ -33,6 +16,7 @@ export const Content: CollectionConfig = {
   slug: 'content',
   admin: {
     useAsTitle: 'title',
+    group: 'Content',
     defaultColumns: ['title', 'type', 'status', 'domain', 'publishedAt'],
     listSearchableFields: ['title', 'summary', 'slug'],
   },
@@ -98,9 +82,9 @@ export const Content: CollectionConfig = {
     // Taxonomy
     {
       name: 'type',
-      type: 'select',
+      type: 'relationship',
+      relationTo: 'content-types',
       required: true,
-      options: [...CONTENT_TYPE_OPTIONS],
       admin: {
         position: 'sidebar',
       },
@@ -117,9 +101,9 @@ export const Content: CollectionConfig = {
     },
     {
       name: 'domain',
-      type: 'select',
+      type: 'relationship',
+      relationTo: 'domains',
       hasMany: true,
-      options: [...DOMAIN_OPTIONS],
       admin: {
         position: 'sidebar',
       },
@@ -148,7 +132,6 @@ export const Content: CollectionConfig = {
       ],
       admin: {
         position: 'sidebar',
-        condition: (data) => data?.type === 'tutorial',
       },
     },
     {

@@ -10,45 +10,9 @@ import { DailyDateGroup } from '@/components/resources/DailyDateGroup';
 import { FilterBar } from '@/components/resources/FilterBar';
 import { TypeNav } from '@/components/resources/TypeNav';
 import { resourcesTheme } from '@/lib/resources-theme';
+import { getContentTypes, getContentTypeBySlug, getDomains, getDomainBySlug } from '@/lib/taxonomy';
 
 export const dynamic = 'force-dynamic';
-
-const validTypes = [
-  'daily',
-  'tutorial',
-  'article',
-  'tool-focus',
-  'concept-focus',
-] as const;
-type ContentType = (typeof validTypes)[number];
-
-const typeConfig: Record<
-  ContentType,
-  { title: string; description: string }
-> = {
-  daily: {
-    title: 'Learnings',
-    description:
-      'Quick daily insights and discoveries from the build trenches.',
-  },
-  tutorial: {
-    title: 'Tutorials',
-    description: 'Step-by-step guides to ship faster with AI-native tools.',
-  },
-  article: {
-    title: 'Articles',
-    description:
-      'Deep dives into the tools, patterns, and philosophies of vibe coding.',
-  },
-  'tool-focus': {
-    title: 'Focus',
-    description: 'Focused breakdowns of the tools we use every day.',
-  },
-  'concept-focus': {
-    title: 'Concept Focus',
-    description: 'Explorations of key concepts in AI-native development.',
-  },
-};
 
 function getDateLabel(dateString: string): string {
   const date = new Date(dateString);
@@ -67,11 +31,11 @@ export async function generateMetadata({
   params: Promise<{ type: string }>;
 }): Promise<Metadata> {
   const { type } = await params;
-  const cfg = typeConfig[type as ContentType];
-  if (!cfg) return { title: 'Not Found' };
+  const contentType = await getContentTypeBySlug(type);
+  if (!contentType) return { title: 'Not Found' };
   return {
-    title: `${cfg.title} | Vibe Learning`,
-    description: cfg.description,
+    title: `${contentType.pluralLabel} | Vibe Learning`,
+    description: contentType.description || '',
   };
 }
 
@@ -85,18 +49,30 @@ export default async function TypeListingPage({
   const { type } = await params;
   const { domain } = await searchParams;
 
-  if (!validTypes.includes(type as ContentType)) {
+  const [contentType, contentTypes, allDomains] = await Promise.all([
+    getContentTypeBySlug(type),
+    getContentTypes(),
+    getDomains(),
+  ]);
+
+  if (!contentType) {
     notFound();
   }
 
-  const cfg = typeConfig[type as ContentType];
   const payload = await getPayload({ config });
 
   const where: Where = {
     status: { equals: 'published' },
-    type: { equals: type },
-    ...(domain ? { domain: { contains: domain } } : {}),
+    type: { equals: contentType.id },
   };
+
+  // Domain filter: look up domain by slug
+  if (domain) {
+    const domainDoc = await getDomainBySlug(domain);
+    if (domainDoc) {
+      where['domain'] = { contains: domainDoc.id };
+    }
+  }
 
   const content = await payload.find({
     collection: 'content',
@@ -105,10 +81,10 @@ export default async function TypeListingPage({
     limit: 50,
   });
 
-  const isDailyType = type === 'daily';
+  const isTimeline = contentType.renderStyle === 'timeline';
 
   // Group dailies by date
-  const dailyGroups = isDailyType
+  const dailyGroups = isTimeline
     ? (() => {
       const groups: Map<string, typeof content.docs> = new Map();
       for (const item of content.docs) {
@@ -120,33 +96,50 @@ export default async function TypeListingPage({
     })()
     : null;
 
+  // Build TypeNav links from CMS data
+  const typeNavLinks = contentTypes.map((ct) => ({
+    label: ct.pluralLabel,
+    href: `/resources/${ct.slug}`,
+    slug: ct.slug,
+  }));
+
+  // Build FilterBar domain options
+  const domainOptions = allDomains.map((d) => ({
+    slug: d.slug,
+    shortLabel: d.shortLabel,
+    color: d.color,
+    colorDark: d.colorDark,
+  }));
+
   return (
     <main className="pt-14">
       {/* Header */}
       <section className={`${resourcesTheme.section.padding} pt-20 pb-8 border-b border-res-border mb-8`}>
         <div className="max-w-4xl">
           <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
-            Resources / {cfg.title}
+            Resources / {contentType.pluralLabel}
           </span>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-3 leading-[0.95] text-res-text">
-            {cfg.title}
+            {contentType.pluralLabel}
           </h1>
-          <p className="text-base md:text-lg text-res-text-muted max-w-2xl leading-relaxed">
-            {cfg.description}
-          </p>
+          {contentType.description && (
+            <p className="text-base md:text-lg text-res-text-muted max-w-2xl leading-relaxed">
+              {contentType.description}
+            </p>
+          )}
         </div>
       </section>
 
       {/* Navigation + Filter */}
       <section className={`${resourcesTheme.section.padding} mb-12 space-y-6`}>
-        <TypeNav />
-        <FilterBar />
+        <TypeNav types={typeNavLinks} />
+        <FilterBar domains={domainOptions} />
       </section>
 
       {/* Content */}
       <section className={`${resourcesTheme.section.padding} pb-32`}>
         {content.docs.length > 0 ? (
-          isDailyType && dailyGroups ? (
+          isTimeline && dailyGroups ? (
             <div>
               {Array.from(dailyGroups).map(([dateLabel, items]) => (
                 <DailyDateGroup key={dateLabel} label={dateLabel}>
@@ -171,7 +164,7 @@ export default async function TypeListingPage({
                   summary={item.summary}
                   type={item.type}
                   slug={item.slug}
-                  domain={item.domain as string[] | undefined}
+                  domain={item.domain}
                   publishedAt={item.publishedAt ?? undefined}
                 />
               ))}
@@ -180,7 +173,7 @@ export default async function TypeListingPage({
         ) : (
           <div className="rounded-xl border border-res-border p-12 text-center bg-res-surface">
             <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-              No {cfg.title.toLowerCase()} yet
+              No {contentType.pluralLabel.toLowerCase()} yet
             </p>
             <p className="text-sm text-res-text-muted mt-2">
               Content is on its way. Check back soon.

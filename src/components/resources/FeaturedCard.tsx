@@ -1,15 +1,12 @@
 import Link from 'next/link';
-import {
-  domainAccentMap,
-  typeLabels,
-} from '@/lib/resources-theme';
+import { getTypeSlug, getTypeLabel, normalizeDomains } from '@/lib/taxonomy';
 
 interface FeaturedCardProps {
   title: string;
   summary: string;
-  type: string;
+  type: unknown;
   slug: string;
-  domain?: string[];
+  domain?: unknown;
   publishedAt?: string;
   readingTime?: number;
 }
@@ -31,19 +28,22 @@ export function FeaturedCard({
   publishedAt,
   readingTime,
 }: FeaturedCardProps) {
-  const firstDomain = domain?.[0];
-  const colorVar = firstDomain ? domainAccentMap[firstDomain] || 'domain-dev' : 'domain-dev';
+  const typeSlug = getTypeSlug(type);
+  const typeLabel = getTypeLabel(type);
+  const domains = normalizeDomains(domain);
+  const firstDomain = domains[0];
+  const color = firstDomain?.color || '#666';
 
   return (
-    <Link href={`/resources/${type}/${slug}`} className="block group mb-20">
+    <Link href={`/resources/${typeSlug}/${slug}`} className="block group mb-20">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-t border-res-text pt-8">
         {/* Meta / Sidebar */}
         <div className="md:col-span-3 flex flex-col gap-4">
           <span
             className="text-[10px] font-mono uppercase tracking-widest"
-            style={{ color: `var(--${colorVar})` }}
+            style={{ color }}
           >
-            {typeLabels[type] || type}
+            {typeLabel || typeSlug}
           </span>
           <div className="flex flex-col gap-1 text-[10px] font-mono text-res-text-muted uppercase tracking-widest">
             {publishedAt && <span>{formatDate(publishedAt)}</span>}

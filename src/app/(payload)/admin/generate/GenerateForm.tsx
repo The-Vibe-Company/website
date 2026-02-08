@@ -4,7 +4,13 @@ import { useState, useTransition, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { generateContentAction, type GenerateResult } from './actions'
 
-const CONTENT_TYPES = [
+interface ContentTypeOption {
+  label: string
+  value: string
+}
+
+// Fallback if API fetch fails
+const FALLBACK_TYPES: ContentTypeOption[] = [
   { label: 'Daily Learning', value: 'daily' },
   { label: 'Article', value: 'article' },
   { label: 'Tutorial', value: 'tutorial' },
@@ -37,8 +43,28 @@ export function GenerateForm() {
   const [language, setLanguage] = useState<'fr' | 'en'>('fr')
   const [result, setResult] = useState<GenerateResult | null>(null)
   const [isPending, startTransition] = useTransition()
+  const [contentTypes, setContentTypes] = useState<ContentTypeOption[]>(FALLBACK_TYPES)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const router = useRouter()
+
+  // Fetch content types from CMS on mount
+  useEffect(() => {
+    fetch('/api/content-types?sort=sortOrder&limit=100')
+      .then((r) => r.json())
+      .then((data) => {
+        if (data?.docs?.length) {
+          setContentTypes(
+            data.docs.map((ct: { name: string; slug: string }) => ({
+              label: ct.name,
+              value: ct.slug,
+            })),
+          )
+        }
+      })
+      .catch(() => {
+        // Keep fallback
+      })
+  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -81,7 +107,7 @@ export function GenerateForm() {
               onChange={(e) => setType(e.target.value)}
               disabled={isPending}
             >
-              {CONTENT_TYPES.map((ct) => (
+              {contentTypes.map((ct) => (
                 <option key={ct.value} value={ct.value}>
                   {ct.label}
                 </option>
@@ -136,7 +162,7 @@ export function GenerateForm() {
 
           <div className="generate-result__meta">
             <span className="generate-result__badge generate-result__badge--type">
-              {CONTENT_TYPES.find((ct) => ct.value === result.content!.type)?.label ??
+              {contentTypes.find((ct) => ct.value === result.content!.type)?.label ??
                 result.content.type}
             </span>
             {result.content.domain.map((d) => (

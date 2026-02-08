@@ -3,18 +3,24 @@
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { resourcesTheme, typeLabels } from '@/lib/resources-theme';
+import { resourcesTheme } from '@/lib/resources-theme';
 
-const typeLinks = [
-  { label: 'All', href: '/resources' },
-  { label: 'Learnings', href: '/resources/daily' },
-  { label: 'Tutorials', href: '/resources/tutorial' },
-  { label: 'Articles', href: '/resources/article' },
-  { label: 'Focus', href: '/resources/tool-focus' },
-  { label: 'Tools', href: '/resources/tools' },
-];
+export interface NavContentType {
+  label: string;
+  href: string;
+}
 
-function useBreadcrumbs(pathname: string) {
+/**
+ * Formats a URL segment into a human-readable breadcrumb label.
+ * Capitalizes words and handles common slug patterns.
+ */
+function formatSegment(segment: string): string {
+  return segment
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function useBreadcrumbs(pathname: string, typeLinks: NavContentType[]) {
   if (pathname === '/resources') return [{ label: 'Resources', href: '/resources' }];
 
   const segments = pathname.replace('/resources/', '').split('/');
@@ -24,25 +30,16 @@ function useBreadcrumbs(pathname: string) {
   const crumbs = [{ label: 'Resources', href: '/resources' }];
 
   if (type) {
-    const typeLabel =
-      typeLabels[type] ||
-      type.charAt(0).toUpperCase() + type.slice(1).replace(/-/g, ' ');
-    const pluralMap: Record<string, string> = {
-      daily: 'Learnings',
-      'tool-focus': 'Focus',
-      tools: 'Tools',
-    };
-
+    // Look up the label from typeLinks if available
+    const matchedLink = typeLinks.find((l) => l.href === `/resources/${type}`);
     crumbs.push({
-      label: pluralMap[type] || typeLabel + 's',
+      label: matchedLink?.label || formatSegment(type),
       href: `/resources/${type}`,
     });
   }
 
   if (slug) {
-    const readableSlug = slug
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, (c) => c.toUpperCase());
+    const readableSlug = formatSegment(slug);
     crumbs.push({
       label: readableSlug.length > 30 ? readableSlug.slice(0, 30) + '...' : readableSlug,
       href: `/resources/${type}/${slug}`,
@@ -52,11 +49,22 @@ function useBreadcrumbs(pathname: string) {
   return crumbs;
 }
 
-export function ResourcesNav() {
+interface ResourcesNavProps {
+  typeLinks?: NavContentType[];
+}
+
+export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const crumbs = useBreadcrumbs(pathname);
+
+  // Build full links list: All + CMS types + Tools
+  const allLinks: NavContentType[] = [
+    { label: 'All', href: '/resources' },
+    ...typeLinks,
+    { label: 'Tools', href: '/resources/tools' },
+  ];
+  const crumbs = useBreadcrumbs(pathname, allLinks);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -220,7 +228,7 @@ export function ResourcesNav() {
         aria-label="Mobile navigation"
       >
         <nav className="space-y-1" aria-label="Content types">
-          {typeLinks.map((link) => {
+          {allLinks.map((link) => {
             const isActive =
               link.href === '/resources'
                 ? pathname === '/resources'

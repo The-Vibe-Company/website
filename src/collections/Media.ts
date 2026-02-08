@@ -6,6 +6,8 @@ export const Media: CollectionConfig = {
     read: () => true,
   },
   admin: {
+    group: 'Content',
+    defaultColumns: ['filename', 'alt', 'mimeType', 'filesize', 'createdAt'],
     listSearchableFields: ['alt', 'caption'],
   },
   upload: {

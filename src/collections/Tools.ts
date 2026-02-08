@@ -1,11 +1,11 @@
 import type { CollectionConfig } from 'payload'
-import { DOMAIN_OPTIONS } from './Content'
 import { autoSlug } from './hooks/autoSlug'
 
 export const Tools: CollectionConfig = {
   slug: 'tools',
   admin: {
     useAsTitle: 'name',
+    group: 'Content',
     defaultColumns: ['name', 'category', 'rating', 'status', 'website'],
     listSearchableFields: ['name', 'description', 'slug'],
   },
@@ -81,9 +81,9 @@ export const Tools: CollectionConfig = {
     },
     {
       name: 'domain',
-      type: 'select',
+      type: 'relationship',
+      relationTo: 'domains',
       hasMany: true,
-      options: [...DOMAIN_OPTIONS],
       admin: {
         position: 'sidebar',
       },

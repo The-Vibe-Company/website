@@ -1,6 +1,40 @@
 import type { PipelineStep, PipelineContext } from './types'
 
 /**
+ * Resolves a content type slug to its CMS relationship ID.
+ */
+async function resolveContentTypeId(
+  payload: PipelineContext['payload'],
+  typeSlug: string,
+): Promise<string | number> {
+  const result = await payload.find({
+    collection: 'content-types',
+    where: { slug: { equals: typeSlug } },
+    limit: 1,
+  })
+  if (!result.docs[0]) {
+    throw new Error(`Content type not found: "${typeSlug}"`)
+  }
+  return result.docs[0].id
+}
+
+/**
+ * Resolves domain slugs to their CMS relationship IDs.
+ */
+async function resolveDomainIds(
+  payload: PipelineContext['payload'],
+  domainSlugs: string[],
+): Promise<(string | number)[]> {
+  if (domainSlugs.length === 0) return []
+  const result = await payload.find({
+    collection: 'domains',
+    where: { slug: { in: domainSlugs } },
+    limit: 100,
+  })
+  return result.docs.map((d) => d.id)
+}
+
+/**
  * Persists content to Payload CMS.
  * Creates new content or updates existing (if dedup found a match).
  */
@@ -11,14 +45,18 @@ export const persistStep: PipelineStep = {
 
     const sourceType = raw.metadata?.sourceType ?? 'manual'
 
+    // Resolve taxonomy slugs to CMS relationship IDs
+    const typeId = await resolveContentTypeId(payload, raw.type)
+    const domainIds = await resolveDomainIds(payload, raw.domain ?? [])
+
     const contentData = {
       title: raw.title,
       slug: existingId ? undefined : slug, // Don't change slug on update
-      type: raw.type,
+      type: typeId,
       status: 'draft' as const,
       summary: raw.summary,
       body: lexicalBody,
-      domain: raw.domain,
+      domain: domainIds,
       tools: toolIds,
       concepts: raw.concepts,
       language: raw.language ?? 'fr',

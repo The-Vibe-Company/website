@@ -10,7 +10,8 @@ import { TypeNav } from '@/components/resources/TypeNav';
 import { ConceptCloud } from '@/components/resources/ConceptCloud';
 import { ContentCard } from '@/components/resources/ContentCard';
 import { ContentGrid } from '@/components/resources/ContentGrid';
-import { resourcesTheme, typeLabels } from '@/lib/resources-theme';
+import { resourcesTheme } from '@/lib/resources-theme';
+import { getContentTypes, getAllContentTypes, getTypeSlug, getTypeLabel } from '@/lib/taxonomy';
 
 export const dynamic = 'force-dynamic';
 
@@ -104,7 +105,7 @@ export default async function ResourcesPage({
                   summary={item.summary}
                   type={item.type}
                   slug={item.slug}
-                  domain={item.domain as string[] | undefined}
+                  domain={item.domain}
                   publishedAt={item.publishedAt ?? undefined}
                 />
               ))}
@@ -127,46 +128,63 @@ export default async function ResourcesPage({
     );
   }
 
-  // Default Dashboard View
-  const [allContent, dailies, typeCounts] = await Promise.all([
+  // Fetch content types and find the "timeline" type for the daily section
+  const allContentTypes = await getAllContentTypes();
+  const navContentTypes = allContentTypes.filter((ct) => ct.showInNav);
+  const timelineType = allContentTypes.find((ct) => ct.renderStyle === 'timeline');
+
+  // Build TypeNav links
+  const typeNavLinks = navContentTypes.map((ct) => ({
+    label: ct.pluralLabel,
+    href: `/resources/${ct.slug}`,
+    slug: ct.slug,
+  }));
+
+  // Fetch content and counts
+  const [allContent, dailies] = await Promise.all([
     payload.find({
       collection: 'content',
       where: { status: { equals: 'published' } },
       sort: '-publishedAt',
       limit: 6,
     }),
-    payload.find({
-      collection: 'content',
-      where: {
-        status: { equals: 'published' },
-        type: { equals: 'daily' },
-      },
-      sort: '-publishedAt',
-      limit: 10,
-    }),
-    Promise.all([
-      payload.count({ collection: 'content', where: { status: { equals: 'published' } } }),
-      payload.count({ collection: 'content', where: { status: { equals: 'published' }, type: { equals: 'daily' } } }),
-      payload.count({ collection: 'content', where: { status: { equals: 'published' }, type: { equals: 'tutorial' } } }),
-      payload.count({ collection: 'content', where: { status: { equals: 'published' }, type: { equals: 'article' } } }),
-    ]),
+    timelineType
+      ? payload.find({
+          collection: 'content',
+          where: {
+            status: { equals: 'published' },
+            type: { equals: timelineType.id },
+          },
+          sort: '-publishedAt',
+          limit: 10,
+        })
+      : Promise.resolve({ docs: [], totalDocs: 0 }),
   ]);
 
-  const [totalCount, dailyCount, tutorialCount, articleCount] = typeCounts;
+  // Build counts for TypeNav
+  const totalCount = await payload.count({
+    collection: 'content',
+    where: { status: { equals: 'published' } },
+  });
+
+  const typeCountPromises = allContentTypes.map(async (ct) => {
+    const result = await payload.count({
+      collection: 'content',
+      where: { status: { equals: 'published' }, type: { equals: ct.id } },
+    });
+    return { slug: ct.slug, count: result.totalDocs };
+  });
+  const typeCounts = await Promise.all(typeCountPromises);
+
+  const counts: Record<string, number> = { all: totalCount.totalDocs };
+  for (const tc of typeCounts) {
+    counts[tc.slug] = tc.count;
+  }
+
   const stats = [
     { label: 'total', count: totalCount.totalDocs },
-    { label: 'learnings', count: dailyCount.totalDocs },
-    { label: 'tutorials', count: tutorialCount.totalDocs },
-    { label: 'articles', count: articleCount.totalDocs },
+    ...typeCounts.map((tc) => ({ label: tc.slug, count: tc.count })),
   ];
-
-  const counts: Record<string, number> = {
-    all: totalCount.totalDocs,
-    daily: dailyCount.totalDocs,
-    tutorial: tutorialCount.totalDocs,
-    article: articleCount.totalDocs,
-    // Focus counts? 'tool-focus' is just a type.
-  };
 
   const featuredItem = allContent.docs[0];
   const latestItems = allContent.docs.slice(1, 5);
@@ -186,7 +204,7 @@ export default async function ResourcesPage({
 
       {/* Type Navigation */}
       <section className={`${resourcesTheme.section.padding} mb-12`}>
-        <TypeNav counts={counts} />
+        <TypeNav types={typeNavLinks} counts={counts} />
       </section>
 
       {/* Featured + Latest */}
@@ -199,7 +217,7 @@ export default async function ResourcesPage({
                 summary={featuredItem.summary}
                 type={featuredItem.type}
                 slug={featuredItem.slug}
-                domain={featuredItem.domain as string[] | undefined}
+                domain={featuredItem.domain}
                 publishedAt={featuredItem.publishedAt ?? undefined}
               />
             </div>
@@ -210,30 +228,34 @@ export default async function ResourcesPage({
                 Latest
               </span>
               <div className="mt-2">
-                {latestItems.map((item) => (
-                  <Link
-                    key={item.id}
-                    href={`/resources/${item.type}/${item.slug}`}
-                    className="group block py-4 border-b border-res-border/50"
-                  >
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">
-                        {typeLabels[item.type] || item.type}
-                      </span>
-                      {item.publishedAt && (
-                        <>
-                          <span className="text-res-text-muted/20">&middot;</span>
-                          <span className="text-[10px] font-mono text-res-text-muted/50">
-                            {formatDate(item.publishedAt)}
-                          </span>
-                        </>
-                      )}
-                    </div>
-                    <h4 className="text-sm font-semibold tracking-tight text-res-text group-hover:text-res-text-muted transition-colors leading-snug">
-                      {item.title}
-                    </h4>
-                  </Link>
-                ))}
+                {latestItems.map((item) => {
+                  const typeSlug = getTypeSlug(item.type);
+                  const typeLabel = getTypeLabel(item.type);
+                  return (
+                    <Link
+                      key={item.id}
+                      href={`/resources/${typeSlug}/${item.slug}`}
+                      className="group block py-4 border-b border-res-border/50"
+                    >
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">
+                          {typeLabel || typeSlug}
+                        </span>
+                        {item.publishedAt && (
+                          <>
+                            <span className="text-res-text-muted/20">&middot;</span>
+                            <span className="text-[10px] font-mono text-res-text-muted/50">
+                              {formatDate(item.publishedAt)}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                      <h4 className="text-sm font-semibold tracking-tight text-res-text group-hover:text-res-text-muted transition-colors leading-snug">
+                        {item.title}
+                      </h4>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -251,42 +273,44 @@ export default async function ResourcesPage({
       </section>
 
       {/* Daily Log */}
-      <section className={`${resourcesTheme.section.padding} pb-20`}>
-        <div className="flex justify-between items-end mb-8 border-b border-res-border pb-4">
-          <span className={resourcesTheme.section.header}>
-            <span className={resourcesTheme.section.headerIndicator} />
-            Learnings
-          </span>
-          <Link
-            href="/resources/daily"
-            className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
-          >
-            View All &rarr;
-          </Link>
-        </div>
-
-        {dailies.docs.length > 0 ? (
-          <div>
-            {Array.from(dailyGroups).map(([dateLabel, items]) => (
-              <DailyDateGroup key={dateLabel} label={dateLabel}>
-                {items.map((item) => (
-                  <DailyCard
-                    key={item.id}
-                    title={item.title}
-                    summary={item.summary}
-                    slug={item.slug}
-                    publishedAt={item.publishedAt ?? undefined}
-                  />
-                ))}
-              </DailyDateGroup>
-            ))}
+      {timelineType && (
+        <section className={`${resourcesTheme.section.padding} pb-20`}>
+          <div className="flex justify-between items-end mb-8 border-b border-res-border pb-4">
+            <span className={resourcesTheme.section.header}>
+              <span className={resourcesTheme.section.headerIndicator} />
+              {timelineType.pluralLabel}
+            </span>
+            <Link
+              href={`/resources/${timelineType.slug}`}
+              className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
+            >
+              View All &rarr;
+            </Link>
           </div>
-        ) : (
-          <p className="text-sm text-res-text-muted py-4">
-            Daily learnings will appear here once published.
-          </p>
-        )}
-      </section>
+
+          {dailies.docs.length > 0 ? (
+            <div>
+              {Array.from(dailyGroups).map(([dateLabel, items]) => (
+                <DailyDateGroup key={dateLabel} label={dateLabel}>
+                  {items.map((item) => (
+                    <DailyCard
+                      key={item.id}
+                      title={item.title}
+                      summary={item.summary}
+                      slug={item.slug}
+                      publishedAt={item.publishedAt ?? undefined}
+                    />
+                  ))}
+                </DailyDateGroup>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-res-text-muted py-4">
+              {timelineType.pluralLabel} will appear here once published.
+            </p>
+          )}
+        </section>
+      )}
 
       {/* Explore Concepts */}
       {allConcepts.length > 0 && (

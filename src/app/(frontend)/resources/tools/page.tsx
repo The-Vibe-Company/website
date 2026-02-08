@@ -6,6 +6,7 @@ import { ContentGrid } from '@/components/resources/ContentGrid';
 import { TypeNav } from '@/components/resources/TypeNav';
 import { CategoryFilter } from '@/components/resources/CategoryFilter';
 import { resourcesTheme } from '@/lib/resources-theme';
+import { getContentTypes } from '@/lib/taxonomy';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,19 +24,29 @@ export default async function ToolsListingPage({
   const { category } = await searchParams;
   const payload = await getPayload({ config });
 
-  const tools = await payload.find({
-    collection: 'tools',
-    where: {
-      status: { equals: 'published' },
-      ...(category ? { category: { contains: category } } : {}),
-    },
-    sort: 'name',
-    limit: 100,
-  });
+  const [tools, contentTypes] = await Promise.all([
+    payload.find({
+      collection: 'tools',
+      where: {
+        status: { equals: 'published' },
+        ...(category ? { category: { contains: category } } : {}),
+      },
+      sort: 'name',
+      limit: 100,
+    }),
+    getContentTypes(),
+  ]);
+
+  // Build TypeNav links from CMS data
+  const typeNavLinks = contentTypes.map((ct) => ({
+    label: ct.pluralLabel,
+    href: `/resources/${ct.slug}`,
+    slug: ct.slug,
+  }));
 
   return (
     <main className="pt-14">
-      {/* Header — same pattern as /resources/[type] */}
+      {/* Header */}
       <section className={`${resourcesTheme.section.padding} pt-20 pb-8 border-b border-res-border mb-8`}>
         <div className="max-w-4xl">
           <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
@@ -52,7 +63,7 @@ export default async function ToolsListingPage({
 
       {/* Navigation + Filter */}
       <section className={`${resourcesTheme.section.padding} mb-12 space-y-6`}>
-        <TypeNav />
+        <TypeNav types={typeNavLinks} />
         <CategoryFilter />
       </section>
 
@@ -74,7 +85,7 @@ export default async function ToolsListingPage({
                   description={tool.description}
                   logo={logo}
                   category={tool.category as string[] | null}
-                  domain={tool.domain as string[] | null}
+                  domain={tool.domain}
                   pricing={tool.pricing as string | null}
                   rating={tool.rating as number | null}
                   costPerMonth={tool.costPerMonth as number | null}
