@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { ResourcesNav } from '@/components/resources/ResourcesNav';
 import { getNavContentTypes } from '@/lib/content-types';
 
@@ -15,7 +16,9 @@ export default function ResourcesLayout({
 
   return (
     <div className="resources-theme min-h-screen bg-res-bg text-res-text">
-      <ResourcesNav typeLinks={typeLinks} />
+      <Suspense fallback={null}>
+        <ResourcesNav typeLinks={typeLinks} />
+      </Suspense>
       {children}
     </div>
   );

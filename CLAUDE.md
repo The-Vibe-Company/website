@@ -87,3 +87,6 @@ Before any task, run `./scripts/dev-start.sh` to ensure the dev environment is r
 If you had to use the same command multiple times in the same session, please create a script to do it in the `scripts` folder and add a one line description of what it does in CLAUDE.md
 
 If you have questions about the product vision, please look at https://www.notion.so/Site-Web-Architecture-2ff324e51ac2806cb38bc195bb808578?source=copy_link and related notion pages. If you can't read the notion pages, please ask the user to share the pages with you.
+
+
+- Only use BUN for the project. Never use npm or yarn or pnpm for this project

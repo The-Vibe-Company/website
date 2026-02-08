@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { getPayload } from 'payload';
 import config from '@payload-config';
 import { ToolCard } from '@/components/resources/ToolCard';
@@ -75,7 +76,9 @@ export default async function ToolsListingPage({
       {/* Navigation + Filter */}
       <section className={`${resourcesTheme.section.padding} mb-12 space-y-6`}>
         <TypeNav types={typeNavLinks} />
-        <CategoryFilter />
+        <Suspense fallback={null}>
+          <CategoryFilter />
+        </Suspense>
       </section>
 
       {/* Tools Grid */}
