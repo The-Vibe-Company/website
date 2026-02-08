@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.11](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.10...thevibecompany-v0.1.11) (2026-02-08)
+
+
+### Bug Fixes
+
+* **build:** wrap useSearchParams in Suspense + update stale importMap ([#32](https://github.com/The-Vibe-Company/website/issues/32)) ([cf441f5](https://github.com/The-Vibe-Company/website/commit/cf441f5752020a2067609ee067727204fc505659))
+
 ## [0.1.10](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.9...thevibecompany-v0.1.10) (2026-02-08)
 
 
