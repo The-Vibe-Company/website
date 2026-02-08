@@ -1,13 +1,14 @@
 import Link from 'next/link';
-import { resourcesTheme, typeLabels } from '@/lib/resources-theme';
+import { resourcesTheme } from '@/lib/resources-theme';
+import { getTypeSlug, getTypeLabel, normalizeDomains } from '@/lib/taxonomy';
 import { DomainBadge } from './DomainBadge';
 
 interface ContentCardProps {
   title: string;
   summary: string;
-  type: string;
+  type: unknown;
   slug: string;
-  domain?: string[];
+  domain?: unknown;
   publishedAt?: string;
 }
 
@@ -26,16 +27,19 @@ export function ContentCard({
   domain,
   publishedAt,
 }: ContentCardProps) {
-  const firstDomain = domain?.[0];
+  const typeSlug = getTypeSlug(type);
+  const typeLabel = getTypeLabel(type);
+  const domains = normalizeDomains(domain);
+  const firstDomain = domains[0];
 
   return (
-    <Link href={`/resources/${type}/${slug}`} className="group block h-full">
+    <Link href={`/resources/${typeSlug}/${slug}`} className="group block h-full">
       <article className={`h-full p-6 flex flex-col ${resourcesTheme.card.base} ${resourcesTheme.card.hover}`}>
         <div className="flex items-center gap-2 mb-6 border-b border-res-border/50 pb-4">
           {firstDomain && <DomainBadge domain={firstDomain} variant="dot" />}
-          <span className="text-res-text-muted/50 text-[10px]">•</span>
+          <span className="text-res-text-muted/50 text-[10px]">&bull;</span>
           <span className={resourcesTheme.badge.type}>
-            {typeLabels[type] || type}
+            {typeLabel || typeSlug}
           </span>
         </div>
 

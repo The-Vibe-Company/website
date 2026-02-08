@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="#0a0a0a">
+  <!-- Bold V optimized for small sizes — heavier strokes for 16x16 legibility -->
+  <polygon points="3,4 9,4 16,23 23,4 29,4 19,29 13,29"/>
+  <!-- Structural crossbar -->
+  <rect x="8" y="12" width="16" height="2.5"/>
+</svg>

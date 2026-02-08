@@ -12,6 +12,8 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Content } from './collections/Content'
 import { Tools } from './collections/Tools'
+import { ContentTypes } from './collections/ContentTypes'
+import { Domains } from './collections/Domains'
 import { ApiKeys } from './collections/ApiKeys'
 import { IngestionLog } from './collections/IngestionLog'
 
@@ -21,10 +23,30 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     user: Users.slug,
+    meta: {
+      titleSuffix: ' | The Vibe Company',
+      icons: [{ rel: 'icon', url: '/favicon.svg' }],
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
     components: {
+      graphics: {
+        Logo: {
+          path: '@/components/admin/Logo',
+          exportName: 'AdminLogo',
+        },
+        Icon: {
+          path: '@/components/admin/NavIcon',
+          exportName: 'NavIcon',
+        },
+      },
+      beforeDashboard: [
+        {
+          path: '@/components/admin/DashboardStats',
+          exportName: 'DashboardStats',
+        },
+      ],
       afterNavLinks: [
         {
           path: '@/components/admin/GenerateNavLink',
@@ -33,7 +55,7 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Users, Media, Content, Tools, ApiKeys, IngestionLog],
+  collections: [Users, Media, Content, Tools, ContentTypes, Domains, ApiKeys, IngestionLog],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -76,7 +98,8 @@ export default buildConfig({
       },
       generateURL: ({ doc, collectionSlug }) => {
         if (collectionSlug === 'content') {
-          return `https://thevibecompany.co/resources/${doc?.type}/${doc?.slug}`
+          const typeSlug = typeof doc?.type === 'object' ? doc?.type?.slug : doc?.type
+          return `https://thevibecompany.co/resources/${typeSlug}/${doc?.slug}`
         }
         if (collectionSlug === 'tools') {
           return `https://thevibecompany.co/resources/tools/${doc?.slug}`

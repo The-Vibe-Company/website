@@ -1,20 +1,37 @@
-import { domainAccentMap, domainLabels, resourcesTheme } from '@/lib/resources-theme';
+import { resourcesTheme } from '@/lib/resources-theme';
+
+interface DomainObject {
+  slug: string;
+  shortLabel: string;
+  color: string;
+  colorDark?: string | null;
+}
 
 interface DomainBadgeProps {
-  domain: string;
+  domain: DomainObject | string;
   variant?: 'default' | 'dot' | 'chip';
 }
 
+function resolveDomain(domain: DomainObject | string): { color: string; label: string } {
+  if (typeof domain === 'object' && domain !== null) {
+    return {
+      color: domain.color || '#666',
+      label: domain.shortLabel || domain.slug,
+    };
+  }
+  // Fallback for string domains (backward compat)
+  return { color: '#666', label: domain };
+}
+
 export function DomainBadge({ domain, variant = 'default' }: DomainBadgeProps) {
-  const colorVar = domainAccentMap[domain] || 'domain-dev';
-  const label = domainLabels[domain] || domain;
+  const { color, label } = resolveDomain(domain);
 
   if (variant === 'dot') {
     return (
       <span className={resourcesTheme.badge.domainDot}>
         <span
           className="w-1.5 h-1.5 bg-current"
-          style={{ color: `var(--${colorVar})` }}
+          style={{ color }}
         />
         {label}
       </span>
@@ -26,8 +43,8 @@ export function DomainBadge({ domain, variant = 'default' }: DomainBadgeProps) {
       <span
         className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-widest border"
         style={{
-          borderColor: `var(--${colorVar})`,
-          color: `var(--${colorVar})`,
+          borderColor: color,
+          color,
         }}
       >
         {label}
@@ -38,13 +55,13 @@ export function DomainBadge({ domain, variant = 'default' }: DomainBadgeProps) {
   return (
     <span
       className={resourcesTheme.badge.domain}
-      style={{ borderColor: `var(--${colorVar})` }}
+      style={{ borderColor: color }}
     >
       <span
         className="w-1.5 h-1.5 bg-current"
-        style={{ color: `var(--${colorVar})` }}
+        style={{ color }}
       />
-      <span style={{ color: `var(--${colorVar})` }}>{label}</span>
+      <span style={{ color }}>{label}</span>
     </span>
   );
 }

@@ -2,7 +2,7 @@ import { resourcesTheme } from '@/lib/resources-theme';
 
 interface LeverageBarProps {
   score: number; // 0-100
-  color?: string; // CSS variable name like 'domain-dev'
+  color?: string | null; // Direct hex color like '#2563eb'
 }
 
 export function LeverageBar({ score, color }: LeverageBarProps) {
@@ -23,7 +23,7 @@ export function LeverageBar({ score, color }: LeverageBarProps) {
           className={resourcesTheme.tool.leverageFill}
           style={{
             width: `${clamped}%`,
-            backgroundColor: color ? `var(--${color})` : 'var(--res-text)',
+            backgroundColor: color || 'var(--res-text)',
           }}
         />
       </div>

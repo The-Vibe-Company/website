@@ -77,23 +77,8 @@ export const resourcesTheme = {
   },
 } as const;
 
-export const domainAccentMap: Record<string, string> = {
-  dev: 'domain-dev',
-  design: 'domain-design',
-  ops: 'domain-ops',
-  business: 'domain-business',
-  'ai-automation': 'domain-ai',
-  marketing: 'domain-marketing',
-};
-
-export const domainLabels: Record<string, string> = {
-  dev: 'Dev',
-  design: 'Design',
-  ops: 'Ops',
-  business: 'Business',
-  'ai-automation': 'AI',
-  marketing: 'Marketing',
-};
+// Domain maps removed — domains are now CMS-managed via the 'domains' collection.
+// Components receive domain data as props from populated relationship fields.
 
 export const categoryLabels: Record<string, string> = {
   'ai-llm': 'AI / LLM',
@@ -128,10 +113,5 @@ export const pricingColors: Record<string, { bg: string; text: string; border: s
   },
 };
 
-export const typeLabels: Record<string, string> = {
-  daily: 'Learning',
-  tutorial: 'Tutorial',
-  article: 'Article',
-  'tool-focus': 'Focus',
-  'concept-focus': 'Concept',
-};
+// Type labels removed — content types are now CMS-managed via the 'content-types' collection.
+// Components use getTypeLabel() from '@/lib/taxonomy' with populated relationship data.

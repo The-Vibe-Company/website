@@ -3,8 +3,8 @@ import Link from 'next/link';
 import {
   resourcesTheme,
   categoryLabels,
-  domainAccentMap,
 } from '@/lib/resources-theme';
+import { normalizeDomains } from '@/lib/taxonomy';
 import { DomainBadge } from './DomainBadge';
 import { PricingBadge } from './PricingBadge';
 
@@ -14,7 +14,7 @@ interface ToolCardProps {
   description: string;
   logo?: { url: string; alt?: string } | null;
   category?: string[] | null;
-  domain?: string[] | null;
+  domain?: unknown;
   pricing?: string | null;
   rating?: number | null;
   costPerMonth?: number | null;
@@ -35,12 +35,11 @@ export function ToolCard({
   licensesCount,
   leverageScore,
 }: ToolCardProps) {
-  const firstDomain = domain?.[0];
+  const domains = normalizeDomains(domain);
+  const firstDomain = domains[0];
   const firstCategory = category?.[0];
   const logoUrl = logo?.url;
-  const colorVar = firstDomain
-    ? domainAccentMap[firstDomain] || 'domain-dev'
-    : 'domain-dev';
+  const color = firstDomain?.color || '#666';
 
   const hasStackInfo =
     (costPerMonth != null && costPerMonth > 0) ||
@@ -64,7 +63,7 @@ export function ToolCard({
             ) : (
               <span
                 className="text-lg font-bold text-res-text-muted"
-                style={{ color: `var(--${colorVar})` }}
+                style={{ color }}
               >
                 {name.charAt(0)}
               </span>
@@ -112,7 +111,7 @@ export function ToolCard({
                     className={resourcesTheme.tool.leverageFill}
                     style={{
                       width: `${Math.min(100, leverageScore)}%`,
-                      backgroundColor: `var(--${colorVar})`,
+                      backgroundColor: color,
                     }}
                   />
                 </div>
@@ -124,7 +123,7 @@ export function ToolCard({
               {costPerMonth != null && costPerMonth > 0 && (
                 <span className="text-[10px] font-mono text-res-text-muted flex items-center gap-1">
                   <span className="font-semibold text-res-text">
-                    €{costPerMonth % 1 === 0 ? costPerMonth : costPerMonth.toFixed(2)}
+                    &euro;{costPerMonth % 1 === 0 ? costPerMonth : costPerMonth.toFixed(2)}
                   </span>
                   /mo
                 </span>

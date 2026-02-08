@@ -1,19 +1,20 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { resourcesTheme, domainAccentMap } from '@/lib/resources-theme';
+import { resourcesTheme } from '@/lib/resources-theme';
 
-const domains = [
-  { label: 'All', value: '' },
-  { label: 'Dev', value: 'dev' },
-  { label: 'Design', value: 'design' },
-  { label: 'Ops', value: 'ops' },
-  { label: 'Business', value: 'business' },
-  { label: 'AI', value: 'ai-automation' },
-  { label: 'Marketing', value: 'marketing' },
-];
+interface DomainOption {
+  slug: string;
+  shortLabel: string;
+  color: string;
+  colorDark?: string | null;
+}
 
-export function FilterBar() {
+interface FilterBarProps {
+  domains?: DomainOption[];
+}
+
+export function FilterBar({ domains }: FilterBarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const activeDomain = searchParams.get('domain') || '';
@@ -28,34 +29,39 @@ export function FilterBar() {
     router.push(`?${params.toString()}`);
   }
 
+  const items = [
+    { slug: '', shortLabel: 'All', color: '', colorDark: null as string | null },
+    ...(domains ?? []),
+  ];
+
   return (
     <div className="flex flex-wrap gap-2">
-      {domains.map((d) => {
-        const isActive = activeDomain === d.value;
-        const colorVar = d.value ? domainAccentMap[d.value] || 'domain-dev' : null;
+      {items.map((d) => {
+        const isActive = activeDomain === d.slug;
+        const hasColor = d.slug && d.color;
 
         return (
           <button
-            key={d.value}
-            onClick={() => handleFilter(d.value)}
+            key={d.slug}
+            onClick={() => handleFilter(d.slug)}
             className={`${resourcesTheme.filter.pill} cursor-pointer ${
-              isActive && !colorVar
+              isActive && !hasColor
                 ? 'bg-res-text text-res-surface border-res-text'
                 : !isActive
                   ? resourcesTheme.filter.pillInactive
                   : ''
             }`}
             style={
-              isActive && colorVar
+              isActive && hasColor
                 ? {
-                    backgroundColor: `color-mix(in srgb, var(--${colorVar}) 10%, transparent)`,
-                    color: `var(--${colorVar})`,
-                    borderColor: `color-mix(in srgb, var(--${colorVar}) 30%, transparent)`,
+                    backgroundColor: `color-mix(in srgb, ${d.color} 10%, transparent)`,
+                    color: d.color,
+                    borderColor: `color-mix(in srgb, ${d.color} 30%, transparent)`,
                   }
                 : undefined
             }
           >
-            {d.label}
+            {d.shortLabel}
           </button>
         );
       })}

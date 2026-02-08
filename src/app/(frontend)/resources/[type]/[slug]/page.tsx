@@ -9,13 +9,10 @@ import { DomainBadge } from '@/components/resources/DomainBadge';
 import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { estimateReadingTime } from '@/lib/reading-time';
-import { resourcesTheme, typeLabels as sharedTypeLabels } from '@/lib/resources-theme';
+import { resourcesTheme } from '@/lib/resources-theme';
+import { getContentTypeBySlug, getTypeLabel, normalizeDomains } from '@/lib/taxonomy';
 
 export const dynamic = 'force-dynamic';
-
-const typeLabels: Record<string, string> = {
-  ...sharedTypeLabels,
-};
 
 const complexityLabels: Record<string, string> = {
   beginner: 'Beginner',
@@ -49,12 +46,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { type, slug } = await params;
   const payload = await getPayload({ config });
+  const contentType = await getContentTypeBySlug(type);
+  if (!contentType) return { title: 'Not Found' };
 
   const result = await payload.find({
     collection: 'content',
     where: {
       slug: { equals: slug },
-      type: { equals: type },
+      type: { equals: contentType.id },
       status: { equals: 'published' },
     },
     limit: 1,
@@ -76,12 +75,14 @@ export default async function ContentDetailPage({
 }) {
   const { type, slug } = await params;
   const payload = await getPayload({ config });
+  const contentType = await getContentTypeBySlug(type);
+  if (!contentType) notFound();
 
   const result = await payload.find({
     collection: 'content',
     where: {
       slug: { equals: slug },
-      type: { equals: type },
+      type: { equals: contentType.id },
       status: { equals: 'published' },
     },
     limit: 1,
@@ -94,7 +95,7 @@ export default async function ContentDetailPage({
     collection: 'content',
     where: {
       status: { equals: 'published' },
-      type: { equals: item.type },
+      type: { equals: contentType.id },
       id: { not_equals: item.id },
     },
     sort: '-publishedAt',
@@ -103,7 +104,8 @@ export default async function ContentDetailPage({
 
   const bodyType = getBodyType(item.body);
   const readingTime = estimateReadingTime(item.body);
-  const domains = (item.domain as string[] | undefined) ?? [];
+  const domains = normalizeDomains(item.domain);
+  const typeLabel = getTypeLabel(item.type);
   const tools = item.tools as
     | Array<{ id: string; name: string }>
     | undefined;
@@ -123,7 +125,7 @@ export default async function ContentDetailPage({
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
                 >
                   <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
-                  {typeLabels[type] || type}
+                  {typeLabel || type}
                 </Link>
 
                 <div className="w-8 h-px bg-res-border" />
@@ -160,7 +162,7 @@ export default async function ContentDetailPage({
                     <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Topics</span>
                     <div className="flex flex-wrap gap-2">
                       {domains.map((d) => (
-                        <DomainBadge key={d} domain={d} variant="chip" />
+                        <DomainBadge key={d.id} domain={d} variant="chip" />
                       ))}
                       {tools?.map((t) => (
                         <span
@@ -184,7 +186,7 @@ export default async function ContentDetailPage({
                   href={`/resources/${type}`}
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted"
                 >
-                  &larr; {typeLabels[type] || type}
+                  &larr; {typeLabel || type}
                 </Link>
                 <div className="flex flex-wrap gap-3">
                   {item.publishedAt && (
@@ -192,7 +194,7 @@ export default async function ContentDetailPage({
                       {formatDate(item.publishedAt)}
                     </span>
                   )}
-                  <span className="text-res-text-muted/30">•</span>
+                  <span className="text-res-text-muted/30">&bull;</span>
                   {readingTime > 0 && (
                     <span className="text-xs font-mono text-res-text-muted">{readingTime} min</span>
                   )}
@@ -255,7 +257,7 @@ export default async function ContentDetailPage({
                   summary={r.summary}
                   type={r.type}
                   slug={r.slug}
-                  domain={r.domain as string[] | undefined}
+                  domain={r.domain}
                   publishedAt={r.publishedAt ?? undefined}
                 />
               ))}
