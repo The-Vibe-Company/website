@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { CONTENT_TYPES } from '@/lib/content-types'
 import { autoSlug } from './hooks/autoSlug'
 import { autoPublishedAt } from './hooks/autoPublishedAt'
 import { deduplicateContent } from './hooks/deduplicateContent'
@@ -82,9 +83,9 @@ export const Content: CollectionConfig = {
     // Taxonomy
     {
       name: 'type',
-      type: 'relationship',
-      relationTo: 'content-types',
+      type: 'select',
       required: true,
+      options: CONTENT_TYPES.map((ct) => ({ label: ct.name, value: ct.slug })),
       admin: {
         position: 'sidebar',
       },

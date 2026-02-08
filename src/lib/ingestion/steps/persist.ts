@@ -1,22 +1,5 @@
 import type { PipelineStep, PipelineContext } from './types'
-
-/**
- * Resolves a content type slug to its CMS relationship ID.
- */
-async function resolveContentTypeId(
-  payload: PipelineContext['payload'],
-  typeSlug: string,
-): Promise<string | number> {
-  const result = await payload.find({
-    collection: 'content-types',
-    where: { slug: { equals: typeSlug } },
-    limit: 1,
-  })
-  if (!result.docs[0]) {
-    throw new Error(`Content type not found: "${typeSlug}"`)
-  }
-  return result.docs[0].id
-}
+import { CONTENT_TYPE_SLUGS } from '@/lib/content-types'
 
 /**
  * Resolves domain slugs to their CMS relationship IDs.
@@ -45,14 +28,16 @@ export const persistStep: PipelineStep = {
 
     const sourceType = raw.metadata?.sourceType ?? 'manual'
 
-    // Resolve taxonomy slugs to CMS relationship IDs
-    const typeId = await resolveContentTypeId(payload, raw.type)
+    // Validate content type slug
+    if (!CONTENT_TYPE_SLUGS.includes(raw.type)) {
+      throw new Error(`Unknown content type: "${raw.type}"`)
+    }
     const domainIds = await resolveDomainIds(payload, raw.domain ?? [])
 
     const contentData = {
       title: raw.title,
       slug: existingId ? undefined : slug, // Don't change slug on update
-      type: typeId,
+      type: raw.type,
       status: 'draft' as const,
       summary: raw.summary,
       body: lexicalBody,

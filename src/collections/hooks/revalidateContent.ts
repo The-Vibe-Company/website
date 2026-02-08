@@ -4,21 +4,22 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 /**
  * Revalidates ISR-cached frontend pages when content changes.
  * Triggered after any create/update on the content collection.
+ * Content type is now a slug string (select field), so we can use it directly.
  */
 export const revalidateContent: CollectionAfterChangeHook = async ({
   doc,
 }) => {
   try {
-    // Revalidate specific content paths
+    const typeSlug = typeof doc.type === 'string' ? doc.type : ''
+
     revalidatePath('/resources')
-    if (doc.type) {
-      revalidatePath(`/resources/${doc.type}`)
+    if (typeSlug) {
+      revalidatePath(`/resources/${typeSlug}`)
     }
-    if (doc.type && doc.slug) {
-      revalidatePath(`/resources/${doc.type}/${doc.slug}`)
+    if (typeSlug && doc.slug) {
+      revalidatePath(`/resources/${typeSlug}/${doc.slug}`)
     }
 
-    // Revalidate by tag for broader cache busting
     revalidateTag('content', 'default')
     revalidateTag('resources', 'default')
   } catch {

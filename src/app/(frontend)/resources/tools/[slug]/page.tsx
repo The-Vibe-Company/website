@@ -14,7 +14,7 @@ import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
 import { resourcesTheme, categoryLabels } from '@/lib/resources-theme';
 import { normalizeDomains } from '@/lib/taxonomy';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 function getBodyType(body: unknown): 'lexical' | 'text' | 'empty' {
   if (!body) return 'empty';

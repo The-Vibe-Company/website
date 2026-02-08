@@ -6,9 +6,9 @@ import { ContentGrid } from '@/components/resources/ContentGrid';
 import { TypeNav } from '@/components/resources/TypeNav';
 import { CategoryFilter } from '@/components/resources/CategoryFilter';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getContentTypes } from '@/lib/taxonomy';
+import { getNavContentTypes } from '@/lib/content-types';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Tools | Vibe Learning',
@@ -24,21 +24,19 @@ export default async function ToolsListingPage({
   const { category } = await searchParams;
   const payload = await getPayload({ config });
 
-  const [tools, contentTypes] = await Promise.all([
-    payload.find({
-      collection: 'tools',
-      where: {
-        status: { equals: 'published' },
-        ...(category ? { category: { contains: category } } : {}),
-      },
-      sort: 'name',
-      limit: 100,
-    }),
-    getContentTypes(),
-  ]);
+  const tools = await payload.find({
+    collection: 'tools',
+    where: {
+      status: { equals: 'published' },
+      ...(category ? { category: { contains: category } } : {}),
+    },
+    sort: 'name',
+    limit: 100,
+  });
 
-  // Build TypeNav links from CMS data
-  const typeNavLinks = contentTypes.map((ct) => ({
+  // Build TypeNav links from static config
+  const navContentTypes = getNavContentTypes();
+  const typeNavLinks = navContentTypes.map((ct) => ({
     label: ct.pluralLabel,
     href: `/resources/${ct.slug}`,
     slug: ct.slug,

@@ -10,9 +10,10 @@ import { DailyDateGroup } from '@/components/resources/DailyDateGroup';
 import { FilterBar } from '@/components/resources/FilterBar';
 import { TypeNav } from '@/components/resources/TypeNav';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getContentTypes, getContentTypeBySlug, getDomains, getDomainBySlug } from '@/lib/taxonomy';
+import { getContentTypeConfig, getNavContentTypes } from '@/lib/content-types';
+import { getDomains, getDomainBySlug } from '@/lib/taxonomy';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 function getDateLabel(dateString: string): string {
   const date = new Date(dateString);
@@ -31,7 +32,7 @@ export async function generateMetadata({
   params: Promise<{ type: string }>;
 }): Promise<Metadata> {
   const { type } = await params;
-  const contentType = await getContentTypeBySlug(type);
+  const contentType = getContentTypeConfig(type);
   if (!contentType) return { title: 'Not Found' };
   return {
     title: `${contentType.pluralLabel} | Vibe Learning`,
@@ -49,21 +50,19 @@ export default async function TypeListingPage({
   const { type } = await params;
   const { domain } = await searchParams;
 
-  const [contentType, contentTypes, allDomains] = await Promise.all([
-    getContentTypeBySlug(type),
-    getContentTypes(),
-    getDomains(),
-  ]);
-
+  const contentType = getContentTypeConfig(type);
   if (!contentType) {
     notFound();
   }
 
-  const payload = await getPayload({ config });
+  const [allDomains, payload] = await Promise.all([
+    getDomains(),
+    getPayload({ config }),
+  ]);
 
   const where: Where = {
     status: { equals: 'published' },
-    type: { equals: contentType.id },
+    type: { equals: contentType.slug },
   };
 
   // Domain filter: look up domain by slug
@@ -96,8 +95,9 @@ export default async function TypeListingPage({
     })()
     : null;
 
-  // Build TypeNav links from CMS data
-  const typeNavLinks = contentTypes.map((ct) => ({
+  // Build TypeNav links from static config
+  const navContentTypes = getNavContentTypes();
+  const typeNavLinks = navContentTypes.map((ct) => ({
     label: ct.pluralLabel,
     href: `/resources/${ct.slug}`,
     slug: ct.slug,

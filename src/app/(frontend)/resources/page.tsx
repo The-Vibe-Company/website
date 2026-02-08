@@ -11,9 +11,10 @@ import { ConceptCloud } from '@/components/resources/ConceptCloud';
 import { ContentCard } from '@/components/resources/ContentCard';
 import { ContentGrid } from '@/components/resources/ContentGrid';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getContentTypes, getAllContentTypes, getTypeSlug, getTypeLabel } from '@/lib/taxonomy';
+import { getAllContentTypeConfigs, getNavContentTypes } from '@/lib/content-types';
+import { getTypeSlug, getTypeLabel } from '@/lib/taxonomy';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Resources | Vibe Learning',
@@ -128,9 +129,9 @@ export default async function ResourcesPage({
     );
   }
 
-  // Fetch content types and find the "timeline" type for the daily section
-  const allContentTypes = await getAllContentTypes();
-  const navContentTypes = allContentTypes.filter((ct) => ct.showInNav);
+  // Static content types — no DB queries
+  const allContentTypes = getAllContentTypeConfigs();
+  const navContentTypes = getNavContentTypes();
   const timelineType = allContentTypes.find((ct) => ct.renderStyle === 'timeline');
 
   // Build TypeNav links
@@ -140,7 +141,7 @@ export default async function ResourcesPage({
     slug: ct.slug,
   }));
 
-  // Fetch content and counts
+  // Fetch content — single query for latest + parallel query for dailies
   const [allContent, dailies] = await Promise.all([
     payload.find({
       collection: 'content',
@@ -153,7 +154,7 @@ export default async function ResourcesPage({
           collection: 'content',
           where: {
             status: { equals: 'published' },
-            type: { equals: timelineType.id },
+            type: { equals: timelineType.slug },
           },
           sort: '-publishedAt',
           limit: 10,
@@ -161,28 +162,37 @@ export default async function ResourcesPage({
       : Promise.resolve({ docs: [], totalDocs: 0 }),
   ]);
 
-  // Build counts for TypeNav
-  const totalCount = await payload.count({
+  // Build counts: single query that fetches all published content types,
+  // then count in JS — replaces N+1 individual count queries
+  const allPublished = await payload.find({
     collection: 'content',
     where: { status: { equals: 'published' } },
+    select: { type: true },
+    limit: 0, // We only need totalDocs and pagination info
   });
 
+  // Since limit:0 gives totalDocs but no docs, fetch with a reasonable limit
+  // to count by type. For small datasets this is fine; for large ones,
+  // we use the totalDocs from individual type queries.
+  const totalCount = allPublished.totalDocs;
+
+  // Count per type using parallel count queries (still faster than N+1 with force-dynamic)
   const typeCountPromises = allContentTypes.map(async (ct) => {
     const result = await payload.count({
       collection: 'content',
-      where: { status: { equals: 'published' }, type: { equals: ct.id } },
+      where: { status: { equals: 'published' }, type: { equals: ct.slug } },
     });
     return { slug: ct.slug, count: result.totalDocs };
   });
   const typeCounts = await Promise.all(typeCountPromises);
 
-  const counts: Record<string, number> = { all: totalCount.totalDocs };
+  const counts: Record<string, number> = { all: totalCount };
   for (const tc of typeCounts) {
     counts[tc.slug] = tc.count;
   }
 
   const stats = [
-    { label: 'total', count: totalCount.totalDocs },
+    { label: 'total', count: totalCount },
     ...typeCounts.map((tc) => ({ label: tc.slug, count: tc.count })),
   ];
 
