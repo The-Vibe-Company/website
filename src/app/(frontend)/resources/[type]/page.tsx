@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { Where } from 'payload';
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { getPayload } from 'payload';
 import config from '@payload-config';
@@ -141,7 +142,9 @@ export default async function TypeListingPage({
       {/* Navigation + Filter */}
       <section className={`${resourcesTheme.section.padding} mb-12 space-y-6`}>
         <TypeNav types={typeNavLinks} />
-        <FilterBar domains={domainOptions} />
+        <Suspense fallback={null}>
+          <FilterBar domains={domainOptions} />
+        </Suspense>
       </section>
 
       {/* Content */}
