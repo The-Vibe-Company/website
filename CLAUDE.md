@@ -82,3 +82,8 @@ never deploy to vercel manually, let the CI/CD do it.
 The script is idempotent: run it as many times as needed, it only acts when necessary. It handles dependency installation, env validation, process management, and health checks automatically.
 
 Before any task, run `./scripts/dev-start.sh` to ensure the dev environment is ready.
+
+
+If you had to use the same command multiple times in the same session, please create a script to do it in the `scripts` folder and add a one line description of what it does in CLAUDE.md
+
+If you have questions about the product vision, please look at https://www.notion.so/Site-Web-Architecture-2ff324e51ac2806cb38bc195bb808578?source=copy_link and related notion pages. If you can't read the notion pages, please ask the user to share the pages with you.

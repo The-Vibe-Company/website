@@ -11,6 +11,7 @@ const typeLinks = [
   { label: 'Tutorials', href: '/resources/tutorial' },
   { label: 'Articles', href: '/resources/article' },
   { label: 'Focus', href: '/resources/tool-focus' },
+  { label: 'Tools', href: '/resources/tools' },
 ];
 
 function useBreadcrumbs(pathname: string) {
@@ -29,6 +30,7 @@ function useBreadcrumbs(pathname: string) {
     const pluralMap: Record<string, string> = {
       daily: 'Learnings',
       'tool-focus': 'Focus',
+      tools: 'Tools',
     };
 
     crumbs.push({
