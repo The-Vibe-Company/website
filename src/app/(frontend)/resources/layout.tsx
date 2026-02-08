@@ -1,12 +1,12 @@
 import { ResourcesNav } from '@/components/resources/ResourcesNav';
-import { getContentTypes } from '@/lib/taxonomy';
+import { getNavContentTypes } from '@/lib/content-types';
 
-export default async function ResourcesLayout({
+export default function ResourcesLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const contentTypes = await getContentTypes();
+  const contentTypes = getNavContentTypes();
 
   const typeLinks = contentTypes.map((ct) => ({
     label: ct.pluralLabel,

@@ -113,5 +113,5 @@ export const pricingColors: Record<string, { bg: string; text: string; border: s
   },
 };
 
-// Type labels removed — content types are now CMS-managed via the 'content-types' collection.
-// Components use getTypeLabel() from '@/lib/taxonomy' with populated relationship data.
+// Content types are static config in '@/lib/content-types'.
+// Components use getTypeLabel() from '@/lib/taxonomy' to resolve slugs to labels.

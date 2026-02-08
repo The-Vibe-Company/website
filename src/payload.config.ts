@@ -12,7 +12,6 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Content } from './collections/Content'
 import { Tools } from './collections/Tools'
-import { ContentTypes } from './collections/ContentTypes'
 import { Domains } from './collections/Domains'
 import { ApiKeys } from './collections/ApiKeys'
 import { IngestionLog } from './collections/IngestionLog'
@@ -55,7 +54,7 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Users, Media, Content, Tools, ContentTypes, Domains, ApiKeys, IngestionLog],
+  collections: [Users, Media, Content, Tools, Domains, ApiKeys, IngestionLog],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -98,8 +97,7 @@ export default buildConfig({
       },
       generateURL: ({ doc, collectionSlug }) => {
         if (collectionSlug === 'content') {
-          const typeSlug = typeof doc?.type === 'object' ? doc?.type?.slug : doc?.type
-          return `https://thevibecompany.co/resources/${typeSlug}/${doc?.slug}`
+          return `https://thevibecompany.co/resources/${doc?.type}/${doc?.slug}`
         }
         if (collectionSlug === 'tools') {
           return `https://thevibecompany.co/resources/tools/${doc?.slug}`

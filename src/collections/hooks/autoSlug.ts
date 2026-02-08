@@ -1,4 +1,5 @@
 import type { CollectionBeforeValidateHook } from 'payload'
+import { getContentTypeConfig } from '@/lib/content-types'
 
 /**
  * Auto-generates a URL-safe slug from title if not provided.
@@ -9,7 +10,6 @@ export const autoSlug: CollectionBeforeValidateHook = async ({
   data,
   operation,
   originalDoc,
-  req,
 }) => {
   if (!data) return data
 
@@ -32,20 +32,10 @@ export const autoSlug: CollectionBeforeValidateHook = async ({
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '')
 
-  // Check if the content type has prependDateToSlug enabled
-  let shouldPrependDate = false
-  if (data.type && req?.payload) {
-    const typeId = typeof data.type === 'object' ? data.type.id : data.type
-    try {
-      const contentType = await req.payload.findByID({
-        collection: 'content-types',
-        id: typeId,
-      })
-      shouldPrependDate = contentType?.prependDateToSlug === true
-    } catch {
-      // Collection might not exist yet (e.g., during initial setup)
-    }
-  }
+  // Check if the content type has prependDateToSlug enabled (static lookup, no DB)
+  const typeSlug = typeof data.type === 'string' ? data.type : undefined
+  const contentType = typeSlug ? getContentTypeConfig(typeSlug) : undefined
+  const shouldPrependDate = contentType?.prependDateToSlug === true
 
   if (shouldPrependDate) {
     const today = new Date().toISOString().slice(0, 10)

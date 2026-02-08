@@ -1,63 +1,41 @@
+import { cache } from 'react'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-
-export async function getContentTypes() {
-  const payload = await getPayload({ config })
-  const result = await payload.find({
-    collection: 'content-types',
-    where: { showInNav: { equals: true } },
-    sort: 'sortOrder',
-    limit: 100,
-  })
-  return result.docs
-}
-
-export async function getAllContentTypes() {
-  const payload = await getPayload({ config })
-  const result = await payload.find({
-    collection: 'content-types',
-    sort: 'sortOrder',
-    limit: 100,
-  })
-  return result.docs
-}
-
-export async function getContentTypeBySlug(slug: string) {
-  const payload = await getPayload({ config })
-  const result = await payload.find({
-    collection: 'content-types',
-    where: { slug: { equals: slug } },
-    limit: 1,
-  })
-  return result.docs[0] ?? null
-}
-
-export async function getDomains() {
-  const payload = await getPayload({ config })
-  const result = await payload.find({
-    collection: 'domains',
-    sort: 'sortOrder',
-    limit: 100,
-  })
-  return result.docs
-}
-
-export async function getDomainBySlug(slug: string) {
-  const payload = await getPayload({ config })
-  const result = await payload.find({
-    collection: 'domains',
-    where: { slug: { equals: slug } },
-    limit: 1,
-  })
-  return result.docs[0] ?? null
-}
+import { getContentTypeConfig } from '@/lib/content-types'
 
 /**
- * Extracts the type slug from a populated or unpopulated content type field.
+ * Domain queries — these are still DB-managed taxonomies.
+ * React cache() deduplicates calls within a single server render.
+ */
+
+export const getDomains = cache(async () => {
+  const payload = await getPayload({ config })
+  const result = await payload.find({
+    collection: 'domains',
+    sort: 'sortOrder',
+    limit: 100,
+  })
+  return result.docs
+})
+
+export const getDomainBySlug = cache(async (slug: string) => {
+  const payload = await getPayload({ config })
+  const result = await payload.find({
+    collection: 'domains',
+    where: { slug: { equals: slug } },
+    limit: 1,
+  })
+  return result.docs[0] ?? null
+})
+
+/**
+ * Extracts the type slug from a content type field.
+ * Now that type is a select field, it's always a string slug.
  */
 export function getTypeSlug(type: unknown): string {
   if (!type) return ''
   if (typeof type === 'string') return type
+  // Legacy: populated relationship object
   if (typeof type === 'object' && type !== null && 'slug' in type) {
     return (type as { slug: string }).slug
   }
@@ -65,16 +43,14 @@ export function getTypeSlug(type: unknown): string {
 }
 
 /**
- * Extracts the type label from a populated content type field.
+ * Gets the display label for a content type.
+ * Looks up from static config by slug.
  */
 export function getTypeLabel(type: unknown): string {
-  if (!type) return ''
-  if (typeof type === 'string') return type
-  if (typeof type === 'object' && type !== null) {
-    const t = type as { singularLabel?: string; pluralLabel?: string; name?: string }
-    return t.singularLabel || t.pluralLabel || t.name || ''
-  }
-  return ''
+  const slug = getTypeSlug(type)
+  if (!slug) return ''
+  const config = getContentTypeConfig(slug)
+  return config?.singularLabel ?? slug
 }
 
 /**

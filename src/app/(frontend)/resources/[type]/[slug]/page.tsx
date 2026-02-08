@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { SerializedEditorState } from 'lexical';
 import Link from 'next/link';
+import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { getPayload } from 'payload';
 import config from '@payload-config';
@@ -10,9 +11,10 @@ import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getContentTypeBySlug, getTypeLabel, normalizeDomains } from '@/lib/taxonomy';
+import { getContentTypeConfig } from '@/lib/content-types';
+import { getTypeLabel, normalizeDomains } from '@/lib/taxonomy';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 const complexityLabels: Record<string, string> = {
   beginner: 'Beginner',
@@ -39,27 +41,34 @@ function getBodyType(body: unknown): 'lexical' | 'text' | 'empty' {
   return 'empty';
 }
 
+/**
+ * Cached content fetch — shared between generateMetadata and the page component
+ * so the DB is only hit once per render.
+ */
+const getContent = cache(async (typeSlug: string, slug: string) => {
+  const payload = await getPayload({ config });
+  const result = await payload.find({
+    collection: 'content',
+    where: {
+      slug: { equals: slug },
+      type: { equals: typeSlug },
+      status: { equals: 'published' },
+    },
+    limit: 1,
+  });
+  return result.docs[0] ?? null;
+});
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ type: string; slug: string }>;
 }): Promise<Metadata> {
   const { type, slug } = await params;
-  const payload = await getPayload({ config });
-  const contentType = await getContentTypeBySlug(type);
+  const contentType = getContentTypeConfig(type);
   if (!contentType) return { title: 'Not Found' };
 
-  const result = await payload.find({
-    collection: 'content',
-    where: {
-      slug: { equals: slug },
-      type: { equals: contentType.id },
-      status: { equals: 'published' },
-    },
-    limit: 1,
-  });
-
-  const item = result.docs[0];
+  const item = await getContent(type, slug);
   if (!item) return { title: 'Not Found' };
 
   return {
@@ -74,28 +83,18 @@ export default async function ContentDetailPage({
   params: Promise<{ type: string; slug: string }>;
 }) {
   const { type, slug } = await params;
-  const payload = await getPayload({ config });
-  const contentType = await getContentTypeBySlug(type);
+  const contentType = getContentTypeConfig(type);
   if (!contentType) notFound();
 
-  const result = await payload.find({
-    collection: 'content',
-    where: {
-      slug: { equals: slug },
-      type: { equals: contentType.id },
-      status: { equals: 'published' },
-    },
-    limit: 1,
-  });
-
-  const item = result.docs[0];
+  const item = await getContent(type, slug);
   if (!item) notFound();
 
+  const payload = await getPayload({ config });
   const related = await payload.find({
     collection: 'content',
     where: {
       status: { equals: 'published' },
-      type: { equals: contentType.id },
+      type: { equals: contentType.slug },
       id: { not_equals: item.id },
     },
     sort: '-publishedAt',
