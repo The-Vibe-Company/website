@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.9](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.8...thevibecompany-v0.1.9) (2026-02-08)
+
+
+### Features
+
+* **admin:** improve dashboard with branding, stats, and organization ([#27](https://github.com/The-Vibe-Company/website/issues/27)) ([c5bd081](https://github.com/The-Vibe-Company/website/commit/c5bd081c424e06a8060021e5a7864c7741c8cda7))
+
 ## [0.1.8](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.7...thevibecompany-v0.1.8) (2026-02-08)
 
 
