@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { SerializedEditorState } from 'lexical';
 import Image from 'next/image';
 import Link from 'next/link';
+import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { getPayload } from 'payload';
 import config from '@payload-config';
@@ -26,21 +27,27 @@ function getBodyType(body: unknown): 'lexical' | 'text' | 'empty' {
   return 'empty';
 }
 
+/**
+ * Cached tool fetch — shared between generateMetadata and page component
+ * so the DB is only hit once per render.
+ */
+const getTool = cache(async (slug: string) => {
+  const payload = await getPayload({ config });
+  const result = await payload.find({
+    collection: 'tools',
+    where: { slug: { equals: slug }, status: { equals: 'published' } },
+    limit: 1,
+  });
+  return result.docs[0] ?? null;
+});
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const payload = await getPayload({ config });
-
-  const result = await payload.find({
-    collection: 'tools',
-    where: { slug: { equals: slug }, status: { equals: 'published' } },
-    limit: 1,
-  });
-
-  const tool = result.docs[0];
+  const tool = await getTool(slug);
   if (!tool) return { title: 'Not Found' };
 
   return {
@@ -55,16 +62,10 @@ export default async function ToolDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const payload = await getPayload({ config });
-
-  const result = await payload.find({
-    collection: 'tools',
-    where: { slug: { equals: slug }, status: { equals: 'published' } },
-    limit: 1,
-  });
-
-  const tool = result.docs[0];
+  const tool = await getTool(slug);
   if (!tool) notFound();
+
+  const payload = await getPayload({ config });
 
   // Content that references this tool
   const relatedContent = await payload.find({
@@ -75,6 +76,14 @@ export default async function ToolDetailPage({
     },
     sort: '-publishedAt',
     limit: 3,
+    select: {
+      title: true,
+      summary: true,
+      type: true,
+      slug: true,
+      domain: true,
+      publishedAt: true,
+    } as { [k: string]: true },
   });
 
   const logo = tool.logo as { url: string; alt?: string } | null | undefined;
@@ -254,6 +263,7 @@ export default async function ToolDetailPage({
                       alt={tool.name}
                       width={64}
                       height={64}
+                      sizes="64px"
                       className="w-full h-full object-contain p-2"
                     />
                   </div>

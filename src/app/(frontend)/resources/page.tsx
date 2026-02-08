@@ -59,6 +59,17 @@ export default async function ResourcesPage({
   const { q } = await searchParams;
   const payload = await getPayload({ config });
 
+  // Fields needed for listing cards — excludes heavy body/aiMetadata/source.
+  // Cast avoids Payload's return-type narrowing which would make fields `unknown`.
+  const listingSelect = {
+    title: true,
+    summary: true,
+    type: true,
+    slug: true,
+    domain: true,
+    publishedAt: true,
+  } as { [k: string]: true };
+
   // Handle Search View
   if (q) {
     const results = await payload.find({
@@ -76,6 +87,7 @@ export default async function ResourcesPage({
       },
       sort: '-publishedAt',
       limit: 50,
+      select: listingSelect,
     });
 
     return (
@@ -141,13 +153,26 @@ export default async function ResourcesPage({
     slug: ct.slug,
   }));
 
-  // Fetch content — single query for latest + parallel query for dailies
-  const [allContent, dailies] = await Promise.all([
+  // Fetch content + counts in a single parallel batch
+  const contentSelectWithConcepts = {
+    ...listingSelect,
+    concepts: true,
+  } as { [k: string]: true };
+
+  const dailySelect = {
+    title: true,
+    summary: true,
+    slug: true,
+    publishedAt: true,
+  } as { [k: string]: true };
+
+  const [allContent, dailies, ...typeCounts] = await Promise.all([
     payload.find({
       collection: 'content',
       where: { status: { equals: 'published' } },
       sort: '-publishedAt',
       limit: 6,
+      select: contentSelectWithConcepts,
     }),
     timelineType
       ? payload.find({
@@ -158,34 +183,19 @@ export default async function ResourcesPage({
           },
           sort: '-publishedAt',
           limit: 10,
+          select: dailySelect,
         })
       : Promise.resolve({ docs: [], totalDocs: 0 }),
+    ...allContentTypes.map(async (ct) => {
+      const result = await payload.count({
+        collection: 'content',
+        where: { status: { equals: 'published' }, type: { equals: ct.slug } },
+      });
+      return { slug: ct.slug, count: result.totalDocs };
+    }),
   ]);
 
-  // Build counts: single query that fetches all published content types,
-  // then count in JS — replaces N+1 individual count queries
-  const allPublished = await payload.find({
-    collection: 'content',
-    where: { status: { equals: 'published' } },
-    select: { type: true },
-    limit: 0, // We only need totalDocs and pagination info
-  });
-
-  // Since limit:0 gives totalDocs but no docs, fetch with a reasonable limit
-  // to count by type. For small datasets this is fine; for large ones,
-  // we use the totalDocs from individual type queries.
-  const totalCount = allPublished.totalDocs;
-
-  // Count per type using parallel count queries (still faster than N+1 with force-dynamic)
-  const typeCountPromises = allContentTypes.map(async (ct) => {
-    const result = await payload.count({
-      collection: 'content',
-      where: { status: { equals: 'published' }, type: { equals: ct.slug } },
-    });
-    return { slug: ct.slug, count: result.totalDocs };
-  });
-  const typeCounts = await Promise.all(typeCountPromises);
-
+  const totalCount = typeCounts.reduce((sum, tc) => sum + tc.count, 0);
   const counts: Record<string, number> = { all: totalCount };
   for (const tc of typeCounts) {
     counts[tc.slug] = tc.count;

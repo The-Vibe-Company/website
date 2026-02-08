@@ -78,6 +78,14 @@ export default async function TypeListingPage({
     where,
     sort: '-publishedAt',
     limit: 50,
+    select: {
+      title: true,
+      summary: true,
+      type: true,
+      slug: true,
+      domain: true,
+      publishedAt: true,
+    } as { [k: string]: true },
   });
 
   const isTimeline = contentType.renderStyle === 'timeline';

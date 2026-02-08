@@ -99,6 +99,14 @@ export default async function ContentDetailPage({
     },
     sort: '-publishedAt',
     limit: 3,
+    select: {
+      title: true,
+      summary: true,
+      type: true,
+      slug: true,
+      domain: true,
+      publishedAt: true,
+    } as { [k: string]: true },
   });
 
   const bodyType = getBodyType(item.body);
