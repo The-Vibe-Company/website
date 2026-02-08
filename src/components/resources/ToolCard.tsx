@@ -58,6 +58,7 @@ export function ToolCard({
                 alt={name}
                 width={48}
                 height={48}
+                sizes="48px"
                 className="w-full h-full object-contain p-1"
               />
             ) : (

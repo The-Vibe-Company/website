@@ -32,6 +32,19 @@ export default async function ToolsListingPage({
     },
     sort: 'name',
     limit: 100,
+    select: {
+      name: true,
+      slug: true,
+      description: true,
+      logo: true,
+      category: true,
+      domain: true,
+      pricing: true,
+      rating: true,
+      costPerMonth: true,
+      licensesCount: true,
+      leverageScore: true,
+    } as { [k: string]: true },
   });
 
   // Build TypeNav links from static config
