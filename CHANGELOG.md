@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.10](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.9...thevibecompany-v0.1.10) (2026-02-08)
+
+
+### Performance Improvements
+
+* **resources:** audit quick wins — select fields, dedup fetches, trim bundles ([#31](https://github.com/The-Vibe-Company/website/issues/31)) ([0bd73a5](https://github.com/The-Vibe-Company/website/commit/0bd73a5f075b232ef86321f20675007b8ebe84cb))
+* **resources:** replace dynamic content types with static config ([#29](https://github.com/The-Vibe-Company/website/issues/29)) ([7de3587](https://github.com/The-Vibe-Company/website/commit/7de358733730cefce8c7b239336e1e1ce8b6d666))
+
 ## [0.1.9](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.8...thevibecompany-v0.1.9) (2026-02-08)
 
 
