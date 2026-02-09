@@ -2,11 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getPayload } from 'payload';
 import config from '@payload-config';
-import { ResourcesHubHero } from '@/components/resources/ResourcesHubHero';
+import { ResourcesHeader } from '@/components/resources/ResourcesHeader';
 import { FeaturedCard } from '@/components/resources/FeaturedCard';
 import { DailyCard } from '@/components/resources/DailyCard';
 import { DailyDateGroup } from '@/components/resources/DailyDateGroup';
-import { TypeNav } from '@/components/resources/TypeNav';
 import { ConceptCloud } from '@/components/resources/ConceptCloud';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getAllContentTypeConfigs, getNavContentTypes } from '@/lib/content-types';
@@ -141,18 +140,11 @@ export default async function ResourcesPage() {
 
   return (
     <main className="pt-14">
-      {/* Hero */}
-      <section className={resourcesTheme.section.padding}>
-        <ResourcesHubHero />
-      </section>
-
-      {/* Type Navigation */}
-      <section className={`${resourcesTheme.section.padding} mb-12`}>
-        <TypeNav types={typeNavLinks} counts={counts} />
-      </section>
+      {/* Header */}
+      <ResourcesHeader typeNavLinks={typeNavLinks} counts={counts} />
 
       {/* Featured + Latest */}
-      <section className={`${resourcesTheme.section.padding} pb-20`}>
+      <section className={`${resourcesTheme.section.padding} pt-12 pb-20`}>
         {featuredItem ? (
           <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
             <div className="lg:col-span-2">
