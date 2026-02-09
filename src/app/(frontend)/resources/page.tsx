@@ -130,11 +130,6 @@ export default async function ResourcesPage() {
     counts[tc.slug] = tc.count;
   }
 
-  const stats = [
-    { label: 'total', count: totalCount },
-    ...typeCounts.map((tc) => ({ label: tc.slug, count: tc.count })),
-  ];
-
   const featuredItem = allContent.docs[0];
   const latestItems = allContent.docs.slice(1, 5);
 
@@ -148,7 +143,7 @@ export default async function ResourcesPage() {
     <main className="pt-14">
       {/* Hero */}
       <section className={resourcesTheme.section.padding}>
-        <ResourcesHubHero stats={stats} />
+        <ResourcesHubHero />
       </section>
 
       {/* Type Navigation */}
