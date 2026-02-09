@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   },
   description:
     "An AI native agency. 100x efficiency. We build with AI, ship fast, and show everything.",
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
