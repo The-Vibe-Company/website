@@ -8,13 +8,9 @@ import { DailyCard } from '@/components/resources/DailyCard';
 import { DailyDateGroup } from '@/components/resources/DailyDateGroup';
 import { TypeNav } from '@/components/resources/TypeNav';
 import { ConceptCloud } from '@/components/resources/ConceptCloud';
-import { ContentCard } from '@/components/resources/ContentCard';
-import { ContentGrid } from '@/components/resources/ContentGrid';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getAllContentTypeConfigs, getNavContentTypes } from '@/lib/content-types';
 import { getTypeSlug, getTypeLabel } from '@/lib/taxonomy';
-
-export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Resources | Vibe Learning',
@@ -51,12 +47,7 @@ function groupByDate(items: any[]) {
   return groups;
 }
 
-export default async function ResourcesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
-  const { q } = await searchParams;
+export default async function ResourcesPage() {
   const payload = await getPayload({ config });
 
   // Fields needed for listing cards — excludes heavy body/aiMetadata/source.
@@ -69,77 +60,6 @@ export default async function ResourcesPage({
     domain: true,
     publishedAt: true,
   } as { [k: string]: true };
-
-  // Handle Search View
-  if (q) {
-    const results = await payload.find({
-      collection: 'content',
-      where: {
-        and: [
-          { status: { equals: 'published' } },
-          {
-            or: [
-              { title: { contains: q } },
-              { summary: { contains: q } },
-            ],
-          },
-        ],
-      },
-      sort: '-publishedAt',
-      limit: 50,
-      select: listingSelect,
-    });
-
-    return (
-      <main className="pt-14">
-        {/* Search Header */}
-        <section className={`${resourcesTheme.section.padding} pt-20 pb-8 border-b border-res-border mb-8`}>
-          <div className="max-w-4xl">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
-              Search Results
-            </span>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-3 leading-[0.95] text-res-text">
-              &ldquo;{q}&rdquo;
-            </h1>
-            <p className="text-base md:text-lg text-res-text-muted max-w-2xl leading-relaxed">
-              Found {results.totalDocs} result{results.totalDocs === 1 ? '' : 's'}.
-            </p>
-          </div>
-        </section>
-
-        {/* Results */}
-        <section className={`${resourcesTheme.section.padding} pb-32`}>
-          {results.docs.length > 0 ? (
-            <ContentGrid columns={3}>
-              {results.docs.map((item) => (
-                <ContentCard
-                  key={item.id}
-                  title={item.title}
-                  summary={item.summary}
-                  type={item.type}
-                  slug={item.slug}
-                  domain={item.domain}
-                  publishedAt={item.publishedAt ?? undefined}
-                />
-              ))}
-            </ContentGrid>
-          ) : (
-            <div className="rounded-xl border border-res-border p-12 text-center bg-res-surface">
-              <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-                No results found
-              </p>
-              <p className="text-sm text-res-text-muted mt-2">
-                Try adjusting your search terms.
-              </p>
-              <Link href="/resources" className="inline-block mt-8 text-xs font-mono uppercase tracking-widest text-res-text border-b border-res-text pb-1 hover:text-res-text-muted hover:border-res-text-muted transition-colors">
-                Clear Search
-              </Link>
-            </div>
-          )}
-        </section>
-      </main>
-    );
-  }
 
   // Static content types — no DB queries
   const allContentTypes = getAllContentTypeConfigs();
@@ -166,12 +86,13 @@ export default async function ResourcesPage({
     publishedAt: true,
   } as { [k: string]: true };
 
-  const [allContent, dailies, ...typeCounts] = await Promise.all([
+  const [allContent, dailies, allPublishedTypes] = await Promise.all([
     payload.find({
       collection: 'content',
       where: { status: { equals: 'published' } },
       sort: '-publishedAt',
       limit: 6,
+      depth: 0,
       select: contentSelectWithConcepts,
     }),
     timelineType
@@ -183,17 +104,25 @@ export default async function ResourcesPage({
           },
           sort: '-publishedAt',
           limit: 10,
+          depth: 0,
           select: dailySelect,
         })
       : Promise.resolve({ docs: [], totalDocs: 0 }),
-    ...allContentTypes.map(async (ct) => {
-      const result = await payload.count({
-        collection: 'content',
-        where: { status: { equals: 'published' }, type: { equals: ct.slug } },
-      });
-      return { slug: ct.slug, count: result.totalDocs };
+    // Single query replacing N separate count() calls
+    payload.find({
+      collection: 'content',
+      where: { status: { equals: 'published' } },
+      depth: 0,
+      pagination: false,
+      select: { type: true } as { [k: string]: true },
     }),
   ]);
+
+  // Count per type in JS
+  const typeCounts = allContentTypes.map((ct) => ({
+    slug: ct.slug,
+    count: allPublishedTypes.docs.filter((d) => d.type === ct.slug).length,
+  }));
 
   const totalCount = typeCounts.reduce((sum, tc) => sum + tc.count, 0);
   const counts: Record<string, number> = { all: totalCount };

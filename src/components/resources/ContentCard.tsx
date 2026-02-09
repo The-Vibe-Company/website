@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getTypeSlug, getTypeLabel, normalizeDomains } from '@/lib/taxonomy';
+import { getTypeSlug, getTypeLabel, normalizeDomains } from '@/lib/taxonomy-utils';
 import { DomainBadge } from './DomainBadge';
 
 interface ContentCardProps {

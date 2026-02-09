@@ -15,7 +15,21 @@ import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
 import { resourcesTheme, categoryLabels } from '@/lib/resources-theme';
 import { normalizeDomains } from '@/lib/taxonomy';
 
-export const revalidate = 60;
+export async function generateStaticParams() {
+  const payload = await getPayload({ config });
+  const tools = await payload.find({
+    collection: 'tools',
+    where: { status: { equals: 'published' } },
+    depth: 0,
+    pagination: false,
+    select: { slug: true } as { [k: string]: true },
+  });
+  return tools.docs.map((doc) => ({
+    slug: doc.slug as string,
+  }));
+}
+
+export const dynamicParams = true;
 
 function getBodyType(body: unknown): 'lexical' | 'text' | 'empty' {
   if (!body) return 'empty';
@@ -76,6 +90,7 @@ export default async function ToolDetailPage({
     },
     sort: '-publishedAt',
     limit: 3,
+    depth: 0,
     select: {
       title: true,
       summary: true,

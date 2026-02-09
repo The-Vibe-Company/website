@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getTypeSlug, getTypeLabel, normalizeDomains } from '@/lib/taxonomy';
+import { getTypeSlug, getTypeLabel, normalizeDomains } from '@/lib/taxonomy-utils';
 
 interface FeaturedCardProps {
   title: string;

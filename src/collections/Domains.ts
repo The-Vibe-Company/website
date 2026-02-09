@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { autoSlug } from './hooks/autoSlug'
+import { revalidateContent } from './hooks/revalidateContent'
 
 export const Domains: CollectionConfig = {
   slug: 'domains',
@@ -16,6 +17,7 @@ export const Domains: CollectionConfig = {
   },
   hooks: {
     beforeValidate: [autoSlug],
+    afterChange: [revalidateContent],
   },
   fields: [
     {
