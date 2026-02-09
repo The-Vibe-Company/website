@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getPayload } from 'payload';
 import config from '@payload-config';
+import { ResourcesHeader } from '@/components/resources/ResourcesHeader';
 import { TypeListingClient } from '@/components/resources/TypeListingClient';
-import { resourcesTheme } from '@/lib/resources-theme';
 import { CONTENT_TYPES, getContentTypeConfig, getNavContentTypes } from '@/lib/content-types';
 import { getDomains } from '@/lib/taxonomy';
 
@@ -83,27 +83,15 @@ export default async function TypeListingPage({
   return (
     <main className="pt-14">
       {/* Header */}
-      <section className={`${resourcesTheme.section.padding} pt-20 pb-8 border-b border-res-border mb-8`}>
-        <div className="max-w-4xl">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
-            Resources / {contentType.pluralLabel}
-          </span>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-3 leading-[0.95] text-res-text">
-            {contentType.pluralLabel}
-          </h1>
-          {contentType.description && (
-            <p className="text-base md:text-lg text-res-text-muted max-w-2xl leading-relaxed">
-              {contentType.description}
-            </p>
-          )}
-        </div>
-      </section>
+      <ResourcesHeader
+        subtitle={contentType.description}
+        typeNavLinks={typeNavLinks}
+      />
 
       <TypeListingClient
         contentType={contentType}
         items={JSON.parse(JSON.stringify(content.docs))}
         domains={domainOptions}
-        typeNavLinks={typeNavLinks}
       />
     </main>
   );

@@ -7,7 +7,6 @@ import { ContentGrid } from '@/components/resources/ContentGrid';
 import { DailyCard } from '@/components/resources/DailyCard';
 import { DailyDateGroup } from '@/components/resources/DailyDateGroup';
 import { FilterBar } from '@/components/resources/FilterBar';
-import { TypeNav } from '@/components/resources/TypeNav';
 import { resourcesTheme } from '@/lib/resources-theme';
 import type { ContentTypeConfig } from '@/lib/content-types';
 
@@ -39,20 +38,13 @@ interface DomainOption {
   id: string | number;
 }
 
-interface TypeNavLink {
-  label: string;
-  href: string;
-  slug: string;
-}
-
 interface TypeListingClientProps {
   contentType: ContentTypeConfig;
   items: ContentItem[];
   domains: DomainOption[];
-  typeNavLinks: TypeNavLink[];
 }
 
-function TypeListingInner({ contentType, items, domains, typeNavLinks }: TypeListingClientProps) {
+function TypeListingInner({ contentType, items, domains }: TypeListingClientProps) {
   const searchParams = useSearchParams();
   const activeDomain = searchParams.get('domain') || '';
 
@@ -94,8 +86,7 @@ function TypeListingInner({ contentType, items, domains, typeNavLinks }: TypeLis
 
   return (
     <>
-      <section className={`${resourcesTheme.section.padding} mb-12 space-y-6`}>
-        <TypeNav types={typeNavLinks} />
+      <section className={`${resourcesTheme.section.padding} pt-8 mb-12`}>
         <FilterBar domains={domainOptions} />
       </section>
 
