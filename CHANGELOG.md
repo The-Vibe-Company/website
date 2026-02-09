@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.15](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.14...thevibecompany-v0.1.15) (2026-02-09)
+
+
+### Bug Fixes
+
+* **resources:** consistent header size across pages ([#40](https://github.com/The-Vibe-Company/website/issues/40)) ([dc63986](https://github.com/The-Vibe-Company/website/commit/dc63986aa459ea6023cbc147a2d2c3f2b7d0f9cb))
+
 ## [0.1.14](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.13...thevibecompany-v0.1.14) (2026-02-09)
 
 
