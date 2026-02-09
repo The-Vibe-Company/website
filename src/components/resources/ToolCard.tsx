@@ -4,7 +4,7 @@ import {
   resourcesTheme,
   categoryLabels,
 } from '@/lib/resources-theme';
-import { normalizeDomains } from '@/lib/taxonomy';
+import { normalizeDomains } from '@/lib/taxonomy-utils';
 import { DomainBadge } from './DomainBadge';
 import { PricingBadge } from './PricingBadge';
 

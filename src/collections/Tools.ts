@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { autoSlug } from './hooks/autoSlug'
+import { revalidateContent } from './hooks/revalidateContent'
 
 export const Tools: CollectionConfig = {
   slug: 'tools',
@@ -11,6 +12,7 @@ export const Tools: CollectionConfig = {
   },
   hooks: {
     beforeValidate: [autoSlug],
+    afterChange: [revalidateContent],
   },
   access: {
     read: ({ req: { user } }) => {

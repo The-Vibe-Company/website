@@ -14,7 +14,22 @@ import { resourcesTheme } from '@/lib/resources-theme';
 import { getContentTypeConfig } from '@/lib/content-types';
 import { getTypeLabel, normalizeDomains } from '@/lib/taxonomy';
 
-export const revalidate = 60;
+export async function generateStaticParams() {
+  const payload = await getPayload({ config });
+  const content = await payload.find({
+    collection: 'content',
+    where: { status: { equals: 'published' } },
+    depth: 0,
+    pagination: false,
+    select: { type: true, slug: true } as { [k: string]: true },
+  });
+  return content.docs.map((doc) => ({
+    type: doc.type as string,
+    slug: doc.slug as string,
+  }));
+}
+
+export const dynamicParams = true;
 
 const complexityLabels: Record<string, string> = {
   beginner: 'Beginner',
@@ -99,6 +114,7 @@ export default async function ContentDetailPage({
     },
     sort: '-publishedAt',
     limit: 3,
+    depth: 0,
     select: {
       title: true,
       summary: true,

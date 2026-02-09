@@ -72,23 +72,20 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // Debounced search: updates URL params
+  // Debounced search: navigates to dedicated search page
   const handleSearch = useCallback(
     (value: string) => {
       setSearchValue(value);
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {
-        const params = new URLSearchParams(searchParams.toString());
         if (value.trim()) {
-          params.set('q', value.trim());
+          router.push(`/resources/search?q=${encodeURIComponent(value.trim())}`, { scroll: false });
         } else {
-          params.delete('q');
+          router.push('/resources', { scroll: false });
         }
-        const query = params.toString();
-        router.push(`${pathname}${query ? `?${query}` : ''}`, { scroll: false });
       }, 400);
     },
-    [pathname, router, searchParams],
+    [router],
   );
 
   // Focus search input when opened on mobile

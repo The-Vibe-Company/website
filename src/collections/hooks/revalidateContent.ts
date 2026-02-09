@@ -1,29 +1,25 @@
 import type { CollectionAfterChangeHook } from 'payload'
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { triggerDeploy } from '@/lib/trigger-deploy'
 
 /**
- * Revalidates ISR-cached frontend pages when content changes.
- * Triggered after any create/update on the content collection.
- * Content type is now a slug string (select field), so we can use it directly.
+ * Triggers a Vercel deploy hook when published content changes.
+ * Only rebuilds when:
+ * - A document is saved with status 'published'
+ * - A previously published document is modified (including unpublishing)
  */
 export const revalidateContent: CollectionAfterChangeHook = async ({
   doc,
+  previousDoc,
 }) => {
-  try {
-    const typeSlug = typeof doc.type === 'string' ? doc.type : ''
+  const isPublished = doc?.status === 'published'
+  const wasPublished = previousDoc?.status === 'published'
 
-    revalidatePath('/resources')
-    if (typeSlug) {
-      revalidatePath(`/resources/${typeSlug}`)
+  if (isPublished || wasPublished) {
+    try {
+      await triggerDeploy()
+    } catch {
+      // Deploy hook errors should never break the save operation
     }
-    if (typeSlug && doc.slug) {
-      revalidatePath(`/resources/${typeSlug}/${doc.slug}`)
-    }
-
-    revalidateTag('content', 'default')
-    revalidateTag('resources', 'default')
-  } catch {
-    // Revalidation errors shouldn't break the save operation
   }
 
   return doc
