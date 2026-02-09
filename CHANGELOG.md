@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.14](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.13...thevibecompany-v0.1.14) (2026-02-09)
+
+
+### Performance Improvements
+
+* **resources:** migrate to SSG with Vercel deploy hook ([#38](https://github.com/The-Vibe-Company/website/issues/38)) ([e267720](https://github.com/The-Vibe-Company/website/commit/e26772040d8f0ffec8e4fcfd021fa5900d5cdf21))
+
 ## [0.1.13](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.12...thevibecompany-v0.1.13) (2026-02-09)
 
 
