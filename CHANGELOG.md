@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.13](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.12...thevibecompany-v0.1.13) (2026-02-09)
+
+
+### Features
+
+* Add admin favicon to site metadata ([#36](https://github.com/The-Vibe-Company/website/issues/36)) ([1fd7609](https://github.com/The-Vibe-Company/website/commit/1fd7609210b1113aed751c0e3f4824c6693480a3))
+
 ## [0.1.12](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.11...thevibecompany-v0.1.12) (2026-02-08)
 
 
