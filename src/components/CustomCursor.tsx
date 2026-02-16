@@ -1,45 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { motion, useSpring, useMotionValue } from "framer-motion";
-import { components, animations } from "@/lib/design-system";
+import { components } from "@/lib/design-system";
 
 export function CustomCursor() {
-  const [isHovering, setIsHovering] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  const springConfig = animations.easing.springGentle;
+  const springConfig = { type: "spring" as const, stiffness: 500, damping: 30 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 16);
-      cursorY.set(e.clientY - 16);
-    };
-
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (
-        target.tagName === "A" ||
-        target.tagName === "BUTTON" ||
-        target.closest("a") ||
-        target.closest("button") ||
-        target.classList.contains("cursor-crosshair")
-      ) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
+      cursorX.set(e.clientX - 4);
+      cursorY.set(e.clientY - 4);
     };
 
     window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mouseover", handleMouseOver);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mouseover", handleMouseOver);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -51,13 +33,6 @@ export function CustomCursor() {
         x: cursorXSpring,
         y: cursorYSpring,
       }}
-      animate={{
-        scale: isHovering ? 2 : 1,
-        backgroundColor: isHovering
-          ? "hsl(var(--foreground))"
-          : "transparent",
-      }}
-      transition={animations.easing.spring}
     />
   );
 }

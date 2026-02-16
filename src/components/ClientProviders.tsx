@@ -8,11 +8,6 @@ const SmoothScroller = dynamic(
   { ssr: false }
 );
 
-const CustomCursor = dynamic(
-  () => import("@/components/CustomCursor").then((m) => m.CustomCursor),
-  { ssr: false }
-);
-
 export function ClientProviders() {
   const pathname = usePathname();
   const isHomepage = pathname === "/";
@@ -21,7 +16,6 @@ export function ClientProviders() {
   return (
     <>
       {!isHomepage && !isResources && <SmoothScroller />}
-      {!isResources && <CustomCursor />}
     </>
   );
 }

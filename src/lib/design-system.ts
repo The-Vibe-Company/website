@@ -322,7 +322,7 @@ export const components = {
   },
   
   // Custom cursor
-  cursor: 'fixed top-0 left-0 w-8 h-8 rounded-full border border-foreground pointer-events-none z-[100] hidden md:block mix-blend-difference',
+  cursor: 'fixed top-0 left-0 w-2 h-2 rounded-full bg-foreground pointer-events-none z-[100] hidden md:block mix-blend-difference',
 } as const;
 
 // =============================================================================

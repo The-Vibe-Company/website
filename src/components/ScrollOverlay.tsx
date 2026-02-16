@@ -72,7 +72,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
                 transition={animations.easing.spring}
                 whileHover={{
                   scale: 1.02,
-                  boxShadow: "8px 8px 0px 0px var(--background)",
+                  boxShadow: "8px 8px 0px 0px rgba(128,128,128,0.4)",
                 }}
                 className="block bg-foreground text-background p-5 md:p-12 border border-foreground cursor-pointer group"
               >
@@ -97,7 +97,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
                   </svg>
                 </div>
                 <h3 className={cn(typography.heading.h3, "text-background mb-2")}>
-                  We build it.
+                  What we built.
                 </h3>
                 <p className="text-background/60 text-lg mb-8">
                   AI-native products, from zero to production.
@@ -139,7 +139,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
                   </svg>
                 </div>
                 <h3 className={cn(typography.heading.h3, "mb-2")}>
-                  We show it.
+                  What we learned.
                 </h3>
                 <p className="text-muted-foreground text-lg mb-8">
                   Tutorials, build logs, and raw learnings.
