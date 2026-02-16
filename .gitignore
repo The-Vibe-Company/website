@@ -45,3 +45,6 @@ next-env.d.ts
 # dev server
 .dev-server.pid
 .dev-server.log
+
+# screenshots
+/screenshots
