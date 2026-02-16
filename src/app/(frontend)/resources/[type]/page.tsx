@@ -133,8 +133,8 @@ export default async function TypeListingPage({
   const normalizedItems = isToolsType
     ? items.docs.map((tool) => ({
         id: tool.id,
-        title: (tool as { name: string }).name,
-        summary: (tool as { description: string }).description,
+        title: (tool as unknown as { name: string }).name,
+        summary: (tool as unknown as { description: string }).description,
         type: 'tools',
         slug: tool.slug as string,
         domain: tool.domain,
