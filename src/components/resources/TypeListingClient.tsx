@@ -7,6 +7,7 @@ import { ContentGrid } from '@/components/resources/ContentGrid';
 import { DailyCard } from '@/components/resources/DailyCard';
 import { DailyDateGroup } from '@/components/resources/DailyDateGroup';
 import { FilterBar } from '@/components/resources/FilterBar';
+import { ToolCard } from '@/components/resources/ToolCard';
 import { TypeNav } from '@/components/resources/TypeNav';
 import { resourcesTheme } from '@/lib/resources-theme';
 import type { ContentTypeConfig } from '@/lib/content-types';
@@ -29,6 +30,14 @@ interface ContentItem {
   slug: string;
   domain?: unknown;
   publishedAt?: string | null;
+  // Tool-specific fields
+  logo?: { url: string; alt?: string } | null;
+  category?: string[] | null;
+  pricing?: string | null;
+  rating?: number | null;
+  costPerMonth?: number | null;
+  licensesCount?: number | null;
+  leverageScore?: number | null;
 }
 
 interface DomainOption {
@@ -50,9 +59,10 @@ interface TypeListingClientProps {
   items: ContentItem[];
   domains: DomainOption[];
   typeNavLinks: TypeNavLink[];
+  counts?: Record<string, number>;
 }
 
-function TypeListingInner({ contentType, items, domains, typeNavLinks }: TypeListingClientProps) {
+function TypeListingInner({ contentType, items, domains, typeNavLinks, counts }: TypeListingClientProps) {
   const searchParams = useSearchParams();
   const activeDomain = searchParams.get('domain') || '';
 
@@ -72,6 +82,7 @@ function TypeListingInner({ contentType, items, domains, typeNavLinks }: TypeLis
     : items;
 
   const isTimeline = contentType.renderStyle === 'timeline';
+  const isTools = contentType.collection === 'tools';
 
   const dailyGroups = isTimeline
     ? (() => {
@@ -85,7 +96,19 @@ function TypeListingInner({ contentType, items, domains, typeNavLinks }: TypeLis
       })()
     : null;
 
-  const domainOptions = domains.map((d) => ({
+  // Filter domains to only those referenced by current items
+  const usedDomainIds = new Set<string>();
+  for (const item of items) {
+    const itemDomains = Array.isArray(item.domain) ? item.domain : [];
+    for (const d of itemDomains) {
+      if (typeof d === 'string' || typeof d === 'number') usedDomainIds.add(String(d));
+      else if (typeof d === 'object' && d !== null && 'id' in d) usedDomainIds.add(String((d as { id: string | number }).id));
+    }
+  }
+
+  const filteredDomains = domains.filter((d) => usedDomainIds.has(String(d.id)));
+
+  const domainOptions = filteredDomains.map((d) => ({
     slug: d.slug,
     shortLabel: d.shortLabel,
     color: d.color,
@@ -95,7 +118,7 @@ function TypeListingInner({ contentType, items, domains, typeNavLinks }: TypeLis
   return (
     <>
       <section className={`${resourcesTheme.section.padding} mb-12 space-y-6`}>
-        <TypeNav types={typeNavLinks} />
+        <TypeNav types={typeNavLinks} counts={counts} />
         <FilterBar domains={domainOptions} />
       </section>
 
@@ -117,6 +140,25 @@ function TypeListingInner({ contentType, items, domains, typeNavLinks }: TypeLis
                 </DailyDateGroup>
               ))}
             </div>
+          ) : isTools ? (
+            <ContentGrid columns={3}>
+              {filteredItems.map((item) => (
+                <ToolCard
+                  key={item.id}
+                  name={item.title}
+                  slug={item.slug}
+                  description={item.summary}
+                  logo={item.logo}
+                  category={item.category}
+                  domain={item.domain}
+                  pricing={item.pricing}
+                  rating={item.rating}
+                  costPerMonth={item.costPerMonth}
+                  licensesCount={item.licensesCount}
+                  leverageScore={item.leverageScore}
+                />
+              ))}
+            </ContentGrid>
           ) : (
             <ContentGrid columns={2}>
               {filteredItems.map((item) => (

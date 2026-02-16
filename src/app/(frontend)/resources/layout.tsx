@@ -11,7 +11,7 @@ export default function ResourcesLayout({
 
   const typeLinks = contentTypes.map((ct) => ({
     label: ct.pluralLabel,
-    href: `/resources/${ct.slug}`,
+    href: `/resources/${ct.urlSlug}`,
   }));
 
   return (

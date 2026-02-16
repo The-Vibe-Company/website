@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { resourcesTheme } from '@/lib/resources-theme';
+import { RESOURCE_ICONS } from '@/lib/resource-icons';
 
 interface ContentTypeLink {
   label: string;
@@ -18,10 +19,14 @@ interface TypeNavProps {
 export function TypeNav({ types, counts }: TypeNavProps) {
   const pathname = usePathname();
 
+  // Always show "All"; filter other types by counts when provided
+  const filteredTypes = counts
+    ? (types ?? []).filter((t) => (counts[t.slug] ?? 0) > 0)
+    : (types ?? []);
+
   const typeLinks: ContentTypeLink[] = [
     { label: 'All', href: '/resources', slug: 'all' },
-    ...(types ?? []),
-    { label: 'Tools', href: '/resources/tools', slug: 'tools' },
+    ...filteredTypes,
   ];
 
   function isActive(href: string) {
@@ -42,6 +47,7 @@ export function TypeNav({ types, counts }: TypeNavProps) {
       {typeLinks.map((link) => {
         const active = isActive(link.href);
         const count = getCount(link.slug);
+        const Icon = RESOURCE_ICONS[link.slug];
         return (
           <Link
             key={link.href}
@@ -51,6 +57,7 @@ export function TypeNav({ types, counts }: TypeNavProps) {
                 : resourcesTheme.typeNav.pillInactive
               }`}
           >
+            {Icon && <Icon size={14} strokeWidth={1.5} />}
             {link.label}
             {count !== undefined && (
               <span className="ml-1.5 opacity-60">{count}</span>

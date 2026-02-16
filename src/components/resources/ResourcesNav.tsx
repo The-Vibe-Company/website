@@ -58,11 +58,10 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Build full links list: All + CMS types + Tools
+  // Build full links list: All + CMS types (including Tools)
   const allLinks: NavContentType[] = [
     { label: 'All', href: '/resources' },
     ...typeLinks,
-    { label: 'Tools', href: '/resources/tools' },
   ];
   const crumbs = useBreadcrumbs(pathname, allLinks);
 
