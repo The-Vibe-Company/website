@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.16](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.15...thevibecompany-v0.1.16) (2026-02-16)
+
+
+### Features
+
+* update resource handling and navigation ([#45](https://github.com/The-Vibe-Company/website/issues/45)) ([bf48571](https://github.com/The-Vibe-Company/website/commit/bf485718bbe3369c41bea35e44f2cf45907b0cef))
+* update UI components and improve cursor functionality ([#43](https://github.com/The-Vibe-Company/website/issues/43)) ([8c7b8d1](https://github.com/The-Vibe-Company/website/commit/8c7b8d18326f431da58da4cdb94274ad88793d98))
+
 ## [0.1.15](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.14...thevibecompany-v0.1.15) (2026-02-09)
 
 
