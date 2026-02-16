@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.17](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.16...thevibecompany-v0.1.17) (2026-02-16)
+
+
+### Bug Fixes
+
+* **tools:** improve type assertion for tool properties ([#46](https://github.com/The-Vibe-Company/website/issues/46)) ([641c02f](https://github.com/The-Vibe-Company/website/commit/641c02faff6df148b173bf86e569f0c1ffb30b07))
+
 ## [0.1.16](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.15...thevibecompany-v0.1.16) (2026-02-16)
 
 
