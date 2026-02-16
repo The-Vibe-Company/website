@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getTypeSlug, getTypeLabel, normalizeDomains } from '@/lib/taxonomy-utils';
+import { getUrlSlugForDbType } from '@/lib/content-types';
 import { DomainBadge } from './DomainBadge';
 
 interface ContentCardProps {
@@ -33,7 +34,7 @@ export function ContentCard({
   const firstDomain = domains[0];
 
   return (
-    <Link href={`/resources/${typeSlug}/${slug}`} className="group block h-full">
+    <Link href={`/resources/${getUrlSlugForDbType(typeSlug)}/${slug}`} className="group block h-full">
       <article className={`h-full p-6 flex flex-col ${resourcesTheme.card.base} ${resourcesTheme.card.hover}`}>
         <div className="flex items-center gap-2 mb-6 border-b border-res-border/50 pb-4">
           {firstDomain && <DomainBadge domain={firstDomain} variant="dot" />}

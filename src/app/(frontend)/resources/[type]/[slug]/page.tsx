@@ -11,7 +11,7 @@ import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getContentTypeConfig } from '@/lib/content-types';
+import { getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
 import { getTypeLabel, normalizeDomains } from '@/lib/taxonomy';
 
 export async function generateStaticParams() {
@@ -24,7 +24,7 @@ export async function generateStaticParams() {
     select: { type: true, slug: true } as { [k: string]: true },
   });
   return content.docs.map((doc) => ({
-    type: doc.type as string,
+    type: getUrlSlugForDbType(doc.type as string),
     slug: doc.slug as string,
   }));
 }
@@ -80,10 +80,10 @@ export async function generateMetadata({
   params: Promise<{ type: string; slug: string }>;
 }): Promise<Metadata> {
   const { type, slug } = await params;
-  const contentType = getContentTypeConfig(type);
+  const contentType = getContentTypeByUrlSlug(type);
   if (!contentType) return { title: 'Not Found' };
 
-  const item = await getContent(type, slug);
+  const item = await getContent(contentType.slug, slug);
   if (!item) return { title: 'Not Found' };
 
   return {
@@ -98,10 +98,10 @@ export default async function ContentDetailPage({
   params: Promise<{ type: string; slug: string }>;
 }) {
   const { type, slug } = await params;
-  const contentType = getContentTypeConfig(type);
+  const contentType = getContentTypeByUrlSlug(type);
   if (!contentType) notFound();
 
-  const item = await getContent(type, slug);
+  const item = await getContent(contentType.slug, slug);
   if (!item) notFound();
 
   const payload = await getPayload({ config });

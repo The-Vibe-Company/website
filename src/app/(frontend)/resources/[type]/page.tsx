@@ -4,12 +4,13 @@ import { getPayload } from 'payload';
 import config from '@payload-config';
 import { TypeListingClient } from '@/components/resources/TypeListingClient';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { CONTENT_TYPES, getContentTypeConfig, getNavContentTypes } from '@/lib/content-types';
+import { CONTENT_TYPES, getContentTypeByUrlSlug, getNavContentTypes } from '@/lib/content-types';
 import { getDomains } from '@/lib/taxonomy';
+import { RESOURCE_ICONS } from '@/lib/resource-icons';
 
 export async function generateStaticParams() {
   return CONTENT_TYPES.filter((ct) => ct.showInNav).map((ct) => ({
-    type: ct.slug,
+    type: ct.urlSlug,
   }));
 }
 
@@ -21,7 +22,7 @@ export async function generateMetadata({
   params: Promise<{ type: string }>;
 }): Promise<Metadata> {
   const { type } = await params;
-  const contentType = getContentTypeConfig(type);
+  const contentType = getContentTypeByUrlSlug(type);
   if (!contentType) return { title: 'Not Found' };
   return {
     title: `${contentType.pluralLabel} | Vibe Learning`,
@@ -36,7 +37,7 @@ export default async function TypeListingPage({
 }) {
   const { type } = await params;
 
-  const contentType = getContentTypeConfig(type);
+  const contentType = getContentTypeByUrlSlug(type);
   if (!contentType) {
     notFound();
   }
@@ -46,29 +47,77 @@ export default async function TypeListingPage({
     getPayload({ config }),
   ]);
 
-  const content = await payload.find({
-    collection: 'content',
-    where: {
-      status: { equals: 'published' },
-      type: { equals: contentType.slug },
-    },
-    sort: '-publishedAt',
-    limit: 200,
-    depth: 0,
-    select: {
-      title: true,
-      summary: true,
-      type: true,
-      slug: true,
-      domain: true,
-      publishedAt: true,
-    } as { [k: string]: true },
-  });
+  // Fetch items from the appropriate collection
+  const isToolsType = contentType.collection === 'tools';
+
+  const [items, allContent, toolsCount] = await Promise.all([
+    isToolsType
+      ? payload.find({
+          collection: 'tools',
+          where: { status: { equals: 'published' } },
+          sort: 'name',
+          limit: 200,
+          depth: 0,
+          select: {
+            name: true,
+            slug: true,
+            description: true,
+            logo: true,
+            category: true,
+            domain: true,
+            pricing: true,
+            rating: true,
+            costPerMonth: true,
+            licensesCount: true,
+            leverageScore: true,
+          } as { [k: string]: true },
+        })
+      : payload.find({
+          collection: 'content',
+          where: {
+            status: { equals: 'published' },
+            type: { equals: contentType.slug },
+          },
+          sort: '-publishedAt',
+          limit: 200,
+          depth: 0,
+          select: {
+            title: true,
+            summary: true,
+            type: true,
+            slug: true,
+            domain: true,
+            publishedAt: true,
+          } as { [k: string]: true },
+        }),
+    // Lightweight query to get counts for all content types (for TypeNav visibility)
+    payload.find({
+      collection: 'content',
+      where: { status: { equals: 'published' } },
+      limit: 0,
+      pagination: false,
+      depth: 0,
+      select: { type: true } as { [k: string]: true },
+    }),
+    // Get tools count for TypeNav
+    payload.count({
+      collection: 'tools',
+      where: { status: { equals: 'published' } },
+    }),
+  ]);
+
+  // Compute per-type counts (DB slugs)
+  const counts: Record<string, number> = {};
+  for (const item of allContent.docs) {
+    const t = item.type as string;
+    counts[t] = (counts[t] || 0) + 1;
+  }
+  counts['tools'] = toolsCount.totalDocs;
 
   const navContentTypes = getNavContentTypes();
   const typeNavLinks = navContentTypes.map((ct) => ({
     label: ct.pluralLabel,
-    href: `/resources/${ct.slug}`,
+    href: `/resources/${ct.urlSlug}`,
     slug: ct.slug,
   }));
 
@@ -80,6 +129,29 @@ export default async function TypeListingPage({
     id: d.id,
   }));
 
+  // Normalize tool items to match ContentItem shape expected by TypeListingClient
+  const normalizedItems = isToolsType
+    ? items.docs.map((tool) => ({
+        id: tool.id,
+        title: (tool as { name: string }).name,
+        summary: (tool as { description: string }).description,
+        type: 'tools',
+        slug: tool.slug as string,
+        domain: tool.domain,
+        publishedAt: null,
+        // Tool-specific fields
+        logo: (tool as Record<string, unknown>).logo,
+        category: (tool as Record<string, unknown>).category,
+        pricing: (tool as Record<string, unknown>).pricing,
+        rating: (tool as Record<string, unknown>).rating,
+        costPerMonth: (tool as Record<string, unknown>).costPerMonth,
+        licensesCount: (tool as Record<string, unknown>).licensesCount,
+        leverageScore: (tool as Record<string, unknown>).leverageScore,
+      }))
+    : items.docs;
+
+  const HeaderIcon = RESOURCE_ICONS[contentType.slug];
+
   return (
     <main className="pt-14">
       {/* Header */}
@@ -88,7 +160,8 @@ export default async function TypeListingPage({
           <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
             Resources / {contentType.pluralLabel}
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-3 leading-[0.95] text-res-text">
+          <h1 className="flex items-center gap-3 text-4xl md:text-5xl font-bold tracking-tighter mb-3 leading-[0.95] text-res-text">
+            {HeaderIcon && <HeaderIcon size={36} strokeWidth={1.5} className="shrink-0" />}
             {contentType.pluralLabel}
           </h1>
           {contentType.description && (
@@ -101,9 +174,10 @@ export default async function TypeListingPage({
 
       <TypeListingClient
         contentType={contentType}
-        items={JSON.parse(JSON.stringify(content.docs))}
+        items={JSON.parse(JSON.stringify(normalizedItems))}
         domains={domainOptions}
         typeNavLinks={typeNavLinks}
+        counts={counts}
       />
     </main>
   );

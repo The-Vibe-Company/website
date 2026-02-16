@@ -18,7 +18,7 @@ function formatDate(dateString: string): string {
 export function DailyCard({ title, slug, publishedAt }: DailyCardProps) {
   return (
     <Link
-      href={`/resources/daily/${slug}`}
+      href={`/resources/learnings/${slug}`}
       className={`group ${resourcesTheme.daily.card} items-center`}
     >
       {publishedAt && (

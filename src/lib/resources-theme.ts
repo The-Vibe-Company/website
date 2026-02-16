@@ -30,7 +30,7 @@ export const resourcesTheme = {
 
   typeNav: {
     container: 'flex items-center gap-px bg-res-border p-px overflow-x-auto',
-    pill: 'px-4 py-2 text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap shrink-0 border-r border-res-border last:border-r-0',
+    pill: 'flex items-center gap-1.5 px-4 py-2 text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap shrink-0 border-r border-res-border last:border-r-0',
     pillActive: 'bg-res-text text-res-surface',
     pillInactive:
       'bg-res-surface text-res-text-muted hover:text-res-text hover:bg-res-bg-secondary',
