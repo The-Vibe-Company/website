@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.18](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.17...thevibecompany-v0.1.18) (2026-02-17)
+
+
+### Bug Fixes
+
+* **storage:** mark BLOB_READ_WRITE_TOKEN as required in production ([#48](https://github.com/The-Vibe-Company/website/issues/48)) ([078127a](https://github.com/The-Vibe-Company/website/commit/078127a6975bcb0d091756ef1666be602508314e))
+
 ## [0.1.17](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.16...thevibecompany-v0.1.17) (2026-02-16)
 
 
