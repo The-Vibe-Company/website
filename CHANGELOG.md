@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.19](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.18...thevibecompany-v0.1.19) (2026-02-17)
+
+
+### Bug Fixes
+
+* **storage:** always load blob storage plugin to prevent admin blank page ([#50](https://github.com/The-Vibe-Company/website/issues/50)) ([3fb2824](https://github.com/The-Vibe-Company/website/commit/3fb2824f9deded96be28f7cb3b2a111a469afe9f))
+
 ## [0.1.18](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.17...thevibecompany-v0.1.18) (2026-02-17)
 
 
