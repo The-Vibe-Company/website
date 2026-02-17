@@ -34,6 +34,9 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
+      - name: Check no root layout (prevents admin hydration mismatch)
+        run: bash scripts/check-no-root-layout.sh
+
       - name: Pull Vercel environment
         run: npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         env:
