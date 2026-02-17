@@ -12,6 +12,7 @@ import { LeverageBar } from '@/components/resources/LeverageBar';
 import { PricingBadge } from '@/components/resources/PricingBadge';
 import { ToolCard } from '@/components/resources/ToolCard';
 import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
+import { markdownToLexical } from '@/lib/ingestion/markdown-to-lexical';
 import { resourcesTheme, categoryLabels } from '@/lib/resources-theme';
 import { normalizeDomains } from '@/lib/taxonomy';
 
@@ -118,6 +119,12 @@ export default async function ToolDetailPage({
     rating?: number | null;
   }>;
   const bodyType = getBodyType(tool.body);
+  const lexicalBody =
+    bodyType === 'text'
+      ? await markdownToLexical(String(tool.body))
+      : bodyType === 'lexical'
+        ? (tool.body as unknown as SerializedEditorState)
+        : null;
   const firstDomainColor = domains[0]?.color ?? null;
 
   return (
@@ -303,18 +310,14 @@ export default async function ToolDetailPage({
             <div className="w-full h-px bg-res-border mb-8 md:mb-12" />
 
             {/* Rich Text Body */}
-            <div className="prose-vibe prose-vibe-warm max-w-none">
-              {bodyType === 'lexical' ? (
+            {lexicalBody && (
+              <div className="prose-vibe prose-vibe-warm max-w-none">
                 <RichTextRenderer
-                  data={tool.body as unknown as SerializedEditorState}
+                  data={lexicalBody}
                   className="prose-vibe prose-vibe-warm"
                 />
-              ) : bodyType === 'text' ? (
-                <div className="prose-vibe prose-vibe-warm whitespace-pre-wrap">
-                  <p>{String(tool.body)}</p>
-                </div>
-              ) : null}
-            </div>
+              </div>
+            )}
 
             {/* Pros & Cons */}
             {(pros.length > 0 || cons.length > 0) && (

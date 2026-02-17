@@ -32,7 +32,7 @@ import { NavIcon as NavIcon_7ece18bf735eb1c1fa6ca1af9087170e } from '@/component
 import { AdminLogo as AdminLogo_a44df17d0fc3dcd873dae43dc3bf66bd } from '@/components/admin/Logo'
 import { GenerateNavLink as GenerateNavLink_a58e592c6b72a55118747f5f0ee9c55b } from '@/components/admin/GenerateNavLink'
 import { DashboardStats as DashboardStats_7b57228c6f06a06348e4c53967f631ca } from '@/components/admin/DashboardStats'
-import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_cc3e7f3e15b19b93fdf4b8e6da9a03c3 } from '@payloadcms/storage-vercel-blob/client'
+import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 export const importMap = {
@@ -70,6 +70,6 @@ export const importMap = {
   "@/components/admin/Logo#AdminLogo": AdminLogo_a44df17d0fc3dcd873dae43dc3bf66bd,
   "@/components/admin/GenerateNavLink#GenerateNavLink": GenerateNavLink_a58e592c6b72a55118747f5f0ee9c55b,
   "@/components/admin/DashboardStats#DashboardStats": DashboardStats_7b57228c6f06a06348e4c53967f631ca,
-  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_cc3e7f3e15b19b93fdf4b8e6da9a03c3,
+  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }
