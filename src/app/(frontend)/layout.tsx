@@ -1,5 +1,50 @@
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import { ClientProviders } from "@/components/ClientProviders";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
+import "../globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://thevibecompany.com"),
+  title: {
+    default: "The Vibe Company",
+    template: "%s | The Vibe Company",
+  },
+  description:
+    "An AI native agency. 100x efficiency. We build with AI, ship fast, and show everything.",
+  icons: {
+    icon: "/favicon.svg",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "The Vibe Company",
+    title: "The Vibe Company",
+    description:
+      "An AI native agency. 100x efficiency. We build with AI, ship fast, and show everything.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Vibe Company",
+    description:
+      "An AI native agency. 100x efficiency. We build with AI, ship fast, and show everything.",
+  },
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function FrontendLayout({
   children,
@@ -7,10 +52,14 @@ export default function FrontendLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <ClientProviders />
-      <ConditionalGridOverlay />
-      {children}
-    </>
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ClientProviders />
+        <ConditionalGridOverlay />
+        {children}
+      </body>
+    </html>
   );
 }
