@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.23](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.22...thevibecompany-v0.1.23) (2026-02-17)
+
+
+### Features
+
+* **favicon:** replace existing favicon with new SVG design ([#58](https://github.com/The-Vibe-Company/website/issues/58)) ([65df4b7](https://github.com/The-Vibe-Company/website/commit/65df4b780b6b58f99c0124e1e05af94060d3a631))
+
 ## [0.1.22](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.21...thevibecompany-v0.1.22) (2026-02-17)
 
 
