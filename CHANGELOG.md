@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.21](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.20...thevibecompany-v0.1.21) (2026-02-17)
+
+
+### Features
+
+* **markdown:** implement inline markdown rendering and update conten… ([#54](https://github.com/The-Vibe-Company/website/issues/54)) ([516496a](https://github.com/The-Vibe-Company/website/commit/516496a683a8c4bcb3f7c7083684f569fce56b63))
+
 ## [0.1.20](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.19...thevibecompany-v0.1.20) (2026-02-17)
 
 
