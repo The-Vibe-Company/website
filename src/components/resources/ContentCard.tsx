@@ -3,6 +3,7 @@ import { resourcesTheme } from '@/lib/resources-theme';
 import { getTypeSlug, getTypeLabel, normalizeDomains } from '@/lib/taxonomy-utils';
 import { getUrlSlugForDbType } from '@/lib/content-types';
 import { DomainBadge } from './DomainBadge';
+import { renderInlineMarkdown } from '@/lib/inline-markdown';
 
 interface ContentCardProps {
   title: string;
@@ -48,9 +49,10 @@ export function ContentCard({
           {title}
         </h3>
 
-        <p className="text-sm text-res-text-muted leading-relaxed line-clamp-3 mb-6 flex-1">
-          {summary}
-        </p>
+        <p
+          className="text-sm text-res-text-muted leading-relaxed line-clamp-3 mb-6 flex-1"
+          dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(summary) }}
+        />
 
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-res-border/50">
           {publishedAt && (

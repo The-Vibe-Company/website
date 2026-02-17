@@ -10,6 +10,8 @@ import { DomainBadge } from '@/components/resources/DomainBadge';
 import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { estimateReadingTime } from '@/lib/reading-time';
+import { markdownToLexical } from '@/lib/ingestion/markdown-to-lexical';
+import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
 import { getTypeLabel, normalizeDomains } from '@/lib/taxonomy';
@@ -126,6 +128,12 @@ export default async function ContentDetailPage({
   });
 
   const bodyType = getBodyType(item.body);
+  const lexicalBody =
+    bodyType === 'text'
+      ? await markdownToLexical(String(item.body))
+      : bodyType === 'lexical'
+        ? (item.body as unknown as SerializedEditorState)
+        : null;
   const readingTime = estimateReadingTime(item.body);
   const domains = normalizeDomains(item.domain);
   const typeLabel = getTypeLabel(item.type);
@@ -228,23 +236,20 @@ export default async function ContentDetailPage({
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter mb-4 leading-[0.95] text-res-text">
                   {item.title}
                 </h1>
-                <p className="text-base md:text-xl text-res-text-muted leading-relaxed">
-                  {item.summary}
-                </p>
+                <p
+                  className="text-base md:text-xl text-res-text-muted leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
+                />
               </header>
 
               <div className="w-full h-px bg-res-border mb-8 md:mb-12" />
 
               <div className="prose-vibe prose-vibe-warm max-w-none">
-                {bodyType === 'lexical' ? (
+                {lexicalBody ? (
                   <RichTextRenderer
-                    data={item.body as unknown as SerializedEditorState}
+                    data={lexicalBody}
                     className="prose-vibe prose-vibe-warm"
                   />
-                ) : bodyType === 'text' ? (
-                  <div className="prose-vibe prose-vibe-warm whitespace-pre-wrap">
-                    <p>{String(item.body)}</p>
-                  </div>
                 ) : (
                   <div className="py-16 text-center border border-dashed border-res-border rounded-lg">
                     <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
