@@ -106,16 +106,14 @@ export default buildConfig({
       },
     }),
 
-    // Vercel Blob storage: CDN-backed media storage (only if token is configured)
-    ...(process.env.BLOB_READ_WRITE_TOKEN
-      ? [
-          vercelBlobStorage({
-            collections: {
-              media: true,
-            },
-            token: process.env.BLOB_READ_WRITE_TOKEN,
-          }),
-        ]
-      : []),
+    // Vercel Blob storage: CDN-backed media storage
+    // Always loaded so the admin import map is consistent between builds.
+    // The plugin self-disables when token is missing (no-op for uploads).
+    vercelBlobStorage({
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+    }),
   ],
 })
