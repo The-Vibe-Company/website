@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.20](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.19...thevibecompany-v0.1.20) (2026-02-17)
+
+
+### Bug Fixes
+
+* **admin:** resolve blank admin page and enable media uploads ([#52](https://github.com/The-Vibe-Company/website/issues/52)) ([6781951](https://github.com/The-Vibe-Company/website/commit/6781951eaa838067f301196f92ce685fa3fdf37d))
+
 ## [0.1.19](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.18...thevibecompany-v0.1.19) (2026-02-17)
 
 
