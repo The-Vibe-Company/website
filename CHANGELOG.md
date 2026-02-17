@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.22](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.21...thevibecompany-v0.1.22) (2026-02-17)
+
+
+### Bug Fixes
+
+* **next.config:** resolve lexical module duplication in production ([#56](https://github.com/The-Vibe-Company/website/issues/56)) ([beaea24](https://github.com/The-Vibe-Company/website/commit/beaea241c9be2a895c31cffec2c92783f7d7265a))
+
 ## [0.1.21](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.20...thevibecompany-v0.1.21) (2026-02-17)
 
 
