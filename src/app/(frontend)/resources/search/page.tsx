@@ -50,7 +50,7 @@ export default async function SearchPage({
 
   return (
     <main className="pt-12 pb-12">
-      <section className={`${resourcesTheme.section.padding} pt-2 pb-2 border-b border-res-border mb-3`}>
+      <section className={`${resourcesTheme.section.padding} pt-2 pb-8 border-b border-res-border mb-8`}>
         <div className="max-w-4xl">
           <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
             Search Results
