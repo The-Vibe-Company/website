@@ -5,8 +5,8 @@ import { TopNav } from "@/components/TopNav";
 import { resourcesTheme } from "@/lib/resources-theme";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "A simple project list with homepage covers, short notes, and ship dates.",
+  title: "Projects",
+  description: "A selection of projects with homepage covers, short notes, and ship dates.",
 };
 
 type Project = {
