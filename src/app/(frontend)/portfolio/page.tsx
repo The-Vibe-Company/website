@@ -31,7 +31,7 @@ const projects: Project[] = [
   },
   {
     name: "The Companion",
-    href: "https://thecompagnon.sh",
+    href: "https://github.com/The-Vibe-Company/companion",
     cover: "/projects/compagnon-home.png",
     logo: "/projects/compagnon-favicon.svg",
     accent: "#f97316",
