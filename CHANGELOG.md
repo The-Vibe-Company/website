@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.24](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.23...thevibecompany-v0.1.24) (2026-02-18)
+
+
+### Features
+
+* **ContentCard:** add featured image support and update depth in queries ([#60](https://github.com/The-Vibe-Company/website/issues/60)) ([8b4d7b8](https://github.com/The-Vibe-Company/website/commit/8b4d7b83ab6f29d504e60e274ac45681447a787c))
+
 ## [0.1.23](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.22...thevibecompany-v0.1.23) (2026-02-17)
 
 
