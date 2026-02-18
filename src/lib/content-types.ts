@@ -11,7 +11,7 @@ export interface ContentTypeConfig {
   singularLabel: string
   pluralLabel: string
   description: string
-  renderStyle: 'timeline' | 'grid'
+  renderStyle: 'timeline' | 'grid' | 'list'
   prependDateToSlug: boolean
   sortOrder: number
   showInNav: boolean
@@ -52,7 +52,7 @@ export const CONTENT_TYPES: ContentTypeConfig[] = [
     singularLabel: 'Article',
     pluralLabel: 'Articles',
     description: 'Long-form, in-depth content',
-    renderStyle: 'grid',
+    renderStyle: 'list',
     prependDateToSlug: false,
     sortOrder: 3,
     showInNav: true,

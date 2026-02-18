@@ -45,7 +45,7 @@ interface TypeListingClientProps {
 function TypeListingInner({ contentType, items, typeNavLinks, counts }: TypeListingClientProps) {
   const isTimeline = contentType.renderStyle === 'timeline';
   const isTools = contentType.collection === 'tools';
-  const isArticles = contentType.slug === 'article';
+  const isList = contentType.renderStyle === 'list';
 
   return (
     <>
@@ -80,7 +80,7 @@ function TypeListingInner({ contentType, items, typeNavLinks, counts }: TypeList
                 />
               ))}
             </ContentGrid>
-          ) : isArticles ? (
+          ) : isList ? (
             <div className="space-y-8">
               {items.map((item) => (
                 <ContentCard
