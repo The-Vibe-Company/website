@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
@@ -78,10 +79,17 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           href="/"
           className={cn(
             typography.label.mono,
-            "text-foreground hover:text-muted-foreground transition-colors"
+            "inline-flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
           )}
         >
-          THE VIBE CO.
+          <Image
+            src="/favicon.svg"
+            alt="The Vibe Co. logo"
+            width={16}
+            height={16}
+            className="h-4 w-4"
+          />
+          <span>THE VIBE CO.</span>
         </Link>
 
         {showResourcesSearch && (
