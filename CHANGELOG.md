@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.30](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.29...thevibecompany-v0.1.30) (2026-02-18)
+
+
+### Bug Fixes
+
+* make build checks pass ([#74](https://github.com/The-Vibe-Company/website/issues/74)) ([3be588e](https://github.com/The-Vibe-Company/website/commit/3be588e9334146bd29797c6388421fc28934701c))
+
 ## [0.1.29](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.28...thevibecompany-v0.1.29) (2026-02-18)
 
 
