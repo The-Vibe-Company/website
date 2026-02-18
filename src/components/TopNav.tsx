@@ -85,9 +85,9 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           <Image
             src="/favicon.svg"
             alt="The Vibe Co. logo"
-            width={18}
-            height={18}
-            className="h-[18px] w-[18px]"
+            width={20}
+            height={20}
+            className="h-5 w-5"
           />
           <span>THE VIBE CO.</span>
         </Link>
