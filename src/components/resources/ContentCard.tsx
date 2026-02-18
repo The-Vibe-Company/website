@@ -47,7 +47,7 @@ export function ContentCard({
 
   return (
     <Link href={`/resources/${getUrlSlugForDbType(typeSlug)}/${slug}`} className="group block h-full">
-      <article className={`h-full flex flex-col lg:flex-row ${resourcesTheme.card.base} ${resourcesTheme.card.hover}`}>
+      <article className={`h-full flex flex-col lg:flex-row overflow-hidden ${resourcesTheme.card.base} ${resourcesTheme.card.hover}`}>
         {image && (
           <div className="shrink-0 relative overflow-hidden w-full aspect-square lg:w-auto lg:h-full">
             <Image
