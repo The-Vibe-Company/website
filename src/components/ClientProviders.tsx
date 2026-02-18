@@ -12,11 +12,11 @@ export function ClientProviders() {
   const pathname = usePathname();
   const isHomepage = pathname === "/";
   const isResources = pathname.startsWith("/resources");
-  const isWeBuildIt = pathname.startsWith("/we-build-it");
+  const isPortfolio = pathname.startsWith("/portfolio");
 
   return (
     <>
-      {!isHomepage && !isResources && !isWeBuildIt && <SmoothScroller />}
+      {!isHomepage && !isResources && !isPortfolio && <SmoothScroller />}
     </>
   );
 }

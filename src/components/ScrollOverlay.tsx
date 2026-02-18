@@ -76,7 +76,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
                 }}
                 className="bg-foreground text-background border border-foreground group"
               >
-                <Link href="/we-build-it" className="block p-5 md:p-12">
+                <Link href="/portfolio" className="block p-5 md:p-12">
                   <div className="flex items-center justify-between mb-6 md:mb-24">
                     <span className={cn(typography.label.mono, "text-background/50")}>
                       01

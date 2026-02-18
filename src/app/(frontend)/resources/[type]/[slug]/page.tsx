@@ -144,7 +144,7 @@ export default async function ContentDetailPage({
   return (
     <>
       <ReadingProgress />
-      <main className="pt-24 min-h-screen bg-res-bg">
+      <main className="pt-12 pb-24 min-h-screen bg-res-bg">
         <div className={`${resourcesTheme.section.padding} pb-24`}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 relative">
 
