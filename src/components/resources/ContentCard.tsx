@@ -49,7 +49,7 @@ export function ContentCard({
     <Link href={`/resources/${getUrlSlugForDbType(typeSlug)}/${slug}`} className="group block h-full">
       <article className={`h-full flex flex-col lg:flex-row overflow-hidden ${resourcesTheme.card.base} ${resourcesTheme.card.hover}`}>
         {image && (
-          <div className="shrink-0 relative overflow-hidden w-full aspect-square lg:w-auto lg:h-full">
+          <div className="shrink-0 relative overflow-hidden w-full aspect-[4/3] lg:w-auto lg:h-full">
             <Image
               src={image.url}
               alt={image.alt}
