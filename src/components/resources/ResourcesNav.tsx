@@ -94,14 +94,8 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
     }
   }, [searchOpen]);
 
-  // Close mobile menu on navigation
-  useEffect(() => {
-    setMobileMenuOpen(false);
-    setSearchOpen(false);
-  }, [pathname]);
-
   return (
-    <>
+    <div key={pathname}>
       <nav className={resourcesTheme.nav.container} aria-label="Resources navigation">
         <div className={resourcesTheme.nav.inner}>
           {/* Left: Breadcrumb */}
@@ -256,6 +250,6 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import {
-  typography,
   spacing,
   components,
   animations,
