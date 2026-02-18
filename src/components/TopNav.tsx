@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import {
   components,
   typography,
@@ -22,7 +22,15 @@ interface TopNavProps {
   showResourcesSearch?: boolean;
 }
 
-export function TopNav({ showResourcesSearch = false }: TopNavProps) {
+export function TopNav(props: TopNavProps) {
+  return (
+    <Suspense fallback={null}>
+      <TopNavInner {...props} />
+    </Suspense>
+  );
+}
+
+function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
