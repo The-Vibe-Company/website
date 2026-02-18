@@ -98,7 +98,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
                     </svg>
                   </div>
                   <h3 className={cn(typography.heading.h3, "text-background mb-2")}>
-                    We Build It.
+                    What we built.
                   </h3>
                   <p className="text-background/60 text-lg mb-8">
                     Product showcase with distinct identities.
