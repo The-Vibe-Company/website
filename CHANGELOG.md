@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.26](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.25...thevibecompany-v0.1.26) (2026-02-18)
+
+
+### Features
+
+* unify portfolio/resources header and route consistency ([#65](https://github.com/The-Vibe-Company/website/issues/65)) ([0bdf62c](https://github.com/The-Vibe-Company/website/commit/0bdf62cf81ff27d723cbc94d7552499b6f5ad523))
+
 ## [0.1.25](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.24...thevibecompany-v0.1.25) (2026-02-18)
 
 
