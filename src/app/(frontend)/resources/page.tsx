@@ -41,7 +41,7 @@ export default async function ResourcesPage() {
       where: { status: { equals: "published" } },
       sort: "-publishedAt",
       limit: 200,
-      depth: 0,
+      depth: 1,
       select: {
         title: true,
         summary: true,
@@ -49,6 +49,7 @@ export default async function ResourcesPage() {
         slug: true,
         domain: true,
         publishedAt: true,
+        featuredImage: true,
       } as { [k: string]: true },
     }),
     payload.count({
