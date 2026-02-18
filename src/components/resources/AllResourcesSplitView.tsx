@@ -3,6 +3,7 @@
 import { ContentCard } from '@/components/resources/ContentCard';
 import { DailyLearningFeed } from '@/components/resources/DailyLearningFeed';
 import { TypeNav } from '@/components/resources/TypeNav';
+import { resourcesTheme } from '@/lib/resources-theme';
 
 interface DailyLearningItem {
   id: string;
