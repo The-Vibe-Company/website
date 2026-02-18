@@ -79,7 +79,7 @@ export function AllResourcesSplitView({
               Daily Learning Feed
             </p>
 
-            <div className="mt-4 max-h-[45vh] lg:max-h-[calc(100vh-15rem)] overflow-y-auto pr-2">
+            <div className="mt-4 lg:max-h-[calc(100vh-15rem)] lg:overflow-y-auto lg:pr-2">
               <DailyLearningFeed
                 items={dailyItems}
                 titleClassName="text-xl font-bold tracking-tight text-res-text leading-tight"
