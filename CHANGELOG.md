@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.29](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.28...thevibecompany-v0.1.29) (2026-02-18)
+
+
+### Bug Fixes
+
+* update project page metadata ([#72](https://github.com/The-Vibe-Company/website/issues/72)) ([597e6d9](https://github.com/The-Vibe-Company/website/commit/597e6d90c28368781a04fa37b57f15ecd7e639a3))
+
 ## [0.1.28](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.27...thevibecompany-v0.1.28) (2026-02-18)
 
 
