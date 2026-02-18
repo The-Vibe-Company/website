@@ -1,4 +1,5 @@
 import { withPayload } from '@payloadcms/next/withPayload'
+import path from 'path'
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -17,7 +18,6 @@ const nextConfig: NextConfig = {
 
     // Force single lexical instance to prevent error #64 in production
     // Vercel bundling can duplicate lexical modules, breaking instanceof checks
-    const path = require('path')
     webpackConfig.resolve.alias = {
       ...webpackConfig.resolve.alias,
       lexical: path.resolve(__dirname, 'node_modules/lexical'),

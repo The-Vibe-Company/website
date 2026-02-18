@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { layout, typography, animations, cn, createTransition } from "@/lib/design-system";
+import { layout, typography, cn, createTransition } from "@/lib/design-system";
 import { TopNav } from "./TopNav";
 import { HomeCenter } from "./HomeCenter";
 import { ScrollOverlay } from "./ScrollOverlay";
