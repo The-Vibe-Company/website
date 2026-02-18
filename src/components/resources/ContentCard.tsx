@@ -47,14 +47,14 @@ export function ContentCard({
 
   return (
     <Link href={`/resources/${getUrlSlugForDbType(typeSlug)}/${slug}`} className="group block h-full">
-      <article className={`h-full flex flex-col sm:flex-row ${resourcesTheme.card.base} ${resourcesTheme.card.hover}`}>
+      <article className={`h-full flex flex-col lg:flex-row ${resourcesTheme.card.base} ${resourcesTheme.card.hover}`}>
         {image && (
-          <div className="shrink-0 relative overflow-hidden w-full aspect-square sm:w-auto">
+          <div className="shrink-0 relative overflow-hidden w-full aspect-square lg:w-auto lg:h-full">
             <Image
               src={image.url}
               alt={image.alt}
               fill
-              sizes="(max-width: 640px) 100vw, 224px"
+              sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 280px"
               className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
             />
           </div>

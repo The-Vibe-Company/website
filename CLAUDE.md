@@ -1,12 +1,10 @@
-
 ## Browser Automation
 
-Use `agent-browser` for testing the localhost website. 
-Never use playwright or any other library to test the localhost website. 
-Never use claude chrome mcp to test the localhost website. 
+Use `agent-browser` for testing the localhost website.
+Never use playwright or any other library to test the localhost website.
+Never use claude chrome mcp to test the localhost website.
 
-ALWAYS USE THE BROWSER AUTOMATION TO TEST THE LOCALHOST WEBSITE. 
-
+ALWAYS USE THE BROWSER AUTOMATION TO TEST THE LOCALHOST WEBSITE.
 
 ## PR Creation
 
@@ -15,18 +13,17 @@ When creating a PR, always upload a screenshot of all the things that you did in
 The Screenshot should be in the folder `screenshots/pr-<pr-number>/<screenshot-name>.png`
 
 **Image URLs in PR descriptions**: Use the raw GitHub URL format, not relative paths:
+
 ```
 https://raw.githubusercontent.com/The-Vibe-Company/vibe-tuto/<branch-name>/screenshots/pr-<number>/<image>.png
 ```
 
-Always add the link to the issue in the PR description. 
+Always add the link to the issue in the PR description.
 
 ## Git
 
 - Always use `--base main` when creating PRs with `gh pr create`
 - Use conventional commits for the commits and PR
-
-
 
 ### Designing Pages and Components
 
@@ -35,6 +32,7 @@ Always use frontend-design skill and ui-ux-pro-max skill for designing pages and
 ## Layout Architecture (CRITICAL)
 
 **NEVER create `src/app/layout.tsx`** (root layout). Each route group has its own root layout with `<html>`:
+
 - `src/app/(frontend)/layout.tsx` — frontend root layout (fonts, metadata, globals.css)
 - `src/app/(payload)/layout.tsx` — Payload admin root layout (theme, dir, Payload providers)
 
@@ -44,15 +42,15 @@ A root layout at `src/app/layout.tsx` wraps BOTH groups, creating duplicate `<ht
 
 The site has **two distinct design identities** sharing the same codebase:
 
-| Aspect | Homepage / Agency | Resources (`/resources/*`) |
-|---|---|---|
-| **Personality** | Bold, brutalist | Calm, warm "knowledge platform" |
-| **Background** | Pure white `#fff` / black `#030303` | Warm off-white `#faf9f7` / charcoal `#0f0e0d` |
-| **Effects** | Custom cursor circle, grid overlay, brutal shadows | None — clean and functional |
-| **Cards** | Sharp borders, `shadow-[12px_12px_0px_0px]` on hover | Rounded-xl/2xl, soft `shadow-lg` + `-translate-y` on hover |
-| **Colors** | Monochrome (B&W only) | Domain accent colors (indigo, violet, emerald, cyan, amber, rose) |
-| **Nav** | `TopNav` with Framer Motion | `ResourcesNav` with breadcrumbs + search |
-| **CSS tokens** | `--background`, `--foreground`, etc. | `--res-bg`, `--res-surface`, `--domain-*`, etc. (scoped to `.resources-theme`) |
+| Aspect          | Homepage / Agency                                    | Resources (`/resources/*`)                                                     |
+| --------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------ |
+| **Personality** | Bold, brutalist                                      | Calm, warm "knowledge platform"                                                |
+| **Background**  | Pure white `#fff` / black `#030303`                  | Warm off-white `#faf9f7` / charcoal `#0f0e0d`                                  |
+| **Effects**     | Custom cursor circle, grid overlay, brutal shadows   | None — clean and functional                                                    |
+| **Cards**       | Sharp borders, `shadow-[12px_12px_0px_0px]` on hover | Rounded-xl/2xl, soft `shadow-lg` + `-translate-y` on hover                     |
+| **Colors**      | Monochrome (B&W only)                                | Domain accent colors (indigo, violet, emerald, cyan, amber, rose)              |
+| **Nav**         | `TopNav` with Framer Motion                          | `ResourcesNav` with breadcrumbs + search                                       |
+| **CSS tokens**  | `--background`, `--foreground`, etc.                 | `--res-bg`, `--res-surface`, `--domain-*`, etc. (scoped to `.resources-theme`) |
 
 ### How the isolation works
 
@@ -68,14 +66,13 @@ The site has **two distinct design identities** sharing the same codebase:
 - **Tailwind classes**: Registered in `@theme inline` as `bg-res-bg`, `text-res-text-muted`, `text-domain-dev`, etc.
 - **Domain accent map**: `domainAccentMap` in `resources-theme.ts` maps domain slugs to CSS color var names
 
-## Planning 
+## Planning
 
-When planning, always create a graph of tasks and dependencies between them. 
+When planning, always create a graph of tasks and dependencies between them.
 
 ## Vercel
 
-never deploy to vercel manually, let the CI/CD do it. 
-
+never deploy to vercel manually, let the CI/CD do it.
 
 ## Running the front
 
@@ -91,10 +88,8 @@ The script is idempotent: run it as many times as needed, it only acts when nece
 
 Before any task, run `./scripts/dev-start.sh` to ensure the dev environment is ready.
 
-
 If you had to use the same command multiple times in the same session, please create a script to do it in the `scripts` folder and add a one line description of what it does in CLAUDE.md
 
 If you have questions about the product vision, please look at https://www.notion.so/Site-Web-Architecture-2ff324e51ac2806cb38bc195bb808578?source=copy_link and related notion pages. If you can't read the notion pages, please ask the user to share the pages with you.
-
 
 - Only use BUN for the project. Never use npm or yarn or pnpm for this project
