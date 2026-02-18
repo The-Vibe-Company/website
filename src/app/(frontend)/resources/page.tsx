@@ -1,9 +1,7 @@
-import { TypeListingClient } from "@/components/resources/TypeListingClient";
-import type { ContentTypeConfig } from "@/lib/content-types";
+import { AllResourcesSplitView } from "@/components/resources/AllResourcesSplitView";
 import { getNavContentTypes } from "@/lib/content-types";
 import { RESOURCE_ICONS } from "@/lib/resource-icons";
 import { resourcesTheme } from "@/lib/resources-theme";
-import { getDomains } from "@/lib/taxonomy";
 import config from "@payload-config";
 import type { Metadata } from "next";
 import { getPayload } from "payload";
@@ -14,31 +12,32 @@ export const metadata: Metadata = {
     "Daily learnings, tutorials, and raw build logs. Everything we know about shipping with AI.",
 };
 
-/** Synthetic content type config for the "All" view */
-const ALL_CONTENT_TYPE: ContentTypeConfig = {
-  slug: "all",
-  urlSlug: "all",
-  collection: "content",
-  name: "All Resources",
-  singularLabel: "Resource",
-  pluralLabel: "All Resources",
-  description: "Everything we know about shipping with AI.",
-  renderStyle: "grid",
-  prependDateToSlug: false,
-  sortOrder: 0,
-  showInNav: false,
-};
-
 export default async function ResourcesPage() {
-  const [allDomains, payload] = await Promise.all([
-    getDomains(),
-    getPayload({ config }),
-  ]);
+  const payload = await getPayload({ config });
 
-  const [content, toolsCount] = await Promise.all([
+  const [dailyContent, nonDailyContent, allContent, toolsCount] = await Promise.all([
     payload.find({
       collection: "content",
-      where: { status: { equals: "published" } },
+      where: {
+        status: { equals: "published" },
+        type: { equals: "daily" },
+      },
+      sort: "-publishedAt",
+      limit: 200,
+      depth: 0,
+      select: {
+        title: true,
+        summary: true,
+        body: true,
+        publishedAt: true,
+      } as { [k: string]: true },
+    }),
+    payload.find({
+      collection: "content",
+      where: {
+        status: { equals: "published" },
+        type: { not_equals: "daily" },
+      },
       sort: "-publishedAt",
       limit: 200,
       depth: 1,
@@ -51,6 +50,14 @@ export default async function ResourcesPage() {
         publishedAt: true,
         featuredImage: true,
       } as { [k: string]: true },
+    }),
+    payload.find({
+      collection: "content",
+      where: { status: { equals: "published" } },
+      limit: 0,
+      pagination: false,
+      depth: 0,
+      select: { type: true } as { [k: string]: true },
     }),
     payload.count({
       collection: "tools",
@@ -65,27 +72,18 @@ export default async function ResourcesPage() {
     slug: ct.slug,
   }));
 
-  // Compute per-type counts from fetched items
   const counts: Record<string, number> = {};
-  for (const item of content.docs) {
+  for (const item of allContent.docs) {
     const t = item.type as string;
     counts[t] = (counts[t] || 0) + 1;
   }
   counts["tools"] = toolsCount.totalDocs;
 
-  const domainOptions = allDomains.map((d) => ({
-    slug: d.slug,
-    shortLabel: d.shortLabel,
-    color: d.color,
-    colorDark: d.colorDark,
-    id: d.id,
-  }));
-
   return (
     <main className="pt-14">
       {/* Header — matches [type]/page.tsx structure */}
       <section
-        className={`${resourcesTheme.section.padding} pt-20 pb-8 border-b border-res-border mb-8`}
+        className={`${resourcesTheme.section.padding} pt-6 pb-6 border-b border-res-border mb-3`}
       >
         <div className="max-w-4xl">
           <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
@@ -107,10 +105,9 @@ export default async function ResourcesPage() {
         </div>
       </section>
 
-      <TypeListingClient
-        contentType={ALL_CONTENT_TYPE}
-        items={JSON.parse(JSON.stringify(content.docs))}
-        domains={domainOptions}
+      <AllResourcesSplitView
+        dailyItems={JSON.parse(JSON.stringify(dailyContent.docs))}
+        resourceItems={JSON.parse(JSON.stringify(nonDailyContent.docs))}
         typeNavLinks={typeNavLinks}
         counts={counts}
       />
