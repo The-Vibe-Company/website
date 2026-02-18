@@ -80,7 +80,7 @@ export default async function TypeListingPage({
           },
           sort: '-publishedAt',
           limit: 200,
-          depth: 0,
+          depth: 1,
           select: {
             title: true,
             summary: true,
@@ -88,6 +88,7 @@ export default async function TypeListingPage({
             slug: true,
             domain: true,
             publishedAt: true,
+            featuredImage: true,
           } as { [k: string]: true },
         }),
     // Lightweight query to get counts for all content types (for TypeNav visibility)

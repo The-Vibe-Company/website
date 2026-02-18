@@ -30,6 +30,7 @@ interface ContentItem {
   slug: string;
   domain?: unknown;
   publishedAt?: string | null;
+  featuredImage?: { url: string; alt?: string; sizes?: { card?: { url: string } } } | string | number | null;
   // Tool-specific fields
   logo?: { url: string; alt?: string } | null;
   category?: string[] | null;
@@ -170,6 +171,7 @@ function TypeListingInner({ contentType, items, domains, typeNavLinks, counts }:
                   slug={item.slug}
                   domain={item.domain}
                   publishedAt={item.publishedAt ?? undefined}
+                  featuredImage={item.featuredImage}
                 />
               ))}
             </ContentGrid>
