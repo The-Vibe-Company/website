@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.28](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.27...thevibecompany-v0.1.28) (2026-02-18)
+
+
+### Bug Fixes
+
+* header favicon and companion project URL ([#69](https://github.com/The-Vibe-Company/website/issues/69)) ([fe49834](https://github.com/The-Vibe-Company/website/commit/fe498340c1487539539a9ee322d8c9e0e8623b49))
+
 ## [0.1.27](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.26...thevibecompany-v0.1.27) (2026-02-18)
 
 
