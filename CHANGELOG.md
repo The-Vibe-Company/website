@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.25](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.24...thevibecompany-v0.1.25) (2026-02-18)
+
+
+### Features
+
+* add We Build It portfolio page and wire navigation ([#64](https://github.com/The-Vibe-Company/website/issues/64)) ([671542b](https://github.com/The-Vibe-Company/website/commit/671542b1297c72dd0d988ceda373fe3419f30f60))
+* refactor resources listing with dedicated daily feed ([#62](https://github.com/The-Vibe-Company/website/issues/62)) ([bb046af](https://github.com/The-Vibe-Company/website/commit/bb046af5516d86c63fad6d5f0b4d82c35feac27b))
+
 ## [0.1.24](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.23...thevibecompany-v0.1.24) (2026-02-18)
 
 
