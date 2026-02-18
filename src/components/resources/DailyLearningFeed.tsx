@@ -1,6 +1,5 @@
 import type { SerializedEditorState } from 'lexical';
 import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
-import { renderInlineMarkdown } from '@/lib/inline-markdown';
 
 interface DailyLearningFeedItem {
   id: string;
@@ -60,15 +59,13 @@ export function DailyLearningFeed({
               className="prose-vibe prose-vibe-warm max-w-none text-[15px]"
             />
           ) : typeof item.body === 'string' && item.body.trim().length > 0 ? (
-            <p
-              className="text-sm text-res-text-muted leading-relaxed whitespace-pre-wrap"
-              dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.body) }}
-            />
+            <p className="text-sm text-res-text-muted leading-relaxed whitespace-pre-wrap">
+              {item.body}
+            </p>
           ) : item.summary ? (
-            <p
-              className="text-sm text-res-text-muted leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
-            />
+            <p className="text-sm text-res-text-muted leading-relaxed whitespace-pre-wrap">
+              {item.summary}
+            </p>
           ) : (
             <p className="text-sm text-res-text-muted leading-relaxed">
               No content yet.
