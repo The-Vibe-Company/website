@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.27](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.26...thevibecompany-v0.1.27) (2026-02-18)
+
+
+### Bug Fixes
+
+* wrap TopNav useSearchParams in Suspense boundary ([#67](https://github.com/The-Vibe-Company/website/issues/67)) ([4f9b7fe](https://github.com/The-Vibe-Company/website/commit/4f9b7febde77fa3bde4665abf85bca9988f7114f))
+
 ## [0.1.26](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.25...thevibecompany-v0.1.26) (2026-02-18)
 
 
