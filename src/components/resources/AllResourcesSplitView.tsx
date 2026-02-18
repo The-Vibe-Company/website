@@ -44,7 +44,7 @@ export function AllResourcesSplitView({
 }: AllResourcesSplitViewProps) {
   return (
     <>
-      <section className="px-6 md:px-12 lg:px-24 mb-6">
+      <section className={`${resourcesTheme.section.padding} mb-6`}>
         <TypeNav types={typeNavLinks} counts={counts} />
       </section>
 
