@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="vanish mark">
+  <rect width="64" height="64" rx="14" fill="#0B0B0B"/>
+  <text x="10" y="38" font-family="'IBM Plex Mono', monospace" font-size="18" fill="#E5E7EB">v</text>
+  <circle cx="48" cy="34" r="4" fill="#34D399"/>
+</svg>
