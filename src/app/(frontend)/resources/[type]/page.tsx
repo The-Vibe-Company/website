@@ -5,7 +5,6 @@ import config from '@payload-config';
 import { TypeListingClient } from '@/components/resources/TypeListingClient';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { CONTENT_TYPES, getContentTypeByUrlSlug, getNavContentTypes } from '@/lib/content-types';
-import { getDomains } from '@/lib/taxonomy';
 import { RESOURCE_ICONS } from '@/lib/resource-icons';
 
 export async function generateStaticParams() {
@@ -42,13 +41,20 @@ export default async function TypeListingPage({
     notFound();
   }
 
-  const [allDomains, payload] = await Promise.all([
-    getDomains(),
-    getPayload({ config }),
-  ]);
+  const payload = await getPayload({ config });
 
   // Fetch items from the appropriate collection
   const isToolsType = contentType.collection === 'tools';
+  const contentSelect = {
+    title: true,
+    summary: true,
+    type: true,
+    slug: true,
+    domain: true,
+    publishedAt: true,
+    featuredImage: true,
+    ...(contentType.slug === 'daily' ? { body: true } : {}),
+  } as { [k: string]: true };
 
   const [items, allContent, toolsCount] = await Promise.all([
     isToolsType
@@ -81,15 +87,7 @@ export default async function TypeListingPage({
           sort: '-publishedAt',
           limit: 200,
           depth: 1,
-          select: {
-            title: true,
-            summary: true,
-            type: true,
-            slug: true,
-            domain: true,
-            publishedAt: true,
-            featuredImage: true,
-          } as { [k: string]: true },
+          select: contentSelect,
         }),
     // Lightweight query to get counts for all content types (for TypeNav visibility)
     payload.find({
@@ -122,14 +120,6 @@ export default async function TypeListingPage({
     slug: ct.slug,
   }));
 
-  const domainOptions = allDomains.map((d) => ({
-    slug: d.slug,
-    shortLabel: d.shortLabel,
-    color: d.color,
-    colorDark: d.colorDark,
-    id: d.id,
-  }));
-
   // Normalize tool items to match ContentItem shape expected by TypeListingClient
   const normalizedItems = isToolsType
     ? items.docs.map((tool) => ({
@@ -156,7 +146,7 @@ export default async function TypeListingPage({
   return (
     <main className="pt-14">
       {/* Header */}
-      <section className={`${resourcesTheme.section.padding} pt-20 pb-8 border-b border-res-border mb-8`}>
+      <section className={`${resourcesTheme.section.padding} pt-6 pb-6 border-b border-res-border mb-3`}>
         <div className="max-w-4xl">
           <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
             Resources / {contentType.pluralLabel}
@@ -176,7 +166,6 @@ export default async function TypeListingPage({
       <TypeListingClient
         contentType={contentType}
         items={JSON.parse(JSON.stringify(normalizedItems))}
-        domains={domainOptions}
         typeNavLinks={typeNavLinks}
         counts={counts}
       />
