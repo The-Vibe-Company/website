@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { TopNav } from "@/components/TopNav";
 import { resourcesTheme } from "@/lib/resources-theme";
 
 export const metadata: Metadata = {
@@ -25,7 +26,7 @@ const projects: Project[] = [
     logo: "/projects/vanish-favicon.svg",
     accent: "#10b981",
     description:
-      "Vanish est un service d'upload temporaire: tu envoies un fichier, tu recuperes un lien public, puis le fichier expire automatiquement.",
+      "Vanish is a temporary upload service: send a file, get a public link, and let it expire automatically.",
     date: "Feb 2026",
   },
   {
@@ -35,7 +36,7 @@ const projects: Project[] = [
     logo: "/projects/compagnon-favicon.svg",
     accent: "#f97316",
     description:
-      "The Companion aide les equipes a executer: sessions agentiques, orchestration et workflow produit sans passer par la case slides.",
+      "The Companion helps teams execute with agent workflows, orchestration, and product operations without slideware.",
     date: "Feb 2026",
   },
   {
@@ -45,7 +46,7 @@ const projects: Project[] = [
     logo: "/projects/vibedrift-favicon.svg",
     accent: "#facc15",
     description:
-      "VibeDrift suit le travail reel des developpeurs et transforme l'activite en metriques utiles pour comprendre le flow et les frictions.",
+      "VibeDrift tracks real developer activity and turns it into useful metrics to understand flow and friction.",
     date: "Feb 2026",
   },
 ];
@@ -53,6 +54,7 @@ const projects: Project[] = [
 export default function WeBuildItPage() {
   return (
     <main className="resources-theme min-h-screen bg-res-bg text-res-text pt-14">
+      <TopNav />
       <section className={`${resourcesTheme.section.padding} pt-20 pb-8 border-b border-res-border mb-8`}>
         <div className="max-w-4xl">
           <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">

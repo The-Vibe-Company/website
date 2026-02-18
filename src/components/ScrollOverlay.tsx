@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   typography,
   spacing,
@@ -66,88 +67,90 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
               transition={{ staggerChildren: 0.08, delayChildren: 0.15 }}
             >
               {/* We Build It Card (dark) */}
-              <motion.a
-                href="/we-build-it"
+              <motion.div
                 variants={cardVariants}
                 transition={animations.easing.spring}
                 whileHover={{
                   scale: 1.02,
                   boxShadow: "8px 8px 0px 0px rgba(128,128,128,0.4)",
                 }}
-                className="block bg-foreground text-background p-5 md:p-12 border border-foreground cursor-pointer group"
+                className="bg-foreground text-background border border-foreground group"
               >
-                <div className="flex items-center justify-between mb-6 md:mb-24">
-                  <span className={cn(typography.label.mono, "text-background/50")}>
-                    01
+                <Link href="/we-build-it" className="block p-5 md:p-12">
+                  <div className="flex items-center justify-between mb-6 md:mb-24">
+                    <span className={cn(typography.label.mono, "text-background/50")}>
+                      01
+                    </span>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-background/30 group-hover:text-background/60 transition-colors"
+                      aria-hidden="true"
+                    >
+                      <path d="M7 17L17 7" />
+                      <path d="M7 7h10v10" />
+                    </svg>
+                  </div>
+                  <h3 className={cn(typography.heading.h3, "text-background mb-2")}>
+                    We Build It.
+                  </h3>
+                  <p className="text-background/60 text-lg mb-8">
+                    Product showcase with distinct identities.
+                  </p>
+                  <span className={cn(typography.label.mono, "text-background/40 group-hover:text-background/70 transition-colors")}>
+                    SEE OUR WORK &rarr;
                   </span>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-background/30 group-hover:text-background/60 transition-colors"
-                    aria-hidden="true"
-                  >
-                    <path d="M7 17L17 7" />
-                    <path d="M7 7h10v10" />
-                  </svg>
-                </div>
-                <h3 className={cn(typography.heading.h3, "text-background mb-2")}>
-                  We Build It.
-                </h3>
-                <p className="text-background/60 text-lg mb-8">
-                  Product showcase with distinct identities.
-                </p>
-                <span className={cn(typography.label.mono, "text-background/40 group-hover:text-background/70 transition-colors")}>
-                  SEE OUR WORK &rarr;
-                </span>
-              </motion.a>
+                </Link>
+              </motion.div>
 
               {/* Resources Card (light) */}
-              <motion.a
-                href="/resources"
+              <motion.div
                 variants={cardVariants}
                 transition={animations.easing.spring}
                 whileHover={{
                   scale: 1.02,
                   boxShadow: "8px 8px 0px 0px var(--foreground)",
                 }}
-                className="block border-2 border-foreground bg-background p-5 md:p-12 cursor-pointer group"
+                className="border-2 border-foreground bg-background group"
               >
-                <div className="flex items-center justify-between mb-6 md:mb-24">
-                  <span className={cn(typography.label.mono, "text-muted-foreground")}>
-                    02
+                <Link href="/resources" className="block p-5 md:p-12">
+                  <div className="flex items-center justify-between mb-6 md:mb-24">
+                    <span className={cn(typography.label.mono, "text-muted-foreground")}>
+                      02
+                    </span>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-muted-foreground group-hover:text-foreground transition-colors"
+                      aria-hidden="true"
+                    >
+                      <path d="M7 17L17 7" />
+                      <path d="M7 7h10v10" />
+                    </svg>
+                  </div>
+                  <h3 className={cn(typography.heading.h3, "mb-2")}>
+                    What we learned.
+                  </h3>
+                  <p className="text-muted-foreground text-lg mb-8">
+                    Tutorials, build logs, and raw learnings.
+                  </p>
+                  <span className={cn(typography.label.mono, "text-muted-foreground group-hover:text-foreground transition-colors")}>
+                    START LEARNING &rarr;
                   </span>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-muted-foreground group-hover:text-foreground transition-colors"
-                    aria-hidden="true"
-                  >
-                    <path d="M7 17L17 7" />
-                    <path d="M7 7h10v10" />
-                  </svg>
-                </div>
-                <h3 className={cn(typography.heading.h3, "mb-2")}>
-                  What we learned.
-                </h3>
-                <p className="text-muted-foreground text-lg mb-8">
-                  Tutorials, build logs, and raw learnings.
-                </p>
-                <span className={cn(typography.label.mono, "text-muted-foreground group-hover:text-foreground transition-colors")}>
-                  START LEARNING &rarr;
-                </span>
-              </motion.a>
+                </Link>
+              </motion.div>
             </motion.div>
 
             {/* Dismiss hint */}
