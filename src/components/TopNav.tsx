@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { useState } from "react";
 import {
   components,
@@ -11,7 +12,7 @@ import {
 } from "@/lib/design-system";
 
 const navItems = [
-  { label: "Agency", href: "/agency" },
+  { label: "We Build It", href: "/we-build-it" },
   { label: "Resources", href: "/resources" },
 ];
 
@@ -29,7 +30,7 @@ export function TopNav() {
         transition={createTransition(0.6, 0.3)}
       >
         {/* Wordmark */}
-        <a
+        <Link
           href="/"
           className={cn(
             typography.label.mono,
@@ -37,14 +38,14 @@ export function TopNav() {
           )}
         >
           THE VIBE CO.
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-2">
           <ul className="flex items-center gap-2 list-none m-0 p-0">
             {navItems.map((item, index) => (
               <li key={item.label}>
-                <a
+                <Link
                   href={item.href}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
@@ -58,7 +59,7 @@ export function TopNav() {
                     />
                   )}
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -135,17 +136,17 @@ export function TopNav() {
               </svg>
             </button>
             {navItems.map((item, index) => (
-              <motion.a
+              <motion.div
                 key={item.label}
-                href={item.href}
                 className={cn(typography.heading.h3, "text-foreground")}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={createTransition(0.6, index * 0.1)}
-                onClick={() => setMobileMenuOpen(false)}
               >
-                {item.label}
-              </motion.a>
+                <Link href={item.href} onClick={() => setMobileMenuOpen(false)}>
+                  {item.label}
+                </Link>
+              </motion.div>
             ))}
             <motion.a
               href="mailto:founders@thevibecompany.co"

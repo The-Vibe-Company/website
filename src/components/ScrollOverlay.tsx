@@ -65,9 +65,9 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
               exit="exit"
               transition={{ staggerChildren: 0.08, delayChildren: 0.15 }}
             >
-              {/* Agency Card (dark) */}
+              {/* We Build It Card (dark) */}
               <motion.a
-                href="/agency"
+                href="/we-build-it"
                 variants={cardVariants}
                 transition={animations.easing.spring}
                 whileHover={{
@@ -97,10 +97,10 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
                   </svg>
                 </div>
                 <h3 className={cn(typography.heading.h3, "text-background mb-2")}>
-                  What we built.
+                  We Build It.
                 </h3>
                 <p className="text-background/60 text-lg mb-8">
-                  AI-native products, from zero to production.
+                  Product showcase with distinct identities.
                 </p>
                 <span className={cn(typography.label.mono, "text-background/40 group-hover:text-background/70 transition-colors")}>
                   SEE OUR WORK &rarr;
