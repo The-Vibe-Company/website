@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.37](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.36...thevibecompany-v0.1.37) (2026-02-19)
+
+
+### Bug Fixes
+
+* remove duplicate JSX prop causing Next.js build failure ([#89](https://github.com/The-Vibe-Company/website/issues/89)) ([0bbc2da](https://github.com/The-Vibe-Company/website/commit/0bbc2daa99bc9efd7cea373e6af9fe53d3c341d7))
+
 ## [0.1.36](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.35...thevibecompany-v0.1.36) (2026-02-19)
 
 
