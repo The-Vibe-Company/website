@@ -7,6 +7,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com";
+const isPostHogEnabled = process.env.NODE_ENV === "production" && Boolean(posthogKey);
 
 type Props = {
   children: React.ReactNode;
@@ -18,7 +19,7 @@ function PostHogPageView() {
   const query = searchParams.toString();
 
   useEffect(() => {
-    if (!posthogKey) return;
+    if (!isPostHogEnabled) return;
 
     const url = `${window.location.origin}${pathname}${query ? `?${query}` : ""}`;
     posthog.capture("$pageview", {
@@ -31,12 +32,12 @@ function PostHogPageView() {
 
 export function PostHogProvider({ children }: Props) {
   useEffect(() => {
-    if (!posthogKey) return;
+    if (!isPostHogEnabled) return;
 
     // Check if already initialized to prevent duplicate init calls
     if (posthog.__loaded) return;
 
-    posthog.init(posthogKey, {
+    posthog.init(posthogKey!, {
       api_host: posthogHost,
       person_profiles: "identified_only",
       capture_pageview: false,
@@ -48,7 +49,7 @@ export function PostHogProvider({ children }: Props) {
     }
   }, []);
 
-  if (!posthogKey) {
+  if (!isPostHogEnabled) {
     return <>{children}</>;
   }
 
