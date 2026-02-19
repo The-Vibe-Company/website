@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.35](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.34...thevibecompany-v0.1.35) (2026-02-19)
+
+
+### Features
+
+* add who are we card and agency page ([#85](https://github.com/The-Vibe-Company/website/issues/85)) ([fc2967e](https://github.com/The-Vibe-Company/website/commit/fc2967e813df0c4b75128f105b945b4bbfb5c942))
+
 ## [0.1.34](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.33...thevibecompany-v0.1.34) (2026-02-19)
 
 
