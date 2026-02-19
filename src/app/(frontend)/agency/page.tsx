@@ -16,6 +16,7 @@ export default function AgencyPage() {
       <TopNav />
       <main className="min-h-[calc(100vh-64px)] bg-background text-foreground px-6 md:px-12 lg:px-24 py-12 md:py-20 flex items-center justify-center">
         <section className="w-full max-w-4xl">
+          <h1 className="sr-only">The Vibe Company Agency</h1>
           <div className="mb-8 md:mb-10">
             <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted-foreground text-center mb-5">
               Agency
