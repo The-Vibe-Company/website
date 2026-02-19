@@ -37,7 +37,7 @@ const navCardThemeClasses: Record<
   }
 > = {
   light: {
-    card: "relative overflow-hidden border-2 border-foreground bg-background group min-h-[520px]",
+    card: "relative h-full overflow-hidden border-2 border-foreground bg-background group min-h-0 md:min-h-[520px]",
     topLine: "absolute inset-x-0 top-0 h-[2px] bg-zinc-900/10",
     number: "text-muted-foreground",
     icon: "text-muted-foreground group-hover:text-foreground transition-colors",
@@ -47,7 +47,7 @@ const navCardThemeClasses: Record<
     defaultShadow: "10px 10px 0px 0px rgba(0,0,0,0.75)",
   },
   gray: {
-    card: "relative overflow-hidden border border-zinc-600 bg-zinc-800 text-zinc-100 group min-h-[520px]",
+    card: "relative h-full overflow-hidden border border-zinc-600 bg-zinc-800 text-zinc-100 group min-h-0 md:min-h-[520px]",
     topLine: "absolute inset-x-0 top-0 h-[1px] bg-white/8",
     number: "text-zinc-300",
     icon: "text-zinc-300 group-hover:text-zinc-50 transition-colors",
@@ -57,7 +57,7 @@ const navCardThemeClasses: Record<
     defaultShadow: "10px 10px 0px 0px rgba(70,70,70,0.4)",
   },
   dark: {
-    card: "relative overflow-hidden bg-foreground text-background border border-zinc-700 group min-h-[520px]",
+    card: "relative h-full overflow-hidden bg-foreground text-background border border-zinc-700 group min-h-0 md:min-h-[520px]",
     topLine: "absolute inset-x-0 top-0 h-[2px] bg-white/10",
     number: "text-background/50",
     icon: "text-background/30 group-hover:text-background/60 transition-colors",
@@ -101,9 +101,9 @@ function NavCard({
       }}
       className={cn(styles.card, className)}
     >
-      <Link href={href} className="flex h-full flex-col p-6 md:p-10">
+      <Link href={href} className="flex h-full flex-col p-3 md:p-10">
         <div className={styles.topLine} />
-        <div className="flex items-center justify-between mb-8 md:mb-16">
+        <div className="flex items-center justify-between mb-3 md:mb-16">
           <span className={cn(typography.label.mono, styles.number)}>
             {number}
           </span>
@@ -123,10 +123,10 @@ function NavCard({
             <path d="M7 7h10v10" />
           </svg>
         </div>
-        <h3 className={cn(typography.heading.h3, styles.title)}>
+        <h3 className={cn(typography.heading.h3, "text-base md:text-3xl lg:text-4xl", styles.title)}>
           {title}
         </h3>
-        <p className={styles.description}>{description}</p>
+        <p className={cn(styles.description, "hidden md:block")}>{description}</p>
         <span className={cn(typography.label.mono, styles.cta)}>
           {cta} &rarr;
         </span>
@@ -140,7 +140,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-xl overflow-y-auto"
+          className="fixed inset-x-0 bottom-0 top-16 md:inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-xl overflow-hidden md:overflow-y-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -152,7 +152,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
         >
           {/* Content container */}
           <motion.div
-            className={cn("w-full max-w-5xl mx-auto py-20 md:py-0", spacing.page.x)}
+            className={cn("w-full max-w-5xl mx-auto h-full md:h-auto py-2 md:py-0 flex flex-col", spacing.page.x)}
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
@@ -163,7 +163,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
             <motion.p
               className={cn(
                 typography.label.mono,
-                "text-muted-foreground text-center mb-6 md:mb-10"
+                "text-muted-foreground text-center mb-2 md:mb-10"
               )}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -174,7 +174,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
 
             {/* Cards */}
             <motion.div
-              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              className="grid grid-cols-1 grid-rows-3 md:grid-cols-3 md:grid-rows-1 gap-2 md:gap-6 flex-1 min-h-0 overflow-hidden"
               initial="hidden"
               animate="visible"
               exit="exit"
@@ -199,7 +199,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
               <NavCard
                 href="/agency"
                 number="03"
-                title="Who are we."
+                title="Who we are."
                 description="A tiny team shipping fast, loudly, and in public."
                 cta="MEET THE TEAM"
                 theme="dark"
@@ -210,7 +210,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
             <motion.p
               className={cn(
                 typography.label.mono,
-                "text-muted-foreground/50 text-center mt-6 md:mt-12"
+                "text-muted-foreground/50 text-center mt-2 md:mt-12"
               )}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
