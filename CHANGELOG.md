@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.34](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.33...thevibecompany-v0.1.34) (2026-02-19)
+
+
+### Bug Fixes
+
+* disable PostHog tracking in development ([#82](https://github.com/The-Vibe-Company/website/issues/82)) ([83c92ee](https://github.com/The-Vibe-Company/website/commit/83c92ee2bc1142b9c7ed36f7d48c3f2982734fc6))
+
 ## [0.1.33](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.32...thevibecompany-v0.1.33) (2026-02-19)
 
 
