@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.33](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.32...thevibecompany-v0.1.33) (2026-02-19)
+
+
+### Bug Fixes
+
+* resolve Next build failure on /agency ([#80](https://github.com/The-Vibe-Company/website/issues/80)) ([0fd5d94](https://github.com/The-Vibe-Company/website/commit/0fd5d94cce3fe2b2694c05ead1413aa4483e2453))
+
 ## [0.1.32](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.31...thevibecompany-v0.1.32) (2026-02-19)
 
 
