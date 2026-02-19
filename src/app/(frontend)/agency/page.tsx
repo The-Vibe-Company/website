@@ -3,7 +3,8 @@ import { TopNav } from "@/components/TopNav";
 
 export const metadata: Metadata = {
   title: "Who Are We",
-  description: "A very honest agency page.",
+  description:
+    "The Vibe Company is an AI-native agency helping startups ship products faster with AI development, prototyping, and rapid execution.",
 };
 
 export default function AgencyPage() {
