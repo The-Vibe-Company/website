@@ -200,6 +200,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
                 href="/agency"
                 number="03"
                 title="Who we are."
+                title="Who we are."
                 description="A tiny team shipping fast, loudly, and in public."
                 cta="MEET THE TEAM"
                 theme="dark"
