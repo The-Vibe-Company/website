@@ -27,6 +27,7 @@
     "lucide-react": "^0.564.0",
     "next": "16.1.1",
     "payload": "^3.75.0",
+    "posthog-js": "^1.351.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "sharp": "^0.34.5"
