@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.38](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.37...thevibecompany-v0.1.38) (2026-02-19)
+
+
+### Bug Fixes
+
+* Rename small to tiny ([#94](https://github.com/The-Vibe-Company/website/issues/94)) ([da56dd4](https://github.com/The-Vibe-Company/website/commit/da56dd4bade39eb62c4612da0df091a318b1d7ab))
+* rename tiny to small ([#92](https://github.com/The-Vibe-Company/website/issues/92)) ([181ea4d](https://github.com/The-Vibe-Company/website/commit/181ea4d972c6addb059d05756a97f82f56de6557))
+
 ## [0.1.37](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.36...thevibecompany-v0.1.37) (2026-02-19)
 
 
