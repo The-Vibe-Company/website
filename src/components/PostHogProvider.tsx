@@ -33,6 +33,9 @@ export function PostHogProvider({ children }: Props) {
   useEffect(() => {
     if (!posthogKey) return;
 
+    // Check if already initialized to prevent duplicate init calls
+    if (posthog.__loaded) return;
+
     posthog.init(posthogKey, {
       api_host: posthogHost,
       person_profiles: "identified_only",
