@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Who Are We",
   description:
     "The Vibe Company is an AI-native agency helping startups ship products faster with AI development, prototyping, and rapid execution.",
+  alternates: {
+    canonical: "/agency",
+  },
 };
 
 export default function AgencyPage() {
