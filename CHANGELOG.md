@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.32](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.31...thevibecompany-v0.1.32) (2026-02-19)
+
+
+### Features
+
+* integrate PostHog analytics ([#78](https://github.com/The-Vibe-Company/website/issues/78)) ([b3624a3](https://github.com/The-Vibe-Company/website/commit/b3624a3c68207834a40fa4e905acec36546773fd))
+
 ## [0.1.31](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.30...thevibecompany-v0.1.31) (2026-02-19)
 
 
