@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEXT_TELEMETRY_DISABLED: 1
-      PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
     steps:
       - uses: actions/checkout@v4
 
@@ -35,4 +33,4 @@ jobs:
         run: bash scripts/check-no-root-layout.sh
 
       - name: Build
-        run: bun run build
+        run: bunx next build --experimental-build-mode compile
