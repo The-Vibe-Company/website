@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.36](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.35...thevibecompany-v0.1.36) (2026-02-19)
+
+
+### Bug Fixes
+
+* **nav:** rename 'Who we are' and fit overlay cards on mobile ([#87](https://github.com/The-Vibe-Company/website/issues/87)) ([2294f3f](https://github.com/The-Vibe-Company/website/commit/2294f3f414233da3a0b4d45611fddbc8f4fdc685))
+
 ## [0.1.35](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.34...thevibecompany-v0.1.35) (2026-02-19)
 
 
