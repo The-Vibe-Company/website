@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 const SmoothScroller = dynamic(
   () => import("@/components/SmoothScroller").then((m) => m.SmoothScroller),
@@ -15,8 +16,8 @@ export function ClientProviders() {
   const isPortfolio = pathname.startsWith("/portfolio");
 
   return (
-    <>
+    <PostHogProvider>
       {!isHomepage && !isResources && !isPortfolio && <SmoothScroller />}
-    </>
+    </PostHogProvider>
   );
 }
