@@ -69,7 +69,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
     <>
       <motion.nav
         aria-label="Main navigation"
-        className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 lg:px-24 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50 relative"
+        className="sticky top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 lg:px-24 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={createTransition(0.6, 0.3)}
