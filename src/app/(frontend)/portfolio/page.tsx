@@ -32,7 +32,7 @@ const projects: Project[] = [
   },
   {
     name: "The Companion",
-    href: "https://github.com/The-Vibe-Company/companion",
+    href: "https://www.thecompanion.sh/",
     cover: "/projects/compagnon-home.png",
     logo: "/projects/compagnon-favicon.svg",
     accent: "#f97316",
@@ -119,9 +119,9 @@ export default function PortfolioPage() {
                       alt={`${project.name} homepage`}
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.015]"
+                      className="object-cover object-top"
                     />
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] origin-left scale-x-30 transition-transform duration-500 group-hover:scale-x-100" style={{ backgroundColor: project.accent }} />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px]" style={{ backgroundColor: project.accent }} />
                   </div>
                 </article>
               </a>
