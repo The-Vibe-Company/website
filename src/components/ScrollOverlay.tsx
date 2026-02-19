@@ -33,38 +33,38 @@ const navCardThemeClasses: Record<
     title: string;
     description: string;
     cta: string;
-    defaultShadow: string;
+    hoverShadow: string;
   }
 > = {
   light: {
-    card: "relative h-full overflow-hidden border-2 border-foreground bg-background group min-h-0 md:min-h-[520px]",
+    card: "relative h-full overflow-hidden border-2 border-foreground bg-background group min-h-0 md:min-h-[520px] transition-colors duration-300",
     topLine: "absolute inset-x-0 top-0 h-[2px] bg-zinc-900/10",
     number: "text-muted-foreground",
-    icon: "text-muted-foreground group-hover:text-foreground transition-colors",
+    icon: "text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300",
     title: "mb-2",
     description: "text-muted-foreground text-lg mb-8",
-    cta: "mt-auto text-muted-foreground group-hover:text-foreground transition-colors",
-    defaultShadow: "10px 10px 0px 0px rgba(0,0,0,0.75)",
+    cta: "mt-auto text-muted-foreground group-hover:text-foreground transition-colors duration-300",
+    hoverShadow: "8px 8px 0px 0px rgba(113,113,122,0.45)",
   },
   gray: {
-    card: "relative h-full overflow-hidden border border-zinc-600 bg-zinc-800 text-zinc-100 group min-h-0 md:min-h-[520px]",
+    card: "relative h-full overflow-hidden border border-zinc-600 bg-zinc-800 text-zinc-100 group min-h-0 md:min-h-[520px] transition-colors duration-300",
     topLine: "absolute inset-x-0 top-0 h-[1px] bg-white/8",
     number: "text-zinc-300",
-    icon: "text-zinc-300 group-hover:text-zinc-50 transition-colors",
+    icon: "text-zinc-300 group-hover:text-zinc-50 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300",
     title: "mb-2 text-zinc-100",
     description: "text-zinc-200/85 text-lg mb-8",
-    cta: "mt-auto text-zinc-300 group-hover:text-zinc-50 transition-colors",
-    defaultShadow: "10px 10px 0px 0px rgba(70,70,70,0.4)",
+    cta: "mt-auto text-zinc-300 group-hover:text-zinc-50 transition-colors duration-300",
+    hoverShadow: "8px 8px 0px 0px rgba(70,70,70,0.45)",
   },
   dark: {
-    card: "relative h-full overflow-hidden bg-foreground text-background border border-zinc-700 group min-h-0 md:min-h-[520px]",
+    card: "relative h-full overflow-hidden bg-foreground text-background border border-zinc-700 group min-h-0 md:min-h-[520px] transition-colors duration-300",
     topLine: "absolute inset-x-0 top-0 h-[2px] bg-white/10",
     number: "text-background/50",
-    icon: "text-background/30 group-hover:text-background/60 transition-colors",
+    icon: "text-background/30 group-hover:text-background/60 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300",
     title: "text-background mb-2",
     description: "text-background/60 text-lg mb-8",
-    cta: "mt-auto text-background/40 group-hover:text-background/70 transition-colors",
-    defaultShadow: "10px 10px 0px 0px rgba(105,105,105,0.45)",
+    cta: "mt-auto text-background/40 group-hover:text-background/70 transition-colors duration-300",
+    hoverShadow: "8px 8px 0px 0px rgba(105,105,105,0.45)",
   },
 };
 
@@ -75,7 +75,6 @@ interface NavCardProps {
   description: string;
   cta: string;
   theme: NavCardTheme;
-  shadow?: string;
   className?: string;
 }
 
@@ -86,7 +85,6 @@ function NavCard({
   description,
   cta,
   theme,
-  shadow,
   className,
 }: NavCardProps) {
   const styles = navCardThemeClasses[theme];
@@ -96,8 +94,8 @@ function NavCard({
       variants={cardVariants}
       transition={animations.easing.spring}
       whileHover={{
-        scale: 1.02,
-        boxShadow: shadow ?? styles.defaultShadow,
+        scale: 1.015,
+        boxShadow: styles.hoverShadow,
       }}
       className={cn(styles.card, className)}
     >
@@ -174,7 +172,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
 
             {/* Cards */}
             <motion.div
-              className="grid grid-cols-1 grid-rows-3 md:grid-cols-3 md:grid-rows-1 gap-2 md:gap-6 flex-1 min-h-0 overflow-hidden"
+              className="grid grid-cols-1 grid-rows-3 md:grid-cols-3 md:grid-rows-1 gap-2 md:gap-6 flex-1 min-h-0"
               initial="hidden"
               animate="visible"
               exit="exit"
@@ -201,7 +199,7 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
                 number="03"
                 title="Who we are."
                 description="A small team shipping fast, loudly, and in public."
-                cta="MEET THE TEAM"
+                cta="MEET US"
                 theme="dark"
               />
             </motion.div>
