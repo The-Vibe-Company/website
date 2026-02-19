@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.31](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.30...thevibecompany-v0.1.31) (2026-02-19)
+
+
+### Features
+
+* make top header sticky ([#76](https://github.com/The-Vibe-Company/website/issues/76)) ([8b50bbd](https://github.com/The-Vibe-Company/website/commit/8b50bbd37d0048cfba7a5b6c14c912e8db2789d7))
+
 ## [0.1.30](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.29...thevibecompany-v0.1.30) (2026-02-18)
 
 
