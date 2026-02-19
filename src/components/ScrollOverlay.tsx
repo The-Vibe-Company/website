@@ -15,11 +15,125 @@ interface ScrollOverlayProps {
   onClose: () => void;
 }
 
+type NavCardTheme = "light" | "gray" | "dark";
+
 const cardVariants = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: 30 },
 };
+
+const navCardThemeClasses: Record<
+  NavCardTheme,
+  {
+    card: string;
+    topLine: string;
+    number: string;
+    icon: string;
+    title: string;
+    description: string;
+    cta: string;
+    defaultShadow: string;
+  }
+> = {
+  light: {
+    card: "relative overflow-hidden border-2 border-foreground bg-background group min-h-[520px]",
+    topLine: "absolute inset-x-0 top-0 h-[2px] bg-zinc-900/10",
+    number: "text-muted-foreground",
+    icon: "text-muted-foreground group-hover:text-foreground transition-colors",
+    title: "mb-2",
+    description: "text-muted-foreground text-lg mb-8",
+    cta: "mt-auto text-muted-foreground group-hover:text-foreground transition-colors",
+    defaultShadow: "10px 10px 0px 0px rgba(0,0,0,0.75)",
+  },
+  gray: {
+    card: "relative overflow-hidden border border-zinc-600 bg-zinc-800 text-zinc-100 group min-h-[520px]",
+    topLine: "absolute inset-x-0 top-0 h-[1px] bg-white/8",
+    number: "text-zinc-300",
+    icon: "text-zinc-300 group-hover:text-zinc-50 transition-colors",
+    title: "mb-2 text-zinc-100",
+    description: "text-zinc-200/85 text-lg mb-8",
+    cta: "mt-auto text-zinc-300 group-hover:text-zinc-50 transition-colors",
+    defaultShadow: "10px 10px 0px 0px rgba(70,70,70,0.4)",
+  },
+  dark: {
+    card: "relative overflow-hidden bg-foreground text-background border border-zinc-700 group min-h-[520px]",
+    topLine: "absolute inset-x-0 top-0 h-[2px] bg-white/10",
+    number: "text-background/50",
+    icon: "text-background/30 group-hover:text-background/60 transition-colors",
+    title: "text-background mb-2",
+    description: "text-background/60 text-lg mb-8",
+    cta: "mt-auto text-background/40 group-hover:text-background/70 transition-colors",
+    defaultShadow: "10px 10px 0px 0px rgba(105,105,105,0.45)",
+  },
+};
+
+interface NavCardProps {
+  href: string;
+  number: string;
+  title: string;
+  description: string;
+  cta: string;
+  theme: NavCardTheme;
+  shadow?: string;
+  className?: string;
+}
+
+function NavCard({
+  href,
+  number,
+  title,
+  description,
+  cta,
+  theme,
+  shadow,
+  className,
+}: NavCardProps) {
+  const styles = navCardThemeClasses[theme];
+
+  return (
+    <motion.div
+      variants={cardVariants}
+      transition={animations.easing.spring}
+      whileHover={{
+        scale: 1.02,
+        boxShadow: shadow ?? styles.defaultShadow,
+      }}
+      className={cn(styles.card, className)}
+    >
+      <Link href={href} className="flex h-full flex-col p-6 md:p-10">
+        <div className={styles.topLine} />
+        <div className="flex items-center justify-between mb-8 md:mb-16">
+          <span className={cn(typography.label.mono, styles.number)}>
+            {number}
+          </span>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={styles.icon}
+            aria-hidden="true"
+          >
+            <path d="M7 17L17 7" />
+            <path d="M7 7h10v10" />
+          </svg>
+        </div>
+        <h3 className={cn(typography.heading.h3, styles.title)}>
+          {title}
+        </h3>
+        <p className={styles.description}>{description}</p>
+        <span className={cn(typography.label.mono, styles.cta)}>
+          {cta} &rarr;
+        </span>
+      </Link>
+    </motion.div>
+  );
+}
 
 export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
   return (
@@ -60,97 +174,36 @@ export function ScrollOverlay({ isOpen, onClose }: ScrollOverlayProps) {
 
             {/* Cards */}
             <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              className="grid grid-cols-1 md:grid-cols-3 gap-6"
               initial="hidden"
               animate="visible"
               exit="exit"
               transition={{ staggerChildren: 0.08, delayChildren: 0.15 }}
             >
-              {/* We Build It Card (dark) */}
-              <motion.div
-                variants={cardVariants}
-                transition={animations.easing.spring}
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "8px 8px 0px 0px rgba(128,128,128,0.4)",
-                }}
-                className="bg-foreground text-background border border-foreground group"
-              >
-                <Link href="/portfolio" className="block p-5 md:p-12">
-                  <div className="flex items-center justify-between mb-6 md:mb-24">
-                    <span className={cn(typography.label.mono, "text-background/50")}>
-                      01
-                    </span>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-background/30 group-hover:text-background/60 transition-colors"
-                      aria-hidden="true"
-                    >
-                      <path d="M7 17L17 7" />
-                      <path d="M7 7h10v10" />
-                    </svg>
-                  </div>
-                  <h3 className={cn(typography.heading.h3, "text-background mb-2")}>
-                    What we built.
-                  </h3>
-                  <p className="text-background/60 text-lg mb-8">
-                    Product showcase with distinct identities.
-                  </p>
-                  <span className={cn(typography.label.mono, "text-background/40 group-hover:text-background/70 transition-colors")}>
-                    SEE OUR WORK &rarr;
-                  </span>
-                </Link>
-              </motion.div>
-
-              {/* Resources Card (light) */}
-              <motion.div
-                variants={cardVariants}
-                transition={animations.easing.spring}
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "8px 8px 0px 0px var(--foreground)",
-                }}
-                className="border-2 border-foreground bg-background group"
-              >
-                <Link href="/resources" className="block p-5 md:p-12">
-                  <div className="flex items-center justify-between mb-6 md:mb-24">
-                    <span className={cn(typography.label.mono, "text-muted-foreground")}>
-                      02
-                    </span>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-muted-foreground group-hover:text-foreground transition-colors"
-                      aria-hidden="true"
-                    >
-                      <path d="M7 17L17 7" />
-                      <path d="M7 7h10v10" />
-                    </svg>
-                  </div>
-                  <h3 className={cn(typography.heading.h3, "mb-2")}>
-                    What we learned.
-                  </h3>
-                  <p className="text-muted-foreground text-lg mb-8">
-                    Tutorials, build logs, and raw learnings.
-                  </p>
-                  <span className={cn(typography.label.mono, "text-muted-foreground group-hover:text-foreground transition-colors")}>
-                    START LEARNING &rarr;
-                  </span>
-                </Link>
-              </motion.div>
+              <NavCard
+                href="/portfolio"
+                number="01"
+                title="What we built."
+                description="Product showcase with distinct identities."
+                cta="SEE OUR WORK"
+                theme="light"
+              />
+              <NavCard
+                href="/resources"
+                number="02"
+                title="What we learned."
+                description="Tutorials, build logs, and raw learnings."
+                cta="START LEARNING"
+                theme="gray"
+              />
+              <NavCard
+                href="/agency"
+                number="03"
+                title="Who are we."
+                description="A tiny team shipping fast, loudly, and in public."
+                cta="MEET THE TEAM"
+                theme="dark"
+              />
             </motion.div>
 
             {/* Dismiss hint */}
