@@ -23,7 +23,7 @@ Always add the link to the issue in the PR description.
 ## Git
 
 - Always use `--base main` when creating PRs with `gh pr create`
-- Use conventional commits for the commits and PR
+- Use conventional commits for the commits and PR title
 
 ### Designing Pages and Components
 
