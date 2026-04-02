@@ -11,11 +11,11 @@ import {
 
 export function HomeCenter() {
   return (
-    <section className="h-screen w-full flex flex-col pt-16">
+    <section className="h-screen w-full flex flex-col pt-2 md:pt-4">
       {/* Top bar: badges */}
       <div
         className={cn(
-          "flex items-center gap-3 pt-4 md:pt-8 md:justify-between",
+          "flex items-center gap-3 pt-0 md:pt-1 md:justify-between",
           spacing.page.x
         )}
       >
@@ -59,7 +59,12 @@ export function HomeCenter() {
       </div>
 
       {/* Center: headline + tagline */}
-      <div className={cn("flex-1 flex flex-col justify-center", spacing.page.x)}>
+      <div
+        className={cn(
+          "flex-1 flex flex-col justify-center -mt-14 md:-mt-24",
+          spacing.page.x
+        )}
+      >
         <div className={spacing.container.default}>
           <motion.h1
             className="text-[15vw] md:text-[12vw] leading-[0.85] font-bold tracking-tighter"
@@ -90,7 +95,7 @@ export function HomeCenter() {
       </div>
 
       {/* Bottom spacer for scroll hint (rendered by parent) */}
-      <div className="h-12 md:h-16" />
+      <div className="h-1 md:h-2" />
     </section>
   );
 }
