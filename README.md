@@ -1,38 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Vibe Company
 
-## Getting Started
+This repo now uses a deliberately minimal CMS.
 
-First, run the development server:
+There is one content collection with two public entry types:
+- `learning`
+- `article`
+
+The admin UI is for writing and editing those entries. The write API is for pushing them in programmatically.
+
+## Local Setup
+
+1. Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+bun install
+```
+
+2. Copy envs and fill them in:
+
+```bash
+cp .env.example .env.local
+```
+
+Required values:
+- `PAYLOAD_SECRET`
+- `DATABASE_URL`
+- `CONTENT_WRITE_TOKEN`
+
+3. Start the app:
+
+```bash
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Main URLs:
+- Site: `http://localhost:3000`
+- Admin: `http://localhost:3000/admin`
+- Write API docs: `http://localhost:3000/api/write`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Write API
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Use this endpoint when you want the simplest possible programmatic way to create content.
 
-## Learn More
+- Method: `POST`
+- URL: `/api/write`
+- Auth: `Authorization: Bearer <CONTENT_WRITE_TOKEN>`
+- Content-Type: `application/json`
 
-To learn more about Next.js, take a look at the following resources:
+Request body:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```json
+{
+  "title": "string, required",
+  "body": "string, required",
+  "type": "article or learning, required",
+  "summary": "string, optional",
+  "status": "draft or published, optional",
+  "slug": "string, optional",
+  "publishedAt": "ISO date string, optional"
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Notes:
+- `type: "learning"` is stored internally as the existing `daily` type so deployed `/resources/learnings/...` URLs keep working.
+- If `summary` is omitted, the API generates a short one from `body`.
+- If `slug` is omitted, the API generates one from `title`.
+- If `status` is omitted, it defaults to `draft`.
 
-## Deploy on Vercel
+### Example: Create A Learning
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+curl -X POST http://localhost:3000/api/write \
+  -H "Authorization: Bearer $CONTENT_WRITE_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "CSS polish matters more than people think",
+    "type": "learning",
+    "body": "Tiny visual inconsistencies compound fast. Fixing spacing, contrast, and typography often changes how competent the whole product feels.",
+    "status": "published"
+  }'
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Example: Create An Article
 
-hello
+```bash
+curl -X POST http://localhost:3000/api/write \
+  -H "Authorization: Bearer $CONTENT_WRITE_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Why we simplified the CMS",
+    "type": "article",
+    "summary": "A short explanation of why the old setup had too much surface area.",
+    "body": "The old CMS mixed publishing, tooling, ingestion, and AI workflows into one admin. We cut it back to writing and publishing.",
+    "status": "published"
+  }'
+```
+
+Successful response:
+
+```json
+{
+  "ok": true,
+  "entry": {
+    "id": 123,
+    "title": "Why we simplified the CMS",
+    "slug": "why-we-simplified-the-cms",
+    "type": "article",
+    "status": "published",
+    "url": "/resources/articles/why-we-simplified-the-cms",
+    "adminUrl": "/admin/collections/content/123"
+  }
+}
+```
+
+### Self-Describing API
+
+You can inspect the endpoint contract directly:
+
+```bash
+curl http://localhost:3000/api/write
+```
+
+## Build
+
+```bash
+bun run build
+```

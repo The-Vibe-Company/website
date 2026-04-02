@@ -9,13 +9,13 @@ import { getPayload } from "payload";
 export const metadata: Metadata = {
   title: "Resources | Vibe Learning",
   description:
-    "Daily learnings, tutorials, and raw build logs. Everything we know about shipping with AI.",
+    "Learnings and articles from The Vibe Company.",
 };
 
 export default async function ResourcesPage() {
   const payload = await getPayload({ config });
 
-  const [dailyContent, nonDailyContent, allContent, toolsCount] = await Promise.all([
+  const [dailyContent, nonDailyContent, allContent] = await Promise.all([
     payload.find({
       collection: "content",
       where: {
@@ -36,17 +36,16 @@ export default async function ResourcesPage() {
       collection: "content",
       where: {
         status: { equals: "published" },
-        type: { not_equals: "daily" },
+        type: { equals: "article" },
       },
       sort: "-publishedAt",
       limit: 200,
-      depth: 1,
+      depth: 0,
       select: {
         title: true,
         summary: true,
         type: true,
         slug: true,
-        domain: true,
         publishedAt: true,
         featuredImage: true,
       } as { [k: string]: true },
@@ -58,10 +57,6 @@ export default async function ResourcesPage() {
       pagination: false,
       depth: 0,
       select: { type: true } as { [k: string]: true },
-    }),
-    payload.count({
-      collection: "tools",
-      where: { status: { equals: "published" } },
     }),
   ]);
 
@@ -77,7 +72,6 @@ export default async function ResourcesPage() {
     const t = item.type as string;
     counts[t] = (counts[t] || 0) + 1;
   }
-  counts["tools"] = toolsCount.totalDocs;
 
   return (
     <main className="pt-12 pb-12">
@@ -100,7 +94,7 @@ export default async function ResourcesPage() {
             All Resources
           </h1>
           <p className="text-base md:text-lg text-res-text-muted max-w-2xl leading-relaxed">
-            Everything we know about shipping with AI.
+            Learnings for quick notes. Articles for the longer version.
           </p>
         </div>
       </section>

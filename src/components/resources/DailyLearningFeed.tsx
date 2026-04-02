@@ -37,7 +37,7 @@ export function DailyLearningFeed({
   emptyClassName = 'py-6 text-sm text-res-text-muted',
 }: DailyLearningFeedProps) {
   if (items.length === 0) {
-    return <div className={emptyClassName}>No daily learnings yet.</div>;
+    return <div className={emptyClassName}>No learnings yet.</div>;
   }
 
   return (

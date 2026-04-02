@@ -11,25 +11,13 @@ type StatCard = {
 
 export const DashboardStats: React.FC = async () => {
   let stats: StatCard[] = []
-  let recentLogs: Array<{
-    id: string | number
-    status: string
-    contentTitle: string
-    sourceType: string
-  }> = []
 
   try {
     const payload = await getPayload({ config })
 
-    const [contentResult, toolsResult, mediaResult, logsResult] =
-      await Promise.all([
-        payload.find({ collection: 'content', limit: 0 }),
-        payload.find({ collection: 'tools', limit: 0 }),
-        payload.find({ collection: 'media', limit: 0 }),
-        payload.find({ collection: 'ingestion-logs', limit: 0 }),
-      ])
-
-    const [publishedResult, draftResult, recentLogsResult] = await Promise.all([
+    const [contentResult, mediaResult, publishedResult, draftResult, learningResult, articleResult] = await Promise.all([
+      payload.find({ collection: 'content', limit: 0 }),
+      payload.find({ collection: 'media', limit: 0 }),
       payload.find({
         collection: 'content',
         limit: 0,
@@ -41,42 +29,40 @@ export const DashboardStats: React.FC = async () => {
         where: { status: { equals: 'draft' } },
       }),
       payload.find({
-        collection: 'ingestion-logs',
-        limit: 5,
-        sort: '-createdAt',
+        collection: 'content',
+        limit: 0,
+        where: { type: { equals: 'daily' } },
+      }),
+      payload.find({
+        collection: 'content',
+        limit: 0,
+        where: { type: { equals: 'article' } },
       }),
     ])
 
     stats = [
       {
-        label: 'Content',
+        label: 'Entries',
         value: contentResult.totalDocs,
         sub: `${publishedResult.totalDocs} published, ${draftResult.totalDocs} drafts`,
         color: '#2563eb',
       },
       {
-        label: 'Tools',
-        value: toolsResult.totalDocs,
-        color: '#7c3aed',
+        label: 'Learnings',
+        value: learningResult.totalDocs,
+        color: '#d97706',
+      },
+      {
+        label: 'Articles',
+        value: articleResult.totalDocs,
+        color: '#059669',
       },
       {
         label: 'Media',
         value: mediaResult.totalDocs,
-        color: '#059669',
-      },
-      {
-        label: 'Ingestions',
-        value: logsResult.totalDocs,
-        color: '#d97706',
+        color: '#7c3aed',
       },
     ]
-
-    recentLogs = recentLogsResult.docs.map((doc) => ({
-      id: doc.id,
-      status: (doc.status as string) || 'received',
-      contentTitle: (doc.contentTitle as string) || 'Untitled',
-      sourceType: (doc.sourceType as string) || 'manual',
-    }))
   } catch {
     // Silently degrade — show empty dashboard rather than crash
   }
@@ -103,29 +89,6 @@ export const DashboardStats: React.FC = async () => {
           </div>
         ))}
       </div>
-
-      {recentLogs.length > 0 && (
-        <div className="dashboard-stats__recent">
-          <h3 className="dashboard-stats__section-title">Recent Ingestions</h3>
-          <ul className="dashboard-stats__list">
-            {recentLogs.map((log) => (
-              <li key={log.id} className="dashboard-stats__list-item">
-                <span
-                  className={`dashboard-stats__status dashboard-stats__status--${log.status}`}
-                >
-                  {log.status}
-                </span>
-                <span className="dashboard-stats__list-title">
-                  {log.contentTitle}
-                </span>
-                <span className="dashboard-stats__list-source">
-                  {log.sourceType}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   )
 }

@@ -77,9 +77,6 @@ export const resourcesTheme = {
   },
 } as const;
 
-// Domain maps removed — domains are now CMS-managed via the 'domains' collection.
-// Components receive domain data as props from populated relationship fields.
-
 export const categoryLabels: Record<string, string> = {
   'ai-llm': 'AI / LLM',
   development: 'Development',
@@ -114,4 +111,3 @@ export const pricingColors: Record<string, { bg: string; text: string; border: s
 };
 
 // Content types are static config in '@/lib/content-types'.
-// Components use getTypeLabel() from '@/lib/taxonomy' to resolve slugs to labels.

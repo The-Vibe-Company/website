@@ -1,17 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getTypeSlug, getTypeLabel, normalizeDomains } from '@/lib/taxonomy-utils';
+import { getTypeSlug, getTypeLabel } from '@/lib/taxonomy-utils';
 import { getUrlSlugForDbType } from '@/lib/content-types';
-import { DomainBadge } from './DomainBadge';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 
 interface ContentCardProps {
   title: string;
-  summary: string;
+  summary?: string | null;
   type: unknown;
   slug: string;
-  domain?: unknown;
   publishedAt?: string;
   featuredImage?: { url: string; alt?: string; sizes?: { card?: { url: string } } } | string | number | null;
 }
@@ -35,14 +33,11 @@ export function ContentCard({
   summary,
   type,
   slug,
-  domain,
   publishedAt,
   featuredImage,
 }: ContentCardProps) {
   const typeSlug = getTypeSlug(type);
   const typeLabel = getTypeLabel(type);
-  const domains = normalizeDomains(domain);
-  const firstDomain = domains[0];
   const image = getImageUrl(featuredImage);
 
   return (
@@ -62,8 +57,6 @@ export function ContentCard({
 
         <div className="flex flex-col flex-1 min-w-0 p-6">
           <div className="flex items-center gap-2 mb-6 border-b border-res-border/50 pb-4">
-            {firstDomain && <DomainBadge domain={firstDomain} variant="dot" />}
-            <span className="text-res-text-muted/50 text-[10px]">&bull;</span>
             <span className={resourcesTheme.badge.type}>
               {typeLabel || typeSlug}
             </span>
@@ -75,7 +68,7 @@ export function ContentCard({
 
           <p
             className="text-sm text-res-text-muted leading-relaxed line-clamp-3 mb-6 flex-1"
-            dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(summary) }}
+            dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(summary ?? '') }}
           />
 
           <div className="flex items-center justify-between mt-auto pt-4 border-t border-res-border/50">

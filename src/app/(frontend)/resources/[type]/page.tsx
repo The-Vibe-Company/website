@@ -42,54 +42,28 @@ export default async function TypeListingPage({
   }
 
   const payload = await getPayload({ config });
-
-  // Fetch items from the appropriate collection
-  const isToolsType = contentType.collection === 'tools';
   const contentSelect = {
     title: true,
     summary: true,
     type: true,
     slug: true,
-    domain: true,
     publishedAt: true,
     featuredImage: true,
     ...(contentType.slug === 'daily' ? { body: true } : {}),
   } as { [k: string]: true };
 
-  const [items, allContent, toolsCount] = await Promise.all([
-    isToolsType
-      ? payload.find({
-          collection: 'tools',
-          where: { status: { equals: 'published' } },
-          sort: 'name',
-          limit: 200,
-          depth: 0,
-          select: {
-            name: true,
-            slug: true,
-            description: true,
-            logo: true,
-            category: true,
-            domain: true,
-            pricing: true,
-            rating: true,
-            costPerMonth: true,
-            licensesCount: true,
-            leverageScore: true,
-          } as { [k: string]: true },
-        })
-      : payload.find({
-          collection: 'content',
-          where: {
-            status: { equals: 'published' },
-            type: { equals: contentType.slug },
-          },
-          sort: '-publishedAt',
-          limit: 200,
-          depth: 1,
-          select: contentSelect,
-        }),
-    // Lightweight query to get counts for all content types (for TypeNav visibility)
+  const [items, allContent] = await Promise.all([
+    payload.find({
+      collection: 'content',
+      where: {
+        status: { equals: 'published' },
+        type: { equals: contentType.slug },
+      },
+      sort: '-publishedAt',
+      limit: 200,
+      depth: 0,
+      select: contentSelect,
+    }),
     payload.find({
       collection: 'content',
       where: { status: { equals: 'published' } },
@@ -97,11 +71,6 @@ export default async function TypeListingPage({
       pagination: false,
       depth: 0,
       select: { type: true } as { [k: string]: true },
-    }),
-    // Get tools count for TypeNav
-    payload.count({
-      collection: 'tools',
-      where: { status: { equals: 'published' } },
     }),
   ]);
 
@@ -111,7 +80,6 @@ export default async function TypeListingPage({
     const t = item.type as string;
     counts[t] = (counts[t] || 0) + 1;
   }
-  counts['tools'] = toolsCount.totalDocs;
 
   const navContentTypes = getNavContentTypes();
   const typeNavLinks = navContentTypes.map((ct) => ({
@@ -119,27 +87,6 @@ export default async function TypeListingPage({
     href: `/resources/${ct.urlSlug}`,
     slug: ct.slug,
   }));
-
-  // Normalize tool items to match ContentItem shape expected by TypeListingClient
-  const normalizedItems = isToolsType
-    ? items.docs.map((tool) => ({
-        id: tool.id,
-        title: (tool as unknown as { name: string }).name,
-        summary: (tool as unknown as { description: string }).description,
-        type: 'tools',
-        slug: tool.slug as string,
-        domain: tool.domain,
-        publishedAt: null,
-        // Tool-specific fields
-        logo: (tool as Record<string, unknown>).logo,
-        category: (tool as Record<string, unknown>).category,
-        pricing: (tool as Record<string, unknown>).pricing,
-        rating: (tool as Record<string, unknown>).rating,
-        costPerMonth: (tool as Record<string, unknown>).costPerMonth,
-        licensesCount: (tool as Record<string, unknown>).licensesCount,
-        leverageScore: (tool as Record<string, unknown>).leverageScore,
-      }))
-    : items.docs;
 
   const HeaderIcon = RESOURCE_ICONS[contentType.slug];
 
@@ -165,7 +112,7 @@ export default async function TypeListingPage({
 
       <TypeListingClient
         contentType={contentType}
-        items={JSON.parse(JSON.stringify(normalizedItems))}
+        items={JSON.parse(JSON.stringify(items.docs))}
         typeNavLinks={typeNavLinks}
         counts={counts}
       />
