@@ -95,7 +95,7 @@ export function HomeLaunchpad() {
       {/* Scroll hint */}
       {!isOverlayOpen && (
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={createTransition(0.6, 2)}
