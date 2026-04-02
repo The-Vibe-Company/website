@@ -1,12 +1,10 @@
 # The Vibe Company
 
-This repo now uses a deliberately minimal CMS.
+This repo publishes content directly from Markdown files in the codebase.
 
-There is one content collection with two public entry types:
-- `learning`
-- `article`
-
-The admin UI is for writing and editing those entries. The write API is for pushing them in programmatically.
+There are two public entry types:
+- `learnings`
+- `articles`
 
 ## Local Setup
 
@@ -22,10 +20,7 @@ bun install
 cp .env.example .env.local
 ```
 
-Required values:
-- `PAYLOAD_SECRET`
-- `DATABASE_URL`
-- `CONTENT_WRITE_TOKEN`
+No CMS-specific environment variables are required for content publishing.
 
 3. Start the app:
 
@@ -35,91 +30,28 @@ bun dev
 
 Main URLs:
 - Site: `http://localhost:3000`
-- Admin: `http://localhost:3000/admin`
-- Write API docs: `http://localhost:3000/api/write`
 
-## Write API
+## Content
 
-Use this endpoint when you want the simplest possible programmatic way to create content.
+Content lives in:
 
-- Method: `POST`
-- URL: `/api/write`
-- Auth: `Authorization: Bearer <CONTENT_WRITE_TOKEN>`
-- Content-Type: `application/json`
+- `content/articles/*.md`
+- `content/learnings/*.md`
 
-Request body:
+Each file uses simple frontmatter:
 
-```json
-{
-  "title": "string, required",
-  "body": "string, required",
-  "type": "article or learning, required",
-  "summary": "string, optional",
-  "status": "draft or published, optional",
-  "slug": "string, optional",
-  "publishedAt": "ISO date string, optional"
-}
+```md
+---
+title: Why we simplified the CMS
+slug: why-we-simplified-the-cms
+summary: A short explanation of why the old setup had too much surface area.
+publishedAt: 2026-02-20
+---
+
+Markdown body here.
 ```
 
-Notes:
-- `type: "learning"` is stored internally as the existing `daily` type so deployed `/resources/learnings/...` URLs keep working.
-- If `summary` is omitted, the API generates a short one from `body`.
-- If `slug` is omitted, the API generates one from `title`.
-- If `status` is omitted, it defaults to `draft`.
-
-### Example: Create A Learning
-
-```bash
-curl -X POST http://localhost:3000/api/write \
-  -H "Authorization: Bearer $CONTENT_WRITE_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "CSS polish matters more than people think",
-    "type": "learning",
-    "body": "Tiny visual inconsistencies compound fast. Fixing spacing, contrast, and typography often changes how competent the whole product feels.",
-    "status": "published"
-  }'
-```
-
-### Example: Create An Article
-
-```bash
-curl -X POST http://localhost:3000/api/write \
-  -H "Authorization: Bearer $CONTENT_WRITE_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Why we simplified the CMS",
-    "type": "article",
-    "summary": "A short explanation of why the old setup had too much surface area.",
-    "body": "The old CMS mixed publishing, tooling, ingestion, and AI workflows into one admin. We cut it back to writing and publishing.",
-    "status": "published"
-  }'
-```
-
-Successful response:
-
-```json
-{
-  "ok": true,
-  "entry": {
-    "id": 123,
-    "title": "Why we simplified the CMS",
-    "slug": "why-we-simplified-the-cms",
-    "type": "article",
-    "status": "published",
-    "url": "/resources/articles/why-we-simplified-the-cms",
-    "adminUrl": "/admin/collections/content/123"
-  }
-}
-```
-
-### Self-Describing API
-
-You can inspect the endpoint contract directly:
-
-```bash
-curl http://localhost:3000/api/write
-```
+Adding or editing an article is now a normal code change. The site rebuilds from those files on deploy.
 
 ## Build
 

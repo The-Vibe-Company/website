@@ -343,6 +343,42 @@
   margin: 2em 0;
 }
 
+.prose-vibe-image {
+  margin: 2em 0;
+}
+
+.prose-vibe-image img {
+  width: 100%;
+  border: 1px solid var(--res-border, var(--border));
+  background: var(--res-surface, transparent);
+  margin: 0;
+}
+
+.prose-vibe-image figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--res-text-muted, var(--muted-foreground));
+}
+
+.prose-vibe-gallery {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 2em 0;
+}
+
+.prose-vibe-gallery .prose-vibe-image {
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .prose-vibe-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 /* Warm variant for resources pages */
 .prose-vibe-warm {
   color: var(--res-text);
