@@ -79,7 +79,7 @@ function renderLexicalBlock(node: unknown, depth = 0): string {
   if (type === 'list') {
     const listType = value.listType === 'number' ? 'ordered' : value.listType
     return children
-      .map((child, index) => renderLexicalListItem(child, listType === 'number', depth, index))
+      .map((child, index) => renderLexicalListItem(child, listType === 'ordered', depth, index))
       .filter(Boolean)
       .join('\n')
   }
@@ -148,7 +148,9 @@ export function renderInlineMarkdown(text: string): string {
   let html = escapeHtml(text)
 
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>')
-  html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+  html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (_match, label: string, url: string) => {
+    return `<a href="${escapeAttribute(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`
+  })
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
   html = html.replace(/__(.+?)__/g, '<strong>$1</strong>')
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>')
