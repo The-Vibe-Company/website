@@ -9,6 +9,10 @@ function escapeAttribute(value: string): string {
   return escapeHtml(value).replace(/"/g, '&quot;')
 }
 
+function escapeEscapedAttribute(value: string): string {
+  return value.replace(/"/g, '&quot;')
+}
+
 function applyLexicalTextFormat(text: string, format: unknown): string {
   if (typeof format !== 'number' || !text) return text
 
@@ -149,7 +153,7 @@ export function renderInlineMarkdown(text: string): string {
 
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>')
   html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (_match, label: string, url: string) => {
-    return `<a href="${escapeAttribute(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`
+    return `<a href="${escapeEscapedAttribute(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`
   })
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
   html = html.replace(/__(.+?)__/g, '<strong>$1</strong>')
