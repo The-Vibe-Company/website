@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { CONTENT_TYPES } from '@/lib/content-types'
+import { normalizeLexicalState } from '@/lib/lexical'
 import { autoPublishedAt } from './hooks/autoPublishedAt'
 import { autoSlug } from './hooks/autoSlug'
 import { revalidateContent } from './hooks/revalidateContent'
@@ -85,6 +86,18 @@ export const Content: CollectionConfig = {
       name: 'body',
       type: 'richText',
       required: true,
+      hooks: {
+        afterRead: [
+          ({ value }) => {
+            return normalizeLexicalState(value)
+          },
+        ],
+        beforeValidate: [
+          ({ value }) => {
+            return normalizeLexicalState(value)
+          },
+        ],
+      },
     },
     {
       name: 'featuredImage',

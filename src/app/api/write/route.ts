@@ -2,8 +2,7 @@ import { NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 
 import config from '@payload-config'
-
-type PublicEntryType = 'article' | 'learning'
+import { textToLexicalState } from '@/lib/lexical'
 
 type WritePayload = {
   title?: unknown
@@ -57,56 +56,6 @@ function mapEntryType(value: unknown): 'article' | 'daily' | null {
 
 function normalizeStatus(value: unknown): 'draft' | 'published' {
   return value === 'published' ? 'published' : 'draft'
-}
-
-function textToLexical(body: string) {
-  const paragraphs = body
-    .split(/\n{2,}/)
-    .map((paragraph) => paragraph.trim())
-    .filter(Boolean)
-
-  return {
-    root: {
-      type: 'root',
-      format: '',
-      indent: 0,
-      version: 1,
-      direction: null,
-      children: paragraphs.length
-        ? paragraphs.map((paragraph) => ({
-            type: 'paragraph',
-            format: '',
-            indent: 0,
-            version: 1,
-            direction: null,
-            textFormat: 0,
-            textStyle: '',
-            children: [
-              {
-                type: 'text',
-                detail: 0,
-                format: 0,
-                mode: 'normal',
-                style: '',
-                text: paragraph,
-                version: 1,
-              },
-            ],
-          }))
-        : [
-            {
-              type: 'paragraph',
-              format: '',
-              indent: 0,
-              version: 1,
-              direction: null,
-              textFormat: 0,
-              textStyle: '',
-              children: [],
-            },
-          ],
-    },
-  }
 }
 
 function validatePayload(input: WritePayload) {
@@ -223,7 +172,7 @@ export async function POST(request: Request) {
       summary: data.summary,
       status: data.status,
       publishedAt: data.publishedAt,
-      body: textToLexical(data.body),
+      body: textToLexicalState(data.body),
     },
   })
 
