@@ -359,7 +359,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--res-text-muted, var(--foreground-muted));
+  color: var(--res-text-muted, var(--muted-foreground));
 }
 
 .prose-vibe-gallery {

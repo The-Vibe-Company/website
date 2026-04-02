@@ -18,7 +18,7 @@ function escapeImageUrl(value: string): string {
 }
 
 function isSafeMarkdownImageUrl(value: string): boolean {
-  return value.startsWith('/') || /^https?:\/\//.test(value)
+  return /^\/(?!\/)/.test(value) || /^https?:\/\//.test(value)
 }
 
 function parseMarkdownImage(line: string): { alt: string; src: string; title?: string } | null {
