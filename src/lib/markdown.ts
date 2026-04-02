@@ -204,8 +204,13 @@ export function normalizeMarkdownBody(value: unknown): string {
 
 export function renderInlineMarkdown(text: string): string {
   let html = escapeHtml(text)
+  const codePlaceholders: string[] = []
 
-  html = html.replace(/`([^`]+)`/g, '<code>$1</code>')
+  html = html.replace(/`([^`]+)`/g, (_match, code: string) => {
+    const placeholder = `@@CODESPAN${codePlaceholders.length}@@`
+    codePlaceholders.push(`<code>${code}</code>`)
+    return placeholder
+  })
   html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (_match, label: string, url: string) => {
     return `<a href="${escapeEscapedAttribute(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`
   })
@@ -214,6 +219,9 @@ export function renderInlineMarkdown(text: string): string {
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>')
   html = html.replace(/_(.+?)_/g, '<em>$1</em>')
   html = html.replace(/~~(.+?)~~/g, '<s>$1</s>')
+  html = html.replace(/@@CODESPAN(\d+)@@/g, (_match, index: string) => {
+    return codePlaceholders[Number(index)] ?? ''
+  })
 
   return html
 }
