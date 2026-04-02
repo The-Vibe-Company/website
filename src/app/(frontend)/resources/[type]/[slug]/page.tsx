@@ -1,33 +1,42 @@
 import type { Metadata } from 'next';
-import type { SerializedEditorState } from 'lexical';
 import Link from 'next/link';
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
-import { getPayload } from 'payload';
-import config from '@payload-config';
 import { ContentCard } from '@/components/resources/ContentCard';
-import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
+import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
+import { CONTENT_TYPES, getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
+import { getContentByType, getContentItem, getRelatedContent } from '@/lib/content-source';
+import { normalizeMarkdownBody } from '@/lib/markdown';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
 import { getTypeLabel } from '@/lib/taxonomy-utils';
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config });
-  const content = await payload.find({
-    collection: 'content',
-    where: { status: { equals: 'published' } },
-    depth: 0,
-    pagination: false,
-    select: { type: true, slug: true } as { [k: string]: true },
-  });
-  return content.docs.map((doc) => ({
-    type: getUrlSlugForDbType(doc.type as string),
-    slug: doc.slug as string,
-  }));
+  return getAllStaticParams();
 }
+
+function getAllStaticParams() {
+  return CONTENT_TYPES.flatMap((contentType) =>
+    getContentByType(contentType.slug).map((doc) => ({
+      type: getUrlSlugForDbType(doc.type),
+      slug: doc.slug,
+    })),
+  );
+}
+
+const getContent = cache(async (typeSlug: string, slug: string) => {
+  return getContentItem(typeSlug, slug)
+});
+
+/**
+ * Cached content fetch — shared between generateMetadata and the page component
+ * so the content index is only read once per render.
+ */
+const getRelated = cache(async (typeSlug: string, slug: string) => {
+  return getRelatedContent(typeSlug, slug, 3)
+});
 
 export const dynamicParams = true;
 
@@ -45,34 +54,6 @@ function formatDate(dateString: string): string {
     year: 'numeric',
   });
 }
-
-function getBodyType(body: unknown): 'lexical' | 'text' | 'empty' {
-  if (!body) return 'empty';
-  if (typeof body === 'string' && body.trim().length > 0) return 'text';
-  if (typeof body === 'object') {
-    const root = (body as { root?: { children?: unknown[] } }).root;
-    if (root?.children && root.children.length > 0) return 'lexical';
-  }
-  return 'empty';
-}
-
-/**
- * Cached content fetch — shared between generateMetadata and the page component
- * so the DB is only hit once per render.
- */
-const getContent = cache(async (typeSlug: string, slug: string) => {
-  const payload = await getPayload({ config });
-  const result = await payload.find({
-    collection: 'content',
-    where: {
-      slug: { equals: slug },
-      type: { equals: typeSlug },
-      status: { equals: 'published' },
-    },
-    limit: 1,
-  });
-  return result.docs[0] ?? null;
-});
 
 export async function generateMetadata({
   params,
@@ -104,28 +85,9 @@ export default async function ContentDetailPage({
   const item = await getContent(contentType.slug, slug);
   if (!item) notFound();
 
-  const payload = await getPayload({ config });
-  const related = await payload.find({
-    collection: 'content',
-    where: {
-      status: { equals: 'published' },
-      type: { equals: contentType.slug },
-      id: { not_equals: item.id },
-    },
-    sort: '-publishedAt',
-    limit: 3,
-    depth: 0,
-    select: {
-      title: true,
-      summary: true,
-      type: true,
-      slug: true,
-      publishedAt: true,
-    } as { [k: string]: true },
-  });
+  const related = await getRelated(contentType.slug, slug);
 
-  const bodyType = getBodyType(item.body);
-  const lexicalBody = bodyType === 'lexical' ? (item.body as unknown as SerializedEditorState) : null;
+  const body = normalizeMarkdownBody(item.body);
   const readingTime = estimateReadingTime(item.body);
   const typeLabel = getTypeLabel(item.type);
 
@@ -214,15 +176,8 @@ export default async function ContentDetailPage({
               <div className="w-full h-px bg-res-border mb-8 md:mb-12" />
 
               <div className="prose-vibe prose-vibe-warm max-w-none">
-                {lexicalBody ? (
-                  <RichTextRenderer
-                    data={lexicalBody}
-                    className="prose-vibe prose-vibe-warm"
-                  />
-                ) : bodyType === 'text' ? (
-                  <div className="whitespace-pre-wrap text-base leading-relaxed text-res-text">
-                    {String(item.body)}
-                  </div>
+                {body.trim().length > 0 ? (
+                  <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" />
                 ) : (
                   <div className="py-16 text-center border border-dashed border-res-border rounded-lg">
                     <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
@@ -242,7 +197,7 @@ export default async function ContentDetailPage({
         </div>
 
         {/* Related content */}
-        {related.docs.length > 0 && (
+        {related.length > 0 && (
           <section className={`${resourcesTheme.section.padding} py-24 border-t border-res-border`}>
             <div className="flex items-end mb-12">
               <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
@@ -251,7 +206,7 @@ export default async function ContentDetailPage({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {related.docs.map((r) => (
+              {related.map((r) => (
                 <ContentCard
                   key={r.id}
                   title={r.title}

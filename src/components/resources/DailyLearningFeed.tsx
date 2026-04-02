@@ -1,5 +1,5 @@
-import type { SerializedEditorState } from 'lexical';
-import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
+import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
+import { normalizeMarkdownBody } from '@/lib/markdown';
 
 interface DailyLearningFeedItem {
   id: string;
@@ -22,12 +22,6 @@ function formatDate(dateString: string): string {
     day: 'numeric',
     year: 'numeric',
   });
-}
-
-function hasLexicalBody(body: unknown): body is SerializedEditorState {
-  if (!body || typeof body !== 'object') return false;
-  const root = (body as { root?: { children?: unknown[] } }).root;
-  return Boolean(root?.children && root.children.length > 0);
 }
 
 export function DailyLearningFeed({
@@ -53,15 +47,11 @@ export function DailyLearningFeed({
             <h2 className={titleClassName}>{item.title}</h2>
           </div>
 
-          {hasLexicalBody(item.body) ? (
-            <RichTextRenderer
-              data={item.body}
+          {normalizeMarkdownBody(item.body).trim().length > 0 ? (
+            <MarkdownRenderer
+              content={normalizeMarkdownBody(item.body)}
               className="prose-vibe prose-vibe-warm max-w-none text-[15px]"
             />
-          ) : typeof item.body === 'string' && item.body.trim().length > 0 ? (
-            <p className="text-sm text-res-text-muted leading-relaxed whitespace-pre-wrap">
-              {item.body}
-            </p>
           ) : item.summary ? (
             <p className="text-sm text-res-text-muted leading-relaxed whitespace-pre-wrap">
               {item.summary}

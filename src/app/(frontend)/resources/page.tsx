@@ -1,10 +1,9 @@
 import { AllResourcesSplitView } from "@/components/resources/AllResourcesSplitView";
 import { getNavContentTypes } from "@/lib/content-types";
+import { getContentByType, getContentCounts } from "@/lib/content-source";
 import { RESOURCE_ICONS } from "@/lib/resource-icons";
 import { resourcesTheme } from "@/lib/resources-theme";
-import config from "@payload-config";
 import type { Metadata } from "next";
-import { getPayload } from "payload";
 
 export const metadata: Metadata = {
   title: "Resources | Vibe Learning",
@@ -13,52 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default async function ResourcesPage() {
-  const payload = await getPayload({ config });
-
-  const [dailyContent, nonDailyContent, allContent] = await Promise.all([
-    payload.find({
-      collection: "content",
-      where: {
-        status: { equals: "published" },
-        type: { equals: "daily" },
-      },
-      sort: "-publishedAt",
-      limit: 200,
-      depth: 0,
-      select: {
-        title: true,
-        summary: true,
-        body: true,
-        publishedAt: true,
-      } as { [k: string]: true },
-    }),
-    payload.find({
-      collection: "content",
-      where: {
-        status: { equals: "published" },
-        type: { equals: "article" },
-      },
-      sort: "-publishedAt",
-      limit: 200,
-      depth: 0,
-      select: {
-        title: true,
-        summary: true,
-        type: true,
-        slug: true,
-        publishedAt: true,
-        featuredImage: true,
-      } as { [k: string]: true },
-    }),
-    payload.find({
-      collection: "content",
-      where: { status: { equals: "published" } },
-      limit: 0,
-      pagination: false,
-      depth: 0,
-      select: { type: true } as { [k: string]: true },
-    }),
-  ]);
+  const dailyContent = getContentByType("daily");
+  const nonDailyContent = getContentByType("article");
+  const counts = getContentCounts();
 
   const navContentTypes = getNavContentTypes();
   const typeNavLinks = navContentTypes.map((ct) => ({
@@ -66,12 +22,6 @@ export default async function ResourcesPage() {
     href: `/resources/${ct.urlSlug}`,
     slug: ct.slug,
   }));
-
-  const counts: Record<string, number> = {};
-  for (const item of allContent.docs) {
-    const t = item.type as string;
-    counts[t] = (counts[t] || 0) + 1;
-  }
 
   return (
     <main className="pt-12 pb-12">
@@ -100,8 +50,8 @@ export default async function ResourcesPage() {
       </section>
 
       <AllResourcesSplitView
-        dailyItems={JSON.parse(JSON.stringify(dailyContent.docs))}
-        resourceItems={JSON.parse(JSON.stringify(nonDailyContent.docs))}
+        dailyItems={JSON.parse(JSON.stringify(dailyContent))}
+        resourceItems={JSON.parse(JSON.stringify(nonDailyContent))}
         typeNavLinks={typeNavLinks}
         counts={counts}
       />

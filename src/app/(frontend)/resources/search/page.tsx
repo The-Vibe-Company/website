@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { getPayload } from 'payload';
-import config from '@payload-config';
 import { ContentCard } from '@/components/resources/ContentCard';
 import { ContentGrid } from '@/components/resources/ContentGrid';
+import { searchContent } from '@/lib/content-source';
 import { resourcesTheme } from '@/lib/resources-theme';
 
 export const dynamic = 'force-dynamic';
@@ -21,31 +20,7 @@ export default async function SearchPage({
   const { q } = await searchParams;
   if (!q) redirect('/resources');
 
-  const payload = await getPayload({ config });
-  const results = await payload.find({
-    collection: 'content',
-    where: {
-      and: [
-        { status: { equals: 'published' } },
-        {
-          or: [
-            { title: { contains: q } },
-            { summary: { contains: q } },
-          ],
-        },
-      ],
-    },
-    sort: '-publishedAt',
-    limit: 50,
-    depth: 0,
-    select: {
-      title: true,
-      summary: true,
-      type: true,
-      slug: true,
-      publishedAt: true,
-    } as { [k: string]: true },
-  });
+  const results = searchContent(q).slice(0, 50);
 
   return (
     <main className="pt-12 pb-12">
@@ -58,15 +33,15 @@ export default async function SearchPage({
             &ldquo;{q}&rdquo;
           </h1>
           <p className="text-base md:text-lg text-res-text-muted max-w-2xl leading-relaxed">
-            Found {results.totalDocs} result{results.totalDocs === 1 ? '' : 's'}.
+            Found {results.length} result{results.length === 1 ? '' : 's'}.
           </p>
         </div>
       </section>
 
       <section className={`${resourcesTheme.section.padding} pb-32`}>
-        {results.docs.length > 0 ? (
+        {results.length > 0 ? (
           <ContentGrid columns={3}>
-            {results.docs.map((item) => (
+            {results.map((item) => (
               <ContentCard
                 key={item.id}
                 title={item.title}

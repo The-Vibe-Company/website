@@ -1,5 +1,5 @@
 /**
- * Estimate reading time from body content (supports plain strings and Lexical JSON)
+ * Estimate reading time from body content (supports markdown strings and legacy Lexical JSON)
  */
 export function estimateReadingTime(body: unknown): number {
   let text = '';

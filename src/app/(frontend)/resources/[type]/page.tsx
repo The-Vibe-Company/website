@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getPayload } from 'payload';
-import config from '@payload-config';
 import { TypeListingClient } from '@/components/resources/TypeListingClient';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { CONTENT_TYPES, getContentTypeByUrlSlug, getNavContentTypes } from '@/lib/content-types';
+import { getContentByType, getContentCounts } from '@/lib/content-source';
 import { RESOURCE_ICONS } from '@/lib/resource-icons';
 
 export async function generateStaticParams() {
@@ -41,45 +40,8 @@ export default async function TypeListingPage({
     notFound();
   }
 
-  const payload = await getPayload({ config });
-  const contentSelect = {
-    title: true,
-    summary: true,
-    type: true,
-    slug: true,
-    publishedAt: true,
-    featuredImage: true,
-    ...(contentType.slug === 'daily' ? { body: true } : {}),
-  } as { [k: string]: true };
-
-  const [items, allContent] = await Promise.all([
-    payload.find({
-      collection: 'content',
-      where: {
-        status: { equals: 'published' },
-        type: { equals: contentType.slug },
-      },
-      sort: '-publishedAt',
-      limit: 200,
-      depth: 0,
-      select: contentSelect,
-    }),
-    payload.find({
-      collection: 'content',
-      where: { status: { equals: 'published' } },
-      limit: 0,
-      pagination: false,
-      depth: 0,
-      select: { type: true } as { [k: string]: true },
-    }),
-  ]);
-
-  // Compute per-type counts (DB slugs)
-  const counts: Record<string, number> = {};
-  for (const item of allContent.docs) {
-    const t = item.type as string;
-    counts[t] = (counts[t] || 0) + 1;
-  }
+  const items = getContentByType(contentType.slug);
+  const counts = getContentCounts();
 
   const navContentTypes = getNavContentTypes();
   const typeNavLinks = navContentTypes.map((ct) => ({
@@ -112,7 +74,7 @@ export default async function TypeListingPage({
 
       <TypeListingClient
         contentType={contentType}
-        items={JSON.parse(JSON.stringify(items.docs))}
+        items={JSON.parse(JSON.stringify(items))}
         typeNavLinks={typeNavLinks}
         counts={counts}
       />
