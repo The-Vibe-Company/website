@@ -16,10 +16,9 @@ interface DailyLearningItem {
 interface ResourceItem {
   id: string;
   title: string;
-  summary: string;
+  summary?: string | null;
   type: string;
   slug: string;
-  domain?: unknown;
   publishedAt?: string | null;
   featuredImage?: { url: string; alt?: string; sizes?: { card?: { url: string } } } | string | number | null;
 }
@@ -61,7 +60,6 @@ export function AllResourcesSplitView({
                     summary={item.summary}
                     type={item.type}
                     slug={item.slug}
-                    domain={item.domain}
                     publishedAt={item.publishedAt ?? undefined}
                     featuredImage={item.featuredImage}
                   />
@@ -69,14 +67,14 @@ export function AllResourcesSplitView({
               </div>
             ) : (
               <div className="py-8 text-sm text-res-text-muted">
-                No other resources yet.
+                No articles yet.
               </div>
             )}
           </section>
 
           <aside className="lg:col-span-4 lg:pl-8 lg:border-l lg:border-res-border/70">
             <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted">
-              Daily Learning Feed
+              Learning Feed
             </p>
 
             <div className="mt-4 lg:max-h-[calc(100vh-15rem)] lg:overflow-y-auto lg:pr-2">

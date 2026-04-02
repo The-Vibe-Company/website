@@ -1,16 +1,13 @@
 import type { CollectionConfig } from 'payload'
+
 import { CONTENT_TYPES } from '@/lib/content-types'
-import { autoSlug } from './hooks/autoSlug'
 import { autoPublishedAt } from './hooks/autoPublishedAt'
-import { deduplicateContent } from './hooks/deduplicateContent'
+import { autoSlug } from './hooks/autoSlug'
 import { revalidateContent } from './hooks/revalidateContent'
 
 export const STATUS_OPTIONS = [
   { label: 'Draft', value: 'draft' },
-  { label: 'In Review', value: 'review' },
   { label: 'Published', value: 'published' },
-  { label: 'Updated', value: 'updated' },
-  { label: 'Archived', value: 'archived' },
 ] as const
 
 export const Content: CollectionConfig = {
@@ -18,7 +15,7 @@ export const Content: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     group: 'Content',
-    defaultColumns: ['title', 'type', 'status', 'domain', 'publishedAt'],
+    defaultColumns: ['title', 'type', 'status', 'publishedAt'],
     listSearchableFields: ['title', 'summary', 'slug'],
   },
   versions: {
@@ -34,12 +31,11 @@ export const Content: CollectionConfig = {
     delete: ({ req: { user } }) => Boolean(user),
   },
   hooks: {
-    beforeValidate: [autoSlug, deduplicateContent],
+    beforeValidate: [autoSlug],
     beforeChange: [autoPublishedAt],
     afterChange: [revalidateContent],
   },
   fields: [
-    // Core content
     {
       name: 'title',
       type: 'text',
@@ -52,40 +48,18 @@ export const Content: CollectionConfig = {
       index: true,
       admin: {
         position: 'sidebar',
-        description: 'Auto-generated from title if left empty',
+        description: 'Auto-generated from the title if left empty.',
       },
     },
-    {
-      name: 'summary',
-      type: 'textarea',
-      required: true,
-      admin: {
-        description: 'Short description for listings and SEO',
-      },
-    },
-    {
-      name: 'excerpt',
-      type: 'textarea',
-      admin: {
-        description: 'Short excerpt for cards (<160 chars)',
-      },
-      maxLength: 160,
-    },
-    {
-      name: 'body',
-      type: 'richText',
-    },
-    {
-      name: 'featuredImage',
-      type: 'upload',
-      relationTo: 'media',
-    },
-    // Taxonomy
     {
       name: 'type',
       type: 'select',
       required: true,
-      options: CONTENT_TYPES.map((ct) => ({ label: ct.name, value: ct.slug })),
+      defaultValue: 'article',
+      options: CONTENT_TYPES.map((type) => ({
+        label: type.singularLabel,
+        value: type.slug,
+      })),
       admin: {
         position: 'sidebar',
       },
@@ -101,119 +75,22 @@ export const Content: CollectionConfig = {
       },
     },
     {
-      name: 'domain',
-      type: 'relationship',
-      relationTo: 'domains',
-      hasMany: true,
+      name: 'summary',
+      type: 'textarea',
       admin: {
-        position: 'sidebar',
+        description: 'Short intro used in listings.',
       },
     },
     {
-      name: 'tools',
-      type: 'relationship',
-      relationTo: 'tools',
-      hasMany: true,
+      name: 'body',
+      type: 'richText',
+      required: true,
     },
     {
-      name: 'concepts',
-      type: 'text',
-      hasMany: true,
-      admin: {
-        description: 'Concept tags (e.g., "prompt-engineering", "vibe-coding")',
-      },
+      name: 'featuredImage',
+      type: 'upload',
+      relationTo: 'media',
     },
-    {
-      name: 'complexity',
-      type: 'select',
-      options: [
-        { label: 'Beginner', value: 'beginner' },
-        { label: 'Intermediate', value: 'intermediate' },
-        { label: 'Advanced', value: 'advanced' },
-      ],
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    {
-      name: 'language',
-      type: 'select',
-      defaultValue: 'fr',
-      options: [
-        { label: 'Francais', value: 'fr' },
-        { label: 'English', value: 'en' },
-      ],
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    // Author
-    {
-      name: 'author',
-      type: 'relationship',
-      relationTo: 'users',
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    // Computed
-    {
-      name: 'readingTime',
-      type: 'number',
-      admin: {
-        position: 'sidebar',
-        readOnly: true,
-        description: 'Estimated reading time in minutes',
-      },
-    },
-    // Source tracking
-    {
-      name: 'source',
-      type: 'group',
-      admin: {
-        position: 'sidebar',
-      },
-      fields: [
-        {
-          name: 'type',
-          type: 'select',
-          options: [
-            { label: 'Manual', value: 'manual' },
-            { label: 'Notion', value: 'notion' },
-            { label: 'CLI', value: 'cli' },
-            { label: 'Slack', value: 'slack' },
-            { label: 'Browser Extension', value: 'browser' },
-            { label: 'Meeting', value: 'meeting' },
-            { label: 'AI Generate', value: 'ai-generate' },
-          ],
-          defaultValue: 'manual',
-        },
-        {
-          name: 'externalId',
-          type: 'text',
-          index: true,
-          admin: {
-            description: 'ID from the source system (e.g., Notion page ID)',
-          },
-        },
-        {
-          name: 'url',
-          type: 'text',
-          admin: {
-            description: 'Original source URL',
-          },
-        },
-        {
-          name: 'lastSyncedAt',
-          type: 'date',
-          admin: {
-            readOnly: true,
-            description: 'Last sync from external source',
-          },
-        },
-      ],
-    },
-    // Dates
     {
       name: 'publishedAt',
       type: 'date',
@@ -224,50 +101,6 @@ export const Content: CollectionConfig = {
           pickerAppearance: 'dayAndTime',
         },
       },
-    },
-    // AI metadata
-    {
-      name: 'aiMetadata',
-      type: 'group',
-      admin: {
-        description: 'Auto-generated by AI enrichment pipeline',
-      },
-      fields: [
-        {
-          name: 'qualityScore',
-          type: 'number',
-          min: 0,
-          max: 1,
-          admin: {
-            description: '0-1 quality score. 0.7+ = publishable',
-            step: 0.01,
-          },
-        },
-        {
-          name: 'autoTags',
-          type: 'text',
-          hasMany: true,
-        },
-        {
-          name: 'autoSummary',
-          type: 'textarea',
-        },
-        {
-          name: 'detectedLanguage',
-          type: 'select',
-          options: [
-            { label: 'Francais', value: 'fr' },
-            { label: 'English', value: 'en' },
-          ],
-        },
-        {
-          name: 'enrichedAt',
-          type: 'date',
-          admin: {
-            readOnly: true,
-          },
-        },
-      ],
     },
   ],
 }

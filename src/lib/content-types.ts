@@ -6,13 +6,11 @@
 export interface ContentTypeConfig {
   slug: string
   urlSlug: string
-  collection: 'content' | 'tools'
   name: string
   singularLabel: string
   pluralLabel: string
   description: string
   renderStyle: 'timeline' | 'grid' | 'list'
-  prependDateToSlug: boolean
   sortOrder: number
   showInNav: boolean
 }
@@ -21,85 +19,29 @@ export const CONTENT_TYPES: ContentTypeConfig[] = [
   {
     slug: 'daily',
     urlSlug: 'learnings',
-    collection: 'content',
-    name: 'Daily Learning',
+    name: 'Learning',
     singularLabel: 'Learning',
     pluralLabel: 'Learnings',
-    description: 'Daily learning journal',
+    description: 'Short learnings, notes, and practical takeaways.',
     renderStyle: 'timeline',
-    prependDateToSlug: true,
     sortOrder: 1,
-    showInNav: true,
-  },
-  {
-    slug: 'tutorial',
-    urlSlug: 'tutorials',
-    collection: 'content',
-    name: 'Tutorial',
-    singularLabel: 'Tutorial',
-    pluralLabel: 'Tutorials',
-    description: 'Step-by-step guides',
-    renderStyle: 'grid',
-    prependDateToSlug: false,
-    sortOrder: 2,
     showInNav: true,
   },
   {
     slug: 'article',
     urlSlug: 'articles',
-    collection: 'content',
     name: 'Article',
     singularLabel: 'Article',
     pluralLabel: 'Articles',
-    description: 'Long-form, in-depth content',
+    description: 'Longer articles and deeper write-ups.',
     renderStyle: 'list',
-    prependDateToSlug: false,
-    sortOrder: 3,
-    showInNav: true,
-  },
-  {
-    slug: 'tool-focus',
-    urlSlug: 'focus',
-    collection: 'content',
-    name: 'Tool Focus',
-    singularLabel: 'Focus',
-    pluralLabel: 'Focus',
-    description: 'In-depth tool reviews',
-    renderStyle: 'grid',
-    prependDateToSlug: false,
-    sortOrder: 4,
-    showInNav: true,
-  },
-  {
-    slug: 'concept-focus',
-    urlSlug: 'concepts',
-    collection: 'content',
-    name: 'Concept Focus',
-    singularLabel: 'Concept',
-    pluralLabel: 'Concepts',
-    description: 'Concept breakdowns and explanations',
-    renderStyle: 'grid',
-    prependDateToSlug: false,
-    sortOrder: 5,
-    showInNav: true,
-  },
-  {
-    slug: 'tools',
-    urlSlug: 'tools',
-    collection: 'tools',
-    name: 'Tools',
-    singularLabel: 'Tool',
-    pluralLabel: 'Tools',
-    description: 'Every tool we use to ship AI-native software.',
-    renderStyle: 'grid',
-    prependDateToSlug: false,
-    sortOrder: 6,
+    sortOrder: 2,
     showInNav: true,
   },
 ]
 
 /** All content type slugs (for Payload select field options) */
-export const CONTENT_TYPE_SLUGS = CONTENT_TYPES.filter((ct) => ct.collection === 'content').map((ct) => ct.slug)
+export const CONTENT_TYPE_SLUGS = CONTENT_TYPES.map((ct) => ct.slug)
 
 /** Lookup map for O(1) access by DB slug */
 const bySlug = new Map(CONTENT_TYPES.map((ct) => [ct.slug, ct]))

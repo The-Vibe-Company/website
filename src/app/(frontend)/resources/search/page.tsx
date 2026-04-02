@@ -43,7 +43,6 @@ export default async function SearchPage({
       summary: true,
       type: true,
       slug: true,
-      domain: true,
       publishedAt: true,
     } as { [k: string]: true },
   });
@@ -74,7 +73,6 @@ export default async function SearchPage({
                 summary={item.summary}
                 type={item.type}
                 slug={item.slug}
-                domain={item.domain}
                 publishedAt={item.publishedAt ?? undefined}
               />
             ))}

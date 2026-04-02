@@ -30,21 +30,3 @@ export function getTypeLabel(type: unknown): string {
   const cfg = getContentTypeConfig(slug)
   return cfg?.singularLabel ?? slug
 }
-
-/**
- * Extracts domain data from a populated or unpopulated domain field.
- * Returns an array of domain objects with slug, shortLabel, and color.
- */
-export function normalizeDomains(
-  domains: unknown,
-): Array<{ id: string; slug: string; shortLabel: string; color: string; colorDark?: string | null }> {
-  if (!domains || !Array.isArray(domains)) return []
-  return domains
-    .map((d) => {
-      if (typeof d === 'object' && d !== null && 'slug' in d) {
-        return d as { id: string; slug: string; shortLabel: string; color: string; colorDark?: string | null }
-      }
-      return null
-    })
-    .filter((d): d is NonNullable<typeof d> => d !== null)
-}

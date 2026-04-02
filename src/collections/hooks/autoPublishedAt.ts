@@ -6,7 +6,6 @@ import type { CollectionBeforeChangeHook } from 'payload'
  */
 export const autoPublishedAt: CollectionBeforeChangeHook = async ({
   data,
-  operation,
   originalDoc,
 }) => {
   if (!data) return data
@@ -17,12 +16,6 @@ export const autoPublishedAt: CollectionBeforeChangeHook = async ({
 
   if (isPublishing && !wasAlreadyPublished && !hasPublishedAt) {
     data.publishedAt = new Date().toISOString()
-  }
-
-  // Also compute reading time from body if available
-  if (data.body && (operation === 'create' || data.body !== originalDoc?.body)) {
-    const { estimateReadingTime } = await import('../../lib/reading-time')
-    data.readingTime = estimateReadingTime(data.body)
   }
 
   return data

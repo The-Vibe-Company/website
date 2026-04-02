@@ -6,15 +6,13 @@ import { notFound } from 'next/navigation';
 import { getPayload } from 'payload';
 import config from '@payload-config';
 import { ContentCard } from '@/components/resources/ContentCard';
-import { DomainBadge } from '@/components/resources/DomainBadge';
 import { RichTextRenderer } from '@/components/resources/RichTextRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { estimateReadingTime } from '@/lib/reading-time';
-import { markdownToLexical } from '@/lib/ingestion/markdown-to-lexical';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
-import { getTypeLabel, normalizeDomains } from '@/lib/taxonomy';
+import { getTypeLabel } from '@/lib/taxonomy-utils';
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config });
@@ -122,24 +120,14 @@ export default async function ContentDetailPage({
       summary: true,
       type: true,
       slug: true,
-      domain: true,
       publishedAt: true,
     } as { [k: string]: true },
   });
 
   const bodyType = getBodyType(item.body);
-  const lexicalBody =
-    bodyType === 'text'
-      ? await markdownToLexical(String(item.body))
-      : bodyType === 'lexical'
-        ? (item.body as unknown as SerializedEditorState)
-        : null;
+  const lexicalBody = bodyType === 'lexical' ? (item.body as unknown as SerializedEditorState) : null;
   const readingTime = estimateReadingTime(item.body);
-  const domains = normalizeDomains(item.domain);
   const typeLabel = getTypeLabel(item.type);
-  const tools = item.tools as
-    | Array<{ id: string; name: string }>
-    | undefined;
 
   return (
     <>
@@ -185,27 +173,6 @@ export default async function ContentDetailPage({
                     </div>
                   )}
                 </div>
-
-                <div className="w-8 h-px bg-res-border" />
-
-                {(domains.length > 0 || (tools && tools.length > 0)) && (
-                  <div className="flex flex-col gap-2">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Topics</span>
-                    <div className="flex flex-wrap gap-2">
-                      {domains.map((d) => (
-                        <DomainBadge key={d.id} domain={d} variant="chip" />
-                      ))}
-                      {tools?.map((t) => (
-                        <span
-                          key={t.id}
-                          className="px-1.5 py-0.5 border border-res-border text-[10px] font-mono uppercase tracking-widest text-res-text-muted"
-                        >
-                          {t.name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             </aside>
 
@@ -236,10 +203,12 @@ export default async function ContentDetailPage({
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter mb-4 leading-[0.95] text-res-text">
                   {item.title}
                 </h1>
-                <p
-                  className="text-base md:text-xl text-res-text-muted leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
-                />
+                {item.summary ? (
+                  <p
+                    className="text-base md:text-xl text-res-text-muted leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
+                  />
+                ) : null}
               </header>
 
               <div className="w-full h-px bg-res-border mb-8 md:mb-12" />
@@ -250,6 +219,10 @@ export default async function ContentDetailPage({
                     data={lexicalBody}
                     className="prose-vibe prose-vibe-warm"
                   />
+                ) : bodyType === 'text' ? (
+                  <div className="whitespace-pre-wrap text-base leading-relaxed text-res-text">
+                    {String(item.body)}
+                  </div>
                 ) : (
                   <div className="py-16 text-center border border-dashed border-res-border rounded-lg">
                     <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
@@ -285,7 +258,6 @@ export default async function ContentDetailPage({
                   summary={r.summary}
                   type={r.type}
                   slug={r.slug}
-                  domain={r.domain}
                   publishedAt={r.publishedAt ?? undefined}
                 />
               ))}
