@@ -135,6 +135,27 @@ export default async function ContentDetailPage({
                     </div>
                   )}
                 </div>
+
+                {item.topics?.length ? (
+                  <>
+                    <div className="w-8 h-px bg-res-border" />
+                    <div className="flex flex-col gap-2">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">
+                        Topics
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {item.topics.map((topic) => (
+                          <span
+                            key={topic}
+                            className="px-1.5 py-0.5 border border-res-border text-[10px] font-mono uppercase tracking-widest text-res-text-muted"
+                          >
+                            {topic}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : null}
               </div>
             </aside>
 

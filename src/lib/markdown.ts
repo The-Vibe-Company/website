@@ -13,6 +13,38 @@ function escapeEscapedAttribute(value: string): string {
   return value.replace(/"/g, '&quot;')
 }
 
+function escapeImageUrl(value: string): string {
+  return escapeAttribute(value.trim())
+}
+
+function isSafeMarkdownImageUrl(value: string): boolean {
+  return value.startsWith('/') || /^https?:\/\//.test(value)
+}
+
+function parseMarkdownImage(line: string): { alt: string; src: string; title?: string } | null {
+  const match = line.match(/^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]+)")?\)\s*$/)
+  if (!match) return null
+
+  const [, alt, src, title] = match
+  return { alt, src, title }
+}
+
+function renderMarkdownImage(line: string): string | null {
+  const image = parseMarkdownImage(line)
+  if (!image) return null
+  if (!isSafeMarkdownImageUrl(image.src)) return null
+
+  const alt = escapeHtml(image.alt)
+  const src = escapeImageUrl(image.src)
+  const caption = image.title ? `<figcaption>${escapeHtml(image.title)}</figcaption>` : ''
+
+  return (
+    `<figure class="prose-vibe-image">` +
+    `<img src="${src}" alt="${alt}" loading="lazy" decoding="async" />` +
+    `${caption}</figure>`
+  )
+}
+
 function applyLexicalTextFormat(text: string, format: unknown): string {
   if (typeof format !== 'number' || !text) return text
 
@@ -41,9 +73,12 @@ function renderLexicalInline(node: unknown): string {
   }
 
   const childText = children.map(renderLexicalInline).join('')
+  const fields = value.fields as { url?: unknown } | undefined
+  const url =
+    typeof value.url === 'string' ? value.url : typeof fields?.url === 'string' ? fields.url : null
 
-  if (value.type === 'link' && typeof value.url === 'string') {
-    return `[${childText || value.url}](${value.url})`
+  if (value.type === 'link' && url) {
+    return `[${childText || url}](${url})`
   }
 
   return childText
@@ -98,6 +133,21 @@ function renderLexicalBlock(node: unknown, depth = 0): string {
     return `\`\`\`${language}\n${content}\n\`\`\``
   }
 
+  if (type === 'upload') {
+    const upload = value.value as { url?: unknown; alt?: unknown; filename?: unknown } | undefined
+    const url = typeof upload?.url === 'string' ? upload.url : null
+    if (!url) return ''
+
+    const alt =
+      typeof upload?.alt === 'string' && upload.alt.trim()
+        ? upload.alt.trim()
+        : typeof upload?.filename === 'string'
+          ? upload.filename
+          : 'Image'
+
+    return `![${alt}](${url})`
+  }
+
   return children.map((child) => renderLexicalBlock(child, depth)).filter(Boolean).join('\n\n')
 }
 
@@ -143,6 +193,10 @@ function renderLexicalListItem(
 export function normalizeMarkdownBody(value: unknown): string {
   if (typeof value === 'string') {
     return value
+  }
+
+  if (value && typeof value === 'object' && 'root' in value) {
+    return renderLexicalBlock((value as { root: unknown }).root).trim()
   }
 
   return renderLexicalBlock(value).trim()
@@ -248,6 +302,33 @@ export function renderMarkdown(markdown: string): string {
       }
 
       blocks.push(`<ol>${items.join('')}</ol>`)
+      continue
+    }
+
+    const image = renderMarkdownImage(line)
+    if (image) {
+      const images = [image]
+      index += 1
+
+      while (index < lines.length) {
+        if (!lines[index].trim()) {
+          index += 1
+          continue
+        }
+
+        const nextImage = renderMarkdownImage(lines[index])
+        if (!nextImage) break
+
+        images.push(nextImage)
+        index += 1
+      }
+
+      if (images.length === 1) {
+        blocks.push(images[0])
+      } else {
+        blocks.push(`<div class="prose-vibe-gallery">${images.join('')}</div>`)
+      }
+
       continue
     }
 

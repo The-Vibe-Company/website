@@ -18,7 +18,16 @@ export interface ContentEntry {
   type: string
   publishedAt: string
   complexity?: string
-  featuredImage?: null
+  topics?: string[]
+  featuredImage?: {
+    url: string
+    alt?: string
+    sizes?: {
+      card?: {
+        url: string
+      }
+    }
+  } | null
 }
 
 type Frontmatter = Record<string, string>
@@ -74,6 +83,12 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
       const title = data.title || slug
       const publishedAt = data.publishedAt || new Date().toISOString().slice(0, 10)
       const summary = data.summary || body.split('\n').find(Boolean)?.trim() || ''
+      const coverImage = data.coverImage || data.image || ''
+      const coverAlt = data.coverAlt || data.imageAlt || title
+      const topics = (data.topics || '')
+        .split(',')
+        .map((value) => value.trim())
+        .filter(Boolean)
 
       return {
         id: `${type.slug}:${slug}`,
@@ -84,7 +99,18 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         type: type.slug,
         publishedAt,
         complexity: data.complexity || undefined,
-        featuredImage: null,
+        topics,
+        featuredImage: coverImage
+          ? {
+              url: coverImage,
+              alt: coverAlt,
+              sizes: {
+                card: {
+                  url: coverImage,
+                },
+              },
+            }
+          : null,
       }
     })
 }
