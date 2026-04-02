@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.39](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.38...thevibecompany-v0.1.39) (2026-04-02)
+
+
+### Features
+
+* simplify cms and add write api ([#96](https://github.com/The-Vibe-Company/website/issues/96)) ([c0a6853](https://github.com/The-Vibe-Company/website/commit/c0a68536ebaece19e36986d43d3bbea21355639a))
+
+
+### Bug Fixes
+
+* prevent CMS content editor crash on legacy lexical values ([#98](https://github.com/The-Vibe-Company/website/issues/98)) ([35fc20c](https://github.com/The-Vibe-Company/website/commit/35fc20c2f38457727d27fdea80c73b627a31d7bd))
+
 ## [0.1.38](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.37...thevibecompany-v0.1.38) (2026-02-19)
 
 
