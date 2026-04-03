@@ -58,3 +58,17 @@ Adding or editing an article is now a normal code change. The site rebuilds from
 ```bash
 bun run build
 ```
+
+## Vercel CI/CD
+
+Production deploys are handled by GitHub Actions on `main`.
+
+PR previews are also deployed through GitHub Actions to Vercel preview environments. To make them work, configure these repository secrets:
+
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
+
+Each PR from this repository gets a fresh preview deployment and the workflow updates a comment on the PR with the Vercel URL.
+
+For security, previews are skipped for PRs opened from forks because GitHub does not expose repository secrets to those runs.
