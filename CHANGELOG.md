@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.40](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.39...thevibecompany-v0.1.40) (2026-04-06)
+
+
+### Features
+
+* **ci:** add Vercel PR previews ([#100](https://github.com/The-Vibe-Company/website/issues/100)) ([d0db9ef](https://github.com/The-Vibe-Company/website/commit/d0db9ef1f0bab54a12051650632b416cdefdf085))
+
 ## [0.1.39](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.38...thevibecompany-v0.1.39) (2026-04-02)
 
 
