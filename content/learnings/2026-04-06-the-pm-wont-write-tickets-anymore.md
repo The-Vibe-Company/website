@@ -5,10 +5,10 @@ summary: "When building is cheap, the spec becomes the prototype."
 publishedAt: 2026-04-06
 topics: Product, AI & Automation
 ---
-The old flow: PM writes a user story. Designer makes a mock. Dev builds it.
+We flipped the product flow on a client project. Instead of writing user stories, the PM vibes a working screen and tags the blocks "ready to dev" or "ready to dead".
 
-The new flow: PM vibes a working screen in 20 minutes. Tags the blocks "ready to dev". Dev takes over from there.
+No Jira ticket. The prototype is the spec.
 
-No ticket. No Jira description. The spec is the prototype.
+When anyone can build a screen in 20 minutes, why describe it in words?
 
-**Rule:** when anyone can build a screen, the interface between PM and dev becomes the screen itself.
+**Rule:** the interface between PM and dev is becoming the screen itself.
