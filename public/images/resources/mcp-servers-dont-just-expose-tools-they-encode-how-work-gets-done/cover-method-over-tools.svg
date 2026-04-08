@@ -1,0 +1,70 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="200" y1="120" x2="1400" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111313"/>
+      <stop offset="1" stop-color="#0A0B0B"/>
+    </linearGradient>
+    <radialGradient id="glowWarm" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 430) rotate(48) scale(360 280)">
+      <stop stop-color="#F56E5D" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#F56E5D" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowCool" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1210 690) rotate(135) scale(430 340)">
+      <stop stop-color="#63D6B4" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#63D6B4" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#bg)"/>
+  <rect x="36" y="36" width="1528" height="1128" rx="34" stroke="#262A2A"/>
+
+  <circle cx="330" cy="400" r="300" fill="url(#glowWarm)"/>
+  <circle cx="1220" cy="720" r="360" fill="url(#glowCool)"/>
+
+  <path d="M80 140H1520" stroke="#171A1A"/>
+  <path d="M760 180V1040" stroke="#171A1A"/>
+  <path d="M240 930H1360" stroke="#171A1A"/>
+
+  <text x="94" y="110" fill="#A6ADAD" font-size="28" font-family="Arial, Helvetica, sans-serif" letter-spacing="7">MCP SERVERS</text>
+
+  <text x="92" y="388" fill="#2C2522" font-size="168" font-weight="700" font-family="Arial, Helvetica, sans-serif" letter-spacing="-5">TOOLS</text>
+  <text x="690" y="862" fill="#EEF1EC" font-size="178" font-weight="700" font-family="Arial, Helvetica, sans-serif" letter-spacing="-6">METHOD</text>
+
+  <g opacity="0.96">
+    <rect x="124" y="510" width="184" height="64" rx="22" fill="#161818" stroke="#F56E5D" stroke-width="3"/>
+    <rect x="124" y="606" width="196" height="64" rx="22" fill="#161818" stroke="#F56E5D" stroke-width="3"/>
+    <rect x="124" y="702" width="210" height="64" rx="22" fill="#161818" stroke="#F56E5D" stroke-width="3"/>
+    <text x="160" y="553" fill="#F4EAE6" font-size="30" font-family="Arial, Helvetica, sans-serif">tool</text>
+    <text x="160" y="649" fill="#F4EAE6" font-size="30" font-family="Arial, Helvetica, sans-serif">prompt</text>
+    <text x="160" y="745" fill="#F4EAE6" font-size="30" font-family="Arial, Helvetica, sans-serif">resource</text>
+  </g>
+
+  <g filter="url(#soft)" opacity="0.55">
+    <path d="M356 638C484 638 538 584 612 584C684 584 734 628 792 628C864 628 904 560 990 560C1080 560 1128 648 1230 648" stroke="#9FE3D1" stroke-width="18" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <path d="M356 638C484 638 538 584 612 584C684 584 734 628 792 628C864 628 904 560 990 560C1080 560 1128 648 1230 648" stroke="#7FDBC0" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="356" cy="638" r="14" fill="#111313" stroke="#7FDBC0" stroke-width="5"/>
+    <circle cx="612" cy="584" r="14" fill="#111313" stroke="#7FDBC0" stroke-width="5"/>
+    <circle cx="792" cy="628" r="14" fill="#111313" stroke="#7FDBC0" stroke-width="5"/>
+    <circle cx="990" cy="560" r="14" fill="#111313" stroke="#7FDBC0" stroke-width="5"/>
+    <circle cx="1230" cy="648" r="14" fill="#111313" stroke="#7FDBC0" stroke-width="5"/>
+  </g>
+
+  <g>
+    <rect x="912" y="366" width="232" height="68" rx="24" fill="#121515" stroke="#62D1AF" stroke-width="3"/>
+    <rect x="1126" y="470" width="254" height="68" rx="24" fill="#121515" stroke="#62D1AF" stroke-width="3"/>
+    <rect x="1012" y="574" width="246" height="68" rx="24" fill="#121515" stroke="#62D1AF" stroke-width="3"/>
+    <rect x="1186" y="678" width="206" height="68" rx="24" fill="#121515" stroke="#62D1AF" stroke-width="3"/>
+    <text x="948" y="410" fill="#EAF5F1" font-size="28" font-family="Arial, Helvetica, sans-serif">load context</text>
+    <text x="1162" y="514" fill="#EAF5F1" font-size="28" font-family="Arial, Helvetica, sans-serif">set guardrails</text>
+    <text x="1048" y="618" fill="#EAF5F1" font-size="28" font-family="Arial, Helvetica, sans-serif">choose the path</text>
+    <text x="1222" y="722" fill="#EAF5F1" font-size="28" font-family="Arial, Helvetica, sans-serif">ship safely</text>
+  </g>
+
+  <text x="94" y="1034" fill="#EEF1EC" font-size="64" font-weight="700" font-family="Arial, Helvetica, sans-serif" letter-spacing="-2">Encode the workflow.</text>
+  <text x="94" y="1090" fill="#A8B0AD" font-size="32" font-family="Arial, Helvetica, sans-serif">The best MCP servers do more than expose tools.</text>
+</svg>

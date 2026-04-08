@@ -5,8 +5,8 @@ summary: "Most writing about MCP stops at interoperability. The stronger framing
 publishedAt: 2026-04-08
 complexity: advanced
 topics: MCP, AI Infrastructure, Agent Design
-coverImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/mcp-api-vs-methodology.png
-coverAlt: "Comparison between a thin API wrapper and a strong MCP server"
+coverImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-method-over-tools.svg
+coverAlt: "Editorial cover illustration for an article about MCP servers and workflow"
 ---
 Most explanations of [MCP](https://modelcontextprotocol.io/specification/2025-11-25) stop at interoperability.
 
@@ -18,7 +18,7 @@ An API exposes capability. A good MCP server goes further. It helps determine wh
 
 That is why the best MCP servers do not just expose tools. They encode how work gets done.
 
-![API wrapper vs MCP server](/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/mcp-api-vs-methodology.png "A thin API wrapper exposes capability. A strong MCP server packages capability with context, constraints, and workflow.")
+![Editorial cover for the MCP article](/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-method-over-tools.svg "The strongest MCP servers encode the workflow, not just the tools.")
 
 ## Interoperability is table stakes
 
@@ -64,7 +64,7 @@ That is the design move that matters.
 
 A great MCP server does not just expose the nouns and verbs of a system. It encodes the operating model of the domain.
 
-![Granite MCP example](/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/granite-mcp-example.png "Granite illustrates the shift from a CRUD-shaped surface to an intention-first MCP surface.")
+![Granite MCP example](/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/granite-same-vault-better-surface.svg "Granite becomes more useful when the server exposes the knowledge workflow instead of generic note CRUD.")
 
 ## Security is product design
 

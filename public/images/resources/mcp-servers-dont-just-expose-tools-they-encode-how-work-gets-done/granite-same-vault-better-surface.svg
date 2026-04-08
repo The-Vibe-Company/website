@@ -1,0 +1,61 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="80" x2="1480" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111313"/>
+      <stop offset="1" stop-color="#0A0B0B"/>
+    </linearGradient>
+    <radialGradient id="warm" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(340 320) rotate(48) scale(260 220)">
+      <stop stop-color="#F56E5D" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#F56E5D" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cool" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1260 310) rotate(132) scale(300 240)">
+      <stop stop-color="#63D6B4" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#63D6B4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="32" y="32" width="1536" height="836" rx="30" stroke="#262A2A"/>
+  <circle cx="336" cy="312" r="220" fill="url(#warm)"/>
+  <circle cx="1240" cy="310" r="250" fill="url(#cool)"/>
+
+  <text x="80" y="108" fill="#EEF1EC" font-size="76" font-weight="700" font-family="Arial, Helvetica, sans-serif" letter-spacing="-3">Same vault. Better surface.</text>
+  <text x="82" y="158" fill="#A6ADAD" font-size="30" font-family="Arial, Helvetica, sans-serif">Same markdown files. More useful agent behavior.</text>
+
+  <rect x="80" y="218" width="520" height="560" rx="28" fill="#121515" stroke="#F56E5D" stroke-width="3"/>
+  <rect x="1000" y="218" width="520" height="560" rx="28" fill="#121515" stroke="#62D1AF" stroke-width="3"/>
+
+  <text x="124" y="286" fill="#F8E4E0" font-size="52" font-weight="700" font-family="Arial, Helvetica, sans-serif">CRUD surface</text>
+  <text x="1044" y="286" fill="#E6F5EF" font-size="52" font-weight="700" font-family="Arial, Helvetica, sans-serif">Intention-first</text>
+
+  <g>
+    <rect x="124" y="350" width="250" height="60" rx="20" fill="#181B1B" stroke="#F56E5D" stroke-width="2.5"/>
+    <rect x="124" y="434" width="250" height="60" rx="20" fill="#181B1B" stroke="#F56E5D" stroke-width="2.5"/>
+    <rect x="124" y="518" width="250" height="60" rx="20" fill="#181B1B" stroke="#F56E5D" stroke-width="2.5"/>
+    <text x="158" y="389" fill="#F4EAE6" font-size="29" font-family="Arial, Helvetica, sans-serif">create_note</text>
+    <text x="158" y="473" fill="#F4EAE6" font-size="29" font-family="Arial, Helvetica, sans-serif">search_notes</text>
+    <text x="158" y="557" fill="#F4EAE6" font-size="29" font-family="Arial, Helvetica, sans-serif">update_note</text>
+  </g>
+
+  <g>
+    <rect x="1044" y="350" width="300" height="60" rx="20" fill="#181B1B" stroke="#62D1AF" stroke-width="2.5"/>
+    <rect x="1044" y="434" width="300" height="60" rx="20" fill="#181B1B" stroke="#62D1AF" stroke-width="2.5"/>
+    <rect x="1044" y="518" width="300" height="60" rx="20" fill="#181B1B" stroke="#62D1AF" stroke-width="2.5"/>
+    <text x="1078" y="389" fill="#EAF5F1" font-size="29" font-family="Arial, Helvetica, sans-serif">granite_wakeup</text>
+    <text x="1078" y="473" fill="#EAF5F1" font-size="29" font-family="Arial, Helvetica, sans-serif">granite_research_topic</text>
+    <text x="1078" y="557" fill="#EAF5F1" font-size="29" font-family="Arial, Helvetica, sans-serif">granite_revise_note</text>
+  </g>
+
+  <text x="124" y="680" fill="#A6ADAD" font-size="34" font-family="Arial, Helvetica, sans-serif">Treats the vault like storage.</text>
+  <text x="1044" y="680" fill="#A6ADAD" font-size="34" font-family="Arial, Helvetica, sans-serif">Works through the knowledge workflow.</text>
+
+  <g>
+    <rect x="648" y="384" width="304" height="132" rx="28" fill="#171918" stroke="#E9DFCC" stroke-width="2.5"/>
+    <text x="707" y="440" fill="#F7EBD9" font-size="42" font-weight="700" font-family="Arial, Helvetica, sans-serif">Same vault</text>
+    <text x="687" y="484" fill="#BCA98E" font-size="28" font-family="Arial, Helvetica, sans-serif">Different interface</text>
+    <path d="M618 450H668" stroke="#E9DFCC" stroke-width="4" stroke-linecap="round"/>
+    <path d="M934 450H984" stroke="#E9DFCC" stroke-width="4" stroke-linecap="round"/>
+    <path d="M654 432L618 450L654 468" stroke="#E9DFCC" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M948 432L984 450L948 468" stroke="#E9DFCC" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
