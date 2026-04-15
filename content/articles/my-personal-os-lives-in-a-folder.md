@@ -9,7 +9,7 @@ coverImage: /images/resources/my-personal-os-lives-in-a-folder/granite-constella
 coverAlt: "Granite knowledge constellation — 188 interlinked markdown notes forming a settled graph"
 ---
 
-Last Sunday I asked Claude to write an investor update for me. Thirty seconds later it had pulled the Monka.care numbers, cross-referenced three Mediagen meeting notes, and produced a draft I barely edited. I did not upload anything. I did not paste context. The agent walked into a folder on my laptop, read what it needed, and wrote.
+Last Sunday I asked Claude to write an investor update for me. Thirty seconds later it had pulled this quarter's client numbers, cross-referenced three meeting notes from last week, and produced a draft I barely edited. I did not upload anything. I did not paste context. The agent walked into a folder on my laptop, read what it needed, and wrote.
 
 I used to spend an hour on those.
 
