@@ -23,7 +23,7 @@ Here is how it works, and why I think this is where personal software is going.
 
 ## RAG was the wrong layer
 
-The RAG bet was: keep documents raw, re-derive knowledge at every query, bolt a vector store onto an LLM. It works. I shipped it in production. I also watched it plateau inside my own company around 5-6k EUR MRR and realized the thing I was selling would be commoditized inside any agent framework within 18 months.
+The RAG bet was: keep documents raw, re-derive knowledge at every query, bolt a vector store onto an LLM. It works. I shipped it in production. I also watched it plateau inside my own company and realized the thing I was selling would be commoditized inside any agent framework within 18 months.
 
 The deeper issue was architectural. RAG re-solves the same problem every time the user asks a question. Nothing compounds. The system forgets on purpose.
 
