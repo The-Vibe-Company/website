@@ -17,7 +17,7 @@ The agent did not search the web. It did not use embeddings. It walked a graph.
 
 This post is about the system that made that possible. It is also an apology to anyone who watched me spend three years building the wrong layer.
 
-I built [Quivr](https://github.com/QuivrHQ/quivr) — open-source RAG, Y Combinator W24, #1 trending on GitHub in July 2023. For two years, Quivr was my thesis on how LLMs and private knowledge should meet. I don't believe that thesis anymore. The system I use now does the opposite. 188 markdown files, an MCP server, a SQLite index. That is the whole stack.
+I started [Quivr](https://github.com/QuivrHQ/quivr) in 2023 with Antoine Dewez, and a team built it with us over two years — open-source RAG, Y Combinator W24, #1 trending on GitHub in July 2023. For two years, Quivr was our thesis on how LLMs and private knowledge should meet. I don't believe that thesis anymore. The system I use now does the opposite. 188 markdown files, an MCP server, a SQLite index. That is the whole stack.
 
 ![Granite knowledge constellation — 188 interlinked markdown notes forming a settled graph](/images/resources/my-personal-os-lives-in-a-folder/granite-constellation.png "188 notes, 1819 links — the company, the clients, the methodology, one graph.")
 
@@ -31,7 +31,7 @@ The guy who wrote half the papers modern deep learning is built on had just desc
 
 ## I built the wrong layer
 
-The RAG bet: keep documents raw, re-derive knowledge on every query, bolt a vector store onto an LLM. It works. I shipped it in production. I also watched it plateau inside my own company, and realized the thing I was selling would be commoditized inside every agent framework within 18 months.
+The RAG bet: keep documents raw, re-derive knowledge on every query, bolt a vector store onto an LLM. It works. We shipped it in production. I also watched it plateau inside our own company, and realized the thing we were selling would be commoditized inside every agent framework within 18 months.
 
 The deeper issue was architectural. RAG re-solves the same problem every time the user asks. Nothing compounds. The system forgets on purpose.
 
@@ -45,7 +45,7 @@ The index is SQLite FTS5. Navigation is wikilinks. When the agent searches, it f
 
 At the start of every Claude or Codex session, a tool called `granite_wakeup` loads a compressed snapshot of the whole vault — clusters, hubs, people, recent notes — in 350 tokens. I took the format from [MemPalace](https://github.com/milla-jovovich/mempalace), an open-source memory system that calls it AAAK: a 30× compression any LLM reads without a decoder. I kept AAAK. I dropped their ChromaDB, their emotion codes, their temporal validity. At my scale, overkill.
 
-The guy who built Quivr does not use embeddings for his own knowledge system. Do with that what you want.
+The guy who started Quivr does not use embeddings for his own knowledge system. Do with that what you want.
 
 ## The MCP server is a teacher, not an API
 
@@ -88,4 +88,4 @@ If your users are humans, you are building a notes app. It will die like the oth
 
 If your users are agents, you need to teach them a methodology, not expose endpoints. The graph compounds because the agent is the primary operator. The system learns the company, not the other way around.
 
-I spent two years building RAG. What I actually needed was a file system the agent knew how to garden.
+We spent two years building RAG. What I actually needed was a file system the agent knew how to garden.
