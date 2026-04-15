@@ -27,7 +27,7 @@ The RAG bet was: keep documents raw, re-derive knowledge at every query, bolt a 
 
 The deeper issue was architectural. RAG re-solves the same problem every time the user asks a question. Nothing compounds. The system forgets on purpose.
 
-In April 2026, Andrej Karpathy tweeted the alternative: instead of RAG over raw docs, have the LLM incrementally build and maintain a persistent wiki. Markdown files. Interlinked. Compounding. Karpathy called the missing product "an incredible new product instead of a hacky collection of scripts."
+On April 4, 2026, Andrej Karpathy tweeted the alternative: instead of RAG over raw docs, have the LLM incrementally build and maintain a persistent wiki. Markdown files. Interlinked. Karpathy called the missing product "an incredible new product instead of a hacky collection of scripts."
 
 I had already been building it. I just did not have the words.
 
@@ -96,7 +96,7 @@ On top of Granite and Garden, I run about a dozen Claude Code skills that chain 
 
 Three things compound that do not compound in Notion, Obsidian, or any other app I have tried:
 
-1. **The graph compounds.** Every new source touches five to fifteen existing notes through wikilinks. Density grows, not just volume.
+1. **The graph compounds.** Every new source touches five to fifteen existing notes through wikilinks. What was already there gets richer every week.
 2. **The agent gets better at operating my life.** The MCP teaches methodology. Any Claude Code or Codex session connecting to Granite immediately knows how to behave. No re-explaining.
 3. **Every output is traceable.** Every brief, email, article has `derived_from` pointing at durable notes. The reasoning is auditable.
 
@@ -107,5 +107,3 @@ I spent three years building RAG. The system I actually use is the opposite. Pla
 Pull Granite. Point an MCP-compatible client at it. Let the agent do the gardening.
 
 The human curates. The agent compiles. The graph compounds.
-
-That is the system.
