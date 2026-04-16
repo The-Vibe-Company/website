@@ -1,7 +1,7 @@
 ---
 title: "I don't read my emails anymore. My agent classifies, archives, and briefs me."
 slug: i-dont-read-my-emails-anymore
-summary: "A 650-line Claude Code skill replaced my manual inbox zero ritual. It classifies every thread, archives noise, drafts replies from my knowledge vault, and generates a morning brief I review in two minutes. Here is how it works and why I built it."
+summary: "A 650-line SKILL.md file replaced my inbox zero ritual. The agent classifies every thread, archives noise, drafts replies from my knowledge vault, and generates a morning brief I review with two clicks. The system gets quieter every day."
 publishedAt: 2026-04-16
 complexity: advanced
 topics: Personal OS, AI Agents, Automation, Claude Code
@@ -9,107 +9,88 @@ coverImage: /images/resources/i-dont-read-my-emails-anymore/cover-inbox-zero-age
 coverAlt: "A pile of chaotic envelopes on the left dissolving into a clean desk with a single card on the right"
 ---
 
-Tuesday morning, 8:12 AM. I open my terminal. I type `/inbox-zero`. Three minutes later, an HTML page opens in my browser. Two emails need a click. Fourteen have already been archived. I approve a client reply, keep a prospect thread visible for a follow-up on Thursday, and close the tab.
+Wednesday morning. I opened my terminal, typed `/inbox-zero`, and went to make coffee. When I came back, a page was open in my browser. Two threads needed a decision. Fourteen had already been archived. I clicked Approve on a client reply the agent had drafted using context from a call three weeks ago, kept a prospect thread visible for a follow-up on Friday, and closed the tab.
 
-Inbox zero. Before my coffee.
+Total time in email that day: under two minutes.
 
-I built [Quivr](https://github.com/QuivrHQ/quivr), an open-source RAG tool that crossed 36,000 stars on GitHub. We processed other people's documents. Now I run The Vibe Company, and the document I process most is my own email. I applied the same logic: an agent that reads, classifies, and proposes an action. Except this time, the agent runs inside [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview), and the entire system fits in a SKILL.md file.
+I run three mailboxes. On a normal morning they collect 15-25 threads overnight. Before this skill, I spent 20 to 40 minutes sorting them. Not because the important ones were hard to answer. Because the mental cost of distinguishing a client follow-up from an SEO agency pitch from a Stripe receipt from a bookkeeping request consumed all the attention before I even started writing.
 
-If you have read [my personal OS article](/resources/articles/my-personal-os-lives-in-a-folder), you know the stack: 188 markdown files, an [MCP server](https://modelcontextprotocol.io/) called [Granite](https://github.com/The-Vibe-Company/granite), no embeddings, no vector store. The inbox zero skill is the first real workflow that runs on top of that system. It is also the one that proved the architecture works.
+The skill that replaced that ritual is a folder in my repo. The brain is a 650-line `SKILL.md` file. No app. No SaaS. No API. A markdown file that tells Claude Code what to do with my mail.
 
-## The problem with inbox zero
+## Classification, not discipline
 
-Inbox zero is not a discipline problem. It is a classification problem.
+Most inbox zero advice is about willpower. Process everything, touch it once, archive aggressively. That framing is wrong. The bottleneck is not discipline. It is classification.
 
-Every morning, a founder's inbox contains a mix of cold outbound spam, supplier invoices, client emails waiting for a reply, prospect threads to follow up on, admin alerts, and relationship context that demands nothing but you don't want to lose. The real work is not reading everything. It is knowing what to do with each thread in under five seconds.
+Each thread has exactly one correct next action: archive, reply, forward to accounting, follow up in three days, capture the context for later, or leave it visible because I need to see it again. A human can make that call in five seconds per thread. But doing it 20 times in a row, mixed with spam and noise, turns a five-minute task into a 30-minute drain.
 
-A basic auto-sorting tool is not enough. It archives too much or too little. It does not know that a given contact is an active client, that a given thread deserves a follow-up in three days, or that the real information lives in the attachment, not the email body.
+The skill encodes nine use cases. Every thread gets locked into one before anything happens:
 
-## A skill, not an app
+`trash`. `cold_outbound_spam`. `finance`. `admin_security`. `reply`. `follow_up`. `waiting_or_follow_up`. `knowledge`. `fyi_relationship`.
 
-My solution is not a SaaS. It is a [Claude Code skill](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done). A folder with a 650-line `SKILL.md` file that encodes the entire workflow.
-
-If you are not familiar with Claude Code skills, think of them as instruction files that turn a general-purpose AI agent into a specialized operator. The `SKILL.md` file describes what the agent should do, when, and how. The agent reads it and follows it. No code to compile, no API to deploy. A markdown file and a few supporting scripts.
-
-The skill knows my mailboxes. It knows which transport to use for each address. It knows my archiving rules, my confidence thresholds, and my active contacts via [Granite](https://github.com/The-Vibe-Company/granite), my personal knowledge vault. When I type `/inbox-zero`, it connects to Gmail, pulls every non-archived thread, and starts working.
-
-### 10 use cases
-
-Every thread is classified into exactly one use case:
-
-- `trash` and `cold_outbound_spam` — direct archive, zero friction
-- `finance` — invoices detected, forwarded to accounting, archived
-- `admin_security` — Google Workspace, GitHub, IAM alerts: risk summary + proposed action
-- `reply` — someone is waiting for an answer, the skill searches Granite for context and drafts a response
-- `follow_up` — I was the last sender, no reply, thread stays visible with a follow-up date
-- `waiting_or_follow_up` — pending action, not the right time to act yet
-- `knowledge` — durable context to capture in Granite
-- `fyi_relationship` — relationship signal, no action needed, but I want to know
-- `done_archive` — closed loop, quick recap then archive
-
-Classification is strict: no important action without a locked use case. Spam goes straight out. Everything else passes through a decision grid.
+Spam and cold outbound go straight to archive. Finance threads get forwarded to `fournisseurs.keobiz.fr` and archived. Security alerts get a risk summary and a Garden follow-up if the issue stays open. Everything else passes through a decision grid that checks who sent it, whether they exist in my [knowledge vault](https://github.com/The-Vibe-Company/granite), and whether I was the last person to write.
 
 ## The morning brief
 
-The default output format is not a wall of text in the terminal. It is a local HTML page the agent generates and opens in the browser.
+The agent does not dump results into the terminal. It generates an HTML page and opens it locally.
 
-![Morning brief hero section showing a scoreboard with 2 items to handle, 3 useful signals, 14 automatic decisions, and 4 already done](/images/resources/i-dont-read-my-emails-anymore/cover-inbox-zero-agent.png)
+The page has four zones. At the top, a scoreboard: 2 to handle, 3 signals, 14 auto, 4 done. Below that, "Handle now" shows only the threads that need a human click. Each card has the subject, the proposed action, and context chips the agent pulled from the vault: "known client", "meeting confirmed Friday", "attachment: scope doc". Below each card, four buttons: Approve, Keep visible, Archive, Comment.
 
-At the top: a scoreboard. How many emails to handle, how many useful signals, how many automatic decisions, how many already done. In ten seconds, I know where I stand.
+Then "Good to know" for signals that matter but don't require action. A payment confirmation. A domain renewal in 30 days. A thank-you email from someone I ran a workshop with last week.
 
-The "Handle now" section only contains threads that need a real human decision. Each card shows the subject, sender, proposed action, and context chips: "known client in vault", "meeting confirmed for Friday", "attachment: scope document". Below each card: buttons to Approve, Keep visible, Archive, or Comment.
+The automatic journal is collapsed by default. It lists what happened without my input. Eight cold outreach threads archived. Three vendor notices filed. Two Stripe receipts gone. Each rule has a toggle: keep it automatic, ask me next time, or pause it. And a comment field that persists across mornings, so I can annotate why a rule exists.
 
-"Good to know today" shows useful signals with no action required. Payment received, domain renewal in 30 days, positive feedback from a workshop attendee. Context, not cognitive load.
+## The vault changes everything
 
-The automatic journal is collapsed by default. It lists every decision made without intervention: 8 cold outbound spam threads archived, 3 vendor notices filed, 2 payment receipts archived. Each rule has a button to keep it on auto, ask next time, or pause. And a durable comment field that persists across mornings.
+Gmail filters can match a sender or a keyword. They cannot know that the person emailing me is a client I've been working with for six months, that I already discussed pricing in a call they don't have access to, or that the real answer to their question is in a Granite note about a technical constraint their CTO flagged.
 
-## What Gmail filters can't do
+Before classifying a thread, the skill calls `granite_research_topic` on the sender, the company, and the project. If they exist in the vault, the thread is never silently archived. If I was the last sender on a prospect thread and nobody replied, the skill proposes a follow-up draft. If someone is waiting on me and the answer depends on context scattered across three meetings and a contract, the skill pulls that context and writes a draft that sounds like I did the homework.
 
-Three mechanisms set this apart from a classic filter.
+I wrote about how this vault works in [the personal OS article](/resources/articles/my-personal-os-lives-in-a-folder). The short version: 188 markdown notes, no embeddings, no vector store, a SQLite index and wikilinks. [Granite](https://github.com/The-Vibe-Company/granite) is the MCP server that teaches agents how to work with it. The inbox zero skill is the first real workflow that proved the architecture carries weight.
 
-**Granite as relationship memory.** Before classifying a thread, the skill checks whether the sender, company, or project already exists in my knowledge vault. An email from a known contact will never be silently archived. A thread from an active prospect automatically triggers a follow-up proposal. And when the skill needs to draft a reply, it pulls context from Granite: relationship history, past decisions, project terminology. This is the same [knowledge graph described in the personal OS article](/resources/articles/my-personal-os-lives-in-a-folder) — 188 notes, no semantic search, just a linked graph the agent walks.
+## Delegated rules
 
-**Delegated rules that evolve.** The system maintains a `state.json` file with automatic archiving rules by mail type. Overdue CRM digests: auto-archive. Zendesk article reminders: auto-archive. Stripe receipts: auto-archive. These rules build up over passes. The first time, the skill asks me. The second time, if the pattern is clear, the rule becomes permanent.
+The system learns.
 
-**The JSON bridge.** Each brief generates a machine-readable snapshot. When I click "Approve" on an action, the state is saved locally via a lightweight Python server. The agent can read that file back and execute the approved decisions without a new chat message. The workflow: read the brief, click, let the agent apply.
+The first time I saw an Attio overdue digest, the skill asked me what to do. I said archive it. The second time, it asked again. I said always archive those. Now there is a rule in `state.json`:
 
-## What it changes day to day
+```json
+{
+  "id": "attio-overdue-digests",
+  "action": "auto_archive",
+  "match": {
+    "from_contains": ["team@mail.attio.com"],
+    "subject_contains": ["tasks overdue"]
+  }
+}
+```
 
-Before this skill, an inbox pass took me 20 to 40 minutes. Not because I had many important emails, but because the mental noise of sorting spam, notifications, and ambiguous threads consumed all the attention.
+Same for Zendesk article reminders. Squarespace domain renewals. Stripe payment receipts. Keobiz billing notices. Claude and Google Workspace vendor emails. Each one started as a question, became a rule, and now runs silently in the automatic journal.
 
-Now, normal mornings look like this: 2 minutes to open the brief, approve 1-2 actions, and move on. On busy mornings, the skill has already sorted everything and presents the 3-4 real subjects with a draft reply informed by vault context.
+The bookkeeping requests from my accountant are different. Those get forwarded to my associate Antoine, but only when the request actually lists documents he owns. The rule checks substance before forwarding. That distinction — forward when actionable, skip when informational — is the kind of judgment a Gmail filter cannot express.
 
-The real gain is not time. It is that the system learns. Every pass makes the next one quieter. Every delegated rule removes a type of noise forever. Every Granite capture makes the next draft reply more relevant.
+## The bridge
+
+When I click a button in the morning brief, the decision is saved to a local JSON file through a Python micro-server running on port 8765. The agent reads that file and executes the approved actions without a new chat message.
+
+The loop is: open the brief, click, close the tab, let the agent apply. No copy-paste. No "yes, do it." The click is the approval.
 
 ## Under the hood
 
-The entire skill is a folder in my repo:
-
 ```
 skills/vibe_inbox-zero/
-  SKILL.md                    # 650 lines — the brain
-  state.json                  # machine config — rules, archive posture
-  scripts/state.py            # CLI to inspect/modify state
-  scripts/review_bridge.py    # micro-server to persist clicks
-  templates/morning-brief-template.html  # reusable template
-  runtime/briefs/             # briefs generated each morning
+  SKILL.md                    # 650 lines — classification, rules, approval gates
+  state.json                  # delegated rules, archive posture, output config
+  scripts/state.py            # CLI to inspect or update rules
+  scripts/review_bridge.py    # micro-server for click persistence
+  templates/morning-brief-template.html
+  runtime/briefs/             # one HTML per pass
   runtime/review-state/       # JSON snapshots of decisions
 ```
 
-No database. No backend. No API to maintain. A markdown file that tells the agent what to do, a JSON that remembers preferences, and an HTML template that serves as the interface.
-
-The skill runs on [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) and [Codex](https://openai.com/index/introducing-codex/) alike. The same instruction produces the same result because all the business logic is in the file, not in the tool. That is the core idea behind [MCP as methodology](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done): the instruction file carries the workflow, not the runtime.
+No database. No backend. The whole thing is a SKILL.md that encodes business rules, a JSON that remembers preferences, and a template that the agent fills with data each morning. It runs identically on Claude Code and Codex because the logic is in the file, not in the runtime. That is [what MCP is actually for](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done) — encoding methodology, not exposing endpoints.
 
 ---
 
-Agent-driven inbox zero is not magic. It is 650 lines of business rules written by someone who was tired of sorting his email. The bar is simple: if I have to explain the same rule to the agent twice, the skill is not finished.
+The system is not finished. It will never be finished. Every morning that forces me to explain something twice is a morning where the skill failed. The bar is simple: if I had to make the same classification call yesterday and today, that call should already be a rule by tomorrow.
 
----
-
-**Related reading:**
-- [My personal OS lives in a folder](/resources/articles/my-personal-os-lives-in-a-folder) — the knowledge vault this skill runs on
-- [MCP servers encode how work gets done](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done) — why SKILL.md works
-- [AI gets more valuable with better context, not speed](/resources/learnings/2026-04-08-ai-gets-more-valuable-when-it-has-better-context-not-when-it-moves-faster) — the design principle behind Granite
-- [An MCP server is not an API](/resources/learnings/2026-04-07-an-mcp-server-is-not-an-api) — short learning on the same idea
-- [Granite on GitHub](https://github.com/The-Vibe-Company/granite) — the open-source knowledge vault
-- [Quivr on GitHub](https://github.com/QuivrHQ/quivr) — the RAG tool that started it all
+650 lines got me to inbox zero in two minutes. The next 650 will get me there in zero.
