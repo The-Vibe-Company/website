@@ -5,8 +5,8 @@ summary: "A 650-line Claude Code skill replaced my manual inbox zero ritual. It 
 publishedAt: 2026-04-16
 complexity: advanced
 topics: Personal OS, AI Agents, Automation, Claude Code
-coverImage: /images/resources/i-dont-read-my-emails-anymore/cover-inbox-zero-agent.svg
-coverAlt: "Diagram showing email flowing through a SKILL.md agent into archived, briefed, and draft-reply outputs"
+coverImage: /images/resources/i-dont-read-my-emails-anymore/cover-inbox-zero-agent.png
+coverAlt: "A pile of chaotic envelopes on the left dissolving into a clean desk with a single card on the right"
 ---
 
 Tuesday morning, 8:12 AM. I open my terminal. I type `/inbox-zero`. Three minutes later, an HTML page opens in my browser. Two emails need a click. Fourteen have already been archived. I approve a client reply, keep a prospect thread visible for a follow-up on Thursday, and close the tab.
@@ -53,7 +53,7 @@ Classification is strict: no important action without a locked use case. Spam go
 
 The default output format is not a wall of text in the terminal. It is a local HTML page the agent generates and opens in the browser.
 
-![Morning brief hero section showing a scoreboard with 2 items to handle, 3 useful signals, 14 automatic decisions, and 4 already done](/images/resources/i-dont-read-my-emails-anymore/cover-inbox-zero-agent.svg)
+![Morning brief hero section showing a scoreboard with 2 items to handle, 3 useful signals, 14 automatic decisions, and 4 already done](/images/resources/i-dont-read-my-emails-anymore/cover-inbox-zero-agent.png)
 
 At the top: a scoreboard. How many emails to handle, how many useful signals, how many automatic decisions, how many already done. In ten seconds, I know where I stand.
 
