@@ -9,11 +9,11 @@ coverImage: /images/resources/my-personal-os-lives-in-a-folder/granite-constella
 coverAlt: "Granite knowledge constellation — 188 interlinked markdown notes forming a settled graph"
 ---
 
-Sunday morning. I asked Claude to write the quarterly investor update.
+Client call in ten minutes. I hadn't prepped. I typed one prompt to Claude: "Brief me on where we stand with this account."
 
-The prompt was short. "Write the Q1 update. Tone: direct, no fluff. Pull numbers from the contract notes." Thirty seconds later I had a draft. It had pulled three numbers from three different meeting notes. Each paragraph pointed back in metadata to the note it came from — `derived_from: [monka-care-daily-2026-04-08, weekly-retro-2026-03-30, quivr-to-the-vibe-company-pivot-synthesis]`.
+Thirty seconds. The draft pulled pricing from a call four months ago, a technical blocker their CTO had flagged in a meeting I'd half-forgotten, open items from two different retros weeks apart, and a contract clause I'd negotiated over email. It stitched together notes I would not have found in an hour of digging. Every paragraph traced back to the exact source file.
 
-The agent did not search the web. It did not use embeddings. It walked a graph.
+No web search. No embeddings. The agent walked a graph of 188 markdown files. That graph is my company.
 
 This post is about the system that made that possible. It is also an apology to anyone who watched me spend three years building the wrong layer.
 
