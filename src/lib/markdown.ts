@@ -214,6 +214,9 @@ export function renderInlineMarkdown(text: string): string {
   html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (_match, label: string, url: string) => {
     return `<a href="${escapeEscapedAttribute(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`
   })
+  html = html.replace(/\[([^\]]+)\]\((\/[^)\s]+)\)/g, (_match, label: string, url: string) => {
+    return `<a href="${escapeEscapedAttribute(url)}">${label}</a>`
+  })
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
   html = html.replace(/__(.+?)__/g, '<strong>$1</strong>')
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>')
