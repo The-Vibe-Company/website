@@ -1,0 +1,44 @@
+<svg width="1400" height="620" viewBox="0 0 1400 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="620" rx="28" fill="#111111"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="70" y="88" fill="#F4F1EA" font-size="38" font-weight="750">La chaine de preuve</text>
+    <text x="70" y="128" fill="#B8B2A5" font-size="22">Le PDF arrive a la fin. Le systeme commence dans les traces.</text>
+  </g>
+  <g transform="translate(70 190)">
+    <rect x="0" y="0" width="210" height="92" rx="18" fill="#F4F1EA"/>
+    <rect x="0" y="128" width="210" height="92" rx="18" fill="#F4F1EA"/>
+    <rect x="0" y="256" width="210" height="92" rx="18" fill="#F4F1EA"/>
+    <text x="26" y="38" fill="#111111" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="750">Linear</text>
+    <text x="26" y="66" fill="#565047" font-family="Inter, Arial, sans-serif" font-size="16">intention</text>
+    <text x="26" y="166" fill="#111111" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="750">GitHub</text>
+    <text x="26" y="194" fill="#565047" font-family="Inter, Arial, sans-serif" font-size="16">execution</text>
+    <text x="26" y="294" fill="#111111" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="750">Notion</text>
+    <text x="26" y="322" fill="#565047" font-family="Inter, Arial, sans-serif" font-size="16">raison</text>
+  </g>
+  <path d="M320 236H430" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round"/>
+  <path d="M320 364H430" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round"/>
+  <path d="M320 492H430" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round"/>
+  <path d="M414 220L438 236L414 252" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M414 348L438 364L414 380" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M414 476L438 492L414 508" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(470 210)">
+    <rect x="0" y="0" width="310" height="270" rx="22" fill="#F1E7D0"/>
+    <text x="34" y="55" fill="#111111" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="760">matrice</text>
+    <text x="34" y="94" fill="#554E43" font-family="Inter, Arial, sans-serif" font-size="18">lot, periode, personne,</text>
+    <text x="34" y="124" fill="#554E43" font-family="Inter, Arial, sans-serif" font-size="18">preuve, metrique, source</text>
+    <rect x="34" y="170" width="242" height="18" rx="9" fill="#111111" opacity="0.74"/>
+    <rect x="34" y="206" width="198" height="18" rx="9" fill="#111111" opacity="0.46"/>
+    <rect x="34" y="242" width="220" height="18" rx="9" fill="#111111" opacity="0.46"/>
+  </g>
+  <path d="M820 345H930" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round"/>
+  <path d="M914 329L938 345L914 361" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(970 210)">
+    <rect x="0" y="0" width="360" height="270" rx="22" fill="#F4F1EA"/>
+    <text x="36" y="56" fill="#111111" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="760">dossier</text>
+    <text x="36" y="94" fill="#554E43" font-family="Inter, Arial, sans-serif" font-size="18">sections CIR/CII</text>
+    <text x="36" y="124" fill="#554E43" font-family="Inter, Arial, sans-serif" font-size="18">avec preuves tracables</text>
+    <rect x="36" y="170" width="282" height="16" rx="8" fill="#111111" opacity="0.72"/>
+    <rect x="36" y="202" width="248" height="16" rx="8" fill="#111111" opacity="0.44"/>
+    <rect x="36" y="234" width="294" height="16" rx="8" fill="#111111" opacity="0.44"/>
+  </g>
+</svg>
