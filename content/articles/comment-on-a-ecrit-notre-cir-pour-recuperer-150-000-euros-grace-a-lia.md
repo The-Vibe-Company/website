@@ -1,7 +1,7 @@
 ---
 title: "Comment on a écrit notre CIR pour récupérer 150 000 euros grâce à l'IA"
 slug: comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia
-summary: "Retour d'expérience sur la manière dont on a automatisé la production d'un dossier CIR/CII de 100 pages, non pas en demandant à une IA d'inventer un rapport, mais en la branchant aux preuves réelles de l'entreprise : Linear, GitHub, Notion, exports et documents internes."
+summary: "Le retour d'expérience concret sur notre dossier CIR/CII : comment on a branché des agents à Linear, GitHub, Notion, Google Drive et nos exports internes pour transformer les traces de Quivr en dossier de 100 pages."
 publishedAt: 2026-04-22
 complexity: advanced
 topics: AI Operations, Research Tax Credit, Agent Workflows
@@ -9,68 +9,142 @@ coverImage: /images/resources/le-cir-ne-secrit-pas-il-se-compile/cover-proof-com
 coverAlt: "Une chaîne d'IA transforme les traces de travail en dossier CIR/CII documenté"
 ---
 
-Quand on a commencé à préparer notre dossier CIR/CII, l'enjeu n'était pas théorique : il y avait environ 150 000 euros à récupérer, et donc un vrai besoin de produire un dossier sérieux. Pas un document joli, pas une histoire réécrite après coup, pas un rapport qui sonne "innovation" parce qu'il utilise les bons mots. Un dossier CIR ou CII doit tenir devant quelqu'un qui pose des questions précises : qu'est-ce qui a été tenté, pourquoi ce n'était pas évident, qui a travaillé dessus, où sont les preuves, et comment on distingue la R&D de la simple feature produit.
+Le CIR, c'est un sujet assez bête au fond : le travail a déjà été fait, mais il faut réussir à le prouver.
 
-Le premier réflexe avec l'IA aurait été de lui demander d'écrire le dossier. C'est exactement le mauvais usage. Un modèle peut produire vingt pages très propres sur "les verrous techniques d'un système RAG", mais si les affirmations ne sont pas reliées à des tickets, des commits, des specs, des tests ou des décisions, le texte ne vaut pas grand-chose. Ce qui a marché pour nous, c'est d'arrêter de traiter l'IA comme un rédacteur fiscal et de la traiter comme un compilateur de preuves.
+Dans notre cas, il y avait environ 150 000 euros à récupérer. Donc on ne pouvait pas se contenter d'un joli document écrit à la va-vite avec ChatGPT. Il fallait un dossier qui tienne debout : les bons lots, les bonnes dates, les bonnes personnes, les bons tickets, les bons commits, et une explication claire de ce qui relevait du CIR ou du CII.
 
-J'ai construit Quivr, YC W24, un produit RAG open-source utilisé par de vraies équipes. On avait donc une matière riche : des mois d'itérations, des workflows, des évaluations automatiques, des connecteurs, de la prédiction de confiance, des systèmes d'automatisation du support, des choix d'architecture et beaucoup de travail qui ne rentre pas proprement dans une brochure marketing. Le sujet n'était pas de rendre tout ça plus impressionnant. Le sujet était de reconstituer proprement ce qui s'était passé, avec assez de détails pour que le dossier soit défendable.
+J'avais un avantage : j'avais construit Quivr, YC W24, un produit RAG open-source utilisé par de vraies équipes. La matière existait déjà. Il y avait des mois de tickets Linear, des PRs GitHub, des specs Notion, des exports, des documents Drive, des traces clients, des décisions d'architecture.
+
+Le problème, c'est que rien de tout ça ne ressemble spontanément à un dossier fiscal.
+
+Ce qu'on a fait avec l'IA, ce n'est pas "écris-moi un CIR". Ce qu'on a fait, c'est brancher des agents aux traces réelles de l'entreprise pour reconstruire la preuve.
 
 ![Une chaîne de preuve transforme les outils de travail en dossier CIR/CII](/images/resources/le-cir-ne-secrit-pas-il-se-compile/evidence-pipeline.svg "Le PDF arrive à la fin. Le vrai système est la chaîne de preuve.")
 
-## partir des traces, pas du récit
+## le mauvais usage de l'IA
 
-La vraie différence entre un dossier faible et un dossier solide, c'est l'ordre dans lequel on travaille. Si on commence par le récit, on finit presque toujours par chercher des preuves après coup pour justifier ce qu'on a déjà écrit. C'est confortable, mais dangereux, parce que le texte prend le dessus sur la réalité opérationnelle.
+Le mauvais prompt, c'est :
 
-On a donc fait l'inverse. On est partis des traces laissées par l'entreprise pendant l'année : Linear pour les projets, tickets, statuts, dates et personnes ; GitHub pour les commits, PRs, fichiers modifiés et releases ; Notion pour les specs, décisions, benchmarks et notes de travail ; les exports et tableurs pour les périodes, temps, coûts et assignations ; et les documents internes pour tout ce qui vivait dans les dossiers partagés. Quand des informations passaient par Google Sheets ou Drive, elles étaient traitées comme des sources à part entière, pas comme de simples pièces jointes qu'on regarderait à la fin.
+> Écris-moi un dossier CIR sur notre R&D.
 
-Chaque outil racontait une partie différente de la vérité. Linear disait ce qu'on voulait construire et dans quel ordre. GitHub montrait ce qui avait réellement été implémenté. Notion expliquait pourquoi certaines décisions avaient été prises. Les exports donnaient la partie financière et temporelle. Les métriques produit montraient ce qui avait changé dans le système réel. À partir du moment où ces sources se recoupaient, le dossier commençait à devenir solide.
+Ça produit souvent un texte propre. Trop propre. Le modèle raconte une histoire cohérente, mais on ne sait pas vraiment d'où viennent les phrases.
 
-## le repo était l'atelier
+Pour un post de blog, ce n'est pas très grave. Pour un dossier CIR/CII, c'est le problème central. Si quelqu'un lit une phrase dans six mois et demande "où est la preuve ?", il faut pouvoir répondre autre chose que "l'IA l'a formulé comme ça".
 
-On a créé un repo dédié au dossier, parce qu'un travail comme celui-là ne doit pas vivre dans un Google Doc géant. Le repo contenait les instructions de l'agent, les sources, les explorations intermédiaires, les sections finales, les tâches ouvertes et les exports LaTeX. Cette structure paraît simple, mais elle a joué un rôle énorme : elle a transformé une rédaction floue en pipeline de production.
+Donc on a inversé le rôle de l'IA.
 
-Le dossier `context/` servait à stocker l'historique, les anciens éléments, les notes de cadrage et les documents de référence. Le dossier `dossier/` accueillait les analyses intermédiaires : extraction Linear, exploration GitHub, état de l'art, qualification CIR/CII, valorisation et lots candidats. Le dossier `latex_output/sections/` recevait uniquement les sections prêtes à entrer dans le document final. Et le `TODO.md` forçait à lister les trous au lieu de les masquer dans une belle formulation.
+Elle n'était pas là pour inventer le récit. Elle était là pour retrouver les pièces.
 
-Les instructions données à l'agent étaient volontairement strictes : ne jamais inventer, poser des questions quand une information manque, découper le travail par section, garder les sources visibles et signaler les affirmations non vérifiées. Ce n'est pas spectaculaire, mais c'est exactement ce qui évite le problème classique des dossiers générés par IA : un texte fluide, crédible en surface, mais impossible à auditer.
+## ce qu'on a branché
 
-## ce que l'IA faisait vraiment
+La vraie valeur du système venait des accès. Pas d'un prompt magique.
 
-L'IA n'a pas "fait le CIR" à notre place. Cette phrase serait à la fois fausse et dangereuse. Elle a fait une partie beaucoup plus utile : lire large, classer vite, relier des traces entre elles et produire des versions de travail que l'on pouvait vérifier.
+On a connecté les agents aux endroits où le travail avait vraiment vécu :
 
-Concrètement, les agents servaient à explorer les projets Linear, identifier les tickets liés à de la R&D ou à de l'innovation, rapprocher ces tickets des changements GitHub, extraire les décisions importantes depuis Notion, regrouper les preuves par lot, repérer les zones non sourcées et reformuler les sections sans perdre la traçabilité. C'est là que l'IA est très forte : elle peut parcourir une grande quantité de matière opérationnelle et construire une première carte du terrain beaucoup plus vite qu'un humain.
+| Source | Ce que ça apportait |
+| --- | --- |
+| Linear / API / MCP | les projets, les tickets, les statuts, les dates, les personnes |
+| GitHub | les PRs, les commits, les fichiers modifiés, la réalité du code |
+| Notion | les specs, les décisions, les notes de cadrage, les arbitrages |
+| Google Drive / Sheets | les exports, les documents, les temps, les fichiers partagés |
+| Traces produit et clients | les contraintes réelles, les intégrations, les usages |
 
-Les humains gardaient les arbitrages importants. Est-ce vraiment du CIR ou plutôt du CII ? Est-ce une incertitude technique ou seulement une difficulté d'implémentation ? Est-ce que le temps valorisé est cohérent ? Est-ce qu'on peut exposer ce détail dans un dossier ? Est-ce qu'un expert fiscal comprendrait la logique ? L'automatisation ne remplace pas ce jugement ; elle lui donne une base beaucoup plus complète.
+Chaque outil disait un truc différent.
 
-## la matrice de preuve
+Linear disait ce qu'on avait essayé de construire. GitHub disait ce qui avait vraiment changé. Notion expliquait pourquoi certaines décisions avaient été prises. Les exports donnaient les périodes et les coûts. Drive ramenait les pièces qu'on oublie toujours quand on écrit un dossier à la main.
 
-La pièce centrale du système n'était pas le rapport de 100 pages. C'était la matrice de preuve. Pour chaque lot de travail, on voulait être capables de répondre aux mêmes questions, toujours dans le même ordre : objectif technique, verrou ou nouveauté, approches testées, échecs, solution retenue, preuves Linear, preuves GitHub, specs Notion, personnes impliquées, période, valorisation, qualification CIR ou CII.
+Et quand plusieurs sources racontent la même chose, là ça devient intéressant. Ce n'est plus une affirmation. C'est une preuve qui se recoupe.
 
-Cette matrice a eu deux effets. D'abord, elle a empêché de transformer une feature longue à développer en "innovation" juste parce qu'elle avait coûté cher. Ensuite, elle a rendu les échecs visibles. Dans un dossier CIR, les échecs sont souvent très importants, parce qu'ils montrent qu'il existait une vraie incertitude technique. Si vous avez testé plusieurs approches standard et qu'elles n'ont pas marché, ce n'est pas une faiblesse du dossier ; c'est souvent le coeur de la preuve.
+## le repo était la machine
 
-La matrice servait aussi à repérer les trous. Un lot pouvait être techniquement intéressant mais manquer de commits identifiables, de dates ou de justification produit. Dans ce cas, l'agent ne devait pas broder. Il devait signaler le problème, demander une source complémentaire, ou faire descendre le niveau de confiance. C'est cette discipline qui a permis de produire un dossier long sans perdre le lien avec les faits.
+On a mis tout ça dans un repo dédié. Pas dans un Google Doc géant. Pas dans une conversation ChatGPT qui finit par partir dans tous les sens.
 
-## séparer CIR et CII
+Le repo avait une structure simple :
 
-Une autre raison pour laquelle le dossier a marché : on a séparé le CIR et le CII au lieu de tout raconter dans un même bloc "innovation". Le CIR et le CII ne demandent pas exactement la même preuve. Le CIR cherche une incertitude scientifique ou technique : état de l'art insuffisant, verrou, expérimentation, échecs, résultat. Le CII cherche plutôt une nouveauté produit : usage, différenciation, ergonomie, intégration, industrialisation, mise sur le marché.
+```text
+cir-cii/
+  context/
+  dossier/
+  latex_output/
+  TODO.md
+  AGENTS.md
+```
 
-Sur un produit comme Quivr, les deux dimensions peuvent coexister. La recherche peut porter sur l'évaluation automatique des réponses, la prédiction de confiance, l'orchestration de workflows complexes ou la façon de rendre un système RAG fiable dans des contextes réels. L'innovation produit peut porter sur les interfaces, le self-serve, les connecteurs, le routing par intention, l'expérience admin ou l'intégration dans les outils clients.
+`context/` gardait les éléments de départ. `dossier/` contenait les explorations : Linear, GitHub, état de l'art, lots candidats, valorisation. `latex_output/` servait uniquement pour les sections prêtes à partir dans le document final. `TODO.md` listait les trous.
 
-Le piège serait de tout mélanger parce que tout appartient au même produit. En pratique, il faut isoler les lots. Certains relèvent plutôt d'une incertitude technique. D'autres relèvent plutôt d'une nouveauté fonctionnelle ou d'une amélioration d'usage. D'autres encore ne doivent pas être retenus. L'IA aide beaucoup à préparer cette séparation, mais la qualification finale doit rester humaine.
+C'est bête, mais ça change tout.
 
-## pourquoi ça a produit un dossier de 100 pages
+L'agent avait des consignes claires : ne jamais inventer, poser des questions quand il manque une info, travailler par section, garder les sources, signaler les affirmations faibles. En gros : tu peux aider, mais tu n'as pas le droit de faire semblant de savoir.
 
-Le dossier final faisait environ 100 pages parce qu'il ne partait pas d'une page blanche. Il partait d'un graphe de preuves. Chaque section pouvait être reliée à des éléments concrets : tickets, PRs, specs, décisions, exports, chronologie et personnes. Le volume n'était pas créé par du remplissage, mais par la densité réelle du travail effectué pendant l'année.
+## le coeur du truc : la matrice de preuve
 
-La méthode change aussi la manière d'écrire. Au lieu de dire "nous avons développé une architecture innovante", on peut expliquer quel problème existait, pourquoi les solutions disponibles ne suffisaient pas, quelles approches ont été testées, ce qui a échoué, ce qui a été retenu et où se trouvent les traces. Le style devient moins marketing, mais beaucoup plus crédible.
+Le document de 100 pages n'était pas le coeur du système. Le coeur, c'était une matrice de preuve.
 
-C'est précisément ce qui rend le dossier défendable. Une belle phrase ne protège pas une entreprise. Une chaîne de preuve, oui. Et l'IA devient utile quand elle sert cette chaîne, pas quand elle essaie de produire seule le document final.
+Pour chaque lot, on voulait remplir la même grille :
 
-## comment le refaire
+- quel était l'objectif ;
+- quel était le verrou technique ou la nouveauté produit ;
+- quelles approches ont été testées ;
+- ce qui a échoué ;
+- ce qui a été gardé ;
+- où sont les preuves dans Linear, GitHub, Notion ou Drive ;
+- qui a travaillé dessus ;
+- quelle partie relève du CIR, quelle partie relève du CII.
 
-Si je devais refaire ce travail pour une autre entreprise, je ne commencerais pas par ouvrir un document. Je commencerais par créer un espace de travail dédié, idéalement un repo, avec des règles explicites pour les agents et une structure qui sépare les sources brutes, les analyses intermédiaires et les sections finales. Ensuite, je brancherais les outils qui contiennent déjà la mémoire de l'entreprise : Linear ou Jira, GitHub ou GitLab, Notion ou Confluence, Google Drive, exports RH/temps, tableurs financiers, dashboards produit et notes d'entretien.
+Cette grille est chiante. Mais elle nettoie tout.
 
-La séquence importante est toujours la même : rassembler les sources, extraire les traces, construire la matrice de preuve, qualifier les lots CIR/CII, rédiger les sections, faire valider par un humain, puis seulement produire le PDF. Si on inverse cet ordre, l'IA devient un générateur de storytelling. Si on respecte cet ordre, elle devient un outil de reconstruction documentaire.
+Elle empêche de prendre une feature longue à développer et de l'appeler "R&D" juste parce qu'elle a coûté cher. Elle oblige aussi à parler des échecs. Et dans un dossier CIR, les échecs sont souvent de très bonnes preuves, parce qu'ils montrent que le problème n'était pas trivial.
 
-Ce projet m'a surtout appris une chose : les agents les plus utiles ne sont pas ceux qui "réfléchissent" dans le vide. Ce sont ceux qui opèrent dans un environnement riche, avec des droits d'accès, des sources fiables, des consignes strictes et des humains aux points de décision. Dans beaucoup de fonctions internes, finance, juridique, conformité, R&D, audit, le problème est le même : les preuves existent déjà, mais elles sont dispersées dans les outils de travail.
+## là où les agents ont été forts
 
-On n'a donc pas récupéré 150 000 euros grâce à un prompt magique. On a construit une chaîne qui transforme les traces réelles d'une entreprise en dossier défendable. C'est moins spectaculaire qu'une démo d'IA qui écrit cent pages en une minute, mais c'est infiniment plus utile. Et c'est probablement là que se trouve la vraie valeur des agents dans les entreprises : pas dans l'invention, mais dans la capacité à retrouver, relier, vérifier et produire un livrable qu'un humain peut assumer.
+Dans notre extraction, les agents ont passé en revue des dizaines de projets Linear. On avait une base avec environ 70 projets analysés, des tickets CII déjà classés, d'autres tickets à requalifier, et toute la matière GitHub / Notion à remettre en face.
+
+C'est exactement le genre de boulot où un humain se fatigue vite.
+
+L'agent, lui, peut faire les passes larges :
+
+- retrouver les projets liés à la R&D ;
+- relier un ticket Linear à une PR GitHub ;
+- extraire les décisions importantes d'une spec ;
+- classer les lots par thème ;
+- repérer les phrases non sourcées ;
+- dire "là, il manque une preuve".
+
+Par contre, l'agent ne décide pas à notre place.
+
+La qualification finale reste humaine. Est-ce vraiment du CIR ? Plutôt du CII ? Est-ce que le raisonnement est défendable ? Est-ce qu'on peut exposer ce détail ? Est-ce que le temps valorisé est cohérent ? C'est là que tu dois garder la main.
+
+## la séparation CIR / CII
+
+Un point qui a beaucoup aidé : on a arrêté de dire "innovation" partout.
+
+Le CIR et le CII ne racontent pas la même histoire. Le CIR parle d'incertitude technique : état de l'art insuffisant, verrou, expérimentation, échecs, résultat. Le CII parle davantage de nouveauté produit : usage, différenciation, ergonomie, intégration, mise sur le marché.
+
+Sur Quivr, les deux existaient. Par exemple, certains sujets touchaient à l'évaluation automatique des réponses, à la prédiction de confiance, à l'orchestration de workflows complexes ou à la fiabilité d'un système RAG en contexte réel. D'autres sujets étaient plus proches du produit : self-serve, connecteurs, interface admin, routing par intention, intégrations clients.
+
+Tout mettre dans le même sac aurait affaibli le dossier. Le fait de séparer les lots a rendu le document beaucoup plus clair.
+
+## la méthode que je referais
+
+Si je devais refaire ça demain pour une autre boîte, je suivrais exactement cet ordre :
+
+1. Créer un repo dédié au dossier.
+2. Brancher Linear/Jira, GitHub/GitLab, Notion/Confluence, Drive/Sheets et les exports internes.
+3. Demander aux agents d'extraire les traces, pas de rédiger.
+4. Construire une matrice de preuve par lot.
+5. Qualifier humainement CIR, CII ou hors scope.
+6. Rédiger seulement à la fin, avec les sources sous les yeux.
+
+Le point important, c'est l'ordre. Si tu rédiges d'abord, tu fais du storytelling. Si tu extrais d'abord, tu construis un dossier.
+
+Le résultat, chez nous, c'est un dossier d'environ 100 pages. Pas parce que l'IA a rempli du vide, mais parce qu'elle a aidé à remettre en ordre une année de travail réel.
+
+## ce que ça m'a appris
+
+Les agents utiles en entreprise ne sont pas ceux qui écrivent des pavés depuis une page blanche. Ce sont ceux qui travaillent dans un environnement riche : accès aux outils, sources fiables, consignes strictes, structure de repo, et humains aux endroits où il faut juger.
+
+Dans le CIR/CII, comme dans beaucoup de sujets finance, juridique, audit ou conformité, les preuves existent déjà. Elles sont juste dispersées.
+
+On n'a pas récupéré 150 000 euros grâce à un prompt magique. On a construit une chaîne qui transforme les traces de l'entreprise en dossier défendable.
+
+C'est moins sexy qu'une démo où l'IA génère cent pages en une minute. Mais c'est beaucoup plus proche de là où les agents vont vraiment créer de la valeur.
