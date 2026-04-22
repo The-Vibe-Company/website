@@ -162,15 +162,3 @@ Dans le CIR/CII, comme dans beaucoup de sujets finance, juridique, audit ou conf
 Ces 150 000 euros ne dépendaient pas d'une belle formulation. Ils dépendaient de notre capacité à transformer une année de travail dispersé en preuve défendable.
 
 C'est moins sexy qu'une démo où l'IA génère cent pages en une minute. Mais c'est beaucoup plus proche de là où les agents vont vraiment créer de la valeur.
-
-## l'ouverture vers Granite
-
-C'est aussi pour ça que je construis [Granite](https://github.com/The-Vibe-Company/Granite).
-
-Après ce projet, j'ai compris que le vrai sujet n'était pas seulement le CIR. C'était la mémoire de l'entreprise.
-
-Le CIR est un cas extrême, parce que la preuve vaut littéralement de l'argent. Mais le pattern est beaucoup plus large. Dans une boîte, les agents ne deviennent vraiment utiles que quand ils peuvent travailler sur une mémoire structurée, reliée, maintenue. Pas sur trois exports jetés dans un chat.
-
-Granite pousse cette idée plus loin : des fichiers Markdown, des liens, un index simple, et un MCP qui apprend aux agents comment capturer, compiler, interroger et produire à partir de la connaissance de l'entreprise.
-
-Le dossier CIR nous a montré le problème en version fiscale. Granite est la réponse produit : faire en sorte que ce type de compilation ne soit plus un projet exceptionnel, mais une capacité permanente de l'entreprise.
