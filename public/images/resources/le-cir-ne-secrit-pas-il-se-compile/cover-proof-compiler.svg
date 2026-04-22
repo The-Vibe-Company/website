@@ -44,6 +44,7 @@
   </g>
   <path d="M858 449H948" stroke="#F4F1EA" stroke-width="7" stroke-linecap="round"/>
   <path d="M928 425L952 449L928 473" stroke="#F4F1EA" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="184" y="760" fill="#101010" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="760" letter-spacing="-1">Le CIR ne s'ecrit pas.</text>
-  <text x="184" y="830" fill="#101010" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="760" letter-spacing="-1">Il se compile.</text>
+  <text x="184" y="748" fill="#101010" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="760">Comment on a ecrit notre CIR</text>
+  <text x="184" y="812" fill="#101010" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="760">pour recuperer 150 000 euros</text>
+  <text x="184" y="862" fill="#101010" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="720">grace a l'IA</text>
 </svg>
