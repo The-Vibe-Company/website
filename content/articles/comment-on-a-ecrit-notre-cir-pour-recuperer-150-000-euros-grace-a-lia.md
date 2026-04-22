@@ -11,7 +11,9 @@ coverAlt: "Une chaîne d'IA transforme les traces de travail en dossier CIR/CII 
 
 Le CIR, c'est un sujet assez bête au fond : le travail a déjà été fait, mais il faut réussir à le prouver.
 
-Dans notre cas, il y avait environ 150 000 euros à récupérer. Donc on ne pouvait pas se contenter d'un joli document écrit à la va-vite avec ChatGPT. Il fallait un dossier qui tienne debout : les bons lots, les bonnes dates, les bonnes personnes, les bons tickets, les bons commits, et une explication claire de ce qui relevait du CIR ou du CII.
+Dans notre cas, il y avait environ 150 000 euros à récupérer. Donc on ne pouvait pas se contenter d'un joli document écrit à la va-vite avec ChatGPT. À ce niveau, un dossier faible ne coûte pas seulement du temps. Il peut coûter toute la créance.
+
+Il fallait un dossier qui tienne debout : les bons lots, les bonnes dates, les bonnes personnes, les bons tickets, les bons commits, et une explication claire de ce qui relevait du CIR ou du CII.
 
 J'avais un avantage : j'avais construit Quivr, YC W24, un produit RAG open-source utilisé par de vraies équipes. La matière existait déjà. Il y avait des mois de tickets Linear, des PRs GitHub, des specs Notion, des exports, des documents Drive, des traces clients, des décisions d'architecture.
 
@@ -95,6 +97,18 @@ Cette grille est chiante. Mais elle nettoie tout.
 
 Elle empêche de prendre une feature longue à développer et de l'appeler "R&D" juste parce qu'elle a coûté cher. Elle oblige aussi à parler des échecs. Et dans un dossier CIR, les échecs sont souvent de très bonnes preuves, parce qu'ils montrent que le problème n'était pas trivial.
 
+## un exemple concret
+
+Un des lots portait sur l'autosend : comment savoir, avant même de générer une réponse, si un ticket support peut être traité automatiquement sans prendre un risque absurde.
+
+Dit comme ça, ça ressemble à une feature produit.
+
+Mais quand on reconstruit la preuve, on voit autre chose. Linear montrait le besoin opérationnel : automatiser seulement les zones stables. Notion gardait les hypothèses et les essais : embeddings, transformers, modèles decoder-only, puis feature engineering. GitHub montrait les changements réels. Et les résultats montraient pourquoi on avait fini par converger vers une approche plus classique, type XGBoost, avec un objectif de précision plus adapté au support.
+
+Dans le dossier, ce lot ne devient pas "on a fait de l'IA pour le support". Il devient : comment prédire ex ante la fiabilité d'une réponse LLM dans des contextes clients hétérogènes, avec assez de confiance pour automatiser seulement certains segments.
+
+C'est ça la différence entre raconter une innovation et documenter une incertitude technique.
+
 ## là où les agents ont été forts
 
 Dans notre extraction, les agents ont passé en revue des dizaines de projets Linear. On avait une base avec environ 70 projets analysés, des tickets CII déjà classés, d'autres tickets à requalifier, et toute la matière GitHub / Notion à remettre en face.
@@ -145,13 +159,15 @@ Les agents utiles en entreprise ne sont pas ceux qui écrivent des pavés depuis
 
 Dans le CIR/CII, comme dans beaucoup de sujets finance, juridique, audit ou conformité, les preuves existent déjà. Elles sont juste dispersées.
 
-On n'a pas récupéré 150 000 euros grâce à un prompt magique. On a construit une chaîne qui transforme les traces de l'entreprise en dossier défendable.
+Ces 150 000 euros ne dépendaient pas d'une belle formulation. Ils dépendaient de notre capacité à transformer une année de travail dispersé en preuve défendable.
 
 C'est moins sexy qu'une démo où l'IA génère cent pages en une minute. Mais c'est beaucoup plus proche de là où les agents vont vraiment créer de la valeur.
 
 ## l'ouverture vers Granite
 
 C'est aussi pour ça que je construis [Granite](https://github.com/The-Vibe-Company/Granite).
+
+Après ce projet, j'ai compris que le vrai sujet n'était pas seulement le CIR. C'était la mémoire de l'entreprise.
 
 Le CIR est un cas extrême, parce que la preuve vaut littéralement de l'argent. Mais le pattern est beaucoup plus large. Dans une boîte, les agents ne deviennent vraiment utiles que quand ils peuvent travailler sur une mémoire structurée, reliée, maintenue. Pas sur trois exports jetés dans un chat.
 
