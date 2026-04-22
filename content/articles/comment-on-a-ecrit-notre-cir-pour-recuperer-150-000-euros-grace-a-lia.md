@@ -15,11 +15,11 @@ Dans notre cas, il y avait environ 150 000 euros à récupérer. Donc on ne pouv
 
 Il fallait un dossier qui tienne debout : les bons lots, les bonnes dates, les bonnes personnes, les bons tickets, les bons commits, et une explication claire de ce qui relevait du CIR ou du CII.
 
-J'avais un avantage : j'avais construit Quivr, YC W24, un produit RAG open-source utilisé par de vraies équipes. La matière existait déjà. Il y avait des mois de tickets Linear, des PRs GitHub, des specs Notion, des exports, des documents Drive, des traces clients, des décisions d'architecture.
+On partait avec un avantage : Quivr, YC W24, était un produit RAG open-source utilisé par de vraies équipes. La matière existait déjà. Il y avait des mois de tickets Linear, des PRs GitHub, des specs Notion, des exports, des documents Drive, des traces clients, des décisions d'architecture.
 
 Le problème, c'est que rien de tout ça ne ressemble spontanément à un dossier fiscal.
 
-Ce qu'on a fait avec l'IA, ce n'est pas "écris-moi un CIR". Ce qu'on a fait, c'est brancher des agents aux traces réelles de l'entreprise pour reconstruire la preuve.
+Ce qu'on a fait avec l'IA, ce n'est pas "écris notre CIR". Ce qu'on a fait, c'est brancher des agents aux traces réelles de l'entreprise pour reconstruire la preuve.
 
 ![Une chaîne de preuve transforme les outils de travail en dossier CIR/CII](/images/resources/le-cir-ne-secrit-pas-il-se-compile/evidence-pipeline.svg "Le PDF arrive à la fin. Le vrai système est la chaîne de preuve.")
 
@@ -27,7 +27,7 @@ Ce qu'on a fait avec l'IA, ce n'est pas "écris-moi un CIR". Ce qu'on a fait, c'
 
 Le mauvais prompt, c'est :
 
-> Écris-moi un dossier CIR sur notre R&D.
+> Écris notre dossier CIR sur notre R&D.
 
 Ça produit souvent un texte propre. Trop propre. Le modèle raconte une histoire cohérente, mais on ne sait pas vraiment d'où viennent les phrases.
 
@@ -76,7 +76,7 @@ cir-cii/
 
 C'est bête, mais ça change tout.
 
-L'agent avait des consignes claires : ne jamais inventer, poser des questions quand il manque une info, travailler par section, garder les sources, signaler les affirmations faibles. En gros : tu peux aider, mais tu n'as pas le droit de faire semblant de savoir.
+L'agent avait des consignes claires : ne jamais inventer, poser des questions quand il manque une info, travailler par section, garder les sources, signaler les affirmations faibles. En gros : il peut aider, mais il n'a pas le droit de faire semblant de savoir.
 
 ## le coeur du truc : la matrice de preuve
 
@@ -126,7 +126,7 @@ L'agent, lui, peut faire les passes larges :
 
 Par contre, l'agent ne décide pas à notre place.
 
-La qualification finale reste humaine. Est-ce vraiment du CIR ? Plutôt du CII ? Est-ce que le raisonnement est défendable ? Est-ce qu'on peut exposer ce détail ? Est-ce que le temps valorisé est cohérent ? C'est là que tu dois garder la main.
+La qualification finale reste humaine. Est-ce vraiment du CIR ? Plutôt du CII ? Est-ce que le raisonnement est défendable ? Est-ce qu'on peut exposer ce détail ? Est-ce que le temps valorisé est cohérent ? C'est là qu'on doit garder la main.
 
 ## la séparation CIR / CII
 
@@ -138,9 +138,9 @@ Sur Quivr, les deux existaient. Par exemple, certains sujets touchaient à l'év
 
 Tout mettre dans le même sac aurait affaibli le dossier. Le fait de séparer les lots a rendu le document beaucoup plus clair.
 
-## la méthode que je referais
+## la méthode qu'on referait
 
-Si je devais refaire ça demain pour une autre boîte, je suivrais exactement cet ordre :
+Si on devait refaire ça demain pour une autre boîte, on suivrait exactement cet ordre :
 
 1. Créer un repo dédié au dossier.
 2. Brancher Linear/Jira, GitHub/GitLab, Notion/Confluence, Drive/Sheets et les exports internes.
@@ -149,11 +149,11 @@ Si je devais refaire ça demain pour une autre boîte, je suivrais exactement ce
 5. Qualifier humainement CIR, CII ou hors scope.
 6. Rédiger seulement à la fin, avec les sources sous les yeux.
 
-Le point important, c'est l'ordre. Si tu rédiges d'abord, tu fais du storytelling. Si tu extrais d'abord, tu construis un dossier.
+Le point important, c'est l'ordre. Si on rédige d'abord, on fait du storytelling. Si on extrait d'abord, on construit un dossier.
 
 Le résultat, chez nous, c'est un dossier d'environ 100 pages. Pas parce que l'IA a rempli du vide, mais parce qu'elle a aidé à remettre en ordre une année de travail réel.
 
-## ce que ça m'a appris
+## ce que ça nous a appris
 
 Les agents utiles en entreprise ne sont pas ceux qui écrivent des pavés depuis une page blanche. Ce sont ceux qui travaillent dans un environnement riche : accès aux outils, sources fiables, consignes strictes, structure de repo, et humains aux endroits où il faut juger.
 
