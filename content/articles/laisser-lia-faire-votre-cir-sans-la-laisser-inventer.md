@@ -1,14 +1,18 @@
 ---
-title: "Comment on a écrit notre CIR pour récupérer 150 000 euros grâce à l'IA"
+title: "Le playbook CIR/CII pour compiler vos preuves avec l'IA"
 slug: laisser-lia-faire-votre-cir-sans-la-laisser-inventer
-summary: "Le playbook concret pour transformer Linear, GitHub, Notion, Drive et vos exports en dossier CIR/CII vérifiable. Pas avec un prompt magique, mais avec un atelier de preuves."
+summary: "La méthode concrète pour transformer Linear, GitHub, Notion, Drive et vos exports en dossier CIR/CII vérifiable. Pas le récit du projet : le mode opératoire."
 publishedAt: 2026-04-23
 complexity: advanced
 topics: AI Operations, Research Tax Credit, Agent Workflows
-coverImage: /images/resources/le-cir-ne-secrit-pas-il-se-compile/cover-proof-compiler.svg
-coverAlt: "Un atelier de preuves transforme les traces de travail en dossier CIR/CII"
-ogImage: /images/resources/le-cir-ne-secrit-pas-il-se-compile/cover-proof-compiler.png
+coverImage: /images/resources/cir-cii-playbook-evidence-system/cover-cir-cii-playbook.svg
+coverAlt: "Un playbook CIR/CII relie sources, matrice de preuves, agents et sortie LaTeX"
+ogImage: /images/resources/cir-cii-playbook-evidence-system/cover-cir-cii-playbook.png
 ---
+
+Cet article n'est pas l'histoire de notre dossier CIR.
+
+C'est le playbook.
 
 Le CIR n'est pas un problème de rédaction. C'est un problème de preuves.
 
