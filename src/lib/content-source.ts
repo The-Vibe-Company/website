@@ -28,6 +28,10 @@ export interface ContentEntry {
       }
     }
   } | null
+  ogImage?: {
+    url: string
+    alt?: string
+  } | null
 }
 
 type Frontmatter = Record<string, string>
@@ -85,6 +89,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
       const summary = data.summary || body.split('\n').find(Boolean)?.trim() || ''
       const coverImage = data.coverImage || data.image || ''
       const coverAlt = data.coverAlt || data.imageAlt || title
+      const ogImage = data.ogImage || ''
       const topics = (data.topics || '')
         .split(',')
         .map((value) => value.trim())
@@ -109,6 +114,12 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
                   url: coverImage,
                 },
               },
+            }
+          : null,
+        ogImage: ogImage
+          ? {
+              url: ogImage,
+              alt: coverAlt,
             }
           : null,
       }

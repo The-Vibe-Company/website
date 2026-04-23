@@ -13,6 +13,8 @@ import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getTypeLabel } from '@/lib/taxonomy-utils';
 
+const SITE_URL = 'https://www.thevibecompany.co';
+
 export async function generateStaticParams() {
   return getAllStaticParams();
 }
@@ -67,9 +69,44 @@ export async function generateMetadata({
   const item = await getContent(contentType.slug, slug);
   if (!item) return { title: 'Not Found' };
 
+  const canonicalPath = `/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`;
+  const canonicalUrl = new URL(canonicalPath, SITE_URL).toString();
+  const socialImage = item.ogImage ?? item.featuredImage;
+  const socialImageUrl = socialImage?.url ? new URL(socialImage.url, SITE_URL).toString() : undefined;
+  const socialTitle = item.title;
+  const socialDescription = item.summary;
+
   return {
     title: `${item.title} | Vibe Learning`,
     description: item.summary,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      type: 'article',
+      url: canonicalUrl,
+      siteName: 'The Vibe Company',
+      title: socialTitle,
+      description: socialDescription,
+      publishedTime: item.publishedAt,
+      tags: item.topics,
+      images: socialImageUrl
+        ? [
+            {
+              url: socialImageUrl,
+              width: 1600,
+              height: 900,
+              alt: socialImage?.alt ?? socialTitle,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: socialTitle,
+      description: socialDescription,
+      images: socialImageUrl ? [socialImageUrl] : undefined,
+    },
   };
 }
 

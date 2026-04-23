@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://thevibecompany.com"),
+  metadataBase: new URL("https://www.thevibecompany.co"),
   title: {
     default: "The Vibe Company",
     template: "%s | The Vibe Company",

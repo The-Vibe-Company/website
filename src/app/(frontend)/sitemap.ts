@@ -3,7 +3,7 @@ import { getAllContent } from "@/lib/content-source";
 import { getUrlSlugForDbType } from "@/lib/content-types";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://thevibecompany.com";
+  const baseUrl = "https://www.thevibecompany.co";
   const contentRoutes = getAllContent().map((item) => ({
     url: `${baseUrl}/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`,
     lastModified: new Date(item.publishedAt),

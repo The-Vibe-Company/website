@@ -7,6 +7,7 @@ complexity: advanced
 topics: AI Operations, Research Tax Credit, Agent Workflows
 coverImage: /images/resources/le-cir-ne-secrit-pas-il-se-compile/cover-proof-compiler.svg
 coverAlt: "Une chaîne d'IA transforme les traces de travail en dossier CIR/CII documenté"
+ogImage: /images/resources/le-cir-ne-secrit-pas-il-se-compile/cover-proof-compiler.png
 ---
 
 Le CIR, c'est un sujet assez bête au fond : le travail a déjà été fait, mais il faut réussir à le prouver.
