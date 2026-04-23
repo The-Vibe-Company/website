@@ -10,7 +10,7 @@ coverAlt: "Un playbook CIR/CII relie sources, matrice de preuves, agents et sort
 ogImage: /images/resources/cir-cii-playbook-evidence-system/cover-cir-cii-playbook.png
 ---
 
-Cet article n'est pas l'histoire de notre dossier CIR.
+Cet article n'est pas [l'histoire de notre dossier CIR](/resources/articles/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia).
 
 C'est le playbook.
 
@@ -142,7 +142,7 @@ GitHub était l'autre pilier. Les commits et les PRs sont des preuves contempora
 
 Notion et Google Drive ont servi à récupérer les specs, les décisions, les notes de contexte, les anciens dossiers et les documents de cadrage. Les exports comptables et financiers ont servi à relier les travaux aux personnes, aux périodes et aux coûts.
 
-On peut faire ça avec des MCP, avec les APIs natives ou avec des exports propres. Le MCP rend juste l'exploration plus fluide, parce que l'agent peut interroger les outils au lieu d'attendre qu'on lui colle des fichiers dans un chat.
+On peut faire ça avec des [MCP](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done), avec les APIs natives ou avec des exports propres. Le MCP rend juste l'exploration plus fluide, parce que l'agent peut interroger les outils au lieu d'attendre qu'on lui colle des fichiers dans un chat.
 
 Le prompt d'exploration initiale doit être concret :
 
@@ -572,7 +572,7 @@ On peut croire que l'IA a "écrit le CIR". Ce n'est pas exactement ça.
 
 L'IA a compilé un dossier que l'entreprise avait déjà produit sans le savoir. Chaque ticket, chaque commit, chaque spec, chaque benchmark, chaque discussion technique était un morceau du dossier. Le problème, c'est que personne n'avait le temps de tout relire, relier et structurer.
 
-C'est là que les agents deviennent très forts : pas quand ils inventent une réponse, mais quand ils travaillent longtemps sur une mémoire riche, avec une méthode claire.
+C'est là que les agents deviennent très forts : pas quand ils inventent une réponse, mais quand ils travaillent longtemps sur [une mémoire riche](/resources/articles/my-personal-os-lives-in-a-folder), avec une méthode claire.
 
 À la fin, on ne doit pas seulement avoir un PDF. On doit avoir un graphe de preuves.
 

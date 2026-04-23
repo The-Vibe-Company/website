@@ -150,6 +150,8 @@ Si on devait refaire ça demain pour une autre boîte, on suivrait exactement ce
 5. Qualifier humainement CIR, CII ou hors scope.
 6. Rédiger seulement à la fin, avec les sources sous les yeux.
 
+La version opératoire, avec les prompts et la structure de repo, est ici : [le playbook CIR/CII pour compiler vos preuves avec l'IA](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer).
+
 Le point important, c'est l'ordre. Si on rédige d'abord, on fait du storytelling. Si on extrait d'abord, on construit un dossier.
 
 Le résultat, chez nous, c'est un dossier d'environ 100 pages. Pas parce que l'IA a rempli du vide, mais parce qu'elle a aidé à remettre en ordre une année de travail réel.

@@ -94,6 +94,8 @@ MCP is not just a way to expose tools.
 
 It is a way to make a method executable.
 
+A concrete example is the [CIR/CII playbook we use to compile evidence from Linear, GitHub, Notion, Drive, and exports](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer): the value is not the connector list, it is the workflow the agents follow.
+
 ## Further reading
 
 - [Model Context Protocol specification](https://modelcontextprotocol.io/specification/2025-11-25)
