@@ -166,3 +166,5 @@ Ce n'est pas l'IA qui a inventé le dossier. Le travail existait déjà. Les pre
 Ce qu'on a construit, c'est la machine qui les rend lisibles.
 
 C'est moins spectaculaire qu'une démo où l'IA génère cent pages en une minute. Mais c'est beaucoup plus proche de là où les agents vont vraiment créer de la valeur : transformer le travail réel en livrables qu'on peut assumer.
+
+Si ce sujet vous parle, on peut vous aider à faire la même chose chez vous. C'est exactement ce qu'on construit chez The Vibe Company : des systèmes d'agents branchés aux vrais outils de l'entreprise, capables de transformer les traces de travail en dossiers, audits, rapports et livrables qui tiennent debout.
