@@ -1,7 +1,7 @@
 ---
-title: "Le playbook CIR/CII pour compiler vos preuves avec l'IA"
+title: "Laisser l'IA faire votre CIR sans la laisser inventer"
 slug: laisser-lia-faire-votre-cir-sans-la-laisser-inventer
-summary: "La méthode concrète pour transformer Linear, GitHub, Notion, Drive et vos exports en dossier CIR/CII vérifiable. Pas le récit du projet : le mode opératoire."
+summary: "Le mode opératoire pour transformer Linear, GitHub, Notion, Drive et vos exports en dossier CIR/CII vérifiable : repo atelier, matrice de preuves, agents spécialisés, LaTeX et validation humaine."
 publishedAt: 2026-04-23
 complexity: advanced
 topics: AI Operations, Research Tax Credit, Agent Workflows
@@ -27,6 +27,27 @@ On a donc construit un repo atelier. Dedans : un `CLAUDE.md`, des agents spécia
 Le résultat : un dossier de plus de 100 pages, beaucoup plus poussé que ce qu'on aurait pu produire à la main dans le même temps, parce que l'agent ne partait pas d'une page blanche. Il partait des traces réelles de l'entreprise.
 
 Ce playbook explique comment reproduire cette méthode.
+
+## La version courte
+
+Si vous voulez reproduire la méthode, ne commencez pas par la rédaction.
+
+Commencez par le système qui empêche l'agent d'inventer.
+
+Le flow tient en six mouvements :
+
+| Étape | Question à résoudre | Sortie attendue |
+| --- | --- | --- |
+| 1. Cadrer | Quelles règles l'agent doit-il suivre ? | `CLAUDE.md` ou `AGENTS.md`, `TODO.md`, arborescence du repo |
+| 2. Brancher | Où sont les traces réelles du travail ? | Accès Linear, GitHub, Notion, Drive, exports et contexte |
+| 3. Extraire | Qu'est-ce que chaque trace prouve vraiment ? | Fichiers `evidence/` datés, sourcés et limités |
+| 4. Qualifier | Est-ce du CIR, du CII, du hors périmètre ou du "à valider" ? | Matrice de preuves avec confiance et questions |
+| 5. Rédiger | Quels lots sont assez solides pour devenir des sections ? | Brouillons lot par lot, puis sections Markdown ou LaTeX |
+| 6. Valider | Qu'est-ce qui casse si un expert relit froidement ? | Revue technique, fiscale, comptable et confidentialité |
+
+![Le pipeline CIR/CII part des outils de travail, passe par une matrice de preuves, puis seulement ensuite par le dossier final](/images/resources/cir-cii-playbook-evidence-system/playbook-flow.svg "Le dossier final arrive après la matrice de preuves, pas avant.")
+
+Si vous ne lisez qu'une seule partie, copiez le template en fin d'article et adaptez-le à vos outils. Le reste détaille pourquoi chaque étape existe.
 
 ## La règle qui change tout
 
