@@ -18,6 +18,10 @@ That failure changed our method.
 
 Before going further, one quick definition: by "skill", we mean a reusable set of instructions that teaches an agent how to handle a recurring workflow. Not a one-off prompt. Something you expect to use again.
 
+That definition now has a real shape. The official [Agent Skills model](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) is filesystem-based: a `SKILL.md`, optional scripts, optional references, and progressive disclosure so the agent loads only what it needs. [Codex skills](https://developers.openai.com/codex/skills) follow the same basic idea.
+
+So the thing we are improving is not just a prompt. It is a small operating package.
+
 The mistake we were making was simple. We were judging the new version mostly on feel.
 
 The wording looked cleaner. The structure looked better. One example run looked promising. None of that answered the only question that mattered.
@@ -38,7 +42,7 @@ New skill versus old skill.
 
 That sounds obvious, but it changes everything. You stop asking whether the new version sounds smart. You start asking whether it wins.
 
-This matters even more when a skill owns something real: routing work, writing structured outputs, or making decisions that affect the next step in a workflow.
+This matters even more when a skill owns something real: routing work, writing structured outputs, or making decisions that affect the next step in a workflow. The same logic applies to the [MCP method layer](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done): tool access is not enough; the system has to encode the way the work should happen.
 
 ## The loop we use
 
@@ -89,6 +93,8 @@ The main agent still owns the important parts:
 So the role of subagents is narrow but useful: parallel evidence generation, not product judgment.
 
 This is very close to what makes systems like [gstack](https://github.com/garrytan/gstack) interesting. The useful part is not "many agents." It is clean workflow ownership plus parallel review.
+
+The official [skill authoring guidance](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices) points in the same direction: `SKILL.md` should orient the agent and point to deeper material when needed. That only works if the skill's trigger, boundaries, and handoffs are tested in realistic use.
 
 ## Tighten the eval until it discriminates
 
@@ -169,6 +175,8 @@ You need:
 - a way to read the outputs, not just score them
 - a way to patch and rerun quickly
 
+And you need the context around the skill to stay stable enough to matter. That is why [company memory](/resources/articles/my-personal-os-lives-in-a-folder) and reusable skills fit together: memory gives the agent durable material, skills teach it how to work with that material repeatedly.
+
 That is the shift.
 
 If you skip it, your skills mostly get better at sounding smart.
@@ -177,6 +185,7 @@ If you keep it, they start getting better at the thing that actually matters: be
 
 ## Further reading
 
-- [Agents don't lack tools. They lack company memory.](/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
 - [MCP is how agents learn your company's taste](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done)
 - [My personal OS lives in a folder](/resources/articles/my-personal-os-lives-in-a-folder)
+- [Playbook: preparing a CIR/CII dossier with Claude Code](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer)
+- [Claude.md is the cheapest architecture you'll ever write](/resources/learnings/2026-02-17-claudemd-is-the-cheapest-architecture-youll-ever-write)

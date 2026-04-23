@@ -45,6 +45,8 @@ The best human operator in a company is not only the person who knows which butt
 
 Not by making the server a giant brain. The runtime should stay boring. Tools should stay narrow. Permissions should stay explicit. The interesting work happens in the surface around the tools: names, prompts, resources, defaults, response shapes, approval gates, and the sequence of what the agent sees first.
 
+The same rule shows up one layer above MCP, in reusable skills. Once a workflow becomes a skill, we do not just make the instructions sound cleaner; we [test the skill against its previous version](/resources/articles/how-we-actually-improve-agent-skills) on the same task.
+
 ![The MCP method layer sits between raw tools and reliable agent output](/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/generated/mcp-method-layer-infographic.webp "The valuable MCP layer is the method between tools and output.")
 
 The surface is where the company says: this is how we work here.
@@ -106,5 +108,6 @@ The method gets you work you can trust.
 - [Anthropic introducing MCP](https://www.anthropic.com/news/model-context-protocol)
 - [OpenAI MCP documentation](https://developers.openai.com/api/docs/mcp)
 - [Granite on GitHub](https://github.com/The-Vibe-Company/Granite)
+- [How we actually improve agent skills](/resources/articles/how-we-actually-improve-agent-skills)
 - [My personal OS lives in a folder. My agents run my company from it.](/resources/articles/my-personal-os-lives-in-a-folder)
 - [Playbook: preparing a CIR/CII dossier with Claude Code](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer)

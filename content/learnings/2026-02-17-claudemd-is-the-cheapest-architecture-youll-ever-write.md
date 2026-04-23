@@ -11,3 +11,5 @@ It stabilizes decisions, prevents re-explaining, and keeps the AI aligned over t
 Without it, you’re paying in drift and rework on every iteration.
 
 **Rule:** write context once in a canonical file, and treat it like part of the architecture.
+
+When the same workflow keeps coming back, graduate it from `CLAUDE.md` into a reusable skill, then [test the skill against the previous version](/resources/articles/how-we-actually-improve-agent-skills) instead of judging it by feel.

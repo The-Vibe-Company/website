@@ -120,6 +120,8 @@ Le repo sert à rendre le travail observable. Chaque exploration laisse une trac
 
 Dans notre cas, le `CLAUDE.md` a joué le rôle de contrat permanent avec l'agent. Il ne contenait pas seulement "fais un CIR". Il contenait les règles du projet, les dossiers à utiliser, les skills disponibles, la séparation CIR/CII, le style de sortie et la consigne de travailler section par section pour ne pas exploser le contexte.
 
+Quand ce genre de workflow devient récurrent, il ne suffit pas d'ajouter un prompt plus propre. Il faut traiter le skill comme un petit produit : le comparer à sa version précédente, le tester sur les mêmes cas, puis corriger ce qui change vraiment le comportement. On détaille cette méthode ici : [How we actually improve agent skills](/resources/articles/how-we-actually-improve-agent-skills).
+
 Un bon `CLAUDE.md` de départ peut ressembler à ça :
 
 ```text

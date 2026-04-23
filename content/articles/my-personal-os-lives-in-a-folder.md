@@ -78,7 +78,7 @@ It called `granite_research_topic` four times: "semantic search vector embedding
 
 It then called `granite_understand_note` on the six central nodes: `granite`, `granite-wakeup-aaak-compressed-vault-snapshot`, `an-mcp-server-is-a-methodology-not-an-api`, `granite-as-karpathy-s-knowledge-compiler`, `mempalace-ai-memory-system-analysis`, `quivr-to-the-vibe-company-pivot-synthesis`. For each one, the agent saw the body, the backlinks, the recommendations, the graph role.
 
-The title came from a pattern codified in a Claude Code skill called `/vibe_article-craft`, which knows four headline formats that actually work. The anti-slop pass ran through `humanizer-zh`, a Chinese-language skill cataloguing 24 patterns of LLM writing I want out. The screenshot was taken by a Playwright script (`plans/shot.mjs`) that waits for the graph to settle, clicks "Fit map", injects CSS to hide client names, and captures at 2× DPR.
+The title came from a publishing skill that knows the headline patterns that actually work. The important part is not the prompt itself; it is that recurring workflows graduate into skills and then get [tested against the previous version](/resources/articles/how-we-actually-improve-agent-skills). The anti-slop pass ran through `humanizer-zh`, a Chinese-language skill cataloguing 24 patterns of LLM writing I want out. The screenshot was taken by a Playwright script (`plans/shot.mjs`) that waits for the graph to settle, clicks "Fit map", injects CSS to hide client names, and captures at 2× DPR.
 
 Every paragraph in this article points back to a note. Every note points back to a source. The reasoning is auditable.
 
