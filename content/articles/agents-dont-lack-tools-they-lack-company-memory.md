@@ -6,7 +6,7 @@ publishedAt: 2026-04-23
 complexity: advanced
 topics: Agent Design, Knowledge Systems, Company Memory
 coverImage: /images/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-cover.webp
-coverAlt: "A Granite knowledge graph shows a structured company memory that agents can operate on"
+coverAlt: "A dense company knowledge graph is compressed into a precise memory engine for agents"
 ogImage: /images/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-cover-og.png
 ---
 
@@ -18,7 +18,7 @@ That is the important shift. Tool access is becoming infrastructure. The harder 
 
 We saw it clearly on a workflow that actually mattered: compiling a CIR/CII dossier from technical and business evidence. The raw material was there. Linear tickets. Git history. Docs. Old exports. Internal notes. The agent could reach the tools. It still drifted, because the company had data, but the agent did not yet have memory.
 
-![A Granite knowledge graph shows a structured company memory that agents can operate on](/images/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-cover.webp "Useful agents need a memory layer, not just more integrations.")
+![A dense company knowledge graph is compressed into a precise memory engine for agents](/images/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-cover.webp "Useful agents need a memory layer, not just more integrations.")
 
 ## company memory is not company data
 
