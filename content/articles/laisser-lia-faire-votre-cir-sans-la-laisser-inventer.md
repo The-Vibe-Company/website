@@ -165,6 +165,8 @@ Notion et Google Drive ont servi à récupérer les specs, les décisions, les n
 
 On peut faire ça avec des [MCP](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done), avec les APIs natives ou avec des exports propres. Le MCP rend juste l'exploration plus fluide, parce que l'agent peut interroger les outils au lieu d'attendre qu'on lui colle des fichiers dans un chat.
 
+![Des sources internes deviennent des preuves vérifiées avant la rédaction](/images/resources/cir-cii-playbook-evidence-system/generated/sources-to-evidence.webp "Avant d'écrire, chaque source doit devenir une preuve datée, limitée et exploitable.")
+
 Le prompt d'exploration initiale doit être concret :
 
 ```text
@@ -325,6 +327,8 @@ Cette table évite deux erreurs.
 Première erreur : rédiger des sections faibles parce qu'elles sonnent bien. Deuxième erreur : jeter des sujets intéressants parce que les preuves sont dispersées.
 
 La matrice rend visible la réalité : certains lots sont forts, certains sont moyens, certains doivent sortir, certains ont besoin d'une interview ou d'un export financier.
+
+![Une matrice de preuves trie les lots forts, les lots faibles et les points à valider](/images/resources/cir-cii-playbook-evidence-system/generated/proof-matrix-review.webp "La matrice sert à décider quoi rédiger, quoi renforcer et quoi sortir du dossier.")
 
 ## Étape 7 : séparer CIR et CII dès le début
 
