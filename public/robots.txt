@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thevibecompany.com/sitemap.xml
+Sitemap: https://www.thevibecompany.co/sitemap.xml

@@ -12,8 +12,7 @@ import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getTypeLabel } from '@/lib/taxonomy-utils';
-
-const SITE_URL = 'https://www.thevibecompany.co';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
 
 export async function generateStaticParams() {
   return getAllStaticParams();
@@ -85,7 +84,7 @@ export async function generateMetadata({
     openGraph: {
       type: 'article',
       url: canonicalUrl,
-      siteName: 'The Vibe Company',
+      siteName: SITE_NAME,
       title: socialTitle,
       description: socialDescription,
       publishedTime: item.publishedAt,

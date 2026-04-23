@@ -31,6 +31,13 @@ bun dev
 Main URLs:
 - Site: `http://localhost:3000`
 
+## Generated Discovery Files
+
+The site exposes:
+
+- `/sitemap.xml` - generated from indexable static routes and Markdown content.
+- `/llms.txt` - generated Markdown index for LLMs and agents.
+
 ## Content
 
 Content lives in:

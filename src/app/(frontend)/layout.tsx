@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ClientProviders } from "@/components/ClientProviders";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -17,29 +18,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.thevibecompany.co"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "The Vibe Company",
-    template: "%s | The Vibe Company",
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "An AI native agency. 100x efficiency. We build with AI, ship fast, and show everything.",
+  description: SITE_DESCRIPTION,
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "The Vibe Company",
-    title: "The Vibe Company",
-    description:
-      "An AI native agency. 100x efficiency. We build with AI, ship fast, and show everything.",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Vibe Company",
-    description:
-      "An AI native agency. 100x efficiency. We build with AI, ship fast, and show everything.",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
   },
   alternates: {
     canonical: "/",
