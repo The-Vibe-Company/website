@@ -29,5 +29,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('bun.lock') }}-
 
+      - name: Check article frontmatter
+        run: bun run check:articles
+
       - name: Build
         run: bunx next build --experimental-build-mode compile

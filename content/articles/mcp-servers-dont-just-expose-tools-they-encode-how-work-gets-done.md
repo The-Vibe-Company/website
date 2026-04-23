@@ -7,6 +7,7 @@ complexity: advanced
 topics: MCP, AI Infrastructure, Agent Design
 coverImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/generated/mcp-cover-taste.webp
 coverAlt: "A precise MCP method layer turns loose software tools into a reliable workflow for an AI agent"
+ogImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/generated/mcp-cover-taste-og.png
 ---
 
 Most MCP demos start with the same move: expose a list of tools.
