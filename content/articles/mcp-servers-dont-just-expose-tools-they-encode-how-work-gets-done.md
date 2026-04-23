@@ -1,205 +1,129 @@
 ---
-title: "MCP Servers Don't Just Expose Tools. They Encode How Work Gets Done."
+title: "MCP servers should ship the method"
 slug: mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done
-summary: "Most MCP writing stops at interoperability. The real leverage is deeper: good MCP servers teach agents a method. They encode context loading, sequencing, approval, safety, and what good work looks like."
+summary: "Most teams turn MCP into a toolbox. The better move is to ship the company's method: context, constraints, sequencing, taste, and review gates."
 publishedAt: 2026-04-08
 complexity: advanced
 topics: MCP, AI Infrastructure, Agent Design
-coverImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-method-over-tools.svg
-coverAlt: "Editorial cover illustration for an article about MCP servers and workflow"
+coverImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/generated/mcp-method-cover-v2.webp
+coverAlt: "A protocol gateway turning a chaotic pile of tools into a clear path for an AI agent"
 ---
 
-The first Granite MCP server had the obvious tools.
+Every team building an MCP server seems to start the same way: they make a list of tools.
 
-`create_note`. `search_notes`. `update_note`. `get_note`. The kind of clean surface every engineer writes on the first pass.
+Search docs. Create ticket. Read customer. Update CRM. Run build. Send message. Open pull request.
 
-It worked, technically. It also produced garbage.
+That list feels productive because it is concrete. You can ship it. You can demo it. You can show the model calling something real instead of staying trapped in a chat window.
 
-Agents used the vault like a database. They created notes, stored fragments, searched a little, then moved on. The result was not a knowledge graph. It was a pile of disconnected markdown files with YAML frontmatter.
+But the list of tools is not where the value is. The model does not become useful because it has more buttons. It becomes useful when the buttons arrive with the missing layer: what matters here, what should happen first, what should never happen silently, and what good work looks like in this company.
 
-So we changed the server.
+That is the real promise of [MCP](https://modelcontextprotocol.io/specification/2025-11-25).
 
-Not the storage layer. Same markdown files. Same SQLite index. Same vault. The change was the method.
+A good MCP server ships the method.
 
-The MCP server stopped saying "here are database operations" and started teaching the agent how the system works: wake up the vault, research before writing, capture carefully, compile scattered knowledge, preserve provenance, lint the graph, and only then produce an output. That is when the system became useful.
+![MCP method cover](/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/generated/mcp-method-cover-v2.webp "A good MCP server turns a pile of tools into a working path for the agent.")
 
-This is the part of MCP that most people still understate.
+## MCP as a remote control is boring
 
-[MCP](https://modelcontextprotocol.io/specification/2025-11-25) is usually described as a protocol for connecting LLM applications to external tools and context. True. Useful. Necessary.
+The boring version of MCP is easy to understand. It is a universal remote control for software.
 
-But the deeper shift is this: MCP lets us package a way of working. An API exposes what can be called. A good MCP server encodes how work should be done.
+Before MCP, every agent client had to integrate with every tool in its own way. With MCP, a server can expose tools, resources, and prompts through a standard interface. That matters. Standards reduce glue code, and glue code is where agent systems usually become fragile.
 
-![Editorial cover for the MCP article](/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-method-over-tools.svg "The strongest MCP servers encode the workflow, not just the tools.")
+But if the server only exposes a bag of actions, the agent still has to guess the work.
 
-## The tools are not the product
+It has to guess which context to load before acting. It has to guess whether a write is safe. It has to guess whether a customer is important, whether a deploy is risky, whether a document is trustworthy, whether a Slack message should be sent or drafted for review.
 
-The standard pitch for MCP is interoperability.
+This is why many tool-connected agents feel impressive in demos and disappointing in production. They can reach the system, but they do not understand the shape of the work.
 
-Instead of wiring every model, IDE, chat client, and internal system through bespoke integrations, you expose a common protocol. Servers can provide resources, prompts, and tools. Clients can connect to them in a predictable way. The ecosystem gets a shared interface. That matters, but it is table stakes.
+![MCP toolbox vs method](/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/generated/mcp-method-internal.webp "The useful MCP server does not only expose tools. It turns them into a path the agent can follow.")
 
-If your MCP server only exposes a flat list of functions, the agent still has to infer everything important:
+## the missing layer is the company's method
 
-- what context to load first;
-- which actions are safe reads and which are dangerous writes;
-- what sequence to follow;
-- when to ask the user for approval;
-- how to recover when the output is weak;
-- what "done" actually means.
+Most companies do not run on APIs. They run on habits, rules, escalation paths, review rituals, weird exceptions, and taste.
 
-That is too much judgment to leave implicit. A thin server gives the model reach. A strong server gives it direction.
+The API knows that a ticket can be closed. The company knows that this ticket should not be closed because the account is strategic, the customer has already complained twice, and the bug is connected to an incident the product team is still investigating.
 
-This is why "what tools does it expose?" is the wrong first question. The better question is:
+The API knows that a build can be deployed. The company knows that Friday afternoon deploys are a bad idea unless the fix is urgent, reviewed, and reversible.
 
-> What behavior does this server make more likely?
+The API knows that a CRM field can be edited. The company knows that some fields are facts, some are guesses, and some are promises made to a customer.
 
-If the answer is "the agent can call our API", you have built an adapter. If the answer is "the agent now follows the way our best operator would do the work", you are building something more interesting.
+This is the part MCP can carry if we design it properly: not only access, but method. The server can tell the agent what to load first. It can separate read actions from write actions. It can return the next sensible move. It can offer prompts for common workflows. It can force approval where a human would expect a review. It can make the safe path easier than the dangerous path.
 
-## The instructions are the grammar
+That does not make the model magically smart. It gives the model a better working environment.
 
-The MCP spec has three server-side primitives that matter here: resources, prompts, and tools.
+## a simple example: customer support
 
-Most teams obsess over the tools. That is natural. Tools feel concrete. They mutate state. They ship demos. They are easy to count.
+Imagine a support MCP server.
 
-But the behavior of an agent is shaped by the entire surface:
+The weak version exposes four tools: search tickets, read customer, draft reply, issue refund. Technically useful. Also dangerous.
 
-| Surface | What it teaches |
-| --- | --- |
-| Instructions | The role, method, boundaries, and definition of quality |
-| Resources | What context should be loaded before action |
-| Prompts | Reusable workflows and operating procedures |
-| Tools | What the agent can do |
-| Tool descriptions | When and why each action should be used |
-| Responses | What the agent should do next |
-| Authorization | Where the workflow must stop and ask |
+The better version exposes the same underlying systems, but the surface carries the support method. Before drafting, it loads the customer tier, recent tickets, open incidents, refund policy, and any internal notes. It distinguishes a normal question from a churn risk. It can propose a refund, but not execute it without approval. It drafts in the company's tone, cites the facts it used, and says when the answer is weak.
 
-The tools are the verbs. The instructions are the grammar. That grammar is where the methodology lives.
+The difference is not the API. The difference is the default path.
 
-A deployment MCP should not merely expose `create_build`, `read_logs`, and `deploy_project`. It should teach release discipline: inspect the target environment, read failing checks first, distinguish preview from production, never promote without approval, summarize risk before mutation.
+The weak server asks the model to improvise. The strong server makes the next good move obvious. It does not need a hundred tools. It needs the right constraints around the work.
 
-A CRM MCP should not merely expose `create_contact` and `update_deal`. It should teach pipeline hygiene: search before creating duplicates, preserve source attribution, separate notes from commitments, escalate stale opportunities, never invent next steps.
+This is also a security point, not only a product point. The official [MCP security guidance](https://modelcontextprotocol.io/docs/tutorials/security/security%5Fbest%5Fpractices) talks about consent, data access, tool safety, and trust boundaries because MCP sits exactly where text becomes action. A good server does not hide risk behind a tool call. It makes risk visible at the right moment.
 
-A knowledge MCP should not merely expose `create_note` and `search_notes`. It should teach research, capture, linking, compilation, output, and linting. Same protocol. Very different product.
+## this is why MCP matters inside companies
 
-## Granite is the clean example
+The internet version of MCP is about connecting models to public tools. The company version is more interesting.
 
-[Granite](https://github.com/The-Vibe-Company/Granite) made this obvious because the underlying system did not change.
+Inside a company, the hard part is rarely "can the model call the system?" The hard part is "can the model behave like someone who understands how we work?"
 
-The weak version exposed generic note operations. The agent behaved like a CRUD client.
+Every company has a way of doing sales, support, hiring, delivery, finance, product, legal review, and incident response. Some of it is written down. Most of it lives in people, old docs, Slack threads, Linear comments, messy folders, and repeated judgment calls.
 
-The stronger version made the public surface map to the knowledge workflow:
+MCP is one of the places where that operating knowledge can become executable.
 
-| Weak surface | Stronger surface |
-| --- | --- |
-| `search_notes` | `granite_research_topic` |
-| `create_note` | `granite_capture_knowledge` |
-| `get_note` | `granite_understand_note` |
-| `update_note` | `granite_revise_note` |
-| "List notes" | `granite_wakeup` |
-| "Find problems" | `granite_plan_garden` |
+That does not mean the MCP server should become a giant brain. It should not. The runtime should stay boring. The tools should stay narrow. The permissions should be explicit.
 
-The names matter less than the shift in intent. `granite_wakeup` does not just return data. It orients the agent in the vault: clusters, hubs, recent changes, people, stale areas. The first move is no longer random search. The agent starts with a map.
+The interesting part is the interface around those tools: the instructions, the resources, the prompts, the names, the approval gates, the response shape. That is where you teach the agent how work is done here.
 
-`granite_research_topic` does not just search text. It tells the agent to research before writing, avoid duplicates, and pull context from the graph.
+We saw this while building [Granite](https://github.com/The-Vibe-Company/Granite). The first MCP server was correct in the narrow technical sense: it could create notes, search notes, and update notes. The better version taught the agent to wake up the vault, research before writing, preserve provenance, and compile knowledge instead of dumping fragments.
 
-`granite_plan_garden` does not ask the model to "think of improvements." Granite computes deterministic opportunities from graph and metadata signals, then the agent decides what to do. The runtime stays boring: markdown, links, SQLite, deterministic indexes. The MCP server teaches the operating model.
+The lesson is not about Granite. Granite is just a clean example.
 
-![Granite MCP example](/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/granite-same-vault-better-surface.svg "Granite becomes more useful when the server exposes the knowledge workflow instead of generic note CRUD.")
+The lesson is that the same backend can produce very different agent behavior depending on the method encoded in the MCP surface.
 
-This is the design move I care about. The MCP server is not a nicer API wrapper. It is where the domain's working method becomes executable by agents.
+## design the surface around judgment
 
-## The CIR playbook made the same point
+The question to ask is not "what endpoints can we expose?"
 
-The same pattern showed up in a much less abstract setting: our [CIR/CII playbook](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer).
+The question is "what should a good operator do next?"
 
-On paper, the setup sounds like a connector story.
+If you are building an MCP server for deployments, encode release judgment. Load the environment, read failing checks, separate preview from production, make rollback visible, and ask before promotion.
 
-Give the agent access to Linear. Give it GitHub. Give it Notion. Give it Google Drive. Add exports. Let it write the dossier. That framing is wrong. The value was not the connector list. The value was the sequence.
+If you are building one for sales, encode pipeline judgment. Search before creating duplicates, preserve where a fact came from, distinguish notes from commitments, and make follow-ups explicit.
 
-The agent had to:
+If you are building one for knowledge work, encode research judgment. Read before writing, link sources, flag weak claims, and keep outputs tied to the material they came from.
 
-1. read the project rules;
-2. explore the sources;
-3. create a manifest of what each source proves;
-4. extract dated evidence;
-5. classify lots as CIR, CII, out of scope, or "to validate";
-6. build a proof matrix;
-7. identify missing evidence;
-8. draft only from validated material;
-9. mark weak claims instead of beautifying them;
-10. compile the final document.
+This is not extra polish. This is the product.
 
-That is not "tool use." That is an operating procedure.
+The companies that get MCP right will not be the ones with the longest tool list. They will be the ones that turn their way of working into a surface agents can actually use.
 
-Linear did not make the project work. GitHub did not make the project work. Drive did not make the project work. The proof-compilation method made the project work.
+## ship the method
 
-And that is exactly the kind of method an MCP server should encode. Not necessarily all inside one tool. Sometimes in instructions. Sometimes in resources. Sometimes in prompts. Sometimes in the shape of the tool surface itself. But somewhere, the method has to exist. Otherwise the agent just has more ways to be wrong.
+MCP will probably become boring infrastructure. That is what good protocols do.
 
-## Security is behavior design
+But boring infrastructure can still carry a lot of power. HTTP did not make every website the same. SQL did not make every database product the same. Git did not make every engineering team operate the same way.
 
-Once you see MCP this way, security stops being a bolt-on checklist.
+Standards remove one layer of differentiation and reveal the next one.
 
-It becomes product design. The official MCP docs are explicit about consent, data privacy, tool safety, authorization, and trust boundaries. That is not incidental. MCP servers sit at the exact place where an LLM can move from text into action.
+For MCP, the first layer is connectivity. Can the model reach the system?
 
-Bad MCP design does not only create vulnerabilities. It creates bad defaults.
+The second layer is method. Can the model operate the system well?
 
-A vague write tool encourages vague writes. An over-broad token encourages over-broad behavior. A missing approval boundary teaches the agent that production is just another environment. A server that mixes safe reads with destructive actions in the same flat surface makes it harder for the client and the user to reason about risk.
+That second layer is where the real work is. It is less flashy than another connector, but it is what makes agents useful after the demo.
 
-The protocol cannot magically fix that. The spec can define the architecture. Security guidance can name the risks. But your server still has to encode the actual boundaries of the work.
+Do not ship a toolbox.
 
-Good MCP design makes the safe path the obvious path. It separates read, propose, and mutate. It returns structured context instead of raw dumps. It asks for approval at the point where a human would expect to review. It makes the agent explain what it is about to do before it does something expensive, public, irreversible, or sensitive.
-
-That is not merely security engineering. That is workflow engineering.
-
-## What a strong MCP server should feel like
-
-A good MCP server should feel like connecting to a senior operator, not a bag of endpoints.
-
-Before adding another tool, ask:
-
-| Question | Why it matters |
-| --- | --- |
-| What is the first thing an agent should know when it connects? | Orientation beats random search |
-| What context must be loaded before action? | Most mistakes start with missing context |
-| Which actions are reversible? | Reversibility should shape approval |
-| What should the agent do when confidence is low? | Weak evidence should create questions, not prose |
-| What does "done" mean in this domain? | The agent needs a quality bar |
-| What should never happen automatically? | Boundaries should be explicit |
-| What should the response tell the agent to do next? | Outputs can guide the next move |
-
-This is where teams will differentiate. Not by connecting to more tools, but by encoding better judgment into the surface area agents use every day.
-
-Two companies can expose the same project tracker, the same code host, the same docs, the same CRM, the same calendar.
-
-One MCP server says:
-
-> Here are 40 tools. Good luck.
-
-The other says:
-
-> Here is how this work is done here. Here is the context you load first. Here are the safe moves. Here are the review gates. Here is what good looks like.
-
-The second one wins.
-
-## The real competitive layer
-
-MCP is becoming infrastructure. That is the point of a protocol. But standards do not remove differentiation. They move it.
-
-The first wave is connectivity: can the model reach the system?
-
-The second wave is methodology: can the model operate the system well?
-
-That second layer is where the leverage is. It is also where most teams will underinvest, because it looks less glamorous than another integration. It is mostly instructions, naming, tool shape, resource design, consent boundaries, and boring review loops.
-
-But this is exactly the work that makes agents useful in companies. The model does not only need tools. It needs the grammar of the work.
-
-Ship the grammar.
+Ship the way the work gets done.
 
 ## Further reading
 
-- [My personal OS lives in a folder. My agents run my company from it.](/resources/articles/my-personal-os-lives-in-a-folder)
-- [Playbook : préparer votre dossier CIR avec Claude Code en 10 étapes](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer)
 - [Model Context Protocol specification](https://modelcontextprotocol.io/specification/2025-11-25)
 - [MCP security best practices](https://modelcontextprotocol.io/docs/tutorials/security/security%5Fbest%5Fpractices)
 - [Anthropic introducing MCP](https://www.anthropic.com/news/model-context-protocol)
 - [OpenAI MCP documentation](https://developers.openai.com/api/docs/mcp)
 - [Granite on GitHub](https://github.com/The-Vibe-Company/Granite)
+- [My personal OS lives in a folder. My agents run my company from it.](/resources/articles/my-personal-os-lives-in-a-folder)
