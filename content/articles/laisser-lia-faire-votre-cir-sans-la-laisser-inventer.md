@@ -1,5 +1,5 @@
 ---
-title: "Laisser l'IA faire votre CIR sans la laisser inventer"
+title: "Playbook : préparer votre dossier CIR avec Claude Code en 10 étapes"
 slug: laisser-lia-faire-votre-cir-sans-la-laisser-inventer
 summary: "Le mode opératoire pour transformer Linear, GitHub, Notion, Drive et vos exports en dossier CIR/CII vérifiable : repo atelier, matrice de preuves, agents spécialisés, LaTeX et validation humaine."
 publishedAt: 2026-04-23
