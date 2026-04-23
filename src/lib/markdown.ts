@@ -17,6 +17,10 @@ function escapeImageUrl(value: string): string {
   return escapeAttribute(value.trim())
 }
 
+function isSafeInternalMarkdownUrl(value: string): boolean {
+  return /^\/(?!\/)[^\s]*$/.test(value)
+}
+
 function isSafeMarkdownImageUrl(value: string): boolean {
   return /^\/(?!\/)/.test(value) || /^https?:\/\//.test(value)
 }
@@ -211,9 +215,18 @@ export function renderInlineMarkdown(text: string): string {
     codePlaceholders.push(`<code>${code}</code>`)
     return placeholder
   })
-  html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (_match, label: string, url: string) => {
-    return `<a href="${escapeEscapedAttribute(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`
-  })
+  html = html.replace(
+    /\[([^\]]+)\]\(((?:https?:\/\/|\/(?!\/))[^)\s]+)\)/g,
+    (_match, label: string, url: string) => {
+      const href = escapeEscapedAttribute(url)
+
+      if (isSafeInternalMarkdownUrl(url)) {
+        return `<a href="${href}">${label}</a>`
+      }
+
+      return `<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`
+    },
+  )
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
   html = html.replace(/__(.+?)__/g, '<strong>$1</strong>')
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>')

@@ -82,6 +82,8 @@ The title came from a pattern codified in a Claude Code skill called `/vibe_arti
 
 Every paragraph in this article points back to a note. Every note points back to a source. The reasoning is auditable.
 
+The same pattern showed up in a more operational context when we used agents to [compile a CIR/CII evidence dossier](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer): the output only worked because the agent could trace claims back to structured sources.
+
 ## What this means if you build knowledge tools
 
 If your users are humans, you are building a notes app. It will die like the others.

@@ -1,0 +1,57 @@
+<svg width="700" height="590" viewBox="0 0 700 590" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Pipeline de compilation CIR/CII</title>
+  <desc id="desc">Un flux relie cadrage, sources, preuves, matrice, rédaction et validation.</desc>
+  <rect width="700" height="590" fill="#F5F2EB"/>
+  <rect x="22" y="22" width="656" height="546" rx="26" fill="#141414"/>
+
+  <text x="56" y="78" fill="#F5F2EB" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="750">Le dossier sort à la fin</text>
+  <text x="56" y="112" fill="#CFC8BB" font-family="Inter, Arial, sans-serif" font-size="19">Avant d'écrire, l'agent doit prouver et qualifier.</text>
+
+  <g transform="translate(56 148)">
+    <path d="M31 32V335" stroke="#B9E7D8" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+
+    <g>
+      <rect width="588" height="54" rx="14" fill="#F5F2EB"/>
+      <circle cx="31" cy="27" r="17" fill="#141414"/>
+      <text x="25" y="35" fill="#B9E7D8" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="750">1</text>
+      <text x="70" y="36" fill="#141414" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="750">Cadrer les règles</text>
+    </g>
+
+    <g transform="translate(0 64)">
+      <rect width="588" height="54" rx="14" fill="#FFFFFF"/>
+      <circle cx="31" cy="27" r="17" fill="#276EF1"/>
+      <text x="25" y="35" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="750">2</text>
+      <text x="70" y="36" fill="#141414" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="750">Brancher les sources</text>
+    </g>
+
+    <g transform="translate(0 128)">
+      <rect width="588" height="54" rx="14" fill="#FFFFFF"/>
+      <circle cx="31" cy="27" r="17" fill="#E6532E"/>
+      <text x="25" y="35" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="750">3</text>
+      <text x="70" y="36" fill="#141414" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="750">Extraire les preuves</text>
+    </g>
+
+    <g transform="translate(0 192)">
+      <rect width="588" height="54" rx="14" fill="#F5F2EB"/>
+      <circle cx="31" cy="27" r="17" fill="#141414"/>
+      <text x="25" y="35" fill="#B9E7D8" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="750">4</text>
+      <text x="70" y="36" fill="#141414" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="750">Qualifier dans la matrice</text>
+    </g>
+
+    <g transform="translate(0 256)">
+      <rect width="588" height="54" rx="14" fill="#FFFFFF"/>
+      <circle cx="31" cy="27" r="17" fill="#1F9D55"/>
+      <text x="25" y="35" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="750">5</text>
+      <text x="70" y="36" fill="#141414" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="750">Rédiger lot par lot</text>
+    </g>
+
+    <g transform="translate(0 320)">
+      <rect width="588" height="54" rx="14" fill="#B9E7D8"/>
+      <circle cx="31" cy="27" r="17" fill="#141414"/>
+      <text x="25" y="35" fill="#B9E7D8" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="750">6</text>
+      <text x="70" y="36" fill="#141414" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="750">Valider froidement</text>
+    </g>
+  </g>
+
+  <text x="56" y="548" fill="#F5F2EB" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="650">Une phrase importante = une preuve. Sinon : “à valider”.</text>
+</svg>

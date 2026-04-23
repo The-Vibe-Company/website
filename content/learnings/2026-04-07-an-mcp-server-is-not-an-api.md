@@ -11,4 +11,6 @@ The agent used it like a database. It created notes, stored them, never connecte
 
 We rewrote the instructions. Same 12 tools. But now each tool says when and why to use it. The server teaches a methodology: capture, compile, query, output, lint. The agent stopped being a CRUD client and started being a knowledge gardener.
 
+Concrete example: the [CIR/CII playbook](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer) works because the agent follows a proof-compilation method, not because it merely has access to Linear or GitHub.
+
 **Rule:** the tools are the verbs. The instructions are the grammar. Ship the grammar.
