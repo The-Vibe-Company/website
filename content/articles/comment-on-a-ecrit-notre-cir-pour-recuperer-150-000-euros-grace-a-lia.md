@@ -1,7 +1,7 @@
 ---
 title: "Comment on a écrit notre CIR pour récupérer 150 000 euros grâce à l'IA"
 slug: comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia
-summary: "Le retour d'expérience concret sur notre dossier CIR/CII : comment on a branché des agents à Linear, GitHub, Notion, Google Drive et nos exports internes pour transformer les traces de Quivr en dossier de 100 pages."
+summary: "Comment on a transformé Linear, GitHub, Notion, Google Drive et nos exports internes en dossier CIR/CII de 100 pages. Pas avec un prompt magique, mais avec une vraie chaîne de preuve."
 publishedAt: 2026-04-22
 complexity: advanced
 topics: AI Operations, Research Tax Credit, Agent Workflows
@@ -53,7 +53,7 @@ On a connecté les agents aux endroits où le travail avait vraiment vécu :
 
 Chaque outil disait un truc différent.
 
-Linear disait ce qu'on avait essayé de construire. GitHub disait ce qui avait vraiment changé. Notion expliquait pourquoi certaines décisions avaient été prises. Les exports donnaient les périodes et les coûts. Drive ramenait les pièces qu'on oublie toujours quand on écrit un dossier à la main.
+Linear disait ce qu'on avait essayé de construire. GitHub disait ce qui avait vraiment changé. Notion expliquait pourquoi certaines décisions avaient été prises. Les exports donnaient les périodes et les coûts. Drive ramenait les pièces qu'on oublie presque toujours quand on écrit un dossier à la main.
 
 Et quand plusieurs sources racontent la même chose, là ça devient intéressant. Ce n'est plus une affirmation. C'est une preuve qui se recoupe.
 
@@ -76,7 +76,7 @@ cir-cii/
 
 C'est bête, mais ça change tout.
 
-L'agent avait des consignes claires : ne jamais inventer, poser des questions quand il manque une info, travailler par section, garder les sources, signaler les affirmations faibles. En gros : il peut aider, mais il n'a pas le droit de faire semblant de savoir.
+L'agent avait des consignes claires : ne jamais inventer, poser des questions quand il manque une info, travailler par section, garder les sources, signaler les affirmations faibles. En gros : aider, mais ne jamais faire semblant de savoir.
 
 ## le coeur du truc : la matrice de preuve
 
@@ -161,4 +161,8 @@ Dans le CIR/CII, comme dans beaucoup de sujets finance, juridique, audit ou conf
 
 Ces 150 000 euros ne dépendaient pas d'une belle formulation. Ils dépendaient de notre capacité à transformer une année de travail dispersé en preuve défendable.
 
-C'est moins sexy qu'une démo où l'IA génère cent pages en une minute. Mais c'est beaucoup plus proche de là où les agents vont vraiment créer de la valeur.
+Ce n'est pas l'IA qui a inventé le dossier. Le travail existait déjà. Les preuves existaient déjà.
+
+Ce qu'on a construit, c'est la machine qui les rend lisibles.
+
+C'est moins spectaculaire qu'une démo où l'IA génère cent pages en une minute. Mais c'est beaucoup plus proche de là où les agents vont vraiment créer de la valeur : transformer le travail réel en livrables qu'on peut assumer.
