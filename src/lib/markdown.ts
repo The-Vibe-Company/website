@@ -231,6 +231,81 @@ function renderParagraph(lines: string[]): string {
   return `<p>${html}</p>`
 }
 
+function splitMarkdownTableRow(line: string): string[] {
+  const trimmed = line.trim().replace(/^\|/, '').replace(/\|$/, '')
+  const cells: string[] = []
+  let current = ''
+  let escaped = false
+
+  for (const char of trimmed) {
+    if (escaped) {
+      current += char
+      escaped = false
+      continue
+    }
+
+    if (char === '\\') {
+      escaped = true
+      current += char
+      continue
+    }
+
+    if (char === '|') {
+      cells.push(current.trim())
+      current = ''
+      continue
+    }
+
+    current += char
+  }
+
+  cells.push(current.trim())
+  return cells
+}
+
+function isMarkdownTableSeparator(line: string): boolean {
+  const cells = splitMarkdownTableRow(line)
+  if (cells.length < 2) return false
+
+  return cells.every((cell) => /^:?-{3,}:?$/.test(cell.trim()))
+}
+
+function isMarkdownTableStart(lines: string[], index: number): boolean {
+  const header = lines[index]?.trim()
+  const separator = lines[index + 1]?.trim()
+  if (!header || !separator || !header.includes('|')) return false
+
+  const headerCells = splitMarkdownTableRow(header)
+  if (headerCells.length < 2 || headerCells.some((cell) => !cell.trim())) return false
+
+  return isMarkdownTableSeparator(separator)
+}
+
+function renderMarkdownTable(rows: string[][]): string {
+  const [header, ...body] = rows
+  const columnCount = header.length
+  const normalizeCells = (cells: string[]) =>
+    Array.from({ length: columnCount }, (_item, index) => cells[index] ?? '')
+
+  const headHtml = normalizeCells(header)
+    .map((cell) => `<th scope="col">${renderInlineMarkdown(cell)}</th>`)
+    .join('')
+  const bodyHtml = body
+    .map((row) => {
+      const cells = normalizeCells(row)
+        .map((cell) => `<td>${renderInlineMarkdown(cell)}</td>`)
+        .join('')
+      return `<tr>${cells}</tr>`
+    })
+    .join('')
+
+  return (
+    `<div class="prose-vibe-table-wrap">` +
+    `<table><thead><tr>${headHtml}</tr></thead><tbody>${bodyHtml}</tbody></table>` +
+    `</div>`
+  )
+}
+
 export function renderMarkdown(markdown: string): string {
   const source = markdown.replace(/\r\n?/g, '\n').trim()
 
@@ -313,6 +388,19 @@ export function renderMarkdown(markdown: string): string {
       continue
     }
 
+    if (isMarkdownTableStart(lines, index)) {
+      const rows: string[][] = [splitMarkdownTableRow(lines[index])]
+      index += 2
+
+      while (index < lines.length && lines[index].trim().includes('|')) {
+        rows.push(splitMarkdownTableRow(lines[index]))
+        index += 1
+      }
+
+      blocks.push(renderMarkdownTable(rows))
+      continue
+    }
+
     const image = renderMarkdownImage(line)
     if (image) {
       const images = [image]
@@ -349,7 +437,8 @@ export function renderMarkdown(markdown: string): string {
       !/^(#{1,6})\s+/.test(lines[index]) &&
       !/^>\s?/.test(lines[index]) &&
       !/^[-*]\s+/.test(lines[index]) &&
-      !/^\d+\.\s+/.test(lines[index])
+      !/^\d+\.\s+/.test(lines[index]) &&
+      !isMarkdownTableStart(lines, index)
     ) {
       paragraphLines.push(lines[index].trim())
       index += 1
