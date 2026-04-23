@@ -7,6 +7,7 @@ complexity: advanced
 topics: Personal OS, AI Infrastructure, Knowledge Management
 coverImage: /images/resources/my-personal-os-lives-in-a-folder/granite-constellation.png
 coverAlt: "Granite knowledge constellation — 188 interlinked markdown notes forming a settled graph"
+ogImage: /images/resources/my-personal-os-lives-in-a-folder/granite-constellation.png
 ---
 
 Client call in ten minutes. I hadn't prepped. I typed one prompt to Claude: "Brief me on where we stand with this account."

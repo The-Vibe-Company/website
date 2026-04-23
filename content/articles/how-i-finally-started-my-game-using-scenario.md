@@ -7,6 +7,7 @@ complexity: beginner
 topics: Design
 coverImage: /images/resources/how-i-finally-started-my-game-using-scenario/renard.png
 coverAlt: "Renard"
+ogImage: /images/resources/how-i-finally-started-my-game-using-scenario/renard.png
 ---
 I’ve had this project in the back of my mind forever: a browser-based game similar to *Travian*, but with animal armies. The logic was done, the idea was solid, but I kept hitting the same wall: **the visuals**.
 
