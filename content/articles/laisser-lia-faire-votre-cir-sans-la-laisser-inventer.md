@@ -5,9 +5,9 @@ summary: "Le mode opératoire pour transformer Linear, GitHub, Notion, Drive et 
 publishedAt: 2026-04-23
 complexity: advanced
 topics: AI Operations, Research Tax Credit, Agent Workflows
-coverImage: /images/resources/cir-cii-playbook-evidence-system/cover-cir-cii-playbook.svg
-coverAlt: "Un playbook CIR/CII relie sources, matrice de preuves, agents et sortie LaTeX"
-ogImage: /images/resources/cir-cii-playbook-evidence-system/cover-cir-cii-playbook.png
+coverImage: /images/resources/cir-cii-playbook-evidence-system/cover-cir-cii-playbook-card.png
+coverAlt: "Un playbook CIR/CII en 10 étapes relie sources, matrice de preuves et dossier final"
+ogImage: /images/resources/cir-cii-playbook-evidence-system/cover-cir-cii-playbook-og.png
 ---
 
 Cet article n'est pas [l'histoire de notre dossier CIR](/resources/articles/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia).
