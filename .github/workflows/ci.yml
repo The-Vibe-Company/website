@@ -31,3 +31,6 @@ jobs:
 
       - name: Build
         run: bunx next build --experimental-build-mode compile
+
+      - name: Check content links
+        run: bun run check:content-links
