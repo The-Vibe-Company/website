@@ -106,5 +106,6 @@ The method gets you work you can trust.
 - [Anthropic introducing MCP](https://www.anthropic.com/news/model-context-protocol)
 - [OpenAI MCP documentation](https://developers.openai.com/api/docs/mcp)
 - [Granite on GitHub](https://github.com/The-Vibe-Company/Granite)
+- [Why I replaced prompts with skills](/resources/articles/why-i-replaced-prompts-with-skills)
 - [My personal OS lives in a folder. My agents run my company from it.](/resources/articles/my-personal-os-lives-in-a-folder)
 - [Playbook: preparing a CIR/CII dossier with Claude Code](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer)

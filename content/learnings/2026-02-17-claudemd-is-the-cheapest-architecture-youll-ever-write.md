@@ -11,3 +11,5 @@ It stabilizes decisions, prevents re-explaining, and keeps the AI aligned over t
 Without it, you’re paying in drift and rework on every iteration.
 
 **Rule:** write context once in a canonical file, and treat it like part of the architecture.
+
+When that context turns into a recurring multi-step workflow, it should graduate into a [skill](/resources/articles/why-i-replaced-prompts-with-skills).
