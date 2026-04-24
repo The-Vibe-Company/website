@@ -56,6 +56,8 @@ Once tool access is standardized, the advantage moves up the stack. It moves int
 
 That means a few things become non-negotiable. Provenance. Typed artifacts. Syntheses, not just captures. Review gates. Redaction rules. A memory layer that stays legible to humans as well as agents.
 
+That shift is also why we moved from Quivr to The Vibe Company. The full company announcement is here: [We are stopping Quivr. We are building The Vibe Company.](/resources/articles/quivr-to-the-vibe-company)
+
 In return, the ceiling changes. Now an agent can do more than summarize this week's mess. It can prepare a dossier, reconstruct a decision trail, surface missing evidence, and produce work that survives review. That is what the CIR/CII workflow proved in practice, and why we later turned that method into [a full playbook](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer).
 
 Agents do not lack tools. They lack company memory.
