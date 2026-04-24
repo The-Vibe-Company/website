@@ -8,6 +8,7 @@ import {
   getUrlSlugForDbType,
   type ContentTypeConfig,
 } from '@/lib/content-types'
+import { getOptimizedImageUrl } from '@/lib/image-variants'
 
 export interface ContentEntry {
   id: string
@@ -88,8 +89,10 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
       const publishedAt = data.publishedAt || new Date().toISOString().slice(0, 10)
       const summary = data.summary || body.split('\n').find(Boolean)?.trim() || ''
       const coverImage = data.coverImage || data.image || ''
+      const optimizedCoverImage = coverImage ? getOptimizedImageUrl(coverImage) : ''
       const coverAlt = data.coverAlt || data.imageAlt || title
       const ogImage = data.ogImage || ''
+      const optimizedOgImage = ogImage ? getOptimizedImageUrl(ogImage) : ''
       const topics = (data.topics || '')
         .split(',')
         .map((value) => value.trim())
@@ -107,18 +110,18 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         topics,
         featuredImage: coverImage
           ? {
-              url: coverImage,
+              url: optimizedCoverImage,
               alt: coverAlt,
               sizes: {
                 card: {
-                  url: coverImage,
+                  url: optimizedCoverImage,
                 },
               },
             }
           : null,
         ogImage: ogImage
           ? {
-              url: ogImage,
+              url: optimizedOgImage,
               alt: coverAlt,
             }
           : null,

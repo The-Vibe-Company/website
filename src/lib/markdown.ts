@@ -1,3 +1,5 @@
+import { getOptimizedImageUrl } from '@/lib/image-variants'
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, '&amp;')
@@ -39,7 +41,7 @@ function renderMarkdownImage(line: string): string | null {
   if (!isSafeMarkdownImageUrl(image.src)) return null
 
   const alt = escapeHtml(image.alt)
-  const src = escapeImageUrl(image.src)
+  const src = escapeImageUrl(getOptimizedImageUrl(image.src))
   const caption = image.title ? `<figcaption>${escapeHtml(image.title)}</figcaption>` : ''
 
   return (

@@ -93,3 +93,25 @@ If you had to use the same command multiple times in the same session, please cr
 If you have questions about the product vision, please look at https://www.notion.so/Site-Web-Architecture-2ff324e51ac2806cb38bc195bb808578?source=copy_link and related notion pages. If you can't read the notion pages, please ask the user to share the pages with you.
 
 - Only use BUN for the project. Never use npm or yarn or pnpm for this project
+
+## Image Optimization
+
+Before opening a PR that adds or changes Markdown-referenced images, run:
+
+```bash
+bun run images:optimize
+```
+
+The image optimization system must stay lossless, source-preserving, and idempotent:
+
+- keep original files and canonical Markdown/frontmatter image references unchanged;
+- write generated variants only under `public/images/_optimized/`;
+- serve optimized images through `src/generated/image-variants.json`;
+- do not use a generated variant when it is not smaller than the source;
+- repeated `bun run images:optimize` runs must produce no diff after the first successful run.
+
+To verify image budgets without rewriting files, run:
+
+```bash
+bun run images:check
+```
