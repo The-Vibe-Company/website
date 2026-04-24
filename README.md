@@ -60,6 +60,27 @@ Markdown body here.
 
 Adding or editing an article is now a normal code change. The site rebuilds from those files on deploy.
 
+## Image Optimization
+
+Optimize images referenced from Markdown before opening a PR:
+
+```bash
+bun run images:optimize
+```
+
+The optimizer is lossless and idempotent:
+- source images stay in place and remain the canonical content references;
+- generated variants are written under `public/images/_optimized/`;
+- regular content and cover PNG/JPEG images get lossless WebP variants;
+- `ogImage` PNG assets get losslessly recompressed PNG variants;
+- already-optimized variants are left byte-for-byte unchanged on later runs.
+
+Check image budgets without rewriting files:
+
+```bash
+bun run images:check
+```
+
 ## Build
 
 ```bash
