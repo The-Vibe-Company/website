@@ -3,5 +3,5 @@
         "setup": "bun install",
         "run": "./scripts/dev-start.sh --foreground"
     },
-    "runScriptMode": "nonconcurrent"
+    "runScriptMode": "concurrent"
 }
