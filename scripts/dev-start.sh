@@ -12,8 +12,8 @@ set -euo pipefail
 # =============================================================================
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-# Respect Conductor's assigned port when present, while keeping the old local fallback.
-DEV_PORT="${CONDUCTOR_PORT:-4200}"
+# Respect Conductor's assigned port when present, while keeping compatibility with generic PORT.
+DEV_PORT="${CONDUCTOR_PORT:-${PORT:-4200}}"
 PID_FILE="$ROOT_DIR/.dev-server.pid"
 LOG_FILE="$ROOT_DIR/.dev-server.log"
 FOREGROUND_MODE=false
