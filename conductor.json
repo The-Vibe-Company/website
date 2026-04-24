@@ -1,7 +1,8 @@
 {
     "scripts": {
-        "setup": "bun install",
-        "run": "./scripts/dev-start.sh --foreground"
+        "setup": "bun install --frozen-lockfile",
+        "run": "./scripts/dev-start.sh --foreground",
+        "archive": "./scripts/dev-start.sh --stop || true"
     },
     "runScriptMode": "concurrent"
 }
