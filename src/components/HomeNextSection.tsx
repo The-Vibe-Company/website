@@ -296,7 +296,7 @@ export function HomeNextSection() {
             <span aria-hidden="true">▓</span> ALL SYSTEMS GO{" "}
             <span aria-hidden="true">·</span> GMT+1{" "}
             <span aria-hidden="true">·</span> THE VIBE COMPANY{" "}
-            <span aria-hidden="true">·</span> YC F25{" "}
+            <span aria-hidden="true">·</span> YC W24{" "}
             <span aria-hidden="true">·</span> BUILDING IN PUBLIC{" "}
             <span aria-hidden="true">·</span>
           </span>
