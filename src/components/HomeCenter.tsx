@@ -5,6 +5,7 @@ import {
   spacing,
   components,
   animations,
+  typography,
   cn,
   createTransition,
 } from "@/lib/design-system";
@@ -101,7 +102,7 @@ export function HomeCenter() {
         animate={{ opacity: 1 }}
         transition={createTransition(0.6, 1.5)}
       >
-        <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground/50">
+        <span className={cn(typography.label.mono, "text-muted-foreground/50")}>
           SCROLL ↓ DEPARTURES
         </span>
         <svg

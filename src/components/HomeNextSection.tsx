@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { typography, spacing, cn } from "@/lib/design-system";
 import { Marquee } from "./Marquee";
@@ -54,6 +54,7 @@ interface SlabProps {
   theme: SlabTheme;
   fromLeft: boolean;
   delay: number;
+  reduceMotion: boolean;
 }
 
 function Slab({
@@ -66,12 +67,14 @@ function Slab({
   theme,
   fromLeft,
   delay,
+  reduceMotion,
 }: SlabProps) {
   const t = slabThemes[theme];
+  const initialX = reduceMotion ? "0%" : fromLeft ? "-12%" : "12%";
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: fromLeft ? "-12%" : "12%" }}
+      initial={{ opacity: 0, x: initialX }}
       whileInView={{ opacity: 1, x: "0%" }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
@@ -183,6 +186,8 @@ function Slab({
 }
 
 export function HomeNextSection() {
+  const shouldReduceMotion = useReducedMotion() ?? false;
+
   return (
     <section
       className="snap-start min-h-full w-full bg-background flex flex-col"
@@ -208,7 +213,7 @@ export function HomeNextSection() {
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 60 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -231,7 +236,7 @@ export function HomeNextSection() {
           NEXT
           <motion.span
             initial={{ rotate: 0 }}
-            whileInView={{ rotate: -4 }}
+            whileInView={{ rotate: shouldReduceMotion ? 0 : -4 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="inline-block origin-bottom-left"
@@ -252,6 +257,7 @@ export function HomeNextSection() {
           theme="light"
           fromLeft={true}
           delay={0.1}
+          reduceMotion={shouldReduceMotion}
         />
         <Slab
           href="/resources"
@@ -263,6 +269,7 @@ export function HomeNextSection() {
           theme="dark"
           fromLeft={false}
           delay={0.2}
+          reduceMotion={shouldReduceMotion}
         />
         <Slab
           href="/agency"
@@ -274,6 +281,7 @@ export function HomeNextSection() {
           theme="charcoal"
           fromLeft={true}
           delay={0.3}
+          reduceMotion={shouldReduceMotion}
         />
       </div>
 
