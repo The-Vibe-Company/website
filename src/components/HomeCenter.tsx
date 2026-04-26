@@ -5,13 +5,14 @@ import {
   spacing,
   components,
   animations,
+  typography,
   cn,
   createTransition,
 } from "@/lib/design-system";
 
 export function HomeCenter() {
   return (
-    <section className="h-screen w-full flex flex-col pt-2 md:pt-4">
+    <section className="snap-start h-full w-full flex flex-col pt-2 md:pt-4 relative">
       {/* Top bar: badges */}
       <div
         className={cn(
@@ -94,8 +95,32 @@ export function HomeCenter() {
         </div>
       </div>
 
-      {/* Bottom spacer for scroll hint (rendered by parent) */}
-      <div className="h-1 md:h-2" />
+      {/* Scroll hint */}
+      <motion.div
+        className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={createTransition(0.6, 1.5)}
+      >
+        <span className={cn(typography.label.mono, "text-muted-foreground/50")}>
+          SCROLL ↓ DEPARTURES
+        </span>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-muted-foreground/50 animate-bounce"
+          aria-hidden="true"
+        >
+          <path d="M12 5v14" />
+          <path d="M19 12l-7 7-7-7" />
+        </svg>
+      </motion.div>
     </section>
   );
 }
