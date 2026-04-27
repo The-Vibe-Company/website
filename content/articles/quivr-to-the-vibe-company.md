@@ -14,7 +14,7 @@ We are stopping Quivr as our main company direction.
 
 We are now building [The Vibe Company](/agency).
 
-This message comes from both of us, Stan and Antoine. It is not easy to write, because Quivr has been such a big part of our lives. But the reason is simple: we believe the next big opportunity is no longer to sell an isolated AI tool. It is to rebuild how companies work with agents, context, and complete workflows.
+It is not easy to write, because Quivr has been such a big part of our lives. But the reason is simple: we believe the next big opportunity is no longer to sell an isolated AI tool. It is to rebuild how companies work with agents, context, and complete workflows.
 
 Quivr brought us here. The Vibe Company is the logical next chapter.
 
