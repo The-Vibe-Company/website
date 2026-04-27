@@ -65,6 +65,26 @@ The site has **two distinct design identities** sharing the same codebase:
 - **Tailwind classes**: Registered in `@theme inline` as `bg-res-bg`, `text-res-text-muted`, `text-domain-dev`, etc.
 - **Domain accent map**: `domainAccentMap` in `resources-theme.ts` maps domain slugs to CSS color var names
 
+## DESIGN.md Maintenance
+
+Keep the root `DESIGN.md` in sync whenever a change affects the public visual identity: colors, typography, spacing rhythm, radii, shadows, motion, grids, navigation treatments, card styles, CTAs, or the Homepage/Resources/Portfolio design split.
+
+`DESIGN.md` must stay fully self-contained:
+
+- Start with YAML frontmatter containing all structured design tokens.
+- Keep primitive token values concrete, and only use valid `design.md` token references that resolve inside the same file. Do not reference code variables, Tailwind classes, CSS custom properties, file paths, or component names as dependencies.
+- Preserve the Markdown section order: `Overview`, `Colors`, `Typography`, `Layout`, `Elevation & Depth`, `Shapes`, `Components`, `Do's and Don'ts`.
+- Capture design intent in prose after the YAML, especially details token values cannot express: warm-paper brutalism, deep-ink contrast, mono metadata, grid overlays, black slab CTAs, flat banded hierarchy, dark inverse sections, and restrained accent usage.
+- If the rendered product changes, compare `DESIGN.md` against local UI screenshots or browser testing and revise the tokens/prose until they match.
+
+Validate after every edit:
+
+```bash
+bunx @google/design.md lint --format json DESIGN.md
+```
+
+The expected result is 0 errors and 0 avoidable warnings.
+
 ## Planning
 
 When planning, always create a graph of tasks and dependencies between them.
