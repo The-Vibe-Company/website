@@ -156,4 +156,4 @@ The next chapter is called The Vibe Company.
 
 We will keep building in public. We will keep sharing what we learn. And we will put all the energy we had in Quivr behind a broader idea: helping companies work with AI as if it were truly part of their operating system.
 
-Stan & Antoine
+The Vibe Company
