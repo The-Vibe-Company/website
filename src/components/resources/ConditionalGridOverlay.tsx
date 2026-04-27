@@ -6,6 +6,10 @@ const GRID_OVERLAY_CLASS = 'bg-grid';
 
 export function ConditionalGridOverlay() {
   const pathname = usePathname();
-  if (pathname.startsWith('/resources') || pathname.startsWith('/portfolio')) return null;
+  if (
+    pathname === '/' ||
+    pathname.startsWith('/resources') ||
+    pathname.startsWith('/portfolio')
+  ) return null;
   return <div className={GRID_OVERLAY_CLASS} />;
 }
