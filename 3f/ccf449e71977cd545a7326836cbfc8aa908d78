@@ -1,0 +1,25 @@
+CLAUDE.md
+  964267cb48746f90 89-90
+src/components/HomeLaunchpad.tsx
+  964267cb48746f90 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "3fccf449e71977cd545a7326836cbfc8aa908d78",
+  "prompts": {
+    "964267cb48746f90": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019dcdf1-ce91-74f1-b6c5-4f6fd6e2154c",
+        "model": "gpt-5.5"
+      },
+      "human_author": "StanGirard",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 1,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    }
+  }
+}
