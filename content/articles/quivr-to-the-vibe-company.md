@@ -108,7 +108,9 @@ That is exactly what we are building with The Vibe Company.
 
 The pivot is recent, but the first signals are stronger than what we were seeing toward the end of Quivr.
 
-We signed our first major client, Monka, in healthcare. In two weeks, the new direction generated more commercial traction than the previous three years of Quivr.
+We signed our first major client, [Monka](https://monka.care), in healthcare. In two weeks, the new direction generated more commercial traction than the previous three years of Quivr.
+
+For Monka, we are shipping a web and mobile product inside an HDS-compliant healthcare environment in 9 weeks. A few years ago, the same scope — security posture, infrastructure, two clients, integrations — would have taken well over a year. AI-assisted engineering, a focused team, and our own internal tooling compress that timeline without compromising compliance.
 
 Healthcare is a field we care about a lot. AI is obviously useful there, but adoption is slowed down by security, compliance, integrations, and operational complexity. That is exactly the kind of context where "just add a chatbot" is not enough.
 
