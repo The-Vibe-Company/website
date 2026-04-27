@@ -86,6 +86,8 @@ never deploy to vercel manually, let the CI/CD do it.
 
 The script is idempotent: run it as many times as needed, it only acts when necessary. It handles dependency installation, env validation, process management, and health checks automatically.
 
+**Dev server port**: The dev server runs on `http://localhost:$CONDUCTOR_PORT` when `CONDUCTOR_PORT` is set (Conductor workspaces always set it). Otherwise it falls back to `$PORT`, then to `4200`. Never hard-code `localhost:3000`.
+
 Before any task, run `./scripts/dev-start.sh` to ensure the dev environment is ready.
 
 If you had to use the same command multiple times in the same session, please create a script to do it in the `scripts` folder and add a one line description of what it does in CLAUDE.md
