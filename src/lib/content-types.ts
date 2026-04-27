@@ -40,7 +40,7 @@ export const CONTENT_TYPES: ContentTypeConfig[] = [
   },
 ]
 
-/** All content type slugs (for Payload select field options) */
+/** All content type slugs */
 export const CONTENT_TYPE_SLUGS = CONTENT_TYPES.map((ct) => ct.slug)
 
 /** Lookup map for O(1) access by DB slug */

@@ -29,6 +29,32 @@
 }
 
 /* -----------------------------------------------------------------------------
+   Hybrid "Warm Paper" Variant — opt-in via [data-variant="hybrid"].
+   Used by the homepage to soften the brutalist white into a paper tone that
+   reads as more pro/clear without abandoning the brand's monochrome DNA.
+   This variant is light-only by design (the new home is always served light,
+   like the Resources theme), so we pin the full light palette here and let
+   it win over the dark-mode media query via specificity. Applied on the home
+   wrapper div (not body) so the variant is set server-side and avoids a flash
+   of incorrect theme before hydration.
+   ----------------------------------------------------------------------------- */
+[data-variant="hybrid"] {
+  color-scheme: light;
+  --background: #fdfbf7;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --muted: #737373;
+  --muted-foreground: #525252;
+  --accent: #f3f0ea;
+  --accent-foreground: #171717;
+  --border: #dcd7ce;
+  --input: #dcd7ce;
+}
+
+/* -----------------------------------------------------------------------------
    Color Tokens (Dark Mode)
    ----------------------------------------------------------------------------- */
 @media (prefers-color-scheme: dark) {
