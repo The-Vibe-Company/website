@@ -31,12 +31,11 @@ Always use frontend-design skill and ui-ux-pro-max skill for designing pages and
 
 ## Layout Architecture (CRITICAL)
 
-**NEVER create `src/app/layout.tsx`** (root layout). Each route group has its own root layout with `<html>`:
+**NEVER create `src/app/layout.tsx`** (root layout). The frontend route group already owns its own `<html>`:
 
 - `src/app/(frontend)/layout.tsx` — frontend root layout (fonts, metadata, globals.css)
-- `src/app/(payload)/layout.tsx` — Payload admin root layout (theme, dir, Payload providers)
 
-A root layout at `src/app/layout.tsx` wraps BOTH groups, creating duplicate `<html>` elements that cause React hydration error #418 (blank admin page). CI enforces this via `scripts/check-no-root-layout.sh`.
+A root layout at `src/app/layout.tsx` would wrap the route group, creating duplicate `<html>` elements that cause React hydration error #418 (blank page).
 
 ## Design Architecture: Homepage vs Resources
 

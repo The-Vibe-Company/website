@@ -1,17 +1,23 @@
-"use client";
-
 import { TopNav } from "./TopNav";
-import { HomeCenter } from "./HomeCenter";
-import { HomeNextSection } from "./HomeNextSection";
+import { Footer } from "./Footer";
+import { Hero } from "./home/Hero";
+import { Services } from "./home/Services";
+import { Process } from "./home/Process";
+import { Proof } from "./home/Proof";
+import { FinalCTA } from "./home/FinalCTA";
 
 export function HomeLaunchpad() {
   return (
-    <div className="relative h-screen flex flex-col">
+    <div data-variant="hybrid" className="flex min-h-screen flex-col bg-background text-foreground">
       <TopNav />
-      <div className="flex-1 overflow-y-auto overflow-x-hidden snap-y snap-mandatory min-h-0">
-        <HomeCenter />
-        <HomeNextSection />
-      </div>
+      <main className="flex-1">
+        <Hero />
+        <Services />
+        <Process />
+        <Proof />
+        <FinalCTA />
+      </main>
+      <Footer />
     </div>
   );
 }
