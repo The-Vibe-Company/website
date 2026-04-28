@@ -5,9 +5,9 @@ summary: "A message from Stan and Antoine: after Quivr, YC, open source, and our
 publishedAt: 2026-04-24
 complexity: intermediate
 topics: Quivr, The Vibe Company, Company Building
-coverImage: /images/resources/quivr-to-the-vibe-company/cover.png
-coverAlt: "The transition from Quivr to The Vibe Company, from an AI tool to a workflow system"
-ogImage: /images/resources/quivr-to-the-vibe-company/cover.png
+coverImage: /images/resources/quivr-to-the-vibe-company/cover-tvc.webp
+coverAlt: "A boxed product roadmap becomes a living operator board for client delivery"
+ogImage: /images/resources/quivr-to-the-vibe-company/cover-tvc.webp
 ---
 
 We are stopping Quivr as our main company direction.

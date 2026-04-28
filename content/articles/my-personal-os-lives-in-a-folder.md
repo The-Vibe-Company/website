@@ -5,8 +5,9 @@ summary: "I built Quivr. The system I actually use every day to run my company d
 publishedAt: 2026-04-15
 complexity: advanced
 topics: Personal OS, AI Infrastructure, Knowledge Management
-coverImage: /images/resources/my-personal-os-lives-in-a-folder/granite-constellation.png
-coverAlt: "Granite knowledge constellation — 188 interlinked markdown notes forming a settled graph"
+coverImage: /images/resources/my-personal-os-lives-in-a-folder/cover-tvc.webp
+coverAlt: "A founder operating board turns linked notes, clients and decisions into a company operating system"
+ogImage: /images/resources/my-personal-os-lives-in-a-folder/cover-tvc.webp
 ---
 
 Client call in ten minutes. I hadn't prepped. I typed one prompt to Claude: "Brief me on where we stand with this account."

@@ -5,9 +5,9 @@ summary: "MCP is standardizing tool access. The harder problem is giving agents 
 publishedAt: 2026-04-23
 complexity: advanced
 topics: Agent Design, Knowledge Systems, Company Memory
-coverImage: /images/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-cover.webp
-coverAlt: "A dense company knowledge graph is compressed into a precise memory engine for agents"
-ogImage: /images/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-cover-og.png
+coverImage: /images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-tvc.webp
+coverAlt: "An executive memory board turns scattered company context into a usable operating surface for agents"
+ogImage: /images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-tvc.webp
 ---
 
 Most teams still diagnose the agent problem incorrectly. When the output drifts, they add another integration. Slack. Drive. GitHub. Linear. More read access, more write access, more verbs.

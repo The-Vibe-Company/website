@@ -5,8 +5,9 @@ summary: "Tool access is the shallow promise of MCP. The real value is packaging
 publishedAt: 2026-04-08
 complexity: advanced
 topics: MCP, AI Infrastructure, Agent Design
-coverImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/generated/mcp-cover-taste.webp
-coverAlt: "A precise MCP method layer turns loose software tools into a reliable workflow for an AI agent"
+coverImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-tvc.webp
+coverAlt: "A governance board turns loose tools into a disciplined company workflow for agents"
+ogImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-tvc.webp
 ---
 
 Most MCP demos start with the same move: expose a list of tools.
