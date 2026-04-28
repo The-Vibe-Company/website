@@ -48,7 +48,7 @@ That is exactly why the surface matters so much. The same vault can produce very
 
 ![A comparison of two agent surfaces operating on the same Granite vault: one exposes raw actions, the other teaches a memory workflow](/images/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-surface-compare.png "Same vault. Better surface. Better agent behavior.")
 
-A CRUD-shaped surface tells the model that the vault is basically storage. Search. Create. Update. Good luck. A better surface teaches the working method: wake up the vault, read before writing, preserve provenance, compile before output. Same markdown files, different behavior. The deeper argument is in [MCP is how agents learn your company's taste](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done).
+A CRUD-shaped surface tells the model that the vault is basically storage. Search. Create. Update. Good luck. A better surface teaches the working method: wake up the vault, read before writing, preserve provenance, compile before output. Same markdown files, different behavior. The deeper argument is in [MCP is how agents learn your company's taste](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done). The same training problem appears when teams start giving agents authority, which is why [agent adoption is more about formation than tool choice](/resources/articles/agents-ia-formation-autorite).
 
 ## what changes for companies
 
