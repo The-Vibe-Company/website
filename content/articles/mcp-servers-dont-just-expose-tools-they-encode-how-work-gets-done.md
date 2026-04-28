@@ -5,8 +5,9 @@ summary: "Tool access is the shallow promise of MCP. The real value is packaging
 publishedAt: 2026-04-08
 complexity: advanced
 topics: MCP, AI Infrastructure, Agent Design
-coverImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/generated/mcp-cover-taste.webp
-coverAlt: "A precise MCP method layer turns loose software tools into a reliable workflow for an AI agent"
+coverImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-tvc.webp
+coverAlt: "A governance board turns loose tools into a disciplined company workflow for agents"
+ogImage: /images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-tvc.webp
 ---
 
 Most MCP demos start with the same move: expose a list of tools.
@@ -107,5 +108,6 @@ The method gets you work you can trust.
 - [OpenAI MCP documentation](https://developers.openai.com/api/docs/mcp)
 - [Granite on GitHub](https://github.com/The-Vibe-Company/Granite)
 - [Why I replaced prompts with skills](/resources/articles/why-i-replaced-prompts-with-skills)
+- [Agents don't lack tools. They lack company memory.](/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
 - [My personal OS lives in a folder. My agents run my company from it.](/resources/articles/my-personal-os-lives-in-a-folder)
 - [Playbook: preparing a CIR/CII dossier with Claude Code](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer)

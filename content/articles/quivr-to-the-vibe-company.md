@@ -5,16 +5,16 @@ summary: "A message from Stan and Antoine: after Quivr, YC, open source, and our
 publishedAt: 2026-04-24
 complexity: intermediate
 topics: Quivr, The Vibe Company, Company Building
-coverImage: /images/resources/quivr-to-the-vibe-company/cover.png
-coverAlt: "The transition from Quivr to The Vibe Company, from an AI tool to a workflow system"
-ogImage: /images/resources/quivr-to-the-vibe-company/cover.png
+coverImage: /images/resources/quivr-to-the-vibe-company/cover-tvc.webp
+coverAlt: "A boxed product roadmap becomes a living operator board for client delivery"
+ogImage: /images/resources/quivr-to-the-vibe-company/cover-tvc.webp
 ---
 
 We are stopping Quivr as our main company direction.
 
 We are now building [The Vibe Company](/agency).
 
-It is not easy to write, because Quivr has been such a big part of our lives. But the reason is simple: we believe the next big opportunity is no longer to sell an isolated AI tool. It is to rebuild how companies work with agents, context, and complete workflows.
+This message comes from both of us, Stan and Antoine. It is not easy to write, because Quivr has been such a big part of our lives. But the reason is simple: we believe the next big opportunity is no longer to sell an isolated AI tool. It is to rebuild how companies work with agents, context, and complete workflows.
 
 Quivr brought us here. The Vibe Company is the logical next chapter.
 
@@ -140,7 +140,7 @@ When you give them a method, memory, an execution environment, and a real scope 
 
 That is also why we are building our own internal systems, like Granite, agent skills, and our publishing, delivery, and knowledge-management pipelines. We want to be our own first client. If our own company does not run better with our tools, we have no legitimacy selling them.
 
-We have started documenting this vision in other articles, especially on [our personal OS](/resources/articles/my-personal-os-lives-in-a-folder) and [MCP servers as working methods](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done).
+We have started documenting this vision in other articles, especially on [company memory for agents](/resources/articles/agents-dont-lack-tools-they-lack-company-memory), [our personal OS](/resources/articles/my-personal-os-lives-in-a-folder), and [MCP servers as working methods](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done).
 
 ## Thank you
 
@@ -158,4 +158,4 @@ The next chapter is called The Vibe Company.
 
 We will keep building in public. We will keep sharing what we learn. And we will put all the energy we had in Quivr behind a broader idea: helping companies work with AI as if it were truly part of their operating system.
 
-The Vibe Company
+Stan & Antoine

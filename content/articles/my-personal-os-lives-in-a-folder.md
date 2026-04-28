@@ -5,8 +5,9 @@ summary: "I built Quivr. The system I actually use every day to run my company d
 publishedAt: 2026-04-15
 complexity: advanced
 topics: Personal OS, AI Infrastructure, Knowledge Management
-coverImage: /images/resources/my-personal-os-lives-in-a-folder/granite-constellation.png
-coverAlt: "Granite knowledge constellation — 188 interlinked markdown notes forming a settled graph"
+coverImage: /images/resources/my-personal-os-lives-in-a-folder/cover-tvc.webp
+coverAlt: "A founder operating board turns linked notes, clients and decisions into a company operating system"
+ogImage: /images/resources/my-personal-os-lives-in-a-folder/cover-tvc.webp
 ---
 
 Client call in ten minutes. I hadn't prepped. I typed one prompt to Claude: "Brief me on where we stand with this account."
@@ -18,6 +19,10 @@ No web search. No embeddings. The agent walked a graph of 188 markdown files. Th
 This post is about the system that made that possible. It is also an apology to anyone who watched me spend three years building the wrong layer.
 
 I started [Quivr](https://github.com/QuivrHQ/quivr) in 2023 with Antoine Dewez, and a team built it with us over two years — open-source RAG, Y Combinator W24, #1 trending on GitHub in July 2023. For two years, Quivr was our thesis on how LLMs and private knowledge should meet. I don't believe that thesis anymore. The system I use now does the opposite. 188 markdown files, an MCP server, a SQLite index. That is the whole stack.
+
+The company-level version of that transition is here: [We are stopping Quivr. We are building The Vibe Company.](/resources/articles/quivr-to-the-vibe-company)
+
+The broader company-level argument is here: [Agents don't lack tools. They lack company memory.](/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
 
 ![Granite knowledge constellation — 188 interlinked markdown notes forming a settled graph](/images/resources/my-personal-os-lives-in-a-folder/granite-constellation.png "188 notes, 1819 links — the company, the clients, the methodology, one graph.")
 
