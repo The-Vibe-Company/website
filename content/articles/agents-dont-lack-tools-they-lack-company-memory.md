@@ -1,6 +1,7 @@
 ---
 title: "Agents don't lack tools. They lack company memory."
 slug: agents-dont-lack-tools-they-lack-company-memory
+language: en
 summary: "MCP is standardizing tool access. The harder problem is giving agents a maintained company memory they can actually operate on."
 publishedAt: 2026-04-23
 complexity: advanced

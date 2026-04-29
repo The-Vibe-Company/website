@@ -1,6 +1,7 @@
 ---
 title: "Why I replaced prompts with skills"
 slug: why-i-replaced-prompts-with-skills
+language: en
 summary: "A prompt is a disposable instruction. A skill is a versioned workflow package with triggers, scripts, references, review gates, artifacts, and memory."
 publishedAt: 2026-04-24
 complexity: intermediate

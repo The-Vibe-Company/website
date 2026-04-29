@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { ContentCard } from '@/components/resources/ContentCard';
+import { LanguageFlag } from '@/components/resources/LanguageFlag';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { CONTENT_TYPES, getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
@@ -155,6 +156,11 @@ export default async function ContentDetailPage({
                     </span>
                   </div>
 
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Language</span>
+                    <LanguageFlag language={item.language} variant="sidebar" />
+                  </div>
+
                   {item.complexity && (
                     <div className="flex flex-col gap-1">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Complexity</span>
@@ -205,7 +211,7 @@ export default async function ContentDetailPage({
                 >
                   &larr; {typeLabel || type}
                 </Link>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   {item.publishedAt && (
                     <span className="text-xs font-mono text-res-text-muted">
                       {formatDate(item.publishedAt)}
@@ -215,6 +221,8 @@ export default async function ContentDetailPage({
                   {readingTime > 0 && (
                     <span className="text-xs font-mono text-res-text-muted">{readingTime} min</span>
                   )}
+                  <span className="text-res-text-muted/30">&bull;</span>
+                  <LanguageFlag language={item.language} variant="inline" />
                 </div>
               </div>
 
@@ -271,6 +279,8 @@ export default async function ContentDetailPage({
                   type={r.type}
                   slug={r.slug}
                   publishedAt={r.publishedAt ?? undefined}
+                  language={r.language}
+                  featuredImage={r.featuredImage}
                 />
               ))}
             </div>

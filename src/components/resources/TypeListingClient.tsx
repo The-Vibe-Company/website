@@ -7,6 +7,7 @@ import { DailyLearningFeed } from '@/components/resources/DailyLearningFeed';
 import { TypeNav } from '@/components/resources/TypeNav';
 import { resourcesTheme } from '@/lib/resources-theme';
 import type { ContentTypeConfig } from '@/lib/content-types';
+import type { ContentLanguage } from '@/lib/content-source';
 
 interface ContentItem {
   id: string;
@@ -16,6 +17,7 @@ interface ContentItem {
   slug: string;
   publishedAt?: string | null;
   body?: unknown;
+  language?: ContentLanguage;
   featuredImage?: { url: string; alt?: string; sizes?: { card?: { url: string } } } | string | number | null;
 }
 
@@ -60,6 +62,7 @@ function TypeListingInner({ contentType, items, typeNavLinks, counts }: TypeList
                   type={item.type}
                   slug={item.slug}
                   publishedAt={item.publishedAt ?? undefined}
+                  language={item.language}
                   featuredImage={item.featuredImage}
                 />
               ))}
@@ -74,6 +77,7 @@ function TypeListingInner({ contentType, items, typeNavLinks, counts }: TypeList
                   type={item.type}
                   slug={item.slug}
                   publishedAt={item.publishedAt ?? undefined}
+                  language={item.language}
                   featuredImage={item.featuredImage}
                 />
               ))}
