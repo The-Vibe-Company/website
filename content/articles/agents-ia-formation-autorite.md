@@ -20,7 +20,9 @@ C'est cette frontière que la plupart des politiques IA ne rendent pas encore as
 
 Quand une entreprise parle d'IA, la première question est souvent : "Est-ce que nos données sont sécurisées ?" La question est normale. Personne ne veut copier du code, des contrats, des exports client ou des informations internes dans un outil qui les réutilise n'importe comment.
 
-Mais dans les offres enterprise des grands fournisseurs, ce sujet a beaucoup mûri. OpenAI, Anthropic, Microsoft, GitHub, Google, Perplexity et les autres ont tous intérêt à lever le frein sécurité, parce que leur adoption entreprise en dépend. Les mêmes briques reviennent partout : DPA, non-entraînement par défaut sur les données business, SSO, contrôles admin, rétention documentée, chiffrement, certifications, logs ou audit selon les plans.
+Mais dans les offres enterprise des grands fournisseurs, ce sujet a beaucoup mûri. [OpenAI](https://openai.com/index/business-data/), [Anthropic](https://www.anthropic.com/enterprise), [Microsoft 365 Copilot](https://learn.microsoft.com/copilot/microsoft-365/microsoft-365-copilot-privacy), [GitHub Copilot](https://github.com/trust-center), [Google Workspace avec Gemini](https://support.google.com/a/answer/15706919) ou [Perplexity Enterprise](https://www.perplexity.ai/enterprise) ont tous intérêt à lever le frein sécurité, parce que leur adoption entreprise en dépend. Les mêmes briques reviennent partout : DPA, non-entraînement par défaut sur les données business, SSO, contrôles admin, rétention documentée, chiffrement, certifications, logs ou audit selon les plans.
+
+Ce n'est pas une promesse vague. OpenAI documente que les données business ne sont pas utilisées par défaut pour entraîner ses modèles, Anthropic indique ne pas entraîner ses modèles sur les données Claude for Work, Microsoft précise que les prompts, réponses et données Microsoft Graph de Microsoft 365 Copilot ne servent pas à entraîner les LLMs de fondation, Google applique le même type d'engagement à Workspace Gemini, [GitHub distingue explicitement Copilot Business et Enterprise des usages grand public](https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/), et Perplexity affirme ne pas entraîner ses modèles sur les données des clients Enterprise. Les détails contractuels changent selon les plans, mais le mouvement de fond est clair : les leaders ont compris que l'adoption entreprise exigeait des garanties très fortes sur la donnée.
 
 Il faut vérifier ces points. Il faut lire le contrat. Il faut regarder le plan exact, les sous-traitants, la rétention, la résidence des données et les cas réglementés. Mais entre leaders en contrat enterprise, la sécurité de la donnée devient une base de discussion. Ce n'est plus toujours le critère qui doit décider de tout.
 
@@ -63,7 +65,7 @@ Prenons l'exemple de la boîte mail. Un assistant qui lit les messages pour les 
 
 Google le montre très bien dans les [scopes de l'API Gmail](https://developers.google.com/workspace/gmail/api/auth/scopes) : lire, composer, envoyer, modifier et supprimer définitivement ne sont pas les mêmes permissions. OWASP donne aussi un nom à ce risque : [Excessive Agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/). Le problème apparaît quand un agent dispose de plus de fonctionnalités, de permissions ou d'autonomie que nécessaire.
 
-La leçon est simple : le risque ne monte pas parce que l'agent s'appelle Claude, Codex, Copilot ou autre chose. Le risque monte quand on lui donne le droit d'agir trop largement. Un outil moyen avec beaucoup de permissions peut être plus dangereux qu'un outil très puissant limité à lire et proposer.
+La leçon est simple : le risque ne monte pas parce que l'agent s'appelle [Claude Code](https://www.anthropic.com/product/claude-code), [OpenAI Codex](https://openai.com/codex), [Microsoft 365 Copilot](https://www.microsoft.com/microsoft-365/copilot) ou autre chose. Le risque monte quand on lui donne le droit d'agir trop largement. Un outil moyen avec beaucoup de permissions peut être plus dangereux qu'un outil très puissant limité à lire et proposer.
 
 ## restreindre les outils ne suffit pas
 
@@ -118,11 +120,3 @@ Les agents IA vont devenir normaux dans le travail. Ils liront, proposeront, pr�
 La bonne réponse n'est pas de faire peur aux équipes. Ce n'est pas non plus de tout bloquer ou de choisir l'outil le plus confortable politiquement. La bonne réponse est de choisir les bons outils, puis d'apprendre aux équipes les bonnes frontières.
 
 L'enjeu n'est pas de choisir entre confiance et interdiction. L'enjeu est de former des équipes capables d'utiliser des agents puissants avec le bon niveau d'autorité.
-
-## sources
-
-- [OpenAI Enterprise Privacy](https://openai.com/enterprise-privacy/)
-- [Anthropic API and data retention](https://platform.claude.com/docs/en/build-with-claude/api-and-data-retention)
-- [Microsoft 365 Copilot privacy](https://learn.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot-privacy)
-- [OWASP LLM06: Excessive Agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/)
-- [Google Gmail API scopes](https://developers.google.com/workspace/gmail/api/auth/scopes)
