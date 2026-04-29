@@ -1,0 +1,23 @@
+CHANGELOG.md
+  9e46ffb3631de823 241,262
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "67d9c875f4f3f1a1c7bb30845e4f4099e5b92702",
+  "prompts": {
+    "9e46ffb3631de823": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019dd7ce-8f9b-7823-9e28-921796580c7d",
+        "model": "gpt-5.5"
+      },
+      "human_author": "StanGirard",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 4,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}
