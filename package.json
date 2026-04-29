@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "content:check": "bun scripts/validate-content-images.ts",
+    "prebuild": "bun scripts/validate-content-images.ts && bun scripts/optimize-images.ts --check",
     "images:optimize": "bun scripts/optimize-images.ts",
     "images:check": "bun scripts/optimize-images.ts --check"
   },
