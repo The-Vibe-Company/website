@@ -109,5 +109,6 @@ The method gets you work you can trust.
 - [Granite on GitHub](https://github.com/The-Vibe-Company/Granite)
 - [Why I replaced prompts with skills](/resources/articles/why-i-replaced-prompts-with-skills)
 - [Agents don't lack tools. They lack company memory.](/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
+- [Le vrai sujet avec les agents IA, c'est la formation](/resources/articles/agents-ia-formation-autorite)
 - [My personal OS lives in a folder. My agents run my company from it.](/resources/articles/my-personal-os-lives-in-a-folder)
 - [Playbook: preparing a CIR/CII dossier with Claude Code](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer)
