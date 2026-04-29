@@ -20,6 +20,13 @@ export const resourcesTheme = {
     domainDot: 'inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-res-text-muted',
   },
 
+  flag: {
+    base: 'inline-flex items-center leading-none select-none',
+    card: 'text-base opacity-80 motion-safe:group-hover:scale-110 motion-safe:group-hover:opacity-100 transition-all duration-300',
+    sidebar: 'self-start text-xl',
+    inline: 'text-base',
+  },
+
   nav: {
     container:
       'fixed top-0 left-0 right-0 z-50 bg-res-bg/80 backdrop-blur-md border-b border-res-border',

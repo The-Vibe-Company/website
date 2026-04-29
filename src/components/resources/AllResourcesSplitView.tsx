@@ -4,6 +4,7 @@ import { ContentCard } from '@/components/resources/ContentCard';
 import { DailyLearningFeed } from '@/components/resources/DailyLearningFeed';
 import { TypeNav } from '@/components/resources/TypeNav';
 import { resourcesTheme } from '@/lib/resources-theme';
+import type { ContentLanguage } from '@/lib/content-source';
 
 interface DailyLearningItem {
   id: string;
@@ -20,6 +21,7 @@ interface ResourceItem {
   type: string;
   slug: string;
   publishedAt?: string | null;
+  language?: ContentLanguage;
   featuredImage?: { url: string; alt?: string; sizes?: { card?: { url: string } } } | string | number | null;
 }
 
@@ -61,6 +63,7 @@ export function AllResourcesSplitView({
                     type={item.type}
                     slug={item.slug}
                     publishedAt={item.publishedAt ?? undefined}
+                    language={item.language}
                     featuredImage={item.featuredImage}
                   />
                 ))}

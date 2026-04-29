@@ -1,6 +1,7 @@
 ---
 title: "Le vrai sujet avec les agents IA, c'est la formation"
 slug: agents-ia-formation-autorite
+language: fr
 summary: "Les contrats enterprise ont rendu la sécurité des données beaucoup plus mature. Le vrai risque arrive quand une équipe donne à un agent le droit d'envoyer, supprimer, modifier ou déployer sans comprendre la frontière."
 publishedAt: 2026-04-29
 complexity: intermediate

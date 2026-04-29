@@ -4,6 +4,8 @@ import { resourcesTheme } from '@/lib/resources-theme';
 import { getTypeSlug, getTypeLabel } from '@/lib/taxonomy-utils';
 import { getUrlSlugForDbType } from '@/lib/content-types';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
+import { LanguageFlag } from '@/components/resources/LanguageFlag';
+import type { ContentLanguage } from '@/lib/content-source';
 
 interface ContentCardProps {
   title: string;
@@ -11,6 +13,7 @@ interface ContentCardProps {
   type: unknown;
   slug: string;
   publishedAt?: string;
+  language?: ContentLanguage;
   featuredImage?: { url: string; alt?: string; sizes?: { card?: { url: string } } } | string | number | null;
 }
 
@@ -34,6 +37,7 @@ export function ContentCard({
   type,
   slug,
   publishedAt,
+  language,
   featuredImage,
 }: ContentCardProps) {
   const typeSlug = getTypeSlug(type);
@@ -56,10 +60,11 @@ export function ContentCard({
         )}
 
         <div className="flex flex-col flex-1 min-w-0 p-6">
-          <div className="flex items-center gap-2 mb-6 border-b border-res-border/50 pb-4">
+          <div className="flex items-center justify-between gap-2 mb-6 border-b border-res-border/50 pb-4">
             <span className={resourcesTheme.badge.type}>
               {typeLabel || typeSlug}
             </span>
+            {language && <LanguageFlag language={language} variant="card" />}
           </div>
 
           <h3 className="text-xl font-bold tracking-tighter mb-3 text-res-text leading-[1.1] group-hover:underline decoration-1 underline-offset-4">

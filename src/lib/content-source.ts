@@ -10,6 +10,8 @@ import {
 } from '@/lib/content-types'
 import { getOptimizedImageUrl } from '@/lib/image-variants'
 
+export type ContentLanguage = 'fr' | 'en'
+
 export interface ContentEntry {
   id: string
   slug: string
@@ -18,6 +20,7 @@ export interface ContentEntry {
   body: string
   type: string
   publishedAt: string
+  language: ContentLanguage
   complexity?: string
   topics?: string[]
   featuredImage?: {
@@ -97,6 +100,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         .split(',')
         .map((value) => value.trim())
         .filter(Boolean)
+      const language: ContentLanguage = data.language === 'fr' ? 'fr' : 'en'
 
       return {
         id: `${type.slug}:${slug}`,
@@ -106,6 +110,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         body,
         type: type.slug,
         publishedAt,
+        language,
         complexity: data.complexity || undefined,
         topics,
         featuredImage: coverImage

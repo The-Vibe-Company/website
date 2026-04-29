@@ -49,6 +49,8 @@ export default async function SearchPage({
                 type={item.type}
                 slug={item.slug}
                 publishedAt={item.publishedAt ?? undefined}
+                language={item.language}
+                featuredImage={item.featuredImage}
               />
             ))}
           </ContentGrid>
