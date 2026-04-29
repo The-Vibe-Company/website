@@ -33,7 +33,12 @@ async function listMarkdown(dir: string): Promise<string[]> {
 }
 
 function toPublicPath(url: string): string {
-  return path.join(PUBLIC_DIR, url.replace(/^\//, ''))
+  return path.resolve(PUBLIC_DIR, url.replace(/^\//, ''))
+}
+
+function isInsidePublic(resolvedPath: string): boolean {
+  const relative = path.relative(PUBLIC_DIR, resolvedPath)
+  return relative !== '' && !relative.startsWith('..') && !path.isAbsolute(relative)
 }
 
 function formatBytes(bytes: number): string {
@@ -68,6 +73,11 @@ async function validateMarkdownFile(file: string): Promise<{
   }
 
   const sourcePath = toPublicPath(ogImage)
+  if (!isInsidePublic(sourcePath)) {
+    failures.push({ file: relFile, reason: `ogImage path escapes the public/ directory: ${ogImage}` })
+    return { failures, entry: null }
+  }
+
   let stat: Awaited<ReturnType<typeof fs.stat>>
   try {
     stat = await fs.stat(sourcePath)
