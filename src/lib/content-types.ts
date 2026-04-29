@@ -13,6 +13,7 @@ export interface ContentTypeConfig {
   renderStyle: 'timeline' | 'grid' | 'list'
   sortOrder: number
   showInNav: boolean
+  requiresOgImage: boolean
 }
 
 export const CONTENT_TYPES: ContentTypeConfig[] = [
@@ -26,6 +27,7 @@ export const CONTENT_TYPES: ContentTypeConfig[] = [
     renderStyle: 'timeline',
     sortOrder: 1,
     showInNav: true,
+    requiresOgImage: false,
   },
   {
     slug: 'article',
@@ -37,6 +39,7 @@ export const CONTENT_TYPES: ContentTypeConfig[] = [
     renderStyle: 'list',
     sortOrder: 2,
     showInNav: true,
+    requiresOgImage: true,
   },
 ]
 

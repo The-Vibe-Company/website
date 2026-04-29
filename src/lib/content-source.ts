@@ -9,6 +9,7 @@ import {
   type ContentTypeConfig,
 } from '@/lib/content-types'
 import { getOptimizedImageUrl } from '@/lib/image-variants'
+import { parseFrontmatter } from '@/lib/parse-frontmatter'
 
 export type ContentLanguage = 'fr' | 'en'
 
@@ -34,46 +35,12 @@ export interface ContentEntry {
   } | null
   ogImage?: {
     url: string
+    sourceUrl: string
     alt?: string
   } | null
 }
 
-type Frontmatter = Record<string, string>
-
 const CONTENT_ROOT = path.join(process.cwd(), 'content')
-
-function parseFrontmatter(raw: string): { body: string; data: Frontmatter } {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/)
-
-  if (!match) {
-    return { body: raw.trim(), data: {} }
-  }
-
-  const [, frontmatter, body] = match
-  const data: Frontmatter = {}
-
-  for (const line of frontmatter.split('\n')) {
-    const trimmed = line.trim()
-    if (!trimmed || trimmed.startsWith('#')) continue
-
-    const separatorIndex = trimmed.indexOf(':')
-    if (separatorIndex === -1) continue
-
-    const key = trimmed.slice(0, separatorIndex).trim()
-    let value = trimmed.slice(separatorIndex + 1).trim()
-
-    if (
-      (value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      value = value.slice(1, -1)
-    }
-
-    data[key] = value
-  }
-
-  return { body: body.trim(), data }
-}
 
 function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
   const directory = path.join(CONTENT_ROOT, getUrlSlugForDbType(type.slug))
@@ -127,6 +94,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         ogImage: ogImage
           ? {
               url: optimizedOgImage,
+              sourceUrl: ogImage,
               alt: coverAlt,
             }
           : null,

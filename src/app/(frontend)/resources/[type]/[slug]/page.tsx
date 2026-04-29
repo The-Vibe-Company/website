@@ -14,6 +14,7 @@ import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getTypeLabel } from '@/lib/taxonomy-utils';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
+import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
   return getAllStaticParams();
@@ -73,6 +74,8 @@ export async function generateMetadata({
   const canonicalUrl = new URL(canonicalPath, SITE_URL).toString();
   const socialImage = item.ogImage ?? item.featuredImage;
   const socialImageUrl = socialImage?.url ? new URL(socialImage.url, SITE_URL).toString() : undefined;
+  const socialImageSourceUrl = item.ogImage?.sourceUrl;
+  const socialImageDimensions = getOgImageDimensions(socialImageSourceUrl);
   const socialTitle = item.title;
   const socialDescription = item.summary;
 
@@ -94,8 +97,7 @@ export async function generateMetadata({
         ? [
             {
               url: socialImageUrl,
-              width: 1600,
-              height: 900,
+              ...(socialImageDimensions ?? {}),
               alt: socialImage?.alt ?? socialTitle,
             },
           ]
