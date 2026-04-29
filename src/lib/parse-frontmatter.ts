@@ -1,7 +1,7 @@
 export type Frontmatter = Record<string, string>
 
 export function parseFrontmatter(raw: string): { body: string; data: Frontmatter } {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/)
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/)
 
   if (!match) {
     return { body: raw.trim(), data: {} }
@@ -10,7 +10,7 @@ export function parseFrontmatter(raw: string): { body: string; data: Frontmatter
   const [, frontmatter, body] = match
   const data: Frontmatter = {}
 
-  for (const line of frontmatter.split('\n')) {
+  for (const line of frontmatter.split(/\r?\n/)) {
     const trimmed = line.trim()
     if (!trimmed || trimmed.startsWith('#')) continue
 

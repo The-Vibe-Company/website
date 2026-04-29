@@ -146,8 +146,6 @@ async function main() {
     }
   }
 
-  await writeDimensionsFile(dimensions)
-
   if (failures.length > 0) {
     for (const failure of failures) {
       console.error(`[fail] ${failure.file}: ${failure.reason}`)
@@ -156,6 +154,7 @@ async function main() {
     process.exit(1)
   }
 
+  await writeDimensionsFile(dimensions)
   console.log(`[ok] ${validated} article(s) validated. og-image-dimensions.json updated.`)
 }
 
