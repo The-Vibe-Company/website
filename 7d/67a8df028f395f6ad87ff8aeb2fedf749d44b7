@@ -1,0 +1,57 @@
+src/app/(frontend)/resources/[type]/[slug]/page.tsx
+  9eae5cea396fb007 6,159-163,214,224-225,282-283
+content/articles/agents-dont-lack-tools-they-lack-company-memory.md
+  9eae5cea396fb007 4
+src/lib/content-source.ts
+  9eae5cea396fb007 13-14,23,103,113
+src/components/resources/LanguageFlag.tsx
+  9eae5cea396fb007 1-32
+content/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer.md
+  9eae5cea396fb007 4
+src/components/resources/ContentCard.tsx
+  9eae5cea396fb007 7-8,16,40,63,67
+content/articles/why-i-replaced-prompts-with-skills.md
+  9eae5cea396fb007 4
+content/articles/agents-ia-formation-autorite.md
+  9eae5cea396fb007 4
+content/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done.md
+  9eae5cea396fb007 4
+content/articles/how-i-finally-started-my-game-using-scenario.md
+  9eae5cea396fb007 4
+src/components/resources/TypeListingClient.tsx
+  9eae5cea396fb007 10,20,65,80
+content/articles/my-personal-os-lives-in-a-folder.md
+  9eae5cea396fb007 4
+src/components/resources/AllResourcesSplitView.tsx
+  9eae5cea396fb007 7,24,66
+src/app/globals.css
+  9eae5cea396fb007 107-109
+content/articles/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia.md
+  9eae5cea396fb007 4
+content/articles/quivr-to-the-vibe-company.md
+  9eae5cea396fb007 4
+src/lib/resources-theme.ts
+  9eae5cea396fb007 23-29
+src/app/(frontend)/resources/search/page.tsx
+  9eae5cea396fb007 52-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "7d67a8df028f395f6ad87ff8aeb2fedf749d44b7",
+  "prompts": {
+    "9eae5cea396fb007": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "29d788b1-d9ed-4f60-8935-e767e8bf0060",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "StanGirard",
+      "messages": [],
+      "total_additions": 84,
+      "total_deletions": 4,
+      "accepted_lines": 82,
+      "overriden_lines": 0
+    }
+  }
+}
