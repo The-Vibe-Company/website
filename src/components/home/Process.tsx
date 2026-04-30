@@ -57,7 +57,7 @@ export function Process() {
       <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
         <div className="mb-14 border-b border-white/15 pb-8 md:mb-20">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-white/55">
-            // 02 — HOW WE WORK
+            {'// 02 — HOW WE WORK'}
           </span>
           <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-2 md:gap-12">
             <h2

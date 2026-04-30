@@ -64,7 +64,7 @@ export function Services() {
     >
       <div className="mb-12 border-b border-border pb-8 md:mb-16">
         <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          // 01 — WHAT WE DO
+          {'// 01 — WHAT WE DO'}
         </span>
         <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-2 md:gap-12">
           <h2
@@ -80,9 +80,9 @@ export function Services() {
             to work together.
           </h2>
           <p className="m-0 max-w-[520px] text-[17px] leading-[1.55] text-muted-foreground md:justify-self-end">
-            We're a small team of engineers and designers who build with AI all
+            We&apos;re a small team of engineers and designers who build with AI all
             day, every day. Pick the engagement that fits — or talk to us and
-            we'll figure it out.
+            we&apos;ll figure it out.
           </p>
         </div>
       </div>

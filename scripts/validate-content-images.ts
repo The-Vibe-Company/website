@@ -165,7 +165,7 @@ async function main() {
   }
 
   await writeDimensionsFile(dimensions)
-  console.log(`[ok] ${validated} article(s) validated. og-image-dimensions.json updated.`)
+  console.log(`[ok] ${validated} content file(s) validated. og-image-dimensions.json updated.`)
 }
 
 main().catch((error) => {

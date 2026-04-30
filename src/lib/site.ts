@@ -40,7 +40,7 @@ export const INDEXABLE_STATIC_ROUTES: SiteRoute[] = [
     path: "/resources",
     title: "Resources",
     description:
-      "Learnings and articles from The Vibe Company.",
+      "Shareable AI skills and articles from The Vibe Company.",
     changeFrequency: "weekly",
     priority: 0.8,
   },
