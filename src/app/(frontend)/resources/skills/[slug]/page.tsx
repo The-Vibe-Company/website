@@ -13,7 +13,6 @@ import { getContentByType, getContentItem, getRelatedContent } from '@/lib/conte
 import { normalizeMarkdownBody } from '@/lib/markdown';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getSkillPreviewLines } from '@/lib/skill-preview';
 import { SITE_NAME, SITE_URL, absoluteUrl } from '@/lib/site';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
@@ -107,7 +106,6 @@ export default async function SkillDetailPage({
   const promptBody = skill.kind === 'native' ? body : '';
   const showPromptBlock = promptBody.trim().length > 0;
   const showDocumentation = skill.kind !== 'native' && body.trim().length > 0;
-  const previewLines = getSkillPreviewLines(body, 4);
   const creatorNote = skill.creatorNote;
 
   return (
@@ -148,8 +146,8 @@ export default async function SkillDetailPage({
                     <CreatorNote note={creatorNote} />
                   )}
 
-                  {(skill.trigger || previewLines.length > 0) && (
-                    <SkillSnapshot trigger={skill.trigger} lines={previewLines} />
+                  {skill.trigger && (
+                    <SkillSnapshot trigger={skill.trigger} />
                   )}
                 </div>
 
@@ -220,51 +218,27 @@ export default async function SkillDetailPage({
 
 function CreatorNote({ note }: { note: string }) {
   return (
-    <aside className="mt-5 max-w-3xl border-l border-res-text/30 py-1 pl-4">
-      <p className="mb-1.5 text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted">
-        Why this exists
-      </p>
-      <p
-        className="text-sm md:text-[15px] leading-relaxed text-res-text-muted"
-        dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(note) }}
-      />
+    <aside className="mt-5 max-w-3xl border border-res-border bg-res-bg-secondary/60 px-4 py-4 md:px-5">
+      <div className="grid gap-2 md:grid-cols-[8.5rem_minmax(0,1fr)] md:gap-5">
+        <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
+          Creator note
+        </p>
+        <p
+          className="text-sm md:text-[15px] leading-relaxed text-res-text"
+          dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(note) }}
+        />
+      </div>
     </aside>
   );
 }
 
-function SkillSnapshot({ trigger, lines }: { trigger?: string; lines: string[] }) {
-  const hasTrigger = Boolean(trigger);
-  const hasLines = lines.length > 0;
-
+function SkillSnapshot({ trigger }: { trigger: string }) {
   return (
-    <section
-      className={`mt-6 grid gap-3 ${hasTrigger && hasLines ? 'md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]' : ''}`}
-      aria-label="Skill overview"
-    >
-      {trigger && (
-        <div className="border border-res-border bg-res-bg-secondary p-4">
-          <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted">
-            Good for
-          </p>
-          <p className="text-sm text-res-text leading-relaxed">{trigger}</p>
-        </div>
-      )}
-
-      {hasLines && (
-        <div className="border border-res-border bg-res-surface p-4">
-          <h2 id="skill-snapshot-heading" className="text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
-            Inside this skill
-          </h2>
-          <ul className="mt-3 grid gap-2 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
-            {lines.map((line) => (
-              <li key={line} className="flex gap-2.5 text-sm leading-relaxed text-res-text">
-                <span className="mt-[0.6em] h-1.5 w-1.5 shrink-0 bg-res-text" aria-hidden="true" />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+    <section className="mt-6 max-w-3xl border border-res-border bg-res-bg-secondary p-4" aria-label="Skill overview">
+      <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted">
+        Good for
+      </p>
+      <p className="text-sm text-res-text leading-relaxed">{trigger}</p>
     </section>
   );
 }

@@ -11,7 +11,7 @@ author: The Vibe Company
 authorUrl: https://thevibecompany.co
 allowedTools: [Read, Write, Bash, Agent]
 trigger: audit my skills / improve this skill / fix skill triggers / remove overlapping skills / simplify my skill library
-creatorNote: "Use this when your skill library starts to drift: fuzzy triggers, overlapping ownership, or edits that make things bigger instead of clearer."
+creatorNote: "I made this for the moment when a skill library starts to feel unreliable: triggers blur, ownership overlaps, and every fix gets bigger than it should. The goal is to make the next edit smaller and easier to trust."
 ---
 
 You are a skill-system maintainer. Improve an AI skill library with the smallest useful change.
