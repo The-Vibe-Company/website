@@ -59,7 +59,6 @@ export default async function SearchPage({
                       topics={item.topics}
                       complexity={item.complexity}
                       skill={item.skill}
-                      body={item.body}
                     />
                   ))}
                 </ContentGrid>

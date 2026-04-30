@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
-import { getSkillPreviewLines } from '@/lib/skill-preview';
 import type { ContentLanguage, SkillMeta } from '@/lib/content-source';
 
 interface SkillCardProps {
@@ -13,7 +12,6 @@ interface SkillCardProps {
   topics?: string[];
   complexity?: string;
   skill?: SkillMeta;
-  body?: string | null;
 }
 
 export function SkillCard({
@@ -21,10 +19,8 @@ export function SkillCard({
   summary,
   slug,
   skill,
-  body,
 }: SkillCardProps) {
   const trigger = skill?.trigger;
-  const previewLines = getSkillPreviewLines(body, 3);
   const detailHref = `/resources/skills/${slug}`;
 
   return (
@@ -43,26 +39,13 @@ export function SkillCard({
           dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(summary ?? '') }}
         />
 
-        {previewLines.length > 0 && (
-          <div className="mt-5 border-t border-res-border pt-4">
-            <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-res-text-muted">
-              Inside
-            </p>
-            <ul className="mt-2 space-y-2">
-              {previewLines.map((line) => (
-                <li key={line} className="flex gap-2 text-xs leading-relaxed text-res-text">
-                  <span className="mt-[0.55em] h-1 w-1 shrink-0 bg-res-text-muted" aria-hidden="true" />
-                  <span className="line-clamp-2">{line}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
         {trigger && (
-          <p className="mt-4 text-xs leading-relaxed text-res-text-muted line-clamp-2">
-            <span className="font-mono uppercase tracking-wider">Good for:</span> {trigger}
-          </p>
+          <div className="mt-5 border border-res-border bg-res-bg-secondary px-3 py-2">
+            <p className="mb-1 text-[10px] font-mono uppercase tracking-[0.18em] text-res-text-muted">
+              Good for
+            </p>
+            <p className="text-xs text-res-text leading-relaxed line-clamp-2">{trigger}</p>
+          </div>
         )}
 
         <span className="mt-auto pt-6 text-[11px] font-mono uppercase tracking-wider text-res-text">

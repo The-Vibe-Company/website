@@ -6,10 +6,8 @@ import { ResourcesHomeSearch } from '@/components/resources/ResourcesHomeSearch'
 import { SkillCard } from '@/components/resources/SkillCard';
 import { TypeNav } from '@/components/resources/TypeNav';
 import { getNavContentTypes } from '@/lib/content-types';
-import { getContentByType, getContentCounts, type ContentEntry } from '@/lib/content-source';
-import { renderInlineMarkdown } from '@/lib/inline-markdown';
+import { getContentByType, getContentCounts } from '@/lib/content-source';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getSkillPreviewLines } from '@/lib/skill-preview';
 
 export const metadata: Metadata = {
   title: 'Resources | The Vibe Company',
@@ -82,9 +80,7 @@ export default async function ResourcesPage() {
         emptyLabel="No skills yet — first ones land soon."
         hint="Copy-paste workflows for any agent."
       >
-        {featuredSkills.length === 1 ? (
-          <FeaturedSkillPanel item={featuredSkills[0]} />
-        ) : featuredSkills.length > 0 && (
+        {featuredSkills.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredSkills.map((item) => (
               <SkillCard
@@ -97,7 +93,6 @@ export default async function ResourcesPage() {
                 topics={item.topics}
                 complexity={item.complexity}
                 skill={item.skill}
-                body={item.body}
               />
             ))}
           </div>
@@ -129,78 +124,6 @@ export default async function ResourcesPage() {
         )}
       </Section>
     </main>
-  );
-}
-
-function FeaturedSkillPanel({ item }: { item: ContentEntry }) {
-  const previewLines = getSkillPreviewLines(item.body, 4);
-  const trigger = item.skill?.trigger;
-
-  return (
-    <Link href={`/resources/skills/${item.slug}`} className="group block max-w-5xl mx-auto">
-      <article className="grid overflow-hidden border border-res-border bg-res-surface transition-colors hover:border-res-text/35 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <div className="flex flex-col p-5 sm:p-6 lg:p-7 md:min-h-[300px]">
-          <p className="mb-4 text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
-            Featured skill
-          </p>
-
-          <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-res-text leading-[1.02] group-hover:underline decoration-1 underline-offset-4">
-            {item.title}
-          </h3>
-
-          <p
-            className="mt-4 text-sm md:text-base text-res-text-muted leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary ?? '') }}
-          />
-
-          {previewLines.length > 0 && (
-            <div className="mt-5 border-l border-res-border pl-4 md:hidden">
-              <p className="mb-1 text-[10px] font-mono uppercase tracking-[0.18em] text-res-text-muted">
-                Inside
-              </p>
-              <ul className="space-y-1.5">
-                {previewLines.slice(0, 2).map((line) => (
-                  <li key={line} className="text-sm leading-relaxed text-res-text line-clamp-2">
-                    {line}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {trigger && (
-            <div className="mt-6 hidden border-l border-res-border pl-4 md:block">
-              <p className="mb-1 text-[10px] font-mono uppercase tracking-[0.18em] text-res-text-muted">
-                Good for
-              </p>
-              <p className="text-sm text-res-text leading-relaxed line-clamp-2">{trigger}</p>
-            </div>
-          )}
-
-          <span className="mt-auto pt-8 text-[11px] font-mono uppercase tracking-wider text-res-text">
-            Open skill -&gt;
-          </span>
-        </div>
-
-        {previewLines.length > 0 && (
-          <div className="hidden border-t border-res-border bg-res-bg-secondary/70 p-5 sm:p-6 lg:p-7 md:block md:border-l md:border-t-0">
-            <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
-              Inside the skill
-            </p>
-            <ul className="mt-5 space-y-4">
-              {previewLines.map((line, index) => (
-                <li key={line} className="grid grid-cols-[2rem_minmax(0,1fr)] gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center border border-res-border bg-res-surface text-[10px] font-mono text-res-text-muted">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <p className="text-sm md:text-base leading-relaxed text-res-text">{line}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </article>
-    </Link>
   );
 }
 
