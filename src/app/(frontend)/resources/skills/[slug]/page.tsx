@@ -13,6 +13,7 @@ import { getContentByType, getContentItem, getRelatedContent } from '@/lib/conte
 import { normalizeMarkdownBody } from '@/lib/markdown';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
+import { getSkillPreviewLines } from '@/lib/skill-preview';
 import { SITE_NAME, SITE_URL, absoluteUrl } from '@/lib/site';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
@@ -106,6 +107,7 @@ export default async function SkillDetailPage({
   const promptBody = skill.kind === 'native' ? body : '';
   const showPromptBlock = promptBody.trim().length > 0;
   const showDocumentation = skill.kind !== 'native' && body.trim().length > 0;
+  const previewLines = getSkillPreviewLines(body, 4);
 
   return (
     <>
@@ -146,6 +148,10 @@ export default async function SkillDetailPage({
                 </div>
               )}
             </header>
+
+            {previewLines.length > 0 && (
+              <SkillSnapshot lines={previewLines} />
+            )}
 
             <div className="mt-8">
               <SkillAIInstaller context={installContext} />
@@ -205,6 +211,24 @@ export default async function SkillDetailPage({
         )}
       </main>
     </>
+  );
+}
+
+function SkillSnapshot({ lines }: { lines: string[] }) {
+  return (
+    <section className="mt-8 border-y border-res-border py-5" aria-labelledby="skill-snapshot-heading">
+      <h2 id="skill-snapshot-heading" className="text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
+        Inside this skill
+      </h2>
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+        {lines.map((line) => (
+          <li key={line} className="flex gap-3 text-sm leading-relaxed text-res-text">
+            <span className="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-res-text" aria-hidden="true" />
+            <span>{line}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 

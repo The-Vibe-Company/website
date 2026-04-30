@@ -16,7 +16,7 @@ interface ContentItem {
   type: string;
   slug: string;
   publishedAt?: string | null;
-  body?: unknown;
+  body?: string | null;
   language?: ContentLanguage;
   complexity?: string;
   topics?: string[];
@@ -78,6 +78,7 @@ function TypeListingInner({ contentType, items, typeNavLinks, counts }: TypeList
                   topics={item.topics}
                   complexity={item.complexity}
                   skill={item.skill ?? undefined}
+                  body={item.body}
                 />
               ))}
             </ContentGrid>
