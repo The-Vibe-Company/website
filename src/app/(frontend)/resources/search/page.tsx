@@ -1,15 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import type React from 'react';
 import { redirect } from 'next/navigation';
 import { ContentCard } from '@/components/resources/ContentCard';
 import { ContentGrid } from '@/components/resources/ContentGrid';
+import { SkillCard } from '@/components/resources/SkillCard';
 import { searchContent } from '@/lib/content-source';
 import { resourcesTheme } from '@/lib/resources-theme';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Search | Vibe Learning',
+  title: 'Search | The Vibe Company',
 };
 
 export default async function SearchPage({
@@ -21,6 +23,8 @@ export default async function SearchPage({
   if (!q) redirect('/resources');
 
   const results = searchContent(q).slice(0, 50);
+  const skillResults = results.filter((item) => item.type === 'skill');
+  const articleResults = results.filter((item) => item.type !== 'skill');
 
   return (
     <main className="pt-12 pb-12">
@@ -40,20 +44,46 @@ export default async function SearchPage({
 
       <section className={`${resourcesTheme.section.padding} pb-32`}>
         {results.length > 0 ? (
-          <ContentGrid columns={3}>
-            {results.map((item) => (
-              <ContentCard
-                key={item.id}
-                title={item.title}
-                summary={item.summary}
-                type={item.type}
-                slug={item.slug}
-                publishedAt={item.publishedAt ?? undefined}
-                language={item.language}
-                featuredImage={item.featuredImage}
-              />
-            ))}
-          </ContentGrid>
+          <div className="space-y-14">
+            {skillResults.length > 0 && (
+              <SearchSection title="Skills" count={skillResults.length}>
+                <ContentGrid columns={3}>
+                  {skillResults.map((item) => (
+                    <SkillCard
+                      key={item.id}
+                      title={item.title}
+                      summary={item.summary}
+                      slug={item.slug}
+                      publishedAt={item.publishedAt ?? undefined}
+                      language={item.language}
+                      topics={item.topics}
+                      complexity={item.complexity}
+                      skill={item.skill}
+                    />
+                  ))}
+                </ContentGrid>
+              </SearchSection>
+            )}
+
+            {articleResults.length > 0 && (
+              <SearchSection title="Articles" count={articleResults.length}>
+                <div className="space-y-6">
+                  {articleResults.map((item) => (
+                    <ContentCard
+                      key={item.id}
+                      title={item.title}
+                      summary={item.summary}
+                      type={item.type}
+                      slug={item.slug}
+                      publishedAt={item.publishedAt ?? undefined}
+                      language={item.language}
+                      featuredImage={item.featuredImage}
+                    />
+                  ))}
+                </div>
+              </SearchSection>
+            )}
+          </div>
         ) : (
           <div className="rounded-xl border border-res-border p-12 text-center bg-res-surface">
             <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
@@ -69,5 +99,27 @@ export default async function SearchPage({
         )}
       </section>
     </main>
+  );
+}
+
+function SearchSection({
+  title,
+  count,
+  children,
+}: {
+  title: string;
+  count: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <section>
+      <header className="mb-6 flex items-baseline gap-3 border-b border-res-border pb-4">
+        <h2 className="text-2xl font-bold tracking-tight text-res-text">{title}</h2>
+        <span className="text-[11px] font-mono uppercase tracking-widest text-res-text-muted">
+          {count} {count === 1 ? 'result' : 'results'}
+        </span>
+      </header>
+      {children}
+    </section>
   );
 }

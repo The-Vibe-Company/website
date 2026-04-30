@@ -18,13 +18,13 @@ export interface ContentTypeConfig {
 
 export const CONTENT_TYPES: ContentTypeConfig[] = [
   {
-    slug: 'daily',
-    urlSlug: 'learnings',
-    name: 'Learning',
-    singularLabel: 'Learning',
-    pluralLabel: 'Learnings',
-    description: 'Short learnings, notes, and practical takeaways.',
-    renderStyle: 'timeline',
+    slug: 'skill',
+    urlSlug: 'skills',
+    name: 'Skill',
+    singularLabel: 'Skill',
+    pluralLabel: 'Skills',
+    description: 'Shareable AI prompts and skills you can drop into any agent.',
+    renderStyle: 'grid',
     sortOrder: 1,
     showInNav: true,
     requiresOgImage: false,

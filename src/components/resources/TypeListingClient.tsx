@@ -3,11 +3,11 @@
 import { Suspense } from 'react';
 import { ContentCard } from '@/components/resources/ContentCard';
 import { ContentGrid } from '@/components/resources/ContentGrid';
-import { DailyLearningFeed } from '@/components/resources/DailyLearningFeed';
+import { SkillCard } from '@/components/resources/SkillCard';
 import { TypeNav } from '@/components/resources/TypeNav';
 import { resourcesTheme } from '@/lib/resources-theme';
 import type { ContentTypeConfig } from '@/lib/content-types';
-import type { ContentLanguage } from '@/lib/content-source';
+import type { ContentLanguage, SkillMeta } from '@/lib/content-source';
 
 interface ContentItem {
   id: string;
@@ -18,7 +18,10 @@ interface ContentItem {
   publishedAt?: string | null;
   body?: unknown;
   language?: ContentLanguage;
+  complexity?: string;
+  topics?: string[];
   featuredImage?: { url: string; alt?: string; sizes?: { card?: { url: string } } } | string | number | null;
+  skill?: SkillMeta | null;
 }
 
 interface TypeNavLink {
@@ -35,8 +38,9 @@ interface TypeListingClientProps {
 }
 
 function TypeListingInner({ contentType, items, typeNavLinks, counts }: TypeListingClientProps) {
-  const isTimeline = contentType.renderStyle === 'timeline';
   const isList = contentType.renderStyle === 'list';
+  const isGrid = contentType.renderStyle === 'grid';
+  const isSkillType = contentType.slug === 'skill';
 
   return (
     <>
@@ -46,13 +50,7 @@ function TypeListingInner({ contentType, items, typeNavLinks, counts }: TypeList
 
       <section className={`${resourcesTheme.section.padding} pb-32`}>
         {items.length > 0 ? (
-          isTimeline ? (
-            <DailyLearningFeed
-              items={items}
-              titleClassName="text-3xl md:text-4xl font-bold tracking-tight text-res-text leading-[1.05]"
-              itemClassName="py-8 border-b border-res-border/70 last:border-b-0"
-            />
-          ) : isList ? (
+          isList ? (
             <div className="space-y-8">
               {items.map((item) => (
                 <ContentCard
@@ -67,6 +65,22 @@ function TypeListingInner({ contentType, items, typeNavLinks, counts }: TypeList
                 />
               ))}
             </div>
+          ) : isGrid && isSkillType ? (
+            <ContentGrid columns={3}>
+              {items.map((item) => (
+                <SkillCard
+                  key={item.id}
+                  title={item.title}
+                  summary={item.summary}
+                  slug={item.slug}
+                  publishedAt={item.publishedAt ?? undefined}
+                  language={item.language}
+                  topics={item.topics}
+                  complexity={item.complexity}
+                  skill={item.skill ?? undefined}
+                />
+              ))}
+            </ContentGrid>
           ) : (
             <ContentGrid columns={2}>
               {items.map((item) => (

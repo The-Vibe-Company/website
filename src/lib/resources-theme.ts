@@ -7,8 +7,8 @@
 
 export const resourcesTheme = {
   card: {
-    base: 'bg-res-surface border border-res-border hover:border-res-text-muted/50 transition-colors duration-200',
-    hover: 'hover:shadow-sm',
+    base: 'bg-res-surface border border-res-border hover:border-res-text/35 transition-all duration-200',
+    hover: 'hover:shadow-[0_14px_45px_rgba(17,17,16,0.08)]',
     featured:
       'bg-res-surface border border-res-border overflow-hidden transition-all duration-300 hover:border-res-text-muted/50',
   },
@@ -62,10 +62,49 @@ export const resourcesTheme = {
       'w-48 lg:w-64 bg-res-surface border border-res-border px-3 py-1.5 text-xs font-mono placeholder:text-res-text-muted/50 focus:outline-none focus:w-72 focus:border-res-text transition-all text-res-text rounded-none',
   },
 
-  daily: {
-    dateHeader:
-      'text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted py-3 sticky top-14 bg-res-bg z-10 border-b border-res-border/50 backdrop-blur-sm',
-    card: 'flex items-baseline gap-6 py-4 border-b border-res-border/50 hover:bg-res-surface transition-colors -mx-6 px-6',
+  skill: {
+    sourceBadgeNative:
+      'inline-flex items-center gap-1.5 px-2 py-1 border border-res-border bg-res-surface text-[10px] font-mono uppercase tracking-widest text-res-text',
+    sourceBadgeExternal:
+      'inline-flex items-center gap-1.5 px-2 py-1 border border-res-text/40 bg-res-text text-res-surface text-[10px] font-mono uppercase tracking-widest hover:bg-res-text/85 transition-colors',
+    promptBlock:
+      'relative bg-res-bg-secondary border border-res-border font-mono text-[13px] leading-relaxed text-res-text overflow-hidden',
+    promptBlockBody:
+      'overflow-y-auto p-4 sm:p-5 pt-20 sm:pt-16 whitespace-pre-wrap break-words transition-[max-height] duration-300',
+    promptBlockToolbar:
+      'absolute top-0 left-0 right-0 flex items-center justify-between gap-3 px-3 sm:px-4 py-2 bg-res-bg-secondary/95 backdrop-blur-sm border-b border-res-border z-10',
+    promptBlockLabel:
+      'inline-flex min-w-0 items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-res-text-muted',
+    installBlock:
+      'border border-res-border bg-res-surface overflow-hidden',
+    installTabs:
+      'flex items-center gap-px bg-res-border border-b border-res-border overflow-x-auto',
+    installTab:
+      'min-h-11 px-4 py-2 text-[11px] font-mono uppercase tracking-wider whitespace-nowrap shrink-0 transition-colors',
+    installTabActive: 'bg-res-text text-res-surface',
+    installTabInactive:
+      'bg-res-surface text-res-text-muted hover:text-res-text hover:bg-res-bg-secondary',
+    installCommand:
+      'flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-3 font-mono text-[13px] text-res-text overflow-x-auto',
+    generatorWrap:
+      'border border-res-text/25 bg-res-bg-secondary p-4 sm:p-5 space-y-5 shadow-[0_18px_60px_rgba(17,17,16,0.08)]',
+    generatorTargetGroup: 'grid grid-cols-2 sm:flex sm:items-center gap-px bg-res-border p-px overflow-hidden',
+    generatorTarget:
+      'min-h-11 px-3 py-2 text-[11px] font-mono uppercase tracking-wider whitespace-nowrap shrink-0 transition-colors',
+    generatorTargetActive: 'bg-res-text text-res-surface',
+    generatorTargetInactive:
+      'bg-res-surface text-res-text-muted hover:text-res-text',
+    generatorOutput:
+      'max-h-[260px] sm:max-h-[360px] overflow-auto p-4 text-[12px] sm:text-[13px] leading-relaxed font-mono text-res-text whitespace-pre-wrap break-words',
+    metaSidebarLabel:
+      'text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted',
+    metaSidebarValue: 'text-sm text-res-text',
+    copyButton:
+      'inline-flex min-h-11 shrink-0 items-center gap-1.5 px-3 py-2 text-[11px] font-mono uppercase tracking-wider border border-res-border bg-res-surface text-res-text-muted hover:text-res-text hover:bg-res-bg-secondary transition-colors',
+    copyButtonPrimary:
+      'inline-flex min-h-11 shrink-0 items-center gap-1.5 px-3 py-2 text-[11px] font-mono uppercase tracking-wider border border-res-text bg-res-text text-res-surface hover:bg-res-text/85 transition-colors',
+    copyButtonSuccess:
+      'inline-flex min-h-11 shrink-0 items-center gap-1.5 px-3 py-2 text-[11px] font-mono uppercase tracking-wider border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400',
   },
 
   stats: {

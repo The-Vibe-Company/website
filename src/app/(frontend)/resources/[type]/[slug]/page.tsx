@@ -21,12 +21,14 @@ export async function generateStaticParams() {
 }
 
 function getAllStaticParams() {
-  return CONTENT_TYPES.flatMap((contentType) =>
-    getContentByType(contentType.slug).map((doc) => ({
-      type: getUrlSlugForDbType(doc.type),
-      slug: doc.slug,
-    })),
-  );
+  return CONTENT_TYPES
+    .filter((contentType) => contentType.slug !== 'skill')
+    .flatMap((contentType) =>
+      getContentByType(contentType.slug).map((doc) => ({
+        type: getUrlSlugForDbType(doc.type),
+        slug: doc.slug,
+      })),
+    );
 }
 
 const getContent = cache(async (typeSlug: string, slug: string) => {
@@ -80,7 +82,7 @@ export async function generateMetadata({
   const socialDescription = item.summary;
 
   return {
-    title: `${item.title} | Vibe Learning`,
+    title: `${item.title} | ${SITE_NAME}`,
     description: item.summary,
     alternates: {
       canonical: canonicalUrl,
@@ -119,7 +121,7 @@ export default async function ContentDetailPage({
 }) {
   const { type, slug } = await params;
   const contentType = getContentTypeByUrlSlug(type);
-  if (!contentType) notFound();
+  if (!contentType || contentType.slug === 'skill') notFound();
 
   const item = await getContent(contentType.slug, slug);
   if (!item) notFound();
