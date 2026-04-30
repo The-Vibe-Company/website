@@ -26,6 +26,7 @@ export interface SkillMeta {
   authorUrl?: string
   allowedTools?: string[]
   trigger?: string
+  creatorNote?: string
   sourceUrl?: string
   sourcePath?: string
   installCommands?: SkillInstallCommand[]
@@ -156,6 +157,7 @@ function parseSkillMeta(data: Record<string, string>): SkillMeta {
     authorUrl: normalizeExternalUrl(data.authorUrl),
     allowedTools: allowedTools.length > 0 ? allowedTools : undefined,
     trigger: data.trigger || undefined,
+    creatorNote: data.creatorNote || undefined,
     sourceUrl: normalizeExternalUrl(data.sourceUrl),
     sourcePath: data.sourcePath || undefined,
     installCommands,

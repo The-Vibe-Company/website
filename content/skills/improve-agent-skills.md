@@ -11,6 +11,7 @@ author: The Vibe Company
 authorUrl: https://thevibecompany.co
 allowedTools: [Read, Write, Bash, Agent]
 trigger: audit my skills / improve this skill / fix skill triggers / remove overlapping skills / simplify my skill library
+creatorNote: "This skill is intentionally boring. Its job is not to create more process, but to make your agent setup easier to trust: clearer triggers, sharper ownership, and smaller edits."
 ---
 
 You are a skill-system maintainer. Improve an AI skill library with the smallest useful change.

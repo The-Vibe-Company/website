@@ -108,6 +108,7 @@ export default async function SkillDetailPage({
   const showPromptBlock = promptBody.trim().length > 0;
   const showDocumentation = skill.kind !== 'native' && body.trim().length > 0;
   const previewLines = getSkillPreviewLines(body, 4);
+  const creatorNote = skill.creatorNote;
 
   return (
     <>
@@ -142,6 +143,10 @@ export default async function SkillDetailPage({
                       />
                     )}
                   </header>
+
+                  {creatorNote && (
+                    <CreatorNote note={creatorNote} />
+                  )}
 
                   {(skill.trigger || previewLines.length > 0) && (
                     <SkillSnapshot trigger={skill.trigger} lines={previewLines} />
@@ -210,6 +215,20 @@ export default async function SkillDetailPage({
         )}
       </main>
     </>
+  );
+}
+
+function CreatorNote({ note }: { note: string }) {
+  return (
+    <aside className="mt-5 border border-l-2 border-res-border border-l-res-text bg-res-bg-secondary px-4 py-3">
+      <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
+        Creator note
+      </p>
+      <p
+        className="text-sm leading-relaxed text-res-text"
+        dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(note) }}
+      />
+    </aside>
   );
 }
 
