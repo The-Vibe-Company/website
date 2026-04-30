@@ -1,14 +1,11 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { Bot, ClipboardCheck, Terminal } from 'lucide-react';
+import { useMemo } from 'react';
+import { Bot } from 'lucide-react';
 
 import { CopyButton } from '@/components/resources/CopyButton';
-import { resourcesTheme } from '@/lib/resources-theme';
 import {
-  AI_INSTALL_TARGETS,
   buildAIInstallPrompt,
-  type AIInstallTargetId,
   type SkillInstallContext,
 } from '@/lib/skill-install-templates';
 
@@ -17,82 +14,50 @@ interface SkillAIInstallerProps {
 }
 
 export function SkillAIInstaller({ context }: SkillAIInstallerProps) {
-  const [target, setTarget] = useState<AIInstallTargetId>('claude-code');
-
-  const prompt = useMemo(() => buildAIInstallPrompt(target, context), [target, context]);
+  const prompt = useMemo(() => buildAIInstallPrompt('generic', context), [context]);
 
   return (
     <section
       id="install-with-ai"
-      className={resourcesTheme.skill.generatorWrap}
+      className="border border-res-text/25 bg-res-surface p-5 sm:p-6"
       aria-labelledby="ai-installer-heading"
     >
-      <header className="flex items-start gap-3">
-        <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center bg-res-text text-res-surface">
+      <div className="flex items-start gap-4">
+        <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center bg-res-text text-res-surface">
           <Bot size={17} strokeWidth={1.9} aria-hidden="true" />
         </span>
-        <div className="space-y-1">
+        <div className="min-w-0 flex-1">
           <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
-            Primary action
+            Recommended
           </p>
           <h3
             id="ai-installer-heading"
-            className="text-xl font-bold tracking-tight text-res-text"
+            className="mt-1 text-2xl font-bold tracking-tight text-res-text"
           >
             Install with AI
           </h3>
-          <p className="text-sm text-res-text-muted leading-relaxed">
-            Choose a runtime, copy the generated prompt, and paste it into your agent.
+          <p className="mt-2 max-w-xl text-sm text-res-text-muted leading-relaxed">
+            Copy this instruction, paste it into your agent, and let it install the skill.
           </p>
-        </div>
-      </header>
-
-      <div className="space-y-2">
-        <p className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-res-text-muted">
-          <Terminal size={13} strokeWidth={1.8} aria-hidden="true" />
-          Runtime
-        </p>
-        <div
-          aria-label="AI install target"
-          className={resourcesTheme.skill.generatorTargetGroup}
-        >
-          {AI_INSTALL_TARGETS.map((option) => {
-            const isActive = option.id === target;
-            return (
-              <button
-                key={option.id}
-                type="button"
-                aria-pressed={isActive}
-                onClick={() => setTarget(option.id)}
-                className={`${resourcesTheme.skill.generatorTarget} ${
-                  isActive
-                    ? resourcesTheme.skill.generatorTargetActive
-                    : resourcesTheme.skill.generatorTargetInactive
-                }`}
-              >
-                {option.label}
-              </button>
-            );
-          })}
         </div>
       </div>
 
-      <div className="overflow-hidden border border-res-border bg-res-surface">
-        <pre className={resourcesTheme.skill.generatorOutput}>{prompt}</pre>
-        <div className="flex flex-col gap-3 border-t border-res-border bg-res-bg-secondary p-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="flex items-center gap-2 text-[11px] font-mono text-res-text-muted leading-relaxed">
-            <ClipboardCheck size={13} strokeWidth={1.8} aria-hidden="true" />
-            Paste into your agent. It will fetch and install the skill.
-          </p>
-          <CopyButton
-            value={prompt}
-            variant="primary"
-            label="Copy install prompt"
-            copiedLabel="Copied"
-            className="w-full justify-center sm:w-auto"
-          />
-        </div>
-      </div>
+      <CopyButton
+        value={prompt}
+        variant="primary"
+        label="Copy install prompt"
+        copiedLabel="Copied"
+        className="mt-5 w-full justify-center sm:w-auto"
+      />
+
+      <details className="mt-5 border-t border-res-border pt-4">
+        <summary className="cursor-pointer text-[11px] font-mono uppercase tracking-wider text-res-text-muted hover:text-res-text">
+          Preview prompt
+        </summary>
+        <pre className="mt-3 max-h-56 overflow-auto bg-res-bg-secondary p-4 text-[12px] leading-relaxed font-mono text-res-text whitespace-pre-wrap break-words">
+          {prompt}
+        </pre>
+      </details>
     </section>
   );
 }

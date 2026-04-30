@@ -9,11 +9,11 @@ topics: Documents, PDF, Anthropic Skills
 kind: external
 author: Anthropic
 authorUrl: https://github.com/anthropics
-sourceUrl: https://github.com/anthropics/skills/tree/main/document-skills/pdf
-sourcePath: document-skills/pdf
+sourceUrl: https://github.com/anthropics/skills/tree/main/skills/pdf
+sourcePath: skills/pdf
 allowedTools: [Read, Bash]
 trigger: extract text from this PDF / summarize the attached document / fill out this PDF form
-installCommands: [{"label":"Claude Code","command":"claude skill install anthropics/skills/document-skills/pdf"},{"label":"git clone","command":"git clone https://github.com/anthropics/skills && cp -r skills/document-skills/pdf ~/.claude/skills/"}]
+installCommands: [{"label":"Claude Code","command":"/plugin marketplace add anthropics/skills && /plugin install document-skills@anthropic-agent-skills"},{"label":"git clone","command":"git clone https://github.com/anthropics/skills anthropic-skills && cp -r anthropic-skills/skills/pdf ~/.claude/skills/"}]
 ---
 
 The official Anthropic PDF skill. Use this when an agent needs to read, query, or modify a PDF that's been shared with the user.

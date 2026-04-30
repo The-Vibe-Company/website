@@ -24,6 +24,9 @@ export function CopyButton({
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const buttonLabel = copied
+    ? `Copied: ${copiedLabel}`
+    : (ariaLabel ?? label);
 
   useEffect(() => () => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -50,7 +53,7 @@ export function CopyButton({
     <button
       type="button"
       onClick={handleCopy}
-      aria-label={ariaLabel ?? label}
+      aria-label={buttonLabel}
       className={[baseClass, className].filter(Boolean).join(' ')}
     >
       <CopyIcon copied={copied} />

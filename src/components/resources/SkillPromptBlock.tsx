@@ -30,8 +30,9 @@ export function SkillPromptBlock({ body, label = 'Skill prompt' }: SkillPromptBl
           {canExpand && (
             <button
               type="button"
+              aria-label={expanded ? 'Collapse full skill prompt' : 'View full skill prompt'}
               onClick={() => setExpanded((current) => !current)}
-              className="inline-flex min-h-9 items-center gap-1.5 border border-res-border bg-res-surface px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider text-res-text-muted transition-colors hover:text-res-text"
+              className="inline-flex min-h-11 items-center gap-1.5 border border-res-border bg-res-surface px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider text-res-text-muted transition-colors hover:text-res-text"
             >
               <ChevronDown
                 size={13}
