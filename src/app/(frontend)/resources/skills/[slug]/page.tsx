@@ -220,12 +220,12 @@ export default async function SkillDetailPage({
 
 function CreatorNote({ note }: { note: string }) {
   return (
-    <aside className="mt-5 border border-l-2 border-res-border border-l-res-text bg-res-bg-secondary px-4 py-3">
-      <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
-        Creator note
+    <aside className="mt-5 max-w-3xl border-l border-res-text/30 py-1 pl-4">
+      <p className="mb-1.5 text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted">
+        Why this exists
       </p>
       <p
-        className="text-sm leading-relaxed text-res-text"
+        className="text-sm md:text-[15px] leading-relaxed text-res-text-muted"
         dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(note) }}
       />
     </aside>
