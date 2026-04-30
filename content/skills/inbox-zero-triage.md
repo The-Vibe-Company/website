@@ -23,7 +23,7 @@ For each thread, in this order:
 2. **Classify** the thread into one of:
    - `reply` — the user owes a response.
    - `archive` — informational, no action needed.
-   - `escalate` — needs the user's judgment; surface a one-line summary and stop.
+   - `escalate` — needs the user's judgment; surface a one-line summary and continue.
    - `cold-outbound` — sales/marketing prospecting, mark as spam.
    - `admin` — invoices, receipts, calendar; route to the appropriate inbox-zero recipe.
 3. **Act**:
@@ -47,4 +47,4 @@ After each thread, emit one line:
 [disposition] thread-id — one-sentence rationale
 ```
 
-Stop when the inbox is at zero, or when 5 escalations have stacked up.
+Stop when the inbox is at zero. If escalations stack up, continue processing and summarize the pending decisions at the end.
