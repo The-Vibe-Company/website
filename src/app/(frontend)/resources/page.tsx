@@ -36,6 +36,8 @@ export default async function ResourcesPage() {
 
   const skillCount = counts.skill ?? 0;
   const articleCount = counts.article ?? 0;
+  const skillLabel = skillCount === 1 ? 'skill' : 'skills';
+  const articleLabel = articleCount === 1 ? 'article' : 'articles';
 
   return (
     <main className="pb-20 bg-res-bg">
@@ -62,7 +64,7 @@ export default async function ResourcesPage() {
           </div>
 
           <p className="mt-5 text-[11px] font-mono uppercase tracking-widest text-res-text-muted">
-            {skillCount} skills / {articleCount} articles
+            {skillCount} {skillLabel} / {articleCount} {articleLabel}
           </p>
         </div>
       </section>
@@ -76,7 +78,7 @@ export default async function ResourcesPage() {
         count={skillCount}
         href="/resources/skills"
         emptyLabel="No skills yet — first ones land soon."
-        hint="Copy-paste prompts and install commands for any agent."
+        hint="Copy-paste workflows for any agent."
       >
         {featuredSkills.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
