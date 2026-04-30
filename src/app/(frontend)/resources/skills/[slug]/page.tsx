@@ -112,69 +112,66 @@ export default async function SkillDetailPage({
   return (
     <>
       <ReadingProgress />
-      <main className="pt-12 pb-24 min-h-screen bg-res-bg">
-        <div className={`${resourcesTheme.section.padding} pb-16 md:pb-20`}>
+      <main className="pt-6 md:pt-8 pb-20 min-h-screen bg-res-bg">
+        <div className={`${resourcesTheme.section.padding} pb-12 md:pb-16`}>
           <Link
             href="/resources/skills"
-            className="mb-8 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
+            className="mb-6 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
           >
             <ArrowLeft size={14} strokeWidth={1.8} className="group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
             Skills
           </Link>
 
-          <article className="max-w-3xl">
-            <header className="flex flex-col gap-5">
-              <span className="self-start px-2 py-1 border border-res-text/30 bg-res-text/5 text-[10px] font-mono uppercase tracking-widest text-res-text">
-                Skill
-              </span>
+          <article className="max-w-6xl">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] xl:grid-cols-[minmax(0,1fr)_400px] lg:items-start">
+              <div className="min-w-0">
+                <header className="flex flex-col gap-4">
+                  <span className="self-start px-2 py-1 border border-res-text/30 bg-res-text/5 text-[10px] font-mono uppercase tracking-widest text-res-text">
+                    Skill
+                  </span>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[0.92] text-res-text">
-                {item.title}
-              </h1>
+                  <h1 className="text-4xl md:text-5xl font-bold tracking-tighter leading-[0.95] text-res-text">
+                    {item.title}
+                  </h1>
 
-              {item.summary && (
-                <p
-                  className="text-base md:text-xl text-res-text-muted leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
-                />
-              )}
+                  {item.summary && (
+                    <p
+                      className="text-base md:text-lg text-res-text-muted leading-relaxed max-w-3xl"
+                      dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
+                    />
+                  )}
+                </header>
 
-              {skill.trigger && (
-                <div className="border border-res-border bg-res-bg-secondary p-4">
-                  <p className="mb-1 text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted">
-                    Good for
-                  </p>
-                  <p className="text-sm md:text-base text-res-text leading-relaxed">{skill.trigger}</p>
-                </div>
-              )}
-            </header>
+                {(skill.trigger || previewLines.length > 0) && (
+                  <SkillSnapshot trigger={skill.trigger} lines={previewLines} />
+                )}
+              </div>
 
-            {previewLines.length > 0 && (
-              <SkillSnapshot lines={previewLines} />
-            )}
+              <aside className="lg:sticky lg:top-28 lg:row-span-2">
+                <SkillAIInstaller context={installContext} />
+              </aside>
 
-            <div className="mt-8">
-              <SkillAIInstaller context={installContext} />
+              <div className="min-w-0 lg:col-start-1">
+                {showPromptBlock && (
+                  <section className="mt-2 lg:mt-0">
+                    <SectionHeader
+                      title="Prompt"
+                      hint="Use this if you prefer to copy the skill text yourself."
+                    />
+                    <SkillPromptBlock body={promptBody} />
+                  </section>
+                )}
+
+                {showDocumentation && (
+                  <section className="mt-8">
+                    <SectionHeader title="Notes" />
+                    <div className="prose-vibe prose-vibe-warm max-w-none">
+                      <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" />
+                    </div>
+                  </section>
+                )}
+              </div>
             </div>
-
-            {showPromptBlock && (
-              <section className="mt-12">
-                <SectionHeader
-                  title="Prompt"
-                  hint="Use this if you prefer to copy the skill text yourself."
-                />
-                <SkillPromptBlock body={promptBody} />
-              </section>
-            )}
-
-            {showDocumentation && (
-              <section className="mt-12">
-                <SectionHeader title="Notes" />
-                <div className="prose-vibe prose-vibe-warm max-w-none">
-                  <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" />
-                </div>
-              </section>
-            )}
           </article>
         </div>
 
@@ -214,20 +211,39 @@ export default async function SkillDetailPage({
   );
 }
 
-function SkillSnapshot({ lines }: { lines: string[] }) {
+function SkillSnapshot({ trigger, lines }: { trigger?: string; lines: string[] }) {
+  const hasTrigger = Boolean(trigger);
+  const hasLines = lines.length > 0;
+
   return (
-    <section className="mt-8 border-y border-res-border py-5" aria-labelledby="skill-snapshot-heading">
-      <h2 id="skill-snapshot-heading" className="text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
-        Inside this skill
-      </h2>
-      <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-        {lines.map((line) => (
-          <li key={line} className="flex gap-3 text-sm leading-relaxed text-res-text">
-            <span className="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-res-text" aria-hidden="true" />
-            <span>{line}</span>
-          </li>
-        ))}
-      </ul>
+    <section
+      className={`mt-6 grid gap-3 ${hasTrigger && hasLines ? 'md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]' : ''}`}
+      aria-label="Skill overview"
+    >
+      {trigger && (
+        <div className="border border-res-border bg-res-bg-secondary p-4">
+          <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted">
+            Good for
+          </p>
+          <p className="text-sm text-res-text leading-relaxed">{trigger}</p>
+        </div>
+      )}
+
+      {hasLines && (
+        <div className="border border-res-border bg-res-surface p-4">
+          <h2 id="skill-snapshot-heading" className="text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
+            Inside this skill
+          </h2>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
+            {lines.map((line) => (
+              <li key={line} className="flex gap-2.5 text-sm leading-relaxed text-res-text">
+                <span className="mt-[0.6em] h-1.5 w-1.5 shrink-0 bg-res-text" aria-hidden="true" />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   );
 }
