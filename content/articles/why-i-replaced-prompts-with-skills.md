@@ -1,6 +1,7 @@
 ---
 title: "Why I replaced prompts with skills"
 slug: why-i-replaced-prompts-with-skills
+language: en
 summary: "A prompt is a disposable instruction. A skill is a versioned workflow package with triggers, scripts, references, review gates, artifacts, and memory."
 publishedAt: 2026-04-24
 complexity: intermediate
@@ -187,4 +188,3 @@ And repeated work deserves infrastructure.
 - [OpenAI: A practical guide to building agents](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/)
 - [MCP is how agents learn your company's taste](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done)
 - [My personal OS lives in a folder](/resources/articles/my-personal-os-lives-in-a-folder)
-- [Claude.md is the cheapest architecture you'll ever write](/resources/learnings/2026-02-17-claudemd-is-the-cheapest-architecture-youll-ever-write)

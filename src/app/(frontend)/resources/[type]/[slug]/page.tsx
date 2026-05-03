@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { ContentCard } from '@/components/resources/ContentCard';
+import { LanguageFlag } from '@/components/resources/LanguageFlag';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { CONTENT_TYPES, getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
@@ -13,18 +14,21 @@ import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getTypeLabel } from '@/lib/taxonomy-utils';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
+import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
   return getAllStaticParams();
 }
 
 function getAllStaticParams() {
-  return CONTENT_TYPES.flatMap((contentType) =>
-    getContentByType(contentType.slug).map((doc) => ({
-      type: getUrlSlugForDbType(doc.type),
-      slug: doc.slug,
-    })),
-  );
+  return CONTENT_TYPES
+    .filter((contentType) => contentType.slug !== 'skill')
+    .flatMap((contentType) =>
+      getContentByType(contentType.slug).map((doc) => ({
+        type: getUrlSlugForDbType(doc.type),
+        slug: doc.slug,
+      })),
+    );
 }
 
 const getContent = cache(async (typeSlug: string, slug: string) => {
@@ -72,11 +76,13 @@ export async function generateMetadata({
   const canonicalUrl = new URL(canonicalPath, SITE_URL).toString();
   const socialImage = item.ogImage ?? item.featuredImage;
   const socialImageUrl = socialImage?.url ? new URL(socialImage.url, SITE_URL).toString() : undefined;
+  const socialImageSourceUrl = item.ogImage?.sourceUrl;
+  const socialImageDimensions = getOgImageDimensions(socialImageSourceUrl);
   const socialTitle = item.title;
   const socialDescription = item.summary;
 
   return {
-    title: `${item.title} | Vibe Learning`,
+    title: `${item.title} | ${SITE_NAME}`,
     description: item.summary,
     alternates: {
       canonical: canonicalUrl,
@@ -93,8 +99,7 @@ export async function generateMetadata({
         ? [
             {
               url: socialImageUrl,
-              width: 1600,
-              height: 900,
+              ...(socialImageDimensions ?? {}),
               alt: socialImage?.alt ?? socialTitle,
             },
           ]
@@ -116,7 +121,7 @@ export default async function ContentDetailPage({
 }) {
   const { type, slug } = await params;
   const contentType = getContentTypeByUrlSlug(type);
-  if (!contentType) notFound();
+  if (!contentType || contentType.slug === 'skill') notFound();
 
   const item = await getContent(contentType.slug, slug);
   if (!item) notFound();
@@ -153,6 +158,11 @@ export default async function ContentDetailPage({
                     <span className="text-sm font-mono text-res-text-muted">
                       {item.publishedAt ? formatDate(item.publishedAt) : 'Draft'}
                     </span>
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Language</span>
+                    <LanguageFlag language={item.language} variant="sidebar" />
                   </div>
 
                   {item.complexity && (
@@ -205,7 +215,7 @@ export default async function ContentDetailPage({
                 >
                   &larr; {typeLabel || type}
                 </Link>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   {item.publishedAt && (
                     <span className="text-xs font-mono text-res-text-muted">
                       {formatDate(item.publishedAt)}
@@ -215,6 +225,8 @@ export default async function ContentDetailPage({
                   {readingTime > 0 && (
                     <span className="text-xs font-mono text-res-text-muted">{readingTime} min</span>
                   )}
+                  <span className="text-res-text-muted/30">&bull;</span>
+                  <LanguageFlag language={item.language} variant="inline" />
                 </div>
               </div>
 
@@ -271,6 +283,8 @@ export default async function ContentDetailPage({
                   type={r.type}
                   slug={r.slug}
                   publishedAt={r.publishedAt ?? undefined}
+                  language={r.language}
+                  featuredImage={r.featuredImage}
                 />
               ))}
             </div>

@@ -104,6 +104,9 @@
   /* Violet */
   --domain-marketing: #e11d48;
   /* Rose */
+
+  /* Cross-platform emoji stack for language flags */
+  --font-flag: 'Apple Color Emoji', 'Twemoji Mozilla', 'Noto Color Emoji', 'Segoe UI Emoji', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {

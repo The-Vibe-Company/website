@@ -1,6 +1,7 @@
 ---
 title: "Le vrai risque des agents IA, c'est l'autorité"
 slug: agents-ia-formation-autorite
+language: fr
 summary: "La sécurité des agents IA ne se décide pas seulement par marque d'outil. Elle dépend surtout du niveau d'autorité accordé : lire, proposer, préparer ou exécuter."
 publishedAt: 2026-04-29
 complexity: intermediate
@@ -190,3 +191,4 @@ L'enjeu n'est pas de choisir entre confiance et interdiction. L'enjeu est de for
 Si vous déployez des agents IA, ou si vos équipes commencent déjà à en utiliser, commencez par une cartographie simple : quels agents lisent, lesquels proposent, lesquels préparent, lesquels exécutent ?
 
 C'est souvent là que les vrais risques apparaissent.
+

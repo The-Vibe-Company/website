@@ -32,7 +32,7 @@ export function FinalCTA() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-8 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground"
         >
-          // 04 — NOW BOARDING
+          {'// 04 — NOW BOARDING'}
         </motion.span>
 
         <motion.h2
@@ -66,7 +66,7 @@ export function FinalCTA() {
           className="m-0 mb-12 max-w-[640px] text-[19px] leading-[1.5] text-muted-foreground"
         >
           30 minutes. No deck, no sales pitch. We tell you whether we can help,
-          what we'd build, and what it would cost. If we can't, we'll tell you
+          what we&apos;d build, and what it would cost. If we can&apos;t, we&apos;ll tell you
           who can.
         </motion.p>
 

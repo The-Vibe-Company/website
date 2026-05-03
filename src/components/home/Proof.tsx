@@ -47,7 +47,7 @@ export function Proof() {
       <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
         <div className="mb-12 md:mb-14">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            // 03 — RECEIPTS
+            {'// 03 — RECEIPTS'}
           </span>
           <h2
             className="m-0 font-bold text-foreground"
