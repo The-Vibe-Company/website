@@ -25,6 +25,8 @@ The company-level version of that transition is here: [We are stopping Quivr. We
 
 The broader company-level argument is here: [Agents don't lack tools. They lack company memory.](/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
 
+The next layer is here: [I don’t have a productivity stack anymore. I have an agent OS.](/resources/articles/i-dont-have-a-productivity-stack-anymore-i-have-an-agent-os) This article explains how the memory layer becomes an operating layer through skills, tools, permissions, and review gates.
+
 ![Granite knowledge constellation — 188 interlinked markdown notes forming a settled graph](/images/resources/my-personal-os-lives-in-a-folder/granite-constellation.png "188 notes, 1819 links — the company, the clients, the methodology, one graph.")
 
 ## Karpathy tweeted my thesis in April

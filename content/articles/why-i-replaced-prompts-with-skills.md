@@ -79,6 +79,8 @@ If that stays as a prompt, half the workflow depends on whether the current chat
 
 As a skill, the workflow has a home.
 
+That is the bigger system I now call an [agent OS](/resources/articles/i-dont-have-a-productivity-stack-anymore-i-have-an-agent-os): memory, skills, tools, agents, permissions, and review gates arranged so repeated work can move without being re-explained every time.
+
 ## The real value is not reuse. It is improvement.
 
 People usually explain skills as reusable prompts. That undersells them.
