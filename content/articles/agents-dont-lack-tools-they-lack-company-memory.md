@@ -45,7 +45,7 @@ The typing matters too. Granite separates `source`, `note`, `synthesis`, and `ou
 
 OpenAI described the same pattern from a different angle in its [harness engineering write-up](https://openai.com/index/harness-engineering/). Their early agent progress was slower than expected because the environment was underspecified. The response was not "use a better model." It was to make repository knowledge the system of record and to give the agent a map instead of a giant instruction blob.
 
-That is exactly why the surface matters so much. The same vault can produce very different agent behavior depending on what the MCP exposes first.
+That is exactly why the surface matters so much. The same vault can produce very different agent behavior depending on what the MCP exposes first. The personal version of that stack is what I call an [agent OS](/resources/articles/i-dont-have-a-productivity-stack-anymore-i-have-an-agent-os): memory plus workflows, tools, agents, permissions, and review gates.
 
 ![A comparison of two agent surfaces operating on the same Granite vault: one exposes raw actions, the other teaches a memory workflow](/images/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-surface-compare.png "Same vault. Better surface. Better agent behavior.")
 
