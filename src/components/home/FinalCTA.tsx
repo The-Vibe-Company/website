@@ -54,7 +54,7 @@ export function FinalCTA() {
               color: "transparent",
             }}
           >
-            that AI should solve?
+            to solve?
           </span>
         </motion.h2>
 
@@ -65,9 +65,9 @@ export function FinalCTA() {
           transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           className="m-0 mb-12 max-w-[640px] text-[19px] leading-[1.5] text-muted-foreground"
         >
-          30 minutes. No deck, no sales pitch. We tell you whether we can help,
-          what we&apos;d build, and what it would cost. If we can&apos;t, we&apos;ll tell you
-          who can.
+          Tell us what you&apos;re trying to do. We&apos;ll tell you whether we can
+          help, what we&apos;d build, and what it would cost. If we can&apos;t,
+          we&apos;ll point you to someone who can.
         </motion.p>
 
         <motion.div

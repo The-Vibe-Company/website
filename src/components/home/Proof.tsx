@@ -5,8 +5,8 @@ import { motion, useReducedMotion } from "framer-motion";
 const STATS = [
   { v: "12+", l: "AI builds / shipped since 2023" },
   { v: "4", l: "Products / of our own" },
-  { v: "6 wk", l: "Brief → prod" },
-  { v: "20×", l: "Faster than traditional delivery" },
+  { v: "50–100×", l: "Faster with AI" },
+  { v: "100%", l: "Built with AI / our agency too" },
 ];
 
 const PRODUCTS = [

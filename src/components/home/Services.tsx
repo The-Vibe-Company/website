@@ -6,7 +6,6 @@ interface Service {
   n: string;
   title: string;
   tag: string;
-  time: string;
   desc: string;
   bullets: string[];
 }
@@ -16,38 +15,35 @@ const SERVICES: Service[] = [
     n: "01",
     title: "Product builds",
     tag: "BUILD-FOR-HIRE",
-    time: "4–12 WEEKS",
-    desc: "We design and ship your product end-to-end — leaning on AI for the parts that don't need a human: code, design, evals, ops. Things that used to take a quarter now take weeks.",
+    desc: "We design and ship your product end-to-end. Code, design, evals, ops. AI does everything that doesn't need a human, so we ship 50–100× faster than a traditional team.",
     bullets: [
       "Discovery, architecture, production-grade code",
       "Built with Claude + Codex + agents in the loop",
       "Evals + observability shipped from day one",
-      "Full handoff with docs — or we keep operating it",
+      "Full handoff with docs, or we keep operating it",
     ],
   },
   {
     n: "02",
     title: "Agent ops",
     tag: "EMBED + OPERATE",
-    time: "ONGOING",
-    desc: "We deploy agents inside your company to take over the ops nobody wants to do — sales, support, content, internal tools. Wherever your team is burning hours on the same task every week.",
+    desc: "We deploy agents inside your company to take over the ops nobody wants. Sales, support, content, admin flows, internal tools. Wherever your team is burning hours on repetitive work.",
     bullets: [
       "Workflow audit + ROI map",
       "Build, deploy, tune",
       "Train your team to run them",
-      "Monthly engagement, no lock-in",
+      "Engagement that flexes with the work, no lock-in",
     ],
   },
   {
     n: "03",
     title: "Strategy & training",
     tag: "ADVISORY + TRAINING",
-    time: "2–4 WEEKS",
     desc: "Short engagements for leaders who need a real answer to \"what should we actually do with AI?\" We map your stack, prioritize the opportunities, and train your team so they don't need us forever.",
     bullets: [
       "Stack audit + opportunity mapping",
       "Build vs. buy recommendations",
-      "Roadmap with cost + time estimates",
+      "Roadmap with prioritized opportunities",
       "Hands-on training for your team",
       "Optional implementation handoff",
     ],
@@ -80,9 +76,9 @@ export function Services() {
             to work together.
           </h2>
           <p className="m-0 max-w-[520px] text-[17px] leading-[1.55] text-muted-foreground md:justify-self-end">
-            We&apos;re a small team of engineers and designers who build with AI all
-            day, every day. Pick the engagement that fits — or talk to us and
-            we&apos;ll figure it out.
+            We&apos;re a small team of AI specialists. We work on the parts of
+            your business where AI compounds: products, ops, training. Pick a
+            lane, or talk to us and we&apos;ll figure it out.
           </p>
         </div>
       </div>
@@ -109,9 +105,6 @@ export function Services() {
                 <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
                   {service.tag}
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                  {service.time}
-                </span>
               </div>
             </div>
 
@@ -135,18 +128,6 @@ export function Services() {
                 </li>
               ))}
             </ul>
-
-            <div className="mt-8 flex items-center justify-end border-t border-border pt-4">
-              <a
-                href="mailto:founders@thevibecompany.co"
-                className="inline-flex items-center gap-1 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-foreground transition-opacity hover:opacity-70"
-              >
-                Inquire
-                <span aria-hidden="true" className="ml-1">
-                  →
-                </span>
-              </a>
-            </div>
           </motion.article>
         ))}
       </div>
