@@ -33,19 +33,6 @@ const PRODUCTS: Product[] = [
   },
 ];
 
-const MORE_REPOS = [
-  "captuto",
-  "bestiary",
-  "la-compagnie-des-jeux",
-  "Garden",
-  "GoalDigger",
-  "Road-To-Mastock",
-  "voidline",
-  "ticket-enricher",
-  "mintlify-docs",
-  "docs",
-];
-
 const ORG_URL = "https://github.com/The-Vibe-Company";
 
 export function Proof() {
@@ -57,35 +44,29 @@ export function Proof() {
       className="border-b border-border bg-background"
     >
       <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
-        <div className="mb-12 grid grid-cols-1 items-end gap-8 md:mb-14 md:grid-cols-[1.4fr_1fr] md:gap-12">
-          <div>
-            <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              {'// 03 — RECEIPTS'}
-            </span>
-            <h2
-              className="m-0 font-bold text-foreground"
+        <div className="mb-12 md:mb-14">
+          <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            {'// 03 — RECEIPTS'}
+          </span>
+          <h2
+            className="m-0 font-bold text-foreground"
+            style={{
+              fontSize: "clamp(44px, 6vw, 88px)",
+              lineHeight: 0.92,
+              letterSpacing: "-0.045em",
+            }}
+          >
+            We build for clients.
+            <br />
+            <span
               style={{
-                fontSize: "clamp(44px, 6vw, 88px)",
-                lineHeight: 0.92,
-                letterSpacing: "-0.045em",
+                WebkitTextStroke: "1.5px var(--foreground)",
+                color: "transparent",
               }}
             >
-              We build for clients.
-              <br />
-              <span
-                style={{
-                  WebkitTextStroke: "1.5px var(--foreground)",
-                  color: "transparent",
-                }}
-              >
-                And we build for ourselves.
-              </span>
-            </h2>
-          </div>
-          <p className="m-0 max-w-[460px] text-[17px] leading-[1.55] text-muted-foreground md:justify-self-end">
-            Tools, agents, prototypes. We ship a lot, and most of it is on
-            GitHub.
-          </p>
+              And we build for ourselves.
+            </span>
+          </h2>
         </div>
 
         <div className="mb-5 flex items-center justify-between border-b border-border pb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
@@ -136,25 +117,6 @@ export function Proof() {
             </motion.a>
           ))}
         </div>
-
-        <p className="mt-6 font-mono text-xs leading-[1.7] text-muted-foreground">
-          + {MORE_REPOS.length} more on GitHub:{" "}
-          {MORE_REPOS.map((r, i) => (
-            <span key={r}>
-              <a
-                href={`${ORG_URL}/${r}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground"
-              >
-                {r}
-              </a>
-              {i < MORE_REPOS.length - 1 && (
-                <span aria-hidden="true" className="px-1.5">·</span>
-              )}
-            </span>
-          ))}
-        </p>
 
         <div className="mt-10 flex justify-start">
           <a
