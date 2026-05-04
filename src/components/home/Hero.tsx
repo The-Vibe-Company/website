@@ -1,8 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Marquee } from "@/components/Marquee";
-import { cn, typography } from "@/lib/design-system";
+import { cn } from "@/lib/design-system";
 
 const TOP_STRIP = [
   { text: "THE VIBE CO." },
@@ -176,25 +175,6 @@ export function Hero() {
         </motion.div>
       </div>
 
-      <div className="relative bg-foreground text-background">
-        <Marquee>
-          <span
-            className={cn(
-              typography.label.mono,
-              "inline-flex items-center gap-3 px-6 py-3"
-            )}
-          >
-            <span aria-hidden="true">▓</span> AI-NATIVE AGENCY{" "}
-            <span aria-hidden="true">·</span> WAY FASTER WITH AI{" "}
-            <span aria-hidden="true">·</span> BUILT WITH CLAUDE + CODEX{" "}
-            <span aria-hidden="true">·</span> OUR AGENCY RUNS ON AI{" "}
-            <span aria-hidden="true">·</span> AI SPECIALISTS{" "}
-            <span aria-hidden="true">·</span> 4 LIVE PRODUCTS{" "}
-            <span aria-hidden="true">·</span> 12+ AI BUILDS{" "}
-            <span aria-hidden="true">·</span>
-          </span>
-        </Marquee>
-      </div>
     </section>
   );
 }
