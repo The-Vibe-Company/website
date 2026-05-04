@@ -49,24 +49,18 @@ export function Process() {
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-white/55">
             {'// 02 — HOW WE WORK'}
           </span>
-          <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-2 md:gap-12">
-            <h2
-              className="m-0 font-bold text-background"
-              style={{
-                fontSize: "clamp(44px, 6vw, 88px)",
-                lineHeight: 0.92,
-                letterSpacing: "-0.045em",
-              }}
-            >
-              From brief
-              <br />
-              to production.
-            </h2>
-            <p className="m-0 max-w-[520px] text-[17px] leading-[1.55] text-white/65 md:justify-self-end">
-              You see working software early and often. We move at the pace of
-              AI, not the pace of the calendar.
-            </p>
-          </div>
+          <h2
+            className="m-0 font-bold text-background"
+            style={{
+              fontSize: "clamp(44px, 6vw, 88px)",
+              lineHeight: 0.92,
+              letterSpacing: "-0.045em",
+            }}
+          >
+            From brief
+            <br />
+            to production.
+          </h2>
         </div>
 
         <ol className="m-0 flex list-none flex-col p-0">

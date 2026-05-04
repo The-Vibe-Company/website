@@ -62,25 +62,18 @@ export function Services() {
         <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
           {'// 01 — WHAT WE DO'}
         </span>
-        <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-2 md:gap-12">
-          <h2
-            className="m-0 font-bold text-foreground"
-            style={{
-              fontSize: "clamp(44px, 6vw, 88px)",
-              lineHeight: 0.92,
-              letterSpacing: "-0.045em",
-            }}
-          >
-            Three ways
-            <br />
-            to work together.
-          </h2>
-          <p className="m-0 max-w-[520px] text-[17px] leading-[1.55] text-muted-foreground md:justify-self-end">
-            We&apos;re a small team of AI specialists. We work on the parts of
-            your business where AI compounds: products, ops, training. Pick a
-            lane, or talk to us and we&apos;ll figure it out.
-          </p>
-        </div>
+        <h2
+          className="m-0 font-bold text-foreground"
+          style={{
+            fontSize: "clamp(44px, 6vw, 88px)",
+            lineHeight: 0.92,
+            letterSpacing: "-0.045em",
+          }}
+        >
+          Three ways
+          <br />
+          to work together.
+        </h2>
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
