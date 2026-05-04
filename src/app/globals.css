@@ -75,63 +75,32 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Resources "Calm Studio" Theme (scoped to .resources-theme)
+   Resources Theme (scoped to .resources-theme)
+   Aligned with the homepage hybrid variant: light-only, warm-paper background,
+   same neutral text tokens. Pinned to color-scheme: light so it never flips to
+   dark on systems set to dark mode (matching the homepage behavior).
    ----------------------------------------------------------------------------- */
 .resources-theme {
-  /* Constructed Editorial Palette */
+  color-scheme: light;
+
+  /* Surface tokens — match [data-variant="hybrid"] exactly */
   --res-bg: #fdfbf7;
-  /* Warm Paper */
   --res-bg-secondary: #f3f0ea;
-  /* Secondary Paper */
   --res-surface: #ffffff;
   --res-border: #dcd7ce;
-  /* Stronger Border */
-  --res-text: #111110;
-  /* Deep Ink */
-  --res-text-muted: #66605b;
-  /* Warm Grey */
+  --res-text: #0a0a0a;
+  --res-text-muted: #525252;
 
-  /* Technical Accents */
+  /* Domain accent colors — kept for content categorization */
   --domain-dev: #2563eb;
-  /* Royal Blue */
   --domain-design: #db2777;
-  /* Ink Pink */
   --domain-ops: #059669;
-  /* Emerald */
   --domain-business: #d97706;
-  /* Amber */
   --domain-ai: #7c3aed;
-  /* Violet */
   --domain-marketing: #e11d48;
-  /* Rose */
 
   /* Cross-platform emoji stack for language flags */
   --font-flag: 'Apple Color Emoji', 'Twemoji Mozilla', 'Noto Color Emoji', 'Segoe UI Emoji', sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  .resources-theme {
-    /* Dark Constructed Palette */
-    --res-bg: #0c0c0c;
-    /* Deep Matte Black */
-    --res-bg-secondary: #171717;
-    /* Lighter Matte */
-    --res-surface: #121212;
-    --res-border: #262626;
-    /* Subtle Border */
-    --res-text: #ededed;
-    /* Off-white */
-    --res-text-muted: #a1a1aa;
-    /* Cool Grey */
-
-    /* Technical Accents (Dark) */
-    --domain-dev: #60a5fa;
-    --domain-design: #f472b6;
-    --domain-ops: #34d399;
-    --domain-business: #fbbf24;
-    --domain-ai: #a78bfa;
-    --domain-marketing: #fb7185;
-  }
 }
 
 /* -----------------------------------------------------------------------------

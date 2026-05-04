@@ -58,18 +58,6 @@ export function FinalCTA() {
           </span>
         </motion.h2>
 
-        <motion.p
-          initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="m-0 mb-12 max-w-[640px] text-[19px] leading-[1.5] text-muted-foreground"
-        >
-          Tell us what you&apos;re trying to do. We&apos;ll tell you whether we can
-          help, what we&apos;d build, and what it would cost. If we can&apos;t,
-          we&apos;ll point you to someone who can.
-        </motion.p>
-
         <motion.div
           initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
           whileInView={{ opacity: 1, y: 0 }}

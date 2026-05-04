@@ -1,8 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Marquee } from "@/components/Marquee";
-import { cn, typography } from "@/lib/design-system";
+import { cn } from "@/lib/design-system";
 
 const TOP_STRIP = [
   { text: "THE VIBE CO." },
@@ -86,7 +85,7 @@ export function Hero() {
           <span className="inline-flex items-center gap-2.5 border border-foreground bg-background px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-foreground">
             <span
               aria-hidden="true"
-              className="h-2 w-2 animate-pulse rounded-full bg-emerald-500"
+              className="h-2 w-2 animate-pulse rounded-full bg-orange-500"
             />
             Open to projects · Built with AI
           </span>
@@ -113,7 +112,7 @@ export function Hero() {
               color: "transparent",
             }}
           >
-            Everything 50–100× faster.
+            Everything way faster.
           </span>
         </motion.h1>
 
@@ -160,7 +159,7 @@ export function Hero() {
               key={item.n}
               className="flex items-start gap-4 border-b border-border py-5 pr-6 last:border-b-0 md:border-b-0"
             >
-              <span className="pt-1 font-mono text-[11px] tracking-[0.2em] text-muted-foreground">
+              <span className="pt-1 font-mono text-[11px] tracking-[0.2em] text-orange-500">
                 {item.n}
               </span>
               <div>
@@ -176,25 +175,6 @@ export function Hero() {
         </motion.div>
       </div>
 
-      <div className="relative bg-foreground text-background">
-        <Marquee>
-          <span
-            className={cn(
-              typography.label.mono,
-              "inline-flex items-center gap-3 px-6 py-3"
-            )}
-          >
-            <span aria-hidden="true">▓</span> AI-NATIVE AGENCY{" "}
-            <span aria-hidden="true">·</span> 50–100× FASTER{" "}
-            <span aria-hidden="true">·</span> BUILT WITH CLAUDE + CODEX{" "}
-            <span aria-hidden="true">·</span> OUR AGENCY RUNS ON AI{" "}
-            <span aria-hidden="true">·</span> AI SPECIALISTS{" "}
-            <span aria-hidden="true">·</span> 4 LIVE PRODUCTS{" "}
-            <span aria-hidden="true">·</span> 12+ AI BUILDS{" "}
-            <span aria-hidden="true">·</span>
-          </span>
-        </Marquee>
-      </div>
     </section>
   );
 }
