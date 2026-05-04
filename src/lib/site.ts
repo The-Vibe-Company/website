@@ -1,7 +1,7 @@
 export const SITE_NAME = "The Vibe Company";
 export const SITE_URL = "https://www.thevibecompany.co";
 export const SITE_DESCRIPTION =
-  "An AI-native agency. 100x efficiency. We build with AI, ship fast, and show everything.";
+  "An AI-native agency. Everything 50–100× faster with AI — products, ops, training. Our agency runs on AI too.";
 
 export type SiteRoute = {
   path: string;
@@ -16,7 +16,7 @@ export const INDEXABLE_STATIC_ROUTES: SiteRoute[] = [
     path: "/",
     title: SITE_NAME,
     description:
-      "Homepage for The Vibe Company, an AI-native agency building and shipping products with AI.",
+      "The Vibe Company is an AI-native agency. We make every part of your business 50–100× faster with AI — products, agent ops, training.",
     changeFrequency: "weekly",
     priority: 1,
   },

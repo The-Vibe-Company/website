@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "framer-motion";
 
 interface Step {
   n: string;
-  day: string;
   label: string;
   title: string;
   desc: string;
@@ -14,33 +13,29 @@ interface Step {
 const STEPS: Step[] = [
   {
     n: "01",
-    day: "DAY 0",
     label: "BRIEF",
     title: "We meet, we listen, we scope.",
-    desc: "30-min call. You explain the problem, we explain how we'd build it. If there's a fit, we send a fixed-scope proposal within 48 hours.",
+    desc: "30-min call. You explain the problem, we explain how we'd build it. If there's a fit, we send a fixed-scope proposal.",
     status: "AVAILABLE",
   },
   {
     n: "02",
-    day: "DAY 1–5",
     label: "DESIGN",
     title: "Prototype before we commit.",
-    desc: "We design the agent flow, the surfaces, the data model, the evals. By Friday you have a clickable prototype and a build plan.",
+    desc: "We design the agent flow, the surfaces, the data model, the evals. You get a clickable prototype and a build plan before any code is written.",
     status: "STANDARD",
   },
   {
     n: "03",
-    day: "WEEK 2–N",
     label: "BUILD",
-    title: "Ship every week. In public.",
-    desc: "Working software at the end of every week. Loom demo on Friday, deploy on Monday. You see the code, the bugs, and the fixes as they happen.",
+    title: "You stay in the loop.",
+    desc: "You see working software early and often. Loom demos, fast deploys, code reviews. You watch the build happen, not just the result.",
     status: "STANDARD",
   },
   {
     n: "04",
-    day: "POST-LAUNCH",
     label: "OPERATE",
-    title: "Hand off — or stay on.",
+    title: "Hand off, or stay on.",
     desc: "We can hand the codebase to your team with full docs and runbooks. Or we keep operating it on a monthly retainer. Your call.",
     status: "OPTIONAL",
   },
@@ -70,12 +65,11 @@ export function Process() {
             >
               From brief
               <br />
-              to production
-              <br />
-              in 6 weeks.
+              to production.
             </h2>
             <p className="m-0 max-w-[520px] text-[17px] leading-[1.55] text-white/65 md:justify-self-end">
-              First deploy in week 2. Working software every week after that.
+              You see working software early and often. We move at the pace of
+              AI, not the pace of the calendar.
             </p>
           </div>
         </div>
@@ -99,14 +93,11 @@ export function Process() {
                   {step.n}
                 </span>
                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/55">
-                  {step.day}
+                  {step.label}
                 </span>
               </div>
 
               <div className="flex flex-col gap-3">
-                <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/55">
-                  {step.label}
-                </span>
                 <h3 className="m-0 max-w-[540px] text-[26px] font-bold leading-[1.05] tracking-[-0.03em] text-background md:text-[32px]">
                   {step.title}
                 </h3>

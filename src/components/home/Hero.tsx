@@ -16,17 +16,17 @@ const QUICK_ITEMS = [
   {
     n: "01",
     label: "Build",
-    desc: "We ship your product. We use AI to do most of the work.",
+    desc: "AI products and internal tools, end-to-end.",
   },
   {
     n: "02",
     label: "Operate",
-    desc: "We deploy agents inside your team to take over the ops.",
+    desc: "Agents inside your company. Sales, support, admin, content.",
   },
   {
     n: "03",
     label: "Advise",
-    desc: "We do AI strategy, then train your team to run with it.",
+    desc: "Strategy, training, and the AI playbook for your team.",
   },
 ];
 
@@ -88,7 +88,7 @@ export function Hero() {
               aria-hidden="true"
               className="h-2 w-2 animate-pulse rounded-full bg-emerald-500"
             />
-            Building in public · Shipping weekly
+            Open to projects · Built with AI
           </span>
         </motion.div>
 
@@ -104,7 +104,7 @@ export function Hero() {
           }}
         >
           <span className="block">
-            We build AI products that ship in weeks,
+            AI-native agency.
           </span>
           <span
             className="block"
@@ -113,7 +113,7 @@ export function Hero() {
               color: "transparent",
             }}
           >
-            not quarters.
+            Everything 50–100× faster.
           </span>
         </motion.h1>
 
@@ -124,8 +124,9 @@ export function Hero() {
           className="mt-12 grid grid-cols-1 items-end gap-10 md:mt-14 md:grid-cols-[1.4fr_1fr] md:gap-12"
         >
           <p className="m-0 max-w-[620px] text-lg leading-[1.5] text-foreground md:text-[19px]">
-            A small team of engineers and designers using AI all day to design,
-            build, and operate your product end-to-end.
+            A small team of AI specialists. We build products, automate ops,
+            and train teams. Our agency itself runs on AI. That&apos;s the
+            compound.
           </p>
 
           <div className="flex flex-col items-start gap-3">
@@ -183,11 +184,13 @@ export function Hero() {
               "inline-flex items-center gap-3 px-6 py-3"
             )}
           >
-            <span aria-hidden="true">▓</span> NOW SHIPPING{" "}
+            <span aria-hidden="true">▓</span> AI-NATIVE AGENCY{" "}
+            <span aria-hidden="true">·</span> 50–100× FASTER{" "}
+            <span aria-hidden="true">·</span> BUILT WITH CLAUDE + CODEX{" "}
+            <span aria-hidden="true">·</span> OUR AGENCY RUNS ON AI{" "}
+            <span aria-hidden="true">·</span> AI SPECIALISTS{" "}
             <span aria-hidden="true">·</span> 4 LIVE PRODUCTS{" "}
             <span aria-hidden="true">·</span> 12+ AI BUILDS{" "}
-            <span aria-hidden="true">·</span> 20× EFFICIENCY{" "}
-            <span aria-hidden="true">·</span> BUILT WITH CLAUDE + CODEX{" "}
             <span aria-hidden="true">·</span>
           </span>
         </Marquee>
