@@ -1,0 +1,20 @@
+content/articles/ai-music-with-an-artist.md
+  s_5d5132f3b04be2::t_38eec9a8d955ea 9,11,24
+  s_5d5132f3b04be2::t_37aa8f4c0aa5ab 1-8,10,12-23,25-152
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "68fb43b7f7c9b735d70afea236244b0142a1dca0",
+  "prompts": {},
+  "sessions": {
+    "s_5d5132f3b04be2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e6568-2307-7e91-bed8-088bd1d1ba3a",
+        "model": "gpt-5.5"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
