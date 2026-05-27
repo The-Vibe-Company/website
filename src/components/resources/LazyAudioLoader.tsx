@@ -31,6 +31,26 @@ export function LazyAudioLoader() {
       }
     }
 
+    const setAudioTime = (figure: HTMLElement, audio: HTMLAudioElement, nextTime: number) => {
+      try {
+        audio.currentTime = nextTime
+      } catch {
+        return false
+      }
+
+      updateProgress(figure, audio)
+      return true
+    }
+
+    const applyPendingSeek = (figure: HTMLElement, audio: HTMLAudioElement) => {
+      const pendingSeekRatio = Number(figure.dataset.pendingSeekRatio)
+      if (!Number.isFinite(pendingSeekRatio) || !Number.isFinite(audio.duration) || audio.duration <= 0) return
+
+      const boundedRatio = Math.min(1, Math.max(0, pendingSeekRatio))
+      const didSeek = setAudioTime(figure, audio, boundedRatio * audio.duration)
+      if (didSeek) delete figure.dataset.pendingSeekRatio
+    }
+
     const setPlayingState = (figure: HTMLElement, button: HTMLButtonElement, playing: boolean) => {
       const label = button.querySelector<HTMLElement>('.prose-vibe-audio__load-text')
 
@@ -52,17 +72,24 @@ export function LazyAudioLoader() {
         source.src = src
         if (type) source.type = type
         audio.append(source)
-        audio.load()
+
+        const syncAudioState = () => {
+          applyPendingSeek(figure, audio)
+          updateProgress(figure, audio)
+        }
 
         audio.addEventListener('pause', () => setPlayingState(figure, button, false))
         audio.addEventListener('ended', () => setPlayingState(figure, button, false))
         audio.addEventListener('play', () => setPlayingState(figure, button, true))
-        audio.addEventListener('loadedmetadata', () => updateProgress(figure, audio))
-        audio.addEventListener('durationchange', () => updateProgress(figure, audio))
+        audio.addEventListener('loadedmetadata', syncAudioState)
+        audio.addEventListener('durationchange', syncAudioState)
+        audio.addEventListener('canplay', syncAudioState)
         audio.addEventListener('timeupdate', () => updateProgress(figure, audio))
+        audio.load()
       }
 
       figure.dataset.loaded = 'true'
+      applyPendingSeek(figure, audio)
       updateProgress(figure, audio)
       return { audio, button }
     }
@@ -75,21 +102,12 @@ export function LazyAudioLoader() {
       const boundedRatio = Math.min(1, Math.max(0, ratio))
 
       if (Number.isFinite(audio.duration) && audio.duration > 0) {
-        audio.currentTime = boundedRatio * audio.duration
-        updateProgress(figure, audio)
+        setAudioTime(figure, audio, boundedRatio * audio.duration)
         return
       }
 
-      audio.addEventListener(
-        'loadedmetadata',
-        () => {
-          if (Number.isFinite(audio.duration) && audio.duration > 0) {
-            audio.currentTime = boundedRatio * audio.duration
-            updateProgress(figure, audio)
-          }
-        },
-        { once: true },
-      )
+      figure.dataset.pendingSeekRatio = String(boundedRatio)
+      figure.style.setProperty('--audio-progress', `${boundedRatio * 100}%`)
     }
 
     const toggleAudio = (button: HTMLButtonElement) => {
@@ -122,8 +140,7 @@ export function LazyAudioLoader() {
       const parts = ensureAudio(figure)
       if (!parts) return
 
-      parts.audio.currentTime = Math.max(0, parts.audio.currentTime - 10)
-      updateProgress(figure, parts.audio)
+      setAudioTime(figure, parts.audio, Math.max(0, parts.audio.currentTime - 10))
     }
 
     const onClick = (event: MouseEvent) => {
@@ -176,8 +193,7 @@ export function LazyAudioLoader() {
       if (nextTime === null) return
 
       event.preventDefault()
-      audio.currentTime = Math.min(duration || Number.POSITIVE_INFINITY, Math.max(0, nextTime))
-      updateProgress(figure, audio)
+      setAudioTime(figure, audio, Math.min(duration || Number.POSITIVE_INFINITY, Math.max(0, nextTime)))
     }
 
     document.addEventListener('click', onClick)
