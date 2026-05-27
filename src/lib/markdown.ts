@@ -87,6 +87,7 @@ function renderMarkdownAudio(line: string): string | null {
 
   return (
     `<figure class="prose-vibe-audio" style="--audio-progress: 0%">` +
+    `<figcaption class="prose-vibe-audio__title">${escapeHtml(title)}</figcaption>` +
     `<button type="button" class="prose-vibe-audio__load" data-audio-src="${escapeAttribute(src)}" data-audio-type="${type}" aria-label="Play ${escapeAttribute(title)}">` +
     `<span class="prose-vibe-audio__play-icon" aria-hidden="true"></span>` +
     `<span class="prose-vibe-audio__load-text">Play</span>` +

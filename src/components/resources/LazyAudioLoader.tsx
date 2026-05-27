@@ -67,24 +67,27 @@ export function LazyAudioLoader() {
 
       if (!button || !audio || !src) return null
 
-      if (!audio.src) {
-        const source = document.createElement('source')
-        source.src = src
-        if (type) source.type = type
-        audio.append(source)
+      if (audio.dataset.loadedSrc !== src) {
+        audio.src = src
+        if (type) audio.dataset.audioType = type
+        audio.dataset.loadedSrc = src
 
         const syncAudioState = () => {
           applyPendingSeek(figure, audio)
           updateProgress(figure, audio)
         }
 
-        audio.addEventListener('pause', () => setPlayingState(figure, button, false))
-        audio.addEventListener('ended', () => setPlayingState(figure, button, false))
-        audio.addEventListener('play', () => setPlayingState(figure, button, true))
-        audio.addEventListener('loadedmetadata', syncAudioState)
-        audio.addEventListener('durationchange', syncAudioState)
-        audio.addEventListener('canplay', syncAudioState)
-        audio.addEventListener('timeupdate', () => updateProgress(figure, audio))
+        if (audio.dataset.listenersBound !== 'true') {
+          audio.addEventListener('pause', () => setPlayingState(figure, button, false))
+          audio.addEventListener('ended', () => setPlayingState(figure, button, false))
+          audio.addEventListener('play', () => setPlayingState(figure, button, true))
+          audio.addEventListener('loadedmetadata', syncAudioState)
+          audio.addEventListener('durationchange', syncAudioState)
+          audio.addEventListener('canplay', syncAudioState)
+          audio.addEventListener('timeupdate', () => updateProgress(figure, audio))
+          audio.dataset.listenersBound = 'true'
+        }
+
         audio.load()
       }
 
@@ -94,20 +97,35 @@ export function LazyAudioLoader() {
       return { audio, button }
     }
 
-    const seekToRatio = (figure: HTMLElement, ratio: number) => {
+    const playAudio = (figure: HTMLElement, audio: HTMLAudioElement, button: HTMLButtonElement) => {
+      document.querySelectorAll<HTMLAudioElement>('audio.prose-vibe-audio__player').forEach((otherAudio) => {
+        if (otherAudio !== audio) otherAudio.pause()
+      })
+
+      void audio
+        .play()
+        .catch(() => setPlayingState(figure, button, false))
+    }
+
+    const seekToRatio = (figure: HTMLElement, ratio: number, shouldPlay: boolean) => {
       const parts = ensureAudio(figure)
       if (!parts) return
 
-      const { audio } = parts
+      const { audio, button } = parts
       const boundedRatio = Math.min(1, Math.max(0, ratio))
 
       if (Number.isFinite(audio.duration) && audio.duration > 0) {
         setAudioTime(figure, audio, boundedRatio * audio.duration)
+        if (shouldPlay) playAudio(figure, audio, button)
         return
       }
 
       figure.dataset.pendingSeekRatio = String(boundedRatio)
       figure.style.setProperty('--audio-progress', `${boundedRatio * 100}%`)
+
+      if (shouldPlay) {
+        playAudio(figure, audio, button)
+      }
     }
 
     const toggleAudio = (button: HTMLButtonElement) => {
@@ -124,13 +142,7 @@ export function LazyAudioLoader() {
         return
       }
 
-      document.querySelectorAll<HTMLAudioElement>('audio.prose-vibe-audio__player').forEach((otherAudio) => {
-        if (otherAudio !== audio) otherAudio.pause()
-      })
-
-      void audio
-        .play()
-        .catch(() => setPlayingState(figure, button, false))
+      playAudio(figure, audio, button)
     }
 
     const rewindAudio = (button: HTMLButtonElement) => {
@@ -167,7 +179,7 @@ export function LazyAudioLoader() {
         const rect = wave.getBoundingClientRect()
         const ratio = rect.width > 0 ? (event.clientX - rect.left) / rect.width : 0
         event.preventDefault()
-        seekToRatio(figure, ratio)
+        seekToRatio(figure, ratio, true)
       }
     }
 
