@@ -414,8 +414,9 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.55rem 0.75rem;
+  width: 100%;
   max-width: 38rem;
-  margin: 1.65em 0;
+  margin: 1.65em auto;
   padding: 0;
   border: 0;
   background: transparent;
