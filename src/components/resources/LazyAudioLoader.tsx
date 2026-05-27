@@ -4,10 +4,17 @@ import { useEffect } from 'react'
 
 export function LazyAudioLoader() {
   useEffect(() => {
-    const loadAudio = (button: HTMLButtonElement) => {
+    const setPlayingState = (figure: HTMLElement, button: HTMLButtonElement, playing: boolean) => {
+      const label = button.querySelector<HTMLElement>('.prose-vibe-audio__load-text')
+
+      figure.dataset.playing = playing ? 'true' : 'false'
+      if (label) label.textContent = playing ? 'Pause' : 'Play'
+      button.setAttribute('aria-label', playing ? 'Pause audio' : 'Play audio')
+    }
+
+    const toggleAudio = (button: HTMLButtonElement) => {
       const figure = button.closest<HTMLElement>('.prose-vibe-audio')
       const audio = figure?.querySelector<HTMLAudioElement>('audio.prose-vibe-audio__player')
-      const label = button.querySelector<HTMLElement>('.prose-vibe-audio__load-text')
       const src = button.dataset.audioSrc
       const type = button.dataset.audioType
 
@@ -18,23 +25,23 @@ export function LazyAudioLoader() {
         source.src = src
         if (type) source.type = type
         audio.append(source)
-        audio.controls = true
-        audio.hidden = false
         audio.load()
+
+        audio.addEventListener('pause', () => setPlayingState(figure, button, false))
+        audio.addEventListener('ended', () => setPlayingState(figure, button, false))
+        audio.addEventListener('play', () => setPlayingState(figure, button, true))
       }
 
       figure.dataset.loaded = 'true'
-      if (label) label.textContent = 'Loading'
+
+      if (!audio.paused) {
+        audio.pause()
+        return
+      }
 
       void audio
         .play()
-        .then(() => {
-          if (label) label.textContent = 'Playing'
-          button.setAttribute('aria-label', 'Audio loaded')
-        })
-        .catch(() => {
-          if (label) label.textContent = 'Play'
-        })
+        .catch(() => setPlayingState(figure, button, false))
     }
 
     const onClick = (event: MouseEvent) => {
@@ -45,7 +52,7 @@ export function LazyAudioLoader() {
       if (!button) return
 
       event.preventDefault()
-      loadAudio(button)
+      toggleAudio(button)
     }
 
     document.addEventListener('click', onClick)

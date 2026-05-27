@@ -411,55 +411,15 @@
 .prose-vibe-audio {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1rem;
   margin: 2em 0;
-  padding: 0.85rem;
-  border: 1px solid var(--res-border, var(--border));
-  border-radius: 4px;
-  background: var(--res-surface, transparent);
-}
-
-.prose-vibe-audio__content {
-  flex: 1;
-  min-width: 0;
-  display: grid;
-  gap: 0.5rem;
-}
-
-.prose-vibe-audio__meta {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem;
-}
-
-.prose-vibe-audio__badge {
-  flex: none;
-  font-family: var(--font-geist-mono);
-  font-size: 0.62rem;
-  line-height: 1;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--res-text-muted, var(--muted-foreground));
-}
-
-.prose-vibe-audio__title {
-  flex: 1;
-  margin: 0;
-  overflow: hidden;
-  font-size: 0.92rem;
-  font-weight: 600;
-  line-height: 1.2;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--res-text, var(--foreground));
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .prose-vibe-audio__player {
-  width: 100%;
-  height: 36px;
-  margin-top: 0.25rem;
-  accent-color: var(--res-text, var(--foreground));
+  display: none;
 }
 
 .prose-vibe-audio__player[hidden] {
@@ -472,18 +432,15 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3.25rem;
+  height: 3.25rem;
   padding: 0;
   border: 0;
   border-radius: 999px;
-  color: var(--res-bg, var(--background));
-  background: var(--res-text, var(--foreground));
+  color: #fff;
+  background: #f26f23;
   cursor: pointer;
   transition:
-    background 0.2s,
-    border-color 0.2s,
-    color 0.2s,
     opacity 0.2s,
     transform 0.2s;
 }
@@ -491,11 +448,36 @@
 .prose-vibe-audio__play-icon {
   width: 0;
   height: 0;
-  margin-left: 0.15rem;
-  border-top: 0.42rem solid transparent;
-  border-bottom: 0.42rem solid transparent;
-  border-left: 0.62rem solid currentColor;
+  margin-left: 0.2rem;
+  border-top: 0.52rem solid transparent;
+  border-bottom: 0.52rem solid transparent;
+  border-left: 0.78rem solid currentColor;
   position: relative;
+}
+
+.prose-vibe-audio[data-playing='true'] .prose-vibe-audio__play-icon {
+  width: 0.78rem;
+  height: 1rem;
+  margin-left: 0;
+  border: 0;
+}
+
+.prose-vibe-audio[data-playing='true'] .prose-vibe-audio__play-icon::before,
+.prose-vibe-audio[data-playing='true'] .prose-vibe-audio__play-icon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0.26rem;
+  background: currentColor;
+}
+
+.prose-vibe-audio[data-playing='true'] .prose-vibe-audio__play-icon::before {
+  left: 0;
+}
+
+.prose-vibe-audio[data-playing='true'] .prose-vibe-audio__play-icon::after {
+  right: 0;
 }
 
 .prose-vibe-audio__load-text {
@@ -508,37 +490,29 @@
 }
 
 .prose-vibe-audio__load:hover {
-  transform: translateY(-1px);
+  transform: scale(1.03);
   opacity: 0.88;
 }
 
 .prose-vibe-audio[data-loaded='true'] .prose-vibe-audio__load {
-  opacity: 0.5;
-}
-
-.prose-vibe-audio__note {
-  margin: 0;
-  overflow: hidden;
-  font-size: 0.76rem;
-  line-height: 1.35;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--res-text-muted, var(--muted-foreground));
+  opacity: 1;
 }
 
 .prose-vibe-audio__wave {
   display: flex;
   align-items: end;
   gap: 2px;
-  height: 1.75rem;
-  color: color-mix(in oklab, var(--res-text, var(--foreground)) 35%, transparent);
+  flex: 1;
+  min-width: 0;
+  height: 4rem;
+  color: var(--res-text, var(--foreground));
 }
 
 .prose-vibe-audio__wave span {
   display: block;
   flex: 1;
-  min-width: 2px;
-  min-height: 0.18rem;
+  min-width: 3px;
+  min-height: 0.35rem;
   background: currentColor;
 }
 
@@ -553,20 +527,27 @@
   color: var(--res-text, var(--foreground));
 }
 
+.prose-vibe-audio[data-playing='true'] .prose-vibe-audio__wave {
+  color: #f26f23;
+}
+
 @media (max-width: 640px) {
   .prose-vibe-audio {
-    align-items: flex-start;
+    gap: 0.75rem;
   }
 
-  .prose-vibe-audio__meta {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.35rem;
+  .prose-vibe-audio__load {
+    width: 2.75rem;
+    height: 2.75rem;
   }
 
-  .prose-vibe-audio__title,
-  .prose-vibe-audio__note {
-    white-space: normal;
+  .prose-vibe-audio__wave {
+    height: 3.1rem;
+    gap: 1.5px;
+  }
+
+  .prose-vibe-audio__wave span {
+    min-width: 2px;
   }
 }
 

@@ -76,8 +76,6 @@ function renderMarkdownAudio(line: string): string | null {
   const title = attrs.title?.trim()
   if (!src || !title || !isSafeMarkdownAudioUrl(src)) return null
 
-  const badge = attrs.badge?.trim() || 'Audio'
-  const note = attrs.note?.trim()
   const type = src.toLowerCase().endsWith('.mp3')
     ? 'audio/mpeg'
     : src.toLowerCase().endsWith('.ogg')
@@ -92,13 +90,11 @@ function renderMarkdownAudio(line: string): string | null {
     `<span class="prose-vibe-audio__play-icon" aria-hidden="true"></span>` +
     `<span class="prose-vibe-audio__load-text">Play</span>` +
     `</button>` +
-    `<div class="prose-vibe-audio__content">` +
-    `<div class="prose-vibe-audio__meta">` +
-    `<figcaption class="prose-vibe-audio__title">${escapeHtml(title)}</figcaption>` +
-    `<span class="prose-vibe-audio__badge">${escapeHtml(badge)}</span>` +
-    `</div>` +
-    `${note ? `<p class="prose-vibe-audio__note">${escapeHtml(note)}</p>` : ''}` +
     `<div class="prose-vibe-audio__wave" aria-hidden="true">` +
+    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
+    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
+    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
+    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
     `<span></span><span></span><span></span><span></span><span></span><span></span>` +
     `<span></span><span></span><span></span><span></span><span></span><span></span>` +
     `<span></span><span></span><span></span><span></span><span></span><span></span>` +
@@ -107,7 +103,6 @@ function renderMarkdownAudio(line: string): string | null {
     `<audio preload="none" class="prose-vibe-audio__player" hidden>` +
     `Your browser does not support the audio element.` +
     `</audio>` +
-    `</div>` +
     `</figure>`
   )
 }
