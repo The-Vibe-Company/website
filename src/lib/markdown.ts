@@ -83,23 +83,25 @@ function renderMarkdownAudio(line: string): string | null {
       : src.toLowerCase().endsWith('.wav')
         ? 'audio/wav'
         : 'audio/mp4'
+  const audioBars = '<span></span>'.repeat(48)
 
   return (
-    `<figure class="prose-vibe-audio">` +
+    `<figure class="prose-vibe-audio" style="--audio-progress: 0%">` +
     `<button type="button" class="prose-vibe-audio__load" data-audio-src="${escapeAttribute(src)}" data-audio-type="${type}" aria-label="Play ${escapeAttribute(title)}">` +
     `<span class="prose-vibe-audio__play-icon" aria-hidden="true"></span>` +
     `<span class="prose-vibe-audio__load-text">Play</span>` +
     `</button>` +
-    `<div class="prose-vibe-audio__wave" aria-hidden="true">` +
-    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
-    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
-    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
-    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
-    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
-    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
-    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
-    `<span></span><span></span><span></span><span></span><span></span><span></span>` +
+    `<div class="prose-vibe-audio__timeline">` +
+    `<div class="prose-vibe-audio__wave" role="slider" tabindex="0" aria-label="Seek ${escapeAttribute(title)}" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="0:00">` +
+    `<div class="prose-vibe-audio__wave-bars" aria-hidden="true">${audioBars}</div>` +
+    `<div class="prose-vibe-audio__wave-progress" aria-hidden="true">${audioBars}</div>` +
     `</div>` +
+    `<div class="prose-vibe-audio__time" aria-hidden="true">` +
+    `<span class="prose-vibe-audio__current">0:00</span>` +
+    `<span class="prose-vibe-audio__duration">0:00</span>` +
+    `</div>` +
+    `</div>` +
+    `<button type="button" class="prose-vibe-audio__rewind" aria-label="Back 10 seconds">↺</button>` +
     `<audio preload="none" class="prose-vibe-audio__player" hidden>` +
     `Your browser does not support the audio element.` +
     `</audio>` +
