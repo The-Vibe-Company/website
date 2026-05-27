@@ -1,6 +1,7 @@
 ---
 title: "MCP is how agents learn your company's taste"
 slug: mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done
+language: en
 summary: "Tool access is the shallow promise of MCP. The real value is packaging company judgment - context, order, permissions, review, and taste - into a surface agents can actually use."
 publishedAt: 2026-04-08
 complexity: advanced
@@ -107,6 +108,8 @@ The method gets you work you can trust.
 - [Anthropic introducing MCP](https://www.anthropic.com/news/model-context-protocol)
 - [OpenAI MCP documentation](https://developers.openai.com/api/docs/mcp)
 - [Granite on GitHub](https://github.com/The-Vibe-Company/Granite)
+- [Why I replaced prompts with skills](/resources/articles/why-i-replaced-prompts-with-skills)
 - [Agents don't lack tools. They lack company memory.](/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
+- [Le vrai sujet avec les agents IA, c'est la formation](/resources/articles/agents-ia-formation-autorite)
 - [My personal OS lives in a folder. My agents run my company from it.](/resources/articles/my-personal-os-lives-in-a-folder)
 - [Playbook: preparing a CIR/CII dossier with Claude Code](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer)

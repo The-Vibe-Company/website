@@ -1,94 +1,139 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  typography,
-  spacing,
-  components,
-  animations,
-  cn,
-  createTransition,
-} from "@/lib/design-system";
+import Link from "next/link";
 
-const links = [
-  { label: "Mission", href: "#mission" },
-  { label: "Learn", href: "#learn" },
-  { label: "Twitter/X", href: "https://x.com/thevibecompany", external: true },
-  { label: "GitHub", href: "https://github.com/The-Vibe-Company", external: true },
+interface NavLink {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+const SITE_LINKS: NavLink[] = [
+  { label: "Home", href: "/" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Resources", href: "/resources" },
+  { label: "Mission", href: "/agency" },
 ];
+
+const ELSEWHERE_LINKS: NavLink[] = [
+  { label: "X / Twitter", href: "https://x.com/thevibecompany", external: true },
+  {
+    label: "GitHub",
+    href: "https://github.com/The-Vibe-Company",
+    external: true,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/thevibecompany",
+    external: true,
+  },
+];
+
+const STATUS_ITEMS = [
+  "Built with AI",
+  "Open to projects",
+  "Founders-led",
+];
+
+const buildYear = new Date().getUTCFullYear();
+
+function FooterLink({ link }: { link: NavLink }) {
+  const className =
+    "inline-flex items-center gap-1.5 text-sm text-background/85 transition-opacity hover:opacity-70";
+  if (link.external) {
+    return (
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {link.label}
+        <span aria-hidden="true" className="text-background/50">
+          ↗
+        </span>
+      </a>
+    );
+  }
+  return (
+    <Link href={link.href} className={className}>
+      {link.label}
+    </Link>
+  );
+}
 
 export function Footer() {
   return (
-    <footer
-      className={cn(
-        "relative py-24 overflow-hidden border-t border-border/40",
-        spacing.page.x
-      )}
-    >
-      <div className={cn(spacing.container.default, "relative z-10")}>
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-24">
-          {/* Navigation */}
-          <nav className="flex flex-col gap-4">
-            <span
-              className={cn(
-                typography.label.mono,
-                "text-muted-foreground mb-4"
-              )}
-            >
-              Navigation
-            </span>
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noopener noreferrer" : undefined}
-                className={cn(typography.body.small, components.link.default)}
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          {/* Quote Section */}
-          <div className="text-right">
-            <p
-              className={cn(
-                typography.body.small,
-                "font-light text-muted-foreground max-w-sm ml-auto mb-8"
-              )}
-            >
-              Vibe coding is the art of shipping software that feels like magic.
+    <footer className="border-t-2 border-foreground bg-foreground text-background">
+      <div className="mx-auto max-w-[120rem] px-6 pb-6 pt-16 md:px-12 md:pt-20">
+        <div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-[2fr_1fr_1fr_1fr] md:gap-12">
+          <div className="flex flex-col">
+            <h2 className="m-0 mb-4 text-5xl font-bold leading-[0.9] tracking-[-0.04em] md:text-[56px]">
+              The Vibe Co.
+            </h2>
+            <p className="m-0 mb-4 max-w-[280px] text-sm text-background/60">
+              An AI native agency. Paris.
             </p>
-            <div
-              className={cn(
-                typography.label.small,
-                typography.fonts.mono,
-                "text-muted-foreground"
-              )}
+            <a
+              href="mailto:founders@thevibecompany.co"
+              className="font-mono text-xs text-background underline underline-offset-4 hover:opacity-70"
             >
-              &copy; {new Date().getFullYear()} THE VIBE COMPANY.
+              founders@thevibecompany.co
+            </a>
+          </div>
+
+          <div>
+            <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
+              SITE
             </div>
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+              {SITE_LINKS.map((link) => (
+                <li key={link.label}>
+                  <FooterLink link={link} />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
+              ELSEWHERE
+            </div>
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+              {ELSEWHERE_LINKS.map((link) => (
+                <li key={link.label}>
+                  <FooterLink link={link} />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
+              STATUS
+            </div>
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+              {STATUS_ITEMS.map((item) => (
+                <li
+                  key={item}
+                  className="inline-flex items-center gap-2 text-sm text-background/85"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="h-1.5 w-1.5 animate-pulse rounded-full bg-background"
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Large Footer Text */}
-        <motion.div
-          className="relative select-none"
-          initial={animations.variants.fadeInUpLarge.initial}
-          whileInView={animations.variants.fadeInUpLarge.animate}
-          viewport={{ once: true }}
-          transition={createTransition(1)}
-        >
-          <h1
-            className={cn(
-              typography.display.large,
-              "text-center md:text-left -ml-2 sm:-ml-4 opacity-10 md:opacity-100 transition-opacity"
-            )}
-          >
-            THE VIBE CO.
-          </h1>
-        </motion.div>
+        <div className="flex flex-wrap justify-between gap-3 border-t border-background/15 pt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-background/50">
+          <span>© {buildYear} THE VIBE COMPANY</span>
+          <span>YC W24 · MADE IN FRANCE</span>
+          <span>BUILT WITH AI · OPEN TO PROJECTS</span>
+        </div>
       </div>
     </footer>
   );

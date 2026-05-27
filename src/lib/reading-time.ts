@@ -4,7 +4,11 @@
 export function estimateReadingTime(body: unknown): number {
   let text = '';
   if (typeof body === 'string') {
-    text = body;
+    text = body.replace(/^::audio\{(.+)\}$/gm, (_match, attrs: string) => {
+      return Array.from(attrs.matchAll(/(?:title|note)="([^"]*)"/g))
+        .map((item) => item[1])
+        .join(' ')
+    });
   } else {
     text = extractText(body);
   }

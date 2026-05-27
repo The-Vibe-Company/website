@@ -238,7 +238,7 @@
 
 ### Bug Fixes
 
-* **deps:** pin lexical@0.35.0 to match @payloadcms/richtext-lexical ([ab5dbd7](https://github.com/The-Vibe-Company/website/commit/ab5dbd79c4257bc7abb598d0dceb6b9251676b85))
+* **deps:** pin lexical@0.35.0 to match the rich-text editor dependency ([ab5dbd7](https://github.com/The-Vibe-Company/website/commit/ab5dbd79c4257bc7abb598d0dceb6b9251676b85))
 
 ## [0.1.6](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.5...thevibecompany-v0.1.6) (2026-02-07)
 
@@ -259,7 +259,7 @@
 
 ### Features
 
-* **backend:** comprehensive Payload CMS upgrade with ingestion pipeline ([#20](https://github.com/The-Vibe-Company/website/issues/20)) ([885dff1](https://github.com/The-Vibe-Company/website/commit/885dff169d64a9903fc7ad484a3303626be9c249))
+* **backend:** comprehensive CMS upgrade with ingestion pipeline ([#20](https://github.com/The-Vibe-Company/website/issues/20)) ([885dff1](https://github.com/The-Vibe-Company/website/commit/885dff169d64a9903fc7ad484a3303626be9c249))
 
 ## [0.1.3](https://github.com/The-Vibe-Company/website/compare/thevibecompany-v0.1.2...thevibecompany-v0.1.3) (2026-02-07)
 

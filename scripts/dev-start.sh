@@ -12,9 +12,11 @@ set -euo pipefail
 # =============================================================================
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-DEV_PORT=4200
+# Respect Conductor's assigned port when present, while keeping compatibility with generic PORT.
+DEV_PORT="${CONDUCTOR_PORT:-${PORT:-4200}}"
 PID_FILE="$ROOT_DIR/.dev-server.pid"
 LOG_FILE="$ROOT_DIR/.dev-server.log"
+FOREGROUND_MODE=false
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -131,7 +133,13 @@ cmd_start() {
   fi
   info "Dependencies OK"
 
-  # --- Start dev server on unique port ---
+  # --- Start foreground process for Conductor run scripts ---
+  if [ "$FOREGROUND_MODE" = true ]; then
+    warn "Starting foreground dev server on port $DEV_PORT..."
+    exec env NODE_OPTIONS="--max-old-space-size=8192" bun run dev --port "$DEV_PORT"
+  fi
+
+  # --- Start background process for local shell workflows ---
   warn "Starting dev server on port $DEV_PORT..."
   NODE_OPTIONS="--max-old-space-size=8192" nohup bun run dev --port "$DEV_PORT" > "$LOG_FILE" 2>&1 &
   echo $! > "$PID_FILE"
@@ -162,6 +170,10 @@ cmd_start() {
 # --------------- main ---------------
 
 case "${1:-}" in
+  --foreground)
+    FOREGROUND_MODE=true
+    cmd_start
+    ;;
   --stop)   cmd_stop   ;;
   --status) cmd_status ;;
   *)        cmd_start  ;;

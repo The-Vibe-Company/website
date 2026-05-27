@@ -1,3 +1,5 @@
+import { getOptimizedImageUrl } from '@/lib/image-variants'
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, '&amp;')
@@ -25,6 +27,22 @@ function isSafeMarkdownImageUrl(value: string): boolean {
   return /^\/(?!\/)/.test(value) || /^https?:\/\//.test(value)
 }
 
+function isSafeMarkdownAudioUrl(value: string): boolean {
+  return /^\/(?!\/)[^\s]*\.(?:mp3|wav|m4a|aac|ogg|flac)$/i.test(value.trim())
+}
+
+function parseDirectiveAttributes(value: string): Record<string, string> {
+  const attrs: Record<string, string> = {}
+  const pattern = /(\w+)="([^"]*)"/g
+  let match: RegExpExecArray | null
+
+  while ((match = pattern.exec(value))) {
+    attrs[match[1]] = match[2]
+  }
+
+  return attrs
+}
+
 function parseMarkdownImage(line: string): { alt: string; src: string; title?: string } | null {
   const match = line.match(/^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]+)")?\)\s*$/)
   if (!match) return null
@@ -39,13 +57,56 @@ function renderMarkdownImage(line: string): string | null {
   if (!isSafeMarkdownImageUrl(image.src)) return null
 
   const alt = escapeHtml(image.alt)
-  const src = escapeImageUrl(image.src)
+  const src = escapeImageUrl(getOptimizedImageUrl(image.src))
   const caption = image.title ? `<figcaption>${escapeHtml(image.title)}</figcaption>` : ''
 
   return (
     `<figure class="prose-vibe-image">` +
     `<img src="${src}" alt="${alt}" loading="lazy" decoding="async" />` +
     `${caption}</figure>`
+  )
+}
+
+function renderMarkdownAudio(line: string): string | null {
+  const match = line.match(/^::audio\{(.+)\}\s*$/)
+  if (!match) return null
+
+  const attrs = parseDirectiveAttributes(match[1])
+  const src = attrs.src?.trim()
+  const title = attrs.title?.trim()
+  if (!src || !title || !isSafeMarkdownAudioUrl(src)) return null
+
+  const type = src.toLowerCase().endsWith('.mp3')
+    ? 'audio/mpeg'
+    : src.toLowerCase().endsWith('.ogg')
+      ? 'audio/ogg'
+      : src.toLowerCase().endsWith('.wav')
+        ? 'audio/wav'
+        : 'audio/mp4'
+  const audioBars = '<span></span>'.repeat(48)
+
+  return (
+    `<figure class="prose-vibe-audio" style="--audio-progress: 0%">` +
+    `<figcaption class="prose-vibe-audio__title">${escapeHtml(title)}</figcaption>` +
+    `<button type="button" class="prose-vibe-audio__load" data-audio-src="${escapeAttribute(src)}" data-audio-type="${type}" aria-label="Play ${escapeAttribute(title)}">` +
+    `<span class="prose-vibe-audio__play-icon" aria-hidden="true"></span>` +
+    `<span class="prose-vibe-audio__load-text">Play</span>` +
+    `</button>` +
+    `<div class="prose-vibe-audio__timeline">` +
+    `<div class="prose-vibe-audio__wave" role="slider" tabindex="0" aria-label="Seek ${escapeAttribute(title)}" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="0:00">` +
+    `<div class="prose-vibe-audio__wave-bars" aria-hidden="true">${audioBars}</div>` +
+    `<div class="prose-vibe-audio__wave-progress" aria-hidden="true">${audioBars}</div>` +
+    `</div>` +
+    `<div class="prose-vibe-audio__time" aria-hidden="true">` +
+    `<span class="prose-vibe-audio__current">0:00</span>` +
+    `<span class="prose-vibe-audio__duration">0:00</span>` +
+    `</div>` +
+    `</div>` +
+    `<button type="button" class="prose-vibe-audio__rewind" aria-label="Back 10 seconds">↺</button>` +
+    `<audio preload="none" class="prose-vibe-audio__player" hidden>` +
+    `Your browser does not support the audio element.` +
+    `</audio>` +
+    `</figure>`
   )
 }
 
@@ -223,6 +284,7 @@ export function renderInlineMarkdown(text: string): string {
       const safeLabel = label.replace(/@@CODESPAN(\d+)@@/g, (_token, index: string) => {
         return codePlaceholders[Number(index)] ?? ''
       })
+      const placeholder = `@@LINK${linkPlaceholders.length}@@`
 
       let link = ''
       if (isSafeInternalMarkdownUrl(url)) {
@@ -231,7 +293,6 @@ export function renderInlineMarkdown(text: string): string {
         link = `<a href="${href}" target="_blank" rel="noopener noreferrer">${safeLabel}</a>`
       }
 
-      const placeholder = `@@LINK${linkPlaceholders.length}@@`
       linkPlaceholders.push(link)
       return placeholder
     },
@@ -453,6 +514,13 @@ export function renderMarkdown(markdown: string): string {
       continue
     }
 
+    const audio = renderMarkdownAudio(line)
+    if (audio) {
+      blocks.push(audio)
+      index += 1
+      continue
+    }
+
     const paragraphLines: string[] = []
 
     while (
@@ -463,6 +531,7 @@ export function renderMarkdown(markdown: string): string {
       !/^>\s?/.test(lines[index]) &&
       !/^[-*]\s+/.test(lines[index]) &&
       !/^\d+\.\s+/.test(lines[index]) &&
+      !/^::audio\{/.test(lines[index]) &&
       !isMarkdownTableStart(lines, index)
     ) {
       paragraphLines.push(lines[index].trim())

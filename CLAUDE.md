@@ -31,40 +31,52 @@ Always use frontend-design skill and ui-ux-pro-max skill for designing pages and
 
 ## Layout Architecture (CRITICAL)
 
-**NEVER create `src/app/layout.tsx`** (root layout). Each route group has its own root layout with `<html>`:
+**NEVER create `src/app/layout.tsx`** (root layout). The frontend route group already owns its own `<html>`:
 
 - `src/app/(frontend)/layout.tsx` — frontend root layout (fonts, metadata, globals.css)
-- `src/app/(payload)/layout.tsx` — Payload admin root layout (theme, dir, Payload providers)
 
-A root layout at `src/app/layout.tsx` wraps BOTH groups, creating duplicate `<html>` elements that cause React hydration error #418 (blank admin page). CI enforces this via `scripts/check-no-root-layout.sh`.
+A root layout at `src/app/layout.tsx` would wrap the route group, creating duplicate `<html>` elements that cause React hydration error #418 (blank page).
 
-## Design Architecture: Homepage vs Resources
+## Design Architecture: unified light identity
 
-The site has **two distinct design identities** sharing the same codebase:
+The site shares **one visual identity** across Homepage, Portfolio, and Resources: warm-paper background (`#fdfbf7`), deep ink text (`#0a0a0a`), brutalist cards. All three are pinned to `color-scheme: light` and never flip with the system dark mode.
 
-| Aspect          | Homepage / Agency                                    | Resources (`/resources/*`)                                                     |
-| --------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------ |
-| **Personality** | Bold, brutalist                                      | Calm, warm "knowledge platform"                                                |
-| **Background**  | Pure white `#fff` / black `#030303`                  | Warm off-white `#faf9f7` / charcoal `#0f0e0d`                                  |
-| **Effects**     | Custom cursor circle, grid overlay, brutal shadows   | None — clean and functional                                                    |
-| **Cards**       | Sharp borders, `shadow-[12px_12px_0px_0px]` on hover | Rounded-xl/2xl, soft `shadow-lg` + `-translate-y` on hover                     |
-| **Colors**      | Monochrome (B&W only)                                | Domain accent colors (indigo, violet, emerald, cyan, amber, rose)              |
-| **Nav**         | `TopNav` with Framer Motion                          | `ResourcesNav` with breadcrumbs + search                                       |
-| **CSS tokens**  | `--background`, `--foreground`, etc.                 | `--res-bg`, `--res-surface`, `--domain-*`, etc. (scoped to `.resources-theme`) |
+Tactical orange accents (`text-orange-500` / `bg-orange-500`) are reserved for highlight signals: the "YC W24" badge, status dots, the "Companion" star count, and the "Browse all on GitHub" CTA. Use sparingly.
 
-### How the isolation works
+### Token surfaces
 
-1. **`ClientProviders.tsx`** suppresses `CustomCursor` and `SmoothScroller` when `pathname.startsWith('/resources')`
-2. **`ConditionalGridOverlay.tsx`** hides the grid background on `/resources` routes
-3. **`src/app/(frontend)/resources/layout.tsx`** wraps children in `.resources-theme` div, renders `ResourcesNav` instead of `TopNav`
-4. All resources CSS variables are scoped under `.resources-theme` in `globals.css` — they never leak to the homepage
+| Surface                           | Light tokens                            |
+| --------------------------------- | --------------------------------------- |
+| **Homepage** (`[data-variant="hybrid"]`) | `--background: #fdfbf7`, `--foreground: #0a0a0a`, `--border: #dcd7ce`, `--muted-foreground: #525252` |
+| **Resources / Portfolio** (`.resources-theme`) | `--res-bg: #fdfbf7`, `--res-text: #0a0a0a`, `--res-border: #dcd7ce`, `--res-text-muted: #525252` (mirrors hybrid) |
 
-### Resources design tokens
+Both blocks live in `src/app/globals.css`. No dark-mode override on either — both wrappers force `color-scheme: light`.
 
-- **Theme file**: `src/lib/resources-theme.ts` — all card, badge, nav, filter, search, section, daily, and stats tokens
-- **CSS variables**: `.resources-theme` block in `globals.css` with `--res-*` and `--domain-*` vars (light + dark mode)
-- **Tailwind classes**: Registered in `@theme inline` as `bg-res-bg`, `text-res-text-muted`, `text-domain-dev`, etc.
-- **Domain accent map**: `domainAccentMap` in `resources-theme.ts` maps domain slugs to CSS color var names
+### Resources-specific layer
+
+- **Theme file**: `src/lib/resources-theme.ts` — card, badge, nav, filter, search, section, daily, and stats helpers built on the `--res-*` tokens.
+- **Domain accents**: `--domain-dev`, `--domain-design`, `--domain-ops`, `--domain-business`, `--domain-ai`, `--domain-marketing` — used for content categorization on resource cards. Tailwind classes registered in `@theme inline` as `text-domain-dev`, etc.
+- **Custom cursor + grid overlay** are still suppressed on `/resources` (see `ClientProviders.tsx` and `ConditionalGridOverlay.tsx`) to keep those pages reading-friendly.
+
+## DESIGN.md Maintenance
+
+Keep the root `DESIGN.md` in sync whenever a change affects the public visual identity: colors, typography, spacing rhythm, radii, shadows, motion, grids, navigation treatments, card styles, CTAs, or the Homepage/Resources/Portfolio design split.
+
+`DESIGN.md` must stay fully self-contained:
+
+- Start with YAML frontmatter containing all structured design tokens.
+- Keep primitive token values concrete, and only use valid `design.md` token references that resolve inside the same file. Do not reference code variables, Tailwind classes, CSS custom properties, file paths, or component names as dependencies.
+- Preserve the Markdown section order: `Overview`, `Colors`, `Typography`, `Layout`, `Elevation & Depth`, `Shapes`, `Components`, `Do's and Don'ts`.
+- Capture design intent in prose after the YAML, especially details token values cannot express: warm-paper brutalism, deep-ink contrast, mono metadata, grid overlays, black slab CTAs, flat banded hierarchy, dark inverse sections, and restrained accent usage.
+- If the rendered product changes, compare `DESIGN.md` against local UI screenshots or browser testing and revise the tokens/prose until they match.
+
+Validate after every edit:
+
+```bash
+bunx @google/design.md lint --format json DESIGN.md
+```
+
+The expected result is 0 errors and 0 avoidable warnings.
 
 ## Planning
 
@@ -86,6 +98,8 @@ never deploy to vercel manually, let the CI/CD do it.
 
 The script is idempotent: run it as many times as needed, it only acts when necessary. It handles dependency installation, env validation, process management, and health checks automatically.
 
+**Dev server port**: The dev server runs on `http://localhost:$CONDUCTOR_PORT` when `CONDUCTOR_PORT` is set (Conductor workspaces always set it). Otherwise it falls back to `$PORT`, then to `4200`. Never hard-code `localhost:3000`.
+
 Before any task, run `./scripts/dev-start.sh` to ensure the dev environment is ready.
 
 If you had to use the same command multiple times in the same session, please create a script to do it in the `scripts` folder and add a one line description of what it does in CLAUDE.md
@@ -93,3 +107,25 @@ If you had to use the same command multiple times in the same session, please cr
 If you have questions about the product vision, please look at https://www.notion.so/Site-Web-Architecture-2ff324e51ac2806cb38bc195bb808578?source=copy_link and related notion pages. If you can't read the notion pages, please ask the user to share the pages with you.
 
 - Only use BUN for the project. Never use npm or yarn or pnpm for this project
+
+## Image Optimization
+
+Before opening a PR that adds or changes Markdown-referenced images, run:
+
+```bash
+bun run images:optimize
+```
+
+The image optimization system must stay lossless, source-preserving, and idempotent:
+
+- keep original files and canonical Markdown/frontmatter image references unchanged;
+- write generated variants only under `public/images/_optimized/`;
+- serve optimized images through `src/generated/image-variants.json`;
+- do not use a generated variant when it is not smaller than the source;
+- repeated `bun run images:optimize` runs must produce no diff after the first successful run.
+
+To verify image budgets without rewriting files, run:
+
+```bash
+bun run images:check
+```

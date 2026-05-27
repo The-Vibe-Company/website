@@ -23,7 +23,7 @@ export async function generateMetadata({
   const contentType = getContentTypeByUrlSlug(type);
   if (!contentType) return { title: 'Not Found' };
   return {
-    title: `${contentType.pluralLabel} | Vibe Learning`,
+    title: `${contentType.pluralLabel} | The Vibe Company`,
     description: contentType.description || '',
   };
 }

@@ -8,6 +8,29 @@ import {
   getUrlSlugForDbType,
   type ContentTypeConfig,
 } from '@/lib/content-types'
+import { getOptimizedImageUrl } from '@/lib/image-variants'
+import { parseFrontmatter } from '@/lib/parse-frontmatter'
+
+export type ContentLanguage = 'fr' | 'en'
+
+export type SkillKind = 'native' | 'external'
+
+export interface SkillInstallCommand {
+  label: string
+  command: string
+}
+
+export interface SkillMeta {
+  kind: SkillKind
+  author?: string
+  authorUrl?: string
+  allowedTools?: string[]
+  trigger?: string
+  creatorNote?: string
+  sourceUrl?: string
+  sourcePath?: string
+  installCommands?: SkillInstallCommand[]
+}
 
 export interface ContentEntry {
   id: string
@@ -17,6 +40,7 @@ export interface ContentEntry {
   body: string
   type: string
   publishedAt: string
+  language: ContentLanguage
   complexity?: string
   topics?: string[]
   featuredImage?: {
@@ -30,46 +54,13 @@ export interface ContentEntry {
   } | null
   ogImage?: {
     url: string
+    sourceUrl: string
     alt?: string
   } | null
+  skill?: SkillMeta
 }
-
-type Frontmatter = Record<string, string>
 
 const CONTENT_ROOT = path.join(process.cwd(), 'content')
-
-function parseFrontmatter(raw: string): { body: string; data: Frontmatter } {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/)
-
-  if (!match) {
-    return { body: raw.trim(), data: {} }
-  }
-
-  const [, frontmatter, body] = match
-  const data: Frontmatter = {}
-
-  for (const line of frontmatter.split('\n')) {
-    const trimmed = line.trim()
-    if (!trimmed || trimmed.startsWith('#')) continue
-
-    const separatorIndex = trimmed.indexOf(':')
-    if (separatorIndex === -1) continue
-
-    const key = trimmed.slice(0, separatorIndex).trim()
-    let value = trimmed.slice(separatorIndex + 1).trim()
-
-    if (
-      (value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      value = value.slice(1, -1)
-    }
-
-    data[key] = value
-  }
-
-  return { body: body.trim(), data }
-}
 
 function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
   const directory = path.join(CONTENT_ROOT, getUrlSlugForDbType(type.slug))
@@ -88,12 +79,17 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
       const publishedAt = data.publishedAt || new Date().toISOString().slice(0, 10)
       const summary = data.summary || body.split('\n').find(Boolean)?.trim() || ''
       const coverImage = data.coverImage || data.image || ''
+      const optimizedCoverImage = coverImage ? getOptimizedImageUrl(coverImage) : ''
       const coverAlt = data.coverAlt || data.imageAlt || title
       const ogImage = data.ogImage || ''
+      const optimizedOgImage = ogImage ? getOptimizedImageUrl(ogImage) : ''
       const topics = (data.topics || '')
         .split(',')
         .map((value) => value.trim())
         .filter(Boolean)
+      const language: ContentLanguage = data.language === 'fr' ? 'fr' : 'en'
+
+      const skill = type.slug === 'skill' ? parseSkillMeta(data) : undefined
 
       return {
         id: `${type.slug}:${slug}`,
@@ -103,27 +99,87 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         body,
         type: type.slug,
         publishedAt,
+        language,
         complexity: data.complexity || undefined,
         topics,
         featuredImage: coverImage
           ? {
-              url: coverImage,
+              url: optimizedCoverImage,
               alt: coverAlt,
               sizes: {
                 card: {
-                  url: coverImage,
+                  url: optimizedCoverImage,
                 },
               },
             }
           : null,
         ogImage: ogImage
           ? {
-              url: ogImage,
+              url: optimizedOgImage,
+              sourceUrl: ogImage,
               alt: coverAlt,
             }
           : null,
+        skill,
       }
     })
+}
+
+function parseSkillMeta(data: Record<string, string>): SkillMeta {
+  const kind: SkillKind = data.kind === 'external' ? 'external' : 'native'
+
+  const allowedTools = stripYamlBrackets(data.allowedTools || '')
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean)
+
+  let installCommands: SkillInstallCommand[] | undefined
+  if (data.installCommands) {
+    try {
+      const parsed = JSON.parse(data.installCommands)
+      if (Array.isArray(parsed)) {
+        installCommands = parsed
+          .filter((entry): entry is SkillInstallCommand =>
+            typeof entry === 'object' &&
+            entry !== null &&
+            typeof entry.label === 'string' &&
+            typeof entry.command === 'string',
+          )
+      }
+    } catch {
+      installCommands = undefined
+    }
+  }
+
+  return {
+    kind,
+    author: data.author || undefined,
+    authorUrl: normalizeExternalUrl(data.authorUrl),
+    allowedTools: allowedTools.length > 0 ? allowedTools : undefined,
+    trigger: data.trigger || undefined,
+    creatorNote: data.creatorNote || undefined,
+    sourceUrl: normalizeExternalUrl(data.sourceUrl),
+    sourcePath: data.sourcePath || undefined,
+    installCommands,
+  }
+}
+
+function normalizeExternalUrl(value?: string): string | undefined {
+  if (!value) return undefined
+  try {
+    const url = new URL(value)
+    return url.protocol === 'https:' ? url.toString() : undefined
+  } catch {
+    return undefined
+  }
+}
+
+function stripYamlBrackets(value: string): string {
+  const trimmed = value.trim()
+  if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+    return trimmed.slice(1, -1)
+  }
+  return trimmed
 }
 
 function sortByPublishedAtDesc(items: ContentEntry[]): ContentEntry[] {

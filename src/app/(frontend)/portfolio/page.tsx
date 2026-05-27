@@ -50,6 +50,16 @@ const projects: Project[] = [
       "VibeDrift tracks real developer activity and turns it into useful metrics to understand flow and friction.",
     date: "Feb 2026",
   },
+  {
+    name: "Granite",
+    href: "https://github.com/The-Vibe-Company/Granite",
+    cover: "/projects/granite-home.png",
+    logo: "/projects/granite-favicon.png",
+    accent: "#62D1AF",
+    description:
+      "Granite is the personal OS your agent runs on: markdown notes, a SQLite index, and a typed contract system that turns local files into a navigable company memory.",
+    date: "Apr 2026",
+  },
 ];
 
 export default function PortfolioPage() {

@@ -3,10 +3,14 @@
   "version": "0.1.39",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3678",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "content:check": "bun scripts/validate-content-images.ts",
+    "prebuild": "bun scripts/validate-content-images.ts && bun scripts/optimize-images.ts --check",
+    "images:optimize": "bun scripts/optimize-images.ts",
+    "images:check": "bun scripts/optimize-images.ts --check"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.73.0",
