@@ -209,6 +209,7 @@ export function normalizeMarkdownBody(value: unknown): string {
 export function renderInlineMarkdown(text: string): string {
   let html = escapeHtml(text)
   const codePlaceholders: string[] = []
+  const linkPlaceholders: string[] = []
 
   html = html.replace(/`([^`]+)`/g, (_match, code: string) => {
     const placeholder = `@@CODESPAN${codePlaceholders.length}@@`
@@ -219,12 +220,20 @@ export function renderInlineMarkdown(text: string): string {
     /\[([^\]]+)\]\(((?:https?:\/\/|\/(?!\/))[^)\s]+)\)/g,
     (_match, label: string, url: string) => {
       const href = escapeEscapedAttribute(url)
+      const safeLabel = label.replace(/@@CODESPAN(\d+)@@/g, (_token, index: string) => {
+        return codePlaceholders[Number(index)] ?? ''
+      })
 
+      let link = ''
       if (isSafeInternalMarkdownUrl(url)) {
-        return `<a href="${href}">${label}</a>`
+        link = `<a href="${href}">${safeLabel}</a>`
+      } else {
+        link = `<a href="${href}" target="_blank" rel="noopener noreferrer">${safeLabel}</a>`
       }
 
-      return `<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`
+      const placeholder = `@@LINK${linkPlaceholders.length}@@`
+      linkPlaceholders.push(link)
+      return placeholder
     },
   )
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
@@ -234,6 +243,9 @@ export function renderInlineMarkdown(text: string): string {
   html = html.replace(/~~(.+?)~~/g, '<s>$1</s>')
   html = html.replace(/@@CODESPAN(\d+)@@/g, (_match, index: string) => {
     return codePlaceholders[Number(index)] ?? ''
+  })
+  html = html.replace(/@@LINK(\d+)@@/g, (_match, index: string) => {
+    return linkPlaceholders[Number(index)] ?? ''
   })
 
   return html
