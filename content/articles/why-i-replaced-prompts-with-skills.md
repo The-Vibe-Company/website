@@ -73,7 +73,7 @@ That does not fit in a cute prompt.
 
 It became a skill: use cases, confidence thresholds, Granite lookups, a local HTML review surface, state files, and a small bridge so decisions made in the browser can be read back by the agent.
 
-The same pattern showed up in publishing. A good article workflow is not "write a blog post." It is brief, internal research, external research, outline, draft, critique, semantic cocoon, asset decisions, repo packaging, preview validation, and publication gates.
+The same pattern showed up in publishing. A good article workflow is not "write a blog post." It is brief, internal research, external research, outline, draft, critique, semantic cocoon, asset decisions, repo packaging, preview validation, and publication gates. The same routing logic now applies to coding agents too: [the DeepSWE benchmark explains why I use Opus for planning and Codex for execution](/resources/articles/why-codex-felt-better-than-claude-deepswe).
 
 If that stays as a prompt, half the workflow depends on whether the current chat has enough room and whether I remembered to paste the latest version.
 

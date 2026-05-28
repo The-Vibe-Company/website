@@ -32,7 +32,7 @@ No tie accepted. No full rewrite because the new prompt feels cleaner. No "the a
 
 Small edit. Hard gate. Keep or reject.
 
-The paper reports strong benchmark results: across six benchmarks, seven target models, and three execution harnesses, SkillOpt is best or tied in all 52 evaluated cells. On GPT-5.5, it reports average gains over no-skill accuracy of +23.5 points in direct chat, +24.8 inside the Codex loop, and +19.1 inside Claude Code.
+The paper reports strong benchmark results: across six benchmarks, seven target models, and three execution harnesses, SkillOpt is best or tied in all 52 evaluated cells. On GPT-5.5, it reports average gains over no-skill accuracy of +23.5 points in direct chat, +24.8 inside the Codex loop, and +19.1 inside Claude Code. That same pattern shows up in long-horizon coding evals too: [DeepSWE helps explain why Codex felt better than Claude on real execution work](/resources/articles/why-codex-felt-better-than-claude-deepswe).
 
 Those numbers are interesting. The operating model is more important.
 
