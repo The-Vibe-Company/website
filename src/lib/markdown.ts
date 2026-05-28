@@ -281,16 +281,19 @@ export function renderInlineMarkdown(text: string): string {
     /\[([^\]]+)\]\(((?:https?:\/\/|\/(?!\/))[^)\s]+)\)/g,
     (_match, label: string, url: string) => {
       const href = escapeEscapedAttribute(url)
+      const safeLabel = label.replace(/@@CODESPAN(\d+)@@/g, (_token, index: string) => {
+        return codePlaceholders[Number(index)] ?? ''
+      })
       const placeholder = `@@LINK${linkPlaceholders.length}@@`
 
+      let link = ''
       if (isSafeInternalMarkdownUrl(url)) {
-        linkPlaceholders.push(`<a href="${href}">${label}</a>`)
-        return placeholder
+        link = `<a href="${href}">${safeLabel}</a>`
+      } else {
+        link = `<a href="${href}" target="_blank" rel="noopener noreferrer">${safeLabel}</a>`
       }
 
-      linkPlaceholders.push(
-        `<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`,
-      )
+      linkPlaceholders.push(link)
       return placeholder
     },
   )
