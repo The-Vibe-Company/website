@@ -1,0 +1,24 @@
+content/articles/how-to-use-skillopt-to-train-agent-skills.md
+  s_8e2d508a12bece::t_b7c924ec4645df 24,62
+  s_8e2d508a12bece::t_3ae3da9011821b 125
+  s_8e2d508a12bece::t_1586c21e990d26 8,10,23,61,126
+  s_8e2d508a12bece::t_c1ebbe64811753 1-7,9,11-22,25-60,63-124,127-184
+src/lib/markdown.ts
+  s_8e2d508a12bece::t_53ed9dacabd9ff 212,223-225,227,229-231,234-236,247-248
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "4357e9157ec12b1b5085ca237d0825180588e163",
+  "prompts": {},
+  "sessions": {
+    "s_8e2d508a12bece": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e6ad4-c59b-7351-95bf-224c3750aefd",
+        "model": "gpt-5.5"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
