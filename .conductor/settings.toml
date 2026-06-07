@@ -1,0 +1,7 @@
+"$schema" = "https://conductor.build/schemas/settings.repo.schema.json"
+
+[scripts]
+archive = "./scripts/dev-start.sh --stop || true"
+run = "./scripts/dev-start.sh --foreground"
+run_mode = "concurrent"
+setup = "bun install --frozen-lockfile"
