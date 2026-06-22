@@ -2,7 +2,7 @@
 title: "Je m'appelle Victor"
 slug: je-mappelle-victor
 language: fr
-summary: "Je m'appelle Victor, je ne viens pas de la tech, et je documente comment, en quatre mois, j'apprends à construire avec l'IA chez The Vibe Company."
+summary: ""
 publishedAt: 2026-06-22
 complexity: beginner
 topics: AI Journey, The Vibe Company, Apprentissage
