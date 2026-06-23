@@ -29,7 +29,7 @@ Une notion devient claire quand elle règle un vrai problème.
 
 Un jour, j'ai perdu mes fichiers en local. J'ai cru que tout était perdu. Puis j'ai récupéré mon code grâce à GitHub. D'un coup, les mots commit, push et branche main ont arrêté d'être abstraits. GitHub n'était plus un outil de plus, c'était la sauvegarde et l'historique de mon projet.
 
-![Capture de mon premier site, une liste de mangas construite avec l'aide de l'IA](/images/resources/premier-site/site.png "Mon premier site : parti d'une page vide, arrivé à quelque chose de réel en ligne.")
+![Avant après de mon premier site : la première version à gauche, la version actuelle à droite](/images/resources/premier-site/cover.png "Avant après : de la première ébauche à la version manga actuelle.")
 
 ## Ce que l'IA a changé
 
