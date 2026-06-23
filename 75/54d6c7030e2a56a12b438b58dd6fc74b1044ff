@@ -1,0 +1,55 @@
+src/components/home/runner/runner-data.ts
+  s_dc85986f87a810::t_c018726d4895bc 1-81
+src/components/home/runner/VibeRunner.tsx
+  s_dc85986f87a810::t_878dd2709a5172 510-514
+  s_dc85986f87a810::t_6363d2bfe15da1 954
+  s_dc85986f87a810::t_b316d3823314ba 456-460
+  s_dc85986f87a810::t_2b46318ce7c429 1045,1048,1051
+  s_dc85986f87a810::t_195c4d051b1023 264
+  s_dc85986f87a810::t_f25c598390d594 120
+  s_dc85986f87a810::t_3a9db518a3c9d6 1-119,121-122,125-246,256-260,262-263,265-266,271-455,461-509,515-584,586-953,955-1044,1046-1047,1049-1050,1052-1077,1080-1356
+  s_dc85986f87a810::t_afa4b0f4bdfcc2 247-255
+  s_dc85986f87a810::t_505811c5938658 1078
+  s_dc85986f87a810::t_de47197a952d5f 585
+  s_dc85986f87a810::t_db64ba6d28ac6a 1079
+  s_dc85986f87a810::t_5677469f48ea10 261,267-270
+  s_dc85986f87a810::t_48425c77375c23 123-124
+src/components/home/runner/HomeSections.tsx
+  s_dc85986f87a810::t_26ceb42aa81478 23-33,36,43
+  s_dc85986f87a810::t_5a204491d5dc9b 143
+  s_dc85986f87a810::t_239db1df3e08f2 149,162-168,170-176,178-200
+  s_dc85986f87a810::t_3c2a32c99a2282 169
+  s_dc85986f87a810::t_67555eb45168fa 91
+  s_dc85986f87a810::t_4c58af3aeb788b 111
+  s_dc85986f87a810::t_0e2dde1e2aa042 224,236
+  s_dc85986f87a810::t_88be139e4f3000 108
+  s_dc85986f87a810::t_0fddbc98b8221f 1-22,34-35,37-42,44-90,92-107,109-110,112-127,129-142,144-148,150-161,177,201-223,225-235,237-278
+  s_dc85986f87a810::t_e4489de2dd0242 128
+src/app/(frontend)/v2/page.tsx
+  s_dc85986f87a810::t_90330c08e79908 1-21
+src/components/resources/ConditionalGridOverlay.tsx
+  s_dc85986f87a810::t_dea67a642414bf 11
+src/components/ClientProviders.tsx
+  s_dc85986f87a810::t_b8629d2ca43607 15,21
+src/app/globals.css
+  s_dc85986f87a810::t_72087eff9c4e85 107-135,143-169,176-177
+  s_dc85986f87a810::t_03df4fe925f223 170-175
+  s_dc85986f87a810::t_8a1bd7c51a8ab5 136-142
+  s_dc85986f87a810::t_2f2feef9c2b131 246-266
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.11",
+  "base_commit_sha": "7554d6c7030e2a56a12b438b58dd6fc74b1044ff",
+  "prompts": {},
+  "sessions": {
+    "s_dc85986f87a810": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5e030264-f1c9-4fb3-b354-1d601fefbe04",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
