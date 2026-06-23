@@ -12,12 +12,13 @@ const SmoothScroller = dynamic(
 export function ClientProviders() {
   const pathname = usePathname();
   const isHomepage = pathname === "/";
+  const isPreviewHome = pathname === "/v2";
   const isResources = pathname.startsWith("/resources");
   const isPortfolio = pathname.startsWith("/portfolio");
 
   return (
     <PostHogProvider>
-      {!isHomepage && !isResources && !isPortfolio && <SmoothScroller />}
+      {!isHomepage && !isPreviewHome && !isResources && !isPortfolio && <SmoothScroller />}
     </PostHogProvider>
   );
 }

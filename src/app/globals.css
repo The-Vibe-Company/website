@@ -104,6 +104,78 @@
 }
 
 /* -----------------------------------------------------------------------------
+   Playable-runner homepage (preview /v2) — scoped to .vibe-home.
+   Warm paper (#fafaf7), selection, scrollbar and forced light color-scheme are
+   kept on the wrapper so they never leak to other routes (mirrors the
+   [data-variant="hybrid"] / .resources-theme wrapper pattern). Never put these
+   on body, which is shared by every (frontend) route.
+   ----------------------------------------------------------------------------- */
+.vibe-home {
+  color-scheme: light;
+  background: #fafaf7;
+  color: #0a0a0a;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.vibe-home ::selection {
+  background: #0a0a0a;
+  color: #fafaf7;
+}
+
+.vibe-home ::-webkit-scrollbar {
+  width: 9px;
+}
+
+.vibe-home ::-webkit-scrollbar-thumb {
+  background: rgba(10, 10, 10, 0.18);
+  border-radius: 9999px;
+}
+
+/* Footer nav links read as plain text by design; reveal affordance on interaction. */
+.vibe-home .vibe-footer-link:hover,
+.vibe-home .vibe-footer-link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Departures slab rows + footer grid — responsive. Set via class (not inline)
+   so these media queries can override; inline styles would win otherwise. */
+.vibe-home .vibe-slab-row {
+  padding: 28px 8px 28px 96px;
+}
+
+.vibe-home .vibe-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+
+@media (max-width: 720px) {
+  .vibe-home .vibe-footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 560px) {
+  .vibe-home .vibe-slab-row {
+    padding-left: 60px;
+  }
+
+  .vibe-home .vibe-slab-gate {
+    display: none;
+  }
+
+  /* Collapse the pill nav's in-page anchors on phones so it never clips the
+     brand + "Brief us" CTA (sections stay reachable by scrolling / departures). */
+  .vibe-home .vibe-nav-link {
+    display: none;
+  }
+}
+
+/* -----------------------------------------------------------------------------
    Tailwind Theme Extension
    ----------------------------------------------------------------------------- */
 @theme inline {
@@ -169,6 +241,27 @@
   to {
     transform: translateX(100%);
   }
+}
+
+/* Playable-runner homepage (preview /v2) micro-animations */
+@keyframes vc-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes vc-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes vc-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+@keyframes vc-pop {
+  from { opacity: 0; transform: scale(0.82); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 /* -----------------------------------------------------------------------------

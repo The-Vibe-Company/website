@@ -8,6 +8,7 @@ export function ConditionalGridOverlay() {
   const pathname = usePathname();
   if (
     pathname === '/' ||
+    pathname === '/v2' ||
     pathname.startsWith('/resources') ||
     pathname.startsWith('/portfolio')
   ) return null;
