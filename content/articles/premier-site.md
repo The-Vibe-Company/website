@@ -17,7 +17,7 @@ Je ne suis pas développeur, je n'ai jamais codé. Alors voir une première page
 
 ## Découvrir les outils un par un
 
-Très vite, j'ai compris qu'un site, ce n'est pas un seul outil, mais plusieurs qui se parlent. J'en ai découvert au fur et à mesure, sans les maîtriser, juste en comprenant à quoi chacun sert.
+Très vite, j'ai compris qu'un site, ce n'est pas un seul outil, mais plusieurs qui se parlent. J'en ai découvert au fur et à mesure, sans en maîtriser les détails techniques, juste en comprenant à quoi chacun sert.
 
 Le code lui-même, je ne l'écris pas. C'est l'IA qui s'en charge, avec Codex puis Claude Code, à partir de ce que je lui demande. Ensuite, chaque outil a son rôle. GitHub pour garder le code et son historique. Supabase pour stocker les données. React et Vite pour structurer le code. Vercel pour mettre le site en ligne.
 
