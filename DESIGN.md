@@ -27,6 +27,7 @@ colors:
   accent-green: "#10B981"
   accent-green-soft: "#62D1AF"
   accent-yellow: "#FACC15"
+  paper-runner: "#FAFAF7"
   domain-dev: "#2563EB"
   domain-design: "#DB2777"
   domain-ops: "#059669"
@@ -138,6 +139,12 @@ motion:
 components:
   page-background:
     backgroundColor: "{colors.neutral}"
+    textColor: "{colors.foreground}"
+    typography: "{typography.body-md}"
+    rounded: "{rounded.none}"
+    padding: "{spacing.page-x-sm}"
+  runner-page:
+    backgroundColor: "{colors.paper-runner}"
     textColor: "{colors.foreground}"
     typography: "{typography.body-md}"
     rounded: "{rounded.none}"
@@ -312,6 +319,8 @@ The dominant impression is deep black ink on a slightly warm paper canvas. Layou
 
 The homepage is the core expression: warm paper, giant tight typography, outlined headline words, black slab buttons, bordered cards, and horizontal bands. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
 
+An experimental preview of the homepage lives at `/v2`: a playable, Chrome-dino-style runner game rendered on a full-bleed canvas as the hero, set on a slightly cooler runner paper (#FAFAF7). It keeps the brand DNA (deep ink, Geist type, mono instrumentation, dark matte bands) but adds a fixed pill navigation and motion-forward, per-world accent colors. This is a preview surface, not yet the canonical homepage; it is pinned to a light color scheme and scoped so it never alters the rest of the site.
+
 ## Colors
 
 The palette is intentionally restrained. Warm paper and deep ink carry most of the product; color appears as a precise signal rather than a decorative fill.
@@ -323,6 +332,7 @@ The palette is intentionally restrained. Warm paper and deep ink carry most of t
 - **Constructed Border (#DCD7CE):** The warm gray line used for grids, dividers, inputs, and low-emphasis structure.
 - **Inverse Black (#030303/#121212):** Used for process, portfolio, and footer sections. These should feel matte and production-grade, not glossy.
 - **Signal Accents:** Orange marks YC and occasional attention points. Green, yellow, and mint identify product status or portfolio accents. Domain colors are reserved for resource taxonomy and should stay small.
+- **Runner Paper (#FAFAF7):** A marginally cooler paper used only on the `/v2` runner-homepage preview, kept distinct from the canonical Warm Paper (#FDFBF7). On that surface alone, a rotating per-world accent (emerald, orange, amber, teal, indigo, sky, violet, red, pink, slate, and a YC orange) tints the canvas ground and reveal cards as the game cycles through projects, services, and clients.
 
 Avoid large colorful areas. The site should remain primarily black, warm paper, and linework.
 
@@ -371,6 +381,8 @@ Primary CTAs are black slabs on warm paper. They use bold Geist text, clear padd
 Cards are bordered rectangles, not soft containers. Service cards and product cards use black or warm-gray borders, square corners, tight internal hierarchy, mono metadata, and optional hard hover shadows. Resource cards use calmer warm borders and may sit on white surfaces.
 
 Navigation is sticky, translucent, and understated. The wordmark is mono, compact, and paired with a small black logo. Desktop links are quiet until hover. The contact CTA is a black pill in the global nav, distinct from the square slab CTAs used in content.
+
+The `/v2` runner-homepage preview adds two components outside the core set. A fixed pill navigation sits centered at the top of the viewport: a deep-ink pill with quiet links and an inverted paper chip for the contact CTA, collapsing its in-page anchors on phones. A playable canvas hero carries the game itself, whose score readout, day and night inversion, and per-world reveal accents are diegetic game UI rather than decorative chrome. Both belong to the preview surface only.
 
 Labels, tags, counters, and status chips use Geist Mono, uppercase text, wide tracking, and small scale. They should feel like technical readouts. Status dots can pulse, but they should remain tiny.
 
