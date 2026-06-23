@@ -39,10 +39,12 @@ J'aurais pu passer par un constructeur de sites comme WordPress. Mais ce sont de
 
 Antoine et Stan m'ont donné le cadre et la direction. Avec l'IA, on a transformé ce cadre en étapes concrètes : comprendre le besoin, choisir l'outil, écrire une première version, tester, corriger, recommencer.
 
-Mon rôle, c'était de décider quoi construire, de vérifier que ça marchait vraiment, et de ne pas confondre une réponse qui a l'air bonne avec un résultat utilisable.
+Mon rôle, c'était de décider quoi construire, de vérifier que ça marchait vraiment, et de ne pas confondre une réponse qui a l'air bonne avec un résultat utilisable. Par exemple, on voulait que mes mangas restent enregistrés dans ma bibliothèque. J'en avais ajouté trois, tout avait l'air bon, on venait de créer le compte Supabase. Mais en rafraîchissant la page, la liste avait disparu. À l'écran ça marchait, en vrai non. On a dû reprendre ce passage.
 
 ## Ce que j'en retiens
 
 Ce premier site n'est pas une fin en soi, c'est une porte d'entrée. Il m'a fait toucher à différents outils, comprendre la logique globale d'un projet web, et voir qu'avec l'IA, un profil non technique peut construire quelque chose de réel.
 
 Voir ce premier site passer d'une page vide à quelque chose qui tourne en ligne, ça m'a clairement donné envie de continuer.
+
+En attendant, avis aux fans de manga : le site est en ligne, [à voir ici](https://manga-list-vibe.vercel.app).
