@@ -7,7 +7,7 @@ publishedAt: 2026-06-23
 complexity: beginner
 topics: AI Journey, Apprentissage, Premier site
 coverImage: /images/resources/premier-site/cover.png
-coverAlt: "Capture de mon premier site, une liste de mangas construite avec l'aide de l'IA"
+coverAlt: "Un éditeur de code sur fond noir et une courbe d'apprentissage qui monte vers un point d'IA"
 ogImage: /images/resources/premier-site/cover.png
 ---
 
@@ -29,7 +29,7 @@ Une notion devient claire quand elle règle un vrai problème.
 
 Un jour, j'ai perdu mes fichiers en local. J'ai cru que tout était perdu. Puis j'ai récupéré mon code grâce à GitHub. D'un coup, les mots commit, push et branche main ont arrêté d'être abstraits. GitHub n'était plus un outil de plus, c'était la sauvegarde et l'historique de mon projet.
 
-![Capture de mon premier site, une liste de mangas construite avec l'aide de l'IA](/images/resources/premier-site/cover.png "Mon premier site : parti d'une page vide, arrivé à quelque chose de réel en ligne.")
+![Capture de mon premier site, une liste de mangas construite avec l'aide de l'IA](/images/resources/premier-site/site.png "Mon premier site : parti d'une page vide, arrivé à quelque chose de réel en ligne.")
 
 ## Ce que l'IA a changé
 
