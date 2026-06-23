@@ -27,13 +27,15 @@ Je ne saurais pas tous les réexpliquer en détail. Mais j'ai saisi la logique :
 
 Une notion devient claire quand elle règle un vrai problème.
 
-Un jour, j'ai perdu mes fichiers en local. J'ai cru que tout était perdu. Puis j'ai récupéré mon code grâce à GitHub. D'un coup, les mots commit, push et branche main ont arrêté d'être abstraits. GitHub n'était plus un outil de plus, c'était la sauvegarde et l'historique de mon projet.
+J'ai perdu mes fichiers en local en retirant iCloud de mon ordinateur. J'ai cru que tout était perdu. Puis j'ai récupéré mon code grâce à GitHub. D'un coup, les mots commit, push et branche main ont arrêté d'être abstraits. GitHub n'était plus un outil de plus, c'était la sauvegarde et l'historique de mon projet.
 
 ![Avant après de mon premier site : la première version à gauche, la version actuelle à droite](/images/resources/premier-site/cover.png "Avant après : de la première ébauche à la version manga actuelle.")
 
 ## Ce que l'IA a changé
 
 Sans l'IA, je n'aurais pas juste été plus lent. Je n'aurais pas su par où commencer, ni quels outils existaient, ni dans quel ordre les brancher.
+
+J'aurais pu passer par un constructeur de sites comme Shopify. Mais ce sont des blocs tout faits : pratique, mais sans vraie liberté ni contrôle sur ce qu'on construit. En passant par l'IA et de vrais outils, je garde la main, je peux aller beaucoup plus loin, et je comprends ce qu'il y a derrière.
 
 Antoine et Stan m'ont donné le cadre et la direction. Avec l'IA, on a transformé ce cadre en étapes concrètes : comprendre le besoin, choisir l'outil, écrire une première version, tester, corriger, recommencer.
 
