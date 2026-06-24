@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { captureEvent } from '@/lib/posthog';
 
 export function ResourcesHomeSearch() {
   const router = useRouter();
@@ -32,7 +33,12 @@ export function ResourcesHomeSearch() {
       event.preventDefault();
       if (debounceRef.current) clearTimeout(debounceRef.current);
       if (value.trim()) {
-        router.push(`/resources/search?q=${encodeURIComponent(value.trim())}`);
+        const query = value.trim();
+        captureEvent("resources_searched", {
+          query_length: query.length,
+          word_count: query.split(/\s+/).length,
+        });
+        router.push(`/resources/search?q=${encodeURIComponent(query)}`);
       }
     },
     [router, value],

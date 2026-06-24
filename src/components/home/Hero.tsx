@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/design-system";
+import { captureEvent } from "@/lib/posthog";
 
 const TOP_STRIP = [
   { text: "THE VIBE CO." },
@@ -131,6 +132,7 @@ export function Hero() {
           <div className="flex flex-col items-start gap-3">
             <a
               href="mailto:founders@thevibecompany.co"
+              onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
               className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-6 py-4 text-[15px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
             >
               Book a discovery call
@@ -140,6 +142,7 @@ export function Hero() {
             </a>
             <a
               href="#services"
+              onClick={() => captureEvent("see_what_we_do_clicked")}
               className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-4 hover:text-foreground"
             >
               See what we do

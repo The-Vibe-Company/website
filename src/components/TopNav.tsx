@@ -12,6 +12,7 @@ import {
   cn,
   createTransition,
 } from "@/lib/design-system";
+import { captureEvent } from "@/lib/posthog";
 import { resourcesTheme } from "@/lib/resources-theme";
 
 const navItems = [
@@ -113,6 +114,13 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                   href={item.href}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
+                  onClick={() =>
+                    captureEvent("nav_link_clicked", {
+                      label: item.label,
+                      href: item.href,
+                      location: "desktop_nav",
+                    })
+                  }
                   className={cn(components.nav.link, "relative")}
                 >
                   {hoveredIndex === index && (
@@ -128,7 +136,11 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             ))}
           </ul>
           <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
-          <a href="mailto:founders@thevibecompany.co" className={components.button.primary}>
+          <a
+            href="mailto:founders@thevibecompany.co"
+            onClick={() => captureEvent("get_in_touch_clicked", { location: "nav" })}
+            className={components.button.primary}
+          >
             Get in touch
           </a>
         </div>
@@ -159,7 +171,10 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           )}
           <button
             className="p-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => {
+              if (!mobileMenuOpen) captureEvent("mobile_menu_opened");
+              setMobileMenuOpen(!mobileMenuOpen);
+            }}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
           >
@@ -245,7 +260,17 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={createTransition(0.6, index * 0.1)}
               >
-                <Link href={item.href} onClick={() => setMobileMenuOpen(false)}>
+                <Link
+                  href={item.href}
+                  onClick={() => {
+                    captureEvent("nav_link_clicked", {
+                      label: item.label,
+                      href: item.href,
+                      location: "mobile_menu",
+                    });
+                    setMobileMenuOpen(false);
+                  }}
+                >
                   {item.label}
                 </Link>
               </motion.div>
@@ -256,7 +281,10 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={createTransition(0.6, 0.2)}
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                captureEvent("get_in_touch_clicked", { location: "mobile_menu" });
+                setMobileMenuOpen(false);
+              }}
             >
               Get in touch
             </motion.a>

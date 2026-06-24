@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { captureEvent } from "@/lib/posthog";
 
 export function FinalCTA() {
   const reduceMotion = useReducedMotion() ?? false;
@@ -67,6 +68,7 @@ export function FinalCTA() {
         >
           <a
             href="mailto:founders@thevibecompany.co"
+            onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
             className="inline-flex items-center border-2 border-foreground bg-foreground px-7 py-5 text-[17px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
           >
             Book a discovery call

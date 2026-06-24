@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ChevronDown, FileText } from 'lucide-react';
 
 import { CopyButton } from '@/components/resources/CopyButton';
+import { captureEvent } from '@/lib/posthog';
 import { resourcesTheme } from '@/lib/resources-theme';
 
 interface SkillPromptBlockProps {
@@ -31,7 +32,10 @@ export function SkillPromptBlock({ body, label = 'Skill prompt' }: SkillPromptBl
             <button
               type="button"
               aria-label={expanded ? 'Collapse full skill prompt' : 'View full skill prompt'}
-              onClick={() => setExpanded((current) => !current)}
+              onClick={() => {
+                if (!expanded) captureEvent("skill_prompt_expanded", { word_count: wordCount });
+                setExpanded((current) => !current);
+              }}
               className="inline-flex min-h-11 items-center gap-1.5 border border-res-border bg-res-surface px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider text-res-text-muted transition-colors hover:text-res-text"
             >
               <ChevronDown
@@ -49,6 +53,7 @@ export function SkillPromptBlock({ body, label = 'Skill prompt' }: SkillPromptBl
             label="Copy"
             copiedLabel="Copied"
             ariaLabel="Copy skill prompt"
+            onCopy={() => captureEvent("skill_prompt_copied", { word_count: wordCount })}
           />
         </div>
       </div>
