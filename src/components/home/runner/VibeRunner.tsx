@@ -3,49 +3,58 @@
 import React from "react";
 
 /*
- * VibeRunner — the playable-runner hero (pill nav + canvas + HUD overlays).
+ * VibeRunner — the playable endless-runner hero, embedded inside the existing
+ * warm-paper homepage (TopNav + sections + Footer are provided by the page).
  *
- * Ported from the Claude Design "The Vibe Co. (Homepage)" .dc.html. The original
- * ran on a custom DCLogic/x-dc runtime; here it is a plain React class component
- * (DCLogic's setState/lifecycle map 1:1 onto React.Component). The canvas engine
- * is kept verbatim apart from TypeScript types.
+ * Difficulty mirrors the Chrome/Firefox T-Rex runner exactly: the engine runs
+ * the dino's per-frame model (SPEED 6 -> MAX 13 px/frame, ACCELERATION 0.001,
+ * GRAVITY 0.6, jumpV = -(10 + speed/10), gap = round(w*speed + minGap*0.6) up
+ * to x1.5) scaled to the canvas by S = W/620 so the felt difficulty and the
+ * "crank up" match the real game regardless of viewport size.
  *
- * INVARIANT — imperative HUD/theme writes: the game loop writes score/best/level
- * and recolors the overlay directly via wrapRef.current.querySelector(...). Those
- * target [data-hud]/[data-ui] nodes that are rendered ONCE with static defaults
- * and never bound to changing state, so React never reconciles over the engine's
- * writes. Do not bind their text/colour to state or move them inside a conditional.
+ * Each run cycles "our worlds" (products, services, the YC backing). Every world
+ * has its own art direction — paper, ink, accent, player colour, background
+ * motif — and a presentation panel that stays for the whole world. There is no
+ * level system. Worlds change quickly so you see several in one run.
+ *
+ * INVARIANT — the score/best HUD is written imperatively via wrapRef querySelector
+ * each frame; those [data-hud] nodes render once with static defaults and never
+ * sit inside a conditional, so React never reconciles over the engine's writes.
  */
 
 const MONO = "var(--font-geist-mono), monospace";
 
-type Phase = "idle" | "intro" | "running" | "dead";
+type Phase = "idle" | "running" | "dead";
 
-interface LevelFlash {
-  n: string;
-  label: string;
+interface WorldDef {
+  tag: string;
+  name: string;
+  line: string;
+  paper: string;
+  ink: string;
+  accent: string;
+  player: string;
+  motif: "dots" | "grid" | "bars" | "rings" | "waves" | "dashes";
+  words: string[];
 }
-interface Reveal {
-  kicker: string;
-  title: string;
+
+interface WorldView {
+  tag: string;
+  name: string;
+  line: string;
+  ink: string;
+  accent: string;
+  paper: string;
 }
 
 interface VibeRunnerProps {
-  liveliness?: number;
-  worldSeconds?: number;
   pauseMotion?: boolean;
 }
 
 interface VibeRunnerState {
   phase: Phase;
-  dark: boolean;
   sound: boolean;
-  introLine: string;
-  levelFlashOn: boolean;
-  levelFlash: LevelFlash;
-  reveal: Reveal | null;
-  revealOn: boolean;
-  caption: string;
+  world: WorldView | null;
   finalScore: string;
   bestScore: string;
   deadKicker: string;
@@ -79,86 +88,64 @@ interface Cloud {
   y: number;
   s: number;
 }
-interface World {
-  type: string;
-  name: string;
-  line: string;
-  accent: string;
-  words: string[];
-  yc?: boolean;
-}
+
+const HOME_DA = { paper: "#fdfbf7", ink: "#0a0a0a", accent: "#0a0a0a", player: "#0a0a0a" };
 
 export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState> {
-  static defaultProps: Required<VibeRunnerProps> = {
-    liveliness: 1,
-    worldSeconds: 18,
-    pauseMotion: false,
-  };
+  static defaultProps: Required<VibeRunnerProps> = { pauseMotion: false };
 
   private canvasRef = React.createRef<HTMLCanvasElement>();
   private wrapRef = React.createRef<HTMLDivElement>();
 
-  // scoring
   private score = 0;
   private best = 0;
-
-  // world rotation
-  private accentRGB: number[] | null = null;
-  private worldOrder: number[] = [];
-  private worldPos = -1;
 
   // canvas / loop
   private ctx!: CanvasRenderingContext2D;
   private W = 0;
   private H = 0;
+  private S = 1; // px per dino unit (difficulty scale)
   private groundY = 0;
   private originX = 0;
   private _onResize!: () => void;
   private _last = 0;
   private _t = 0;
   private _raf = 0;
-  private _revealRaf = 0;
-  private _dark = false;
   private _reducedMotion = false;
   private _visible = true;
   private _io: IntersectionObserver | null = null;
 
-  // tune() constants
-  private GRAV = 0;
-  private JUMP = 0;
-  private DUCK_GRAV = 0;
+  // dino-derived px constants (set in tune())
   private BASE_SPEED = 0;
   private MAX_SPEED = 0;
   private ACCEL = 0;
-  private DRONE_MIN = 0;
-  private GAP_COEFF = 0;
-  private LEVEL_STEP = 0;
-  private NIGHT_EVERY = 0;
+  private GRAV = 0;
+  private DUCK_GRAV = 0;
+  private DRONE_MIN_SPEED = 0; // px/s above which drones appear
   private WORLD_SECS = 0;
-  private LV_LABELS: string[] = [];
-  private INTRO_LINES: string[] = [];
 
   // terrain
   private hills1: number[] = [];
   private hills2: number[] = [];
   private clouds: Cloud[] = [];
 
-  // mutable run state
-  private _worldT = 0;
-  private curWords: string[] = [];
+  // run state
   private speed = 0;
   private worldX = 0;
-  private dayPhase = 0;
-  private dayTarget = 0;
   private char!: Char;
   private obstacles: Obstacle[] = [];
   private particles: Particle[] = [];
   private _nextSpawnX = 0;
   private _lastWasDrone = false;
-  private level = 1;
-  private _lastLevel = 1;
-  private _introT = 0;
-  private _introStep = -1;
+
+  // world rotation + art-direction colour lerp
+  private worldOrder: number[] = [];
+  private worldPos = -1;
+  private _worldT = 0;
+  private curWords: string[] = [];
+  private curMotif: WorldDef["motif"] | null = null;
+  private cur = { paper: [253, 251, 247], ink: [10, 10, 10], accent: [10, 10, 10], player: [10, 10, 10] };
+  private tgt = { paper: [253, 251, 247], ink: [10, 10, 10], accent: [10, 10, 10], player: [10, 10, 10] };
 
   // audio
   private _ac: AudioContext | null = null;
@@ -170,22 +157,14 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   private _pu!: () => void;
   private _touchDuck = false;
 
-  // timers
-  private _lvT: ReturnType<typeof setTimeout> | undefined;
-  private _revealT: ReturnType<typeof setTimeout> | undefined;
-
-  private WORLDS: World[] = [
-    { type: "PROJECT", name: "vanish.sh", line: "Temporary uploads, auto-expiring.", accent: "#10b981", words: ["BLOAT", "FOREVER", "STORAGE", "LEAKS"] },
-    { type: "PROJECT", name: "The Companion", line: "Agent workflows, no slideware.", accent: "#f97316", words: ["SLIDEWARE", "HANDOFF", "TICKETS", "STANDUP"] },
-    { type: "PROJECT", name: "vibedrift.dev", line: "Dev activity becomes real metrics.", accent: "#eab308", words: ["VANITY KPI", "BURNOUT", "FRICTION", "GUESSWORK"] },
-    { type: "PROJECT", name: "Granite", line: "The personal OS your agent runs on.", accent: "#14b8a6", words: ["SILOS", "LOST NOTES", "SPRAWL", "CHAOS"] },
-    { type: "WHAT WE DO", name: "Agent workflows", line: "Orchestration that ships, not slideware.", accent: "#6366f1", words: ["MANUAL", "COPY-PASTE", "QUEUES", "BACKLOG"] },
-    { type: "WHAT WE DO", name: "Operations design", line: "Operating surfaces for teams and agents.", accent: "#0ea5e9", words: ["DASHBOARDS", "SWIVEL-CHAIR", "TOIL", "REVIEWS"] },
-    { type: "WHAT WE DO", name: "Vibe coding", line: "Disciplined intuition. Magic that ships.", accent: "#a855f7", words: ["WATERFALL", "SCOPE CREEP", "TECH DEBT", "SPECS"] },
-    { type: "CLIENT", name: "A fintech, shipping weekly", line: "Six dashboards became one agent.", accent: "#ef4444", words: ["COMPLIANCE", "LEDGERS", "FRAUD", "LATENCY"] },
-    { type: "CLIENT", name: "A health startup", line: "Care ops, automated end-to-end.", accent: "#ec4899", words: ["PAPERWORK", "INTAKE", "NO-SHOWS", "FAXES"] },
-    { type: "CLIENT", name: "Your logo here", line: "Booking Q3 2026 — brief us.", accent: "#64748b", words: ["HYPE", "SYNERGY", "ROADMAP", "MEETINGS"] },
-    { type: "BACKED BY", name: "Y Combinator", line: "W24. Built by the Quivr team.", accent: "#f26625", yc: true, words: ["PITCH DECK", "TAM", "MOAT", "RUNWAY"] },
+  private WORLDS: WorldDef[] = [
+    { tag: "PRODUCT", name: "vanish.sh", line: "Temporary uploads, auto-expiring.", paper: "#ecfdf5", ink: "#064e3b", accent: "#10b981", player: "#059669", motif: "dashes", words: ["BLOAT", "FOREVER", "STORAGE", "LEAKS"] },
+    { tag: "PRODUCT", name: "The Companion", line: "Agent workflows, no slideware.", paper: "#fff7ed", ink: "#7c2d12", accent: "#f97316", player: "#ea580c", motif: "rings", words: ["SLIDEWARE", "HANDOFF", "TICKETS", "STANDUP"] },
+    { tag: "PRODUCT", name: "vibedrift.dev", line: "Dev activity becomes real metrics.", paper: "#fefce8", ink: "#713f12", accent: "#eab308", player: "#ca8a04", motif: "bars", words: ["VANITY KPI", "BURNOUT", "FRICTION", "GUESSWORK"] },
+    { tag: "PRODUCT", name: "Granite", line: "The personal OS your agent runs on.", paper: "#f1f5f9", ink: "#0f172a", accent: "#14b8a6", player: "#0f766e", motif: "grid", words: ["SILOS", "LOST NOTES", "SPRAWL", "CHAOS"] },
+    { tag: "WHAT WE DO", name: "Agent workflows", line: "Orchestration that ships, not slideware.", paper: "#eef2ff", ink: "#1e1b4b", accent: "#6366f1", player: "#4f46e5", motif: "dots", words: ["MANUAL", "COPY-PASTE", "QUEUES", "BACKLOG"] },
+    { tag: "WHAT WE DO", name: "Vibe coding", line: "Disciplined intuition. Magic that ships.", paper: "#faf5ff", ink: "#3b0764", accent: "#a855f7", player: "#9333ea", motif: "waves", words: ["WATERFALL", "SCOPE CREEP", "TECH DEBT", "SPECS"] },
+    { tag: "BACKED BY", name: "Y Combinator", line: "W24, built by the Quivr team.", paper: "#0a0a0a", ink: "#fafaf7", accent: "#f26625", player: "#f26625", motif: "rings", words: ["PITCH DECK", "TAM", "MOAT", "RUNWAY"] },
   ];
 
   private DEATHS: [string, string][] = [
@@ -198,14 +177,8 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     super(props);
     this.state = {
       phase: "idle",
-      dark: false,
       sound: false,
-      introLine: "We build with AI.",
-      levelFlashOn: false,
-      levelFlash: { n: "02", label: "FASTER" },
-      reveal: null,
-      revealOn: false,
-      caption: "Most AI agencies have a landing page. We shipped a game.",
+      world: null,
       finalScore: "0",
       bestScore: "0",
       deadKicker: "CAUGHT BY THE HYPE",
@@ -213,7 +186,6 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     };
   }
 
-  // ---------- bound handlers ----------
   onToggleSound = () => {
     this.ensureAudio();
     if (this._ac && this._ac.state === "suspended") this._ac.resume();
@@ -222,7 +194,6 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   onRestart = () => this.restart();
 
   componentDidMount() {
-    this.tune();
     const cv = this.canvasRef.current!;
     this.ctx = cv.getContext("2d")!;
     try {
@@ -241,11 +212,6 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this.reset();
     this.bindInput();
     this._last = performance.now();
-    this._t = 0;
-    this._dark = false;
-    this.applyTheme(false);
-    // Skip the draw loop while the hero is scrolled off-screen (background tabs
-    // are already throttled by the browser's rAF).
     this._io = new IntersectionObserver(
       (entries) => {
         this._visible = entries[0]?.isIntersecting ?? true;
@@ -258,35 +224,16 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
 
   componentWillUnmount() {
     cancelAnimationFrame(this._raf);
-    if (this._revealRaf) cancelAnimationFrame(this._revealRaf);
+    if (this._io) this._io.disconnect();
     window.removeEventListener("resize", this._onResize);
     this.unbind();
-    if (this._io) this._io.disconnect();
-    if (this._lvT) clearTimeout(this._lvT);
-    if (this._revealT) clearTimeout(this._revealT);
     if (this._ac) {
       this._ac.close().catch(() => {});
       this._ac = null;
     }
   }
 
-  tune() {
-    const lv = this.props.liveliness || 1;
-    this.GRAV = 2900;
-    this.JUMP = 1020 * Math.sqrt(lv);
-    this.DUCK_GRAV = 3400;
-    this.BASE_SPEED = 360 * lv; // dino SPEED 6 px/frame -> 360 px/s
-    this.MAX_SPEED = 780 * lv; // dino MAX_SPEED 13 -> 780 px/s
-    this.ACCEL = 3.6 * lv; // dino ACCELERATION 0.001/frame -> 3.6 px/s^2 (~2min to max)
-    this.DRONE_MIN = 510 * lv; // dino pterodactyl minSpeed 8.5 -> 510 px/s
-    this.GAP_COEFF = 0.6; // dino GAP_COEFFICIENT
-    this.LEVEL_STEP = 220; // score per cosmetic level milestone
-    this.NIGHT_EVERY = 240; // score per day/night flip
-    this.WORLD_SECS = this.props.worldSeconds || 18;
-    this.LV_LABELS = ["FASTER", "DENSER", "RELENTLESS", "NO BRAKES", "SHIP OR DIE", "LUDICROUS", "UNREASONABLE"];
-    this.INTRO_LINES = ["We build with AI.", "We ship fast.", "We show everything.", "Now — keep up."];
-  }
-
+  // ---------- sizing / dino-scaled tuning ----------
   resize() {
     const cv = this.canvasRef.current;
     if (!cv) return;
@@ -297,53 +244,62 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     cv.width = Math.round(this.W * dpr);
     cv.height = Math.round(this.H * dpr);
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    this.groundY = this.H * 0.8;
-    this.originX = Math.max(70, this.W * 0.18);
+    // S maps the canvas onto the dino's ~620-unit play width so the difficulty
+    // (approach time, gaps, jump arc) matches the real T-Rex runner.
+    this.S = Math.max(0.72, Math.min(2.1, this.W / 620));
+    this.tune();
+    this.groundY = this.H - Math.max(54, this.H * 0.12);
+    this.originX = Math.max(60, this.W * 0.16);
     if (this.char) this.char.x = this.originX;
     this.genHills();
+  }
+
+  tune() {
+    const S = this.S;
+    const FPS = 60;
+    this.BASE_SPEED = 6 * FPS * S; // dino SPEED 6 px/frame
+    this.MAX_SPEED = 13 * FPS * S; // dino MAX_SPEED 13
+    this.ACCEL = 0.001 * FPS * FPS * S; // dino ACCELERATION 0.001/frame
+    this.GRAV = 0.6 * FPS * FPS * S; // dino GRAVITY 0.6/frame^2
+    this.DUCK_GRAV = this.GRAV * 2.6; // dino SPEED_DROP fast-fall
+    this.DRONE_MIN_SPEED = 8.5 * FPS * S; // dino pterodactyl minSpeed 8.5
+    this.WORLD_SECS = 6; // short: see several worlds per run
   }
 
   genHills() {
     this.hills1 = [];
     this.hills2 = [];
     for (let i = 0; i < 60; i++) {
-      this.hills1.push(40 + Math.random() * 50);
-      this.hills2.push(20 + Math.random() * 30);
+      this.hills1.push((30 + Math.random() * 46) * this.S);
+      this.hills2.push((16 + Math.random() * 26) * this.S);
     }
     this.clouds = [];
     for (let i = 0; i < 6; i++)
-      this.clouds.push({ x: Math.random() * 2000, y: this.H * (0.18 + Math.random() * 0.28), s: 0.4 + Math.random() * 0.5 });
+      this.clouds.push({ x: Math.random() * 2000, y: this.H * (0.16 + Math.random() * 0.34), s: 0.5 + Math.random() * 0.6 });
   }
 
   reset() {
     this.score = 0;
-    this.accentRGB = null;
     this.worldOrder = this.shuffle(this.WORLDS.map((_, i) => i));
     this.worldPos = -1;
     this._worldT = 0;
     this.curWords = ["HYPE", "SYNERGY", "BUZZWORD"];
+    this.curMotif = null;
+    this.setColours(HOME_DA, true);
     this.speed = this.BASE_SPEED;
     this.worldX = 0;
-    this.dayPhase = 0;
-    this.dayTarget = 0;
     this.char = { x: this.originX, y: this.groundY, vy: 0, grounded: true, ducking: false };
     this.obstacles = [];
     this.particles = [];
     this._nextSpawnX = this.W + 200;
     this._lastWasDrone = false;
-    this.level = 1;
-    this._lastLevel = 1;
-    this._introT = 0;
-    this._introStep = -1;
   }
 
   // ---------- audio ----------
   ensureAudio() {
     if (this._ac) return;
     try {
-      const Ctx =
-        window.AudioContext ||
-        (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      const Ctx = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       this._ac = Ctx ? new Ctx() : null;
     } catch {
       this._ac = null;
@@ -367,17 +323,15 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   // ---------- input ----------
   startOrJump() {
     if (this.state.phase === "idle") {
-      this.startIntro();
-      return;
-    }
-    if (this.state.phase === "intro") {
       this.beginPlay();
       return;
     }
     if (this.state.phase === "dead") return;
     const c = this.char;
     if (c.grounded) {
-      c.vy = -this.JUMP;
+      // dino: jumpVelocity = -(INITIAL 10 + speed/10), per-frame -> px/s
+      const vd = this.speed / (60 * this.S);
+      c.vy = -(10 + vd / 10) * 60 * this.S;
       c.grounded = false;
       this.spawnDust();
       this.blip(520, 0.08, "square");
@@ -387,43 +341,17 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     if (this.state.phase !== "running") return;
     this.char.ducking = on;
   }
-  startIntro() {
-    this._dark = false;
-    this.applyTheme(false);
-    this.setChrome(true);
-    this._introT = 0;
-    this._introStep = -1;
-    this.setState({ phase: "intro", revealOn: false, introLine: this.INTRO_LINES[0] });
-  }
   beginPlay() {
     this.ensureAudio();
-    this._dark = false;
-    this.applyTheme(false);
     this.setChrome(true);
-    this.level = 1;
-    this._lastLevel = 1;
-    this._nextSpawnX = this.worldX + this.W + 160;
-    this.setState({ phase: "running", revealOn: false, levelFlashOn: false });
+    // ~2.5s of clear runway before the first obstacle (dino CLEAR_TIME).
+    this._nextSpawnX = this.worldX + this.W + this.BASE_SPEED * 0.9;
+    this.setState({ phase: "running" });
     this.nextWorld();
   }
   restart() {
     this.reset();
     this.beginPlay();
-  }
-
-  onLevelUp() {
-    this.blip(980, 0.12, "square");
-    const label = this.LV_LABELS[(this.level - 2) % this.LV_LABELS.length] || "FASTER";
-    const n = (this.level < 10 ? "0" : "") + this.level;
-    if (this._lvT) clearTimeout(this._lvT);
-    this.setState({ levelFlashOn: true, levelFlash: { n: n, label: label } });
-    this._lvT = setTimeout(() => {
-      try {
-        this.setState({ levelFlashOn: false });
-      } catch {
-        /* unmounted */
-      }
-    }, 1300);
   }
 
   die() {
@@ -437,13 +365,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     }
     const d = this.DEATHS[Math.floor(Math.random() * this.DEATHS.length)];
     this.blip(140, 0.3, "sawtooth");
-    this.setState({
-      phase: "dead",
-      finalScore: String(Math.round(this.score)),
-      bestScore: String(this.best),
-      deadKicker: d[0],
-      deadTitle: d[1],
-    });
+    this.setState({ phase: "dead", finalScore: String(Math.round(this.score)), bestScore: String(this.best), deadKicker: d[0], deadTitle: d[1] });
   }
 
   bindInput() {
@@ -453,7 +375,6 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
         e.preventDefault();
         this.startOrJump();
       } else if (e.code === "ArrowDown") {
-        // Only swallow ArrowDown while playing, so it scrolls the page otherwise.
         if (this.state.phase === "running") {
           e.preventDefault();
           this.setDuck(true);
@@ -496,13 +417,36 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
 
   spawnDust() {
     for (let i = 0; i < 6; i++)
-      this.particles.push({
-        x: this.char.x - 4,
-        y: this.groundY,
-        vx: -40 - Math.random() * 80,
-        vy: -20 - Math.random() * 60,
-        life: 0.4 + Math.random() * 0.3,
-      });
+      this.particles.push({ x: this.char.x - 4, y: this.groundY, vx: (-40 - Math.random() * 80) * this.S, vy: (-20 - Math.random() * 60) * this.S, life: 0.4 + Math.random() * 0.3 });
+  }
+
+  // ---------- worlds + colour lerp ----------
+  hexToRgb(h: string) {
+    const n = parseInt(h.slice(1), 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+  setColours(da: { paper: string; ink: string; accent: string; player: string }, instant: boolean) {
+    this.tgt = { paper: this.hexToRgb(da.paper), ink: this.hexToRgb(da.ink), accent: this.hexToRgb(da.accent), player: this.hexToRgb(da.player) };
+    if (instant) this.cur = { paper: [...this.tgt.paper], ink: [...this.tgt.ink], accent: [...this.tgt.accent], player: [...this.tgt.player] };
+  }
+  shuffle(a: number[]) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = a[i];
+      a[i] = a[j];
+      a[j] = t;
+    }
+    return a;
+  }
+  nextWorld() {
+    this._worldT = 0;
+    this.worldPos = (this.worldPos + 1) % this.worldOrder.length;
+    const w = this.WORLDS[this.worldOrder[this.worldPos]];
+    this.curWords = w.words;
+    this.curMotif = w.motif;
+    this.setColours(w, false);
+    this.blip(w.tag === "BACKED BY" ? 880 : 720, 0.12, "sine");
+    this.setState({ world: { tag: w.tag, name: w.name, line: w.line, ink: w.ink, accent: w.accent, paper: w.paper } });
   }
 
   // ---------- update ----------
@@ -515,8 +459,6 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     const dt = Math.min(0.034, (t - this._last) / 1000) || 0.016;
     this._last = t;
     this._t += dt;
-    // Reduced motion: hold the idle hero still; once the user explicitly starts
-    // (intro/running) they have opted in, so the engine runs normally.
     const idleStill = this._reducedMotion && this.state.phase === "idle";
     if (!this.props.pauseMotion && !idleStill) this.update(dt);
     this.draw();
@@ -524,60 +466,42 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   }
 
   update(dt: number) {
-    // clouds drift always (alive in idle too)
+    // colour lerp toward the current world's art direction
+    const lr = Math.min(1, dt * 3.4);
+    for (const k of ["paper", "ink", "accent", "player"] as const) {
+      const c = this.cur[k],
+        g = this.tgt[k];
+      c[0] += (g[0] - c[0]) * lr;
+      c[1] += (g[1] - c[1]) * lr;
+      c[2] += (g[2] - c[2]) * lr;
+    }
+    // clouds drift always
     for (const cl of this.clouds) {
-      cl.x -= (8 + cl.s * 10) * dt * (this.state.phase === "running" ? 1 : 0.4);
+      cl.x -= (8 + cl.s * 10) * dt * this.S * (this.state.phase === "running" ? 1 : 0.4);
       if (cl.x < -200) cl.x = this.W + 100 + Math.random() * 300;
     }
-    // particles
     for (const p of this.particles) {
       p.life -= dt;
       p.x += p.vx * dt;
       p.y += p.vy * dt;
-      p.vy += 200 * dt;
+      p.vy += 200 * this.S * dt;
     }
     this.particles = this.particles.filter((p) => p.life > 0);
 
-    if (this.state.phase === "intro") {
-      this._introT += dt;
-      this.speed = 110 + (this.BASE_SPEED - 110) * Math.min(1, this._introT / 4.4);
-      this.worldX += this.speed * dt;
-      this.char.y = this.groundY;
-      this.char.grounded = true;
-      const step = Math.min(this.INTRO_LINES.length - 1, Math.floor(this._introT / 1.05));
-      if (step !== this._introStep) {
-        this._introStep = step;
-        this.setState({ introLine: this.INTRO_LINES[step] });
-      }
-      if (this._introT > 4.4) this.beginPlay();
-      return;
-    }
-    if (this.state.phase !== "running") {
-      return;
-    }
+    if (this.state.phase !== "running") return;
 
-    // dino-style: gentle continuous acceleration toward max speed
+    // dino: continuous acceleration toward max speed
     this.speed = Math.min(this.MAX_SPEED, this.speed + this.ACCEL * dt);
     this.worldX += this.speed * dt;
-    this.score += this.speed * dt * 0.05;
-    // cosmetic level milestones (do NOT affect speed)
-    this.level = 1 + Math.floor(this.score / this.LEVEL_STEP);
-    if (this.level > this._lastLevel) {
-      this._lastLevel = this.level;
-      this.onLevelUp();
-    }
+    this.score += (this.speed / this.S) * dt * 0.025; // dino DISTANCE_COEFFICIENT
 
-    // HUD (imperative — see invariant note at top of file)
+    // HUD (imperative — see invariant note)
     const hud = this.wrapRef.current;
     if (hud) {
       const sc = hud.querySelector('[data-hud="score"]');
       if (sc) sc.textContent = String(Math.round(this.score));
       const bs = hud.querySelector('[data-hud="best"]');
       if (bs) bs.textContent = String(Math.max(this.best, Math.round(this.score)));
-      const lvn = hud.querySelector('[data-hud="level"]');
-      if (lvn) lvn.textContent = String(this.level);
-      const bar = hud.querySelector('[data-hud="lvbar"]') as HTMLElement | null;
-      if (bar) bar.style.width = Math.round(((this.score % this.LEVEL_STEP) / this.LEVEL_STEP) * 100) + "%";
     }
 
     // char physics
@@ -586,71 +510,46 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     c.vy += g * dt;
     c.y += c.vy * dt;
     if (c.y >= this.groundY) {
-      if (!c.grounded) {
-        this.spawnDust();
-      }
+      if (!c.grounded) this.spawnDust();
       c.y = this.groundY;
       c.vy = 0;
       c.grounded = true;
     }
 
-    // day / night
-    this.dayTarget = Math.floor(this.score / this.NIGHT_EVERY) % 2 === 1 ? 1 : 0;
-    this.dayPhase += (this.dayTarget - this.dayPhase) * Math.min(1, dt * 1.6);
-    const isDarkNow = this.dayPhase > 0.5;
-    if (isDarkNow !== this._dark) {
-      this._dark = isDarkNow;
-      this.applyTheme(isDarkNow);
-    }
-
-    // worlds: every ~N seconds you enter a new world
+    // worlds: switch every WORLD_SECS
     this._worldT += dt;
     if (this._worldT >= this.WORLD_SECS) this.nextWorld();
 
-    // spawn obstacles
+    // spawn obstacles — exact dino gap formula (no artificial floor)
     if (this.worldX + this.W > this._nextSpawnX) {
-      const allowDrone = this.speed > this.DRONE_MIN && !this._lastWasDrone && Math.random() < 0.35;
-      let ow: number, typeMinGap: number;
+      const vd = this.speed / (60 * this.S); // dino units per frame
+      const allowDrone = vd > 8.5 && !this._lastWasDrone && Math.random() < 0.35;
+      let owUnits: number, minGapUnits: number;
       if (allowDrone) {
-        ow = 34;
-        typeMinGap = 150;
-        this.obstacles.push({
-          kind: "drone",
-          x: this._nextSpawnX,
-          w: ow,
-          h: 16,
-          cy: this.groundY - 34 - Math.random() * 8,
-          word: this.curWords[Math.floor(Math.random() * this.curWords.length)],
-        });
+        owUnits = 46;
+        minGapUnits = 150;
+        this.obstacles.push({ kind: "drone", x: this._nextSpawnX, w: 46 * this.S, h: 26 * this.S, cy: this.groundY - (38 + Math.random() * 30) * this.S, word: this.curWords[Math.floor(Math.random() * this.curWords.length)] });
         this._lastWasDrone = true;
       } else {
         const seg = 1 + Math.floor(Math.random() * 3);
-        const h = 22 + seg * 12;
-        ow = 12 + (seg > 2 ? 14 : 0);
-        typeMinGap = 120;
-        this.obstacles.push({
-          kind: "cactus",
-          x: this._nextSpawnX,
-          w: ow,
-          h,
-          cy: 0,
-          word: this.curWords[Math.floor(Math.random() * this.curWords.length)],
-        });
+        owUnits = 17 + (seg > 2 ? 8 : 0);
+        minGapUnits = 120;
+        this.obstacles.push({ kind: "cactus", x: this._nextSpawnX, w: owUnits * this.S, h: (30 + seg * 10) * this.S, cy: 0, word: this.curWords[Math.floor(Math.random() * this.curWords.length)] });
         this._lastWasDrone = false;
       }
-      // dino getGap: round(width * speedPerFrame + minGap * GAP_COEFF), random up to x1.5
-      const speedPF = this.speed / 60;
-      const minGap = Math.round(ow * speedPF + typeMinGap * this.GAP_COEFF);
-      const base = Math.max(minGap, this.speed * 0.72); // floor: single-jump clearance
-      const gap = base + Math.random() * (base * 0.5);
-      this._nextSpawnX += gap;
+      // dino getGap: minGap = round(width*speed + minGap*0.6); maxGap = minGap*1.5
+      const minGap = Math.round(owUnits * vd + minGapUnits * 0.6);
+      const maxGap = Math.round(minGap * 1.5);
+      const gapUnits = minGap + Math.random() * (maxGap - minGap);
+      this._nextSpawnX += gapUnits * this.S;
     }
-    // cull + score-pass + collision
+
+    // collision
     const cx = c.x;
-    const charTop = c.ducking ? this.groundY - 18 : c.y - 30;
+    const charTop = c.ducking ? this.groundY - 20 * this.S : c.y - 34 * this.S;
     const charBot = c.y;
-    const charL = cx - 10,
-      charR = cx + 12;
+    const charL = cx - 11 * this.S,
+      charR = cx + 13 * this.S;
     for (const o of this.obstacles) {
       const sx = o.x - this.worldX;
       let oL: number, oR: number, oT: number, oB: number;
@@ -665,182 +564,179 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
         oT = o.cy - o.h / 2;
         oB = o.cy + o.h / 2;
       }
-      // forgiving inset
-      if (charR - 3 > oL + 2 && charL + 3 < oR - 2 && charBot - 2 > oT + 2 && charTop + 2 < oB - 2) {
+      const inset = 3 * this.S;
+      if (charR - inset > oL + inset && charL + inset < oR - inset && charBot - inset > oT + inset && charTop + inset < oB - inset) {
         this.die();
         return;
       }
     }
-    this.obstacles = this.obstacles.filter((o) => o.x - this.worldX > -120);
+    this.obstacles = this.obstacles.filter((o) => o.x - this.worldX > -160 * this.S);
   }
 
   // ---------- draw ----------
-  lerpC(a: number[], b: number[], t: number) {
-    return (
-      "rgb(" +
-      Math.round(a[0] + (b[0] - a[0]) * t) +
-      "," +
-      Math.round(a[1] + (b[1] - a[1]) * t) +
-      "," +
-      Math.round(a[2] + (b[2] - a[2]) * t) +
-      ")"
-    );
+  rgb(a: number[], alpha?: number) {
+    return alpha === undefined ? `rgb(${a[0] | 0},${a[1] | 0},${a[2] | 0})` : `rgba(${a[0] | 0},${a[1] | 0},${a[2] | 0},${alpha})`;
   }
   draw() {
     const ctx = this.ctx,
       W = this.W,
-      H = this.H;
-    const d = this.dayPhase || 0;
-    const CREAM = [250, 250, 247],
-      INK = [10, 10, 10];
-    const bg = this.lerpC(CREAM, INK, d);
-    const ink = this.lerpC(INK, CREAM, d);
-    const inkA = (a: number) =>
-      this.lerpC(INK, CREAM, d).replace("rgb(", "rgba(").replace(")", "," + a + ")");
+      H = this.H,
+      S = this.S;
+    const paper = this.cur.paper,
+      ink = this.cur.ink,
+      acc = this.cur.accent;
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = bg;
+    ctx.fillStyle = this.rgb(paper);
     ctx.fillRect(0, 0, W, H);
-    const acc = this.accentRGB;
-    const accStr = (a: number) =>
-      acc ? "rgba(" + acc[0] + "," + acc[1] + "," + acc[2] + "," + a + ")" : "rgba(0,0,0,0)";
-    if (acc) {
-      const gg = ctx.createLinearGradient(0, this.groundY - 150, 0, this.groundY);
-      gg.addColorStop(0, accStr(0));
-      gg.addColorStop(1, accStr(0.16));
-      ctx.fillStyle = gg;
-      ctx.fillRect(0, this.groundY - 150, W, 150);
-    }
 
-    // sun / moon
-    const cycleT = (this.score % this.NIGHT_EVERY) / this.NIGHT_EVERY;
-    const sunX = W * 0.78;
-    const sunY = H * 0.26 + Math.sin(cycleT * Math.PI) * -10;
-    ctx.save();
-    if (d < 0.5) {
-      ctx.beginPath();
-      ctx.arc(sunX, sunY, 26, 0, Math.PI * 2);
-      ctx.strokeStyle = acc ? accStr(0.85) : inkA(0.5);
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-    } else {
-      ctx.beginPath();
-      ctx.arc(sunX, sunY, 22, 0, Math.PI * 2);
-      ctx.fillStyle = inkA(0.9);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(sunX + 8, sunY - 6, 22, 0, Math.PI * 2);
-      ctx.fillStyle = bg;
-      ctx.fill();
-    }
-    ctx.restore();
+    // accent wash near the ground
+    const gg = ctx.createLinearGradient(0, this.groundY - 150 * S, 0, this.groundY);
+    gg.addColorStop(0, this.rgb(acc, 0));
+    gg.addColorStop(1, this.rgb(acc, 0.14));
+    ctx.fillStyle = gg;
+    ctx.fillRect(0, this.groundY - 150 * S, W, 150 * S);
+
+    this.drawMotif(ink, acc);
 
     // clouds (faint arcs)
-    ctx.strokeStyle = inkA(0.12);
+    ctx.strokeStyle = this.rgb(ink, 0.12);
     ctx.lineWidth = 1.5;
     for (const cl of this.clouds) {
       ctx.beginPath();
-      ctx.arc(cl.x, cl.y, 22 * cl.s, Math.PI * 0.15, Math.PI * 0.95, true);
+      ctx.arc(cl.x, cl.y, 22 * cl.s * S, Math.PI * 0.15, Math.PI * 0.95, true);
       ctx.stroke();
       ctx.beginPath();
-      ctx.arc(cl.x + 26 * cl.s, cl.y + 4, 16 * cl.s, Math.PI * 0.1, Math.PI, true);
+      ctx.arc(cl.x + 26 * cl.s * S, cl.y + 4 * S, 16 * cl.s * S, Math.PI * 0.1, Math.PI, true);
       ctx.stroke();
     }
 
-    // parallax hills (hairline)
-    this.drawRidge(this.hills2, 0.18, 0.62, inkA(0.1));
-    this.drawRidge(this.hills1, 0.42, 0.7, inkA(0.18));
+    // parallax hills
+    this.drawRidge(this.hills2, 0.18, 0.66, this.rgb(ink, 0.09));
+    this.drawRidge(this.hills1, 0.42, 0.74, this.rgb(ink, 0.16));
 
     // ground
     const gY = this.groundY;
-    ctx.fillStyle = inkA(0.03);
+    ctx.fillStyle = this.rgb(ink, 0.03);
     ctx.fillRect(0, gY, W, H - gY);
-    ctx.strokeStyle = acc ? accStr(1) : ink;
+    ctx.strokeStyle = this.rgb(acc, 1);
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(0, gY);
     ctx.lineTo(W, gY);
     ctx.stroke();
-    // ticks + pebbles
-    ctx.strokeStyle = inkA(0.18);
+    ctx.strokeStyle = this.rgb(ink, 0.18);
     ctx.lineWidth = 1;
-    const st = Math.floor(this.worldX / 58) * 58;
-    for (let n = 0; n < W / 58 + 2; n++) {
-      const sx = st + n * 58 - this.worldX;
+    const step = 58 * S;
+    const st = Math.floor(this.worldX / step) * step;
+    for (let n = 0; n < W / step + 2; n++) {
+      const sx = st + n * step - this.worldX;
       if (sx < 0 || sx > W) continue;
       ctx.beginPath();
-      ctx.moveTo(sx, gY + 4);
-      ctx.lineTo(sx, gY + 10);
+      ctx.moveTo(sx, gY + 4 * S);
+      ctx.lineTo(sx, gY + 10 * S);
       ctx.stroke();
     }
 
     // obstacles
     for (const o of this.obstacles) {
       const sx = o.x - this.worldX;
-      if (sx < -60 || sx > W + 60) continue;
-      ctx.fillStyle = ink;
+      if (sx < -80 || sx > W + 80) continue;
+      ctx.fillStyle = this.rgb(ink);
       if (o.kind === "cactus") {
-        const bw = o.w,
-          bx = sx - bw / 2,
+        const bx = sx - o.w / 2,
           by = gY - o.h;
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(bx, by, bw, o.h, [4, 4, 0, 0]);
-        else ctx.rect(bx, by, bw, o.h);
+        if (ctx.roundRect) ctx.roundRect(bx, by, o.w, o.h, [4 * S, 4 * S, 0, 0]);
+        else ctx.rect(bx, by, o.w, o.h);
         ctx.fill();
-        ctx.fillStyle = acc ? accStr(0.85) : inkA(0.34);
-        ctx.font = "500 10px " + MONO;
+        ctx.fillStyle = this.rgb(acc, 0.95);
+        ctx.font = `500 ${Math.round(9 * S)}px ${MONO}`;
         ctx.textAlign = "center";
         ctx.save();
-        ctx.translate(sx + bw / 2 + 9, by + o.h - 2);
+        ctx.translate(sx + o.w / 2 + 9 * S, by + o.h - 2 * S);
         ctx.rotate(-Math.PI / 2);
         ctx.fillText(o.word, 0, 0);
         ctx.restore();
       } else {
         const bx = sx - o.w / 2;
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(bx, o.cy - o.h / 2, o.w, o.h, 8);
+        if (ctx.roundRect) ctx.roundRect(bx, o.cy - o.h / 2, o.w, o.h, 8 * S);
         else ctx.rect(bx, o.cy - o.h / 2, o.w, o.h);
         ctx.fill();
-        // rotor ticks
-        ctx.strokeStyle = ink;
+        ctx.strokeStyle = this.rgb(ink);
         ctx.lineWidth = 1.5;
         ctx.beginPath();
-        ctx.moveTo(sx - 6, o.cy - o.h / 2 - 5);
-        ctx.lineTo(sx + 6, o.cy - o.h / 2 - 5);
+        ctx.moveTo(sx - 6 * S, o.cy - o.h / 2 - 5 * S);
+        ctx.lineTo(sx + 6 * S, o.cy - o.h / 2 - 5 * S);
         ctx.stroke();
-        ctx.fillStyle = acc ? accStr(0.85) : inkA(0.34);
-        ctx.font = "500 9px " + MONO;
+        ctx.fillStyle = this.rgb(acc, 0.95);
+        ctx.font = `500 ${Math.round(8 * S)}px ${MONO}`;
         ctx.textAlign = "center";
-        ctx.fillText(o.word, sx, o.cy - o.h / 2 - 12);
+        ctx.fillText(o.word, sx, o.cy - o.h / 2 - 12 * S);
       }
     }
 
     // particles
     for (const p of this.particles) {
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-      ctx.fillStyle = inkA(Math.max(0, p.life));
+      ctx.arc(p.x, p.y, 2 * S, 0, Math.PI * 2);
+      ctx.fillStyle = this.rgb(ink, Math.max(0, p.life));
       ctx.fill();
     }
 
-    // character
-    this.drawChar(ink, bg);
+    this.drawChar();
+  }
+
+  drawMotif(ink: number[], acc: number[]) {
+    if (!this.curMotif) return;
+    const ctx = this.ctx,
+      W = this.W,
+      S = this.S;
+    const topB = this.groundY - 160 * S;
+    const off = (this.worldX * 0.3) % (60 * S);
+    ctx.save();
+    ctx.strokeStyle = this.rgb(acc, 0.1);
+    ctx.fillStyle = this.rgb(ink, 0.05);
+    ctx.lineWidth = 1.2;
+    if (this.curMotif === "dots") {
+      const g = 46 * S;
+      for (let x = -off; x < W; x += g) for (let y = 60 * S; y < topB; y += g) { ctx.beginPath(); ctx.arc(x, y, 2 * S, 0, Math.PI * 2); ctx.fill(); }
+    } else if (this.curMotif === "grid") {
+      const g = 52 * S;
+      for (let x = -off; x < W; x += g) { ctx.beginPath(); ctx.moveTo(x, 40 * S); ctx.lineTo(x, topB); ctx.stroke(); }
+      for (let y = 50 * S; y < topB; y += g) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+    } else if (this.curMotif === "bars") {
+      const g = 64 * S;
+      for (let x = -off; x < W; x += g) { const h = (40 + ((x | 0) % 5) * 26) * S; ctx.fillRect(x, topB - h, 10 * S, h); }
+    } else if (this.curMotif === "rings") {
+      for (let i = 0; i < 5; i++) { const cx = ((i * 220 * S - off * 2) % (W + 240 * S)) - 120 * S; ctx.beginPath(); ctx.arc(cx, 130 * S, (30 + i * 10) * S, 0, Math.PI * 2); ctx.stroke(); }
+    } else if (this.curMotif === "waves") {
+      for (let r = 0; r < 3; r++) { const yb = 80 * S + r * 40 * S; ctx.beginPath(); for (let x = 0; x <= W; x += 8 * S) { const y = yb + Math.sin((x + this.worldX * 0.4) / (60 * S)) * 8 * S; if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); } ctx.stroke(); }
+    } else if (this.curMotif === "dashes") {
+      ctx.setLineDash([10 * S, 10 * S]);
+      for (let i = 0; i < 4; i++) { const y = 70 * S + i * 30 * S; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+      ctx.setLineDash([]);
+    }
+    ctx.restore();
   }
 
   drawRidge(arr: number[], parallax: number, baseFrac: number, color: string) {
     const ctx = this.ctx,
       W = this.W,
-      H = this.H;
-    const off = (this.worldX * parallax) % 80;
+      H = this.H,
+      S = this.S;
+    const seg = 80 * S;
+    const off = (this.worldX * parallax) % seg;
     const base = H * baseFrac;
     ctx.beginPath();
     ctx.moveTo(0, H);
-    let x = -80 - off,
+    let x = -seg - off,
       i = 0;
     ctx.lineTo(x, base);
-    while (x < W + 80) {
+    while (x < W + seg) {
       const h = arr[i % arr.length];
-      x += 80;
-      ctx.lineTo(x - 40, base - h);
+      x += seg;
+      ctx.lineTo(x - seg / 2, base - h);
       ctx.lineTo(x, base);
       i++;
     }
@@ -850,507 +746,198 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     ctx.fill();
   }
 
-  drawChar(ink: string, bg: string) {
+  drawChar() {
     const ctx = this.ctx,
-      c = this.char;
-    const x = c.x,
-      baseY = c.y;
+      c = this.char,
+      S = this.S;
+    const player = this.rgb(this.cur.player);
+    const paper = this.rgb(this.cur.paper);
     const run = Math.sin(this._t * (this.state.phase === "running" ? 18 : 4));
     const air = !c.grounded;
     ctx.save();
-    ctx.translate(x, baseY);
-    ctx.fillStyle = ink;
+    ctx.translate(c.x, c.y);
+    ctx.scale(S, S);
+    ctx.fillStyle = player;
     if (c.ducking && !air) {
-      // flattened
       ctx.beginPath();
-      ctx.ellipse(2, -9, 17, 8, 0, 0, Math.PI * 2);
+      ctx.ellipse(2, -9, 18, 8, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.beginPath();
-      ctx.moveTo(17, -11);
-      ctx.lineTo(26, -9);
-      ctx.lineTo(17, -6);
+      ctx.moveTo(18, -11);
+      ctx.lineTo(28, -9);
+      ctx.lineTo(18, -6);
       ctx.closePath();
       ctx.fill();
       ctx.beginPath();
-      ctx.arc(10, -11, 1.5, 0, Math.PI * 2);
-      ctx.fillStyle = bg;
+      ctx.arc(11, -11, 1.6, 0, Math.PI * 2);
+      ctx.fillStyle = paper;
       ctx.fill();
     } else {
       const stretch = air ? 1.12 : 1;
-      const bodyH = 17 * stretch;
-      // body
+      const bodyH = 18 * stretch;
       ctx.beginPath();
-      ctx.ellipse(0, -bodyH, 11, bodyH, 0, 0, Math.PI * 2);
-      ctx.fillStyle = ink;
+      ctx.ellipse(0, -bodyH, 12, bodyH, 0, 0, Math.PI * 2);
+      ctx.fillStyle = player;
       ctx.fill();
-      // head
       ctx.beginPath();
-      ctx.arc(4, -bodyH - 10, 8, 0, Math.PI * 2);
+      ctx.arc(5, -bodyH - 11, 9, 0, Math.PI * 2);
       ctx.fill();
-      // beak
       ctx.beginPath();
-      ctx.moveTo(11, -bodyH - 11);
-      ctx.lineTo(20, -bodyH - 9);
-      ctx.lineTo(11, -bodyH - 6);
+      ctx.moveTo(13, -bodyH - 12);
+      ctx.lineTo(23, -bodyH - 10);
+      ctx.lineTo(13, -bodyH - 6);
       ctx.closePath();
       ctx.fill();
-      // eye
       ctx.beginPath();
-      ctx.arc(6, -bodyH - 12, 1.7, 0, Math.PI * 2);
-      ctx.fillStyle = bg;
+      ctx.arc(7, -bodyH - 13, 1.9, 0, Math.PI * 2);
+      ctx.fillStyle = paper;
       ctx.fill();
-      // legs
-      ctx.strokeStyle = ink;
-      ctx.lineWidth = 2.4;
+      ctx.strokeStyle = player;
+      ctx.lineWidth = 2.6;
       ctx.lineCap = "round";
       if (air) {
         ctx.beginPath();
         ctx.moveTo(-3, -3);
-        ctx.lineTo(-6, 0);
-        ctx.moveTo(3, -3);
-        ctx.lineTo(7, -1);
+        ctx.lineTo(-7, 0);
+        ctx.moveTo(4, -3);
+        ctx.lineTo(8, -1);
         ctx.stroke();
       } else {
         ctx.beginPath();
         ctx.moveTo(-2, -2);
-        ctx.lineTo(-2 + run * 6, 0);
-        ctx.moveTo(4, -2);
-        ctx.lineTo(4 - run * 6, 0);
+        ctx.lineTo(-2 + run * 7, 0);
+        ctx.moveTo(5, -2);
+        ctx.lineTo(5 - run * 7, 0);
         ctx.stroke();
       }
     }
     ctx.restore();
   }
 
-  hexToRgb(h: string) {
-    const n = parseInt(h.slice(1), 16);
-    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
-  }
-
-  shuffle(a: number[]) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const t = a[i];
-      a[i] = a[j];
-      a[j] = t;
-    }
-    return a;
-  }
-
-  nextWorld() {
-    this._worldT = 0;
-    this.worldPos = (this.worldPos + 1) % this.worldOrder.length;
-    this.enterWorld(this.WORLDS[this.worldOrder[this.worldPos]]);
-  }
-
-  enterWorld(wld: World) {
-    this.accentRGB = wld.accent ? this.hexToRgb(wld.accent) : null;
-    this.curWords = wld.words || ["HYPE", "SYNERGY", "BUZZWORD"];
-    this.blip(wld.yc ? 880 : 720, 0.12, "sine");
-    const title = wld.name + " — " + wld.line;
-    if (this._revealT) clearTimeout(this._revealT);
-    this.setState({ caption: title, reveal: { kicker: wld.type, title: title }, revealOn: true });
-    const accent = wld.accent || (this._dark ? "#fafaf7" : "#0a0a0a");
-    this._revealRaf = requestAnimationFrame(() => {
-      const w = this.wrapRef.current;
-      if (!w) return;
-      const dot = w.querySelector('[data-ui="revealDot"]') as HTMLElement | null;
-      if (dot) dot.style.setProperty("background", accent, "important");
-      const bar = w.querySelector('[data-ui="revealBar"]') as HTMLElement | null;
-      if (bar) bar.style.setProperty("background", accent, "important");
-      this.applyTheme(this._dark);
-    });
-    this._revealT = setTimeout(() => {
-      try {
-        this.setState({ revealOn: false });
-      } catch {
-        /* unmounted */
-      }
-    }, 4200);
-  }
-
+  // ---------- imperative chrome (marketing fade) ----------
   setChrome(hidden: boolean) {
     const w = this.wrapRef.current;
     if (!w) return;
     const m = w.querySelector('[data-ui="marketing"]') as HTMLElement | null;
     if (m) {
-      m.style.transition =
-        "opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)";
+      m.style.transition = "opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1)";
       m.style.opacity = hidden ? "0" : "1";
-      m.style.transform = hidden ? "translateY(-18px)" : "translateY(0)";
+      m.style.transform = hidden ? "translateY(-16px)" : "translateY(0)";
       m.style.pointerEvents = hidden ? "none" : "auto";
     }
   }
 
-  applyTheme(dark: boolean) {
-    const w = this.wrapRef.current;
-    if (!w) return;
-    const ink = dark ? "#fafaf7" : "#0a0a0a";
-    const content = w.querySelector('[data-ui="content"]') as HTMLElement | null;
-    if (!content) return;
-    content.style.setProperty("color", ink, "important");
-    content.querySelectorAll("*").forEach((el) => {
-      const t = el.getAttribute("data-ui");
-      if (t === "revealDot" || t === "revealBar") return;
-      if (el.closest('[data-ui="cta"]')) return;
-      (el as HTMLElement).style.setProperty("color", ink, "important");
-    });
-    const prompt = w.querySelector('[data-ui="prompt"]') as HTMLElement | null;
-    if (prompt) prompt.style.setProperty("color", ink, "important");
-  }
-
   render() {
-    const { phase, sound, introLine, levelFlashOn, levelFlash, caption, finalScore, bestScore, deadKicker, deadTitle } =
-      this.state;
+    const { phase, sound, world, finalScore, bestScore, deadKicker, deadTitle } = this.state;
     const isIdle = phase === "idle";
-    const isIntro = phase === "intro";
     const isDead = phase === "dead";
-    const revealOn = this.state.revealOn;
-    const reveal = this.state.reveal ?? { kicker: "", title: "" };
     const soundIcon = sound ? "♪" : "⊘";
+    const hudColor = world ? world.ink : "var(--foreground)";
 
     return (
-      <div ref={this.wrapRef} style={{ position: "relative", width: "100%" }}>
-        {/* NAV */}
-        <div
-          style={{
-            position: "fixed",
-            top: 20,
-            left: 0,
-            right: 0,
-            zIndex: 60,
-            display: "flex",
-            justifyContent: "center",
-            padding: "0 18px",
-            pointerEvents: "none",
-          }}
-        >
-          <nav
-            style={{
-              pointerEvents: "auto",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 4,
-              background: "#0a0a0a",
-              color: "#fafaf7",
-              padding: "6px 6px 6px 18px",
-              borderRadius: 9999,
-              boxShadow: "0 8px 30px rgba(10,10,10,0.16)",
-              maxWidth: "calc(100vw - 28px)",
-            }}
-          >
-            <span style={{ fontWeight: 600, fontSize: 14, letterSpacing: "-0.01em", marginRight: 10, whiteSpace: "nowrap" }}>
-              The Vibe Co.
-            </span>
-            <a href="#work" className="vibe-nav-link" style={navLink}>
-              Work
-            </a>
-            <a href="#method" className="vibe-nav-link" style={navLink}>
-              Method
-            </a>
-            <a href="#studio" className="vibe-nav-link" style={navLink}>
-              Studio
-            </a>
-            <a
-              href="mailto:founders@thevibecompany.co"
-              style={{
-                padding: "8px 16px",
-                borderRadius: 9999,
-                background: "#fafaf7",
-                color: "#0a0a0a",
-                fontSize: 13,
-                fontWeight: 600,
-                marginLeft: 4,
-                textDecoration: "none",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Brief us →
-            </a>
-          </nav>
+      <div ref={this.wrapRef} style={{ position: "relative", width: "100%", height: "clamp(560px, 86vh, 880px)", overflow: "hidden", borderBottom: "2px solid var(--foreground)" }}>
+        <canvas
+          ref={this.canvasRef}
+          role="img"
+          aria-label="Playable endless-runner game; press Space or tap to play and travel through The Vibe Company's worlds. All headline copy and links are also available as text on the page."
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block", touchAction: "manipulation", cursor: "pointer" }}
+        />
+
+        {/* Marketing block — existing homepage hero tone; fades out on play.
+            pointer-events stay off the block so canvas taps pass through to start;
+            only the CTA opts in, and only while idle. */}
+        <div data-ui="marketing" style={{ position: "absolute", left: 0, right: 0, top: 0, zIndex: 2, padding: "clamp(76px, 12vh, 132px) clamp(20px, 6vw, 80px) 0", pointerEvents: "none" }}>
+          <div style={{ maxWidth: 760 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 18 }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 10, border: "1px solid var(--foreground)", padding: "6px 14px", fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--foreground)" }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#f97316", animation: "vc-pulse 2s infinite" }} />
+                Open to projects · Built with AI
+              </span>
+            </div>
+            <h1 style={{ margin: 0, fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 0.92, fontSize: "clamp(40px, 7vw, 104px)", color: "var(--foreground)" }}>
+              <span style={{ display: "block" }}>AI-native agency.</span>
+              <span style={{ display: "block", WebkitTextStroke: "1.5px var(--foreground)", color: "transparent" }}>Everything way faster.</span>
+            </h1>
+            <p style={{ margin: "20px 0 0", maxWidth: 540, fontSize: "clamp(15px, 1.7vw, 19px)", lineHeight: 1.5, color: "var(--foreground)", opacity: 0.62 }}>
+              A small team of AI specialists. We build products, automate ops, and train teams. Our agency itself runs on AI.
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 16, marginTop: 26, pointerEvents: isIdle ? "auto" : "none" }}>
+              <a href="mailto:founders@thevibecompany.co" style={{ display: "inline-flex", alignItems: "center", gap: 12, border: "2px solid var(--foreground)", background: "var(--foreground)", color: "var(--background)", padding: "14px 24px", fontSize: 15, fontWeight: 600, textDecoration: "none" }}>
+                Book a discovery call <span aria-hidden="true">→</span>
+              </a>
+              <span style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--foreground)", opacity: 0.55 }}>↑ Space — discover our worlds</span>
+            </div>
+          </div>
         </div>
 
-        {/* HERO — playable runner */}
-        <header style={{ position: "relative", width: "100%", height: "clamp(640px, 96vh, 940px)", overflow: "hidden" }}>
-          <canvas
-            ref={this.canvasRef}
-            role="img"
-            aria-label="Playable endless-runner game; press Space or tap to start. All headline copy, links, and navigation are also available as text below the game."
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block", touchAction: "manipulation", cursor: "pointer" }}
-          />
+        {/* Score / sound HUD — always visible, coloured by the current world */}
+        <div style={{ position: "absolute", top: "clamp(76px, 12vh, 132px)", right: "clamp(20px, 6vw, 80px)", zIndex: 3, textAlign: "right", fontFamily: MONO, pointerEvents: "auto", color: hudColor }}>
+          <div style={{ fontSize: 10.5, letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.55 }}>Shipped</div>
+          <div data-hud="score" style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1 }}>0</div>
+          <div style={{ fontSize: 11, letterSpacing: "0.06em", opacity: 0.55, marginTop: 4 }}>Best <span data-hud="best">0</span></div>
+          <button onClick={this.onToggleSound} title="Toggle sound" aria-label="Toggle sound" style={{ marginTop: 12, width: 30, height: 30, borderRadius: 9999, border: "1px solid currentColor", background: "transparent", color: "currentColor", cursor: "pointer", fontSize: 13, opacity: 0.8 }}>{soundIcon}</button>
+        </div>
 
-          <div
-            data-ui="content"
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: 2,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              padding: "clamp(96px, 13vh, 150px) clamp(24px, 6vw, 80px) clamp(26px, 4vh, 48px)",
-              pointerEvents: "none",
-              transition: "color 0.6s cubic-bezier(0.16,1,0.3,1)",
-            }}
-          >
-            {/* top row: status + score */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
-              <div data-ui="marketing" style={{ maxWidth: 880 }}>
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 8,
-                    border: "1px solid currentColor",
-                    padding: "5px 12px",
-                    borderRadius: 9999,
-                    fontFamily: MONO,
-                    fontSize: 11,
-                    letterSpacing: "0.08em",
-                    opacity: 0.8,
-                    backdropFilter: "blur(4px)",
-                    WebkitBackdropFilter: "blur(4px)",
-                  }}
-                >
-                  <span style={{ width: 6, height: 6, background: "currentColor", borderRadius: "50%", animation: "vc-pulse 2s infinite" }} />
-                  BUILDING IN PUBLIC · BOOKING Q3 2026
-                </span>
-                <h1 style={{ margin: "22px 0 0", fontWeight: 500, letterSpacing: "-0.05em", lineHeight: 0.92, fontSize: "clamp(42px, 8vw, 104px)" }}>
-                  We ship. We show.
-                  <br />
-                  We <em style={{ fontStyle: "italic", fontWeight: 400 }}>vibe.</em>
-                </h1>
-                <p style={{ margin: "20px 0 0", fontSize: "clamp(16px, 2vw, 20px)", lineHeight: 1.5, color: "currentColor", opacity: 0.6, maxWidth: 500 }}>
-                  An AI-native agency from the team behind Quivr. Most agencies wrote a landing page. We shipped a game — and a company worth running it
-                  for.
-                </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 28, pointerEvents: "auto" }}>
-                  <a
-                    href="mailto:founders@thevibecompany.co"
-                    data-ui="cta"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 10,
-                      padding: "15px 24px",
-                      borderRadius: 9999,
-                      background: "#0a0a0a",
-                      color: "#fafaf7",
-                      fontSize: 15,
-                      fontWeight: 600,
-                      textDecoration: "none",
-                      transition: "all 0.6s",
-                    }}
-                  >
-                    Start a brief{" "}
-                    <span
-                      data-ui="ctaArrow"
-                      style={{
-                        width: 24,
-                        height: 24,
-                        borderRadius: "50%",
-                        background: "#fafaf7",
-                        color: "#0a0a0a",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        transition: "all 0.6s",
-                      }}
-                    >
-                      →
-                    </span>
-                  </a>
-                  <a
-                    href="#work"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      padding: "15px 24px",
-                      borderRadius: 9999,
-                      border: "1px solid currentColor",
-                      color: "currentColor",
-                      fontSize: 15,
-                      fontWeight: 600,
-                      textDecoration: "none",
-                    }}
-                  >
-                    See the work
-                  </a>
-                </div>
+        {/* Persistent world panel — stays for the whole world while playing */}
+        {world && !isIdle && !isDead && (
+          <div style={{ position: "absolute", left: "clamp(20px,6vw,80px)", top: "clamp(76px,12vh,120px)", zIndex: 4, pointerEvents: "none", display: "flex", alignItems: "stretch", gap: 14, maxWidth: 520 }}>
+            <span style={{ width: 4, borderRadius: 4, flex: "none", background: world.accent }} />
+            <div>
+              <div style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: world.ink, opacity: 0.7, display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: world.accent }} />
+                {world.tag}
               </div>
-
-              <div style={{ textAlign: "right", fontFamily: MONO, pointerEvents: "auto" }}>
-                <div style={{ fontSize: 10.5, letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.55 }}>Shipped</div>
-                <div data-hud="score" style={{ fontSize: "clamp(30px, 4vw, 44px)", fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1 }}>
-                  0
-                </div>
-                <div style={{ fontSize: 11, letterSpacing: "0.06em", opacity: 0.55, marginTop: 4 }}>
-                  Best <span data-hud="best">0</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 7, justifyContent: "flex-end", marginTop: 12 }}>
-                  <span style={{ fontSize: 10.5, letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.55 }}>LV</span>
-                  <span data-hud="level" style={{ fontSize: 19, fontWeight: 600, letterSpacing: "-0.02em" }}>
-                    1
-                  </span>
-                </div>
-                <div style={{ width: 116, height: 4, border: "1px solid currentColor", borderRadius: 9999, margin: "6px 0 0 auto", overflow: "hidden", opacity: 0.7 }}>
-                  <div data-hud="lvbar" style={{ height: "100%", width: "0%", background: "currentColor" }} />
-                </div>
-                <button
-                  onClick={this.onToggleSound}
-                  title="Sound"
-                  style={{
-                    marginTop: 12,
-                    width: 30,
-                    height: 30,
-                    borderRadius: 9999,
-                    border: "1px solid currentColor",
-                    background: "transparent",
-                    color: "currentColor",
-                    cursor: "pointer",
-                    fontSize: 13,
-                    opacity: 0.8,
-                  }}
-                >
-                  {soundIcon}
-                </button>
-              </div>
+              <div style={{ fontSize: "clamp(26px, 4vw, 44px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.02, marginTop: 6, color: world.ink }}>{world.name}</div>
+              <div style={{ fontSize: "clamp(14px, 1.6vw, 18px)", lineHeight: 1.45, marginTop: 8, color: world.ink, opacity: 0.7, maxWidth: 420 }}>{world.line}</div>
             </div>
-
-            {/* bottom row: caption + controls hint */}
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 14 }}>
-              <div key={caption} style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.04em", opacity: 0.7, minHeight: 18 }}>
-                <span style={{ display: "inline-block", animation: "vc-fade 0.4s ease" }}>{caption}</span>
-              </div>
-              <div style={{ fontFamily: MONO, fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.1em", opacity: 0.45 }}>
-                {"Space / tap — jump  ·  ↓ / hold-low — duck"}
-              </div>
-            </div>
-
-            {revealOn && (
-              <div
-                style={{
-                  position: "absolute",
-                  left: "clamp(24px,6vw,80px)",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  zIndex: 4,
-                  pointerEvents: "none",
-                  display: "flex",
-                  alignItems: "stretch",
-                  gap: 14,
-                  maxWidth: 560,
-                  animation: "vc-fade 0.5s cubic-bezier(0.16,1,0.3,1)",
-                }}
-              >
-                <span data-ui="revealBar" style={{ width: 4, borderRadius: 4, flex: "none" }} />
-                <div>
-                  <div style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", opacity: 0.6, display: "flex", alignItems: "center", gap: 8 }}>
-                    <span data-ui="revealDot" style={{ width: 8, height: 8, borderRadius: "50%" }} />
-                    {reveal.kicker}
-                  </div>
-                  <div style={{ fontSize: "clamp(22px, 3.4vw, 36px)", fontWeight: 500, letterSpacing: "-0.03em", lineHeight: 1.05, marginTop: 6 }}>
-                    {reveal.title}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {levelFlashOn && (
-              <div style={{ position: "absolute", inset: 0, zIndex: 5, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
-                <div style={{ fontWeight: 600, letterSpacing: "-0.06em", lineHeight: 0.82, fontSize: "clamp(120px, 25vw, 340px)", animation: "vc-pop 0.5s cubic-bezier(0.16,1,0.3,1)" }}>
-                  {levelFlash.n}
-                </div>
-                <div style={{ fontFamily: MONO, fontSize: "clamp(13px,1.8vw,18px)", textTransform: "uppercase", letterSpacing: "0.28em", marginTop: 2, opacity: 0.75 }}>
-                  Level {levelFlash.n} · {levelFlash.label}
-                </div>
-              </div>
-            )}
           </div>
+        )}
 
-          {/* IDLE prompt */}
-          {isIdle && (
-            <div style={{ position: "absolute", left: 0, right: 0, bottom: "clamp(108px, 20vh, 220px)", zIndex: 4, display: "flex", justifyContent: "center", pointerEvents: "none" }}>
-              <div data-ui="prompt" style={{ fontFamily: MONO, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.18em", opacity: 0.7, animation: "vc-bob 1.7s ease-in-out infinite" }}>
-                {"↑  Space to ship  ↑"}
+        {/* Controls hint while playing */}
+        {!isIdle && !isDead && (
+          <div style={{ position: "absolute", right: "clamp(20px,6vw,80px)", bottom: "clamp(20px,4vh,40px)", zIndex: 4, pointerEvents: "none", fontFamily: MONO, fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.1em", color: world ? world.ink : "var(--foreground)", opacity: 0.5 }}>
+            {"Space / tap — jump   ·   ↓ / hold-low — duck"}
+          </div>
+        )}
+
+        {/* Idle prompt */}
+        {isIdle && (
+          <div style={{ position: "absolute", left: 0, right: 0, bottom: "clamp(20px,5vh,52px)", zIndex: 4, display: "flex", justifyContent: "center", pointerEvents: "none" }}>
+            <div data-ui="prompt" style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--foreground)", opacity: 0.6, animation: "vc-bob 1.7s ease-in-out infinite" }}>
+              {"↑  Space — discover our worlds  ↑"}
+            </div>
+          </div>
+        )}
+
+        {/* Dead overlay */}
+        {isDead && (
+          <div style={{ position: "absolute", inset: 0, zIndex: 5, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: 28, background: "rgba(10,10,10,0.68)", backdropFilter: "blur(3px)", WebkitBackdropFilter: "blur(3px)", color: "#fafaf7" }}>
+            <div style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", opacity: 0.55, marginBottom: 14 }}>
+              {"// "}
+              {deadKicker}
+            </div>
+            <h2 style={{ margin: 0, fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 0.95, fontSize: "clamp(36px, 6.5vw, 76px)" }}>{deadTitle}</h2>
+            <div style={{ display: "flex", gap: 32, margin: "24px 0 26px", fontFamily: MONO }}>
+              <div>
+                <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em" }}>{finalScore}</div>
+                <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", opacity: 0.5, marginTop: 4 }}>Shipped</div>
+              </div>
+              <div>
+                <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em" }}>{bestScore}</div>
+                <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", opacity: 0.5, marginTop: 4 }}>Best</div>
               </div>
             </div>
-          )}
-
-          {/* INTRO overlay */}
-          {isIntro && (
-            <div style={{ position: "absolute", inset: 0, zIndex: 4, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", pointerEvents: "none", padding: "0 24px" }}>
-              <div style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.16em", color: "#0a0a0a", opacity: 0.5, marginBottom: 18 }}>
-                Let us show you what we do
-              </div>
-              <div key={introLine} style={{ fontWeight: 500, letterSpacing: "-0.04em", lineHeight: 0.95, fontSize: "clamp(40px, 8vw, 96px)", color: "#0a0a0a" }}>
-                <span style={{ display: "inline-block", animation: "vc-fade 0.5s cubic-bezier(0.16,1,0.3,1)" }}>{introLine}</span>
-              </div>
-              <div style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: "#0a0a0a", opacity: 0.45, marginTop: 26, animation: "vc-bob 1.7s ease-in-out infinite" }}>
-                space / tap to skip ↑
-              </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
+              <button onClick={this.onRestart} style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "14px 24px", border: 0, background: "#fafaf7", color: "#0a0a0a", fontFamily: "inherit", fontSize: 15, fontWeight: 600, cursor: "pointer" }}>
+                Ship again <span style={{ width: 24, height: 24, borderRadius: "50%", background: "#0a0a0a", color: "#fafaf7", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>↻</span>
+              </button>
+              <a href="mailto:founders@thevibecompany.co" style={{ display: "inline-flex", alignItems: "center", padding: "14px 24px", border: "1px solid rgba(250,250,247,0.3)", color: "#fafaf7", fontSize: 15, fontWeight: 600, textDecoration: "none" }}>
+                Book a call →
+              </a>
             </div>
-          )}
-
-          {/* DEAD overlay */}
-          {isDead && (
-            <div style={{ position: "absolute", inset: 0, zIndex: 5, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: 28, background: "rgba(10,10,10,0.66)", backdropFilter: "blur(3px)", WebkitBackdropFilter: "blur(3px)", color: "#fafaf7" }}>
-              <div style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", opacity: 0.55, marginBottom: 14 }}>
-                {"// "}
-                {deadKicker}
-              </div>
-              <h2 style={{ margin: 0, fontWeight: 500, letterSpacing: "-0.045em", lineHeight: 0.95, fontSize: "clamp(36px, 6.5vw, 76px)" }}>{deadTitle}</h2>
-              <div style={{ display: "flex", gap: 32, margin: "24px 0 26px", fontFamily: MONO }}>
-                <div>
-                  <div style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.02em" }}>{finalScore}</div>
-                  <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", opacity: 0.5, marginTop: 4 }}>Shipped</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.02em" }}>{bestScore}</div>
-                  <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", opacity: 0.5, marginTop: 4 }}>Best</div>
-                </div>
-              </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
-                <button
-                  onClick={this.onRestart}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 10,
-                    padding: "14px 24px",
-                    borderRadius: 9999,
-                    border: 0,
-                    background: "#fafaf7",
-                    color: "#0a0a0a",
-                    fontFamily: "inherit",
-                    fontSize: 15,
-                    fontWeight: 600,
-                    cursor: "pointer",
-                  }}
-                >
-                  Ship again{" "}
-                  <span style={{ width: 24, height: 24, borderRadius: "50%", background: "#0a0a0a", color: "#fafaf7", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>↻</span>
-                </button>
-                <a
-                  href="mailto:founders@thevibecompany.co"
-                  style={{ display: "inline-flex", alignItems: "center", padding: "14px 24px", borderRadius: 9999, border: "1px solid rgba(250,250,247,0.3)", color: "#fafaf7", fontSize: 15, fontWeight: 600, textDecoration: "none" }}
-                >
-                  Brief us →
-                </a>
-              </div>
-            </div>
-          )}
-        </header>
+          </div>
+        )}
       </div>
     );
   }
 }
-
-const navLink: React.CSSProperties = {
-  padding: "8px 13px",
-  borderRadius: 9999,
-  fontSize: 13,
-  color: "rgba(250,250,247,0.65)",
-  textDecoration: "none",
-  whiteSpace: "nowrap",
-};
