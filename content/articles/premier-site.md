@@ -47,4 +47,4 @@ Ce premier site n'est pas une fin en soi, c'est une porte d'entrée. Il m'a fait
 
 Voir ce premier site passer d'une page vide à quelque chose qui tourne en ligne, ça m'a clairement donné envie de continuer.
 
-En attendant, avis aux fans de manga : le site est en ligne, [à voir ici](https://manga-list-vibe.vercel.app).
+En attendant, avis aux fans de manga : le site est en ligne, [à voir ici](https://anime-list-vibe.vercel.app).
