@@ -1,0 +1,40 @@
+src/components/resources/SkillPromptBlock.tsx
+  s_f95d93f52c0c73::t_c750e6d8837e00 7,35-38,56
+src/components/resources/ResourcesHomeSearch.tsx
+  s_f95d93f52c0c73::t_c750e6d8837e00 5
+  s_f95d93f52c0c73::t_43086aa3632de3 36-41
+src/components/home/Hero.tsx
+  s_f95d93f52c0c73::t_c750e6d8837e00 5,135,145
+src/components/TopNav.tsx
+  s_f95d93f52c0c73::t_0286954b04fa34 263-273
+  s_f95d93f52c0c73::t_7334bba86f2c30 15,141-143,174-175,285
+  s_f95d93f52c0c73::t_b790693d5e10ec 117-123
+src/generated/og-image-dimensions.json
+  s_f95d93f52c0c73::t_15038e05ed5820 26-29
+src/components/resources/SkillAIInstaller.tsx
+  s_f95d93f52c0c73::t_c750e6d8837e00 7,20-21
+instrumentation-client.ts
+  s_f95d93f52c0c73::t_7bab2d14da088d 2-15
+src/components/PostHogProvider.tsx
+  s_f95d93f52c0c73::t_7bab2d14da088d 7
+src/components/home/FinalCTA.tsx
+  s_f95d93f52c0c73::t_c750e6d8837e00 4,71
+src/lib/posthog.ts
+  s_f95d93f52c0c73::t_7bab2d14da088d 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "3688d9fba3ca8c661c24faead3d4777a9dc55b3c",
+  "prompts": {},
+  "sessions": {
+    "s_f95d93f52c0c73": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ef9f5-50f0-71a1-8a80-f7db8542fe48",
+        "model": "gpt-5.5"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
