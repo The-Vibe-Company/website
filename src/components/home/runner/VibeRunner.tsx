@@ -63,9 +63,11 @@ interface VibeRunnerState {
 
 interface Char {
   x: number;
-  y: number;
-  vy: number;
-  grounded: boolean;
+  jy: number; // dino yPos in units (rest = 93; smaller = higher)
+  jv: number; // jump velocity, units/frame
+  jumping: boolean;
+  reachedMinHeight: boolean;
+  speedDrop: boolean;
   ducking: boolean;
 }
 interface Obstacle {
@@ -119,10 +121,17 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   private BASE_SPEED = 0;
   private MAX_SPEED = 0;
   private ACCEL = 0;
-  private GRAV = 0;
-  private DUCK_GRAV = 0;
   private DRONE_MIN_SPEED = 0; // px/s above which drones appear
   private WORLD_SECS = 0;
+
+  // exact Chrome T-Rex jump constants (in dino units / per-frame @60fps)
+  private readonly DINO_GROUND_Y = 93; // Trex rest yPos (150 - HEIGHT 47 - BOTTOM_PAD 10)
+  private readonly DINO_MIN_JUMP_Y = 63; // groundY - MIN_JUMP_HEIGHT(30)
+  private readonly DINO_MAX_JUMP_Y = 30; // MAX_JUMP_HEIGHT
+  private readonly DINO_GRAV = 0.6;
+  private readonly DINO_INIT_JV = -10; // INITIAL_JUMP_VELOCITY
+  private readonly DINO_DROP_V = -5; // DROP_VELOCITY
+  private readonly DINO_SPEED_DROP = 3; // SPEED_DROP_COEFFICIENT
 
   // terrain
   private hills1: number[] = [];
@@ -248,7 +257,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     // S maps the canvas onto the dino's ~620-unit play width so the difficulty
     // (approach time, gaps, jump arc) matches the real T-Rex runner.
-    this.S = Math.max(0.7, Math.min(1.85, this.W / 720));
+    this.S = Math.max(0.7, Math.min(1.85, this.W / 700));
     this.tune();
     this.groundY = this.H - Math.max(54, this.H * 0.12);
     this.originX = Math.max(60, this.W * 0.16);
@@ -261,9 +270,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     const FPS = 60;
     this.BASE_SPEED = 6 * FPS * S; // dino SPEED 6 px/frame
     this.MAX_SPEED = 13 * FPS * S; // dino MAX_SPEED 13
-    this.ACCEL = 0.001 * FPS * FPS * S * 0.7; // dino ACCELERATION, eased crank-up
-    this.GRAV = 0.6 * FPS * FPS * S; // dino GRAVITY 0.6/frame^2
-    this.DUCK_GRAV = this.GRAV * 2.6; // dino SPEED_DROP fast-fall
+    this.ACCEL = 0.001 * FPS * FPS * S * 0.85; // dino ACCELERATION, mildly eased crank-up
     this.DRONE_MIN_SPEED = 8.5 * FPS * S; // dino pterodactyl minSpeed 8.5
     this.WORLD_SECS = 6; // short: see several worlds per run
   }
@@ -290,7 +297,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this.setColours(HOME_DA, true);
     this.speed = this.BASE_SPEED;
     this.worldX = 0;
-    this.char = { x: this.originX, y: this.groundY, vy: 0, grounded: true, ducking: false };
+    this.char = { x: this.originX, jy: this.DINO_GROUND_Y, jv: 0, jumping: false, reachedMinHeight: false, speedDrop: false, ducking: false };
     this.obstacles = [];
     this.particles = [];
     this._nextSpawnX = this.W + 200;
@@ -329,22 +336,43 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       return;
     }
     if (this.state.phase === "dead") return;
-    if (this.char.grounded) this.doJump();
-    else this._jumpBufferUntil = this._t + 0.14; // buffer a slightly-early press
-  }
-  doJump() {
     const c = this.char;
-    // dino jumpVelocity = -(10 + speed/10), per-frame -> px/s, with a touch more punch
+    if (!c.jumping && !c.ducking) this.startJump();
+    else if (c.jumping) this._jumpBufferUntil = this._t + 0.14; // buffer a press near landing
+  }
+  // exact Trex.startJump
+  startJump() {
+    const c = this.char;
+    if (c.jumping || c.ducking) return;
     const vd = this.speed / (60 * this.S);
-    c.vy = -(10 + vd / 10) * 60 * this.S * 1.05;
-    c.grounded = false;
+    c.jv = this.DINO_INIT_JV - vd / 10; // jumpVelocity = -(10 + speed/10)
+    c.jumping = true;
+    c.reachedMinHeight = false;
+    c.speedDrop = false;
     this._landSquash = 0;
     this.spawnDust();
     this.blip(520, 0.08, "square");
   }
+  // exact Trex.endJump — key release caps the rise
+  endJump() {
+    const c = this.char;
+    if (c.reachedMinHeight && c.jv < this.DINO_DROP_V) c.jv = this.DINO_DROP_V;
+  }
+  // exact Trex.setSpeedDrop — Down while airborne snaps the runner down
+  setSpeedDrop() {
+    this.char.speedDrop = true;
+    this.char.jv = 1;
+  }
   setDuck(on: boolean) {
     if (this.state.phase !== "running") return;
-    this.char.ducking = on;
+    const c = this.char;
+    if (on) {
+      if (c.jumping) this.setSpeedDrop();
+      else c.ducking = true;
+    } else {
+      c.speedDrop = false;
+      c.ducking = false;
+    }
   }
   beginPlay() {
     this.ensureAudio();
@@ -397,6 +425,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     };
     this._ku = (e: KeyboardEvent) => {
       if (e.code === "ArrowDown") this.setDuck(false);
+      else if ((e.code === "Space" || e.code === "ArrowUp") && this.state.phase === "running") this.endJump();
     };
     this._pd = (e: PointerEvent) => {
       if (e.target instanceof Element && e.target.closest("a, button")) return;
@@ -518,24 +547,27 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       if (bs) bs.textContent = String(Math.max(this.best, Math.round(this.score)));
     }
 
-    // char physics
+    // char physics — authentic dino jump (variable height + speed drop)
     const c = this.char;
-    const g = !c.grounded && c.ducking ? this.DUCK_GRAV : this.GRAV;
-    c.vy += g * dt;
-    c.y += c.vy * dt;
     if (this._landSquash > 0) this._landSquash = Math.max(0, this._landSquash - dt);
-    if (c.y >= this.groundY) {
-      if (!c.grounded) {
+    if (c.jumping) {
+      const fe = dt * 60; // frames elapsed @ 60fps
+      c.jy += (c.speedDrop ? c.jv * this.DINO_SPEED_DROP : c.jv) * fe;
+      c.jv += this.DINO_GRAV * fe;
+      if (c.jy < this.DINO_MIN_JUMP_Y || c.speedDrop) c.reachedMinHeight = true;
+      if (c.jy < this.DINO_MAX_JUMP_Y || c.speedDrop) this.endJump();
+      if (c.jy > this.DINO_GROUND_Y) {
+        // landed
+        c.jy = this.DINO_GROUND_Y;
+        c.jv = 0;
+        c.jumping = false;
+        c.speedDrop = false;
         this.spawnDust();
-        this._landSquash = 0.1; // squash on landing for punch
-      }
-      c.y = this.groundY;
-      c.vy = 0;
-      c.grounded = true;
-      // a buffered press fires the moment we touch down
-      if (this._t <= this._jumpBufferUntil) {
-        this._jumpBufferUntil = 0;
-        this.doJump();
+        this._landSquash = 0.1;
+        if (this._t <= this._jumpBufferUntil) {
+          this._jumpBufferUntil = 0;
+          this.startJump();
+        }
       }
     }
 
@@ -557,21 +589,21 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
         const seg = 1 + Math.floor(Math.random() * 3);
         owUnits = 17 + (seg > 2 ? 8 : 0);
         minGapUnits = 120;
-        this.obstacles.push({ kind: "cactus", x: this._nextSpawnX, w: owUnits * this.S, h: (28 + seg * 8) * this.S, cy: 0, word: this.curWords[Math.floor(Math.random() * this.curWords.length)] });
+        this.obstacles.push({ kind: "cactus", x: this._nextSpawnX, w: owUnits * this.S, h: (32 + seg * 8) * this.S, cy: 0, word: this.curWords[Math.floor(Math.random() * this.curWords.length)] });
         this._lastWasDrone = false;
       }
-      // dino getGap: minGap = round(width*speed + minGap*0.6); maxGap = minGap*1.5.
-      // Eased a touch (0.7 coeff, x1.12) for a bit more breathing room.
-      const minGap = Math.round(owUnits * vd + minGapUnits * 0.7);
+      // exact dino getGap: minGap = round(width*speed + minGap*0.6); maxGap = minGap*1.5
+      const minGap = Math.round(owUnits * vd + minGapUnits * 0.6);
       const maxGap = Math.round(minGap * 1.5);
-      const gapUnits = (minGap + Math.random() * (maxGap - minGap)) * 1.12;
+      const gapUnits = minGap + Math.random() * (maxGap - minGap);
       this._nextSpawnX += gapUnits * this.S;
     }
 
     // collision
     const cx = c.x;
-    const charTop = c.ducking ? this.groundY - 20 * this.S : c.y - 34 * this.S;
-    const charBot = c.y;
+    const feetY = this.groundY - (this.DINO_GROUND_Y - c.jy) * this.S;
+    const charTop = c.ducking ? feetY - 22 * this.S : feetY - 40 * this.S;
+    const charBot = feetY;
     const charL = cx - 11 * this.S,
       charR = cx + 13 * this.S;
     for (const o of this.obstacles) {
@@ -774,13 +806,14 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     const ctx = this.ctx,
       c = this.char,
       S = this.S;
+    const feetY = this.groundY - (this.DINO_GROUND_Y - c.jy) * S;
     const player = this.rgb(this.cur.player);
     const paper = this.rgb(this.cur.paper);
     const run = Math.sin(this._t * (this.state.phase === "running" ? 18 : 4));
-    const air = !c.grounded;
+    const air = c.jumping;
     const sq = this._landSquash > 0 ? this._landSquash / 0.1 : 0; // 1 -> 0 on land
     ctx.save();
-    ctx.translate(c.x, c.y);
+    ctx.translate(c.x, feetY);
     ctx.scale(S * (1 + sq * 0.18), S * (1 - sq * 0.22));
     ctx.fillStyle = player;
     if (c.ducking && !air) {
