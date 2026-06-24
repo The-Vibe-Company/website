@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { DIMENSIONS, SCENE_DRAW, type Dimension, type SceneFn } from "./dimensions";
 
 /*
  * VibeRunner — the playable endless-runner hero, embedded inside the existing
@@ -23,20 +24,9 @@ import React from "react";
  */
 
 const MONO = "var(--font-geist-mono), monospace";
+const SANS = "var(--font-geist-sans), system-ui, sans-serif";
 
 type Phase = "idle" | "running" | "dead";
-
-interface WorldDef {
-  tag: string;
-  name: string;
-  line: string;
-  paper: string;
-  ink: string;
-  accent: string;
-  player: string;
-  motif: "dots" | "grid" | "bars" | "rings" | "waves" | "dashes";
-  words: string[];
-}
 
 interface WorldView {
   tag: string;
@@ -45,6 +35,18 @@ interface WorldView {
   ink: string;
   accent: string;
   paper: string;
+  url: string;
+  logo?: string;
+  linkLabel?: string;
+  external?: boolean;
+}
+
+interface DiscoveredDim {
+  name: string;
+  url: string;
+  logo?: string;
+  accent: string;
+  external?: boolean;
 }
 
 interface VibeRunnerProps {
@@ -59,6 +61,7 @@ interface VibeRunnerState {
   bestScore: string;
   deadKicker: string;
   deadTitle: string;
+  discovered: DiscoveredDim[];
 }
 
 interface Char {
@@ -121,7 +124,6 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   private BASE_SPEED = 0;
   private MAX_SPEED = 0;
   private ACCEL = 0;
-  private DRONE_MIN_SPEED = 0; // px/s above which drones appear
   private WORLD_SECS = 0;
 
   // exact Chrome T-Rex jump constants (in dino units / per-frame @60fps)
@@ -154,7 +156,17 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   private worldPos = -1;
   private _worldT = 0;
   private curWords: string[] = [];
-  private curMotif: WorldDef["motif"] | null = null;
+  private curScene: SceneFn | null = null;
+  private curDim: Dimension | null = null;
+  private visited: Dimension[] = [];
+  private _lastShownIdx = -1;
+  private _firstWorld = true;
+  // portal transition between dimensions
+  private _portalActive = false;
+  private _portalT = 0;
+  private readonly PORTAL_DUR = 0.5;
+  private _pendingDim: Dimension | null = null;
+  private _pendingApplied = false;
   private cur = { paper: [253, 251, 247], ink: [10, 10, 10], accent: [10, 10, 10], player: [10, 10, 10] };
   private tgt = { paper: [253, 251, 247], ink: [10, 10, 10], accent: [10, 10, 10], player: [10, 10, 10] };
 
@@ -167,16 +179,6 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   private _pd!: (e: PointerEvent) => void;
   private _pu!: () => void;
   private _touchDuck = false;
-
-  private WORLDS: WorldDef[] = [
-    { tag: "PRODUCT", name: "vanish.sh", line: "Temporary uploads, auto-expiring.", paper: "#ecfdf5", ink: "#064e3b", accent: "#10b981", player: "#059669", motif: "dashes", words: ["BLOAT", "FOREVER", "STORAGE", "LEAKS"] },
-    { tag: "PRODUCT", name: "The Companion", line: "Agent workflows, no slideware.", paper: "#fff7ed", ink: "#7c2d12", accent: "#f97316", player: "#ea580c", motif: "rings", words: ["SLIDEWARE", "HANDOFF", "TICKETS", "STANDUP"] },
-    { tag: "PRODUCT", name: "vibedrift.dev", line: "Dev activity becomes real metrics.", paper: "#fefce8", ink: "#713f12", accent: "#eab308", player: "#ca8a04", motif: "bars", words: ["VANITY KPI", "BURNOUT", "FRICTION", "GUESSWORK"] },
-    { tag: "PRODUCT", name: "Granite", line: "The personal OS your agent runs on.", paper: "#f1f5f9", ink: "#0f172a", accent: "#14b8a6", player: "#0f766e", motif: "grid", words: ["SILOS", "LOST NOTES", "SPRAWL", "CHAOS"] },
-    { tag: "WHAT WE DO", name: "Agent workflows", line: "Orchestration that ships, not slideware.", paper: "#eef2ff", ink: "#1e1b4b", accent: "#6366f1", player: "#4f46e5", motif: "dots", words: ["MANUAL", "COPY-PASTE", "QUEUES", "BACKLOG"] },
-    { tag: "WHAT WE DO", name: "Vibe coding", line: "Disciplined intuition. Magic that ships.", paper: "#faf5ff", ink: "#3b0764", accent: "#a855f7", player: "#9333ea", motif: "waves", words: ["WATERFALL", "SCOPE CREEP", "TECH DEBT", "SPECS"] },
-    { tag: "BACKED BY", name: "Y Combinator", line: "W24, built by the Quivr team.", paper: "#0a0a0a", ink: "#fafaf7", accent: "#f26625", player: "#f26625", motif: "rings", words: ["PITCH DECK", "TAM", "MOAT", "RUNWAY"] },
-  ];
 
   private DEATHS: [string, string][] = [
     ["CAUGHT BY THE HYPE", "The hype caught up."],
@@ -194,6 +196,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       bestScore: "0",
       deadKicker: "CAUGHT BY THE HYPE",
       deadTitle: "Shipping interrupted.",
+      discovered: [],
     };
   }
 
@@ -271,7 +274,6 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this.BASE_SPEED = 6 * FPS * S; // dino SPEED 6 px/frame
     this.MAX_SPEED = 13 * FPS * S; // dino MAX_SPEED 13
     this.ACCEL = 0.001 * FPS * FPS * S * 0.85; // dino ACCELERATION, mildly eased crank-up
-    this.DRONE_MIN_SPEED = 8.5 * FPS * S; // dino pterodactyl minSpeed 8.5
     this.WORLD_SECS = 6; // short: see several worlds per run
   }
 
@@ -289,11 +291,22 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
 
   reset() {
     this.score = 0;
-    this.worldOrder = this.shuffle(this.WORLDS.map((_, i) => i));
+    this.worldOrder = this.shuffle(DIMENSIONS.map((_, i) => i));
+    // variety: never open on the dimension the previous run ended on
+    if (this.worldOrder.length > 1 && this.worldOrder[0] === this._lastShownIdx) {
+      const t0 = this.worldOrder[0];
+      this.worldOrder[0] = this.worldOrder[1];
+      this.worldOrder[1] = t0;
+    }
     this.worldPos = -1;
     this._worldT = 0;
     this.curWords = ["HYPE", "SYNERGY", "BUZZWORD"];
-    this.curMotif = null;
+    this.curScene = null;
+    this.curDim = null;
+    this.visited = [];
+    this._firstWorld = true;
+    this._portalActive = false;
+    this._pendingDim = null;
     this.setColours(HOME_DA, true);
     this.speed = this.BASE_SPEED;
     this.worldX = 0;
@@ -401,7 +414,8 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     }
     const d = this.DEATHS[Math.floor(Math.random() * this.DEATHS.length)];
     this.blip(140, 0.3, "sawtooth");
-    this.setState({ phase: "dead", finalScore: String(Math.round(this.score)), bestScore: String(this.best), deadKicker: d[0], deadTitle: d[1] });
+    const discovered: DiscoveredDim[] = this.visited.map((dm) => ({ name: dm.name, url: dm.url, logo: dm.logo, accent: dm.accent, external: dm.external }));
+    this.setState({ phase: "dead", finalScore: String(Math.round(this.score)), bestScore: String(this.best), deadKicker: d[0], deadTitle: d[1], discovered });
   }
 
   bindInput() {
@@ -424,8 +438,10 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       }
     };
     this._ku = (e: KeyboardEvent) => {
-      if (e.code === "ArrowDown") this.setDuck(false);
-      else if ((e.code === "Space" || e.code === "ArrowUp") && this.state.phase === "running") this.endJump();
+      if (e.code === "ArrowDown") {
+        if (this.state.phase === "running") e.preventDefault(); // keep ↓ captive during play (no page scroll)
+        this.setDuck(false);
+      } else if ((e.code === "Space" || e.code === "ArrowUp") && this.state.phase === "running") this.endJump();
     };
     this._pd = (e: PointerEvent) => {
       if (e.target instanceof Element && e.target.closest("a, button")) return;
@@ -484,12 +500,30 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   nextWorld() {
     this._worldT = 0;
     this.worldPos = (this.worldPos + 1) % this.worldOrder.length;
-    const w = this.WORLDS[this.worldOrder[this.worldPos]];
-    this.curWords = w.words;
-    this.curMotif = w.motif;
-    this.setColours(w, false);
-    this.blip(w.tag === "BACKED BY" ? 880 : 720, 0.12, "sine");
-    this.setState({ world: { tag: w.tag, name: w.name, line: w.line, ink: w.ink, accent: w.accent, paper: w.paper } });
+    const idx = this.worldOrder[this.worldPos];
+    this._lastShownIdx = idx;
+    const d = DIMENSIONS[idx];
+    const first = this._firstWorld;
+    this._firstWorld = false;
+    if (first || this._reducedMotion) {
+      // first dimension of the run / reduced motion: apply with no wipe
+      this.applyDimension(d, this._reducedMotion);
+      return;
+    }
+    // start a portal transition; the dimension is applied at the midpoint
+    this._pendingDim = d;
+    this._pendingApplied = false;
+    this._portalActive = true;
+    this._portalT = 0;
+  }
+  applyDimension(d: Dimension, instantColour: boolean) {
+    this.curDim = d;
+    this.curScene = SCENE_DRAW[d.scene];
+    this.curWords = d.words;
+    this.setColours(d, instantColour);
+    this.blip(d.tag === "BACKED BY" ? 880 : 720, 0.12, "sine");
+    if (!this.visited.includes(d)) this.visited.push(d);
+    this.setState({ world: { tag: d.tag, name: d.name, line: d.line, ink: d.ink, accent: d.accent, paper: d.paper, url: d.url, logo: d.logo, linkLabel: d.linkLabel, external: d.external } });
   }
 
   // ---------- update ----------
@@ -575,6 +609,17 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this._worldT += dt;
     if (this._worldT >= this.WORLD_SECS) this.nextWorld();
 
+    // portal transition: swap the dimension behind the wipe at its midpoint
+    if (this._portalActive) {
+      this._portalT += dt;
+      if (!this._pendingApplied && this._portalT >= this.PORTAL_DUR / 2) {
+        this._pendingApplied = true;
+        if (this._pendingDim) this.applyDimension(this._pendingDim, false);
+        this._pendingDim = null;
+      }
+      if (this._portalT >= this.PORTAL_DUR) this._portalActive = false;
+    }
+
     // spawn obstacles — exact dino gap formula (no artificial floor)
     if (this.worldX + this.W > this._nextSpawnX) {
       const vd = this.speed / (60 * this.S); // dino units per frame
@@ -655,7 +700,8 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     ctx.fillStyle = gg;
     ctx.fillRect(0, this.groundY - 150 * S, W, 150 * S);
 
-    this.drawMotif(ink, acc);
+    // bespoke per-dimension scenery (above the ground band)
+    if (this.curScene) this.curScene(ctx, this.worldX, this._t, S, W, this.groundY, this.cur, this._reducedMotion);
 
     // clouds (faint arcs)
     ctx.strokeStyle = this.rgb(ink, 0.12);
@@ -764,39 +810,19 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     }
 
     this.drawChar();
-  }
 
-  drawMotif(ink: number[], acc: number[]) {
-    if (!this.curMotif) return;
-    const ctx = this.ctx,
-      W = this.W,
-      S = this.S;
-    const topB = this.groundY - 160 * S;
-    const off = (this.worldX * 0.3) % (60 * S);
-    ctx.save();
-    ctx.strokeStyle = this.rgb(acc, 0.1);
-    ctx.fillStyle = this.rgb(ink, 0.05);
-    ctx.lineWidth = 1.2;
-    if (this.curMotif === "dots") {
-      const g = 46 * S;
-      for (let x = -off; x < W; x += g) for (let y = 60 * S; y < topB; y += g) { ctx.beginPath(); ctx.arc(x, y, 2 * S, 0, Math.PI * 2); ctx.fill(); }
-    } else if (this.curMotif === "grid") {
-      const g = 52 * S;
-      for (let x = -off; x < W; x += g) { ctx.beginPath(); ctx.moveTo(x, 40 * S); ctx.lineTo(x, topB); ctx.stroke(); }
-      for (let y = 50 * S; y < topB; y += g) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-    } else if (this.curMotif === "bars") {
-      const g = 64 * S;
-      for (let x = -off; x < W; x += g) { const h = (40 + ((x | 0) % 5) * 26) * S; ctx.fillRect(x, topB - h, 10 * S, h); }
-    } else if (this.curMotif === "rings") {
-      for (let i = 0; i < 5; i++) { const cx = ((i * 220 * S - off * 2) % (W + 240 * S)) - 120 * S; ctx.beginPath(); ctx.arc(cx, 130 * S, (30 + i * 10) * S, 0, Math.PI * 2); ctx.stroke(); }
-    } else if (this.curMotif === "waves") {
-      for (let r = 0; r < 3; r++) { const yb = 80 * S + r * 40 * S; ctx.beginPath(); for (let x = 0; x <= W; x += 8 * S) { const y = yb + Math.sin((x + this.worldX * 0.4) / (60 * S)) * 8 * S; if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); } ctx.stroke(); }
-    } else if (this.curMotif === "dashes") {
-      ctx.setLineDash([10 * S, 10 * S]);
-      for (let i = 0; i < 4; i++) { const y = 70 * S + i * 30 * S; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-      ctx.setLineDash([]);
+    // portal wipe — an accent sweep on top while transitioning between dimensions
+    if (this._portalActive && !this._reducedMotion) {
+      const p = this._portalT / this.PORTAL_DUR;
+      const cxp = p * (W + W * 0.4) - W * 0.2;
+      const half = W * 0.22;
+      const grad = ctx.createLinearGradient(cxp - half, 0, cxp + half, 0);
+      grad.addColorStop(0, this.rgb(acc, 0));
+      grad.addColorStop(0.5, this.rgb(acc, 0.85));
+      grad.addColorStop(1, this.rgb(acc, 0));
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
     }
-    ctx.restore();
   }
 
   drawRidge(arr: number[], parallax: number, baseFrac: number, color: string) {
@@ -909,7 +935,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   }
 
   render() {
-    const { phase, sound, world, finalScore, bestScore, deadKicker, deadTitle } = this.state;
+    const { phase, sound, world, finalScore, bestScore, deadKicker, deadTitle, discovered } = this.state;
     const isIdle = phase === "idle";
     const isDead = phase === "dead";
     const soundIcon = sound ? "♪" : "⊘";
@@ -959,17 +985,29 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
           <button onClick={this.onToggleSound} title="Toggle sound" aria-label="Toggle sound" style={{ marginTop: 12, width: 30, height: 30, borderRadius: 9999, border: "1px solid currentColor", background: "transparent", color: "currentColor", cursor: "pointer", fontSize: 13, opacity: 0.8 }}>{soundIcon}</button>
         </div>
 
-        {/* Persistent world panel — stays for the whole world while playing */}
+        {/* Dimension card — persistent product card revealing this facet of TVC */}
         {world && !isIdle && !isDead && (
-          <div style={{ position: "absolute", left: "clamp(20px,6vw,80px)", top: "clamp(76px,12vh,120px)", zIndex: 4, pointerEvents: "none", display: "flex", alignItems: "stretch", gap: 14, maxWidth: 520 }}>
+          <div style={{ position: "absolute", left: "clamp(20px,6vw,80px)", top: "clamp(76px,12vh,120px)", zIndex: 4, pointerEvents: "none", display: "flex", alignItems: "stretch", gap: 14, maxWidth: 540 }}>
             <span style={{ width: 4, borderRadius: 4, flex: "none", background: world.accent }} />
             <div>
-              <div style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: world.ink, opacity: 0.7, display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ width: 8, height: 8, borderRadius: "50%", background: world.accent }} />
-                {world.tag}
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                {world.logo ? (
+                  <LogoImg src={world.logo} size={22} />
+                ) : (
+                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: world.accent }} />
+                )}
+                <span style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: world.ink, opacity: 0.7 }}>{world.tag}</span>
               </div>
-              <div style={{ fontSize: "clamp(26px, 4vw, 44px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.02, marginTop: 6, color: world.ink }}>{world.name}</div>
+              <div style={{ fontFamily: SANS, fontSize: "clamp(28px, 4.4vw, 48px)", fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 1.0, marginTop: 8, color: world.ink }}>{world.name}</div>
               <div style={{ fontSize: "clamp(14px, 1.6vw, 18px)", lineHeight: 1.45, marginTop: 8, color: world.ink, opacity: 0.7, maxWidth: 420 }}>{world.line}</div>
+              <a
+                href={world.url}
+                target={world.external ? "_blank" : undefined}
+                rel={world.external ? "noopener noreferrer" : undefined}
+                style={{ pointerEvents: "auto", display: "inline-flex", alignItems: "center", gap: 6, marginTop: 12, fontFamily: MONO, fontSize: 12, letterSpacing: "0.04em", color: world.accent, textDecoration: "none", borderBottom: `1px solid ${world.accent}`, paddingBottom: 1 }}
+              >
+                {world.linkLabel ?? `visit ${world.name}`} <span aria-hidden="true">↗</span>
+              </a>
             </div>
           </div>
         )}
@@ -1008,6 +1046,26 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
                 <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", opacity: 0.5, marginTop: 4 }}>Best</div>
               </div>
             </div>
+            {discovered.length > 0 && (
+              <div style={{ marginBottom: 24, maxWidth: 580 }}>
+                <div style={{ fontFamily: MONO, fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.12em", opacity: 0.55, marginBottom: 12 }}>Dimensions you discovered</div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
+                  {discovered.map((dm) => (
+                    <a
+                      key={dm.name}
+                      href={dm.url}
+                      target={dm.external ? "_blank" : undefined}
+                      rel={dm.external ? "noopener noreferrer" : undefined}
+                      style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 12px", border: "1px solid rgba(250,250,247,0.22)", borderRadius: 8, color: "#fafaf7", textDecoration: "none", fontSize: 13 }}
+                    >
+                      {dm.logo && <LogoImg src={dm.logo} size={16} />}
+                      <span style={{ fontWeight: 600 }}>{dm.name}</span>
+                      <span aria-hidden="true" style={{ color: dm.accent }}>↗</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
               <button onClick={this.onRestart} style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "14px 24px", border: 0, background: "#fafaf7", color: "#0a0a0a", fontFamily: "inherit", fontSize: 15, fontWeight: 600, cursor: "pointer" }}>
                 Ship again <span style={{ width: 24, height: 24, borderRadius: "50%", background: "#0a0a0a", color: "#fafaf7", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>↻</span>
@@ -1021,4 +1079,12 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       </div>
     );
   }
+}
+
+// Small decorative product logo (alt="" — the dimension name is the label).
+function LogoImg({ src, size }: { src: string; size: number }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={src} alt="" width={size} height={size} style={{ display: "block", borderRadius: size > 18 ? 5 : 4 }} />
+  );
 }
