@@ -1,0 +1,29 @@
+src/components/home/runner/VibeRunner.tsx
+  s_dc85986f87a810::t_0e1e114741952e 339-341,343-344,346,348-351,356-365,368-375
+  s_dc85986f87a810::t_53a880171797eb 66-70
+  s_dc85986f87a810::t_b4152fca00050a 273
+  s_dc85986f87a810::t_815f57a8dd107e 550,553-564,566-570
+  s_dc85986f87a810::t_9a7fb55169242f 260
+  s_dc85986f87a810::t_82c8e99cdf4c92 604-606
+  s_dc85986f87a810::t_eb9cec673f2fc4 127-134
+  s_dc85986f87a810::t_292edca13b25d7 300
+  s_dc85986f87a810::t_0e04b9fa1659e3 428
+  s_dc85986f87a810::t_c59a2de6287916 592,595-596,598
+  s_dc85986f87a810::t_7277b710c15f75 809,813,816
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "fabac5515b462b1729f602675ec0b296e5d2cbae",
+  "prompts": {},
+  "sessions": {
+    "s_dc85986f87a810": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5e030264-f1c9-4fb3-b354-1d601fefbe04",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
