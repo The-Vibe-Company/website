@@ -11,7 +11,7 @@ coverAlt: "Avant après de mon premier site : la première version à gauche, la
 ogImage: /images/resources/premier-site/cover.png
 ---
 
-Mon premier projet chez The Vibe Company, c'était de créer un site. Rien de compliqué : j'ai choisi de faire une simple liste de mangas, un thème qui me parle. Pouvoir en ajouter à une watchlist, les noter, ou en conseiller à d'autres. Enfin bon. Ce qui comptait, c'était de comprendre comment on passe d'une idée à un site en ligne, étape par étape.
+Mon premier projet chez The Vibe Company, c'était de créer un site. Rien de compliqué : j'ai choisi de faire une simple liste d'animés, un thème qui me parle. Pouvoir en ajouter à une watchlist, les noter, ou en conseiller à d'autres. Enfin bon. Ce qui comptait, c'était de comprendre comment on passe d'une idée à un site en ligne, étape par étape.
 
 Je ne suis pas développeur, je n'ai jamais codé. Alors voir une première page s'afficher, puis évoluer à chaque demande, c'était déjà concret et motivant.
 
@@ -29,7 +29,7 @@ C'est connu, une notion devient claire quand elle règle un vrai problème.
 
 J'ai perdu mes fichiers en local en retirant iCloud de mon ordinateur. J'ai cru que tout était perdu. Puis j'ai récupéré mon code grâce à GitHub. D'un coup, les mots commit, push et branche main que Stan et Antoine me rabâchaient ont arrêté d'être abstraits. GitHub n'était plus un outil de plus, c'était la sauvegarde et l'historique de mon projet.
 
-![Avant après de mon premier site : la première version à gauche, la version actuelle à droite](/images/resources/premier-site/cover.png "Avant après : de la première ébauche à la version manga actuelle.")
+![Avant après de mon premier site : la première version à gauche, la version actuelle à droite](/images/resources/premier-site/cover.png "Avant après : de la première ébauche à la version actuelle.")
 
 ## Ce que l'IA a changé
 
@@ -39,7 +39,7 @@ J'aurais pu passer par un constructeur de sites comme WordPress. Mais ce sont de
 
 Antoine et Stan m'ont donné le cadre et la direction. Avec l'IA, on a transformé ce cadre en étapes concrètes : comprendre le besoin, choisir l'outil, écrire une première version, tester, corriger, recommencer.
 
-Mon rôle, c'était de décider quoi construire, de vérifier que ça marchait vraiment, et de ne pas confondre une réponse qui a l'air bonne avec un résultat utilisable. Par exemple, je voulais que mes mangas restent enregistrés dans ma bibliothèque. J'en avais ajouté trois, tout avait l'air bon, je venais de créer le compte Supabase. Mais en rafraîchissant la page, la liste avait disparu. À l'écran ça marchait, en vrai non. J'ai dû reprendre ce passage.
+Mon rôle, c'était de décider quoi construire, de vérifier que ça marchait vraiment, et de ne pas confondre une réponse qui a l'air bonne avec un résultat utilisable. Par exemple, je voulais que mes animés restent enregistrés dans ma bibliothèque. J'en avais ajouté trois, tout avait l'air bon, je venais de créer le compte Supabase. Mais en rafraîchissant la page, la liste avait disparu. À l'écran ça marchait, en vrai non. J'ai dû reprendre ce passage.
 
 ## Ce que j'en retiens
 
@@ -47,4 +47,4 @@ Ce premier site n'est pas une fin en soi, c'est une porte d'entrée. Il m'a fait
 
 Voir ce premier site passer d'une page vide à quelque chose qui tourne en ligne, ça m'a clairement donné envie de continuer.
 
-En attendant, avis aux fans de manga : le site est en ligne, [à voir ici](https://anime-list-vibe.vercel.app).
+En attendant, avis aux fans d'animés : le site est en ligne, [à voir ici](https://anime-list-vibe.vercel.app).
