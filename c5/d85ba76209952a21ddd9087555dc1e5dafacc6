@@ -1,0 +1,22 @@
+src/components/home/runner/VibeRunner.tsx
+  s_dc85986f87a810::t_65739180c3c949 720-722,724,727-750
+  s_dc85986f87a810::t_c51cc9f21e31ff 583
+  s_dc85986f87a810::t_ce2039db63be44 581-582,585,588-589
+  s_dc85986f87a810::t_fc322f75fc0b57 74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "c5d85ba76209952a21ddd9087555dc1e5dafacc6",
+  "prompts": {},
+  "sessions": {
+    "s_dc85986f87a810": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5e030264-f1c9-4fb3-b354-1d601fefbe04",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
