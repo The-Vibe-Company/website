@@ -71,7 +71,7 @@ interface Char {
   ducking: boolean;
 }
 interface Obstacle {
-  kind: "cactus" | "drone";
+  kind: "cactus" | "bird";
   x: number;
   w: number;
   h: number;
@@ -578,12 +578,15 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     // spawn obstacles — exact dino gap formula (no artificial floor)
     if (this.worldX + this.W > this._nextSpawnX) {
       const vd = this.speed / (60 * this.S); // dino units per frame
-      const allowDrone = vd > 8.5 && !this._lastWasDrone && Math.random() < 0.35;
+      // pterodactyls appear once warmed up (dino minSpeed 8.5, lowered so a
+      // homepage run actually reaches them), at two heights: duck or jump.
+      const allowBird = vd > 6.3 && !this._lastWasDrone && Math.random() < 0.42;
       let owUnits: number, minGapUnits: number;
-      if (allowDrone) {
+      if (allowBird) {
         owUnits = 46;
         minGapUnits = 150;
-        this.obstacles.push({ kind: "drone", x: this._nextSpawnX, w: 46 * this.S, h: 26 * this.S, cy: this.groundY - (38 + Math.random() * 30) * this.S, word: this.curWords[Math.floor(Math.random() * this.curWords.length)] });
+        const high = Math.random() < 0.5; // high bird -> duck under; low bird -> jump over
+        this.obstacles.push({ kind: "bird", x: this._nextSpawnX, w: 46 * this.S, h: 26 * this.S, cy: this.groundY - (high ? 46 : 20) * this.S, word: this.curWords[Math.floor(Math.random() * this.curWords.length)] });
         this._lastWasDrone = true;
       } else {
         const seg = 1 + Math.floor(Math.random() * 3);
@@ -714,17 +717,37 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
         ctx.fillText(o.word, 0, 0);
         ctx.restore();
       } else {
-        const bx = sx - o.w / 2;
+        // pterodactyl — body + head/beak (facing the runner) + flapping wing
+        const up = Math.sin(this._t * 14) > 0;
+        ctx.fillStyle = this.rgb(ink);
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(bx, o.cy - o.h / 2, o.w, o.h, 8 * S);
-        else ctx.rect(bx, o.cy - o.h / 2, o.w, o.h);
+        ctx.ellipse(sx, o.cy, o.w * 0.28, o.h * 0.34, 0, 0, Math.PI * 2);
         ctx.fill();
-        ctx.strokeStyle = this.rgb(ink);
-        ctx.lineWidth = 1.5;
         ctx.beginPath();
-        ctx.moveTo(sx - 6 * S, o.cy - o.h / 2 - 5 * S);
-        ctx.lineTo(sx + 6 * S, o.cy - o.h / 2 - 5 * S);
-        ctx.stroke();
+        ctx.arc(sx - o.w * 0.28, o.cy - S, 3.2 * S, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(sx - o.w * 0.28 - 2 * S, o.cy - S);
+        ctx.lineTo(sx - o.w * 0.55, o.cy);
+        ctx.lineTo(sx - o.w * 0.28, o.cy + 2.5 * S);
+        ctx.closePath();
+        ctx.fill();
+        ctx.beginPath();
+        if (up) {
+          ctx.moveTo(sx - o.w * 0.1, o.cy - 2 * S);
+          ctx.lineTo(sx + o.w * 0.5, o.cy - o.h * 0.7);
+          ctx.lineTo(sx + o.w * 0.12, o.cy - S);
+        } else {
+          ctx.moveTo(sx - o.w * 0.1, o.cy + 2 * S);
+          ctx.lineTo(sx + o.w * 0.5, o.cy + o.h * 0.7);
+          ctx.lineTo(sx + o.w * 0.12, o.cy + S);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(sx - o.w * 0.3, o.cy - 1.5 * S, S, 0, Math.PI * 2);
+        ctx.fillStyle = this.rgb(paper);
+        ctx.fill();
         ctx.fillStyle = this.rgb(acc, 0.95);
         ctx.font = `500 ${Math.round(8 * S)}px ${MONO}`;
         ctx.textAlign = "center";
