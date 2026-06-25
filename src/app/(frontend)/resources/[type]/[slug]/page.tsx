@@ -8,7 +8,7 @@ import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { CONTENT_TYPES, getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
 import { getContentByType, getContentItem, getRelatedContent } from '@/lib/content-source';
-import { normalizeMarkdownBody } from '@/lib/markdown';
+import { extractCoverImage, normalizeMarkdownBody } from '@/lib/markdown';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
@@ -128,7 +128,11 @@ export default async function ContentDetailPage({
 
   const related = await getRelated(contentType.slug, slug);
 
-  const body = normalizeMarkdownBody(item.body);
+  const cover = item.featuredImage;
+  const { body: bodyWithoutCover, caption: coverCaption } = cover?.sourceUrl
+    ? extractCoverImage(item.body, cover.sourceUrl)
+    : { body: item.body, caption: undefined };
+  const body = normalizeMarkdownBody(bodyWithoutCover);
   const readingTime = estimateReadingTime(item.body);
   const typeLabel = getTypeLabel(item.type);
 
@@ -243,6 +247,23 @@ export default async function ContentDetailPage({
               </header>
 
               <div className="w-full h-px bg-res-border mb-8 md:mb-12" />
+
+              {cover?.url && (
+                <figure className="mb-8 md:mb-12">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={cover.url}
+                    alt={cover.alt ?? item.title}
+                    className="w-full h-auto rounded-lg border border-res-border"
+                    decoding="async"
+                  />
+                  {coverCaption ? (
+                    <figcaption className="mt-3 text-xs font-mono text-res-text-muted">
+                      {coverCaption}
+                    </figcaption>
+                  ) : null}
+                </figure>
+              )}
 
               <div className="prose-vibe prose-vibe-warm max-w-none">
                 {body.trim().length > 0 ? (

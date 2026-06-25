@@ -51,6 +51,37 @@ function parseMarkdownImage(line: string): { alt: string; src: string; title?: s
   return { alt, src, title }
 }
 
+/**
+ * Removes the first standalone Markdown image in the body that points at `coverSrc`
+ * (the article's frontmatter cover), so the cover can be rendered once at the top of
+ * the page instead of mid-article. Returns the cleaned body and the image's optional
+ * caption (its Markdown title) so it can be reused under the relocated cover.
+ */
+export function extractCoverImage(
+  body: string,
+  coverSrc: string,
+): { body: string; caption?: string } {
+  if (!coverSrc) return { body }
+
+  const lines = body.split('\n')
+  const index = lines.findIndex((line) => {
+    const image = parseMarkdownImage(line)
+    return image?.src === coverSrc
+  })
+
+  if (index === -1) return { body }
+
+  const caption = parseMarkdownImage(lines[index])?.title
+  lines.splice(index, 1)
+
+  // Collapse the blank line left behind so paragraphs stay tidy.
+  if (lines[index]?.trim() === '' && lines[index - 1]?.trim() === '') {
+    lines.splice(index, 1)
+  }
+
+  return { body: lines.join('\n'), caption }
+}
+
 function renderMarkdownImage(line: string): string | null {
   const image = parseMarkdownImage(line)
   if (!image) return null

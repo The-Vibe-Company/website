@@ -45,6 +45,7 @@ export interface ContentEntry {
   topics?: string[]
   featuredImage?: {
     url: string
+    sourceUrl?: string
     alt?: string
     sizes?: {
       card?: {
@@ -105,6 +106,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         featuredImage: coverImage
           ? {
               url: optimizedCoverImage,
+              sourceUrl: coverImage,
               alt: coverAlt,
               sizes: {
                 card: {
