@@ -2,7 +2,7 @@
 title: "Ce qui fait la différence avec l'IA, ce ne sont pas les prompts"
 slug: les-skills
 language: fr
-summary: "Très vite, Stan m'a dit que ce qui sépare les bons des autres avec l'IA, ce ne sont pas les prompts, ce sont les skills. Comment j'ai découvert Impeccable et Agent Browser, monté ma première loop, puis créé mes propres skills alors que je ne code pas."
+summary: "Stan m'a vite convaincu : avec l'IA, le vrai levier, ce sont les skills, pas les prompts. Mes premiers skills, ma première loop pour tester mon site, et ceux que j'ai fini par créer moi-même, alors que je ne code pas."
 publishedAt: 2026-06-25
 complexity: beginner
 series: victor-story
