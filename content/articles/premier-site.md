@@ -5,6 +5,7 @@ language: fr
 summary: "Mon premier projet chez The Vibe Company : créer un site, sans savoir coder. Comment j'ai découvert les outils (GitHub, Supabase, Vercel) et compris la logique d'un projet web, étape par étape."
 publishedAt: 2026-06-23
 complexity: beginner
+series: victor-story
 topics: AI Journey, Apprentissage, Premier site
 coverImage: /images/resources/premier-site/cover.png
 coverAlt: "Avant après de mon premier site : la première version à gauche, la version actuelle à droite"

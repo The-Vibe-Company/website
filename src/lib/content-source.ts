@@ -42,6 +42,7 @@ export interface ContentEntry {
   publishedAt: string
   language: ContentLanguage
   complexity?: string
+  series?: string
   topics?: string[]
   featuredImage?: {
     url: string
@@ -102,6 +103,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         publishedAt,
         language,
         complexity: data.complexity || undefined,
+        series: data.series?.trim() || undefined,
         topics,
         featuredImage: coverImage
           ? {
