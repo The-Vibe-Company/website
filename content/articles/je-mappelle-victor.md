@@ -4,7 +4,6 @@ slug: je-mappelle-victor
 language: fr
 summary: ""
 publishedAt: 2026-06-22
-complexity: beginner
 series: victor-story
 seriesDay: 0
 topics: AI Journey, The Vibe Company, Apprentissage
