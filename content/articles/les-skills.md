@@ -4,7 +4,6 @@ slug: les-skills
 language: fr
 summary: "Stan m'a vite convaincu : avec l'IA, le vrai levier, ce sont les skills, pas les prompts. Mes premiers skills, ma première loop pour tester mon site, et ceux que j'ai fini par créer moi-même, alors que je ne code pas."
 publishedAt: 2026-06-25
-complexity: beginner
 series: victor-story
 seriesDay: 2
 topics: AI Journey, Apprentissage, Skills
