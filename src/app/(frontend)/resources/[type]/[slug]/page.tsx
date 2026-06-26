@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
-import { ContentCard } from '@/components/resources/ContentCard';
+import { KeepReading } from '@/components/resources/KeepReading';
 import { LanguageFlag } from '@/components/resources/LanguageFlag';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
@@ -135,6 +135,8 @@ export default async function ContentDetailPage({
   const body = normalizeMarkdownBody(bodyWithoutCover);
   const readingTime = estimateReadingTime(item.body);
   const typeLabel = getTypeLabel(item.type);
+  const isVictorStory = item.series === 'victor-story';
+  const categoryLabel = isVictorStory ? "Victor's Story" : 'Article';
 
   return (
     <>
@@ -154,15 +156,31 @@ export default async function ContentDetailPage({
                   {typeLabel || type}
                 </Link>
 
+                <span
+                  className={`inline-flex items-center gap-2 self-start rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
+                    isVictorStory
+                      ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
+                      : 'border-res-border text-res-text-muted'
+                  }`}
+                >
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
+                    aria-hidden="true"
+                  />
+                  {categoryLabel}
+                </span>
+
                 <div className="w-8 h-px bg-res-border" />
 
                 <div className="flex flex-col gap-4">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Published</span>
-                    <span className="text-sm font-mono text-res-text-muted">
-                      {item.publishedAt ? formatDate(item.publishedAt) : 'Draft'}
-                    </span>
-                  </div>
+                  {item.publishedAt && (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Published</span>
+                      <span className="text-sm font-mono text-res-text-muted">
+                        {formatDate(item.publishedAt)}
+                      </span>
+                    </div>
+                  )}
 
                   <div className="flex flex-col gap-1">
                     <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Language</span>
@@ -219,6 +237,19 @@ export default async function ContentDetailPage({
                 >
                   &larr; {typeLabel || type}
                 </Link>
+                <span
+                  className={`inline-flex items-center gap-2 self-start rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
+                    isVictorStory
+                      ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
+                      : 'border-res-border text-res-text-muted'
+                  }`}
+                >
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
+                    aria-hidden="true"
+                  />
+                  {categoryLabel}
+                </span>
                 <div className="flex flex-wrap items-center gap-3">
                   {item.publishedAt && (
                     <span className="text-xs font-mono text-res-text-muted">
@@ -287,30 +318,7 @@ export default async function ContentDetailPage({
         </div>
 
         {/* Related content */}
-        {related.length > 0 && (
-          <section className={`${resourcesTheme.section.padding} py-24 border-t border-res-border`}>
-            <div className="flex items-end mb-12">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-                Keep Reading
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {related.map((r) => (
-                <ContentCard
-                  key={r.id}
-                  title={r.title}
-                  summary={r.summary}
-                  type={r.type}
-                  slug={r.slug}
-                  publishedAt={r.publishedAt ?? undefined}
-                  language={r.language}
-                  featuredImage={r.featuredImage}
-                />
-              ))}
-            </div>
-          </section>
-        )}
+        <KeepReading items={related} />
       </main>
     </>
   );
