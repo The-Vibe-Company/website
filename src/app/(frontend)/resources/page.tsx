@@ -35,7 +35,7 @@ export default async function ResourcesPage() {
   const victorStory = articles
     .filter((a) => a.series === VICTOR_SERIES)
     .map(toCard)
-    .sort((a, b) => (a.seriesDay ?? Infinity) - (b.seriesDay ?? Infinity));
+    .sort((a, b) => (b.seriesDay ?? -Infinity) - (a.seriesDay ?? -Infinity));
   const others = articles.filter((a) => a.series !== VICTOR_SERIES).map(toCard);
   const articleCount = articles.length;
 
