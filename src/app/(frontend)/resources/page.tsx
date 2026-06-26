@@ -31,11 +31,11 @@ function toCard(item: ContentEntry): ArticleCardItem {
 }
 
 export default async function ResourcesPage() {
+  // Articles come from getContentByType already sorted by publishedAt desc, so
+  // both columns stay in chronological order (newest first). A freshly added
+  // article naturally lands at the top; its D-day badge comes from seriesDay.
   const articles = getContentByType('article');
-  const victorStory = articles
-    .filter((a) => a.series === VICTOR_SERIES)
-    .map(toCard)
-    .sort((a, b) => (b.seriesDay ?? -Infinity) - (a.seriesDay ?? -Infinity));
+  const victorStory = articles.filter((a) => a.series === VICTOR_SERIES).map(toCard);
   const others = articles.filter((a) => a.series !== VICTOR_SERIES).map(toCard);
   const articleCount = articles.length;
 
