@@ -52,8 +52,8 @@ export default async function ResourcesPage() {
             Articles &amp; essays.
           </h1>
           <p className="text-base md:text-lg text-res-text-muted leading-relaxed max-w-2xl">
-            My AI journey as I learn to build, plus the team&apos;s notes on agents, tooling, and the
-            way we actually work.
+            What we&apos;re learning and building with AI at The Vibe Company, plus Victor&apos;s
+            Story along the way.
           </p>
         </div>
       </section>
