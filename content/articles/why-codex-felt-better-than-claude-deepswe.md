@@ -6,9 +6,9 @@ summary: "DeepSWE gives a measurable reason why Codex with GPT-5.5 has felt stro
 publishedAt: 2026-05-28
 complexity: advanced
 topics: Agent Design, AI Infrastructure, Evaluation, Vibe Coding
-coverImage: /images/resources/why-codex-felt-better-than-claude-deepswe/cover.png
+coverImage: /images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp
 coverAlt: "A premium operating table showing coding-agent workstreams, benchmark signals, code review cards, and a verified software task"
-ogImage: /images/resources/why-codex-felt-better-than-claude-deepswe/cover.png
+ogImage: /images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp
 ---
 
 For the past few months, I had a very clear feeling in my day-to-day work: when I needed to actually move code forward, Codex with GPT-5.5 felt more reliable than Claude Opus 4.7.

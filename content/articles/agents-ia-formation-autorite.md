@@ -6,9 +6,9 @@ summary: "La sécurité des agents IA ne se décide pas seulement par marque d'o
 publishedAt: 2026-04-29
 complexity: intermediate
 topics: AI Agents, AI Adoption, Security
-coverImage: /images/resources/agents-ia-formation-autorite/cover-tvc.png
+coverImage: /images/resources/agents-ia-formation-autorite/cover-mascotte.webp
 coverAlt: "Une table de travail montre quatre niveaux d'autorité pour les agents IA : lire, proposer, préparer et exécuter"
-ogImage: /images/resources/agents-ia-formation-autorite/cover-og.png
+ogImage: /images/resources/agents-ia-formation-autorite/cover-mascotte.webp
 ---
 
 Le risque n'apparaît pas quand une équipe branche une IA à sa boîte mail. Il apparaît quand elle coche « envoyer automatiquement ».

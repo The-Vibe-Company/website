@@ -6,9 +6,9 @@ summary: "I’ve wanted to build my game for a while. But I needed a solid visua
 publishedAt: 2026-02-17
 complexity: beginner
 topics: Design
-coverImage: /images/resources/how-i-finally-started-my-game-using-scenario/renard.png
+coverImage: /images/resources/how-i-finally-started-my-game-using-scenario/cover-mascotte.webp
 coverAlt: "Renard"
-ogImage: /images/resources/how-i-finally-started-my-game-using-scenario/cover-og.png
+ogImage: /images/resources/how-i-finally-started-my-game-using-scenario/cover-mascotte.webp
 ---
 I’ve had this project in the back of my mind forever: a browser-based game similar to *Travian*, but with animal armies. The logic was done, the idea was solid, but I kept hitting the same wall: **the visuals**.
 

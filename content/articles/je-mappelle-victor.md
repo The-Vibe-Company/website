@@ -6,9 +6,9 @@ summary: ""
 publishedAt: 2026-06-22
 complexity: beginner
 topics: AI Journey, The Vibe Company, Apprentissage
-coverImage: /images/resources/je-mappelle-victor/cover.png
+coverImage: /images/resources/je-mappelle-victor/cover-mascotte.webp
 coverAlt: "Un éditeur de code sur fond noir et une courbe d'apprentissage qui monte vers un point d'IA"
-ogImage: /images/resources/je-mappelle-victor/cover.png
+ogImage: /images/resources/je-mappelle-victor/cover-mascotte.webp
 ---
 
 Je m'appelle Victor, et je ne viens pas du monde de la tech. Je ne suis pas très à l'aise à l'idée de parler de moi, mais pour cette série, autant commencer par là.
