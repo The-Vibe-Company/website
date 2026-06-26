@@ -12,7 +12,6 @@ import { extractCoverImage, normalizeMarkdownBody } from '@/lib/markdown';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getTypeLabel } from '@/lib/taxonomy-utils';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
@@ -134,7 +133,6 @@ export default async function ContentDetailPage({
     : { body: item.body, caption: undefined };
   const body = normalizeMarkdownBody(bodyWithoutCover);
   const readingTime = estimateReadingTime(item.body);
-  const typeLabel = getTypeLabel(item.type);
   const isVictorStory = item.series === 'victor-story';
   const categoryLabel = isVictorStory ? "Victor's Story" : 'Article';
 
@@ -153,7 +151,7 @@ export default async function ContentDetailPage({
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
                 >
                   <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
-                  {typeLabel || type}
+                  Resources
                 </Link>
 
                 <span
@@ -235,7 +233,7 @@ export default async function ContentDetailPage({
                   href="/resources"
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted"
                 >
-                  &larr; {typeLabel || type}
+                  &larr; Resources
                 </Link>
                 <span
                   className={`inline-flex items-center gap-2 self-start rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
