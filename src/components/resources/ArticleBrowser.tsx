@@ -81,13 +81,16 @@ interface ColumnProps {
   name: string;
   count: number;
   accent: 'victor' | 'articles';
+  layout?: 'list' | 'grid';
   children: ReactNode;
   footer?: ReactNode;
 }
 
-function Column({ name, count, accent, children, footer }: ColumnProps) {
+function Column({ name, count, accent, layout = 'list', children, footer }: ColumnProps) {
   const borderClass = accent === 'victor' ? 'border-orange-500' : 'border-res-text';
   const dotClass = accent === 'victor' ? 'bg-orange-500' : 'bg-res-text';
+  const cardsClass =
+    layout === 'grid' ? 'grid grid-cols-1 lg:grid-cols-2 gap-3' : 'flex flex-col gap-3';
 
   return (
     <div>
@@ -98,7 +101,7 @@ function Column({ name, count, accent, children, footer }: ColumnProps) {
         </div>
         <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">{count}</span>
       </div>
-      <div className="flex flex-col gap-3">
+      <div className={cardsClass}>
         {children}
         {footer}
       </div>
@@ -160,9 +163,25 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
         </div>
       </div>
 
-      <div className={single ? 'max-w-2xl' : 'grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start'}>
+      {single && (
+        <button
+          type="button"
+          onClick={() => setFilter('all')}
+          className="group mb-6 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
+        >
+          <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
+          Resources
+        </button>
+      )}
+
+      <div className={single ? '' : 'grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start'}>
         {showVictor && (
-          <Column name={VICTOR_LABEL} count={victorStory.length} accent="victor">
+          <Column
+            name={VICTOR_LABEL}
+            count={victorStory.length}
+            accent="victor"
+            layout={single ? 'grid' : 'list'}
+          >
             {victorStory.map((item) => (
               <ArticleCard key={item.id} item={item} />
             ))}
@@ -174,6 +193,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
             name={ARTICLES_LABEL}
             count={others.length}
             accent="articles"
+            layout={single ? 'grid' : 'list'}
             footer={
               hiddenOthers > 0 ? (
                 <button
