@@ -6,6 +6,7 @@ summary: "Mon premier projet chez The Vibe Company : créer un site, sans savoir
 publishedAt: 2026-06-23
 complexity: beginner
 series: victor-story
+seriesDay: 1
 topics: AI Journey, Apprentissage, Premier site
 coverImage: /images/resources/premier-site/cover-mascotte.webp
 coverAlt: "Avant après de mon premier site : la première version à gauche, la version actuelle à droite"

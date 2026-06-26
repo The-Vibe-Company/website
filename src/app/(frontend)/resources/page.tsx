@@ -23,6 +23,7 @@ function toCard(item: ContentEntry): ArticleCardItem {
     slug: item.slug,
     publishedAt: item.publishedAt ?? undefined,
     language: item.language,
+    seriesDay: item.seriesDay,
     image: item.featuredImage?.url
       ? { url: item.featuredImage.url, alt: item.featuredImage.alt ?? item.title }
       : null,
@@ -31,7 +32,10 @@ function toCard(item: ContentEntry): ArticleCardItem {
 
 export default async function ResourcesPage() {
   const articles = getContentByType('article');
-  const victorStory = articles.filter((a) => a.series === VICTOR_SERIES).map(toCard);
+  const victorStory = articles
+    .filter((a) => a.series === VICTOR_SERIES)
+    .map(toCard)
+    .sort((a, b) => (a.seriesDay ?? Infinity) - (b.seriesDay ?? Infinity));
   const others = articles.filter((a) => a.series !== VICTOR_SERIES).map(toCard);
   const articleCount = articles.length;
 

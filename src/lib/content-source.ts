@@ -43,6 +43,7 @@ export interface ContentEntry {
   language: ContentLanguage
   complexity?: string
   series?: string
+  seriesDay?: number
   topics?: string[]
   featuredImage?: {
     url: string
@@ -104,6 +105,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         language,
         complexity: data.complexity || undefined,
         series: data.series?.trim() || undefined,
+        seriesDay: parseSeriesDay(data.seriesDay),
         topics,
         featuredImage: coverImage
           ? {
@@ -184,6 +186,12 @@ function stripYamlBrackets(value: string): string {
     return trimmed.slice(1, -1)
   }
   return trimmed
+}
+
+function parseSeriesDay(value?: string): number | undefined {
+  if (value == null || value.trim() === '') return undefined
+  const day = Number(value)
+  return Number.isFinite(day) ? day : undefined
 }
 
 function sortByPublishedAtDesc(items: ContentEntry[]): ContentEntry[] {

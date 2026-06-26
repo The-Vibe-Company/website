@@ -6,6 +6,7 @@ summary: ""
 publishedAt: 2026-06-22
 complexity: beginner
 series: victor-story
+seriesDay: 0
 topics: AI Journey, The Vibe Company, Apprentissage
 coverImage: /images/resources/je-mappelle-victor/cover-mascotte.webp
 coverAlt: "Un éditeur de code sur fond noir et une courbe d'apprentissage qui monte vers un point d'IA"

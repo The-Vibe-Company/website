@@ -6,6 +6,7 @@ summary: "Stan m'a vite convaincu : avec l'IA, le vrai levier, ce sont les skill
 publishedAt: 2026-06-25
 complexity: beginner
 series: victor-story
+seriesDay: 2
 topics: AI Journey, Apprentissage, Skills
 coverImage: /images/resources/les-skills/cover.png
 coverAlt: "Mon avatar et la mascotte The Vibe Company autour d'une boucle de skills connectés, dans un atelier"

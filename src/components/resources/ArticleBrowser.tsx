@@ -17,6 +17,7 @@ export interface ArticleCardItem {
   slug: string;
   publishedAt?: string;
   language?: ContentLanguage;
+  seriesDay?: number;
   image: { url: string; alt: string } | null;
 }
 
@@ -25,7 +26,7 @@ type Filter = 'all' | 'victor' | 'articles';
 /** How many "Articles" to show in the combined view before linking to the full list. */
 const ARTICLES_PREVIEW_LIMIT = 6;
 
-const VICTOR_LABEL = 'Victor Story';
+const VICTOR_LABEL = "Victor's Story";
 const ARTICLES_LABEL = 'Articles';
 
 function formatDate(dateString?: string): string {
@@ -63,6 +64,11 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
           />
         ) : null}
         <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
+          {item.seriesDay != null && (
+            <span className="inline-flex items-center rounded border border-orange-500/40 bg-orange-500/10 px-1.5 py-0.5 text-orange-600 tracking-wider">
+              D{item.seriesDay}
+            </span>
+          )}
           {item.language && <LanguageFlag language={item.language} variant="inline" />}
           {item.publishedAt && <span>{formatDate(item.publishedAt)}</span>}
         </div>
