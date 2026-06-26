@@ -6,9 +6,9 @@ summary: "A prompt is a disposable instruction. A skill is a versioned workflow 
 publishedAt: 2026-04-24
 complexity: intermediate
 topics: Agent Design, AI Operations, Skills
-coverImage: /images/resources/why-i-replaced-prompts-with-skills/generated/prompts-to-skills-cover.png
+coverImage: /images/resources/why-i-replaced-prompts-with-skills/cover-mascotte.webp
 coverAlt: "A fragile prompt becomes a versioned agent skill with workflow files, scripts, review gates, and output artifacts"
-ogImage: /images/resources/why-i-replaced-prompts-with-skills/generated/prompts-to-skills-cover-og.png
+ogImage: /images/resources/why-i-replaced-prompts-with-skills/cover-mascotte.webp
 ---
 
 I used to save prompts.

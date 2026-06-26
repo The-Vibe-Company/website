@@ -6,9 +6,9 @@ summary: "Le mode opératoire pour transformer Linear, GitHub, Notion, Drive et 
 publishedAt: 2026-04-23
 complexity: advanced
 topics: AI Operations, Research Tax Credit, Agent Workflows
-coverImage: /images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-tvc.webp
+coverImage: /images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-mascotte.webp
 coverAlt: "Un playbook opérationnel relie sources, preuves, validations et dossier final"
-ogImage: /images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-tvc.webp
+ogImage: /images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-mascotte.webp
 ---
 
 Cet article n'est pas [l'histoire de notre dossier CIR](/resources/articles/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia).
