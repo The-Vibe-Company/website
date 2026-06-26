@@ -170,7 +170,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
           className="group mb-6 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
         >
           <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
-          Resources
+          Articles
         </button>
       )}
 
