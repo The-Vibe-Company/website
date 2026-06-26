@@ -176,12 +176,13 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
             accent="articles"
             footer={
               hiddenOthers > 0 ? (
-                <Link
-                  href="/resources/articles"
-                  className="flex items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
+                <button
+                  type="button"
+                  onClick={() => setFilter('articles')}
+                  className="flex w-full items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
                 >
                   View all {others.length} articles &rarr;
-                </Link>
+                </button>
               ) : null
             }
           >
