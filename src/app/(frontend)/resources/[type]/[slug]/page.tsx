@@ -149,7 +149,7 @@ export default async function ContentDetailPage({
             <aside className="lg:col-span-3 hidden lg:block">
               <div className="sticky top-32 flex flex-col gap-8">
                 <Link
-                  href={`/resources/${type}`}
+                  href="/resources"
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
                 >
                   <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
@@ -232,7 +232,7 @@ export default async function ContentDetailPage({
               {/* Mobile Header elements */}
               <div className="lg:hidden mb-8 flex flex-col gap-4">
                 <Link
-                  href={`/resources/${type}`}
+                  href="/resources"
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted"
                 >
                   &larr; {typeLabel || type}
