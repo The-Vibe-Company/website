@@ -185,7 +185,7 @@ export default async function ContentDetailPage({
                     <LanguageFlag language={item.language} variant="sidebar" />
                   </div>
 
-                  {item.complexity && (
+                  {item.complexity && !isVictorStory && (
                     <div className="flex flex-col gap-1">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Complexity</span>
                       <span className="text-sm font-mono text-res-text-muted">
