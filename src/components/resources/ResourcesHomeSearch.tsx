@@ -54,7 +54,7 @@ export function ResourcesHomeSearch() {
       </span>
       <input
         type="search"
-        placeholder="Search skills, articles, topics…"
+        placeholder="Search articles, topics…"
         value={value}
         onChange={(event) => handleChange(event.target.value)}
         className="w-full bg-res-surface border border-res-border pl-12 pr-4 py-3.5 text-base font-mono text-res-text placeholder:text-res-text-muted/60 focus:outline-none focus:border-res-text rounded-md transition-colors"
