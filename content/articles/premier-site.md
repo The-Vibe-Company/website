@@ -7,9 +7,9 @@ publishedAt: 2026-06-23
 complexity: beginner
 series: victor-story
 topics: AI Journey, Apprentissage, Premier site
-coverImage: /images/resources/premier-site/cover.png
+coverImage: /images/resources/premier-site/cover-mascotte.webp
 coverAlt: "Avant après de mon premier site : la première version à gauche, la version actuelle à droite"
-ogImage: /images/resources/premier-site/cover.png
+ogImage: /images/resources/premier-site/cover-mascotte.webp
 ---
 
 Mon premier projet chez The Vibe Company, c'était de créer un site. Rien de compliqué : j'ai choisi de faire une simple liste d'animés, un thème qui me parle. Pouvoir en ajouter à une watchlist, les noter, ou en conseiller à d'autres. Enfin bon. Ce qui comptait, c'était de comprendre comment on passe d'une idée à un site en ligne, étape par étape.
