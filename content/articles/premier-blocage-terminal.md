@@ -4,8 +4,8 @@ slug: premier-blocage-terminal
 language: fr
 summary: "Créer le site, ça allait. Mon vrai blocage est venu du terminal : coller des commandes que je ne comprenais pas, sans rien voir bouger à l'écran. Comment j'ai tenu, et le déclic quand un push a mis le site à jour tout seul."
 publishedAt: 2026-06-26
-complexity: beginner
 series: victor-story
+seriesDay: 3
 topics: AI Journey, Apprentissage, Terminal
 coverImage: /images/resources/premier-blocage-terminal/cover.png
 coverAlt: "Mon avatar pensif devant un terminal plein de commandes, avec la mascotte The Vibe Company, dans un atelier"
