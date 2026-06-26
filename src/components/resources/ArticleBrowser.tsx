@@ -34,12 +34,57 @@ function formatDate(dateString?: string): string {
   return new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
-function ArticleCard({ item }: { item: ArticleCardItem }) {
+function CardMeta({ item }: { item: ArticleCardItem }) {
   return (
-    <Link
-      href={`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`}
-      className={`group flex gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
-    >
+    <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
+      {item.seriesDay != null && (
+        <span className="inline-flex items-center rounded border border-orange-500/40 bg-orange-500/10 px-1.5 py-0.5 text-orange-600 tracking-wider">
+          D{item.seriesDay}
+        </span>
+      )}
+      {item.language && <LanguageFlag language={item.language} variant="inline" />}
+      {item.publishedAt && <span>{formatDate(item.publishedAt)}</span>}
+    </div>
+  );
+}
+
+function ArticleCard({ item, variant = 'compact' }: { item: ArticleCardItem; variant?: 'compact' | 'large' }) {
+  const href = `/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`;
+
+  if (variant === 'large') {
+    return (
+      <Link href={href} className={`group flex flex-col overflow-hidden rounded-lg ${resourcesTheme.card.base}`}>
+        <div className="relative aspect-[16/10] w-full overflow-hidden">
+          {item.image ? (
+            <Image
+              src={item.image.url}
+              alt={item.image.alt}
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <div className="h-full w-full bg-res-bg-secondary" />
+          )}
+        </div>
+        <div className="flex flex-col gap-2.5 p-5">
+          <h3 className="text-lg font-bold tracking-tight text-res-text leading-snug line-clamp-2 group-hover:underline decoration-1 underline-offset-2">
+            {item.title}
+          </h3>
+          {item.summary ? (
+            <p
+              className="text-sm text-res-text-muted leading-relaxed line-clamp-2"
+              dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
+            />
+          ) : null}
+          <CardMeta item={item} />
+        </div>
+      </Link>
+    );
+  }
+
+  return (
+    <Link href={href} className={`group flex gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}>
       <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded">
         {item.image ? (
           <Image
@@ -63,15 +108,7 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
             dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
           />
         ) : null}
-        <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-          {item.seriesDay != null && (
-            <span className="inline-flex items-center rounded border border-orange-500/40 bg-orange-500/10 px-1.5 py-0.5 text-orange-600 tracking-wider">
-              D{item.seriesDay}
-            </span>
-          )}
-          {item.language && <LanguageFlag language={item.language} variant="inline" />}
-          {item.publishedAt && <span>{formatDate(item.publishedAt)}</span>}
-        </div>
+        <CardMeta item={item} />
       </div>
     </Link>
   );
@@ -183,7 +220,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
             layout={single ? 'grid' : 'list'}
           >
             {victorStory.map((item) => (
-              <ArticleCard key={item.id} item={item} />
+              <ArticleCard key={item.id} item={item} variant={single ? 'large' : 'compact'} />
             ))}
           </Column>
         )}
@@ -207,7 +244,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
             }
           >
             {visibleOthers.map((item) => (
-              <ArticleCard key={item.id} item={item} />
+              <ArticleCard key={item.id} item={item} variant={single ? 'large' : 'compact'} />
             ))}
           </Column>
         )}
