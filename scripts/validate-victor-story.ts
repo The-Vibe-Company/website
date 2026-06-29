@@ -19,7 +19,28 @@ const ROOT = process.cwd()
 const ARTICLES_DIR = path.join(ROOT, 'content', 'articles')
 const VICTOR_SERIES = 'victor-story'
 
+/**
+ * Frontmatter keys whose casing matters: a typo like `seriesday:` slips past
+ * both this validator and the renderer, silently producing a mis-tagged article.
+ */
+const CANONICAL_KEYS = ['series', 'seriesDay', 'complexity']
+const CANONICAL_BY_LOWER = new Map(CANONICAL_KEYS.map((key) => [key.toLowerCase(), key]))
+
 type Failure = { file: string; reason: string }
+
+function frontmatterKeys(raw: string): string[] {
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)
+  if (!match) return []
+  return match[1]
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('#'))
+    .map((line) => {
+      const index = line.indexOf(':')
+      return index === -1 ? '' : line.slice(0, index).trim()
+    })
+    .filter(Boolean)
+}
 
 async function listMarkdown(dir: string): Promise<string[]> {
   try {
@@ -41,9 +62,21 @@ async function main(): Promise<void> {
   for (const file of files) {
     const raw = await fs.readFile(file, 'utf8')
     const { data } = parseFrontmatter(raw)
-    if (data.series !== VICTOR_SERIES) continue
-
     const rel = path.relative(ROOT, file)
+
+    // Catch a mis-cased key (e.g. "seriesday") on any article — it would
+    // otherwise slip past both this gate and the renderer unnoticed.
+    for (const key of frontmatterKeys(raw)) {
+      const canonical = CANONICAL_BY_LOWER.get(key.toLowerCase())
+      if (canonical && key !== canonical) {
+        failures.push({
+          file: rel,
+          reason: `frontmatter key "${key}" should be "${canonical}" (keys are case-sensitive).`,
+        })
+      }
+    }
+
+    if (data.series !== VICTOR_SERIES) continue
 
     if (data.complexity) {
       failures.push({
