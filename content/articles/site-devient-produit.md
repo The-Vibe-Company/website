@@ -32,6 +32,8 @@ J'ai aussi ajouté une bascule de langue : les résumés, souvent en anglais, po
 
 D'un coup, le site ne se contentait plus de stocker ce que je lui donnais. Il me proposait une prochaine action.
 
+![Mon site d'animés aujourd'hui : la collection, les genres, les recommandations et les résumés](/images/resources/site-devient-produit/decouverte.png "De la liste plate au produit : genres, découverte et résumés.")
+
 ## Lui donner une vraie tête
 
 En parallèle, il y avait la question du look.
