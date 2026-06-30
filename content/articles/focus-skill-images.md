@@ -118,13 +118,13 @@ Sur cette image, j'ai pris une décision : remplacer le personnage lambda par mo
 
 ![Avant, une personne lambda devant l'écran. Après, mon propre avatar dans la même scène](/images/resources/focus-skill-images/avatar-avant-apres.png "Remplacer la personne lambda par mon avatar")
 
-Et on n'arrive pas du premier coup. Sur une même image, on itère plusieurs versions avant de tomber juste.
+Au début, on n'arrive pas du premier coup. Sur une même image, on itère plusieurs versions pour caler le skill.
 
 ![Quatre versions d'une même cover, jusqu'à ce qu'elle tombe juste](/images/resources/focus-skill-images/iteration-4versions.png "On itère une même image sur plusieurs versions")
 
 Avant, mes images étaient minimalistes, un objet posé seul sur un fond dégradé. Propre, mais pauvre. Après, des scènes habitées, avec la mascotte, et mon avatar quand l'article parle de moi.
 
-Ce qui m'a le plus surpris, c'est la précision. Très souvent, la première image sortie est la bonne. Elle fait presque exactement ce qu'on voulait, je n'ai rien à reprendre. Pour quelqu'un qui s'attend à enchaîner dix versions, c'est un vrai changement.
+Et une fois le skill bien calé, ce qui m'a le plus surpris, c'est la précision. La première image sortie est alors presque toujours la bonne, je n'ai rien à reprendre. Ce n'est pas magique dès le départ, c'est le fruit de ces itérations. Mais une fois le skill réglé, pour quelqu'un qui s'attend à enchaîner dix versions, c'est un vrai changement.
 
 Reste deux limites. Le texte dans les images n'est pas fiable, le modèle écrit souvent du charabia, une fois il m'a sorti un « PERSONAL WATCHLIST » écrit n'importe comment. C'est pour ça que le negative prompt bannit le mot text, et que je conçois des visuels qui ne dépendent d'aucun texte lisible. Et il faut penser à varier le décor entre deux articles voisins pour ne pas se répéter.
 
