@@ -18,6 +18,7 @@ export interface ArticleCardItem {
   publishedAt?: string;
   language?: ContentLanguage;
   seriesDay?: number;
+  focus?: boolean;
   image: { url: string; alt: string } | null;
 }
 
@@ -67,6 +68,11 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
           {item.seriesDay != null && (
             <span className="inline-flex items-center rounded border border-orange-500/40 bg-orange-500/10 px-1.5 py-0.5 text-orange-600 tracking-wider">
               D{item.seriesDay}
+            </span>
+          )}
+          {item.focus && (
+            <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
+              Focus
             </span>
           )}
           {item.language && <LanguageFlag language={item.language} variant="inline" />}

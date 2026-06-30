@@ -9,7 +9,8 @@
     "lint": "eslint",
     "content:check": "bun scripts/validate-content-images.ts",
     "content:victor-check": "bun scripts/validate-victor-story.ts",
-    "prebuild": "bun scripts/validate-victor-story.ts && bun scripts/validate-content-images.ts && bun scripts/optimize-images.ts --check",
+    "content:focus-check": "bun scripts/validate-focus-articles.ts",
+    "prebuild": "bun scripts/validate-victor-story.ts && bun scripts/validate-focus-articles.ts && bun scripts/validate-content-images.ts && bun scripts/optimize-images.ts --check",
     "images:optimize": "bun scripts/optimize-images.ts",
     "images:check": "bun scripts/optimize-images.ts --check"
   },

@@ -134,6 +134,7 @@ export default async function ContentDetailPage({
   const body = normalizeMarkdownBody(bodyWithoutCover);
   const readingTime = estimateReadingTime(item.body);
   const isVictorStory = item.series === 'victor-story';
+  const isFocus = item.focus === true;
   const categoryLabel = isVictorStory ? "Victor's Story" : 'Article';
 
   return (
@@ -154,19 +155,27 @@ export default async function ContentDetailPage({
                   Resources
                 </Link>
 
-                <span
-                  className={`inline-flex items-center gap-2 self-start rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
-                    isVictorStory
-                      ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
-                      : 'border-res-border text-res-text-muted'
-                  }`}
-                >
+                <div className="flex flex-wrap items-center gap-2 self-start">
                   <span
-                    className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
-                    aria-hidden="true"
-                  />
-                  {categoryLabel}
-                </span>
+                    className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
+                      isVictorStory
+                        ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
+                        : 'border-res-border text-res-text-muted'
+                    }`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
+                      aria-hidden="true"
+                    />
+                    {categoryLabel}
+                  </span>
+                  {isFocus && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
+                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
+                      Focus
+                    </span>
+                  )}
+                </div>
 
                 <div className="w-8 h-px bg-res-border" />
 
@@ -235,19 +244,27 @@ export default async function ContentDetailPage({
                 >
                   &larr; Resources
                 </Link>
-                <span
-                  className={`inline-flex items-center gap-2 self-start rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
-                    isVictorStory
-                      ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
-                      : 'border-res-border text-res-text-muted'
-                  }`}
-                >
+                <div className="flex flex-wrap items-center gap-2 self-start">
                   <span
-                    className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
-                    aria-hidden="true"
-                  />
-                  {categoryLabel}
-                </span>
+                    className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
+                      isVictorStory
+                        ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
+                        : 'border-res-border text-res-text-muted'
+                    }`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
+                      aria-hidden="true"
+                    />
+                    {categoryLabel}
+                  </span>
+                  {isFocus && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
+                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
+                      Focus
+                    </span>
+                  )}
+                </div>
                 <div className="flex flex-wrap items-center gap-3">
                   {item.publishedAt && (
                     <span className="text-xs font-mono text-res-text-muted">
