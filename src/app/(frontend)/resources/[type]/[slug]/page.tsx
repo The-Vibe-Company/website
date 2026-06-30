@@ -155,7 +155,7 @@ export default async function ContentDetailPage({
                   Resources
                 </Link>
 
-                <div className="flex flex-wrap items-center gap-2 self-start">
+                <div className="flex flex-col items-start gap-2 self-start">
                   <span
                     className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
                       isVictorStory
@@ -244,7 +244,7 @@ export default async function ContentDetailPage({
                 >
                   &larr; Resources
                 </Link>
-                <div className="flex flex-wrap items-center gap-2 self-start">
+                <div className="flex flex-col items-start gap-2 self-start">
                   <span
                     className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
                       isVictorStory
