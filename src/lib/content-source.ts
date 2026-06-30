@@ -44,6 +44,7 @@ export interface ContentEntry {
   complexity?: string
   series?: string
   seriesDay?: number
+  focus?: boolean
   topics?: string[]
   featuredImage?: {
     url: string
@@ -106,6 +107,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         complexity: data.complexity || undefined,
         series: data.series?.trim() || undefined,
         seriesDay: parseSeriesDay(data.seriesDay),
+        focus: data.focus?.trim() === 'true',
         topics,
         featuredImage: coverImage
           ? {

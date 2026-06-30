@@ -20,6 +20,9 @@ jobs:
       - name: Validate Victor's Story articles
         run: bun run content:victor-check
 
+      - name: Validate Focus articles
+        run: bun run content:focus-check
+
   build:
     runs-on: ubuntu-latest
     env:
