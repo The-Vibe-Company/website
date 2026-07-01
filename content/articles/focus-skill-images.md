@@ -1,5 +1,5 @@
 ---
-title: "Comment on a généré des visuels consistants grâce aux skills ?"
+title: "Comment on a généré des visuels consistants grâce aux skills"
 slug: focus-skill-images
 language: fr
 summary: "Comment un skill verrouille notre direction artistique et génère nos images, extraits de l'outil à l'appui, sans que je sois graphiste ni codeur."
