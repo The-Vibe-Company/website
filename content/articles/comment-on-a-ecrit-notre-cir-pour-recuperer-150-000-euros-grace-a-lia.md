@@ -6,9 +6,9 @@ summary: "Comment on a transformé Linear, GitHub, Notion, Google Drive et nos e
 publishedAt: 2026-04-22
 complexity: advanced
 topics: AI Operations, Research Tax Credit, Agent Workflows
-coverImage: /images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-tvc.webp
+coverImage: /images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp
 coverAlt: "Un tableau de preuves transforme des documents dispersés en dossier CIR/CII vérifiable"
-ogImage: /images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-tvc.webp
+ogImage: /images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp
 ---
 
 Le CIR, c'est un sujet assez bête au fond : le travail a déjà été fait, mais il faut réussir à le prouver.

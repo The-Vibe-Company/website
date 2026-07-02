@@ -42,9 +42,13 @@ export interface ContentEntry {
   publishedAt: string
   language: ContentLanguage
   complexity?: string
+  series?: string
+  seriesDay?: number
+  focus?: boolean
   topics?: string[]
   featuredImage?: {
     url: string
+    sourceUrl?: string
     alt?: string
     sizes?: {
       card?: {
@@ -101,10 +105,14 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         publishedAt,
         language,
         complexity: data.complexity || undefined,
+        series: data.series?.trim() || undefined,
+        seriesDay: parseSeriesDay(data.seriesDay),
+        focus: data.focus?.trim() === 'true',
         topics,
         featuredImage: coverImage
           ? {
               url: optimizedCoverImage,
+              sourceUrl: coverImage,
               alt: coverAlt,
               sizes: {
                 card: {
@@ -182,6 +190,12 @@ function stripYamlBrackets(value: string): string {
   return trimmed
 }
 
+function parseSeriesDay(value?: string): number | undefined {
+  if (value == null || value.trim() === '') return undefined
+  const day = Number(value)
+  return Number.isFinite(day) ? day : undefined
+}
+
 function sortByPublishedAtDesc(items: ContentEntry[]): ContentEntry[] {
   return [...items].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
 }
@@ -216,9 +230,16 @@ export const getContentItem = cache((type: string, slug: string): ContentEntry |
 })
 
 export const getRelatedContent = cache((type: string, slug: string, limit = 3): ContentEntry[] => {
-  return getContentByType(type)
-    .filter((item) => item.slug !== slug)
-    .slice(0, limit)
+  const byType = getContentByType(type)
+  const pool = byType.filter((item) => item.slug !== slug)
+
+  // Keep the reader in the same lane: a Victor's Story article suggests other
+  // Victor's Story articles, a classic article suggests other classic ones.
+  const current = byType.find((item) => item.slug === slug)
+  const isVictorStory = current?.series === 'victor-story'
+  const sameCategory = pool.filter((item) => (item.series === 'victor-story') === isVictorStory)
+
+  return (sameCategory.length > 0 ? sameCategory : pool).slice(0, limit)
 })
 
 export const searchContent = cache((query: string): ContentEntry[] => {

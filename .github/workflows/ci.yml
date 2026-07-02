@@ -7,6 +7,22 @@ on:
       - main
 
 jobs:
+  content:
+    name: Validate content
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Validate Victor's Story articles
+        run: bun run content:victor-check
+
+      - name: Validate Focus articles
+        run: bun run content:focus-check
+
   build:
     runs-on: ubuntu-latest
     env:

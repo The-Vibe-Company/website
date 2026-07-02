@@ -2,17 +2,16 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
-import { ContentCard } from '@/components/resources/ContentCard';
+import { KeepReading } from '@/components/resources/KeepReading';
 import { LanguageFlag } from '@/components/resources/LanguageFlag';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { CONTENT_TYPES, getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
 import { getContentByType, getContentItem, getRelatedContent } from '@/lib/content-source';
-import { normalizeMarkdownBody } from '@/lib/markdown';
+import { extractCoverImage, normalizeMarkdownBody } from '@/lib/markdown';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { getTypeLabel } from '@/lib/taxonomy-utils';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
@@ -128,9 +127,15 @@ export default async function ContentDetailPage({
 
   const related = await getRelated(contentType.slug, slug);
 
-  const body = normalizeMarkdownBody(item.body);
+  const cover = item.featuredImage;
+  const { body: bodyWithoutCover, caption: coverCaption } = cover?.sourceUrl
+    ? extractCoverImage(item.body, cover.sourceUrl)
+    : { body: item.body, caption: undefined };
+  const body = normalizeMarkdownBody(bodyWithoutCover);
   const readingTime = estimateReadingTime(item.body);
-  const typeLabel = getTypeLabel(item.type);
+  const isVictorStory = item.series === 'victor-story';
+  const isFocus = item.focus === true;
+  const categoryLabel = isVictorStory ? "Victor's Story" : 'Article';
 
   return (
     <>
@@ -143,29 +148,53 @@ export default async function ContentDetailPage({
             <aside className="lg:col-span-3 hidden lg:block">
               <div className="sticky top-32 flex flex-col gap-8">
                 <Link
-                  href={`/resources/${type}`}
+                  href="/resources"
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
                 >
                   <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
-                  {typeLabel || type}
+                  Resources
                 </Link>
+
+                <div className="flex flex-col items-start gap-2 self-start">
+                  <span
+                    className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
+                      isVictorStory
+                        ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
+                        : 'border-res-border text-res-text-muted'
+                    }`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
+                      aria-hidden="true"
+                    />
+                    {categoryLabel}
+                  </span>
+                  {isFocus && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
+                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
+                      Focus
+                    </span>
+                  )}
+                </div>
 
                 <div className="w-8 h-px bg-res-border" />
 
                 <div className="flex flex-col gap-4">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Published</span>
-                    <span className="text-sm font-mono text-res-text-muted">
-                      {item.publishedAt ? formatDate(item.publishedAt) : 'Draft'}
-                    </span>
-                  </div>
+                  {item.publishedAt && (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Published</span>
+                      <span className="text-sm font-mono text-res-text-muted">
+                        {formatDate(item.publishedAt)}
+                      </span>
+                    </div>
+                  )}
 
                   <div className="flex flex-col gap-1">
                     <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Language</span>
                     <LanguageFlag language={item.language} variant="sidebar" />
                   </div>
 
-                  {item.complexity && (
+                  {item.complexity && !isVictorStory && (
                     <div className="flex flex-col gap-1">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Complexity</span>
                       <span className="text-sm font-mono text-res-text-muted">
@@ -210,11 +239,32 @@ export default async function ContentDetailPage({
               {/* Mobile Header elements */}
               <div className="lg:hidden mb-8 flex flex-col gap-4">
                 <Link
-                  href={`/resources/${type}`}
+                  href="/resources"
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted"
                 >
-                  &larr; {typeLabel || type}
+                  &larr; Resources
                 </Link>
+                <div className="flex flex-col items-start gap-2 self-start">
+                  <span
+                    className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
+                      isVictorStory
+                        ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
+                        : 'border-res-border text-res-text-muted'
+                    }`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
+                      aria-hidden="true"
+                    />
+                    {categoryLabel}
+                  </span>
+                  {isFocus && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
+                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
+                      Focus
+                    </span>
+                  )}
+                </div>
                 <div className="flex flex-wrap items-center gap-3">
                   {item.publishedAt && (
                     <span className="text-xs font-mono text-res-text-muted">
@@ -244,6 +294,23 @@ export default async function ContentDetailPage({
 
               <div className="w-full h-px bg-res-border mb-8 md:mb-12" />
 
+              {cover?.url && (
+                <figure className="mb-8 md:mb-12">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={cover.url}
+                    alt={cover.alt ?? item.title}
+                    className="w-full h-auto rounded-lg border border-res-border"
+                    decoding="async"
+                  />
+                  {coverCaption ? (
+                    <figcaption className="mt-3 text-xs font-mono text-res-text-muted">
+                      {coverCaption}
+                    </figcaption>
+                  ) : null}
+                </figure>
+              )}
+
               <div className="prose-vibe prose-vibe-warm max-w-none">
                 {body.trim().length > 0 ? (
                   <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" />
@@ -266,30 +333,7 @@ export default async function ContentDetailPage({
         </div>
 
         {/* Related content */}
-        {related.length > 0 && (
-          <section className={`${resourcesTheme.section.padding} py-24 border-t border-res-border`}>
-            <div className="flex items-end mb-12">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-                Keep Reading
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {related.map((r) => (
-                <ContentCard
-                  key={r.id}
-                  title={r.title}
-                  summary={r.summary}
-                  type={r.type}
-                  slug={r.slug}
-                  publishedAt={r.publishedAt ?? undefined}
-                  language={r.language}
-                  featuredImage={r.featuredImage}
-                />
-              ))}
-            </div>
-          </section>
-        )}
+        <KeepReading items={related} />
       </main>
     </>
   );

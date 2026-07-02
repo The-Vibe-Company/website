@@ -6,9 +6,9 @@ summary: "A founder who uses AI every day spent a session making music with an a
 publishedAt: 2026-05-27
 complexity: beginner
 topics: Creative AI, AI Workflows, Music Generation
-coverImage: /images/resources/ai-music-with-an-artist/cover-tvc.webp
+coverImage: /images/resources/ai-music-with-an-artist/cover-mascotte.webp
 coverAlt: "A studio table shows headphones, a waveform printout, version cards, lyrics, and listening notes from an AI music session"
-ogImage: /images/resources/ai-music-with-an-artist/cover-tvc.webp
+ogImage: /images/resources/ai-music-with-an-artist/cover-mascotte.webp
 ---
 
 At some point in the session, we had a track that worked.

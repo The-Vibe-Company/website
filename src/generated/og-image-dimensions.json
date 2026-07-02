@@ -1,54 +1,66 @@
 {
-  "/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-tvc.webp": {
+  "/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
-  "/images/resources/agents-ia-formation-autorite/cover-og.png": {
+  "/images/resources/agents-ia-formation-autorite/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
-  "/images/resources/ai-music-with-an-artist/cover-tvc.webp": {
+  "/images/resources/ai-music-with-an-artist/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
-  "/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-tvc.webp": {
+  "/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
-  "/images/resources/how-i-finally-started-my-game-using-scenario/cover-og.png": {
+  "/images/resources/focus-skill-images/cover.png": {
+    "width": 1536,
+    "height": 864
+  },
+  "/images/resources/how-i-finally-started-my-game-using-scenario/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
-  "/images/resources/how-to-use-skillopt-to-train-agent-skills/generated/skillopt-loop-functional-gpt-image-2.webp": {
+  "/images/resources/how-to-use-skillopt-to-train-agent-skills/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
-  "/images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-tvc.webp": {
+  "/images/resources/je-mappelle-victor/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
-  "/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-tvc.webp": {
+  "/images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
-  "/images/resources/my-personal-os-lives-in-a-folder/cover-tvc.webp": {
+  "/images/resources/les-skills/cover.png": {
     "width": 1536,
     "height": 1024
   },
-  "/images/resources/premier-site/cover.png": {
-    "width": 1745,
-    "height": 895
-  },
-  "/images/resources/quivr-to-the-vibe-company/cover-tvc.webp": {
+  "/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
-  "/images/resources/why-codex-felt-better-than-claude-deepswe/cover.png": {
+  "/images/resources/my-personal-os-lives-in-a-folder/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
-  "/images/resources/why-i-replaced-prompts-with-skills/generated/prompts-to-skills-cover-og.png": {
-    "width": 1600,
-    "height": 900
+  "/images/resources/premier-site/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
+  "/images/resources/quivr-to-the-vibe-company/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
+  "/images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
+  "/images/resources/why-i-replaced-prompts-with-skills/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
   }
 }

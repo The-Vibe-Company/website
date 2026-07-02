@@ -1,9 +1,10 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Bot } from 'lucide-react';
 
 import { CopyButton } from '@/components/resources/CopyButton';
+import { captureEvent } from '@/lib/posthog';
 import {
   buildAIInstallPrompt,
   type SkillInstallContext,
@@ -15,6 +16,14 @@ interface SkillAIInstallerProps {
 
 export function SkillAIInstaller({ context }: SkillAIInstallerProps) {
   const prompt = useMemo(() => buildAIInstallPrompt('generic', context), [context]);
+
+  const handleCopy = useCallback(() => {
+    captureEvent("skill_install_prompt_copied", {
+      skill_slug: context.slug,
+      skill_title: context.title,
+      skill_kind: context.kind,
+    });
+  }, [context.slug, context.title, context.kind]);
 
   return (
     <section
@@ -48,6 +57,7 @@ export function SkillAIInstaller({ context }: SkillAIInstallerProps) {
         label="Copy install prompt"
         copiedLabel="Copied"
         className="mt-5 w-full justify-center sm:w-auto"
+        onCopy={handleCopy}
       />
 
       <details className="mt-5 border-t border-res-border pt-4">

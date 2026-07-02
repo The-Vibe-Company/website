@@ -12,6 +12,7 @@ interface CopyButtonProps {
   variant?: Variant;
   className?: string;
   ariaLabel?: string;
+  onCopy?: () => void;
 }
 
 export function CopyButton({
@@ -21,6 +22,7 @@ export function CopyButton({
   variant = 'default',
   className,
   ariaLabel,
+  onCopy,
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -36,12 +38,13 @@ export function CopyButton({
     try {
       await navigator.clipboard.writeText(value);
       setCopied(true);
+      onCopy?.();
       if (timerRef.current) clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => setCopied(false), 1600);
     } catch {
       setCopied(false);
     }
-  }, [value]);
+  }, [value, onCopy]);
 
   const baseClass = copied
     ? resourcesTheme.skill.copyButtonSuccess

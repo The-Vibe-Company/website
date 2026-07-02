@@ -5,9 +5,9 @@ summary: "The new SkillOpt paper is easy to misread as prompt optimization. The 
 publishedAt: 2026-05-27
 complexity: advanced
 topics: Agent Design, AI Infrastructure, Skills, Evaluation
-coverImage: /images/resources/how-to-use-skillopt-to-train-agent-skills/generated/skillopt-loop-functional-gpt-image-2.webp
+coverImage: /images/resources/how-to-use-skillopt-to-train-agent-skills/cover-mascotte.webp
 coverAlt: "A skill file is trained through validation gates into a deployable agent skill artifact"
-ogImage: /images/resources/how-to-use-skillopt-to-train-agent-skills/generated/skillopt-loop-functional-gpt-image-2.webp
+ogImage: /images/resources/how-to-use-skillopt-to-train-agent-skills/cover-mascotte.webp
 ---
 
 The new SkillOpt paper is easy to file under "prompt optimization."
