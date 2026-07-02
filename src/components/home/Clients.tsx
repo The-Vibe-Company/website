@@ -34,7 +34,7 @@ export function Clients() {
             <img
               src={client.src}
               alt={client.name}
-              className={`${client.className} w-auto object-contain grayscale`}
+              className={`${client.className} w-auto object-contain brightness-0`}
               loading="eager"
               decoding="async"
             />
