@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="300"
+   height="100"
+   viewBox="0 0 300 100"
+   version="1.1"
+   id="svg19985"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="Agence France-Presse logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title20035">Agence France-Presse logo</title>
+  <sodipodi:namedview
+     id="namedview19987"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     width="100px"
+     inkscape:zoom="1"
+     inkscape:cx="275.5"
+     inkscape:cy="2.5"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     height="101px" />
+  <defs
+     id="defs19982" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       d="m 251.04301,2.9795816 a 47.558854,47.558854 0 0 0 -47.98649,47.1201724 47.994443,47.994443 0 0 0 95.97299,0 47.55913,47.55913 0 0 0 -47.9865,-47.1201724 z M 54.19322,32.354291 H 50.199783 L 35.177015,55.17616 H 54.193362 Z M 69.668973,18.68552 V 81.512756 H 54.19322 V 68.402825 H 26.470502 l -8.63084,13.109931 H 1.1084116 L 42.465349,18.685674 h 27.203657 z m 28.352861,30.475754 h 28.578396 l -9.02648,13.710003 H 98.021871 V 81.513108 H 82.545258 V 18.685674 H 126.60012 V 32.395486 H 98.021751 Z M 167.1797,18.72714 137.48127,18.685773 v 62.827086 h 15.47658 V 62.871066 h 14.22185 c 6.90676,0 22.97206,-2.231615 22.97206,-22.072437 0,-19.840809 -16.06522,-22.071396 -22.97206,-22.071396 z m -1.47497,30.434134 H 152.95785 V 32.395486 h 12.74688 c 6.10206,0 9.19475,2.752595 9.19475,8.45092 0,5.698325 -3.09281,8.314868 -9.19475,8.314868 z"
+       fill="#fff"
+       fill-rule="evenodd"
+       id="path4"
+       style="fill:#325aff;fill-opacity:1;stroke-width:3.92667" />
+  </g>
+  <metadata
+     id="metadata20031">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Agence France-Presse logo</dc:title>
+        <dc:date>25-enr-2023</dc:date>
+        <cc:license
+           rdf:resource="http://scripts.sil.org/OFL" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://scripts.sil.org/OFL">
+        <cc:permits
+           rdf:resource="http://scripts.sil.org/pub/OFL/Reproduction" />
+        <cc:permits
+           rdf:resource="http://scripts.sil.org/pub/OFL/Distribution" />
+        <cc:permits
+           rdf:resource="http://scripts.sil.org/pub/OFL/Embedding" />
+        <cc:permits
+           rdf:resource="http://scripts.sil.org/pub/OFL/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://scripts.sil.org/pub/OFL/Notice" />
+        <cc:requires
+           rdf:resource="http://scripts.sil.org/pub/OFL/Attribution" />
+        <cc:requires
+           rdf:resource="http://scripts.sil.org/pub/OFL/ShareAlike" />
+        <cc:requires
+           rdf:resource="http://scripts.sil.org/pub/OFL/DerivativeRenaming" />
+        <cc:requires
+           rdf:resource="http://scripts.sil.org/pub/OFL/BundlingWhenSelling" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
