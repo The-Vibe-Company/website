@@ -146,6 +146,16 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/mon-travail-se-documente-tout-seul/cover.png": {
+      "sourceHash": "0903e3056028db19e6f1db1f27bd7a990680fd959da5df5e8bd3b973f2188eb4",
+      "targetUrl": "/images/_optimized/resources/mon-travail-se-documente-tout-seul/cover.webp",
+      "targetHash": "57080531d7e3fba1935cac7647f27ffbed7a4b477b49b00f41b974e3bf95f12b"
+    },
+    "content:/images/resources/mon-travail-se-documente-tout-seul/schema-deux-couches.png": {
+      "sourceHash": "187d1fed84bcd4dcf16d46fd9d327dbbf94c74e3bee867a17ca68ab228fe59ef",
+      "targetUrl": "/images/_optimized/resources/mon-travail-se-documente-tout-seul/schema-deux-couches.webp",
+      "targetHash": "591fc4e980f1facaa2ab7b52bed1636c2da4a2573bf1b15fc046ea96b562e42f"
+    },
     "content:/images/resources/my-personal-os-lives-in-a-folder/cover-mascotte.webp": {
       "sourceHash": "e1652b16857a4f48d3476c2a87d5133edbb057496b665ad173b5ab1cfc4b4b7d",
       "targetUrl": null,
@@ -263,6 +273,11 @@
     },
     "og:/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-mascotte.webp": {
       "sourceHash": "74dff6fbfd414bbe4e44ffcebed756f59f7e149eeb57435adbc54c23789b5384",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/mon-travail-se-documente-tout-seul/cover.png": {
+      "sourceHash": "0903e3056028db19e6f1db1f27bd7a990680fd959da5df5e8bd3b973f2188eb4",
       "targetUrl": null,
       "targetHash": null
     },
