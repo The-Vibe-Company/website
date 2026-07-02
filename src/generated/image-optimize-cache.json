@@ -186,11 +186,6 @@
       "targetUrl": "/images/_optimized/resources/site-devient-produit/decouverte.webp",
       "targetHash": "d714a024379982de0807f70bae3543678c31d7e1b9ccbb10d18c8476509fc3fb"
     },
-    "content:/images/resources/veille-ia-automatique/cover.png": {
-      "sourceHash": "7d124c15b66d7e6f3ca3b0223abbde550c44416889545c37b2a192461b427d8e",
-      "targetUrl": "/images/_optimized/resources/veille-ia-automatique/cover.webp",
-      "targetHash": "97c2c5904d42549115d977b5648112249e26869cff74513346fb5c0464bfad1f"
-    },
     "content:/images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp": {
       "sourceHash": "93f7aaf00b1f5dc88e65c5d6de704ffd537af8b0ce9f5c17344394bfaa4d7e6c",
       "targetUrl": null,
@@ -288,11 +283,6 @@
     },
     "og:/images/resources/site-devient-produit/cover.png": {
       "sourceHash": "ff8f389b1a1b95411a5a18f63e0daad30265fb2e7836e9d74dd3f06dd89f6aef",
-      "targetUrl": null,
-      "targetHash": null
-    },
-    "og:/images/resources/veille-ia-automatique/cover.png": {
-      "sourceHash": "7d124c15b66d7e6f3ca3b0223abbde550c44416889545c37b2a192461b427d8e",
       "targetUrl": null,
       "targetHash": null
     },
