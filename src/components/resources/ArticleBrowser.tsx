@@ -39,7 +39,7 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
   return (
     <Link
       href={`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`}
-      className={`group flex gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
+      className={`group flex h-[132px] gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
     >
       <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded">
         {item.image ? (
@@ -54,17 +54,17 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
           <div className="w-full h-full bg-res-bg-secondary border border-res-border" />
         )}
       </div>
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 flex flex-col">
         <h3 className="text-sm font-bold tracking-tight text-res-text leading-tight mb-1 line-clamp-2 group-hover:underline decoration-1 underline-offset-2">
           {item.title}
         </h3>
         {item.summary ? (
           <p
-            className="text-xs text-res-text-muted leading-snug mb-2 line-clamp-2"
+            className="text-xs text-res-text-muted leading-snug line-clamp-2"
             dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
           />
         ) : null}
-        <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
+        <div className="mt-auto flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
           {item.seriesDay != null && (
             <span className="inline-flex items-center rounded border border-orange-500/40 bg-orange-500/10 px-1.5 py-0.5 text-orange-600 tracking-wider">
               D{item.seriesDay}
