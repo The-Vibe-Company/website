@@ -113,7 +113,15 @@ If you have questions about the product vision, please look at https://www.notio
 
 ## Image Optimization
 
-Before opening a PR that adds or changes Markdown-referenced images, run:
+For same-repo PRs that touch `content/**`, `public/images/**`, or `scripts/optimize-images.ts`, GitHub Actions runs:
+
+```bash
+bun run images:optimize
+```
+
+If optimization creates or updates generated files, the workflow commits them back as `chore(images): compress article images`. Fork PRs cannot receive write-token commits, so contributors from forks still need to run the optimizer locally before opening or updating the PR.
+
+Before opening a PR that adds or changes Markdown-referenced images, you can run:
 
 ```bash
 bun run images:optimize
@@ -126,6 +134,8 @@ The image optimization system must stay lossless, source-preserving, and idempot
 - serve optimized images through `src/generated/image-variants.json`;
 - do not use a generated variant when it is not smaller than the source;
 - repeated `bun run images:optimize` runs must produce no diff after the first successful run.
+
+The optimizer memoizes encoder results in `src/generated/image-optimize-cache.json`. The cache is committed, but must never be imported by app code because it contains source and target hashes that are only useful to the script. Cache keys use `${kind}:${sourceUrl}`. A cache entry with `targetUrl: null` means the generated variant was not smaller than the source, so the manifest should not point to a variant. If Sharp encoding settings change, bump `ENCODER_VERSION` in `scripts/optimize-images.ts` to invalidate old cache entries. Deleting the cache is safe; it only forces a full re-encode that should converge back to the same generated variants.
 
 To verify image budgets without rewriting files, run:
 

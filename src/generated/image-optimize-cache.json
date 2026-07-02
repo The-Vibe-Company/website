@@ -1,0 +1,300 @@
+{
+  "version": 1,
+  "entries": {
+    "content:/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
+      "sourceHash": "f148fe053ae1e59135bbc63e8408eb56b1c8daaf4f342d4e18c4f5054c1a4e7c",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-cover.webp": {
+      "sourceHash": "bca3de127a2a7ff71a2e3b0a89abadcad498db7c49fb365f2dc951d7aa63e6e0",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-surface-compare.png": {
+      "sourceHash": "fc53c4791c162b9117758478ed6b6daef97ca436becb5a0cc348699a33b37db0",
+      "targetUrl": "/images/_optimized/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-surface-compare.webp",
+      "targetHash": "1c14cb89cc1ebfe2f9c0d61c6d3855f4b9b70e6dcd53b1fcb35d23e7b9f4a9ec"
+    },
+    "content:/images/resources/agents-ia-formation-autorite/cover-mascotte.webp": {
+      "sourceHash": "6effd0efc718d658224b24c2a664e66d8e65ab2ac8cfa2db0237462fc67ec80a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/ai-music-with-an-artist/cover-mascotte.webp": {
+      "sourceHash": "8254e9d216efea3dcbc7cb885483882b5f225370b4f23fe1cf2b4d849ad620ae",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/ai-music-with-an-artist/cover-tvc.webp": {
+      "sourceHash": "529a7edb933a92bc72e3fe2755d0744fbf978891d5a4842f6af66c3233dd90fc",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/cir-cii-playbook-evidence-system/generated/proof-matrix-review.webp": {
+      "sourceHash": "9f02e3562f6e1fbcbd5af2a81eb66288a4206c823689004ea83e56ca0bc95ad6",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/cir-cii-playbook-evidence-system/generated/sources-to-evidence.webp": {
+      "sourceHash": "b2e06b90bf1397ddc11950e98336a358903f836619e9d5caf8ba30dc1ff20c56",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
+      "sourceHash": "8e6a77b8cfc219c537dbf498586043c9f410e0272f9cb46c8258c5c572cc406a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/focus-skill-images/avatar-avant-apres.png": {
+      "sourceHash": "4b41d53e5b42637d93745a1b984a41e966b13bf8e28a27e965ddf5f353785686",
+      "targetUrl": "/images/_optimized/resources/focus-skill-images/avatar-avant-apres.webp",
+      "targetHash": "8be7988ba0b2152fea312df391f107dedf92a11f5f2d7cf19e5b4cc0d440b89e"
+    },
+    "content:/images/resources/focus-skill-images/cover.png": {
+      "sourceHash": "647db5e4465e281336189701030f8bf2bcd6a933065d96c4fd8c51e3b1a1573f",
+      "targetUrl": "/images/_optimized/resources/focus-skill-images/cover.webp",
+      "targetHash": "71846d3bc72ac55749cf44a65695ecdf8e9d239d840c18e8f85799c44b667975"
+    },
+    "content:/images/resources/focus-skill-images/iteration-4versions.png": {
+      "sourceHash": "758c341853f0d41df62c711b093c9d2f04fbf9c7371306923361200d7cd59e09",
+      "targetUrl": "/images/_optimized/resources/focus-skill-images/iteration-4versions.webp",
+      "targetHash": "777795222f57356246f763eceb7bc87da022e6fd7ec1ec075d65875f3393e576"
+    },
+    "content:/images/resources/focus-skill-images/mascotte-idees.png": {
+      "sourceHash": "5f1a79834cab4989aa4ac294257e53e765d61ecd09a614cfb3f992cd576afc8f",
+      "targetUrl": "/images/_optimized/resources/focus-skill-images/mascotte-idees.webp",
+      "targetHash": "177be44cbfdff07c784ec7e2e3d3b096087cfd43e93c569cce8e1dc03f07515f"
+    },
+    "content:/images/resources/how-i-finally-started-my-game-using-scenario/bucherons.png": {
+      "sourceHash": "4be0ed577a8a080e6aae2caf58bf2495a3af936ab2549e8b4dc772477b321807",
+      "targetUrl": "/images/_optimized/resources/how-i-finally-started-my-game-using-scenario/bucherons.webp",
+      "targetHash": "91db0f5d56c7872e88343b4f6234c1d605cff7a352059665f9a1f15c0cd3f44c"
+    },
+    "content:/images/resources/how-i-finally-started-my-game-using-scenario/cover-mascotte.webp": {
+      "sourceHash": "22e79213f03d48c834f072d38ca670f8129552eb78da5a2e890d194d3ec28c49",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/how-i-finally-started-my-game-using-scenario/hippo.png": {
+      "sourceHash": "1d5de2a2da15614191ccabd3b1a60490d3f0a12f037d6cf767a6a0594d3ba3c8",
+      "targetUrl": "/images/_optimized/resources/how-i-finally-started-my-game-using-scenario/hippo.webp",
+      "targetHash": "817a7678074db5e9e21c7d7ef9e59921abda193cbdd14fed7f89dd7e9f778800"
+    },
+    "content:/images/resources/how-i-finally-started-my-game-using-scenario/vautour.png": {
+      "sourceHash": "915328d92c9d9f258d5940b0f50c406ba662e0ce3f9120b122595d9eafb6326b",
+      "targetUrl": "/images/_optimized/resources/how-i-finally-started-my-game-using-scenario/vautour.webp",
+      "targetHash": "b33de5f2fc714b3c93380081057b33d138fabbe4d5c8f015d3129d90b7fecc33"
+    },
+    "content:/images/resources/how-i-finally-started-my-game-using-scenario/village.png": {
+      "sourceHash": "ecd906e386ff8d3cc4fd7e6008f775e08bb436a01a3cc4ff5a51635f0bcac2f5",
+      "targetUrl": "/images/_optimized/resources/how-i-finally-started-my-game-using-scenario/village.webp",
+      "targetHash": "f8e9e2849b903babf542bbd0b30b11de1f231eaef0aa6c4caf193f0513a4ef5b"
+    },
+    "content:/images/resources/how-to-use-skillopt-to-train-agent-skills/cover-mascotte.webp": {
+      "sourceHash": "9b9df6041d04521e63216a9e62cd66a29703abacbd710991193e65cf33718501",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/how-to-use-skillopt-to-train-agent-skills/generated/skillopt-loop-functional-gpt-image-2.webp": {
+      "sourceHash": "d148683ddeeecff21940dd2d20e5b9ecf127165efa20259b4562ed215336bfb5",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/how-to-use-skillopt-to-train-agent-skills/generated/skillopt-playbook-functional-gpt-image-2-v2-02.webp": {
+      "sourceHash": "0499e7aa78832f04ec2419d77579c88cc37c986207345c813a60d3bf67439069",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/how-to-use-skillopt-to-train-agent-skills/generated/skillopt-scorecard-functional-gpt-image-2.webp": {
+      "sourceHash": "89c18efd18cbe67c69f5a15d79135a8957636e2d34d448b9c5856ad404668dfe",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/je-mappelle-victor/cover-mascotte.webp": {
+      "sourceHash": "45ebcbefd168157d9f07df956976c9def463be1894f7e85427ddb169660598de",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/je-mappelle-victor/cover.png": {
+      "sourceHash": "27a9c0a152f7e6f22fa14d3fc00a72baf1533869da56f8befe49e1667ca328ea",
+      "targetUrl": "/images/_optimized/resources/je-mappelle-victor/cover.webp",
+      "targetHash": "7dba470ed704e6e5105188dc924ec62297011f90e75395822515ec932c03c81f"
+    },
+    "content:/images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-mascotte.webp": {
+      "sourceHash": "4e86775c3b42420a71b43376842edbc9602c1ed14fd7510999e10bae718cb5bc",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/les-skills/cover.png": {
+      "sourceHash": "291badfa9a710bc2255ef2176cf6b731b4b608f59d5b00ce55d24338d5988324",
+      "targetUrl": "/images/_optimized/resources/les-skills/cover.webp",
+      "targetHash": "ae6189c71ee291dae215c1097a1fd3bf82a6ced3088193bbab7438e2c1b92c88"
+    },
+    "content:/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-mascotte.webp": {
+      "sourceHash": "74dff6fbfd414bbe4e44ffcebed756f59f7e149eeb57435adbc54c23789b5384",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/generated/mcp-cover-taste.webp": {
+      "sourceHash": "0e3f3c975cb0ea8c1e15c0a7aae0da7c973c14689e4a01d1f8be728d84b477ef",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/generated/mcp-method-layer-infographic.webp": {
+      "sourceHash": "88b8952d0ed86bc74273331060c77becc21c6ec23d99b93b2d3dddfc94b55386",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/my-personal-os-lives-in-a-folder/cover-mascotte.webp": {
+      "sourceHash": "e1652b16857a4f48d3476c2a87d5133edbb057496b665ad173b5ab1cfc4b4b7d",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/my-personal-os-lives-in-a-folder/granite-constellation.png": {
+      "sourceHash": "8bb58f2cab7394bd4dc5c0e920c64a2ce0c8cace4ecc1ee3a3d9d8b41eec375a",
+      "targetUrl": "/images/_optimized/resources/my-personal-os-lives-in-a-folder/granite-constellation.webp",
+      "targetHash": "07032bc3da7e7238e2c8c9d829d2b32aa91d1b994dee6fd716997f02b8f0ac59"
+    },
+    "content:/images/resources/premier-blocage-terminal/cover.png": {
+      "sourceHash": "04e9142705b513015b17f2814cc0ecc8d0dd620361f2e4496cff04adb602d1e7",
+      "targetUrl": "/images/_optimized/resources/premier-blocage-terminal/cover.webp",
+      "targetHash": "e7a0733b29a06ec412568a7cdf243fcbd755db56486933df3482ccf04cf51fda"
+    },
+    "content:/images/resources/premier-site/cover-mascotte.webp": {
+      "sourceHash": "1685e6252af573cf89e801be4eb1459bdfefbbddc4032914d3a4d974d344276f",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/premier-site/cover.png": {
+      "sourceHash": "b34a1ba1188161e8c0da4d0ccd9d02e88e096407f4cddf9818e9917e2105ca69",
+      "targetUrl": "/images/_optimized/resources/premier-site/cover.webp",
+      "targetHash": "4152d18f9f530b584e6226c21de83ae7024f5bb1a37cc1d30c4b9f637389bf15"
+    },
+    "content:/images/resources/quivr-to-the-vibe-company/cover-mascotte.webp": {
+      "sourceHash": "7109ea81c6c184b46946b6bbe7d7af272baa4adf0d4ee9ca1c3ffeb215d82b7b",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/site-devient-produit/cover.png": {
+      "sourceHash": "ff8f389b1a1b95411a5a18f63e0daad30265fb2e7836e9d74dd3f06dd89f6aef",
+      "targetUrl": "/images/_optimized/resources/site-devient-produit/cover.webp",
+      "targetHash": "7e1c2b7cf3407867dc9b064c4ecfa984261e64d7da8eeba8d6c0ad152b9e622f"
+    },
+    "content:/images/resources/site-devient-produit/decouverte.png": {
+      "sourceHash": "f4b22a0eeb810b1b019881d554d9e4d18e1d7f4f896a13314e444d316ed2a80b",
+      "targetUrl": "/images/_optimized/resources/site-devient-produit/decouverte.webp",
+      "targetHash": "d714a024379982de0807f70bae3543678c31d7e1b9ccbb10d18c8476509fc3fb"
+    },
+    "content:/images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp": {
+      "sourceHash": "93f7aaf00b1f5dc88e65c5d6de704ffd537af8b0ce9f5c17344394bfaa4d7e6c",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/why-codex-felt-better-than-claude-deepswe/cover.png": {
+      "sourceHash": "2deeb486ddbe5df3d435529c52aa97d31fe9f8868a34d3d3d4b149bf4024403f",
+      "targetUrl": "/images/_optimized/resources/why-codex-felt-better-than-claude-deepswe/cover.webp",
+      "targetHash": "6cdc961f8cddfee733d597cbd6ebb5f3803c58eedfef7c8ef6bb830f7fe9afeb"
+    },
+    "content:/images/resources/why-i-replaced-prompts-with-skills/cover-mascotte.webp": {
+      "sourceHash": "3ee1e6cbada2ce6263cfb28a4e658ac6414dbe2053ff8c1e1ddcfee27dc44793",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/why-i-replaced-prompts-with-skills/generated/prompts-to-skills-cover.png": {
+      "sourceHash": "e9e89047e6ea8c5f57a66166c03fbe731c04a90461225d225f8c02cdc4ca3dc7",
+      "targetUrl": "/images/_optimized/resources/why-i-replaced-prompts-with-skills/generated/prompts-to-skills-cover.webp",
+      "targetHash": "120debfea03a98f449f8cacafd672ae40c0a5ae0be5f138c39583d7c70328e6f"
+    },
+    "og:/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
+      "sourceHash": "f148fe053ae1e59135bbc63e8408eb56b1c8daaf4f342d4e18c4f5054c1a4e7c",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/agents-ia-formation-autorite/cover-mascotte.webp": {
+      "sourceHash": "6effd0efc718d658224b24c2a664e66d8e65ab2ac8cfa2db0237462fc67ec80a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/ai-music-with-an-artist/cover-mascotte.webp": {
+      "sourceHash": "8254e9d216efea3dcbc7cb885483882b5f225370b4f23fe1cf2b4d849ad620ae",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
+      "sourceHash": "8e6a77b8cfc219c537dbf498586043c9f410e0272f9cb46c8258c5c572cc406a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/focus-skill-images/cover.png": {
+      "sourceHash": "647db5e4465e281336189701030f8bf2bcd6a933065d96c4fd8c51e3b1a1573f",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/how-i-finally-started-my-game-using-scenario/cover-mascotte.webp": {
+      "sourceHash": "22e79213f03d48c834f072d38ca670f8129552eb78da5a2e890d194d3ec28c49",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/how-to-use-skillopt-to-train-agent-skills/cover-mascotte.webp": {
+      "sourceHash": "9b9df6041d04521e63216a9e62cd66a29703abacbd710991193e65cf33718501",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/je-mappelle-victor/cover-mascotte.webp": {
+      "sourceHash": "45ebcbefd168157d9f07df956976c9def463be1894f7e85427ddb169660598de",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-mascotte.webp": {
+      "sourceHash": "4e86775c3b42420a71b43376842edbc9602c1ed14fd7510999e10bae718cb5bc",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/les-skills/cover.png": {
+      "sourceHash": "291badfa9a710bc2255ef2176cf6b731b4b608f59d5b00ce55d24338d5988324",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-mascotte.webp": {
+      "sourceHash": "74dff6fbfd414bbe4e44ffcebed756f59f7e149eeb57435adbc54c23789b5384",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/my-personal-os-lives-in-a-folder/cover-mascotte.webp": {
+      "sourceHash": "e1652b16857a4f48d3476c2a87d5133edbb057496b665ad173b5ab1cfc4b4b7d",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/premier-blocage-terminal/cover.png": {
+      "sourceHash": "04e9142705b513015b17f2814cc0ecc8d0dd620361f2e4496cff04adb602d1e7",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/premier-site/cover-mascotte.webp": {
+      "sourceHash": "1685e6252af573cf89e801be4eb1459bdfefbbddc4032914d3a4d974d344276f",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/quivr-to-the-vibe-company/cover-mascotte.webp": {
+      "sourceHash": "7109ea81c6c184b46946b6bbe7d7af272baa4adf0d4ee9ca1c3ffeb215d82b7b",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/site-devient-produit/cover.png": {
+      "sourceHash": "ff8f389b1a1b95411a5a18f63e0daad30265fb2e7836e9d74dd3f06dd89f6aef",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp": {
+      "sourceHash": "93f7aaf00b1f5dc88e65c5d6de704ffd537af8b0ce9f5c17344394bfaa4d7e6c",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/why-i-replaced-prompts-with-skills/cover-mascotte.webp": {
+      "sourceHash": "3ee1e6cbada2ce6263cfb28a4e658ac6414dbe2053ff8c1e1ddcfee27dc44793",
+      "targetUrl": null,
+      "targetHash": null
+    }
+  }
+}

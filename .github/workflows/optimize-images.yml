@@ -1,0 +1,46 @@
+name: Optimize images
+
+on:
+  pull_request:
+    paths:
+      - 'content/**'
+      - 'public/images/**'
+      - 'scripts/optimize-images.ts'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: optimize-images-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  optimize:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Optimize images
+        run: bun run images:optimize
+
+      - name: Commit optimized images
+        run: |
+          git add public/images/_optimized src/generated/image-variants.json src/generated/image-optimize-cache.json
+          if git diff --cached --quiet; then
+            echo "No image changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(images): compress article images"
+          git push origin HEAD:${{ github.head_ref }}
