@@ -18,8 +18,8 @@ interface Client {
 
 const CLIENTS: Client[] = [
   { name: "Agence France-Presse", src: "/images/clients/afp.svg", url: "https://www.afp.com", className: "h-5 md:h-7" },
-  { name: "Coup de Pâtes", src: "/images/clients/coup-de-pates.svg", url: "https://www.coupdepates.fr", className: "h-8 md:h-11 translate-y-[3px] md:translate-y-[4px]" },
-  { name: "Monka", src: "/images/clients/monka.webp", url: "https://www.monka.care", className: "h-11 md:h-14 translate-y-[8px] md:translate-y-[10px]" },
+  { name: "Coup de Pâtes", src: "/images/clients/coup-de-pates.svg", url: "https://www.coupdepates.fr", className: "h-8 md:h-11 translate-y-[4.7%]" },
+  { name: "Monka", src: "/images/clients/monka.webp", url: "https://www.monka.care", className: "h-11 md:h-14 translate-y-[13.3%]" },
   { name: "Trusk", src: "/images/clients/trusk.svg", url: "https://www.trusk.com", className: "h-5 md:h-6" },
   { name: "LocService", src: "/images/clients/locservice.png", url: "https://www.locservice.fr", className: "h-4 md:h-6" },
   { name: "Zapa", src: "/images/clients/zapa.svg", url: "https://www.zapa.fr", className: "h-9 md:h-11" },
