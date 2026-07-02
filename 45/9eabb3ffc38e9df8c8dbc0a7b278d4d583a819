@@ -1,0 +1,31 @@
+src/generated/image-variants.json
+  s_6f79b62e8bf997::t_ed328a57825da7 2,13,16,18-19
+CLAUDE.md
+  s_6f79b62e8bf997::t_09013f6af2a9d8 113-121,135
+  s_6f79b62e8bf997::t_91795700f407bf 136
+scripts/optimize-images.ts
+  s_6f79b62e8bf997::t_4c560696f7a020 15-25,30-31,233-321,343-344,353-364,367-369,371-372,374,381-388
+  s_6f79b62e8bf997::t_e7017718c1bf2c 389
+src/generated/og-image-dimensions.json
+  s_6f79b62e8bf997::t_4dda229038b865 50-53,62-65
+.github/workflows/optimize-images.yml
+  s_6f79b62e8bf997::t_452c7a7125a434 1-46
+src/generated/image-optimize-cache.json
+  s_6f79b62e8bf997::t_ed328a57825da7 1-300
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "459eabb3ffc38e9df8c8dbc0a7b278d4d583a819",
+  "prompts": {},
+  "sessions": {
+    "s_6f79b62e8bf997": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f21ff-3397-7533-b4e7-29d057735cb2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
