@@ -22,7 +22,7 @@ const CLIENTS: Client[] = [
   { name: "Monka", src: "/images/clients/monka.webp", url: "https://www.monka.care", className: "h-11 md:h-14 translate-y-[8px] md:translate-y-[10px]" },
   { name: "Trusk", src: "/images/clients/trusk.svg", url: "https://www.trusk.com", className: "h-5 md:h-6" },
   { name: "LocService", src: "/images/clients/locservice.png", url: "https://www.locservice.fr", className: "h-4 md:h-6" },
-  { name: "Zapa", src: "/images/clients/zapa.svg", url: "https://www.zapa.fr", className: "h-8 md:h-10" },
+  { name: "Zapa", src: "/images/clients/zapa.svg", url: "https://www.zapa.fr", className: "h-9 md:h-11" },
 ];
 
 export function Clients() {
