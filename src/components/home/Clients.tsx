@@ -24,7 +24,7 @@ export function Clients() {
             <img
               src={client.src}
               alt={client.name}
-              className="h-8 w-auto object-contain opacity-70 grayscale md:h-10"
+              className="h-8 w-auto object-contain md:h-10"
               loading="eager"
               decoding="async"
             />
