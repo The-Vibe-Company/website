@@ -43,12 +43,15 @@ The site shares **one visual identity** across Homepage, Portfolio, and Resource
 
 Tactical orange accents (`text-orange-500` / `bg-orange-500`) are reserved for highlight signals: the "YC W24" badge, status dots, the "Companion" star count, and the "Browse all on GitHub" CTA. Use sparingly.
 
+An **experimental homepage preview** lives at `/v2` — the existing warm-paper homepage (same `TopNav`, `Services`/`Process`/`Proof`/`FinalCTA`, `Footer`, `[data-variant="hybrid"]`) with the static `home/Hero` swapped for a playable canvas runner (`src/components/home/runner/VibeRunner.tsx`). Inside the canvas each "world" (a product, service, or the YC backing) has its own art direction (paper/ink/accent/player colour) and a persistent presentation panel; difficulty mirrors the Chrome/Firefox dino algorithm. It is a preview, not yet the canonical `/` homepage; when it replaces `/`, swap `Hero` for `VibeRunner` in `HomeLaunchpad` and promote the DESIGN.md prose.
+
 ### Token surfaces
 
 | Surface                           | Light tokens                            |
 | --------------------------------- | --------------------------------------- |
 | **Homepage** (`[data-variant="hybrid"]`) | `--background: #fdfbf7`, `--foreground: #0a0a0a`, `--border: #dcd7ce`, `--muted-foreground: #525252` |
 | **Resources / Portfolio** (`.resources-theme`) | `--res-bg: #fdfbf7`, `--res-text: #0a0a0a`, `--res-border: #dcd7ce`, `--res-text-muted: #525252` (mirrors hybrid) |
+| **Runner preview** (`/v2`) | Reuses the **Homepage** `[data-variant="hybrid"]` tokens; per-world palettes are scoped to the game canvas only |
 
 Both blocks live in `src/app/globals.css`. No dark-mode override on either — both wrappers force `color-scheme: light`.
 

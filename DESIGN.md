@@ -312,6 +312,8 @@ The dominant impression is deep black ink on a slightly warm paper canvas. Layou
 
 The homepage is the core expression: warm paper, giant tight typography, outlined headline words, black slab buttons, bordered cards, and horizontal bands. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
 
+An experimental preview of the homepage lives at `/v2`. It keeps the full warm-paper system (the same top nav, sections, footer, deep ink, and Geist type) and only swaps the static hero for a playable, Chrome-dino-style runner on a canvas. Inside that canvas the game travels through a sequence of "worlds", each a product, a service, or the YC backing, and each world carries its own art direction (paper, ink, accent, and player colour) with a presentation panel that stays for the whole world. It is a preview, not yet the canonical homepage.
+
 ## Colors
 
 The palette is intentionally restrained. Warm paper and deep ink carry most of the product; color appears as a precise signal rather than a decorative fill.
@@ -323,6 +325,7 @@ The palette is intentionally restrained. Warm paper and deep ink carry most of t
 - **Constructed Border (#DCD7CE):** The warm gray line used for grids, dividers, inputs, and low-emphasis structure.
 - **Inverse Black (#030303/#121212):** Used for process, portfolio, and footer sections. These should feel matte and production-grade, not glossy.
 - **Signal Accents:** Orange marks YC and occasional attention points. Green, yellow, and mint identify product status or portfolio accents. Domain colors are reserved for resource taxonomy and should stay small.
+- **Per-world art direction (preview hero only):** Inside the `/v2` runner hero, each world repaints the canvas with its own palette (emerald, orange, amber, slate-teal, indigo, violet, and a dark YC stage), including the player colour. These palettes are scoped to the game canvas and never change the warm-paper chrome around it.
 
 Avoid large colorful areas. The site should remain primarily black, warm paper, and linework.
 
@@ -371,6 +374,8 @@ Primary CTAs are black slabs on warm paper. They use bold Geist text, clear padd
 Cards are bordered rectangles, not soft containers. Service cards and product cards use black or warm-gray borders, square corners, tight internal hierarchy, mono metadata, and optional hard hover shadows. Resource cards use calmer warm borders and may sit on white surfaces.
 
 Navigation is sticky, translucent, and understated. The wordmark is mono, compact, and paired with a small black logo. Desktop links are quiet until hover. The contact CTA is a black pill in the global nav, distinct from the square slab CTAs used in content.
+
+The `/v2` preview swaps the static hero for a playable canvas runner that reuses the standard top nav, sections, and footer. Its score readout and the per-world presentation panel are diegetic game UI; the surrounding page keeps the normal warm-paper components. This belongs to the preview surface only.
 
 Labels, tags, counters, and status chips use Geist Mono, uppercase text, wide tracking, and small scale. They should feel like technical readouts. Status dots can pulse, but they should remain tiny.
 

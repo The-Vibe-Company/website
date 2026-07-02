@@ -171,6 +171,17 @@
   }
 }
 
+/* Playable runner-hero micro-animations */
+@keyframes vc-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes vc-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
 /* -----------------------------------------------------------------------------
    Base Styles
    Minimal global styles using Tailwind's @layer system
