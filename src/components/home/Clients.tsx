@@ -13,7 +13,7 @@ interface Client {
 }
 
 const CLIENTS: Client[] = [
-  { name: "Agence France-Presse", src: "/images/clients/afp.svg", url: "https://www.afp.com", className: "h-7 md:h-8" },
+  { name: "Agence France-Presse", src: "/images/clients/afp.svg", url: "https://www.afp.com", className: "h-8 md:h-9" },
   { name: "Coup de Pâtes", src: "/images/clients/coup-de-pates.svg", url: "https://www.coupdepates.fr", className: "h-9 md:h-11" },
   { name: "Monka", src: "/images/clients/monka.webp", url: "https://www.monka.care", className: "h-10 md:h-12" },
   { name: "Trusk", src: "/images/clients/trusk.svg", url: "https://www.trusk.com", className: "h-6 md:h-7" },
