@@ -12,10 +12,23 @@ type ImageJob = {
   references: Set<string>
 }
 
+type CacheEntry = {
+  sourceHash: string
+  targetUrl: string | null
+  targetHash: string | null
+}
+
+type OptimizeCache = {
+  version: number
+  entries: Record<string, CacheEntry>
+}
+
 const ROOT = process.cwd()
 const CONTENT_DIR = path.join(ROOT, 'content')
 const PUBLIC_DIR = path.join(ROOT, 'public')
 const VARIANTS_FILE = path.join(ROOT, 'src/generated/image-variants.json')
+const CACHE_FILE = path.join(ROOT, 'src/generated/image-optimize-cache.json')
+const ENCODER_VERSION = 1
 const OPTIMIZED_PREFIX = '/images/_optimized/'
 
 const args = new Set(process.argv.slice(2))
@@ -217,6 +230,95 @@ async function readManifest(): Promise<Record<string, string>> {
   }
 }
 
+function emptyCache(): OptimizeCache {
+  return { version: ENCODER_VERSION, entries: {} }
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function parseCacheEntry(value: unknown): CacheEntry | null {
+  if (!isRecord(value) || typeof value.sourceHash !== 'string') return null
+
+  if (value.targetUrl === null && value.targetHash === null) {
+    return {
+      sourceHash: value.sourceHash,
+      targetUrl: null,
+      targetHash: null,
+    }
+  }
+
+  if (typeof value.targetUrl === 'string' && typeof value.targetHash === 'string') {
+    return {
+      sourceHash: value.sourceHash,
+      targetUrl: value.targetUrl,
+      targetHash: value.targetHash,
+    }
+  }
+
+  return null
+}
+
+async function readCache(): Promise<OptimizeCache> {
+  try {
+    const parsed = JSON.parse(await fs.readFile(CACHE_FILE, 'utf8')) as unknown
+    if (!isRecord(parsed) || parsed.version !== ENCODER_VERSION || !isRecord(parsed.entries)) {
+      return emptyCache()
+    }
+
+    const entries: Record<string, CacheEntry> = {}
+    for (const [key, value] of Object.entries(parsed.entries)) {
+      const entry = parseCacheEntry(value)
+      if (entry) entries[key] = entry
+    }
+
+    return { version: ENCODER_VERSION, entries }
+  } catch {
+    return emptyCache()
+  }
+}
+
+function getJobKey(job: ImageJob): string {
+  return `${job.kind}:${job.sourceUrl}`
+}
+
+async function getCacheHit(job: ImageJob, entry: CacheEntry | undefined, sourceHash: string): Promise<CacheEntry | null> {
+  if (!entry || entry.sourceHash !== sourceHash) return null
+
+  if (entry.targetUrl === null) {
+    if (entry.targetHash !== null) return null
+    return (await exists(job.targetPath)) ? null : entry
+  }
+
+  if (entry.targetUrl !== job.targetUrl || entry.targetHash === null) return null
+
+  try {
+    const targetHash = await hashFile(job.targetPath)
+    return targetHash === entry.targetHash ? entry : null
+  } catch {
+    return null
+  }
+}
+
+function updateManifest(manifest: Record<string, string>, sourceUrl: string, targetUrl: string | null) {
+  if (targetUrl) {
+    manifest[sourceUrl] = targetUrl
+  } else {
+    delete manifest[sourceUrl]
+  }
+}
+
+function logImageResult(label: string, job: ImageJob, before: number, after: number) {
+  const delta = before - after
+  const sign = delta >= 0 ? '-' : '+'
+  console.log(
+    `${label} ${job.sourceUrl} -> ${job.targetUrl} ${formatBytes(before)} -> ${formatBytes(after)} (${sign}${formatBytes(
+      Math.abs(delta),
+    )})`,
+  )
+}
+
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`
@@ -238,6 +340,8 @@ async function main() {
   }
 
   const manifest = await readManifest()
+  const cache = dryRun ? emptyCache() : await readCache()
+  const nextEntries: Record<string, CacheEntry> = {}
 
   for (const job of jobs.values()) {
     const before = (await fs.stat(job.sourcePath)).size
@@ -246,24 +350,42 @@ async function main() {
       continue
     }
 
+    const key = getJobKey(job)
+    const sourceHash = await hashFile(job.sourcePath)
+    const cachedEntry = await getCacheHit(job, cache.entries[key], sourceHash)
+
+    if (cachedEntry) {
+      updateManifest(manifest, job.sourceUrl, cachedEntry.targetUrl)
+      nextEntries[key] = cachedEntry
+      const after = cachedEntry.targetUrl ? (await fs.stat(job.targetPath)).size : before
+      logImageResult('[cached]', job, before, after)
+      continue
+    }
+
     const result = await optimizeImage(job)
     if (await exists(job.targetPath)) {
-      manifest[job.sourceUrl] = job.targetUrl
+      const targetHash = await hashFile(job.targetPath)
+      updateManifest(manifest, job.sourceUrl, job.targetUrl)
+      nextEntries[key] = { sourceHash, targetUrl: job.targetUrl, targetHash }
     } else {
-      delete manifest[job.sourceUrl]
+      updateManifest(manifest, job.sourceUrl, null)
+      nextEntries[key] = { sourceHash, targetUrl: null, targetHash: null }
     }
-    const delta = result.before - result.after
-    const sign = delta >= 0 ? '-' : '+'
-    console.log(
-      `${result.changed ? '[optimized]' : '[unchanged]'} ${job.sourceUrl} -> ${job.targetUrl} ${formatBytes(
-        result.before,
-      )} -> ${formatBytes(result.after)} (${sign}${formatBytes(Math.abs(delta))})`,
-    )
+    logImageResult(result.changed ? '[optimized]' : '[unchanged]', job, result.before, result.after)
   }
 
   const orderedManifest = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)))
   const manifestChanged = await writeTextIfChanged(VARIANTS_FILE, `${JSON.stringify(orderedManifest, null, 2)}\n`)
   console.log(`${manifestChanged ? '[updated]' : '[unchanged]'} ${path.relative(ROOT, VARIANTS_FILE)}`)
+
+  if (!dryRun) {
+    const orderedCache: OptimizeCache = {
+      version: ENCODER_VERSION,
+      entries: Object.fromEntries(Object.entries(nextEntries).sort(([a], [b]) => a.localeCompare(b))),
+    }
+    const cacheChanged = await writeTextIfChanged(CACHE_FILE, `${JSON.stringify(orderedCache, null, 2)}\n`)
+    console.log(`${cacheChanged ? '[updated]' : '[unchanged]'} ${path.relative(ROOT, CACHE_FILE)}`)
+  }
 
   const failures = await checkBudgets(jobs.values())
   process.exit(failures === 0 ? 0 : 1)
