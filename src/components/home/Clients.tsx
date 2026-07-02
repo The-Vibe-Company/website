@@ -19,10 +19,10 @@ interface Client {
 const CLIENTS: Client[] = [
   { name: "Agence France-Presse", src: "/images/clients/afp.svg", url: "https://www.afp.com", className: "h-5 md:h-7" },
   { name: "Coup de Pâtes", src: "/images/clients/coup-de-pates.svg", url: "https://www.coupdepates.fr", className: "h-8 md:h-11 translate-y-[3px] md:translate-y-[4px]" },
-  { name: "Monka", src: "/images/clients/monka.webp", url: "https://www.monka.care", className: "h-10 md:h-13 translate-y-[7px] md:translate-y-[9px]" },
+  { name: "Monka", src: "/images/clients/monka.webp", url: "https://www.monka.care", className: "h-11 md:h-14 translate-y-[8px] md:translate-y-[10px]" },
   { name: "Trusk", src: "/images/clients/trusk.svg", url: "https://www.trusk.com", className: "h-5 md:h-6" },
   { name: "LocService", src: "/images/clients/locservice.png", url: "https://www.locservice.fr", className: "h-4 md:h-6" },
-  { name: "Zapa", src: "/images/clients/zapa.svg", url: "https://www.zapa.fr", className: "h-7 md:h-9" },
+  { name: "Zapa", src: "/images/clients/zapa.svg", url: "https://www.zapa.fr", className: "h-8 md:h-10" },
 ];
 
 export function Clients() {
@@ -39,7 +39,7 @@ export function Clients() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={client.name}
-            className="mx-8 flex h-14 shrink-0 items-center overflow-visible transition-opacity duration-200 hover:opacity-50 md:mx-12 md:h-16"
+            className="mx-8 flex h-16 shrink-0 items-center overflow-visible transition-opacity duration-200 hover:opacity-50 md:mx-12 md:h-[4.5rem]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
