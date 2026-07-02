@@ -3,6 +3,7 @@ import { Marquee } from "@/components/Marquee";
 interface Client {
   name: string;
   src: string;
+  url: string;
   /**
    * Per-logo height, tuned by eye so every mark reads at roughly the same
    * optical size. Logos have very different shapes and weights, so a single
@@ -13,12 +14,12 @@ interface Client {
 }
 
 const CLIENTS: Client[] = [
-  { name: "Agence France-Presse", src: "/images/clients/afp.svg", className: "h-5 md:h-6" },
-  { name: "Coup de Pâtes", src: "/images/clients/coup-de-pates.svg", className: "h-6 md:h-7" },
-  { name: "Monka", src: "/images/clients/monka.webp", className: "h-9 md:h-11" },
-  { name: "Trusk", src: "/images/clients/trusk.svg", className: "h-4 md:h-5" },
-  { name: "LocService", src: "/images/clients/locservice.png", className: "h-4 md:h-5" },
-  { name: "Zapa", src: "/images/clients/zapa.svg", className: "h-8 md:h-10" },
+  { name: "Agence France-Presse", src: "/images/clients/afp.svg", url: "https://www.afp.com", className: "h-5 md:h-6" },
+  { name: "Coup de Pâtes", src: "/images/clients/coup-de-pates.svg", url: "https://www.coupdepates.fr", className: "h-6 md:h-7" },
+  { name: "Monka", src: "/images/clients/monka.webp", url: "https://www.monka.care", className: "h-9 md:h-11" },
+  { name: "Trusk", src: "/images/clients/trusk.svg", url: "https://www.trusk.com", className: "h-4 md:h-5" },
+  { name: "LocService", src: "/images/clients/locservice.png", url: "https://www.locservice.fr", className: "h-4 md:h-5" },
+  { name: "Zapa", src: "/images/clients/zapa.svg", url: "https://www.zapa.fr", className: "h-8 md:h-10" },
 ];
 
 export function Clients() {
@@ -29,7 +30,14 @@ export function Clients() {
       </p>
       <Marquee>
         {CLIENTS.map((client) => (
-          <div key={client.name} className="mx-8 flex h-12 shrink-0 items-center md:mx-12">
+          <a
+            key={client.name}
+            href={client.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={client.name}
+            className="mx-8 flex h-12 shrink-0 items-center opacity-100 transition-opacity duration-200 hover:opacity-50 md:mx-12"
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={client.src}
@@ -38,7 +46,7 @@ export function Clients() {
               loading="eager"
               decoding="async"
             />
-          </div>
+          </a>
         ))}
       </Marquee>
     </section>
