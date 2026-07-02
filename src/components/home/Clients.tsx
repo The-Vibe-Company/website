@@ -17,7 +17,7 @@ const CLIENTS: Client[] = [
   { name: "Coup de Pâtes", src: "/images/clients/coup-de-pates.svg", className: "h-6 md:h-7" },
   { name: "Monka", src: "/images/clients/monka.webp", className: "h-7 md:h-9" },
   { name: "Trusk", src: "/images/clients/trusk.svg", className: "h-4 md:h-5" },
-  { name: "LocService", src: "/images/clients/locservice.png", className: "h-6 md:h-7" },
+  { name: "LocService", src: "/images/clients/locservice.png", className: "h-5 md:h-6" },
   { name: "Zapa", src: "/images/clients/zapa.svg", className: "h-7 md:h-9" },
 ];
 
