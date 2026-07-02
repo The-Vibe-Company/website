@@ -3,7 +3,6 @@
 // YC backing). Pure presentation data + canvas scene painters — no engine refs.
 // The T-Rex physics live in VibeRunner.tsx and are untouched by anything here.
 
-const MONO = "var(--font-geist-mono), monospace";
 
 export type SceneKey = "vanish" | "companion" | "vibedrift" | "granite" | "agentflow" | "vibecoding" | "yc";
 
@@ -50,6 +49,7 @@ export type SceneFn = (
   groundY: number,
   c: SceneColors,
   reduced: boolean, // prefers-reduced-motion -> freeze the time term
+  monoFont?: string, // resolved mono family (ctx.font cannot use CSS var())
 ) => void;
 
 const rgba = (c: number[], a: number) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
@@ -270,7 +270,7 @@ const vibecoding: SceneFn = (ctx, scroll, t, S, W, gY, c, reduced) => {
 };
 
 // Y Combinator — dark demo-day stage: spotlight cone + orange Y mark + W24
-const yc: SceneFn = (ctx, scroll, t, S, W, gY, c) => {
+const yc: SceneFn = (ctx, scroll, t, S, W, gY, c, _reduced, monoFont) => {
   const cx = W * 0.5;
   const topY = 48 * S;
   const baseY = gY - 8 * S;
@@ -301,7 +301,7 @@ const yc: SceneFn = (ctx, scroll, t, S, W, gY, c) => {
   ctx.lineTo(cx, yy + ys);
   ctx.stroke();
   ctx.fillStyle = rgba(c.accent, 0.5);
-  ctx.font = `600 ${Math.round(11 * S)}px ${MONO}`;
+  ctx.font = `600 ${Math.round(11 * S)}px ${monoFont || "monospace"}`;
   ctx.textAlign = "center";
   ctx.fillText("W24", cx, yy + ys + 18 * S);
   ctx.restore();

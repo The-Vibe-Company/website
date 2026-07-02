@@ -62,6 +62,7 @@ interface VibeRunnerState {
   deadKicker: string;
   deadTitle: string;
   discovered: DiscoveredDim[];
+  visitedNames: string[];
 }
 
 interface Char {
@@ -80,6 +81,7 @@ interface Obstacle {
   h: number;
   cy: number;
   word: string;
+  counted?: boolean; // near-miss check done (presentation only)
 }
 interface Particle {
   x: number;
@@ -151,6 +153,33 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   private _jumpBufferUntil = 0;
   private _landSquash = 0;
 
+  // game feel (presentation only — physics untouched)
+  private _freeze = 0; // hit-stop timer on death
+  private _pendingDeath = false;
+  private _shake = 0; // shake time remaining
+  private _shakeMag = 0; // px at S=1
+  private _deadAt = -1; // _t when the overlay appeared (dino GAMEOVER_CLEAR_TIME)
+  private _closeT = 0; // near-miss "CLOSE" flash timer
+  private _lastMilestone = 0;
+
+  // render caches (rebuilt on palette epoch / dimension / resize)
+  private _settled = true; // palette lerp converged
+  private _skyGrad: CanvasGradient | null = null;
+  private _washGrad: CanvasGradient | null = null;
+  private _grainPattern: CanvasPattern | null = null;
+  private _grainTick = 0;
+  private _wm: HTMLCanvasElement | null = null; // dimension-name watermark
+  private _labelCache = new Map<string, HTMLCanvasElement>();
+  private _monoFamily = "monospace";
+  private _sansFamily = "sans-serif";
+  private _lastScoreShown = -1;
+  private _lastBestShown = -1;
+
+  // runner trail ring buffer (feet-Y samples)
+  private _trail = new Float32Array(12);
+  private _trailIdx = 0;
+  private _trailTick = 0;
+
   // world rotation + art-direction colour lerp
   private worldOrder: number[] = [];
   private worldPos = -1;
@@ -197,6 +226,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       deadKicker: "CAUGHT BY THE HYPE",
       deadTitle: "Shipping interrupted.",
       discovered: [],
+      visitedNames: [],
     };
   }
 
@@ -209,12 +239,23 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
 
   componentDidMount() {
     const cv = this.canvasRef.current!;
-    this.ctx = cv.getContext("2d")!;
+    // Opaque + desynchronized: the bg is repainted every frame, so no alpha is
+    // needed; desynchronized lowers input latency where supported.
+    this.ctx = (cv.getContext("2d", { alpha: false, desynchronized: true }) ?? cv.getContext("2d"))!;
     try {
       this._reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     } catch {
       this._reducedMotion = false;
     }
+    // ctx.font cannot resolve CSS var() strings — resolve the real families once.
+    try {
+      const cs = getComputedStyle(document.body);
+      this._monoFamily = cs.getPropertyValue("--font-geist-mono").trim() || "monospace";
+      this._sansFamily = cs.getPropertyValue("--font-geist-sans").trim() || "sans-serif";
+    } catch {
+      /* keep fallbacks */
+    }
+    this.buildGrain();
     this._onResize = () => this.resize();
     window.addEventListener("resize", this._onResize);
     this.resize();
@@ -266,6 +307,14 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this.originX = Math.max(60, this.W * 0.16);
     if (this.char) this.char.x = this.originX;
     this.genHills();
+    // size-dependent caches
+    this._skyGrad = null;
+    this._washGrad = null;
+    if (this.curDim) {
+      this.buildWatermark(this.curDim);
+      this._labelCache.clear(); // px scale changed — rebuild at the new size
+      this.buildLabels(this.curDim);
+    }
   }
 
   tune() {
@@ -275,6 +324,69 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this.MAX_SPEED = 13 * FPS * S; // dino MAX_SPEED 13
     this.ACCEL = 0.001 * FPS * FPS * S * 0.85; // dino ACCELERATION, mildly eased crank-up
     this.WORLD_SECS = 6; // short: see several worlds per run
+  }
+
+  // ---------- render caches ----------
+  buildGrain() {
+    const tile = document.createElement("canvas");
+    tile.width = 160;
+    tile.height = 160;
+    const tc = tile.getContext("2d");
+    if (!tc) return;
+    const img = tc.createImageData(160, 160);
+    const d = img.data;
+    for (let i = 0; i < d.length; i += 4) {
+      if (Math.random() < 0.08) {
+        const v = Math.random() < 0.5 ? 10 : 250;
+        d[i] = v;
+        d[i + 1] = v;
+        d[i + 2] = v;
+        d[i + 3] = 255;
+      }
+    }
+    tc.putImageData(img, 0, 0);
+    this._grainPattern = this.ctx.createPattern(tile, "repeat");
+  }
+  // giant editorial watermark of the dimension name, pre-rendered once
+  buildWatermark(d: Dimension) {
+    const size = Math.round(Math.max(64, this.H * 0.2));
+    const cnv = document.createElement("canvas");
+    const cc = cnv.getContext("2d");
+    if (!cc) return;
+    const font = `800 ${size}px ${this._sansFamily}`;
+    cc.font = font;
+    const w = Math.ceil(cc.measureText(d.name).width) + 8;
+    cnv.width = Math.max(8, w);
+    cnv.height = Math.round(size * 1.24);
+    cc.font = font; // reset after resize
+    cc.textBaseline = "top";
+    const ink = this.hexToRgb(d.ink);
+    cc.fillStyle = `rgb(${ink[0]},${ink[1]},${ink[2]})`;
+    cc.fillText(d.name, 4, size * 0.08);
+    this._wm = cnv;
+  }
+  // obstacle word labels pre-rendered (rotated fillText per frame is costly).
+  // The cache is additive: obstacles from the previous dimension are still on
+  // screen after a portal, so their words must keep resolving (cleared in reset).
+  buildLabels(d: Dimension) {
+    const accent = this.hexToRgb(d.accent);
+    const px = Math.max(8, Math.round(9 * this.S));
+    for (const word of d.words) {
+      if (this._labelCache.has(word)) continue;
+      const cnv = document.createElement("canvas");
+      const cc = cnv.getContext("2d");
+      if (!cc) continue;
+      const font = `500 ${px}px ${this._monoFamily}`;
+      cc.font = font;
+      const w = Math.ceil(cc.measureText(word).width) + 4;
+      cnv.width = Math.max(8, w);
+      cnv.height = px + 4;
+      cc.font = font;
+      cc.textBaseline = "top";
+      cc.fillStyle = `rgba(${accent[0]},${accent[1]},${accent[2]},0.95)`;
+      cc.fillText(word, 2, 2);
+      this._labelCache.set(word, cnv);
+    }
   }
 
   genHills() {
@@ -315,6 +427,17 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this.particles = [];
     this._nextSpawnX = this.W + 200;
     this._lastWasDrone = false;
+    // presentation state
+    this._freeze = 0;
+    this._pendingDeath = false;
+    this._shake = 0;
+    this._closeT = 0;
+    this._lastMilestone = 0;
+    this._lastScoreShown = -1;
+    this._lastBestShown = -1;
+    this._trail.fill(0);
+    this._wm = null;
+    this._labelCache.clear();
   }
 
   // ---------- audio ----------
@@ -327,19 +450,38 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       this._ac = null;
     }
   }
-  blip(freq: number, dur?: number, type?: OscillatorType) {
+  blip(freq: number, dur?: number, type?: OscillatorType, when = 0, endFreq?: number) {
     if (!this.state.sound || !this._ac) return;
     const ac = this._ac;
     const o = ac.createOscillator();
     const g = ac.createGain();
+    const t0 = ac.currentTime + when;
+    const d = dur || 0.09;
     o.type = type || "square";
-    o.frequency.value = freq;
-    g.gain.setValueAtTime(0.06, ac.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + (dur || 0.09));
+    o.frequency.setValueAtTime(freq, t0);
+    if (endFreq) o.frequency.exponentialRampToValueAtTime(endFreq, t0 + d);
+    g.gain.setValueAtTime(0.06, t0);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + d);
     o.connect(g);
     g.connect(ac.destination);
-    o.start();
-    o.stop(ac.currentTime + (dur || 0.09));
+    o.start(t0);
+    o.stop(t0 + d);
+  }
+  // dimension-change arpeggio: root + major third + fifth of the world's "key"
+  arpeggio(root: number) {
+    this.blip(root, 0.09, "sine", 0);
+    this.blip(root * 1.26, 0.09, "sine", 0.07);
+    this.blip(root * 1.5, 0.14, "sine", 0.14);
+  }
+  // dino-style two-tone milestone beep
+  milestoneBeep() {
+    this.blip(988, 0.08, "square", 0);
+    this.blip(1319, 0.12, "square", 0.09);
+  }
+  // low death thud
+  thud() {
+    this.blip(90, 0.28, "sine", 0, 42);
+    this.blip(140, 0.12, "sawtooth", 0);
   }
 
   // ---------- input ----------
@@ -348,7 +490,11 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       this.beginPlay();
       return;
     }
-    if (this.state.phase === "dead") return;
+    if (this.state.phase === "dead") {
+      // dino GAMEOVER_CLEAR_TIME: the jump key restarts once 750ms have passed
+      if (this._deadAt >= 0 && this._t - this._deadAt > 0.75) this.restart();
+      return;
+    }
     const c = this.char;
     if (!c.jumping && !c.ducking) this.startJump();
     else if (c.jumping) this._jumpBufferUntil = this._t + 0.14; // buffer a press near landing
@@ -403,7 +549,19 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this.beginPlay();
   }
 
+  // death happens in two beats: a hit-stop freeze-frame + shake, then the overlay
   die() {
+    this.thud();
+    if (this._reducedMotion) {
+      this.finishDeath();
+      return;
+    }
+    this._freeze = 0.09;
+    this._pendingDeath = true;
+    this._shake = 0.32;
+    this._shakeMag = 6;
+  }
+  finishDeath() {
     if (this.score > this.best) {
       this.best = Math.round(this.score);
       try {
@@ -413,7 +571,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       }
     }
     const d = this.DEATHS[Math.floor(Math.random() * this.DEATHS.length)];
-    this.blip(140, 0.3, "sawtooth");
+    this._deadAt = this._t;
     const discovered: DiscoveredDim[] = this.visited.map((dm) => ({ name: dm.name, url: dm.url, logo: dm.logo, accent: dm.accent, external: dm.external }));
     this.setState({ phase: "dead", finalScore: String(Math.round(this.score)), bestScore: String(this.best), deadKicker: d[0], deadTitle: d[1], discovered });
   }
@@ -487,6 +645,9 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   setColours(da: { paper: string; ink: string; accent: string; player: string }, instant: boolean) {
     this.tgt = { paper: this.hexToRgb(da.paper), ink: this.hexToRgb(da.ink), accent: this.hexToRgb(da.accent), player: this.hexToRgb(da.player) };
     if (instant) this.cur = { paper: [...this.tgt.paper], ink: [...this.tgt.ink], accent: [...this.tgt.accent], player: [...this.tgt.player] };
+    this._settled = instant;
+    this._skyGrad = null;
+    this._washGrad = null;
   }
   shuffle(a: number[]) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -521,9 +682,14 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this.curScene = SCENE_DRAW[d.scene];
     this.curWords = d.words;
     this.setColours(d, instantColour);
-    this.blip(d.tag === "BACKED BY" ? 880 : 720, 0.12, "sine");
+    this.buildWatermark(d);
+    this.buildLabels(d);
+    this.arpeggio(d.tag === "BACKED BY" ? 523 : d.tag === "PRODUCT" ? 440 : 392);
     if (!this.visited.includes(d)) this.visited.push(d);
-    this.setState({ world: { tag: d.tag, name: d.name, line: d.line, ink: d.ink, accent: d.accent, paper: d.paper, url: d.url, logo: d.logo, linkLabel: d.linkLabel, external: d.external } });
+    this.setState({
+      world: { tag: d.tag, name: d.name, line: d.line, ink: d.ink, accent: d.accent, paper: d.paper, url: d.url, logo: d.logo, linkLabel: d.linkLabel, external: d.external },
+      visitedNames: this.visited.map((v) => v.name),
+    });
   }
 
   // ---------- update ----------
@@ -536,6 +702,9 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     const dt = Math.min(0.034, (t - this._last) / 1000) || 0.016;
     this._last = t;
     this._t += dt;
+    // decay presentation timers (shake / near-miss flash) even during freeze
+    if (this._shake > 0) this._shake = Math.max(0, this._shake - dt);
+    if (this._closeT > 0) this._closeT = Math.max(0, this._closeT - dt);
     const idleStill = this._reducedMotion && this.state.phase === "idle";
     if (!this.props.pauseMotion && !idleStill) this.update(dt);
     this.draw();
@@ -543,14 +712,40 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   }
 
   update(dt: number) {
-    // colour lerp toward the current world's art direction
-    const lr = Math.min(1, dt * 3.4);
-    for (const k of ["paper", "ink", "accent", "player"] as const) {
-      const c = this.cur[k],
-        g = this.tgt[k];
-      c[0] += (g[0] - c[0]) * lr;
-      c[1] += (g[1] - c[1]) * lr;
-      c[2] += (g[2] - c[2]) * lr;
+    // hit-stop: freeze the whole sim for a beat, then show the death overlay
+    if (this._freeze > 0) {
+      this._freeze -= dt;
+      if (this._freeze <= 0 && this._pendingDeath) {
+        this._pendingDeath = false;
+        this.finishDeath();
+      }
+      return;
+    }
+    // colour lerp toward the current world's art direction; snap + skip once converged
+    if (!this._settled) {
+      const lr = Math.min(1, dt * 3.4);
+      let maxD = 0;
+      for (const k of ["paper", "ink", "accent", "player"] as const) {
+        const c = this.cur[k],
+          g = this.tgt[k];
+        c[0] += (g[0] - c[0]) * lr;
+        c[1] += (g[1] - c[1]) * lr;
+        c[2] += (g[2] - c[2]) * lr;
+        for (let i = 0; i < 3; i++) {
+          const d = Math.abs(g[i] - c[i]);
+          if (d > maxD) maxD = d;
+        }
+      }
+      if (maxD < 0.5) {
+        for (const k of ["paper", "ink", "accent", "player"] as const) {
+          this.cur[k][0] = this.tgt[k][0];
+          this.cur[k][1] = this.tgt[k][1];
+          this.cur[k][2] = this.tgt[k][2];
+        }
+        this._settled = true;
+      }
+      this._skyGrad = null; // palette moved -> rebuild cached gradients
+      this._washGrad = null;
     }
     // clouds drift always
     for (const cl of this.clouds) {
@@ -572,13 +767,39 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this.worldX += this.speed * dt;
     this.score += (this.speed / this.S) * dt * 0.025; // dino DISTANCE_COEFFICIENT
 
-    // HUD (imperative — see invariant note)
-    const hud = this.wrapRef.current;
-    if (hud) {
-      const sc = hud.querySelector('[data-hud="score"]');
-      if (sc) sc.textContent = String(Math.round(this.score));
-      const bs = hud.querySelector('[data-hud="best"]');
-      if (bs) bs.textContent = String(Math.max(this.best, Math.round(this.score)));
+    // HUD (imperative — see invariant note); write only when the integer changes
+    const scoreInt = Math.round(this.score);
+    if (scoreInt !== this._lastScoreShown) {
+      this._lastScoreShown = scoreInt;
+      const hud = this.wrapRef.current;
+      if (hud) {
+        const sc = hud.querySelector('[data-hud="score"]');
+        if (sc) sc.textContent = String(scoreInt);
+        const bestInt = Math.max(this.best, scoreInt);
+        if (bestInt !== this._lastBestShown) {
+          this._lastBestShown = bestInt;
+          const bs = hud.querySelector('[data-hud="best"]');
+          if (bs) bs.textContent = String(bestInt);
+        }
+        // dino-authentic milestone: every 100 pts, flash the score + two-tone beep
+        const m = Math.floor(scoreInt / 100);
+        if (m > this._lastMilestone) {
+          this._lastMilestone = m;
+          this.milestoneBeep();
+          const sc2 = hud.querySelector('[data-hud="score"]') as HTMLElement | null;
+          if (sc2 && typeof sc2.animate === "function" && !this._reducedMotion) {
+            sc2.animate([{ opacity: 1 }, { opacity: 0.25 }, { opacity: 1 }], { duration: 240, iterations: 3 });
+          }
+        }
+      }
+    }
+
+    // runner trail: sample feet height a few times per second (ring buffer)
+    this._trailTick += dt;
+    if (this._trailTick > 0.033) {
+      this._trailTick = 0;
+      this._trail[this._trailIdx] = this.char.jy;
+      this._trailIdx = (this._trailIdx + 1) % this._trail.length;
     }
 
     // char physics — authentic dino jump (variable height + speed drop)
@@ -592,6 +813,11 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       if (c.jy < this.DINO_MAX_JUMP_Y || c.speedDrop) this.endJump();
       if (c.jy > this.DINO_GROUND_Y) {
         // landed
+        if (c.speedDrop && !this._reducedMotion) {
+          // reward the ↓ slam with a tiny impact shake
+          this._shake = 0.08;
+          this._shakeMag = 2;
+        }
         c.jy = this.DINO_GROUND_Y;
         c.jv = 0;
         c.jumping = false;
@@ -673,6 +899,18 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
         this.die();
         return;
       }
+      // near-miss (presentation only): measure clearance as the obstacle
+      // crosses the runner's center — the moment the dodge actually happens
+      if (!o.counted && sx <= cx) {
+        o.counted = true;
+        const overGap = oT - charBot; // runner above (jumped over)
+        const underGap = charTop - oB; // runner below (ducked under)
+        const clr = overGap >= 0 ? overGap : underGap >= 0 ? underGap : -1;
+        if (clr >= 0 && clr < 8 * this.S) {
+          this._closeT = 0.7;
+          this.blip(1480, 0.06, "square");
+        }
+      }
     }
     this.obstacles = this.obstacles.filter((o) => o.x - this.worldX > -160 * this.S);
   }
@@ -689,19 +927,73 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     const paper = this.cur.paper,
       ink = this.cur.ink,
       acc = this.cur.accent;
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = this.rgb(paper);
-    ctx.fillRect(0, 0, W, H);
+    // per-frame colour strings, built once (dozens of call sites below)
+    const paperStr = this.rgb(paper);
+    const inkStr = this.rgb(ink);
+    const accStr = this.rgb(acc, 1);
 
-    // accent wash near the ground
-    const gg = ctx.createLinearGradient(0, this.groundY - 150 * S, 0, this.groundY);
-    gg.addColorStop(0, this.rgb(acc, 0));
-    gg.addColorStop(1, this.rgb(acc, 0.14));
-    ctx.fillStyle = gg;
+    // screen shake (presentation only)
+    const shaking = this._shake > 0 && !this._reducedMotion;
+    if (shaking) {
+      const m = this._shakeMag * Math.min(1, this._shake * 6) * S;
+      ctx.save();
+      ctx.translate((Math.random() * 2 - 1) * m, (Math.random() * 2 - 1) * m);
+    }
+
+    // opaque bg (overscan a little so the shake never reveals edges)
+    ctx.fillStyle = paperStr;
+    ctx.fillRect(-16, -16, W + 32, H + 32);
+
+    // sky: a whisper of the dimension's accent falling from the top (cached)
+    if (!this._skyGrad) {
+      const sg = ctx.createLinearGradient(0, 0, 0, this.groundY * 0.72);
+      sg.addColorStop(0, this.rgb(acc, 0.055));
+      sg.addColorStop(1, this.rgb(acc, 0));
+      this._skyGrad = sg;
+    }
+    ctx.fillStyle = this._skyGrad;
+    ctx.fillRect(0, 0, W, this.groundY * 0.72);
+
+    // accent wash near the ground (cached)
+    if (!this._washGrad) {
+      const gg = ctx.createLinearGradient(0, this.groundY - 150 * S, 0, this.groundY);
+      gg.addColorStop(0, this.rgb(acc, 0));
+      gg.addColorStop(1, this.rgb(acc, 0.14));
+      this._washGrad = gg;
+    }
+    ctx.fillStyle = this._washGrad;
     ctx.fillRect(0, this.groundY - 150 * S, W, 150 * S);
 
+    // giant editorial watermark of the dimension name, drifting slowly
+    if (this._wm) {
+      const span = this._wm.width + W;
+      const wx = W - ((this.worldX * 0.06) % span);
+      ctx.globalAlpha = 0.05;
+      ctx.drawImage(this._wm, wx, 34 * S);
+      ctx.globalAlpha = 1;
+    }
+
     // bespoke per-dimension scenery (above the ground band)
-    if (this.curScene) this.curScene(ctx, this.worldX, this._t, S, W, this.groundY, this.cur, this._reducedMotion);
+    if (this.curScene) this.curScene(ctx, this.worldX, this._t, S, W, this.groundY, this.cur, this._reducedMotion, this._monoFamily);
+
+    // speed lines — the dino crank-up made visible
+    const sp = this.speed / this.MAX_SPEED;
+    if (this.state.phase === "running" && sp > 0.55 && !this._reducedMotion) {
+      const k = (sp - 0.55) / 0.45;
+      const count = 3 + Math.floor(k * 7);
+      ctx.strokeStyle = this.rgb(acc, 0.1 + 0.16 * k);
+      ctx.lineWidth = 1.2;
+      for (let i = 0; i < count; i++) {
+        const len = (40 + (i % 3) * 30) * S * (0.7 + k);
+        const period = W + len;
+        const lx = period - ((this.worldX * (1.1 + (i % 4) * 0.15) + i * 613) % period) - len;
+        const ly = (30 * S + i * 57.7 * S) % Math.max(1, this.groundY - 60 * S);
+        ctx.beginPath();
+        ctx.moveTo(lx, ly);
+        ctx.lineTo(lx + len, ly);
+        ctx.stroke();
+      }
+    }
 
     // clouds (faint arcs)
     ctx.strokeStyle = this.rgb(ink, 0.12);
@@ -723,7 +1015,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     const gY = this.groundY;
     ctx.fillStyle = this.rgb(ink, 0.03);
     ctx.fillRect(0, gY, W, H - gY);
-    ctx.strokeStyle = this.rgb(acc, 1);
+    ctx.strokeStyle = accStr;
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(0, gY);
@@ -742,11 +1034,12 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       ctx.stroke();
     }
 
-    // obstacles
+    // obstacles (labels are pre-rendered canvases — no per-frame text shaping)
     for (const o of this.obstacles) {
       const sx = o.x - this.worldX;
       if (sx < -80 || sx > W + 80) continue;
-      ctx.fillStyle = this.rgb(ink);
+      const lbl = this._labelCache.get(o.word);
+      ctx.fillStyle = inkStr;
       if (o.kind === "cactus") {
         const bx = sx - o.w / 2,
           by = gY - o.h;
@@ -754,18 +1047,17 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
         if (ctx.roundRect) ctx.roundRect(bx, by, o.w, o.h, [4 * S, 4 * S, 0, 0]);
         else ctx.rect(bx, by, o.w, o.h);
         ctx.fill();
-        ctx.fillStyle = this.rgb(acc, 0.95);
-        ctx.font = `500 ${Math.round(9 * S)}px ${MONO}`;
-        ctx.textAlign = "center";
-        ctx.save();
-        ctx.translate(sx + o.w / 2 + 9 * S, by + o.h - 2 * S);
-        ctx.rotate(-Math.PI / 2);
-        ctx.fillText(o.word, 0, 0);
-        ctx.restore();
+        if (lbl) {
+          ctx.save();
+          ctx.translate(sx + o.w / 2 + 9 * S, by + o.h - 2 * S);
+          ctx.rotate(-Math.PI / 2);
+          ctx.drawImage(lbl, 0, -lbl.height / 2);
+          ctx.restore();
+        }
       } else {
         // pterodactyl — body + head/beak (facing the runner) + flapping wing
         const up = Math.sin(this._t * 14) > 0;
-        ctx.fillStyle = this.rgb(ink);
+        ctx.fillStyle = inkStr;
         ctx.beginPath();
         ctx.ellipse(sx, o.cy, o.w * 0.28, o.h * 0.34, 0, 0, Math.PI * 2);
         ctx.fill();
@@ -792,12 +1084,9 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
         ctx.fill();
         ctx.beginPath();
         ctx.arc(sx - o.w * 0.3, o.cy - 1.5 * S, S, 0, Math.PI * 2);
-        ctx.fillStyle = this.rgb(paper);
+        ctx.fillStyle = paperStr;
         ctx.fill();
-        ctx.fillStyle = this.rgb(acc, 0.95);
-        ctx.font = `500 ${Math.round(8 * S)}px ${MONO}`;
-        ctx.textAlign = "center";
-        ctx.fillText(o.word, sx, o.cy - o.h / 2 - 12 * S);
+        if (lbl) ctx.drawImage(lbl, sx - lbl.width / 2, o.cy - o.h / 2 - 12 * S - lbl.height / 2);
       }
     }
 
@@ -809,7 +1098,34 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       ctx.fill();
     }
 
+    // runner trail: fading afterimages at speed / mid-air
+    if (this.state.phase === "running" && !this._reducedMotion && (this.char.jumping || sp > 0.6)) {
+      const playerStr = this.rgb(this.cur.player);
+      const n = this._trail.length;
+      for (let k = 3; k >= 1; k--) {
+        const jy = this._trail[(this._trailIdx - k * 3 + n * 3) % n];
+        if (jy <= 0) continue;
+        const fy = this.groundY - (this.DINO_GROUND_Y - jy) * S;
+        ctx.globalAlpha = 0.16 - k * 0.045;
+        ctx.fillStyle = playerStr;
+        ctx.beginPath();
+        ctx.ellipse(this.char.x - k * 13 * S, fy - 17 * S, 10 * S, 15 * S, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
     this.drawChar();
+
+    // near-miss flash
+    if (this._closeT > 0 && this.state.phase === "running") {
+      const a = this._closeT / 0.7;
+      const fy = this.groundY - (this.DINO_GROUND_Y - this.char.jy) * S;
+      ctx.fillStyle = this.rgb(acc, Math.min(1, a + 0.15));
+      ctx.font = `700 ${Math.round(10 * S)}px ${this._monoFamily}`;
+      ctx.textAlign = "center";
+      ctx.fillText("CLOSE!", this.char.x + 2 * S, fy - (52 + (1 - a) * 16) * S);
+    }
 
     // portal wipe — an accent sweep on top while transitioning between dimensions
     if (this._portalActive && !this._reducedMotion) {
@@ -822,6 +1138,21 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       grad.addColorStop(1, this.rgb(acc, 0));
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, W, H);
+    }
+
+    if (shaking) ctx.restore();
+
+    // film grain — one pattern fill, jittered a step every few frames
+    if (this._grainPattern) {
+      if (!this._reducedMotion) this._grainTick = (this._grainTick + 1) % 6;
+      const jx = (this._grainTick * 53) % 160;
+      const jy2 = (this._grainTick * 31) % 160;
+      ctx.save();
+      ctx.globalAlpha = 0.025;
+      ctx.translate(-jx, -jy2);
+      ctx.fillStyle = this._grainPattern;
+      ctx.fillRect(0, 0, W + 160, H + 160);
+      ctx.restore();
     }
   }
 
@@ -935,7 +1266,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   }
 
   render() {
-    const { phase, sound, world, finalScore, bestScore, deadKicker, deadTitle, discovered } = this.state;
+    const { phase, sound, world, finalScore, bestScore, deadKicker, deadTitle, discovered, visitedNames } = this.state;
     const isIdle = phase === "idle";
     const isDead = phase === "dead";
     const soundIcon = sound ? "♪" : "⊘";
@@ -982,6 +1313,25 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
           <div style={{ fontSize: 10.5, letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.55 }}>Shipped</div>
           <div data-hud="score" style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1 }}>0</div>
           <div style={{ fontSize: 11, letterSpacing: "0.06em", opacity: 0.55, marginTop: 4 }}>Best <span data-hud="best">0</span></div>
+          {/* discovery progress — one dot per dimension, filled once visited */}
+          {!isIdle && (
+            <div style={{ display: "flex", gap: 5, justifyContent: "flex-end", marginTop: 10 }} aria-label={`${visitedNames.length} of ${DIMENSIONS.length} dimensions discovered`}>
+              {DIMENSIONS.map((d) => (
+                <span
+                  key={d.name}
+                  title={visitedNames.includes(d.name) ? d.name : undefined}
+                  style={{
+                    width: 7,
+                    height: 7,
+                    borderRadius: "50%",
+                    background: visitedNames.includes(d.name) ? d.accent : "transparent",
+                    border: visitedNames.includes(d.name) ? "1px solid transparent" : "1px solid currentColor",
+                    opacity: visitedNames.includes(d.name) ? 1 : 0.35,
+                  }}
+                />
+              ))}
+            </div>
+          )}
           <button onClick={this.onToggleSound} title="Toggle sound" aria-label="Toggle sound" style={{ marginTop: 12, width: 30, height: 30, borderRadius: 9999, border: "1px solid currentColor", background: "transparent", color: "currentColor", cursor: "pointer", fontSize: 13, opacity: 0.8 }}>{soundIcon}</button>
         </div>
 
