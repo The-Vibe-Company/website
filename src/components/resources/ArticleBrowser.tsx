@@ -24,8 +24,9 @@ export interface ArticleCardItem {
 
 type Filter = 'all' | 'victor' | 'articles';
 
-/** How many "Articles" to show in the combined view before linking to the full list. */
+/** How many cards each column shows in the combined view before linking to the full list. */
 const ARTICLES_PREVIEW_LIMIT = 6;
+const VICTOR_PREVIEW_LIMIT = 6;
 
 const VICTOR_LABEL = "Victor's Story";
 const ARTICLES_LABEL = 'Articles';
@@ -39,7 +40,7 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
   return (
     <Link
       href={`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`}
-      className={`group flex gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
+      className={`group flex h-[132px] gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
     >
       <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded">
         {item.image ? (
@@ -54,17 +55,17 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
           <div className="w-full h-full bg-res-bg-secondary border border-res-border" />
         )}
       </div>
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 flex flex-col">
         <h3 className="text-sm font-bold tracking-tight text-res-text leading-tight mb-1 line-clamp-2 group-hover:underline decoration-1 underline-offset-2">
           {item.title}
         </h3>
         {item.summary ? (
           <p
-            className="text-xs text-res-text-muted leading-snug mb-2 line-clamp-2"
+            className="text-xs text-res-text-muted leading-snug line-clamp-2"
             dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
           />
         ) : null}
-        <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
+        <div className="mt-auto flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
           {item.seriesDay != null && (
             <span className="inline-flex items-center rounded border border-orange-500/40 bg-orange-500/10 px-1.5 py-0.5 text-orange-600 tracking-wider">
               D{item.seriesDay}
@@ -128,6 +129,9 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
   const showOthers = filter !== 'victor' && others.length > 0;
   const single = filter !== 'all';
 
+  const visibleVictor = filter === 'all' ? victorStory.slice(0, VICTOR_PREVIEW_LIMIT) : victorStory;
+  const hiddenVictor = victorStory.length - visibleVictor.length;
+
   const visibleOthers = filter === 'all' ? others.slice(0, ARTICLES_PREVIEW_LIMIT) : others;
   const hiddenOthers = others.length - visibleOthers.length;
 
@@ -187,8 +191,19 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
             count={victorStory.length}
             accent="victor"
             layout={single ? 'grid' : 'list'}
+            footer={
+              hiddenVictor > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => setFilter('victor')}
+                  className="flex w-full items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
+                >
+                  View all {victorStory.length} Victor&apos;s Story &rarr;
+                </button>
+              ) : null
+            }
           >
-            {victorStory.map((item) => (
+            {visibleVictor.map((item) => (
               <ArticleCard key={item.id} item={item} />
             ))}
           </Column>
