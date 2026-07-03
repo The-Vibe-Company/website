@@ -159,7 +159,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
                 role="tab"
                 aria-selected={active}
                 onClick={() => setFilter(tab.key)}
-                className={`inline-flex items-center gap-1.5 rounded px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition-colors ${
+                className={`inline-flex cursor-pointer items-center gap-1.5 rounded px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition-colors ${
                   active ? 'bg-res-text text-res-surface' : 'text-res-text-muted hover:text-res-text'
                 }`}
               >
@@ -177,7 +177,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
         <button
           type="button"
           onClick={() => setFilter('all')}
-          className="group mb-6 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
+          className="group mb-6 inline-flex cursor-pointer items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
         >
           <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
           Resources
@@ -196,7 +196,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
                 <button
                   type="button"
                   onClick={() => setFilter('victor')}
-                  className="flex w-full items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
+                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
                 >
                   View all {victorStory.length} Victor&apos;s Story &rarr;
                 </button>
@@ -220,7 +220,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
                 <button
                   type="button"
                   onClick={() => setFilter('articles')}
-                  className="flex w-full items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
+                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
                 >
                   View all {others.length} articles &rarr;
                 </button>
