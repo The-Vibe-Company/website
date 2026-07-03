@@ -56,7 +56,7 @@ export function Services() {
   return (
     <section
       id="services"
-      className="mx-auto max-w-[100rem] scroll-mt-24 px-6 py-24 md:px-12 md:py-28"
+      className="mx-auto max-w-[100rem] scroll-mt-24 px-6 pb-24 pt-12 md:px-12 md:pb-28 md:pt-14"
     >
       <div className="mb-12 border-b border-border pb-8 md:mb-16">
         <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
