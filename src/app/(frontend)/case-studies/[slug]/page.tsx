@@ -114,7 +114,22 @@ export default async function CaseStudyPage({
           </div>
         </section>
 
-        <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-12 md:pb-24">
+        {customer.quote && (
+          <section className="border-y-2 border-foreground bg-foreground text-background">
+            <div className="mx-auto max-w-[80rem] px-6 py-16 md:px-12 md:py-20">
+              <blockquote className="m-0 max-w-[900px]">
+                <p className="m-0 text-2xl font-medium leading-[1.4] tracking-[-0.01em] md:text-[32px]">
+                  &ldquo;{customer.quote.text}&rdquo;
+                </p>
+                <footer className="mt-7 font-mono text-[11px] uppercase tracking-[0.2em] text-background/70">
+                  {customer.quote.author}
+                </footer>
+              </blockquote>
+            </div>
+          </section>
+        )}
+
+        <section className="mx-auto max-w-[80rem] px-6 py-20 md:px-12 md:py-24">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
             {"// The product"}
           </span>

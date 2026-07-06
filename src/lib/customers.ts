@@ -22,6 +22,8 @@ export interface Customer {
   results: CustomerStat[];
   /** Product screenshots. Empty until we have real assets. */
   visuals: { src: string; alt: string }[];
+  /** Client testimonial, shown on the case page when available. */
+  quote?: { text: string; author: string };
   /** Live product, opened from the case page when available. */
   url?: string;
 }
@@ -50,6 +52,10 @@ export const CUSTOMERS: Customer[] = [
       { value: "Daily", label: "Used by health professionals" },
     ],
     visuals: [],
+    quote: {
+      text: "The Vibe Company nous a permis d'accélérer très concrètement chez Monka. Une équipe smart, pragmatique, vraiment AI-native, capable de transformer des sujets complexes en outils utiles, livrés vite et state of the art.",
+      author: "Étienne, Monka",
+    },
     url: "https://www.monka.care",
   },
   {
