@@ -19,6 +19,7 @@ export interface ArticleCardItem {
   language?: ContentLanguage;
   seriesDay?: number;
   focus?: boolean;
+  tool?: boolean;
   image: { url: string; alt: string } | null;
 }
 
@@ -74,6 +75,11 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
           {item.focus && (
             <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
               Focus
+            </span>
+          )}
+          {item.tool && (
+            <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
+              Outil
             </span>
           )}
           {item.language && <LanguageFlag language={item.language} variant="inline" />}

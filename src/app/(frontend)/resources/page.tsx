@@ -25,6 +25,7 @@ function toCard(item: ContentEntry): ArticleCardItem {
     language: item.language,
     seriesDay: item.seriesDay,
     focus: item.focus,
+    tool: item.tool,
     image: item.featuredImage?.url
       ? { url: item.featuredImage.url, alt: item.featuredImage.alt ?? item.title }
       : null,

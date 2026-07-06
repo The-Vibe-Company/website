@@ -6,6 +6,7 @@ summary: "Je ne tape presque plus, je parle à mon ordinateur toute la journée.
 publishedAt: 2026-07-06
 series: victor-story
 seriesDay: 8
+tool: true
 topics: AI Journey, Outils, Productivité
 coverImage: /images/resources/l-outil-qui-me-fait-gagner-du-temps/cover.png
 coverAlt: "Mon avatar en train de parler à son ordinateur, la mascotte VB à côté, dans la direction artistique maison"
