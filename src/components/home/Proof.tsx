@@ -46,7 +46,7 @@ export function Proof() {
       <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
         <div className="mb-12 md:mb-14">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {'// 03 — RECEIPTS'}
+            {'// OUR OWN PRODUCTS'}
           </span>
           <h2
             className="m-0 font-bold text-foreground"
@@ -56,7 +56,7 @@ export function Proof() {
               letterSpacing: "-0.045em",
             }}
           >
-            We build for clients.
+            We build our own
             <br />
             <span
               style={{
@@ -64,14 +64,19 @@ export function Proof() {
                 color: "transparent",
               }}
             >
-              And we build for ourselves.
+              products, in the open.
             </span>
           </h2>
+          <p className="m-0 mt-7 max-w-[620px] text-lg leading-[1.5] text-muted-foreground">
+            We don&apos;t just build for clients. The same team ships its own
+            open-source tools on GitHub. It&apos;s how we stay sharp and push
+            what AI can do.
+          </p>
         </div>
 
         <div className="mb-5 flex items-center justify-between border-b border-border pb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
           <span className="font-semibold text-foreground">
-            BUILT BY US · ON GITHUB
+            OPEN SOURCE · ON GITHUB
           </span>
           <span>4 OF 14 PUBLIC</span>
         </div>
