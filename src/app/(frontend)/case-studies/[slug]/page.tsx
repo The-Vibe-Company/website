@@ -51,7 +51,7 @@ export default async function CaseStudyPage({
       <TopNav />
       <main className="flex-1">
         <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
-          <BackLink fallbackHref={back.href} label={back.label} />
+          <BackLink href={back.href} label={back.label} />
 
           <div className="mt-10 flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between">
             {/* eslint-disable-next-line @next/next/no-img-element */}
