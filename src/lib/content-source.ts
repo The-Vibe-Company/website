@@ -45,6 +45,7 @@ export interface ContentEntry {
   series?: string
   seriesDay?: number
   focus?: boolean
+  tool?: boolean
   topics?: string[]
   featuredImage?: {
     url: string
@@ -108,6 +109,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         series: data.series?.trim() || undefined,
         seriesDay: parseSeriesDay(data.seriesDay),
         focus: data.focus?.trim() === 'true',
+        tool: data.tool?.trim() === 'true',
         topics,
         featuredImage: coverImage
           ? {

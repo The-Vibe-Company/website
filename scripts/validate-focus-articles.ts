@@ -21,7 +21,7 @@ const ROOT = process.cwd()
 const ARTICLES_DIR = path.join(ROOT, 'content', 'articles')
 
 /** Frontmatter keys whose casing matters: a typo silently mis-tags the article. */
-const CANONICAL_KEYS = ['focus']
+const CANONICAL_KEYS = ['focus', 'tool']
 const CANONICAL_BY_LOWER = new Map(CANONICAL_KEYS.map((key) => [key.toLowerCase(), key]))
 
 type Failure = { file: string; reason: string }
@@ -56,6 +56,7 @@ async function main(): Promise<void> {
   const files = await listMarkdown(ARTICLES_DIR)
   const failures: Failure[] = []
   let focusCount = 0
+  let toolCount = 0
 
   for (const file of files) {
     const raw = await fs.readFile(file, 'utf8')
@@ -98,6 +99,37 @@ async function main(): Promise<void> {
     }
   }
 
+  // Same gate for the "Tool" tag: it works exactly like Focus.
+  for (const file of files) {
+    const raw = await fs.readFile(file, 'utf8')
+    const { data } = parseFrontmatter(raw)
+    const rel = path.relative(ROOT, file)
+
+    if (data.tool == null || data.tool === '') continue
+    toolCount += 1
+
+    if (data.tool.trim() !== 'true') {
+      failures.push({
+        file: rel,
+        reason: `"tool" must be exactly "true" (found "${data.tool}").`,
+      })
+    }
+
+    if (data.complexity) {
+      failures.push({
+        file: rel,
+        reason: `must not set "complexity" (found "${data.complexity}") — Tool articles don't show it.`,
+      })
+    }
+
+    if (!data.ogImage || data.ogImage.trim() === '') {
+      failures.push({
+        file: rel,
+        reason: 'missing "ogImage" — every Tool article needs a social image.',
+      })
+    }
+  }
+
   if (failures.length > 0) {
     console.error(`\n[focus] ${failures.length} problem(s) found:\n`)
     for (const failure of failures) {
@@ -107,7 +139,7 @@ async function main(): Promise<void> {
     process.exit(1)
   }
 
-  console.log(`[focus] ok — ${focusCount} Focus article(s) validated.`)
+  console.log(`[focus] ok — ${focusCount} Focus, ${toolCount} Tool article(s) validated.`)
 }
 
 main().catch((error) => {
