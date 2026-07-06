@@ -54,7 +54,7 @@ export const CUSTOMERS: Customer[] = [
     visuals: [],
     quote: {
       text: "The Vibe Company nous a permis d'accélérer très concrètement chez Monka. Une équipe smart, pragmatique, vraiment AI-native, capable de transformer des sujets complexes en outils utiles, livrés vite et state of the art.",
-      author: "Étienne, Monka",
+      author: "Étienne, CEO et cofondateur de Monka",
     },
     url: "https://www.monka.care",
   },
