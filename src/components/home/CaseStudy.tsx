@@ -41,6 +41,20 @@ const CASES: Case[] = [
       "Hundreds of tickets a day, our drafts used on 87% of them.",
     ],
   },
+  {
+    client: "Coup de Pâtes",
+    logo: "/images/clients/coup-de-pates.svg",
+    sector: "Food · Design review",
+    metric: "At a glance",
+    metricLabel: "which catalog feedback was applied, which wasn't",
+    story:
+      "Coup de Pâtes reviews product catalogs from their designers: a v0 comes in, they mark up their feedback, and the revised version comes back. Checking that every note was actually applied was slow and tedious. We built them AI skills that surface it all in a few glances.",
+    points: [
+      "See applied vs. missed feedback instantly, plus requested changes and typos.",
+      "Re-annotate and re-export the new round of feedback as a PDF.",
+      "A second tool highlights the differences between two specific documents, like two labels or two specs.",
+    ],
+  },
 ];
 
 export function CaseStudy() {
