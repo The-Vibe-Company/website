@@ -76,6 +76,17 @@ export default async function CaseStudyPage({
           <p className="m-0 mt-10 max-w-[720px] text-xl leading-[1.5] text-foreground md:text-2xl">
             {customer.overview}
           </p>
+
+          {customer.quote && (
+            <figure className="mt-10 max-w-[760px] border-l-2 border-orange-500 pl-6">
+              <blockquote className="m-0 text-lg font-medium leading-[1.5] text-foreground md:text-xl">
+                &ldquo;{customer.quote.text}&rdquo;
+              </blockquote>
+              <figcaption className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                {customer.quote.author}
+              </figcaption>
+            </figure>
+          )}
         </section>
 
         <section className="border-y border-border bg-background">
@@ -114,22 +125,7 @@ export default async function CaseStudyPage({
           </div>
         </section>
 
-        {customer.quote && (
-          <section className="border-y-2 border-foreground bg-foreground text-background">
-            <div className="mx-auto max-w-[80rem] px-6 py-16 md:px-12 md:py-20">
-              <blockquote className="m-0 max-w-[900px]">
-                <p className="m-0 text-2xl font-medium leading-[1.4] tracking-[-0.01em] md:text-[32px]">
-                  &ldquo;{customer.quote.text}&rdquo;
-                </p>
-                <footer className="mt-7 font-mono text-[11px] uppercase tracking-[0.2em] text-background/70">
-                  {customer.quote.author}
-                </footer>
-              </blockquote>
-            </div>
-          </section>
-        )}
-
-        <section className="mx-auto max-w-[80rem] px-6 py-20 md:px-12 md:py-24">
+        <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-12 md:pb-24">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
             {"// The product"}
           </span>
