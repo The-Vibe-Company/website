@@ -17,6 +17,7 @@ import { resourcesTheme } from "@/lib/resources-theme";
 
 const navItems = [
   { label: "Portfolio", href: "/portfolio" },
+  { label: "Case studies", href: "/case-studies" },
   { label: "Resources", href: "/resources" },
 ];
 
