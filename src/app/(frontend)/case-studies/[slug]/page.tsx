@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
+import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { CUSTOMERS, getCustomer } from "@/lib/customers";
 
@@ -42,15 +42,7 @@ export default async function CaseStudyPage({
       <TopNav />
       <main className="flex-1">
         <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
-          <Link
-            href="/case-studies"
-            className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <span aria-hidden="true" className="transition-transform duration-200 group-hover:-translate-x-1">
-              &larr;
-            </span>
-            Case studies
-          </Link>
+          <BackLink fallbackHref="/case-studies" label="Back" />
 
           <div className="mt-10 flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between">
             {/* eslint-disable-next-line @next/next/no-img-element */}
