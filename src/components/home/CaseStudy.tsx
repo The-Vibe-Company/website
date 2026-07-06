@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 
 interface Case {
   client: string;
+  logo: string;
   sector: string;
   metric: string;
   metricLabel: string;
@@ -14,6 +15,7 @@ interface Case {
 const CASES: Case[] = [
   {
     client: "Monka",
+    logo: "/images/clients/monka.webp",
     sector: "Healthcare · Caregiver support",
     metric: "2 months",
     metricLabel: "from scratch to live on iOS and Android",
@@ -27,6 +29,7 @@ const CASES: Case[] = [
   },
   {
     client: "LocService",
+    logo: "/images/clients/locservice.png",
     sector: "Rentals · Customer support",
     metric: "87%",
     metricLabel: "of support tickets answered with our AI drafts",
@@ -85,9 +88,16 @@ export function CaseStudy() {
               }}
               className="flex flex-col border border-foreground bg-background p-7 md:p-8"
             >
-              <div className="flex flex-col items-start gap-3 md:flex-row md:items-start md:justify-between md:gap-4">
-                <h3 className="m-0 text-[26px] font-bold tracking-[-0.03em] text-foreground md:text-[30px]">
-                  {c.client}
+              <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+                <h3 className="m-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={c.logo}
+                    alt={c.client}
+                    className="h-7 w-auto object-contain md:h-8"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </h3>
                 <span className="max-w-full border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground md:shrink-0">
                   {c.sector}

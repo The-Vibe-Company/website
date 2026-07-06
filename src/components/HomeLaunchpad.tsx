@@ -15,8 +15,8 @@ export function HomeLaunchpad() {
       <main className="flex-1">
         <Hero />
         <Clients />
-        <Services />
         <CaseStudy />
+        <Services />
         <Process />
         <Proof />
         <FinalCTA />
