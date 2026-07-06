@@ -5,6 +5,7 @@ import { Services } from "./home/Services";
 import { Process } from "./home/Process";
 import { Proof } from "./home/Proof";
 import { Clients } from "./home/Clients";
+import { ProofBar } from "./home/ProofBar";
 import { FinalCTA } from "./home/FinalCTA";
 
 export function HomeLaunchpad() {
@@ -14,6 +15,7 @@ export function HomeLaunchpad() {
       <main className="flex-1">
         <Hero />
         <Clients />
+        <ProofBar />
         <Services />
         <Process />
         <Proof />
