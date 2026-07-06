@@ -54,7 +54,7 @@ export default function CaseStudiesPage() {
             {CUSTOMERS.map((c) => (
               <Link
                 key={c.slug}
-                href={`/case-studies/${c.slug}`}
+                href={`/case-studies/${c.slug}?from=case-studies`}
                 className="group flex flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
               >
                 <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">

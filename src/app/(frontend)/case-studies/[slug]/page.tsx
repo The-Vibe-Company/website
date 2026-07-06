@@ -27,12 +27,21 @@ export async function generateMetadata({
 
 export default async function CaseStudyPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ from?: string }>;
 }) {
   const { slug } = await params;
+  const { from } = await searchParams;
   const customer = getCustomer(slug);
   if (!customer) notFound();
+
+  // Name the back link after where the visitor came from.
+  const back =
+    from === "home"
+      ? { href: "/", label: "Home" }
+      : { href: "/case-studies", label: "Case studies" };
 
   return (
     <div
@@ -42,7 +51,7 @@ export default async function CaseStudyPage({
       <TopNav />
       <main className="flex-1">
         <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
-          <BackLink fallbackHref="/case-studies" label="Back" />
+          <BackLink fallbackHref={back.href} label={back.label} />
 
           <div className="mt-10 flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between">
             {/* eslint-disable-next-line @next/next/no-img-element */}
