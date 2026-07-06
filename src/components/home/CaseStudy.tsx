@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 interface Case {
@@ -42,6 +43,20 @@ const CASES: Case[] = [
     ],
   },
   {
+    client: "AFP",
+    logo: "/images/clients/afp.svg",
+    sector: "News · Journalism",
+    metric: "90M documents",
+    metricLabel: "of text, image, and video, made searchable by AI",
+    story:
+      "AFP is one of the world's largest news agencies. As part of a France 2030 project, we're building AI tools that help their journalists work faster, on top of a corpus of 90 million documents: articles, images, video, and wires.",
+    points: [
+      "Multimodal search: ask a question, get every relevant article, image, and video across the archive.",
+      "Topic watch that follows a subject and surfaces what matters.",
+      "A writing assistant for documentary research, fact-checking, and feedback.",
+    ],
+  },
+  {
     client: "Coup de Pâtes",
     logo: "/images/clients/coup-de-pates.svg",
     sector: "Food · Design review",
@@ -59,48 +74,86 @@ const CASES: Case[] = [
 
 export function CaseStudy() {
   const reduceMotion = useReducedMotion() ?? false;
+  const trackRef = useRef<HTMLDivElement>(null);
+  const showArrows = CASES.length > 2;
+
+  const scrollByCard = (direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector<HTMLElement>("[data-card]");
+    const gap = 20;
+    const amount = card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+    track.scrollBy({ left: direction * amount, behavior: "smooth" });
+  };
 
   return (
     <section id="cases" className="border-b border-border bg-background">
       <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
-        <div className="mb-12 md:mb-14">
-          <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {"// CLIENT WORK"}
-          </span>
-          <h2
-            className="m-0 font-bold text-foreground"
-            style={{
-              fontSize: "clamp(44px, 6vw, 88px)",
-              lineHeight: 0.92,
-              letterSpacing: "-0.045em",
-            }}
-          >
-            Built for clients,
-            <br />
-            <span
+        <div className="mb-12 flex flex-col gap-6 md:mb-14 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              {"// CLIENT WORK"}
+            </span>
+            <h2
+              className="m-0 font-bold text-foreground"
               style={{
-                WebkitTextStroke: "1.5px var(--foreground)",
-                color: "transparent",
+                fontSize: "clamp(44px, 6vw, 88px)",
+                lineHeight: 0.92,
+                letterSpacing: "-0.045em",
               }}
             >
-              live in production.
-            </span>
-          </h2>
+              Built for clients,
+              <br />
+              <span
+                style={{
+                  WebkitTextStroke: "1.5px var(--foreground)",
+                  color: "transparent",
+                }}
+              >
+                live in production.
+              </span>
+            </h2>
+          </div>
+
+          {showArrows && (
+            <div className="flex shrink-0 gap-2.5">
+              <button
+                type="button"
+                onClick={() => scrollByCard(-1)}
+                aria-label="Previous case"
+                className="flex h-11 w-11 cursor-pointer items-center justify-center border border-foreground text-lg text-foreground transition-colors hover:bg-foreground hover:text-background"
+              >
+                &larr;
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollByCard(1)}
+                aria-label="Next case"
+                className="flex h-11 w-11 cursor-pointer items-center justify-center border border-foreground text-lg text-foreground transition-colors hover:bg-foreground hover:text-background"
+              >
+                &rarr;
+              </button>
+            </div>
+          )}
         </div>
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <div
+          ref={trackRef}
+          className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           {CASES.map((c, i) => (
             <motion.article
               key={c.client}
+              data-card
               initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{
                 duration: 0.55,
-                delay: reduceMotion ? 0 : i * 0.08,
+                delay: reduceMotion ? 0 : i * 0.06,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="flex flex-col border border-foreground bg-background p-7 md:p-8"
+              className="flex w-[86%] shrink-0 snap-start flex-col border border-foreground bg-background p-7 sm:w-[70%] md:w-[calc(50%-10px)] md:p-8"
             >
               <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
                 <h3 className="m-0">
