@@ -16,17 +16,17 @@ const QUICK_ITEMS = [
   {
     n: "01",
     label: "Build",
-    desc: "AI products and internal tools, end-to-end.",
+    desc: "We build your product or internal tool, start to finish.",
   },
   {
     n: "02",
     label: "Operate",
-    desc: "Agents inside your company. Sales, support, admin, content.",
+    desc: "We run agents inside your company: sales, support, admin, content.",
   },
   {
     n: "03",
     label: "Advise",
-    desc: "Strategy, training, and the AI playbook for your team.",
+    desc: "We train your team and give you a clear AI plan.",
   },
 ];
 
@@ -104,7 +104,7 @@ export function Hero() {
           }}
         >
           <span className="block">
-            AI-native agency.
+            We build your AI,
           </span>
           <span
             className="block"
@@ -113,7 +113,7 @@ export function Hero() {
               color: "transparent",
             }}
           >
-            Everything way faster.
+            and we make it work.
           </span>
         </motion.h1>
 
@@ -124,9 +124,9 @@ export function Hero() {
           className="mt-12 grid grid-cols-1 items-end gap-10 md:mt-14 md:grid-cols-[1.4fr_1fr] md:gap-12"
         >
           <p className="m-0 max-w-[620px] text-lg leading-[1.5] text-foreground md:text-[19px]">
-            A small team of AI specialists. We build products, automate ops,
-            and train teams. Our agency itself runs on AI. That&apos;s the
-            compound.
+            A small team that builds your products, runs agents inside your
+            company, and trains your people to use AI. We run on AI ourselves,
+            so you ship in weeks, not months, and for less.
           </p>
 
           <div className="flex flex-col items-start gap-3">
