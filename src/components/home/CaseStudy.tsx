@@ -72,6 +72,9 @@ const CASES: Case[] = [
   },
 ];
 
+const ARROW_CLASS =
+  "hidden h-11 w-11 shrink-0 cursor-pointer items-center justify-center self-center border border-foreground text-lg text-foreground transition-colors hover:bg-foreground hover:text-background sm:flex";
+
 export function CaseStudy() {
   const reduceMotion = useReducedMotion() ?? false;
   const trackRef = useRef<HTMLDivElement>(null);
@@ -89,116 +92,117 @@ export function CaseStudy() {
   return (
     <section id="cases" className="border-b border-border bg-background">
       <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
-        <div className="mb-12 flex flex-col gap-6 md:mb-14 md:flex-row md:items-end md:justify-between">
-          <div>
-            <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              {"// CLIENT WORK"}
-            </span>
-            <h2
-              className="m-0 font-bold text-foreground"
+        <div className="mb-12 md:mb-14">
+          <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            {"// CLIENT WORK"}
+          </span>
+          <h2
+            className="m-0 font-bold text-foreground"
+            style={{
+              fontSize: "clamp(44px, 6vw, 88px)",
+              lineHeight: 0.92,
+              letterSpacing: "-0.045em",
+            }}
+          >
+            Built for clients,
+            <br />
+            <span
               style={{
-                fontSize: "clamp(44px, 6vw, 88px)",
-                lineHeight: 0.92,
-                letterSpacing: "-0.045em",
+                WebkitTextStroke: "1.5px var(--foreground)",
+                color: "transparent",
               }}
             >
-              Built for clients,
-              <br />
-              <span
-                style={{
-                  WebkitTextStroke: "1.5px var(--foreground)",
-                  color: "transparent",
+              live in production.
+            </span>
+          </h2>
+        </div>
+
+        <div className="flex items-stretch gap-3 md:gap-4">
+          {showArrows && (
+            <button
+              type="button"
+              onClick={() => scrollByCard(-1)}
+              aria-label="Previous case"
+              className={ARROW_CLASS}
+            >
+              &larr;
+            </button>
+          )}
+
+          <div
+            ref={trackRef}
+            className="flex min-w-0 flex-1 snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {CASES.map((c, i) => (
+              <motion.article
+                key={c.client}
+                data-card
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                  duration: 0.55,
+                  delay: reduceMotion ? 0 : i * 0.06,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
+                className="flex w-[86%] shrink-0 snap-start flex-col border border-foreground bg-background p-7 sm:w-[70%] md:w-[calc(50%-10px)] md:p-8"
               >
-                live in production.
-              </span>
-            </h2>
+                <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+                  <h3 className="m-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={c.logo}
+                      alt={c.client}
+                      className="h-7 w-auto object-contain md:h-8"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </h3>
+                  <span className="max-w-full border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground md:shrink-0">
+                    {c.sector}
+                  </span>
+                </div>
+
+                <div className="mt-6 border-t border-border pt-6">
+                  <div className="text-[44px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[52px]">
+                    {c.metric}
+                  </div>
+                  <div className="mt-2 text-sm text-muted-foreground">
+                    {c.metricLabel}
+                  </div>
+                </div>
+
+                <p className="m-0 mt-6 text-[15px] leading-[1.55] text-foreground">
+                  {c.story}
+                </p>
+
+                <ul className="m-0 mt-6 flex list-none flex-col gap-2.5 p-0">
+                  {c.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex gap-3 text-sm leading-[1.5] text-muted-foreground"
+                    >
+                      <span aria-hidden="true" className="pt-0.5 font-mono text-orange-500">
+                        →
+                      </span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.article>
+            ))}
           </div>
 
           {showArrows && (
-            <div className="flex shrink-0 gap-2.5">
-              <button
-                type="button"
-                onClick={() => scrollByCard(-1)}
-                aria-label="Previous case"
-                className="flex h-11 w-11 cursor-pointer items-center justify-center border border-foreground text-lg text-foreground transition-colors hover:bg-foreground hover:text-background"
-              >
-                &larr;
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollByCard(1)}
-                aria-label="Next case"
-                className="flex h-11 w-11 cursor-pointer items-center justify-center border border-foreground text-lg text-foreground transition-colors hover:bg-foreground hover:text-background"
-              >
-                &rarr;
-              </button>
-            </div>
-          )}
-        </div>
-
-        <div
-          ref={trackRef}
-          className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {CASES.map((c, i) => (
-            <motion.article
-              key={c.client}
-              data-card
-              initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.55,
-                delay: reduceMotion ? 0 : i * 0.06,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="flex w-[86%] shrink-0 snap-start flex-col border border-foreground bg-background p-7 sm:w-[70%] md:w-[calc(50%-10px)] md:p-8"
+            <button
+              type="button"
+              onClick={() => scrollByCard(1)}
+              aria-label="Next case"
+              className={ARROW_CLASS}
             >
-              <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-                <h3 className="m-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={c.logo}
-                    alt={c.client}
-                    className="h-7 w-auto object-contain md:h-8"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </h3>
-                <span className="max-w-full border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground md:shrink-0">
-                  {c.sector}
-                </span>
-              </div>
-
-              <div className="mt-6 border-t border-border pt-6">
-                <div className="text-[44px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[52px]">
-                  {c.metric}
-                </div>
-                <div className="mt-2 text-sm text-muted-foreground">
-                  {c.metricLabel}
-                </div>
-              </div>
-
-              <p className="m-0 mt-6 text-[15px] leading-[1.55] text-foreground">
-                {c.story}
-              </p>
-
-              <ul className="m-0 mt-6 flex list-none flex-col gap-2.5 p-0">
-                {c.points.map((point) => (
-                  <li
-                    key={point}
-                    className="flex gap-3 text-sm leading-[1.5] text-muted-foreground"
-                  >
-                    <span aria-hidden="true" className="pt-0.5 font-mono text-orange-500">
-                      →
-                    </span>
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.article>
-          ))}
+              &rarr;
+            </button>
+          )}
         </div>
       </div>
     </section>
