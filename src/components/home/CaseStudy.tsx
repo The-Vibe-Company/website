@@ -16,7 +16,7 @@ interface Case {
 const CASES: Case[] = [
   {
     client: "Monka",
-    logo: "/images/clients/monka.webp",
+    logo: "/images/clients/monka-color.webp",
     sector: "Healthcare · Caregiver support",
     metric: "2 months",
     metricLabel: "from scratch to live on iOS and Android",
