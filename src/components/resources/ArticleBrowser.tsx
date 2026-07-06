@@ -79,7 +79,7 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
           )}
           {item.tool && (
             <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
-              Outil
+              Tools
             </span>
           )}
           {item.language && <LanguageFlag language={item.language} variant="inline" />}

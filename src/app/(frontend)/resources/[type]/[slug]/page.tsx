@@ -179,7 +179,7 @@ export default async function ContentDetailPage({
                   {isTool && (
                     <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
                       <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      Outil
+                      Tools
                     </span>
                   )}
                 </div>
@@ -274,7 +274,7 @@ export default async function ContentDetailPage({
                   {isTool && (
                     <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
                       <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      Outil
+                      Tools
                     </span>
                   )}
                 </div>
