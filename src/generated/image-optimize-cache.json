@@ -66,6 +66,21 @@
       "targetUrl": "/images/_optimized/resources/focus-skill-images/mascotte-idees.webp",
       "targetHash": "177be44cbfdff07c784ec7e2e3d3b096087cfd43e93c569cce8e1dc03f07515f"
     },
+    "content:/images/resources/focus-skill-logo-svg/companion-logo.png": {
+      "sourceHash": "4c89b45e7aab99c7966c50748f638fb18e8d3b4999ef38fd05281235abdcb7f4",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/companion-logo.webp",
+      "targetHash": "0da66d2f9f0c0072f2fc6ef210eccd6e90c5768f5277f2644371ce0c7cb1af04"
+    },
+    "content:/images/resources/focus-skill-logo-svg/cover.png": {
+      "sourceHash": "c2b054928194eb2b225a496329dbbc43d56bf2e62fedc61433cb261a2f35723c",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/cover.webp",
+      "targetHash": "1ab2e24a522c189645294e018ef20ef72c1310febb35a2776531534c3ce23ca0"
+    },
+    "content:/images/resources/focus-skill-logo-svg/stack-logo.png": {
+      "sourceHash": "96cb896e5c1fae31a023c7362159ca8ecde7af65460da4c47a509f2e2848d552",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/stack-logo.webp",
+      "targetHash": "5693e6f15ede7ae5d74f22f66c1fb21fb34bf06d09fe17a37b34202223254492"
+    },
     "content:/images/resources/how-i-finally-started-my-game-using-scenario/bucherons.png": {
       "sourceHash": "4be0ed577a8a080e6aae2caf58bf2495a3af936ab2549e8b4dc772477b321807",
       "targetUrl": "/images/_optimized/resources/how-i-finally-started-my-game-using-scenario/bucherons.webp",
@@ -248,6 +263,11 @@
     },
     "og:/images/resources/focus-skill-images/cover.png": {
       "sourceHash": "647db5e4465e281336189701030f8bf2bcd6a933065d96c4fd8c51e3b1a1573f",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/focus-skill-logo-svg/cover.png": {
+      "sourceHash": "c2b054928194eb2b225a496329dbbc43d56bf2e62fedc61433cb261a2f35723c",
       "targetUrl": null,
       "targetHash": null
     },
