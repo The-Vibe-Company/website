@@ -13,9 +13,134 @@
     "bookCall": "Book a discovery call",
     "seeWhatWeDo": "See what we do",
     "items": {
-      "build": { "label": "Build", "desc": "AI products and internal tools, end-to-end." },
-      "operate": { "label": "Operate", "desc": "Agents inside your company. Sales, support, admin, content." },
-      "advise": { "label": "Advise", "desc": "Strategy, training, and the AI playbook for your team." }
+      "build": {
+        "label": "Build",
+        "desc": "AI products and internal tools, end-to-end."
+      },
+      "operate": {
+        "label": "Operate",
+        "desc": "Agents inside your company. Sales, support, admin, content."
+      },
+      "advise": {
+        "label": "Advise",
+        "desc": "Strategy, training, and the AI playbook for your team."
+      }
     }
+  },
+  "clients": {
+    "trustedBy": "Trusted by"
+  },
+  "caseStudy": {
+    "kicker": "// CLIENT WORK",
+    "titleLine1": "Built for clients,",
+    "titleLine2": "live in production.",
+    "readCase": "Read the case",
+    "prev": "Previous case",
+    "next": "Next case"
+  },
+  "services": {
+    "kicker": "// 01 — WHAT WE DO",
+    "titleLine1": "Three ways",
+    "titleLine2": "to work together.",
+    "items": {
+      "build": {
+        "title": "Product builds",
+        "tag": "BUILD-FOR-HIRE",
+        "desc": "We design and ship your product end-to-end. Code, design, evals, ops. AI does everything that doesn't need a human, so we ship 50–100× faster than a traditional team.",
+        "bullets": [
+          "Discovery, architecture, production-grade code",
+          "Built with Claude + Codex + agents in the loop",
+          "Evals + observability shipped from day one",
+          "Full handoff with docs, or we keep operating it"
+        ]
+      },
+      "operate": {
+        "title": "Agent ops",
+        "tag": "EMBED + OPERATE",
+        "desc": "We deploy agents inside your company to take over the ops nobody wants. Sales, support, content, admin flows, internal tools. Wherever your team is burning hours on repetitive work.",
+        "bullets": [
+          "Workflow audit + ROI map",
+          "Build, deploy, tune",
+          "Train your team to run them",
+          "Engagement that flexes with the work, no lock-in"
+        ]
+      },
+      "advise": {
+        "title": "Strategy & training",
+        "tag": "ADVISORY + TRAINING",
+        "desc": "Short engagements for leaders who need a real answer to \"what should we actually do with AI?\" We map your stack, prioritize the opportunities, and train your team so they don't need us forever.",
+        "bullets": [
+          "Stack audit + opportunity mapping",
+          "Build vs. buy recommendations",
+          "Roadmap with prioritized opportunities",
+          "Hands-on training for your team",
+          "Optional implementation handoff"
+        ]
+      }
+    }
+  },
+  "process": {
+    "kicker": "// 02 — HOW WE WORK",
+    "titleLine1": "From brief",
+    "titleLine2": "to production.",
+    "steps": {
+      "brief": {
+        "label": "BRIEF",
+        "title": "We meet, we listen, we scope.",
+        "desc": "30-min call. You explain the problem, we explain how we'd build it. If there's a fit, we send a fixed-scope proposal."
+      },
+      "design": {
+        "label": "DESIGN",
+        "title": "Prototype before we commit.",
+        "desc": "We design the agent flow, the surfaces, the data model, the evals. You get a clickable prototype and a build plan before any code is written."
+      },
+      "build": {
+        "label": "BUILD",
+        "title": "You stay in the loop.",
+        "desc": "You see working software early and often. Loom demos, fast deploys, code reviews. You watch the build happen, not just the result."
+      },
+      "operate": {
+        "label": "OPERATE",
+        "title": "Hand off, or stay on.",
+        "desc": "We can hand the codebase to your team with full docs and runbooks. Or we keep operating it on a monthly retainer. Your call."
+      }
+    }
+  },
+  "proof": {
+    "kicker": "// OUR OWN PRODUCTS",
+    "titleLine1": "We build our own",
+    "titleLine2": "products, in the open.",
+    "intro": "We don't just build for clients. The same team ships its own open-source tools on GitHub. It's how we stay sharp and push what AI can do.",
+    "barLeft": "OPEN SOURCE · ON GITHUB",
+    "barRight": "4 OF 14 PUBLIC",
+    "browseAll": "Browse all on GitHub",
+    "products": {
+      "companion": "Web & Mobile UI for Claude Code & Codex. Launch sessions, stream responses, approve tools.",
+      "drift": "VS Code extension that integrates with Claude Code. Check your AI drift in real time.",
+      "granite": "Local-first knowledge compiler for humans and agents. Plain markdown, CLI + MCP server.",
+      "vanish": "Upload files, get temporary public URLs. Dead simple."
+    }
+  },
+  "finalCta": {
+    "kicker": "// 04 — NOW BOARDING",
+    "titleLine1": "Got a problem",
+    "titleLine2": "to solve?",
+    "bookCall": "Book a discovery call",
+    "responseLabel": "RESPONSE",
+    "responseValue": "WITHIN 24H",
+    "emailLabel": "EMAIL"
+  },
+  "footer": {
+    "tagline": "An AI native agency. Paris.",
+    "siteHeading": "SITE",
+    "elsewhereHeading": "ELSEWHERE",
+    "statusHeading": "STATUS",
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "resources": "Resources",
+    "mission": "Mission",
+    "builtWithAi": "Built with AI",
+    "openToProjects": "Open to projects",
+    "foundersLed": "Founders-led"
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 interface NavLink {
   label: string;
@@ -8,12 +9,12 @@ interface NavLink {
   external?: boolean;
 }
 
-const SITE_LINKS: NavLink[] = [
-  { label: "Home", href: "/" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Resources", href: "/resources" },
-  { label: "Mission", href: "/agency" },
-];
+const SITE_LINKS = [
+  { key: "home", href: "/" },
+  { key: "portfolio", href: "/portfolio" },
+  { key: "resources", href: "/resources" },
+  { key: "mission", href: "/agency" },
+] as const;
 
 const ELSEWHERE_LINKS: NavLink[] = [
   { label: "X / Twitter", href: "https://x.com/thevibecompany", external: true },
@@ -29,11 +30,7 @@ const ELSEWHERE_LINKS: NavLink[] = [
   },
 ];
 
-const STATUS_ITEMS = [
-  "Built with AI",
-  "Open to projects",
-  "Founders-led",
-];
+const STATUS_ITEMS = ["builtWithAi", "openToProjects", "foundersLed"] as const;
 
 const buildYear = new Date().getUTCFullYear();
 
@@ -63,6 +60,7 @@ function FooterLink({ link }: { link: NavLink }) {
 }
 
 export function Footer() {
+  const t = useTranslations("footer");
   return (
     <footer className="border-t-2 border-foreground bg-foreground text-background">
       <div className="mx-auto max-w-[120rem] px-6 pb-6 pt-16 md:px-12 md:pt-20">
@@ -72,7 +70,7 @@ export function Footer() {
               The Vibe Co.
             </h2>
             <p className="m-0 mb-4 max-w-[280px] text-sm text-background/60">
-              An AI native agency. Paris.
+              {t("tagline")}
             </p>
             <a
               href="mailto:founders@thevibecompany.co"
@@ -84,12 +82,12 @@ export function Footer() {
 
           <div>
             <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
-              SITE
+              {t("siteHeading")}
             </div>
             <ul className="m-0 flex list-none flex-col gap-2 p-0">
               {SITE_LINKS.map((link) => (
-                <li key={link.label}>
-                  <FooterLink link={link} />
+                <li key={link.key}>
+                  <FooterLink link={{ label: t(link.key), href: link.href }} />
                 </li>
               ))}
             </ul>
@@ -97,7 +95,7 @@ export function Footer() {
 
           <div>
             <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
-              ELSEWHERE
+              {t("elsewhereHeading")}
             </div>
             <ul className="m-0 flex list-none flex-col gap-2 p-0">
               {ELSEWHERE_LINKS.map((link) => (
@@ -110,7 +108,7 @@ export function Footer() {
 
           <div>
             <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
-              STATUS
+              {t("statusHeading")}
             </div>
             <ul className="m-0 flex list-none flex-col gap-2 p-0">
               {STATUS_ITEMS.map((item) => (
@@ -122,7 +120,7 @@ export function Footer() {
                     aria-hidden="true"
                     className="h-1.5 w-1.5 animate-pulse rounded-full bg-background"
                   />
-                  {item}
+                  {t(item)}
                 </li>
               ))}
             </ul>

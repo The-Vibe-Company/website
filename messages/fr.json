@@ -13,9 +13,134 @@
     "bookCall": "Réserver un appel découverte",
     "seeWhatWeDo": "Voir ce qu'on fait",
     "items": {
-      "build": { "label": "Construire", "desc": "Produits IA et outils internes, de bout en bout." },
-      "operate": { "label": "Opérer", "desc": "Des agents dans votre entreprise. Ventes, support, admin, contenu." },
-      "advise": { "label": "Conseiller", "desc": "Stratégie, formation, et le playbook IA pour votre équipe." }
+      "build": {
+        "label": "Construire",
+        "desc": "Produits IA et outils internes, de bout en bout."
+      },
+      "operate": {
+        "label": "Opérer",
+        "desc": "Des agents dans votre entreprise. Ventes, support, admin, contenu."
+      },
+      "advise": {
+        "label": "Conseiller",
+        "desc": "Stratégie, formation, et le playbook IA pour votre équipe."
+      }
     }
+  },
+  "clients": {
+    "trustedBy": "Ils nous font confiance"
+  },
+  "caseStudy": {
+    "kicker": "// TRAVAIL CLIENT",
+    "titleLine1": "Construit pour nos clients,",
+    "titleLine2": "en production.",
+    "readCase": "Lire le cas",
+    "prev": "Cas précédent",
+    "next": "Cas suivant"
+  },
+  "services": {
+    "kicker": "// 01 — CE QU'ON FAIT",
+    "titleLine1": "Trois façons",
+    "titleLine2": "de travailler ensemble.",
+    "items": {
+      "build": {
+        "title": "Développement de produits",
+        "tag": "DÉVELOPPEMENT SUR MESURE",
+        "desc": "On conçoit et on livre votre produit de bout en bout. Code, design, évaluations, ops. L'IA fait tout ce qui n'a pas besoin d'un humain, donc on livre 50 à 100× plus vite qu'une équipe classique.",
+        "bullets": [
+          "Cadrage, architecture, code prêt pour la production",
+          "Construit avec Claude + Codex + des agents dans la boucle",
+          "Évaluations + observabilité dès le premier jour",
+          "Passation complète avec la doc, ou on continue à l'opérer"
+        ]
+      },
+      "operate": {
+        "title": "Opérations par agents",
+        "tag": "INTÉGRER + OPÉRER",
+        "desc": "On déploie des agents dans votre entreprise pour prendre en charge les tâches que personne ne veut. Ventes, support, contenu, flux admin, outils internes. Partout où votre équipe perd des heures sur du répétitif.",
+        "bullets": [
+          "Audit des workflows + carte du ROI",
+          "Construire, déployer, ajuster",
+          "Former votre équipe à les piloter",
+          "Un engagement qui s'adapte à la charge, sans dépendance"
+        ]
+      },
+      "advise": {
+        "title": "Stratégie & formation",
+        "tag": "CONSEIL + FORMATION",
+        "desc": "Des missions courtes pour les dirigeants qui veulent une vraie réponse à « qu'est-ce qu'on devrait vraiment faire avec l'IA ? ». On cartographie votre stack, on priorise les opportunités, et on forme votre équipe pour qu'elle n'ait plus besoin de nous.",
+        "bullets": [
+          "Audit de la stack + cartographie des opportunités",
+          "Recommandations construire ou acheter",
+          "Feuille de route avec opportunités priorisées",
+          "Formation pratique pour votre équipe",
+          "Passation d'implémentation en option"
+        ]
+      }
+    }
+  },
+  "process": {
+    "kicker": "// 02 — COMMENT ON TRAVAILLE",
+    "titleLine1": "Du brief",
+    "titleLine2": "à la production.",
+    "steps": {
+      "brief": {
+        "label": "BRIEF",
+        "title": "On se rencontre, on écoute, on cadre.",
+        "desc": "Appel de 30 min. Vous expliquez le problème, on explique comment on le construirait. Si ça matche, on envoie une proposition à périmètre fixe."
+      },
+      "design": {
+        "label": "DESIGN",
+        "title": "Un prototype avant de s'engager.",
+        "desc": "On conçoit le flux des agents, les interfaces, le modèle de données, les évaluations. Vous avez un prototype cliquable et un plan de build avant la moindre ligne de code."
+      },
+      "build": {
+        "label": "BUILD",
+        "title": "Vous restez dans la boucle.",
+        "desc": "Vous voyez du logiciel qui marche tôt et souvent. Démos Loom, déploiements rapides, revues de code. Vous voyez le build se faire, pas juste le résultat."
+      },
+      "operate": {
+        "label": "OPÉRER",
+        "title": "Passation, ou on reste.",
+        "desc": "On peut confier le code à votre équipe avec toute la doc et les runbooks. Ou on continue à l'opérer au forfait mensuel. À vous de voir."
+      }
+    }
+  },
+  "proof": {
+    "kicker": "// NOS PROPRES PRODUITS",
+    "titleLine1": "On construit nos propres",
+    "titleLine2": "produits, à ciel ouvert.",
+    "intro": "On ne construit pas que pour nos clients. La même équipe publie ses propres outils open source sur GitHub. C'est comme ça qu'on reste affûtés et qu'on repousse ce que l'IA peut faire.",
+    "barLeft": "OPEN SOURCE · SUR GITHUB",
+    "barRight": "4 SUR 14 PUBLICS",
+    "browseAll": "Tout voir sur GitHub",
+    "products": {
+      "companion": "Interface web et mobile pour Claude Code et Codex. Lancez des sessions, streamez les réponses, validez les outils.",
+      "drift": "Extension VS Code intégrée à Claude Code. Vérifiez votre dérive IA en temps réel.",
+      "granite": "Compilateur de connaissances local-first pour humains et agents. Markdown simple, CLI + serveur MCP.",
+      "vanish": "Uploadez des fichiers, obtenez des liens publics temporaires. Ultra simple."
+    }
+  },
+  "finalCta": {
+    "kicker": "// 04 — EMBARQUEMENT",
+    "titleLine1": "Un problème",
+    "titleLine2": "à résoudre ?",
+    "bookCall": "Réserver un appel découverte",
+    "responseLabel": "RÉPONSE",
+    "responseValue": "SOUS 24H",
+    "emailLabel": "EMAIL"
+  },
+  "footer": {
+    "tagline": "Une agence AI-native. Paris.",
+    "siteHeading": "SITE",
+    "elsewhereHeading": "AILLEURS",
+    "statusHeading": "STATUT",
+    "home": "Accueil",
+    "portfolio": "Portfolio",
+    "resources": "Ressources",
+    "mission": "Mission",
+    "builtWithAi": "Construit avec l'IA",
+    "openToProjects": "Ouvert aux projets",
+    "foundersLed": "Mené par les fondateurs"
   }
 }

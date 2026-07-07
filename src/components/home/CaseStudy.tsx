@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { CUSTOMERS } from "@/lib/customers";
 
 const ARROW_CLASS =
@@ -12,6 +13,7 @@ export function CaseStudy() {
   const reduceMotion = useReducedMotion() ?? false;
   const trackRef = useRef<HTMLDivElement>(null);
   const showArrows = CUSTOMERS.length > 2;
+  const t = useTranslations("caseStudy");
 
   const scrollByCard = (direction: 1 | -1) => {
     const track = trackRef.current;
@@ -27,7 +29,7 @@ export function CaseStudy() {
       <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
         <div className="mb-12 md:mb-14">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {"// CLIENT WORK"}
+            {t("kicker")}
           </span>
           <h2
             className="m-0 font-bold text-foreground"
@@ -37,7 +39,7 @@ export function CaseStudy() {
               letterSpacing: "-0.045em",
             }}
           >
-            Built for clients,
+            {t("titleLine1")}
             <br />
             <span
               style={{
@@ -45,7 +47,7 @@ export function CaseStudy() {
                 color: "transparent",
               }}
             >
-              live in production.
+              {t("titleLine2")}
             </span>
           </h2>
         </div>
@@ -55,7 +57,7 @@ export function CaseStudy() {
             <button
               type="button"
               onClick={() => scrollByCard(-1)}
-              aria-label="Previous case"
+              aria-label={t("prev")}
               className={ARROW_CLASS}
             >
               &larr;
@@ -127,7 +129,7 @@ export function CaseStudy() {
 
                   <span className="mt-7 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground">
                     <span className="underline decoration-1 underline-offset-4 group-hover:no-underline">
-                      Read the case
+                      {t("readCase")}
                     </span>
                     <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
                       →
@@ -142,7 +144,7 @@ export function CaseStudy() {
             <button
               type="button"
               onClick={() => scrollByCard(1)}
-              aria-label="Next case"
+              aria-label={t("next")}
               className={ARROW_CLASS}
             >
               &rarr;

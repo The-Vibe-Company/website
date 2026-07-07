@@ -1,57 +1,17 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
-interface Service {
-  n: string;
-  title: string;
-  tag: string;
-  desc: string;
-  bullets: string[];
-}
-
-const SERVICES: Service[] = [
-  {
-    n: "01",
-    title: "Product builds",
-    tag: "BUILD-FOR-HIRE",
-    desc: "We design and ship your product end-to-end. Code, design, evals, ops. AI does everything that doesn't need a human, so we ship 50–100× faster than a traditional team.",
-    bullets: [
-      "Discovery, architecture, production-grade code",
-      "Built with Claude + Codex + agents in the loop",
-      "Evals + observability shipped from day one",
-      "Full handoff with docs, or we keep operating it",
-    ],
-  },
-  {
-    n: "02",
-    title: "Agent ops",
-    tag: "EMBED + OPERATE",
-    desc: "We deploy agents inside your company to take over the ops nobody wants. Sales, support, content, admin flows, internal tools. Wherever your team is burning hours on repetitive work.",
-    bullets: [
-      "Workflow audit + ROI map",
-      "Build, deploy, tune",
-      "Train your team to run them",
-      "Engagement that flexes with the work, no lock-in",
-    ],
-  },
-  {
-    n: "03",
-    title: "Strategy & training",
-    tag: "ADVISORY + TRAINING",
-    desc: "Short engagements for leaders who need a real answer to \"what should we actually do with AI?\" We map your stack, prioritize the opportunities, and train your team so they don't need us forever.",
-    bullets: [
-      "Stack audit + opportunity mapping",
-      "Build vs. buy recommendations",
-      "Roadmap with prioritized opportunities",
-      "Hands-on training for your team",
-      "Optional implementation handoff",
-    ],
-  },
-];
+const SERVICES = [
+  { n: "01", key: "build" },
+  { n: "02", key: "operate" },
+  { n: "03", key: "advise" },
+] as const;
 
 export function Services() {
   const reduceMotion = useReducedMotion() ?? false;
+  const t = useTranslations("services");
 
   return (
     <section
@@ -60,7 +20,7 @@ export function Services() {
     >
       <div className="mb-12 border-b border-border pb-8 md:mb-16">
         <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          {'// 01 — WHAT WE DO'}
+          {t("kicker")}
         </span>
         <h2
           className="m-0 font-bold text-foreground"
@@ -70,9 +30,9 @@ export function Services() {
             letterSpacing: "-0.045em",
           }}
         >
-          Three ways
+          {t("titleLine1")}
           <br />
-          to work together.
+          {t("titleLine2")}
         </h2>
       </div>
 
@@ -96,20 +56,20 @@ export function Services() {
               </span>
               <div className="flex flex-col items-end gap-1">
                 <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
-                  {service.tag}
+                  {t(`items.${service.key}.tag`)}
                 </span>
               </div>
             </div>
 
             <h3 className="m-0 mb-3 text-[32px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[36px]">
-              {service.title}
+              {t(`items.${service.key}.title`)}
             </h3>
             <p className="m-0 mb-6 text-[15px] leading-[1.5] text-muted-foreground md:min-h-[90px]">
-              {service.desc}
+              {t(`items.${service.key}.desc`)}
             </p>
 
             <ul className="m-0 flex flex-1 flex-col gap-2 p-0">
-              {service.bullets.map((b) => (
+              {t.raw(`items.${service.key}.bullets`).map((b: string) => (
                 <li
                   key={b}
                   className="flex gap-2.5 text-sm leading-[1.4] text-foreground"

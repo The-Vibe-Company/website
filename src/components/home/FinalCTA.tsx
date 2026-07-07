@@ -1,10 +1,12 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { captureEvent } from "@/lib/posthog";
 
 export function FinalCTA() {
   const reduceMotion = useReducedMotion() ?? false;
+  const t = useTranslations("finalCta");
 
   return (
     <section
@@ -33,7 +35,7 @@ export function FinalCTA() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-8 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground"
         >
-          {'// 04 — NOW BOARDING'}
+          {t("kicker")}
         </motion.span>
 
         <motion.h2
@@ -48,14 +50,14 @@ export function FinalCTA() {
             letterSpacing: "-0.05em",
           }}
         >
-          <span>Got a problem</span>
+          <span>{t("titleLine1")}</span>
           <span
             style={{
               WebkitTextStroke: "2px var(--foreground)",
               color: "transparent",
             }}
           >
-            to solve?
+            {t("titleLine2")}
           </span>
         </motion.h2>
 
@@ -71,16 +73,16 @@ export function FinalCTA() {
             onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
             className="inline-flex items-center border-2 border-foreground bg-foreground px-7 py-5 text-[17px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
           >
-            Book a discovery call
+            {t("bookCall")}
             <span aria-hidden="true" className="ml-3">
               →
             </span>
           </a>
 
           <dl className="grid w-full grid-cols-[auto_1fr] items-baseline gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground md:w-auto md:justify-end md:text-right">
-            <dt className="text-muted-foreground md:text-right">RESPONSE</dt>
-            <dd className="m-0 md:text-left">WITHIN 24H</dd>
-            <dt className="text-muted-foreground md:text-right">EMAIL</dt>
+            <dt className="text-muted-foreground md:text-right">{t("responseLabel")}</dt>
+            <dd className="m-0 md:text-left">{t("responseValue")}</dd>
+            <dt className="text-muted-foreground md:text-right">{t("emailLabel")}</dt>
             <dd className="m-0 md:text-left">founders@thevibecompany.co</dd>
           </dl>
         </motion.div>

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Marquee } from "@/components/Marquee";
 
 interface Client {
@@ -22,10 +23,11 @@ const CLIENTS: Client[] = [
 ];
 
 export function Clients() {
+  const t = useTranslations("clients");
   return (
     <section id="clients" className="bg-background py-10 md:py-12">
       <p className="mb-6 px-6 text-center font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground md:mb-7">
-        Trusted by
+        {t("trustedBy")}
       </p>
       <Marquee>
         {CLIENTS.map((client) => (

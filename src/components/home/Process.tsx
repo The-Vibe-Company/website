@@ -1,43 +1,18 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
-interface Step {
-  n: string;
-  label: string;
-  title: string;
-  desc: string;
-}
-
-const STEPS: Step[] = [
-  {
-    n: "01",
-    label: "BRIEF",
-    title: "We meet, we listen, we scope.",
-    desc: "30-min call. You explain the problem, we explain how we'd build it. If there's a fit, we send a fixed-scope proposal.",
-  },
-  {
-    n: "02",
-    label: "DESIGN",
-    title: "Prototype before we commit.",
-    desc: "We design the agent flow, the surfaces, the data model, the evals. You get a clickable prototype and a build plan before any code is written.",
-  },
-  {
-    n: "03",
-    label: "BUILD",
-    title: "You stay in the loop.",
-    desc: "You see working software early and often. Loom demos, fast deploys, code reviews. You watch the build happen, not just the result.",
-  },
-  {
-    n: "04",
-    label: "OPERATE",
-    title: "Hand off, or stay on.",
-    desc: "We can hand the codebase to your team with full docs and runbooks. Or we keep operating it on a monthly retainer. Your call.",
-  },
-];
+const STEPS = [
+  { n: "01", key: "brief" },
+  { n: "02", key: "design" },
+  { n: "03", key: "build" },
+  { n: "04", key: "operate" },
+] as const;
 
 export function Process() {
   const reduceMotion = useReducedMotion() ?? false;
+  const t = useTranslations("process");
 
   return (
     <section
@@ -47,7 +22,7 @@ export function Process() {
       <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
         <div className="mb-14 border-b border-white/15 pb-8 md:mb-20">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-white/55">
-            {'// 02 — HOW WE WORK'}
+            {t("kicker")}
           </span>
           <h2
             className="m-0 font-bold text-background"
@@ -57,9 +32,9 @@ export function Process() {
               letterSpacing: "-0.045em",
             }}
           >
-            From brief
+            {t("titleLine1")}
             <br />
-            to production.
+            {t("titleLine2")}
           </h2>
         </div>
 
@@ -82,16 +57,16 @@ export function Process() {
                   {step.n}
                 </span>
                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
-                  {step.label}
+                  {t(`steps.${step.key}.label`)}
                 </span>
               </div>
 
               <div className="flex flex-col gap-3">
                 <h3 className="m-0 max-w-[540px] text-[26px] font-bold leading-[1.05] tracking-[-0.03em] text-background md:text-[32px]">
-                  {step.title}
+                  {t(`steps.${step.key}.title`)}
                 </h3>
                 <p className="m-0 max-w-[540px] text-base leading-[1.55] text-white/70">
-                  {step.desc}
+                  {t(`steps.${step.key}.desc`)}
                 </p>
               </div>
             </motion.li>
