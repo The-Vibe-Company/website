@@ -25,7 +25,7 @@ Un skill, c'est le mode d'emploi que je donne à l'IA pour qu'elle refasse une t
 
 ## Le principe, pas la forme
 
-Le cœur du skill tient en une phrase, écrite dans son mode d'emploi :
+Le cœur du skill tient en une phrase :
 
 « Le skill ne copie jamais un logo existant. Il en extrait le principe, l'idée de conception, pas la forme. »
 
@@ -38,7 +38,7 @@ Nike : le mouvement capturé en un seul geste continu, une virgule qui accélèr
 The Vibe Company : un bloc simple aux angles arrondis qui tient un motif fin et rythmé à l'intérieur.
 ```
 
-Ce ne sont pas des descriptions de la forme, ce sont des idées. On garde l'idée, on jette le dessin, on invente le nôtre.
+Ce que le skill retient, ce n'est pas le dessin exact, c'est l'idée derrière. On garde l'idée, et on invente notre propre forme.
 
 ## Le goût, mis en dur dans le skill
 
@@ -59,7 +59,7 @@ Ma préférée, c'est la dernière. Le favicon, c'est la petite icône dans l'on
 J'ai aussi listé les tics du logo « fait par IA », ceux qu'il doit fuir. C'est exactement ce que me sortaient les générateurs d'images :
 
 1. Le dégradé, l'ombre portée, le reflet, la 3D.
-2. Trois idées empilées dans un seul symbole.
+2. Trois idées entassées dans un seul symbole.
 3. Le cliché littéral, une ampoule pour « idée », un cerveau pour « intelligence artificielle ».
 
 En lui interdisant tout ça, je le force à faire simple. C'est là que les logos deviennent propres.
@@ -68,28 +68,24 @@ En lui interdisant tout ça, je le force à faire simple. C'est là que les logo
 
 La grande différence avec un générateur d'images, c'est la sortie. Un générateur me rend une image figée, faite de points de couleur, floue dès qu'on l'agrandit. Le skill, lui, me rend un logo vectoriel.
 
-Un logo vectoriel, c'est littéralement du texte, une suite d'instructions de dessin. Dans le skill, j'ai même figé comment ce texte doit être écrit. Voici ces règles, copiées du skill :
+Un logo vectoriel, c'est littéralement du texte, une suite d'instructions de dessin. Dans le skill, j'ai même figé comment ce texte doit s'écrire :
 
 ```
 viewBox carré, par exemple 0 0 100 100
 fill="currentColor"   (le logo prend la couleur du texte autour)
 une seule couleur, fond transparent
-pas de filtre, pas de dégradé, pas de glow
+pas de filtre, pas de dégradé, pas d'effet lumineux
 ```
 
-La ligne qui compte le plus, c'est `fill="currentColor"`. Elle dit au logo de prendre tout seul la couleur du texte autour de lui, donc noir sur une page claire et blanc sur un fond foncé.
+La ligne qui compte le plus, c'est `fill="currentColor"`. Grâce à elle, un seul fichier suffit pour tous les fonds, je n'ai pas à refaire une version claire et une version foncée.
 
-Et comme tout ça reste du texte, le logo est net à n'importe quelle taille et s'édite après coup. Un dessin, deux usages.
+Et comme tout reste du texte, le logo est net à n'importe quelle taille et s'édite après coup.
 
 ## Comment ça se passe, concrètement
 
-Quand je lance le skill, il suit toujours le même chemin :
+Quand je lance le skill, il suit toujours le même chemin. Il commence par cadrer, ce que la marque doit dégager et où vivra le logo, puis il lit mes références et en tire les principes.
 
-1. Il cadre. Ce que représente la marque, ce qu'elle doit dégager en un mot, où vivra le logo.
-2. Il lit mes références et en tire les principes.
-3. Il propose deux ou trois concepts vraiment différents, chacun résumable en une phrase, pas trois variantes du même trait.
-4. Il les dessine et me les montre côte à côte, sur fond clair, sur fond foncé, et en tout petit.
-5. Je choisis, il affine, et il livre les fichiers finaux, une version noire, une version blanche.
+Ensuite il propose deux ou trois concepts vraiment différents, pas des variantes du même trait, et me les montre côte à côte, en grand et en tout petit. Je choisis, il affine, et il me livre les fichiers, une version noire et une blanche.
 
 ## Le logo de Companion
 
@@ -98,7 +94,7 @@ Je l'ai lancé pour de vrai dans Claude Design, sur l'identité de Companion. Pr
 Alors j'ai fait une chose que je trouve amusante. J'ai ajouté ce logo au skill, comme troisième référence, à côté de The Vibe Company et de Nike. Une ligne de plus dans la même liste :
 
 ```
-Stack : trois barres arrondies empilées, une couche décalée qui crée le rythme. L'empilement propre, redit trois fois.
+Stack : trois barres arrondies empilées, une couche décalée qui crée le rythme. L'empilement propre, une seule idée.
 ```
 
 Le skill apprenait de son propre résultat, et cette ligne, c'est ce qui l'a poussé vers le bon logo.
@@ -109,7 +105,7 @@ Nouvelle conversation, même demande. Cette fois, il a sorti le bon, un C, celui
 
 Une fois ce dessin validé, je lui ai demandé des variantes en couleur. C'est comme ça qu'on a trouvé la version finale.
 
-![Le logo Companion, un C formé de trois arcs en dégradé orange, suivi du mot Companion](/images/resources/focus-skill-logo-svg/companion-logo.png "Le logo final de Companion, le C à trois lignes en couleur")
+![Le logo Companion, un C formé de trois lignes courbes en dégradé orange, suivi du mot Companion](/images/resources/focus-skill-logo-svg/companion-logo.png "Le logo final de Companion, le C à trois lignes en couleur")
 
 ## Ce que j'en retiens
 
