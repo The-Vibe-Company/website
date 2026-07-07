@@ -200,5 +200,21 @@
     "relatedSkills": "Skills liés",
     "viewAll": "Voir tout",
     "openSkill": "Ouvrir le skill"
+  },
+  "portfolio": {
+    "kicker": "Portfolio",
+    "title": "Projets",
+    "subtitle": "Une sélection de nos productions.",
+    "built": "Réalisé",
+    "open": "Ouvrir",
+    "metaTitle": "Projets",
+    "metaDescription": "Une sélection de projets avec leurs pages d’accueil, quelques notes et leurs dates de sortie."
+  },
+  "agency": {
+    "kicker": "Agence",
+    "metaTitle": "Qui sommes-nous",
+    "metaDescription": "The Vibe Company est une agence AI-native qui aide les startups à livrer plus vite grâce au développement assisté par l’IA, au prototypage et à l’exécution rapide.",
+    "body": "On est bien trop occupés à livrer pour écrire notre propre page agence.",
+    "bodyIronic": "Ironique ? Complètement."
   }
 }
