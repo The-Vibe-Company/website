@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
@@ -11,7 +11,7 @@ const ARROW_CLASS =
 
 type T = (key: string) => string;
 
-/** The card body, shared by the default carousel and the infinite band. */
+/** The card body, shared by the default carousel and the infinite loop. */
 function CaseStudyCard({ c, t }: { c: Customer; t: T }) {
   return (
     <Link
@@ -84,53 +84,105 @@ function SectionHeader({ t }: { t: T }) {
   );
 }
 
-// An even number of copies keeps the translateX(-50%) reset seamless (the
-// first half equals the second) and wide enough to cover ultrawide screens.
-const BAND_COPIES = 4;
+const CARD_WIDTH = "w-[86%] shrink-0 sm:w-[70%] md:w-[calc(50%-10px)]";
 
-/** Infinite auto-scrolling band of every case study, looping forever. */
-function CaseStudyBand({ customers, t }: { customers: Customer[]; t: T }) {
-  const reduceMotion = useReducedMotion() ?? false;
-  const [paused, setPaused] = useState(false);
+/**
+ * Same two-card format as the default, but the track loops forever: the user
+ * scrolls it by hand (trackpad or arrows) and it wraps seamlessly in both
+ * directions. Nothing auto-scrolls. Three identical copies give a full set of
+ * buffer on each side; when the scroll position drifts past a copy, it jumps by
+ * exactly one set width onto identical content, so the wrap is invisible.
+ */
+function CaseStudyLoop({ customers, t }: { customers: Customer[]; t: T }) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const setLen = customers.length;
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const setWidth = () => {
+      const cards = track.querySelectorAll<HTMLElement>("[data-card]");
+      if (cards.length < setLen * 2) return 0;
+      return cards[setLen].offsetLeft - cards[0].offsetLeft;
+    };
+
+    // Start in the middle copy so there is room to scroll left immediately.
+    const init = () => {
+      const w = setWidth();
+      if (w > 0) track.scrollLeft = w;
+    };
+    init();
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const w = setWidth();
+        if (w > 0) {
+          if (track.scrollLeft < w * 0.5) track.scrollLeft += w;
+          else if (track.scrollLeft > w * 1.5) track.scrollLeft -= w;
+        }
+        ticking = false;
+      });
+    };
+
+    track.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", init);
+    return () => {
+      track.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", init);
+    };
+  }, [setLen]);
+
+  const scrollByCard = (direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector<HTMLElement>("[data-card]");
+    const gap = 20;
+    const amount = card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+    track.scrollBy({ left: direction * amount, behavior: "smooth" });
+  };
+
+  const loop = [0, 1, 2];
 
   return (
     <section id="cases" className="border-b border-border bg-background">
-      <div className="mx-auto max-w-[100rem] px-6 pt-24 md:px-12 md:pt-28">
+      <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
         <SectionHeader t={t} />
-      </div>
 
-      <div
-        className="relative overflow-hidden pb-24 md:pb-28"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
-        {/* Edge fades so the band clearly bleeds off both sides. */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-background to-transparent md:w-24" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-background to-transparent md:w-24" />
+        <div className="flex items-stretch gap-3 md:gap-4">
+          <button
+            type="button"
+            onClick={() => scrollByCard(-1)}
+            aria-label={t("prev")}
+            className={ARROW_CLASS}
+          >
+            &larr;
+          </button>
 
-        <div
-          className="flex w-max items-stretch py-2"
-          style={
-            reduceMotion
-              ? undefined
-              : {
-                  // Reuse the global `marquee` keyframes (0 -> translateX(-50%)).
-                  // An even copy count keeps the -50% reset seamless.
-                  animation: "marquee 75s linear infinite",
-                  animationPlayState: paused ? "paused" : "running",
-                }
-          }
-        >
-          {Array.from({ length: BAND_COPIES }).flatMap((_, copy) =>
-            customers.map((c) => (
-              <div
-                key={`${copy}-${c.slug}`}
-                className="mx-2.5 w-[320px] shrink-0 sm:w-[360px] md:w-[400px]"
-              >
-                <CaseStudyCard c={c} t={t} />
-              </div>
-            ))
-          )}
+          <div
+            ref={trackRef}
+            className="flex min-w-0 flex-1 gap-5 overflow-x-auto scroll-p-2 p-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {loop.flatMap((copy) =>
+              customers.map((c) => (
+                <div key={`${copy}-${c.slug}`} data-card className={CARD_WIDTH}>
+                  <CaseStudyCard c={c} t={t} />
+                </div>
+              ))
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => scrollByCard(1)}
+            aria-label={t("next")}
+            className={ARROW_CLASS}
+          >
+            &rarr;
+          </button>
         </div>
       </div>
     </section>
@@ -145,7 +197,7 @@ export function CaseStudy({ variant = "default" }: { variant?: "default" | "peek
   const customers = getCustomers(locale);
 
   if (variant === "peek") {
-    return <CaseStudyBand customers={customers} t={t} />;
+    return <CaseStudyLoop customers={customers} t={t} />;
   }
 
   const showArrows = customers.length > 2;
