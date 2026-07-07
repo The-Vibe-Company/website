@@ -63,8 +63,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       fr: "de zéro à en ligne sur iOS et Android",
     },
     summary: {
-      en: "Monka helps people who care for a loved one. They were years into their product, with heavy tech debt and a deadline they could not miss. We rebuilt their mobile app and their care-coordination tool from scratch, fully vibe-coded, in two months.",
-      fr: "Monka aide les personnes qui accompagnent un proche. Après des années sur leur produit, avec une lourde dette technique et une deadline à ne pas rater, on a reconstruit leur app mobile et leur outil de coordination de zéro, 100% vibe codé, en deux mois.",
+      en: "Monka helps people who care for a loved one. They came to us with an ambitious roadmap and a deadline they couldn't miss. In two months we rebuilt their mobile app and their care-coordination tool from scratch, fully vibe-coded, and shipped the year of features they had planned.",
+      fr: "Monka aide les personnes qui accompagnent un proche. Ils sont venus avec une roadmap ambitieuse et une deadline à ne pas rater. En deux mois, on a reconstruit leur app mobile et leur outil de coordination de zéro, 100% vibe codé, et livré l'année de fonctionnalités qu'ils avaient prévue.",
     },
     points: [
       {
@@ -76,13 +76,13 @@ const CUSTOMERS_RAW: RawCustomer[] = [
         fr: "Lifeline, un tableau de bord pour les infirmières de coordination : rendez-vous, comptes rendus de suivi, documents partagés.",
       },
       {
-        en: "Further in two months than the product's previous four years.",
-        fr: "Plus loin en deux mois que les quatre années précédentes du produit.",
+        en: "The 12 months of features on their roadmap, built and shipped in two.",
+        fr: "Les 12 mois de fonctionnalités prévues à leur roadmap, construites et livrées en deux.",
       },
     ],
     overview: {
-      en: "Monka helps people who care for a loved one in a difficult situation. They had spent years building their product and were carrying heavy technical debt, with a hard deadline they could not miss. In two months, we rebuilt their mobile app and their care-coordination tool from scratch, fully vibe-coded, keeping their existing API.",
-      fr: "Monka aide les personnes qui accompagnent un proche en situation difficile. Après des années passées sur leur produit et une lourde dette technique, avec une deadline à ne pas manquer, on a reconstruit en deux mois leur app mobile et leur outil de coordination de zéro, 100% vibe codé, en gardant leur API existante.",
+      en: "Monka helps people who care for a loved one in a difficult situation. They came to us with an ambitious roadmap and a hard deadline they couldn't miss. In two months, we rebuilt their mobile app and their care-coordination tool from scratch, fully vibe-coded, keeping their existing API and clearing their technical debt along the way.",
+      fr: "Monka aide les personnes qui accompagnent un proche en situation difficile. Ils sont venus avec une roadmap ambitieuse et une deadline à ne pas manquer. En deux mois, on a reconstruit leur app mobile et leur outil de coordination de zéro, 100% vibe codé, en gardant leur API existante et en soldant leur dette technique au passage.",
     },
     results: [
       { value: { en: "2 months", fr: "2 mois" }, label: { en: "From first line to the App Store", fr: "De la première ligne à l'App Store" } },
@@ -92,8 +92,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     ],
     quote: {
       text: {
-        en: "The Vibe Company nous a permis d'accélérer très concrètement chez Monka. Une équipe smart, pragmatique, vraiment AI-native, capable de transformer des sujets complexes en outils utiles, livrés vite et state of the art.",
-        fr: "The Vibe Company nous a permis d'accélérer très concrètement chez Monka. Une équipe smart, pragmatique, vraiment AI-native, capable de transformer des sujets complexes en outils utiles, livrés vite et state of the art.",
+        en: "Travailler avec The Vibe Company est très différent d'une relation classique avec une agence. Ils ne se contentent pas d'exécuter un brief : ils challengent, structurent, prototypent et construisent avec nous. Ils apportent à la fois une vraie vision produit, une forte expertise IA et un pragmatisme rare pour transformer des sujets complexes en solutions concrètes, utiles et rapidement déployées chez Monka. En quelques semaines seulement nous avons soldé notre dette technique, structuré la scalabilité de notre techno et développé les 12 mois de fonctionnalités prévues dans notre roadmap.",
+        fr: "Travailler avec The Vibe Company est très différent d'une relation classique avec une agence. Ils ne se contentent pas d'exécuter un brief : ils challengent, structurent, prototypent et construisent avec nous. Ils apportent à la fois une vraie vision produit, une forte expertise IA et un pragmatisme rare pour transformer des sujets complexes en solutions concrètes, utiles et rapidement déployées chez Monka. En quelques semaines seulement nous avons soldé notre dette technique, structuré la scalabilité de notre techno et développé les 12 mois de fonctionnalités prévues dans notre roadmap.",
       },
       author: {
         en: "Étienne, CEO and cofounder of Monka",
@@ -175,8 +175,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       fr: "quels retours du catalogue ont été appliqués, lesquels non",
     },
     summary: {
-      en: "Coup de Pâtes reviews product catalogs from their designers: a v0 comes in, they mark up their feedback, and the revised version comes back. Checking that every note was actually applied was slow and tedious. We built them AI skills that surface it all in a few glances.",
-      fr: "Coup de Pâtes relit les catalogues produits de leurs designers : une v0 arrive, ils annotent leurs retours, et la version révisée revient. Vérifier que chaque retour a bien été appliqué était long et fastidieux. On leur a construit des skills IA qui font ressortir tout ça en quelques coups d'œil.",
+      en: "Coup de Pâtes reviews product catalogs from their designers: a v0 comes in, they mark up their feedback, and the revised version comes back. Checking that every note had been applied meant a careful manual pass. We built them AI skills that surface it all in a few glances.",
+      fr: "Coup de Pâtes relit les catalogues produits de leurs designers : une v0 arrive, ils annotent leurs retours, et la version révisée revient. Vérifier que chaque retour avait bien été appliqué demandait une relecture manuelle minutieuse. On leur a construit des skills IA qui font ressortir tout ça en quelques coups d'œil.",
     },
     points: [
       { en: "See applied vs. missed feedback instantly, plus requested changes and typos.", fr: "Voir instantanément les retours appliqués ou oubliés, plus les modifications demandées et les fautes." },
@@ -184,8 +184,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       { en: "A second tool highlights the differences between two specific documents, like two labels or two specs.", fr: "Un second outil met en évidence les différences entre deux documents précis, comme deux étiquettes ou deux cahiers des charges." },
     ],
     overview: {
-      en: "Coup de Pâtes reviews product catalogs from their designers: a v0 comes in, they mark up their feedback, and the revised version comes back. Checking that every note was actually applied was slow and tedious. We built them AI skills that surface it all in a few glances.",
-      fr: "Coup de Pâtes relit les catalogues produits de leurs designers : une v0 arrive, ils annotent leurs retours, et la version révisée revient. Vérifier que chaque retour a bien été appliqué était long et fastidieux. On leur a construit des skills IA qui font ressortir tout ça en quelques coups d'œil.",
+      en: "Coup de Pâtes reviews product catalogs from their designers: a v0 comes in, they mark up their feedback, and the revised version comes back. Checking that every note had been applied meant a careful manual pass. We built them AI skills that surface it all in a few glances.",
+      fr: "Coup de Pâtes relit les catalogues produits de leurs designers : une v0 arrive, ils annotent leurs retours, et la version révisée revient. Vérifier que chaque retour avait bien été appliqué demandait une relecture manuelle minutieuse. On leur a construit des skills IA qui font ressortir tout ça en quelques coups d'œil.",
     },
     results: [
       { value: { en: "2 tools", fr: "2 outils" }, label: { en: "Catalog review and document comparison", fr: "Revue de catalogue et comparaison de documents" } },
