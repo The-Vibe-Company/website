@@ -1,5 +1,5 @@
 ---
-title: "L'outil qui me fait vraiment gagner du temps"
+title: "L'outil qui me fait vraiment gagner du temps : Superwhisper"
 slug: l-outil-qui-me-fait-gagner-du-temps
 language: fr
 summary: "Je ne tape presque plus, je parle à mon ordinateur toute la journée. Le premier outil que j'ai installé, la dictée vocale, est celui qui m'a fait gagner le plus de temps. Et le vrai bonus, je ne l'avais pas vu venir : à l'oral, je demande bien mieux les choses à l'IA."
@@ -23,7 +23,7 @@ Le hic, c'est que pour bien lui dire quoi faire, il faut lui donner beaucoup de 
 
 ## La dictée vocale, le premier outil que j'ai adopté
 
-Le premier jour, j'ai installé un petit logiciel de dictée vocale, Superwhisper. Rien de sophistiqué. J'appuie sur une touche, je parle, et ce que je dis s'écrit tout seul là où j'ai le curseur.
+Le premier jour, j'ai installé un petit logiciel de dictée vocale, [Superwhisper](https://superwhisper.com). Rien de sophistiqué. J'appuie sur une touche, je parle, et ce que je dis s'écrit tout seul là où j'ai le curseur.
 
 Sur le moment, je n'en attendais pas grand-chose. C'est devenu une habitude, et là tout a changé.
 
