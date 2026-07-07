@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { FinalCTA } from "@/components/home/FinalCTA";
-import { CUSTOMERS } from "@/lib/customers";
+import { getCustomers, type ContentLocale } from "@/lib/customers";
 
-export const metadata: Metadata = {
-  title: "Case studies",
-  description:
-    "Real AI products and automations we built for clients, live in production.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("caseStudiesPage");
+  return {
+    title: t("back"),
+    description: t("subtitle"),
+  };
+}
 
-export default function CaseStudiesPage() {
+export default async function CaseStudiesPage() {
+  const locale = (await getLocale()) as ContentLocale;
+  const t = await getTranslations("caseStudiesPage");
+  const customers = getCustomers(locale);
+
   return (
     <div
       data-variant="hybrid"
@@ -22,7 +29,7 @@ export default function CaseStudiesPage() {
       <main className="flex-1">
         <section className="mx-auto max-w-[100rem] px-6 pb-16 pt-12 md:px-12 md:pb-20 md:pt-16">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {"// CLIENT WORK"}
+            {t("kicker")}
           </span>
           <h1
             className="m-0 max-w-[18ch] font-bold text-foreground"
@@ -32,7 +39,7 @@ export default function CaseStudiesPage() {
               letterSpacing: "-0.045em",
             }}
           >
-            Built for clients,
+            {t("titleLine1")}
             <br />
             <span
               style={{
@@ -40,18 +47,17 @@ export default function CaseStudiesPage() {
                 color: "transparent",
               }}
             >
-              live in production.
+              {t("titleLine2")}
             </span>
           </h1>
           <p className="m-0 mt-8 max-w-[620px] text-lg leading-[1.5] text-muted-foreground">
-            Real AI products and automations we built and run for companies,
-            fast, because we run on AI ourselves.
+            {t("subtitle")}
           </p>
         </section>
 
         <section className="mx-auto max-w-[100rem] px-6 pb-20 md:px-12 md:pb-28">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {CUSTOMERS.map((c) => (
+            {customers.map((c) => (
               <Link
                 key={c.slug}
                 href={`/case-studies/${c.slug}?from=case-studies`}
@@ -86,7 +92,7 @@ export default function CaseStudiesPage() {
 
                 <span className="mt-7 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground">
                   <span className="underline decoration-1 underline-offset-4 group-hover:no-underline">
-                    Read the case
+                    {t("readCase")}
                   </span>
                   <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
                     →

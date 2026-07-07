@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
-import { CUSTOMERS, getCustomer } from "@/lib/customers";
+import { CUSTOMER_SLUGS, getCustomer, type ContentLocale } from "@/lib/customers";
 
 export function generateStaticParams() {
-  return CUSTOMERS.map((c) => ({ slug: c.slug }));
+  return CUSTOMER_SLUGS.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -17,10 +18,12 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const customer = getCustomer(slug);
-  if (!customer) return { title: "Case study" };
+  const locale = (await getLocale()) as ContentLocale;
+  const t = await getTranslations("caseStudiesPage");
+  const customer = getCustomer(slug, locale);
+  if (!customer) return { title: t("back") };
   return {
-    title: `${customer.client} — Case study`,
+    title: `${customer.client} · ${t("back")}`,
     description: customer.summary,
   };
 }
@@ -34,14 +37,16 @@ export default async function CaseStudyPage({
 }) {
   const { slug } = await params;
   const { from } = await searchParams;
-  const customer = getCustomer(slug);
+  const locale = (await getLocale()) as ContentLocale;
+  const t = await getTranslations("caseStudiesPage");
+  const customer = getCustomer(slug, locale);
   if (!customer) notFound();
 
   // Name the back link after where the visitor came from.
   const back =
     from === "home"
-      ? { href: "/", label: "Home" }
-      : { href: "/case-studies", label: "Case studies" };
+      ? { href: "/", label: t("backHome") }
+      : { href: "/case-studies", label: t("back") };
 
   return (
     <div
@@ -108,7 +113,7 @@ export default async function CaseStudyPage({
         <section className="mx-auto max-w-[80rem] px-6 py-16 md:px-12 md:py-20">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_1fr] md:gap-16">
             <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              {"// What we did"}
+              {t("whatWeDid")}
             </h2>
             <ul className="m-0 flex list-none flex-col gap-5 p-0">
               {customer.points.map((point) => (
@@ -128,7 +133,7 @@ export default async function CaseStudyPage({
 
         <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-12 md:pb-24">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {"// The product"}
+            {t("theProduct")}
           </span>
           {customer.visuals.length > 0 ? (
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -142,7 +147,7 @@ export default async function CaseStudyPage({
           ) : (
             <div className="flex min-h-[280px] items-center justify-center border border-dashed border-border bg-background px-6 text-center">
               <p className="m-0 max-w-[420px] font-mono text-[11px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
-                Product visuals coming soon
+                {t("visualsSoon")}
               </p>
             </div>
           )}
@@ -154,7 +159,7 @@ export default async function CaseStudyPage({
               rel="noopener noreferrer"
               className="mt-8 inline-flex items-center gap-3 border-2 border-foreground bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
             >
-              Visit {customer.client}
+              {t("visit")} {customer.client}
               <span aria-hidden="true" className="text-lg">
                 &#8599;
               </span>

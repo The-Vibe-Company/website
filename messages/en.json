@@ -142,5 +142,18 @@
     "builtWithAi": "Built with AI",
     "openToProjects": "Open to projects",
     "foundersLed": "Founders-led"
+  },
+  "caseStudiesPage": {
+    "kicker": "// CLIENT WORK",
+    "titleLine1": "Built for clients,",
+    "titleLine2": "live in production.",
+    "subtitle": "Real AI products and automations we built and run for companies, fast, because we run on AI ourselves.",
+    "readCase": "Read the case",
+    "back": "Case studies",
+    "backHome": "Home",
+    "whatWeDid": "// What we did",
+    "theProduct": "// The product",
+    "visualsSoon": "Product visuals coming soon",
+    "visit": "Visit"
   }
 }

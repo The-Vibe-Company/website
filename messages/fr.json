@@ -142,5 +142,18 @@
     "builtWithAi": "Construit avec l'IA",
     "openToProjects": "Ouvert aux projets",
     "foundersLed": "Mené par les fondateurs"
+  },
+  "caseStudiesPage": {
+    "kicker": "// TRAVAIL CLIENT",
+    "titleLine1": "Construit pour nos clients,",
+    "titleLine2": "en production.",
+    "subtitle": "De vrais produits et automatisations IA qu’on construit et opère pour des entreprises, vite, parce qu’on tourne nous-mêmes à l’IA.",
+    "readCase": "Lire le cas",
+    "back": "Études de cas",
+    "backHome": "Accueil",
+    "whatWeDid": "// Ce qu’on a fait",
+    "theProduct": "// Le produit",
+    "visualsSoon": "Visuels du produit à venir",
+    "visit": "Visiter"
   }
 }

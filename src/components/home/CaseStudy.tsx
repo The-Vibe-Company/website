@@ -3,8 +3,8 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { useTranslations } from "next-intl";
-import { CUSTOMERS } from "@/lib/customers";
+import { useTranslations, useLocale } from "next-intl";
+import { getCustomers, type ContentLocale } from "@/lib/customers";
 
 const ARROW_CLASS =
   "hidden h-11 w-11 shrink-0 cursor-pointer items-center justify-center self-center border border-foreground text-lg text-foreground transition-colors hover:bg-foreground hover:text-background sm:flex";
@@ -12,8 +12,10 @@ const ARROW_CLASS =
 export function CaseStudy() {
   const reduceMotion = useReducedMotion() ?? false;
   const trackRef = useRef<HTMLDivElement>(null);
-  const showArrows = CUSTOMERS.length > 2;
   const t = useTranslations("caseStudy");
+  const locale = useLocale() as ContentLocale;
+  const customers = getCustomers(locale);
+  const showArrows = customers.length > 2;
 
   const scrollByCard = (direction: 1 | -1) => {
     const track = trackRef.current;
@@ -68,7 +70,7 @@ export function CaseStudy() {
             ref={trackRef}
             className="flex min-w-0 flex-1 snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth scroll-p-2 p-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {CUSTOMERS.map((c, i) => (
+            {customers.map((c, i) => (
               <motion.div
                 key={c.slug}
                 data-card
