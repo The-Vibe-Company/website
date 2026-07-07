@@ -85,7 +85,7 @@ Et comme tout reste du code, le logo est net à n'importe quelle taille et s'éd
 
 ## Comment ça se passe, concrètement
 
-Quand je lance le skill, il suit toujours le même chemin. Il commence par cadrer le projet, ce que la marque doit dégager en un mot et où le logo va vivre. Puis il lit mes références et en tire les principes.
+Quand je lance le skill, il commence toujours par me poser quelques questions. Ce que fait la marque, ce qu'elle doit dégager en un mot, et où le logo va apparaître, dans un favicon, un en-tête de site ou une app. Ensuite il lit les logos que je lui donne en référence et en tire les principes.
 
 Ensuite il propose deux ou trois concepts vraiment différents, pas des variantes du même trait, et me les montre côte à côte, en grand et en tout petit. Je choisis, il affine, et il me livre les fichiers, une version noire et une blanche.
 
