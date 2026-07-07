@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { LanguageFlag } from '@/components/resources/LanguageFlag';
 import type { ContentEntry } from '@/lib/content-source';
@@ -6,9 +7,9 @@ import { getUrlSlugForDbType } from '@/lib/content-types';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
 
-function formatShortDate(dateString?: string): string {
+function formatShortDate(dateString: string | undefined, locale: string): string {
   if (!dateString) return '';
-  return new Date(dateString).toLocaleDateString('en-US', {
+  return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
@@ -24,9 +25,11 @@ function hrefFor(item: ContentEntry): string {
  * cover and summary, followed by up to two compact cards. Covers keep their
  * full aspect ratio (never cropped tight) so the illustrations read well.
  */
-export function KeepReading({ items }: { items: ContentEntry[] }) {
+export async function KeepReading({ items }: { items: ContentEntry[] }) {
   if (items.length === 0) return null;
 
+  const t = await getTranslations('resources');
+  const locale = await getLocale();
   const [featured, ...rest] = items;
   const secondary = rest.slice(0, 2);
 
@@ -34,7 +37,7 @@ export function KeepReading({ items }: { items: ContentEntry[] }) {
     <section className={`${resourcesTheme.section.padding} py-24 border-t border-res-border`}>
       <div className="mb-10">
         <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-          Keep Reading
+          {t('keepReading')}
         </span>
       </div>
 
@@ -54,7 +57,7 @@ export function KeepReading({ items }: { items: ContentEntry[] }) {
           <div className="flex flex-1 flex-col justify-center p-7 md:p-9">
             <div className="mb-3 flex items-center gap-3">
               <span className="inline-flex items-center rounded-full border border-orange-500/40 bg-orange-500/10 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-widest text-orange-600">
-                Next
+                {t('next')}
               </span>
               <LanguageFlag language={featured.language} variant="inline" />
             </div>
@@ -68,7 +71,7 @@ export function KeepReading({ items }: { items: ContentEntry[] }) {
               />
             ) : null}
             <span className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-res-text-muted transition-colors group-hover:text-res-text">
-              Read article
+              {t('readArticle')}
               <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
             </span>
           </div>
@@ -106,7 +109,7 @@ export function KeepReading({ items }: { items: ContentEntry[] }) {
                 ) : null}
                 <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
                   <LanguageFlag language={r.language} variant="inline" />
-                  {r.publishedAt && <span>{formatShortDate(r.publishedAt)}</span>}
+                  {r.publishedAt && <span>{formatShortDate(r.publishedAt, locale)}</span>}
                 </div>
               </div>
             </Link>

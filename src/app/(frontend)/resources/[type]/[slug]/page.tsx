@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { KeepReading } from '@/components/resources/KeepReading';
 import { LanguageFlag } from '@/components/resources/LanguageFlag';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
@@ -44,14 +45,8 @@ const getRelated = cache(async (typeSlug: string, slug: string) => {
 
 export const dynamicParams = true;
 
-const complexityLabels: Record<string, string> = {
-  beginner: 'Beginner',
-  intermediate: 'Intermediate',
-  advanced: 'Advanced',
-};
-
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString('en-US', {
+function formatDate(dateString: string, locale: string): string {
+  return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
@@ -126,6 +121,13 @@ export default async function ContentDetailPage({
   if (!item) notFound();
 
   const related = await getRelated(contentType.slug, slug);
+  const locale = await getLocale();
+  const t = await getTranslations('resources');
+  const complexityLabels: Record<string, string> = {
+    beginner: t('beginner'),
+    intermediate: t('intermediate'),
+    advanced: t('advanced'),
+  };
 
   const cover = item.featuredImage;
   const { body: bodyWithoutCover, caption: coverCaption } = cover?.sourceUrl
@@ -153,7 +155,7 @@ export default async function ContentDetailPage({
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
                 >
                   <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
-                  Resources
+                  {t('back')}
                 </Link>
 
                 <div className="flex flex-col items-start gap-2 self-start">
@@ -173,13 +175,13 @@ export default async function ContentDetailPage({
                   {isFocus && (
                     <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
                       <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      Focus
+                      {t('focus')}
                     </span>
                   )}
                   {isTool && (
                     <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
                       <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      Tools
+                      {t('tools')}
                     </span>
                   )}
                 </div>
@@ -189,21 +191,21 @@ export default async function ContentDetailPage({
                 <div className="flex flex-col gap-4">
                   {item.publishedAt && (
                     <div className="flex flex-col gap-1">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Published</span>
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('published')}</span>
                       <span className="text-sm font-mono text-res-text-muted">
-                        {formatDate(item.publishedAt)}
+                        {formatDate(item.publishedAt, locale)}
                       </span>
                     </div>
                   )}
 
                   <div className="flex flex-col gap-1">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Language</span>
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('language')}</span>
                     <LanguageFlag language={item.language} variant="sidebar" />
                   </div>
 
                   {item.complexity && !isVictorStory && (
                     <div className="flex flex-col gap-1">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Complexity</span>
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('complexity')}</span>
                       <span className="text-sm font-mono text-res-text-muted">
                         {complexityLabels[item.complexity] || item.complexity}
                       </span>
@@ -212,7 +214,7 @@ export default async function ContentDetailPage({
 
                   {readingTime > 0 && (
                     <div className="flex flex-col gap-1">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">Read Time</span>
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('readTime')}</span>
                       <span className="text-sm font-mono text-res-text-muted">{readingTime} min</span>
                     </div>
                   )}
@@ -223,7 +225,7 @@ export default async function ContentDetailPage({
                     <div className="w-8 h-px bg-res-border" />
                     <div className="flex flex-col gap-2">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">
-                        Topics
+                        {t('topics')}
                       </span>
                       <div className="flex flex-wrap gap-2">
                         {item.topics.map((topic) => (
@@ -249,7 +251,7 @@ export default async function ContentDetailPage({
                   href="/resources"
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted"
                 >
-                  &larr; Resources
+                  &larr; {t('back')}
                 </Link>
                 <div className="flex flex-col items-start gap-2 self-start">
                   <span
@@ -268,20 +270,20 @@ export default async function ContentDetailPage({
                   {isFocus && (
                     <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
                       <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      Focus
+                      {t('focus')}
                     </span>
                   )}
                   {isTool && (
                     <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
                       <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      Tools
+                      {t('tools')}
                     </span>
                   )}
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
                   {item.publishedAt && (
                     <span className="text-xs font-mono text-res-text-muted">
-                      {formatDate(item.publishedAt)}
+                      {formatDate(item.publishedAt, locale)}
                     </span>
                   )}
                   <span className="text-res-text-muted/30">&bull;</span>
@@ -330,7 +332,7 @@ export default async function ContentDetailPage({
                 ) : (
                   <div className="py-16 text-center border border-dashed border-res-border rounded-lg">
                     <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-                      Content coming soon
+                      {t('contentComingSoon')}
                     </p>
                   </div>
                 )}

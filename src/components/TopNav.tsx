@@ -101,7 +101,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           <div className="hidden md:block absolute left-1/2 -translate-x-1/2">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder={t("searchShort")}
               value={searchValue}
               onChange={(e) => handleSearch(e.target.value)}
               className={resourcesTheme.search.compact}
@@ -218,7 +218,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
         >
           <input
             type="text"
-            placeholder="Search resources..."
+            placeholder={t("searchLong")}
             value={searchValue}
             onChange={(e) => handleSearch(e.target.value)}
             className={resourcesTheme.search.input}

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
@@ -85,6 +86,7 @@ export default async function SkillDetailPage({
   const item = await getSkill(slug);
   if (!item) notFound();
 
+  const t = await getTranslations('resources');
   const skill = item.skill ?? { kind: 'native' as const };
   const body = normalizeMarkdownBody(item.body);
   const related = await getRelated(slug);
@@ -119,7 +121,7 @@ export default async function SkillDetailPage({
               className="mb-6 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
             >
               <ArrowLeft size={14} strokeWidth={1.8} className="group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
-              Skills
+              {t('skillsSection')}
             </Link>
 
             <article>
@@ -127,7 +129,7 @@ export default async function SkillDetailPage({
                 <div className="min-w-0">
                   <header className="flex flex-col gap-4">
                     <span className="self-start px-2 py-1 border border-res-text/30 bg-res-text/5 text-[10px] font-mono uppercase tracking-widest text-res-text">
-                      Skill
+                      {t('skillBadge')}
                     </span>
 
                     <h1 className="text-4xl md:text-5xl font-bold tracking-tighter leading-[0.95] text-res-text">
@@ -143,11 +145,11 @@ export default async function SkillDetailPage({
                   </header>
 
                   {creatorNote && (
-                    <CreatorNote note={creatorNote} />
+                    <CreatorNote note={creatorNote} label={t('creatorNote')} />
                   )}
 
                   {skill.trigger && (
-                    <SkillSnapshot trigger={skill.trigger} />
+                    <SkillSnapshot trigger={skill.trigger} label={t('goodFor')} />
                   )}
                 </div>
 
@@ -159,8 +161,8 @@ export default async function SkillDetailPage({
                   {showPromptBlock && (
                     <section className="mt-2 lg:mt-0">
                       <SectionHeader
-                        title="Prompt"
-                        hint="Use this if you prefer to copy the skill text yourself."
+                        title={t('prompt')}
+                        hint={t('promptHint')}
                       />
                       <SkillPromptBlock body={promptBody} />
                     </section>
@@ -168,7 +170,7 @@ export default async function SkillDetailPage({
 
                   {showDocumentation && (
                     <section className="mt-8">
-                      <SectionHeader title="Notes" />
+                      <SectionHeader title={t('notes')} />
                       <div className="prose-vibe prose-vibe-warm max-w-none">
                         <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" />
                       </div>
@@ -184,13 +186,13 @@ export default async function SkillDetailPage({
           <section className={`${resourcesTheme.section.padding} py-20 border-t border-res-border`}>
             <div className="flex items-center justify-between gap-4 mb-10">
               <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-                Related skills
+                {t('relatedSkills')}
               </span>
               <Link
                 href="/resources/skills"
                 className="text-[11px] font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
               >
-                View all &rarr;
+                {t('viewAll')} &rarr;
               </Link>
             </div>
 
@@ -216,12 +218,12 @@ export default async function SkillDetailPage({
   );
 }
 
-function CreatorNote({ note }: { note: string }) {
+function CreatorNote({ note, label }: { note: string; label: string }) {
   return (
     <aside className="mt-5 max-w-3xl border border-res-border bg-res-bg-secondary/60 px-4 py-4 md:px-5">
       <div className="grid gap-2 md:grid-cols-[8.5rem_minmax(0,1fr)] md:gap-5">
         <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
-          Creator note
+          {label}
         </p>
         <p
           className="text-sm md:text-[15px] leading-relaxed text-res-text"
@@ -232,11 +234,11 @@ function CreatorNote({ note }: { note: string }) {
   );
 }
 
-function SkillSnapshot({ trigger }: { trigger: string }) {
+function SkillSnapshot({ trigger, label }: { trigger: string; label: string }) {
   return (
     <section className="mt-6 max-w-3xl border border-res-border bg-res-bg-secondary p-4" aria-label="Skill overview">
       <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted">
-        Good for
+        {label}
       </p>
       <p className="text-sm text-res-text leading-relaxed">{trigger}</p>
     </section>

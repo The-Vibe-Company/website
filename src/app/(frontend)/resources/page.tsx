@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import { ArticleBrowser, type ArticleCardItem } from '@/components/resources/ArticleBrowser';
 import { ResourcesHomeSearch } from '@/components/resources/ResourcesHomeSearch';
@@ -6,11 +7,13 @@ import { getContentByType } from '@/lib/content-source';
 import type { ContentEntry } from '@/lib/content-source';
 import { resourcesTheme } from '@/lib/resources-theme';
 
-export const metadata: Metadata = {
-  title: 'Resources | The Vibe Company',
-  description:
-    'Articles and essays from The Vibe Company: an AI journey told from the inside, plus the team’s notes on agents, tooling, and the way we work.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('resources');
+  return {
+    title: `${t('kicker')} | The Vibe Company`,
+    description: t('subtitle'),
+  };
+}
 
 const VICTOR_SERIES = 'victor-story';
 
@@ -33,6 +36,7 @@ function toCard(item: ContentEntry): ArticleCardItem {
 }
 
 export default async function ResourcesPage() {
+  const t = await getTranslations('resources');
   // Articles come from getContentByType already sorted by publishedAt desc, so
   // both columns stay in chronological order (newest first). A freshly added
   // article naturally lands at the top; its D-day badge comes from seriesDay.
@@ -48,14 +52,13 @@ export default async function ResourcesPage() {
       >
         <div className="max-w-4xl">
           <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-res-text-muted block mb-4">
-            Resources / {articleCount} {articleCount === 1 ? 'article' : 'articles'}
+            {t('kicker')} / {articleCount} {articleCount === 1 ? 'article' : 'articles'}
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter leading-[0.92] text-res-text mb-5">
-            Articles &amp; essays.
+            {t('title')}
           </h1>
           <p className="text-base md:text-lg text-res-text-muted leading-relaxed max-w-2xl">
-            What we&apos;re learning and building with AI at The Vibe Company, plus Victor&apos;s
-            Story along the way.
+            {t('subtitle')}
           </p>
         </div>
       </section>

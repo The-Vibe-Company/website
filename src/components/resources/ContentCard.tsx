@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getTypeSlug, getTypeLabel } from '@/lib/taxonomy-utils';
 import { getUrlSlugForDbType } from '@/lib/content-types';
@@ -17,8 +20,8 @@ interface ContentCardProps {
   featuredImage?: { url: string; alt?: string; sizes?: { card?: { url: string } } } | string | number | null;
 }
 
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString('en-US', {
+function formatDate(dateString: string, locale: string): string {
+  return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
     month: 'short',
     day: 'numeric',
   });
@@ -40,6 +43,7 @@ export function ContentCard({
   language,
   featuredImage,
 }: ContentCardProps) {
+  const locale = useLocale();
   const typeSlug = getTypeSlug(type);
   const typeLabel = getTypeLabel(type);
   const image = getImageUrl(featuredImage);
@@ -79,7 +83,7 @@ export function ContentCard({
           <div className="flex items-center justify-between mt-auto pt-4 border-t border-res-border/50">
             {publishedAt && (
               <span className="text-[10px] font-mono text-res-text-muted uppercase tracking-widest">
-                {formatDate(publishedAt)}
+                {formatDate(publishedAt, locale)}
               </span>
             )}
             <span className="text-res-text-muted group-hover:translate-x-1 transition-transform duration-300">

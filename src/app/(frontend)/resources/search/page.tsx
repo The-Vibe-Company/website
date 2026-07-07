@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import type React from 'react';
 import { redirect } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { ContentCard } from '@/components/resources/ContentCard';
 import { ContentGrid } from '@/components/resources/ContentGrid';
 import { SkillCard } from '@/components/resources/SkillCard';
@@ -10,9 +11,12 @@ import { resourcesTheme } from '@/lib/resources-theme';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'Search | The Vibe Company',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('resources');
+  return {
+    title: `${t('searchTitle')} | The Vibe Company`,
+  };
+}
 
 export default async function SearchPage({
   searchParams,
@@ -22,6 +26,7 @@ export default async function SearchPage({
   const { q } = await searchParams;
   if (!q) redirect('/resources');
 
+  const t = await getTranslations('resources');
   const results = searchContent(q).slice(0, 50);
   const skillResults = results.filter((item) => item.type === 'skill');
   const articleResults = results.filter((item) => item.type !== 'skill');
@@ -31,13 +36,13 @@ export default async function SearchPage({
       <section className={`${resourcesTheme.section.padding} pt-2 pb-8 border-b border-res-border mb-8`}>
         <div className="max-w-4xl">
           <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
-            Search Results
+            {t('searchResults')}
           </span>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-3 leading-[0.95] text-res-text">
             &ldquo;{q}&rdquo;
           </h1>
           <p className="text-base md:text-lg text-res-text-muted max-w-2xl leading-relaxed">
-            Found {results.length} result{results.length === 1 ? '' : 's'}.
+            {t('foundResults', { count: results.length })}
           </p>
         </div>
       </section>
@@ -46,7 +51,7 @@ export default async function SearchPage({
         {results.length > 0 ? (
           <div className="space-y-14">
             {skillResults.length > 0 && (
-              <SearchSection title="Skills" count={skillResults.length}>
+              <SearchSection title={t('skillsSection')} count={skillResults.length} countLabel={t('resultCount', { count: skillResults.length })}>
                 <ContentGrid columns={3}>
                   {skillResults.map((item) => (
                     <SkillCard
@@ -66,7 +71,7 @@ export default async function SearchPage({
             )}
 
             {articleResults.length > 0 && (
-              <SearchSection title="Articles" count={articleResults.length}>
+              <SearchSection title={t('articles')} count={articleResults.length} countLabel={t('resultCount', { count: articleResults.length })}>
                 <div className="space-y-6">
                   {articleResults.map((item) => (
                     <ContentCard
@@ -87,13 +92,13 @@ export default async function SearchPage({
         ) : (
           <div className="rounded-xl border border-res-border p-12 text-center bg-res-surface">
             <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-              No results found
+              {t('noResults')}
             </p>
             <p className="text-sm text-res-text-muted mt-2">
-              Try adjusting your search terms.
+              {t('tryAdjusting')}
             </p>
             <Link href="/resources" className="inline-block mt-8 text-xs font-mono uppercase tracking-widest text-res-text border-b border-res-text pb-1 hover:text-res-text-muted hover:border-res-text-muted transition-colors">
-              Clear Search
+              {t('clearSearch')}
             </Link>
           </div>
         )}
@@ -104,11 +109,12 @@ export default async function SearchPage({
 
 function SearchSection({
   title,
-  count,
+  countLabel,
   children,
 }: {
   title: string;
   count: number;
+  countLabel: string;
   children: React.ReactNode;
 }) {
   return (
@@ -116,7 +122,7 @@ function SearchSection({
       <header className="mb-6 flex items-baseline gap-3 border-b border-res-border pb-4">
         <h2 className="text-2xl font-bold tracking-tight text-res-text">{title}</h2>
         <span className="text-[11px] font-mono uppercase tracking-widest text-res-text-muted">
-          {count} {count === 1 ? 'result' : 'results'}
+          {countLabel}
         </span>
       </header>
       {children}

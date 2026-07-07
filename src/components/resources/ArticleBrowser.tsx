@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getUrlSlugForDbType } from '@/lib/content-types';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
@@ -32,12 +33,17 @@ const VICTOR_PREVIEW_LIMIT = 6;
 const VICTOR_LABEL = "Victor's Story";
 const ARTICLES_LABEL = 'Articles';
 
-function formatDate(dateString?: string): string {
+function formatDate(dateString: string | undefined, locale: string): string {
   if (!dateString) return '';
-  return new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
+    month: 'short',
+    day: 'numeric',
+  });
 }
 
 function ArticleCard({ item }: { item: ArticleCardItem }) {
+  const t = useTranslations('resources');
+  const locale = useLocale();
   return (
     <Link
       href={`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`}
@@ -74,16 +80,16 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
           )}
           {item.focus && (
             <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
-              Focus
+              {t('focus')}
             </span>
           )}
           {item.tool && (
             <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
-              Tools
+              {t('tools')}
             </span>
           )}
           {item.language && <LanguageFlag language={item.language} variant="inline" />}
-          {item.publishedAt && <span>{formatDate(item.publishedAt)}</span>}
+          {item.publishedAt && <span>{formatDate(item.publishedAt, locale)}</span>}
         </div>
       </div>
     </Link>
@@ -130,6 +136,7 @@ interface ArticleBrowserProps {
 
 export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrowserProps) {
   const [filter, setFilter] = useState<Filter>('all');
+  const t = useTranslations('resources');
 
   const showVictor = filter !== 'articles' && victorStory.length > 0;
   const showOthers = filter !== 'victor' && others.length > 0;
@@ -142,7 +149,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
   const hiddenOthers = others.length - visibleOthers.length;
 
   const tabs: { key: Filter; label: string; dot?: boolean }[] = [
-    { key: 'all', label: 'All' },
+    { key: 'all', label: t('all') },
     { key: 'victor', label: VICTOR_LABEL, dot: true },
     { key: 'articles', label: ARTICLES_LABEL },
   ];
@@ -186,7 +193,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
           className="group mb-6 inline-flex cursor-pointer items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
         >
           <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
-          Resources
+          {t('back')}
         </button>
       )}
 
@@ -204,7 +211,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
                   onClick={() => setFilter('victor')}
                   className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
                 >
-                  View all {victorStory.length} Victor&apos;s Story &rarr;
+                  {t('viewAllVictor', { count: victorStory.length })} &rarr;
                 </button>
               ) : null
             }
@@ -228,7 +235,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
                   onClick={() => setFilter('articles')}
                   className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
                 >
-                  View all {others.length} articles &rarr;
+                  {t('viewAllArticles', { count: others.length })} &rarr;
                 </button>
               ) : null
             }
