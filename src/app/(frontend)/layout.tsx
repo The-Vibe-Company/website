@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
 import { ClientProviders } from "@/components/ClientProviders";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
@@ -44,19 +46,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function FrontendLayout({
+export default async function FrontendLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ClientProviders />
-        <ConditionalGridOverlay />
-        {children}
+        <NextIntlClientProvider>
+          <ClientProviders />
+          <ConditionalGridOverlay />
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

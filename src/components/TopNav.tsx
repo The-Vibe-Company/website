@@ -4,7 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import {
   components,
   typography,
@@ -16,10 +18,10 @@ import { captureEvent } from "@/lib/posthog";
 import { resourcesTheme } from "@/lib/resources-theme";
 
 const navItems = [
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Case studies", href: "/case-studies" },
-  { label: "Resources", href: "/resources" },
-];
+  { key: "portfolio", href: "/portfolio" },
+  { key: "caseStudies", href: "/case-studies" },
+  { key: "resources", href: "/resources" },
+] as const;
 
 interface TopNavProps {
   showResourcesSearch?: boolean;
@@ -36,6 +38,7 @@ export function TopNav(props: TopNavProps) {
 function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations("nav");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -110,14 +113,14 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
         <div className="hidden md:flex items-center gap-2">
           <ul className="flex items-center gap-2 list-none m-0 p-0">
             {navItems.map((item, index) => (
-              <li key={item.label}>
+              <li key={item.key}>
                 <Link
                   href={item.href}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() =>
                     captureEvent("nav_link_clicked", {
-                      label: item.label,
+                      label: item.key,
                       href: item.href,
                       location: "desktop_nav",
                     })
@@ -131,18 +134,20 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                       transition={animations.easing.bounce}
                     />
                   )}
-                  {item.label}
+                  {t(item.key)}
                 </Link>
               </li>
             ))}
           </ul>
+          <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
+          <LanguageSwitcher />
           <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
           <a
             href="mailto:founders@thevibecompany.co"
             onClick={() => captureEvent("get_in_touch_clicked", { location: "nav" })}
             className={components.button.primary}
           >
-            Get in touch
+            {t("getInTouch")}
           </a>
         </div>
 
@@ -255,7 +260,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             </button>
             {navItems.map((item, index) => (
               <motion.div
-                key={item.label}
+                key={item.key}
                 className={cn(typography.heading.h3, "text-foreground")}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -265,14 +270,14 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                   href={item.href}
                   onClick={() => {
                     captureEvent("nav_link_clicked", {
-                      label: item.label,
+                      label: item.key,
                       href: item.href,
                       location: "mobile_menu",
                     });
                     setMobileMenuOpen(false);
                   }}
                 >
-                  {item.label}
+                  {t(item.key)}
                 </Link>
               </motion.div>
             ))}
@@ -287,8 +292,9 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                 setMobileMenuOpen(false);
               }}
             >
-              Get in touch
+              {t("getInTouch")}
             </motion.a>
+            <LanguageSwitcher className="mt-2 text-sm" />
           </motion.div>
         )}
       </AnimatePresence>
