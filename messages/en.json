@@ -202,13 +202,19 @@
     "openSkill": "Open skill"
   },
   "portfolio": {
-    "kicker": "Portfolio",
-    "title": "Projects",
-    "subtitle": "A selection of our productions.",
+    "kicker": "// OUR OWN PRODUCTS",
+    "titleLine1": "Our own products,",
+    "titleLine2": "shipped.",
+    "subtitle": "A selection of products we designed and shipped, with homepage covers and ship dates.",
     "built": "Built",
-    "open": "Open",
+    "viewProject": "View project",
+    "back": "Portfolio",
+    "statusLabel": "Status",
+    "typeLabel": "Type",
+    "theProduct": "// The product",
+    "visit": "Visit",
     "metaTitle": "Projects",
-    "metaDescription": "A selection of projects with homepage covers, short notes, and ship dates."
+    "metaDescription": "A selection of products we designed and shipped, with homepage covers and ship dates."
   },
   "agency": {
     "kicker": "Agency",

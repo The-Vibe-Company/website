@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { FolderKanban } from "lucide-react";
+import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
+
 import { TopNav } from "@/components/TopNav";
-import { resourcesTheme } from "@/lib/resources-theme";
+import { Footer } from "@/components/Footer";
+import { FinalCTA } from "@/components/home/FinalCTA";
+import { getProjects, type ContentLocale } from "@/lib/projects";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("portfolio");
@@ -13,148 +15,97 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-type Localized = { en: string; fr: string };
-
-type Project = {
-  name: string;
-  href: string;
-  cover: string;
-  logo: string;
-  accent: string;
-  description: Localized;
-  date: Localized;
-};
-
-const projects: Project[] = [
-  {
-    name: "vanish.sh",
-    href: "https://vanish.sh",
-    cover: "/projects/vanish-home.png",
-    logo: "/projects/vanish-favicon.svg",
-    accent: "#10b981",
-    description: {
-      en: "Vanish is a temporary upload service: send a file, get a public link, and let it expire automatically.",
-      fr: "Vanish est un service d’upload temporaire. Envoyez un fichier, récupérez un lien public, et laissez-le expirer automatiquement.",
-    },
-    date: { en: "Feb 2026", fr: "févr. 2026" },
-  },
-  {
-    name: "The Companion",
-    href: "https://www.thecompanion.sh/",
-    cover: "/projects/compagnon-home.png",
-    logo: "/projects/compagnon-favicon.svg",
-    accent: "#f97316",
-    description: {
-      en: "The Companion helps teams execute with agent workflows, orchestration, and product operations without slideware.",
-      fr: "The Companion aide les équipes à exécuter avec des workflows d’agents, de l’orchestration et des opérations produit, sans slides.",
-    },
-    date: { en: "Feb 2026", fr: "févr. 2026" },
-  },
-  {
-    name: "vibedrift.dev",
-    href: "https://www.vibedrift.dev",
-    cover: "/projects/vibedrift-home.png",
-    logo: "/projects/vibedrift-favicon.svg",
-    accent: "#facc15",
-    description: {
-      en: "VibeDrift tracks real developer activity and turns it into useful metrics to understand flow and friction.",
-      fr: "VibeDrift suit l’activité réelle des développeurs et la transforme en métriques utiles pour comprendre le flow et les frictions.",
-    },
-    date: { en: "Feb 2026", fr: "févr. 2026" },
-  },
-  {
-    name: "Granite",
-    href: "https://github.com/The-Vibe-Company/Granite",
-    cover: "/projects/granite-home.png",
-    logo: "/projects/granite-favicon.png",
-    accent: "#62D1AF",
-    description: {
-      en: "Granite is the personal OS your agent runs on: markdown notes, a SQLite index, and a typed contract system that turns local files into a navigable company memory.",
-      fr: "Granite est l’OS personnel sur lequel tourne votre agent. Des notes markdown, un index SQLite et un système de contrats typés qui transforme vos fichiers locaux en une mémoire d’entreprise navigable.",
-    },
-    date: { en: "Apr 2026", fr: "avr. 2026" },
-  },
-];
-
 export default async function PortfolioPage() {
-  const locale = (await getLocale()) === "fr" ? "fr" : "en";
+  const locale = (await getLocale()) as ContentLocale;
   const t = await getTranslations("portfolio");
+  const projects = getProjects(locale);
+
   return (
-    <>
+    <div
+      data-variant="hybrid"
+      className="flex min-h-screen flex-col bg-background text-foreground"
+    >
       <TopNav />
-      <main className="resources-theme min-h-screen bg-res-bg text-res-text pt-12 pb-12">
-        <section className={`${resourcesTheme.section.padding} pt-2 pb-8 border-b border-res-border mb-8`}>
-          <div className="max-w-4xl">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
-              {t("kicker")}
+      <main className="flex-1">
+        <section className="mx-auto max-w-[100rem] px-6 pb-16 pt-12 md:px-12 md:pb-20 md:pt-16">
+          <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            {t("kicker")}
+          </span>
+          <h1
+            className="m-0 max-w-[18ch] font-bold text-foreground"
+            style={{
+              fontSize: "clamp(44px, 6.4vw, 96px)",
+              lineHeight: 0.92,
+              letterSpacing: "-0.045em",
+            }}
+          >
+            {t("titleLine1")}
+            <br />
+            <span
+              style={{
+                WebkitTextStroke: "1.5px var(--foreground)",
+                color: "transparent",
+              }}
+            >
+              {t("titleLine2")}
             </span>
-            <h1 className="flex items-center gap-3 text-4xl md:text-5xl font-bold tracking-tighter mb-3 leading-[0.95] text-res-text">
-              <FolderKanban size={36} strokeWidth={1.5} className="shrink-0" />
-              {t("title")}
-            </h1>
-            <p className="text-base md:text-lg text-res-text-muted max-w-2xl leading-relaxed">
-              {t("subtitle")}
-            </p>
-          </div>
+          </h1>
+          <p className="m-0 mt-8 max-w-[620px] text-lg leading-[1.5] text-muted-foreground">
+            {t("subtitle")}
+          </p>
         </section>
 
-        <section className={`${resourcesTheme.section.padding} pb-24`}>
-          <div className="divide-y divide-res-border border-y border-res-border">
-            {projects.map((project) => (
-              <a
-                key={project.name}
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block py-7 md:py-9"
+        <section className="mx-auto max-w-[100rem] px-6 pb-20 md:px-12 md:pb-28">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            {projects.map((p) => (
+              <Link
+                key={p.slug}
+                href={`/portfolio/${p.slug}`}
+                className="group flex flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
               >
-                <article className="relative grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-8 items-start">
-                  <div className="absolute -left-6 top-8 hidden h-14 w-[2px] md:block" style={{ backgroundColor: project.accent }} />
+                <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={p.logo}
+                    alt={`${p.name} logo`}
+                    className="h-8 w-8 rounded-sm object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span className="max-w-full border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground md:shrink-0">
+                    {p.tag}
+                  </span>
+                </div>
 
-                  <div className="md:col-span-5">
-                    <div className="flex items-center gap-3 mb-3">
-                      <Image
-                        src={project.logo}
-                        alt={`${project.name} logo`}
-                        width={24}
-                        height={24}
-                        className="h-6 w-6 rounded-sm object-contain bg-white/80"
-                      />
-                      <h2 className="text-3xl md:text-[2.15rem] font-bold tracking-tighter leading-none text-res-text">
-                        {project.name}
-                      </h2>
-                    </div>
-
-                    <p className="text-sm md:text-[15px] text-res-text-muted leading-relaxed max-w-md mb-5">
-                      {project.description[locale]}
-                    </p>
-
-                    <div className="flex items-center justify-between max-w-md pt-3 border-t border-res-border">
-                      <span className="text-[10px] font-mono text-res-text-muted uppercase tracking-[0.14em] whitespace-nowrap">
-                        {t("built")} {project.date[locale]}
-                      </span>
-                      <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-res-text">
-                        {t("open")} &rarr;
-                      </span>
-                    </div>
+                <div className="mt-6 border-t border-border pt-6">
+                  <div className="text-[38px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[46px]">
+                    {p.name}
                   </div>
-
-                  <div className="md:col-span-7 relative aspect-[16/10] overflow-hidden border border-res-border bg-res-surface">
-                    <Image
-                      src={project.cover}
-                      alt={`${project.name} homepage`}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover object-top"
-                    />
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px]" style={{ backgroundColor: project.accent }} />
+                  <div className="mt-2 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+                    {p.status} · {t("built")} {p.date}
                   </div>
-                </article>
-              </a>
+                </div>
+
+                <p className="m-0 mt-6 text-[15px] leading-[1.55] text-foreground">
+                  {p.description}
+                </p>
+
+                <span className="mt-7 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground">
+                  <span className="underline decoration-1 underline-offset-4 group-hover:no-underline">
+                    {t("viewProject")}
+                  </span>
+                  <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </span>
+              </Link>
             ))}
           </div>
         </section>
+
+        <FinalCTA />
       </main>
-    </>
+      <Footer />
+    </div>
   );
 }

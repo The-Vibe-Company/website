@@ -202,13 +202,19 @@
     "openSkill": "Ouvrir le skill"
   },
   "portfolio": {
-    "kicker": "Portfolio",
-    "title": "Projets",
-    "subtitle": "Une sélection de nos productions.",
+    "kicker": "// NOS PRODUITS",
+    "titleLine1": "Nos propres produits,",
+    "titleLine2": "en ligne.",
+    "subtitle": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie.",
     "built": "Réalisé",
-    "open": "Ouvrir",
+    "viewProject": "Voir le projet",
+    "back": "Portfolio",
+    "statusLabel": "Statut",
+    "typeLabel": "Type",
+    "theProduct": "// Le produit",
+    "visit": "Visiter",
     "metaTitle": "Projets",
-    "metaDescription": "Une sélection de projets avec leurs pages d’accueil, quelques notes et leurs dates de sortie."
+    "metaDescription": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie."
   },
   "agency": {
     "kicker": "Agence",
