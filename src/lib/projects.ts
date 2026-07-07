@@ -52,16 +52,16 @@ const PROJECTS_RAW: RawProject[] = [
   {
     slug: "the-companion",
     name: "The Companion",
-    logo: "/projects/compagnon-favicon.svg",
+    logo: "/projects/compagnon-favicon.png",
     cover: "/projects/compagnon-home.png",
     accent: "#f97316",
     url: "https://www.thecompanion.sh/",
-    tag: { en: "Agent workflows", fr: "Workflows d’agents" },
+    tag: { en: "Skill library", fr: "Bibliothèque de skills" },
     date: { en: "Feb 2026", fr: "févr. 2026" },
     status: { en: "Live", fr: "En ligne" },
     description: {
-      en: "The Companion helps teams execute with agent workflows, orchestration, and product operations without slideware.",
-      fr: "The Companion aide les équipes à exécuter avec des workflows d’agents, de l’orchestration et des opérations produit, sans slides.",
+      en: "The Companion is a shared skill library for teams. Package your colleagues' best prompts as reusable skills, browse what the team has built, and use them in your AI for anything.",
+      fr: "The Companion est une bibliothèque de skills partagée pour les équipes. On empaquette les meilleurs prompts de ses collègues en skills réutilisables, on parcourt ce que l’équipe a construit, et on les utilise dans son IA pour tout.",
     },
   },
   {
