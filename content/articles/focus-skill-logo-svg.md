@@ -37,14 +37,17 @@ Ce n'est pas une description de la forme, c'est une idée. On garde l'idée, on 
 
 ## Le goût, mis en dur dans le skill
 
-Ce qui fait qu'un logo tient la route, je l'ai écrit dans le skill comme des règles qui ne bougent jamais. C'est ça, son goût :
+Ce qui fait qu'un logo tient la route, je l'ai écrit dans le skill comme des règles qui ne bougent jamais. En voici quatre, copiées telles quelles :
 
-1. Une seule idée. Si on ne peut pas décrire le logo en une phrase, il est trop chargé.
-2. Noir et blanc d'abord. Il doit marcher en noir sur clair et en blanc sur foncé. La couleur, s'il en faut une, vient après.
-3. Du vide. L'espace autour de la forme fait autant le logo que la forme elle-même.
-4. Le test du tout petit. Réduit à la taille de la petite icône dans l'onglet du navigateur, une quinzaine de pixels de côté, si un détail disparaît, on l'enlève.
+« Simple et épuré. Un logo, une idée. Si on ne peut pas le décrire en une phrase, il est trop chargé. »
 
-Cette dernière règle est ma préférée, parce qu'elle tranche tout. Un logo qui ne survit pas en minuscule n'est pas un bon logo.
+« Noir et blanc d'abord. Il doit marcher en noir sur clair et en blanc sur foncé, la couleur vient après. »
+
+« Du vide. L'espace négatif fait autant le logo que la forme. »
+
+« Lisible en tout petit. Test favicon 16 px : si un détail disparaît ou devient une bouillie, on l'enlève. »
+
+Ma préférée, c'est la dernière. Le favicon, c'est la petite icône dans l'onglet du navigateur, une quinzaine de pixels de côté. Un logo qui ne survit pas à cette taille n'est pas un bon logo.
 
 ## Ce qu'il refuse de faire
 
