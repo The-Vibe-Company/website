@@ -63,13 +63,18 @@ En lui interdisant tout ça, je le force à faire simple. C'est là que les logo
 
 La grande différence avec un générateur d'images, c'est la sortie. Un générateur me rend une image figée, faite de points de couleur, floue dès qu'on l'agrandit. Le skill, lui, me rend un logo vectoriel.
 
-Un logo vectoriel, c'est littéralement du texte, une suite d'instructions de dessin. C'est pour ça qu'il reste net à n'importe quelle taille, du tout petit jusqu'à une grande affiche, et qu'il s'édite après coup.
+Un logo vectoriel, c'est littéralement du texte, une suite d'instructions de dessin. Dans le skill, j'ai même figé comment ce texte doit être écrit. Voici ces règles, copiées du skill :
 
-Ce texte contient par exemple ce petit réglage :
+```
+viewBox carré, par exemple 0 0 100 100
+fill="currentColor"   (le logo prend la couleur du texte autour)
+une seule couleur, fond transparent
+pas de filtre, pas de dégradé, pas de glow
+```
 
-fill="currentColor"
+La ligne qui compte le plus, c'est `fill="currentColor"`. Elle dit au logo de prendre tout seul la couleur du texte autour de lui, donc noir sur une page claire et blanc sur un fond foncé.
 
-Il dit au logo de prendre tout seul la couleur du texte autour de lui. Un dessin, deux usages.
+Et comme tout ça reste du texte, le logo est net à n'importe quelle taille et s'édite après coup. Un dessin, deux usages.
 
 ## Comment ça se passe, concrètement
 
