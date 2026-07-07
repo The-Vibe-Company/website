@@ -9,13 +9,24 @@ import { getCustomers, type ContentLocale } from "@/lib/customers";
 const ARROW_CLASS =
   "hidden h-11 w-11 shrink-0 cursor-pointer items-center justify-center self-center border border-foreground text-lg text-foreground transition-colors hover:bg-foreground hover:text-background sm:flex";
 
-export function CaseStudy() {
+export function CaseStudy({
+  variant = "default",
+}: {
+  variant?: "default" | "peek";
+}) {
   const reduceMotion = useReducedMotion() ?? false;
   const trackRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("caseStudy");
   const locale = useLocale() as ContentLocale;
   const customers = getCustomers(locale);
   const showArrows = customers.length > 2;
+
+  // "peek" narrows the cards so the start of the next one shows, teasing
+  // that there is more to scroll. "default" fits exactly two cards.
+  const cardWidth =
+    variant === "peek"
+      ? "w-[80%] sm:w-[62%] md:w-[calc(44%-10px)]"
+      : "w-[86%] sm:w-[70%] md:w-[calc(50%-10px)]";
 
   const scrollByCard = (direction: 1 | -1) => {
     const track = trackRef.current;
@@ -82,7 +93,7 @@ export function CaseStudy() {
                   delay: reduceMotion ? 0 : i * 0.06,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="w-[86%] shrink-0 snap-start sm:w-[70%] md:w-[calc(50%-10px)]"
+                className={`${cardWidth} shrink-0 snap-start`}
               >
                 <Link
                   href={`/case-studies/${c.slug}?from=home`}
