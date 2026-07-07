@@ -31,9 +31,14 @@ Le cœur du skill tient en une phrase, écrite dans son mode d'emploi :
 
 En clair, je lui donne un ou deux logos que j'aime, il ne les recopie pas. Il nomme d'abord ce qui les rend forts, puis il s'en sert pour inventer autre chose.
 
-Le skill garde même des exemples de cette lecture. Pour Nike, il retient « le mouvement capturé en un seul geste continu, une virgule qui accélère ».
+Voici comment il a lu mes deux premières références, mot pour mot dans le skill :
 
-Ce n'est pas une description de la forme, c'est une idée. On garde l'idée, on jette le dessin, on invente le nôtre.
+```
+Nike : le mouvement capturé en un seul geste continu, une virgule qui accélère.
+The Vibe Company : un bloc simple aux angles arrondis qui tient un motif fin et rythmé à l'intérieur.
+```
+
+Ce ne sont pas des descriptions de la forme, ce sont des idées. On garde l'idée, on jette le dessin, on invente le nôtre.
 
 ## Le goût, mis en dur dans le skill
 
@@ -90,7 +95,13 @@ Quand je lance le skill, il suit toujours le même chemin :
 
 Je l'ai lancé pour de vrai dans Claude Design, sur l'identité de Companion. Premier essai, cinq logos, déclinés à partir de deux ou trois idées. Un nous plaisait, on tenait l'idée, mais on sentait qu'on pouvait viser plus juste.
 
-Alors j'ai fait une chose que je trouve amusante. J'ai ajouté ce logo qu'on venait d'obtenir dans le skill, comme troisième référence, à côté de The Vibe Company et de Nike. Le skill apprenait de son propre résultat.
+Alors j'ai fait une chose que je trouve amusante. J'ai ajouté ce logo au skill, comme troisième référence, à côté de The Vibe Company et de Nike. Une ligne de plus dans la même liste :
+
+```
+Stack : trois barres arrondies empilées, une couche décalée qui crée le rythme. L'empilement propre, redit trois fois.
+```
+
+Le skill apprenait de son propre résultat, et cette ligne, c'est ce qui l'a poussé vers le bon logo.
 
 ![Le logo qu'on aimait au premier essai, trois barres arrondies empilées](/images/resources/focus-skill-logo-svg/stack-logo.png "Le logo du premier essai, trois lignes empilées, qu'on a ajouté au skill comme référence")
 
