@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/design-system";
 import { captureEvent } from "@/lib/posthog";
 
@@ -13,25 +14,14 @@ const TOP_STRIP = [
 ];
 
 const QUICK_ITEMS = [
-  {
-    n: "01",
-    label: "Build",
-    desc: "AI products and internal tools, end-to-end.",
-  },
-  {
-    n: "02",
-    label: "Operate",
-    desc: "Agents inside your company. Sales, support, admin, content.",
-  },
-  {
-    n: "03",
-    label: "Advise",
-    desc: "Strategy, training, and the AI playbook for your team.",
-  },
-];
+  { n: "01", key: "build" },
+  { n: "02", key: "operate" },
+  { n: "03", key: "advise" },
+] as const;
 
 export function Hero() {
   const reduceMotion = useReducedMotion() ?? false;
+  const t = useTranslations("hero");
 
   return (
     <section
@@ -88,7 +78,7 @@ export function Hero() {
               aria-hidden="true"
               className="h-2 w-2 animate-pulse rounded-full bg-orange-500"
             />
-            Open to projects · Built with AI
+            {t("badge")}
           </span>
         </motion.div>
 
@@ -104,7 +94,7 @@ export function Hero() {
           }}
         >
           <span className="block">
-            AI-native agency.
+            {t("titleLine1")}
           </span>
           <span
             className="block"
@@ -113,7 +103,7 @@ export function Hero() {
               color: "transparent",
             }}
           >
-            Everything way faster.
+            {t("titleLine2")}
           </span>
         </motion.h1>
 
@@ -124,9 +114,7 @@ export function Hero() {
           className="mt-12 grid grid-cols-1 items-end gap-10 md:mt-14 md:grid-cols-[1.4fr_1fr] md:gap-12"
         >
           <p className="m-0 max-w-[620px] text-lg leading-[1.5] text-foreground md:text-[19px]">
-            A small team of AI specialists. We build products, automate ops,
-            and train teams. Our agency itself runs on AI. That&apos;s the
-            compound.
+            {t("subtitle")}
           </p>
 
           <div className="flex flex-col items-start gap-3">
@@ -135,7 +123,7 @@ export function Hero() {
               onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
               className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-6 py-4 text-[15px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
             >
-              Book a discovery call
+              {t("bookCall")}
               <span aria-hidden="true" className="text-lg">
                 →
               </span>
@@ -145,7 +133,7 @@ export function Hero() {
               onClick={() => captureEvent("see_what_we_do_clicked")}
               className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-4 hover:text-foreground"
             >
-              See what we do
+              {t("seeWhatWeDo")}
             </a>
           </div>
         </motion.div>
@@ -167,10 +155,10 @@ export function Hero() {
               </span>
               <div>
                 <div className="text-[22px] font-bold tracking-[-0.02em] text-foreground">
-                  {item.label}
+                  {t(`items.${item.key}.label`)}
                 </div>
                 <div className="mt-0.5 text-sm text-muted-foreground">
-                  {item.desc}
+                  {t(`items.${item.key}.desc`)}
                 </div>
               </div>
             </div>

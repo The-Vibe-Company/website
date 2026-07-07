@@ -4,5 +4,18 @@
     "caseStudies": "Case studies",
     "resources": "Resources",
     "getInTouch": "Get in touch"
+  },
+  "hero": {
+    "badge": "Open to projects · Built with AI",
+    "titleLine1": "AI-native agency.",
+    "titleLine2": "Everything way faster.",
+    "subtitle": "A small team of AI specialists. We build products, automate ops, and train teams. Our agency itself runs on AI. That's the compound.",
+    "bookCall": "Book a discovery call",
+    "seeWhatWeDo": "See what we do",
+    "items": {
+      "build": { "label": "Build", "desc": "AI products and internal tools, end-to-end." },
+      "operate": { "label": "Operate", "desc": "Agents inside your company. Sales, support, admin, content." },
+      "advise": { "label": "Advise", "desc": "Strategy, training, and the AI playbook for your team." }
+    }
   }
 }

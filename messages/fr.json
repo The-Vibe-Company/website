@@ -4,5 +4,18 @@
     "caseStudies": "Études de cas",
     "resources": "Ressources",
     "getInTouch": "Nous contacter"
+  },
+  "hero": {
+    "badge": "Ouvert aux projets · Construit avec l'IA",
+    "titleLine1": "Agence AI-native.",
+    "titleLine2": "Tout, bien plus vite.",
+    "subtitle": "Une petite équipe de spécialistes de l'IA. On construit des produits, on automatise les opérations et on forme les équipes. Notre agence tourne elle-même à l'IA. C'est l'effet cumulé.",
+    "bookCall": "Réserver un appel découverte",
+    "seeWhatWeDo": "Voir ce qu'on fait",
+    "items": {
+      "build": { "label": "Construire", "desc": "Produits IA et outils internes, de bout en bout." },
+      "operate": { "label": "Opérer", "desc": "Des agents dans votre entreprise. Ventes, support, admin, contenu." },
+      "advise": { "label": "Conseiller", "desc": "Stratégie, formation, et le playbook IA pour votre équipe." }
+    }
   }
 }
