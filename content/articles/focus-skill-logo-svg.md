@@ -2,7 +2,7 @@
 title: "Le skill qui me dessine un logo épuré"
 slug: focus-skill-logo-svg
 language: fr
-summary: "Je ne suis pas designer, mais notre produit avait besoin d'un logo. Plutôt que de demander à une IA une image clinquante et inutilisable, j'ai fait un skill qui part d'un logo que j'aime, en extrait le principe et pas la forme, et me sort un logo épuré et net à toute taille, prêt à l'emploi."
+summary: "Je ne suis pas designer, mais notre produit avait besoin d'un logo. Plutôt que de demander à une IA une image clinquante et inutilisable, j'ai fait un skill qui regarde un logo que j'aime, en tire l'idée sans copier la forme, et me sort un logo épuré et net à toute taille, prêt à l'emploi."
 publishedAt: 2026-07-07
 series: victor-story
 seriesDay: 9
@@ -23,13 +23,13 @@ Je voulais quelque chose de solide et de cohérent, pas un coup de chance imposs
 
 Un skill, c'est le mode d'emploi que je donne à l'IA pour qu'elle refasse une tâche toujours de la même façon. Je lui ai dit ce que je cherchais, un logo tout simple et sobre, dans l'esprit de deux logos qu'on aime, The Vibe Company et Nike.
 
-## Le principe, pas la forme
+## Le principe, pas la copie
 
 Le cœur du skill tient en une phrase :
 
 « Le skill ne copie jamais un logo existant. Il en extrait le principe, l'idée de conception, pas la forme. »
 
-En clair, je lui donne un ou deux logos que j'aime, il ne les recopie pas. Il nomme d'abord ce qui les rend forts, puis il s'en sert pour inventer autre chose.
+En clair, je lui donne un ou deux logos que j'aime. Il regarde bien leur forme, mais pas pour la recopier. Il s'en sert pour comprendre l'idée qui les rend forts, et c'est cette idée qu'il réutilise pour inventer le nôtre.
 
 Voici comment il a lu mes deux premières références, mot pour mot dans le skill :
 
@@ -38,7 +38,7 @@ Nike : le mouvement capturé en un seul geste continu, une virgule qui accélèr
 The Vibe Company : un bloc simple aux angles arrondis qui tient un motif fin et rythmé à l'intérieur.
 ```
 
-Ce que le skill retient, ce n'est pas le dessin exact, c'est l'idée derrière. On garde l'idée, et on invente notre propre forme.
+Il part donc bien de la forme, mais pour en tirer une idée. On garde l'idée, on invente notre propre dessin.
 
 ## Le goût, mis en dur dans le skill
 
