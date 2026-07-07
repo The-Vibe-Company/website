@@ -72,9 +72,9 @@
       "targetHash": "0da66d2f9f0c0072f2fc6ef210eccd6e90c5768f5277f2644371ce0c7cb1af04"
     },
     "content:/images/resources/focus-skill-logo-svg/cover.png": {
-      "sourceHash": "9686c34ca69e617bcdd96dbeeec7f3128aa0593332e52238ee48a2e8463400a0",
+      "sourceHash": "b1694317fee204d685d06b90d6510fcaf1e9546093262e6e77830df3a71a0154",
       "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/cover.webp",
-      "targetHash": "887c60daeaf065ddf7541500b502674e00d73f02949092aad762793b478397df"
+      "targetHash": "340b2e786d30090e9b0bf6e4dd3c32247a84a13b30fd3bdac7a1c9cef5c72ef6"
     },
     "content:/images/resources/focus-skill-logo-svg/stack-logo.png": {
       "sourceHash": "96cb896e5c1fae31a023c7362159ca8ecde7af65460da4c47a509f2e2848d552",
@@ -267,7 +267,7 @@
       "targetHash": null
     },
     "og:/images/resources/focus-skill-logo-svg/cover.png": {
-      "sourceHash": "9686c34ca69e617bcdd96dbeeec7f3128aa0593332e52238ee48a2e8463400a0",
+      "sourceHash": "b1694317fee204d685d06b90d6510fcaf1e9546093262e6e77830df3a71a0154",
       "targetUrl": null,
       "targetHash": null
     },
