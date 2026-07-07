@@ -66,6 +66,26 @@
       "targetUrl": "/images/_optimized/resources/focus-skill-images/mascotte-idees.webp",
       "targetHash": "177be44cbfdff07c784ec7e2e3d3b096087cfd43e93c569cce8e1dc03f07515f"
     },
+    "content:/images/resources/focus-skill-logo-svg/companion-logo.png": {
+      "sourceHash": "4c89b45e7aab99c7966c50748f638fb18e8d3b4999ef38fd05281235abdcb7f4",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/companion-logo.webp",
+      "targetHash": "0da66d2f9f0c0072f2fc6ef210eccd6e90c5768f5277f2644371ce0c7cb1af04"
+    },
+    "content:/images/resources/focus-skill-logo-svg/cover.png": {
+      "sourceHash": "b1694317fee204d685d06b90d6510fcaf1e9546093262e6e77830df3a71a0154",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/cover.webp",
+      "targetHash": "340b2e786d30090e9b0bf6e4dd3c32247a84a13b30fd3bdac7a1c9cef5c72ef6"
+    },
+    "content:/images/resources/focus-skill-logo-svg/references.png": {
+      "sourceHash": "03bf28e8d5a0541e881c1d5a702c0ae088fae9429bbd861d6b355c5b84769e29",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/references.webp",
+      "targetHash": "602ed457684ea9eb6bf7fba66d5adbc0725c01064790465ee4f100b2cd44adbb"
+    },
+    "content:/images/resources/focus-skill-logo-svg/stack-logo.png": {
+      "sourceHash": "5809540d1defac024144c7489d5aeb692f377bd336baf119806a12d70deb231f",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/stack-logo.webp",
+      "targetHash": "909dd86c07cecf2a32a4af2823aaf14f519cfe980966bceb636f5dea89f43a41"
+    },
     "content:/images/resources/how-i-finally-started-my-game-using-scenario/bucherons.png": {
       "sourceHash": "4be0ed577a8a080e6aae2caf58bf2495a3af936ab2549e8b4dc772477b321807",
       "targetUrl": "/images/_optimized/resources/how-i-finally-started-my-game-using-scenario/bucherons.webp",
@@ -248,6 +268,11 @@
     },
     "og:/images/resources/focus-skill-images/cover.png": {
       "sourceHash": "647db5e4465e281336189701030f8bf2bcd6a933065d96c4fd8c51e3b1a1573f",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/focus-skill-logo-svg/cover.png": {
+      "sourceHash": "b1694317fee204d685d06b90d6510fcaf1e9546093262e6e77830df3a71a0154",
       "targetUrl": null,
       "targetHash": null
     },
