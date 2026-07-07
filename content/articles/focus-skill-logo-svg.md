@@ -13,7 +13,7 @@ coverAlt: "Mon avatar et la mascotte VB devant un logo épuré en noir et blanc,
 ogImage: /images/resources/focus-skill-logo-svg/cover.png
 ---
 
-Companion, notre produit, avait besoin d'une nouvelle identité. Et une identité, ça commence par un logo.
+[Companion](https://www.thecompanion.sh/), un de nos produits, avait besoin d'une nouvelle identité. Et une identité, ça commence par un logo.
 
 Je ne suis pas designer. Je n'allais pas ouvrir un logiciel de graphisme que je ne sais pas utiliser.
 
@@ -21,11 +21,13 @@ Mon premier réflexe a été de demander un logo à une IA qui génère des imag
 
 Je voulais quelque chose de solide et de cohérent, pas un coup de chance impossible à refaire. Alors j'ai fait un skill pour ça.
 
-Un skill, c'est le mode d'emploi que je donne à l'IA pour qu'elle refasse une tâche toujours de la même façon. Je lui ai dit ce que je cherchais, un logo tout simple et sobre, dans l'esprit de deux logos qu'on aime, The Vibe Company et Nike.
+Un skill, c'est le mode d'emploi que je donne à l'IA pour qu'elle refasse une tâche toujours de la même façon. Je lui ai dit ce que je cherchais, un logo tout simple et sobre, dans l'esprit de deux logos qu'on aime, The Vibe Company (le nôtre) et Nike.
+
+![Les deux logos que j'ai donnés au skill en référence, The Vibe Company et Nike](/images/resources/focus-skill-logo-svg/references.png "Les deux logos que j'aime et que j'ai donnés au skill en référence, The Vibe Company et Nike")
 
 ## Le principe, pas la copie
 
-Le cœur du skill tient en une phrase :
+Le cœur du skill tient en deux lignes :
 
 « Le skill ne copie jamais un logo existant. Il en extrait le principe, l'idée de conception, pas la forme. »
 
@@ -38,7 +40,7 @@ Nike : le mouvement capturé en un seul geste continu, une virgule qui accélèr
 The Vibe Company : un bloc simple aux angles arrondis qui tient un motif fin et rythmé à l'intérieur.
 ```
 
-Il part donc bien de la forme, mais pour en tirer une idée. On garde l'idée, on invente notre propre dessin.
+On garde l'idée, on invente notre propre dessin.
 
 ## Le goût, mis en dur dans le skill
 
@@ -52,7 +54,7 @@ Ce qui fait qu'un logo tient la route, je l'ai écrit dans le skill comme des r�
 
 « Lisible en tout petit. Test favicon 16 px : si un détail disparaît ou devient une bouillie, on l'enlève. »
 
-Ma préférée, c'est la dernière. Le favicon, c'est la petite icône dans l'onglet du navigateur, une quinzaine de pixels de côté. Un logo qui ne survit pas à cette taille n'est pas un bon logo.
+Ma préférée, c'est la dernière. Le favicon, c'est la petite icône dans l'onglet du navigateur, une quinzaine de pixels de côté. On voulait un logo qui survive même à cette taille miniature.
 
 ## Ce qu'il refuse de faire
 
@@ -64,11 +66,11 @@ J'ai aussi listé les tics du logo « fait par IA », ceux qu'il doit fuir. C'es
 
 En lui interdisant tout ça, je le force à faire simple. C'est là que les logos deviennent propres.
 
-## Un dessin qui est en fait du texte
+## Un dessin qui est en fait du code
 
 La grande différence avec un générateur d'images, c'est la sortie. Un générateur me rend une image figée, faite de points de couleur, floue dès qu'on l'agrandit. Le skill, lui, me rend un logo vectoriel.
 
-Un logo vectoriel, c'est littéralement du texte, une suite d'instructions de dessin. Dans le skill, j'ai même figé comment ce texte doit s'écrire :
+Un logo vectoriel, c'est littéralement du code, une suite d'instructions de dessin. Dans le skill, j'ai même figé comment ce code doit s'écrire :
 
 ```
 viewBox carré, par exemple 0 0 100 100
@@ -77,13 +79,13 @@ une seule couleur, fond transparent
 pas de filtre, pas de dégradé, pas d'effet lumineux
 ```
 
-La ligne qui compte le plus, c'est `fill="currentColor"`. Grâce à elle, un seul fichier suffit pour tous les fonds, je n'ai pas à refaire une version claire et une version foncée.
+La ligne qui compte le plus, c'est `fill="currentColor"`. Elle laisse le logo prendre la couleur de ce qui l'entoure, au lieu d'une couleur figée dans le fichier.
 
-Et comme tout reste du texte, le logo est net à n'importe quelle taille et s'édite après coup.
+Et comme tout reste du code, le logo est net à n'importe quelle taille et s'édite après coup.
 
 ## Comment ça se passe, concrètement
 
-Quand je lance le skill, il suit toujours le même chemin. Il commence par cadrer, ce que la marque doit dégager et où vivra le logo, puis il lit mes références et en tire les principes.
+Quand je lance le skill, il suit toujours le même chemin. Il commence par cadrer le projet, ce que la marque doit dégager en un mot et où le logo va vivre. Puis il lit mes références et en tire les principes.
 
 Ensuite il propose deux ou trois concepts vraiment différents, pas des variantes du même trait, et me les montre côte à côte, en grand et en tout petit. Je choisis, il affine, et il me livre les fichiers, une version noire et une blanche.
 

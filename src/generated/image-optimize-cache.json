@@ -76,6 +76,11 @@
       "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/cover.webp",
       "targetHash": "340b2e786d30090e9b0bf6e4dd3c32247a84a13b30fd3bdac7a1c9cef5c72ef6"
     },
+    "content:/images/resources/focus-skill-logo-svg/references.png": {
+      "sourceHash": "03bf28e8d5a0541e881c1d5a702c0ae088fae9429bbd861d6b355c5b84769e29",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/references.webp",
+      "targetHash": "602ed457684ea9eb6bf7fba66d5adbc0725c01064790465ee4f100b2cd44adbb"
+    },
     "content:/images/resources/focus-skill-logo-svg/stack-logo.png": {
       "sourceHash": "5809540d1defac024144c7489d5aeb692f377bd336baf119806a12d70deb231f",
       "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/stack-logo.webp",
