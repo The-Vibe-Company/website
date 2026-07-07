@@ -55,26 +55,27 @@ export default async function PortfolioProjectPage({
         <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
           <BackLink href="/portfolio" label={t("back")} />
 
-          <div className="mt-10 flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={project.logo}
-              alt={`${project.name} logo`}
-              className="h-10 w-10 rounded-sm object-contain md:h-12 md:w-12"
-            />
-            <span className="border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground">
-              {project.tag}
-            </span>
-          </div>
-
           <div className="mt-10 border-t-2 border-foreground pt-8">
-            <div
-              className="text-[52px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[76px]"
-              style={{ textDecoration: "underline", textDecorationColor: project.accent, textUnderlineOffset: "0.12em", textDecorationThickness: "4px" }}
-            >
-              {project.name}
+            <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between md:gap-6">
+              <div className="flex min-w-0 items-center gap-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={project.logo}
+                  alt={`${project.name} logo`}
+                  className="h-12 w-12 shrink-0 rounded-sm object-contain md:h-14 md:w-14"
+                />
+                <h1
+                  className="m-0 text-[44px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[64px]"
+                  style={{ textDecoration: "underline", textDecorationColor: project.accent, textUnderlineOffset: "0.12em", textDecorationThickness: "4px" }}
+                >
+                  {project.name}
+                </h1>
+              </div>
+              <span className="shrink-0 self-start border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground md:self-auto">
+                {project.tag}
+              </span>
             </div>
-            <div className="mt-3 font-mono text-sm uppercase tracking-[0.15em] text-muted-foreground">
+            <div className="mt-4 font-mono text-sm uppercase tracking-[0.15em] text-muted-foreground">
               {project.status} · {t("built")} {project.date}
             </div>
           </div>
