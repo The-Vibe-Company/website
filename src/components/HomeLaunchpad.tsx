@@ -3,7 +3,6 @@ import { Footer } from "./Footer";
 import { Hero } from "./home/Hero";
 import { Services } from "./home/Services";
 import { CaseStudy } from "./home/CaseStudy";
-import { Process } from "./home/Process";
 import { Proof } from "./home/Proof";
 import { Clients } from "./home/Clients";
 import { FinalCTA } from "./home/FinalCTA";
@@ -21,9 +20,8 @@ export function HomeLaunchpad({
         <Clients />
         <CaseStudy variant={caseStudyVariant} />
         <Services />
-        <Process />
         <Proof />
-        <FinalCTA />
+        <FinalCTA step="02" />
       </main>
       <Footer />
     </div>

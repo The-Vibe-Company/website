@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { captureEvent } from "@/lib/posthog";
 
-export function FinalCTA() {
+export function FinalCTA({ step = "04" }: { step?: string } = {}) {
   const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("finalCta");
 
@@ -35,7 +35,7 @@ export function FinalCTA() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-8 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground"
         >
-          {t("kicker")}
+          {`// ${step} — ${t("kicker")}`}
         </motion.span>
 
         <motion.h2
