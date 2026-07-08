@@ -38,7 +38,8 @@
     "titleLine2": "en production.",
     "readCase": "Lire le cas",
     "prev": "Cas précédent",
-    "next": "Cas suivant"
+    "next": "Cas suivant",
+    "seeAll": "Voir toutes nos études de cas"
   },
   "services": {
     "kicker": "// 01 — CE QU'ON FAIT",
@@ -170,7 +171,7 @@
     "viewAllArticles": "Voir les {count} articles",
     "viewAllVictor": "Voir les {count} Victor's Story",
     "focus": "Focus",
-    "tools": "Outils",
+    "tools": "Tools",
     "published": "Publié le",
     "language": "Langue",
     "complexity": "Niveau",

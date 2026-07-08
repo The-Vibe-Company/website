@@ -9,6 +9,11 @@ import { getCustomers, type ContentLocale, type Customer } from "@/lib/customers
 const ARROW_CLASS =
   "hidden h-11 w-11 shrink-0 cursor-pointer items-center justify-center self-center border border-foreground text-lg text-foreground transition-colors hover:bg-foreground hover:text-background sm:flex";
 
+// Loop arrows: just the glyph, no frame, in orange — a lighter cue that there
+// are more projects to scroll to left and right.
+const LOOP_ARROW =
+  "hidden h-11 w-11 shrink-0 cursor-pointer items-center justify-center self-center text-3xl leading-none text-orange-500 transition-transform hover:scale-125 sm:flex";
+
 type T = (key: string) => string;
 
 /** The card body, shared by the default carousel and the infinite loop. */
@@ -162,7 +167,7 @@ function CaseStudyLoop({ customers, t, peek }: { customers: Customer[]; t: T; pe
             type="button"
             onClick={() => scrollByCard(-1)}
             aria-label={t("prev")}
-            className={ARROW_CLASS}
+            className={LOOP_ARROW}
           >
             &larr;
           </button>
@@ -184,10 +189,22 @@ function CaseStudyLoop({ customers, t, peek }: { customers: Customer[]; t: T; pe
             type="button"
             onClick={() => scrollByCard(1)}
             aria-label={t("next")}
-            className={ARROW_CLASS}
+            className={LOOP_ARROW}
           >
             &rarr;
           </button>
+        </div>
+
+        <div className="mt-8 flex justify-center md:mt-10">
+          <Link
+            href="/case-studies"
+            className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-orange-500 no-underline transition-colors hover:text-orange-600"
+          >
+            {t("seeAll")}
+            <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+              &rarr;
+            </span>
+          </Link>
         </div>
       </div>
     </section>
