@@ -10,9 +10,9 @@
   "hero": {
     "badge": "Ouvert aux projets · Construit avec l'IA",
     "titleLine1": "Agence AI-native.",
-    "titleLine2": "Tout, bien plus vite.",
-    "subtitle": "Une petite équipe de spécialistes de l'IA. On construit des produits, on automatise les opérations et on forme les équipes. Notre agence tourne elle-même à l'IA. C'est l'effet cumulé.",
-    "bookCall": "Réserver un appel découverte",
+    "titleLine2": "Tout va beaucoup plus vite.",
+    "subtitle": "Une petite équipe de spécialistes de l'IA. On construit des produits, on automatise les opérations et on forme les équipes. Notre propre agence tourne à l'IA. Et ça se cumule.",
+    "bookCall": "Prendre rendez-vous",
     "seeWhatWeDo": "Voir ce qu'on fait",
     "items": {
       "build": {
@@ -20,12 +20,12 @@
         "desc": "Produits IA et outils internes, de bout en bout."
       },
       "operate": {
-        "label": "Opérer",
+        "label": "Piloter",
         "desc": "Des agents dans votre entreprise. Ventes, support, admin, contenu."
       },
       "advise": {
         "label": "Conseiller",
-        "desc": "Stratégie, formation, et le playbook IA pour votre équipe."
+        "desc": "Stratégie, formation, et la marche à suivre pour mettre l'IA au service de votre équipe."
       }
     }
   },
@@ -33,10 +33,10 @@
     "trustedBy": "Ils nous font confiance"
   },
   "caseStudy": {
-    "kicker": "// TRAVAIL CLIENT",
-    "titleLine1": "Construit pour nos clients,",
+    "kicker": "// PROJETS CLIENTS",
+    "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",
-    "readCase": "Lire le cas",
+    "readCase": "Lire l'étude de cas",
     "prev": "Cas précédent",
     "next": "Cas suivant",
     "seeAll": "Voir toutes nos études de cas"
@@ -52,20 +52,20 @@
         "desc": "On conçoit et on livre votre produit de bout en bout. Code, design, évaluations, ops. L'IA fait tout ce qui n'a pas besoin d'un humain, donc on livre 50 à 100× plus vite qu'une équipe classique.",
         "bullets": [
           "Cadrage, architecture, code prêt pour la production",
-          "Construit avec Claude + Codex + des agents dans la boucle",
+          "Construit avec Claude, Codex et des agents à chaque étape",
           "Évaluations + observabilité dès le premier jour",
-          "Passation complète avec la doc, ou on continue à l'opérer"
+          "Passation complète avec la doc, ou on continue de le faire tourner"
         ]
       },
       "operate": {
         "title": "Opérations par agents",
-        "tag": "INTÉGRER + OPÉRER",
+        "tag": "INTÉGRER + EXPLOITER",
         "desc": "On déploie des agents dans votre entreprise pour prendre en charge les tâches que personne ne veut. Ventes, support, contenu, flux admin, outils internes. Partout où votre équipe perd des heures sur du répétitif.",
         "bullets": [
-          "Audit des workflows + carte du ROI",
+          "Audit des workflows + cartographie du ROI",
           "Construire, déployer, ajuster",
           "Former votre équipe à les piloter",
-          "Un engagement qui s'adapte à la charge, sans dépendance"
+          "Un engagement qui s'adapte à la charge, sans vous enfermer"
         ]
       },
       "advise": {
@@ -74,7 +74,7 @@
         "desc": "Des missions courtes pour les dirigeants qui veulent une vraie réponse à « qu'est-ce qu'on devrait vraiment faire avec l'IA ? ». On cartographie votre stack, on priorise les opportunités, et on forme votre équipe pour qu'elle n'ait plus besoin de nous.",
         "bullets": [
           "Audit de la stack + cartographie des opportunités",
-          "Recommandations construire ou acheter",
+          "Nos recommandations : développer ou acheter",
           "Feuille de route avec opportunités priorisées",
           "Formation pratique pour votre équipe",
           "Passation d'implémentation en option"
@@ -103,25 +103,25 @@
         "desc": "Vous voyez du logiciel qui marche tôt et souvent. Démos Loom, déploiements rapides, revues de code. Vous voyez le build se faire, pas juste le résultat."
       },
       "operate": {
-        "label": "OPÉRER",
+        "label": "EXPLOITER",
         "title": "Passation, ou on reste.",
-        "desc": "On peut confier le code à votre équipe avec toute la doc et les runbooks. Ou on continue à l'opérer au forfait mensuel. À vous de voir."
+        "desc": "On peut confier le code à votre équipe avec toute la doc et les runbooks. Ou on continue de le faire tourner au forfait mensuel. À vous de voir."
       }
     }
   },
   "proof": {
     "kicker": "// NOS PROPRES PRODUITS",
     "titleLine1": "On construit nos propres",
-    "titleLine2": "produits, à ciel ouvert.",
-    "intro": "On ne construit pas que pour nos clients. La même équipe publie ses propres outils open source sur GitHub. C'est comme ça qu'on reste affûtés et qu'on repousse ce que l'IA peut faire.",
+    "titleLine2": "produits, au grand jour.",
+    "intro": "On ne construit pas que pour nos clients. La même équipe publie ses propres outils open source sur GitHub. C'est comme ça qu'on reste affûtés et qu'on pousse l'IA plus loin.",
     "barLeft": "OPEN SOURCE · SUR GITHUB",
-    "barRight": "4 SUR 14 PUBLICS",
+    "barRight": "4 SUR 14 EN PUBLIC",
     "browseAll": "Tout voir sur GitHub",
     "products": {
-      "companion": "Interface web et mobile pour Claude Code et Codex. Lancez des sessions, streamez les réponses, validez les outils.",
+      "companion": "Interface web et mobile pour Claude Code et Codex. Lancez des sessions, suivez les réponses en direct, validez les outils.",
       "drift": "Extension VS Code intégrée à Claude Code. Vérifiez votre dérive IA en temps réel.",
       "granite": "Compilateur de connaissances local-first pour humains et agents. Markdown simple, CLI + serveur MCP.",
-      "vanish": "Uploadez des fichiers, obtenez des liens publics temporaires. Ultra simple."
+      "vanish": "Envoyez des fichiers, récupérez des liens publics temporaires. Ultra simple."
     }
   },
   "finalCta": {
@@ -136,22 +136,22 @@
   "footer": {
     "tagline": "Une agence AI-native. Paris.",
     "siteHeading": "SITE",
-    "elsewhereHeading": "AILLEURS",
-    "statusHeading": "STATUT",
+    "elsewhereHeading": "RÉSEAUX",
+    "statusHeading": "EN BREF",
     "home": "Accueil",
     "portfolio": "Portfolio",
     "resources": "Ressources",
     "mission": "Mission",
     "builtWithAi": "Construit avec l'IA",
     "openToProjects": "Ouvert aux projets",
-    "foundersLed": "Mené par les fondateurs"
+    "foundersLed": "Dirigé par ses fondateurs"
   },
   "caseStudiesPage": {
-    "kicker": "// TRAVAIL CLIENT",
-    "titleLine1": "Construit pour nos clients,",
+    "kicker": "// PROJETS CLIENTS",
+    "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",
-    "subtitle": "De vrais produits et automatisations IA qu’on construit et opère pour des entreprises, vite, parce qu’on tourne nous-mêmes à l’IA.",
-    "readCase": "Lire le cas",
+    "subtitle": "De vrais produits et automatisations IA qu’on construit et fait tourner pour des entreprises, vite, parce qu’on tourne nous-mêmes à l’IA.",
+    "readCase": "Lire l'étude de cas",
     "back": "Études de cas",
     "backHome": "Accueil",
     "whatWeDid": "// Ce qu’on a fait",
@@ -162,7 +162,7 @@
   "resources": {
     "kicker": "Ressources",
     "title": "Articles & essais.",
-    "subtitle": "Ce qu’on apprend et construit avec l’IA chez The Vibe Company, plus la Victor’s Story en chemin.",
+    "subtitle": "Ce qu’on apprend et construit avec l’IA chez The Vibe Company, ainsi que la Victor’s Story au passage.",
     "searchPlaceholder": "Chercher un article, un sujet…",
     "all": "Tout",
     "victorStory": "Victor's Story",

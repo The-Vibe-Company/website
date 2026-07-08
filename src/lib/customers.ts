@@ -60,11 +60,11 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     metric: { en: "2 months", fr: "2 mois" },
     metricLabel: {
       en: "from scratch to live on iOS and Android",
-      fr: "de zéro à en ligne sur iOS et Android",
+      fr: "de l'idée à la mise en ligne sur iOS et Android",
     },
     summary: {
       en: "Monka helps people who care for a loved one. They came to us with an ambitious roadmap and a deadline they couldn't miss. In two months we rebuilt their mobile app and their care-coordination tool from scratch, fully vibe-coded, and shipped the year of features they had planned.",
-      fr: "Monka aide les personnes qui accompagnent un proche. Ils sont venus avec une roadmap ambitieuse et une deadline à ne pas rater. En deux mois, on a reconstruit leur app mobile et leur outil de coordination de zéro, 100% vibe codé, et livré l'année de fonctionnalités qu'ils avaient prévue.",
+      fr: "Monka aide les personnes qui accompagnent un proche. Ils sont venus avec une roadmap ambitieuse et une deadline à ne pas rater. En deux mois, on a reconstruit leur app mobile et leur outil de coordination de zéro, 100% vibe codé, et livré les douze mois de fonctionnalités qu'ils avaient prévus.",
     },
     points: [
       {
@@ -111,11 +111,11 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     metric: { en: "87%", fr: "87%" },
     metricLabel: {
       en: "of support tickets answered with our AI drafts",
-      fr: "des tickets support répondus grâce à nos brouillons IA",
+      fr: "des tickets support traités grâce à nos brouillons IA",
     },
     summary: {
       en: "LocService handles several hundred support tickets a day. We read all their past tickets and internal docs to draft the answer for each new one, tailored to the customer's profile and history.",
-      fr: "LocService traite plusieurs centaines de tickets support par jour. On lit tous leurs anciens tickets et leur doc interne pour rédiger la réponse à chaque nouveau, adaptée au profil et à l'historique du client.",
+      fr: "LocService traite plusieurs centaines de tickets support par jour. On lit tous leurs anciens tickets et leur documentation interne pour rédiger la réponse à chaque nouveau, adaptée au profil et à l'historique du client.",
     },
     points: [
       { en: "Connected to their internal APIs to pull real customer context.", fr: "Connecté à leurs API internes pour récupérer le vrai contexte client." },
@@ -127,7 +127,7 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       fr: "LocService traite plusieurs centaines de tickets support par jour. On a construit un assistant qui lit tous leurs anciens tickets et leur documentation interne pour rédiger la réponse à chaque nouveau ticket, adaptée au profil et à l'historique du client.",
     },
     results: [
-      { value: { en: "87%", fr: "87%" }, label: { en: "Of tickets answered with our AI drafts", fr: "Des tickets répondus avec nos brouillons IA" } },
+      { value: { en: "87%", fr: "87%" }, label: { en: "Of tickets answered with our AI drafts", fr: "Des tickets traités grâce à nos brouillons IA" } },
       { value: { en: "Hundreds", fr: "Des centaines" }, label: { en: "Of tickets handled per day", fr: "De tickets traités par jour" } },
     ],
   },
@@ -141,7 +141,7 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     metric: { en: "90M documents", fr: "90M documents" },
     metricLabel: {
       en: "of text, image, and video, made searchable by AI",
-      fr: "de texte, image et vidéo, rendus cherchables par l'IA",
+      fr: "de texte, image et vidéo, rendus explorables par l'IA",
     },
     summary: {
       en: "AFP is one of the world's largest news agencies. As part of a France 2030 project, we're building AI tools that help their journalists work faster, on top of a corpus of 90 million documents: articles, images, video, and wires.",
@@ -157,7 +157,7 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       fr: "L'AFP est l'une des plus grandes agences de presse du monde. Dans le cadre d'un projet France 2030 sur deux ans, on construit des outils IA qui aident leurs journalistes à travailler plus vite, sur un corpus de 90 millions de documents : articles, images, vidéos et dépêches.",
     },
     results: [
-      { value: { en: "90M", fr: "90M" }, label: { en: "Documents made searchable", fr: "Documents rendus cherchables" } },
+      { value: { en: "90M", fr: "90M" }, label: { en: "Documents made searchable", fr: "Documents rendus explorables" } },
       { value: { en: "2 years", fr: "2 ans" }, label: { en: "France 2030 project", fr: "Projet France 2030" } },
       { value: { en: "3 tools", fr: "3 outils" }, label: { en: "Watch, multimodal search, writing assistant", fr: "Veille, recherche multimodale, assistant rédactionnel" } },
     ],
@@ -168,7 +168,7 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     logo: "/images/clients/coup-de-pates.svg",
     url: "https://www.coupdepates.fr",
     visuals: [],
-    sector: { en: "Food · Design review", fr: "Agroalimentaire · Revue de design" },
+    sector: { en: "Food · Design review", fr: "Agroalimentaire · Relecture design" },
     metric: { en: "At a glance", fr: "En un coup d'œil" },
     metricLabel: {
       en: "which catalog feedback was applied, which wasn't",
@@ -179,8 +179,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       fr: "Coup de Pâtes relit les catalogues produits de leurs designers : une v0 arrive, ils annotent leurs retours, et la version révisée revient. Vérifier que chaque retour avait bien été appliqué demandait une relecture manuelle minutieuse. On leur a construit des skills IA qui font ressortir tout ça en quelques coups d'œil.",
     },
     points: [
-      { en: "See applied vs. missed feedback instantly, plus requested changes and typos.", fr: "Voir instantanément les retours appliqués ou oubliés, plus les modifications demandées et les fautes." },
-      { en: "Re-annotate and re-export the new round of feedback as a PDF.", fr: "Ré-annoter et réexporter le nouveau tour de retours en PDF." },
+      { en: "See applied vs. missed feedback instantly, plus requested changes and typos.", fr: "Voir instantanément les retours appliqués ou oubliés, ainsi que les modifications demandées et les fautes." },
+      { en: "Re-annotate and re-export the new round of feedback as a PDF.", fr: "Ré-annoter et réexporter la nouvelle série de retours en PDF." },
       { en: "A second tool highlights the differences between two specific documents, like two labels or two specs.", fr: "Un second outil met en évidence les différences entre deux documents précis, comme deux étiquettes ou deux cahiers des charges." },
     ],
     overview: {
@@ -188,7 +188,7 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       fr: "Coup de Pâtes relit les catalogues produits de leurs designers : une v0 arrive, ils annotent leurs retours, et la version révisée revient. Vérifier que chaque retour avait bien été appliqué demandait une relecture manuelle minutieuse. On leur a construit des skills IA qui font ressortir tout ça en quelques coups d'œil.",
     },
     results: [
-      { value: { en: "2 tools", fr: "2 outils" }, label: { en: "Catalog review and document comparison", fr: "Revue de catalogue et comparaison de documents" } },
+      { value: { en: "2 tools", fr: "2 outils" }, label: { en: "Catalog review and document comparison", fr: "Relecture de catalogue et comparaison de documents" } },
       { value: { en: "PDF", fr: "PDF" }, label: { en: "Re-annotate and re-export in one click", fr: "Ré-annoter et réexporter en un clic" } },
     ],
   },
