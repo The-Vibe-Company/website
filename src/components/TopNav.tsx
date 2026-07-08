@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
@@ -38,7 +38,12 @@ export function TopNav(props: TopNavProps) {
 function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const t = useTranslations("nav");
+  // Highlight the section the visitor is currently in (a detail page like
+  // /case-studies/monka still lights up "Études de cas").
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -116,6 +121,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
               <li key={item.key}>
                 <Link
                   href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() =>
@@ -125,7 +131,12 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                       location: "desktop_nav",
                     })
                   }
-                  className={cn(components.nav.link, "relative")}
+                  className={cn(
+                    components.nav.link,
+                    "relative",
+                    isActive(item.href) &&
+                      "text-foreground underline decoration-1 underline-offset-[6px]"
+                  )}
                 >
                   {hoveredIndex === index && (
                     <motion.div
@@ -268,6 +279,11 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
               >
                 <Link
                   href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={cn(
+                    isActive(item.href) &&
+                      "underline decoration-1 underline-offset-[6px]"
+                  )}
                   onClick={() => {
                     captureEvent("nav_link_clicked", {
                       label: item.key,
