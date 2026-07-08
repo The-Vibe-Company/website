@@ -79,13 +79,7 @@ export default async function CaseStudyPage({
             </div>
           </div>
 
-          <div
-            className={
-              customer.visuals.length > 0
-                ? "mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:items-start lg:gap-14"
-                : "mt-10"
-            }
-          >
+          <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:items-start lg:gap-14">
             <div>
               <p className="m-0 max-w-[720px] text-xl leading-[1.5] text-foreground md:text-2xl">
                 {customer.overview}
@@ -103,16 +97,27 @@ export default async function CaseStudyPage({
               )}
             </div>
 
-            {customer.visuals.length > 0 && (
-              <div className="flex flex-col gap-4">
-                {customer.visuals.map((visual) => (
-                  <div key={visual.src} className="overflow-hidden border border-foreground">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={visual.src} alt={visual.alt} className="h-auto w-full" loading="lazy" />
-                  </div>
-                ))}
-              </div>
-            )}
+            {/* Two product visuals beside the text. Reserved frames for now;
+                real screenshots get dropped into customer.visuals later. */}
+            <div className="flex flex-col gap-4">
+              {customer.visuals.length > 0
+                ? customer.visuals.map((visual) => (
+                    <div key={visual.src} className="overflow-hidden border border-foreground">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={visual.src} alt={visual.alt} className="h-auto w-full" loading="lazy" />
+                    </div>
+                  ))
+                : [0, 1].map((i) => (
+                    <div
+                      key={i}
+                      className="flex aspect-[4/3] items-center justify-center border border-dashed border-border bg-background px-4 text-center"
+                    >
+                      <span className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
+                        {t("visualsSoon")}
+                      </span>
+                    </div>
+                  ))}
+            </div>
           </div>
         </section>
 
@@ -153,21 +158,6 @@ export default async function CaseStudyPage({
         </section>
 
         <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-12 md:pb-24">
-          {/* Product visuals now sit beside the overview above; when there are
-              none yet, keep a placeholder here so the intent is clear. */}
-          {customer.visuals.length === 0 && (
-            <>
-              <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                {t("theProduct")}
-              </span>
-              <div className="flex min-h-[280px] items-center justify-center border border-dashed border-border bg-background px-6 text-center">
-                <p className="m-0 max-w-[420px] font-mono text-[11px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
-                  {t("visualsSoon")}
-                </p>
-              </div>
-            </>
-          )}
-
           {customer.url && (
             <a
               href={customer.url}
