@@ -1,26 +1,24 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/design-system";
 
 const LOCALES = [
   { code: "fr", label: "FR" },
   { code: "en", label: "EN" },
-];
-
-function writeLocaleCookie(code: string) {
-  document.cookie = `NEXT_LOCALE=${code}; path=/; max-age=${60 * 60 * 24 * 365}`;
-}
+] as const;
 
 export function LanguageSwitcher({ className }: { className?: string }) {
   const locale = useLocale();
   const router = useRouter();
+  const pathname = usePathname();
 
-  const setLocale = (code: string) => {
+  const setLocale = (code: (typeof LOCALES)[number]["code"]) => {
     if (code === locale) return;
-    writeLocaleCookie(code);
-    router.refresh();
+    // Go to the same page in the other language (/fr/... <-> /en/...).
+    // The middleware remembers the choice in a cookie for the root redirect.
+    router.replace(pathname, { locale: code });
   };
 
   return (

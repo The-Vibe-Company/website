@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from 'next-intl';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getUrlSlugForDbType } from '@/lib/content-types';

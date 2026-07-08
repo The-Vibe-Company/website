@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 interface BackLinkProps {
   /** Destination to return to (named by the page via its label). */

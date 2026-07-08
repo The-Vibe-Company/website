@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { LanguageFlag } from '@/components/resources/LanguageFlag';

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
@@ -10,10 +10,8 @@ import { getCustomers, type ContentLocale, type Customer } from "@/lib/customers
 const ARROW_CLASS =
   "hidden h-11 w-11 shrink-0 cursor-pointer items-center justify-center self-center border border-foreground text-lg text-foreground transition-colors hover:bg-foreground hover:text-background sm:flex";
 
-// Loop arrows: just the glyph, no frame, in orange — a lighter cue that there
-// are more projects to scroll to left and right.
-// Grey frame, orange arrow (Lucide icons center cleanly, unlike HTML arrow
-// glyphs). Fills orange on hover.
+// Loop arrows: grey frame, orange Lucide arrow (centers cleanly), fills orange
+// on hover — a cue that there are more projects to scroll to left and right.
 const LOOP_ARROW =
   "hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center self-center border-2 border-border text-orange-500 transition-colors hover:border-orange-500 hover:bg-orange-500 hover:text-background sm:flex";
 

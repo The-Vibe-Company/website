@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from "@/i18n/navigation";
 import { useLocale } from 'next-intl';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getTypeSlug, getTypeLabel } from '@/lib/taxonomy-utils';

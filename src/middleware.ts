@@ -1,31 +1,45 @@
+import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
 
-const LOCALE_COOKIE = "NEXT_LOCALE";
-const YEAR = 60 * 60 * 24 * 365;
+const intlMiddleware = createMiddleware(routing);
+
+function hasLocalePrefix(pathname: string): boolean {
+  return routing.locales.some(
+    (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`)
+  );
+}
 
 export function middleware(request: NextRequest) {
-  const existing = request.cookies.get(LOCALE_COOKIE)?.value;
+  const { pathname } = request.nextUrl;
 
-  // Respect a locale already chosen (by geo before, or by the switcher).
-  if (existing && (routing.locales as readonly string[]).includes(existing)) {
-    return NextResponse.next();
+  // A URL without a language prefix: decide the language and redirect to it.
+  // Order: the visitor's manual choice (cookie) first, then geolocation
+  // (France -> fr, anywhere else -> en; unknown, e.g. localhost, stays fr).
+  if (!hasLocalePrefix(pathname)) {
+    const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
+    let locale: string = routing.defaultLocale;
+    if (
+      cookieLocale &&
+      (routing.locales as readonly string[]).includes(cookieLocale)
+    ) {
+      locale = cookieLocale;
+    } else {
+      const country = request.headers.get("x-vercel-ip-country") ?? "";
+      locale = country && country !== "FR" ? "en" : "fr";
+    }
+
+    const url = request.nextUrl.clone();
+    url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
+    return NextResponse.redirect(url);
   }
 
-  // French by default; only switch to English when we know the visitor is
-  // outside France. Unknown geolocation (e.g. localhost) stays French.
-  const country = request.headers.get("x-vercel-ip-country") ?? "";
-  const locale = country && country !== "FR" ? "en" : "fr";
-
-  // Make this first request render in the detected locale...
-  request.cookies.set(LOCALE_COOKIE, locale);
-  const response = NextResponse.next({ request });
-  // ...and remember it for next time.
-  response.cookies.set(LOCALE_COOKIE, locale, { path: "/", maxAge: YEAR });
-  return response;
+  // Prefixed URL: let next-intl handle it (remembers the locale in a cookie,
+  // adds alternate-language headers, etc.).
+  return intlMiddleware(request);
 }
 
 export const config = {
-  // Run on page routes only, not on API, assets, PostHog proxy, or files.
+  // Page routes only, not API, assets, PostHog proxy, or files with an extension.
   matcher: ["/((?!api|_next|ingest|.*\\.).*)"],
 };

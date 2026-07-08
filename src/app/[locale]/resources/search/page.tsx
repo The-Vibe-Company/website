@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import { Link } from "@/i18n/navigation";
 import type React from 'react';
 import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
@@ -19,12 +19,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function SearchPage({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ q?: string }>;
 }) {
+  const { locale } = await params;
   const { q } = await searchParams;
-  if (!q) redirect('/resources');
+  if (!q) redirect(`/${locale}/resources`);
 
   const t = await getTranslations('resources');
   const results = searchContent(q).slice(0, 50);

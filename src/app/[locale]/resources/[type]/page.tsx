@@ -18,11 +18,11 @@ export const dynamicParams = true;
 export default async function TypeListingPage({
   params,
 }: {
-  params: Promise<{ type: string }>;
+  params: Promise<{ type: string; locale: string }>;
 }) {
-  const { type } = await params;
+  const { type, locale } = await params;
   if (!getContentTypeByUrlSlug(type)) {
     notFound();
   }
-  redirect('/resources');
+  redirect(`/${locale}/resources`);
 }

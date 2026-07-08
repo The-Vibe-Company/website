@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 import { PostHogProvider } from "@/components/PostHogProvider";
 
 const SmoothScroller = dynamic(
