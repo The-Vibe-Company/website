@@ -84,9 +84,10 @@ function SectionHeader({ t }: { t: T }) {
   );
 }
 
-// Slightly narrower than half so the next card peeks in, signalling there is
-// more to scroll — combined with the infinite loop below.
-const CARD_WIDTH = "w-[80%] shrink-0 sm:w-[62%] md:w-[calc(44%-10px)]";
+// Two card widths for the loop: `peek` narrows the cards so the next one peeks
+// in (a "there is more" cue); otherwise two cards sit flush with no overflow.
+const CARD_WIDTH_PEEK = "w-[80%] shrink-0 sm:w-[62%] md:w-[calc(44%-10px)]";
+const CARD_WIDTH_FLUSH = "w-[86%] shrink-0 sm:w-[70%] md:w-[calc(50%-10px)]";
 
 /**
  * Same two-card format as the default, but the track loops forever: the user
@@ -94,10 +95,12 @@ const CARD_WIDTH = "w-[80%] shrink-0 sm:w-[62%] md:w-[calc(44%-10px)]";
  * directions. Nothing auto-scrolls. Three identical copies give a full set of
  * buffer on each side; when the scroll position drifts past a copy, it jumps by
  * exactly one set width onto identical content, so the wrap is invisible.
+ * `peek` decides whether the next card overflows into view or the cards sit flush.
  */
-function CaseStudyLoop({ customers, t }: { customers: Customer[]; t: T }) {
+function CaseStudyLoop({ customers, t, peek }: { customers: Customer[]; t: T; peek: boolean }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const setLen = customers.length;
+  const cardWidth = peek ? CARD_WIDTH_PEEK : CARD_WIDTH_FLUSH;
 
   useEffect(() => {
     const track = trackRef.current;
@@ -170,7 +173,7 @@ function CaseStudyLoop({ customers, t }: { customers: Customer[]; t: T }) {
           >
             {loop.flatMap((copy) =>
               customers.map((c) => (
-                <div key={`${copy}-${c.slug}`} data-card className={CARD_WIDTH}>
+                <div key={`${copy}-${c.slug}`} data-card className={cardWidth}>
                   <CaseStudyCard c={c} t={t} />
                 </div>
               ))
@@ -191,15 +194,17 @@ function CaseStudyLoop({ customers, t }: { customers: Customer[]; t: T }) {
   );
 }
 
-export function CaseStudy({ variant = "default" }: { variant?: "default" | "peek" }) {
+export function CaseStudy({ variant = "default" }: { variant?: "default" | "peek" | "loop" }) {
   const reduceMotion = useReducedMotion() ?? false;
   const trackRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("caseStudy") as T;
   const locale = useLocale() as ContentLocale;
   const customers = getCustomers(locale);
 
-  if (variant === "peek") {
-    return <CaseStudyLoop customers={customers} t={t} />;
+  // Both loop variants share the infinite manual scroll; they differ only in
+  // whether the next card overflows into view (`peek`) or the cards sit flush.
+  if (variant === "peek" || variant === "loop") {
+    return <CaseStudyLoop customers={customers} t={t} peek={variant === "peek"} />;
   }
 
   const showArrows = customers.length > 2;

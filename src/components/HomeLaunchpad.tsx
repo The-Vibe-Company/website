@@ -10,7 +10,7 @@ import { FinalCTA } from "./home/FinalCTA";
 export function HomeLaunchpad({
   caseStudyVariant = "default",
 }: {
-  caseStudyVariant?: "default" | "peek";
+  caseStudyVariant?: "default" | "peek" | "loop";
 } = {}) {
   return (
     <div data-variant="hybrid" className="flex min-h-screen flex-col bg-background text-foreground">
