@@ -7,13 +7,18 @@
     "searchShort": "Rechercher…",
     "searchLong": "Chercher dans les ressources…"
   },
+  "meta": {
+    "description": "Une agence née avec l'IA. Tout va 50 à 100× plus vite grâce à l'IA : produits, opérations, formation. Notre propre agence tourne aussi à l'IA."
+  },
   "hero": {
     "badge": "Ouvert aux projets · Construit avec l'IA",
-    "titleLine1": "Agence AI-native.",
+    "titleLine1": "Agence née avec l'IA.",
     "titleLine2": "Tout va beaucoup plus vite.",
     "subtitle": "Une petite équipe de spécialistes de l'IA. On construit des produits, on automatise les opérations et on forme les équipes. Notre propre agence tourne à l'IA. Et ça se cumule.",
     "bookCall": "Prendre rendez-vous",
     "seeWhatWeDo": "Voir ce qu'on fait",
+    "stripAgency": "Agence née avec l'IA",
+    "stripBuilding": "On construit depuis 2023",
     "items": {
       "build": {
         "label": "Construire",
@@ -134,10 +139,11 @@
     "emailLabel": "EMAIL"
   },
   "footer": {
-    "tagline": "Une agence AI-native. Paris.",
+    "tagline": "Une agence née avec l'IA. Paris.",
     "siteHeading": "SITE",
     "elsewhereHeading": "RÉSEAUX",
     "statusHeading": "EN BREF",
+    "madeInFrance": "Fabriqué en France",
     "home": "Accueil",
     "portfolio": "Portfolio",
     "resources": "Ressources",
@@ -220,7 +226,7 @@
   "agency": {
     "kicker": "Agence",
     "metaTitle": "Qui sommes-nous",
-    "metaDescription": "The Vibe Company est une agence AI-native qui aide les startups à livrer plus vite grâce au développement assisté par l’IA, au prototypage et à l’exécution rapide.",
+    "metaDescription": "The Vibe Company est une agence née avec l’IA qui aide les startups à livrer plus vite grâce au développement assisté par l’IA, au prototypage et à l’exécution rapide.",
     "body": "On est bien trop occupés à livrer pour écrire notre propre page agence.",
     "bodyIronic": "Ironique ? Complètement."
   }

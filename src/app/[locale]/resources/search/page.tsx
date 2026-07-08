@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('resources');
   return {
-    title: `${t('searchTitle')} | The Vibe Company`,
+    title: t('searchTitle'),
   };
 }
 

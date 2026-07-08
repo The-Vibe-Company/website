@@ -10,7 +10,7 @@ import { resourcesTheme } from '@/lib/resources-theme';
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('resources');
   return {
-    title: `${t('kicker')} | The Vibe Company`,
+    title: t('kicker'),
     description: t('subtitle'),
   };
 }

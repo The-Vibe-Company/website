@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
@@ -15,12 +15,12 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const locale = (await getLocale()) as ContentLocale;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("portfolio");
-  const project = getProject(slug, locale);
+  const project = getProject(slug, locale as ContentLocale);
   if (!project) return { title: t("back") };
   return {
     title: `${project.name} · ${t("back")}`,
@@ -31,12 +31,12 @@ export async function generateMetadata({
 export default async function PortfolioProjectPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const locale = (await getLocale()) as ContentLocale;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("portfolio");
-  const project = getProject(slug, locale);
+  const project = getProject(slug, locale as ContentLocale);
   if (!project) notFound();
 
   const meta = [
