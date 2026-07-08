@@ -12,7 +12,7 @@ const ARROW_CLASS =
 // Loop arrows: just the glyph, no frame, in orange — a lighter cue that there
 // are more projects to scroll to left and right.
 const LOOP_ARROW =
-  "hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center self-center text-[44px] font-bold leading-none text-orange-500 transition-all hover:scale-125 hover:text-orange-600 sm:flex";
+  "hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center self-center border-2 border-orange-500 text-2xl font-bold leading-none text-orange-500 transition-colors hover:bg-orange-500 hover:text-background sm:flex";
 
 type T = (key: string) => string;
 
@@ -198,10 +198,10 @@ function CaseStudyLoop({ customers, t, peek }: { customers: Customer[]; t: T; pe
         <div className="mt-8 flex justify-center md:mt-10">
           <Link
             href="/case-studies"
-            className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-orange-500 no-underline transition-colors hover:text-orange-600"
+            className="group inline-flex items-center gap-2.5 font-mono text-[13px] uppercase tracking-[0.2em] text-orange-500 no-underline transition-colors hover:text-orange-600 md:text-sm"
           >
             {t("seeAll")}
-            <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+            <span aria-hidden="true" className="text-base transition-transform duration-300 group-hover:translate-x-1">
               &rarr;
             </span>
           </Link>
