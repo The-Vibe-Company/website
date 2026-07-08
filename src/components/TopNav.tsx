@@ -145,7 +145,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           <a
             href="mailto:founders@thevibecompany.co"
             onClick={() => captureEvent("get_in_touch_clicked", { location: "nav" })}
-            className={components.button.primary}
+            className={cn(components.button.primary, "min-w-[150px] text-center")}
           >
             {t("getInTouch")}
           </a>
