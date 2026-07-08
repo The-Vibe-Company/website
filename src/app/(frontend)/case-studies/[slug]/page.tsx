@@ -79,20 +79,41 @@ export default async function CaseStudyPage({
             </div>
           </div>
 
-          <p className="m-0 mt-10 max-w-[720px] text-xl leading-[1.5] text-foreground md:text-2xl">
-            {customer.overview}
-          </p>
+          <div
+            className={
+              customer.visuals.length > 0
+                ? "mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:items-start lg:gap-14"
+                : "mt-10"
+            }
+          >
+            <div>
+              <p className="m-0 max-w-[720px] text-xl leading-[1.5] text-foreground md:text-2xl">
+                {customer.overview}
+              </p>
 
-          {customer.quote && (
-            <figure className="mt-10 max-w-[760px] border-l-2 border-orange-500 pl-6">
-              <blockquote className="m-0 text-lg font-medium leading-[1.5] text-foreground md:text-xl">
-                &ldquo;{customer.quote.text}&rdquo;
-              </blockquote>
-              <figcaption className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                {customer.quote.author}
-              </figcaption>
-            </figure>
-          )}
+              {customer.quote && (
+                <figure className="mt-10 max-w-[760px] border-l-2 border-orange-500 pl-6">
+                  <blockquote className="m-0 text-lg font-medium leading-[1.5] text-foreground md:text-xl">
+                    &ldquo;{customer.quote.text}&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                    {customer.quote.author}
+                  </figcaption>
+                </figure>
+              )}
+            </div>
+
+            {customer.visuals.length > 0 && (
+              <div className="flex flex-col gap-4">
+                {customer.visuals.map((visual) => (
+                  <div key={visual.src} className="overflow-hidden border border-foreground">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={visual.src} alt={visual.alt} className="h-auto w-full" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </section>
 
         <section className="border-y border-border bg-background">
@@ -132,24 +153,19 @@ export default async function CaseStudyPage({
         </section>
 
         <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-12 md:pb-24">
-          <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {t("theProduct")}
-          </span>
-          {customer.visuals.length > 0 ? (
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {customer.visuals.map((visual) => (
-                <div key={visual.src} className="overflow-hidden border border-foreground">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={visual.src} alt={visual.alt} className="h-auto w-full" loading="lazy" />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="flex min-h-[280px] items-center justify-center border border-dashed border-border bg-background px-6 text-center">
-              <p className="m-0 max-w-[420px] font-mono text-[11px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
-                {t("visualsSoon")}
-              </p>
-            </div>
+          {/* Product visuals now sit beside the overview above; when there are
+              none yet, keep a placeholder here so the intent is clear. */}
+          {customer.visuals.length === 0 && (
+            <>
+              <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                {t("theProduct")}
+              </span>
+              <div className="flex min-h-[280px] items-center justify-center border border-dashed border-border bg-background px-6 text-center">
+                <p className="m-0 max-w-[420px] font-mono text-[11px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
+                  {t("visualsSoon")}
+                </p>
+              </div>
+            </>
           )}
 
           {customer.url && (
