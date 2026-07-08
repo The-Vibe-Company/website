@@ -7,18 +7,14 @@ import { Proof } from "./home/Proof";
 import { Clients } from "./home/Clients";
 import { FinalCTA } from "./home/FinalCTA";
 
-export function HomeLaunchpad({
-  caseStudyVariant = "default",
-}: {
-  caseStudyVariant?: "default" | "peek" | "loop";
-} = {}) {
+export function HomeLaunchpad() {
   return (
     <div data-variant="hybrid" className="flex min-h-screen flex-col bg-background text-foreground">
       <TopNav />
       <main className="flex-1">
         <Hero />
         <Clients />
-        <CaseStudy variant={caseStudyVariant} />
+        <CaseStudy />
         <Services />
         <Proof />
         <FinalCTA step="02" />
