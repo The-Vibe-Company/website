@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import { getCustomers, type ContentLocale, type Customer } from "@/lib/customers";
@@ -11,8 +12,10 @@ const ARROW_CLASS =
 
 // Loop arrows: just the glyph, no frame, in orange — a lighter cue that there
 // are more projects to scroll to left and right.
+// Grey frame, orange arrow (Lucide icons center cleanly, unlike HTML arrow
+// glyphs). Fills orange on hover.
 const LOOP_ARROW =
-  "hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center self-center border-2 border-orange-500 text-2xl font-bold leading-none text-orange-500 transition-colors hover:bg-orange-500 hover:text-background sm:flex";
+  "hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center self-center border-2 border-border text-orange-500 transition-colors hover:border-orange-500 hover:bg-orange-500 hover:text-background sm:flex";
 
 type T = (key: string) => string;
 
@@ -169,7 +172,7 @@ function CaseStudyLoop({ customers, t, peek }: { customers: Customer[]; t: T; pe
             aria-label={t("prev")}
             className={LOOP_ARROW}
           >
-            &larr;
+            <ArrowLeft size={22} strokeWidth={2.25} aria-hidden="true" />
           </button>
 
           <div
@@ -191,7 +194,7 @@ function CaseStudyLoop({ customers, t, peek }: { customers: Customer[]; t: T; pe
             aria-label={t("next")}
             className={LOOP_ARROW}
           >
-            &rarr;
+            <ArrowRight size={22} strokeWidth={2.25} aria-hidden="true" />
           </button>
         </div>
 
