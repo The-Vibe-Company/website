@@ -64,7 +64,6 @@ export function Footer() {
     { label: t("portfolio"), href: "/portfolio" },
     { label: tNav("caseStudies"), href: "/case-studies" },
     { label: t("resources"), href: "/resources" },
-    { label: t("mission"), href: "/agency" },
   ];
 
   return (
