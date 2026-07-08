@@ -12,7 +12,7 @@ const ARROW_CLASS =
 // Loop arrows: just the glyph, no frame, in orange — a lighter cue that there
 // are more projects to scroll to left and right.
 const LOOP_ARROW =
-  "hidden h-11 w-11 shrink-0 cursor-pointer items-center justify-center self-center text-3xl leading-none text-orange-500 transition-transform hover:scale-125 sm:flex";
+  "hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center self-center text-[44px] font-bold leading-none text-orange-500 transition-all hover:scale-125 hover:text-orange-600 sm:flex";
 
 type T = (key: string) => string;
 
