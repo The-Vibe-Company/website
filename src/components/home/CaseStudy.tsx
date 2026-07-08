@@ -84,7 +84,9 @@ function SectionHeader({ t }: { t: T }) {
   );
 }
 
-const CARD_WIDTH = "w-[86%] shrink-0 sm:w-[70%] md:w-[calc(50%-10px)]";
+// Slightly narrower than half so the next card peeks in, signalling there is
+// more to scroll — combined with the infinite loop below.
+const CARD_WIDTH = "w-[80%] shrink-0 sm:w-[62%] md:w-[calc(44%-10px)]";
 
 /**
  * Same two-card format as the default, but the track loops forever: the user
