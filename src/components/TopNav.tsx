@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import {
@@ -39,7 +39,9 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const locale = useLocale();
   const t = useTranslations("nav");
+  const skipLabel = locale === "fr" ? "Aller au contenu" : "Skip to content";
   // Highlight the section the visitor is currently in (a detail page like
   // /case-studies/monka still lights up "Études de cas").
   const isActive = (href: string) =>
@@ -77,6 +79,23 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
 
   return (
     <>
+      {/* Keyboard/screen-reader skip link: jumps past the nav to the page's
+          main content. Hidden until focused. */}
+      <a
+        href="#main-content"
+        onClick={(e) => {
+          e.preventDefault();
+          const main = document.querySelector("main");
+          if (main) {
+            main.setAttribute("tabindex", "-1");
+            (main as HTMLElement).focus();
+            main.scrollIntoView();
+          }
+        }}
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[100] focus:rounded-full focus:border focus:border-foreground focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-lg"
+      >
+        {skipLabel}
+      </a>
       <motion.nav
         aria-label="Main navigation"
         className="sticky top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 lg:px-24 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50"
