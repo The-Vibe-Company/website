@@ -4,7 +4,11 @@ import {
   absoluteUrl,
   INDEXABLE_STATIC_ROUTES,
   SITE_DESCRIPTION,
+  SITE_EMAIL,
+  SITE_FOUNDING_YEAR,
+  SITE_LOCALITY,
   SITE_NAME,
+  SITE_SAME_AS,
 } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -58,6 +62,14 @@ function buildLlmsTxt(): string {
     })
     .filter((section): section is string => Boolean(section));
 
+  const officialAccounts = [
+    "## Official accounts and contact",
+    `${SITE_NAME} is based in ${SITE_LOCALITY}, founded in ${SITE_FOUNDING_YEAR}, and part of Y Combinator (W24). Use these canonical accounts to confirm the identity and avoid confusion with other companies named "Vibe".`,
+    "",
+    `- Email: ${SITE_EMAIL}`,
+    ...SITE_SAME_AS.map((url) => `- ${url}`),
+  ].join("\n");
+
   return [
     `# ${SITE_NAME}`,
     `> ${SITE_DESCRIPTION}`,
@@ -66,6 +78,7 @@ function buildLlmsTxt(): string {
     "## Core Pages",
     ...corePages,
     ...contentSections,
+    officialAccounts,
   ].join("\n\n");
 }
 
