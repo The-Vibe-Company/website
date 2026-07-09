@@ -2,7 +2,7 @@
 title: "Je veux que mes relecteurs n'aient plus rien à corriger"
 slug: comment-j-ecris-ces-articles
 language: fr
-summary: "Je publie un article par semaine sur mon apprentissage avec l'IA. Je ne les tape pas d'une traite, et l'IA ne les écrit pas toute seule non plus. Dès le début, je me suis fixé un but, un skill qui relit aussi bien que mes relecteurs humains, jusqu'au jour où ils n'auront plus besoin de relire."
+summary: "Je publie quatre articles par semaine sur mon apprentissage avec l'IA. Je ne les tape pas d'une traite, et l'IA ne les écrit pas toute seule non plus. Dès le début, je me suis fixé un but, un skill qui relit aussi bien que mes relecteurs humains, jusqu'au jour où ils n'auront plus besoin de relire."
 publishedAt: 2026-07-09
 series: victor-story
 seriesDay: 10
@@ -12,7 +12,7 @@ coverAlt: "Mon avatar et la mascotte VB devant un texte qui passe par plusieurs 
 ogImage: /images/resources/comment-j-ecris-ces-articles/cover.png
 ---
 
-Chaque semaine, je publie un article sur mon apprentissage avec l'IA. De l'extérieur, on imagine soit que je les tape d'une traite, soit qu'une IA les recrache toute seule.
+Je publie quatre articles par semaine sur mon apprentissage avec l'IA. De l'extérieur, on imagine soit que je les tape d'une traite, soit qu'une IA les recrache toute seule.
 
 Ni l'un ni l'autre. Il y a l'IA lâchée seule, et il y a l'IA cadrée par mon vécu et par une vraie relecture.
 
@@ -28,7 +28,7 @@ Un skill d'écriture fait le premier jet, mais pas à partir de rien. Il puise d
 
 Et il ne se contente pas de ce qui est déjà noté. À chaque article, il me pose quelques questions, ce que j'ai ressenti, ce qui m'a marqué. C'est là que je remets ma patte, plutôt que de le laisser inventer à ma place.
 
-Ensuite, chaque retour d'Antoine devient une ligne de plus dans les consignes de mes deux skills, une règle qui ne bouge plus. Côté écriture, le premier jet suivant sort déjà corrigé. Côté relecture, le défaut rejoint ce que le skill traque à chaque passe.
+Ensuite, chaque retour d'Antoine devient une règle, écrite noir sur blanc dans mes skills. Elle entre dans les deux à la fois. Celui qui écrit ne refait plus l'erreur, celui qui relit la traque à chaque nouveau texte.
 
 Un exemple. Antoine avait remplacé « beaucoup de skills » par « une flopée de skills ». Depuis, la règle est gravée, préférer le mot vivant au mot plat.
 
@@ -40,7 +40,7 @@ Stan m'a parlé des sous-agents, faire relire par une deuxième IA, lancée à p
 
 C'est justement parce qu'il ne sait rien qu'il est utile. Moi je connais tout, donc je ne vois plus les incohérences ni ce qui manque. Lui, oui.
 
-## Un critique qui démonte tout
+## Un critique qui ne laisse rien passer
 
 Puis Antoine a relu un de mes articles autrement. Une critique très dure, qui épluche le texte et ressort tout ce qui cloche, tout ce qu'on peut pousser plus loin.
 
