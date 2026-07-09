@@ -205,6 +205,15 @@
   }
 }
 
+/* Consistent, visible keyboard-focus ring across interactive elements. Kept
+   unlayered so it beats the browser default and Tailwind's layered resets.
+   Only on keyboard focus (:focus-visible), never on mouse clicks. The audio
+   waveform keeps its own custom focus style. */
+:focus-visible:not(.prose-vibe-audio__wave) {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
 /* -----------------------------------------------------------------------------
    Custom Utilities
    Only utilities that cannot be replicated with Tailwind classes
