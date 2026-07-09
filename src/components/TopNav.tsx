@@ -2,9 +2,9 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import {
@@ -38,7 +38,14 @@ export function TopNav(props: TopNavProps) {
 function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const locale = useLocale();
   const t = useTranslations("nav");
+  const skipLabel = locale === "fr" ? "Aller au contenu" : "Skip to content";
+  // Highlight the section the visitor is currently in (a detail page like
+  // /case-studies/monka still lights up "Études de cas").
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -72,6 +79,23 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
 
   return (
     <>
+      {/* Keyboard/screen-reader skip link: jumps past the nav to the page's
+          main content. Hidden until focused. */}
+      <a
+        href="#main-content"
+        onClick={(e) => {
+          e.preventDefault();
+          const main = document.querySelector("main");
+          if (main) {
+            main.setAttribute("tabindex", "-1");
+            (main as HTMLElement).focus();
+            main.scrollIntoView();
+          }
+        }}
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[100] focus:rounded-full focus:border focus:border-foreground focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-lg"
+      >
+        {skipLabel}
+      </a>
       <motion.nav
         aria-label="Main navigation"
         className="sticky top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 lg:px-24 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50"
@@ -116,6 +140,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
               <li key={item.key}>
                 <Link
                   href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() =>
@@ -125,7 +150,12 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                       location: "desktop_nav",
                     })
                   }
-                  className={cn(components.nav.link, "relative")}
+                  className={cn(
+                    components.nav.link,
+                    "relative",
+                    isActive(item.href) &&
+                      "text-foreground underline decoration-1 underline-offset-[6px]"
+                  )}
                 >
                   {hoveredIndex === index && (
                     <motion.div
@@ -145,7 +175,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           <a
             href="mailto:founders@thevibecompany.co"
             onClick={() => captureEvent("get_in_touch_clicked", { location: "nav" })}
-            className={cn(components.button.primary, "min-w-[150px] text-center")}
+            className={cn(components.button.primary, "min-w-[150px] rounded-none text-center")}
           >
             {t("getInTouch")}
           </a>
@@ -268,6 +298,11 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
               >
                 <Link
                   href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={cn(
+                    isActive(item.href) &&
+                      "underline decoration-1 underline-offset-[6px]"
+                  )}
                   onClick={() => {
                     captureEvent("nav_link_clicked", {
                       label: item.key,
@@ -283,7 +318,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             ))}
             <motion.a
               href="mailto:founders@thevibecompany.co"
-              className={cn(components.button.primary, "mt-4")}
+              className={cn(components.button.primary, "mt-4 rounded-none")}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={createTransition(0.6, 0.2)}

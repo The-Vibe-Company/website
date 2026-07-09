@@ -92,26 +92,26 @@ export default async function CaseStudyPage({
               )}
             </div>
 
-            {/* Two product visuals beside the text. Reserved frames for now;
-                real screenshots get dropped into customer.visuals later. */}
+            {/* One product visual beside the text (reserved frame for now; the
+                first real screenshot dropped into customer.visuals goes here). */}
             <div className="flex flex-col gap-4">
-              {customer.visuals.length > 0
-                ? customer.visuals.map((visual) => (
-                    <div key={visual.src} className="overflow-hidden border border-foreground">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={visual.src} alt={visual.alt} className="h-auto w-full" loading="lazy" />
-                    </div>
-                  ))
-                : [0, 1].map((i) => (
-                    <div
-                      key={i}
-                      className="flex aspect-[4/3] items-center justify-center border border-dashed border-border bg-background px-4 text-center"
-                    >
-                      <span className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
-                        {t("visualsSoon")}
-                      </span>
-                    </div>
-                  ))}
+              {customer.visuals[0] ? (
+                <div className="overflow-hidden border border-foreground">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={customer.visuals[0].src}
+                    alt={customer.visuals[0].alt}
+                    className="h-auto w-full"
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <div className="flex aspect-[4/3] items-center justify-center border border-dashed border-border bg-background px-4 text-center">
+                  <span className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
+                    {t("visualsSoon")}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -153,6 +153,26 @@ export default async function CaseStudyPage({
         </section>
 
         <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-12 md:pb-24">
+          <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            {t("theProduct")}
+          </span>
+          {customer.visuals.length > 1 ? (
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+              {customer.visuals.slice(1).map((visual) => (
+                <div key={visual.src} className="overflow-hidden border border-foreground">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={visual.src} alt={visual.alt} className="h-auto w-full" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex min-h-[280px] items-center justify-center border border-dashed border-border bg-background px-6 text-center">
+              <p className="m-0 max-w-[420px] font-mono text-[11px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
+                {t("visualsSoon")}
+              </p>
+            </div>
+          )}
+
           {customer.url && (
             <a
               href={customer.url}

@@ -9,12 +9,6 @@ interface NavLink {
   external?: boolean;
 }
 
-const SITE_LINKS = [
-  { key: "home", href: "/" },
-  { key: "portfolio", href: "/portfolio" },
-  { key: "resources", href: "/resources" },
-  { key: "mission", href: "/agency" },
-] as const;
 
 const ELSEWHERE_LINKS: NavLink[] = [
   { label: "X / Twitter", href: "https://x.com/thevibecompany", external: true },
@@ -61,6 +55,17 @@ function FooterLink({ link }: { link: NavLink }) {
 
 export function Footer() {
   const t = useTranslations("footer");
+  const tNav = useTranslations("nav");
+
+  // Same sections as the top nav, so both cover every key page. "Case studies"
+  // reuses the nav label (no extra footer translation key).
+  const siteLinks: NavLink[] = [
+    { label: t("home"), href: "/" },
+    { label: t("portfolio"), href: "/portfolio" },
+    { label: tNav("caseStudies"), href: "/case-studies" },
+    { label: t("resources"), href: "/resources" },
+  ];
+
   return (
     <footer className="border-t-2 border-foreground bg-foreground text-background">
       <div className="mx-auto max-w-[120rem] px-6 pb-6 pt-16 md:px-12 md:pt-20">
@@ -85,9 +90,9 @@ export function Footer() {
               {t("siteHeading")}
             </div>
             <ul className="m-0 flex list-none flex-col gap-2 p-0">
-              {SITE_LINKS.map((link) => (
-                <li key={link.key}>
-                  <FooterLink link={{ label: t(link.key), href: link.href }} />
+              {siteLinks.map((link) => (
+                <li key={link.href}>
+                  <FooterLink link={link} />
                 </li>
               ))}
             </ul>

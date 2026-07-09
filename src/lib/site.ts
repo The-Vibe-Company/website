@@ -21,14 +21,6 @@ export const INDEXABLE_STATIC_ROUTES: SiteRoute[] = [
     priority: 1,
   },
   {
-    path: "/agency",
-    title: "Agency",
-    description:
-      "About The Vibe Company and its AI-native product execution work.",
-    changeFrequency: "monthly",
-    priority: 0.7,
-  },
-  {
     path: "/portfolio",
     title: "Projects",
     description:
