@@ -42,9 +42,9 @@
       "targetHash": null
     },
     "content:/images/resources/comment-j-ecris-ces-articles/cover.png": {
-      "sourceHash": "f053ded2fa286fee88fd4f0ea0415fa59d58ff73ae17bb219febf38ea604863d",
+      "sourceHash": "f8cf897038259e1aa30f21f147e8b42293bbebfd5f245a28e903e1f9a38dddd7",
       "targetUrl": "/images/_optimized/resources/comment-j-ecris-ces-articles/cover.webp",
-      "targetHash": "fec4f85fe21100f62e0df332ed2ef57f5284b1f2c276cd80b7a4de8b7a0e5412"
+      "targetHash": "d804c6c29dd965277d380fcad1d67cb9aac9151f2e70045a57ff0cc0b1d3a001"
     },
     "content:/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
       "sourceHash": "8e6a77b8cfc219c537dbf498586043c9f410e0272f9cb46c8258c5c572cc406a",
@@ -267,7 +267,7 @@
       "targetHash": null
     },
     "og:/images/resources/comment-j-ecris-ces-articles/cover.png": {
-      "sourceHash": "f053ded2fa286fee88fd4f0ea0415fa59d58ff73ae17bb219febf38ea604863d",
+      "sourceHash": "f8cf897038259e1aa30f21f147e8b42293bbebfd5f245a28e903e1f9a38dddd7",
       "targetUrl": null,
       "targetHash": null
     },
