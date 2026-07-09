@@ -175,7 +175,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           <a
             href="mailto:founders@thevibecompany.co"
             onClick={() => captureEvent("get_in_touch_clicked", { location: "nav" })}
-            className={cn(components.button.primary, "min-w-[150px] text-center")}
+            className={cn(components.button.primary, "min-w-[150px] rounded-none text-center")}
           >
             {t("getInTouch")}
           </a>
@@ -318,7 +318,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             ))}
             <motion.a
               href="mailto:founders@thevibecompany.co"
-              className={cn(components.button.primary, "mt-4")}
+              className={cn(components.button.primary, "mt-4 rounded-none")}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={createTransition(0.6, 0.2)}
