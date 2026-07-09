@@ -7,7 +7,7 @@ import type { ContentEntry } from '@/lib/content-source';
 import { resourcesTheme } from '@/lib/resources-theme';
 
 export const metadata: Metadata = {
-  title: 'Resources | The Vibe Company',
+  title: 'AI articles & skills',
   description:
     'Articles and essays from The Vibe Company: an AI journey told from the inside, plus the team’s notes on agents, tooling, and the way we work.',
 };

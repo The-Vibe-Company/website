@@ -1,7 +1,7 @@
 export const SITE_NAME = "The Vibe Company";
 export const SITE_URL = "https://www.thevibecompany.co";
 export const SITE_DESCRIPTION =
-  "An AI-native agency. Everything 50–100× faster with AI — products, ops, training. Our agency runs on AI too.";
+  "The Vibe Company is an AI-native agency. We build AI products, automate operations with AI agents, and train teams, shipping 50 to 100 times faster.";
 
 /** Official brand identity, used for structured data (SEO/GEO disambiguation). */
 export const SITE_EMAIL = "founders@thevibecompany.co";
@@ -29,7 +29,7 @@ export const INDEXABLE_STATIC_ROUTES: SiteRoute[] = [
     path: "/",
     title: SITE_NAME,
     description:
-      "The Vibe Company is an AI-native agency. We make every part of your business 50–100× faster with AI — products, agent ops, training.",
+      "The Vibe Company is an AI-native agency. We build AI products, deploy AI agents to automate your operations, and train your team, shipping 50 to 100 times faster.",
     changeFrequency: "weekly",
     priority: 1,
   },

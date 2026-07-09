@@ -5,8 +5,9 @@ import { TopNav } from "@/components/TopNav";
 import { resourcesTheme } from "@/lib/resources-theme";
 
 export const metadata: Metadata = {
-  title: "Projects",
-  description: "A selection of projects with homepage covers, short notes, and ship dates.",
+  title: "AI projects & case studies",
+  description:
+    "AI products and tools The Vibe Company shipped for real clients, with short notes and ship dates.",
 };
 
 type Project = {

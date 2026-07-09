@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { TopNav } from "@/components/TopNav";
 
 export const metadata: Metadata = {
-  title: "Who Are We",
+  title: "About our AI-native agency",
   description:
     "The Vibe Company is an AI-native agency helping startups ship products faster with AI development, prototyping, and rapid execution.",
   alternates: {
