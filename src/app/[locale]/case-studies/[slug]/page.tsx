@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
+import { CaseStudyBackLink } from "@/components/CaseStudyBackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { CUSTOMER_SLUGS, getCustomer, type ContentLocale } from "@/lib/customers";
 
@@ -15,12 +17,12 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const locale = (await getLocale()) as ContentLocale;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("caseStudiesPage");
-  const customer = getCustomer(slug, locale);
+  const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) return { title: t("back") };
   return {
     title: `${customer.client} · ${t("back")}`,
@@ -30,23 +32,14 @@ export async function generateMetadata({
 
 export default async function CaseStudyPage({
   params,
-  searchParams,
 }: {
-  params: Promise<{ slug: string }>;
-  searchParams: Promise<{ from?: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const { from } = await searchParams;
-  const locale = (await getLocale()) as ContentLocale;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("caseStudiesPage");
-  const customer = getCustomer(slug, locale);
+  const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) notFound();
-
-  // Name the back link after where the visitor came from.
-  const back =
-    from === "home"
-      ? { href: "/", label: t("backHome") }
-      : { href: "/case-studies", label: t("back") };
 
   return (
     <div
@@ -56,7 +49,9 @@ export default async function CaseStudyPage({
       <TopNav />
       <main className="flex-1">
         <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
-          <BackLink href={back.href} label={back.label} />
+          <Suspense fallback={<BackLink href="/case-studies" label={t("back")} />}>
+            <CaseStudyBackLink />
+          </Suspense>
 
           <div className="mt-10 flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between">
             {/* eslint-disable-next-line @next/next/no-img-element */}

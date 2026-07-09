@@ -3,7 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
@@ -34,9 +34,10 @@ export const dynamicParams = true;
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const item = await getSkill(slug);
   if (!item) return { title: 'Not Found' };
 
@@ -47,7 +48,7 @@ export async function generateMetadata({
   const socialImageDimensions = getOgImageDimensions(item.ogImage?.sourceUrl);
 
   return {
-    title: `${item.title} | Skills · ${SITE_NAME}`,
+    title: `${item.title} | Skills`,
     description: item.summary,
     alternates: { canonical: canonicalUrl },
     openGraph: {
@@ -80,9 +81,10 @@ export async function generateMetadata({
 export default async function SkillDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const item = await getSkill(slug);
   if (!item) notFound();
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Link } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { KeepReading } from '@/components/resources/KeepReading';
 import { LanguageFlag } from '@/components/resources/LanguageFlag';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
@@ -57,9 +57,10 @@ function formatDate(dateString: string, locale: string): string {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ type: string; slug: string }>;
+  params: Promise<{ locale: string; type: string; slug: string }>;
 }): Promise<Metadata> {
-  const { type, slug } = await params;
+  const { locale, type, slug } = await params;
+  setRequestLocale(locale);
   const contentType = getContentTypeByUrlSlug(type);
   if (!contentType) return { title: 'Not Found' };
 
@@ -76,7 +77,7 @@ export async function generateMetadata({
   const socialDescription = item.summary;
 
   return {
-    title: `${item.title} | ${SITE_NAME}`,
+    title: item.title,
     description: item.summary,
     alternates: {
       canonical: canonicalUrl,
@@ -111,9 +112,10 @@ export async function generateMetadata({
 export default async function ContentDetailPage({
   params,
 }: {
-  params: Promise<{ type: string; slug: string }>;
+  params: Promise<{ locale: string; type: string; slug: string }>;
 }) {
-  const { type, slug } = await params;
+  const { locale, type, slug } = await params;
+  setRequestLocale(locale);
   const contentType = getContentTypeByUrlSlug(type);
   if (!contentType || contentType.slug === 'skill') notFound();
 
@@ -121,7 +123,6 @@ export default async function ContentDetailPage({
   if (!item) notFound();
 
   const related = await getRelated(contentType.slug, slug);
-  const locale = await getLocale();
   const t = await getTranslations('resources');
   const complexityLabels: Record<string, string> = {
     beginner: t('beginner'),

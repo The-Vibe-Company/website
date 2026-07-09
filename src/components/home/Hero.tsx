@@ -5,14 +5,6 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/design-system";
 import { captureEvent } from "@/lib/posthog";
 
-const TOP_STRIP = [
-  { text: "THE VIBE CO." },
-  { text: "AI-NATIVE AGENCY" },
-  { text: "YC W24", accent: true },
-  { text: "PARIS" },
-  { text: "BUILDING SINCE 2023" },
-];
-
 const QUICK_ITEMS = [
   { n: "01", key: "build" },
   { n: "02", key: "operate" },
@@ -22,6 +14,14 @@ const QUICK_ITEMS = [
 export function Hero() {
   const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("hero");
+
+  const TOP_STRIP = [
+    { text: "THE VIBE CO." },
+    { text: t("stripAgency") },
+    { text: "YC W24", accent: true },
+    { text: "PARIS" },
+    { text: t("stripBuilding") },
+  ];
 
   return (
     <section

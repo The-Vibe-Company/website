@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ClientProviders } from "@/components/ClientProviders";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
 import { routing } from "@/i18n/routing";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -20,19 +21,25 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  const description = t("description");
   return {
     metadataBase: new URL(SITE_URL),
     title: {
       default: SITE_NAME,
       template: `%s | ${SITE_NAME}`,
     },
-    description: SITE_DESCRIPTION,
+    description,
     icons: {
       icon: "/favicon.svg",
     },
@@ -41,12 +48,12 @@ export async function generateMetadata({
       locale: locale === "fr" ? "fr_FR" : "en_US",
       siteName: SITE_NAME,
       title: SITE_NAME,
-      description: SITE_DESCRIPTION,
+      description,
     },
     twitter: {
       card: "summary_large_image",
       title: SITE_NAME,
-      description: SITE_DESCRIPTION,
+      description,
     },
     alternates: {
       canonical: `/${locale}`,
@@ -67,6 +74,9 @@ export default async function LocaleLayout({
 }>) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
+
+  // Enable static rendering for this locale (next-intl).
+  setRequestLocale(locale);
 
   return (
     <html lang={locale}>

@@ -134,8 +134,8 @@ export function Footer() {
 
         <div className="flex flex-wrap justify-between gap-3 border-t border-background/15 pt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-background/50">
           <span>© {buildYear} THE VIBE COMPANY</span>
-          <span>YC W24 · MADE IN FRANCE</span>
-          <span>BUILT WITH AI · OPEN TO PROJECTS</span>
+          <span>YC W24 · {t("madeInFrance")}</span>
+          <span>{t("builtWithAi")} · {t("openToProjects")}</span>
         </div>
       </div>
     </footer>

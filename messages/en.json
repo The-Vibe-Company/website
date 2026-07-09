@@ -7,6 +7,9 @@
     "searchShort": "Search...",
     "searchLong": "Search resources..."
   },
+  "meta": {
+    "description": "An AI-native agency. Everything 50 to 100× faster with AI: products, ops, training. Our agency runs on AI too."
+  },
   "hero": {
     "badge": "Open to projects · Built with AI",
     "titleLine1": "AI-native agency.",
@@ -14,6 +17,8 @@
     "subtitle": "A small team of AI specialists. We build products, automate ops, and train teams. Our agency itself runs on AI. That's the compound.",
     "bookCall": "Book a discovery call",
     "seeWhatWeDo": "See what we do",
+    "stripAgency": "AI-native agency",
+    "stripBuilding": "Building since 2023",
     "items": {
       "build": {
         "label": "Build",
@@ -138,6 +143,7 @@
     "siteHeading": "SITE",
     "elsewhereHeading": "ELSEWHERE",
     "statusHeading": "STATUS",
+    "madeInFrance": "Made in France",
     "home": "Home",
     "portfolio": "Portfolio",
     "resources": "Resources",
