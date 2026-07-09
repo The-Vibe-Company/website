@@ -3,6 +3,19 @@ export const SITE_URL = "https://www.thevibecompany.co";
 export const SITE_DESCRIPTION =
   "An AI-native agency. Everything 50–100× faster with AI — products, ops, training. Our agency runs on AI too.";
 
+/** Official brand identity, used for structured data (SEO/GEO disambiguation). */
+export const SITE_EMAIL = "founders@thevibecompany.co";
+export const SITE_FOUNDING_YEAR = "2023";
+export const SITE_LOCALITY = "Paris";
+export const SITE_COUNTRY = "FR";
+
+/** Official accounts. `sameAs` is what ties the identity together for search engines and AI. */
+export const SITE_SAME_AS = [
+  "https://x.com/thevibecompany",
+  "https://github.com/The-Vibe-Company",
+  "https://www.linkedin.com/company/thevibecompany",
+];
+
 export type SiteRoute = {
   path: string;
   title: string;

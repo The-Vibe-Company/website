@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ClientProviders } from "@/components/ClientProviders";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import { organizationSchema, websiteSchema } from "@/lib/structured-data";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -54,6 +55,14 @@ export default function FrontendLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
         <ClientProviders />
         <ConditionalGridOverlay />
         {children}

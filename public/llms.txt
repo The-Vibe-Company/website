@@ -1,0 +1,22 @@
+# The Vibe Company
+
+> AI-native agency based in Paris (Y Combinator W24). We build AI products,
+> automate operations with agents, and train teams. Our own agency runs on AI,
+> so we ship 50 to 100 times faster than a traditional team.
+
+## What we do
+- Build AI products and internal tools end to end
+- Deploy agents to automate sales, support, content and admin operations
+- AI strategy and training for leaders: map the stack, prioritize, train the team
+
+## Key pages
+- Home: https://www.thevibecompany.co/
+- Projects: https://www.thevibecompany.co/portfolio
+- Resources (AI skills and articles): https://www.thevibecompany.co/resources
+- Agency: https://www.thevibecompany.co/agency
+
+## Contact
+- Email: founders@thevibecompany.co
+- X / Twitter: https://x.com/thevibecompany
+- GitHub: https://github.com/The-Vibe-Company
+- LinkedIn: https://www.linkedin.com/company/thevibecompany
