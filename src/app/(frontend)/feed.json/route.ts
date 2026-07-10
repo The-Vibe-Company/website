@@ -1,4 +1,5 @@
 import { getContentByType, type ContentEntry } from "@/lib/content-source";
+import { getUrlSlugForDbType } from "@/lib/content-types";
 import { extractCoverImage, normalizeMarkdownBody, renderMarkdown } from "@/lib/markdown";
 import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
 
@@ -16,6 +17,17 @@ interface JsonFeedItem {
   _thevibe: {
     section: "victors-story" | "articles";
   };
+}
+
+/** JSON Feed summaries are plain text: strip inline markdown and YAML escapes. */
+function toPlainTextSummary(value: string): string {
+  return value
+    .replace(/\\"/g, '"')
+    .replace(/\[([^\]]+)\]\([^)\s]+\)/g, "$1")
+    .replace(/\*\*/g, "")
+    .replace(/[`*_~]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /** Converts a frontmatter date (usually YYYY-MM-DD) to full ISO 8601. */
@@ -58,14 +70,14 @@ function renderFeedContentHtml(item: ContentEntry): string {
 }
 
 function toFeedItem(item: ContentEntry): JsonFeedItem {
-  const url = absoluteUrl(`/resources/articles/${item.slug}`);
+  const url = absoluteUrl(`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`);
   const socialImage = item.ogImage ?? item.featuredImage;
 
   return {
     id: url,
     url,
     title: item.title,
-    summary: item.summary,
+    summary: toPlainTextSummary(item.summary),
     content_html: renderFeedContentHtml(item),
     date_published: toIsoDate(item.publishedAt),
     ...(socialImage?.url ? { image: absoluteUrl(socialImage.url) } : {}),
