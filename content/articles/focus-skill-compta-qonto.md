@@ -17,9 +17,9 @@ Quand je suis arrivé chez The Vibe Company, la compta a été l'un des premiers
 
 Pour toute consigne, Antoine m'avait juste dit : « Voilà le script de l'IA, tu le modifies comme tu veux. »
 
-Son « script », c'est en fait un fichier de consignes qu'on donne à l'IA. Le truc cool, c'est qu'il permettait déjà de plier la compta du mois en cinq minutes.
+Son « script », c'est en fait un fichier de consignes qu'on donne à Claude Code, l'IA avec laquelle on bosse. Le truc cool, c'est que ce système permettait déjà de plier la compta du mois en cinq minutes.
 
-Chaque mois, le geste est simple : je télécharge l'export CSV de notre banque, Qonto, je le donne à l'IA dans une conversation, et elle me sort un fichier de tableur prêt à ouvrir dans Google Sheets. Dedans, chaque ligne est classée dans la bonne catégorie : Tool pour les abonnements comme Notion ou Slack, Tech pour l'infra comme OpenAI, Personnel pour les salaires et la mutuelle, Frais pour la banque et le comptable.
+Chaque mois, le geste est simple : je télécharge l'export CSV de notre banque, Qonto, je le donne à Claude Code dans une conversation, et il me sort un fichier de tableur prêt à ouvrir dans Google Sheets. Dedans, chaque ligne est classée dans la bonne catégorie : Tool pour les abonnements comme Notion ou Slack, Tech pour l'infra comme OpenAI, Personnel pour les salaires et la mutuelle, Frais pour la banque et le comptable.
 
 Sans ça, c'est soit la galère à base de macros Excel complexes, soit le pointage ligne par ligne à la vieille école. Ce gain de temps de départ, c'est à Antoine que je le dois. Moi, j'ai juste pris sa consigne au mot.
 
@@ -39,7 +39,9 @@ Dès qu'on met un flag autre que OK, le tableur fait apparaître une case à coc
 
 Le dernier point noir, c'était l'intégration dans notre Google Sheets de suivi, le fichier partagé où vivent tous les mois. Le tableau sortait dans un fichier à part, qu'il fallait recopier dedans, et ce copier-coller finissait toujours par casser les formules des autres onglets.
 
-Comme l'IA n'a pas accès à ce fichier partagé, elle a codé elle-même un petit script en Google Apps Script pour faire le pont, un petit programme qui vit à l'intérieur du Google Sheets. Maintenant, elle envoie le tableau à l'adresse web privée du script, et lui crée l'onglet du mois au bon endroit, tout bien formaté.
+Comme Claude Code ne peut pas créer d'onglet dans ce fichier partagé depuis la conversation, il a codé lui-même un petit script en Google Apps Script pour faire le pont, un petit programme qui vit à l'intérieur du Google Sheets. Et ce n'est pas moi qui l'ai installé : j'ai ajouté l'extension Claude dans mon Google Chrome, donné toutes les autorisations, et il est allé lui-même sur le bon Google Sheet ajouter son script.
+
+Moi, je n'ai fait que cliquer sur les autorisations. Maintenant, Claude Code envoie le tableau à l'adresse web privée du script, et le script crée l'onglet du mois au bon endroit, tout bien formaté.
 
 J'ai testé le truc en envoyant les données de juin sous le nom de juillet : ça a créé un nouvel onglet parfait, sans toucher au vrai mois de juin.
 
