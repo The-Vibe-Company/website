@@ -23,21 +23,41 @@ Chaque mois, le geste est simple : je télécharge l'export CSV de notre banque,
 
 Sans ça, c'est soit la galère à base de macros Excel complexes, soit le pointage ligne par ligne à la vieille école. Ce gain de temps de départ, c'est à Antoine que je le dois. Moi, j'ai juste pris sa consigne au mot.
 
-Pour classer, l'IA suit une règle prudente : elle regarde d'abord la catégorie que Qonto met déjà sur chaque ligne, puis le nom du fournisseur si besoin. Et quand elle ne sait pas, elle ne devine pas : elle range la ligne dans « Autre », et c'est nous qui tranchons après. Ça évite les erreurs stupides.
+Pour classer, l'IA suit une règle prudente, écrite noir sur blanc dans le fichier de consignes :
+
+```
+Autre is the default on purpose (a line not recognized reads as
+"not classified yet", not a wrong guess); the user finishes with
+the dropdown.
+```
+
+En clair : elle regarde d'abord la catégorie que Qonto met déjà sur chaque ligne, puis le nom du fournisseur si besoin. Et quand elle ne sait pas, elle ne devine pas : elle range la ligne dans « Autre », et c'est nous qui tranchons après. Ça évite les erreurs stupides.
 
 En bossant sur une copie de son modèle, j'ai voulu pousser le résultat un cran plus loin. Avant, les données sortaient figées : si on corrigeait une catégorie à la main, rien ne se recalculait.
 
 J'ai donc demandé à l'IA de modifier le fichier de consignes pour sortir des menus déroulants et de vraies formules, au lieu de valeurs figées. Maintenant, chaque ligne a son menu déroulant, et tous les totaux s'ajustent en direct dès qu'on change un truc : le total de chaque catégorie et le total du mois, dans le récapitulatif en haut de l'onglet.
 
-J'ai aussi ajouté une zone de recherche, juste sous ce récapitulatif : on y choisit un fournisseur dans une liste sans doublons, et on voit tout de suite son nombre d'opérations et le montant total, ce qu'on a payé chez OpenAI sur le mois, par exemple. Une fois que ça a marché pour les dépenses, j'ai fait exactement la même chose pour les recettes, avec leurs propres catégories, comme Aide pour les subventions ou Consulting pour les missions.
+J'ai aussi ajouté une zone de recherche, juste sous ce récapitulatif : on y choisit un fournisseur dans une liste, et on voit tout de suite son nombre d'opérations et le montant total, ce qu'on a payé chez OpenAI sur le mois, par exemple. Une fois que ça a marché pour les dépenses, j'ai fait exactement la même chose pour les recettes, avec leurs propres catégories, comme Aide pour les subventions ou Consulting pour les missions.
 
-Par contre, on a fait le choix de garder une étape humaine : la relecture mensuelle. Tout le but de ce tableau, c'est de balayer nos dépenses ligne par ligne et de repérer les paiements inhabituels, du genre l'abonnement oublié qui tourne encore. Pour que cette passe soit efficace, j'ai demandé à l'IA d'ajouter une colonne de « Flags » au tableau des dépenses, des étiquettes d'action.
+Par contre, on a fait le choix de garder une étape humaine : la relecture mensuelle. Tout le but de ce tableau, c'est de balayer nos dépenses ligne par ligne et de repérer les paiements inhabituels, du genre l'abonnement oublié qui tourne encore. Pour que cette passe soit efficace, j'ai demandé à l'IA d'ajouter une colonne de « Flags » au tableau des dépenses. Voilà comment le fichier de consignes la définit :
 
-La colonne arrive vide, et on passe sur chaque ligne, non plus pour classer mais pour décider. Si c'est bon, on valide en OK (vert). Sinon, on applique le bon tag : Se Désabonner (rouge), Remboursement (bleu), Re-Facturer (orange) ou À Vérifier (jaune).
+```
+Flag column — an action tag. Blank = rien a signaler
+(the default the user never touches).
+```
 
-Dès qu'on met un flag autre que OK, le tableur fait apparaître une case à cocher sur la ligne. Une fois qu'on a réglé le problème en vrai, comme résilier l'abonnement, on coche la case et la ligne passe au vert.
+En clair, la colonne arrive vide, et on passe sur chaque ligne, non plus pour classer mais pour décider. Si c'est bon, on valide en OK. Sinon, on applique le bon tag : Se Désabonner, Remboursement, Re-Facturer ou À Vérifier.
 
-Le dernier point noir, c'était l'intégration dans notre Google Sheets de suivi, le fichier partagé où vivent tous les mois. Le tableau sortait dans un fichier à part, qu'il fallait recopier dedans, et ce copier-coller finissait toujours par casser les formules des autres onglets.
+Dès qu'on met un flag autre que OK, le tableur fait apparaître une case à cocher dans la colonne d'à côté. Une fois le problème réglé en vrai, comme résilier l'abonnement, on coche la case, et le flag repasse en OK.
+
+Le dernier point noir, c'était l'intégration dans notre Google Sheets de suivi, le fichier partagé où vivent tous les mois. À l'époque, le fichier de consignes assumait le problème noir sur blanc :
+
+```
+Remind the user they can copy-paste the Excel content directly
+into their Google Sheet "Tableau des Depenses".
+```
+
+Résultat : le tableau sortait dans un fichier à part, qu'il fallait recopier dedans, et ce copier-coller finissait toujours par casser les formules des autres onglets.
 
 Comme Claude Code ne peut pas créer d'onglet dans ce fichier partagé depuis la conversation, il a codé lui-même un petit script en Google Apps Script pour faire le pont, un petit programme qui vit à l'intérieur du Google Sheets. Et ce n'est pas moi qui l'ai installé : j'ai ajouté l'extension Claude dans mon Google Chrome, donné toutes les autorisations, et il est allé lui-même sur le bon Google Sheet ajouter son script.
 
