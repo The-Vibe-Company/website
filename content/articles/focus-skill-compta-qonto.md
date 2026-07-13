@@ -1,8 +1,8 @@
 ---
-title: "Le skill qui transforme mon export bancaire en tableau de compta"
+title: "Comment j'ai automatisé notre compta mensuelle (pour de vrai)"
 slug: focus-skill-compta-qonto
 language: fr
-summary: "La compta du mois est un des premiers sujets que j'ai repris pour décharger Antoine. Un skill prend l'export CSV de la banque et ressort un tableau propre, classé, en moins de cinq minutes. Et surtout, il se modèle à 100% à ce qu'on veut. Zoom sur sa mécanique, flags et rangement automatique compris."
+summary: "Quand je suis arrivé chez The Vibe Company, la compta a été l'un des premiers sujets que j'ai récupérés pour décharger Antoine. Son système pliait déjà le mois en cinq minutes. Je l'ai poussé plus loin : tableau vivant, flags de relecture, et un script qui range l'onglet du mois tout seul dans notre Google Sheets de suivi."
 publishedAt: 2026-07-13
 series: victor-story
 seriesDay: 11
@@ -13,77 +13,18 @@ coverAlt: "Mon avatar et la mascotte VB devant un tableau de compta qui se rempl
 ogImage: /images/resources/focus-skill-compta-qonto/cover.png
 ---
 
-La compta est un des premiers sujets que j'ai repris chez The Vibe Company, pour décharger Antoine. J'ai fait un peu de finance avant et le domaine me plaît, mais si j'ai commencé par là, c'est surtout que le projet était simple. Parfait pour une première fois.
+Quand je suis arrivé chez The Vibe Company, la compta a été l'un des premiers sujets que j'ai récupérés pour décharger Antoine. J'avais fait un peu de finance avant et le domaine me plaisait bien, mais si j'ai commencé par là, c'est surtout que le projet était simple. Parfait pour se faire la main. Pour toute consigne, Antoine m'avait juste dit : « Voilà le script de l'IA, tu le modifies comme tu veux. »
 
-Antoine m'a tout montré, avec une consigne qui tenait en une phrase. « Voilà le skill, tu modifies comme tu veux. »
+Le truc cool, c'est que son système permettait déjà de plier la compta du mois en cinq minutes. En gros, c'est un fichier de consignes que je donne à l'IA pour qu'elle prenne l'export CSV de notre banque, Qonto, et qu'elle sorte un tableau propre, prêt pour Google Sheets, avec chaque ligne classée dans la bonne catégorie. Sans ça, c'est soit la galère à base de macros Excel complexes, soit le pointage ligne par ligne à la vieille école. Ce gain de temps de départ, c'est à Antoine que je le dois. Moi, j'ai juste pris sa consigne au mot.
 
-## La compta du mois en cinq minutes
+En bossant sur une copie de son modèle, j'ai voulu pousser le tableau un cran plus loin. Avant, les données sortaient figées : si on corrigeait une catégorie à la main, rien ne se recalculait. Maintenant, chaque ligne a son menu déroulant et tous les totaux s'ajustent en direct dès qu'on change un truc. J'ai aussi ajouté une zone de recherche qui liste tous les fournisseurs du mois sans doublons. On en choisit un, et on voit tout de suite le nombre d'opérations et le montant total. Une fois que ça a marché pour les dépenses, j'ai fait exactement la même chose pour les recettes.
 
-Un skill, c'est un fichier de consignes que je donne à l'IA pour qu'elle refasse une tâche toujours de la même façon. Celui de la compta prend l'export CSV de Qonto, notre banque, et ressort un tableau propre, prêt pour Google Sheets, chaque ligne classée dans sa catégorie.
+Par contre, on a fait le choix de garder une étape humaine : la relecture mensuelle. Pour que ce soit efficace, j'ai demandé à l'IA d'ajouter une colonne de "Flags", des étiquettes d'action. Le tableau arrive vide, et on passe sur chaque ligne, non plus pour classer mais pour décider. Si c'est bon, on valide en OK (vert). Sinon, on applique le bon tag : Se Désabonner (rouge), Remboursement (bleu), Re-Facturer (orange) ou À Vérifier (jaune). Dès qu'on met un flag autre que OK, une case à cocher apparaît. Une fois qu'on a réglé le problème en vrai, comme résilier l'abonnement, on coche la case et la ligne repasse au vert. C'est grâce à cette passe à la main qu'on repère les dépenses inutiles.
 
-Sans ça, il faut soit vraiment maîtriser Excel et monter ses automatisations soi-même, soit y aller presque ligne par ligne, à la vieille école. Avec le skill, l'export du mois est traité en moins de cinq minutes.
+Pour le classement automatique, l'IA suit une règle prudente : elle regarde d'abord la catégorie native de Qonto, puis le nom du fournisseur si besoin. Et quand elle ne sait pas, elle ne devine pas. Elle range la ligne dans « Autre », et c'est nous qui tranchons après avec le menu déroulant. Ça évite les erreurs stupides.
 
-Ce gain-là, je n'y suis pour rien, le skill d'Antoine le faisait déjà. Moi, j'ai pris sa consigne au mot.
+Le dernier point noir, c'était l'intégration dans notre Google Sheets de suivi. Devoir copier-coller le tableau chaque mois finissait toujours par casser les formules des onglets. Comme l'IA n'a pas accès à notre fichier partagé, elle a codé elle-même un petit script en Google Apps Script pour faire le pont. Maintenant, l'IA envoie le tableau à une adresse web privée, et le script crée directement l'onglet du mois au bon endroit, tout bien formaté. J'ai testé le truc en envoyant les données de juin sous le nom de juillet : ça a créé un nouvel onglet parfait, sans toucher au vrai mois de juin.
 
-## Tu modifies comme tu veux
+Ce que je retiens de tout ça, c'est qu'un fichier de consignes pour l'IA, c'est vraiment un moule qu'on adapte à sa sauce. Si on change d'avis sur les catégories ou les couleurs, on le dit à l'IA, elle met à jour le modèle et le prochain export sort exactement comme on veut. Et quand l'IA est bloquée aux portes d'un outil, un micro-script fait parfaitement le relais.
 
-Sur une copie de son skill, j'ai poussé le tableau un cran plus loin. Avant, il sortait figé, sans aucune formule, corriger une catégorie ne recalculait rien.
-
-Maintenant, chaque ligne a un menu déroulant de catégories, et tous les totaux se recalculent quand on en change une. Une zone de recherche liste tous les fournisseurs du mois, sans doublon. On en choisit un, on voit le nombre d'opérations et le total.
-
-J'ai aussi créé un skill jumeau pour les recettes. Même mécanique, d'autres catégories, l'argent qui rentre au lieu de l'argent qui sort.
-
-## La passe à la main, outillée
-
-Chaque mois, on repasse sur toutes les lignes. Pour cette passe, j'ai ajouté au tableau des dépenses une colonne de flags, des étiquettes d'action. Sa définition, copiée du skill :
-
-```
-Flag column — an action tag. Blank = rien a signaler (the default the user
-never touches). Otherwise one of five values, each with its own conditional-
-format color: OK (green), Se Désabonner (red), Remboursement (blue),
-Re Facturer (orange), À Vérifier (amber).
-```
-
-En clair, la colonne arrive vide, et on passe ligne par ligne, non plus pour classer mais pour décider. Si c'est bon, OK. Sinon, le flag qui correspond, à rembourser, à refacturer, à vérifier ou à résilier.
-
-Un flag autre que OK fait apparaître une case à cocher. Une fois l'action faite, l'abonnement résilié ou la ligne vérifiée, on coche, et le flag passe en OK.
-
-Cette passe, on la garde exprès à la main. C'est là qu'on repère la dépense qu'on ne devrait plus faire.
-
-## Quand il ne sait pas, il ne devine pas
-
-Le classement automatique, lui, suit une règle prudente. Copiée du skill des recettes :
-
-```
-Revenue is classified from Qonto's own "Cash flow category" column first,
-with a counterparty-name fallback. Autre is the default on purpose (a line
-not recognized reads as "not classified yet", not a wrong guess); the user
-finishes with the dropdown.
-```
-
-Autrement dit, le skill lit d'abord la catégorie que Qonto donne à la ligne, puis le nom de l'expéditeur si besoin. Quand il ne reconnaît pas une ligne, il ne devine pas, il la range dans « Autre » et on la classe à la main avec le menu déroulant.
-
-## L'onglet se range tout seul
-
-Restait un irritant, écrit noir sur blanc dans le skill d'origine :
-
-```
-Remind the user they can copy-paste the Excel content directly into their
-Google Sheet "Tableau des Depenses".
-```
-
-Notre suivi vit dans un seul Google Sheet, un onglet par mois. Y recopier le tableau cassait souvent les formules du fichier, un geste mécanique qui n'apportait rien.
-
-L'IA ne peut pas créer d'onglet dans ce fichier partagé, elle n'y a pas accès. Alors elle a codé un petit script, déployé dans le fichier lui-même avec Apps Script, l'outil d'automatisation de Google. Ce script, j'aurais été incapable de l'écrire moi-même.
-
-Le skill lui envoie le tableau à une adresse web privée, et le script crée l'onglet du mois au bon endroit. Aujourd'hui je télécharge le CSV sur Qonto, je le donne au skill dans une conversation avec l'IA, et l'onglet apparaît dans le suivi, formaté. Pour tester, j'ai redonné le CSV de juin en le faisant passer pour juillet, un nouvel onglet s'est créé sans toucher au vrai onglet de juin, avec les bons chiffres.
-
-## Ce que j'en retiens
-
-Ce fichier de consignes, au fond, c'est un template qu'on modèle à son image. Catégories, couleurs, flags, tout est réglé comme on le voulait.
-
-Si on change d'avis, pas besoin de refaire le tableau. On dit à l'IA ce qu'on veut changer, elle met à jour le skill, et l'export suivant sort comme on veut.
-
-L'autre réflexe à voler, c'est le pont. Quand l'IA n'a pas accès à un outil, un petit script posé dans l'outil fait le relais.
-
-Le prochain export tombera début août, pour la compta de juillet. Cette fois, personne ne recopiera rien.
+Le prochain export tombera début août pour la compta de juillet. Et cette fois, promis, personne ne fera de copier-coller.
