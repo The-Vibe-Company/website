@@ -17,7 +17,7 @@ Quand je suis arrivé chez The Vibe Company, la compta a été l'un des premiers
 
 Pour toute consigne, Antoine m'avait juste dit : « Voilà le script de l'IA, tu le modifies comme tu veux. »
 
-Son « script », c'est en fait un fichier de consignes qu'on donne à Claude Code, l'IA avec laquelle on bosse. Le truc cool, c'est que ce système permettait déjà de plier la compta du mois en cinq minutes.
+Son « script », c'est en fait un fichier de consignes qu'on donne à Claude Code, l'IA avec laquelle on bosse. Autrement dit, un système complet existait déjà avant mon arrivée, monté par Antoine, et le truc cool, c'est qu'il pliait déjà la compta du mois en cinq minutes.
 
 Chaque mois, le geste est simple : je télécharge l'export CSV de notre banque, Qonto, je le donne à Claude Code dans une conversation, et il me sort un fichier de tableur prêt à ouvrir dans Google Sheets. Dedans, chaque ligne est classée dans la bonne catégorie : Tool pour les abonnements comme Notion ou Slack, Tech pour l'infra comme OpenAI, Personnel pour les salaires et la mutuelle, Frais pour la banque et le comptable.
 
