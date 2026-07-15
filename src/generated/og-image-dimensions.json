@@ -11,13 +11,25 @@
     "width": 1536,
     "height": 1024
   },
+  "/images/resources/comment-j-ecris-ces-articles/cover.png": {
+    "width": 1536,
+    "height": 1024
+  },
   "/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
+  "/images/resources/focus-skill-compta-qonto/cover.png": {
     "width": 1536,
     "height": 1024
   },
   "/images/resources/focus-skill-images/cover.png": {
     "width": 1536,
     "height": 864
+  },
+  "/images/resources/focus-skill-logo-svg/cover.png": {
+    "width": 1536,
+    "height": 1024
   },
   "/images/resources/how-i-finally-started-my-game-using-scenario/cover-mascotte.webp": {
     "width": 1536,
@@ -31,6 +43,14 @@
     "width": 1536,
     "height": 1024
   },
+  "/images/resources/l-outil-qui-me-fait-gagner-du-temps/cover.png": {
+    "width": 1536,
+    "height": 1024
+  },
+  "/images/resources/la-regle-que-j-ai-failli-coder-en-dur/cover.png": {
+    "width": 1536,
+    "height": 1024
+  },
   "/images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
@@ -40,6 +60,10 @@
     "height": 1024
   },
   "/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
+  "/images/resources/mon-travail-se-documente-tout-seul/cover.png": {
     "width": 1536,
     "height": 1024
   },
@@ -63,19 +87,15 @@
     "width": 1536,
     "height": 1024
   },
+  "/images/resources/veille-ia-automatique/cover.png": {
+    "width": 1536,
+    "height": 1024
+  },
   "/images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
   "/images/resources/why-i-replaced-prompts-with-skills/cover-mascotte.webp": {
-    "width": 1536,
-    "height": 1024
-  },
-  "/images/resources/veille-ia-automatique/cover.png": {
-    "width": 1536,
-    "height": 1024
-  },
-  "/images/resources/mon-travail-se-documente-tout-seul/cover.png": {
     "width": 1536,
     "height": 1024
   }
