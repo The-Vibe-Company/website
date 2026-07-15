@@ -17,11 +17,15 @@ Quand je suis arrivé chez The Vibe Company, la compta a été l'un des premiers
 
 Pour toute consigne, Antoine m'avait juste dit : « Voilà le script de l'IA, tu le modifies comme tu veux. »
 
+## Un mois de compta en cinq minutes
+
 Son « script », c'est en fait un fichier de consignes qu'on donne à Claude Code, l'IA avec laquelle on bosse. Autrement dit, un système complet existait déjà avant mon arrivée, monté par Antoine, et le truc cool, c'est qu'il pliait déjà la compta du mois en cinq minutes.
 
 Chaque mois, le geste est simple : je télécharge l'export CSV de notre banque, Qonto, je le donne à Claude Code dans une conversation, et il me sort un fichier de tableur prêt à ouvrir dans Google Sheets. Dedans, chaque ligne est classée dans la bonne catégorie : Tool pour les abonnements comme Notion ou Slack, Tech pour l'infra comme OpenAI, Personnel pour les salaires et la mutuelle, Frais pour la banque et le comptable.
 
 Sans ça, c'est soit la galère à base de macros Excel complexes, soit le pointage ligne par ligne à la vieille école. Ce gain de temps de départ, c'est à Antoine que je le dois. Moi, j'ai juste pris sa consigne au mot.
+
+## Quand l'IA ne sait pas, elle ne devine pas
 
 Pour classer, l'IA suit une règle prudente, écrite noir sur blanc dans le fichier de consignes :
 
@@ -33,11 +37,15 @@ the dropdown.
 
 En clair : elle regarde d'abord la catégorie que Qonto met déjà sur chaque ligne, puis le nom du fournisseur si besoin. Et quand elle ne sait pas, elle ne devine pas : elle range la ligne dans « Autre », et c'est nous qui tranchons après. Ça évite les erreurs stupides.
 
+## Un tableau vivant, pas des valeurs figées
+
 En bossant sur une copie de son modèle, j'ai voulu pousser le résultat un cran plus loin. Avant, les données sortaient figées : si on corrigeait une catégorie à la main, rien ne se recalculait.
 
 J'ai donc demandé à l'IA de modifier le fichier de consignes pour sortir des menus déroulants et de vraies formules, au lieu de valeurs figées. Maintenant, chaque ligne a son menu déroulant, et tous les totaux s'ajustent en direct dès qu'on change un truc : le total de chaque catégorie et le total du mois, dans le récapitulatif en haut de l'onglet.
 
 J'ai aussi ajouté une zone de recherche, juste sous ce récapitulatif : on y choisit un fournisseur dans une liste, et on voit tout de suite son nombre d'opérations et le montant total, ce qu'on a payé chez OpenAI sur le mois, par exemple. Une fois que ça a marché pour les dépenses, j'ai fait exactement la même chose pour les recettes, avec leurs propres catégories, comme Aide pour les subventions ou Consulting pour les missions.
+
+## L'étape qu'on garde à la main
 
 Par contre, on a fait le choix de garder une étape humaine : la relecture mensuelle. Tout le but de ce tableau, c'est de balayer nos dépenses ligne par ligne et de repérer les paiements inhabituels, du genre l'abonnement oublié qui tourne encore. Pour que cette passe soit efficace, j'ai demandé à l'IA d'ajouter une colonne de « Flags » au tableau des dépenses. Voilà comment le fichier de consignes la définit :
 
@@ -49,6 +57,8 @@ Flag column — an action tag. Blank = rien a signaler
 En clair, la colonne arrive vide, et on passe sur chaque ligne, non plus pour classer mais pour décider. Si c'est bon, on valide en OK. Sinon, on applique le bon tag : Se Désabonner, Remboursement, Re-Facturer ou À Vérifier.
 
 Dès qu'on met un flag autre que OK, le tableur fait apparaître une case à cocher dans la colonne d'à côté. Une fois le problème réglé en vrai, comme résilier l'abonnement, on coche la case, et le flag repasse en OK.
+
+## Le pont vers notre Google Sheets
 
 Le dernier point noir, c'était l'intégration dans notre Google Sheets de suivi, le fichier partagé où vivent tous les mois. À l'époque, le fichier de consignes assumait le problème noir sur blanc :
 
@@ -65,6 +75,8 @@ Moi, je n'ai fait que cliquer sur les autorisations. Maintenant, Claude Code env
 
 J'ai testé le truc en envoyant les données de juin sous le nom de juillet : ça a créé un nouvel onglet parfait, sans toucher au vrai mois de juin.
 
-Ce que je retiens de tout ça, c'est qu'un fichier de consignes pour l'IA, c'est vraiment un moule qu'on adapte à sa sauce. Si on change d'avis sur les catégories ou les couleurs, on le dit à l'IA, elle met à jour le modèle et le prochain export sort exactement comme on veut. Et quand elle est bloquée aux portes d'un outil, un micro-script installé une fois fait parfaitement le relais.
+## Ce que j'en retiens
+
+Un fichier de consignes pour l'IA, c'est vraiment un moule qu'on adapte à sa sauce. Si on change d'avis sur les catégories ou les couleurs, on le dit à l'IA, elle met à jour le modèle et le prochain export sort exactement comme on veut. Et quand elle est bloquée aux portes d'un outil, un micro-script installé une fois fait parfaitement le relais.
 
 Le prochain export tombera début août pour la compta de juillet. Et cette fois, promis, personne ne fera de copier-coller.
