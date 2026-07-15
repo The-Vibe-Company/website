@@ -8,7 +8,7 @@ series: victor-story
 seriesDay: 12
 topics: AI Journey, Produit, Skills
 coverImage: /images/resources/la-regle-que-j-ai-failli-coder-en-dur/cover.png
-coverAlt: "Mon avatar et la mascotte VB devant un mur de briques à moitié monté, dans la direction artistique maison"
+coverAlt: "Mon avatar glissant une règle gravée dans la fente du produit, la mascotte VB tendant une autre tuile, dans la direction artistique maison"
 ogImage: /images/resources/la-regle-que-j-ai-failli-coder-en-dur/cover.png
 ---
 
