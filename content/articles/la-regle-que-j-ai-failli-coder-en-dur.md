@@ -20,17 +20,17 @@ On avait par exemple un skill baptisé « improve ». Improve quoi, pourquoi, po
 
 ## Une règle maison en trois blocs
 
-Alors on a posé une règle maison : chaque skill prend un nom en trois blocs, en anglais, un verbe, un objet, un domaine. Comme track-expenses-admin pour le tableau des dépenses : track pour l'action, suivre, expenses pour l'objet, les dépenses, et admin pour le domaine. Et chacun se range dans un des six dossiers racines, dev, marketing, admin, clients, project, tools.
+Alors on a posé une règle maison : chaque skill prend un nom en trois blocs, en anglais, un verbe, un objet, un domaine. Comme track-expenses-admin pour le tableau des dépenses : l'action, l'objet, le domaine. Et chacun se range dans un des six dossiers racines, dev, marketing, admin, clients, project, tools.
 
-Pour faire respecter tout ça, j'ai d'abord créé un skill gardien. Au moment d'ajouter un skill au catalogue, on le lance dans une conversation, et c'est l'IA qui trie le nouveau venu dans la bonne racine et réécrit son nom à la convention.
+Pour la faire respecter, j'ai d'abord créé un skill gardien : au moment d'ajouter un skill au catalogue, c'est l'IA qui range le nouveau venu dans la bonne racine et réécrit son nom à la convention.
 
-Mais le gardien a une limite : c'est un skill, il ne marche que si on pense à le lancer. Si quelqu'un ajoute un skill sans passer par lui, rien ne bloque, et un mauvais nom entre dans le catalogue. Alors j'ai voulu verrouiller pour de bon : si la règle compte, c'est au produit lui-même de la tenir.
+Mais un gardien ne marche que si on pense à le lancer. Alors j'ai voulu verrouiller pour de bon : si la règle compte, c'est au produit lui-même de la tenir.
 
 ## Verrouiller pour de bon
 
-J'ai donc codé la convention en dur, gravée dans le code même du produit, sur une branche, une copie de travail à côté du vrai Companion. Concrètement, un garde-fou sur les trois portes d'entrée du catalogue : l'import d'un skill existant, la création d'un nouveau, le partage d'un skill perso avec l'équipe. Un skill mal nommé ou sans dossier ? Refusé, avec un message d'erreur.
+J'ai donc codé la convention en dur, dans le code même du produit, sur une copie de travail à côté du vrai Companion. Un garde-fou sur les trois portes d'entrée du catalogue : importer un skill, en créer un, partager un skill perso avec l'équipe. Un skill mal nommé ou sans dossier ? Refusé, avec un message d'erreur.
 
-J'en ai tiré deux PR, ces paquets de modifications qu'on propose avant qu'ils n'entrent dans le produit. Tests tout verts, et la revue de code automatique qui tourne sur chaque PR n'avait rien à redire. Il ne manquait qu'un merge, le geste qui fait entrer une PR dans le produit, et notre règle s'appliquait à tout le monde.
+J'en ai tiré deux PR, ces paquets de modifications qu'on propose avant qu'ils n'entrent dans le produit. Tests tout verts, revue de code automatique sans rien à redire. Il ne manquait qu'un merge, le dernier geste, et notre règle s'appliquait à tout le monde.
 
 ## Le retour de Stan a tout arrêté
 
