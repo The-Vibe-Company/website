@@ -51,6 +51,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/focus-skill-compta-qonto/cover.png": {
+      "sourceHash": "6876ac6a6f51f901b21ff6ead50bc3a1a88c5ac76bdbd41ac9222d0bee3439af",
+      "targetUrl": "/images/_optimized/resources/focus-skill-compta-qonto/cover.webp",
+      "targetHash": "9720d2d26356c50d736b5951354b98b16036244bfbc9eb596bd27ff270f1466d"
+    },
     "content:/images/resources/focus-skill-images/avatar-avant-apres.png": {
       "sourceHash": "4b41d53e5b42637d93745a1b984a41e966b13bf8e28a27e965ddf5f353785686",
       "targetUrl": "/images/_optimized/resources/focus-skill-images/avatar-avant-apres.webp",
@@ -273,6 +278,11 @@
     },
     "og:/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
       "sourceHash": "8e6a77b8cfc219c537dbf498586043c9f410e0272f9cb46c8258c5c572cc406a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/focus-skill-compta-qonto/cover.png": {
+      "sourceHash": "6876ac6a6f51f901b21ff6ead50bc3a1a88c5ac76bdbd41ac9222d0bee3439af",
       "targetUrl": null,
       "targetHash": null
     },
