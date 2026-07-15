@@ -87,7 +87,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
       const optimizedCoverImage = coverImage ? getOptimizedImageUrl(coverImage) : ''
       const coverAlt = data.coverAlt || data.imageAlt || title
       const ogImage = data.ogImage || ''
-      const optimizedOgImage = ogImage ? getOptimizedImageUrl(ogImage) : ''
+      const optimizedOgImage = ogImage ? getOptimizedImageUrl(ogImage, 'og') : ''
       const topics = (data.topics || '')
         .split(',')
         .map((value) => value.trim())
