@@ -156,6 +156,11 @@
       "targetUrl": "/images/_optimized/resources/l-outil-qui-me-fait-gagner-du-temps/cover.webp",
       "targetHash": "9e9a91f320ca15a5e503f904803c82fccb23d2251eead5ccfe4323b4de22ec84"
     },
+    "content:/images/resources/la-regle-que-j-ai-failli-coder-en-dur/cover.png": {
+      "sourceHash": "17801f083a6ce872b748e47048e235075bf88438fa4ba19d678279f018214c0c",
+      "targetUrl": "/images/_optimized/resources/la-regle-que-j-ai-failli-coder-en-dur/cover.webp",
+      "targetHash": "130f7144eb8225b6bb4845f05215f871f8453f7121fef248561b884824d67641"
+    },
     "content:/images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-mascotte.webp": {
       "sourceHash": "4e86775c3b42420a71b43376842edbc9602c1ed14fd7510999e10bae718cb5bc",
       "targetUrl": null,
@@ -313,6 +318,11 @@
     },
     "og:/images/resources/l-outil-qui-me-fait-gagner-du-temps/cover.png": {
       "sourceHash": "714c369f2443bc6bbc620828954b5b0f97d645ff37888a3b9ac2868c01dc10d9",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/la-regle-que-j-ai-failli-coder-en-dur/cover.png": {
+      "sourceHash": "17801f083a6ce872b748e47048e235075bf88438fa4ba19d678279f018214c0c",
       "targetUrl": null,
       "targetHash": null
     },
