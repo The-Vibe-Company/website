@@ -12,7 +12,7 @@ coverAlt: "Mon avatar glissant une règle gravée dans la fente du produit, la m
 ogImage: /images/resources/la-regle-que-j-ai-failli-coder-en-dur/cover.png
 ---
 
-Chez The Vibe Company, on construit Companion, un espace où n'importe quelle team peut ranger et partager ses skills, pas seulement la nôtre. Un skill, c'est un fichier de consignes qu'on donne à l'IA pour qu'elle refasse une tâche toujours de la même façon.
+Chez The Vibe Company, on construit [Companion](https://www.thecompanion.sh/), un espace où n'importe quelle team peut ranger et partager ses skills, pas seulement la nôtre. [Un skill](/resources/articles/les-skills), c'est un fichier de consignes qu'on donne à l'IA pour qu'elle refasse une tâche toujours de la même façon.
 
 On l'utilise nous-mêmes tous les jours. Notre maigre catalogue ne comporte pour le moment que dix-huit skills, mais il grossit toutes les semaines, et sans règle de nommage, ça devient vite le bazar.
 
@@ -20,7 +20,7 @@ On avait par exemple un skill baptisé « improve ». Improve quoi, pourquoi, po
 
 ## Une règle maison en trois blocs
 
-Alors on a posé une règle maison : chaque skill prend un nom en anglais, en trois blocs, un verbe, un objet, un domaine. Comme track-expenses-admin pour le tableau des dépenses : track pour suivre, expenses pour les dépenses, admin pour le domaine. Et chacun se range dans un des six dossiers racines, dev, marketing, admin, clients, project, tools.
+Alors on a posé une règle maison : chaque skill prend un nom en anglais, en trois blocs, un verbe, un objet, un domaine. Comme track-expenses-admin pour [le tableau des dépenses](/resources/articles/focus-skill-compta-qonto) : track pour suivre, expenses pour les dépenses, admin pour le domaine. Et chacun se range dans un des six dossiers racines, dev, marketing, admin, clients, project, tools.
 
 Pour la faire respecter, j'ai d'abord créé un skill gardien : on le lance dans une conversation avec l'IA au moment d'ajouter un skill, et elle range le nouveau venu dans la bonne racine et réécrit son nom à la convention.
 
