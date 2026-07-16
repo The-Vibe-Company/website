@@ -54,7 +54,7 @@ J'ai proposé le champ de réglages dans une nouvelle PR, et elle est passée. C
 
 ## Le même résultat, un produit neutre
 
-Au final, chez nous, le résultat est celui que je visais avec mon verrou. Dans la foulée, j'ai briefé un agent dans une conversation Claude, et il a renommé et rangé les dix-huit d'un coup : « improve » est devenu improve-skill-tools, et on sait enfin ce qu'il fait.
+Au final, chez nous, le résultat est celui que je visais avec mon verrou. Dans la foulée, j'ai briefé un agent dans une conversation [Claude](https://claude.com), et il a renommé et rangé les dix-huit d'un coup : « improve » est devenu improve-skill-tools, et on sait enfin ce qu'il fait.
 
 Mais le produit est resté neutre : la convention qu'une équipe croisera sur Companion sera la sienne, jamais la nôtre.
 
