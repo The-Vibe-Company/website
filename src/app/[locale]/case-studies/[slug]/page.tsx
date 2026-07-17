@@ -123,11 +123,11 @@ export default async function CaseStudyPage({
           {/* Every stat cell keeps the same width (the 4-up rhythm of the
               80rem container) whatever the count: the strip narrows and stays
               centered instead of stretching, so a study with 2 numbers reads
-              like one with 4 — same cells, same separators, and never an
-              empty gray cell (the gap-px bg-border trick paints every
-              cell-less area). */}
+              like one with 4. Separators are real cell borders (left between
+              columns, top between mobile rows) — sturdier than a gap-px
+              hairline, which can vanish with browser zoom rounding. */}
           <div
-            className={`mx-auto grid grid-cols-2 gap-px bg-border px-0 ${
+            className={`mx-auto grid grid-cols-2 px-0 ${
               customer.results.length === 1
                 ? "max-w-[20rem] md:grid-cols-1"
                 : customer.results.length === 2
@@ -137,15 +137,22 @@ export default async function CaseStudyPage({
                     : "max-w-[80rem] md:grid-cols-4"
             }`}
           >
-            {customer.results.map((stat, index) => (
+            {customer.results.map((stat, index) => {
+              const isLast = index === customer.results.length - 1;
+              const fullWidthOnMobile =
+                customer.results.length % 2 === 1 && isLast;
+              return (
               <div
                 key={stat.value}
                 className={`flex flex-col gap-1 bg-background p-6 md:p-8 ${
-                  customer.results.length % 2 === 1 &&
-                  index === customer.results.length - 1
-                    ? "col-span-2 md:col-span-1"
-                    : ""
-                }`}
+                  fullWidthOnMobile ? "col-span-2 md:col-span-1" : ""
+                } ${
+                  index === 0
+                    ? ""
+                    : index % 2 === 1 && !fullWidthOnMobile
+                      ? "border-l border-border"
+                      : "md:border-l md:border-border"
+                } ${index >= 2 ? "border-t border-border md:border-t-0" : ""}`}
               >
                 <div className="text-[30px] font-bold leading-none tracking-[-0.03em] text-foreground md:text-[36px]">
                   {stat.value}
@@ -154,7 +161,8 @@ export default async function CaseStudyPage({
                   {stat.label}
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
