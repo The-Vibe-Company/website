@@ -113,9 +113,30 @@ export default async function CaseStudyPage({
         </section>
 
         <section className="border-y border-border bg-background">
-          <div className="mx-auto grid max-w-[80rem] grid-cols-2 gap-px bg-border px-0 md:grid-cols-4">
-            {customer.results.map((stat) => (
-              <div key={stat.value} className="flex flex-col gap-1 bg-background p-6 md:p-8">
+          {/* Columns follow the stat count so a study with fewer numbers than
+              Monka never shows empty gray cells (the gap-px bg-border trick
+              paints every cell-less area). */}
+          <div
+            className={`mx-auto grid max-w-[80rem] grid-cols-2 gap-px bg-border px-0 ${
+              customer.results.length === 1
+                ? "md:grid-cols-1"
+                : customer.results.length === 2
+                  ? "md:grid-cols-2"
+                  : customer.results.length === 3
+                    ? "md:grid-cols-3"
+                    : "md:grid-cols-4"
+            }`}
+          >
+            {customer.results.map((stat, index) => (
+              <div
+                key={stat.value}
+                className={`flex flex-col gap-1 bg-background p-6 md:p-8 ${
+                  customer.results.length % 2 === 1 &&
+                  index === customer.results.length - 1
+                    ? "col-span-2 md:col-span-1"
+                    : ""
+                }`}
+              >
                 <div className="text-[30px] font-bold leading-none tracking-[-0.03em] text-foreground md:text-[36px]">
                   {stat.value}
                 </div>
