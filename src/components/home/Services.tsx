@@ -61,10 +61,10 @@ export function Services() {
               </div>
             </div>
 
-            <h3 className="m-0 mb-3 text-[32px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[36px]">
+            <h3 className="m-0 mb-3 hyphens-auto text-[32px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:min-h-[2.1em] md:text-[clamp(26px,3vw,36px)]">
               {t(`items.${service.key}.title`)}
             </h3>
-            <p className="m-0 mb-6 text-[15px] leading-[1.5] text-muted-foreground md:min-h-[90px]">
+            <p className="m-0 mb-6 text-[15px] leading-[1.5] text-muted-foreground md:min-h-[113px]">
               {t(`items.${service.key}.desc`)}
             </p>
 
