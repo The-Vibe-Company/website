@@ -186,6 +186,16 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/mes-premiers-apprentissages-apres-trois-semaines-de-contenu/avant-apres-post-saveur.png": {
+      "sourceHash": "c1d59108612a464c5a6c91223480b330af02bd6f5f72014e0c666517451bd37d",
+      "targetUrl": "/images/_optimized/resources/mes-premiers-apprentissages-apres-trois-semaines-de-contenu/avant-apres-post-saveur.webp",
+      "targetHash": "44188b1d0506ecd78fccbc7174caeced27368d390a4086ed7183b6d9cecf0435"
+    },
+    "content:/images/resources/mes-premiers-apprentissages-apres-trois-semaines-de-contenu/cover.png": {
+      "sourceHash": "1594b563614727f4ef46667c64bf2339f268fb88f288dc053c6de1ea89ed0e76",
+      "targetUrl": "/images/_optimized/resources/mes-premiers-apprentissages-apres-trois-semaines-de-contenu/cover.webp",
+      "targetHash": "b38df69d6b435081affdcc311b533ea9c529cfb1d3a3feea618e653d128ff92a"
+    },
     "content:/images/resources/mon-travail-se-documente-tout-seul/cover.png": {
       "sourceHash": "0903e3056028db19e6f1db1f27bd7a990680fd959da5df5e8bd3b973f2188eb4",
       "targetUrl": "/images/_optimized/resources/mon-travail-se-documente-tout-seul/cover.webp",
@@ -338,6 +348,11 @@
     },
     "og:/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-mascotte.webp": {
       "sourceHash": "74dff6fbfd414bbe4e44ffcebed756f59f7e149eeb57435adbc54c23789b5384",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/mes-premiers-apprentissages-apres-trois-semaines-de-contenu/cover.png": {
+      "sourceHash": "1594b563614727f4ef46667c64bf2339f268fb88f288dc053c6de1ea89ed0e76",
       "targetUrl": null,
       "targetHash": null
     },
