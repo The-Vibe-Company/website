@@ -8,12 +8,12 @@
     "searchLong": "Search resources..."
   },
   "meta": {
-    "description": "An AI-native agency. Everything 50 to 100× faster with AI: products, ops, training. Our agency runs on AI too."
+    "description": "An AI-native agency. Everything 10 to 20× faster with AI: products, ops, training. Our agency runs on AI too."
   },
   "hero": {
     "badge": "Open to projects · Built with AI",
     "titleLine1": "We build your product,",
-    "titleLine2": "50 to 100× faster.",
+    "titleLine2": "10 to 20× faster.",
     "subtitle": "A small team that builds your products, runs agents inside your company, and trains your teams on AI. We run on AI ourselves, so you ship faster and for far less than a traditional team.",
     "bookCall": "Book a discovery call",
     "seeWhatWeDo": "See what we do",
@@ -54,7 +54,7 @@
       "build": {
         "title": "Product builds",
         "tag": "BUILD-FOR-HIRE",
-        "desc": "We design and ship your product end-to-end. Code, design, evals, ops. AI does everything that doesn't need a human, so we ship 50–100× faster than a traditional team.",
+        "desc": "We design and ship your product end-to-end. Code, design, evals, ops. AI does everything that doesn't need a human, so we ship 10 to 20× faster than a traditional team.",
         "bullets": [
           "Discovery, architecture, production-grade code",
           "Built with Claude + Codex + agents in the loop",

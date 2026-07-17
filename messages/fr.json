@@ -8,12 +8,12 @@
     "searchLong": "Chercher dans les ressources…"
   },
   "meta": {
-    "description": "Une agence née avec l'IA. Tout va 50 à 100× plus vite grâce à l'IA : produits, opérations, formation. Notre propre agence tourne aussi à l'IA."
+    "description": "Une agence née avec l'IA. Tout va 10 à 20× plus vite grâce à l'IA : produits, opérations, formation. Notre propre agence tourne aussi à l'IA."
   },
   "hero": {
     "badge": "Ouvert aux projets · Construit avec l'IA",
     "titleLine1": "On construit votre produit,",
-    "titleLine2": "50 à 100× plus vite.",
+    "titleLine2": "10 à 20× plus vite.",
     "subtitle": "Une petite équipe qui construit vos produits, déploie des agents dans votre entreprise et forme vos équipes à l'IA. On tourne nous-mêmes à l'IA, donc vous livrez plus vite et pour bien moins cher qu'avec une équipe classique.",
     "bookCall": "Prendre rendez-vous",
     "seeWhatWeDo": "Voir ce qu'on fait",
@@ -54,7 +54,7 @@
       "build": {
         "title": "Développement de produits",
         "tag": "DÉVELOPPEMENT SUR MESURE",
-        "desc": "On conçoit et on livre votre produit de bout en bout. Code, design, évaluations, ops. L'IA fait tout ce qui n'a pas besoin d'un humain, donc on livre 50 à 100× plus vite qu'une équipe classique.",
+        "desc": "On conçoit et on livre votre produit de bout en bout. Code, design, évaluations, ops. L'IA fait tout ce qui n'a pas besoin d'un humain, donc on livre 10 à 20× plus vite qu'une équipe classique.",
         "bullets": [
           "Cadrage, architecture, code prêt pour la production",
           "Construit avec Claude, Codex et des agents à chaque étape",
