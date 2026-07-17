@@ -74,7 +74,9 @@ export default async function CaseStudyPage({
             </div>
           </div>
 
-          <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:items-start lg:gap-14">
+          <div
+            className={`mt-10 grid gap-10 ${customer.visuals[0] ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:items-start lg:gap-14" : ""}`}
+          >
             <div>
               <p className="m-0 max-w-[720px] text-xl leading-[1.5] text-foreground md:text-2xl">
                 {customer.overview}
@@ -92,10 +94,10 @@ export default async function CaseStudyPage({
               )}
             </div>
 
-            {/* One product visual beside the text (reserved frame for now; the
-                first real screenshot dropped into customer.visuals goes here). */}
-            <div className="flex flex-col gap-4">
-              {customer.visuals[0] ? (
+            {/* One product visual beside the text (the first screenshot in
+                customer.visuals). Nothing is rendered when there is no visual. */}
+            {customer.visuals[0] && (
+              <div className="flex flex-col gap-4">
                 <div className="overflow-hidden border border-foreground">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -105,14 +107,8 @@ export default async function CaseStudyPage({
                     loading="lazy"
                   />
                 </div>
-              ) : (
-                <div className="flex aspect-[4/3] items-center justify-center border border-dashed border-border bg-background px-4 text-center">
-                  <span className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
-                    {t("visualsSoon")}
-                  </span>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -152,41 +148,39 @@ export default async function CaseStudyPage({
           </div>
         </section>
 
-        <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-12 md:pb-24">
-          <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {t("theProduct")}
-          </span>
-          {customer.visuals.length > 1 ? (
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {customer.visuals.slice(1).map((visual) => (
-                <div key={visual.src} className="overflow-hidden border border-foreground">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={visual.src} alt={visual.alt} className="h-auto w-full" loading="lazy" />
+        {(customer.visuals.length > 1 || customer.url) && (
+          <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-12 md:pb-24">
+            {customer.visuals.length > 1 && (
+              <>
+                <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {t("theProduct")}
+                </span>
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                  {customer.visuals.slice(1).map((visual) => (
+                    <div key={visual.src} className="overflow-hidden border border-foreground">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={visual.src} alt={visual.alt} className="h-auto w-full" loading="lazy" />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="flex min-h-[280px] items-center justify-center border border-dashed border-border bg-background px-6 text-center">
-              <p className="m-0 max-w-[420px] font-mono text-[11px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
-                {t("visualsSoon")}
-              </p>
-            </div>
-          )}
+              </>
+            )}
 
-          {customer.url && (
-            <a
-              href={customer.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-3 border-2 border-foreground bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
-            >
-              {t("visit")} {customer.client}
-              <span aria-hidden="true" className="text-lg">
-                &#8599;
-              </span>
-            </a>
-          )}
-        </section>
+            {customer.url && (
+              <a
+                href={customer.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-3 border-2 border-foreground bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)] ${customer.visuals.length > 1 ? "mt-8" : ""}`}
+              >
+                {t("visit")} {customer.client}
+                <span aria-hidden="true" className="text-lg">
+                  &#8599;
+                </span>
+              </a>
+            )}
+          </section>
+        )}
 
         <FinalCTA />
       </main>
