@@ -192,9 +192,9 @@
       "targetHash": "44188b1d0506ecd78fccbc7174caeced27368d390a4086ed7183b6d9cecf0435"
     },
     "content:/images/resources/mes-premiers-apprentissages-apres-trois-semaines-de-contenu/cover.png": {
-      "sourceHash": "1594b563614727f4ef46667c64bf2339f268fb88f288dc053c6de1ea89ed0e76",
+      "sourceHash": "42eaca8f99826582502a1e1e892ef1cbaac4254dcb8f15ae2927e40eed392bcd",
       "targetUrl": "/images/_optimized/resources/mes-premiers-apprentissages-apres-trois-semaines-de-contenu/cover.webp",
-      "targetHash": "b38df69d6b435081affdcc311b533ea9c529cfb1d3a3feea618e653d128ff92a"
+      "targetHash": "8035097e3ee951755f1e8ab798e7a67b393f76662b60ab018a3b131629fbf649"
     },
     "content:/images/resources/mon-travail-se-documente-tout-seul/cover.png": {
       "sourceHash": "0903e3056028db19e6f1db1f27bd7a990680fd959da5df5e8bd3b973f2188eb4",
@@ -352,7 +352,7 @@
       "targetHash": null
     },
     "og:/images/resources/mes-premiers-apprentissages-apres-trois-semaines-de-contenu/cover.png": {
-      "sourceHash": "1594b563614727f4ef46667c64bf2339f268fb88f288dc053c6de1ea89ed0e76",
+      "sourceHash": "42eaca8f99826582502a1e1e892ef1cbaac4254dcb8f15ae2927e40eed392bcd",
       "targetUrl": null,
       "targetHash": null
     },
