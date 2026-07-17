@@ -94,6 +94,21 @@ const PROJECTS_RAW: RawProject[] = [
       fr: "Granite est l’OS personnel sur lequel tourne votre agent. Des notes markdown, un index SQLite et un système de contrats typés qui transforme vos fichiers locaux en une mémoire d’entreprise navigable.",
     },
   },
+  {
+    slug: "vibedeck",
+    name: "VibeDeck",
+    logo: "/projects/vibedeck-favicon.svg",
+    cover: "/projects/vibedeck-home.png",
+    accent: "#f5a623",
+    url: "https://vibedeck.thevibecompany.co",
+    tag: { en: "Local dashboard", fr: "Dashboard local" },
+    date: { en: "Jul 2026", fr: "juil. 2026" },
+    status: { en: "Open source", fr: "Open source" },
+    description: {
+      en: "VibeDeck gathers your favorite sites, feeds and media into a dashboard of panels you compose freely. Everything stays on your machine: no account, no server, no tracking.",
+      fr: "VibeDeck rassemble vos sites, flux et médias favoris dans un dashboard de panneaux que vous composez librement. Tout reste sur votre machine : sans compte, sans serveur, sans tracking.",
+    },
+  },
 ];
 
 function localize(raw: RawProject, locale: ContentLocale): Project {
