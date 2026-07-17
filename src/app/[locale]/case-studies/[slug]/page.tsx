@@ -120,18 +120,21 @@ export default async function CaseStudyPage({
         </section>
 
         <section className="border-y border-border bg-background">
-          {/* Columns follow the stat count so a study with fewer numbers than
-              Monka never shows empty gray cells (the gap-px bg-border trick
-              paints every cell-less area). */}
+          {/* Every stat cell keeps the same width (the 4-up rhythm of the
+              80rem container) whatever the count: the strip narrows and stays
+              centered instead of stretching, so a study with 2 numbers reads
+              like one with 4 — same cells, same separators, and never an
+              empty gray cell (the gap-px bg-border trick paints every
+              cell-less area). */}
           <div
-            className={`mx-auto grid max-w-[80rem] grid-cols-2 gap-px bg-border px-0 ${
+            className={`mx-auto grid grid-cols-2 gap-px bg-border px-0 ${
               customer.results.length === 1
-                ? "md:grid-cols-1"
+                ? "max-w-[20rem] md:grid-cols-1"
                 : customer.results.length === 2
-                  ? "md:grid-cols-2"
+                  ? "max-w-[40rem] md:grid-cols-2"
                   : customer.results.length === 3
-                    ? "md:grid-cols-3"
-                    : "md:grid-cols-4"
+                    ? "max-w-[60rem] md:grid-cols-3"
+                    : "max-w-[80rem] md:grid-cols-4"
             }`}
           >
             {customer.results.map((stat, index) => (
