@@ -162,7 +162,9 @@
     "backHome": "Home",
     "whatWeDid": "// What we did",
     "theProduct": "// The product",
-    "visit": "Visit"
+    "visit": "Visit",
+    "keepReading": "Keep Reading",
+    "next": "Next"
   },
   "resources": {
     "kicker": "Resources",

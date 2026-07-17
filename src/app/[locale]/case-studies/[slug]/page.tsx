@@ -8,7 +8,8 @@ import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
 import { CaseStudyBackLink } from "@/components/CaseStudyBackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
-import { CUSTOMER_SLUGS, getCustomer, type ContentLocale } from "@/lib/customers";
+import { CaseStudyKeepReading } from "@/components/CaseStudyKeepReading";
+import { CUSTOMER_SLUGS, getCustomer, getCustomers, type ContentLocale } from "@/lib/customers";
 
 export function generateStaticParams() {
   return CUSTOMER_SLUGS.map((slug) => ({ slug }));
@@ -40,6 +41,12 @@ export default async function CaseStudyPage({
   const t = await getTranslations("caseStudiesPage");
   const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) notFound();
+
+  // The other case studies, starting right after the current one (cyclic) so
+  // every page suggests a different "next" case.
+  const all = getCustomers(locale as ContentLocale);
+  const index = all.findIndex((c) => c.slug === slug);
+  const related = [...all.slice(index + 1), ...all.slice(0, index)].slice(0, 3);
 
   return (
     <div
@@ -202,6 +209,8 @@ export default async function CaseStudyPage({
             )}
           </section>
         )}
+
+        <CaseStudyKeepReading items={related} />
 
         <FinalCTA />
       </main>

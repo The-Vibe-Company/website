@@ -162,7 +162,9 @@
     "backHome": "Accueil",
     "whatWeDid": "// Ce qu’on a fait",
     "theProduct": "// Le produit",
-    "visit": "Visiter"
+    "visit": "Visiter",
+    "keepReading": "À lire ensuite",
+    "next": "Suivant"
   },
   "resources": {
     "kicker": "Ressources",
