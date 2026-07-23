@@ -210,6 +210,12 @@ components:
     typography: "{typography.label-md}"
     rounded: "{rounded.full}"
     padding: "{spacing.gap-sm}"
+  text-cta:
+    backgroundColor: "{colors.background}"
+    textColor: "{colors.foreground}"
+    typography: "{typography.label-md}"
+    rounded: "{rounded.none}"
+    padding: 0px
   mono-label:
     backgroundColor: "{colors.background}"
     textColor: "{colors.muted}"
@@ -220,12 +226,6 @@ components:
     backgroundColor: "{colors.background}"
     textColor: "{colors.muted-foreground}"
     typography: "{typography.body-sm}"
-  top-strip-dot:
-    backgroundColor: "{colors.tertiary}"
-    textColor: "{colors.primary}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.full}"
-    size: "{spacing.gap-xs}"
   hard-rule:
     backgroundColor: "{colors.border-strong}"
     textColor: "{colors.on-primary}"
@@ -310,7 +310,7 @@ The Vibe Company design system is a warm-paper brutalist editorial system for an
 
 The dominant impression is deep black ink on a slightly warm paper canvas. Layouts are spacious but not soft. Large type, thin technical grid lines, monochrome rules, uppercase mono labels, and blunt black calls to action create the feeling of a shipping console crossed with an independent studio site. The interface should feel confident and operational, not decorative.
 
-The homepage is the core expression: warm paper, giant tight typography, outlined headline words, black slab buttons, bordered cards, and horizontal bands. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
+The homepage is the core expression: warm paper, giant tight typography, outlined headline words, black slab buttons, bordered cards, and horizontal bands. The hero opens directly on the headline without an announcement strip or status badge. A compact credential row beneath the introduction pairs the linked YC W24 mark with the France 2030 mark; both keep their original aspect ratios and accessible names. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
 
 An experimental preview of the homepage lives at `/v2`. It keeps the full warm-paper system (the same top nav, sections, footer, deep ink, and Geist type) and only swaps the static hero for a playable, Chrome-dino-style runner on a canvas. Inside that canvas the game travels through a sequence of "worlds", each a product, a service, or the YC backing, and each world carries its own art direction (paper, ink, accent, and player colour) with a presentation panel that stays for the whole world. It is a preview, not yet the canonical homepage.
 
@@ -375,6 +375,12 @@ Cards are bordered rectangles, not soft containers. Service cards and product ca
 
 Navigation is sticky, translucent, and understated. The wordmark is mono, compact, and paired with a small black logo. Desktop links are quiet until hover. The contact CTA is a black pill in the global nav, distinct from the square slab CTAs used in content.
 
+The open-source project grid uses the canonical five-product catalogue. Its organization-level GitHub action is an underlined mono text link, never an orange slab or filled button.
+
+Case-study product imagery keeps the product UI legible instead of treating screenshots as decoration. Portrait mobile captures may sit beside the overview at no more than 360px wide; wide desktop captures span the case-study content section. Preserve each image's intrinsic ratio, localized alternative text, square border, and responsive dimensions.
+
+The footer is a three-column desktop grid: a wide identity and contact column followed by site navigation and external links. It collapses to one column on small screens. The narrow operational-status column is not part of the footer, while the lower status line remains visible below the divider.
+
 The `/v2` preview swaps the static hero for a playable canvas runner that reuses the standard top nav, sections, and footer. Its score readout and the per-world presentation panel are diegetic game UI; the surrounding page keeps the normal warm-paper components. This belongs to the preview surface only.
 
 Labels, tags, counters, and status chips use Geist Mono, uppercase text, wide tracking, and small scale. They should feel like technical readouts. Status dots can pulse, but they should remain tiny.
@@ -388,8 +394,10 @@ Rules and dividers are part of the visual language. Use thin warm-gray rules for
 - Do keep accents small and meaningful: status, taxonomy, product identity, or one key attention marker.
 - Do reserve Geist Mono for metadata and operational UI, not long-form prose.
 - Do use square corners for content surfaces and slab CTAs.
+- Do preserve partner-logo and product-screenshot aspect ratios at every breakpoint.
 - Don't introduce marketing-style gradients, decorative orbs, soft bokeh, or colorful background washes.
 - Don't turn pages into nested card layouts. Use full-width bands and unframed layouts first.
 - Don't over-round cards, inputs, or buttons. Pills are for nav and status.
+- Don't turn the GitHub catalogue link into a filled promotional CTA.
 - Don't use soft ambient shadows as the main hierarchy tool.
 - Don't let resource/domain colors overpower the monochrome brand system.

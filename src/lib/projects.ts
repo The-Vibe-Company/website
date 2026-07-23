@@ -14,6 +14,7 @@ interface RawProject {
   cover: string;
   accent: string;
   url: string;
+  repositoryUrl: string;
   tag: L;
   date: L;
   status: L;
@@ -27,6 +28,7 @@ export interface Project {
   cover: string;
   accent: string;
   url: string;
+  repositoryUrl: string;
   tag: string;
   date: string;
   status: string;
@@ -36,11 +38,12 @@ export interface Project {
 const PROJECTS_RAW: RawProject[] = [
   {
     slug: "vanish",
-    name: "vanish.sh",
+    name: "Vanish",
     logo: "/projects/vanish-favicon.svg",
     cover: "/projects/vanish-home.png",
     accent: "#10b981",
     url: "https://vanish.sh",
+    repositoryUrl: "https://github.com/The-Vibe-Company/vanish",
     tag: { en: "File sharing", fr: "Partage de fichiers" },
     date: { en: "Feb 2026", fr: "févr. 2026" },
     status: { en: "Live", fr: "En ligne" },
@@ -56,6 +59,7 @@ const PROJECTS_RAW: RawProject[] = [
     cover: "/projects/compagnon-home.png",
     accent: "#f97316",
     url: "https://www.thecompanion.sh/",
+    repositoryUrl: "https://github.com/The-Vibe-Company/companion",
     tag: { en: "Skill library", fr: "Bibliothèque de skills" },
     date: { en: "Feb 2026", fr: "févr. 2026" },
     status: { en: "Live", fr: "En ligne" },
@@ -66,11 +70,12 @@ const PROJECTS_RAW: RawProject[] = [
   },
   {
     slug: "vibedrift",
-    name: "vibedrift.dev",
+    name: "VibeDrift",
     logo: "/projects/vibedrift-favicon.svg",
     cover: "/projects/vibedrift-home.png",
     accent: "#facc15",
     url: "https://www.vibedrift.dev",
+    repositoryUrl: "https://github.com/The-Vibe-Company/vibe-drift-tracker",
     tag: { en: "Dev analytics", fr: "Analytics développeur" },
     date: { en: "Feb 2026", fr: "févr. 2026" },
     status: { en: "Live", fr: "En ligne" },
@@ -86,6 +91,7 @@ const PROJECTS_RAW: RawProject[] = [
     cover: "/projects/granite-home.png",
     accent: "#62D1AF",
     url: "https://github.com/The-Vibe-Company/Granite",
+    repositoryUrl: "https://github.com/The-Vibe-Company/Granite",
     tag: { en: "Agent OS", fr: "OS pour agents" },
     date: { en: "Apr 2026", fr: "avr. 2026" },
     status: { en: "Open source", fr: "Open source" },
@@ -101,6 +107,7 @@ const PROJECTS_RAW: RawProject[] = [
     cover: "/projects/vibedeck-home.png",
     accent: "#f5a623",
     url: "https://vibedeck.thevibecompany.co",
+    repositoryUrl: "https://github.com/The-Vibe-Company/VibeDeck",
     tag: { en: "Local dashboard", fr: "Dashboard local" },
     date: { en: "Jul 2026", fr: "juil. 2026" },
     status: { en: "Open source", fr: "Open source" },
@@ -119,6 +126,7 @@ function localize(raw: RawProject, locale: ContentLocale): Project {
     cover: raw.cover,
     accent: raw.accent,
     url: raw.url,
+    repositoryUrl: raw.repositoryUrl,
     tag: pick(raw.tag, locale),
     date: pick(raw.date, locale),
     status: pick(raw.status, locale),

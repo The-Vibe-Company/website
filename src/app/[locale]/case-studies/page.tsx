@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("caseStudiesPage");
   return {
     title: t("back"),
-    description: t("subtitle"),
+    description: t("metaDescription"),
   };
 }
 
@@ -50,9 +50,6 @@ export default async function CaseStudiesPage() {
               {t("titleLine2")}
             </span>
           </h1>
-          <p className="m-0 mt-8 max-w-[620px] text-lg leading-[1.5] text-muted-foreground">
-            {t("subtitle")}
-          </p>
         </section>
 
         <section className="mx-auto max-w-[100rem] px-6 pb-20 md:px-12 md:pb-28">

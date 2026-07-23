@@ -25,7 +25,7 @@ export default function V2Home() {
         <Services />
         <Process />
         <Proof />
-        <FinalCTA step="03" />
+        <FinalCTA />
       </main>
       <Footer />
     </div>

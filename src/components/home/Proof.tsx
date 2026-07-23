@@ -1,27 +1,16 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { useTranslations } from "next-intl";
-
-interface Product {
-  name: string;
-  descKey: string;
-  url: string;
-  stars?: string;
-}
-
-const PRODUCTS: Product[] = [
-  { name: "Companion", descKey: "companion", url: "https://github.com/The-Vibe-Company/companion", stars: "2.3k" },
-  { name: "vibe-drift-tracker", descKey: "drift", url: "https://github.com/The-Vibe-Company/vibe-drift-tracker" },
-  { name: "Granite", descKey: "granite", url: "https://github.com/The-Vibe-Company/Granite" },
-  { name: "vanish", descKey: "vanish", url: "https://github.com/The-Vibe-Company/vanish" },
-];
+import { useLocale, useTranslations } from "next-intl";
+import { getProjects, type ContentLocale } from "@/lib/projects";
 
 const ORG_URL = "https://github.com/The-Vibe-Company";
 
 export function Proof() {
   const reduceMotion = useReducedMotion() ?? false;
+  const locale = useLocale() as ContentLocale;
   const t = useTranslations("proof");
+  const projects = getProjects(locale);
 
   return (
     <section
@@ -57,25 +46,24 @@ export function Proof() {
           </p>
         </div>
 
-        <div className="mb-5 flex items-center justify-between border-b border-border pb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+        <div className="mb-5 border-b border-border pb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
           <span className="font-semibold text-foreground">
             {t("barLeft")}
           </span>
-          <span>{t("barRight")}</span>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {PRODUCTS.map((p, i) => (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          {projects.map((p, i) => (
             <motion.a
-              key={p.name}
-              href={p.url}
+              key={p.slug}
+              href={p.repositoryUrl}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{
-                duration: 0.55,
+                duration: reduceMotion ? 0 : 0.55,
                 delay: reduceMotion ? 0 : i * 0.07,
                 ease: [0.16, 1, 0.3, 1],
               }}
@@ -89,18 +77,13 @@ export function Proof() {
                   ↗
                 </span>
               </div>
-              <div className="mt-3 flex items-baseline justify-between gap-2">
+              <div className="mt-3">
                 <h3 className="m-0 font-mono text-2xl font-bold tracking-[-0.03em] text-foreground">
                   {p.name}
                 </h3>
-                {p.stars && (
-                  <span className="font-mono text-xs text-orange-500" aria-label={`${p.stars} stars on GitHub`}>
-                    ★ {p.stars}
-                  </span>
-                )}
               </div>
               <p className="m-0 min-h-[60px] text-sm leading-[1.5] text-muted-foreground">
-                {t(`products.${p.descKey}`)}
+                {p.description}
               </p>
             </motion.a>
           ))}
@@ -111,7 +94,7 @@ export function Proof() {
             href={ORG_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 border-2 border-orange-500 bg-orange-500 px-7 py-4 text-[15px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
+            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-opacity hover:opacity-70"
           >
             {t("browseAll")}
             <span aria-hidden="true" className="text-lg">

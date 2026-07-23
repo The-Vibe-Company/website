@@ -40,11 +40,11 @@ export function Services() {
         {SERVICES.map((service, i) => (
           <motion.article
             key={service.n}
-            initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{
-              duration: 0.6,
+              duration: reduceMotion ? 0 : 0.6,
               delay: reduceMotion ? 0 : i * 0.08,
               ease: [0.16, 1, 0.3, 1],
             }}

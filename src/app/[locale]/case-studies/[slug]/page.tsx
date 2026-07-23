@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -42,6 +43,13 @@ export default async function CaseStudyPage({
   const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) notFound();
 
+  const asideVisual = customer.visuals.find(
+    (visual) => visual.placement === "aside",
+  );
+  const wideVisuals = customer.visuals.filter(
+    (visual) => visual.placement === "wide",
+  );
+
   // The other case studies, starting right after the current one (cyclic) so
   // every page suggests a different "next" case.
   const all = getCustomers(locale as ContentLocale);
@@ -82,7 +90,7 @@ export default async function CaseStudyPage({
           </div>
 
           <div
-            className={`mt-10 grid gap-10 ${customer.visuals[0] ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:items-start lg:gap-14" : ""}`}
+            className={`mt-10 grid gap-10 ${asideVisual ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:items-start lg:gap-14" : ""}`}
           >
             <div>
               <p className="m-0 max-w-[720px] text-xl leading-[1.5] text-foreground md:text-2xl">
@@ -101,19 +109,16 @@ export default async function CaseStudyPage({
               )}
             </div>
 
-            {/* One product visual beside the text (the first screenshot in
-                customer.visuals). Nothing is rendered when there is no visual. */}
-            {customer.visuals[0] && (
-              <div className="flex flex-col gap-4">
-                <div className="overflow-hidden border border-foreground">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={customer.visuals[0].src}
-                    alt={customer.visuals[0].alt}
-                    className="h-auto w-full"
-                    loading="lazy"
-                  />
-                </div>
+            {asideVisual && (
+              <div className="mx-auto w-full max-w-[360px] overflow-hidden border border-foreground">
+                <Image
+                  src={asideVisual.src}
+                  alt={asideVisual.alt}
+                  width={asideVisual.width}
+                  height={asideVisual.height}
+                  sizes="(max-width: 407px) calc(100vw - 3rem), 360px"
+                  className="h-auto w-full"
+                />
               </div>
             )}
           </div>
@@ -187,18 +192,24 @@ export default async function CaseStudyPage({
           </div>
         </section>
 
-        {(customer.visuals.length > 1 || customer.url) && (
+        {(wideVisuals.length > 0 || customer.url) && (
           <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-12 md:pb-24">
-            {customer.visuals.length > 1 && (
+            {wideVisuals.length > 0 && (
               <>
                 <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   {t("theProduct")}
                 </span>
-                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                  {customer.visuals.slice(1).map((visual) => (
+                <div className="flex flex-col gap-5">
+                  {wideVisuals.map((visual) => (
                     <div key={visual.src} className="overflow-hidden border border-foreground">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={visual.src} alt={visual.alt} className="h-auto w-full" loading="lazy" />
+                      <Image
+                        src={visual.src}
+                        alt={visual.alt}
+                        width={visual.width}
+                        height={visual.height}
+                        sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) calc(100vw - 6rem), 1184px"
+                        className="h-auto w-full"
+                      />
                     </div>
                   ))}
                 </div>
@@ -210,7 +221,7 @@ export default async function CaseStudyPage({
                 href={customer.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-3 border-2 border-foreground bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)] ${customer.visuals.length > 1 ? "mt-8" : ""}`}
+                className={`inline-flex items-center gap-3 border-2 border-foreground bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)] ${wideVisuals.length > 0 ? "mt-8" : ""}`}
               >
                 {t("visit")} {customer.client}
                 <span aria-hidden="true" className="text-lg">

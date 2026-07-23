@@ -42,11 +42,11 @@ export function Process() {
           {STEPS.map((step, i) => (
             <motion.li
               key={step.n}
-              initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{
-                duration: 0.55,
+                duration: reduceMotion ? 0 : 0.55,
                 delay: reduceMotion ? 0 : i * 0.06,
                 ease: [0.16, 1, 0.3, 1],
               }}

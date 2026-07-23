@@ -90,15 +90,6 @@ export default async function PortfolioPage() {
                     {p.description}
                   </p>
                 </div>
-
-                <span className="mt-7 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground">
-                  <span className="underline decoration-1 underline-offset-4 group-hover:no-underline">
-                    {t("viewProject")}
-                  </span>
-                  <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </span>
               </Link>
             ))}
           </div>

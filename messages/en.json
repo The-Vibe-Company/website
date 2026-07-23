@@ -11,14 +11,11 @@
     "description": "An AI-native agency. Everything 10 to 20× faster with AI: products, ops, training. Our agency runs on AI too."
   },
   "hero": {
-    "badge": "Open to projects · Built with AI",
     "titleLine1": "We build your product,",
     "titleLine2": "10 to 20× faster.",
     "subtitle": "A small team that builds your products, runs agents inside your company, and trains your teams on AI. We run on AI ourselves, so you ship faster and for far less than a traditional team.",
     "bookCall": "Book a discovery call",
     "seeWhatWeDo": "See what we do",
-    "stripAgency": "AI-native agency",
-    "stripBuilding": "Building since 2023",
     "items": {
       "build": {
         "label": "Build",
@@ -47,42 +44,42 @@
     "seeAll": "See all our case studies"
   },
   "services": {
-    "kicker": "// 01 — WHAT WE DO",
+    "kicker": "// WHAT WE DO",
     "titleLine1": "Three ways",
     "titleLine2": "to work together.",
     "items": {
       "build": {
-        "title": "Product builds",
-        "tag": "BUILD-FOR-HIRE",
-        "desc": "We design and ship your product end-to-end. Code, design, evals, ops. AI does everything that doesn't need a human, so we ship 10 to 20× faster than a traditional team.",
+        "title": "Product engineering",
+        "tag": "PRODUCT + TECHNICAL",
+        "desc": "Product and technical experts with more than 20 years of combined experience turn your needs into reliable software, working in short cycles through production.",
         "bullets": [
-          "Discovery, architecture, production-grade code",
-          "Built with Claude + Codex + agents in the loop",
-          "Evals + observability shipped from day one",
-          "Full handoff with docs, or we keep operating it"
+          "Product and technical discovery",
+          "Architecture and development in short cycles",
+          "Secure production: GDPR, SOC 2, HDS, and ISO 27001",
+          "Observability, documentation, and team handoff"
         ]
       },
       "operate": {
-        "title": "Agent ops",
-        "tag": "EMBED + OPERATE",
-        "desc": "We deploy agents inside your company to take over the ops nobody wants. Sales, support, content, admin flows, internal tools. Wherever your team is burning hours on repetitive work.",
+        "title": "Agentic automation",
+        "tag": "SKILLS + AGENTS",
+        "desc": "We create skills, connect your tools, and deploy agents to automate repetitive work. Success is measured in the time your teams actually save.",
         "bullets": [
-          "Workflow audit + ROI map",
-          "Build, deploy, tune",
-          "Train your team to run them",
-          "Engagement that flexes with the work, no lock-in"
+          "Workflow audit and time-spend baseline",
+          "Skill creation and tool connections",
+          "Secure agent deployment",
+          "Measured gains and continuous improvement"
         ]
       },
       "advise": {
-        "title": "Strategy & training",
-        "tag": "ADVISORY + TRAINING",
-        "desc": "Short engagements for leaders who need a real answer to \"what should we actually do with AI?\" We map your stack, prioritize the opportunities, and train your team so they don't need us forever.",
+        "title": "AI strategy & training",
+        "tag": "STRATEGY + ADOPTION",
+        "desc": "We help your company adopt AI: prioritize the use cases that create value, decide what to build or buy, and support your teams through their first production workflows.",
         "bullets": [
-          "Stack audit + opportunity mapping",
-          "Build vs. buy recommendations",
-          "Roadmap with prioritized opportunities",
-          "Hands-on training for your team",
-          "Optional implementation handoff"
+          "Audit and prioritization of useful use cases",
+          "Build-vs-buy recommendations",
+          "Adoption roadmap tailored to your company",
+          "Hands-on training for your teams",
+          "Support through the first production workflows"
         ]
       }
     }
@@ -120,14 +117,7 @@
     "titleLine2": "products, in the open.",
     "intro": "We don't just build for clients. The same team ships its own open-source tools on GitHub. It's how we stay sharp and push what AI can do.",
     "barLeft": "OPEN SOURCE · ON GITHUB",
-    "barRight": "4 OF 14 PUBLIC",
-    "browseAll": "Browse all on GitHub",
-    "products": {
-      "companion": "Web & Mobile UI for Claude Code & Codex. Launch sessions, stream responses, approve tools.",
-      "drift": "VS Code extension that integrates with Claude Code. Check your AI drift in real time.",
-      "granite": "Local-first knowledge compiler for humans and agents. Plain markdown, CLI + MCP server.",
-      "vanish": "Upload files, get temporary public URLs. Dead simple."
-    }
+    "browseAll": "Browse all on GitHub"
   },
   "finalCta": {
     "kicker": "NOW BOARDING",
@@ -142,21 +132,19 @@
     "tagline": "An AI native agency. Paris.",
     "siteHeading": "SITE",
     "elsewhereHeading": "ELSEWHERE",
-    "statusHeading": "STATUS",
     "madeInFrance": "Made in France",
     "home": "Home",
     "portfolio": "Portfolio",
     "resources": "Resources",
     "mission": "Mission",
     "builtWithAi": "Built with AI",
-    "openToProjects": "Open to projects",
-    "foundersLed": "Founders-led"
+    "openToProjects": "Open to projects"
   },
   "caseStudiesPage": {
     "kicker": "// CLIENT WORK",
     "titleLine1": "Built for clients,",
     "titleLine2": "live in production.",
-    "subtitle": "Real AI products and automations we built and run for companies, fast, because we run on AI ourselves.",
+    "metaDescription": "Real AI products and automations we built and run for companies, fast, because we run on AI ourselves.",
     "readCase": "Read the case",
     "back": "Case studies",
     "backHome": "Home",
@@ -215,7 +203,6 @@
     "titleLine2": "shipped.",
     "subtitle": "A selection of products we designed and shipped, with homepage covers and ship dates.",
     "built": "Built",
-    "viewProject": "View project",
     "back": "Portfolio",
     "statusLabel": "Status",
     "typeLabel": "Type",

@@ -17,7 +17,7 @@ export function HomeLaunchpad() {
         <CaseStudy />
         <Services />
         <Proof />
-        <FinalCTA step="02" />
+        <FinalCTA />
       </main>
       <Footer />
     </div>
