@@ -41,10 +41,20 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/comment-j-ecris-ces-articles/cover.png": {
+      "sourceHash": "f8cf897038259e1aa30f21f147e8b42293bbebfd5f245a28e903e1f9a38dddd7",
+      "targetUrl": "/images/_optimized/resources/comment-j-ecris-ces-articles/cover.webp",
+      "targetHash": "d804c6c29dd965277d380fcad1d67cb9aac9151f2e70045a57ff0cc0b1d3a001"
+    },
     "content:/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
       "sourceHash": "8e6a77b8cfc219c537dbf498586043c9f410e0272f9cb46c8258c5c572cc406a",
       "targetUrl": null,
       "targetHash": null
+    },
+    "content:/images/resources/focus-skill-compta-qonto/cover.png": {
+      "sourceHash": "6876ac6a6f51f901b21ff6ead50bc3a1a88c5ac76bdbd41ac9222d0bee3439af",
+      "targetUrl": "/images/_optimized/resources/focus-skill-compta-qonto/cover.webp",
+      "targetHash": "9720d2d26356c50d736b5951354b98b16036244bfbc9eb596bd27ff270f1466d"
     },
     "content:/images/resources/focus-skill-images/avatar-avant-apres.png": {
       "sourceHash": "4b41d53e5b42637d93745a1b984a41e966b13bf8e28a27e965ddf5f353785686",
@@ -65,6 +75,26 @@
       "sourceHash": "5f1a79834cab4989aa4ac294257e53e765d61ecd09a614cfb3f992cd576afc8f",
       "targetUrl": "/images/_optimized/resources/focus-skill-images/mascotte-idees.webp",
       "targetHash": "177be44cbfdff07c784ec7e2e3d3b096087cfd43e93c569cce8e1dc03f07515f"
+    },
+    "content:/images/resources/focus-skill-logo-svg/companion-logo.png": {
+      "sourceHash": "4c89b45e7aab99c7966c50748f638fb18e8d3b4999ef38fd05281235abdcb7f4",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/companion-logo.webp",
+      "targetHash": "0da66d2f9f0c0072f2fc6ef210eccd6e90c5768f5277f2644371ce0c7cb1af04"
+    },
+    "content:/images/resources/focus-skill-logo-svg/cover.png": {
+      "sourceHash": "b1694317fee204d685d06b90d6510fcaf1e9546093262e6e77830df3a71a0154",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/cover.webp",
+      "targetHash": "340b2e786d30090e9b0bf6e4dd3c32247a84a13b30fd3bdac7a1c9cef5c72ef6"
+    },
+    "content:/images/resources/focus-skill-logo-svg/references.png": {
+      "sourceHash": "03bf28e8d5a0541e881c1d5a702c0ae088fae9429bbd861d6b355c5b84769e29",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/references.webp",
+      "targetHash": "602ed457684ea9eb6bf7fba66d5adbc0725c01064790465ee4f100b2cd44adbb"
+    },
+    "content:/images/resources/focus-skill-logo-svg/stack-logo.png": {
+      "sourceHash": "5809540d1defac024144c7489d5aeb692f377bd336baf119806a12d70deb231f",
+      "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/stack-logo.webp",
+      "targetHash": "909dd86c07cecf2a32a4af2823aaf14f519cfe980966bceb636f5dea89f43a41"
     },
     "content:/images/resources/how-i-finally-started-my-game-using-scenario/bucherons.png": {
       "sourceHash": "4be0ed577a8a080e6aae2caf58bf2495a3af936ab2549e8b4dc772477b321807",
@@ -125,6 +155,11 @@
       "sourceHash": "714c369f2443bc6bbc620828954b5b0f97d645ff37888a3b9ac2868c01dc10d9",
       "targetUrl": "/images/_optimized/resources/l-outil-qui-me-fait-gagner-du-temps/cover.webp",
       "targetHash": "9e9a91f320ca15a5e503f904803c82fccb23d2251eead5ccfe4323b4de22ec84"
+    },
+    "content:/images/resources/la-regle-que-j-ai-failli-coder-en-dur/cover.png": {
+      "sourceHash": "17801f083a6ce872b748e47048e235075bf88438fa4ba19d678279f018214c0c",
+      "targetUrl": "/images/_optimized/resources/la-regle-que-j-ai-failli-coder-en-dur/cover.webp",
+      "targetHash": "130f7144eb8225b6bb4845f05215f871f8453f7121fef248561b884824d67641"
     },
     "content:/images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-mascotte.webp": {
       "sourceHash": "4e86775c3b42420a71b43376842edbc9602c1ed14fd7510999e10bae718cb5bc",
@@ -241,13 +276,28 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "og:/images/resources/comment-j-ecris-ces-articles/cover.png": {
+      "sourceHash": "f8cf897038259e1aa30f21f147e8b42293bbebfd5f245a28e903e1f9a38dddd7",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "og:/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
       "sourceHash": "8e6a77b8cfc219c537dbf498586043c9f410e0272f9cb46c8258c5c572cc406a",
       "targetUrl": null,
       "targetHash": null
     },
+    "og:/images/resources/focus-skill-compta-qonto/cover.png": {
+      "sourceHash": "6876ac6a6f51f901b21ff6ead50bc3a1a88c5ac76bdbd41ac9222d0bee3439af",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "og:/images/resources/focus-skill-images/cover.png": {
       "sourceHash": "647db5e4465e281336189701030f8bf2bcd6a933065d96c4fd8c51e3b1a1573f",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/focus-skill-logo-svg/cover.png": {
+      "sourceHash": "b1694317fee204d685d06b90d6510fcaf1e9546093262e6e77830df3a71a0154",
       "targetUrl": null,
       "targetHash": null
     },
@@ -268,6 +318,11 @@
     },
     "og:/images/resources/l-outil-qui-me-fait-gagner-du-temps/cover.png": {
       "sourceHash": "714c369f2443bc6bbc620828954b5b0f97d645ff37888a3b9ac2868c01dc10d9",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/la-regle-que-j-ai-failli-coder-en-dur/cover.png": {
+      "sourceHash": "17801f083a6ce872b748e47048e235075bf88438fa4ba19d678279f018214c0c",
       "targetUrl": null,
       "targetHash": null
     },

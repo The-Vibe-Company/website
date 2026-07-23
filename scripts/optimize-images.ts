@@ -301,11 +301,27 @@ async function getCacheHit(job: ImageJob, entry: CacheEntry | undefined, sourceH
   }
 }
 
-function updateManifest(manifest: Record<string, string>, sourceUrl: string, targetUrl: string | null) {
+function getManifestKey(sourceUrl: string, kind: ImageJob['kind']): string {
+  // Les deux rôles d'une même image vivent sous des clés séparées : la clé nue
+  // sert la page (webp), la clé « og: » sert la vignette de partage (PNG).
+  // Sans cette séparation, le job og efface l'entrée webp posée par le job
+  // content pour la même URL, et la variante n'est jamais servie.
+  return kind === 'og' ? `og:${sourceUrl}` : sourceUrl
+}
+
+function updateManifest(manifest: Record<string, string>, job: ImageJob, targetUrl: string | null) {
+  const key = getManifestKey(job.sourceUrl, job.kind)
   if (targetUrl) {
-    manifest[sourceUrl] = targetUrl
+    manifest[key] = targetUrl
   } else {
-    delete manifest[sourceUrl]
+    delete manifest[key]
+  }
+
+  // Migration : avant la séparation des clés, un job og écrivait sa cible
+  // sous la clé nue. On retire ce reliquat pour qu'il ne masque pas la
+  // variante webp du job content.
+  if (job.kind === 'og' && manifest[job.sourceUrl] === job.targetUrl) {
+    delete manifest[job.sourceUrl]
   }
 }
 
@@ -355,7 +371,7 @@ async function main() {
     const cachedEntry = await getCacheHit(job, cache.entries[key], sourceHash)
 
     if (cachedEntry) {
-      updateManifest(manifest, job.sourceUrl, cachedEntry.targetUrl)
+      updateManifest(manifest, job, cachedEntry.targetUrl)
       nextEntries[key] = cachedEntry
       const after = cachedEntry.targetUrl ? (await fs.stat(job.targetPath)).size : before
       logImageResult('[cached]', job, before, after)
@@ -365,10 +381,10 @@ async function main() {
     const result = await optimizeImage(job)
     if (await exists(job.targetPath)) {
       const targetHash = await hashFile(job.targetPath)
-      updateManifest(manifest, job.sourceUrl, job.targetUrl)
+      updateManifest(manifest, job, job.targetUrl)
       nextEntries[key] = { sourceHash, targetUrl: job.targetUrl, targetHash }
     } else {
-      updateManifest(manifest, job.sourceUrl, null)
+      updateManifest(manifest, job, null)
       nextEntries[key] = { sourceHash, targetUrl: null, targetHash: null }
     }
     logImageResult(result.changed ? '[optimized]' : '[unchanged]', job, result.before, result.after)
