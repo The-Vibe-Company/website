@@ -1,0 +1,39 @@
+content/articles/focus-skill-compta-qonto.md
+  s_d98073b1b1d4cc::t_bca36088fe071f 1-82
+content/articles/la-regle-que-j-ai-failli-coder-en-dur.md
+  s_d98073b1b1d4cc::t_bca36088fe071f 1-67
+src/lib/image-variants.ts
+  s_d98073b1b1d4cc::t_bca36088fe071f 5-10
+content/articles/l-outil-qui-me-fait-gagner-du-temps.md
+  s_d98073b1b1d4cc::t_bca36088fe071f 2,26
+src/generated/og-image-dimensions.json
+  s_d98073b1b1d4cc::t_0ee77fa9de7e07 14-17,22-25,30-33,50-53
+content/articles/comment-j-ecris-ces-articles.md
+  s_d98073b1b1d4cc::t_bca36088fe071f 1-82
+src/generated/image-variants.json
+  s_d98073b1b1d4cc::t_bca36088fe071f 5-6,8,11-14,21-22,24-25,28,31,33
+src/lib/content-source.ts
+  s_d98073b1b1d4cc::t_bca36088fe071f 90
+scripts/optimize-images.ts
+  s_d98073b1b1d4cc::t_bca36088fe071f 304-313,315,317-324,374,384,387
+src/generated/image-optimize-cache.json
+  s_d98073b1b1d4cc::t_bca36088fe071f 44-48,54-58,79-98,159-163,279-283,289-293,299-303,324-328
+content/articles/focus-skill-logo-svg.md
+  s_d98073b1b1d4cc::t_bca36088fe071f 1-116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "a55a4435f957f88374b898dd38748aabc87e4043",
+  "prompts": {},
+  "sessions": {
+    "s_d98073b1b1d4cc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8f42-f0c9-75a3-b24c-6709a02982a5",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
