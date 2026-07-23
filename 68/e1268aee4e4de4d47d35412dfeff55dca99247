@@ -1,0 +1,63 @@
+src/components/home/Services.tsx
+  s_d98073b1b1d4cc::t_421e214bdf548a 43,47
+src/components/home/FinalCTA.tsx
+  s_d98073b1b1d4cc::t_421e214bdf548a 32,35-38,45,48-52,72,75-79
+  s_d98073b1b1d4cc::t_aa9f05807a0fac 7,41,83
+src/components/Footer.tsx
+  s_d98073b1b1d4cc::t_aa9f05807a0fac 14,22,70
+src/lib/projects.ts
+  s_d98073b1b1d4cc::t_174c20f1991ee8 17,31,46,62,78,94,110,129
+  s_d98073b1b1d4cc::t_9b5deaf0aa04f1 41,73
+src/components/home/Clients.tsx
+  s_d98073b1b1d4cc::t_f1f190049fc7f4 18
+public/images/partners/y-combinator.svg
+  s_d98073b1b1d4cc::t_dca7fbe7bac615 1,3-8
+  s_d98073b1b1d4cc::t_322db8051dfdf2 2,9
+src/components/home/Proof.tsx
+  s_d98073b1b1d4cc::t_aa9f05807a0fac 4-5,11,13,49,55-56,58-59,80,86,97
+  s_d98073b1b1d4cc::t_421e214bdf548a 62,66
+src/app/[locale]/case-studies/page.tsx
+  s_d98073b1b1d4cc::t_aa9f05807a0fac 14
+src/components/home/Hero.tsx
+  s_d98073b1b1d4cc::t_aa9f05807a0fac 4-5,16,47,62-64,81-102,104-108,112
+  s_d98073b1b1d4cc::t_421e214bdf548a 40,42-46,72,74-78,132,135-139
+  s_d98073b1b1d4cc::t_bd9ab37b907349 103
+messages/fr.json
+  s_d98073b1b1d4cc::t_174c20f1991ee8 3-4,11,14-16,18,44,47,53-54,56-59,63-65,67-70,74-76,78-82,116-118,120,128,137,141,147,149,206
+DESIGN.md
+  s_d98073b1b1d4cc::t_dca7fbe7bac615 213,215-218,313,378-383,397,401
+  s_d98073b1b1d4cc::t_7f3e6f4dee5896 214
+messages/en.json
+  s_d98073b1b1d4cc::t_174c20f1991ee8 47,52-54,56-59,63-65,67-70,74-76,78-82,120,141,147
+src/components/home/Process.tsx
+  s_d98073b1b1d4cc::t_421e214bdf548a 45,49
+src/app/[locale]/v2/page.tsx
+  s_d98073b1b1d4cc::t_aa9f05807a0fac 28
+public/images/partners/france-2030.svg
+  s_d98073b1b1d4cc::t_322db8051dfdf2 1-29
+src/generated/og-image-dimensions.json
+  s_d98073b1b1d4cc::t_aa043b512856fb 34-37,50-53,74,78,82
+src/lib/customers.ts
+  s_d98073b1b1d4cc::t_174c20f1991ee8 15-22,28,44-51,57,74-95,100,104,109,113,117,122,125-127,132-133,155,164,188-189,204,215-216,219-221,224-225,240-246
+src/app/[locale]/case-studies/[slug]/page.tsx
+  s_d98073b1b1d4cc::t_bd9ab37b907349 119
+  s_d98073b1b1d4cc::t_f1f190049fc7f4 2,46-52,93,112-118,120-121,195,197,202-203,205-212,224
+src/components/HomeLaunchpad.tsx
+  s_d98073b1b1d4cc::t_aa9f05807a0fac 20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "68e1268aee4e4de4d47d35412dfeff55dca99247",
+  "prompts": {},
+  "sessions": {
+    "s_d98073b1b1d4cc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8f42-f0c9-75a3-b24c-6709a02982a5",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
