@@ -7,6 +7,7 @@ import { ClientProviders } from "@/components/ClientProviders";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
 import { routing } from "@/i18n/routing";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { organizationSchema, websiteSchema } from "@/lib/structured-data";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -83,6 +84,14 @@ export default async function LocaleLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
         <NextIntlClientProvider>
           <ClientProviders />
           <ConditionalGridOverlay />
