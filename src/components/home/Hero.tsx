@@ -103,7 +103,7 @@ export function Hero() {
             letterSpacing: "-0.045em",
           }}
         >
-          <span className="block">
+          <span className="block text-blue-500">
             AI-native agency.
           </span>
           <span
