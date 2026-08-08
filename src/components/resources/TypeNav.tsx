@@ -1,7 +1,8 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link } from "@/i18n/navigation";
+import { usePathname } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { RESOURCE_ICONS } from '@/lib/resource-icons';
 
@@ -18,6 +19,8 @@ interface TypeNavProps {
 
 export function TypeNav({ types, counts }: TypeNavProps) {
   const pathname = usePathname();
+  const t = useTranslations('resources');
+  const tA11y = useTranslations('accessibility');
 
   // Always show "All"; filter other types by counts when provided
   const filteredTypes = counts
@@ -25,7 +28,7 @@ export function TypeNav({ types, counts }: TypeNavProps) {
     : (types ?? []);
 
   const typeLinks: ContentTypeLink[] = [
-    { label: 'All', href: '/resources', slug: 'all' },
+    { label: t('all'), href: '/resources', slug: 'all' },
     ...filteredTypes,
   ];
 
@@ -42,7 +45,7 @@ export function TypeNav({ types, counts }: TypeNavProps) {
   return (
     <nav
       className={resourcesTheme.typeNav.container}
-      aria-label="Content type navigation"
+      aria-label={tA11y('contentTypeNavigation')}
     >
       {typeLinks.map((link) => {
         const active = isActive(link.href);

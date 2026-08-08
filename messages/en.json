@@ -1,0 +1,258 @@
+{
+  "nav": {
+    "portfolio": "Portfolio",
+    "caseStudies": "Case studies",
+    "resources": "Resources",
+    "getInTouch": "Get in touch",
+    "searchShort": "Search...",
+    "searchLong": "Search resources..."
+  },
+  "accessibility": {
+    "skipToContent": "Skip to content",
+    "mainNavigation": "Main navigation",
+    "resourcesNavigation": "Resources navigation",
+    "mobileNavigation": "Mobile navigation",
+    "contentTypes": "Content types",
+    "contentTypeNavigation": "Content type navigation",
+    "openSearch": "Open search",
+    "closeSearch": "Close search",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "searchResources": "Search resources",
+    "filterArticles": "Filter articles",
+    "language": "Language",
+    "french": "French",
+    "english": "English",
+    "installCommands": "Install commands",
+    "externalGitHubSource": "External GitHub source"
+  },
+  "meta": {
+    "description": "An AI-native agency. Everything 10 to 20× faster with AI: products, ops, training. Our agency runs on AI too."
+  },
+  "hero": {
+    "titleLine1": "We build your product,",
+    "titleLine2": "10 to 20× faster.",
+    "subtitle": "A small team that builds your products, runs agents inside your company, and trains your teams on AI. We run on AI ourselves, so you ship faster and for far less than a traditional team.",
+    "bookCall": "Book a discovery call",
+    "seeWhatWeDo": "See what we do",
+    "items": {
+      "build": {
+        "label": "Build",
+        "desc": "AI products and internal tools, end-to-end."
+      },
+      "operate": {
+        "label": "Operate",
+        "desc": "Agents inside your company. Sales, support, admin, content."
+      },
+      "advise": {
+        "label": "Advise",
+        "desc": "Strategy, training, and the AI playbook for your team."
+      }
+    }
+  },
+  "clients": {
+    "trustedBy": "Trusted by"
+  },
+  "caseStudy": {
+    "kicker": "// CLIENT WORK",
+    "titleLine1": "Built for clients,",
+    "titleLine2": "live in production.",
+    "readCase": "Read the case",
+    "prev": "Previous case",
+    "next": "Next case",
+    "seeAll": "See all our case studies"
+  },
+  "services": {
+    "kicker": "// WHAT WE DO",
+    "titleLine1": "Three ways",
+    "titleLine2": "to work together.",
+    "items": {
+      "build": {
+        "title": "Product engineering",
+        "tag": "PRODUCT + TECHNICAL",
+        "desc": "Product and technical experts with more than 20 years of combined experience turn your needs into reliable software, working in short cycles through production.",
+        "bullets": [
+          "Product and technical discovery",
+          "Architecture and development in short cycles",
+          "Secure production: GDPR, SOC 2, HDS, and ISO 27001",
+          "Observability, documentation, and team handoff"
+        ]
+      },
+      "operate": {
+        "title": "Agentic automation",
+        "tag": "SKILLS + AGENTS",
+        "desc": "We create skills, connect your tools, and deploy agents to automate repetitive work. Success is measured in the time your teams actually save.",
+        "bullets": [
+          "Workflow audit and time-spend baseline",
+          "Skill creation and tool connections",
+          "Secure agent deployment",
+          "Measured gains and continuous improvement"
+        ]
+      },
+      "advise": {
+        "title": "AI strategy & training",
+        "tag": "STRATEGY + ADOPTION",
+        "desc": "We help your company adopt AI: prioritize the use cases that create value, decide what to build or buy, and support your teams through their first production workflows.",
+        "bullets": [
+          "Audit and prioritization of useful use cases",
+          "Build-vs-buy recommendations",
+          "Adoption roadmap tailored to your company",
+          "Hands-on training for your teams",
+          "Support through the first production workflows"
+        ]
+      }
+    }
+  },
+  "process": {
+    "kicker": "// 02 — HOW WE WORK",
+    "titleLine1": "From brief",
+    "titleLine2": "to production.",
+    "steps": {
+      "brief": {
+        "label": "BRIEF",
+        "title": "We meet, we listen, we scope.",
+        "desc": "30-min call. You explain the problem, we explain how we'd build it. If there's a fit, we send a fixed-scope proposal."
+      },
+      "design": {
+        "label": "DESIGN",
+        "title": "Prototype before we commit.",
+        "desc": "We design the agent flow, the surfaces, the data model, the evals. You get a clickable prototype and a build plan before any code is written."
+      },
+      "build": {
+        "label": "BUILD",
+        "title": "You stay in the loop.",
+        "desc": "You see working software early and often. Loom demos, fast deploys, code reviews. You watch the build happen, not just the result."
+      },
+      "operate": {
+        "label": "OPERATE",
+        "title": "Hand off, or stay on.",
+        "desc": "We can hand the codebase to your team with full docs and runbooks. Or we keep operating it on a monthly retainer. Your call."
+      }
+    }
+  },
+  "proof": {
+    "kicker": "// OUR OWN PRODUCTS",
+    "titleLine1": "We build our own",
+    "titleLine2": "products, in the open.",
+    "intro": "We don't just build for clients. The same team ships its own open-source tools on GitHub. It's how we stay sharp and push what AI can do.",
+    "barLeft": "OPEN SOURCE · ON GITHUB",
+    "browseAll": "Browse all on GitHub"
+  },
+  "finalCta": {
+    "kicker": "NOW BOARDING",
+    "titleLine1": "Got a problem",
+    "titleLine2": "to solve?",
+    "bookCall": "Book a discovery call",
+    "responseLabel": "RESPONSE",
+    "responseValue": "WITHIN 24H",
+    "emailLabel": "EMAIL"
+  },
+  "footer": {
+    "tagline": "An AI native agency. Paris.",
+    "siteHeading": "SITE",
+    "elsewhereHeading": "ELSEWHERE",
+    "madeInFrance": "Made in France",
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "resources": "Resources",
+    "mission": "Mission",
+    "builtWithAi": "Built with AI",
+    "openToProjects": "Open to projects"
+  },
+  "caseStudiesPage": {
+    "kicker": "// CLIENT WORK",
+    "titleLine1": "Built for clients,",
+    "titleLine2": "live in production.",
+    "metaDescription": "Real AI products and automations we built and run for companies, fast, because we run on AI ourselves.",
+    "readCase": "Read the case",
+    "back": "Case studies",
+    "backHome": "Home",
+    "whatWeDid": "// What we did",
+    "theProduct": "// The product",
+    "visit": "Visit",
+    "visitClient": "Visit {name}",
+    "keepReading": "Keep Reading",
+    "next": "Next"
+  },
+  "resources": {
+    "kicker": "Resources",
+    "title": "Articles & essays.",
+    "subtitle": "What we are learning and building with AI at The Vibe Company, plus Victor's Story along the way.",
+    "searchPlaceholder": "Search articles, topics…",
+    "all": "All",
+    "victorStory": "Victor's Story",
+    "articles": "Articles",
+    "back": "Resources",
+    "viewAllArticles": "View all {count} articles",
+    "viewAllVictor": "View all {count} Victor's Story",
+    "focus": "Focus",
+    "tools": "Tools",
+    "published": "Published",
+    "language": "Language",
+    "complexity": "Complexity",
+    "readTime": "Read Time",
+    "topics": "Topics",
+    "contentComingSoon": "Content coming soon",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "keepReading": "Keep Reading",
+    "next": "Next",
+    "readArticle": "Read article",
+    "searchResults": "Search Results",
+    "foundResults": "{count, plural, one {Found # result.} other {Found # results.}}",
+    "resultCount": "{count, plural, one {# result} other {# results}}",
+    "skillsSection": "Skills",
+    "noResults": "No results found",
+    "tryAdjusting": "Try adjusting your search terms.",
+    "clearSearch": "Clear Search",
+    "searchTitle": "Search",
+    "skillBadge": "Skill",
+    "prompt": "Prompt",
+    "promptHint": "Use this if you prefer to copy the skill text yourself.",
+    "notes": "Notes",
+    "creatorNote": "Creator note",
+    "goodFor": "Good for",
+    "relatedSkills": "Related skills",
+    "viewAll": "View all",
+    "openSkill": "Open skill",
+    "backMainSite": "Back to main site",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copiedStatus": "Copied: {label}",
+    "skillPrompt": "Skill prompt",
+    "promptStats": "{lineCount} lines · {wordCount} words",
+    "collapsePrompt": "Collapse full skill prompt",
+    "expandPrompt": "View full skill prompt",
+    "collapse": "Collapse",
+    "viewFull": "View full",
+    "copySkillPrompt": "Copy skill prompt",
+    "recommended": "Recommended",
+    "installWithAi": "Install with AI",
+    "installWithAiDescription": "Copy this instruction, paste it into your agent, and let it install the skill.",
+    "copyInstallPrompt": "Copy install prompt",
+    "previewPrompt": "Preview prompt"
+  },
+  "portfolio": {
+    "kicker": "// OUR OWN PRODUCTS",
+    "titleLine1": "Our own products,",
+    "titleLine2": "shipped.",
+    "subtitle": "A selection of products we designed and shipped, with homepage covers and ship dates.",
+    "built": "Built",
+    "back": "Portfolio",
+    "statusLabel": "Status",
+    "typeLabel": "Type",
+    "theProduct": "// The product",
+    "visit": "Visit",
+    "visitProject": "Visit {name}",
+    "metaTitle": "Projects",
+    "metaDescription": "A selection of products we designed and shipped, with homepage covers and ship dates."
+  },
+  "agency": {
+    "kicker": "Agency",
+    "metaTitle": "Who Are We",
+    "metaDescription": "The Vibe Company is an AI-native agency helping startups ship products faster with AI development, prototyping, and rapid execution.",
+    "body": "We are currently too busy shipping to write our own agency page.",
+    "bodyIronic": "Ironic? Absolutely."
+  }
+}

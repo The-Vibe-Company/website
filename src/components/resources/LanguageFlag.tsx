@@ -1,9 +1,12 @@
+'use client';
+
 import { resourcesTheme } from '@/lib/resources-theme';
 import type { ContentLanguage } from '@/lib/content-source';
+import { useTranslations } from 'next-intl';
 
-const FLAGS: Record<ContentLanguage, { emoji: string; label: string }> = {
-  fr: { emoji: '🇫🇷', label: 'French' },
-  en: { emoji: '🇬🇧', label: 'English' },
+const FLAGS: Record<ContentLanguage, { emoji: string; labelKey: 'french' | 'english' }> = {
+  fr: { emoji: '🇫🇷', labelKey: 'french' },
+  en: { emoji: '🇬🇧', labelKey: 'english' },
 };
 
 type FlagVariant = 'card' | 'sidebar' | 'inline';
@@ -15,7 +18,9 @@ interface LanguageFlagProps {
 }
 
 export function LanguageFlag({ language, variant = 'inline', className }: LanguageFlagProps) {
-  const { emoji, label } = FLAGS[language];
+  const t = useTranslations('accessibility');
+  const { emoji, labelKey } = FLAGS[language];
+  const label = t(labelKey);
   const variantClass = resourcesTheme.flag[variant];
 
   return (

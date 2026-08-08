@@ -1,11 +1,14 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import { captureEvent } from '@/lib/posthog';
 
 export function ResourcesHomeSearch() {
   const router = useRouter();
+  const t = useTranslations('resources');
+  const tA11y = useTranslations('accessibility');
   const [value, setValue] = useState('');
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -54,11 +57,11 @@ export function ResourcesHomeSearch() {
       </span>
       <input
         type="search"
-        placeholder="Search articles, topics…"
+        placeholder={t('searchPlaceholder')}
         value={value}
         onChange={(event) => handleChange(event.target.value)}
         className="w-full bg-res-surface border border-res-border pl-12 pr-4 py-3.5 text-base font-mono text-res-text placeholder:text-res-text-muted/60 focus:outline-none focus:border-res-text rounded-md transition-colors"
-        aria-label="Search resources"
+        aria-label={tA11y('searchResources')}
       />
     </form>
   );

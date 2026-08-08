@@ -1,0 +1,258 @@
+{
+  "nav": {
+    "portfolio": "Nos projets",
+    "caseStudies": "Cas clients",
+    "resources": "Ressources",
+    "getInTouch": "Nous contacter",
+    "searchShort": "Rechercher…",
+    "searchLong": "Chercher dans les ressources…"
+  },
+  "accessibility": {
+    "skipToContent": "Aller au contenu",
+    "mainNavigation": "Navigation principale",
+    "resourcesNavigation": "Navigation des ressources",
+    "mobileNavigation": "Navigation mobile",
+    "contentTypes": "Types de contenu",
+    "contentTypeNavigation": "Navigation par type de contenu",
+    "openSearch": "Ouvrir la recherche",
+    "closeSearch": "Fermer la recherche",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "searchResources": "Rechercher dans les ressources",
+    "filterArticles": "Filtrer les articles",
+    "language": "Langue",
+    "french": "Français",
+    "english": "Anglais",
+    "installCommands": "Commandes d’installation",
+    "externalGitHubSource": "Source GitHub externe"
+  },
+  "meta": {
+    "description": "Une agence IA-first qui conçoit des produits, déploie des automatisations agentiques et forme les équipes, de l'audit à la production sécurisée."
+  },
+  "hero": {
+    "titleLine1": "Agence IA-First",
+    "titleLine2": "Audit. Automatisation. Production. Sécurité.",
+    "subtitle": "Une équipe d’experts qui construit vos produits, déploie des agents dans votre entreprise et forme vos équipes à l’IA.",
+    "bookCall": "Prendre rendez-vous",
+    "seeWhatWeDo": "Notre travail",
+    "items": {
+      "build": {
+        "label": "Construire",
+        "desc": "Produits IA et outils internes, de bout en bout."
+      },
+      "operate": {
+        "label": "Piloter",
+        "desc": "Des agents dans votre entreprise. Ventes, support, admin, contenu."
+      },
+      "advise": {
+        "label": "Conseiller",
+        "desc": "Stratégie, formation, et la marche à suivre pour mettre l'IA au service de votre équipe."
+      }
+    }
+  },
+  "clients": {
+    "trustedBy": "Ils nous font confiance"
+  },
+  "caseStudy": {
+    "kicker": "// PROJETS CLIENTS",
+    "titleLine1": "Conçu pour nos clients,",
+    "titleLine2": "en production.",
+    "readCase": "Lire l'étude de cas",
+    "prev": "Cas précédent",
+    "next": "Cas suivant",
+    "seeAll": "Voir tous les cas clients"
+  },
+  "services": {
+    "kicker": "// CE QU'ON FAIT",
+    "titleLine1": "Trois façons",
+    "titleLine2": "de travailler ensemble.",
+    "items": {
+      "build": {
+        "title": "Développement de produits",
+        "tag": "PRODUIT + TECHNIQUE",
+        "desc": "Des experts produit et techniques, avec plus de 20 ans d’expérience cumulée, transforment votre besoin en produit fiable par cycles courts, jusqu’à la mise en production.",
+        "bullets": [
+          "Cadrage produit et technique",
+          "Architecture et développement par cycles courts",
+          "Production sécurisée : RGPD, SOC 2, HDS et ISO 27001",
+          "Observabilité, documentation et passation à vos équipes"
+        ]
+      },
+      "operate": {
+        "title": "Automatisation agentique",
+        "tag": "SKILLS + AGENTS",
+        "desc": "On crée les skills, connecte vos outils et déploie des agents pour automatiser les tâches répétitives. Le résultat se mesure au temps réellement gagné par vos équipes.",
+        "bullets": [
+          "Audit des workflows et mesure du temps passé",
+          "Création de skills et connexion de vos outils",
+          "Déploiement sécurisé des agents",
+          "Mesure des gains et amélioration continue"
+        ]
+      },
+      "advise": {
+        "title": "Stratégie & formation IA",
+        "tag": "STRATÉGIE + ADOPTION",
+        "desc": "On aide votre entreprise à prendre le pli de l’IA : choisir les usages qui créent de la valeur, décider quoi développer ou acheter, et accompagner vos équipes jusqu’aux premiers usages en production.",
+        "bullets": [
+          "Audit et priorisation des cas d’usage utiles",
+          "Recommandations : développer ou acheter",
+          "Feuille de route d’adoption adaptée à votre entreprise",
+          "Formations pratiques pour vos équipes",
+          "Accompagnement jusqu’aux premiers usages en production"
+        ]
+      }
+    }
+  },
+  "process": {
+    "kicker": "// 02 — COMMENT ON TRAVAILLE",
+    "titleLine1": "Du brief",
+    "titleLine2": "à la production.",
+    "steps": {
+      "brief": {
+        "label": "BRIEF",
+        "title": "On se rencontre, on écoute, on cadre.",
+        "desc": "Appel de 30 min. Vous expliquez le problème, on explique comment on le construirait. Si ça matche, on envoie une proposition à périmètre fixe."
+      },
+      "design": {
+        "label": "DESIGN",
+        "title": "Un prototype avant de s'engager.",
+        "desc": "On conçoit le flux des agents, les interfaces, le modèle de données, les évaluations. Vous avez un prototype cliquable et un plan de build avant la moindre ligne de code."
+      },
+      "build": {
+        "label": "BUILD",
+        "title": "Vous restez dans la boucle.",
+        "desc": "Vous voyez du logiciel qui marche tôt et souvent. Démos Loom, déploiements rapides, revues de code. Vous voyez le build se faire, pas juste le résultat."
+      },
+      "operate": {
+        "label": "EXPLOITER",
+        "title": "Passation, ou on reste.",
+        "desc": "On peut confier le code à votre équipe avec toute la doc et les runbooks. Ou on continue de le faire tourner au forfait mensuel. À vous de voir."
+      }
+    }
+  },
+  "proof": {
+    "kicker": "// NOS PROPRES PRODUITS",
+    "titleLine1": "Ah, on fait aussi",
+    "titleLine2": "nos produits.",
+    "intro": "On crée des produits pour rendre notre équipe et nos clients plus efficaces avec l’IA. C’est aussi comme ça qu’on reste affûtés.",
+    "barLeft": "OPEN SOURCE · SUR GITHUB",
+    "browseAll": "Tout voir sur GitHub"
+  },
+  "finalCta": {
+    "kicker": "EMBARQUEMENT",
+    "titleLine1": "Un problème",
+    "titleLine2": "à résoudre ?",
+    "bookCall": "Prendre rendez-vous",
+    "responseLabel": "RÉPONSE",
+    "responseValue": "24H",
+    "emailLabel": "EMAIL"
+  },
+  "footer": {
+    "tagline": "Une agence née avec l'IA. Paris.",
+    "siteHeading": "SITE",
+    "elsewhereHeading": "RÉSEAUX",
+    "madeInFrance": "Fabriqué en France",
+    "home": "Accueil",
+    "portfolio": "Nos projets",
+    "resources": "Ressources",
+    "mission": "Mission",
+    "builtWithAi": "Construit avec l'IA",
+    "openToProjects": "Ouvert aux projets"
+  },
+  "caseStudiesPage": {
+    "kicker": "// PROJETS CLIENTS",
+    "titleLine1": "Conçu pour nos clients,",
+    "titleLine2": "en production.",
+    "metaDescription": "Découvrez des produits et automatisations IA conçus et mis en production pour nos clients.",
+    "readCase": "Lire l'étude de cas",
+    "back": "Cas clients",
+    "backHome": "Accueil",
+    "whatWeDid": "// Ce qu’on a fait",
+    "theProduct": "// Le produit",
+    "visit": "Visiter",
+    "visitClient": "Visiter {name}",
+    "keepReading": "À lire ensuite",
+    "next": "Suivant"
+  },
+  "resources": {
+    "kicker": "Ressources",
+    "title": "Articles & essais.",
+    "subtitle": "Ce qu’on apprend et construit avec l’IA chez The Vibe Company, ainsi que la Victor’s Story au passage.",
+    "searchPlaceholder": "Chercher un article, un sujet…",
+    "all": "Tout",
+    "victorStory": "Victor's Story",
+    "articles": "Articles",
+    "back": "Ressources",
+    "viewAllArticles": "Voir les {count} articles",
+    "viewAllVictor": "Voir les {count} Victor's Story",
+    "focus": "Focus",
+    "tools": "Tools",
+    "published": "Publié le",
+    "language": "Langue",
+    "complexity": "Niveau",
+    "readTime": "Temps de lecture",
+    "topics": "Sujets",
+    "contentComingSoon": "Contenu à venir",
+    "beginner": "Débutant",
+    "intermediate": "Intermédiaire",
+    "advanced": "Avancé",
+    "keepReading": "À lire ensuite",
+    "next": "Suivant",
+    "readArticle": "Lire l’article",
+    "searchResults": "Résultats de recherche",
+    "foundResults": "{count, plural, one {# résultat trouvé.} other {# résultats trouvés.}}",
+    "resultCount": "{count, plural, one {# résultat} other {# résultats}}",
+    "skillsSection": "Skills",
+    "noResults": "Aucun résultat",
+    "tryAdjusting": "Essayez d’autres termes de recherche.",
+    "clearSearch": "Effacer la recherche",
+    "searchTitle": "Recherche",
+    "skillBadge": "Skill",
+    "prompt": "Prompt",
+    "promptHint": "À utiliser si tu préfères copier le texte du skill toi-même.",
+    "notes": "Notes",
+    "creatorNote": "Note du créateur",
+    "goodFor": "Idéal pour",
+    "relatedSkills": "Skills liés",
+    "viewAll": "Voir tout",
+    "openSkill": "Ouvrir le skill",
+    "backMainSite": "Retour au site principal",
+    "copy": "Copier",
+    "copied": "Copié",
+    "copiedStatus": "Copié : {label}",
+    "skillPrompt": "Prompt du skill",
+    "promptStats": "{lineCount} lignes · {wordCount} mots",
+    "collapsePrompt": "Réduire le prompt complet du skill",
+    "expandPrompt": "Afficher le prompt complet du skill",
+    "collapse": "Réduire",
+    "viewFull": "Tout afficher",
+    "copySkillPrompt": "Copier le prompt du skill",
+    "recommended": "Recommandé",
+    "installWithAi": "Installer avec l’IA",
+    "installWithAiDescription": "Copiez cette instruction, collez-la dans votre agent et laissez-le installer le skill.",
+    "copyInstallPrompt": "Copier le prompt d’installation",
+    "previewPrompt": "Prévisualiser le prompt"
+  },
+  "portfolio": {
+    "kicker": "// NOS PRODUITS",
+    "titleLine1": "Nos propres produits,",
+    "titleLine2": "en ligne.",
+    "subtitle": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie.",
+    "built": "Réalisé",
+    "back": "Nos projets",
+    "statusLabel": "Statut",
+    "typeLabel": "Type",
+    "theProduct": "// Le produit",
+    "visit": "Visiter",
+    "visitProject": "Visiter {name}",
+    "metaTitle": "Projets",
+    "metaDescription": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie."
+  },
+  "agency": {
+    "kicker": "Agence",
+    "metaTitle": "Qui sommes-nous",
+    "metaDescription": "The Vibe Company est une agence née avec l’IA qui aide les startups à livrer plus vite grâce au développement assisté par l’IA, au prototypage et à l’exécution rapide.",
+    "body": "On est bien trop occupés à livrer pour écrire notre propre page agence.",
+    "bodyIronic": "Ironique ? Complètement."
+  }
+}
