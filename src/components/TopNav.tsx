@@ -47,6 +47,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
     pathname === href || pathname.startsWith(`${href}/`);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuClosing, setMobileMenuClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState(
     showResourcesSearch ? searchParams.get("q") || "" : ""
@@ -55,6 +56,12 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const menuDialogRef = useRef<HTMLDivElement>(null);
   const menuCloseRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuActive = mobileMenuOpen || mobileMenuClosing;
+
+  const closeMobileMenu = useCallback(() => {
+    setMobileMenuClosing(true);
+    setMobileMenuOpen(false);
+  }, []);
 
   const handleSearch = useCallback(
     (value: string) => {
@@ -80,7 +87,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   }, []);
 
   useEffect(() => {
-    if (!mobileMenuOpen) return;
+    if (!mobileMenuActive) return;
 
     const menuTrigger = menuTriggerRef.current;
     const previousOverflow = document.body.style.overflow;
@@ -101,7 +108,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        setMobileMenuOpen(false);
+        closeMobileMenu();
         return;
       }
 
@@ -144,7 +151,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
       });
       requestAnimationFrame(() => menuTrigger?.focus());
     };
-  }, [mobileMenuOpen]);
+  }, [closeMobileMenu, mobileMenuActive]);
 
   return (
     <>
@@ -152,8 +159,8 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           main content. Hidden until focused. */}
       <a
         href="#main-content"
-        aria-hidden={mobileMenuOpen || undefined}
-        tabIndex={mobileMenuOpen ? -1 : undefined}
+        aria-hidden={mobileMenuActive || undefined}
+        tabIndex={mobileMenuActive ? -1 : undefined}
         onClick={(e) => {
           e.preventDefault();
           const main = document.getElementById("main-content");
@@ -168,8 +175,8 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
       </a>
       <motion.nav
         aria-label={tA11y("mainNavigation")}
-        aria-hidden={mobileMenuOpen || undefined}
-        inert={mobileMenuOpen || undefined}
+        aria-hidden={mobileMenuActive || undefined}
+        inert={mobileMenuActive || undefined}
         className="sticky top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 lg:px-24 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -284,14 +291,15 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             ref={menuTriggerRef}
             className="p-2"
             onClick={() => {
-              if (!mobileMenuOpen) captureEvent("mobile_menu_opened");
+              captureEvent("mobile_menu_opened");
               setSearchOpen(false);
-              setMobileMenuOpen((open) => !open);
+              setMobileMenuClosing(false);
+              setMobileMenuOpen(true);
             }}
             aria-label={tA11y("openMenu")}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation-dialog"
-            tabIndex={mobileMenuOpen ? -1 : undefined}
+            tabIndex={mobileMenuActive ? -1 : undefined}
           >
             <svg
               width="24"
@@ -340,7 +348,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
       )}
 
       {/* Mobile menu */}
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={() => setMobileMenuClosing(false)}>
         {mobileMenuOpen && (
           <motion.div
             ref={menuDialogRef}
@@ -357,7 +365,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             <button
               ref={menuCloseRef}
               className="absolute top-4 right-6 p-2"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={closeMobileMenu}
               aria-label={tA11y("closeMenu")}
             >
               <svg
@@ -396,7 +404,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                       href: item.href,
                       location: "mobile_menu",
                     });
-                    setMobileMenuOpen(false);
+                    closeMobileMenu();
                   }}
                 >
                   {t(item.key)}
@@ -411,7 +419,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
               transition={createTransition(0.6, 0.2)}
               onClick={() => {
                 captureEvent("get_in_touch_clicked", { location: "mobile_menu" });
-                setMobileMenuOpen(false);
+                closeMobileMenu();
               }}
             >
               {t("getInTouch")}
