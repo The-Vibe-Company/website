@@ -1,4 +1,4 @@
-import { permanentRedirect } from "next/navigation";
+import { permanentRedirect } from "@/i18n/navigation";
 
 export default async function WeBuildItRedirectPage({
   params,
@@ -6,5 +6,5 @@ export default async function WeBuildItRedirectPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  permanentRedirect(`/${locale}/portfolio`);
+  permanentRedirect({ href: "/portfolio", locale });
 }

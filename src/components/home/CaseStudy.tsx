@@ -16,10 +16,11 @@ const CARD_WIDTH = "w-[86%] shrink-0 sm:w-[70%] md:w-[calc(50%-10px)]";
 
 type T = (key: string) => string;
 
-function CaseStudyCard({ c, t }: { c: Customer; t: T }) {
+function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boolean }) {
   return (
     <Link
       href={`/case-studies/${c.slug}?from=home`}
+      tabIndex={clone ? -1 : undefined}
       className="group flex h-full flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
     >
       <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
@@ -147,7 +148,11 @@ export function CaseStudy() {
     const card = track.querySelector<HTMLElement>("[data-card]");
     const gap = 20;
     const amount = card ? card.getBoundingClientRect().width + gap : track.clientWidth;
-    track.scrollBy({ left: direction * amount, behavior: "smooth" });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    track.scrollBy({
+      left: direction * amount,
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
   };
 
   const loop = [0, 1, 2];
@@ -173,8 +178,14 @@ export function CaseStudy() {
           >
             {loop.flatMap((copy) =>
               customers.map((c) => (
-                <div key={`${copy}-${c.slug}`} data-card className={CARD_WIDTH}>
-                  <CaseStudyCard c={c} t={t} />
+                <div
+                  key={`${copy}-${c.slug}`}
+                  data-card
+                  aria-hidden={copy !== 1 || undefined}
+                  inert={copy !== 1 || undefined}
+                  className={CARD_WIDTH}
+                >
+                  <CaseStudyCard c={c} t={t} clone={copy !== 1} />
                 </div>
               ))
             )}

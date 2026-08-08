@@ -30,9 +30,6 @@ type Filter = 'all' | 'victor' | 'articles';
 const ARTICLES_PREVIEW_LIMIT = 6;
 const VICTOR_PREVIEW_LIMIT = 6;
 
-const VICTOR_LABEL = "Victor's Story";
-const ARTICLES_LABEL = 'Articles';
-
 function formatDate(dateString: string | undefined, locale: string): string {
   if (!dateString) return '';
   return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
@@ -137,6 +134,7 @@ interface ArticleBrowserProps {
 export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrowserProps) {
   const [filter, setFilter] = useState<Filter>('all');
   const t = useTranslations('resources');
+  const tA11y = useTranslations('accessibility');
 
   const showVictor = filter !== 'articles' && victorStory.length > 0;
   const showOthers = filter !== 'victor' && others.length > 0;
@@ -150,8 +148,8 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
 
   const tabs: { key: Filter; label: string; dot?: boolean }[] = [
     { key: 'all', label: t('all') },
-    { key: 'victor', label: VICTOR_LABEL, dot: true },
-    { key: 'articles', label: ARTICLES_LABEL },
+    { key: 'victor', label: t('victorStory'), dot: true },
+    { key: 'articles', label: t('articles') },
   ];
 
   return (
@@ -161,7 +159,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
         <div
           className="flex gap-1 self-start rounded-md border border-res-border bg-res-bg-secondary p-1"
           role="tablist"
-          aria-label="Filter articles"
+          aria-label={tA11y('filterArticles')}
         >
           {tabs.map((tab) => {
             const active = filter === tab.key;
@@ -200,7 +198,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
       <div className={single ? '' : 'grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start'}>
         {showVictor && (
           <Column
-            name={VICTOR_LABEL}
+            name={t('victorStory')}
             count={victorStory.length}
             accent="victor"
             layout={single ? 'grid' : 'list'}
@@ -224,7 +222,7 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
 
         {showOthers && (
           <Column
-            name={ARTICLES_LABEL}
+            name={t('articles')}
             count={others.length}
             accent="articles"
             layout={single ? 'grid' : 'list'}

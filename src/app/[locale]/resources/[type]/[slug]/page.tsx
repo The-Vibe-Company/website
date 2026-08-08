@@ -13,7 +13,7 @@ import { extractCoverImage, normalizeMarkdownBody } from '@/lib/markdown';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { SITE_NAME, SITE_URL } from '@/lib/site';
+import { localizedAlternates, localizedUrl, SITE_NAME, SITE_URL } from '@/lib/site';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
@@ -68,7 +68,7 @@ export async function generateMetadata({
   if (!item) return { title: 'Not Found' };
 
   const canonicalPath = `/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`;
-  const canonicalUrl = new URL(canonicalPath, SITE_URL).toString();
+  const canonicalUrl = localizedUrl(locale, canonicalPath);
   const socialImage = item.ogImage ?? item.featuredImage;
   const socialImageUrl = socialImage?.url ? new URL(socialImage.url, SITE_URL).toString() : undefined;
   const socialImageSourceUrl = item.ogImage?.sourceUrl;
@@ -79,9 +79,7 @@ export async function generateMetadata({
   return {
     title: item.title,
     description: item.summary,
-    alternates: {
-      canonical: canonicalUrl,
-    },
+    alternates: localizedAlternates(locale, canonicalPath),
     openGraph: {
       type: 'article',
       url: canonicalUrl,
@@ -144,7 +142,7 @@ export default async function ContentDetailPage({
   return (
     <>
       <ReadingProgress />
-      <main className="pt-12 pb-24 min-h-screen bg-res-bg">
+      <main id="main-content" tabIndex={-1} className="pt-12 pb-24 min-h-screen bg-res-bg">
         <div className={`${resourcesTheme.section.padding} pb-24`}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 relative">
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { resourcesTheme } from '@/lib/resources-theme';
 
 type Variant = 'default' | 'primary';
@@ -17,18 +18,21 @@ interface CopyButtonProps {
 
 export function CopyButton({
   value,
-  label = 'Copy',
-  copiedLabel = 'Copied',
+  label,
+  copiedLabel,
   variant = 'default',
   className,
   ariaLabel,
   onCopy,
 }: CopyButtonProps) {
+  const t = useTranslations('resources');
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resolvedLabel = label ?? t('copy');
+  const resolvedCopiedLabel = copiedLabel ?? t('copied');
   const buttonLabel = copied
-    ? `Copied: ${copiedLabel}`
-    : (ariaLabel ?? label);
+    ? t('copiedStatus', { label: resolvedCopiedLabel })
+    : (ariaLabel ?? resolvedLabel);
 
   useEffect(() => () => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -60,7 +64,7 @@ export function CopyButton({
       className={[baseClass, className].filter(Boolean).join(' ')}
     >
       <CopyIcon copied={copied} />
-      <span>{copied ? copiedLabel : label}</span>
+      <span>{copied ? resolvedCopiedLabel : resolvedLabel}</span>
     </button>
   );
 }

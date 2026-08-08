@@ -1,20 +1,31 @@
 import type { Metadata } from 'next';
 import { Link } from "@/i18n/navigation";
 import type React from 'react';
-import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import { redirect } from '@/i18n/navigation';
 import { ContentCard } from '@/components/resources/ContentCard';
 import { ContentGrid } from '@/components/resources/ContentGrid';
 import { SkillCard } from '@/components/resources/SkillCard';
 import { searchContent } from '@/lib/content-source';
 import { resourcesTheme } from '@/lib/resources-theme';
+import { localizedAlternates } from '@/lib/site';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations('resources');
   return {
     title: t('searchTitle'),
+    alternates: localizedAlternates(locale, '/resources/search'),
+    robots: {
+      index: false,
+      follow: true,
+    },
   };
 }
 
@@ -27,22 +38,23 @@ export default async function SearchPage({
 }) {
   const { locale } = await params;
   const { q } = await searchParams;
-  if (!q) redirect(`/${locale}/resources`);
+  const query = q ?? '';
+  if (!query) redirect({ href: '/resources', locale });
 
   const t = await getTranslations('resources');
-  const results = searchContent(q).slice(0, 50);
+  const results = searchContent(query).slice(0, 50);
   const skillResults = results.filter((item) => item.type === 'skill');
   const articleResults = results.filter((item) => item.type !== 'skill');
 
   return (
-    <main className="pt-12 pb-12">
+    <main id="main-content" tabIndex={-1} className="pt-12 pb-12">
       <section className={`${resourcesTheme.section.padding} pt-2 pb-8 border-b border-res-border mb-8`}>
         <div className="max-w-4xl">
           <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
             {t('searchResults')}
           </span>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-3 leading-[0.95] text-res-text">
-            &ldquo;{q}&rdquo;
+            &ldquo;{query}&rdquo;
           </h1>
           <p className="text-base md:text-lg text-res-text-muted max-w-2xl leading-relaxed">
             {t('foundResults', { count: results.length })}

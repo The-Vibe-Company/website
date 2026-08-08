@@ -11,7 +11,7 @@ export function HomeLaunchpad() {
   return (
     <div data-variant="hybrid" className="flex min-h-screen flex-col bg-background text-foreground">
       <TopNav />
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1">
         <Hero />
         <Clients />
         <CaseStudy />

@@ -6,12 +6,19 @@ import { ResourcesHomeSearch } from '@/components/resources/ResourcesHomeSearch'
 import { getContentByType } from '@/lib/content-source';
 import type { ContentEntry } from '@/lib/content-source';
 import { resourcesTheme } from '@/lib/resources-theme';
+import { localizedAlternates } from '@/lib/site';
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations('resources');
   return {
     title: t('kicker'),
     description: t('subtitle'),
+    alternates: localizedAlternates(locale, '/resources'),
   };
 }
 
@@ -46,7 +53,7 @@ export default async function ResourcesPage() {
   const articleCount = articles.length;
 
   return (
-    <main className="pb-20 bg-res-bg">
+    <main id="main-content" tabIndex={-1} className="pb-20 bg-res-bg">
       <section
         className={`${resourcesTheme.section.padding} pt-10 md:pt-16 pb-10 md:pb-12 border-b border-res-border`}
       >

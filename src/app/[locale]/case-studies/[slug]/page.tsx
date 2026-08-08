@@ -11,6 +11,7 @@ import { CaseStudyBackLink } from "@/components/CaseStudyBackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { CaseStudyKeepReading } from "@/components/CaseStudyKeepReading";
 import { CUSTOMER_SLUGS, getCustomer, getCustomers, type ContentLocale } from "@/lib/customers";
+import { localizedAlternates } from "@/lib/site";
 
 export function generateStaticParams() {
   return CUSTOMER_SLUGS.map((slug) => ({ slug }));
@@ -29,6 +30,7 @@ export async function generateMetadata({
   return {
     title: `${customer.client} · ${t("back")}`,
     description: customer.summary,
+    alternates: localizedAlternates(locale, `/case-studies/${slug}`),
   };
 }
 
@@ -62,8 +64,9 @@ export default async function CaseStudyPage({
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
       <TopNav />
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
+          <h1 className="sr-only">{customer.client} · {t("back")}</h1>
           <Suspense fallback={<BackLink href="/case-studies" label={t("back")} />}>
             <CaseStudyBackLink />
           </Suspense>
@@ -223,7 +226,7 @@ export default async function CaseStudyPage({
                 rel="noopener noreferrer"
                 className={`inline-flex items-center gap-3 border-2 border-foreground bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)] ${wideVisuals.length > 0 ? "mt-8" : ""}`}
               >
-                {t("visit")} {customer.client}
+                {t("visitClient", { name: customer.client })}
                 <span aria-hidden="true" className="text-lg">
                   &#8599;
                 </span>

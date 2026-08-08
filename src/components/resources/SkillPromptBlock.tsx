@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown, FileText } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { CopyButton } from '@/components/resources/CopyButton';
 import { captureEvent } from '@/lib/posthog';
@@ -12,7 +13,8 @@ interface SkillPromptBlockProps {
   label?: string;
 }
 
-export function SkillPromptBlock({ body, label = 'Skill prompt' }: SkillPromptBlockProps) {
+export function SkillPromptBlock({ body, label }: SkillPromptBlockProps) {
+  const t = useTranslations('resources');
   const [expanded, setExpanded] = useState(false);
   const trimmed = body.trim();
   const lineCount = trimmed.split('\n').length;
@@ -24,14 +26,14 @@ export function SkillPromptBlock({ body, label = 'Skill prompt' }: SkillPromptBl
       <div className={resourcesTheme.skill.promptBlockToolbar}>
         <span className={resourcesTheme.skill.promptBlockLabel}>
           <FileText size={13} strokeWidth={1.8} aria-hidden="true" />
-          <span>{label}</span>
-          <span className="hidden sm:inline">· {lineCount} lines · {wordCount} words</span>
+          <span>{label ?? t('skillPrompt')}</span>
+          <span className="hidden sm:inline">· {t('promptStats', { lineCount, wordCount })}</span>
         </span>
         <div className="flex shrink-0 items-center gap-2">
           {canExpand && (
             <button
               type="button"
-              aria-label={expanded ? 'Collapse full skill prompt' : 'View full skill prompt'}
+              aria-label={expanded ? t('collapsePrompt') : t('expandPrompt')}
               onClick={() => {
                 if (!expanded) captureEvent("skill_prompt_expanded", { word_count: wordCount });
                 setExpanded((current) => !current);
@@ -44,15 +46,15 @@ export function SkillPromptBlock({ body, label = 'Skill prompt' }: SkillPromptBl
                 className={expanded ? 'rotate-180 transition-transform' : 'transition-transform'}
                 aria-hidden="true"
               />
-              <span className="hidden sm:inline">{expanded ? 'Collapse' : 'View full'}</span>
+              <span className="hidden sm:inline">{expanded ? t('collapse') : t('viewFull')}</span>
             </button>
           )}
           <CopyButton
             value={trimmed}
             variant="primary"
-            label="Copy"
-            copiedLabel="Copied"
-            ariaLabel="Copy skill prompt"
+            label={t('copy')}
+            copiedLabel={t('copied')}
+            ariaLabel={t('copySkillPrompt')}
             onCopy={() => captureEvent("skill_prompt_copied", { word_count: wordCount })}
           />
         </div>

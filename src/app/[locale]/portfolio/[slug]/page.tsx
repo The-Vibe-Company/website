@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { PROJECT_SLUGS, getProject, type ContentLocale } from "@/lib/projects";
+import { localizedAlternates } from "@/lib/site";
 
 export function generateStaticParams() {
   return PROJECT_SLUGS.map((slug) => ({ slug }));
@@ -25,6 +26,7 @@ export async function generateMetadata({
   return {
     title: `${project.name} · ${t("back")}`,
     description: project.description,
+    alternates: localizedAlternates(locale, `/portfolio/${slug}`),
   };
 }
 
@@ -51,7 +53,7 @@ export default async function PortfolioProjectPage({
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
       <TopNav />
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
           <BackLink href="/portfolio" label={t("back")} />
 
@@ -121,7 +123,7 @@ export default async function PortfolioProjectPage({
             rel="noopener noreferrer"
             className="mt-8 inline-flex items-center gap-3 border-2 border-foreground bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
           >
-            {t("visit")} {project.name}
+            {t("visitProject", { name: project.name })}
             <span aria-hidden="true" className="text-lg">
               &#8599;
             </span>

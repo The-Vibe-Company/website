@@ -28,7 +28,7 @@ export default async function NotFound() {
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
       <TopNav />
-      <main className="flex flex-1 items-center justify-center px-6 py-24 md:px-12">
+      <main id="main-content" tabIndex={-1} className="flex flex-1 items-center justify-center px-6 py-24 md:px-12">
         <div className="w-full max-w-lg text-center">
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-orange-500">
             404

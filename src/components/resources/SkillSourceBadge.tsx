@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { resourcesTheme } from '@/lib/resources-theme';
 import type { SkillKind } from '@/lib/content-source';
 
@@ -10,6 +11,7 @@ interface SkillSourceBadgeProps {
 }
 
 export function SkillSourceBadge({ kind, sourceUrl, displayOnly = false }: SkillSourceBadgeProps) {
+  const tA11y = useTranslations('accessibility');
   if (kind === 'external' && sourceUrl) {
     const content = (
       <>
@@ -21,7 +23,7 @@ export function SkillSourceBadge({ kind, sourceUrl, displayOnly = false }: Skill
 
     if (displayOnly) {
       return (
-        <span className={resourcesTheme.skill.sourceBadgeExternal} aria-label="External GitHub source">
+        <span className={resourcesTheme.skill.sourceBadgeExternal} aria-label={tA11y('externalGitHubSource')}>
           {content}
         </span>
       );

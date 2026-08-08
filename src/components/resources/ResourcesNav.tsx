@@ -1,7 +1,8 @@
 'use client';
 
-import { Link } from "@/i18n/navigation";
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { resourcesTheme } from '@/lib/resources-theme';
 
@@ -20,14 +21,14 @@ function formatSegment(segment: string): string {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function useBreadcrumbs(pathname: string, typeLinks: NavContentType[]) {
-  if (pathname === '/resources') return [{ label: 'Resources', href: '/resources' }];
+function useBreadcrumbs(pathname: string, typeLinks: NavContentType[], rootLabel: string) {
+  if (pathname === '/resources') return [{ label: rootLabel, href: '/resources' }];
 
   const segments = pathname.replace('/resources/', '').split('/');
   const type = segments[0];
   const slug = segments[1];
 
-  const crumbs = [{ label: 'Resources', href: '/resources' }];
+  const crumbs = [{ label: rootLabel, href: '/resources' }];
 
   if (type) {
     // Look up the label from typeLinks if available
@@ -57,13 +58,16 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations('resources');
+  const tNav = useTranslations('nav');
+  const tA11y = useTranslations('accessibility');
 
   // Build full links list: All + CMS types (including Tools)
   const allLinks: NavContentType[] = [
-    { label: 'All', href: '/resources' },
+    { label: t('all'), href: '/resources' },
     ...typeLinks,
   ];
-  const crumbs = useBreadcrumbs(pathname, allLinks);
+  const crumbs = useBreadcrumbs(pathname, allLinks, t('kicker'));
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -96,7 +100,7 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
 
   return (
     <div key={pathname}>
-      <nav className={resourcesTheme.nav.container} aria-label="Resources navigation">
+      <nav className={resourcesTheme.nav.container} aria-label={tA11y('resourcesNavigation')}>
         <div className={resourcesTheme.nav.inner}>
           {/* Left: Breadcrumb */}
           <div className="flex items-center gap-0 min-w-0">
@@ -130,9 +134,10 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
             <div className="hidden md:block">
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder={tNav('searchShort')}
                 value={searchValue}
                 onChange={(e) => handleSearch(e.target.value)}
+                aria-label={tA11y('searchResources')}
                 className={resourcesTheme.search.compact}
               />
             </div>
@@ -141,7 +146,7 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
             <button
               className="md:hidden p-1.5 text-res-text-muted hover:text-res-text transition-colors"
               onClick={() => setSearchOpen(!searchOpen)}
-              aria-label={searchOpen ? 'Close search' : 'Open search'}
+              aria-label={searchOpen ? tA11y('closeSearch') : tA11y('openSearch')}
             >
               <svg
                 width="18"
@@ -163,7 +168,7 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
             <button
               className="md:hidden p-1.5 text-res-text-muted hover:text-res-text transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-label={mobileMenuOpen ? tA11y('closeMenu') : tA11y('openMenu')}
               aria-expanded={mobileMenuOpen}
             >
               <svg
@@ -197,15 +202,18 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
 
       {/* Mobile search bar */}
       <div
+        aria-hidden={!searchOpen}
         className={`fixed top-14 left-0 right-0 z-40 bg-res-surface border-b border-res-border px-6 py-3 transition-all duration-200 md:hidden ${searchOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
           }`}
       >
         <input
           ref={searchInputRef}
           type="text"
-          placeholder="Search resources..."
+          placeholder={tNav('searchLong')}
           value={searchValue}
           onChange={(e) => handleSearch(e.target.value)}
+          aria-label={tA11y('searchResources')}
+          tabIndex={searchOpen ? 0 : -1}
           className={resourcesTheme.search.input}
         />
       </div>
@@ -215,9 +223,12 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
         className={`fixed inset-0 z-30 bg-res-bg/95 backdrop-blur-lg flex flex-col pt-20 px-6 transition-all duration-200 md:hidden ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         role="dialog"
-        aria-label="Mobile navigation"
+        aria-modal="true"
+        aria-label={tA11y('mobileNavigation')}
+        aria-hidden={!mobileMenuOpen}
+        inert={!mobileMenuOpen || undefined}
       >
-        <nav className="space-y-1" aria-label="Content types">
+        <nav className="space-y-1" aria-label={tA11y('contentTypes')}>
           {allLinks.map((link) => {
             const isActive =
               link.href === '/resources'
@@ -246,7 +257,7 @@ export function ResourcesNav({ typeLinks = [] }: ResourcesNavProps) {
             className="text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
             onClick={() => setMobileMenuOpen(false)}
           >
-            &larr; Back to main site
+            &larr; {t('backMainSite')}
           </Link>
         </div>
       </div>

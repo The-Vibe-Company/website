@@ -41,3 +41,22 @@ export const INDEXABLE_STATIC_ROUTES: SiteRoute[] = [
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).toString();
 }
+
+export function localizedPath(locale: string, path = "/"): string {
+  const suffix = path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
+  return `/${locale}${suffix}`;
+}
+
+export function localizedUrl(locale: string, path = "/"): string {
+  return absoluteUrl(localizedPath(locale, path));
+}
+
+export function localizedAlternates(locale: string, path = "/") {
+  return {
+    canonical: localizedUrl(locale, path),
+    languages: {
+      fr: localizedUrl("fr", path),
+      en: localizedUrl("en", path),
+    },
+  };
+}

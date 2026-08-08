@@ -1,6 +1,8 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { resourcesTheme } from '@/lib/resources-theme';
 
@@ -11,6 +13,8 @@ interface ResourcesSearchProps {
 export function ResourcesSearch({ compact = false }: ResourcesSearchProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations('nav');
+  const tA11y = useTranslations('accessibility');
   const [value, setValue] = useState(searchParams.get('q') || '');
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -60,7 +64,8 @@ export function ResourcesSearch({ compact = false }: ResourcesSearchProps) {
         type="text"
         value={value}
         onChange={handleChange}
-        placeholder="Search..."
+        placeholder={t('searchShort')}
+        aria-label={tA11y('searchResources')}
         className={`${compact ? resourcesTheme.search.compact : resourcesTheme.search.input} pl-9`}
       />
     </div>

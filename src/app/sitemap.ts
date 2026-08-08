@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
-import { getAllContent, getContentByType } from "@/lib/content-source";
-import { getNavContentTypes, getUrlSlugForDbType } from "@/lib/content-types";
+import { getAllContent } from "@/lib/content-source";
+import { getUrlSlugForDbType } from "@/lib/content-types";
 import { absoluteUrl, INDEXABLE_STATIC_ROUTES } from "@/lib/site";
 
 type Extra = Omit<MetadataRoute.Sitemap[number], "url" | "alternates">;
@@ -36,15 +36,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  const contentTypeRoutes = getNavContentTypes().map((contentType) => {
-    const latestTypeContent = getContentByType(contentType.slug)[0]?.publishedAt;
-    return entry(`/resources/${contentType.urlSlug}`, {
-      lastModified: latestTypeContent ? new Date(latestTypeContent) : latestContentDate,
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    });
-  });
-
+  // `/resources/[type]` routes redirect to the resources hub, so only emit
+  // the hub and actual content detail pages as indexable sitemap entries.
   const contentRoutes = allContent.map((item) =>
     entry(`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`, {
       lastModified: new Date(item.publishedAt),
@@ -53,5 +46,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  return [...staticRoutes, ...contentTypeRoutes, ...contentRoutes];
+  return [...staticRoutes, ...contentRoutes];
 }

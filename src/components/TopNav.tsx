@@ -2,9 +2,9 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Link, usePathname } from "@/i18n/navigation";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useTranslations, useLocale } from "next-intl";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import {
@@ -39,9 +39,8 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const locale = useLocale();
   const t = useTranslations("nav");
-  const skipLabel = locale === "fr" ? "Aller au contenu" : "Skip to content";
+  const tA11y = useTranslations("accessibility");
   // Highlight the section the visitor is currently in (a detail page like
   // /case-studies/monka still lights up "Études de cas").
   const isActive = (href: string) =>
@@ -53,6 +52,9 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
     showResourcesSearch ? searchParams.get("q") || "" : ""
   );
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const menuTriggerRef = useRef<HTMLButtonElement>(null);
+  const menuDialogRef = useRef<HTMLDivElement>(null);
+  const menuCloseRef = useRef<HTMLButtonElement>(null);
 
   const handleSearch = useCallback(
     (value: string) => {
@@ -77,27 +79,97 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
     };
   }, []);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const menuTrigger = menuTriggerRef.current;
+    const previousOverflow = document.body.style.overflow;
+    const backgroundElements = [
+      document.getElementById("main-content"),
+      document.querySelector<HTMLElement>("footer"),
+    ].filter((element): element is HTMLElement => element !== null);
+    document.body.style.overflow = "hidden";
+    backgroundElements.forEach((element) => {
+      element.inert = true;
+      element.setAttribute("aria-hidden", "true");
+    });
+
+    const focusInitialControl = requestAnimationFrame(() => {
+      menuCloseRef.current?.focus();
+    });
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMobileMenuOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      const dialog = menuDialogRef.current;
+      if (!dialog) return;
+
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((element) => !element.hasAttribute("hidden"));
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!dialog.contains(document.activeElement)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+      } else if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      cancelAnimationFrame(focusInitialControl);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      backgroundElements.forEach((element) => {
+        element.inert = false;
+        element.removeAttribute("aria-hidden");
+      });
+      requestAnimationFrame(() => menuTrigger?.focus());
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <>
       {/* Keyboard/screen-reader skip link: jumps past the nav to the page's
           main content. Hidden until focused. */}
       <a
         href="#main-content"
+        aria-hidden={mobileMenuOpen || undefined}
+        tabIndex={mobileMenuOpen ? -1 : undefined}
         onClick={(e) => {
           e.preventDefault();
-          const main = document.querySelector("main");
+          const main = document.getElementById("main-content");
           if (main) {
-            main.setAttribute("tabindex", "-1");
-            (main as HTMLElement).focus();
+            main.focus({ preventScroll: true });
             main.scrollIntoView();
           }
         }}
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[100] focus:rounded-full focus:border focus:border-foreground focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-lg"
       >
-        {skipLabel}
+        {tA11y("skipToContent")}
       </a>
       <motion.nav
-        aria-label="Main navigation"
+        aria-label={tA11y("mainNavigation")}
+        aria-hidden={mobileMenuOpen || undefined}
+        inert={mobileMenuOpen || undefined}
         className="sticky top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 lg:px-24 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -128,6 +200,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
               placeholder={t("searchShort")}
               value={searchValue}
               onChange={(e) => handleSearch(e.target.value)}
+              aria-label={tA11y("searchResources")}
               className={resourcesTheme.search.compact}
             />
           </div>
@@ -186,8 +259,10 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           {showResourcesSearch && (
             <button
               className="p-2"
-              onClick={() => setSearchOpen(!searchOpen)}
-              aria-label={searchOpen ? "Close search" : "Open search"}
+              onClick={() => setSearchOpen((open) => !open)}
+              aria-label={searchOpen ? tA11y("closeSearch") : tA11y("openSearch")}
+              aria-controls="mobile-resources-search"
+              aria-expanded={searchOpen}
             >
               <svg
                 width="20"
@@ -206,13 +281,17 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             </button>
           )}
           <button
+            ref={menuTriggerRef}
             className="p-2"
             onClick={() => {
               if (!mobileMenuOpen) captureEvent("mobile_menu_opened");
-              setMobileMenuOpen(!mobileMenuOpen);
+              setSearchOpen(false);
+              setMobileMenuOpen((open) => !open);
             }}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-label={tA11y("openMenu")}
             aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation-dialog"
+            tabIndex={mobileMenuOpen ? -1 : undefined}
           >
             <svg
               width="24"
@@ -244,6 +323,8 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
 
       {showResourcesSearch && (
         <div
+          id="mobile-resources-search"
+          aria-hidden={!searchOpen}
           className={`fixed left-0 right-0 z-[65] bg-background/95 backdrop-blur-xl border-b border-border/50 px-6 py-3 transition-all duration-200 md:hidden ${searchOpen ? "top-16 opacity-100 translate-y-0" : "top-14 opacity-0 -translate-y-2 pointer-events-none"}`}
         >
           <input
@@ -251,6 +332,8 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             placeholder={t("searchLong")}
             value={searchValue}
             onChange={(e) => handleSearch(e.target.value)}
+            aria-label={tA11y("searchResources")}
+            tabIndex={searchOpen ? 0 : -1}
             className={resourcesTheme.search.input}
           />
         </div>
@@ -260,18 +343,22 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
+            ref={menuDialogRef}
+            id="mobile-navigation-dialog"
             className="fixed inset-0 z-[70] bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             role="dialog"
-            aria-label="Mobile navigation"
+            aria-modal="true"
+            aria-label={tA11y("mobileNavigation")}
           >
             <button
+              ref={menuCloseRef}
               className="absolute top-4 right-6 p-2"
               onClick={() => setMobileMenuOpen(false)}
-              aria-label="Close menu"
+              aria-label={tA11y("closeMenu")}
             >
               <svg
                 width="24"

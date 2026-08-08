@@ -7,6 +7,25 @@
     "searchShort": "Search...",
     "searchLong": "Search resources..."
   },
+  "accessibility": {
+    "skipToContent": "Skip to content",
+    "mainNavigation": "Main navigation",
+    "resourcesNavigation": "Resources navigation",
+    "mobileNavigation": "Mobile navigation",
+    "contentTypes": "Content types",
+    "contentTypeNavigation": "Content type navigation",
+    "openSearch": "Open search",
+    "closeSearch": "Close search",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "searchResources": "Search resources",
+    "filterArticles": "Filter articles",
+    "language": "Language",
+    "french": "French",
+    "english": "English",
+    "installCommands": "Install commands",
+    "externalGitHubSource": "External GitHub source"
+  },
   "meta": {
     "description": "An AI-native agency. Everything 10 to 20× faster with AI: products, ops, training. Our agency runs on AI too."
   },
@@ -151,6 +170,7 @@
     "whatWeDid": "// What we did",
     "theProduct": "// The product",
     "visit": "Visit",
+    "visitClient": "Visit {name}",
     "keepReading": "Keep Reading",
     "next": "Next"
   },
@@ -195,7 +215,23 @@
     "goodFor": "Good for",
     "relatedSkills": "Related skills",
     "viewAll": "View all",
-    "openSkill": "Open skill"
+    "openSkill": "Open skill",
+    "backMainSite": "Back to main site",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copiedStatus": "Copied: {label}",
+    "skillPrompt": "Skill prompt",
+    "promptStats": "{lineCount} lines · {wordCount} words",
+    "collapsePrompt": "Collapse full skill prompt",
+    "expandPrompt": "View full skill prompt",
+    "collapse": "Collapse",
+    "viewFull": "View full",
+    "copySkillPrompt": "Copy skill prompt",
+    "recommended": "Recommended",
+    "installWithAi": "Install with AI",
+    "installWithAiDescription": "Copy this instruction, paste it into your agent, and let it install the skill.",
+    "copyInstallPrompt": "Copy install prompt",
+    "previewPrompt": "Preview prompt"
   },
   "portfolio": {
     "kicker": "// OUR OWN PRODUCTS",
@@ -208,6 +244,7 @@
     "typeLabel": "Type",
     "theProduct": "// The product",
     "visit": "Visit",
+    "visitProject": "Visit {name}",
     "metaTitle": "Projects",
     "metaDescription": "A selection of products we designed and shipped, with homepage covers and ship dates."
   },

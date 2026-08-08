@@ -6,12 +6,19 @@ import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { getCustomers, type ContentLocale } from "@/lib/customers";
+import { localizedAlternates } from "@/lib/site";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations("caseStudiesPage");
   return {
     title: t("back"),
     description: t("metaDescription"),
+    alternates: localizedAlternates(locale, "/case-studies"),
   };
 }
 
@@ -26,7 +33,7 @@ export default async function CaseStudiesPage() {
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
       <TopNav />
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="mx-auto max-w-[100rem] px-6 pb-16 pt-12 md:px-12 md:pb-20 md:pt-16">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
             {t("kicker")}

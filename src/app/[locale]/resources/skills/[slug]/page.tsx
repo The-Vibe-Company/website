@@ -14,7 +14,7 @@ import { getContentByType, getContentItem, getRelatedContent } from '@/lib/conte
 import { normalizeMarkdownBody } from '@/lib/markdown';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { SITE_NAME, SITE_URL, absoluteUrl } from '@/lib/site';
+import { localizedAlternates, localizedUrl, SITE_NAME, SITE_URL } from '@/lib/site';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
@@ -42,7 +42,7 @@ export async function generateMetadata({
   if (!item) return { title: 'Not Found' };
 
   const canonicalPath = `/resources/skills/${item.slug}`;
-  const canonicalUrl = absoluteUrl(canonicalPath);
+  const canonicalUrl = localizedUrl(locale, canonicalPath);
   const socialImage = item.ogImage ?? item.featuredImage;
   const socialImageUrl = socialImage?.url ? new URL(socialImage.url, SITE_URL).toString() : undefined;
   const socialImageDimensions = getOgImageDimensions(item.ogImage?.sourceUrl);
@@ -50,7 +50,7 @@ export async function generateMetadata({
   return {
     title: `${item.title} | Skills`,
     description: item.summary,
-    alternates: { canonical: canonicalUrl },
+    alternates: localizedAlternates(locale, canonicalPath),
     openGraph: {
       type: 'article',
       url: canonicalUrl,
@@ -93,7 +93,7 @@ export default async function SkillDetailPage({
   const body = normalizeMarkdownBody(item.body);
   const related = await getRelated(slug);
 
-  const canonicalUrl = absoluteUrl(`/resources/skills/${item.slug}`);
+  const canonicalUrl = localizedUrl(locale, `/resources/skills/${item.slug}`);
 
   const installContext = {
     slug: item.slug,
@@ -115,7 +115,7 @@ export default async function SkillDetailPage({
   return (
     <>
       <ReadingProgress />
-      <main className="pt-6 md:pt-8 pb-20 min-h-screen bg-res-bg">
+      <main id="main-content" tabIndex={-1} className="pt-6 md:pt-8 pb-20 min-h-screen bg-res-bg">
         <div className={`${resourcesTheme.section.padding} pb-12 md:pb-16`}>
           <div className="mx-auto max-w-6xl">
             <Link
@@ -238,7 +238,7 @@ function CreatorNote({ note, label }: { note: string; label: string }) {
 
 function SkillSnapshot({ trigger, label }: { trigger: string; label: string }) {
   return (
-    <section className="mt-6 max-w-3xl border border-res-border bg-res-bg-secondary p-4" aria-label="Skill overview">
+    <section className="mt-6 max-w-3xl border border-res-border bg-res-bg-secondary p-4">
       <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted">
         {label}
       </p>

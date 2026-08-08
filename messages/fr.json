@@ -7,6 +7,25 @@
     "searchShort": "Rechercher…",
     "searchLong": "Chercher dans les ressources…"
   },
+  "accessibility": {
+    "skipToContent": "Aller au contenu",
+    "mainNavigation": "Navigation principale",
+    "resourcesNavigation": "Navigation des ressources",
+    "mobileNavigation": "Navigation mobile",
+    "contentTypes": "Types de contenu",
+    "contentTypeNavigation": "Navigation par type de contenu",
+    "openSearch": "Ouvrir la recherche",
+    "closeSearch": "Fermer la recherche",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "searchResources": "Rechercher dans les ressources",
+    "filterArticles": "Filtrer les articles",
+    "language": "Langue",
+    "french": "Français",
+    "english": "Anglais",
+    "installCommands": "Commandes d’installation",
+    "externalGitHubSource": "Source GitHub externe"
+  },
   "meta": {
     "description": "Une agence IA-first qui conçoit des produits, déploie des automatisations agentiques et forme les équipes, de l'audit à la production sécurisée."
   },
@@ -151,6 +170,7 @@
     "whatWeDid": "// Ce qu’on a fait",
     "theProduct": "// Le produit",
     "visit": "Visiter",
+    "visitClient": "Visiter {name}",
     "keepReading": "À lire ensuite",
     "next": "Suivant"
   },
@@ -195,7 +215,23 @@
     "goodFor": "Idéal pour",
     "relatedSkills": "Skills liés",
     "viewAll": "Voir tout",
-    "openSkill": "Ouvrir le skill"
+    "openSkill": "Ouvrir le skill",
+    "backMainSite": "Retour au site principal",
+    "copy": "Copier",
+    "copied": "Copié",
+    "copiedStatus": "Copié : {label}",
+    "skillPrompt": "Prompt du skill",
+    "promptStats": "{lineCount} lignes · {wordCount} mots",
+    "collapsePrompt": "Réduire le prompt complet du skill",
+    "expandPrompt": "Afficher le prompt complet du skill",
+    "collapse": "Réduire",
+    "viewFull": "Tout afficher",
+    "copySkillPrompt": "Copier le prompt du skill",
+    "recommended": "Recommandé",
+    "installWithAi": "Installer avec l’IA",
+    "installWithAiDescription": "Copiez cette instruction, collez-la dans votre agent et laissez-le installer le skill.",
+    "copyInstallPrompt": "Copier le prompt d’installation",
+    "previewPrompt": "Prévisualiser le prompt"
   },
   "portfolio": {
     "kicker": "// NOS PRODUITS",
@@ -208,6 +244,7 @@
     "typeLabel": "Type",
     "theProduct": "// Le produit",
     "visit": "Visiter",
+    "visitProject": "Visiter {name}",
     "metaTitle": "Projets",
     "metaDescription": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie."
   },

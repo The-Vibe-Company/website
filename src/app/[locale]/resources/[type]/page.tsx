@@ -1,5 +1,6 @@
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
+import { redirect } from '@/i18n/navigation';
 import { CONTENT_TYPES, getContentTypeByUrlSlug } from '@/lib/content-types';
 
 export async function generateStaticParams() {
@@ -24,5 +25,5 @@ export default async function TypeListingPage({
   if (!getContentTypeByUrlSlug(type)) {
     notFound();
   }
-  redirect(`/${locale}/resources`);
+  redirect({ href: '/resources', locale });
 }

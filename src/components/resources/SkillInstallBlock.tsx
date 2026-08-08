@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { CopyButton } from '@/components/resources/CopyButton';
 import { resourcesTheme } from '@/lib/resources-theme';
 import type { SkillInstallCommand } from '@/lib/content-source';
@@ -10,6 +11,8 @@ interface SkillInstallBlockProps {
 }
 
 export function SkillInstallBlock({ commands }: SkillInstallBlockProps) {
+  const t = useTranslations('resources');
+  const tA11y = useTranslations('accessibility');
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (commands.length === 0) return null;
@@ -19,7 +22,7 @@ export function SkillInstallBlock({ commands }: SkillInstallBlockProps) {
   return (
     <div className={resourcesTheme.skill.installBlock}>
       {commands.length > 1 && (
-        <div className={resourcesTheme.skill.installTabs} aria-label="Install commands">
+        <div className={resourcesTheme.skill.installTabs} aria-label={tA11y('installCommands')}>
           {commands.map((command, index) => {
             const isActive = index === activeIndex;
             return (
@@ -42,7 +45,7 @@ export function SkillInstallBlock({ commands }: SkillInstallBlockProps) {
         <code className="block min-w-0 break-all sm:break-normal sm:whitespace-nowrap">
           {active.command}
         </code>
-        <CopyButton value={active.command} label="Copy" copiedLabel="Copied" />
+        <CopyButton value={active.command} label={t('copy')} copiedLabel={t('copied')} />
       </div>
     </div>
   );
