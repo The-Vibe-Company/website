@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { captureEvent } from "@/lib/posthog";
 
 const QUICK_ITEMS = [
@@ -13,7 +13,6 @@ const QUICK_ITEMS = [
 
 export function Hero() {
   const reduceMotion = useReducedMotion() ?? false;
-  const locale = useLocale();
   const t = useTranslations("hero");
 
   return (
@@ -55,13 +54,12 @@ export function Hero() {
             {t("titleLine1")}
           </span>
           <span
-            className="block"
+            className="mt-4 block max-w-[30ch] md:mt-6 md:max-w-[40ch]"
             style={{
-              WebkitTextStroke: "1.5px var(--foreground)",
-              color: "transparent",
-              fontSize:
-                locale === "fr" ? "clamp(32px, 5.25vw, 88px)" : undefined,
-              lineHeight: locale === "fr" ? 0.98 : undefined,
+              fontSize: "clamp(1.25rem, 2.4vw, 2.25rem)",
+              fontWeight: 600,
+              lineHeight: 1.15,
+              letterSpacing: "-0.025em",
             }}
           >
             {t("titleLine2")}

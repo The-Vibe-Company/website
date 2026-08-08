@@ -310,7 +310,7 @@ The Vibe Company design system is a warm-paper brutalist editorial system for an
 
 The dominant impression is deep black ink on a slightly warm paper canvas. Layouts are spacious but not soft. Large type, thin technical grid lines, monochrome rules, uppercase mono labels, and blunt black calls to action create the feeling of a shipping console crossed with an independent studio site. The interface should feel confident and operational, not decorative.
 
-The homepage is the core expression: warm paper, giant tight typography, outlined headline words, black slab buttons, bordered cards, and horizontal bands. The hero opens directly on the headline without an announcement strip or status badge. A compact credential row beneath the introduction pairs the linked YC W24 mark with the France 2030 mark; both keep their original aspect ratios and accessible names. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
+The homepage is the core expression: warm paper, giant tight typography, a compact solid subheading beneath the hero display, black slab buttons, bordered cards, and horizontal bands. The hero opens directly on the headline without an announcement strip or status badge. A compact credential row beneath the introduction pairs the linked YC W24 mark with the France 2030 mark; both keep their original aspect ratios and accessible names. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
 
 An experimental preview of the homepage lives at `/v2`. It keeps the full warm-paper system (the same top nav, sections, footer, deep ink, and Geist type) and only swaps the static hero for a playable, Chrome-dino-style runner on a canvas. Inside that canvas the game travels through a sequence of "worlds", each a product, a service, or the YC backing, and each world carries its own art direction (paper, ink, accent, and player colour) with a presentation panel that stays for the whole world. It is a preview, not yet the canonical homepage.
 
@@ -333,7 +333,7 @@ Avoid large colorful areas. The site should remain primarily black, warm paper, 
 
 Typography is the strongest identity element. Use Geist for all display, heading, and body text. Use Geist Mono for operational metadata, labels, dates, statuses, nav breadcrumbs, counters, and marquee text.
 
-Display typography is oversized, bold, and tightly tracked. Headlines should use heavy weight with very compressed line height, often below 1.0. This creates the blunt, poster-like agency voice visible on the homepage. Use outline text sparingly as a second-line emphasis in hero and major proof sections.
+Display typography is oversized, bold, and tightly tracked. Headlines should use heavy weight with very compressed line height, often below 1.0. This creates the blunt, poster-like agency voice visible on the homepage. The homepage hero pairs its display line with a smaller solid subheading for localized readability; reserve outline text for short emphasis in other major sections.
 
 Body copy is plain and readable. Keep it compact, usually 14-19px with 1.5-1.55 line height. The body voice should feel explanatory and pragmatic, not poetic.
 
