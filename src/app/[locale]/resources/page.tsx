@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { ArticleBrowser, type ArticleCardItem } from '@/components/resources/ArticleBrowser';
 import { ResourcesHomeSearch } from '@/components/resources/ResourcesHomeSearch';
 import { getContentByType } from '@/lib/content-source';
 import type { ContentEntry } from '@/lib/content-source';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { localizedAlternates } from '@/lib/site';
+import { localizedAlternates, localizedSocialMetadata } from '@/lib/site';
 
 export async function generateMetadata({
   params,
@@ -14,11 +14,19 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations('resources');
+  const t = await getTranslations({ locale, namespace: 'resources' });
+  const title = t('kicker');
+  const description = t('subtitle');
   return {
-    title: t('kicker'),
-    description: t('subtitle'),
+    title,
+    description,
     alternates: localizedAlternates(locale, '/resources'),
+    ...localizedSocialMetadata({
+      locale,
+      path: '/resources',
+      title,
+      description,
+    }),
   };
 }
 
@@ -42,8 +50,14 @@ function toCard(item: ContentEntry): ArticleCardItem {
   };
 }
 
-export default async function ResourcesPage() {
-  const t = await getTranslations('resources');
+export default async function ResourcesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: 'resources' });
   // Articles come from getContentByType already sorted by publishedAt desc, so
   // both columns stay in chronological order (newest first). A freshly added
   // article naturally lands at the top; its D-day badge comes from seriesDay.

@@ -126,7 +126,7 @@ export default async function SkillDetailPage({
               {t('skillsSection')}
             </Link>
 
-            <article>
+            <article lang={item.language}>
               <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] xl:grid-cols-[minmax(0,1fr)_400px] lg:items-start">
                 <div className="min-w-0">
                   <header className="flex flex-col gap-4">

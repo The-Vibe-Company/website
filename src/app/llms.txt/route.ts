@@ -3,6 +3,7 @@ import { getNavContentTypes, getUrlSlugForDbType } from "@/lib/content-types";
 import {
   absoluteUrl,
   INDEXABLE_STATIC_ROUTES,
+  localizedUrl,
   SITE_DESCRIPTION,
   SITE_NAME,
 } from "@/lib/site";
@@ -29,43 +30,55 @@ function routeListItem(title: string, url: string, description?: string): string
 function buildLlmsTxt(): string {
   const content = getAllContent();
 
-  const corePages = INDEXABLE_STATIC_ROUTES.map((route) =>
-    routeListItem(route.title, absoluteUrl(route.path), route.description),
-  );
+  const localizedSections = (["fr", "en"] as const).map((locale) => {
+    const corePages = INDEXABLE_STATIC_ROUTES.map((route) =>
+      routeListItem(
+        route.title,
+        localizedUrl(locale, route.path),
+        route.description,
+      ),
+    );
 
-  const contentSections = getNavContentTypes()
-    .map((contentType) => {
-      const items = content.filter((item) => item.type === contentType.slug);
+    const contentSections = getNavContentTypes()
+      .map((contentType) => {
+        const items = content.filter((item) => item.type === contentType.slug);
 
-      if (items.length === 0) return null;
+        if (items.length === 0) return null;
 
-      const links = items.map((item) =>
-        routeListItem(
-          item.title,
-          absoluteUrl(
-            `/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`,
+        const links = items.map((item) =>
+          routeListItem(
+            item.title,
+            localizedUrl(
+              locale,
+              `/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`,
+            ),
+            item.summary,
           ),
-          item.summary,
-        ),
-      );
+        );
 
-      return [
-        `## ${contentType.pluralLabel}`,
-        contentType.description,
-        "",
-        ...links,
-      ].join("\n");
-    })
-    .filter((section): section is string => Boolean(section));
+        return [
+          `### ${contentType.pluralLabel}`,
+          contentType.description,
+          "",
+          ...links,
+        ].join("\n");
+      })
+      .filter((section): section is string => Boolean(section));
+
+    return [
+      `## ${locale === "fr" ? "French" : "English"} canonical URLs`,
+      "### Core Pages",
+      ...corePages,
+      ...contentSections,
+    ].join("\n\n");
+  });
 
   return [
     `# ${SITE_NAME}`,
     `> ${SITE_DESCRIPTION}`,
     "The Vibe Company is an AI-native agency focused on shipping products, internal tools, agent workflows, and practical public writing about building with AI.",
     `Use the canonical URLs below when citing the site. The XML sitemap is available at ${absoluteUrl("/sitemap.xml")}.`,
-    "## Core Pages",
-    ...corePages,
-    ...contentSections,
+    ...localizedSections,
   ].join("\n\n");
 }
 

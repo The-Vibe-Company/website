@@ -7,7 +7,7 @@ import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { PROJECT_SLUGS, getProject, type ContentLocale } from "@/lib/projects";
-import { localizedAlternates } from "@/lib/site";
+import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
 
 export function generateStaticParams() {
   return PROJECT_SLUGS.map((slug) => ({ slug }));
@@ -20,13 +20,21 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("portfolio");
+  const t = await getTranslations({ locale, namespace: "portfolio" });
   const project = getProject(slug, locale as ContentLocale);
   if (!project) return { title: t("back") };
+  const title = `${project.name} · ${t("back")}`;
+  const description = project.description;
   return {
-    title: `${project.name} · ${t("back")}`,
-    description: project.description,
+    title,
+    description,
     alternates: localizedAlternates(locale, `/portfolio/${slug}`),
+    ...localizedSocialMetadata({
+      locale,
+      path: `/portfolio/${slug}`,
+      title,
+      description,
+    }),
   };
 }
 
@@ -37,7 +45,7 @@ export default async function PortfolioProjectPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("portfolio");
+  const t = await getTranslations({ locale, namespace: "portfolio" });
   const project = getProject(slug, locale as ContentLocale);
   if (!project) notFound();
 

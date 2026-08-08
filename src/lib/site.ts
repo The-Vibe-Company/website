@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 export const SITE_NAME = "The Vibe Company";
 export const SITE_URL = "https://www.thevibecompany.co";
 export const SITE_DESCRIPTION =
@@ -57,6 +59,34 @@ export function localizedAlternates(locale: string, path = "/") {
     languages: {
       fr: localizedUrl("fr", path),
       en: localizedUrl("en", path),
+    },
+  };
+}
+
+export function localizedSocialMetadata({
+  locale,
+  path,
+  title,
+  description,
+}: {
+  locale: string;
+  path?: string;
+  title: string;
+  description: string;
+}): Pick<Metadata, "openGraph" | "twitter"> {
+  return {
+    openGraph: {
+      type: "website",
+      locale: locale === "fr" ? "fr_FR" : "en_US",
+      url: localizedUrl(locale, path),
+      siteName: SITE_NAME,
+      title,
+      description,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }

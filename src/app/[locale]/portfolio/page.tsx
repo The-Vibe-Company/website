@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { getProjects, type ContentLocale } from "@/lib/projects";
-import { localizedAlternates } from "@/lib/site";
+import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -14,18 +14,31 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations("portfolio");
+  const t = await getTranslations({ locale, namespace: "portfolio" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
     alternates: localizedAlternates(locale, "/portfolio"),
+    ...localizedSocialMetadata({
+      locale,
+      path: "/portfolio",
+      title,
+      description,
+    }),
   };
 }
 
-export default async function PortfolioPage() {
-  const locale = (await getLocale()) as ContentLocale;
-  const t = await getTranslations("portfolio");
-  const projects = getProjects(locale);
+export default async function PortfolioPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "portfolio" });
+  const projects = getProjects(locale as ContentLocale);
 
   return (
     <div

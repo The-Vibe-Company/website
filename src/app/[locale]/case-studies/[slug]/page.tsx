@@ -11,7 +11,7 @@ import { CaseStudyBackLink } from "@/components/CaseStudyBackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { CaseStudyKeepReading } from "@/components/CaseStudyKeepReading";
 import { CUSTOMER_SLUGS, getCustomer, getCustomers, type ContentLocale } from "@/lib/customers";
-import { localizedAlternates } from "@/lib/site";
+import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
 
 export function generateStaticParams() {
   return CUSTOMER_SLUGS.map((slug) => ({ slug }));
@@ -24,13 +24,21 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("caseStudiesPage");
+  const t = await getTranslations({ locale, namespace: "caseStudiesPage" });
   const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) return { title: t("back") };
+  const title = `${customer.client} · ${t("back")}`;
+  const description = customer.summary;
   return {
-    title: `${customer.client} · ${t("back")}`,
-    description: customer.summary,
+    title,
+    description,
     alternates: localizedAlternates(locale, `/case-studies/${slug}`),
+    ...localizedSocialMetadata({
+      locale,
+      path: `/case-studies/${slug}`,
+      title,
+      description,
+    }),
   };
 }
 
@@ -41,7 +49,7 @@ export default async function CaseStudyPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("caseStudiesPage");
+  const t = await getTranslations({ locale, namespace: "caseStudiesPage" });
   const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) notFound();
 

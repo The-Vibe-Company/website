@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { getCustomers, type ContentLocale } from "@/lib/customers";
-import { localizedAlternates } from "@/lib/site";
+import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -14,18 +14,31 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations("caseStudiesPage");
+  const t = await getTranslations({ locale, namespace: "caseStudiesPage" });
+  const title = t("back");
+  const description = t("metaDescription");
   return {
-    title: t("back"),
-    description: t("metaDescription"),
+    title,
+    description,
     alternates: localizedAlternates(locale, "/case-studies"),
+    ...localizedSocialMetadata({
+      locale,
+      path: "/case-studies",
+      title,
+      description,
+    }),
   };
 }
 
-export default async function CaseStudiesPage() {
-  const locale = (await getLocale()) as ContentLocale;
-  const t = await getTranslations("caseStudiesPage");
-  const customers = getCustomers(locale);
+export default async function CaseStudiesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "caseStudiesPage" });
+  const customers = getCustomers(locale as ContentLocale);
 
   return (
     <div

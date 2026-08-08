@@ -43,18 +43,6 @@ export async function generateMetadata({
     icons: {
       icon: "/favicon.svg",
     },
-    openGraph: {
-      type: "website",
-      locale: locale === "fr" ? "fr_FR" : "en_US",
-      siteName: SITE_NAME,
-      title: SITE_NAME,
-      description,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: SITE_NAME,
-      description,
-    },
     alternates: localizedAlternates(locale),
   };
 }

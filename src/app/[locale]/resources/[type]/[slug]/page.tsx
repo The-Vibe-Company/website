@@ -243,7 +243,7 @@ export default async function ContentDetailPage({
             </aside>
 
             {/* Main Content */}
-            <article className="lg:col-span-7 lg:col-start-5">
+            <article lang={item.language} className="lg:col-span-7 lg:col-start-5">
               {/* Mobile Header elements */}
               <div className="lg:hidden mb-8 flex flex-col gap-4">
                 <Link
