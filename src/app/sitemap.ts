@@ -2,7 +2,11 @@ import type { MetadataRoute } from "next";
 import { getAllContent } from "@/lib/content-source";
 import { getUrlSlugForDbType } from "@/lib/content-types";
 import { PROJECT_SLUGS } from "@/lib/projects";
-import { INDEXABLE_STATIC_ROUTES, localizedUrl } from "@/lib/site";
+import {
+  INDEXABLE_STATIC_ROUTES,
+  localizedUrl,
+  monolingualAlternates,
+} from "@/lib/site";
 
 type Extra = Omit<MetadataRoute.Sitemap[number], "url" | "alternates">;
 
@@ -40,13 +44,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // `/resources/[type]` routes redirect to the resources hub, so only emit
   // the hub and actual content detail pages as indexable sitemap entries.
-  const contentRoutes = allContent.flatMap((item) =>
-    entries(`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`, {
+  const contentRoutes = allContent.map((item) => {
+    const path = `/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`;
+    const publication = monolingualAlternates(item.language, path);
+
+    return {
+      url: publication.canonical,
+      alternates: { languages: publication.languages },
       lastModified: new Date(item.publishedAt),
       changeFrequency: "weekly" as const,
       priority: 0.6,
-    })
-  );
+    };
+  });
 
   const portfolioRoutes = PROJECT_SLUGS.flatMap((slug) =>
     entries(`/portfolio/${slug}`, {

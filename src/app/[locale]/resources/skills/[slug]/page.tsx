@@ -14,7 +14,7 @@ import { getContentByType, getContentItem, getRelatedContent } from '@/lib/conte
 import { normalizeMarkdownBody } from '@/lib/markdown';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { localizedAlternates, localizedUrl, SITE_NAME, SITE_URL } from '@/lib/site';
+import { localizedUrl, monolingualAlternates, SITE_NAME, SITE_URL } from '@/lib/site';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
@@ -42,7 +42,7 @@ export async function generateMetadata({
   if (!item) return { title: 'Not Found' };
 
   const canonicalPath = `/resources/skills/${item.slug}`;
-  const canonicalUrl = localizedUrl(locale, canonicalPath);
+  const canonicalUrl = localizedUrl(item.language, canonicalPath);
   const socialImage = item.ogImage ?? item.featuredImage;
   const socialImageUrl = socialImage?.url ? new URL(socialImage.url, SITE_URL).toString() : undefined;
   const socialImageDimensions = getOgImageDimensions(item.ogImage?.sourceUrl);
@@ -50,7 +50,8 @@ export async function generateMetadata({
   return {
     title: `${item.title} | Skills`,
     description: item.summary,
-    alternates: localizedAlternates(locale, canonicalPath),
+    alternates: monolingualAlternates(item.language, canonicalPath),
+    robots: locale === item.language ? undefined : { index: false, follow: true },
     openGraph: {
       type: 'article',
       url: canonicalUrl,
@@ -93,7 +94,7 @@ export default async function SkillDetailPage({
   const body = normalizeMarkdownBody(item.body);
   const related = await getRelated(slug);
 
-  const canonicalUrl = localizedUrl(locale, `/resources/skills/${item.slug}`);
+  const canonicalUrl = localizedUrl(item.language, `/resources/skills/${item.slug}`);
 
   const installContext = {
     slug: item.slug,

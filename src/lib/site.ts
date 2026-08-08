@@ -63,6 +63,17 @@ export function localizedAlternates(locale: string, path = "/") {
   };
 }
 
+export function monolingualAlternates(language: string, path: string) {
+  const canonical = localizedUrl(language, path);
+
+  return {
+    canonical,
+    languages: {
+      [language]: canonical,
+    },
+  };
+}
+
 export function localizedSocialMetadata({
   locale,
   path,

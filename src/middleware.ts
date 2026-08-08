@@ -34,8 +34,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Prefixed URL: let next-intl handle it (remembers the locale in a cookie,
-  // adds alternate-language headers, etc.).
+  // Prefixed URL: let next-intl handle routing and remember the locale in a
+  // cookie. Canonical and alternate links are declared through Next Metadata.
   return intlMiddleware(request);
 }
 

@@ -6,6 +6,9 @@ export const routing = defineRouting({
   defaultLocale: "fr",
   // Language always lives in the first URL segment: /fr/... and /en/...
   localePrefix: "always",
+  // Next Metadata owns canonical/hreflang declarations. This avoids generic
+  // HTTP Link alternates for monolingual resource detail pages.
+  alternateLinks: false,
 });
 
 export type Locale = (typeof routing.locales)[number];

@@ -41,7 +41,9 @@ function buildLlmsTxt(): string {
 
     const contentSections = getNavContentTypes()
       .map((contentType) => {
-        const items = content.filter((item) => item.type === contentType.slug);
+        const items = content.filter(
+          (item) => item.type === contentType.slug && item.language === locale,
+        );
 
         if (items.length === 0) return null;
 
