@@ -20,14 +20,16 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'resources' });
   const title = t('searchTitle');
+  const description = t('subtitle');
   return {
     title,
+    description,
     alternates: localizedAlternates(locale, '/resources/search'),
     ...localizedSocialMetadata({
       locale,
       path: '/resources/search',
       title,
-      description: title,
+      description,
     }),
     robots: {
       index: false,

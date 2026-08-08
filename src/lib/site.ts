@@ -84,7 +84,7 @@ export function localizedSocialMetadata({
       description,
     },
     twitter: {
-      card: "summary_large_image",
+      card: "summary",
       title,
       description,
     },
