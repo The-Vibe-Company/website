@@ -50,8 +50,57 @@
       }
     }
   },
+  "vibeWorlds": {
+    "regionLabel": "Explorer les trois mondes de The Vibe Company",
+    "edition": "The Vibe Company · Mondes en action",
+    "kicker": "STUDIO PRODUIT NÉ AVEC L’IA",
+    "title": "On transforme l’IA en produits qui tournent.",
+    "promise": "On construit des produits, automatise les opérations et forme les équipes à l’IA — du premier brief à la production sécurisée.",
+    "bookCall": "Prendre rendez-vous",
+    "seeWork": "Voir notre travail",
+    "chapterNavigation": "Choisir un monde",
+    "instruction": "Scrollez · utilisez les flèches · choisissez un monde",
+    "activeAnnouncement": "Monde {current} sur {total} : {world}",
+    "worlds": {
+      "build": {
+        "label": "Construire",
+        "title": "D’une idée à un produit en production.",
+        "description": "On cadre, conçoit et développe par cycles courts. Vous voyez vite du logiciel qui marche et récupérez un système fiable.",
+        "axis": "Produit / production",
+        "stamp": "Livrer"
+      },
+      "operate": {
+        "label": "Piloter",
+        "title": "Des agents pour le travail répétitif.",
+        "description": "On audite le workflow, connecte vos outils et déploie des agents sécurisés. Le succès : du temps utile rendu à votre équipe.",
+        "axis": "Workflow / agents",
+        "stamp": "Opérer"
+      },
+      "advise": {
+        "label": "Conseiller",
+        "title": "Une feuille de route IA vraiment praticable.",
+        "description": "On priorise les usages utiles, tranche entre construire et acheter, puis forme votre équipe jusqu’aux premiers workflows en production.",
+        "axis": "Stratégie / adoption",
+        "stamp": "Transmettre"
+      }
+    },
+    "assets": {
+      "buildMobile": "Monka · application aidant",
+      "buildDesktop": "Lifeline · coordination des soins",
+      "operateCompanion": "The Companion · skills d’équipe",
+      "operateVanish": "Vanish · produit en ligne",
+      "adviseVibeDrift": "VibeDrift · signaux de workflow",
+      "adviseVibeDeck": "VibeDeck · cockpit d’équipe"
+    }
+  },
   "clients": {
     "trustedBy": "Ils nous font confiance"
+  },
+  "homeEvidence": {
+    "trustedBy": "Déjà en production chez",
+    "kicker": "PREUVE CLIENT / MONKA",
+    "title": "Du travail qu’on peut ouvrir, utiliser et mesurer.",
+    "readCase": "Lire le cas client"
   },
   "caseStudy": {
     "kicker": "// PROJETS CLIENTS",
@@ -107,6 +156,7 @@
     "kicker": "// 02 — COMMENT ON TRAVAILLE",
     "titleLine1": "Du brief",
     "titleLine2": "à la production.",
+    "intro": "Un processus visible, par cycles courts. On réduit l’incertitude avant de construire, montre du logiciel fonctionnel tout au long du projet et transmet le produit comme la méthode pour l’opérer.",
     "steps": {
       "brief": {
         "label": "BRIEF",
@@ -137,6 +187,18 @@
     "intro": "On crée des produits pour rendre notre équipe et nos clients plus efficaces avec l’IA. C’est aussi comme ça qu’on reste affûtés.",
     "barLeft": "OPEN SOURCE · SUR GITHUB",
     "browseAll": "Tout voir sur GitHub"
+  },
+  "homeProducts": {
+    "kicker": "NOS PRODUITS / OPEN SOURCE",
+    "title": "On garde les mains dans le produit.",
+    "intro": "La même équipe qui construit pour nos clients publie ses propres produits et outils open source. Cette pratique garde nos méthodes concrètes et nos exigences honnêtes.",
+    "coverAlt": "Interface du produit {product}"
+  },
+  "homeFinalCta": {
+    "kicker": "LE PROCHAIN MONDE COMMENCE PAR UN BRIEF",
+    "title": "Apportez-nous le problème qui mérite d’être résolu.",
+    "description": "En 30 minutes, on peut cadrer le problème, le premier mouvement utile et vérifier si The Vibe Company est la bonne équipe pour le construire avec vous.",
+    "bookCall": "Prendre rendez-vous"
   },
   "finalCta": {
     "kicker": "EMBARQUEMENT",

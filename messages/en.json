@@ -50,8 +50,57 @@
       }
     }
   },
+  "vibeWorlds": {
+    "regionLabel": "Explore The Vibe Company's three worlds",
+    "edition": "The Vibe Company · Working worlds",
+    "kicker": "AI-NATIVE PRODUCT STUDIO",
+    "title": "We turn AI into working products.",
+    "promise": "We build products, automate operations, and equip teams to use AI — from the first brief to secure production.",
+    "bookCall": "Book a discovery call",
+    "seeWork": "See the work",
+    "chapterNavigation": "Choose a world",
+    "instruction": "Scroll · use the arrow keys · choose a world",
+    "activeAnnouncement": "World {current} of {total}: {world}",
+    "worlds": {
+      "build": {
+        "label": "Build",
+        "title": "From an idea to software in production.",
+        "description": "We scope, design, and build in short cycles. You see working software early and receive a reliable system your team can run.",
+        "axis": "Product / production",
+        "stamp": "Ship"
+      },
+      "operate": {
+        "label": "Operate",
+        "title": "Agents that do the repetitive work.",
+        "description": "We audit the workflow, connect your tools, and deploy secure agents. Success means useful time returned to your team.",
+        "axis": "Workflow / agents",
+        "stamp": "Run"
+      },
+      "advise": {
+        "label": "Advise",
+        "title": "A practical AI playbook for your team.",
+        "description": "We prioritize useful use cases, make build-or-buy decisions, and train your team through its first production workflows.",
+        "axis": "Strategy / adoption",
+        "stamp": "Learn"
+      }
+    },
+    "assets": {
+      "buildMobile": "Monka · caregiver app",
+      "buildDesktop": "Lifeline · care coordination",
+      "operateCompanion": "The Companion · team skills",
+      "operateVanish": "Vanish · working product",
+      "adviseVibeDrift": "VibeDrift · workflow signals",
+      "adviseVibeDeck": "VibeDeck · team cockpit"
+    }
+  },
   "clients": {
     "trustedBy": "Trusted by"
+  },
+  "homeEvidence": {
+    "trustedBy": "Trusted in production by",
+    "kicker": "CLIENT PROOF / MONKA",
+    "title": "Work you can open, use, and measure.",
+    "readCase": "Read the case study"
   },
   "caseStudy": {
     "kicker": "// CLIENT WORK",
@@ -107,6 +156,7 @@
     "kicker": "// 02 — HOW WE WORK",
     "titleLine1": "From brief",
     "titleLine2": "to production.",
+    "intro": "A visible, short-cycle process. We reduce uncertainty before the build, show working software throughout, and leave your team with the product and the operating knowledge.",
     "steps": {
       "brief": {
         "label": "BRIEF",
@@ -137,6 +187,18 @@
     "intro": "We don't just build for clients. The same team ships its own open-source tools on GitHub. It's how we stay sharp and push what AI can do.",
     "barLeft": "OPEN SOURCE · ON GITHUB",
     "browseAll": "Browse all on GitHub"
+  },
+  "homeProducts": {
+    "kicker": "OUR PRODUCTS / OPEN SOURCE",
+    "title": "We keep our own hands in the work.",
+    "intro": "The same team that builds for clients ships products and open-source tools in public. That practice keeps our methods concrete and our standards honest.",
+    "coverAlt": "{product} product interface"
+  },
+  "homeFinalCta": {
+    "kicker": "THE NEXT WORLD STARTS WITH A BRIEF",
+    "title": "Bring us the problem worth solving.",
+    "description": "In 30 minutes, we can map the problem, the useful first move, and whether The Vibe Company is the right team to build it with you.",
+    "bookCall": "Book a discovery call"
   },
   "finalCta": {
     "kicker": "NOW BOARDING",

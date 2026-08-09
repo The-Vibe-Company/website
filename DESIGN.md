@@ -24,6 +24,7 @@ colors:
   inverse-on-surface: "#EDEDED"
   inverse-muted: "#A3A3A3"
   accent-orange: "#F97316"
+  accent-orange-text: "#9A3412"
   accent-green: "#10B981"
   accent-green-soft: "#62D1AF"
   accent-yellow: "#FACC15"
@@ -222,6 +223,12 @@ components:
     typography: "{typography.label-sm}"
     rounded: "{rounded.none}"
     padding: "{spacing.gap-xs}"
+  signal-label:
+    backgroundColor: "{colors.background}"
+    textColor: "{colors.accent-orange-text}"
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.none}"
+    padding: "{spacing.gap-xs}"
   muted-copy:
     backgroundColor: "{colors.background}"
     textColor: "{colors.muted-foreground}"
@@ -310,7 +317,9 @@ The Vibe Company design system is a warm-paper brutalist editorial system for an
 
 The dominant impression is deep black ink on a slightly warm paper canvas. Layouts are spacious but not soft. Large type, thin technical grid lines, monochrome rules, uppercase mono labels, and blunt black calls to action create the feeling of a shipping console crossed with an independent studio site. The interface should feel confident and operational, not decorative.
 
-The homepage is the core expression: warm paper, giant tight typography, a compact solid subheading beneath the hero display, black slab buttons, bordered cards, and horizontal bands. The hero opens directly on the headline without an announcement strip or status badge. A compact credential row beneath the introduction pairs the linked YC W24 mark with the France 2030 mark; both keep their original aspect ratios and accessible names. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
+The canonical homepage is the core expression and is organized as an interactive editorial workshop called **Vibe Worlds**. Its first viewport states the offer and primary action immediately, then moves through Build, Operate, and Advise as three chapters in one warm-paper scene. Product captures are handled like physical work-in-progress sheets on a drafting table: sharp borders, hard offset shadows, crop changes, registration marks, and camera-like shifts in depth. The active world, chapter rail, and copy always move together so motion explains the offer instead of decorating it.
+
+After the world sequence, the homepage alternates full-width evidence, method, product, and action bands. Client proof uses validated product captures and metrics; the method reads as a ruled production ledger; the open-source catalogue is a sequence of wide workbench rows rather than a card grid. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
 
 An experimental preview of the homepage lives at `/v2`. It keeps the full warm-paper system (the same top nav, sections, footer, deep ink, and Geist type) and only swaps the static hero for a playable, Chrome-dino-style runner on a canvas. Inside that canvas the game travels through a sequence of "worlds", each a product, a service, or the YC backing, and each world carries its own art direction (paper, ink, accent, and player colour) with a presentation panel that stays for the whole world. It is a preview, not yet the canonical homepage.
 
@@ -324,7 +333,7 @@ The palette is intentionally restrained. Warm paper and deep ink carry most of t
 - **Muted Paper (#F3F0EA):** A secondary surface for subtle panels, hover states, and calm-studio areas.
 - **Constructed Border (#DCD7CE):** The warm gray line used for grids, dividers, inputs, and low-emphasis structure.
 - **Inverse Black (#030303/#121212):** Used for process, portfolio, and footer sections. These should feel matte and production-grade, not glossy.
-- **Signal Accents:** Orange marks YC and occasional attention points. Green, yellow, and mint identify product status or portfolio accents. Domain colors are reserved for resource taxonomy and should stay small.
+- **Signal Accents:** Bright orange (#F97316) marks non-text signals and large high-contrast surfaces. Small orange metadata on paper uses the accessible burnt-orange text token (#9A3412). Green, yellow, and mint identify product status or portfolio accents. Domain colors are reserved for resource taxonomy and should stay small.
 - **Per-world art direction (preview hero only):** Inside the `/v2` runner hero, each world repaints the canvas with its own palette (emerald, orange, amber, slate-teal, indigo, violet, and a dark YC stage), including the player colour. These palettes are scoped to the game canvas and never change the warm-paper chrome around it.
 
 Avoid large colorful areas. The site should remain primarily black, warm paper, and linework.
@@ -343,9 +352,9 @@ Mono labels are uppercase with generous letter spacing. They behave like interfa
 
 Use full-width bands and wide inner containers. The primary desktop container can stretch up to 100rem; smaller prose areas should stay near 640px. Page gutters start at 24px, move to 48px on medium screens, and can reach 96px on large screens.
 
-The homepage grid is a key brand asset. Use a 40px square technical grid on warm-paper sections where the page needs energy or a sense of construction. Keep the grid subtle and masked so it supports the composition without competing with text.
+The homepage grid is a key brand asset. Use a 40px square technical grid on warm-paper sections where the page needs energy or a sense of construction. Inside Vibe Worlds, a tighter 28px drafting grid may be used to give product captures a workshop scale. Keep grids subtle so they support the composition without competing with text.
 
-Sections use large vertical spacing, typically 96-128px. Layouts should feel roomy at the band level but dense inside components. Cards and rows use strong alignment, visible dividers, and predictable columns.
+Sections use large vertical spacing, typically 96-128px. Layouts should feel roomy at the band level but dense inside components. The homepage favors asymmetric evidence blocks and ruled rows over repeated cards. Vibe Worlds is sticky across three viewport-length chapters; each active composition fits within the stage, with the mobile treatment compressed into a readable single-screen layout. Without scripting or with reduced motion, it becomes a static stack containing all three chapter texts.
 
 Resources and portfolio screens are more utilitarian. They should keep the same mono metadata, tight headings, thin dividers, and warm borders, but reduce spectacle in favor of scanability.
 
@@ -375,13 +384,15 @@ Cards are bordered rectangles, not soft containers. Service cards and product ca
 
 Navigation is sticky, translucent, and understated. The wordmark is mono, compact, and paired with a small black logo. Desktop links are quiet until hover. The contact CTA is a black pill in the global nav, distinct from the square slab CTAs used in content.
 
-The open-source project grid uses the canonical five-product catalogue. Its organization-level GitHub action is an underlined mono text link, never an orange slab or filled button.
+The open-source catalogue uses the canonical five products as wide ruled rows with real interface covers. GitHub remains the destination and is presented as an explicit compact action, never as a decorative orange promotion.
 
 Case-study product imagery keeps the product UI legible instead of treating screenshots as decoration. Portrait mobile captures may sit beside the overview at no more than 360px wide; wide desktop captures span the case-study content section. Preserve each image's intrinsic ratio, localized alternative text, square border, and responsive dimensions.
 
 The footer is a three-column desktop grid: a wide identity and contact column followed by site navigation and external links. It collapses to one column on small screens. The narrow operational-status column is not part of the footer, while the lower status line remains visible below the divider.
 
 The `/v2` preview swaps the static hero for a playable canvas runner that reuses the standard top nav, sections, and footer. Its score readout and the per-world presentation panel are diegetic game UI; the surrounding page keeps the normal warm-paper components. This belongs to the preview surface only.
+
+Vibe Worlds is not a game surface. Chapter buttons are real 44px-minimum controls, the rail exposes the active chapter, and Arrow Left/Right provides an equivalent keyboard path while the region has focus. Scroll changes the composed depth and active copy together. Transitions use the smooth 650ms camera curve; direct feedback remains under 200ms. Reduced motion removes the sticky camera and transitions entirely.
 
 Labels, tags, counters, and status chips use Geist Mono, uppercase text, wide tracking, and small scale. They should feel like technical readouts. Status dots can pulse, but they should remain tiny.
 
