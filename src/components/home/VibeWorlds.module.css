@@ -1,49 +1,24 @@
 .story {
   position: relative;
+  overflow: clip;
   border-bottom: 2px solid var(--foreground);
   background: var(--background);
 }
 
 .stage {
   position: relative;
-  min-height: calc(100svh - 53px);
-  padding: 14px 24px 18px;
-  overflow: hidden;
-  background:
-    linear-gradient(90deg, transparent 0 49.93%, color-mix(in srgb, var(--border) 62%, transparent) 50%, transparent 50.07%),
-    var(--background);
+  max-width: 100rem;
+  margin: 0 auto;
+  padding: 14px 24px 28px;
 }
 
 .topRule {
   display: flex;
+  min-width: 0;
   justify-content: space-between;
+  gap: 16px;
   border-top: 1px solid var(--foreground);
   padding-top: 8px;
-  font-family: var(--font-geist-mono);
-  font-size: 9px;
-  line-height: 1;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.stageGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-content: start;
-  gap: 10px;
-  min-height: calc(100svh - 214px);
-  padding: 18px 0 12px;
-}
-
-.intro {
-  position: relative;
-  z-index: 4;
-}
-
-.kicker,
-.worldLabel,
-.instruction {
-  margin: 0;
   font-family: var(--font-geist-mono);
   font-size: 9px;
   line-height: 1.2;
@@ -51,49 +26,92 @@
   text-transform: uppercase;
 }
 
+.topRule span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px 0;
+}
+
+.intro {
+  position: relative;
+  z-index: 5;
+  align-self: center;
+  min-width: 0;
+}
+
+.kicker,
+.gameInvitation,
+.chapterHeading p,
+.chapterHeading span,
+.sceneReadout,
+.hud span,
+.worldNumber,
+.worldLabel,
+.worldStamp,
+.fallbackNotice span,
+.deathKicker,
+.deathStats span,
+.discoveredWorlds > p {
+  font-family: var(--font-geist-mono);
+  text-transform: uppercase;
+}
+
 .kicker {
-  color: #9A3412;
+  margin: 0;
+  color: #9a3412;
+  font-size: 9px;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
 }
 
 .intro h1 {
-  max-width: 11.5ch;
-  margin: 10px 0 0;
-  font-size: clamp(42px, 12vw, 116px);
-  font-weight: 750;
+  max-width: 10.5ch;
+  margin: 13px 0 0;
+  font-size: clamp(45px, 12vw, 86px);
+  font-weight: 760;
   line-height: 0.86;
-  letter-spacing: -0.062em;
+  letter-spacing: -0.064em;
   text-wrap: balance;
 }
 
 .promise {
-  max-width: 53ch;
-  margin: 13px 0 0;
+  max-width: 55ch;
+  margin: 18px 0 0;
   color: var(--muted-foreground);
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 .actions {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px;
-  margin-top: 16px;
+  gap: 7px;
+  margin-top: 22px;
 }
 
 .primaryAction,
 .secondaryAction {
   display: inline-flex;
-  min-height: 44px;
+  min-height: 48px;
+  min-width: 0;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 10px;
   border: 1px solid var(--foreground);
-  padding: 9px 11px;
+  padding: 11px 13px;
   color: var(--foreground);
   font-size: 12px;
-  font-weight: 620;
+  font-weight: 650;
+  line-height: 1.2;
   text-decoration: none;
-  transition: transform 180ms cubic-bezier(0.25, 1, 0.5, 1), box-shadow 180ms cubic-bezier(0.25, 1, 0.5, 1);
+  transition: box-shadow 180ms ease, transform 180ms ease;
 }
 
 .primaryAction {
@@ -105,400 +123,682 @@
   background: var(--background);
 }
 
-.primaryAction:hover,
-.secondaryAction:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0 var(--foreground);
+.gameInvitation {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 16px 0 0;
+  color: var(--muted-foreground);
+  font-size: 9px;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
 }
 
-.visualWorkshop {
+.gameInvitation span {
+  color: #f97316;
+  font-size: 17px;
+}
+
+.gameFrame {
   position: relative;
-  z-index: 2;
-  min-height: 145px;
+  min-width: 0;
+  min-height: 390px;
   overflow: hidden;
-  border: 1px solid var(--foreground);
+  border: 2px solid var(--foreground);
   background: #f3f0ea;
-  contain: paint;
+  box-shadow: 8px 8px 0 var(--foreground);
 }
 
-.cameraGrid {
+.game {
   position: absolute;
   inset: 0;
-  opacity: 0.7;
-  background-image:
-    linear-gradient(to right, var(--border) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
-  background-size: 28px 28px;
-  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+  isolation: isolate;
+  overflow: hidden;
+  background: #f3f0ea;
+  contain: layout paint size;
 }
 
-.visualWorkshop[data-world="operate"] .cameraGrid {
-  transform: translateX(-18px) scale(1.08);
-}
-
-.visualWorkshop[data-world="advise"] .cameraGrid {
-  transform: translate(12px, -12px) scale(1.16) rotate(-1deg);
-}
-
-.axisLabel {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 8;
-  border: 1px solid var(--foreground);
-  background: var(--background);
-  padding: 5px 7px;
-  font-family: var(--font-geist-mono);
-  font-size: 8px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.worldScene {
+.canvas {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  outline: none;
+  touch-action: manipulation;
+}
+
+.canvas:focus-visible {
+  outline: 3px solid #f97316;
+  outline-offset: -5px;
+}
+
+.staticScene {
+  --static-ink: #171717;
+  --static-accent: #f97316;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #eee8de;
+  transition: opacity 180ms ease;
+}
+
+.staticScene[data-world="operate"] {
+  --static-ink: #16231b;
+  --static-accent: #2f6f52;
+  background: #dfe7df;
+}
+
+.staticScene[data-world="advise"] {
+  --static-ink: #261e19;
+  --static-accent: #b84d24;
+  background: #e2d7c8;
+}
+
+.staticSceneHidden {
   opacity: 0;
-  transform: translate3d(calc((var(--scene-index) - 1) * 12%), 4%, 0) scale(0.92);
-  transition:
-    opacity 280ms ease,
-    transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.worldSceneActive {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
-}
-
-.workObject {
+.staticGround {
   position: absolute;
-  overflow: hidden;
-  border: 1px solid var(--foreground);
-  background: #fff;
-  box-shadow: 6px 6px 0 rgba(10, 10, 10, 0.88);
+  right: -10%;
+  bottom: -22%;
+  left: -10%;
+  height: 48%;
+  border-top: 2px solid var(--static-ink);
+  background: #d8d0c4;
+  transform: skewY(-7deg);
 }
 
-.workObject span {
+.staticFrameA,
+.staticFrameB {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
+  bottom: 20%;
+  width: 22%;
+  height: 48%;
+  border: 8px solid var(--static-ink);
+  border-bottom-width: 24px;
+  box-shadow: inset 0 0 0 5px var(--static-accent);
+  transform: skewY(-8deg);
+}
+
+.staticFrameA {
+  right: 15%;
+}
+
+.staticFrameB {
+  right: 42%;
+  height: 34%;
+  opacity: 0.58;
+}
+
+.staticPlayer {
+  position: absolute;
+  bottom: 18%;
+  left: 22%;
+  width: 42px;
+  height: 74px;
+  background: var(--static-ink);
+  box-shadow: 12px 9px 0 -7px var(--static-accent);
+}
+
+.staticPlayer::before {
+  position: absolute;
+  top: -25px;
+  left: 6px;
+  width: 31px;
+  height: 31px;
+  border: 7px solid var(--static-ink);
+  background: transparent;
+  content: "";
+  transform: rotate(15deg);
+}
+
+.staticPlayer span::before,
+.staticPlayer span::after {
+  position: absolute;
+  bottom: -24px;
+  width: 10px;
+  height: 28px;
+  background: var(--static-ink);
+  content: "";
+}
+
+.staticPlayer span::before { left: 5px; transform: rotate(12deg); }
+.staticPlayer span::after { right: 5px; transform: rotate(-12deg); }
+
+.sceneReadout {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 4;
+  display: flex;
+  gap: 8px;
+  border: 1px solid currentColor;
+  background: rgba(253, 251, 247, 0.9);
+  padding: 6px 8px;
+  color: #171717;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  pointer-events: none;
+}
+
+.sceneReadout span + span::before {
+  margin-right: 8px;
+  color: #f97316;
+  content: "●";
+}
+
+.hud {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(88px, 1.15fr) repeat(2, minmax(54px, 0.7fr));
+  min-width: min(360px, calc(100% - 24px));
+  border: 1px solid #171717;
+  background: rgba(253, 251, 247, 0.92);
+  color: #171717;
+  pointer-events: none;
+}
+
+.hudWorld,
+.hudScore,
+.hudBest {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  padding: 7px 9px;
+}
+
+.hudScore,
+.hudBest {
+  border-left: 1px solid rgba(23, 23, 23, 0.28);
+}
+
+.hud span {
   overflow: hidden;
-  border-top: 1px solid var(--foreground);
-  background: rgba(253, 251, 247, 0.96);
-  padding: 5px 7px;
-  font-family: var(--font-geist-mono);
+  color: #57534e;
   font-size: 7px;
   letter-spacing: 0.1em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hud strong {
+  overflow: hidden;
+  font-family: var(--font-geist-mono);
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1;
   text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-.objectImage {
-  object-fit: cover;
-  object-position: top left;
-}
-
-.mobileSheet {
-  top: 28px;
-  left: 11%;
-  width: 22%;
-  height: 74%;
-  transform: rotate(-3deg);
-}
-
-.desktopSheet {
-  top: 36px;
-  right: 8%;
-  width: 58%;
-  height: 58%;
-  transform: rotate(1.5deg);
-}
-
-.operateMain {
-  top: 30px;
-  left: 7%;
-  width: 68%;
-  height: 66%;
-  transform: rotate(-1.5deg);
-}
-
-.operateSide {
-  right: 5%;
-  bottom: 16px;
-  width: 36%;
-  height: 48%;
-  transform: rotate(3deg);
-}
-
-.adviseMain {
-  top: 26px;
-  right: 8%;
-  width: 68%;
-  height: 67%;
-  transform: rotate(1.8deg);
-}
-
-.adviseSide {
-  bottom: 14px;
-  left: 5%;
-  width: 36%;
-  height: 46%;
-  transform: rotate(-3.5deg);
-}
-
-.sceneStamp {
+.worldProgress {
   position: absolute;
-  right: 11px;
-  top: 9px;
-  color: #f97316;
-  font-family: var(--font-geist-mono);
-  font-size: clamp(26px, 5vw, 58px);
-  font-weight: 700;
-  line-height: 0.86;
-  letter-spacing: -0.07em;
-  opacity: 0.82;
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-}
-
-.crosshair {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  z-index: 8;
-  width: 26px;
-  height: 26px;
-  border: 1px solid var(--foreground);
-  border-radius: 50%;
-}
-
-.crosshair span:first-child,
-.crosshair span:last-child {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: block;
-  background: var(--foreground);
-  transform: translate(-50%, -50%);
-}
-
-.crosshair span:first-child { width: 34px; height: 1px; }
-.crosshair span:last-child { width: 1px; height: 34px; }
-
-.copyDeck {
-  position: relative;
-  z-index: 4;
-}
-
-.worldCopy {
-  display: grid;
-  grid-template-columns: 40px minmax(0, 1fr);
-  gap: 10px;
-  border-top: 1px solid var(--foreground);
-  padding-top: 10px;
-}
-
-.worldCopy + .worldCopy {
-  margin-top: 18px;
-}
-
-.worldNumber {
-  color: #9A3412;
-  font-family: var(--font-geist-mono);
-  font-size: 10px;
-}
-
-.worldLabel {
-  color: var(--muted-foreground);
-}
-
-.worldCopy h2 {
-  margin: 5px 0 0;
-  font-size: clamp(20px, 5vw, 42px);
-  font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-}
-
-.worldCopy p:last-child {
-  max-width: 55ch;
-  margin: 7px 0 0;
-  color: var(--muted-foreground);
-  font-size: 11px;
-  line-height: 1.35;
-}
-
-.chapterRail {
-  position: relative;
-  z-index: 10;
-  display: grid;
-  align-items: end;
-  gap: 7px;
-  border-top: 1px solid var(--foreground);
-  padding-top: 7px;
-}
-
-.instruction {
-  color: var(--muted-foreground);
-}
-
-.chapterButtons {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
-}
-
-.chapterButtons button {
-  min-width: 0;
-  min-height: 44px;
-  border: 0;
-  border-left: 1px solid var(--border);
-  background: transparent;
-  padding: 7px 8px;
-  color: var(--muted-foreground);
-  cursor: pointer;
-  font-size: 11px;
-  text-align: left;
-  transition: color 180ms ease, background 180ms ease;
-}
-
-.chapterButtons button:first-child { border-left: 0; }
-.chapterButtons button span {
-  display: block;
-  margin-bottom: 3px;
-  color: #9A3412;
-  font-family: var(--font-geist-mono);
-  font-size: 8px;
-  letter-spacing: 0.1em;
-}
-
-.chapterButtons button:hover,
-.chapterButtons .chapterActive {
-  background: var(--foreground);
-  color: var(--background);
-}
-
-.progress {
-  height: 2px;
+  right: -1px;
+  bottom: -5px;
+  left: -1px;
+  height: 3px;
   overflow: hidden;
-  background: var(--border);
+  background: rgba(23, 23, 23, 0.18);
 }
 
-.progress span {
+.worldProgress span {
   display: block;
   width: 100%;
   height: 100%;
   background: #f97316;
   transform-origin: left;
-  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.scrollTrack { display: none; }
+.gameControls {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 6;
+  display: flex;
+  gap: 7px;
+}
 
-@media (scripting: enabled) {
-  .story { height: 300svh; }
-  .stage {
-    position: sticky;
-    top: 53px;
-    height: calc(100svh - 53px);
-    min-height: 580px;
+.gameControls button {
+  display: inline-flex;
+  min-width: 92px;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid #171717;
+  border-radius: 0;
+  padding: 9px 10px;
+  cursor: pointer;
+  font-family: var(--font-geist-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  touch-action: none;
+}
+
+.jumpControl {
+  background: #171717;
+  color: #fdfbf7;
+}
+
+.duckControl {
+  background: rgba(253, 251, 247, 0.94);
+  color: #171717;
+}
+
+.gameControls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.gameControls kbd {
+  border: 1px solid currentColor;
+  padding: 3px 4px;
+  font: inherit;
+  letter-spacing: 0.02em;
+}
+
+.fallbackNotice {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 4;
+  max-width: min(280px, calc(100% - 24px));
+  border: 1px solid #171717;
+  background: rgba(253, 251, 247, 0.95);
+  padding: 10px 12px;
+}
+
+.fallbackNotice span {
+  font-size: 8px;
+  letter-spacing: 0.13em;
+}
+
+.fallbackNotice p {
+  margin: 5px 0 0;
+  color: #57534e;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.deathOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 10, 0.93);
+  padding: 24px;
+  color: #fdfbf7;
+  text-align: center;
+}
+
+.deathKicker {
+  margin: 0;
+  color: #f97316;
+  font-size: 9px;
+  letter-spacing: 0.17em;
+}
+
+.deathOverlay h2 {
+  max-width: 12ch;
+  margin: 12px 0 0;
+  font-size: clamp(34px, 6vw, 66px);
+  font-weight: 720;
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.deathStats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(76px, 1fr));
+  margin-top: 20px;
+  border: 1px solid rgba(253, 251, 247, 0.35);
+}
+
+.deathStats div {
+  display: grid;
+  gap: 4px;
+  padding: 10px 14px;
+}
+
+.deathStats div + div {
+  border-left: 1px solid rgba(253, 251, 247, 0.22);
+}
+
+.deathStats strong {
+  font-family: var(--font-geist-mono);
+  font-size: 20px;
+}
+
+.deathStats span,
+.discoveredWorlds > p {
+  color: rgba(253, 251, 247, 0.58);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+}
+
+.discoveredWorlds {
+  margin-top: 15px;
+}
+
+.discoveredWorlds > p {
+  margin: 0 0 8px;
+}
+
+.discoveredWorlds > div,
+.deathActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+}
+
+.discoveredWorlds a {
+  border-bottom: 1px solid rgba(253, 251, 247, 0.55);
+  padding: 3px 1px;
+  color: #fdfbf7;
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.deathActions {
+  margin-top: 18px;
+}
+
+.deathActions button,
+.deathActions a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(253, 251, 247, 0.62);
+  border-radius: 0;
+  background: transparent;
+  padding: 9px 13px;
+  color: #fdfbf7;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 620;
+  text-decoration: none;
+}
+
+.deathActions button {
+  background: #fdfbf7;
+  color: #171717;
+}
+
+.chapterSection {
+  border-top: 1px solid var(--foreground);
+  padding-top: 10px;
+}
+
+.chapterHeading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 10px;
+}
+
+.chapterHeading p,
+.chapterHeading span {
+  margin: 0;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+}
+
+.chapterHeading span {
+  color: var(--muted-foreground);
+  text-align: right;
+}
+
+.worldList {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--foreground);
+  list-style: none;
+}
+
+.worldList li + li {
+  border-top: 1px solid var(--foreground);
+}
+
+.worldList button {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-height: 148px;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: start;
+  border: 0;
+  border-radius: 0;
+  background: var(--background);
+  padding: 14px;
+  color: var(--foreground);
+  cursor: pointer;
+  text-align: left;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.worldList button:disabled {
+  cursor: default;
+}
+
+.worldNumber {
+  color: #9a3412;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.worldCopy {
+  display: grid;
+  gap: 7px;
+}
+
+.worldLabel {
+  color: var(--muted-foreground);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+}
+
+.worldCopy strong {
+  max-width: 17ch;
+  font-size: clamp(21px, 3vw, 30px);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.worldCopy > span:last-child {
+  max-width: 51ch;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 1.42;
+}
+
+.worldStamp {
+  color: #b84d24;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  writing-mode: vertical-rl;
+}
+
+.worldList .worldActive {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.worldActive .worldLabel,
+.worldActive .worldCopy > span:last-child {
+  color: rgba(253, 251, 247, 0.66);
+}
+
+.worldActive .worldNumber,
+.worldActive .worldStamp {
+  color: #fb923c;
+}
+
+.primaryAction:focus-visible,
+.secondaryAction:focus-visible,
+.gameControls button:focus-visible,
+.worldList button:focus-visible {
+  outline: 3px solid #9a3412;
+  outline-offset: 3px;
+}
+
+.deathActions button:focus-visible,
+.deathActions a:focus-visible,
+.discoveredWorlds a:focus-visible {
+  outline: 3px solid #fb923c;
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .primaryAction:hover,
+  .secondaryAction:hover {
+    box-shadow: 5px 5px 0 var(--foreground);
+    transform: translate(-2px, -2px);
   }
-  .scrollTrack {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    display: block;
-    pointer-events: none;
+
+  .worldList button:not(:disabled):hover {
+    background: #f3f0ea;
   }
-  .scrollStep { height: 100svh; }
-  .copyDeck { min-height: 112px; }
-  .worldCopy {
-    position: absolute;
-    inset: 0;
-    margin: 0 !important;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(10px);
-    transition: opacity 250ms ease, transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  .worldList .worldActive:not(:disabled):hover {
+    background: var(--foreground);
   }
-  .worldCopyActive {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
+
+  .gameControls button:not(:disabled):hover,
+  .deathActions button:hover,
+  .deathActions a:hover {
+    outline: 2px solid #f97316;
+    outline-offset: -4px;
   }
 }
 
-@media (scripting: none) {
-  .chapterRail { display: none; }
+@media (min-width: 640px) {
+  .gameFrame { min-height: 470px; }
+  .worldList button { min-height: 158px; padding: 17px; }
+  .worldCopy > span:last-child { font-size: 13px; }
 }
 
-@media (min-width: 768px) {
-  .stage { padding: 16px 48px 20px; }
-  .stageGrid {
-    grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.18fr);
-    grid-template-rows: 1fr auto;
-    align-content: stretch;
-    gap: 22px 34px;
-    min-height: calc(100svh - 174px);
-    padding: 24px 0 18px;
+@media (min-width: 820px) {
+  .stage { padding: 16px 24px 34px; }
+  .heroGrid {
+    grid-template-columns: minmax(270px, 0.72fr) minmax(0, 1.28fr);
+    min-height: calc(100svh - 225px);
+    align-items: stretch;
+    gap: 24px;
+    padding: 30px 0 26px;
   }
-  .intro { align-self: center; }
-  .promise { margin-top: 20px; font-size: 16px; }
-  .actions { display: flex; margin-top: 24px; }
-  .primaryAction, .secondaryAction { min-height: 48px; padding-inline: 17px; font-size: 14px; }
-  .visualWorkshop { grid-row: 1 / span 2; grid-column: 2; min-height: 0; }
-  .copyDeck { grid-column: 1; min-height: 190px; }
-  .worldCopy { grid-template-columns: 54px minmax(0, 1fr); gap: 14px; padding-top: 14px; }
-  .worldCopy p:last-child { font-size: 14px; }
-  .chapterRail { grid-template-columns: 180px 1fr; column-gap: 22px; }
-  .chapterButtons button { padding-inline: 12px; font-size: 12px; }
-  .progress { grid-column: 2; }
+  .intro h1 { font-size: clamp(58px, 6.1vw, 92px); }
+  .promise { font-size: 16px; }
+  .gameFrame { min-height: 520px; }
+  .worldList { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .worldList li + li { border-top: 0; border-left: 1px solid var(--foreground); }
+  .worldList button { min-height: 190px; }
+  .sceneReadout { top: 16px; left: 16px; }
+  .hud { top: 16px; right: 16px; }
+  .gameControls { right: 16px; bottom: 16px; }
+}
+
+@media (min-width: 820px) and (max-width: 959px) {
+  .sceneReadout { display: none; }
 }
 
 @media (min-width: 1180px) {
   .stage { padding-inline: 72px; }
-  .stageGrid { grid-template-columns: minmax(380px, 0.78fr) minmax(560px, 1.22fr); gap: 28px 56px; }
-  .intro h1 { font-size: clamp(64px, 5.7vw, 84px); }
-  .visualWorkshop { min-height: 610px; }
+  .heroGrid {
+    grid-template-columns: minmax(370px, 0.75fr) minmax(600px, 1.25fr);
+    gap: 52px;
+  }
+  .intro h1 { font-size: clamp(65px, 5.4vw, 92px); }
+  .gameFrame { min-height: 590px; }
+  .worldList button { grid-template-columns: 38px minmax(0, 1fr) auto; padding: 20px; }
 }
 
-@media (max-height: 720px) and (scripting: enabled) {
-  .stage { overflow-y: auto; }
-  .stageGrid { gap-block: 9px; padding-block: 10px; }
-  .intro h1 { font-size: clamp(38px, 9vh, 72px); }
-  .promise { margin-top: 8px; }
-  .actions { margin-top: 10px; }
-  .visualWorkshop { min-height: 165px; }
+@media (max-width: 519px) {
+  .topRule span:last-child { display: none; }
+  .actions { grid-template-columns: minmax(0, 1fr); }
+  .gameFrame { min-height: 350px; box-shadow: 5px 5px 0 var(--foreground); }
+  .sceneReadout { display: none; }
+  .hud {
+    top: 8px;
+    right: 8px;
+    left: 8px;
+    min-width: 0;
+  }
+  .hudWorld, .hudScore, .hudBest { padding: 7px; }
+  .gameControls { right: 8px; bottom: 8px; left: 8px; }
+  .gameControls button { flex: 1; min-width: 0; }
+  .fallbackNotice { top: 8px; right: 8px; left: 8px; max-width: none; }
+  .deathOverlay { justify-content: flex-start; padding: 26px 14px 18px; }
+  .deathStats { width: 100%; }
+  .deathStats div { padding-inline: 7px; }
+  .deathActions { width: 100%; }
+  .deathActions button, .deathActions a { justify-content: center; }
+  .chapterHeading { display: grid; }
+  .chapterHeading span { text-align: left; }
+}
+
+@media (max-height: 700px) and (min-width: 820px) {
+  .heroGrid { min-height: 340px; gap: 24px; padding-block: 10px; }
+  .intro h1 { margin-top: 6px; font-size: clamp(32px, 9vh, 38px); line-height: 0.82; }
+  .promise { margin-top: 6px; font-size: 11px; line-height: 1.26; }
+  .actions { margin-top: 8px; }
+  .primaryAction, .secondaryAction { min-height: 44px; padding: 7px 9px; font-size: 10px; }
+  .gameInvitation { display: none; }
+  .gameFrame { min-height: 340px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .story { height: auto !important; }
-  .stage {
-    position: relative !important;
-    top: auto !important;
-    height: auto !important;
-    min-height: 0 !important;
-    overflow: visible;
+  .primaryAction,
+  .secondaryAction,
+  .staticScene,
+  .worldList button {
+    transition: none;
   }
-  .stageGrid { min-height: 0; }
-  .visualWorkshop { min-height: 300px; }
-  .worldScene {
+
+  .canvas,
+  .gameControls,
+  .hud,
+  .sceneReadout {
     display: none;
+  }
+
+  .staticSceneHidden {
     opacity: 1;
-    transform: none;
   }
-  .worldSceneActive { display: block; }
-  .copyDeck { min-height: 0 !important; }
-  .worldCopy {
-    position: static !important;
-    margin-top: 20px !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transform: none !important;
+}
+
+@media (scripting: none) {
+  .canvas,
+  .gameControls,
+  .hud,
+  .sceneReadout,
+  .fallbackNotice {
+    display: none;
   }
-  .worldCopy:first-child { margin-top: 0 !important; }
-  .chapterRail,
-  .scrollTrack { display: none !important; }
+
+  .staticSceneHidden {
+    opacity: 1;
+  }
+
 }

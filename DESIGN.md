@@ -317,7 +317,7 @@ The Vibe Company design system is a warm-paper brutalist editorial system for an
 
 The dominant impression is deep black ink on a slightly warm paper canvas. Layouts are spacious but not soft. Large type, thin technical grid lines, monochrome rules, uppercase mono labels, and blunt black calls to action create the feeling of a shipping console crossed with an independent studio site. The interface should feel confident and operational, not decorative.
 
-The canonical homepage is the core expression and is organized as an interactive editorial workshop called **Vibe Worlds**. Its first viewport states the offer and primary action immediately, then moves through Build, Operate, and Advise as three chapters in one warm-paper scene. Product captures are handled like physical work-in-progress sheets on a drafting table: sharp borders, hard offset shadows, crop changes, registration marks, and camera-like shifts in depth. The active world, chapter rail, and copy always move together so motion explains the offer instead of decorating it.
+The canonical homepage is the core expression and is organized around a playable Three.js editorial workshop called **Vibe Worlds**. Its first viewport states the offer and primary action immediately beside a live WebGL endless runner; the game never replaces or gates the commercial message. Build, Operate, and Advise are three successive low-poly worlds made from matte drafting frames, workflow machinery, decision monoliths, ruled ground planes, controlled fog, and studio light. The player, obstacles, score, progress, warp, and chapter rail move together so game feel explains the offer instead of decorating it.
 
 After the world sequence, the homepage alternates full-width evidence, method, product, and action bands. Client proof uses validated product captures and metrics; the method reads as a ruled production ledger; the open-source catalogue is a sequence of wide workbench rows rather than a card grid. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
 
@@ -334,7 +334,7 @@ The palette is intentionally restrained. Warm paper and deep ink carry most of t
 - **Constructed Border (#DCD7CE):** The warm gray line used for grids, dividers, inputs, and low-emphasis structure.
 - **Inverse Black (#030303/#121212):** Used for process, portfolio, and footer sections. These should feel matte and production-grade, not glossy.
 - **Signal Accents:** Bright orange (#F97316) marks non-text signals and large high-contrast surfaces. Small orange metadata on paper uses the accessible burnt-orange text token (#9A3412). Green, yellow, and mint identify product status or portfolio accents. Domain colors are reserved for resource taxonomy and should stay small.
-- **Per-world art direction (preview hero only):** Inside the `/v2` runner hero, each world repaints the canvas with its own palette (emerald, orange, amber, slate-teal, indigo, violet, and a dark YC stage), including the player colour. These palettes are scoped to the game canvas and never change the warm-paper chrome around it.
+- **Per-world art direction:** The canonical Three.js runner stays inside the paper-and-ink family: warm drafting paper with orange registration marks for Build, cool operational sage for Operate, and a clay/tobacco editorial field for Advise. The experimental `/v2` canvas retains its broader legacy palette. All world colors stay scoped to their game canvas and never repaint the warm-paper page chrome.
 
 Avoid large colorful areas. The site should remain primarily black, warm paper, and linework.
 
@@ -352,9 +352,9 @@ Mono labels are uppercase with generous letter spacing. They behave like interfa
 
 Use full-width bands and wide inner containers. The primary desktop container can stretch up to 100rem; smaller prose areas should stay near 640px. Page gutters start at 24px, move to 48px on medium screens, and can reach 96px on large screens.
 
-The homepage grid is a key brand asset. Use a 40px square technical grid on warm-paper sections where the page needs energy or a sense of construction. Inside Vibe Worlds, a tighter 28px drafting grid may be used to give product captures a workshop scale. Keep grids subtle so they support the composition without competing with text.
+The homepage grid is a key brand asset. Use a 40px square technical grid on warm-paper sections where the page needs energy or a sense of construction. Inside Vibe Worlds, the actual perspective ground, frames, conveyors, and monoliths provide the construction grid in Three.js. Keep linework subtle so it supports the scene without competing with text.
 
-Sections use large vertical spacing, typically 96-128px. Layouts should feel roomy at the band level but dense inside components. The homepage favors asymmetric evidence blocks and ruled rows over repeated cards. Vibe Worlds is sticky across three viewport-length chapters; each active composition fits within the stage, with the mobile treatment compressed into a readable single-screen layout. Without scripting or with reduced motion, it becomes a static stack containing all three chapter texts.
+Sections use large vertical spacing, typically 96-128px. Layouts should feel roomy at the band level but dense inside components. The homepage favors asymmetric evidence blocks and ruled rows over repeated cards. Vibe Worlds uses a commercial-copy/game split on wide screens and a copy-first stack on small screens. The three server-rendered chapter texts remain in a ruled sequence below the live scene. Without scripting, without WebGL, or with reduced motion, the canvas yields to a static workshop plate while all chapters and actions remain usable.
 
 Resources and portfolio screens are more utilitarian. They should keep the same mono metadata, tight headings, thin dividers, and warm borders, but reduce spectacle in favor of scanability.
 
@@ -392,7 +392,7 @@ The footer is a three-column desktop grid: a wide identity and contact column fo
 
 The `/v2` preview swaps the static hero for a playable canvas runner that reuses the standard top nav, sections, and footer. Its score readout and the per-world presentation panel are diegetic game UI; the surrounding page keeps the normal warm-paper components. This belongs to the preview surface only.
 
-Vibe Worlds is not a game surface. Chapter buttons are real 44px-minimum controls, the rail exposes the active chapter, and Arrow Left/Right provides an equivalent keyboard path while the region has focus. Scroll changes the composed depth and active copy together. Transitions use the smooth 650ms camera curve; direct feedback remains under 200ms. Reduced motion removes the sticky camera and transitions entirely.
+Vibe Worlds is a real game surface, but the brand message is never conditional on play. Space/Arrow Up starts and jumps, Arrow Down or the 44px-minimum hold control ducks, Escape stops the run, and the active chapter remains exposed in the HUD and static chapter sequence. World changes use a short volumetric streak warp with a controlled camera-FOV pulse; jump and collision feedback is immediate. The renderer idles off-viewport and disposes its WebGL resources on navigation. Reduced motion disables the game loop and warp entirely, leaving the static workshop plate and full chapter copy.
 
 Labels, tags, counters, and status chips use Geist Mono, uppercase text, wide tracking, and small scale. They should feel like technical readouts. Status dots can pulse, but they should remain tiny.
 

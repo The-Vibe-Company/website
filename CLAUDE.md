@@ -43,7 +43,9 @@ The site shares **one visual identity** across Homepage, Portfolio, and Resource
 
 Tactical orange accents (`text-orange-500` / `bg-orange-500`) are reserved for highlight signals: the "YC W24" badge, status dots, the "Companion" star count, and the "Browse all on GitHub" CTA. Use sparingly.
 
-An **experimental homepage preview** lives at `/v2` — the existing warm-paper homepage (same `TopNav`, `Services`/`Process`/`Proof`/`FinalCTA`, `Footer`, `[data-variant="hybrid"]`) with the static `home/Hero` swapped for a playable canvas runner (`src/components/home/runner/VibeRunner.tsx`). Inside the canvas each "world" (a product, service, or the YC backing) has its own art direction (paper/ink/accent/player colour) and a persistent presentation panel; difficulty mirrors the Chrome/Firefox dino algorithm. It is a preview, not yet the canonical `/` homepage; when it replaces `/`, swap `Hero` for `VibeRunner` in `HomeLaunchpad` and promote the DESIGN.md prose.
+The canonical `/` homepage uses `home/VibeWorlds.tsx` and a direct Three.js runner (`home/vibe-game-engine.ts`) to introduce the Build, Operate, and Advise offer worlds. The commercial promise and CTAs remain server-rendered, and the world chapters are the static reduced-motion, no-JavaScript, and WebGL-unavailable fallback.
+
+An independent experimental runner remains at `/v2`. It uses `src/components/home/runner/VibeRunner.tsx` and its legacy product/service/YC world model; keep that preview route separate from the canonical Vibe Worlds engine.
 
 ### Token surfaces
 
