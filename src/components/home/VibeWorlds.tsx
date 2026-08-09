@@ -2,18 +2,18 @@
 
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
+import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { captureEvent } from "@/lib/posthog";
 import { VibeGame } from "./VibeGame";
 import type { VibeGamePhase, VibeGameWorld } from "./vibe-game-engine";
+import { VIBE_GAME_WORLDS } from "./vibe-game-state";
 import styles from "./VibeWorlds.module.css";
-
-const WORLDS = ["build", "operate", "advise"] as const;
 
 export function VibeWorlds() {
   const t = useTranslations("vibeWorlds");
   const [activeIndex, setActiveIndex] = useState(0);
   const [phase, setPhase] = useState<VibeGamePhase>("idle");
-  const activeWorld = WORLDS[activeIndex];
+  const activeWorld = VIBE_GAME_WORLDS[activeIndex];
 
   const handleWorldChange = useCallback((_world: VibeGameWorld, index: number) => {
     setActiveIndex(index);
@@ -27,9 +27,21 @@ export function VibeWorlds() {
     if (phase !== "idle") return;
     setActiveIndex(index);
     captureEvent("home_world_selected", {
-      world: WORLDS[index],
+      world: VIBE_GAME_WORLDS[index],
       source: "chapter_button",
     });
+  };
+
+  const handleChapterKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>, index: number) => {
+    let nextIndex: number | null = null;
+    if (event.key === "ArrowLeft") nextIndex = (index - 1 + VIBE_GAME_WORLDS.length) % VIBE_GAME_WORLDS.length;
+    else if (event.key === "ArrowRight") nextIndex = (index + 1) % VIBE_GAME_WORLDS.length;
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = VIBE_GAME_WORLDS.length - 1;
+    if (nextIndex === null || phase !== "idle") return;
+    event.preventDefault();
+    selectWorld(nextIndex);
+    document.getElementById(`world-button-${VIBE_GAME_WORLDS[nextIndex]}`)?.focus();
   };
 
   return (
@@ -81,11 +93,13 @@ export function VibeWorlds() {
             <span>{phase === "idle" ? t("instruction") : t("game.controls")}</span>
           </div>
           <ol className={styles.worldList}>
-            {WORLDS.map((world, index) => (
+            {VIBE_GAME_WORLDS.map((world, index) => (
               <li key={world} id={`world-${world}`}>
                 <button
                   type="button"
+                  id={`world-button-${world}`}
                   onClick={() => selectWorld(index)}
+                  onKeyDown={(event) => handleChapterKeyDown(event, index)}
                   aria-current={index === activeIndex ? "step" : undefined}
                   aria-controls="vibe-game-canvas"
                   disabled={phase !== "idle"}
@@ -107,7 +121,7 @@ export function VibeWorlds() {
         <p className="sr-only" aria-live="polite" aria-atomic="true">
           {t("activeAnnouncement", {
             current: activeIndex + 1,
-            total: WORLDS.length,
+            total: VIBE_GAME_WORLDS.length,
             world: t(`worlds.${activeWorld}.label`),
           })}
         </p>

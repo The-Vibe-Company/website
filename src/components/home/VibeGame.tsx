@@ -102,9 +102,11 @@ export function VibeGame({ onWorldChange, onPhaseChange, requestedWorld }: VibeG
               }
               progressMeterRef.current?.setAttribute("aria-valuenow", String(Math.round(progress * 100)));
             },
-            onWorld: (world, index) => {
+            onWorld: (world, index, phase) => {
               onWorldChange(world, index);
-              captureEvent("home_game_world_entered", { world, world_index: index });
+              if (phase === "running") {
+                captureEvent("home_game_world_entered", { world, world_index: index });
+              }
             },
           });
           engineRef.current = engine;
@@ -221,10 +223,12 @@ export function VibeGame({ onWorldChange, onPhaseChange, requestedWorld }: VibeG
         <div className={styles.staticPlayer}><span /></div>
       </div>
 
-      <div className={styles.sceneReadout} aria-hidden={!rendererReady}>
-        <span>{t("game.liveRenderer")}</span>
-        <span>{phaseLabel}</span>
-      </div>
+      {rendererReady && (
+        <div className={styles.sceneReadout}>
+          <span>{t("game.liveRenderer")}</span>
+          <span>{phaseLabel}</span>
+        </div>
+      )}
 
       {rendererReady && (
         <div className={styles.hud} role="group" aria-label={t("game.hudLabel") }>

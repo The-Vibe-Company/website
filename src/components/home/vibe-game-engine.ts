@@ -13,7 +13,7 @@ export type { VibeGamePhase, VibeGameSnapshot, VibeGameWorld } from "./vibe-game
 interface VibeGameCallbacks {
   onState: (snapshot: VibeGameSnapshot) => void;
   onScore: (score: number, best: number, progress: number) => void;
-  onWorld: (world: VibeGameWorld, index: number) => void;
+  onWorld: (world: VibeGameWorld, index: number, phase: VibeGamePhase) => void;
 }
 
 interface WorldPalette {
@@ -773,7 +773,7 @@ export class VibeGameEngine {
     this.targetBackground.set(PALETTES[index].paper);
     this.targetFog.set(PALETTES[index].fog);
     if (this.phase === "running") this.visited.add(VIBE_GAME_WORLDS[index]);
-    if (announce) this.callbacks.onWorld(VIBE_GAME_WORLDS[index], index);
+    if (announce) this.callbacks.onWorld(VIBE_GAME_WORLDS[index], index, this.phase);
     this.emitState();
   }
 
@@ -847,12 +847,17 @@ export class VibeGameEngine {
     this.distance = 0;
     this.score = 0;
     this.speed = 9.2;
+    this.playerY = 0;
+    this.playerVelocity = 0;
+    this.jumping = false;
+    this.ducking = false;
+    this.player.position.y = 0;
     this.spawnTimer = 3.05;
     this.obstaclesSpawnedInWorld = 0;
     this.visited = new Set([VIBE_GAME_WORLDS[0]]);
     this.activateWorld(0, false);
     this.cancelWarp();
-    this.callbacks.onWorld(VIBE_GAME_WORLDS[0], 0);
+    this.callbacks.onWorld(VIBE_GAME_WORLDS[0], 0, this.phase);
     this.emitState();
     this.syncLoop();
   }
@@ -879,7 +884,7 @@ export class VibeGameEngine {
     this.visited.clear();
     this.activateWorld(0, false);
     this.cancelWarp();
-    this.callbacks.onWorld(VIBE_GAME_WORLDS[0], 0);
+    this.callbacks.onWorld(VIBE_GAME_WORLDS[0], 0, this.phase);
     this.callbacks.onScore(0, this.best, 0);
     this.emitState();
     this.syncLoop();
