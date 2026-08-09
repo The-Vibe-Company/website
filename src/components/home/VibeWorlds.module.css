@@ -719,7 +719,7 @@
   .gameControls { right: 16px; bottom: 16px; }
 }
 
-@media (min-width: 820px) and (max-width: 959px) {
+@media (max-width: 959px) {
   .sceneReadout { display: none; }
 }
 

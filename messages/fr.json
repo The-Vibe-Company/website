@@ -60,9 +60,11 @@
     "seeWork": "Voir notre travail",
     "chapterNavigation": "Choisir un monde",
     "instruction": "Prévisualisez un chapitre · Espace ou touchez pour jouer",
+    "staticInstruction": "Choisissez un chapitre · Le parcours statique est prêt",
     "activeAnnouncement": "Monde {current} sur {total} : {world}",
     "game": {
       "invitation": "Jouez dans nos mondes en action",
+      "staticInvitation": "Explorez les trois mondes en action ci-dessous",
       "canvasLabel": "Endless runner Three.js jouable dans les mondes Construire, Piloter et Conseiller de The Vibe Company. Utilisez Espace ou Flèche haut pour sauter, Flèche bas pour esquiver et Échap pour arrêter.",
       "liveRenderer": "Scène Three.js en direct",
       "hudLabel": "État du jeu",

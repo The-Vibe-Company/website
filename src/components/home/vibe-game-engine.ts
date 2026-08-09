@@ -14,7 +14,10 @@ interface VibeGameCallbacks {
   onState: (snapshot: VibeGameSnapshot) => void;
   onScore: (score: number, best: number, progress: number) => void;
   onWorld: (world: VibeGameWorld, index: number, phase: VibeGamePhase) => void;
+  onAction: (action: "start" | "jump", input: VibeGameInput, world: VibeGameWorld) => void;
 }
+
+type VibeGameInput = "button" | "canvas" | "keyboard";
 
 interface WorldPalette {
   paper: number;
@@ -786,7 +789,7 @@ export class VibeGameEngine {
     if (!shouldHandleGameKey({ code: event.code, phase: this.phase, gameFocused, focusInsideGame })) return;
     if (event.code === "Space" || event.code === "ArrowUp") {
       event.preventDefault();
-      if (!event.repeat) this.startOrJump();
+      if (!event.repeat) this.startOrJump("keyboard");
       this.jumpHeld = true;
     } else if (event.code === "ArrowDown") {
       if (this.phase !== "running") return;
@@ -810,22 +813,25 @@ export class VibeGameEngine {
   private onCanvasPointerDown = (event: PointerEvent) => {
     if (event.button !== 0) return;
     this.canvas.focus({ preventScroll: true });
-    this.startOrJump();
+    this.startOrJump("canvas");
   };
 
-  startOrJump() {
+  startOrJump(input: VibeGameInput) {
     if (this.phase === "idle") {
       this.begin();
+      this.callbacks.onAction("start", input, VIBE_GAME_WORLDS[this.worldIndex]);
       return;
     }
     if (this.phase === "dead") {
       this.restart();
+      this.callbacks.onAction("start", input, VIBE_GAME_WORLDS[this.worldIndex]);
       return;
     }
     if (!this.jumping && !this.ducking) {
       this.jumping = true;
       this.jumpHeld = true;
       this.playerVelocity = 7.85;
+      this.callbacks.onAction("jump", input, VIBE_GAME_WORLDS[this.worldIndex]);
     }
   }
 

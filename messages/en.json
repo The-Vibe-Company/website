@@ -60,9 +60,11 @@
     "seeWork": "See the work",
     "chapterNavigation": "Choose a world",
     "instruction": "Preview a chapter · Space or tap to start",
+    "staticInstruction": "Choose a chapter · The static journey is ready",
     "activeAnnouncement": "World {current} of {total}: {world}",
     "game": {
       "invitation": "Play the working worlds",
+      "staticInvitation": "Explore the three working worlds below",
       "canvasLabel": "Playable Three.js endless runner through The Vibe Company's Build, Operate, and Advise worlds. Use Space or Arrow Up to jump, Arrow Down to duck, and Escape to stop.",
       "liveRenderer": "Live Three.js scene",
       "hudLabel": "Game status",

@@ -13,6 +13,7 @@ export function VibeWorlds() {
   const t = useTranslations("vibeWorlds");
   const [activeIndex, setActiveIndex] = useState(0);
   const [phase, setPhase] = useState<VibeGamePhase>("idle");
+  const [playable, setPlayable] = useState(false);
   const activeWorld = VIBE_GAME_WORLDS[activeIndex];
 
   const handleWorldChange = useCallback((_world: VibeGameWorld, index: number) => {
@@ -21,6 +22,10 @@ export function VibeWorlds() {
 
   const handlePhaseChange = useCallback((nextPhase: VibeGamePhase) => {
     setPhase(nextPhase);
+  }, []);
+
+  const handlePlayableChange = useCallback((nextPlayable: boolean) => {
+    setPlayable(nextPlayable);
   }, []);
 
   const selectWorld = (index: number) => {
@@ -74,7 +79,8 @@ export function VibeWorlds() {
               </a>
             </div>
             <p className={styles.gameInvitation}>
-              <span aria-hidden="true">↑</span> {t("game.invitation")}
+              <span aria-hidden="true">↑</span>{" "}
+              {t(playable ? "game.invitation" : "game.staticInvitation")}
             </p>
           </header>
 
@@ -82,6 +88,7 @@ export function VibeWorlds() {
             <VibeGame
               onWorldChange={handleWorldChange}
               onPhaseChange={handlePhaseChange}
+              onPlayableChange={handlePlayableChange}
               requestedWorld={activeIndex}
             />
           </div>
@@ -90,7 +97,11 @@ export function VibeWorlds() {
         <div className={styles.chapterSection}>
           <div className={styles.chapterHeading}>
             <p>{t("chapterNavigation")}</p>
-            <span>{phase === "idle" ? t("instruction") : t("game.controls")}</span>
+            <span>
+              {phase === "idle"
+                ? t(playable ? "instruction" : "staticInstruction")
+                : t("game.controls")}
+            </span>
           </div>
           <ol className={styles.worldList}>
             {VIBE_GAME_WORLDS.map((world, index) => (

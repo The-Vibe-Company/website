@@ -35,10 +35,16 @@ function getReducedMotion() {
 interface VibeGameProps {
   onWorldChange: (world: VibeGameWorld, index: number) => void;
   onPhaseChange: (phase: VibeGamePhase) => void;
+  onPlayableChange: (playable: boolean) => void;
   requestedWorld: number;
 }
 
-export function VibeGame({ onWorldChange, onPhaseChange, requestedWorld }: VibeGameProps) {
+export function VibeGame({
+  onWorldChange,
+  onPhaseChange,
+  onPlayableChange,
+  requestedWorld,
+}: VibeGameProps) {
   const t = useTranslations("vibeWorlds");
   const reduceMotion = useSyncExternalStore(
     subscribeToReducedMotion,
@@ -53,6 +59,7 @@ export function VibeGame({ onWorldChange, onPhaseChange, requestedWorld }: VibeG
   const progressRef = useRef<HTMLSpanElement>(null);
   const progressMeterRef = useRef<HTMLDivElement>(null);
   const restartButtonRef = useRef<HTMLButtonElement>(null);
+  const previousPhaseRef = useRef<VibeGamePhase>("idle");
   const duckTimeoutRef = useRef<number | null>(null);
   const duckPressHandledRef = useRef(false);
   const [rendererStatus, setRendererStatus] = useState<RendererStatus>("checking");
@@ -108,6 +115,12 @@ export function VibeGame({ onWorldChange, onPhaseChange, requestedWorld }: VibeG
                 captureEvent("home_game_world_entered", { world, world_index: index });
               }
             },
+            onAction: (action, input, world) => {
+              captureEvent(action === "start" ? "home_game_started" : "home_game_jumped", {
+                input,
+                world,
+              });
+            },
           });
           engineRef.current = engine;
           engine.previewWorld(requestedWorldRef.current);
@@ -140,8 +153,18 @@ export function VibeGame({ onWorldChange, onPhaseChange, requestedWorld }: VibeG
   }, [requestedWorld]);
 
   useEffect(() => {
-    if (snapshot.phase === "dead") restartButtonRef.current?.focus({ preventScroll: true });
-  }, [snapshot.phase]);
+    onPlayableChange(rendererStatus === "ready");
+  }, [onPlayableChange, rendererStatus]);
+
+  useEffect(() => {
+    const previousPhase = previousPhaseRef.current;
+    previousPhaseRef.current = snapshot.phase;
+    if (snapshot.phase === "dead") {
+      restartButtonRef.current?.focus({ preventScroll: true });
+    } else if (previousPhase === "dead" && snapshot.phase === "idle" && rendererStatus === "ready") {
+      canvasRef.current?.focus({ preventScroll: true });
+    }
+  }, [rendererStatus, snapshot.phase]);
 
   useEffect(() => () => {
     if (duckTimeoutRef.current !== null) window.clearTimeout(duckTimeoutRef.current);
@@ -150,14 +173,9 @@ export function VibeGame({ onWorldChange, onPhaseChange, requestedWorld }: VibeG
   const startOrJump = useCallback(() => {
     const engine = engineRef.current;
     if (!engine) return;
-    const isStart = snapshot.phase !== "running";
-    engine.startOrJump();
+    engine.startOrJump("button");
     canvasRef.current?.focus({ preventScroll: true });
-    captureEvent(isStart ? "home_game_started" : "home_game_jumped", {
-      input: "button",
-      world: snapshot.world,
-    });
-  }, [snapshot.phase, snapshot.world]);
+  }, []);
 
   const restart = useCallback(() => {
     engineRef.current?.restart();
