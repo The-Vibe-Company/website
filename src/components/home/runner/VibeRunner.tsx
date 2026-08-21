@@ -99,6 +99,12 @@ export class VibeRunner extends React.Component<Record<string, never>, VibeRunne
           const bs = w.querySelector('[data-hud="best"]');
           if (bs) bs.textContent = String(best);
         },
+        onCombo: (mult) => {
+          const w = this.wrapRef.current;
+          if (!w) return;
+          const el = w.querySelector('[data-hud="combo"]');
+          if (el) el.textContent = mult > 1 ? `×${mult}` : "";
+        },
         onMilestone: () => {
           const w = this.wrapRef.current;
           const sc = w && (w.querySelector('[data-hud="score"]') as HTMLElement | null);
@@ -191,6 +197,7 @@ export class VibeRunner extends React.Component<Record<string, never>, VibeRunne
         <div style={{ position: "absolute", top: "clamp(56px, 10vh, 110px)", right: "clamp(20px, 6vw, 80px)", zIndex: 3, textAlign: "right", fontFamily: MONO, pointerEvents: "auto", color: hudColor, transition: "color 0.5s" }}>
           <div style={{ fontSize: 10.5, letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.55 }}>Shipped</div>
           <div data-hud="score" style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1 }}>0</div>
+          <div data-hud="combo" style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "#f97316", marginTop: 6, minHeight: 14 }}></div>
           <div style={{ fontSize: 11, letterSpacing: "0.06em", opacity: 0.55, marginTop: 4 }}>Best <span data-hud="best">0</span></div>
           {/* discovery progress — one dot per world, filled once visited */}
           {!isIdle && (
@@ -238,14 +245,14 @@ export class VibeRunner extends React.Component<Record<string, never>, VibeRunne
         {/* Controls hint while playing */}
         {isRunning && (
           <div style={{ position: "absolute", right: "clamp(20px, 6vw, 80px)", bottom: "clamp(20px, 4vh, 40px)", zIndex: 4, pointerEvents: "none", fontFamily: MONO, fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.1em", color: hudColor, opacity: 0.5 }}>
-            {"Space / tap — jump   ·   ↓ / hold-low — duck"}
+            {"Space — jump (×2)   ·   Shift — dash   ·   ↓ — duck   ·   collect sparks for combos"}
           </div>
         )}
 
         {/* Idle prompt */}
         {isIdle && (
           <div style={{ position: "absolute", left: 0, right: 0, bottom: "clamp(20px, 5vh, 52px)", zIndex: 4, display: "flex", justifyContent: "center", pointerEvents: "none" }}>
-            <div style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "rgba(10,10,10,0.6)", animation: "vc-bob 1.7s ease-in-out infinite" }}>{"↑  Space — discover our worlds  ↑"}</div>
+            <div style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "rgba(10,10,10,0.6)", animation: "vc-bob 1.7s ease-in-out infinite" }}>{"↑  Space — play · double jump · dash  ↑"}</div>
           </div>
         )}
 
