@@ -63,7 +63,10 @@ const WORLD = {
   /** Widths, deliberately slim: a thick slab reads as scenery, not a hurdle. */
   lowWidth: 12,
   highWidth: 10,
-  ceilingWidth: 30,
+  /** How long a ceiling bar keeps you down, in seconds. Expressed in time and
+   *  converted to pixels at the current speed, so a long bar stays a long duck
+   *  at 780 px/s instead of flicking past. */
+  ceilingDuration: [0.25, 0.85],
   flyerWidth: 30,
 } as const;
 
@@ -219,17 +222,21 @@ function obstacleHeight(kind: ObstacleKind): number {
   return min + Math.random() * (max - min);
 }
 
-function obstacleWidth(kind: ObstacleKind): number {
-  if (kind === "ceiling") return WORLD.ceilingWidth;
+function obstacleWidth(kind: ObstacleKind, speed: number): number {
+  if (kind === "ceiling") {
+    const [min, max] = WORLD.ceilingDuration;
+    return speed * (min + Math.random() * (max - min));
+  }
   if (isFlyer(kind)) return WORLD.flyerWidth;
   return kind === "high" ? WORLD.highWidth : WORLD.lowWidth;
 }
 
 function spawnObstacle(world: World, width: number): void {
   const kind = pickKind(world);
+  const obstacleSpan = obstacleWidth(kind, world.speed);
   world.obstacles.push({
     x: width + 40,
-    width: obstacleWidth(kind),
+    width: obstacleSpan,
     height: obstacleHeight(kind),
     kind,
     phase: Math.random() * Math.PI * 2,
@@ -251,7 +258,11 @@ function spawnObstacle(world: World, width: number): void {
   // what finally ends a long run. The floor is generous after anything that
   // needed a double jump or a duck, which take longer to recover from.
   const tighten = Math.min(0.5, world.t * 0.005);
-  const floor = kind === "low" ? 0.62 : 0.8;
+  // A long ceiling bar is still going past when the next thing would spawn, so
+  // its own length is added to the recovery the gap has to leave.
+  const floor =
+    (kind === "low" ? 0.62 : 0.8) +
+    (kind === "ceiling" ? obstacleSpan / world.speed : 0);
   const seconds =
     WORLD.spawnGapMin + Math.random() * (WORLD.spawnGapMax - WORLD.spawnGapMin) - tighten;
   world.nextSpawn = world.speed * Math.max(floor, seconds);
@@ -701,6 +712,9 @@ function drawBird(
   ctx.restore();
 }
 
+/** Solid depth of a ceiling bar's lower edge. */
+const CEILING_LIP = 26;
+
 function moveColour(kind: ObstacleKind, palette: Palette): string {
   const move = movesUnder(kind);
   if (move === "double") return palette.accent;
@@ -797,23 +811,57 @@ function drawObstacle(
   const striped = obstacle.kind !== "low";
 
   ctx.save();
-  ctx.beginPath();
+  // Held as a Path2D rather than the context's current path: the curtain below
+  // draws its own paths, which would otherwise clobber the shape this has to
+  // be clipped to — and silently drop the hazard stripes.
+  const shape = new Path2D();
   // [top-left, top-right, bottom-right, bottom-left]
   const radii: [number, number, number, number] =
     obstacle.kind === "ceiling" ? [0, 0, 3, 3] : [3, 3, 0, 0];
-  ctx.roundRect(x, y, w, h, radii);
-  ctx.fillStyle = moveColour(obstacle.kind, palette);
-  ctx.fill();
-  ctx.clip();
+  shape.roundRect(x, y, w, h, radii);
+  const colour = moveColour(obstacle.kind, palette);
+
+  if (obstacle.kind === "ceiling") {
+    // A long bar is a wall of colour if it is filled to the roof. Only the
+    // business end — the part your head meets — is solid; the rest is a
+    // curtain, which still says "no way over this" without the mass.
+    ctx.save();
+    ctx.clip(shape);
+    // The curtain is drawn as hanging threads rather than a filled block: a
+    // solid tint went muddy against the ink, and threads read as something
+    // suspended from the roof.
+    ctx.globalAlpha = 0.3;
+    ctx.strokeStyle = colour;
+    ctx.lineWidth = 1;
+    for (let tx = x + 5; tx < x + w; tx += 11) {
+      ctx.beginPath();
+      ctx.moveTo(Math.round(tx) + 0.5, y);
+      ctx.lineTo(Math.round(tx) + 0.5, y + h - CEILING_LIP);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = colour;
+    ctx.fillRect(x, y + h - CEILING_LIP, w, CEILING_LIP);
+    ctx.restore();
+  } else {
+    ctx.fillStyle = colour;
+    ctx.fill(shape);
+  }
+  ctx.clip(shape);
 
   if (striped) {
+    const bandTop = obstacle.kind === "ceiling" ? y + h - CEILING_LIP : y;
+    const bandHeight = obstacle.kind === "ceiling" ? CEILING_LIP : h;
+    const band = new Path2D();
+    band.rect(x, bandTop, w, bandHeight);
+    ctx.clip(band);
     ctx.globalAlpha = 0.28;
     ctx.strokeStyle = palette.ink;
     ctx.lineWidth = 5;
-    for (let offset = -h; offset < w + h; offset += 13) {
+    for (let offset = -bandHeight; offset < w + bandHeight; offset += 13) {
       ctx.beginPath();
-      ctx.moveTo(x + offset, y + h);
-      ctx.lineTo(x + offset + h, y);
+      ctx.moveTo(x + offset, bandTop + bandHeight);
+      ctx.lineTo(x + offset + bandHeight, bandTop);
       ctx.stroke();
     }
   } else {
@@ -1067,7 +1115,10 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       ink: styles.getPropertyValue("--foreground").trim() || "#0a0a0a",
       paper: styles.getPropertyValue("--background").trim() || "#fdfbf7",
       accent: "#f97316",
-      duck: "#4ec9d4",
+      // Yellow with black stripes: the universal "watch your head". Its
+      // position tells it apart from the orange barriers — this hangs or
+      // flies, orange always stands on the ground.
+      duck: "#e9dd52",
       // The panel inherits the page font; the title card borrows it so the
       // names are set in the same voice as the hero above them.
       sans: styles.fontFamily || "system-ui, sans-serif",
