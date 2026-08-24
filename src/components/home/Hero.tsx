@@ -138,7 +138,7 @@ export function Hero() {
             delay: reduceMotion ? 0 : 0.1,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="mt-10 grid grid-cols-1 border-t border-border md:mt-12 md:grid-cols-3"
+          className="mt-8 grid grid-cols-1 border-t border-border md:mt-10 md:grid-cols-3"
         >
           {QUICK_ITEMS.map((item) => (
             <div

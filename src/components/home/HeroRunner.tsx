@@ -5,35 +5,38 @@ import { useTranslations } from "next-intl";
 import { captureEvent } from "@/lib/posthog";
 
 /**
- * A hairline runner band sitting right under the hero — the site's own take on
- * the Chrome offline dino. Deliberately reads as an instrument strip (ruler
- * ticks, mono readouts, ink slabs) rather than a game widget, so it belongs to
- * the warm-paper grid instead of interrupting it.
+ * The hero's runner band: the site's own take on the Chrome offline dino.
  *
- * Space / ArrowUp jumps, ArrowDown ducks. Everything is drawn on one canvas at
- * a fixed 60Hz timestep, so the difficulty curve is identical on every display.
+ * It is an inverted ink panel inside the warm-paper hero, so it reads as a
+ * screen cut into the page rather than a widget floating on it. The player is
+ * the company mark — a paper tile carrying the double-chevron W — and the
+ * chevron flaps like a pair of wings while it runs.
+ *
+ * Space / ArrowUp jumps, ArrowDown ducks, tap plays on touch. One canvas, one
+ * fixed 60Hz timestep, so the difficulty curve is identical on every display.
  */
 
 // --- world constants, in CSS pixels of the canvas -----------------------------
 const WORLD = {
-  height: 140,
-  groundY: 112,
+  height: 200,
+  // 30px of ink below the line reads as ground thickness; more is dead space.
+  groundY: 170,
   gravity: 2600,
-  // Apex is v²/2g ≈ 80px: high enough to clear any slab, low enough that the
-  // player never leaves the (deliberately short) band.
-  jumpVelocity: -645,
-  playerX: 96,
-  playerSize: 26,
-  duckHeight: 14,
-  /** Flying slabs hang at head height: they clip a standing player and miss a
+  // Apex is v²/2g = 110px, which uses the taller band without ever pushing the
+  // mark off the top of the canvas.
+  jumpVelocity: -756,
+  playerX: 104,
+  playerSize: 32,
+  duckHeight: 18,
+  startSpeed: 300,
+  maxSpeed: 700,
+  acceleration: 5,
+  spawnGapMin: 400,
+  spawnGapMax: 700,
+  /** Flying slabs hang at head height: they clip a standing mark and miss a
    *  ducking one. Both numbers are relative to the ground line. */
-  flyOffset: 34,
-  flyHeight: 16,
-  startSpeed: 340,
-  maxSpeed: 780,
-  acceleration: 7,
-  spawnGapMin: 320,
-  spawnGapMax: 620,
+  flyOffset: 42,
+  flyHeight: 18,
 } as const;
 
 const STEP = 1 / 60;
@@ -79,7 +82,6 @@ type Obstacle = {
   x: number;
   width: number;
   height: number;
-  /** Flying slabs sit above the ground and can only be ducked under. */
   flying: boolean;
 };
 
@@ -95,10 +97,8 @@ type World = {
   playerVY: number;
   ducking: boolean;
   grounded: boolean;
-  squash: number;
   obstacles: Obstacle[];
   nextSpawn: number;
-  flash: number;
 };
 
 function speedScale(width: number): number {
@@ -117,55 +117,38 @@ function createWorld(scale = 1): World {
     playerVY: 0,
     ducking: false,
     grounded: true,
-    squash: 0,
     obstacles: [],
-    nextSpawn: 420,
-    flash: 0,
+    nextSpawn: 520,
   };
 }
 
-/** Deterministic-ish spread of obstacle shapes, weighted towards the easy ones. */
 function spawnObstacle(world: World, width: number): void {
-  const roll = Math.random();
-  // Flying slabs only show up once the run has some speed, so the first
+  // Flying slabs only appear once the run has some speed, so the opening
   // seconds stay readable for someone who just landed on the page.
-  const flying = world.speed > 420 * world.scale && roll > 0.72;
+  const flying = world.speed > 460 * world.scale && Math.random() > 0.75;
 
   world.obstacles.push(
     flying
-      ? {
-          x: width + 40,
-          width: 46 + Math.random() * 34,
-          height: WORLD.flyHeight,
-          flying: true,
-        }
-      : {
-          x: width + 40,
-          width: 14 + Math.random() * 16,
-          height: 26 + Math.random() * 20,
-          flying: false,
-        },
+      ? { x: width + 40, width: 54, height: WORLD.flyHeight, flying: true }
+      : { x: width + 40, width: 18, height: 34 + Math.random() * 18, flying: false },
   );
 
   const pressure =
     (world.speed / world.scale - WORLD.startSpeed) / (WORLD.maxSpeed - WORLD.startSpeed);
-  const gap =
-    WORLD.spawnGapMin +
-    Math.random() * (WORLD.spawnGapMax - WORLD.spawnGapMin) -
-    pressure * 90;
-  world.nextSpawn = Math.max(220, gap);
+  world.nextSpawn = Math.max(
+    300,
+    WORLD.spawnGapMin + Math.random() * (WORLD.spawnGapMax - WORLD.spawnGapMin) - pressure * 80,
+  );
 }
 
 function obstacleY(obstacle: Obstacle): number {
-  return obstacle.flying
-    ? WORLD.groundY - WORLD.flyOffset
-    : WORLD.groundY - obstacle.height;
+  return obstacle.flying ? WORLD.groundY - WORLD.flyOffset : WORLD.groundY - obstacle.height;
 }
 
 function playerBox(world: World) {
-  const height = world.ducking && world.grounded ? WORLD.duckHeight : WORLD.playerSize;
-  const width = world.ducking && world.grounded ? WORLD.playerSize + 14 : WORLD.playerSize;
-  return { x: WORLD.playerX, y: world.playerY - height, width, height };
+  const ducking = world.ducking && world.grounded;
+  const height = ducking ? WORLD.duckHeight : WORLD.playerSize;
+  return { x: WORLD.playerX, y: world.playerY - height, width: WORLD.playerSize, height };
 }
 
 /** Advances one fixed tick. Returns true when the run just ended. */
@@ -177,23 +160,19 @@ function step(world: World, dt: number, width: number): boolean {
   );
   world.distance += world.speed * dt;
   world.score = Math.floor(world.distance / 24);
-  if (world.flash > 0) world.flash = Math.max(0, world.flash - dt * 4);
 
-  // Gravity. Ducking mid-air drops you faster, which is the whole trick of the
-  // original dino and the only "advanced" move here.
+  // Ducking mid-air drops you faster: the one trick borrowed from the original.
   const gravity = WORLD.gravity * (world.ducking && !world.grounded ? 1.8 : 1);
   world.playerVY += gravity * dt;
   world.playerY += world.playerVY * dt;
 
   if (world.playerY >= WORLD.groundY) {
-    if (!world.grounded) world.squash = 1;
     world.playerY = WORLD.groundY;
     world.playerVY = 0;
     world.grounded = true;
   } else {
     world.grounded = false;
   }
-  if (world.squash > 0) world.squash = Math.max(0, world.squash - dt * 6);
 
   world.nextSpawn -= world.speed * dt;
   if (world.nextSpawn <= 0) spawnObstacle(world, width);
@@ -205,14 +184,13 @@ function step(world: World, dt: number, width: number): boolean {
     const oy = obstacleY(obstacle);
     // A couple of forgiving pixels: pixel-exact hitboxes feel unfair here.
     const hit =
-      player.x + player.width - 3 > obstacle.x &&
-      player.x + 3 < obstacle.x + obstacle.width &&
-      player.y + player.height - 3 > oy &&
-      player.y + 3 < oy + obstacle.height;
+      player.x + player.width - 4 > obstacle.x &&
+      player.x + 4 < obstacle.x + obstacle.width &&
+      player.y + player.height - 4 > oy &&
+      player.y + 4 < oy + obstacle.height;
 
     if (hit) {
       world.phase = "over";
-      world.flash = 1;
       return true;
     }
   }
@@ -220,7 +198,55 @@ function step(world: World, dt: number, width: number): boolean {
   return false;
 }
 
-type Palette = { ink: string; paper: string; muted: string; accent: string };
+type Palette = { ink: string; paper: string; accent: string };
+
+/**
+ * The company mark: a tile carrying the logo's double chevron. The chevron's
+ * outer arms lift and drop while running, which is the whole "wings" idea —
+ * and they stay spread at their highest while the mark is in the air.
+ */
+function drawMark(
+  ctx: CanvasRenderingContext2D,
+  world: World,
+  box: { x: number; y: number; width: number; height: number },
+  palette: Palette,
+  crashed: boolean,
+): void {
+  const { x, y, width, height } = box;
+
+  ctx.save();
+  ctx.fillStyle = crashed ? palette.accent : palette.paper;
+  ctx.beginPath();
+  ctx.roundRect(Math.round(x), Math.round(y), width, height, 7);
+  ctx.fill();
+
+  // Clip so the chevron never spills out of the tile when it is squashed into
+  // the ducking silhouette.
+  ctx.clip();
+
+  // Wing beat: a slow flap on the ground, arms held up while airborne.
+  const flap = world.grounded ? Math.sin(world.t * 16) * 0.5 + 0.5 : 1;
+  const inset = width * 0.17;
+  const left = x + inset;
+  const right = x + width - inset;
+  const middle = x + width / 2;
+  const top = y + height * (0.3 - flap * 0.08);
+  const bottom = y + height * 0.74;
+  const peak = y + height * 0.46;
+
+  ctx.strokeStyle = crashed ? palette.paper : palette.ink;
+  ctx.lineWidth = Math.max(2.5, width * 0.11);
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(left, top);
+  ctx.lineTo(left + (middle - left) * 0.55, bottom);
+  ctx.lineTo(middle, peak);
+  ctx.lineTo(right - (right - middle) * 0.55, bottom);
+  ctx.lineTo(right, top);
+  ctx.stroke();
+  ctx.restore();
+}
 
 function draw(
   ctx: CanvasRenderingContext2D,
@@ -230,54 +256,25 @@ function draw(
 ): void {
   ctx.clearRect(0, 0, width, WORLD.height);
 
-  // Ruler ticks scrolling with the world: the only speed cue, and the detail
-  // that makes the band read as an instrument rather than a toy.
-  ctx.strokeStyle = palette.muted;
-  ctx.globalAlpha = 0.32;
+
+  // Ground: one hairline, nothing else. The panel already frames the game, so
+  // any extra texture would just be noise.
+  ctx.strokeStyle = palette.paper;
+  ctx.globalAlpha = 0.55;
   ctx.lineWidth = 1;
-  const tickSpacing = 24;
-  const offset = world.distance % tickSpacing;
-  for (let x = -offset; x < width; x += tickSpacing) {
-    const long = Math.round((x + world.distance) / tickSpacing) % 5 === 0;
-    ctx.beginPath();
-    ctx.moveTo(Math.round(x) + 0.5, WORLD.groundY + 6);
-    ctx.lineTo(Math.round(x) + 0.5, WORLD.groundY + (long ? 16 : 10));
-    ctx.stroke();
-  }
+  ctx.beginPath();
+  ctx.moveTo(0, WORLD.groundY + 0.5);
+  ctx.lineTo(width, WORLD.groundY + 0.5);
+  ctx.stroke();
   ctx.globalAlpha = 1;
 
-  // Ground
-  ctx.strokeStyle = palette.ink;
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(0, WORLD.groundY + 1);
-  ctx.lineTo(width, WORLD.groundY + 1);
-  ctx.stroke();
-
-  // Obstacles
   for (const obstacle of world.obstacles) {
     const y = obstacleY(obstacle);
-    ctx.fillStyle = obstacle.flying ? palette.accent : palette.ink;
+    ctx.fillStyle = obstacle.flying ? palette.accent : palette.paper;
     ctx.fillRect(Math.round(obstacle.x), Math.round(y), obstacle.width, obstacle.height);
   }
 
-  // Player: a solid ink slab that squashes on landing.
-  const player = playerBox(world);
-  const squash = world.squash * 5;
-  ctx.fillStyle = world.phase === "over" ? palette.accent : palette.ink;
-  ctx.fillRect(
-    Math.round(player.x - squash / 2),
-    Math.round(player.y + squash),
-    player.width + squash,
-    player.height - squash,
-  );
-
-  if (world.flash > 0) {
-    ctx.globalAlpha = world.flash * 0.14;
-    ctx.fillStyle = palette.accent;
-    ctx.fillRect(0, 0, width, WORLD.height);
-    ctx.globalAlpha = 1;
-  }
+  drawMark(ctx, world, playerBox(world), palette, world.phase === "over");
 }
 
 function pad(score: number): string {
@@ -334,7 +331,7 @@ export function HeroRunner() {
 
     const active = document.activeElement;
     if (!active || active === document.body) return true;
-    if (containerRef.current?.contains(active)) return true;
+    if (container.contains(active)) return true;
     return !active.matches("input, textarea, select, button, a, [contenteditable]");
   }, []);
 
@@ -378,12 +375,15 @@ export function HeroRunner() {
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const width = container.clientWidth;
-      widthRef.current = width;
+      const zoom = width < 640 ? 0.8 : 1;
+      const cssHeight = Math.round(WORLD.height * zoom);
+      // The world stays in logical units; only the scale of the view changes.
+      widthRef.current = width / zoom;
       canvas.width = Math.round(width * dpr);
-      canvas.height = Math.round(WORLD.height * dpr);
+      canvas.height = Math.round(cssHeight * dpr);
       canvas.style.width = `${width}px`;
-      canvas.style.height = `${WORLD.height}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      canvas.style.height = `${cssHeight}px`;
+      ctx.setTransform(dpr * zoom, 0, 0, dpr * zoom, 0, 0);
     };
 
     resize();
@@ -412,9 +412,10 @@ export function HeroRunner() {
 
     const styles = getComputedStyle(canvas);
     const palette: Palette = {
+      // The panel is inverted: the page's foreground is the band's surface and
+      // the page's background is what gets drawn on it.
       ink: styles.getPropertyValue("--foreground").trim() || "#0a0a0a",
       paper: styles.getPropertyValue("--background").trim() || "#fdfbf7",
-      muted: styles.getPropertyValue("--muted-foreground").trim() || "#525252",
       accent: "#f97316",
     };
 
@@ -457,7 +458,6 @@ export function HeroRunner() {
         }
       } else {
         accumulator = 0;
-        if (world.flash > 0) world.flash = Math.max(0, world.flash - 0.016 * 4);
       }
 
       draw(ctx, world, widthRef.current, palette);
@@ -474,94 +474,89 @@ export function HeroRunner() {
   return (
     <section
       aria-labelledby="runner-heading"
-      className="relative mt-12 border-t border-border md:mt-14"
+      className="relative mt-8 bg-foreground text-background md:mt-10"
     >
       <h2 id="runner-heading" className="sr-only">
         {t("heading")}
       </h2>
 
-      <div>
-        {/* Readout row — mono, uppercase, the same register as the nav labels. */}
-        <div className="flex items-baseline justify-between gap-3 pb-2 pt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground md:gap-4 md:text-[11px] md:tracking-[0.2em]">
-          <p className="m-0 flex items-center gap-2">
-            <span className="hidden sm:inline">{t("hint")}</span>
-            <span className="sm:hidden">{t("hintTouch")}</span>
-          </p>
-          <p className="m-0 flex shrink-0 items-center gap-2 tabular-nums md:gap-4">
-            <span className={isNewBest ? "text-orange-500" : undefined}>
-              {t("score")} {pad(score)}
-            </span>
-            <span aria-hidden="true" className="text-border">
-              /
-            </span>
-            <span>
-              {t("best")} {pad(best)}
-            </span>
-          </p>
-        </div>
+      {/* Readout row, inside the panel: controls left, score right. */}
+      <div className="flex items-baseline justify-between gap-3 px-5 pb-1 pt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-background/55 md:gap-4 md:px-7 md:text-[11px] md:tracking-[0.2em]">
+        <p className="m-0 hidden sm:block">{t("hint")}</p>
+        <p className="m-0 ml-auto flex shrink-0 items-center gap-2 tabular-nums md:gap-4">
+          <span className={isNewBest ? "text-orange-500" : "text-background"}>
+            {t("score")} {pad(score)}
+          </span>
+          <span aria-hidden="true" className="text-background/25">
+            /
+          </span>
+          <span>
+            {t("best")} {pad(best)}
+          </span>
+        </p>
+      </div>
 
-        <div
-          ref={containerRef}
-          className="relative -mx-6 cursor-pointer select-none px-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-foreground md:-mx-12 md:px-12"
-          role="button"
-          tabIndex={0}
-          aria-label={t("aria")}
+      <div
+        ref={containerRef}
+        className="relative cursor-pointer select-none px-5 pb-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-background md:px-7 md:pb-4"
+        role="button"
+        tabIndex={0}
+        aria-label={t("aria")}
+        onPointerDown={(event) => {
+          event.preventDefault();
+          if (phase === "running") jump();
+          else start();
+        }}
+      >
+        <canvas ref={canvasRef} aria-hidden="true" className="block w-full" />
+
+        {phase !== "running" && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <p className="m-0 border border-background/30 bg-foreground px-4 py-2 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-background md:text-xs">
+              {phase === "idle" ? (
+                <>
+                  <span className="hidden sm:inline">{t("start")}</span>
+                  <span className="sm:hidden">{t("startTouch")}</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-orange-500">{t("over")}</span>{" "}
+                  <span aria-hidden="true">·</span>{" "}
+                  <span className="hidden sm:inline">{t("restart")}</span>
+                  <span className="sm:hidden">{t("restartTouch")}</span>
+                </>
+              )}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Touch controls: a tap anywhere jumps, ducking is the one move the
+          band cannot infer on its own. */}
+      <div className="flex items-center justify-between gap-3 px-5 pb-5 sm:hidden">
+        <button
+          type="button"
+          onPointerDown={(event) => {
+            event.preventDefault();
+            setDucking(true);
+          }}
+          onPointerUp={() => setDucking(false)}
+          onPointerLeave={() => setDucking(false)}
+          className="flex-1 border border-background/40 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-background active:bg-background active:text-foreground"
+        >
+          {t("duck")}
+        </button>
+        <button
+          type="button"
           onPointerDown={(event) => {
             event.preventDefault();
             if (phase === "running") jump();
             else start();
           }}
+          className="flex-1 bg-background px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground"
         >
-          <canvas ref={canvasRef} aria-hidden="true" className="block w-full" />
-
-          {phase !== "running" && (
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <p className="m-0 border-2 border-foreground bg-background px-4 py-2 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-foreground md:text-xs">
-                {phase === "idle" ? (
-                  <>
-                    <span className="hidden sm:inline">{t("start")}</span>
-                    <span className="sm:hidden">{t("startTouch")}</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="text-orange-500">{t("over")}</span>{" "}
-                    <span aria-hidden="true">·</span>{" "}
-                    <span className="hidden sm:inline">{t("restart")}</span>
-                    <span className="sm:hidden">{t("restartTouch")}</span>
-                  </>
-                )}
-              </p>
-            </div>
-          )}
-        </div>
-
-        {/* Touch controls: a tap anywhere jumps, this is the only move the
-            band cannot infer on its own. */}
-        <div className="flex items-center justify-between gap-3 pt-2 sm:hidden">
-          <button
-            type="button"
-            onPointerDown={(event) => {
-              event.preventDefault();
-              setDucking(true);
-            }}
-            onPointerUp={() => setDucking(false)}
-            onPointerLeave={() => setDucking(false)}
-            className="flex-1 border-2 border-foreground px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground active:bg-foreground active:text-background"
-          >
-            {t("duck")}
-          </button>
-          <button
-            type="button"
-            onPointerDown={(event) => {
-              event.preventDefault();
-              if (phase === "running") jump();
-              else start();
-            }}
-            className="flex-1 border-2 border-foreground bg-foreground px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-background"
-          >
-            {t("jump")}
-          </button>
-        </div>
+          {t("jump")}
+        </button>
       </div>
 
       <p aria-live="polite" className="sr-only">
