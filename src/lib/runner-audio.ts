@@ -12,40 +12,112 @@
  * genuine user gesture.
  */
 
-/**
- * Pads only — no melody, nothing to follow: Am, Dm, Gm, F on a loop.
- *
- * The chords cut rather than glide. Each voice jumps straight to its new note,
- * which is what gives the change its edge; sliding between them smoothed the
- * progression into one continuous smear. Only the pitch jumps, never the
- * level, so an abrupt change still never clicks.
- *
- * The top four voices keep A, C and D in common between chords, which holds
- * the loop together while the roots stride underneath.
- */
-const VOICINGS: number[][] = [
-  // Am — A2 A3 C4 E4 A4
-  [110.0, 220.0, 261.63, 329.63, 440.0],
-  // Dm — D3 A3 D4 F4 A4
-  [146.83, 220.0, 293.66, 349.23, 440.0],
-  // Gm — G2 G3 Bb3 D4 G4
-  [98.0, 196.0, 233.08, 293.66, 392.0],
-  // F — F2 A3 C4 F4 A4
-  [87.31, 220.0, 261.63, 349.23, 440.0],
+// --- the score ---------------------------------------------------------------
+// Am → Dm → Gm → F, on a loop, cutting rather than gliding: every voice jumps
+// straight to its new note, which is what gives the progression its edge. Only
+// the pitch jumps, never the level, so an abrupt change never clicks.
+//
+// Three sections take turns so a long run does not wear the loop out. They all
+// keep the same roots and the same cut, which is what lets them follow each
+// other without a seam: A states it plainly, B colours the same chords with
+// sevenths, C keeps the harmony and chops it into a rhythm.
+
+/** One step is an eighth note; eight of them make a bar, one bar per chord. */
+const STEP_SECONDS = 0.3;
+const BAR_STEPS = 8;
+const BARS_PER_SECTION = 8;
+
+const N = {
+  F4: 349.23, G4: 392.0, A4: 440.0, Bb4: 466.16,
+  C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46,
+} as const;
+
+/** Five voices per chord: root, then the chord climbing. The upper voices hold
+ *  notes in common between chords, which keeps the loop together while the
+ *  roots stride underneath. */
+const TRIADS: number[][] = [
+  [110.0, 220.0, 261.63, 329.63, 440.0], // Am  — A2 A3 C4 E4 A4
+  [146.83, 220.0, 293.66, 349.23, 440.0], // Dm  — D3 A3 D4 F4 A4
+  [98.0, 196.0, 233.08, 293.66, 392.0], // Gm  — G2 G3 Bb3 D4 G4
+  [87.31, 220.0, 261.63, 349.23, 440.0], // F   — F2 A3 C4 F4 A4
 ];
 
-/** Seconds a chord holds before the next one cuts in. */
-const CHORD_HOLD = 2.4;
+/** Same roots, coloured: the seventh replaces a doubled octave. */
+const SEVENTHS: number[][] = [
+  [110.0, 220.0, 261.63, 329.63, 392.0], // Am7   — A2 A3 C4 E4 G4
+  [146.83, 220.0, 293.66, 349.23, 523.25], // Dm7   — D3 A3 D4 F4 C5
+  [98.0, 196.0, 233.08, 293.66, 349.23], // Gm7   — G2 G3 Bb3 D4 F4
+  [87.31, 220.0, 261.63, 349.23, 329.63], // Fmaj7 — F2 A3 C4 F4 E4
+];
+
+interface Section {
+  chords: number[][];
+  /** One row per chord, one slot per step of the bar. 0 is a rest. */
+  melody: number[][];
+  /** Second time round the four chords, if the section varies. */
+  melodyAlt?: number[][];
+  /** How long a melody note rings, in steps. */
+  noteLength: number;
+  /** Per-step gate for the pad. Absent means it simply holds. */
+  padGate?: boolean[];
+}
+
+const SECTIONS: Section[] = [
+  // A — states the thing. One note per chord, left to ring.
+  {
+    chords: TRIADS,
+    noteLength: 4,
+    melody: [
+      [N.A4, 0, 0, 0, 0, 0, 0, 0],
+      [N.D5, 0, 0, 0, 0, 0, 0, 0],
+      [N.G4, 0, 0, 0, 0, 0, 0, 0],
+      [N.C5, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    // Second pass answers each note late in the bar.
+    melodyAlt: [
+      [N.A4, 0, 0, 0, 0, 0, N.C5, 0],
+      [N.D5, 0, 0, 0, 0, 0, N.A4, 0],
+      [N.G4, 0, 0, 0, 0, 0, N.Bb4, 0],
+      [N.C5, 0, 0, 0, 0, 0, N.A4, 0],
+    ],
+  },
+  // B — the same chords with their sevenths, the line opening out.
+  {
+    chords: SEVENTHS,
+    noteLength: 2.5,
+    melody: [
+      [N.A4, 0, 0, N.C5, 0, 0, N.E5, 0],
+      [N.D5, 0, 0, N.A4, 0, 0, N.C5, 0],
+      [N.G4, 0, 0, N.Bb4, 0, 0, N.D5, 0],
+      [N.C5, 0, 0, N.A4, 0, 0, N.E5, 0],
+    ],
+  },
+  // C — same harmony, chopped. The pad stops holding and starts pulsing.
+  {
+    chords: TRIADS,
+    noteLength: 0.7,
+    padGate: [true, false, true, false, true, false, true, true],
+    melody: [
+      [N.A4, 0, N.C5, 0, N.A4, 0, N.E5, 0],
+      [N.D5, 0, N.A4, 0, N.D5, 0, N.F5, 0],
+      [N.D5, 0, N.Bb4, 0, N.G4, 0, N.D5, 0],
+      [N.C5, 0, N.A4, 0, N.C5, 0, N.F5, 0],
+    ],
+  },
+];
 
 export class RunnerAudio {
   private ctx: AudioContext | null = null;
   private master: GainNode | null = null;
   private musicGain: GainNode | null = null;
   private musicFilter: BiquadFilterNode | null = null;
+  private padBus: GainNode | null = null;
   private voices: OscillatorNode[] = [];
   private lfos: OscillatorNode[] = [];
   private timer: ReturnType<typeof setInterval> | null = null;
-  private chord = 0;
+  private nextStepTime = 0;
+  private step = 0;
+  private section = 0;
   private muted = false;
   /** 0 at the start of a run, 1 at top speed: the tune tightens with it. */
   private intensity = 0;
@@ -205,14 +277,20 @@ export class RunnerAudio {
     gain.gain.value = 0.0001;
     const filter = ctx.createBiquadFilter();
     filter.type = "lowpass";
-    // Bright by default: pads only sound sunlit if the upper partials survive.
     filter.frequency.value = 1800 + this.intensity * 1600;
     filter.Q.value = 0.4;
     filter.connect(gain);
     gain.connect(this.master);
 
+    // The pad has its own bus so section C can chop it without touching the
+    // melody riding over the top.
+    const padBus = ctx.createGain();
+    padBus.gain.value = 1;
+    padBus.connect(filter);
+
     const now = ctx.currentTime;
-    this.voices = VOICINGS[this.chord].map((freq, index) => {
+    const section = SECTIONS[this.section];
+    this.voices = section.chords[0].map((freq, index) => {
       const osc = ctx.createOscillator();
       const voiceGain = ctx.createGain();
       // Sine at the bottom for body, triangles above for a little air.
@@ -220,12 +298,11 @@ export class RunnerAudio {
       osc.frequency.value = freq;
       // A few cents apart so the chord shimmers instead of sitting still.
       osc.detune.value = (index - 2) * 5;
-      // The top voices sit further back, which is what stops a high pad from
-      // turning shrill.
+      // The top voices sit further back, which stops a high pad turning shrill.
       voiceGain.gain.value = [0.5, 0.34, 0.3, 0.26, 0.17][index] ?? 0.2;
 
-      // Each voice breathes on its own slow cycle, so the chord is never
-      // quite the same twice without anything obviously moving.
+      // Each voice breathes on its own slow cycle, so the chord is never quite
+      // the same twice without anything obviously moving.
       const lfo = ctx.createOscillator();
       const lfoGain = ctx.createGain();
       lfo.frequency.value = 0.07 + index * 0.023;
@@ -235,7 +312,7 @@ export class RunnerAudio {
       lfo.start(now);
 
       osc.connect(voiceGain);
-      voiceGain.connect(filter);
+      voiceGain.connect(padBus);
       osc.start(now);
       this.lfos.push(lfo);
       return osc;
@@ -247,22 +324,75 @@ export class RunnerAudio {
     gain.gain.setTargetAtTime(0.12, now, 1.6);
     this.musicGain = gain;
     this.musicFilter = filter;
+    this.padBus = padBus;
+    this.step = 0;
+    this.section = 0;
+    this.nextStepTime = now + 0.08;
 
-    this.timer = setInterval(() => this.nextChord(), CHORD_HOLD * 1000);
+    // Standard lookahead scheduler: a timer this coarse could never keep time
+    // on its own, so it only queues events the audio clock plays exactly.
+    this.timer = setInterval(() => this.schedule(), 25);
   }
 
-  /** Cuts every voice to the next voicing. Nothing ramps: the whole point is
-   *  that the change is heard as a change. */
-  private nextChord(): void {
+  private schedule(): void {
     const ctx = this.ctx;
-    if (!ctx || this.voices.length === 0) return;
-    this.chord = (this.chord + 1) % VOICINGS.length;
-    const target = VOICINGS[this.chord];
-    const now = ctx.currentTime;
-    this.voices.forEach((osc, index) => {
-      osc.frequency.cancelScheduledValues(now);
-      osc.frequency.setValueAtTime(target[index], now);
-    });
+    if (!ctx || !this.musicFilter) return;
+    while (this.nextStepTime < ctx.currentTime + 0.12) {
+      this.playStep(this.step, this.nextStepTime);
+      this.step = (this.step + 1) % (BAR_STEPS * BARS_PER_SECTION);
+      if (this.step === 0) this.section = (this.section + 1) % SECTIONS.length;
+      this.nextStepTime += STEP_SECONDS;
+    }
+  }
+
+  private playStep(step: number, when: number): void {
+    const ctx = this.ctx;
+    const filter = this.musicFilter;
+    if (!ctx || !filter) return;
+
+    const section = SECTIONS[this.section];
+    const bar = Math.floor(step / BAR_STEPS);
+    const inBar = step % BAR_STEPS;
+    const chord = bar % section.chords.length;
+
+    // On the downbeat, cut every voice to the new chord. No ramp: the whole
+    // point is that the change is heard as a change.
+    if (inBar === 0) {
+      const target = section.chords[chord];
+      this.voices.forEach((osc, index) => {
+        osc.frequency.cancelScheduledValues(when);
+        osc.frequency.setValueAtTime(target[index], when);
+      });
+    }
+
+    // Section C pulses the pad instead of letting it hold.
+    if (this.padBus) {
+      const gate = section.padGate;
+      if (gate) {
+        const level = gate[inBar] ? 1 : 0.18;
+        this.padBus.gain.setTargetAtTime(level, when, 0.03);
+      } else if (inBar === 0) {
+        this.padBus.gain.setTargetAtTime(1, when, 0.2);
+      }
+    }
+
+    // The melody: a handful of chord tones with room to breathe.
+    const rows = bar >= section.chords.length && section.melodyAlt ? section.melodyAlt : section.melody;
+    const note = rows[chord][inBar];
+    if (note) {
+      const osc = ctx.createOscillator();
+      const noteGain = ctx.createGain();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(note, when);
+      const duration = section.noteLength * STEP_SECONDS;
+      noteGain.gain.setValueAtTime(0.0001, when);
+      noteGain.gain.exponentialRampToValueAtTime(0.09, when + 0.03);
+      noteGain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
+      osc.connect(noteGain);
+      noteGain.connect(filter);
+      osc.start(when);
+      osc.stop(when + duration + 0.05);
+    }
   }
 
   stopMusic(): void {
@@ -276,6 +406,7 @@ export class RunnerAudio {
     const lfos = this.lfos;
     this.musicGain = null;
     this.musicFilter = null;
+    this.padBus = null;
     this.voices = [];
     this.lfos = [];
     if (!ctx || !gain) return;
