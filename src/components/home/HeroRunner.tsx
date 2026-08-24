@@ -32,13 +32,20 @@ const WORLD = {
   playerX: 104,
   playerSize: 32,
   duckHeight: 18,
-  startSpeed: 300,
+  startSpeed: 365,
   maxSpeed: 620,
-  // Speed gains acceleration × 10 px/s per second, so this reaches top speed
-  // in roughly 50s instead of the 8s that made the run unplayable on arrival.
+  // Speed gains acceleration × 10 px/s per second: about 45s to top speed,
+  // rather than the 8s that made an early build unplayable on arrival.
   acceleration: 0.6,
-  spawnGapMin: 440,
-  spawnGapMax: 760,
+  /** Gaps are seconds, not pixels. A pixel gap that is comfortable at 365 px/s
+   *  becomes unclearable at 620 — the bird is still in the air from the last
+   *  jump. In time, the rhythm holds and speed alone tightens the reaction
+   *  window, which is where the difficulty should come from. */
+  spawnGapMin: 0.85,
+  spawnGapMax: 1.6,
+  /** Time between the two slabs of a twin: inside a single jump's 0.49s hang
+   *  time, so one well-placed jump clears both. */
+  twinGap: 0.4,
   /** Ceiling bars stop this far above the ground: under a ducking bird
    *  (18px), over nothing else. */
   ceilingGap: 24,
@@ -141,16 +148,18 @@ function createWorld(scale = 1): World {
     jumps: 0,
     puff: null,
     obstacles: [],
-    nextSpawn: 620,
+    // A beat before the first slab, so the run does not open mid-obstacle.
+    nextSpawn: WORLD.startSpeed * scale * 1.9,
   };
 }
 
-/** One move at a time: plain jumps first, double jumps after 18s, ducks after
- *  36s. Nobody has to learn three things in the first ten seconds. */
+/** One move at a time, but early: a reactive run lasts about 20s, so anything
+ *  gated later than that is something most players never meet. Plain jumps
+ *  from the start, double jumps at 5s, ducks at 10s, twin slabs at 16s. */
 function pickKind(world: World): ObstacleKind {
   const roll = Math.random();
-  if (world.t > 36 && roll > 0.76) return "ceiling";
-  if (world.t > 18 && roll > 0.58) return "high";
+  if (world.t > 10 && roll > 0.8) return "ceiling";
+  if (world.t > 5 && roll > 0.6) return "high";
   return "low";
 }
 
@@ -166,12 +175,25 @@ function spawnObstacle(world: World, width: number): void {
     kind,
   });
 
+  // Twin slabs: two low blocks close enough that a single well-timed jump
+  // clears both, and a late one lands between them. The run's real trap.
+  if (kind === "low" && world.t > 16 && Math.random() > 0.7) {
+    const [min, max] = WORLD.lowHeight;
+    world.obstacles.push({
+      x: width + 40 + WORLD.twinGap * world.speed,
+      width: 18,
+      height: min + Math.random() * (max - min),
+      kind: "low",
+    });
+  }
+
   const pressure =
     (world.speed / world.scale - WORLD.startSpeed) / (WORLD.maxSpeed - WORLD.startSpeed);
-  world.nextSpawn = Math.max(
-    340,
-    WORLD.spawnGapMin + Math.random() * (WORLD.spawnGapMax - WORLD.spawnGapMin) - pressure * 70,
-  );
+  const seconds =
+    WORLD.spawnGapMin +
+    Math.random() * (WORLD.spawnGapMax - WORLD.spawnGapMin) -
+    pressure * 0.12;
+  world.nextSpawn = world.speed * Math.max(0.75, seconds);
 }
 
 function obstacleY(obstacle: Obstacle): number {
