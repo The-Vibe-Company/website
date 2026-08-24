@@ -422,12 +422,20 @@ export interface WorldCard {
   kind: string;
   name: string;
   detail: string;
+  /** "03 / 11": there is a collection here, and you are touring it. */
+  position: number;
+  total: number;
 }
 
 /**
- * The title card: who this world is about. Centred at the top of the panel
- * and deliberately the loudest thing on it after the bird — the game exists
- * to put these names in front of people.
+ * The title card: whose world this is.
+ *
+ * This is the reason the game exists — it walks a visitor through our clients,
+ * our projects and our backers one world at a time — so it is staged like a
+ * piece of the brand rather than a HUD readout: a filled chip in the world's
+ * tint, the name set big in the site's display voice, and a counter that says
+ * out loud there are more worlds to find. It rises into place as it fades in,
+ * and obstacles pass in front of it, which keeps it scenery rather than UI.
  */
 function drawTitleCard(
   ctx: CanvasRenderingContext2D,
@@ -437,30 +445,59 @@ function drawTitleCard(
   width: number,
   palette: Palette,
 ): void {
-  if (!card) return;
+  if (!card || !card.name) return;
   const x = width / 2;
+  const rise = (1 - alpha) * 14;
+  const mono = 'ui-monospace, "SF Mono", Menlo, monospace';
 
   ctx.save();
-  ctx.textAlign = "center";
+  ctx.globalAlpha = alpha;
+  ctx.textBaseline = "alphabetic";
 
-  // Kind, in the world's tint: the only coloured type in the panel.
-  ctx.globalAlpha = alpha * 0.95;
+  // Chip + counter share one centred line.
+  const label = card.kind.toUpperCase();
+  const counter = `${String(card.position).padStart(2, "0")} / ${String(card.total).padStart(2, "0")}`;
+
+  ctx.font = `700 10px ${mono}`;
+  ctx.letterSpacing = "3px";
+  const labelWidth = ctx.measureText(label).width;
+  const chipWidth = labelWidth + 20;
+  ctx.letterSpacing = "1px";
+  ctx.font = `500 10px ${mono}`;
+  const counterWidth = ctx.measureText(counter).width;
+
+  const gap = 10;
+  const lineStart = x - (chipWidth + gap + counterWidth) / 2;
+  const chipY = 14 + rise;
+
   ctx.fillStyle = scene.tint;
-  ctx.letterSpacing = "4px";
-  ctx.font = '600 11px ui-monospace, "SF Mono", Menlo, monospace';
-  ctx.fillText(card.kind.toUpperCase(), x, 26);
+  ctx.fillRect(Math.round(lineStart), Math.round(chipY), Math.round(chipWidth), 17);
 
-  // The name, in the site's display voice, big enough to read across a room.
+  ctx.textAlign = "center";
+  ctx.fillStyle = palette.ink;
+  ctx.font = `700 10px ${mono}`;
+  ctx.letterSpacing = "3px";
+  ctx.fillText(label, lineStart + chipWidth / 2 + 1.5, chipY + 12);
+
+  ctx.textAlign = "left";
+  ctx.globalAlpha = alpha * 0.35;
+  ctx.fillStyle = palette.paper;
+  ctx.font = `500 10px ${mono}`;
+  ctx.letterSpacing = "1px";
+  ctx.fillText(counter, lineStart + chipWidth + gap, chipY + 12);
+
+  // The name, in the same voice as the hero headline above the panel.
+  ctx.textAlign = "center";
   ctx.globalAlpha = alpha;
   ctx.fillStyle = palette.paper;
-  ctx.letterSpacing = "-0.5px";
-  ctx.font = `700 30px ${palette.sans}`;
-  ctx.fillText(card.name, x, 60);
+  ctx.letterSpacing = "-0.6px";
+  ctx.font = `700 32px ${palette.sans}`;
+  ctx.fillText(card.name, x, 68 + rise);
 
-  ctx.globalAlpha = alpha * 0.5;
+  ctx.globalAlpha = alpha * 0.45;
   ctx.letterSpacing = "2px";
-  ctx.font = '500 11px ui-monospace, "SF Mono", Menlo, monospace';
-  ctx.fillText(card.detail, x, 80);
+  ctx.font = `500 11px ${mono}`;
+  ctx.fillText(card.detail, x, 88 + rise);
   ctx.restore();
 }
 
@@ -653,6 +690,8 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
         kind: item ? t(`kinds.${item.kind}`) : "",
         name: item?.name ?? "",
         detail: item?.detail ?? "",
+        position: items.length ? (index % items.length) + 1 : 0,
+        total: items.length,
       };
     });
   }, [items, t]);
@@ -752,14 +791,17 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const width = container.clientWidth;
+      // Measure the canvas, not the container: clientWidth includes the
+      // container's horizontal padding, which made the canvas overhang the
+      // panel on the right and leak decor outside the ink.
+      const width = canvas.clientWidth;
+      if (width === 0) return;
       const zoom = width < 640 ? 0.8 : 1;
       const cssHeight = Math.round(WORLD.height * zoom);
       // The world stays in logical units; only the scale of the view changes.
       widthRef.current = width / zoom;
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(cssHeight * dpr);
-      canvas.style.width = `${width}px`;
       canvas.style.height = `${cssHeight}px`;
       ctx.setTransform(dpr * zoom, 0, 0, dpr * zoom, 0, 0);
     };
