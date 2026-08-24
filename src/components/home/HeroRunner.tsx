@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { captureEvent } from "@/lib/posthog";
+import type { RunnerItem } from "@/lib/runner-worlds";
 
 /**
  * The hero's runner band: the site's own take on the Chrome offline dino.
@@ -21,9 +22,13 @@ const WORLD = {
   // 30px of ink below the line reads as ground thickness; more is dead space.
   groundY: 170,
   gravity: 2600,
-  // Apex is v²/2g = 110px, which uses the taller band without ever pushing the
-  // mark off the top of the canvas.
-  jumpVelocity: -756,
+  // Apex is v²/2g = 78px. The second jump adds ~50px on top, for a 128px
+  // ceiling that still leaves the bird inside the band.
+  jumpVelocity: -637,
+  /** The second jump tops the bird up to exactly this height above the line,
+   *  whenever it is pressed. Adding a fixed impulse instead would either be
+   *  wasted right after take-off or overshoot the roof near the apex. */
+  doubleJumpPeak: 130,
   playerX: 104,
   playerSize: 32,
   duckHeight: 18,
@@ -34,10 +39,13 @@ const WORLD = {
   acceleration: 0.6,
   spawnGapMin: 440,
   spawnGapMax: 760,
-  /** Flying slabs hang at head height: they clip a standing mark and miss a
-   *  ducking one. Both numbers are relative to the ground line. */
-  flyOffset: 42,
-  flyHeight: 18,
+  /** Ceiling bars stop this far above the ground: under a ducking bird
+   *  (18px), over nothing else. */
+  ceilingGap: 24,
+  /** A single jump peaks at 78px, a double at ~128px, so these two bands are
+   *  what separate "jump" from "double jump". */
+  lowHeight: [34, 52],
+  highHeight: [88, 104],
 } as const;
 
 const STEP = 1 / 60;
@@ -79,11 +87,19 @@ function writeBest(score: number): void {
   bestListeners.forEach((listener) => listener());
 }
 
+/**
+ * `low`     — a single jump clears it.
+ * `high`    — a barrier only a double jump clears.
+ * `ceiling` — hangs from the roof down to head height: there is no way over
+ *             it, it has to be ducked under.
+ */
+type ObstacleKind = "low" | "high" | "ceiling";
+
 type Obstacle = {
   x: number;
   width: number;
   height: number;
-  flying: boolean;
+  kind: ObstacleKind;
 };
 
 type World = {
@@ -98,6 +114,10 @@ type World = {
   playerVY: number;
   ducking: boolean;
   grounded: boolean;
+  /** 0 on the ground, 1 after the first jump, 2 once the double is spent. */
+  jumps: number;
+  /** Little burst of paper dots marking where the second jump fired. */
+  puff: { x: number; y: number; life: number } | null;
   obstacles: Obstacle[];
   nextSpawn: number;
 };
@@ -118,21 +138,33 @@ function createWorld(scale = 1): World {
     playerVY: 0,
     ducking: false,
     grounded: true,
+    jumps: 0,
+    puff: null,
     obstacles: [],
     nextSpawn: 620,
   };
 }
 
-function spawnObstacle(world: World, width: number): void {
-  // Flying slabs only appear once the run has some speed, so the opening
-  // seconds stay readable for someone who just landed on the page.
-  const flying = world.speed > 460 * world.scale && Math.random() > 0.75;
+/** One move at a time: plain jumps first, double jumps after 18s, ducks after
+ *  36s. Nobody has to learn three things in the first ten seconds. */
+function pickKind(world: World): ObstacleKind {
+  const roll = Math.random();
+  if (world.t > 36 && roll > 0.76) return "ceiling";
+  if (world.t > 18 && roll > 0.58) return "high";
+  return "low";
+}
 
-  world.obstacles.push(
-    flying
-      ? { x: width + 40, width: 54, height: WORLD.flyHeight, flying: true }
-      : { x: width + 40, width: 18, height: 34 + Math.random() * 18, flying: false },
-  );
+function spawnObstacle(world: World, width: number): void {
+  const kind = pickKind(world);
+  const [min, max] =
+    kind === "high" ? WORLD.highHeight : kind === "low" ? WORLD.lowHeight : [0, 0];
+
+  world.obstacles.push({
+    x: width + 40,
+    width: kind === "ceiling" ? 46 : kind === "high" ? 16 : 18,
+    height: kind === "ceiling" ? WORLD.groundY - WORLD.ceilingGap : min + Math.random() * (max - min),
+    kind,
+  });
 
   const pressure =
     (world.speed / world.scale - WORLD.startSpeed) / (WORLD.maxSpeed - WORLD.startSpeed);
@@ -143,7 +175,8 @@ function spawnObstacle(world: World, width: number): void {
 }
 
 function obstacleY(obstacle: Obstacle): number {
-  return obstacle.flying ? WORLD.groundY - WORLD.flyOffset : WORLD.groundY - obstacle.height;
+  // A ceiling bar grows down from the roof; everything else stands on the line.
+  return obstacle.kind === "ceiling" ? 0 : WORLD.groundY - obstacle.height;
 }
 
 function playerBox(world: World) {
@@ -171,8 +204,14 @@ function step(world: World, dt: number, width: number): boolean {
     world.playerY = WORLD.groundY;
     world.playerVY = 0;
     world.grounded = true;
+    world.jumps = 0;
   } else {
     world.grounded = false;
+  }
+
+  if (world.puff) {
+    world.puff.life -= dt * 2.6;
+    if (world.puff.life <= 0) world.puff = null;
   }
 
   world.nextSpawn -= world.speed * dt;
@@ -202,58 +241,77 @@ function step(world: World, dt: number, width: number): boolean {
 type Palette = { ink: string; paper: string; accent: string };
 
 // --- decor ---------------------------------------------------------------
-// Five silhouettes drawn behind the ground line, one every DECOR_PERIOD
-// seconds, cross-fading into each other so the run feels like it crosses
-// worlds. They scroll at a third of the world speed: enough parallax to read
-// as distance, quiet enough never to compete with the obstacles.
-const WORLDS = ["city", "hills", "forest", "sea", "night"] as const;
+// Six scenes, each with its own tint, cycling every DECOR_PERIOD seconds with
+// a cross-fade. They scroll at a third of the world speed: enough parallax to
+// read as distance, quiet enough never to compete with the obstacles. Every
+// column comes from a deterministic hash, so a skyline can never flicker.
 const DECOR_PERIOD = 10;
 const DECOR_FADE = 1.4;
 const DECOR_PARALLAX = 0.32;
+const DECOR_ALPHA = 0.3;
 
-/** Deterministic per-column pseudo-random, so a skyline never flickers. */
 function hash(n: number): number {
   const x = Math.sin(n * 127.1) * 43758.5453;
   return x - Math.floor(x);
 }
 
-function drawCity(ctx: CanvasRenderingContext2D, width: number, offset: number): void {
-  const step = 34;
+type Painter = (ctx: CanvasRenderingContext2D, width: number, offset: number) => void;
+
+/** Walks the columns of a repeating motif that scrolls with `offset`. */
+function columns(
+  width: number,
+  offset: number,
+  step: number,
+  paint: (x: number, column: number) => void,
+): void {
   const first = Math.floor(offset / step);
   for (let i = 0; i <= Math.ceil(width / step) + 1; i++) {
     const column = first + i;
-    const x = column * step - offset;
-    const h = 26 + hash(column) * 54;
-    ctx.fillRect(Math.round(x), WORLD.groundY - h, step - 8, h);
-    // A couple of lit windows, the only detail these buildings get.
-    if (hash(column * 3.7) > 0.55) {
-      ctx.clearRect(Math.round(x) + 6, WORLD.groundY - h + 10, 5, 5);
-    }
+    paint(column * step - offset, column);
   }
 }
 
-function drawHills(ctx: CanvasRenderingContext2D, width: number, offset: number): void {
-  const step = 190;
-  const first = Math.floor(offset / step);
-  for (let i = 0; i <= Math.ceil(width / step) + 1; i++) {
-    const column = first + i;
-    const x = column * step - offset;
-    const h = 58 + hash(column) * 46;
+const paintCity: Painter = (ctx, width, offset) => {
+  columns(width, offset, 34, (x, column) => {
+    const h = 26 + hash(column) * 54;
+    ctx.fillRect(Math.round(x), WORLD.groundY - h, 26, h);
+    // Two lit windows, the only detail these towers get.
+    if (hash(column * 3.7) > 0.5) {
+      ctx.clearRect(Math.round(x) + 6, WORLD.groundY - h + 10, 5, 5);
+      ctx.clearRect(Math.round(x) + 15, WORLD.groundY - h + 22, 5, 5);
+    }
+  });
+};
+
+const paintDesert: Painter = (ctx, width, offset) => {
+  // Dunes: two rows of flattened arcs, the back row barely moving.
+  for (let row = 0; row < 2; row++) {
+    const shift = offset * (1 - row * 0.4);
+    const rise = 34 + row * 22;
     ctx.beginPath();
-    ctx.moveTo(x - step * 0.55, WORLD.groundY);
-    ctx.lineTo(x, WORLD.groundY - h);
-    ctx.lineTo(x + step * 0.55, WORLD.groundY);
+    ctx.moveTo(0, WORLD.groundY);
+    for (let x = 0; x <= width; x += 8) {
+      const y = WORLD.groundY - rise - Math.sin((x + shift) / (90 + row * 50)) * 14;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(width, WORLD.groundY);
     ctx.closePath();
     ctx.fill();
   }
-}
+  // A cactus every so often, sitting on the line.
+  columns(width, offset, 150, (x, column) => {
+    if (hash(column * 2.3) < 0.45) return;
+    const h = 26 + hash(column) * 16;
+    ctx.fillRect(x, WORLD.groundY - h, 7, h);
+    ctx.fillRect(x - 9, WORLD.groundY - h * 0.72, 9, 5);
+    ctx.fillRect(x - 9, WORLD.groundY - h * 0.72, 5, 14);
+    ctx.fillRect(x + 7, WORLD.groundY - h * 0.86, 9, 5);
+    ctx.fillRect(x + 12, WORLD.groundY - h * 0.86, 5, 18);
+  });
+};
 
-function drawForest(ctx: CanvasRenderingContext2D, width: number, offset: number): void {
-  const step = 30;
-  const first = Math.floor(offset / step);
-  for (let i = 0; i <= Math.ceil(width / step) + 1; i++) {
-    const column = first + i;
-    const x = column * step - offset;
+const paintForest: Painter = (ctx, width, offset) => {
+  columns(width, offset, 30, (x, column) => {
     const h = 34 + hash(column) * 30;
     ctx.beginPath();
     ctx.moveTo(x - 11, WORLD.groundY);
@@ -262,10 +320,10 @@ function drawForest(ctx: CanvasRenderingContext2D, width: number, offset: number
     ctx.closePath();
     ctx.fill();
     ctx.fillRect(x - 1.5, WORLD.groundY - 6, 3, 6);
-  }
-}
+  });
+};
 
-function drawSea(ctx: CanvasRenderingContext2D, width: number, offset: number): void {
+const paintSea: Painter = (ctx, width, offset) => {
   for (let row = 0; row < 3; row++) {
     const y = WORLD.groundY - 20 - row * 16;
     const shift = offset * (1 - row * 0.18);
@@ -278,28 +336,100 @@ function drawSea(ctx: CanvasRenderingContext2D, width: number, offset: number): 
     ctx.lineWidth = 2;
     ctx.stroke();
   }
-}
+};
 
-function drawNight(ctx: CanvasRenderingContext2D, width: number, offset: number): void {
-  const step = 46;
-  const first = Math.floor(offset / step);
-  for (let i = 0; i <= Math.ceil(width / step) + 1; i++) {
-    const column = first + i;
-    const x = column * step - offset;
-    const y = 18 + hash(column) * 96;
-    const r = hash(column * 5.1) > 0.8 ? 2.4 : 1.4;
+const paintMountains: Painter = (ctx, width, offset) => {
+  columns(width, offset, 190, (x, column) => {
+    const h = 62 + hash(column) * 48;
     ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.moveTo(x - 105, WORLD.groundY);
+    ctx.lineTo(x, WORLD.groundY - h);
+    ctx.lineTo(x + 105, WORLD.groundY);
+    ctx.closePath();
     ctx.fill();
-  }
+    // Snow cap: the same silhouette, brighter.
+    const capAlpha = ctx.globalAlpha;
+    ctx.globalAlpha = Math.min(1, capAlpha * 2.4);
+    ctx.beginPath();
+    ctx.moveTo(x - 22, WORLD.groundY - h + 21);
+    ctx.lineTo(x, WORLD.groundY - h);
+    ctx.lineTo(x + 22, WORLD.groundY - h + 21);
+    ctx.lineTo(x + 9, WORLD.groundY - h + 15);
+    ctx.lineTo(x - 4, WORLD.groundY - h + 22);
+    ctx.closePath();
+    ctx.fill();
+    ctx.globalAlpha = capAlpha;
+  });
+};
+
+const paintNight: Painter = (ctx, width, offset) => {
+  columns(width, offset, 46, (x, column) => {
+    const y = 18 + hash(column) * 96;
+    ctx.beginPath();
+    ctx.arc(x, y, hash(column * 5.1) > 0.8 ? 2.4 : 1.4, 0, Math.PI * 2);
+    ctx.fill();
+  });
   // One moon, parked far away so it barely drifts.
   const moonX = width - ((offset * 0.25) % (width + 220)) + 110;
   ctx.beginPath();
   ctx.arc(moonX, 46, 17, 0, Math.PI * 2);
   ctx.fill();
+};
+
+interface Scene {
+  key: string;
+  /** Each world is tinted rather than plain paper — the only colour in the
+   *  panel besides the orange accent. */
+  tint: string;
+  paint: Painter;
 }
 
-const DECOR_PAINTERS = [drawCity, drawHills, drawForest, drawSea, drawNight];
+const SCENES: Scene[] = [
+  { key: "city", tint: "#9db4cf", paint: paintCity },
+  { key: "desert", tint: "#e0a566", paint: paintDesert },
+  { key: "forest", tint: "#7cba8d", paint: paintForest },
+  { key: "sea", tint: "#5fb4c6", paint: paintSea },
+  { key: "mountains", tint: "#b1abd8", paint: paintMountains },
+  { key: "night", tint: "#8d94e2", paint: paintNight },
+];
+
+export const SCENE_KEYS = SCENES.map((scene) => scene.key);
+
+/** What the corner plaque shows for the world being crossed. */
+export interface WorldCard {
+  world: string;
+  kind: string;
+  name: string;
+  detail: string;
+}
+
+function drawPlaque(
+  ctx: CanvasRenderingContext2D,
+  card: WorldCard | undefined,
+  scene: Scene,
+  alpha: number,
+  palette: Palette,
+): void {
+  if (!card) return;
+  ctx.save();
+  ctx.letterSpacing = "2px";
+
+  ctx.globalAlpha = alpha * 0.45;
+  ctx.fillStyle = palette.paper;
+  ctx.font = '500 10px ui-monospace, "SF Mono", Menlo, monospace';
+  ctx.fillText(card.world.toUpperCase(), 2, 18);
+
+  ctx.globalAlpha = alpha * 0.9;
+  ctx.fillStyle = scene.tint;
+  ctx.font = '600 11px ui-monospace, "SF Mono", Menlo, monospace';
+  ctx.fillText(`${card.kind.toUpperCase()} · ${card.name.toUpperCase()}`, 2, 36);
+
+  ctx.globalAlpha = alpha * 0.4;
+  ctx.fillStyle = palette.paper;
+  ctx.font = '500 10px ui-monospace, "SF Mono", Menlo, monospace';
+  ctx.fillText(card.detail, 2, 52);
+  ctx.restore();
+}
 
 function drawDecorLayer(
   ctx: CanvasRenderingContext2D,
@@ -308,30 +438,23 @@ function drawDecorLayer(
   distance: number,
   alpha: number,
   palette: Palette,
-  label: string | undefined,
+  card: WorldCard | undefined,
 ): void {
   if (alpha <= 0.01) return;
-  const painter = DECOR_PAINTERS[index % DECOR_PAINTERS.length];
+  const scene = SCENES[index % SCENES.length];
 
   ctx.save();
   // Never let a silhouette cross the ground line.
   ctx.beginPath();
   ctx.rect(0, 0, width, WORLD.groundY);
   ctx.clip();
-  ctx.globalAlpha = alpha * 0.22;
-  ctx.fillStyle = palette.paper;
-  ctx.strokeStyle = palette.paper;
-  painter(ctx, width, distance * DECOR_PARALLAX + index * 900);
+  ctx.globalAlpha = alpha * DECOR_ALPHA;
+  ctx.fillStyle = scene.tint;
+  ctx.strokeStyle = scene.tint;
+  scene.paint(ctx, width, distance * DECOR_PARALLAX + index * 900);
   ctx.restore();
 
-  if (!label) return;
-  ctx.save();
-  ctx.globalAlpha = alpha * 0.5;
-  ctx.fillStyle = palette.paper;
-  ctx.font = '600 10px ui-monospace, "SF Mono", Menlo, monospace';
-  ctx.letterSpacing = "2px";
-  ctx.fillText(label.toUpperCase(), 2, 18);
-  ctx.restore();
+  drawPlaque(ctx, card, scene, alpha, palette);
 }
 
 function drawDecor(
@@ -339,18 +462,18 @@ function drawDecor(
   world: World,
   width: number,
   palette: Palette,
-  labels: string[],
+  cards: WorldCard[],
 ): void {
   const index = Math.floor(world.t / DECOR_PERIOD);
   const elapsed = world.t - index * DECOR_PERIOD;
   const entering = Math.min(1, elapsed / DECOR_FADE);
+  const cardAt = (i: number) => (cards.length ? cards[i % cards.length] : undefined);
 
   if (index > 0 && entering < 1) {
     drawDecorLayer(ctx, index - 1, width, world.distance, 1 - entering, palette, undefined);
   }
-  drawDecorLayer(ctx, index, width, world.distance, entering, palette, labels[index % labels.length]);
+  drawDecorLayer(ctx, index, width, world.distance, entering, palette, cardAt(index));
 }
-
 
 /**
  * The player: a small paper bird. Everything is expressed as a fraction of its
@@ -421,11 +544,11 @@ function draw(
   world: World,
   width: number,
   palette: Palette,
-  labels: string[],
+  cards: WorldCard[],
 ): void {
   ctx.clearRect(0, 0, width, WORLD.height);
 
-  drawDecor(ctx, world, width, palette, labels);
+  drawDecor(ctx, world, width, palette, cards);
 
 
   // Ground: one hairline, nothing else. The panel already frames the game, so
@@ -440,9 +563,27 @@ function draw(
   ctx.globalAlpha = 1;
 
   for (const obstacle of world.obstacles) {
-    const y = obstacleY(obstacle);
-    ctx.fillStyle = obstacle.flying ? palette.accent : palette.paper;
-    ctx.fillRect(Math.round(obstacle.x), Math.round(y), obstacle.width, obstacle.height);
+    // Orange marks the two obstacles that need a move other than a plain jump.
+    ctx.fillStyle = obstacle.kind === "low" ? palette.paper : palette.accent;
+    ctx.fillRect(
+      Math.round(obstacle.x),
+      Math.round(obstacleY(obstacle)),
+      obstacle.width,
+      obstacle.height,
+    );
+  }
+
+  if (world.puff) {
+    ctx.save();
+    ctx.globalAlpha = world.puff.life * 0.7;
+    ctx.fillStyle = palette.paper;
+    const spread = (1 - world.puff.life) * 14;
+    for (let i = -1; i <= 1; i++) {
+      ctx.beginPath();
+      ctx.arc(world.puff.x + i * spread, world.puff.y + spread * 0.5, 2.4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
   }
 
   drawBird(ctx, world, playerBox(world), palette, world.phase === "over");
@@ -452,7 +593,7 @@ function pad(score: number): string {
   return String(Math.min(score, 99999)).padStart(4, "0");
 }
 
-export function HeroRunner() {
+export function HeroRunner({ items }: { items: RunnerItem[] }) {
   const t = useTranslations("runner");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -463,15 +604,26 @@ export function HeroRunner() {
   const visibleRef = useRef(true);
   const rafRef = useRef<number | null>(null);
 
-  const labelsRef = useRef<string[]>([]);
+  const cardsRef = useRef<WorldCard[]>([]);
 
   const [phase, setPhase] = useState<Phase>("idle");
   const [score, setScore] = useState(0);
   const best = Number(useSyncExternalStore(subscribeBest, readBest, () => "0")) || 0;
 
   useEffect(() => {
-    labelsRef.current = WORLDS.map((world) => t(`worlds.${world}`));
-  }, [t]);
+    // One card per world: the scene name plus the client, project or badge it
+    // features. Both lists cycle, so their pairing keeps shifting.
+    const count = Math.max(SCENE_KEYS.length, items.length) * SCENE_KEYS.length;
+    cardsRef.current = Array.from({ length: count }, (_, index) => {
+      const item = items[index % items.length];
+      return {
+        world: t(`worlds.${SCENE_KEYS[index % SCENE_KEYS.length]}`),
+        kind: item ? t(`kinds.${item.kind}`) : "",
+        name: item?.name ?? "",
+        detail: item?.detail ?? "",
+      };
+    });
+  }, [items, t]);
 
   const start = useCallback(() => {
     const world = createWorld(speedScale(widthRef.current));
@@ -484,9 +636,26 @@ export function HeroRunner() {
 
   const jump = useCallback(() => {
     const world = worldRef.current;
-    if (world.phase !== "running" || !world.grounded) return;
-    world.playerVY = WORLD.jumpVelocity;
-    world.grounded = false;
+    if (world.phase !== "running") return;
+
+    if (world.grounded) {
+      world.playerVY = WORLD.jumpVelocity;
+      world.grounded = false;
+      world.jumps = 1;
+      return;
+    }
+    // Second press mid-air: top the bird up to a fixed peak, and puff so the
+    // move is legible.
+    if (world.jumps >= 2) return;
+    const climbed = WORLD.groundY - world.playerY;
+    const remaining = Math.max(0, WORLD.doubleJumpPeak - climbed);
+    world.playerVY = -Math.sqrt(2 * WORLD.gravity * remaining);
+    world.jumps = 2;
+    world.puff = {
+      x: WORLD.playerX + WORLD.playerSize / 2,
+      y: world.playerY,
+      life: 1,
+    };
   }, []);
 
   const setDucking = useCallback((ducking: boolean) => {
@@ -612,7 +781,7 @@ export function HeroRunner() {
       if (world.phase === "running" && !visibleRef.current) {
         // Scrolled out of sight: hold the run exactly where it is.
         accumulator = 0;
-        draw(ctx, world, widthRef.current, palette, labelsRef.current);
+        draw(ctx, world, widthRef.current, palette, cardsRef.current);
         return;
       }
 
@@ -637,7 +806,7 @@ export function HeroRunner() {
         accumulator = 0;
       }
 
-      draw(ctx, world, widthRef.current, palette, labelsRef.current);
+      draw(ctx, world, widthRef.current, palette, cardsRef.current);
     };
 
     rafRef.current = requestAnimationFrame(frame);

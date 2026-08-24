@@ -52,15 +52,21 @@
   },
   "runner": {
     "heading": "Mini-jeu",
-    "hint": "[ Espace ] sauter · [ ↓ ] baisser",
+    "hint": "[ Espace ] sauter · [ ×2 ] double saut · [ ↓ ] baisser",
     "score": "Score",
     "best": "Record",
     "worlds": {
       "city": "Ville",
-      "hills": "Collines",
+      "desert": "Désert",
       "forest": "Forêt",
       "sea": "Mer",
+      "mountains": "Montagnes",
       "night": "Nuit"
+    },
+    "kinds": {
+      "client": "Client",
+      "project": "Projet",
+      "badge": "Label"
     },
     "start": "Appuyez sur espace pour jouer",
     "startTouch": "Touchez pour jouer",

@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { captureEvent } from "@/lib/posthog";
+import type { RunnerItem } from "@/lib/runner-worlds";
 import { HeroRunner } from "./HeroRunner";
 
 const QUICK_ITEMS = [
@@ -12,7 +13,7 @@ const QUICK_ITEMS = [
   { n: "03", key: "advise" },
 ] as const;
 
-export function Hero() {
+export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("hero");
 
@@ -127,7 +128,7 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <HeroRunner />
+        <HeroRunner items={runnerItems} />
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}

@@ -37,5 +37,5 @@ export default async function Home({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <HomeLaunchpad />;
+  return <HomeLaunchpad locale={locale === "fr" ? "fr" : "en"} />;
 }

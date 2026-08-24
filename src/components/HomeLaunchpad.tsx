@@ -1,3 +1,5 @@
+import { getRunnerItems } from "@/lib/runner-worlds";
+import type { ContentLocale } from "@/lib/customers";
 import { TopNav } from "./TopNav";
 import { Footer } from "./Footer";
 import { Hero } from "./home/Hero";
@@ -7,12 +9,16 @@ import { Proof } from "./home/Proof";
 import { Clients } from "./home/Clients";
 import { FinalCTA } from "./home/FinalCTA";
 
-export function HomeLaunchpad() {
+export function HomeLaunchpad({ locale }: { locale: ContentLocale }) {
+  // Built on the server so the case-study and project catalogues never reach
+  // the client bundle whole.
+  const runnerItems = getRunnerItems(locale);
+
   return (
     <div data-variant="hybrid" className="flex min-h-screen flex-col bg-background text-foreground">
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <Hero />
+        <Hero runnerItems={runnerItems} />
         <Clients />
         <CaseStudy />
         <Services />
