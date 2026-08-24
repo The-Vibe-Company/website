@@ -712,8 +712,9 @@ function drawBird(
   ctx.restore();
 }
 
-/** Solid depth of a ceiling bar's lower edge. */
-const CEILING_LIP = 26;
+/** Solid depth of a ceiling bar's lower edge — the same 12px the standing
+ *  slabs are wide, so every obstacle is the same bar, just hung differently. */
+const CEILING_LIP = 12;
 
 function moveColour(kind: ObstacleKind, palette: Palette): string {
   const move = movesUnder(kind);
