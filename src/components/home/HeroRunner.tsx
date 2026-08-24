@@ -309,7 +309,7 @@ const paintDesert: Painter = (ctx, width, offset) => {
   // Dunes: two rows of flattened arcs, the back row barely moving.
   for (let row = 0; row < 2; row++) {
     const shift = offset * (1 - row * 0.4);
-    const rise = 34 + row * 22;
+    const rise = 24 + row * 15;
     ctx.beginPath();
     ctx.moveTo(0, WORLD.groundY);
     for (let x = 0; x <= width; x += 8) {
@@ -417,27 +417,24 @@ const SCENES: Scene[] = [
 
 export const SCENE_KEYS = SCENES.map((scene) => scene.key);
 
-/** What the title card shows for the world being crossed. */
+/** Who the world being crossed is about. */
 export interface WorldCard {
   kind: string;
   name: string;
   detail: string;
-  /** "03 / 11": there is a collection here, and you are touring it. */
-  position: number;
-  total: number;
 }
 
 /**
- * The title card: whose world this is.
+ * The name of whoever this world belongs to, set as a giant hollow word across
+ * the sky.
  *
- * This is the reason the game exists — it walks a visitor through our clients,
- * our projects and our backers one world at a time — so it is staged like a
- * piece of the brand rather than a HUD readout: a filled chip in the world's
- * tint, the name set big in the site's display voice, and a counter that says
- * out loud there are more worlds to find. It rises into place as it fades in,
- * and obstacles pass in front of it, which keeps it scenery rather than UI.
+ * This is why the game is on the page: it tours our clients, projects and
+ * backers one world at a time. So the name is not a label on top of the game,
+ * it is part of the scenery — outlined rather than filled so obstacles stay
+ * readable through it, and sized to the panel so a long name shrinks instead
+ * of running off the edge of a phone.
  */
-function drawTitleCard(
+function drawWorldName(
   ctx: CanvasRenderingContext2D,
   card: WorldCard | undefined,
   scene: Scene,
@@ -446,58 +443,42 @@ function drawTitleCard(
   palette: Palette,
 ): void {
   if (!card || !card.name) return;
+  const name = card.name.toUpperCase();
   const x = width / 2;
-  const rise = (1 - alpha) * 14;
-  const mono = 'ui-monospace, "SF Mono", Menlo, monospace';
 
   ctx.save();
-  ctx.globalAlpha = alpha;
+  ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
 
-  // Chip + counter share one centred line.
-  const label = card.kind.toUpperCase();
-  const counter = `${String(card.position).padStart(2, "0")} / ${String(card.total).padStart(2, "0")}`;
+  // Fit the word to the panel: short names get the full 66px, long ones shrink
+  // rather than run off the edges of a phone.
+  let size = 66;
+  ctx.letterSpacing = "6px";
+  ctx.font = `700 ${size}px ${palette.sans}`;
+  const maxWidth = width * 0.66;
+  const measured = ctx.measureText(name).width;
+  if (measured > maxWidth) size = Math.max(26, (size * maxWidth) / measured);
+  ctx.font = `700 ${size}px ${palette.sans}`;
 
-  ctx.font = `700 10px ${mono}`;
-  ctx.letterSpacing = "3px";
-  const labelWidth = ctx.measureText(label).width;
-  const chipWidth = labelWidth + 20;
-  ctx.letterSpacing = "1px";
-  ctx.font = `500 10px ${mono}`;
-  const counterWidth = ctx.measureText(counter).width;
+  const baseline = 74 - (1 - alpha) * 10;
 
-  const gap = 10;
-  const lineStart = x - (chipWidth + gap + counterWidth) / 2;
-  const chipY = 14 + rise;
-
+  // A whisper of fill gives the letters body without hiding what runs behind.
+  ctx.globalAlpha = alpha * 0.09;
   ctx.fillStyle = scene.tint;
-  ctx.fillRect(Math.round(lineStart), Math.round(chipY), Math.round(chipWidth), 17);
+  ctx.fillText(name, x, baseline);
 
-  ctx.textAlign = "center";
-  ctx.fillStyle = palette.ink;
-  ctx.font = `700 10px ${mono}`;
+  ctx.globalAlpha = alpha * 0.75;
+  ctx.strokeStyle = scene.tint;
+  ctx.lineWidth = 1.6;
+  ctx.lineJoin = "round";
+  ctx.strokeText(name, x, baseline);
+
+  // One quiet mono line underneath: what they are, what they do.
+  ctx.globalAlpha = alpha * 0.55;
+  ctx.fillStyle = palette.paper;
   ctx.letterSpacing = "3px";
-  ctx.fillText(label, lineStart + chipWidth / 2 + 1.5, chipY + 12);
-
-  ctx.textAlign = "left";
-  ctx.globalAlpha = alpha * 0.35;
-  ctx.fillStyle = palette.paper;
-  ctx.font = `500 10px ${mono}`;
-  ctx.letterSpacing = "1px";
-  ctx.fillText(counter, lineStart + chipWidth + gap, chipY + 12);
-
-  // The name, in the same voice as the hero headline above the panel.
-  ctx.textAlign = "center";
-  ctx.globalAlpha = alpha;
-  ctx.fillStyle = palette.paper;
-  ctx.letterSpacing = "-0.6px";
-  ctx.font = `700 32px ${palette.sans}`;
-  ctx.fillText(card.name, x, 68 + rise);
-
-  ctx.globalAlpha = alpha * 0.45;
-  ctx.letterSpacing = "2px";
-  ctx.font = `500 11px ${mono}`;
-  ctx.fillText(card.detail, x, 88 + rise);
+  ctx.font = `500 10px ui-monospace, "SF Mono", Menlo, monospace`;
+  ctx.fillText(`${card.kind.toUpperCase()} · ${card.detail.toUpperCase()}`, x, baseline + 22);
   ctx.restore();
 }
 
@@ -524,7 +505,7 @@ function drawDecorLayer(
   scene.paint(ctx, width, distance * DECOR_PARALLAX + index * 900);
   ctx.restore();
 
-  drawTitleCard(ctx, card, scene, alpha, width, palette);
+  drawWorldName(ctx, card, scene, alpha, width, palette);
 }
 
 function drawDecor(
@@ -536,7 +517,9 @@ function drawDecor(
 ): void {
   const index = Math.floor(world.t / DECOR_PERIOD);
   const elapsed = world.t - index * DECOR_PERIOD;
-  const entering = Math.min(1, elapsed / DECOR_FADE);
+  // The first world is already there — fading it in from nothing left the
+  // panel blank before the run starts, which is when it is most looked at.
+  const entering = index === 0 ? 1 : Math.min(1, elapsed / DECOR_FADE);
   const cardAt = (i: number) => (cards.length ? cards[i % cards.length] : undefined);
 
   if (index > 0 && entering < 1) {
@@ -683,15 +666,21 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
   useEffect(() => {
     // One card per world: the scene name plus the client, project or badge it
     // features. Both lists cycle, so their pairing keeps shifting.
-    const count = Math.max(SCENE_KEYS.length, items.length) * SCENE_KEYS.length;
+    // Shuffled per visit: the roster is a tour, not a fixed playlist, and the
+    // first world is not always the same client.
+    const shuffled = [...items];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    const count = Math.max(SCENE_KEYS.length, shuffled.length) * SCENE_KEYS.length;
     cardsRef.current = Array.from({ length: count }, (_, index) => {
-      const item = items[index % items.length];
+      const item = shuffled[index % shuffled.length];
       return {
         kind: item ? t(`kinds.${item.kind}`) : "",
         name: item?.name ?? "",
         detail: item?.detail ?? "",
-        position: items.length ? (index % items.length) + 1 : 0,
-        total: items.length,
       };
     });
   }, [items, t]);
@@ -744,7 +733,13 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     if (!container) return false;
     const rect = container.getBoundingClientRect();
     const shown = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-    if (shown < rect.height * 0.5) return false;
+
+    // Off screen entirely: space belongs to the page.
+    if (shown <= 0) return false;
+    // Mid-run, any sliver of the band on screen means the key is the player's
+    // — a short window used to drop the band under a 50% threshold and
+    // silently hand the space bar back to the scroller mid-game.
+    if (worldRef.current.phase !== "running" && shown < rect.height * 0.3) return false;
 
     const active = document.activeElement;
     if (!active || active === document.body) return true;
