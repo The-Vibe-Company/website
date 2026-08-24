@@ -1307,7 +1307,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
             }}
             aria-pressed={muted}
             aria-label={muted ? t("soundOn") : t("soundOff")}
-            className="ml-1 p-1 text-background/55 transition-colors hover:text-background"
+            className="ml-1 cursor-pointer p-1 text-background/55 transition-colors hover:text-background"
           >
             {muted ? (
               <VolumeX aria-hidden="true" className="h-3.5 w-3.5" />
