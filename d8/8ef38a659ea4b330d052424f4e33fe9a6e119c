@@ -1,0 +1,21 @@
+src/components/home/HeroRunner.tsx
+  s_be36689d51dfdb::t_9112ec0f7e9073 1082-1087,1137,1145,1177,1181
+DESIGN.md
+  s_be36689d51dfdb::t_a47d8fa86fabeb 382
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "d88ef38a659ea4b330d052424f4e33fe9a6e119c",
+  "prompts": {},
+  "sessions": {
+    "s_be36689d51dfdb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04be70e4-4291-41ee-9fec-f4431f2fbbcd",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
