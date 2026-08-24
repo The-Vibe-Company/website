@@ -1,0 +1,37 @@
+src/components/home/Hero.tsx
+  s_be36689d51dfdb::t_8a5bd95117f027 37
+src/components/HomeLaunchpad.tsx
+  s_be36689d51dfdb::t_bef0df5f3ef913 4,17
+messages/en.json
+  s_be36689d51dfdb::t_39f6be3fa6f2a4 53-59,61-62,64-68
+  s_be36689d51dfdb::t_caadfbd8b3627a 60,63
+messages/fr.json
+  s_be36689d51dfdb::t_39f6be3fa6f2a4 53-59,61-62,64-68
+  s_be36689d51dfdb::t_caadfbd8b3627a 60,63
+src/components/home/HeroRunner.tsx
+  s_be36689d51dfdb::t_1e7486b6bda4c6 1-2,4-18,25-27,32-43,78-87,90-103,109-110,112,114-131,133-135,142-144,146-149,152-156,163-170,173,178-204,206-215,217-219,221-258,260-292,296-299,301-302,304-323,328,335-349,351-353,355-394,396,398-432,440-441,445-452,454,456-484,486-489,491-520,525-527,531-573
+  s_be36689d51dfdb::t_caadfbd8b3627a 88-89,104-108,111,113,132,150-151,174-177,303,485,490,521-524,528-530
+  s_be36689d51dfdb::t_2c189f3410996d 19-24,28-31,136-141,145,157-162,205,259
+  s_be36689d51dfdb::t_9a6297e4e14ae8 324-327,329-334,395,397,433-439
+  s_be36689d51dfdb::t_065f1fd8a3d245 3,44-77,171-172,216,220,300,350,354,442-444,453,455
+  s_be36689d51dfdb::t_4ddafdce38d7d4 293-295
+DESIGN.md
+  s_be36689d51dfdb::t_80e446d951387b 382-383
+  s_be36689d51dfdb::t_e1df850cee9121 151-156
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "0cb6ee9fcbe0b24f119a065031041d36bc1437b2",
+  "prompts": {},
+  "sessions": {
+    "s_be36689d51dfdb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04be70e4-4291-41ee-9fec-f4431f2fbbcd",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
