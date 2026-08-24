@@ -474,13 +474,13 @@ export function HeroRunner() {
   return (
     <section
       aria-labelledby="runner-heading"
-      className="relative border-b-2 border-foreground bg-background"
+      className="relative mt-12 border-t border-border md:mt-14"
     >
       <h2 id="runner-heading" className="sr-only">
         {t("heading")}
       </h2>
 
-      <div className="mx-auto max-w-[100rem] px-6 md:px-12">
+      <div>
         {/* Readout row — mono, uppercase, the same register as the nav labels. */}
         <div className="flex items-baseline justify-between gap-3 pb-2 pt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground md:gap-4 md:text-[11px] md:tracking-[0.2em]">
           <p className="m-0 flex items-center gap-2">
@@ -537,7 +537,7 @@ export function HeroRunner() {
 
         {/* Touch controls: a tap anywhere jumps, this is the only move the
             band cannot infer on its own. */}
-        <div className="flex items-center justify-between gap-3 pb-4 pt-2 sm:hidden">
+        <div className="flex items-center justify-between gap-3 pt-2 sm:hidden">
           <button
             type="button"
             onPointerDown={(event) => {
@@ -562,7 +562,6 @@ export function HeroRunner() {
             {t("jump")}
           </button>
         </div>
-        <div className="hidden pb-4 sm:block" />
       </div>
 
       <p aria-live="polite" className="sr-only">

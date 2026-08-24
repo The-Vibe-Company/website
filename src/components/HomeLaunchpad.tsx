@@ -1,7 +1,6 @@
 import { TopNav } from "./TopNav";
 import { Footer } from "./Footer";
 import { Hero } from "./home/Hero";
-import { HeroRunner } from "./home/HeroRunner";
 import { Services } from "./home/Services";
 import { CaseStudy } from "./home/CaseStudy";
 import { Proof } from "./home/Proof";
@@ -14,7 +13,6 @@ export function HomeLaunchpad() {
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <Hero />
-        <HeroRunner />
         <Clients />
         <CaseStudy />
         <Services />

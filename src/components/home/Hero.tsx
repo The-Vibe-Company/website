@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { captureEvent } from "@/lib/posthog";
+import { HeroRunner } from "./HeroRunner";
 
 const QUICK_ITEMS = [
   { n: "01", key: "build" },
@@ -34,7 +35,7 @@ export function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[100rem] px-6 pb-10 pt-12 md:px-12 md:pb-12 md:pt-16">
+      <div className="relative mx-auto max-w-[100rem] px-6 pb-14 pt-12 md:px-12 md:pb-16 md:pt-16">
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -126,6 +127,8 @@ export function Hero() {
           </div>
         </motion.div>
 
+        <HeroRunner />
+
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -135,7 +138,7 @@ export function Hero() {
             delay: reduceMotion ? 0 : 0.1,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="mt-14 grid grid-cols-1 border-t border-border md:mt-16 md:grid-cols-3"
+          className="mt-10 grid grid-cols-1 border-t border-border md:mt-12 md:grid-cols-3"
         >
           {QUICK_ITEMS.map((item) => (
             <div
