@@ -61,12 +61,8 @@
       "badge": "Backed by"
     },
     "start": "Press space to play",
-    "startTouch": "Tap to play",
     "over": "Game over",
     "restart": "Space to replay",
-    "restartTouch": "Tap to replay",
-    "jump": "Jump",
-    "duck": "Duck",
     "aria": "Endless runner mini game. Space or arrow up to jump, arrow down to duck.",
     "announce": "Game over, score {score}."
   },

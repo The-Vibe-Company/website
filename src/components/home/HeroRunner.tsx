@@ -1079,6 +1079,12 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
     const frame = (now: number) => {
       rafRef.current = requestAnimationFrame(frame);
+      // Below md the panel is display:none, so there is nothing to advance and
+      // nothing to draw. Bail before doing either.
+      if (canvas.clientWidth === 0) {
+        last = now;
+        return;
+      }
       const world = worldRef.current;
 
       // A backgrounded tab hands back a huge delta; clamp it so nobody comes
@@ -1128,7 +1134,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
   return (
     <section
       aria-labelledby="runner-heading"
-      className="relative mt-8 bg-foreground text-background md:mt-10"
+      className="relative mt-8 hidden bg-foreground text-background md:mt-10 md:block"
     >
       <h2 id="runner-heading" className="sr-only">
         {t("heading")}
@@ -1136,7 +1142,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
       {/* Readout row, inside the panel: controls left, score right. */}
       <div className="flex items-baseline justify-between gap-3 px-5 pb-1 pt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-background/55 md:gap-4 md:px-7 md:text-[11px] md:tracking-[0.2em]">
-        <p className="m-0 hidden sm:block">{t("hint")}</p>
+        <p className="m-0">{t("hint")}</p>
         <p className="m-0 ml-auto flex shrink-0 items-center gap-2 tabular-nums md:gap-4">
           <span className={isNewBest ? "text-orange-500" : "text-background"}>
             {t("score")} {pad(score)}
@@ -1168,49 +1174,16 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <p className="m-0 border border-background/30 bg-foreground px-4 py-2 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-background md:text-xs">
               {phase === "idle" ? (
-                <>
-                  <span className="hidden sm:inline">{t("start")}</span>
-                  <span className="sm:hidden">{t("startTouch")}</span>
-                </>
+                t("start")
               ) : (
                 <>
                   <span className="text-orange-500">{t("over")}</span>{" "}
-                  <span aria-hidden="true">·</span>{" "}
-                  <span className="hidden sm:inline">{t("restart")}</span>
-                  <span className="sm:hidden">{t("restartTouch")}</span>
+                  <span aria-hidden="true">·</span> {t("restart")}
                 </>
               )}
             </p>
           </div>
         )}
-      </div>
-
-      {/* Touch controls: a tap anywhere jumps, ducking is the one move the
-          band cannot infer on its own. */}
-      <div className="flex items-center justify-between gap-3 px-5 pb-5 sm:hidden">
-        <button
-          type="button"
-          onPointerDown={(event) => {
-            event.preventDefault();
-            setDucking(true);
-          }}
-          onPointerUp={() => setDucking(false)}
-          onPointerLeave={() => setDucking(false)}
-          className="flex-1 border border-background/40 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-background active:bg-background active:text-foreground"
-        >
-          {t("duck")}
-        </button>
-        <button
-          type="button"
-          onPointerDown={(event) => {
-            event.preventDefault();
-            if (phase === "running") jump();
-            else start();
-          }}
-          className="flex-1 bg-background px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground"
-        >
-          {t("jump")}
-        </button>
       </div>
 
       <p aria-live="polite" className="sr-only">
