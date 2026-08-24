@@ -55,14 +55,6 @@
     "hint": "[ Espace ] sauter · [ ×2 ] double saut · [ ↓ ] baisser",
     "score": "Score",
     "best": "Record",
-    "worlds": {
-      "city": "Ville",
-      "desert": "Désert",
-      "forest": "Forêt",
-      "sea": "Mer",
-      "mountains": "Montagnes",
-      "night": "Nuit"
-    },
     "kinds": {
       "client": "Client",
       "project": "Projet",

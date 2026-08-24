@@ -260,7 +260,7 @@ function step(world: World, dt: number, width: number): boolean {
   return false;
 }
 
-type Palette = { ink: string; paper: string; accent: string };
+type Palette = { ink: string; paper: string; accent: string; sans: string };
 
 // --- decor ---------------------------------------------------------------
 // Six scenes, each with its own tint, cycling every DECOR_PERIOD seconds with
@@ -417,39 +417,50 @@ const SCENES: Scene[] = [
 
 export const SCENE_KEYS = SCENES.map((scene) => scene.key);
 
-/** What the corner plaque shows for the world being crossed. */
+/** What the title card shows for the world being crossed. */
 export interface WorldCard {
-  world: string;
   kind: string;
   name: string;
   detail: string;
 }
 
-function drawPlaque(
+/**
+ * The title card: who this world is about. Centred at the top of the panel
+ * and deliberately the loudest thing on it after the bird — the game exists
+ * to put these names in front of people.
+ */
+function drawTitleCard(
   ctx: CanvasRenderingContext2D,
   card: WorldCard | undefined,
   scene: Scene,
   alpha: number,
+  width: number,
   palette: Palette,
 ): void {
   if (!card) return;
+  const x = width / 2;
+
   ctx.save();
-  ctx.letterSpacing = "2px";
+  ctx.textAlign = "center";
 
-  ctx.globalAlpha = alpha * 0.45;
-  ctx.fillStyle = palette.paper;
-  ctx.font = '500 10px ui-monospace, "SF Mono", Menlo, monospace';
-  ctx.fillText(card.world.toUpperCase(), 2, 18);
-
-  ctx.globalAlpha = alpha * 0.9;
+  // Kind, in the world's tint: the only coloured type in the panel.
+  ctx.globalAlpha = alpha * 0.95;
   ctx.fillStyle = scene.tint;
+  ctx.letterSpacing = "4px";
   ctx.font = '600 11px ui-monospace, "SF Mono", Menlo, monospace';
-  ctx.fillText(`${card.kind.toUpperCase()} · ${card.name.toUpperCase()}`, 2, 36);
+  ctx.fillText(card.kind.toUpperCase(), x, 26);
 
-  ctx.globalAlpha = alpha * 0.4;
+  // The name, in the site's display voice, big enough to read across a room.
+  ctx.globalAlpha = alpha;
   ctx.fillStyle = palette.paper;
-  ctx.font = '500 10px ui-monospace, "SF Mono", Menlo, monospace';
-  ctx.fillText(card.detail, 2, 52);
+  ctx.letterSpacing = "-0.5px";
+  ctx.font = `700 30px ${palette.sans}`;
+  ctx.fillText(card.name, x, 60);
+
+  ctx.globalAlpha = alpha * 0.5;
+  ctx.letterSpacing = "2px";
+  ctx.font = '500 11px ui-monospace, "SF Mono", Menlo, monospace';
+  ctx.fillText(card.detail, x, 80);
   ctx.restore();
 }
 
@@ -476,7 +487,7 @@ function drawDecorLayer(
   scene.paint(ctx, width, distance * DECOR_PARALLAX + index * 900);
   ctx.restore();
 
-  drawPlaque(ctx, card, scene, alpha, palette);
+  drawTitleCard(ctx, card, scene, alpha, width, palette);
 }
 
 function drawDecor(
@@ -639,7 +650,6 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     cardsRef.current = Array.from({ length: count }, (_, index) => {
       const item = items[index % items.length];
       return {
-        world: t(`worlds.${SCENE_KEYS[index % SCENE_KEYS.length]}`),
         kind: item ? t(`kinds.${item.kind}`) : "",
         name: item?.name ?? "",
         detail: item?.detail ?? "",
@@ -785,6 +795,9 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       ink: styles.getPropertyValue("--foreground").trim() || "#0a0a0a",
       paper: styles.getPropertyValue("--background").trim() || "#fdfbf7",
       accent: "#f97316",
+      // The panel inherits the page font; the title card borrows it so the
+      // names are set in the same voice as the hero above them.
+      sans: styles.fontFamily || "system-ui, sans-serif",
     };
 
     let last = performance.now();

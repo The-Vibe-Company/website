@@ -55,14 +55,6 @@
     "hint": "[ Space ] jump · [ ×2 ] double jump · [ ↓ ] duck",
     "score": "Score",
     "best": "Best",
-    "worlds": {
-      "city": "City",
-      "desert": "Desert",
-      "forest": "Forest",
-      "sea": "Sea",
-      "mountains": "Mountains",
-      "night": "Night"
-    },
     "kinds": {
       "client": "Client",
       "project": "Project",
