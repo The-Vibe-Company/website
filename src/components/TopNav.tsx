@@ -187,7 +187,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           href="/"
           className={cn(
             typography.label.mono,
-            "inline-flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
+            "inline-flex shrink-0 items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
           )}
         >
           <Image
@@ -200,8 +200,11 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           <span>THE VIBE CO.</span>
         </Link>
 
+        {/* Inline search. Kept in the flex flow (never absolutely centered) so
+            it can never slide under the nav links, and only shown from xl up:
+            below that the wordmark and the nav already fill the bar. */}
         {showResourcesSearch && (
-          <div className="hidden md:block absolute left-1/2 -translate-x-1/2">
+          <div className="hidden xl:block flex-1 min-w-0 max-w-sm mx-8">
             <input
               type="text"
               placeholder={t("searchShort")}
@@ -213,62 +216,16 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           </div>
         )}
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-2">
-          <ul className="flex items-center gap-2 list-none m-0 p-0">
-            {navItems.map((item, index) => (
-              <li key={item.key}>
-                <Link
-                  href={item.href}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  onClick={() =>
-                    captureEvent("nav_link_clicked", {
-                      label: item.key,
-                      href: item.href,
-                      location: "desktop_nav",
-                    })
-                  }
-                  className={cn(
-                    components.nav.link,
-                    "relative",
-                    isActive(item.href) &&
-                      "text-foreground underline decoration-1 underline-offset-[6px]"
-                  )}
-                >
-                  {hoveredIndex === index && (
-                    <motion.div
-                      layoutId="nav-hover"
-                      className="absolute inset-0 bg-muted/20 rounded-full -z-10"
-                      transition={animations.easing.bounce}
-                    />
-                  )}
-                  {t(item.key)}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
-          <LanguageSwitcher />
-          <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
-          <a
-            href="mailto:founders@thevibecompany.co"
-            onClick={() => captureEvent("get_in_touch_clicked", { location: "nav" })}
-            className={cn(components.button.primary, "min-w-[150px] rounded-none text-center")}
-          >
-            {t("getInTouch")}
-          </a>
-        </div>
-
-        {/* Mobile hamburger */}
-        <div className="md:hidden flex items-center gap-1">
+        {/* Right cluster: search toggle (below xl) + nav + hamburger */}
+        <div className="flex shrink-0 items-center gap-1 lg:gap-2">
+          {/* Search toggle. Replaces the inline field below xl, on tablet as
+              well as mobile. */}
           {showResourcesSearch && (
             <button
-              className="p-2"
+              className="xl:hidden p-2"
               onClick={() => setSearchOpen((open) => !open)}
               aria-label={searchOpen ? tA11y("closeSearch") : tA11y("openSearch")}
-              aria-controls="mobile-resources-search"
+              aria-controls="resources-search-panel"
               aria-expanded={searchOpen}
             >
               <svg
@@ -287,9 +244,59 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
               </svg>
             </button>
           )}
+
+          {/* Desktop nav */}
+          <div className="hidden lg:flex items-center gap-2">
+            <ul className="flex items-center gap-2 list-none m-0 p-0">
+              {navItems.map((item, index) => (
+                <li key={item.key}>
+                  <Link
+                    href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                    onClick={() =>
+                      captureEvent("nav_link_clicked", {
+                        label: item.key,
+                        href: item.href,
+                        location: "desktop_nav",
+                      })
+                    }
+                    className={cn(
+                      components.nav.link,
+                      "relative",
+                      isActive(item.href) &&
+                        "text-foreground underline decoration-1 underline-offset-[6px]"
+                    )}
+                  >
+                    {hoveredIndex === index && (
+                      <motion.div
+                        layoutId="nav-hover"
+                        className="absolute inset-0 bg-muted/20 rounded-full -z-10"
+                        transition={animations.easing.bounce}
+                      />
+                    )}
+                    {t(item.key)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
+            <LanguageSwitcher />
+            <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
+            <a
+              href="mailto:founders@thevibecompany.co"
+              onClick={() => captureEvent("get_in_touch_clicked", { location: "nav" })}
+              className={cn(components.button.primary, "min-w-[150px] rounded-none text-center")}
+            >
+              {t("getInTouch")}
+            </a>
+          </div>
+
+          {/* Mobile hamburger */}
           <button
             ref={menuTriggerRef}
-            className="p-2"
+            className="lg:hidden p-2"
             onClick={() => {
               captureEvent("mobile_menu_opened");
               setSearchOpen(false);
@@ -331,9 +338,9 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
 
       {showResourcesSearch && (
         <div
-          id="mobile-resources-search"
+          id="resources-search-panel"
           aria-hidden={!searchOpen}
-          className={`fixed left-0 right-0 z-[65] bg-background/95 backdrop-blur-xl border-b border-border/50 px-6 py-3 transition-all duration-200 md:hidden ${searchOpen ? "top-16 opacity-100 translate-y-0" : "top-14 opacity-0 -translate-y-2 pointer-events-none"}`}
+          className={`fixed left-0 right-0 z-[65] bg-background/95 backdrop-blur-xl border-b border-border/50 px-6 py-3 transition-all duration-200 xl:hidden ${searchOpen ? "top-16 opacity-100 translate-y-0" : "top-14 opacity-0 -translate-y-2 pointer-events-none"}`}
         >
           <input
             type="text"
