@@ -241,8 +241,10 @@ export class RunnerAudio {
       return osc;
     });
 
-    // Long fade in: a pad that arrives is a pad you notice.
-    gain.gain.setTargetAtTime(0.5, now, 1.6);
+    // Long fade in: a pad that arrives is a pad you notice. Five voices with
+    // their own tremolo sum to well over unity, so the bed sits low — measured
+    // at the output, this lands around 0.15 peak rather than 0.64.
+    gain.gain.setTargetAtTime(0.12, now, 1.6);
     this.musicGain = gain;
     this.musicFilter = filter;
 
