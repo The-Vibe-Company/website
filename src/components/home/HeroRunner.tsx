@@ -1044,10 +1044,17 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     audio().jump(true);
   }, [audio]);
 
-  const setDucking = useCallback((ducking: boolean) => {
-    const world = worldRef.current;
-    if (world.phase === "running") world.ducking = ducking;
-  }, []);
+  const setDucking = useCallback(
+    (ducking: boolean) => {
+      const world = worldRef.current;
+      if (world.phase !== "running") return;
+      // Only on the way down: a held arrow key repeats its keydown, and one
+      // swish per repeat would be a machine gun.
+      if (ducking && !world.ducking) audio().duck();
+      world.ducking = ducking;
+    },
+    [audio],
+  );
 
   /** Space and the arrows do double duty as page controls — only take them
    *  over while the band is genuinely on screen and nothing else has focus.

@@ -2,9 +2,9 @@
  * Sound for the hero runner, synthesised rather than sampled: a few
  * oscillators and filters, no audio files shipped, no licences to track.
  *
- * The loop is an actual tune — eight bars in C major over I–V–vi–IV — carried
- * by four voices: a melody, a bass, a quiet chord bed and a soft tick for
- * motion. Every voice goes through a low-pass, which is what keeps the whole
+ * The bed is pads and nothing else: five voices holding an open major chord
+ * that slides into the next every few seconds, with no beat and no melody to
+ * follow. Every voice goes through a low-pass, which is what keeps the whole
  * thing from turning metallic.
  *
  * Nothing is created until the player deliberately starts a run, which is also
@@ -13,55 +13,39 @@
  */
 
 /**
- * Eight bars in C major, I–V–vi–IV twice over with a turnaround: the most
- * consonant progression there is, which is the point — the run should feel
- * light, not haunted.
+ * Pads only — no melody, nothing to follow. Four voicings that hold and slide
+ * into one another, coloured with sixths, ninths and major sevenths: those are
+ * the intervals that make a chord read as open and sunlit. There is not a
+ * minor third anywhere in here, which is where the last version got its gloom.
+ *
+ * Voiced high on purpose. The same notes an octave down turn muddy and heavy;
+ * up here they stay airy.
  */
-const CHORDS: [number, number, number][] = [
-  [261.63, 329.63, 392.0], // C
-  [246.94, 293.66, 392.0], // G
-  [261.63, 329.63, 440.0], // Am
-  [261.63, 349.23, 440.0], // F
-  [261.63, 329.63, 392.0], // C
-  [246.94, 293.66, 392.0], // G
-  [261.63, 349.23, 440.0], // F
-  [246.94, 293.66, 392.0], // G
+const VOICINGS: number[][] = [
+  // C6/9 — C3 E4 G4 A4 D5
+  [130.81, 329.63, 392.0, 440.0, 587.33],
+  // Fmaj7 — F3 F4 A4 C5 E5
+  [174.61, 349.23, 440.0, 523.25, 659.25],
+  // Gmaj7 — G3 G4 B4 D5 F#5
+  [196.0, 392.0, 493.88, 587.33, 739.99],
+  // Fadd9 — F3 F4 A4 C5 G5
+  [174.61, 349.23, 440.0, 523.25, 783.99],
 ];
 
-/** Root of each bar, two octaves down. */
-const BASS = [65.41, 98.0, 110.0, 87.31, 65.41, 98.0, 87.31, 98.0];
-
-/**
- * The tune: eight bars of eighth notes, 0 for a rest. Every note that lands on
- * a strong beat belongs to the chord under it, which is what stops a loop this
- * short from grating after the third time round.
- */
-const N = {
-  C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.0, A4: 440.0, B4: 493.88,
-  C5: 523.25, D5: 587.33, E5: 659.25, G5: 783.99,
-} as const;
-
-const MELODY: number[] = [
-  N.E4, N.G4, N.C5, 0, N.G4, 0, N.E4, 0,
-  N.D5, 0, N.B4, 0, N.G4, N.A4, N.B4, 0,
-  N.C5, 0, N.A4, 0, N.E5, 0, N.C5, N.D5,
-  N.A4, 0, N.C5, 0, N.F4, N.G4, N.A4, 0,
-  N.G4, 0, N.E4, 0, N.C5, 0, N.D5, N.E5,
-  N.D5, 0, N.B4, 0, N.D5, 0, N.G5, 0,
-  N.C5, 0, N.A4, 0, N.F4, 0, N.A4, N.C5,
-  N.B4, 0, N.D5, 0, N.G4, 0, N.B4, N.D5,
-];
-
-const STEPS_PER_BAR = 8;
+/** Seconds a chord holds before sliding into the next. */
+const CHORD_HOLD = 7;
+/** Seconds the slide itself takes: long enough that no chord ever "starts". */
+const CHORD_GLIDE = 3.5;
 
 export class RunnerAudio {
   private ctx: AudioContext | null = null;
   private master: GainNode | null = null;
   private musicGain: GainNode | null = null;
   private musicFilter: BiquadFilterNode | null = null;
+  private voices: OscillatorNode[] = [];
+  private lfos: OscillatorNode[] = [];
   private timer: ReturnType<typeof setInterval> | null = null;
-  private nextStepTime = 0;
-  private step = 0;
+  private chord = 0;
   private muted = false;
   /** 0 at the start of a run, 1 at top speed: the tune tightens with it. */
   private intensity = 0;
@@ -107,9 +91,9 @@ export class RunnerAudio {
     if (!this.ctx || !this.musicFilter) return;
     // The tune opens up as the run gets faster: brighter, never louder.
     this.musicFilter.frequency.setTargetAtTime(
-      1500 + this.intensity * 1600,
+      2200 + this.intensity * 1800,
       this.ctx.currentTime,
-      1.5,
+      2,
     );
   }
 
@@ -148,6 +132,38 @@ export class RunnerAudio {
     if (!this.ensure() || this.muted) return;
     // A breath upward. The second jump answers it a little higher.
     this.blip(second ? 380 : 260, second ? 620 : 430, 0.16, 0.05);
+  }
+
+  /** Ducking: a short swish passing overhead. Band-passed noise sweeping down,
+   *  so it reads as something going past rather than as a tone. */
+  duck(): void {
+    const ctx = this.ensure();
+    if (!ctx || !this.master || this.muted) return;
+    const now = ctx.currentTime;
+
+    const frames = Math.floor(ctx.sampleRate * 0.16);
+    const buffer = ctx.createBuffer(1, frames, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < frames; i++) {
+      const t = i / frames;
+      // Swells then falls away, so the swish has a direction.
+      data[i] = (Math.random() * 2 - 1) * Math.sin(Math.PI * t) ** 2;
+    }
+
+    const source = ctx.createBufferSource();
+    const band = ctx.createBiquadFilter();
+    const gain = ctx.createGain();
+    source.buffer = buffer;
+    band.type = "bandpass";
+    band.Q.value = 1.4;
+    band.frequency.setValueAtTime(1400, now);
+    band.frequency.exponentialRampToValueAtTime(380, now + 0.16);
+    gain.gain.value = 0.05;
+
+    source.connect(band);
+    band.connect(gain);
+    gain.connect(this.master);
+    source.start(now);
   }
 
   crash(): void {
@@ -189,20 +205,60 @@ export class RunnerAudio {
     gain.gain.value = 0.0001;
     const filter = ctx.createBiquadFilter();
     filter.type = "lowpass";
-    filter.frequency.value = 1500 + this.intensity * 1600;
-    filter.Q.value = 0.5;
+    // Bright by default: pads only sound sunlit if the upper partials survive.
+    filter.frequency.value = 2200 + this.intensity * 1800;
+    filter.Q.value = 0.4;
     filter.connect(gain);
     gain.connect(this.master);
 
-    gain.gain.setTargetAtTime(0.62, ctx.currentTime, 0.4);
+    const now = ctx.currentTime;
+    this.voices = VOICINGS[this.chord].map((freq, index) => {
+      const osc = ctx.createOscillator();
+      const voiceGain = ctx.createGain();
+      // Sine at the bottom for body, triangles above for a little air.
+      osc.type = index === 0 ? "sine" : "triangle";
+      osc.frequency.value = freq;
+      // A few cents apart so the chord shimmers instead of sitting still.
+      osc.detune.value = (index - 2) * 5;
+      // The top voices sit further back, which is what stops a high pad from
+      // turning shrill.
+      voiceGain.gain.value = [0.5, 0.34, 0.3, 0.26, 0.17][index] ?? 0.2;
+
+      // Each voice breathes on its own slow cycle, so the chord is never
+      // quite the same twice without anything obviously moving.
+      const lfo = ctx.createOscillator();
+      const lfoGain = ctx.createGain();
+      lfo.frequency.value = 0.07 + index * 0.023;
+      lfoGain.gain.value = voiceGain.gain.value * 0.35;
+      lfo.connect(lfoGain);
+      lfoGain.connect(voiceGain.gain);
+      lfo.start(now);
+
+      osc.connect(voiceGain);
+      voiceGain.connect(filter);
+      osc.start(now);
+      this.lfos.push(lfo);
+      return osc;
+    });
+
+    // Long fade in: a pad that arrives is a pad you notice.
+    gain.gain.setTargetAtTime(0.5, now, 1.6);
     this.musicGain = gain;
     this.musicFilter = filter;
-    this.step = 0;
-    this.nextStepTime = ctx.currentTime + 0.08;
 
-    // Standard lookahead scheduler: a timer this coarse could never keep time
-    // on its own, so it only queues notes that the audio clock plays exactly.
-    this.timer = setInterval(() => this.schedule(), 25);
+    this.timer = setInterval(() => this.nextChord(), CHORD_HOLD * 1000);
+  }
+
+  /** Slides every voice to the next voicing. Nothing restarts, so there is no
+   *  attack to hear — the chord simply becomes another one. */
+  private nextChord(): void {
+    const ctx = this.ctx;
+    if (!ctx || this.voices.length === 0) return;
+    this.chord = (this.chord + 1) % VOICINGS.length;
+    const target = VOICINGS[this.chord];
+    this.voices.forEach((osc, index) => {
+      osc.frequency.setTargetAtTime(target[index], ctx.currentTime, CHORD_GLIDE / 3);
+    });
   }
 
   stopMusic(): void {
@@ -212,99 +268,21 @@ export class RunnerAudio {
     }
     const ctx = this.ctx;
     const gain = this.musicGain;
+    const voices = this.voices;
+    const lfos = this.lfos;
     this.musicGain = null;
     this.musicFilter = null;
+    this.voices = [];
+    this.lfos = [];
     if (!ctx || !gain) return;
 
-    // Fade before the last notes ring out, or the tail is a click.
+    // Fade out before stopping the oscillators, or the tail is a click.
     const now = ctx.currentTime;
     gain.gain.cancelScheduledValues(now);
     gain.gain.setValueAtTime(gain.gain.value, now);
-    gain.gain.linearRampToValueAtTime(0.0001, now + 0.35);
-  }
-
-  private schedule(): void {
-    const ctx = this.ctx;
-    if (!ctx || !this.musicFilter) return;
-
-    // Eighth notes. The tempo lifts with the run, but only a little: the tune
-    // should follow the game, not race it.
-    const stepDuration = 60 / (108 + this.intensity * 26) / 2;
-    while (this.nextStepTime < ctx.currentTime + 0.12) {
-      this.playStep(this.step, this.nextStepTime, stepDuration);
-      this.step = (this.step + 1) % MELODY.length;
-      this.nextStepTime += stepDuration;
-    }
-  }
-
-  /** One voice of the tune, always through the shared low-pass. */
-  private voice(
-    freq: number,
-    when: number,
-    duration: number,
-    type: OscillatorType,
-    peak: number,
-    attack = 0.012,
-  ): void {
-    const ctx = this.ctx;
-    const dest = this.musicFilter;
-    if (!ctx || !dest) return;
-
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, when);
-    gain.gain.setValueAtTime(0.0001, when);
-    gain.gain.exponentialRampToValueAtTime(peak, when + attack);
-    gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
-    osc.connect(gain);
-    gain.connect(dest);
-    osc.start(when);
-    osc.stop(when + duration + 0.03);
-  }
-
-  private playStep(step: number, when: number, stepDuration: number): void {
-    const ctx = this.ctx;
-    const dest = this.musicFilter;
-    if (!ctx || !dest) return;
-
-    const inBar = step % STEPS_PER_BAR;
-    const bar = Math.floor(step / STEPS_PER_BAR);
-
-    // Melody: triangle, soft attack, a touch of ring so the phrase joins up.
-    const note = MELODY[step];
-    if (note) this.voice(note, when, stepDuration * 1.7, "triangle", 0.075, 0.02);
-
-    // Bass on the downbeat and, lighter, on the half bar.
-    if (inBar === 0) this.voice(BASS[bar], when, stepDuration * 2.4, "sine", 0.12, 0.02);
-    else if (inBar === 4) this.voice(BASS[bar], when, stepDuration * 1.4, "sine", 0.07, 0.02);
-
-    // Chord bed: the triad held quietly under the bar.
-    if (inBar === 0) {
-      for (const freq of CHORDS[bar]) {
-        this.voice(freq / 2, when, stepDuration * 7, "triangle", 0.014, 0.25);
-      }
-    }
-
-    // A soft tick on the off-beats for motion. Filtered noise, not a drum.
-    if (inBar % 2 === 1) {
-      const frames = Math.floor(ctx.sampleRate * 0.04);
-      const buffer = ctx.createBuffer(1, frames, ctx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < frames; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / frames) ** 3;
-      const source = ctx.createBufferSource();
-      const band = ctx.createBiquadFilter();
-      const gain = ctx.createGain();
-      source.buffer = buffer;
-      band.type = "bandpass";
-      band.frequency.value = 2100;
-      band.Q.value = 1.2;
-      gain.gain.value = 0.026;
-      source.connect(band);
-      band.connect(gain);
-      gain.connect(dest);
-      source.start(when);
-    }
+    gain.gain.linearRampToValueAtTime(0.0001, now + 0.6);
+    voices.forEach((osc) => osc.stop(now + 0.7));
+    lfos.forEach((osc) => osc.stop(now + 0.7));
   }
 
   dispose(): void {
