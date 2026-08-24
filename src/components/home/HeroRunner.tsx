@@ -33,10 +33,11 @@ const WORLD = {
   playerSize: 32,
   duckHeight: 18,
   startSpeed: 365,
-  maxSpeed: 620,
-  // Speed gains acceleration × 10 px/s per second: about 45s to top speed,
-  // rather than the 8s that made an early build unplayable on arrival.
-  acceleration: 0.6,
+  // No plateau: the run has to end eventually, so the speed keeps climbing
+  // for a minute and a half and the gaps keep tightening after that.
+  maxSpeed: 780,
+  // Speed gains acceleration × 10 px/s per second: about 80s to top speed.
+  acceleration: 0.5,
   /** Gaps are seconds, not pixels. A pixel gap that is comfortable at 365 px/s
    *  becomes unclearable at 620 — the bird is still in the air from the last
    *  jump. In time, the rhythm holds and speed alone tightens the reaction
@@ -49,10 +50,21 @@ const WORLD = {
   /** Ceiling bars stop this far above the ground: under a ducking bird
    *  (18px), over nothing else. */
   ceilingGap: 24,
+  /** Head-height flyer: clips a standing bird, misses a ducking one. */
+  flyerHighY: 44,
+  flyerHighHeight: 18,
+  /** Ground-height flyer: ducking is not enough, it has to be jumped. */
+  flyerLowY: 26,
+  flyerLowHeight: 20,
   /** A single jump peaks at 78px, a double at ~128px, so these two bands are
    *  what separate "jump" from "double jump". */
   lowHeight: [34, 52],
   highHeight: [88, 104],
+  /** Widths, deliberately slim: a thick slab reads as scenery, not a hurdle. */
+  lowWidth: 12,
+  highWidth: 10,
+  ceilingWidth: 30,
+  flyerWidth: 30,
 } as const;
 
 const STEP = 1 / 60;
@@ -95,18 +107,35 @@ function writeBest(score: number): void {
 }
 
 /**
- * `low`     — a single jump clears it.
- * `high`    — a barrier only a double jump clears.
- * `ceiling` — hangs from the roof down to head height: there is no way over
- *             it, it has to be ducked under.
+ * `low`       — a single jump clears it.
+ * `high`      — a barrier only a double jump clears.
+ * `ceiling`   — hangs from the roof to head height: no way over it, duck.
+ * `flyerHigh` — a predator at head height: duck under it.
+ * `flyerLow`  — a predator skimming the ground: ducking is not enough, jump.
+ *
+ * Colour states the move, not the object: paper to jump, orange to double
+ * jump, cyan to duck. Shape says what it is, colour says what to do.
  */
-type ObstacleKind = "low" | "high" | "ceiling";
+type ObstacleKind = "low" | "high" | "ceiling" | "flyerHigh" | "flyerLow";
+
+function isFlyer(kind: ObstacleKind): boolean {
+  return kind === "flyerHigh" || kind === "flyerLow";
+}
+
+/** Which move gets you past it — and therefore what colour it is. */
+function movesUnder(kind: ObstacleKind): "jump" | "double" | "duck" {
+  if (kind === "high") return "double";
+  if (kind === "ceiling" || kind === "flyerHigh") return "duck";
+  return "jump";
+}
 
 type Obstacle = {
   x: number;
   width: number;
   height: number;
   kind: ObstacleKind;
+  /** Wing beat offset, so a flock never flaps in unison. */
+  phase: number;
 };
 
 type World = {
@@ -153,52 +182,94 @@ function createWorld(scale = 1): World {
   };
 }
 
-/** One move at a time, but early: a reactive run lasts about 20s, so anything
- *  gated later than that is something most players never meet. Plain jumps
- *  from the start, double jumps at 5s, ducks at 10s, twin slabs at 16s. */
+/**
+ * The run has to end eventually, so nothing here settles: every kind's weight
+ * keeps climbing with time, which means the share of plain slabs keeps
+ * shrinking and the track never turns into a rhythm you can hold forever.
+ * Each kind is introduced alone, far enough apart to be learned.
+ */
+function kindWeights(t: number): [ObstacleKind, number][] {
+  const ramp = (from: number, rate: number, cap: number) =>
+    t < from ? 0 : Math.min(cap, (t - from) * rate);
+  return [
+    ["low", 1],
+    ["high", ramp(5, 0.06, 0.55)],
+    ["ceiling", ramp(10, 0.05, 0.45)],
+    ["flyerHigh", ramp(24, 0.04, 0.4)],
+    ["flyerLow", ramp(34, 0.04, 0.35)],
+  ];
+}
+
 function pickKind(world: World): ObstacleKind {
-  const roll = Math.random();
-  if (world.t > 10 && roll > 0.8) return "ceiling";
-  if (world.t > 5 && roll > 0.6) return "high";
+  const weights = kindWeights(world.t);
+  const total = weights.reduce((sum, [, weight]) => sum + weight, 0);
+  let roll = Math.random() * total;
+  for (const [kind, weight] of weights) {
+    roll -= weight;
+    if (roll <= 0) return kind;
+  }
   return "low";
+}
+
+function obstacleHeight(kind: ObstacleKind): number {
+  if (kind === "ceiling") return WORLD.groundY - WORLD.ceilingGap;
+  if (kind === "flyerHigh") return WORLD.flyerHighHeight;
+  if (kind === "flyerLow") return WORLD.flyerLowHeight;
+  const [min, max] = kind === "high" ? WORLD.highHeight : WORLD.lowHeight;
+  return min + Math.random() * (max - min);
+}
+
+function obstacleWidth(kind: ObstacleKind): number {
+  if (kind === "ceiling") return WORLD.ceilingWidth;
+  if (isFlyer(kind)) return WORLD.flyerWidth;
+  return kind === "high" ? WORLD.highWidth : WORLD.lowWidth;
 }
 
 function spawnObstacle(world: World, width: number): void {
   const kind = pickKind(world);
-  const [min, max] =
-    kind === "high" ? WORLD.highHeight : kind === "low" ? WORLD.lowHeight : [0, 0];
-
   world.obstacles.push({
     x: width + 40,
-    width: kind === "ceiling" ? 46 : kind === "high" ? 16 : 18,
-    height: kind === "ceiling" ? WORLD.groundY - WORLD.ceilingGap : min + Math.random() * (max - min),
+    width: obstacleWidth(kind),
+    height: obstacleHeight(kind),
     kind,
+    phase: Math.random() * Math.PI * 2,
   });
 
   // Twin slabs: two low blocks close enough that a single well-timed jump
   // clears both, and a late one lands between them. The run's real trap.
   if (kind === "low" && world.t > 16 && Math.random() > 0.7) {
-    const [min, max] = WORLD.lowHeight;
     world.obstacles.push({
       x: width + 40 + WORLD.twinGap * world.speed,
-      width: 18,
-      height: min + Math.random() * (max - min),
+      width: WORLD.lowWidth,
+      height: obstacleHeight("low"),
       kind: "low",
+      phase: 0,
     });
   }
 
-  const pressure =
-    (world.speed / world.scale - WORLD.startSpeed) / (WORLD.maxSpeed - WORLD.startSpeed);
+  // Gaps keep closing after the speed has topped out — that late squeeze is
+  // what finally ends a long run. The floor is generous after anything that
+  // needed a double jump or a duck, which take longer to recover from.
+  const tighten = Math.min(0.5, world.t * 0.005);
+  const floor = kind === "low" ? 0.62 : 0.8;
   const seconds =
-    WORLD.spawnGapMin +
-    Math.random() * (WORLD.spawnGapMax - WORLD.spawnGapMin) -
-    pressure * 0.12;
-  world.nextSpawn = world.speed * Math.max(0.75, seconds);
+    WORLD.spawnGapMin + Math.random() * (WORLD.spawnGapMax - WORLD.spawnGapMin) - tighten;
+  world.nextSpawn = world.speed * Math.max(floor, seconds);
 }
 
 function obstacleY(obstacle: Obstacle): number {
-  // A ceiling bar grows down from the roof; everything else stands on the line.
-  return obstacle.kind === "ceiling" ? 0 : WORLD.groundY - obstacle.height;
+  switch (obstacle.kind) {
+    // A ceiling bar grows down from the roof.
+    case "ceiling":
+      return 0;
+    case "flyerHigh":
+      return WORLD.groundY - WORLD.flyerHighY;
+    case "flyerLow":
+      return WORLD.groundY - WORLD.flyerLowY;
+    // Everything else stands on the line.
+    default:
+      return WORLD.groundY - obstacle.height;
+  }
 }
 
 function playerBox(world: World) {
@@ -260,7 +331,14 @@ function step(world: World, dt: number, width: number): boolean {
   return false;
 }
 
-type Palette = { ink: string; paper: string; accent: string; sans: string };
+type Palette = {
+  ink: string;
+  paper: string;
+  accent: string;
+  /** Reserved for everything that has to be ducked under. */
+  duck: string;
+  sans: string;
+};
 
 // --- decor ---------------------------------------------------------------
 // Six scenes, each with its own tint, cycling every DECOR_PERIOD seconds with
@@ -623,21 +701,100 @@ function drawBird(
   ctx.restore();
 }
 
+function moveColour(kind: ObstacleKind, palette: Palette): string {
+  const move = movesUnder(kind);
+  if (move === "double") return palette.accent;
+  if (move === "duck") return palette.duck;
+  return palette.paper;
+}
+
 /**
- * Obstacles read by shape as much as by colour: a plain slab is a hop, and the
- * two that need another move wear hazard stripes. Corners are rounded only on
- * the edges that face the bird, so each one still points the way it hangs.
+ * A flying predator: all beak and wings, drawn from the same fractions-of-its-
+ * box idea as the player so it stays readable at 30px. It beats its wings out
+ * of phase with its neighbours and rides a slow bob, which is what separates a
+ * living thing from a slab at a glance.
+ */
+function drawFlyer(
+  ctx: CanvasRenderingContext2D,
+  obstacle: Obstacle,
+  t: number,
+  palette: Palette,
+): void {
+  const w = obstacle.width;
+  const h = obstacle.height;
+  const x = obstacle.x;
+  const y = obstacleY(obstacle) + Math.sin(t * 3 + obstacle.phase) * 2;
+  const px = (fx: number, fy: number): [number, number] => [x + fx * w, y + fy * h];
+  const beat = Math.sin(t * 11 + obstacle.phase);
+
+  ctx.save();
+  ctx.fillStyle = moveColour(obstacle.kind, palette);
+
+  // Body: beak to the left, tail to the right, so it reads as coming at you.
+  ctx.beginPath();
+  ctx.moveTo(...px(0, 0.5));
+  ctx.lineTo(...px(0.28, 0.3));
+  ctx.lineTo(...px(0.8, 0.34));
+  ctx.quadraticCurveTo(...px(0.99, 0.5), ...px(0.8, 0.66));
+  ctx.lineTo(...px(0.28, 0.7));
+  ctx.closePath();
+  ctx.fill();
+
+  // Open jaw.
+  ctx.beginPath();
+  ctx.moveTo(...px(-0.06, 0.4));
+  ctx.lineTo(...px(0.26, 0.5));
+  ctx.lineTo(...px(-0.04, 0.68));
+  ctx.closePath();
+  ctx.fill();
+
+  // Tail fin.
+  ctx.beginPath();
+  ctx.moveTo(...px(0.82, 0.36));
+  ctx.lineTo(...px(1.04, 0.02));
+  ctx.lineTo(...px(0.98, 0.48));
+  ctx.closePath();
+  ctx.fill();
+
+  // The wing sweeps well above the body and back down through it. It leaves
+  // the hit box on the way up, which only ever works in the player's favour:
+  // the box stays smaller than the drawing, never larger.
+  ctx.beginPath();
+  ctx.moveTo(...px(0.34, 0.4));
+  ctx.lineTo(...px(0.58, 0.2 - beat * 0.75));
+  ctx.lineTo(...px(0.78, 0.44));
+  ctx.closePath();
+  ctx.fill();
+
+  // Eye, punched out of the body.
+  ctx.fillStyle = palette.ink;
+  ctx.beginPath();
+  ctx.arc(...px(0.24, 0.5), Math.max(1.1, h * 0.08), 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+/**
+ * Standing and hanging obstacles. Corners are rounded only on the edges facing
+ * the bird, so each one still points the way it hangs, and anything that needs
+ * a move other than a plain jump wears diagonal hazard stripes.
  */
 function drawObstacle(
   ctx: CanvasRenderingContext2D,
   obstacle: Obstacle,
+  t: number,
   palette: Palette,
 ): void {
+  if (isFlyer(obstacle.kind)) {
+    drawFlyer(ctx, obstacle, t, palette);
+    return;
+  }
+
   const x = Math.round(obstacle.x);
   const y = Math.round(obstacleY(obstacle));
   const w = obstacle.width;
   const h = obstacle.height;
-  const special = obstacle.kind !== "low";
+  const striped = obstacle.kind !== "low";
 
   ctx.save();
   ctx.beginPath();
@@ -645,12 +802,11 @@ function drawObstacle(
   const radii: [number, number, number, number] =
     obstacle.kind === "ceiling" ? [0, 0, 3, 3] : [3, 3, 0, 0];
   ctx.roundRect(x, y, w, h, radii);
-  ctx.fillStyle = special ? palette.accent : palette.paper;
+  ctx.fillStyle = moveColour(obstacle.kind, palette);
   ctx.fill();
+  ctx.clip();
 
-  if (special) {
-    // Diagonal hazard stripes, cut out of the fill.
-    ctx.clip();
+  if (striped) {
     ctx.globalAlpha = 0.28;
     ctx.strokeStyle = palette.ink;
     ctx.lineWidth = 5;
@@ -661,11 +817,10 @@ function drawObstacle(
       ctx.stroke();
     }
   } else {
-    // A thin lit edge down the leading side gives the slab some thickness.
-    ctx.clip();
+    // A thin shaded edge down the leading side gives the slab some thickness.
     ctx.globalAlpha = 0.22;
     ctx.fillStyle = palette.ink;
-    ctx.fillRect(x + w - 3, y, 3, h);
+    ctx.fillRect(x + w - 2.5, y, 2.5, h);
   }
   ctx.restore();
 }
@@ -693,7 +848,7 @@ function draw(
   ctx.stroke();
   ctx.globalAlpha = 1;
 
-  for (const obstacle of world.obstacles) drawObstacle(ctx, obstacle, palette);
+  for (const obstacle of world.obstacles) drawObstacle(ctx, obstacle, world.t, palette);
 
   if (world.puff) {
     ctx.save();
@@ -710,9 +865,10 @@ function draw(
 
   drawBird(ctx, world, playerBox(world), palette, world.phase === "over");
 
-  // Lost: drop a near-solid veil over the world so the only things left to
-  // read are the score above the canvas and the message on top of it.
-  if (world.phase === "over") {
+  // Not playing — lost, or not started yet: drop a near-solid veil over the
+  // world so the only things left to read are the score above the canvas and
+  // the call to action on top of it.
+  if (world.phase !== "running") {
     ctx.save();
     ctx.globalAlpha = 0.9;
     ctx.fillStyle = palette.ink;
@@ -911,6 +1067,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       ink: styles.getPropertyValue("--foreground").trim() || "#0a0a0a",
       paper: styles.getPropertyValue("--background").trim() || "#fdfbf7",
       accent: "#f97316",
+      duck: "#4ec9d4",
       // The panel inherits the page font; the title card borrows it so the
       // names are set in the same voice as the hero above them.
       sans: styles.fontFamily || "system-ui, sans-serif",
