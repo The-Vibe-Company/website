@@ -59,7 +59,7 @@ export const resourcesTheme = {
     input:
       'w-full bg-res-surface border border-res-border px-4 py-2 text-sm font-mono placeholder:text-res-text-muted/50 focus:outline-none focus:border-res-text transition-colors text-res-text rounded-none',
     compact:
-      'w-48 lg:w-64 bg-res-surface border border-res-border px-3 py-1.5 text-xs font-mono placeholder:text-res-text-muted/50 focus:outline-none focus:w-72 focus:border-res-text transition-all text-res-text rounded-none',
+      'w-full bg-res-surface border border-res-border px-3 py-1.5 text-xs font-mono placeholder:text-res-text-muted/50 focus:outline-none focus:border-res-text transition-colors text-res-text rounded-none',
   },
 
   skill: {
