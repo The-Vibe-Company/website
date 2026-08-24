@@ -9,8 +9,7 @@ import { captureEvent } from "@/lib/posthog";
  *
  * It is an inverted ink panel inside the warm-paper hero, so it reads as a
  * screen cut into the page rather than a widget floating on it. The player is
- * the company mark — a paper tile carrying the double-chevron W — and the
- * chevron flaps like a pair of wings while it runs.
+ * a small paper bird whose wing beats while it runs.
  *
  * Space / ArrowUp jumps, ArrowDown ducks, tap plays on touch. One canvas, one
  * fixed 60Hz timestep, so the difficulty curve is identical on every display.
@@ -29,10 +28,12 @@ const WORLD = {
   playerSize: 32,
   duckHeight: 18,
   startSpeed: 300,
-  maxSpeed: 700,
-  acceleration: 5,
-  spawnGapMin: 400,
-  spawnGapMax: 700,
+  maxSpeed: 620,
+  // Speed gains acceleration × 10 px/s per second, so this reaches top speed
+  // in roughly 50s instead of the 8s that made the run unplayable on arrival.
+  acceleration: 0.6,
+  spawnGapMin: 440,
+  spawnGapMax: 760,
   /** Flying slabs hang at head height: they clip a standing mark and miss a
    *  ducking one. Both numbers are relative to the ground line. */
   flyOffset: 42,
@@ -118,7 +119,7 @@ function createWorld(scale = 1): World {
     ducking: false,
     grounded: true,
     obstacles: [],
-    nextSpawn: 520,
+    nextSpawn: 620,
   };
 }
 
@@ -136,8 +137,8 @@ function spawnObstacle(world: World, width: number): void {
   const pressure =
     (world.speed / world.scale - WORLD.startSpeed) / (WORLD.maxSpeed - WORLD.startSpeed);
   world.nextSpawn = Math.max(
-    300,
-    WORLD.spawnGapMin + Math.random() * (WORLD.spawnGapMax - WORLD.spawnGapMin) - pressure * 80,
+    340,
+    WORLD.spawnGapMin + Math.random() * (WORLD.spawnGapMax - WORLD.spawnGapMin) - pressure * 70,
   );
 }
 
@@ -200,51 +201,218 @@ function step(world: World, dt: number, width: number): boolean {
 
 type Palette = { ink: string; paper: string; accent: string };
 
+// --- decor ---------------------------------------------------------------
+// Five silhouettes drawn behind the ground line, one every DECOR_PERIOD
+// seconds, cross-fading into each other so the run feels like it crosses
+// worlds. They scroll at a third of the world speed: enough parallax to read
+// as distance, quiet enough never to compete with the obstacles.
+const WORLDS = ["city", "hills", "forest", "sea", "night"] as const;
+const DECOR_PERIOD = 10;
+const DECOR_FADE = 1.4;
+const DECOR_PARALLAX = 0.32;
+
+/** Deterministic per-column pseudo-random, so a skyline never flickers. */
+function hash(n: number): number {
+  const x = Math.sin(n * 127.1) * 43758.5453;
+  return x - Math.floor(x);
+}
+
+function drawCity(ctx: CanvasRenderingContext2D, width: number, offset: number): void {
+  const step = 34;
+  const first = Math.floor(offset / step);
+  for (let i = 0; i <= Math.ceil(width / step) + 1; i++) {
+    const column = first + i;
+    const x = column * step - offset;
+    const h = 26 + hash(column) * 54;
+    ctx.fillRect(Math.round(x), WORLD.groundY - h, step - 8, h);
+    // A couple of lit windows, the only detail these buildings get.
+    if (hash(column * 3.7) > 0.55) {
+      ctx.clearRect(Math.round(x) + 6, WORLD.groundY - h + 10, 5, 5);
+    }
+  }
+}
+
+function drawHills(ctx: CanvasRenderingContext2D, width: number, offset: number): void {
+  const step = 190;
+  const first = Math.floor(offset / step);
+  for (let i = 0; i <= Math.ceil(width / step) + 1; i++) {
+    const column = first + i;
+    const x = column * step - offset;
+    const h = 58 + hash(column) * 46;
+    ctx.beginPath();
+    ctx.moveTo(x - step * 0.55, WORLD.groundY);
+    ctx.lineTo(x, WORLD.groundY - h);
+    ctx.lineTo(x + step * 0.55, WORLD.groundY);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+
+function drawForest(ctx: CanvasRenderingContext2D, width: number, offset: number): void {
+  const step = 30;
+  const first = Math.floor(offset / step);
+  for (let i = 0; i <= Math.ceil(width / step) + 1; i++) {
+    const column = first + i;
+    const x = column * step - offset;
+    const h = 34 + hash(column) * 30;
+    ctx.beginPath();
+    ctx.moveTo(x - 11, WORLD.groundY);
+    ctx.lineTo(x, WORLD.groundY - h);
+    ctx.lineTo(x + 11, WORLD.groundY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillRect(x - 1.5, WORLD.groundY - 6, 3, 6);
+  }
+}
+
+function drawSea(ctx: CanvasRenderingContext2D, width: number, offset: number): void {
+  for (let row = 0; row < 3; row++) {
+    const y = WORLD.groundY - 20 - row * 16;
+    const shift = offset * (1 - row * 0.18);
+    ctx.beginPath();
+    for (let x = 0; x <= width; x += 6) {
+      const wave = Math.sin((x + shift) / 34 + row) * 5;
+      if (x === 0) ctx.moveTo(x, y + wave);
+      else ctx.lineTo(x, y + wave);
+    }
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+}
+
+function drawNight(ctx: CanvasRenderingContext2D, width: number, offset: number): void {
+  const step = 46;
+  const first = Math.floor(offset / step);
+  for (let i = 0; i <= Math.ceil(width / step) + 1; i++) {
+    const column = first + i;
+    const x = column * step - offset;
+    const y = 18 + hash(column) * 96;
+    const r = hash(column * 5.1) > 0.8 ? 2.4 : 1.4;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  // One moon, parked far away so it barely drifts.
+  const moonX = width - ((offset * 0.25) % (width + 220)) + 110;
+  ctx.beginPath();
+  ctx.arc(moonX, 46, 17, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+const DECOR_PAINTERS = [drawCity, drawHills, drawForest, drawSea, drawNight];
+
+function drawDecorLayer(
+  ctx: CanvasRenderingContext2D,
+  index: number,
+  width: number,
+  distance: number,
+  alpha: number,
+  palette: Palette,
+  label: string | undefined,
+): void {
+  if (alpha <= 0.01) return;
+  const painter = DECOR_PAINTERS[index % DECOR_PAINTERS.length];
+
+  ctx.save();
+  // Never let a silhouette cross the ground line.
+  ctx.beginPath();
+  ctx.rect(0, 0, width, WORLD.groundY);
+  ctx.clip();
+  ctx.globalAlpha = alpha * 0.22;
+  ctx.fillStyle = palette.paper;
+  ctx.strokeStyle = palette.paper;
+  painter(ctx, width, distance * DECOR_PARALLAX + index * 900);
+  ctx.restore();
+
+  if (!label) return;
+  ctx.save();
+  ctx.globalAlpha = alpha * 0.5;
+  ctx.fillStyle = palette.paper;
+  ctx.font = '600 10px ui-monospace, "SF Mono", Menlo, monospace';
+  ctx.letterSpacing = "2px";
+  ctx.fillText(label.toUpperCase(), 2, 18);
+  ctx.restore();
+}
+
+function drawDecor(
+  ctx: CanvasRenderingContext2D,
+  world: World,
+  width: number,
+  palette: Palette,
+  labels: string[],
+): void {
+  const index = Math.floor(world.t / DECOR_PERIOD);
+  const elapsed = world.t - index * DECOR_PERIOD;
+  const entering = Math.min(1, elapsed / DECOR_FADE);
+
+  if (index > 0 && entering < 1) {
+    drawDecorLayer(ctx, index - 1, width, world.distance, 1 - entering, palette, undefined);
+  }
+  drawDecorLayer(ctx, index, width, world.distance, entering, palette, labels[index % labels.length]);
+}
+
+
 /**
- * The company mark: a tile carrying the logo's double chevron. The chevron's
- * outer arms lift and drop while running, which is the whole "wings" idea —
- * and they stay spread at their highest while the mark is in the air.
+ * The player: a small paper bird. Everything is expressed as a fraction of its
+ * box, so the same drawing squashes into the ducking silhouette without any
+ * second set of numbers. The wing beats while running and stays raised in the
+ * air, which doubles as the "am I airborne?" cue.
  */
-function drawMark(
+function drawBird(
   ctx: CanvasRenderingContext2D,
   world: World,
   box: { x: number; y: number; width: number; height: number },
   palette: Palette,
   crashed: boolean,
 ): void {
-  const { x, y, width, height } = box;
+  const { x, y, width: w, height: h } = box;
+  const px = (fx: number, fy: number): [number, number] => [x + fx * w, y + fy * h];
+
+  const beat = world.grounded ? Math.sin(world.t * 14) : 1;
+  // Kept inside the silhouette: a wing that leaves the body reads as a hole.
+  const wingTip = 0.32 - beat * 0.13;
 
   ctx.save();
   ctx.fillStyle = crashed ? palette.accent : palette.paper;
-  ctx.beginPath();
-  ctx.roundRect(Math.round(x), Math.round(y), width, height, 7);
-  ctx.fill();
-
-  // Clip so the chevron never spills out of the tile when it is squashed into
-  // the ducking silhouette.
-  ctx.clip();
-
-  // Wing beat: a slow flap on the ground, arms held up while airborne.
-  const flap = world.grounded ? Math.sin(world.t * 16) * 0.5 + 0.5 : 1;
-  const inset = width * 0.17;
-  const left = x + inset;
-  const right = x + width - inset;
-  const middle = x + width / 2;
-  const top = y + height * (0.3 - flap * 0.08);
-  const bottom = y + height * 0.74;
-  const peak = y + height * 0.46;
-
-  ctx.strokeStyle = crashed ? palette.paper : palette.ink;
-  ctx.lineWidth = Math.max(2.5, width * 0.11);
+  ctx.strokeStyle = crashed ? palette.accent : palette.paper;
   ctx.lineJoin = "round";
   ctx.lineCap = "round";
+
+  // Tail, body and head in one silhouette.
   ctx.beginPath();
-  ctx.moveTo(left, top);
-  ctx.lineTo(left + (middle - left) * 0.55, bottom);
-  ctx.lineTo(middle, peak);
-  ctx.lineTo(right - (right - middle) * 0.55, bottom);
-  ctx.lineTo(right, top);
-  ctx.stroke();
+  ctx.moveTo(...px(0.02, 0.34));
+  ctx.lineTo(...px(0.24, 0.52));
+  ctx.bezierCurveTo(...px(0.3, 0.98), ...px(0.7, 1.0), ...px(0.76, 0.62));
+  ctx.bezierCurveTo(...px(0.82, 0.5), ...px(0.88, 0.42), ...px(0.86, 0.3));
+  ctx.bezierCurveTo(...px(0.84, 0.12), ...px(0.6, 0.08), ...px(0.5, 0.24));
+  ctx.bezierCurveTo(...px(0.42, 0.36), ...px(0.2, 0.36), ...px(0.02, 0.34));
+  ctx.closePath();
+  ctx.fill();
+
+  // Beak: a small wedge, the detail that makes it read as a bird at 32px.
+  ctx.beginPath();
+  ctx.moveTo(...px(0.85, 0.22));
+  ctx.lineTo(...px(1.0, 0.3));
+  ctx.lineTo(...px(0.85, 0.36));
+  ctx.closePath();
+  ctx.fill();
+
+  // Wing: a filled crescent cut out of the body. A stroke reads as a frown at
+  // this size; a shape reads as a wing.
+  ctx.fillStyle = crashed ? palette.paper : palette.ink;
+  ctx.beginPath();
+  ctx.moveTo(...px(0.3, 0.62));
+  ctx.quadraticCurveTo(...px(0.45, wingTip), ...px(0.62, 0.52));
+  ctx.quadraticCurveTo(...px(0.48, 0.6), ...px(0.4, 0.72));
+  ctx.quadraticCurveTo(...px(0.34, 0.68), ...px(0.3, 0.62));
+  ctx.closePath();
+  ctx.fill();
+
+  // Eye.
+  ctx.fillStyle = crashed ? palette.paper : palette.ink;
+  ctx.beginPath();
+  ctx.arc(...px(0.7, 0.26), Math.max(1.2, h * 0.045), 0, Math.PI * 2);
+  ctx.fill();
   ctx.restore();
 }
 
@@ -253,8 +421,11 @@ function draw(
   world: World,
   width: number,
   palette: Palette,
+  labels: string[],
 ): void {
   ctx.clearRect(0, 0, width, WORLD.height);
+
+  drawDecor(ctx, world, width, palette, labels);
 
 
   // Ground: one hairline, nothing else. The panel already frames the game, so
@@ -274,7 +445,7 @@ function draw(
     ctx.fillRect(Math.round(obstacle.x), Math.round(y), obstacle.width, obstacle.height);
   }
 
-  drawMark(ctx, world, playerBox(world), palette, world.phase === "over");
+  drawBird(ctx, world, playerBox(world), palette, world.phase === "over");
 }
 
 function pad(score: number): string {
@@ -292,9 +463,15 @@ export function HeroRunner() {
   const visibleRef = useRef(true);
   const rafRef = useRef<number | null>(null);
 
+  const labelsRef = useRef<string[]>([]);
+
   const [phase, setPhase] = useState<Phase>("idle");
   const [score, setScore] = useState(0);
   const best = Number(useSyncExternalStore(subscribeBest, readBest, () => "0")) || 0;
+
+  useEffect(() => {
+    labelsRef.current = WORLDS.map((world) => t(`worlds.${world}`));
+  }, [t]);
 
   const start = useCallback(() => {
     const world = createWorld(speedScale(widthRef.current));
@@ -435,7 +612,7 @@ export function HeroRunner() {
       if (world.phase === "running" && !visibleRef.current) {
         // Scrolled out of sight: hold the run exactly where it is.
         accumulator = 0;
-        draw(ctx, world, widthRef.current, palette);
+        draw(ctx, world, widthRef.current, palette, labelsRef.current);
         return;
       }
 
@@ -460,7 +637,7 @@ export function HeroRunner() {
         accumulator = 0;
       }
 
-      draw(ctx, world, widthRef.current, palette);
+      draw(ctx, world, widthRef.current, palette, labelsRef.current);
     };
 
     rafRef.current = requestAnimationFrame(frame);

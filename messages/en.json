@@ -55,6 +55,13 @@
     "hint": "[ Space ] jump · [ ↓ ] duck",
     "score": "Score",
     "best": "Best",
+    "worlds": {
+      "city": "City",
+      "hills": "Hills",
+      "forest": "Forest",
+      "sea": "Sea",
+      "night": "Night"
+    },
     "start": "Press space to play",
     "startTouch": "Tap to play",
     "over": "Game over",

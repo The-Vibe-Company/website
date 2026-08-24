@@ -55,6 +55,13 @@
     "hint": "[ Espace ] sauter · [ ↓ ] baisser",
     "score": "Score",
     "best": "Record",
+    "worlds": {
+      "city": "Ville",
+      "hills": "Collines",
+      "forest": "Forêt",
+      "sea": "Mer",
+      "night": "Nuit"
+    },
     "start": "Appuyez sur espace pour jouer",
     "startTouch": "Touchez pour jouer",
     "over": "Perdu",
