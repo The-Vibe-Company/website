@@ -27,9 +27,14 @@ const STEP_SECONDS = 0.3;
 const BAR_STEPS = 8;
 const BARS_PER_SECTION = 8;
 
+/**
+ * The melody lives an octave above the pad. It used to share this register,
+ * and on Am and Gm it landed on exactly the pad's top voice — a unison no
+ * amount of level could have rescued.
+ */
 const N = {
-  F4: 349.23, G4: 392.0, A4: 440.0, Bb4: 466.16,
-  C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46,
+  F5: 698.46, G5: 783.99, A5: 880.0, Bb5: 932.33,
+  C6: 1046.5, D6: 1174.66, E6: 1318.51, F6: 1396.91,
 } as const;
 
 /** Five voices per chord: root, then the chord climbing. The upper voices hold
@@ -68,17 +73,17 @@ const SECTIONS: Section[] = [
     chords: TRIADS,
     noteLength: 4,
     melody: [
-      [N.A4, 0, 0, 0, 0, 0, 0, 0],
-      [N.D5, 0, 0, 0, 0, 0, 0, 0],
-      [N.G4, 0, 0, 0, 0, 0, 0, 0],
-      [N.C5, 0, 0, 0, 0, 0, 0, 0],
+      [N.A5, 0, 0, 0, 0, 0, 0, 0],
+      [N.D6, 0, 0, 0, 0, 0, 0, 0],
+      [N.G5, 0, 0, 0, 0, 0, 0, 0],
+      [N.C6, 0, 0, 0, 0, 0, 0, 0],
     ],
     // Second pass answers each note late in the bar.
     melodyAlt: [
-      [N.A4, 0, 0, 0, 0, 0, N.C5, 0],
-      [N.D5, 0, 0, 0, 0, 0, N.A4, 0],
-      [N.G4, 0, 0, 0, 0, 0, N.Bb4, 0],
-      [N.C5, 0, 0, 0, 0, 0, N.A4, 0],
+      [N.A5, 0, 0, 0, 0, 0, N.C6, 0],
+      [N.D6, 0, 0, 0, 0, 0, N.A5, 0],
+      [N.G5, 0, 0, 0, 0, 0, N.Bb5, 0],
+      [N.C6, 0, 0, 0, 0, 0, N.A5, 0],
     ],
   },
   // B — the same chords with their sevenths, the line opening out.
@@ -86,10 +91,10 @@ const SECTIONS: Section[] = [
     chords: SEVENTHS,
     noteLength: 2.5,
     melody: [
-      [N.A4, 0, 0, N.C5, 0, 0, N.E5, 0],
-      [N.D5, 0, 0, N.A4, 0, 0, N.C5, 0],
-      [N.G4, 0, 0, N.Bb4, 0, 0, N.D5, 0],
-      [N.C5, 0, 0, N.A4, 0, 0, N.E5, 0],
+      [N.A5, 0, 0, N.C6, 0, 0, N.E6, 0],
+      [N.D6, 0, 0, N.A5, 0, 0, N.C6, 0],
+      [N.G5, 0, 0, N.Bb5, 0, 0, N.D6, 0],
+      [N.C6, 0, 0, N.A5, 0, 0, N.E6, 0],
     ],
   },
   // C — same harmony, chopped. The pad stops holding and starts pulsing.
@@ -98,10 +103,10 @@ const SECTIONS: Section[] = [
     noteLength: 0.7,
     padGate: [true, false, true, false, true, false, true, true],
     melody: [
-      [N.A4, 0, N.C5, 0, N.A4, 0, N.E5, 0],
-      [N.D5, 0, N.A4, 0, N.D5, 0, N.F5, 0],
-      [N.D5, 0, N.Bb4, 0, N.G4, 0, N.D5, 0],
-      [N.C5, 0, N.A4, 0, N.C5, 0, N.F5, 0],
+      [N.A5, 0, N.C6, 0, N.A5, 0, N.E6, 0],
+      [N.D6, 0, N.A5, 0, N.D6, 0, N.F6, 0],
+      [N.D6, 0, N.Bb5, 0, N.G5, 0, N.D6, 0],
+      [N.C6, 0, N.A5, 0, N.C6, 0, N.F6, 0],
     ],
   },
 ];
@@ -299,7 +304,9 @@ export class RunnerAudio {
       // A few cents apart so the chord shimmers instead of sitting still.
       osc.detune.value = (index - 2) * 5;
       // The top voices sit further back, which stops a high pad turning shrill.
-      voiceGain.gain.value = [0.5, 0.34, 0.3, 0.26, 0.17][index] ?? 0.2;
+      // The pad has to leave room: five voices summing over unity buried the
+      // melody 27dB down. Lower, and thinner towards the top.
+      voiceGain.gain.value = [0.42, 0.24, 0.18, 0.14, 0.09][index] ?? 0.12;
 
       // Each voice breathes on its own slow cycle, so the chord is never quite
       // the same twice without anything obviously moving.
@@ -386,7 +393,9 @@ export class RunnerAudio {
       osc.frequency.setValueAtTime(note, when);
       const duration = section.noteLength * STEP_SECONDS;
       noteGain.gain.setValueAtTime(0.0001, when);
-      noteGain.gain.exponentialRampToValueAtTime(0.09, when + 0.03);
+      // Loud enough to be a line rather than a colour, and struck rather than
+      // faded in, so it reads as a different instrument from the pad.
+      noteGain.gain.exponentialRampToValueAtTime(0.42, when + 0.012);
       noteGain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
       osc.connect(noteGain);
       noteGain.connect(filter);
