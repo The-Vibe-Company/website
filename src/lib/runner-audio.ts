@@ -2,10 +2,10 @@
  * Sound for the hero runner, synthesised rather than sampled: a few
  * oscillators and filters, no audio files shipped, no licences to track.
  *
- * The bed is pads and nothing else: five voices holding an open major chord
- * that slides into the next every few seconds, with no beat and no melody to
- * follow. Every voice goes through a low-pass, which is what keeps the whole
- * thing from turning metallic.
+ * The bed is pads and nothing else: five voices holding a chord that cuts to
+ * the next every couple of seconds, with no beat and no melody to follow.
+ * Every voice goes through a low-pass, which is what keeps the whole thing
+ * from turning metallic.
  *
  * Nothing is created until the player deliberately starts a run, which is also
  * what satisfies the browsers' autoplay rules: the context is born inside a
@@ -13,29 +13,29 @@
  */
 
 /**
- * Pads only — no melody, nothing to follow. Four voicings that hold and slide
- * into one another, coloured with sixths, ninths and major sevenths: those are
- * the intervals that make a chord read as open and sunlit. There is not a
- * minor third anywhere in here, which is where the last version got its gloom.
+ * Pads only — no melody, nothing to follow: Am, Dm, Gm, F on a loop.
  *
- * Voiced high on purpose. The same notes an octave down turn muddy and heavy;
- * up here they stay airy.
+ * The chords cut rather than glide. Each voice jumps straight to its new note,
+ * which is what gives the change its edge; sliding between them smoothed the
+ * progression into one continuous smear. Only the pitch jumps, never the
+ * level, so an abrupt change still never clicks.
+ *
+ * The top four voices keep A, C and D in common between chords, which holds
+ * the loop together while the roots stride underneath.
  */
 const VOICINGS: number[][] = [
-  // C6/9 — C3 E4 G4 A4 D5
-  [130.81, 329.63, 392.0, 440.0, 587.33],
-  // Fmaj7 — F3 F4 A4 C5 E5
-  [174.61, 349.23, 440.0, 523.25, 659.25],
-  // Gmaj7 — G3 G4 B4 D5 F#5
-  [196.0, 392.0, 493.88, 587.33, 739.99],
-  // Fadd9 — F3 F4 A4 C5 G5
-  [174.61, 349.23, 440.0, 523.25, 783.99],
+  // Am — A2 A3 C4 E4 A4
+  [110.0, 220.0, 261.63, 329.63, 440.0],
+  // Dm — D3 A3 D4 F4 A4
+  [146.83, 220.0, 293.66, 349.23, 440.0],
+  // Gm — G2 G3 Bb3 D4 G4
+  [98.0, 196.0, 233.08, 293.66, 392.0],
+  // F — F2 A3 C4 F4 A4
+  [87.31, 220.0, 261.63, 349.23, 440.0],
 ];
 
-/** Seconds a chord holds before sliding into the next. */
-const CHORD_HOLD = 7;
-/** Seconds the slide itself takes: long enough that no chord ever "starts". */
-const CHORD_GLIDE = 3.5;
+/** Seconds a chord holds before the next one cuts in. */
+const CHORD_HOLD = 2.4;
 
 export class RunnerAudio {
   private ctx: AudioContext | null = null;
@@ -91,7 +91,7 @@ export class RunnerAudio {
     if (!this.ctx || !this.musicFilter) return;
     // The tune opens up as the run gets faster: brighter, never louder.
     this.musicFilter.frequency.setTargetAtTime(
-      2200 + this.intensity * 1800,
+      1800 + this.intensity * 1600,
       this.ctx.currentTime,
       2,
     );
@@ -206,7 +206,7 @@ export class RunnerAudio {
     const filter = ctx.createBiquadFilter();
     filter.type = "lowpass";
     // Bright by default: pads only sound sunlit if the upper partials survive.
-    filter.frequency.value = 2200 + this.intensity * 1800;
+    filter.frequency.value = 1800 + this.intensity * 1600;
     filter.Q.value = 0.4;
     filter.connect(gain);
     gain.connect(this.master);
@@ -251,15 +251,17 @@ export class RunnerAudio {
     this.timer = setInterval(() => this.nextChord(), CHORD_HOLD * 1000);
   }
 
-  /** Slides every voice to the next voicing. Nothing restarts, so there is no
-   *  attack to hear — the chord simply becomes another one. */
+  /** Cuts every voice to the next voicing. Nothing ramps: the whole point is
+   *  that the change is heard as a change. */
   private nextChord(): void {
     const ctx = this.ctx;
     if (!ctx || this.voices.length === 0) return;
     this.chord = (this.chord + 1) % VOICINGS.length;
     const target = VOICINGS[this.chord];
+    const now = ctx.currentTime;
     this.voices.forEach((osc, index) => {
-      osc.frequency.setTargetAtTime(target[index], ctx.currentTime, CHORD_GLIDE / 3);
+      osc.frequency.cancelScheduledValues(now);
+      osc.frequency.setValueAtTime(target[index], now);
     });
   }
 
