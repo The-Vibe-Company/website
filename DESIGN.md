@@ -148,6 +148,12 @@ components:
     typography: "{typography.label-sm}"
     rounded: "{rounded.none}"
     size: "{spacing.grid-cell}"
+  runner-band:
+    backgroundColor: "{colors.background}"
+    textColor: "{colors.foreground}"
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.none}"
+    padding: "{spacing.page-x-sm}"
   surface-card:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.foreground}"
@@ -372,6 +378,8 @@ Do not mix many radii in one view. If a surface is a card or a major action, squ
 Primary CTAs are black slabs on warm paper. They use bold Geist text, clear padding, square corners, and a right arrow when action-oriented. Hover states should lift slightly and gain a hard offset black shadow.
 
 Cards are bordered rectangles, not soft containers. Service cards and product cards use black or warm-gray borders, square corners, tight internal hierarchy, mono metadata, and optional hard hover shadows. Resource cards use calmer warm borders and may sit on white surfaces.
+
+The homepage runner band sits directly under the hero, framed by the same 2px ink rule that closes the hero. It is a playable strip, not a widget: mono readouts on the outer grid columns (controls on the left, score and best on the right), ruler ticks under a 2px ground line, ink slabs for the player and ground obstacles, and orange reserved for the flying slab, the crashed player, and a new best score. It never animates on load — the run starts only on a deliberate key press or tap, freezes when scrolled out of view, and stays inside a short band so the ground line clears the fold on a laptop.
 
 Navigation is sticky, translucent, and understated. The wordmark is mono, compact, and paired with a small black logo. Desktop links are quiet until hover. The contact CTA is a black pill in the global nav, distinct from the square slab CTAs used in content.
 

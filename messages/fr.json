@@ -50,6 +50,22 @@
       }
     }
   },
+  "runner": {
+    "heading": "Mini-jeu",
+    "hint": "[ Espace ] sauter · [ ↓ ] baisser",
+    "hintTouch": "Touchez pour sauter",
+    "score": "Score",
+    "best": "Record",
+    "start": "Appuyez sur espace pour jouer",
+    "startTouch": "Touchez pour jouer",
+    "over": "Perdu",
+    "restart": "Espace pour rejouer",
+    "restartTouch": "Touchez pour rejouer",
+    "jump": "Sauter",
+    "duck": "Baisser",
+    "aria": "Mini-jeu de course. Espace ou flèche haut pour sauter, flèche bas pour baisser.",
+    "announce": "Partie terminée, score {score}."
+  },
   "clients": {
     "trustedBy": "Ils nous font confiance"
   },
