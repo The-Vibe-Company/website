@@ -432,7 +432,8 @@ export interface WorldCard {
  * backers one world at a time. So the name is not a label on top of the game,
  * it is part of the scenery — outlined rather than filled so obstacles stay
  * readable through it, and sized to the panel so a long name shrinks instead
- * of running off the edge of a phone.
+ * of running off the edge of a phone. Above it, a single mono kicker says who
+ * they are; nothing else competes.
  */
 function drawWorldName(
   ctx: CanvasRenderingContext2D,
@@ -450,35 +451,39 @@ function drawWorldName(
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
 
-  // Fit the word to the panel: short names get the full 66px, long ones shrink
+  // Kicker above the name, magazine style: what they are and what they do, on
+  // one quiet line, so the big word underneath can just be the name.
+  ctx.globalAlpha = alpha * 0.65;
+  ctx.fillStyle = scene.tint;
+  ctx.letterSpacing = "4px";
+  ctx.font = `600 10px ui-monospace, "SF Mono", Menlo, monospace`;
+  const kicker = card.detail
+    ? `${card.kind.toUpperCase()} — ${card.detail.toUpperCase()}`
+    : card.kind.toUpperCase();
+  ctx.fillText(kicker, x, 26 - (1 - alpha) * 10);
+
+  // Fit the word to the panel: short names get the full 68px, long ones shrink
   // rather than run off the edges of a phone.
-  let size = 66;
-  ctx.letterSpacing = "6px";
+  let size = 68;
+  ctx.letterSpacing = "5px";
   ctx.font = `700 ${size}px ${palette.sans}`;
   const maxWidth = width * 0.66;
   const measured = ctx.measureText(name).width;
   if (measured > maxWidth) size = Math.max(26, (size * maxWidth) / measured);
   ctx.font = `700 ${size}px ${palette.sans}`;
 
-  const baseline = 74 - (1 - alpha) * 10;
+  const baseline = 86 - (1 - alpha) * 10;
 
   // A whisper of fill gives the letters body without hiding what runs behind.
-  ctx.globalAlpha = alpha * 0.09;
+  ctx.globalAlpha = alpha * 0.08;
   ctx.fillStyle = scene.tint;
   ctx.fillText(name, x, baseline);
 
-  ctx.globalAlpha = alpha * 0.75;
+  ctx.globalAlpha = alpha * 0.8;
   ctx.strokeStyle = scene.tint;
   ctx.lineWidth = 1.6;
   ctx.lineJoin = "round";
   ctx.strokeText(name, x, baseline);
-
-  // One quiet mono line underneath: what they are, what they do.
-  ctx.globalAlpha = alpha * 0.55;
-  ctx.fillStyle = palette.paper;
-  ctx.letterSpacing = "3px";
-  ctx.font = `500 10px ui-monospace, "SF Mono", Menlo, monospace`;
-  ctx.fillText(`${card.kind.toUpperCase()} · ${card.detail.toUpperCase()}`, x, baseline + 22);
   ctx.restore();
 }
 
