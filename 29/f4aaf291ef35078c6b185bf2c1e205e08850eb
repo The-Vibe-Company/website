@@ -1,0 +1,31 @@
+src/components/home/HeroRunner.tsx
+  s_be36689d51dfdb::t_f0b81c1571d503 12,356-359,361,368-371,377-381,383-384,386-389,392-398,410-415,448
+  s_be36689d51dfdb::t_f6ffa40fc57831 406-407
+  s_be36689d51dfdb::t_0db4772c88b71d 31-36,122,140-141
+  s_be36689d51dfdb::t_47545eb29e8a87 204-354,424,428,466-467,472-475,615,640
+  s_be36689d51dfdb::t_26eed03d901e07 372-373,404-405
+  s_be36689d51dfdb::t_17963a03e4d561 385,400-402,408-409
+  s_be36689d51dfdb::t_33eb7e82d41904 429
+messages/fr.json
+  s_be36689d51dfdb::t_0c7ed8798a1d4a 58-64
+messages/en.json
+  s_be36689d51dfdb::t_0c7ed8798a1d4a 58-64
+DESIGN.md
+  s_be36689d51dfdb::t_3905ddeedc574d 382
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "29f4aaf291ef35078c6b185bf2c1e205e08850eb",
+  "prompts": {},
+  "sessions": {
+    "s_be36689d51dfdb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04be70e4-4291-41ee-9fec-f4431f2fbbcd",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
