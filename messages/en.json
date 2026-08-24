@@ -55,6 +55,8 @@
     "hint": "[ Space ] jump · [ ×2 ] double jump · [ ↓ ] duck",
     "score": "Score",
     "best": "Best",
+    "soundOn": "Turn sound on",
+    "soundOff": "Mute sound",
     "kinds": {
       "client": "Client",
       "project": "Project",

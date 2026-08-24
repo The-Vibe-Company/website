@@ -2,7 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
+import { Volume2, VolumeX } from "lucide-react";
 import { captureEvent } from "@/lib/posthog";
+import { RunnerAudio } from "@/lib/runner-audio";
 import type { RunnerItem } from "@/lib/runner-worlds";
 
 /**
@@ -72,6 +74,7 @@ const WORLD = {
 
 const STEP = 1 / 60;
 const BEST_KEY = "tvc-runner-best";
+const MUTED_KEY = "tvc-runner-muted";
 
 type Phase = "idle" | "running" | "over";
 
@@ -98,6 +101,30 @@ function readBest(): string {
   } catch {
     return "0";
   }
+}
+
+const muteListeners = new Set<() => void>();
+
+function subscribeMuted(onChange: () => void): () => void {
+  muteListeners.add(onChange);
+  return () => muteListeners.delete(onChange);
+}
+
+function readMuted(): string {
+  try {
+    return window.localStorage.getItem(MUTED_KEY) ?? "0";
+  } catch {
+    return "0";
+  }
+}
+
+function writeMuted(muted: boolean): void {
+  try {
+    window.localStorage.setItem(MUTED_KEY, muted ? "1" : "0");
+  } catch {
+    // Storage blocked: the choice simply does not outlive the visit.
+  }
+  muteListeners.forEach((listener) => listener());
 }
 
 function writeBest(score: number): void {
@@ -940,12 +967,22 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
   // fold on arrival, and a first frame spent frozen would be visible.
   const visibleRef = useRef(true);
   const rafRef = useRef<number | null>(null);
+  const audioRef = useRef<RunnerAudio | null>(null);
 
   const cardsRef = useRef<WorldCard[]>([]);
 
   const [phase, setPhase] = useState<Phase>("idle");
   const [score, setScore] = useState(0);
   const best = Number(useSyncExternalStore(subscribeBest, readBest, () => "0")) || 0;
+  const muted = useSyncExternalStore(subscribeMuted, readMuted, () => "0") === "1";
+
+  /** Built on the first deliberate start, which is what makes the browser's
+   *  autoplay rules happy — and means a visitor who never plays never has an
+   *  audio context at all. */
+  const audio = useCallback(() => {
+    if (!audioRef.current) audioRef.current = new RunnerAudio(readMuted() === "1");
+    return audioRef.current;
+  }, []);
 
   useEffect(() => {
     // One card per world: the scene name plus the client, project or badge it
@@ -975,8 +1012,11 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     worldRef.current = world;
     setScore(0);
     setPhase("running");
+    const sound = audio();
+    sound.setIntensity(0);
+    sound.startMusic();
     captureEvent("hero_runner_started");
-  }, []);
+  }, [audio]);
 
   const jump = useCallback(() => {
     const world = worldRef.current;
@@ -986,6 +1026,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       world.playerVY = WORLD.jumpVelocity;
       world.grounded = false;
       world.jumps = 1;
+      audio().jump(false);
       return;
     }
     // Second press mid-air: top the bird up to a fixed peak, and puff so the
@@ -1000,7 +1041,8 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       y: world.playerY,
       life: 1,
     };
-  }, []);
+    audio().jump(true);
+  }, [audio]);
 
   const setDucking = useCallback((ducking: boolean) => {
     const world = worldRef.current;
@@ -1128,6 +1170,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     let last = performance.now();
     let accumulator = 0;
     let lastScore = -1;
+    let frozen = false;
 
     const frame = (now: number) => {
       rafRef.current = requestAnimationFrame(frame);
@@ -1145,10 +1188,19 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       last = now;
 
       if (world.phase === "running" && !visibleRef.current) {
-        // Scrolled out of sight: hold the run exactly where it is.
+        // Scrolled out of sight: hold the run exactly where it is, quietly.
+        if (!frozen) {
+          frozen = true;
+          audioRef.current?.stopMusic();
+        }
         accumulator = 0;
         draw(ctx, world, widthRef.current, palette, cardsRef.current);
         return;
+      }
+
+      if (frozen) {
+        frozen = false;
+        if (world.phase === "running") audioRef.current?.startMusic();
       }
 
       if (world.phase === "running") {
@@ -1161,10 +1213,18 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
         if (world.score !== lastScore) {
           lastScore = world.score;
           setScore(world.score);
+          // The loop tightens as the run does.
+          audioRef.current?.setIntensity(
+            (world.speed / world.scale - WORLD.startSpeed) / (WORLD.maxSpeed - WORLD.startSpeed),
+          );
         }
 
         if (crashed) {
           setPhase("over");
+          const sound = audioRef.current;
+          sound?.crash();
+          // Silence the moment the run ends: the music belongs to playing.
+          sound?.stopMusic();
           if (world.score > Number(readBest())) writeBest(world.score);
           captureEvent("hero_runner_game_over", { score: world.score });
         }
@@ -1178,7 +1238,22 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     rafRef.current = requestAnimationFrame(frame);
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      audioRef.current?.dispose();
+      audioRef.current = null;
     };
+  }, []);
+
+  // A backgrounded tab still runs timers, so the scheduler would happily keep
+  // playing to nobody. Follow the tab.
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.hidden) audioRef.current?.stopMusic();
+      else if (worldRef.current.phase === "running" && visibleRef.current) {
+        audioRef.current?.startMusic();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
   const isNewBest = phase === "over" && score > 0 && score >= best;
@@ -1205,6 +1280,23 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
           <span>
             {t("best")} {pad(best)}
           </span>
+          <button
+            type="button"
+            onClick={() => {
+              const next = !muted;
+              writeMuted(next);
+              audioRef.current?.setMuted(next);
+            }}
+            aria-pressed={muted}
+            aria-label={muted ? t("soundOn") : t("soundOff")}
+            className="ml-1 p-1 text-background/55 transition-colors hover:text-background"
+          >
+            {muted ? (
+              <VolumeX aria-hidden="true" className="h-3.5 w-3.5" />
+            ) : (
+              <Volume2 aria-hidden="true" className="h-3.5 w-3.5" />
+            )}
+          </button>
         </p>
       </div>
 
