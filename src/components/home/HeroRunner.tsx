@@ -1282,10 +1282,15 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
           </span>
           <button
             type="button"
-            onClick={() => {
+            // Clicking must not leave the focus here: with a button focused,
+            // the next space bar would toggle the sound back on instead of
+            // jumping, which reads as "I muted it and it is still playing".
+            onMouseDown={(event) => event.preventDefault()}
+            onClick={(event) => {
               const next = !muted;
               writeMuted(next);
               audioRef.current?.setMuted(next);
+              event.currentTarget.blur();
             }}
             aria-pressed={muted}
             aria-label={muted ? t("soundOn") : t("soundOff")}
