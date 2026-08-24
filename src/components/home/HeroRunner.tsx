@@ -38,8 +38,8 @@ const WORLD = {
   // No plateau: the run has to end eventually, so the speed keeps climbing
   // for a minute and a half and the gaps keep tightening after that.
   maxSpeed: 780,
-  // Speed gains acceleration × 10 px/s per second: about 80s to top speed.
-  acceleration: 0.5,
+  // Speed gains acceleration × 10 px/s per second: about 55s to top speed.
+  acceleration: 0.75,
   /** Gaps are seconds, not pixels. A pixel gap that is comfortable at 365 px/s
    *  becomes unclearable at 620 — the bird is still in the air from the last
    *  jump. In time, the rhythm holds and speed alone tightens the reaction
@@ -216,17 +216,17 @@ function createWorld(scale = 1): World {
  * The run has to end eventually, so nothing here settles: every kind's weight
  * keeps climbing with time, which means the share of plain slabs keeps
  * shrinking and the track never turns into a rhythm you can hold forever.
- * Each kind is introduced alone, far enough apart to be learned.
+ * Each kind is still introduced alone, just sooner than it used to be.
  */
 function kindWeights(t: number): [ObstacleKind, number][] {
   const ramp = (from: number, rate: number, cap: number) =>
     t < from ? 0 : Math.min(cap, (t - from) * rate);
   return [
     ["low", 1],
-    ["high", ramp(5, 0.06, 0.55)],
-    ["ceiling", ramp(10, 0.05, 0.45)],
-    ["flyerHigh", ramp(24, 0.04, 0.4)],
-    ["flyerLow", ramp(34, 0.04, 0.35)],
+    ["high", ramp(4, 0.08, 0.6)],
+    ["ceiling", ramp(8, 0.07, 0.5)],
+    ["flyerHigh", ramp(18, 0.06, 0.45)],
+    ["flyerLow", ramp(26, 0.06, 0.4)],
   ];
 }
 
@@ -271,7 +271,7 @@ function spawnObstacle(world: World, width: number): void {
 
   // Twin slabs: two low blocks close enough that a single well-timed jump
   // clears both, and a late one lands between them. The run's real trap.
-  if (kind === "low" && world.t > 16 && Math.random() > 0.7) {
+  if (kind === "low" && world.t > 12 && Math.random() > 0.66) {
     world.obstacles.push({
       x: width + 40 + WORLD.twinGap * world.speed,
       width: WORLD.lowWidth,
@@ -284,7 +284,7 @@ function spawnObstacle(world: World, width: number): void {
   // Gaps keep closing after the speed has topped out — that late squeeze is
   // what finally ends a long run. The floor is generous after anything that
   // needed a double jump or a duck, which take longer to recover from.
-  const tighten = Math.min(0.5, world.t * 0.005);
+  const tighten = Math.min(0.55, world.t * 0.008);
   // A long ceiling bar is still going past when the next thing would spawn, so
   // its own length is added to the recovery the gap has to leave.
   const floor =
@@ -625,9 +625,6 @@ function drawDecorLayer(
   width: number,
   distance: number,
   alpha: number,
-  palette: Palette,
-  card: WorldCard | undefined,
-  cardAlpha = alpha,
 ): void {
   if (alpha <= 0.01) return;
   const scene = SCENES[index % SCENES.length];
@@ -642,37 +639,43 @@ function drawDecorLayer(
   ctx.strokeStyle = scene.tint;
   scene.paint(ctx, width, distance * DECOR_PARALLAX + index * 900);
   ctx.restore();
-
-  drawWorldName(ctx, card, scene, cardAlpha, width, palette);
 }
 
-function drawDecor(
+/** Where the world cycle stands: which scene, and how far into its entrance. */
+function worldPhase(world: World): { index: number; elapsed: number; entering: number } {
+  const index = Math.floor(world.t / DECOR_PERIOD);
+  const elapsed = world.t - index * DECOR_PERIOD;
+  // The first world is already there — fading it in from nothing left the
+  // panel blank before the run starts, which is when it is most looked at.
+  const entering = index === 0 ? 1 : Math.min(1, elapsed / DECOR_FADE);
+  return { index, elapsed, entering };
+}
+
+function drawDecor(ctx: CanvasRenderingContext2D, world: World, width: number): void {
+  const { index, entering } = worldPhase(world);
+  if (index > 0 && entering < 1) {
+    drawDecorLayer(ctx, index - 1, width, world.distance, 1 - entering);
+  }
+  drawDecorLayer(ctx, index, width, world.distance, entering);
+}
+
+/**
+ * The name of whoever the world belongs to, painted last so nothing crosses
+ * it. It is the reason the game is on the page, so an obstacle drifting past
+ * must not be allowed to cut through the middle of a client's name.
+ */
+function drawWorldNameLayer(
   ctx: CanvasRenderingContext2D,
   world: World,
   width: number,
   palette: Palette,
   cards: WorldCard[],
 ): void {
-  const index = Math.floor(world.t / DECOR_PERIOD);
-  const elapsed = world.t - index * DECOR_PERIOD;
-  // The first world is already there — fading it in from nothing left the
-  // panel blank before the run starts, which is when it is most looked at.
-  const entering = index === 0 ? 1 : Math.min(1, elapsed / DECOR_FADE);
-  const cardAt = (i: number) => (cards.length ? cards[i % cards.length] : undefined);
-
-  if (index > 0 && entering < 1) {
-    drawDecorLayer(ctx, index - 1, width, world.distance, 1 - entering, palette, undefined);
-  }
-  drawDecorLayer(
-    ctx,
-    index,
-    width,
-    world.distance,
-    entering,
-    palette,
-    cardAt(index),
-    Math.min(entering, nameAlpha(elapsed, world.phase !== "running")),
-  );
+  if (cards.length === 0) return;
+  const { index, elapsed, entering } = worldPhase(world);
+  const scene = SCENES[index % SCENES.length];
+  const alpha = Math.min(entering, nameAlpha(elapsed, world.phase !== "running"));
+  drawWorldName(ctx, cards[index % cards.length], scene, alpha, width, palette);
 }
 
 /**
@@ -910,7 +913,7 @@ function draw(
 ): void {
   ctx.clearRect(0, 0, width, WORLD.height);
 
-  drawDecor(ctx, world, width, palette, cards);
+  drawDecor(ctx, world, width);
 
 
   // Ground: one hairline, nothing else. The panel already frames the game, so
@@ -940,6 +943,9 @@ function draw(
   }
 
   drawBird(ctx, world, playerBox(world), palette, world.phase === "over");
+
+  // Foreground: the name goes over the obstacles, never under them.
+  drawWorldNameLayer(ctx, world, width, palette, cards);
 
   // Not playing — lost, or not started yet: drop a near-solid veil over the
   // world so the only things left to read are the score above the canvas and
