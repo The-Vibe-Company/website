@@ -1,0 +1,26 @@
+src/lib/resources-theme.ts
+  s_be36689d51dfdb::t_d62577aa0def86 62
+src/components/TopNav.tsx
+  s_be36689d51dfdb::t_3d0633ac8d60c2 220,249,299
+  s_be36689d51dfdb::t_726cd9390a7da9 219,221-222,225,228,247,296,341,343
+  s_be36689d51dfdb::t_123cce1dc24013 248,250
+  s_be36689d51dfdb::t_da1e546371c793 190,203-205,207
+  s_be36689d51dfdb::t_b2abd297dad71c 251-294
+  s_be36689d51dfdb::t_a2bc1dbf56c062 295
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "bbec7bb6027fd83493ed2561c85df7008fff46a7",
+  "prompts": {},
+  "sessions": {
+    "s_be36689d51dfdb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04be70e4-4291-41ee-9fec-f4431f2fbbcd",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
