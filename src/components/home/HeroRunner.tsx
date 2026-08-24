@@ -269,6 +269,11 @@ type Palette = { ink: string; paper: string; accent: string; sans: string };
 // column comes from a deterministic hash, so a skyline can never flicker.
 const DECOR_PERIOD = 10;
 const DECOR_FADE = 1.4;
+/** The name is an announcement, not a permanent label: it lands, holds, and
+ *  clears out well before the world it belongs to does. */
+const NAME_IN = 0.55;
+const NAME_HOLD = 3.6;
+const NAME_OUT = 1;
 const DECOR_PARALLAX = 0.32;
 const DECOR_ALPHA = 0.3;
 
@@ -435,6 +440,14 @@ export interface WorldCard {
  * of running off the edge of a phone. Above it, a single mono kicker says who
  * they are; nothing else competes.
  */
+function nameAlpha(elapsed: number, idle: boolean): number {
+  if (idle) return 1;
+  if (elapsed < NAME_IN) return elapsed / NAME_IN;
+  const held = elapsed - NAME_IN;
+  if (held < NAME_HOLD) return 1;
+  return Math.max(0, 1 - (held - NAME_HOLD) / NAME_OUT);
+}
+
 function drawWorldName(
   ctx: CanvasRenderingContext2D,
   card: WorldCard | undefined,
@@ -443,9 +456,12 @@ function drawWorldName(
   width: number,
   palette: Palette,
 ): void {
-  if (!card || !card.name) return;
+  if (!card || !card.name || alpha <= 0.01) return;
   const name = card.name.toUpperCase();
   const x = width / 2;
+
+  // Rises into place on the way in, keeps drifting up on the way out.
+  const drift = (1 - alpha) * 12;
 
   ctx.save();
   ctx.textAlign = "center";
@@ -460,7 +476,7 @@ function drawWorldName(
   const kicker = card.detail
     ? `${card.kind.toUpperCase()} — ${card.detail.toUpperCase()}`
     : card.kind.toUpperCase();
-  ctx.fillText(kicker, x, 26 - (1 - alpha) * 10);
+  ctx.fillText(kicker, x, 26 - drift);
 
   // Fit the word to the panel: short names get the full 68px, long ones shrink
   // rather than run off the edges of a phone.
@@ -472,7 +488,7 @@ function drawWorldName(
   if (measured > maxWidth) size = Math.max(26, (size * maxWidth) / measured);
   ctx.font = `700 ${size}px ${palette.sans}`;
 
-  const baseline = 86 - (1 - alpha) * 10;
+  const baseline = 86 - drift;
 
   // A whisper of fill gives the letters body without hiding what runs behind.
   ctx.globalAlpha = alpha * 0.08;
@@ -495,6 +511,7 @@ function drawDecorLayer(
   alpha: number,
   palette: Palette,
   card: WorldCard | undefined,
+  cardAlpha = alpha,
 ): void {
   if (alpha <= 0.01) return;
   const scene = SCENES[index % SCENES.length];
@@ -510,7 +527,7 @@ function drawDecorLayer(
   scene.paint(ctx, width, distance * DECOR_PARALLAX + index * 900);
   ctx.restore();
 
-  drawWorldName(ctx, card, scene, alpha, width, palette);
+  drawWorldName(ctx, card, scene, cardAlpha, width, palette);
 }
 
 function drawDecor(
@@ -530,7 +547,16 @@ function drawDecor(
   if (index > 0 && entering < 1) {
     drawDecorLayer(ctx, index - 1, width, world.distance, 1 - entering, palette, undefined);
   }
-  drawDecorLayer(ctx, index, width, world.distance, entering, palette, cardAt(index));
+  drawDecorLayer(
+    ctx,
+    index,
+    width,
+    world.distance,
+    entering,
+    palette,
+    cardAt(index),
+    Math.min(entering, nameAlpha(elapsed, world.phase !== "running")),
+  );
 }
 
 /**
@@ -597,6 +623,53 @@ function drawBird(
   ctx.restore();
 }
 
+/**
+ * Obstacles read by shape as much as by colour: a plain slab is a hop, and the
+ * two that need another move wear hazard stripes. Corners are rounded only on
+ * the edges that face the bird, so each one still points the way it hangs.
+ */
+function drawObstacle(
+  ctx: CanvasRenderingContext2D,
+  obstacle: Obstacle,
+  palette: Palette,
+): void {
+  const x = Math.round(obstacle.x);
+  const y = Math.round(obstacleY(obstacle));
+  const w = obstacle.width;
+  const h = obstacle.height;
+  const special = obstacle.kind !== "low";
+
+  ctx.save();
+  ctx.beginPath();
+  // [top-left, top-right, bottom-right, bottom-left]
+  const radii: [number, number, number, number] =
+    obstacle.kind === "ceiling" ? [0, 0, 3, 3] : [3, 3, 0, 0];
+  ctx.roundRect(x, y, w, h, radii);
+  ctx.fillStyle = special ? palette.accent : palette.paper;
+  ctx.fill();
+
+  if (special) {
+    // Diagonal hazard stripes, cut out of the fill.
+    ctx.clip();
+    ctx.globalAlpha = 0.28;
+    ctx.strokeStyle = palette.ink;
+    ctx.lineWidth = 5;
+    for (let offset = -h; offset < w + h; offset += 13) {
+      ctx.beginPath();
+      ctx.moveTo(x + offset, y + h);
+      ctx.lineTo(x + offset + h, y);
+      ctx.stroke();
+    }
+  } else {
+    // A thin lit edge down the leading side gives the slab some thickness.
+    ctx.clip();
+    ctx.globalAlpha = 0.22;
+    ctx.fillStyle = palette.ink;
+    ctx.fillRect(x + w - 3, y, 3, h);
+  }
+  ctx.restore();
+}
+
 function draw(
   ctx: CanvasRenderingContext2D,
   world: World,
@@ -620,16 +693,7 @@ function draw(
   ctx.stroke();
   ctx.globalAlpha = 1;
 
-  for (const obstacle of world.obstacles) {
-    // Orange marks the two obstacles that need a move other than a plain jump.
-    ctx.fillStyle = obstacle.kind === "low" ? palette.paper : palette.accent;
-    ctx.fillRect(
-      Math.round(obstacle.x),
-      Math.round(obstacleY(obstacle)),
-      obstacle.width,
-      obstacle.height,
-    );
-  }
+  for (const obstacle of world.obstacles) drawObstacle(ctx, obstacle, palette);
 
   if (world.puff) {
     ctx.save();
@@ -645,6 +709,16 @@ function draw(
   }
 
   drawBird(ctx, world, playerBox(world), palette, world.phase === "over");
+
+  // Lost: drop a near-solid veil over the world so the only things left to
+  // read are the score above the canvas and the message on top of it.
+  if (world.phase === "over") {
+    ctx.save();
+    ctx.globalAlpha = 0.9;
+    ctx.fillStyle = palette.ink;
+    ctx.fillRect(0, 0, width, WORLD.height);
+    ctx.restore();
+  }
 }
 
 function pad(score: number): string {
