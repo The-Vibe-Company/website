@@ -50,6 +50,24 @@
       }
     }
   },
+  "runner": {
+    "heading": "Mini-jeu",
+    "hint": "[ Espace ] sauter · [ ×2 ] double saut · [ ↓ ] baisser",
+    "score": "Score",
+    "best": "Record",
+    "soundOn": "Activer le son",
+    "soundOff": "Couper le son",
+    "kinds": {
+      "client": "Client",
+      "project": "Projet",
+      "badge": "Label"
+    },
+    "start": "Appuyez sur espace pour jouer",
+    "over": "Perdu",
+    "restart": "Espace pour rejouer",
+    "aria": "Mini-jeu de course. Espace ou flèche haut pour sauter, flèche bas pour baisser.",
+    "announce": "Partie terminée, score {score}."
+  },
   "clients": {
     "trustedBy": "Ils nous font confiance"
   },

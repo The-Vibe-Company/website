@@ -50,6 +50,24 @@
       }
     }
   },
+  "runner": {
+    "heading": "Mini game",
+    "hint": "[ Space ] jump · [ ×2 ] double jump · [ ↓ ] duck",
+    "score": "Score",
+    "best": "Best",
+    "soundOn": "Turn sound on",
+    "soundOff": "Mute sound",
+    "kinds": {
+      "client": "Client",
+      "project": "Project",
+      "badge": "Backed by"
+    },
+    "start": "Press space to play",
+    "over": "Game over",
+    "restart": "Space to replay",
+    "aria": "Endless runner mini game. Space or arrow up to jump, arrow down to duck.",
+    "announce": "Game over, score {score}."
+  },
   "clients": {
     "trustedBy": "Trusted by"
   },

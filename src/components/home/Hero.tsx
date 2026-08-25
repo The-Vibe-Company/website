@@ -4,6 +4,33 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { captureEvent } from "@/lib/posthog";
+import dynamic from "next/dynamic";
+import { useSyncExternalStore } from "react";
+import type { RunnerItem } from "@/lib/runner-worlds";
+
+/**
+ * The game is a desktop-only extra, so it is not part of the hero's bundle.
+ * Statically imported it put ~1600 lines of game and audio into the homepage's
+ * critical client chunk for every visitor, including the phones where it is
+ * never shown.
+ */
+const HeroRunner = dynamic(() => import("./HeroRunner").then((m) => m.HeroRunner), {
+  ssr: false,
+});
+
+/**
+ * Width alone was the wrong gate: at the md breakpoint the panel appeared on
+ * tablets, where the only touch control is jump — and ceiling bars, which
+ * cannot be jumped, start arriving after eight seconds. Requiring a hovering
+ * pointer as well keeps it to machines that have the keyboard it needs.
+ */
+const RUNNER_MEDIA = "(min-width: 1024px) and (hover: hover)";
+
+function subscribeRunnerMedia(onChange: () => void): () => void {
+  const query = window.matchMedia(RUNNER_MEDIA);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
 
 const QUICK_ITEMS = [
   { n: "01", key: "build" },
@@ -11,7 +38,13 @@ const QUICK_ITEMS = [
   { n: "03", key: "advise" },
 ] as const;
 
-export function Hero() {
+export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
+  // Server-side this is false, so the chunk is never even requested on a phone.
+  const canRun = useSyncExternalStore(
+    subscribeRunnerMedia,
+    () => window.matchMedia(RUNNER_MEDIA).matches,
+    () => false,
+  );
   const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("hero");
 
@@ -126,6 +159,15 @@ export function Hero() {
           </div>
         </motion.div>
 
+        {canRun ? (
+          <HeroRunner items={runnerItems} />
+        ) : (
+          /* Holds the panel's place from the server HTML so the game drops into
+             a gap that already exists. Mounting it client-side only, with no
+             placeholder, pushed the rest of the hero down after hydration. */
+          <div aria-hidden="true" className="mt-8 hidden lg:block lg:mt-10 lg:h-[254px]" />
+        )}
+
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -135,7 +177,7 @@ export function Hero() {
             delay: reduceMotion ? 0 : 0.1,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="mt-14 grid grid-cols-1 border-t border-border md:mt-16 md:grid-cols-3"
+          className="mt-8 grid grid-cols-1 border-t border-border md:mt-10 md:grid-cols-3"
         >
           {QUICK_ITEMS.map((item) => (
             <div

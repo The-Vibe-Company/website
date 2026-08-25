@@ -1,0 +1,1472 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useTranslations } from "next-intl";
+import { Volume2, VolumeX } from "lucide-react";
+import { captureEvent } from "@/lib/posthog";
+import { RunnerAudio } from "@/lib/runner-audio";
+import type { RunnerItem } from "@/lib/runner-worlds";
+
+/**
+ * The hero's runner band: the site's own take on the Chrome offline dino.
+ *
+ * It is an inverted ink panel inside the warm-paper hero, so it reads as a
+ * screen cut into the page rather than a widget floating on it. The player is
+ * a small paper bird whose wing beats while it runs.
+ *
+ * Space / ArrowUp jumps, ArrowDown ducks, tap plays on touch. One canvas, one
+ * fixed 60Hz timestep, so the difficulty curve is identical on every display.
+ */
+
+// --- world constants, in CSS pixels of the canvas -----------------------------
+const WORLD = {
+  height: 200,
+  // 30px of ink below the line reads as ground thickness; more is dead space.
+  groundY: 170,
+  gravity: 2600,
+  // Apex is v²/2g = 78px. The second jump adds ~50px on top, for a 128px
+  // ceiling that still leaves the bird inside the band.
+  jumpVelocity: -637,
+  /** The second jump tops the bird up to exactly this height above the line,
+   *  whenever it is pressed. Adding a fixed impulse instead would either be
+   *  wasted right after take-off or overshoot the roof near the apex. */
+  doubleJumpPeak: 130,
+  playerX: 104,
+  playerSize: 32,
+  duckHeight: 18,
+  startSpeed: 365,
+  // No plateau: the run has to end eventually, so the speed keeps climbing
+  // for a minute and a half and the gaps keep tightening after that.
+  maxSpeed: 780,
+  // Speed gains acceleration × 10 px/s per second: about 55s to top speed.
+  acceleration: 0.75,
+  /** Gaps are seconds, not pixels. A pixel gap that is comfortable at 365 px/s
+   *  becomes unclearable at 620 — the bird is still in the air from the last
+   *  jump. In time, the rhythm holds and speed alone tightens the reaction
+   *  window, which is where the difficulty should come from. */
+  spawnGapMin: 0.85,
+  spawnGapMax: 1.6,
+  /** Time between the two slabs of a twin, and the ceiling on their height.
+   *  Simulated against the jump arc: at 0.4s apart the pair was unclearable in
+   *  one jump at any take-off point, which is not what a paper slab promises.
+   *  At 0.22s with both capped at 40px there is a take-off window that clears
+   *  them both. */
+  twinGap: 0.22,
+  twinMaxHeight: 40,
+  /** Ceiling bars stop this far above the ground: under a ducking bird
+   *  (18px), over nothing else. */
+  ceilingGap: 24,
+  /** Head-height flyer: clips a standing bird, misses a ducking one. */
+  flyerHighY: 44,
+  flyerHighHeight: 18,
+  /** Ground-height flyer: ducking is not enough, it has to be jumped. */
+  flyerLowY: 26,
+  flyerLowHeight: 20,
+  /** A single jump peaks at 78px, a double at ~128px, so these two bands are
+   *  what separate "jump" from "double jump". */
+  lowHeight: [34, 52],
+  highHeight: [88, 104],
+  /** Widths, deliberately slim: a thick slab reads as scenery, not a hurdle. */
+  lowWidth: 12,
+  highWidth: 10,
+  /** How long a ceiling bar keeps you down, in seconds. Expressed in time and
+   *  converted to pixels at the current speed, so a long bar stays a long duck
+   *  at 780 px/s instead of flicking past. */
+  ceilingDuration: [0.25, 0.85],
+  flyerWidth: 30,
+} as const;
+
+const STEP = 1 / 60;
+/** How much of the panel has to be on screen for it to own the keyboard and
+ *  keep a run moving. The key guard and the loop share it deliberately. */
+const VISIBLE_ENOUGH = 0.3;
+const BEST_KEY = "tvc-runner-best";
+const MUTED_KEY = "tvc-runner-muted";
+
+type Phase = "idle" | "running" | "over";
+
+// --- best score, kept in localStorage and read through an external store ------
+// A plain effect + setState would flag as a cascading render, and a lazy
+// useState initialiser would disagree with the server-rendered "0000".
+const bestListeners = new Set<() => void>();
+
+function subscribeBest(onChange: () => void): () => void {
+  bestListeners.add(onChange);
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === BEST_KEY) onChange();
+  };
+  window.addEventListener("storage", onStorage);
+  return () => {
+    bestListeners.delete(onChange);
+    window.removeEventListener("storage", onStorage);
+  };
+}
+
+function readBest(): string {
+  try {
+    return window.localStorage.getItem(BEST_KEY) ?? "0";
+  } catch {
+    return "0";
+  }
+}
+
+const muteListeners = new Set<() => void>();
+
+function subscribeMuted(onChange: () => void): () => void {
+  muteListeners.add(onChange);
+  return () => muteListeners.delete(onChange);
+}
+
+function readMuted(): string {
+  try {
+    return window.localStorage.getItem(MUTED_KEY) ?? "0";
+  } catch {
+    return "0";
+  }
+}
+
+function writeMuted(muted: boolean): void {
+  try {
+    window.localStorage.setItem(MUTED_KEY, muted ? "1" : "0");
+  } catch {
+    // Storage blocked: the choice simply does not outlive the visit.
+  }
+  muteListeners.forEach((listener) => listener());
+}
+
+function writeBest(score: number): void {
+  try {
+    window.localStorage.setItem(BEST_KEY, String(score));
+  } catch {
+    // Private mode, quota, blocked storage: the run still counts on screen.
+  }
+  bestListeners.forEach((listener) => listener());
+}
+
+/**
+ * `low`       — a single jump clears it.
+ * `high`      — a barrier only a double jump clears.
+ * `ceiling`   — hangs from the roof to head height: no way over it, duck.
+ * `flyerHigh` — a predator at head height: duck under it.
+ * `flyerLow`  — a predator skimming the ground: ducking is not enough, jump.
+ *
+ * Colour states the move, not the object: paper to jump, orange to double
+ * jump, yellow to duck. Shape says what it is, colour says what to do.
+ */
+type ObstacleKind = "low" | "high" | "ceiling" | "flyerHigh" | "flyerLow";
+
+function isFlyer(kind: ObstacleKind): boolean {
+  return kind === "flyerHigh" || kind === "flyerLow";
+}
+
+/** Which move gets you past it — and therefore what colour it is. */
+function movesUnder(kind: ObstacleKind): "jump" | "double" | "duck" {
+  if (kind === "high") return "double";
+  if (kind === "ceiling" || kind === "flyerHigh") return "duck";
+  return "jump";
+}
+
+type Obstacle = {
+  x: number;
+  width: number;
+  height: number;
+  kind: ObstacleKind;
+  /** Wing beat offset, so a flock never flaps in unison. */
+  phase: number;
+};
+
+type World = {
+  phase: Phase;
+  /** Narrow canvases run slower so reaction time stays comparable. */
+  scale: number;
+  t: number;
+  speed: number;
+  distance: number;
+  score: number;
+  playerY: number;
+  playerVY: number;
+  ducking: boolean;
+  grounded: boolean;
+  /** 0 on the ground, 1 after the first jump, 2 once the double is spent. */
+  jumps: number;
+  /** Little burst of paper dots marking where the second jump fired. */
+  puff: { x: number; y: number; life: number } | null;
+  obstacles: Obstacle[];
+  nextSpawn: number;
+};
+
+function speedScale(width: number): number {
+  return Math.max(0.68, Math.min(1, width / 900));
+}
+
+function createWorld(scale = 1): World {
+  return {
+    phase: "idle",
+    scale,
+    t: 0,
+    speed: WORLD.startSpeed * scale,
+    distance: 0,
+    score: 0,
+    playerY: WORLD.groundY,
+    playerVY: 0,
+    ducking: false,
+    grounded: true,
+    jumps: 0,
+    puff: null,
+    obstacles: [],
+    // A beat before the first slab, so the run does not open mid-obstacle.
+    nextSpawn: WORLD.startSpeed * scale * 1.9,
+  };
+}
+
+/**
+ * The run has to end eventually, so nothing here settles: every kind's weight
+ * keeps climbing with time, which means the share of plain slabs keeps
+ * shrinking and the track never turns into a rhythm you can hold forever.
+ * Each kind is still introduced alone, just sooner than it used to be.
+ */
+function kindWeights(t: number): [ObstacleKind, number][] {
+  const ramp = (from: number, rate: number, cap: number) =>
+    t < from ? 0 : Math.min(cap, (t - from) * rate);
+  return [
+    ["low", 1],
+    ["high", ramp(4, 0.08, 0.6)],
+    ["ceiling", ramp(8, 0.07, 0.5)],
+    ["flyerHigh", ramp(18, 0.06, 0.45)],
+    ["flyerLow", ramp(26, 0.06, 0.4)],
+  ];
+}
+
+function pickKind(world: World): ObstacleKind {
+  const weights = kindWeights(world.t);
+  const total = weights.reduce((sum, [, weight]) => sum + weight, 0);
+  let roll = Math.random() * total;
+  for (const [kind, weight] of weights) {
+    roll -= weight;
+    if (roll <= 0) return kind;
+  }
+  return "low";
+}
+
+function obstacleHeight(kind: ObstacleKind): number {
+  if (kind === "ceiling") return WORLD.groundY - WORLD.ceilingGap;
+  if (kind === "flyerHigh") return WORLD.flyerHighHeight;
+  if (kind === "flyerLow") return WORLD.flyerLowHeight;
+  const [min, max] = kind === "high" ? WORLD.highHeight : WORLD.lowHeight;
+  return min + Math.random() * (max - min);
+}
+
+function obstacleWidth(kind: ObstacleKind, speed: number): number {
+  if (kind === "ceiling") {
+    const [min, max] = WORLD.ceilingDuration;
+    return speed * (min + Math.random() * (max - min));
+  }
+  if (isFlyer(kind)) return WORLD.flyerWidth;
+  return kind === "high" ? WORLD.highWidth : WORLD.lowWidth;
+}
+
+function spawnObstacle(world: World, width: number): void {
+  const kind = pickKind(world);
+  const obstacleSpan = obstacleWidth(kind, world.speed);
+  world.obstacles.push({
+    x: width + 40,
+    width: obstacleSpan,
+    height: obstacleHeight(kind),
+    kind,
+    phase: Math.random() * Math.PI * 2,
+  });
+
+  // Twin slabs: two low blocks close enough that a single well-timed jump
+  // clears both, and a late one lands between them. The run's real trap.
+  let twinned = false;
+  if (kind === "low" && world.t > 12 && Math.random() > 0.66) {
+    twinned = true;
+    const [twinMin] = WORLD.lowHeight;
+    const twinHeight = twinMin + Math.random() * (WORLD.twinMaxHeight - twinMin);
+    // Both slabs of a twin are capped, and the first is re-cut to match: a
+    // tall pair cannot be cleared in one jump whatever the spacing.
+    const first = world.obstacles[world.obstacles.length - 1];
+    first.height = Math.min(first.height, twinHeight);
+    world.obstacles.push({
+      x: width + 40 + WORLD.twinGap * world.speed,
+      width: WORLD.lowWidth,
+      height: twinHeight,
+      kind: "low",
+      phase: 0,
+    });
+  }
+
+  // Gaps keep closing after the speed has topped out — that late squeeze is
+  // what finally ends a long run. The floor is generous after anything that
+  // needed a double jump or a duck, which take longer to recover from.
+  const tighten = Math.min(0.55, world.t * 0.008);
+  // A long ceiling bar is still going past when the next thing would spawn, so
+  // its own length is added to the recovery the gap has to leave.
+  // The gap is measured from the LAST thing spawned, so a twin's second slab
+  // has to be paid for too — otherwise a pair left 0.4s of recovery where
+  // every other obstacle leaves 0.62.
+  const floor =
+    (kind === "low" ? 0.62 : 0.8) +
+    (kind === "ceiling" ? obstacleSpan / world.speed : 0) +
+    (twinned ? WORLD.twinGap : 0);
+  const seconds =
+    WORLD.spawnGapMin + Math.random() * (WORLD.spawnGapMax - WORLD.spawnGapMin) - tighten;
+  world.nextSpawn = world.speed * Math.max(floor, seconds);
+}
+
+function obstacleY(obstacle: Obstacle): number {
+  switch (obstacle.kind) {
+    // A ceiling bar grows down from the roof.
+    case "ceiling":
+      return 0;
+    case "flyerHigh":
+      return WORLD.groundY - WORLD.flyerHighY;
+    case "flyerLow":
+      return WORLD.groundY - WORLD.flyerLowY;
+    // Everything else stands on the line.
+    default:
+      return WORLD.groundY - obstacle.height;
+  }
+}
+
+function playerBox(world: World) {
+  const ducking = world.ducking && world.grounded;
+  const height = ducking ? WORLD.duckHeight : WORLD.playerSize;
+  return { x: WORLD.playerX, y: world.playerY - height, width: WORLD.playerSize, height };
+}
+
+/** Advances one fixed tick. Returns true when the run just ended. */
+function step(world: World, dt: number, width: number): boolean {
+  world.t += dt;
+  world.speed = Math.min(
+    WORLD.maxSpeed * world.scale,
+    world.speed + WORLD.acceleration * world.scale * dt * 10,
+  );
+  world.distance += world.speed * dt;
+  world.score = Math.floor(world.distance / 24);
+
+  // Ducking mid-air drops you faster — but only on the way down. Applied to
+  // the climb as well, a held duck key starved the jump: its own repeat events
+  // kept re-arming the heavier gravity, capping the arc at 72px against
+  // barriers sized at 88-104. Fast fall is a descent trick, not a tax on
+  // taking off.
+  const falling = world.playerVY > 0;
+  const gravity = WORLD.gravity * (world.ducking && !world.grounded && falling ? 1.8 : 1);
+  world.playerVY += gravity * dt;
+  world.playerY += world.playerVY * dt;
+
+  if (world.playerY >= WORLD.groundY) {
+    world.playerY = WORLD.groundY;
+    world.playerVY = 0;
+    world.grounded = true;
+    world.jumps = 0;
+  } else {
+    world.grounded = false;
+  }
+
+  if (world.puff) {
+    world.puff.life -= dt * 2.6;
+    if (world.puff.life <= 0) world.puff = null;
+  }
+
+  world.nextSpawn -= world.speed * dt;
+  if (world.nextSpawn <= 0) spawnObstacle(world, width);
+
+  const player = playerBox(world);
+  for (const obstacle of world.obstacles) {
+    obstacle.x -= world.speed * dt;
+
+    const oy = obstacleY(obstacle);
+    // A couple of forgiving pixels: pixel-exact hitboxes feel unfair here.
+    const hit =
+      player.x + player.width - 4 > obstacle.x &&
+      player.x + 4 < obstacle.x + obstacle.width &&
+      player.y + player.height - 4 > oy &&
+      player.y + 4 < oy + obstacle.height;
+
+    if (hit) {
+      world.phase = "over";
+      return true;
+    }
+  }
+  world.obstacles = world.obstacles.filter((o) => o.x + o.width > -40);
+  return false;
+}
+
+type Palette = {
+  ink: string;
+  paper: string;
+  accent: string;
+  /** Reserved for everything that has to be ducked under. */
+  duck: string;
+  sans: string;
+};
+
+// --- decor ---------------------------------------------------------------
+// Six scenes, each with its own tint, cycling every DECOR_PERIOD seconds with
+// a cross-fade. They scroll at a third of the world speed: enough parallax to
+// read as distance, quiet enough never to compete with the obstacles. Every
+// column comes from a deterministic hash, so a skyline can never flicker.
+const DECOR_PERIOD = 10;
+const DECOR_FADE = 1.4;
+/** The name is an announcement, not a permanent label: it lands, holds, and
+ *  clears out well before the world it belongs to does. */
+const NAME_IN = 0.55;
+const NAME_HOLD = 3.6;
+const NAME_OUT = 1;
+const DECOR_PARALLAX = 0.32;
+const DECOR_ALPHA = 0.3;
+
+function hash(n: number): number {
+  const x = Math.sin(n * 127.1) * 43758.5453;
+  return x - Math.floor(x);
+}
+
+type Painter = (ctx: CanvasRenderingContext2D, width: number, offset: number) => void;
+
+/** Walks the columns of a repeating motif that scrolls with `offset`. */
+function columns(
+  width: number,
+  offset: number,
+  step: number,
+  paint: (x: number, column: number) => void,
+): void {
+  const first = Math.floor(offset / step);
+  for (let i = 0; i <= Math.ceil(width / step) + 1; i++) {
+    const column = first + i;
+    paint(column * step - offset, column);
+  }
+}
+
+const paintCity: Painter = (ctx, width, offset) => {
+  columns(width, offset, 34, (x, column) => {
+    const h = 26 + hash(column) * 54;
+    ctx.fillRect(Math.round(x), WORLD.groundY - h, 26, h);
+    // Two lit windows, the only detail these towers get.
+    if (hash(column * 3.7) > 0.5) {
+      ctx.clearRect(Math.round(x) + 6, WORLD.groundY - h + 10, 5, 5);
+      ctx.clearRect(Math.round(x) + 15, WORLD.groundY - h + 22, 5, 5);
+    }
+  });
+};
+
+const paintDesert: Painter = (ctx, width, offset) => {
+  // Dunes: two rows of flattened arcs, the back row barely moving.
+  for (let row = 0; row < 2; row++) {
+    const shift = offset * (1 - row * 0.4);
+    const rise = 24 + row * 15;
+    ctx.beginPath();
+    ctx.moveTo(0, WORLD.groundY);
+    for (let x = 0; x <= width; x += 8) {
+      const y = WORLD.groundY - rise - Math.sin((x + shift) / (90 + row * 50)) * 14;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(width, WORLD.groundY);
+    ctx.closePath();
+    ctx.fill();
+  }
+  // A cactus every so often, sitting on the line.
+  columns(width, offset, 150, (x, column) => {
+    if (hash(column * 2.3) < 0.45) return;
+    const h = 26 + hash(column) * 16;
+    ctx.fillRect(x, WORLD.groundY - h, 7, h);
+    ctx.fillRect(x - 9, WORLD.groundY - h * 0.72, 9, 5);
+    ctx.fillRect(x - 9, WORLD.groundY - h * 0.72, 5, 14);
+    ctx.fillRect(x + 7, WORLD.groundY - h * 0.86, 9, 5);
+    ctx.fillRect(x + 12, WORLD.groundY - h * 0.86, 5, 18);
+  });
+};
+
+const paintForest: Painter = (ctx, width, offset) => {
+  columns(width, offset, 30, (x, column) => {
+    const h = 34 + hash(column) * 30;
+    ctx.beginPath();
+    ctx.moveTo(x - 11, WORLD.groundY);
+    ctx.lineTo(x, WORLD.groundY - h);
+    ctx.lineTo(x + 11, WORLD.groundY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillRect(x - 1.5, WORLD.groundY - 6, 3, 6);
+  });
+};
+
+const paintSea: Painter = (ctx, width, offset) => {
+  for (let row = 0; row < 3; row++) {
+    const y = WORLD.groundY - 20 - row * 16;
+    const shift = offset * (1 - row * 0.18);
+    ctx.beginPath();
+    for (let x = 0; x <= width; x += 6) {
+      const wave = Math.sin((x + shift) / 34 + row) * 5;
+      if (x === 0) ctx.moveTo(x, y + wave);
+      else ctx.lineTo(x, y + wave);
+    }
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+};
+
+const paintMountains: Painter = (ctx, width, offset) => {
+  columns(width, offset, 190, (x, column) => {
+    const h = 62 + hash(column) * 48;
+    ctx.beginPath();
+    ctx.moveTo(x - 105, WORLD.groundY);
+    ctx.lineTo(x, WORLD.groundY - h);
+    ctx.lineTo(x + 105, WORLD.groundY);
+    ctx.closePath();
+    ctx.fill();
+    // Snow cap: the same silhouette, brighter.
+    const capAlpha = ctx.globalAlpha;
+    ctx.globalAlpha = Math.min(1, capAlpha * 2.4);
+    ctx.beginPath();
+    ctx.moveTo(x - 22, WORLD.groundY - h + 21);
+    ctx.lineTo(x, WORLD.groundY - h);
+    ctx.lineTo(x + 22, WORLD.groundY - h + 21);
+    ctx.lineTo(x + 9, WORLD.groundY - h + 15);
+    ctx.lineTo(x - 4, WORLD.groundY - h + 22);
+    ctx.closePath();
+    ctx.fill();
+    ctx.globalAlpha = capAlpha;
+  });
+};
+
+const paintNight: Painter = (ctx, width, offset) => {
+  columns(width, offset, 46, (x, column) => {
+    const y = 18 + hash(column) * 96;
+    ctx.beginPath();
+    ctx.arc(x, y, hash(column * 5.1) > 0.8 ? 2.4 : 1.4, 0, Math.PI * 2);
+    ctx.fill();
+  });
+  // One moon, parked far away so it barely drifts.
+  const moonX = width - ((offset * 0.25) % (width + 220)) + 110;
+  ctx.beginPath();
+  ctx.arc(moonX, 46, 17, 0, Math.PI * 2);
+  ctx.fill();
+};
+
+interface Scene {
+  key: string;
+  /** Each world is tinted rather than plain paper — the only colour in the
+   *  panel besides the orange accent. */
+  tint: string;
+  paint: Painter;
+}
+
+const SCENES: Scene[] = [
+  { key: "city", tint: "#9db4cf", paint: paintCity },
+  { key: "desert", tint: "#e0a566", paint: paintDesert },
+  { key: "forest", tint: "#7cba8d", paint: paintForest },
+  { key: "sea", tint: "#5fb4c6", paint: paintSea },
+  { key: "mountains", tint: "#b1abd8", paint: paintMountains },
+  { key: "night", tint: "#8d94e2", paint: paintNight },
+];
+
+export const SCENE_KEYS = SCENES.map((scene) => scene.key);
+
+/** Who the world being crossed is about. */
+export interface WorldCard {
+  kind: string;
+  name: string;
+  detail: string;
+}
+
+/**
+ * The name of whoever this world belongs to, set as a giant hollow word across
+ * the sky.
+ *
+ * This is why the game is on the page: it tours our clients, projects and
+ * backers one world at a time. So the name is not a label on top of the game,
+ * it is part of the scenery — outlined rather than filled so obstacles stay
+ * readable through it, and sized to the panel so a long name shrinks instead
+ * of running off the edge of a phone. Above it, a single mono kicker says who
+ * they are; nothing else competes.
+ */
+const fitCache = new Map<string, number>();
+
+function fittedSize(
+  ctx: CanvasRenderingContext2D,
+  name: string,
+  width: number,
+  palette: Palette,
+): number {
+  const key = `${name}@${Math.round(width)}`;
+  const cached = fitCache.get(key);
+  if (cached !== undefined) return cached;
+
+  let size = 68;
+  ctx.font = `700 ${size}px ${palette.sans}`;
+  const maxWidth = width * 0.66;
+  const measured = ctx.measureText(name).width;
+  if (measured > maxWidth) size = Math.max(26, (size * maxWidth) / measured);
+
+  // Bounded: one entry per name per panel width, and the roster is a dozen.
+  if (fitCache.size > 64) fitCache.clear();
+  fitCache.set(key, size);
+  return size;
+}
+
+function nameAlpha(elapsed: number, idle: boolean): number {
+  if (idle) return 1;
+  if (elapsed < NAME_IN) return elapsed / NAME_IN;
+  const held = elapsed - NAME_IN;
+  if (held < NAME_HOLD) return 1;
+  return Math.max(0, 1 - (held - NAME_HOLD) / NAME_OUT);
+}
+
+function drawWorldName(
+  ctx: CanvasRenderingContext2D,
+  card: WorldCard | undefined,
+  scene: Scene,
+  alpha: number,
+  width: number,
+  palette: Palette,
+): void {
+  if (!card || !card.name || alpha <= 0.01) return;
+  const name = card.name.toUpperCase();
+  const x = width / 2;
+
+  // Rises into place on the way in, keeps drifting up on the way out.
+  const drift = (1 - alpha) * 12;
+
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+
+  // Kicker above the name, magazine style: what they are and what they do, on
+  // one quiet line, so the big word underneath can just be the name.
+  ctx.globalAlpha = alpha * 0.65;
+  ctx.fillStyle = scene.tint;
+  ctx.letterSpacing = "4px";
+  ctx.font = `600 10px ui-monospace, "SF Mono", Menlo, monospace`;
+  const kicker = card.detail
+    ? `${card.kind.toUpperCase()} — ${card.detail.toUpperCase()}`
+    : card.kind.toUpperCase();
+  ctx.fillText(kicker, x, 26 - drift);
+
+  // Fit the word to the panel: short names get the full 68px, long ones shrink
+  // rather than run off the edge. Measured once per name and width, not per
+  // frame — measureText on a letterspaced string 60 times a second is real
+  // work for an answer that only changes when the world does.
+  ctx.letterSpacing = "5px";
+  const size = fittedSize(ctx, name, width, palette);
+  ctx.font = `700 ${size}px ${palette.sans}`;
+
+  const baseline = 86 - drift;
+
+  // A whisper of fill gives the letters body without hiding what runs behind.
+  ctx.globalAlpha = alpha * 0.08;
+  ctx.fillStyle = scene.tint;
+  ctx.fillText(name, x, baseline);
+
+  ctx.globalAlpha = alpha * 0.8;
+  ctx.strokeStyle = scene.tint;
+  ctx.lineWidth = 1.6;
+  ctx.lineJoin = "round";
+  ctx.strokeText(name, x, baseline);
+  ctx.restore();
+}
+
+function drawDecorLayer(
+  ctx: CanvasRenderingContext2D,
+  index: number,
+  width: number,
+  distance: number,
+  alpha: number,
+): void {
+  if (alpha <= 0.01) return;
+  const scene = SCENES[index % SCENES.length];
+
+  ctx.save();
+  // Never let a silhouette cross the ground line.
+  ctx.beginPath();
+  ctx.rect(0, 0, width, WORLD.groundY);
+  ctx.clip();
+  ctx.globalAlpha = alpha * DECOR_ALPHA;
+  ctx.fillStyle = scene.tint;
+  ctx.strokeStyle = scene.tint;
+  scene.paint(ctx, width, distance * DECOR_PARALLAX + index * 900);
+  ctx.restore();
+}
+
+/** Where the world cycle stands: which scene, and how far into its entrance. */
+function worldPhase(world: World): { index: number; elapsed: number; entering: number } {
+  const index = Math.floor(world.t / DECOR_PERIOD);
+  const elapsed = world.t - index * DECOR_PERIOD;
+  // The first world is already there — fading it in from nothing left the
+  // panel blank before the run starts, which is when it is most looked at.
+  const entering = index === 0 ? 1 : Math.min(1, elapsed / DECOR_FADE);
+  return { index, elapsed, entering };
+}
+
+function drawDecor(ctx: CanvasRenderingContext2D, world: World, width: number): void {
+  const { index, entering } = worldPhase(world);
+  if (index > 0 && entering < 1) {
+    drawDecorLayer(ctx, index - 1, width, world.distance, 1 - entering);
+  }
+  drawDecorLayer(ctx, index, width, world.distance, entering);
+}
+
+/**
+ * The name of whoever the world belongs to, painted last so nothing crosses
+ * it. It is the reason the game is on the page, so an obstacle drifting past
+ * must not be allowed to cut through the middle of a client's name.
+ */
+function drawWorldNameLayer(
+  ctx: CanvasRenderingContext2D,
+  world: World,
+  width: number,
+  palette: Palette,
+  cards: WorldCard[],
+): void {
+  if (cards.length === 0) return;
+  const { index, elapsed, entering } = worldPhase(world);
+  const scene = SCENES[index % SCENES.length];
+  const alpha = Math.min(entering, nameAlpha(elapsed, world.phase !== "running"));
+  drawWorldName(ctx, cards[index % cards.length], scene, alpha, width, palette);
+}
+
+/**
+ * The player: a small paper bird. Everything is expressed as a fraction of its
+ * box, so the same drawing squashes into the ducking silhouette without any
+ * second set of numbers. The wing beats while running and stays raised in the
+ * air, which doubles as the "am I airborne?" cue.
+ */
+function drawBird(
+  ctx: CanvasRenderingContext2D,
+  world: World,
+  box: { x: number; y: number; width: number; height: number },
+  palette: Palette,
+  crashed: boolean,
+): void {
+  const { x, y, width: w, height: h } = box;
+  const px = (fx: number, fy: number): [number, number] => [x + fx * w, y + fy * h];
+
+  const beat = world.grounded ? Math.sin(world.t * 14) : 1;
+  // Kept inside the silhouette: a wing that leaves the body reads as a hole.
+  const wingTip = 0.32 - beat * 0.13;
+
+  ctx.save();
+  ctx.fillStyle = crashed ? palette.accent : palette.paper;
+  ctx.strokeStyle = crashed ? palette.accent : palette.paper;
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+
+  // Tail, body and head in one silhouette.
+  ctx.beginPath();
+  ctx.moveTo(...px(0.02, 0.34));
+  ctx.lineTo(...px(0.24, 0.52));
+  ctx.bezierCurveTo(...px(0.3, 0.98), ...px(0.7, 1.0), ...px(0.76, 0.62));
+  ctx.bezierCurveTo(...px(0.82, 0.5), ...px(0.88, 0.42), ...px(0.86, 0.3));
+  ctx.bezierCurveTo(...px(0.84, 0.12), ...px(0.6, 0.08), ...px(0.5, 0.24));
+  ctx.bezierCurveTo(...px(0.42, 0.36), ...px(0.2, 0.36), ...px(0.02, 0.34));
+  ctx.closePath();
+  ctx.fill();
+
+  // Beak: a small wedge, the detail that makes it read as a bird at 32px.
+  ctx.beginPath();
+  ctx.moveTo(...px(0.85, 0.22));
+  ctx.lineTo(...px(1.0, 0.3));
+  ctx.lineTo(...px(0.85, 0.36));
+  ctx.closePath();
+  ctx.fill();
+
+  // Wing: a filled crescent cut out of the body. A stroke reads as a frown at
+  // this size; a shape reads as a wing.
+  ctx.fillStyle = crashed ? palette.paper : palette.ink;
+  ctx.beginPath();
+  ctx.moveTo(...px(0.3, 0.62));
+  ctx.quadraticCurveTo(...px(0.45, wingTip), ...px(0.62, 0.52));
+  ctx.quadraticCurveTo(...px(0.48, 0.6), ...px(0.4, 0.72));
+  ctx.quadraticCurveTo(...px(0.34, 0.68), ...px(0.3, 0.62));
+  ctx.closePath();
+  ctx.fill();
+
+  // Eye.
+  ctx.fillStyle = crashed ? palette.paper : palette.ink;
+  ctx.beginPath();
+  ctx.arc(...px(0.7, 0.26), Math.max(1.2, h * 0.045), 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+/** Path2D.roundRect is Safari 16.4+ and Firefox 112+. Probed once. */
+const SUPPORTS_ROUND_RECT =
+  typeof Path2D !== "undefined" && typeof Path2D.prototype.roundRect === "function";
+
+/** Solid depth of a ceiling bar's lower edge — the same 12px the standing
+ *  slabs are wide, so every obstacle is the same bar, just hung differently. */
+const CEILING_LIP = 12;
+
+function moveColour(kind: ObstacleKind, palette: Palette): string {
+  const move = movesUnder(kind);
+  if (move === "double") return palette.accent;
+  if (move === "duck") return palette.duck;
+  return palette.paper;
+}
+
+/**
+ * A flying predator: all beak and wings, drawn from the same fractions-of-its-
+ * box idea as the player so it stays readable at 30px. It beats its wings out
+ * of phase with its neighbours and rides a slow bob, which is what separates a
+ * living thing from a slab at a glance.
+ */
+function drawFlyer(
+  ctx: CanvasRenderingContext2D,
+  obstacle: Obstacle,
+  t: number,
+  palette: Palette,
+): void {
+  const w = obstacle.width;
+  const h = obstacle.height;
+  const x = obstacle.x;
+  const y = obstacleY(obstacle) + Math.sin(t * 3 + obstacle.phase) * 2;
+  const px = (fx: number, fy: number): [number, number] => [x + fx * w, y + fy * h];
+  const beat = Math.sin(t * 11 + obstacle.phase);
+
+  ctx.save();
+  ctx.fillStyle = moveColour(obstacle.kind, palette);
+
+  // Body: beak to the left, tail to the right, so it reads as coming at you.
+  ctx.beginPath();
+  ctx.moveTo(...px(0, 0.5));
+  ctx.lineTo(...px(0.28, 0.3));
+  ctx.lineTo(...px(0.8, 0.34));
+  ctx.quadraticCurveTo(...px(0.99, 0.5), ...px(0.8, 0.66));
+  ctx.lineTo(...px(0.28, 0.7));
+  ctx.closePath();
+  ctx.fill();
+
+  // Open jaw.
+  ctx.beginPath();
+  ctx.moveTo(...px(-0.06, 0.4));
+  ctx.lineTo(...px(0.26, 0.5));
+  ctx.lineTo(...px(-0.04, 0.68));
+  ctx.closePath();
+  ctx.fill();
+
+  // Tail fin.
+  ctx.beginPath();
+  ctx.moveTo(...px(0.82, 0.36));
+  ctx.lineTo(...px(1.04, 0.02));
+  ctx.lineTo(...px(0.98, 0.48));
+  ctx.closePath();
+  ctx.fill();
+
+  // The wing sweeps well above the body and back down through it. It leaves
+  // the hit box on the way up, which only ever works in the player's favour:
+  // the box stays smaller than the drawing, never larger.
+  ctx.beginPath();
+  ctx.moveTo(...px(0.34, 0.4));
+  ctx.lineTo(...px(0.58, 0.2 - beat * 0.75));
+  ctx.lineTo(...px(0.78, 0.44));
+  ctx.closePath();
+  ctx.fill();
+
+  // Eye, punched out of the body.
+  ctx.fillStyle = palette.ink;
+  ctx.beginPath();
+  ctx.arc(...px(0.24, 0.5), Math.max(1.1, h * 0.08), 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+/**
+ * Standing and hanging obstacles. Corners are rounded only on the edges facing
+ * the bird, so each one still points the way it hangs, and anything that needs
+ * a move other than a plain jump wears diagonal hazard stripes.
+ */
+function drawObstacle(
+  ctx: CanvasRenderingContext2D,
+  obstacle: Obstacle,
+  t: number,
+  palette: Palette,
+): void {
+  if (isFlyer(obstacle.kind)) {
+    drawFlyer(ctx, obstacle, t, palette);
+    return;
+  }
+
+  const x = Math.round(obstacle.x);
+  const y = Math.round(obstacleY(obstacle));
+  const w = obstacle.width;
+  const h = obstacle.height;
+  const striped = obstacle.kind !== "low";
+
+  ctx.save();
+  // Held as a Path2D rather than the context's current path: the curtain below
+  // draws its own paths, which would otherwise clobber the shape this has to
+  // be clipped to — and silently drop the hazard stripes.
+  const shape = new Path2D();
+  // [top-left, top-right, bottom-right, bottom-left]
+  const radii: [number, number, number, number] =
+    obstacle.kind === "ceiling" ? [0, 0, 3, 3] : [3, 3, 0, 0];
+  // roundRect landed in Safari 16.4 and Firefox 112. Square corners are a
+  // rounding detail; throwing here would kill the frame.
+  if (SUPPORTS_ROUND_RECT) shape.roundRect(x, y, w, h, radii);
+  else shape.rect(x, y, w, h);
+  const colour = moveColour(obstacle.kind, palette);
+
+  if (obstacle.kind === "ceiling") {
+    // A long bar is a wall of colour if it is filled to the roof. Only the
+    // business end — the part your head meets — is solid; the rest is a
+    // curtain, which still says "no way over this" without the mass.
+    ctx.save();
+    ctx.clip(shape);
+    // The curtain is drawn as hanging threads rather than a filled block: a
+    // solid tint went muddy against the ink, and threads read as something
+    // suspended from the roof.
+    // One path, one stroke. Each thread used to be its own beginPath/stroke
+    // pair, so a bar 660px wide cost over a hundred draw calls every frame.
+    ctx.globalAlpha = 0.3;
+    ctx.strokeStyle = colour;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let tx = x + 5; tx < x + w; tx += 11) {
+      ctx.moveTo(Math.round(tx) + 0.5, y);
+      ctx.lineTo(Math.round(tx) + 0.5, y + h - CEILING_LIP);
+    }
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = colour;
+    ctx.fillRect(x, y + h - CEILING_LIP, w, CEILING_LIP);
+    ctx.restore();
+  } else {
+    ctx.fillStyle = colour;
+    ctx.fill(shape);
+  }
+  ctx.clip(shape);
+
+  if (striped) {
+    const bandTop = obstacle.kind === "ceiling" ? y + h - CEILING_LIP : y;
+    const bandHeight = obstacle.kind === "ceiling" ? CEILING_LIP : h;
+    const band = new Path2D();
+    band.rect(x, bandTop, w, bandHeight);
+    ctx.clip(band);
+    ctx.globalAlpha = 0.28;
+    ctx.strokeStyle = palette.ink;
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    for (let offset = -bandHeight; offset < w + bandHeight; offset += 13) {
+      ctx.moveTo(x + offset, bandTop + bandHeight);
+      ctx.lineTo(x + offset + bandHeight, bandTop);
+    }
+    ctx.stroke();
+  } else {
+    // A thin shaded edge down the leading side gives the slab some thickness.
+    ctx.globalAlpha = 0.22;
+    ctx.fillStyle = palette.ink;
+    ctx.fillRect(x + w - 2.5, y, 2.5, h);
+  }
+  ctx.restore();
+}
+
+function draw(
+  ctx: CanvasRenderingContext2D,
+  world: World,
+  width: number,
+  palette: Palette,
+  cards: WorldCard[],
+): void {
+  ctx.clearRect(0, 0, width, WORLD.height);
+
+  drawDecor(ctx, world, width);
+
+
+  // Ground: one hairline, nothing else. The panel already frames the game, so
+  // any extra texture would just be noise.
+  ctx.strokeStyle = palette.paper;
+  ctx.globalAlpha = 0.55;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, WORLD.groundY + 0.5);
+  ctx.lineTo(width, WORLD.groundY + 0.5);
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+
+  for (const obstacle of world.obstacles) drawObstacle(ctx, obstacle, world.t, palette);
+
+  if (world.puff) {
+    ctx.save();
+    ctx.globalAlpha = world.puff.life * 0.7;
+    ctx.fillStyle = palette.paper;
+    const spread = (1 - world.puff.life) * 14;
+    for (let i = -1; i <= 1; i++) {
+      ctx.beginPath();
+      ctx.arc(world.puff.x + i * spread, world.puff.y + spread * 0.5, 2.4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  drawBird(ctx, world, playerBox(world), palette, world.phase === "over");
+
+  // Foreground: the name goes over the obstacles, never under them.
+  drawWorldNameLayer(ctx, world, width, palette, cards);
+
+  // Not playing — lost, or not started yet: drop a near-solid veil over the
+  // world so the only things left to read are the score above the canvas and
+  // the call to action on top of it.
+  if (world.phase !== "running") {
+    ctx.save();
+    ctx.globalAlpha = 0.9;
+    ctx.fillStyle = palette.ink;
+    ctx.fillRect(0, 0, width, WORLD.height);
+    ctx.restore();
+  }
+}
+
+function pad(score: number): string {
+  return String(Math.min(score, 99999)).padStart(4, "0");
+}
+
+export function HeroRunner({ items }: { items: RunnerItem[] }) {
+  const t = useTranslations("runner");
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const worldRef = useRef<World>(createWorld());
+  const widthRef = useRef(960);
+  // Assume on-screen until the observer says otherwise: the band is above the
+  // fold on arrival, and a first frame spent frozen would be visible.
+  const visibleRef = useRef(true);
+  const rafRef = useRef<number | null>(null);
+  /** Set whenever a still frame needs repainting: resize, phase change, a new
+   *  world card, or the panel coming back on screen. */
+  const needsPaintRef = useRef(true);
+  const audioRef = useRef<RunnerAudio | null>(null);
+
+  const cardsRef = useRef<WorldCard[]>([]);
+
+  const [phase, setPhase] = useState<Phase>("idle");
+  const [score, setScore] = useState(0);
+  const best = Number(useSyncExternalStore(subscribeBest, readBest, () => "0")) || 0;
+  const muted = useSyncExternalStore(subscribeMuted, readMuted, () => "0") === "1";
+
+  /** Built on the first deliberate start, which is what makes the browser's
+   *  autoplay rules happy — and means a visitor who never plays never has an
+   *  audio context at all. */
+  const audio = useCallback(() => {
+    if (!audioRef.current) audioRef.current = new RunnerAudio(readMuted() === "1");
+    return audioRef.current;
+  }, []);
+
+  useEffect(() => {
+    // One card per world: the scene name plus the client, project or badge it
+    // features. Both lists cycle, so their pairing keeps shifting.
+    // Shuffled per visit: the roster is a tour, not a fixed playlist, and the
+    // first world is not always the same client.
+    const shuffled = [...items];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    const count = Math.max(SCENE_KEYS.length, shuffled.length) * SCENE_KEYS.length;
+    needsPaintRef.current = true;
+    cardsRef.current = Array.from({ length: count }, (_, index) => {
+      const item = shuffled[index % shuffled.length];
+      return {
+        kind: item ? t(`kinds.${item.kind}`) : "",
+        name: item?.name ?? "",
+        detail: item?.detail ?? "",
+      };
+    });
+  }, [items, t]);
+
+  const start = useCallback(() => {
+    const world = createWorld(speedScale(widthRef.current));
+    world.phase = "running";
+    worldRef.current = world;
+    setScore(0);
+    setPhase("running");
+    needsPaintRef.current = true;
+    const sound = audio();
+    sound.setIntensity(0);
+    sound.startMusic();
+    captureEvent("hero_runner_started");
+  }, [audio]);
+
+  const jump = useCallback(() => {
+    const world = worldRef.current;
+    if (world.phase !== "running") return;
+
+    if (world.grounded) {
+      world.playerVY = WORLD.jumpVelocity;
+      world.grounded = false;
+      world.jumps = 1;
+      audio().jump(false);
+      return;
+    }
+    // Second press mid-air: top the bird up to a fixed peak, and puff so the
+    // move is legible.
+    if (world.jumps >= 2) return;
+    const climbed = WORLD.groundY - world.playerY;
+    const remaining = Math.max(0, WORLD.doubleJumpPeak - climbed);
+    world.playerVY = -Math.sqrt(2 * WORLD.gravity * remaining);
+    world.jumps = 2;
+    world.puff = {
+      x: WORLD.playerX + WORLD.playerSize / 2,
+      y: world.playerY,
+      life: 1,
+    };
+    audio().jump(true);
+  }, [audio]);
+
+  const setDucking = useCallback(
+    (ducking: boolean) => {
+      const world = worldRef.current;
+      if (world.phase !== "running") return;
+      // Only on the way down: a held arrow key repeats its keydown, and one
+      // swish per repeat would be a machine gun.
+      if (ducking && !world.ducking) audio().duck();
+      world.ducking = ducking;
+    },
+    [audio],
+  );
+
+  /** Space and the arrows do double duty as page controls — only take them
+   *  over while the band is genuinely on screen and nothing else has focus.
+   *  Measured synchronously: an observer callback can lag a frame behind a
+   *  scroll, and a swallowed first keypress is the worst possible first
+   *  impression for a game that is supposed to answer instantly. */
+  const shouldCaptureKeys = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return false;
+    const rect = container.getBoundingClientRect();
+    const shown = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+
+    // One threshold, the same one the loop uses to freeze a run. They used to
+    // disagree — keys captured from a single visible pixel, the world frozen
+    // below 10% — which left a band of scroll where space did nothing at all.
+    if (shown < rect.height * VISIBLE_ENOUGH) return false;
+
+    const active = document.activeElement;
+    if (!active || active === document.body) return true;
+    if (container.contains(active)) return true;
+    return !active.matches("input, textarea, select, button, a, [contenteditable]");
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      // Never take a chord: Cmd+S, Ctrl+Space and friends belong to the
+      // browser and to the page, always.
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+
+      const isJump = event.code === "Space" || event.code === "ArrowUp" || event.code === "KeyW";
+      const isDuck = event.code === "ArrowDown" || event.code === "KeyS";
+      if (!isJump && !isDuck) return;
+      // Ducking only means something during a run. Outside one, the arrow keys
+      // are the page's business.
+      if (isDuck && worldRef.current.phase !== "running") return;
+      if (!shouldCaptureKeys()) return;
+
+      event.preventDefault();
+      if (isJump) {
+        if (worldRef.current.phase === "running") jump();
+        else start();
+        return;
+      }
+      if (worldRef.current.phase === "running") setDucking(true);
+    };
+
+    const onKeyUp = (event: KeyboardEvent) => {
+      if (event.code === "ArrowDown" || event.code === "KeyS") setDucking(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keyup", onKeyUp);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+    };
+  }, [jump, setDucking, shouldCaptureKeys, start]);
+
+  // Canvas sizing (DPR aware) + visibility tracking.
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Measure the canvas, not the container: clientWidth includes the
+      // container's horizontal padding, which made the canvas overhang the
+      // panel on the right and leak decor outside the ink.
+      const width = canvas.clientWidth;
+      if (width === 0) return;
+      const zoom = width < 640 ? 0.8 : 1;
+      const cssHeight = Math.round(WORLD.height * zoom);
+      // The world stays in logical units; only the scale of the view changes.
+      widthRef.current = width / zoom;
+      needsPaintRef.current = true;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(cssHeight * dpr);
+      canvas.style.height = `${cssHeight}px`;
+      ctx.setTransform(dpr * zoom, 0, 0, dpr * zoom, 0, 0);
+    };
+
+    resize();
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(container);
+
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        visibleRef.current = entry.intersectionRatio >= VISIBLE_ENOUGH;
+        if (visibleRef.current) needsPaintRef.current = true;
+      },
+      { threshold: [0, VISIBLE_ENOUGH, 0.6] },
+    );
+    intersectionObserver.observe(container);
+
+    return () => {
+      resizeObserver.disconnect();
+      intersectionObserver.disconnect();
+    };
+  }, []);
+
+  // Fixed-timestep loop.
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+
+    const styles = getComputedStyle(canvas);
+    const palette: Palette = {
+      // The panel is inverted: the page's foreground is the band's surface and
+      // the page's background is what gets drawn on it.
+      ink: styles.getPropertyValue("--foreground").trim() || "#0a0a0a",
+      paper: styles.getPropertyValue("--background").trim() || "#fdfbf7",
+      accent: "#f97316",
+      // Yellow with black stripes: the universal "watch your head". Its
+      // position tells it apart from the orange barriers — this hangs or
+      // flies, orange always stands on the ground.
+      duck: "#e9dd52",
+      // The panel inherits the page font; the title card borrows it so the
+      // names are set in the same voice as the hero above them.
+      sans: styles.fontFamily || "system-ui, sans-serif",
+    };
+
+    let last = performance.now();
+    let accumulator = 0;
+    let lastScore = -1;
+    let frozen = false;
+
+    let failures = 0;
+    const frame = (now: number) => {
+      try {
+        tick(now);
+      } catch (error) {
+        // The loop re-arms itself, so an exception here would repeat at the
+        // display refresh rate for the rest of the visit. Give up instead.
+        failures += 1;
+        if (failures >= 3) {
+          if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+          rafRef.current = null;
+          console.error("hero runner stopped", error);
+          return;
+        }
+      }
+      rafRef.current = requestAnimationFrame(frame);
+    };
+
+    const tick = (now: number) => {
+      // Below md the panel is display:none, so there is nothing to advance and
+      // nothing to draw. Bail before doing either.
+      if (canvas.clientWidth === 0) {
+        last = now;
+        return;
+      }
+      const world = worldRef.current;
+
+      // Off screen: no stepping and no painting at all. This guard used to sit
+      // inside the running branch, so an idle panel scrolled a page away still
+      // repainted at display refresh rate — on the site's most visited page.
+      if (!visibleRef.current) {
+        if (world.phase === "running" && !frozen) {
+          frozen = true;
+          audioRef.current?.stopMusic();
+        }
+        accumulator = 0;
+        last = now;
+        return;
+      }
+
+      // A backgrounded tab hands back a huge delta; clamp it so nobody comes
+      // back to a run that was silently played out without them.
+      accumulator += Math.min((now - last) / 1000, 0.25);
+      last = now;
+
+      if (frozen) {
+        frozen = false;
+        needsPaintRef.current = true;
+        if (world.phase === "running") audioRef.current?.startMusic();
+      }
+
+      if (world.phase === "running") {
+        let crashed = false;
+        while (accumulator >= STEP && !crashed) {
+          crashed = step(world, STEP, widthRef.current);
+          accumulator -= STEP;
+        }
+
+        if (world.score !== lastScore) {
+          lastScore = world.score;
+          setScore(world.score);
+          // The loop tightens as the run does.
+          audioRef.current?.setIntensity(
+            (world.speed / world.scale - WORLD.startSpeed) / (WORLD.maxSpeed - WORLD.startSpeed),
+          );
+        }
+
+        if (crashed) {
+          setPhase("over");
+          needsPaintRef.current = true;
+          const sound = audioRef.current;
+          sound?.crash();
+          // Silence the moment the run ends: the music belongs to playing.
+          sound?.stopMusic();
+          if (world.score > Number(readBest())) writeBest(world.score);
+          captureEvent("hero_runner_game_over", { score: world.score });
+        }
+        draw(ctx, world, widthRef.current, palette, cardsRef.current);
+        return;
+      }
+
+      // Idle or over: the world is not moving, so the canvas only has to be
+      // painted when something actually changed.
+      accumulator = 0;
+      if (needsPaintRef.current) {
+        needsPaintRef.current = false;
+        draw(ctx, world, widthRef.current, palette, cardsRef.current);
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(frame);
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      audioRef.current?.dispose();
+      audioRef.current = null;
+    };
+  }, []);
+
+  // A backgrounded tab still runs timers, so the scheduler would happily keep
+  // playing to nobody. Follow the tab.
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.hidden) audioRef.current?.stopMusic();
+      else if (worldRef.current.phase === "running" && visibleRef.current) {
+        audioRef.current?.startMusic();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
+
+  const isNewBest = phase === "over" && score > 0 && score >= best;
+
+  return (
+    <section
+      aria-labelledby="runner-heading"
+      className="relative mt-8 hidden bg-foreground text-background lg:mt-10 lg:block"
+    >
+      <h2 id="runner-heading" className="sr-only">
+        {t("heading")}
+      </h2>
+
+      {/* Readout row, inside the panel: controls left, score right. */}
+      <div className="flex items-baseline justify-between gap-3 px-5 pb-1 pt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-background/55 md:gap-4 md:px-7 md:text-[11px] md:tracking-[0.2em]">
+        <p className="m-0">{t("hint")}</p>
+        <p className="m-0 ml-auto flex shrink-0 items-center gap-2 tabular-nums md:gap-4">
+          <span className={isNewBest ? "text-orange-500" : "text-background"}>
+            {t("score")} {pad(score)}
+          </span>
+          <span aria-hidden="true" className="text-background/25">
+            /
+          </span>
+          <span>
+            {t("best")} {pad(best)}
+          </span>
+          <button
+            type="button"
+            // Clicking must not leave the focus here: with a button focused,
+            // the next space bar would toggle the sound back on instead of
+            // jumping, which reads as "I muted it and it is still playing".
+            onMouseDown={(event) => event.preventDefault()}
+            onClick={(event) => {
+              const next = !muted;
+              writeMuted(next);
+              audioRef.current?.setMuted(next);
+              // Only give the focus back on a real pointer click. Blurring a
+              // keyboard user who just tabbed here would strand them.
+              if (event.detail > 0) event.currentTarget.blur();
+            }}
+            aria-pressed={muted}
+            aria-label={muted ? t("soundOn") : t("soundOff")}
+            className="ml-1 cursor-pointer p-1 text-background/55 transition-colors hover:text-background"
+          >
+            {muted ? (
+              <VolumeX aria-hidden="true" className="h-3.5 w-3.5" />
+            ) : (
+              <Volume2 aria-hidden="true" className="h-3.5 w-3.5" />
+            )}
+          </button>
+        </p>
+      </div>
+
+      <div
+        ref={containerRef}
+        className="relative cursor-pointer select-none px-5 pb-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-background md:px-7 md:pb-4"
+        role="button"
+        tabIndex={0}
+        aria-label={t("aria")}
+        onPointerDown={(event) => {
+          // Mouse and touch: act on press, which is what a game needs.
+          event.preventDefault();
+          if (phase === "running") jump();
+          else start();
+        }}
+        onKeyDown={(event) => {
+          // Enter only. Space is already handled by the window listener, and
+          // handling it here too fired jump() twice per press — spending the
+          // double jump instantly and making a plain jump unreachable for
+          // anyone who had tabbed to the panel.
+          if (event.key !== "Enter") return;
+          event.preventDefault();
+          if (phase === "running") jump();
+          else start();
+        }}
+      >
+        {/* The height is reserved here, not left to the sizing effect. Without
+            it the canvas lays out at its 300x150 intrinsic ratio — hundreds of
+            pixels tall on a wide panel — and then snaps down, shifting the whole
+            page on the site's primary route. */}
+        <canvas
+          ref={canvasRef}
+          aria-hidden="true"
+          className="block w-full"
+          style={{ height: WORLD.height }}
+        />
+
+        {phase !== "running" && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <p className="m-0 border border-background/30 bg-foreground px-4 py-2 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-background md:text-xs">
+              {phase === "idle" ? (
+                t("start")
+              ) : (
+                <>
+                  <span className="text-orange-500">{t("over")}</span>{" "}
+                  <span aria-hidden="true">·</span> {t("restart")}
+                </>
+              )}
+            </p>
+          </div>
+        )}
+      </div>
+
+      <p aria-live="polite" className="sr-only">
+        {phase === "over" ? t("announce", { score }) : ""}
+      </p>
+    </section>
+  );
+}
