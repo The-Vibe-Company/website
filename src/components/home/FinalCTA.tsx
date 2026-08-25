@@ -27,7 +27,7 @@ export function FinalCTA() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-32">
+      <div className="relative mx-auto max-w-[100rem] px-6 py-28 md:px-12 md:py-32">
         <motion.span
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
