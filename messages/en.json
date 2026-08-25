@@ -32,8 +32,8 @@
   "hero": {
     "titleLine1": "We build your product,",
     "titleLine2": "10 to 20× faster.",
-    "subtitle": "A small team that builds your products, runs agents inside your company, and trains your teams on AI. We run on AI ourselves, so you ship faster and for far less than a traditional team.",
-    "bookCall": "Book a discovery call",
+    "subtitle": "We build your products, we run agents inside your company, we train your teams. We run on AI ourselves, so you ship faster and for far less than a traditional team.",
+    "bookCall": "Book 30 minutes",
     "seeWhatWeDo": "See what we do",
     "items": {
       "build": {
@@ -88,7 +88,7 @@
       "build": {
         "title": "Product engineering",
         "tag": "PRODUCT + TECHNICAL",
-        "desc": "Product and technical experts with more than 20 years of combined experience turn your needs into reliable software, working in short cycles through production.",
+        "desc": "People who have built products before, a lot of them, and who turn your need into reliable software in short cycles, through to production.",
         "bullets": [
           "Product and technical discovery",
           "Architecture and development in short cycles",
@@ -160,7 +160,7 @@
     "kicker": "NOW BOARDING",
     "titleLine1": "Got a problem",
     "titleLine2": "to solve?",
-    "bookCall": "Book a discovery call",
+    "bookCall": "Book 30 minutes",
     "responseLabel": "RESPONSE",
     "responseValue": "WITHIN 24H",
     "emailLabel": "EMAIL"
@@ -222,7 +222,7 @@
     "resultCount": "{count, plural, one {# result} other {# results}}",
     "skillsSection": "Skills",
     "noResults": "No results found",
-    "tryAdjusting": "Try adjusting your search terms.",
+    "tryAdjusting": "Try something else.",
     "clearSearch": "Clear Search",
     "searchTitle": "Search",
     "skillBadge": "Skill",
