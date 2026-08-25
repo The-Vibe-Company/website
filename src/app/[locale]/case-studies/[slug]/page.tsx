@@ -245,7 +245,7 @@ export default async function CaseStudyPage({
 
         <CaseStudyKeepReading items={related} />
 
-        <FinalCTA />
+        <FinalCTA rail="narrow" />
       </main>
       <Footer />
     </div>

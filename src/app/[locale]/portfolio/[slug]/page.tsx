@@ -138,7 +138,7 @@ export default async function PortfolioProjectPage({
           </a>
         </section>
 
-        <FinalCTA />
+        <FinalCTA rail="narrow" />
       </main>
       <Footer />
     </div>

@@ -4,7 +4,13 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { captureEvent } from "@/lib/posthog";
 
-export function FinalCTA() {
+/**
+ * Rendered on six routes that do not share a rail: the homepage and the two
+ * index pages run on 100rem, the two detail pages on 80rem. The width used to
+ * be hard-coded to 1400px, which matched neither — so its kicker never lined
+ * up with the page around it. Each caller states its own rail now.
+ */
+export function FinalCTA({ rail = "wide" }: { rail?: "wide" | "narrow" }) {
   const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("finalCta");
 
@@ -27,7 +33,9 @@ export function FinalCTA() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-32">
+      <div className={`relative mx-auto px-6 py-28 md:px-12 md:py-32 ${
+          rail === "narrow" ? "max-w-[80rem]" : "max-w-[100rem]"
+        }`}>
         <motion.span
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}

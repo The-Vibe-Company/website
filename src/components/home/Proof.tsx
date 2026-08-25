@@ -94,9 +94,9 @@ export function Proof() {
             href={ORG_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-opacity hover:opacity-70"
+            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground transition-opacity hover:opacity-70"
           >
-            {t("browseAll")}
+            <span className="underline decoration-1 underline-offset-4">{t("browseAll")}</span>
             <span aria-hidden="true" className="text-lg">
               →
             </span>
