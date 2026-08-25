@@ -32,8 +32,8 @@
   "hero": {
     "titleLine1": "Agence IA-First",
     "titleLine2": "Audit, automatisation, production sécurisée.",
-    "subtitle": "Une équipe d’experts qui construit vos produits, déploie des agents dans votre entreprise et forme vos équipes à l’IA.",
-    "bookCall": "Prendre rendez-vous",
+    "subtitle": "On construit vos produits, on déploie des agents chez vous, on forme vos équipes.",
+    "bookCall": "Prendre 30 minutes",
     "seeWhatWeDo": "Notre travail",
     "items": {
       "build": {
@@ -42,7 +42,7 @@
       },
       "operate": {
         "label": "Piloter",
-        "desc": "Des agents dans votre entreprise. Ventes, support, admin, contenu."
+        "desc": "Des agents chez vous. Ventes, support, admin, contenu."
       },
       "advise": {
         "label": "Conseiller",
@@ -69,13 +69,13 @@
     "announce": "Partie terminée, score {score}."
   },
   "clients": {
-    "trustedBy": "Ils nous font confiance"
+    "trustedBy": "On travaille pour eux"
   },
   "caseStudy": {
     "kicker": "// PROJETS CLIENTS",
     "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",
-    "readCase": "Lire l'étude de cas",
+    "readCase": "Lire le cas",
     "prev": "Cas précédent",
     "next": "Cas suivant",
     "seeAll": "Voir tous les cas clients"
@@ -88,7 +88,7 @@
       "build": {
         "title": "Développement de produits",
         "tag": "PRODUIT + TECHNIQUE",
-        "desc": "Des experts produit et techniques, avec plus de 20 ans d’expérience cumulée, transforment votre besoin en produit fiable par cycles courts, jusqu’à la mise en production.",
+        "desc": "Des gens qui ont déjà construit des produits, beaucoup, et qui transforment votre besoin en produit fiable par cycles courts, jusqu’à la mise en production.",
         "bullets": [
           "Cadrage produit et technique",
           "Architecture et développement par cycles courts",
@@ -160,7 +160,7 @@
     "kicker": "EMBARQUEMENT",
     "titleLine1": "Un problème",
     "titleLine2": "à résoudre ?",
-    "bookCall": "Prendre rendez-vous",
+    "bookCall": "Prendre 30 minutes",
     "responseLabel": "RÉPONSE",
     "responseValue": "24H",
     "emailLabel": "EMAIL"
@@ -182,7 +182,7 @@
     "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",
     "metaDescription": "Découvrez des produits et automatisations IA conçus et mis en production pour nos clients.",
-    "readCase": "Lire l'étude de cas",
+    "readCase": "Lire le cas",
     "back": "Cas clients",
     "backHome": "Accueil",
     "whatWeDid": "// Ce qu’on a fait",
@@ -222,7 +222,7 @@
     "resultCount": "{count, plural, one {# résultat} other {# résultats}}",
     "skillsSection": "Skills",
     "noResults": "Aucun résultat",
-    "tryAdjusting": "Essayez d’autres termes de recherche.",
+    "tryAdjusting": "Essayez autre chose.",
     "clearSearch": "Effacer la recherche",
     "searchTitle": "Recherche",
     "skillBadge": "Skill",
