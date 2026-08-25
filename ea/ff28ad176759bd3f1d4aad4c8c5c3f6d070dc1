@@ -1,0 +1,21 @@
+messages/fr.json
+  s_be36689d51dfdb::t_1ddfa1d9f22e04 72
+messages/en.json
+  s_be36689d51dfdb::t_1ddfa1d9f22e04 72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "eaff28ad176759bd3f1d4aad4c8c5c3f6d070dc1",
+  "prompts": {},
+  "sessions": {
+    "s_be36689d51dfdb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04be70e4-4291-41ee-9fec-f4431f2fbbcd",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
