@@ -97,7 +97,7 @@ export function Proof() {
             className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground transition-opacity hover:opacity-70"
           >
             <span className="underline decoration-1 underline-offset-4">{t("browseAll")}</span>
-            <span aria-hidden="true" className="text-lg no-underline">
+            <span aria-hidden="true" className="text-lg">
               →
             </span>
           </a>
