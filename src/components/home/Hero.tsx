@@ -107,7 +107,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
             delay: reduceMotion ? 0 : 0.2,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="mt-12 grid grid-cols-1 items-end gap-10 md:mt-14 md:grid-cols-[1.4fr_1fr] md:gap-12"
+          className="mt-10 grid grid-cols-1 items-end gap-10 md:mt-12 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16"
         >
           <div>
             <p className="m-0 max-w-[620px] text-lg leading-[1.5] text-foreground md:text-[19px]">
@@ -138,7 +138,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
             </div>
           </div>
 
-          <div className="flex flex-col items-start gap-3">
+          <div className="flex flex-col items-start gap-3 md:items-end">
             <a
               href="https://cal.com/stangirard/30min"
               onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
