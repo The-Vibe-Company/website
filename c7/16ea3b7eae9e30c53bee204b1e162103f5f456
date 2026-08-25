@@ -1,0 +1,26 @@
+src/lib/runner-audio.ts
+  s_be36689d51dfdb::t_ab5665328d2c52 213-220
+src/components/home/HeroRunner.tsx
+  s_be36689d51dfdb::t_09055cfacc05cf 791-794,902-905,1255,1257-1269,1271-1273
+  s_be36689d51dfdb::t_e90ccdfc752055 348-354
+  s_be36689d51dfdb::t_c4e979e6db3528 281,283,305-307,310-311,1430-1434
+src/components/home/Hero.tsx
+  s_be36689d51dfdb::t_ca7e82fff56bd8 168
+  s_be36689d51dfdb::t_ab5665328d2c52 162-167,169
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "c716ea3b7eae9e30c53bee204b1e162103f5f456",
+  "prompts": {},
+  "sessions": {
+    "s_be36689d51dfdb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04be70e4-4291-41ee-9fec-f4431f2fbbcd",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
