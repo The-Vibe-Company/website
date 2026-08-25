@@ -159,7 +159,14 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           </div>
         </motion.div>
 
-        {canRun && <HeroRunner items={runnerItems} />}
+        {canRun ? (
+          <HeroRunner items={runnerItems} />
+        ) : (
+          /* Holds the panel's place from the server HTML so the game drops into
+             a gap that already exists. Mounting it client-side only, with no
+             placeholder, pushed the rest of the hero down after hydration. */
+          <div aria-hidden="true" className="mt-8 hidden lg:block lg:mt-10 lg:h-[254px]" />
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}

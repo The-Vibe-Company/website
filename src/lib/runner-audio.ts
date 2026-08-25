@@ -210,6 +210,14 @@ export class RunnerAudio {
     const el = this.ensureTrack(ctx);
     if (!el || !this.trackGain) return;
 
+    // Disarm any pause still pending from a stopMusic() fade: restarting inside
+    // that 500ms window used to pause the track that had just been started, and
+    // the rest of the run played in silence.
+    if (this.pauseTimer !== null) {
+      clearTimeout(this.pauseTimer);
+      this.pauseTimer = null;
+    }
+
     const now = ctx.currentTime;
     this.trackGain.gain.cancelScheduledValues(now);
     this.trackGain.gain.setValueAtTime(Math.max(0.0001, this.trackGain.gain.value), now);

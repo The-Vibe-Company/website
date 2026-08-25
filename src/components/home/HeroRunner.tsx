@@ -278,7 +278,9 @@ function spawnObstacle(world: World, width: number): void {
 
   // Twin slabs: two low blocks close enough that a single well-timed jump
   // clears both, and a late one lands between them. The run's real trap.
+  let twinned = false;
   if (kind === "low" && world.t > 12 && Math.random() > 0.66) {
+    twinned = true;
     const [twinMin] = WORLD.lowHeight;
     const twinHeight = twinMin + Math.random() * (WORLD.twinMaxHeight - twinMin);
     // Both slabs of a twin are capped, and the first is re-cut to match: a
@@ -300,9 +302,13 @@ function spawnObstacle(world: World, width: number): void {
   const tighten = Math.min(0.55, world.t * 0.008);
   // A long ceiling bar is still going past when the next thing would spawn, so
   // its own length is added to the recovery the gap has to leave.
+  // The gap is measured from the LAST thing spawned, so a twin's second slab
+  // has to be paid for too — otherwise a pair left 0.4s of recovery where
+  // every other obstacle leaves 0.62.
   const floor =
     (kind === "low" ? 0.62 : 0.8) +
-    (kind === "ceiling" ? obstacleSpan / world.speed : 0);
+    (kind === "ceiling" ? obstacleSpan / world.speed : 0) +
+    (twinned ? WORLD.twinGap : 0);
   const seconds =
     WORLD.spawnGapMin + Math.random() * (WORLD.spawnGapMax - WORLD.spawnGapMin) - tighten;
   world.nextSpawn = world.speed * Math.max(floor, seconds);
@@ -339,8 +345,13 @@ function step(world: World, dt: number, width: number): boolean {
   world.distance += world.speed * dt;
   world.score = Math.floor(world.distance / 24);
 
-  // Ducking mid-air drops you faster: the one trick borrowed from the original.
-  const gravity = WORLD.gravity * (world.ducking && !world.grounded ? 1.8 : 1);
+  // Ducking mid-air drops you faster — but only on the way down. Applied to
+  // the climb as well, a held duck key starved the jump: its own repeat events
+  // kept re-arming the heavier gravity, capping the arc at 72px against
+  // barriers sized at 88-104. Fast fall is a descent trick, not a tax on
+  // taking off.
+  const falling = world.playerVY > 0;
+  const gravity = WORLD.gravity * (world.ducking && !world.grounded && falling ? 1.8 : 1);
   world.playerVY += gravity * dt;
   world.playerY += world.playerVY * dt;
 
@@ -777,6 +788,10 @@ function drawBird(
   ctx.restore();
 }
 
+/** Path2D.roundRect is Safari 16.4+ and Firefox 112+. Probed once. */
+const SUPPORTS_ROUND_RECT =
+  typeof Path2D !== "undefined" && typeof Path2D.prototype.roundRect === "function";
+
 /** Solid depth of a ceiling bar's lower edge — the same 12px the standing
  *  slabs are wide, so every obstacle is the same bar, just hung differently. */
 const CEILING_LIP = 12;
@@ -884,7 +899,10 @@ function drawObstacle(
   // [top-left, top-right, bottom-right, bottom-left]
   const radii: [number, number, number, number] =
     obstacle.kind === "ceiling" ? [0, 0, 3, 3] : [3, 3, 0, 0];
-  shape.roundRect(x, y, w, h, radii);
+  // roundRect landed in Safari 16.4 and Firefox 112. Square corners are a
+  // rounding detail; throwing here would kill the frame.
+  if (SUPPORTS_ROUND_RECT) shape.roundRect(x, y, w, h, radii);
+  else shape.rect(x, y, w, h);
   const colour = moveColour(obstacle.kind, palette);
 
   if (obstacle.kind === "ceiling") {
@@ -1234,8 +1252,25 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     let lastScore = -1;
     let frozen = false;
 
+    let failures = 0;
     const frame = (now: number) => {
+      try {
+        tick(now);
+      } catch (error) {
+        // The loop re-arms itself, so an exception here would repeat at the
+        // display refresh rate for the rest of the visit. Give up instead.
+        failures += 1;
+        if (failures >= 3) {
+          if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+          rafRef.current = null;
+          console.error("hero runner stopped", error);
+          return;
+        }
+      }
       rafRef.current = requestAnimationFrame(frame);
+    };
+
+    const tick = (now: number) => {
       // Below md the panel is display:none, so there is nothing to advance and
       // nothing to draw. Bail before doing either.
       if (canvas.clientWidth === 0) {
@@ -1392,10 +1427,11 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
           else start();
         }}
         onKeyDown={(event) => {
-          // Enter and Space when the panel itself has focus. Assistive
-          // technology activates a role=button with a synthetic key or click,
-          // neither of which is a pointerdown.
-          if (event.key !== "Enter" && event.key !== " ") return;
+          // Enter only. Space is already handled by the window listener, and
+          // handling it here too fired jump() twice per press — spending the
+          // double jump instantly and making a plain jump unreachable for
+          // anyone who had tabbed to the panel.
+          if (event.key !== "Enter") return;
           event.preventDefault();
           if (phase === "running") jump();
           else start();
