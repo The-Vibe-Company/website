@@ -4,8 +4,33 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { captureEvent } from "@/lib/posthog";
+import dynamic from "next/dynamic";
+import { useSyncExternalStore } from "react";
 import type { RunnerItem } from "@/lib/runner-worlds";
-import { HeroRunner } from "./HeroRunner";
+
+/**
+ * The game is a desktop-only extra, so it is not part of the hero's bundle.
+ * Statically imported it put ~1600 lines of game and audio into the homepage's
+ * critical client chunk for every visitor, including the phones where it is
+ * never shown.
+ */
+const HeroRunner = dynamic(() => import("./HeroRunner").then((m) => m.HeroRunner), {
+  ssr: false,
+});
+
+/**
+ * Width alone was the wrong gate: at the md breakpoint the panel appeared on
+ * tablets, where the only touch control is jump — and ceiling bars, which
+ * cannot be jumped, start arriving after eight seconds. Requiring a hovering
+ * pointer as well keeps it to machines that have the keyboard it needs.
+ */
+const RUNNER_MEDIA = "(min-width: 1024px) and (hover: hover)";
+
+function subscribeRunnerMedia(onChange: () => void): () => void {
+  const query = window.matchMedia(RUNNER_MEDIA);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
 
 const QUICK_ITEMS = [
   { n: "01", key: "build" },
@@ -14,6 +39,12 @@ const QUICK_ITEMS = [
 ] as const;
 
 export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
+  // Server-side this is false, so the chunk is never even requested on a phone.
+  const canRun = useSyncExternalStore(
+    subscribeRunnerMedia,
+    () => window.matchMedia(RUNNER_MEDIA).matches,
+    () => false,
+  );
   const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("hero");
 
@@ -128,7 +159,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           </div>
         </motion.div>
 
-        <HeroRunner items={runnerItems} />
+        {canRun && <HeroRunner items={runnerItems} />}
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}

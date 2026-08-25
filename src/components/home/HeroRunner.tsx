@@ -46,9 +46,13 @@ const WORLD = {
    *  window, which is where the difficulty should come from. */
   spawnGapMin: 0.85,
   spawnGapMax: 1.6,
-  /** Time between the two slabs of a twin: inside a single jump's 0.49s hang
-   *  time, so one well-placed jump clears both. */
-  twinGap: 0.4,
+  /** Time between the two slabs of a twin, and the ceiling on their height.
+   *  Simulated against the jump arc: at 0.4s apart the pair was unclearable in
+   *  one jump at any take-off point, which is not what a paper slab promises.
+   *  At 0.22s with both capped at 40px there is a take-off window that clears
+   *  them both. */
+  twinGap: 0.22,
+  twinMaxHeight: 40,
   /** Ceiling bars stop this far above the ground: under a ducking bird
    *  (18px), over nothing else. */
   ceilingGap: 24,
@@ -73,6 +77,9 @@ const WORLD = {
 } as const;
 
 const STEP = 1 / 60;
+/** How much of the panel has to be on screen for it to own the keyboard and
+ *  keep a run moving. The key guard and the loop share it deliberately. */
+const VISIBLE_ENOUGH = 0.3;
 const BEST_KEY = "tvc-runner-best";
 const MUTED_KEY = "tvc-runner-muted";
 
@@ -144,7 +151,7 @@ function writeBest(score: number): void {
  * `flyerLow`  — a predator skimming the ground: ducking is not enough, jump.
  *
  * Colour states the move, not the object: paper to jump, orange to double
- * jump, cyan to duck. Shape says what it is, colour says what to do.
+ * jump, yellow to duck. Shape says what it is, colour says what to do.
  */
 type ObstacleKind = "low" | "high" | "ceiling" | "flyerHigh" | "flyerLow";
 
@@ -272,10 +279,16 @@ function spawnObstacle(world: World, width: number): void {
   // Twin slabs: two low blocks close enough that a single well-timed jump
   // clears both, and a late one lands between them. The run's real trap.
   if (kind === "low" && world.t > 12 && Math.random() > 0.66) {
+    const [twinMin] = WORLD.lowHeight;
+    const twinHeight = twinMin + Math.random() * (WORLD.twinMaxHeight - twinMin);
+    // Both slabs of a twin are capped, and the first is re-cut to match: a
+    // tall pair cannot be cleared in one jump whatever the spacing.
+    const first = world.obstacles[world.obstacles.length - 1];
+    first.height = Math.min(first.height, twinHeight);
     world.obstacles.push({
       x: width + 40 + WORLD.twinGap * world.speed,
       width: WORLD.lowWidth,
-      height: obstacleHeight("low"),
+      height: twinHeight,
       kind: "low",
       phase: 0,
     });
@@ -556,6 +569,30 @@ export interface WorldCard {
  * of running off the edge of a phone. Above it, a single mono kicker says who
  * they are; nothing else competes.
  */
+const fitCache = new Map<string, number>();
+
+function fittedSize(
+  ctx: CanvasRenderingContext2D,
+  name: string,
+  width: number,
+  palette: Palette,
+): number {
+  const key = `${name}@${Math.round(width)}`;
+  const cached = fitCache.get(key);
+  if (cached !== undefined) return cached;
+
+  let size = 68;
+  ctx.font = `700 ${size}px ${palette.sans}`;
+  const maxWidth = width * 0.66;
+  const measured = ctx.measureText(name).width;
+  if (measured > maxWidth) size = Math.max(26, (size * maxWidth) / measured);
+
+  // Bounded: one entry per name per panel width, and the roster is a dozen.
+  if (fitCache.size > 64) fitCache.clear();
+  fitCache.set(key, size);
+  return size;
+}
+
 function nameAlpha(elapsed: number, idle: boolean): number {
   if (idle) return 1;
   if (elapsed < NAME_IN) return elapsed / NAME_IN;
@@ -595,13 +632,11 @@ function drawWorldName(
   ctx.fillText(kicker, x, 26 - drift);
 
   // Fit the word to the panel: short names get the full 68px, long ones shrink
-  // rather than run off the edges of a phone.
-  let size = 68;
+  // rather than run off the edge. Measured once per name and width, not per
+  // frame — measureText on a letterspaced string 60 times a second is real
+  // work for an answer that only changes when the world does.
   ctx.letterSpacing = "5px";
-  ctx.font = `700 ${size}px ${palette.sans}`;
-  const maxWidth = width * 0.66;
-  const measured = ctx.measureText(name).width;
-  if (measured > maxWidth) size = Math.max(26, (size * maxWidth) / measured);
+  const size = fittedSize(ctx, name, width, palette);
   ctx.font = `700 ${size}px ${palette.sans}`;
 
   const baseline = 86 - drift;
@@ -861,15 +896,17 @@ function drawObstacle(
     // The curtain is drawn as hanging threads rather than a filled block: a
     // solid tint went muddy against the ink, and threads read as something
     // suspended from the roof.
+    // One path, one stroke. Each thread used to be its own beginPath/stroke
+    // pair, so a bar 660px wide cost over a hundred draw calls every frame.
     ctx.globalAlpha = 0.3;
     ctx.strokeStyle = colour;
     ctx.lineWidth = 1;
+    ctx.beginPath();
     for (let tx = x + 5; tx < x + w; tx += 11) {
-      ctx.beginPath();
       ctx.moveTo(Math.round(tx) + 0.5, y);
       ctx.lineTo(Math.round(tx) + 0.5, y + h - CEILING_LIP);
-      ctx.stroke();
     }
+    ctx.stroke();
     ctx.globalAlpha = 1;
     ctx.fillStyle = colour;
     ctx.fillRect(x, y + h - CEILING_LIP, w, CEILING_LIP);
@@ -889,12 +926,12 @@ function drawObstacle(
     ctx.globalAlpha = 0.28;
     ctx.strokeStyle = palette.ink;
     ctx.lineWidth = 5;
+    ctx.beginPath();
     for (let offset = -bandHeight; offset < w + bandHeight; offset += 13) {
-      ctx.beginPath();
       ctx.moveTo(x + offset, bandTop + bandHeight);
       ctx.lineTo(x + offset + bandHeight, bandTop);
-      ctx.stroke();
     }
+    ctx.stroke();
   } else {
     // A thin shaded edge down the leading side gives the slab some thickness.
     ctx.globalAlpha = 0.22;
@@ -973,6 +1010,9 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
   // fold on arrival, and a first frame spent frozen would be visible.
   const visibleRef = useRef(true);
   const rafRef = useRef<number | null>(null);
+  /** Set whenever a still frame needs repainting: resize, phase change, a new
+   *  world card, or the panel coming back on screen. */
+  const needsPaintRef = useRef(true);
   const audioRef = useRef<RunnerAudio | null>(null);
 
   const cardsRef = useRef<WorldCard[]>([]);
@@ -1002,6 +1042,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     }
 
     const count = Math.max(SCENE_KEYS.length, shuffled.length) * SCENE_KEYS.length;
+    needsPaintRef.current = true;
     cardsRef.current = Array.from({ length: count }, (_, index) => {
       const item = shuffled[index % shuffled.length];
       return {
@@ -1018,6 +1059,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     worldRef.current = world;
     setScore(0);
     setPhase("running");
+    needsPaintRef.current = true;
     const sound = audio();
     sound.setIntensity(0);
     sound.startMusic();
@@ -1073,12 +1115,10 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     const rect = container.getBoundingClientRect();
     const shown = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
 
-    // Off screen entirely: space belongs to the page.
-    if (shown <= 0) return false;
-    // Mid-run, any sliver of the band on screen means the key is the player's
-    // — a short window used to drop the band under a 50% threshold and
-    // silently hand the space bar back to the scroller mid-game.
-    if (worldRef.current.phase !== "running" && shown < rect.height * 0.3) return false;
+    // One threshold, the same one the loop uses to freeze a run. They used to
+    // disagree — keys captured from a single visible pixel, the world frozen
+    // below 10% — which left a band of scroll where space did nothing at all.
+    if (shown < rect.height * VISIBLE_ENOUGH) return false;
 
     const active = document.activeElement;
     if (!active || active === document.body) return true;
@@ -1088,9 +1128,16 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
+      // Never take a chord: Cmd+S, Ctrl+Space and friends belong to the
+      // browser and to the page, always.
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+
       const isJump = event.code === "Space" || event.code === "ArrowUp" || event.code === "KeyW";
       const isDuck = event.code === "ArrowDown" || event.code === "KeyS";
       if (!isJump && !isDuck) return;
+      // Ducking only means something during a run. Outside one, the arrow keys
+      // are the page's business.
+      if (isDuck && worldRef.current.phase !== "running") return;
       if (!shouldCaptureKeys()) return;
 
       event.preventDefault();
@@ -1134,6 +1181,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       const cssHeight = Math.round(WORLD.height * zoom);
       // The world stays in logical units; only the scale of the view changes.
       widthRef.current = width / zoom;
+      needsPaintRef.current = true;
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(cssHeight * dpr);
       canvas.style.height = `${cssHeight}px`;
@@ -1146,9 +1194,10 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
-        visibleRef.current = entry.isIntersecting;
+        visibleRef.current = entry.intersectionRatio >= VISIBLE_ENOUGH;
+        if (visibleRef.current) needsPaintRef.current = true;
       },
-      { threshold: [0, 0.1] },
+      { threshold: [0, VISIBLE_ENOUGH, 0.6] },
     );
     intersectionObserver.observe(container);
 
@@ -1195,24 +1244,27 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       }
       const world = worldRef.current;
 
+      // Off screen: no stepping and no painting at all. This guard used to sit
+      // inside the running branch, so an idle panel scrolled a page away still
+      // repainted at display refresh rate — on the site's most visited page.
+      if (!visibleRef.current) {
+        if (world.phase === "running" && !frozen) {
+          frozen = true;
+          audioRef.current?.stopMusic();
+        }
+        accumulator = 0;
+        last = now;
+        return;
+      }
+
       // A backgrounded tab hands back a huge delta; clamp it so nobody comes
       // back to a run that was silently played out without them.
       accumulator += Math.min((now - last) / 1000, 0.25);
       last = now;
 
-      if (world.phase === "running" && !visibleRef.current) {
-        // Scrolled out of sight: hold the run exactly where it is, quietly.
-        if (!frozen) {
-          frozen = true;
-          audioRef.current?.stopMusic();
-        }
-        accumulator = 0;
-        draw(ctx, world, widthRef.current, palette, cardsRef.current);
-        return;
-      }
-
       if (frozen) {
         frozen = false;
+        needsPaintRef.current = true;
         if (world.phase === "running") audioRef.current?.startMusic();
       }
 
@@ -1234,6 +1286,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
         if (crashed) {
           setPhase("over");
+          needsPaintRef.current = true;
           const sound = audioRef.current;
           sound?.crash();
           // Silence the moment the run ends: the music belongs to playing.
@@ -1241,11 +1294,17 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
           if (world.score > Number(readBest())) writeBest(world.score);
           captureEvent("hero_runner_game_over", { score: world.score });
         }
-      } else {
-        accumulator = 0;
+        draw(ctx, world, widthRef.current, palette, cardsRef.current);
+        return;
       }
 
-      draw(ctx, world, widthRef.current, palette, cardsRef.current);
+      // Idle or over: the world is not moving, so the canvas only has to be
+      // painted when something actually changed.
+      accumulator = 0;
+      if (needsPaintRef.current) {
+        needsPaintRef.current = false;
+        draw(ctx, world, widthRef.current, palette, cardsRef.current);
+      }
     };
 
     rafRef.current = requestAnimationFrame(frame);
@@ -1274,7 +1333,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
   return (
     <section
       aria-labelledby="runner-heading"
-      className="relative mt-8 hidden bg-foreground text-background md:mt-10 md:block"
+      className="relative mt-8 hidden bg-foreground text-background lg:mt-10 lg:block"
     >
       <h2 id="runner-heading" className="sr-only">
         {t("heading")}
@@ -1303,7 +1362,9 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
               const next = !muted;
               writeMuted(next);
               audioRef.current?.setMuted(next);
-              event.currentTarget.blur();
+              // Only give the focus back on a real pointer click. Blurring a
+              // keyboard user who just tabbed here would strand them.
+              if (event.detail > 0) event.currentTarget.blur();
             }}
             aria-pressed={muted}
             aria-label={muted ? t("soundOn") : t("soundOff")}
@@ -1325,12 +1386,31 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
         tabIndex={0}
         aria-label={t("aria")}
         onPointerDown={(event) => {
+          // Mouse and touch: act on press, which is what a game needs.
+          event.preventDefault();
+          if (phase === "running") jump();
+          else start();
+        }}
+        onKeyDown={(event) => {
+          // Enter and Space when the panel itself has focus. Assistive
+          // technology activates a role=button with a synthetic key or click,
+          // neither of which is a pointerdown.
+          if (event.key !== "Enter" && event.key !== " ") return;
           event.preventDefault();
           if (phase === "running") jump();
           else start();
         }}
       >
-        <canvas ref={canvasRef} aria-hidden="true" className="block w-full" />
+        {/* The height is reserved here, not left to the sizing effect. Without
+            it the canvas lays out at its 300x150 intrinsic ratio — hundreds of
+            pixels tall on a wide panel — and then snaps down, shifting the whole
+            page on the site's primary route. */}
+        <canvas
+          ref={canvasRef}
+          aria-hidden="true"
+          className="block w-full"
+          style={{ height: WORLD.height }}
+        />
 
         {phase !== "running" && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">

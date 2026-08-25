@@ -1,9 +1,10 @@
 /**
- * Sound for the hero runner, synthesised rather than sampled: a few
- * oscillators and filters, no audio files shipped, no licences to track.
+ * Sound for the hero runner.
  *
- * The bed is a looping ambient track, streamed through the same master gain as
- * the effects so one mute silences everything. The effects stay synthesised:
+ * The bed is a looping ambient track shipped with the site — see
+ * `public/audio/runner/LICENCE.md` for its provenance — streamed through the
+ * same master gain as the effects so one mute silences everything. Only the
+ * effects are synthesised:
  * a few oscillators and filters, all low-passed, which is what keeps them from
  * turning metallic.
  *
