@@ -107,38 +107,39 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
             delay: reduceMotion ? 0 : 0.2,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="mt-12 grid grid-cols-1 items-end gap-10 md:mt-14 md:grid-cols-[1.4fr_1fr] md:gap-12"
+          className="mt-10 grid grid-cols-1 items-center gap-10 md:mt-12 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16"
         >
           <div>
             <p className="m-0 max-w-[620px] text-lg leading-[1.5] text-foreground md:text-[19px]">
               {t("subtitle")}
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-5">
-              <a
-                href="https://www.ycombinator.com/companies/quivr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex transition-opacity hover:opacity-70"
-              >
-                <Image
-                  src="/images/partners/y-combinator.svg"
-                  alt="Y Combinator W24"
-                  width={154}
-                  height={38}
-                  className="h-9 w-auto"
-                />
-              </a>
-              <Image
-                src="/images/partners/france-2030.svg"
-                alt="France 2030"
-                width={52}
-                height={52}
-                className="h-12 w-auto"
-              />
-            </div>
           </div>
 
-          <div className="flex flex-col items-start gap-3">
+          <div className="flex flex-col items-start gap-3 md:items-end">
+            <div className="flex flex-wrap items-center gap-x-10 gap-y-6 md:justify-end">
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
+                <a
+                  href="https://www.ycombinator.com/companies/quivr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex transition-opacity hover:opacity-70"
+                >
+                  <Image
+                    src="/images/partners/y-combinator.svg"
+                    alt="Y Combinator W24"
+                    width={154}
+                    height={38}
+                    className="h-9 w-auto"
+                  />
+                </a>
+                <Image
+                  src="/images/partners/france-2030.svg"
+                  alt="France 2030"
+                  width={52}
+                  height={52}
+                  className="h-12 w-auto"
+                />
+              </div>
             <a
               href="https://cal.com/stangirard/30min"
               onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
@@ -149,15 +150,19 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
                 →
               </span>
             </a>
-            <a
-              href="#services"
-              onClick={() => captureEvent("see_what_we_do_clicked")}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-4 hover:text-foreground"
-            >
-              {t("seeWhatWeDo")}
-            </a>
+            </div>
           </div>
         </motion.div>
+
+        <div className="mt-4 flex md:justify-end">
+          <a
+            href="#services"
+            onClick={() => captureEvent("see_what_we_do_clicked")}
+            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-4 hover:text-foreground"
+          >
+            {t("seeWhatWeDo")}
+          </a>
+        </div>
 
         {canRun ? (
           <HeroRunner items={runnerItems} />
