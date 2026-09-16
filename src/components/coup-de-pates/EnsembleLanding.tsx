@@ -49,7 +49,7 @@ export function EnsembleLanding({ fontClassName }: { fontClassName: string }) {
         </p>
 
         <Image
-          src="/images/coup-de-pates-ensemble/montage-accueil.webp"
+          src="/images/coup-de-pates-ensemble/app-accueil.webp"
           alt="L’écran d’accueil de l’application Coup de Pates Ensemble sur un téléphone, entouré de photos de collaborateurs, d’un site logistique et d’un boulanger au travail."
           width={1500}
           height={952}
