@@ -1,0 +1,317 @@
+/* =============================================================================
+   Coup de Pates Ensemble — unlisted download page (/fr/coup-de-pates-ensemble)
+
+   This page wears the client's identity, not The Vibe Company's, so every rule
+   lives under `.cdpe-page` and nothing here is registered as a global token or
+   utility. It is light-only: the page must read the same whatever theme the
+   visitor's system is set to.
+   ============================================================================= */
+
+.cdpe-page {
+  --cdpe-navy: #0b193d;
+  --cdpe-blue: #216ef2;
+  --cdpe-green: #2e7d33;
+  --cdpe-paper: #ffffff;
+  --cdpe-ink: #1b2436;
+  --cdpe-muted: #4a5568;
+  --cdpe-tint: #eef0f5;
+  --cdpe-hairline: #e3e6ec;
+  --cdpe-display: var(--cdpe-font-display), "Segoe UI", system-ui, sans-serif;
+
+  /* The shared focus ring reads `--foreground`; pin it so it stays navy here. */
+  --foreground: var(--cdpe-navy);
+
+  color-scheme: light;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--cdpe-paper);
+  color: var(--cdpe-ink);
+  text-align: center;
+}
+
+/* Keep the page white behind the fold and while overscrolling, even on a
+   device set to dark mode. */
+html:has(.cdpe-page),
+body:has(.cdpe-page) {
+  color-scheme: light;
+  background: #ffffff;
+}
+
+.cdpe-shell {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 45rem;
+  margin: 0 auto;
+  padding: 2.25rem 1.25rem 2.75rem;
+}
+
+.cdpe-logo {
+  display: block;
+  width: min(14.5rem, 62%);
+  height: auto;
+  margin: 0 auto;
+}
+
+/* -----------------------------------------------------------------------------
+   Title block
+   ----------------------------------------------------------------------------- */
+.cdpe-title {
+  margin: 1.6rem 0 0;
+  font-family: var(--cdpe-display);
+  font-size: clamp(2.3rem, 9vw, 3.45rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--cdpe-navy);
+}
+
+/* Sized in `em` so the handwritten "Ensemble" always matches the line above it.
+   It is an image because it is part of the client's lockup, not body copy. */
+.cdpe-title__script {
+  display: block;
+  width: 5.05em;
+  height: auto;
+  margin: -0.04em auto 0;
+}
+
+.cdpe-tagline {
+  margin: 1.35rem 0 0;
+  font-family: var(--cdpe-display);
+  font-size: clamp(1.05rem, 3.4vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--cdpe-navy);
+}
+
+.cdpe-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  max-width: 26rem;
+  margin: 1.15rem auto 0;
+  color: var(--cdpe-blue);
+}
+
+.cdpe-rule::before,
+.cdpe-rule::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+}
+
+.cdpe-rule::before {
+  background: linear-gradient(to right, transparent, currentColor);
+}
+
+.cdpe-rule::after {
+  background: linear-gradient(to left, transparent, currentColor);
+}
+
+.cdpe-rule svg {
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.cdpe-lead {
+  max-width: 32rem;
+  margin: 1rem auto 0;
+  font-size: clamp(0.95rem, 2.6vw, 1.1rem);
+  line-height: 1.55;
+  color: var(--cdpe-muted);
+}
+
+.cdpe-montage {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
+}
+
+/* -----------------------------------------------------------------------------
+   Download block
+   ----------------------------------------------------------------------------- */
+.cdpe-download {
+  margin-top: 2rem;
+}
+
+.cdpe-download__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.7rem, 3vw, 1.4rem);
+  margin: 0;
+  font-family: var(--cdpe-display);
+  font-size: clamp(1.4rem, 5.2vw, 1.95rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--cdpe-navy);
+}
+
+.cdpe-flourish {
+  flex: none;
+  width: 0.78em;
+  height: auto;
+  fill: var(--cdpe-blue);
+}
+
+.cdpe-flourish--flip {
+  transform: scaleX(-1);
+}
+
+.cdpe-download__underline {
+  display: block;
+  width: 2.75rem;
+  height: 4px;
+  margin: 0.7rem auto 0;
+  border-radius: 999px;
+  background: var(--cdpe-blue);
+}
+
+.cdpe-stores {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.cdpe-store {
+  display: flex;
+  flex: 1 1 15rem;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: 18rem;
+  min-height: 4.5rem;
+  padding: 0 1.35rem;
+  border: 0;
+  border-radius: 0.9rem;
+  font-family: inherit;
+  color: #ffffff;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.cdpe-store--apple {
+  background: var(--cdpe-navy);
+}
+
+.cdpe-store--google {
+  background: var(--cdpe-green);
+}
+
+.cdpe-store:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.6rem 1.4rem rgb(11 25 61 / 0.22);
+}
+
+.cdpe-store:disabled {
+  background: #6b7280;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.cdpe-store__mark {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+}
+
+.cdpe-store__label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.cdpe-store__name {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--cdpe-display);
+  font-size: clamp(1.05rem, 3.2vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+/* -----------------------------------------------------------------------------
+   Reassurance row
+   ----------------------------------------------------------------------------- */
+.cdpe-facts {
+  display: grid;
+  gap: 0.9rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cdpe-facts li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.3rem 0.85rem;
+  text-align: left;
+}
+
+.cdpe-facts__icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: var(--cdpe-tint);
+  color: var(--cdpe-navy);
+}
+
+.cdpe-facts__icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.cdpe-facts p {
+  max-width: 13rem;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--cdpe-navy);
+}
+
+@media (min-width: 40rem) {
+  .cdpe-facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .cdpe-facts li + li {
+    border-left: 1px solid var(--cdpe-hairline);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Signature band
+   ----------------------------------------------------------------------------- */
+.cdpe-banner {
+  margin: 0;
+  padding: 1.5rem 1.25rem;
+  border-radius: 2.25rem 2.25rem 0 0;
+  background: var(--cdpe-navy);
+  font-family: var(--cdpe-display);
+  font-size: clamp(1.2rem, 4.6vw, 1.8rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
