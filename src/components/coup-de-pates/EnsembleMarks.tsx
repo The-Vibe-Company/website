@@ -1,0 +1,51 @@
+/**
+ * Brand marks used by the Coup de Pates Ensemble page, inlined as SVG so the
+ * buttons stay real HTML controls (hover, focus, disabled) instead of images.
+ */
+
+/**
+ * The three tapered strokes that flank the headings in the client mock-up.
+ * Drawn pointing right; mirror it with `flipped` for the other side.
+ */
+export function EnsembleFlourish({ flipped = false }: { flipped?: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 24 33"
+      aria-hidden="true"
+      focusable="false"
+      className={`cdpe-flourish${flipped ? " cdpe-flourish--flip" : ""}`}
+    >
+      <path d="M7.83 4.26A2.2 2.2 0 0 1 10.17 0.54L23 11.2Z" />
+      <path d="M2.73 19.9A2.5 2.5 0 0 1 2.87 14.9L22.6 17.6Z" />
+      <path d="M11.04 32.54A2.2 2.2 0 0 1 8.96 28.66L23 23.6Z" />
+    </svg>
+  );
+}
+
+export function AppleMark() {
+  return (
+    <svg viewBox="0 0 384 512" aria-hidden="true" focusable="false" className="cdpe-store__mark">
+      <path
+        fill="currentColor"
+        d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"
+      />
+    </svg>
+  );
+}
+
+/**
+ * The Google Play triangle. `muted` flattens it to the button's own colour so
+ * a disabled control does not advertise itself with four bright brand colours.
+ */
+export function GooglePlayMark({ muted = false }: { muted?: boolean }) {
+  const fill = (color: string) => (muted ? "currentColor" : color);
+
+  return (
+    <svg viewBox="96 70 320 372" aria-hidden="true" focusable="false" className="cdpe-store__mark">
+      <path fill={fill("#00c3ff")} d="M104 78 304 256 104 434Z" />
+      <path fill={fill("#00e676")} d="M104 78 323 206 304 256Z" />
+      <path fill={fill("#ff3a44")} d="M104 434 323 306 304 256Z" />
+      <path fill={fill("#ffce00")} d="M304 256 323 206l64 37q21 13 0 26l-64 37Z" />
+    </svg>
+  );
+}
