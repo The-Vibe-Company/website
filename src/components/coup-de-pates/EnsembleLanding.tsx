@@ -9,7 +9,7 @@ import { ENSEMBLE_STORE_URLS } from "@/lib/coup-de-pates-ensemble";
 // lives here instead of in the site's message catalogues.
 const FACTS = [
   { Icon: Lock, text: "Sécurisée et réservée aux collaborateurs" },
-  { Icon: Smartphone, text: "Accessible sur mobile pro ou personnel" },
+  { Icon: Smartphone, text: "Accessible sur mobile professionnel ou personnel" },
   { Icon: UsersRound, text: "Une seule application pour rester connecté" },
 ];
 
@@ -45,12 +45,12 @@ export function EnsembleLanding({ fontClassName }: { fontClassName: string }) {
         </div>
 
         <p className="cdpe-lead">
-          Restez connecté à la vie de l’entreprise, où que vous soyez.
+          Partageons ensemble les moments qui font vivre notre entreprise.
         </p>
 
         <Image
           src="/images/coup-de-pates-ensemble/app-accueil.webp"
-          alt="L’écran d’accueil de l’application Coup de Pates Ensemble sur un téléphone, entouré de photos de collaborateurs, d’un site logistique et d’un boulanger au travail."
+          alt="L’écran d’accueil de l’application Coup de Pates Ensemble sur un téléphone, entouré de photos de collaborateurs, des locaux de Coup de Pates et d’un boulanger au travail."
           width={1500}
           height={952}
           priority

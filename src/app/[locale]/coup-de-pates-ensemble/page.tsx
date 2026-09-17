@@ -18,7 +18,7 @@ const montserrat = Montserrat({
 
 const TITLE = "Coup de Pates Ensemble, l’application des collaborateurs";
 const DESCRIPTION =
-  "Téléchargez Coup de Pates Ensemble et restez connecté à la vie de l’entreprise, où que vous soyez.";
+  "Téléchargez Coup de Pates Ensemble et partageons ensemble les moments qui font vivre notre entreprise.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },

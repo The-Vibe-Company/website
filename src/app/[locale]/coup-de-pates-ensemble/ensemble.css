@@ -295,8 +295,33 @@ body:has(.cdpe-page) {
     gap: 0;
   }
 
+  .cdpe-facts li {
+    gap: 0.6rem;
+    padding: 0.3rem 0.55rem;
+  }
+
   .cdpe-facts li + li {
     border-left: 1px solid var(--cdpe-hairline);
+  }
+
+  .cdpe-facts__icon {
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+
+  .cdpe-facts p {
+    max-width: none;
+    font-size: 0.8125rem;
+  }
+}
+
+/* Past the shell's own width, the row reclaims the shell's padding: the three
+   reassurances need every pixel of their column to hold two lines each, and the
+   hairlines separate them without help from the margin. Below this the row would
+   run flush to the screen edge, so it keeps the padding and wraps instead. */
+@media (min-width: 48rem) {
+  .cdpe-facts {
+    margin-inline: -1.25rem;
   }
 }
 
