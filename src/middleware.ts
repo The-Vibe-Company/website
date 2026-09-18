@@ -64,5 +64,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   // Page routes only, not API, assets, PostHog proxy, or files with an extension.
+  // The trailing `.*\.` exclusion is what keeps /brand/*.png out of the locale
+  // redirect: those URLs are pasted in email signatures and must never 308.
   matcher: ["/((?!api|_next|ingest|.*\\.).*)"],
 };
