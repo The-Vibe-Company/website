@@ -24,6 +24,22 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async headers() {
+    return [
+      {
+        // Brand assets live here only so email signatures have a stable
+        // absolute URL. They are reachable by link, never surfaced by the
+        // site, and must stay out of search and image indexes. The path is
+        // deliberately absent from robots.txt: a Disallow rule would publish
+        // the directory name to anyone reading it.
+        source: "/brand/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, noimageindex, nofollow" },
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
+  },
   skipTrailingSlashRedirect: true,
 };
 
