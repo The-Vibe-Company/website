@@ -8,6 +8,25 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['framer-motion'],
   },
+  async redirects() {
+    // "The Companion" was renamed Skillpack in Sep 2026. Links to the old
+    // portfolio URL are out in the wild (articles, posts), so they land on the
+    // new page for good. These run before the middleware, so the language the
+    // visitor arrived with is kept; a prefix-less hit still gets its locale
+    // chosen by the middleware on the second hop.
+    return [
+      {
+        source: "/:locale(fr|en)/portfolio/the-companion",
+        destination: "/:locale/portfolio/skillpack",
+        permanent: true,
+      },
+      {
+        source: "/portfolio/the-companion",
+        destination: "/portfolio/skillpack",
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {

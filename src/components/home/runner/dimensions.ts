@@ -4,7 +4,7 @@
 // The T-Rex physics live in VibeRunner.tsx and are untouched by anything here.
 
 
-export type SceneKey = "vanish" | "companion" | "vibedrift" | "granite" | "agentflow" | "vibecoding" | "yc";
+export type SceneKey = "vanish" | "skillpack" | "vibedrift" | "granite" | "agentflow" | "vibecoding" | "yc";
 
 export interface Dimension {
   tag: string; // kicker, e.g. "PRODUCT" / "WHAT WE DO" / "BACKED BY"
@@ -24,7 +24,7 @@ export interface Dimension {
 
 export const DIMENSIONS: Dimension[] = [
   { tag: "PRODUCT", name: "vanish.sh", line: "Temporary uploads, auto-expiring.", paper: "#ecfdf5", ink: "#064e3b", accent: "#10b981", player: "#059669", words: ["BLOAT", "FOREVER", "STORAGE", "LEAKS"], url: "https://vanish.sh", logo: "/projects/vanish-favicon.svg", external: true, scene: "vanish" },
-  { tag: "PRODUCT", name: "The Companion", line: "Agent workflows, no slideware.", paper: "#fff7ed", ink: "#7c2d12", accent: "#f97316", player: "#ea580c", words: ["SLIDEWARE", "HANDOFF", "TICKETS", "STANDUP"], url: "https://www.thecompanion.sh/", logo: "/projects/compagnon-favicon.svg", external: true, scene: "companion" },
+  { tag: "PRODUCT", name: "Skillpack", line: "Your team's best prompts, packaged.", paper: "#fff7ed", ink: "#7c2d12", accent: "#f97316", player: "#ea580c", words: ["PROMPT SOUP", "ONE-OFFS", "REDO IT", "LOST TRICKS"], url: "https://skillpack.app/", logo: "/projects/skillpack-favicon.svg", external: true, scene: "skillpack" },
   { tag: "PRODUCT", name: "vibedrift.dev", line: "Dev activity becomes real metrics.", paper: "#fefce8", ink: "#713f12", accent: "#eab308", player: "#ca8a04", words: ["VANITY KPI", "BURNOUT", "FRICTION", "GUESSWORK"], url: "https://www.vibedrift.dev", logo: "/projects/vibedrift-favicon.svg", external: true, scene: "vibedrift" },
   { tag: "PRODUCT", name: "Granite", line: "The personal OS your agent runs on.", paper: "#f1f5f9", ink: "#0f172a", accent: "#14b8a6", player: "#0f766e", words: ["SILOS", "LOST NOTES", "SPRAWL", "CHAOS"], url: "https://github.com/The-Vibe-Company/Granite", logo: "/projects/granite-favicon.png", external: true, scene: "granite" },
   { tag: "WHAT WE DO", name: "Agent workflows", line: "Orchestration that ships, not slideware.", paper: "#eef2ff", ink: "#1e1b4b", accent: "#6366f1", player: "#4f46e5", words: ["MANUAL", "COPY-PASTE", "QUEUES", "BACKLOG"], url: "mailto:founders@thevibecompany.co", linkLabel: "Work with us", external: false, scene: "agentflow" },
@@ -86,8 +86,8 @@ const vanish: SceneFn = (ctx, scroll, t, S, W, gY, c, reduced) => {
   ctx.restore();
 };
 
-// The Companion — orchestration node-graph with flowing dashed edges
-const companion: SceneFn = (ctx, scroll, t, S, W, gY, c, reduced) => {
+// Skillpack — orchestration node-graph with flowing dashed edges
+const skillpack: SceneFn = (ctx, scroll, t, S, W, gY, c, reduced) => {
   const midY = gY - 118 * S;
   const period = 200 * S;
   const off = (scroll * 0.4) % period;
@@ -307,4 +307,4 @@ const yc: SceneFn = (ctx, scroll, t, S, W, gY, c, _reduced, monoFont) => {
   ctx.restore();
 };
 
-export const SCENE_DRAW: Record<SceneKey, SceneFn> = { vanish, companion, vibedrift, granite, agentflow, vibecoding, yc };
+export const SCENE_DRAW: Record<SceneKey, SceneFn> = { vanish, skillpack, vibedrift, granite, agentflow, vibecoding, yc };
