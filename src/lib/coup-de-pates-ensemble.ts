@@ -14,12 +14,18 @@ export type EnsembleStore = "appStore" | "googlePlay";
  * control: the page never guesses a URL, never points at a store search, and
  * never sniffs the visitor's device to redirect them somewhere.
  *
- * An entry may legitimately be a TestFlight invitation rather than a store
- * listing while the app is still in beta. The button reads the destination and
- * names it, so replacing this line with the real App Store URL is all it takes
- * to turn the beta wording back into "Télécharger sur l'App Store".
+ * An entry may legitimately point somewhere other than a store while the app is
+ * still in beta: a TestFlight invitation, or an APK to download straight from
+ * the EAS build. The button reads its destination and names it, so replacing a
+ * line here with the real store URL restores the store wording on its own, with
+ * nothing else to remember.
+ *
+ * The Android entry is an EAS build artifact. Expo keeps those for a limited
+ * time, so this URL will stop working and has to be refreshed with each new
+ * build until the app reaches Google Play.
  */
 export const ENSEMBLE_STORE_URLS: Partial<Record<EnsembleStore, string>> = {
   appStore: "https://testflight.apple.com/join/SDtzxs2A",
-  // googlePlay: "https://play.google.com/store/apps/details?id=…",
+  googlePlay:
+    "https://expo.dev/artifacts/eas/JFZuAcnl7MxJetOuWufd5SbaSEJpMU21eiaLoFXP_N8.apk",
 };
