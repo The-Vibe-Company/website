@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 14 60 72" role="img" aria-label="Skillpack mark">
+  <path d="M70,22 H37 A9 9 0 0 0 28,31 V41" fill="none" stroke="#EA580C" stroke-width="10" stroke-linecap="round"/>
+  <path d="M28,41 A9 9 0 0 0 37,50 H63 A9 9 0 0 1 72,59" fill="none" stroke="#F59E0B" stroke-width="10" stroke-linecap="round"/>
+  <path d="M72,59 V69 A9 9 0 0 1 63,78 H30" fill="none" stroke="#FBBF24" stroke-width="10" stroke-linecap="round"/>
+</svg>

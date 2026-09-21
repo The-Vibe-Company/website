@@ -13,7 +13,7 @@ coverAlt: "Mon avatar et la mascotte VB devant un logo épuré en noir et blanc,
 ogImage: /images/resources/focus-skill-logo-svg/cover.png
 ---
 
-[Companion](https://www.thecompanion.sh/), un de nos produits, avait besoin d'une nouvelle identité. Et une identité, ça commence par un logo.
+[Companion, aujourd'hui Skillpack](https://skillpack.app/), un de nos produits, avait besoin d'une nouvelle identité. Et une identité, ça commence par un logo.
 
 Je ne suis pas designer. Je n'allais pas ouvrir un logiciel de graphisme que je ne sais pas utiliser.
 

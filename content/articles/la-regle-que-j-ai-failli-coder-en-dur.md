@@ -12,7 +12,7 @@ coverAlt: "Mon avatar glissant une règle gravée dans la fente du produit, la m
 ogImage: /images/resources/la-regle-que-j-ai-failli-coder-en-dur/cover.png
 ---
 
-Chez The Vibe Company, on construit [Companion](https://www.thecompanion.sh/), un espace où n'importe quelle team peut ranger et partager ses skills, pas seulement la nôtre. [Un skill](/resources/articles/les-skills), c'est un fichier de consignes qu'on donne à l'IA pour qu'elle refasse une tâche toujours de la même façon.
+Chez The Vibe Company, on construit [Companion, aujourd'hui Skillpack](https://skillpack.app/), un espace où n'importe quelle team peut ranger et partager ses skills, pas seulement la nôtre. [Un skill](/resources/articles/les-skills), c'est un fichier de consignes qu'on donne à l'IA pour qu'elle refasse une tâche toujours de la même façon.
 
 On l'utilise nous-mêmes tous les jours. Notre maigre catalogue ne comporte pour le moment que dix-huit skills, mais il grossit toutes les semaines, et sans règle de nommage, ça devient vite le bazar.
 

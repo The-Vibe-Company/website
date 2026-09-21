@@ -41,7 +41,7 @@ A root layout at `src/app/layout.tsx` would wrap the route group, creating dupli
 
 The site shares **one visual identity** across Homepage, Portfolio, and Resources: warm-paper background (`#fdfbf7`), deep ink text (`#0a0a0a`), brutalist cards. All three are pinned to `color-scheme: light` and never flip with the system dark mode.
 
-Tactical orange accents (`text-orange-500` / `bg-orange-500`) are reserved for highlight signals: the "YC W24" badge, status dots, the "Companion" star count, and the "Browse all on GitHub" CTA. Use sparingly.
+Tactical orange accents (`text-orange-500` / `bg-orange-500`) are reserved for highlight signals: the "YC W24" badge, status dots, the Skillpack project accent, and the "Browse all on GitHub" CTA. Use sparingly.
 
 An **experimental homepage preview** lives at `/v2` — the existing warm-paper homepage (same `TopNav`, `Services`/`Process`/`Proof`/`FinalCTA`, `Footer`, `[data-variant="hybrid"]`) with the static `home/Hero` swapped for a playable canvas runner (`src/components/home/runner/VibeRunner.tsx`). Inside the canvas each "world" (a product, service, or the YC backing) has its own art direction (paper/ink/accent/player colour) and a persistent presentation panel; difficulty mirrors the Chrome/Firefox dino algorithm. It is a preview, not yet the canonical `/` homepage; when it replaces `/`, swap `Hero` for `VibeRunner` in `HomeLaunchpad` and promote the DESIGN.md prose.
 
