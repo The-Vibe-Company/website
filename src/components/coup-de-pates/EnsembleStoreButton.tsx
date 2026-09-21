@@ -1,3 +1,5 @@
+import { Download } from "lucide-react";
+
 import { AppleMark, GooglePlayMark } from "@/components/coup-de-pates/EnsembleMarks";
 import type { EnsembleStore } from "@/lib/coup-de-pates-ensemble";
 
@@ -28,12 +30,26 @@ const TESTFLIGHT = {
   label: "Tester la bêta sur",
 };
 
-function isTestFlight(href: string): boolean {
+/**
+ * An APK link is not Google Play either. It downloads a file the visitor then
+ * has to authorise Android to install, so the button says it downloads an APK
+ * and drops the Play mark, which would claim a provenance the file does not
+ * have. Same rule as above: the store wording comes back with the store URL.
+ */
+const APK = {
+  name: "Android",
+  label: "Télécharger l’APK",
+};
+
+function destination(href: string): "testflight" | "apk" | "store" {
   try {
-    return new URL(href).hostname === TESTFLIGHT.host;
+    const url = new URL(href);
+    if (url.hostname === TESTFLIGHT.host) return "testflight";
+    if (url.pathname.toLowerCase().endsWith(".apk")) return "apk";
   } catch {
-    return false;
+    // Not a URL we can read: fall through and keep the store wording.
   }
+  return "store";
 }
 
 /**
@@ -48,25 +64,35 @@ export function EnsembleStoreButton({
   store: EnsembleStore;
   href?: string;
 }) {
-  const { name, label, modifier } = STORES[store];
-  const beta = href !== undefined && isTestFlight(href);
-  const mark = store === "appStore" ? <AppleMark /> : <GooglePlayMark muted={!href} />;
+  const storeDefaults = STORES[store];
+  const kind = href === undefined ? "pending" : destination(href);
+  const { name, label } =
+    kind === "testflight" ? TESTFLIGHT : kind === "apk" ? APK : storeDefaults;
+
+  const mark =
+    store === "appStore" ? (
+      <AppleMark />
+    ) : kind === "apk" ? (
+      <Download className="cdpe-store__mark" strokeWidth={2.25} aria-hidden="true" />
+    ) : (
+      <GooglePlayMark muted={!href} />
+    );
 
   const content = (
     <>
       {mark}
       <span>
         <span className="cdpe-store__label">
-          {href ? (beta ? TESTFLIGHT.label : label) : PENDING_LABEL}
+          {kind === "pending" ? PENDING_LABEL : label}
         </span>
-        <span className="cdpe-store__name">{beta ? TESTFLIGHT.name : name}</span>
+        <span className="cdpe-store__name">{name}</span>
       </span>
     </>
   );
 
   if (!href) {
     return (
-      <button type="button" disabled className={`cdpe-store ${modifier}`}>
+      <button type="button" disabled className={`cdpe-store ${storeDefaults.modifier}`}>
         {content}
       </button>
     );
@@ -77,7 +103,7 @@ export function EnsembleStoreButton({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`cdpe-store ${modifier}`}
+      className={`cdpe-store ${storeDefaults.modifier}`}
     >
       {content}
     </a>
