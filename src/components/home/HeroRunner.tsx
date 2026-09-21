@@ -85,6 +85,24 @@ const MUTED_KEY = "tvc-runner-muted";
 
 type Phase = "idle" | "running" | "over";
 
+/** What the last finished run did to the stored record.
+ *  `first`  — there was no record yet, so this run set it. Nothing to
+ *             celebrate: you cannot beat a record that did not exist.
+ *  `beaten` — an existing record was strictly beaten. That is what wins the
+ *             free audit; a tie stays `none`. */
+export type RecordOutcome = "none" | "first" | "beaten";
+
+/** The rule, in one place: a record is only beaten when it is passed outright.
+ *  Scoring your record again is a tie and wins nothing. */
+export function recordOutcomeFor(score: number, previousBest: number): RecordOutcome {
+  if (score <= previousBest) return "none";
+  return previousBest > 0 ? "beaten" : "first";
+}
+
+/** Where the free audit sends people: the same 30-minute call as the hero and
+ *  the final CTA, so the prize is a real booking, not a special page. */
+const BOOKING_URL = "https://cal.com/stangirard/30min";
+
 // --- best score, kept in localStorage and read through an external store ------
 // A plain effect + setState would flag as a cascading render, and a lazy
 // useState initialiser would disagree with the server-rendered "0000".
@@ -1037,6 +1055,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
   const [phase, setPhase] = useState<Phase>("idle");
   const [score, setScore] = useState(0);
+  const [recordOutcome, setRecordOutcome] = useState<RecordOutcome>("none");
   const best = Number(useSyncExternalStore(subscribeBest, readBest, () => "0")) || 0;
   const muted = useSyncExternalStore(subscribeMuted, readMuted, () => "0") === "1";
 
@@ -1077,6 +1096,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     worldRef.current = world;
     setScore(0);
     setPhase("running");
+    setRecordOutcome("none");
     needsPaintRef.current = true;
     const sound = audio();
     sound.setIntensity(0);
@@ -1326,8 +1346,20 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
           sound?.crash();
           // Silence the moment the run ends: the music belongs to playing.
           sound?.stopMusic();
-          if (world.score > Number(readBest())) writeBest(world.score);
+          // Read the record before overwriting it: the end screen has to know
+          // what this run was up against. Comparing against the stored value
+          // afterwards made a tie read as a record.
+          const previousBest = Number(readBest()) || 0;
+          const outcome = recordOutcomeFor(world.score, previousBest);
+          if (outcome !== "none") writeBest(world.score);
+          setRecordOutcome(outcome);
           captureEvent("hero_runner_game_over", { score: world.score });
+          if (outcome === "beaten") {
+            captureEvent("hero_runner_audit_won", {
+              score: world.score,
+              previous_best: previousBest,
+            });
+          }
         }
         draw(ctx, world, widthRef.current, palette, cardsRef.current);
         return;
@@ -1363,11 +1395,14 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
-  const isNewBest = phase === "over" && score > 0 && score >= best;
+  // Orange marks a score that actually moved the record — a tie does not.
+  const isNewBest = phase === "over" && recordOutcome !== "none";
+  const wonAudit = phase === "over" && recordOutcome === "beaten";
 
   return (
     <section
       aria-labelledby="runner-heading"
+      data-surface="inverse"
       className="relative mt-8 hidden bg-foreground text-background lg:mt-10 lg:block"
     >
       <h2 id="runner-heading" className="sr-only">
@@ -1464,8 +1499,30 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
         )}
       </div>
 
+      {/* The prize sits outside the canvas wrapper on purpose: that wrapper is
+          a role="button" that restarts the run on any press, so a link nested
+          inside it would be unreachable and invalid. Out here it keeps its own
+          tab stop and its own focus ring. */}
+      {wonAudit && (
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-background/20 px-5 py-3 md:gap-4 md:px-7 md:py-4">
+          <p className="m-0 font-mono text-[11px] uppercase tracking-[0.2em] text-orange-500 md:text-xs">
+            {t("audit")}
+          </p>
+          <a
+            href={BOOKING_URL}
+            onClick={() =>
+              captureEvent("discovery_call_clicked", { location: "hero_runner_audit", score })
+            }
+            className="inline-flex items-center gap-2 border-2 border-background bg-background px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--background)] md:text-xs"
+          >
+            {t("auditCta")}
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      )}
+
       <p aria-live="polite" className="sr-only">
-        {phase === "over" ? t("announce", { score }) : ""}
+        {phase === "over" ? `${t("announce", { score })}${wonAudit ? ` ${t("audit")}` : ""}` : ""}
       </p>
     </section>
   );

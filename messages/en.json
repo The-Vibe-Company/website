@@ -65,6 +65,8 @@
     "start": "Press space to play",
     "over": "Game over",
     "restart": "Space to replay",
+    "audit": "Congratulations, you’ve won a free audit!",
+    "auditCta": "Claim my free audit",
     "aria": "Endless runner mini game. Space or arrow up to jump, arrow down to duck.",
     "announce": "Game over, score {score}."
   },

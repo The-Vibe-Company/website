@@ -65,6 +65,8 @@
     "start": "Appuyez sur espace pour jouer",
     "over": "Perdu",
     "restart": "Espace pour rejouer",
+    "audit": "Félicitations, tu viens de gagner un audit gratuit !",
+    "auditCta": "Profiter de mon audit gratuit",
     "aria": "Mini-jeu de course. Espace ou flèche haut pour sauter, flèche bas pour baisser.",
     "announce": "Partie terminée, score {score}."
   },

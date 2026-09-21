@@ -214,6 +214,13 @@
   outline-offset: 2px;
 }
 
+/* Ink surfaces flip the ring to paper. The ring above is drawn in the page's
+   foreground, which on an inverted panel is the panel's own background — the
+   focus ring would be there and invisible. */
+[data-surface="inverse"] :focus-visible:not(.prose-vibe-audio__wave) {
+  outline-color: var(--background);
+}
+
 /* -----------------------------------------------------------------------------
    Custom Utilities
    Only utilities that cannot be replicated with Tailwind classes
