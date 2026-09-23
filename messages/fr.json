@@ -156,7 +156,9 @@
     "titleLine2": "nos produits.",
     "intro": "On crée des produits pour rendre notre équipe et nos clients plus efficaces avec l’IA. C’est aussi comme ça qu’on reste affûtés.",
     "barLeft": "OPEN SOURCE · SUR GITHUB",
-    "browseAll": "Tout voir sur GitHub"
+    "browseAll": "Tout voir sur GitHub",
+    "prev": "Projet précédent",
+    "next": "Projet suivant"
   },
   "finalCta": {
     "kicker": "EMBARQUEMENT",
