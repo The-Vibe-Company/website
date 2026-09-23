@@ -12,6 +12,8 @@ interface RawProject {
   name: string;
   logo: string;
   cover: string;
+  /** Optional phone screenshot shown next to the cover on the project page. */
+  mobileCover?: string;
   accent: string;
   url: string;
   repositoryUrl: string;
@@ -26,6 +28,8 @@ export interface Project {
   name: string;
   logo: string;
   cover: string;
+  /** Optional phone screenshot shown next to the cover on the project page. */
+  mobileCover?: string;
   accent: string;
   url: string;
   repositoryUrl: string;
@@ -118,6 +122,23 @@ const PROJECTS_RAW: RawProject[] = [
       fr: "VibeDeck rassemble vos sites, flux et médias favoris dans un dashboard de panneaux que vous composez librement. Tout reste sur votre machine : sans compte, sans serveur, sans tracking.",
     },
   },
+  {
+    slug: "bruno",
+    name: "Bruno",
+    logo: "/projects/bruno-favicon.png",
+    cover: "/projects/bruno-home.png",
+    mobileCover: "/projects/bruno-mobile.png",
+    accent: "#f27313",
+    url: "https://github.com/The-Vibe-Company/bruno",
+    repositoryUrl: "https://github.com/The-Vibe-Company/bruno",
+    tag: { en: "Team to-do", fr: "To-do d’équipe" },
+    date: { en: "Sep 2026", fr: "sept. 2026" },
+    status: { en: "Internal tool", fr: "Outil interne" },
+    description: {
+      en: "Bruno is the to-do we run the company on, on web and iPhone. Capture an idea by voice in seconds, sort what's on fire from what can wait, and let Bruno nudge you instead of waiting to be opened.",
+      fr: "Bruno est la to-do sur laquelle tourne l’entreprise, sur le web et sur iPhone. On capture une idée à la voix en quelques secondes, on sépare ce qui brûle de ce qui peut attendre, et c’est Bruno qui vient vous relancer au lieu d’attendre qu’on l’ouvre.",
+    },
+  },
 ];
 
 function localize(raw: RawProject, locale: ContentLocale): Project {
@@ -126,6 +147,7 @@ function localize(raw: RawProject, locale: ContentLocale): Project {
     name: raw.name,
     logo: raw.logo,
     cover: raw.cover,
+    mobileCover: raw.mobileCover,
     accent: raw.accent,
     url: raw.url,
     repositoryUrl: raw.repositoryUrl,
