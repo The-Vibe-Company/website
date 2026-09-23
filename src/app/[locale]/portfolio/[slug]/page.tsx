@@ -114,15 +114,37 @@ export default async function PortfolioProjectPage({
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
             {t("theProduct")}
           </span>
-          <div className="overflow-hidden border border-foreground">
-            <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={project.cover}
-              alt={`${project.name} homepage`}
-              className="h-auto w-full"
-              loading="lazy"
-            />
+          <div
+            // Columns sized by image aspect (16:10 web, ~9:19.5 phone); the phone frame then stretches
+            // to the row so both frames end on the same line.
+            className={
+              project.mobileCover
+                ? "grid gap-6 md:grid-cols-[minmax(0,1.6fr)_minmax(0,0.455fr)] md:gap-8"
+                : undefined
+            }
+          >
+            <div className="self-start overflow-hidden border border-foreground">
+              <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={project.cover}
+                alt={`${project.name} homepage`}
+                className="h-auto w-full"
+                loading="lazy"
+              />
+            </div>
+            {project.mobileCover && (
+              <div className="mx-auto w-full max-w-[15rem] overflow-hidden border border-foreground md:flex md:max-w-none md:flex-col">
+                <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={project.mobileCover}
+                  alt={`${project.name} iPhone app`}
+                  className="h-auto w-full md:min-h-0 md:flex-1 md:object-cover md:object-top"
+                  loading="lazy"
+                />
+              </div>
+            )}
           </div>
 
           <a

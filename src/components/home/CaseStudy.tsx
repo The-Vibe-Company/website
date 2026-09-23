@@ -1,15 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { getCustomers, type ContentLocale, type Customer } from "@/lib/customers";
-
-// Loop arrows: grey frame, orange Lucide arrow (centers cleanly), fills orange
-// on hover — a cue that there are more projects to scroll to left and right.
-const ARROW_CLASS =
-  "hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center self-center border-2 border-border text-orange-500 transition-colors hover:border-orange-500 hover:bg-orange-500 hover:text-background sm:flex";
+import { LOOP_ARROW_CLASS, LOOP_COPIES, useLoopCarousel } from "./useLoopCarousel";
 
 // Two cards fit flush, no overflow.
 const CARD_WIDTH = "w-[86%] shrink-0 sm:w-[70%] md:w-[calc(50%-10px)]";
@@ -91,71 +86,13 @@ function SectionHeader({ t }: { t: T }) {
 
 /**
  * Two case-study cards, scrolled by hand (trackpad or arrows) in an infinite
- * loop that wraps seamlessly in both directions. Nothing auto-scrolls. Three
- * identical copies give a full set of buffer on each side; when the scroll
- * position drifts past a copy, it jumps by exactly one set width onto identical
- * content, so the wrap is invisible.
+ * loop that wraps seamlessly in both directions (see useLoopCarousel).
  */
 export function CaseStudy() {
-  const trackRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("caseStudy") as T;
   const locale = useLocale() as ContentLocale;
   const customers = getCustomers(locale);
-  const setLen = customers.length;
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const setWidth = () => {
-      const cards = track.querySelectorAll<HTMLElement>("[data-card]");
-      if (cards.length < setLen * 2) return 0;
-      return cards[setLen].offsetLeft - cards[0].offsetLeft;
-    };
-
-    // Start in the middle copy so there is room to scroll left immediately.
-    const init = () => {
-      const w = setWidth();
-      if (w > 0) track.scrollLeft = w;
-    };
-    init();
-
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const w = setWidth();
-        if (w > 0) {
-          if (track.scrollLeft < w * 0.5) track.scrollLeft += w;
-          else if (track.scrollLeft > w * 1.5) track.scrollLeft -= w;
-        }
-        ticking = false;
-      });
-    };
-
-    track.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", init);
-    return () => {
-      track.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", init);
-    };
-  }, [setLen]);
-
-  const scrollByCard = (direction: 1 | -1) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const card = track.querySelector<HTMLElement>("[data-card]");
-    const gap = 20;
-    const amount = card ? card.getBoundingClientRect().width + gap : track.clientWidth;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    track.scrollBy({
-      left: direction * amount,
-      behavior: reduceMotion ? "auto" : "smooth",
-    });
-  };
-
-  const loop = [0, 1, 2];
+  const { trackRef, scrollByCard } = useLoopCarousel(customers.length, 20);
 
   return (
     <section id="cases" className="border-b border-border bg-background">
@@ -167,7 +104,7 @@ export function CaseStudy() {
             type="button"
             onClick={() => scrollByCard(-1)}
             aria-label={t("prev")}
-            className={ARROW_CLASS}
+            className={LOOP_ARROW_CLASS}
           >
             <ArrowLeft size={22} strokeWidth={2.25} aria-hidden="true" />
           </button>
@@ -176,7 +113,7 @@ export function CaseStudy() {
             ref={trackRef}
             className="flex min-w-0 flex-1 gap-5 overflow-x-auto scroll-p-2 p-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {loop.flatMap((copy) =>
+            {LOOP_COPIES.flatMap((copy) =>
               customers.map((c) => (
                 <div
                   key={`${copy}-${c.slug}`}
@@ -195,7 +132,7 @@ export function CaseStudy() {
             type="button"
             onClick={() => scrollByCard(1)}
             aria-label={t("next")}
-            className={ARROW_CLASS}
+            className={LOOP_ARROW_CLASS}
           >
             <ArrowRight size={22} strokeWidth={2.25} aria-hidden="true" />
           </button>

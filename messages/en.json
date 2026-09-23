@@ -156,7 +156,9 @@
     "titleLine2": "products, in the open.",
     "intro": "We don't just build for clients. The same team ships its own open-source tools on GitHub. It's how we stay sharp and push what AI can do.",
     "barLeft": "OPEN SOURCE · ON GITHUB",
-    "browseAll": "Browse all on GitHub"
+    "browseAll": "Browse all on GitHub",
+    "prev": "Previous project",
+    "next": "Next project"
   },
   "finalCta": {
     "kicker": "NOW BOARDING",
