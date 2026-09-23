@@ -1,0 +1,23 @@
+src/lib/projects.ts
+  s_828a5e115ab99b::t_23d7d246b270fe 125-129,131-141
+  s_828a5e115ab99b::t_5c81987de88474 15-16,31-32,130,150
+src/app/[locale]/portfolio/[slug]/page.tsx
+  s_828a5e115ab99b::t_2082f7e7c22c28 117,120-121,123-125,127-136,138-142,144-147
+  s_828a5e115ab99b::t_2299bfeb910743 118-119,122,126,137,143
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "506bdad15586fb203acd32a81bb56f321aeb1baa",
+  "prompts": {},
+  "sessions": {
+    "s_828a5e115ab99b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bb37940b-2f29-44df-8c94-26ae630d70f3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
