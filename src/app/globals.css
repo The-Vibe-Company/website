@@ -83,6 +83,22 @@
 .resources-theme {
   color-scheme: light;
 
+  /* Shared tokens: the TopNav and other site-wide components read these, so
+     they must match [data-variant="hybrid"] or the bar turns white (or dark on
+     a dark-mode system) on /resources only. */
+  --background: #fdfbf7;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --muted: #737373;
+  --muted-foreground: #525252;
+  --accent: #f3f0ea;
+  --accent-foreground: #171717;
+  --border: #dcd7ce;
+  --input: #dcd7ce;
+
   /* Surface tokens — match [data-variant="hybrid"] exactly */
   --res-bg: #fdfbf7;
   --res-bg-secondary: #f3f0ea;
@@ -770,4 +786,12 @@
 
 ::-webkit-scrollbar-thumb {
   @apply bg-border rounded-full;
+}
+
+/* After a client-side navigation Next.js focuses the new page's first element,
+   which is <main id="main-content" tabIndex={-1}> on most pages. Focusing it
+   scrolls it to the top of the viewport, underneath the sticky TopNav, so the
+   page would land one nav-height down. The margin keeps it at the very top. */
+#main-content {
+  scroll-margin-top: 5rem;
 }

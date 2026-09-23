@@ -56,10 +56,12 @@ export const resourcesTheme = {
   },
 
   search: {
+    // Same look as the big search box on /resources (surface, warm border,
+    // mono type, rounded-md); callers add left padding for the magnifier.
     input:
-      'w-full bg-res-surface border border-res-border px-4 py-2 text-sm font-mono placeholder:text-res-text-muted/50 focus:outline-none focus:border-res-text transition-colors text-res-text rounded-none',
+      'w-full bg-res-surface border border-res-border px-4 py-2 text-sm font-mono placeholder:text-res-text-muted/60 focus:outline-none focus:border-res-text transition-colors text-res-text rounded-md',
     compact:
-      'w-full bg-res-surface border border-res-border px-3 py-1.5 text-xs font-mono placeholder:text-res-text-muted/50 focus:outline-none focus:border-res-text transition-colors text-res-text rounded-none',
+      'w-full bg-res-surface border border-res-border px-3 py-1.5 text-xs font-mono placeholder:text-res-text-muted/60 focus:outline-none focus:border-res-text transition-colors text-res-text rounded-md',
   },
 
   skill: {
