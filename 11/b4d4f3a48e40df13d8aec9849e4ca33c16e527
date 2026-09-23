@@ -1,0 +1,32 @@
+DESIGN.md
+  s_828a5e115ab99b::t_6b8c4d705c3dd5 386
+messages/en.json
+  s_828a5e115ab99b::t_f0bf1a6a421385 159-161
+src/components/home/Proof.tsx
+  s_828a5e115ab99b::t_57fd0277aaf436 3,5,7,11-14,19,61-86,91,120-134
+  s_828a5e115ab99b::t_5f91296118f261 87-90,92-119
+src/components/home/useLoopCarousel.ts
+  s_828a5e115ab99b::t_96a8cec46bf4b0 1-4,10-76
+  s_828a5e115ab99b::t_3c63a3824c881a 5-9
+src/components/home/CaseStudy.tsx
+  s_828a5e115ab99b::t_33bded312f87fd 89,95,116
+  s_828a5e115ab99b::t_3c63a3824c881a 7,107,135
+messages/fr.json
+  s_828a5e115ab99b::t_f0bf1a6a421385 159-161
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "11b4d4f3a48e40df13d8aec9849e4ca33c16e527",
+  "prompts": {},
+  "sessions": {
+    "s_828a5e115ab99b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bb37940b-2f29-44df-8c94-26ae630d70f3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
