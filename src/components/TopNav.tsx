@@ -23,6 +23,25 @@ const navItems = [
   { key: "resources", href: "/resources" },
 ] as const;
 
+// Each page renders its own TopNav, so it remounts on every client-side
+// navigation. The slide-in only plays on the first page of a visit; after
+// that the bar stays put instead of vanishing and fading back in.
+let hasPlayedEntrance = false;
+
+function SearchIcon() {
+  return (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-res-text-muted"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.3-4.3" />
+      </svg>
+    </span>
+  );
+}
+
 interface TopNavProps {
   showResourcesSearch?: boolean;
 }
@@ -45,6 +64,8 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   // /case-studies/monka still lights up "Études de cas").
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
+  // /resources has its own large search box, so the bar does not repeat it.
+  const showSearch = showResourcesSearch && pathname !== "/resources";
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileMenuClosing, setMobileMenuClosing] = useState(false);
@@ -178,7 +199,10 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
         aria-hidden={mobileMenuActive || undefined}
         inert={mobileMenuActive || undefined}
         className="sticky top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 lg:px-24 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50"
-        initial={{ opacity: 0, y: -20 }}
+        initial={hasPlayedEntrance ? false : { opacity: 0, y: -20 }}
+        onAnimationComplete={() => {
+          hasPlayedEntrance = true;
+        }}
         animate={{ opacity: 1, y: 0 }}
         transition={createTransition(0.6, 0.3)}
       >
@@ -203,15 +227,18 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
         {/* Inline search. Kept in the flex flow (never absolutely centered) so
             it can never slide under the nav links, and only shown from xl up:
             below that the wordmark and the nav already fill the bar. */}
-        {showResourcesSearch && (
-          <div className="hidden xl:block flex-1 min-w-0 max-w-sm mx-8">
+        {showSearch && (
+          <div className="relative hidden xl:block flex-1 min-w-0 max-w-sm mx-8">
+            <SearchIcon />
             <input
-              type="text"
+              type="search"
               placeholder={t("searchShort")}
               value={searchValue}
               onChange={(e) => handleSearch(e.target.value)}
               aria-label={tA11y("searchResources")}
-              className={resourcesTheme.search.compact}
+              // Fixed height so the bar keeps the same height as on pages
+              // without a search field.
+              className={cn(resourcesTheme.search.input, "h-9 py-0 pl-9")}
             />
           </div>
         )}
@@ -220,7 +247,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
         <div className="flex shrink-0 items-center gap-1 lg:gap-2">
           {/* Search toggle. Replaces the inline field below xl, on tablet as
               well as mobile. */}
-          {showResourcesSearch && (
+          {showSearch && (
             <button
               className="xl:hidden p-2"
               onClick={() => setSearchOpen((open) => !open)}
@@ -336,21 +363,24 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
         </div>
       </motion.nav>
 
-      {showResourcesSearch && (
+      {showSearch && (
         <div
           id="resources-search-panel"
           aria-hidden={!searchOpen}
           className={`fixed left-0 right-0 z-[65] bg-background/95 backdrop-blur-xl border-b border-border/50 px-6 py-3 transition-all duration-200 xl:hidden ${searchOpen ? "top-16 opacity-100 translate-y-0" : "top-14 opacity-0 -translate-y-2 pointer-events-none"}`}
         >
-          <input
-            type="text"
-            placeholder={t("searchLong")}
-            value={searchValue}
-            onChange={(e) => handleSearch(e.target.value)}
-            aria-label={tA11y("searchResources")}
-            tabIndex={searchOpen ? 0 : -1}
-            className={resourcesTheme.search.input}
-          />
+          <div className="relative">
+            <SearchIcon />
+            <input
+              type="search"
+              placeholder={t("searchLong")}
+              value={searchValue}
+              onChange={(e) => handleSearch(e.target.value)}
+              aria-label={tA11y("searchResources")}
+              tabIndex={searchOpen ? 0 : -1}
+              className={cn(resourcesTheme.search.input, "pl-9")}
+            />
+          </div>
         </div>
       )}
 
