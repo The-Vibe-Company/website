@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
 const SERVICES = [
@@ -10,7 +9,6 @@ const SERVICES = [
 ] as const;
 
 export function Services() {
-  const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("services");
 
   return (
@@ -37,18 +35,12 @@ export function Services() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        {SERVICES.map((service, i) => (
-          <motion.article
+        {SERVICES.map((service) => (
+          // No fade-in: while a card faded in, the browser painted its text on a
+          // separate, lighter layer, which flashed pale boxes behind each line.
+          <article
             key={service.n}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{
-              duration: reduceMotion ? 0 : 0.6,
-              delay: reduceMotion ? 0 : i * 0.08,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="group flex flex-col border border-foreground bg-background p-7 transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
+            className="group flex flex-col border border-foreground bg-background p-7 transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
           >
             <div className="mb-8 flex items-start justify-between gap-3">
               <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
@@ -81,7 +73,7 @@ export function Services() {
                 </li>
               ))}
             </ul>
-          </motion.article>
+          </article>
         ))}
       </div>
     </section>
