@@ -94,38 +94,42 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       },
     ],
     sector: { en: "Healthcare · Caregiver support", fr: "Santé · Accompagnement des aidants" },
-    metric: { en: "2 months", fr: "2 mois" },
+    metric: { en: "165 questions", fr: "165 questions" },
     metricLabel: {
-      en: "from scratch to live on iOS and Android",
-      fr: "pour aller en prod",
+      en: "in a caregiver assessment that turns into a personal action plan",
+      fr: "pour un bilan aidant qui devient un plan d’action personnalisé",
     },
     summary: {
-      en: "Monka helps people who care for a loved one. They came to us with an ambitious roadmap and a deadline they couldn't miss. In two months we rebuilt their mobile app and their care-coordination tool from scratch, fully vibe-coded, and shipped the year of features they had planned.",
-      fr: "Monka accompagne les personnes qui prennent soin d’un proche. En deux mois, on a mis en production leur application mobile et Lifeline, le CRM des infirmières de coordination, dans un environnement HDS sécurisé.",
+      en: "Monka had signed its customers but had no tool that could deliver the service. In two months we shipped the caregiver app, Lifeline, the CRM for their coordinating nurses, and the API that ties them together.",
+      fr: "Monka avait signé ses clients sans outil capable de délivrer le service. En deux mois, on a livré l’app des aidants, Lifeline, le CRM des infirmières de coordination, et l’API qui relie le tout.",
     },
     points: [
       {
-        en: "A 150-question caregiver assessment that turns into a prioritized to-do list, plus a directory of health professionals.",
-        fr: "Une application mobile pour les aidants, avec un questionnaire et un plan d’action personnalisé.",
+        en: "A caregiver app: a 165-question assessment that leads to an action plan, the circle of close ones, a chat with the nurse, and appointment booking.",
+        fr: "Une app pour les aidants : un bilan de 165 questions qui débouche sur un plan d’action, le cercle des proches, un chat avec l’infirmière et la prise de rendez-vous.",
       },
       {
-        en: "Lifeline, a dashboard for the coordinating nurses: appointments, follow-up reports, shared documents.",
-        fr: "Lifeline, un CRM pour les infirmières de coordination qui centralise les aidants, les rendez-vous, les comptes rendus de bilan, les questionnaires et les données de santé.",
+        en: "Lifeline, the CRM for coordinating nurses: caregiver follow-up, agenda, conversations, questionnaires, and reports.",
+        fr: "Lifeline, le CRM des infirmières de coordination : suivi des aidants, agenda, discussions, questionnaires et comptes rendus.",
       },
       {
-        en: "The 12 months of features on their roadmap, built and shipped in two.",
-        fr: "Un environnement HDS sécurisé, mis en place et déployé selon les bonnes pratiques.",
+        en: "A versioned clinical engine that evolves the care framework (12 versions so far) without breaking the app.",
+        fr: "Un moteur clinique versionné, qui fait évoluer le référentiel (12 versions à ce jour) sans casser l’app.",
+      },
+      {
+        en: "A partner API with signed webhooks, so insurers can follow the people they cover.",
+        fr: "Une API partenaire avec webhooks signés, pour que les assureurs suivent leurs bénéficiaires.",
       },
     ],
     overview: {
-      en: "Monka helps people who care for a loved one in a difficult situation. They came to us with an ambitious roadmap and a hard deadline they couldn't miss. In two months, we rebuilt their mobile app and their care-coordination tool from scratch, fully vibe-coded, keeping their existing API and clearing their technical debt along the way.",
-      fr: "Monka accompagne les personnes qui prennent soin d’un proche. En deux mois, on a construit et mis en production leur application mobile et Lifeline, le CRM des infirmières de coordination, dans un environnement HDS sécurisé.",
+      en: "Monka supports people who care for a loved one. They had already signed their customers, with no tool able to deliver the service. We took over their existing API and CRM, and in two months put into production the caregiver app, Lifeline for the coordinating nurses, and the clinical engine that turns each assessment into an action plan, with encrypted, GDPR-compliant health data. Since then, we ship a new version roughly every two days.",
+      fr: "Monka accompagne les personnes qui prennent soin d’un proche. Ils avaient déjà signé leurs clients, sans outil capable de délivrer le service. On a repris leur API et leur ancien CRM, et en deux mois on a mis en production l’app des aidants, Lifeline pour les infirmières de coordination, et le moteur clinique qui transforme chaque bilan en plan d’action, avec des données de santé chiffrées et conformes RGPD. Depuis, on livre une nouvelle version tous les deux jours environ.",
     },
     results: [
-      { value: { en: "2 months", fr: "2 mois" }, label: { en: "From first line to the App Store", fr: "Pour aller en prod" } },
-      { value: { en: "iOS + Android", fr: "Mobile + Web" }, label: { en: "Live on the App Store", fr: "Application aidant et CRM Lifeline" } },
-      { value: { en: "Every day", fr: "HDS" }, label: { en: "New caregivers onboarded", fr: "Environnement sécurisé en production" } },
-      { value: { en: "Daily", fr: "Au quotidien" }, label: { en: "Used by health professionals", fr: "Utilisé par des professionnels de santé" } },
+      { value: { en: "2 months", fr: "2 mois" }, label: { en: "To go live", fr: "Pour aller en prod" } },
+      { value: { en: "165", fr: "165" }, label: { en: "Questions in the caregiver assessment", fr: "Questions dans le bilan aidant" } },
+      { value: { en: "90", fr: "90" }, label: { en: "App releases in six months", fr: "Versions de l’app livrées en six mois" } },
+      { value: { en: "12", fr: "12" }, label: { en: "Versions of the clinical framework", fr: "Versions du référentiel clinique" } },
     ],
     quote: {
       text: {
