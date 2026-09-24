@@ -47,6 +47,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   );
   const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("hero");
+  const tFooter = useTranslations("footer");
 
   return (
     <section
@@ -68,6 +69,21 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
       />
 
       <div className="relative mx-auto max-w-[100rem] px-6 pb-14 pt-12 md:px-12 md:pb-16 md:pt-16">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6 inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:mb-8"
+        >
+          <span aria-hidden="true" className="relative flex h-2 w-2">
+            {!reduceMotion && (
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-500 opacity-60" />
+            )}
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500" />
+          </span>
+          {tFooter("openToProjects")}
+        </motion.div>
+
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -91,11 +107,22 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
             style={{
               fontSize: "clamp(1.25rem, 2.4vw, 2.25rem)",
               fontWeight: 600,
-              lineHeight: 1.15,
+              lineHeight: 1.3,
               letterSpacing: "-0.025em",
             }}
           >
-            {t("titleLine2")}
+            {/* A low orange highlighter stroke under the words, cloned on each
+                wrapped line so it reads the same whatever the copy. */}
+            <span
+              className="[box-decoration-break:clone] [-webkit-box-decoration-break:clone]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to top, rgb(249 115 22 / 0.28) 0.32em, transparent 0.32em)",
+                padding: "0 0.08em",
+              }}
+            >
+              {t("titleLine2")}
+            </span>
           </span>
         </motion.h1>
 
@@ -110,7 +137,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           className="mt-10 grid grid-cols-1 items-center gap-10 md:mt-12 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16"
         >
           <div>
-            <p className="m-0 max-w-[620px] text-lg leading-[1.5] text-foreground md:text-[19px]">
+            <p className="m-0 max-w-[620px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
               {t("subtitle")}
             </p>
           </div>
