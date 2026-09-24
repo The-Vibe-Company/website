@@ -1,0 +1,19 @@
+src/lib/customers.ts
+  s_828a5e115ab99b::t_e99b6b07912834 97,99-100,103-104,108-109,112-113,116-121,125-126,129-132
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7842d65645605777f7cc1c5c59316ffb1d93352e",
+  "prompts": {},
+  "sessions": {
+    "s_828a5e115ab99b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bb37940b-2f29-44df-8c94-26ae630d70f3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
