@@ -190,6 +190,7 @@
     "back": "Case studies",
     "backHome": "Home",
     "whatWeDid": "// What we did",
+    "projectLabel": "// Project {n}",
     "theProduct": "// The product",
     "visit": "Visit",
     "visitClient": "Visit {name}",
