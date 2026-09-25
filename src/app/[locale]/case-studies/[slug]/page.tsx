@@ -182,26 +182,76 @@ export default async function CaseStudyPage({
           </div>
         </section>
 
-        <section className="mx-auto max-w-[80rem] px-6 py-16 md:px-12 md:py-20">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_1fr] md:gap-16">
-            <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              {t("whatWeDid")}
-            </h2>
-            <ul className="m-0 flex list-none flex-col gap-5 p-0">
-              {customer.points.map((point) => (
-                <li
-                  key={point}
-                  className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
-                >
-                  <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
-                    →
+        {customer.projects ? (
+          customer.projects.map((project, index) => (
+            <section
+              key={project.name}
+              className={`mx-auto max-w-[80rem] px-6 py-16 md:px-12 md:py-20 ${index > 0 ? "border-t border-border" : ""}`}
+            >
+              <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_1fr] md:gap-16">
+                <div>
+                  <span className="block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                    {t("projectLabel", { n: index + 1 })}
                   </span>
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+                  <h2 className="m-0 mt-4 text-[28px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground">
+                    {project.name}
+                  </h2>
+                </div>
+                <div>
+                  <p className="m-0 mb-8 max-w-[720px] text-xl leading-[1.5] text-foreground">
+                    {project.summary}
+                  </p>
+                  <ul className="m-0 flex list-none flex-col gap-5 p-0">
+                    {project.points.map((point) => (
+                      <li
+                        key={point}
+                        className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
+                      >
+                        <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
+                          →
+                        </span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              {project.visual && (
+                <div className="mt-12 overflow-hidden border border-foreground">
+                  <Image
+                    src={project.visual.src}
+                    alt={project.visual.alt}
+                    width={project.visual.width}
+                    height={project.visual.height}
+                    sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) calc(100vw - 6rem), 1184px"
+                    className="h-auto w-full"
+                  />
+                </div>
+              )}
+            </section>
+          ))
+        ) : (
+          <section className="mx-auto max-w-[80rem] px-6 py-16 md:px-12 md:py-20">
+            <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_1fr] md:gap-16">
+              <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                {t("whatWeDid")}
+              </h2>
+              <ul className="m-0 flex list-none flex-col gap-5 p-0">
+                {customer.points.map((point) => (
+                  <li
+                    key={point}
+                    className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
+                  >
+                    <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
+                      →
+                    </span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
 
         {(wideVisuals.length > 0 || customer.url) && (
           <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-12 md:pb-24">

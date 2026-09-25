@@ -20,6 +20,14 @@ interface RawVisual {
   placement: "aside" | "wide";
 }
 
+/** One engagement inside a client that trusted us with several. */
+interface RawProject {
+  name: L;
+  summary: L;
+  points: L[];
+  visual?: RawVisual;
+}
+
 interface RawCustomer {
   slug: string;
   client: string;
@@ -33,6 +41,8 @@ interface RawCustomer {
   points: L[];
   overview: L;
   results: RawStat[];
+  /** When set, the case page tells each project in turn instead of one list. */
+  projects?: RawProject[];
   quote?: { text: L; author: L };
 }
 
@@ -49,6 +59,13 @@ export interface CustomerVisual {
   placement: "aside" | "wide";
 }
 
+export interface CustomerProject {
+  name: string;
+  summary: string;
+  points: string[];
+  visual?: CustomerVisual;
+}
+
 export interface Customer {
   slug: string;
   client: string;
@@ -62,6 +79,7 @@ export interface Customer {
   points: string[];
   overview: string;
   results: CustomerStat[];
+  projects?: CustomerProject[];
   quote?: { text: string; author: string };
 }
 
@@ -143,36 +161,6 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     },
   },
   {
-    slug: "locservice",
-    client: "LocService",
-    logo: "/images/clients/locservice.png",
-    url: "https://www.locservice.fr",
-    visuals: [],
-    sector: { en: "Rentals · Customer support", fr: "Location · Support client" },
-    metric: { en: "87%", fr: "87%" },
-    metricLabel: {
-      en: "of support tickets answered with our AI drafts",
-      fr: "des tickets support traités grâce à nos brouillons IA",
-    },
-    summary: {
-      en: "LocService handles several hundred support tickets a day. We read all their past tickets and internal docs to draft the answer for each new one, tailored to the customer's profile and history.",
-      fr: "LocService est une plateforme de location immobilière entre particuliers qui traite plusieurs centaines de tickets support par jour. On lit tous leurs anciens tickets et leur documentation interne pour rédiger la réponse à chaque nouveau, adaptée au profil et à l'historique du client.",
-    },
-    points: [
-      { en: "Connected to their internal APIs to pull real customer context.", fr: "Connecté à leurs API internes pour récupérer le vrai contexte client." },
-      { en: "Classification rules so the same question gets the right answer per customer type.", fr: "Des règles de classification pour que la même question ait la bonne réponse selon le type de client." },
-      { en: "Hundreds of tickets a day, our drafts used on 87% of them.", fr: "Des centaines de tickets par jour, nos brouillons utilisés sur 87% d'entre eux." },
-    ],
-    overview: {
-      en: "LocService handles several hundred customer-support tickets a day. We built an assistant that reads all their past tickets and internal documentation to draft the answer for each new ticket, tailored to the customer's profile and history.",
-      fr: "LocService est une plateforme de location immobilière entre particuliers qui traite plusieurs centaines de tickets support par jour. On a construit un assistant qui lit tous leurs anciens tickets et leur documentation interne pour rédiger la réponse à chaque nouveau ticket, adaptée au profil et à l'historique du client.",
-    },
-    results: [
-      { value: { en: "87%", fr: "87%" }, label: { en: "Of tickets answered with our AI drafts", fr: "Des tickets traités grâce à nos brouillons IA" } },
-      { value: { en: "Hundreds", fr: "Des centaines" }, label: { en: "Of tickets handled per day", fr: "De tickets traités par jour" } },
-    ],
-  },
-  {
     slug: "afp",
     client: "AFP",
     logo: "/images/clients/afp.svg",
@@ -204,36 +192,140 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     ],
   },
   {
+    slug: "locservice",
+    client: "LocService",
+    logo: "/images/clients/locservice.png",
+    url: "https://www.locservice.fr",
+    visuals: [],
+    sector: { en: "Rentals · Customer support", fr: "Location · Support client" },
+    metric: { en: "87%", fr: "87%" },
+    metricLabel: {
+      en: "of support tickets answered with our AI drafts",
+      fr: "des tickets support traités grâce à nos brouillons IA",
+    },
+    summary: {
+      en: "LocService handles several hundred support tickets a day. We read all their past tickets and internal docs to draft the answer for each new one, tailored to the customer's profile and history.",
+      fr: "LocService est une plateforme de location immobilière entre particuliers qui traite plusieurs centaines de tickets support par jour. On lit tous leurs anciens tickets et leur documentation interne pour rédiger la réponse à chaque nouveau, adaptée au profil et à l'historique du client.",
+    },
+    points: [
+      { en: "Connected to their internal APIs to pull real customer context.", fr: "Connecté à leurs API internes pour récupérer le vrai contexte client." },
+      { en: "Classification rules so the same question gets the right answer per customer type.", fr: "Des règles de classification pour que la même question ait la bonne réponse selon le type de client." },
+      { en: "Hundreds of tickets a day, our drafts used on 87% of them.", fr: "Des centaines de tickets par jour, nos brouillons utilisés sur 87% d'entre eux." },
+    ],
+    overview: {
+      en: "LocService handles several hundred customer-support tickets a day. We built an assistant that reads all their past tickets and internal documentation to draft the answer for each new ticket, tailored to the customer's profile and history.",
+      fr: "LocService est une plateforme de location immobilière entre particuliers qui traite plusieurs centaines de tickets support par jour. On a construit un assistant qui lit tous leurs anciens tickets et leur documentation interne pour rédiger la réponse à chaque nouveau ticket, adaptée au profil et à l'historique du client.",
+    },
+    results: [
+      { value: { en: "87%", fr: "87%" }, label: { en: "Of tickets answered with our AI drafts", fr: "Des tickets traités grâce à nos brouillons IA" } },
+      { value: { en: "Hundreds", fr: "Des centaines" }, label: { en: "Of tickets handled per day", fr: "De tickets traités par jour" } },
+    ],
+  },
+  {
     slug: "coup-de-pates",
     client: "Coup de Pates",
     logo: "/images/clients/coup-de-pates.svg",
     url: "https://www.coupdepates.fr",
     visuals: [],
-    sector: { en: "Food · Design review", fr: "Agroalimentaire · Relecture design" },
-    metric: { en: "At a glance", fr: "En un coup d'œil" },
+    sector: { en: "Food · CSR and quality", fr: "Agroalimentaire · RSE et qualité" },
+    metric: { en: "2 projects", fr: "2 projets" },
     metricLabel: {
-      en: "which catalog feedback was applied, which wasn't",
-      fr: "quels retours du catalogue ont été appliqués, lesquels non",
+      en: "a CSR app for the teams, and AI skills for quality control",
+      fr: "une app RSE pour les équipes, et des skills IA pour le contrôle qualité",
     },
     summary: {
-      en: "Coup de Pates reviews product catalogs from their designers: a v0 comes in, they mark up their feedback, and the revised version comes back. Checking that every note had been applied meant a careful manual pass. We built them AI skills that surface it all in a few glances.",
-      fr: "Coup de Pates fournit des produits surgelés aux professionnels des métiers de bouche. On a construit un outil qui vérifie en un coup d’œil les annotations appliquées à un PDF, compare deux PDF et contrôle la conformité d’un document à une charte ou à un document de référence.",
+      en: "Coup de Pates supplies frozen products to food professionals. We built them Ensemble, the app that brings employees together around events like a step challenge, and a library of AI skills that checks their product documents.",
+      fr: "Coup de Pates fournit des produits surgelés aux professionnels des métiers de bouche. On leur a construit Ensemble, l’app qui rassemble les collaborateurs autour d’événements comme un challenge de pas, et une bibliothèque de skills IA qui vérifie leurs documents produit.",
     },
     points: [
-      { en: "See applied vs. missed feedback instantly, plus requested changes and typos.", fr: "Vérifier que les annotations et les demandes faites sur un PDF ont bien été appliquées." },
-      { en: "Re-annotate and re-export the new round of feedback as a PDF.", fr: "Comparer deux PDF et faire ressortir leurs différences." },
-      { en: "A second tool highlights the differences between two specific documents, like two labels or two specs.", fr: "Contrôler qu’un document respecte une charte ou les conditions d’un document de référence." },
+      {
+        en: "Ensemble: an iOS and Android app to run internal life, launched with an inter-team step challenge.",
+        fr: "Ensemble : une app iOS et Android pour animer la vie interne, lancée avec un challenge de pas entre équipes.",
+      },
+      {
+        en: "Document control: AI skills that check a corrected label or specification against every annotation, and flag each gap.",
+        fr: "Contrôle documentaire : des skills IA qui vérifient qu’une étiquette ou un cahier des charges corrigé respecte les annotations, et relèvent chaque écart.",
+      },
     ],
     overview: {
-      en: "Coup de Pates reviews product catalogs from their designers: a v0 comes in, they mark up their feedback, and the revised version comes back. Checking that every note had been applied meant a careful manual pass. We built them AI skills that surface it all in a few glances.",
-      fr: "Coup de Pates est un fournisseur de produits surgelés pour les professionnels des métiers de bouche. Son outil permet de vérifier en un coup d’œil qu’un PDF respecte les annotations et les demandes formulées, de comparer deux PDF et de contrôler qu’un document respecte une charte ou un document de référence.",
+      en: "Coup de Pates supplies frozen products to food professionals. They trusted us with two very different jobs: bringing their CSR commitment to life for their teams, and making the review of their product documents, done by hand until then, reliable.",
+      fr: "Coup de Pates fournit des produits surgelés aux professionnels des métiers de bouche. Ils nous ont confié deux sujets très différents : faire vivre leur engagement RSE auprès de leurs équipes, et fiabiliser le contrôle de leurs documents produit, qui se faisait à la main.",
     },
     results: [
-      { value: { en: "2 tools", fr: "2 outils" }, label: { en: "Catalog review and document comparison", fr: "Relecture de catalogue et comparaison de documents" } },
-      { value: { en: "PDF", fr: "PDF" }, label: { en: "Re-annotate and re-export in one click", fr: "Ré-annoter et réexporter en un clic" } },
+      { value: { en: "iOS + Android", fr: "iOS + Android" }, label: { en: "Ensemble, for every employee", fr: "Ensemble, pour tous les collaborateurs" } },
+      { value: { en: "3 skills", fr: "3 skills" }, label: { en: "To compare, check, and cross-check product documents", fr: "Pour comparer, vérifier et recouper les documents produit" } },
+      { value: { en: "72", fr: "72" }, label: { en: "Changes flagged between two versions of one specification", fr: "Modifications relevées entre deux versions d’un cahier des charges" } },
+    ],
+    projects: [
+      {
+        name: { en: "Ensemble, the employee app", fr: "Ensemble, l’app des collaborateurs" },
+        summary: {
+          en: "A platform for running internal events, to make the CSR commitment part of everyday life.",
+          fr: "Une plateforme d’animation d’événements internes, pour faire vivre l’engagement RSE au quotidien.",
+        },
+        points: [
+          {
+            en: "An iOS and Android app reserved for employees, on a work or personal phone.",
+            fr: "Une app iOS et Android réservée aux collaborateurs, sur mobile pro ou perso.",
+          },
+          {
+            en: "A first event: an inter-team step-counting challenge.",
+            fr: "Un premier événement : un challenge inter-équipes de comptage de pas.",
+          },
+          {
+            en: "A platform built to last beyond a single challenge.",
+            fr: "Une plateforme pensée pour durer au-delà d’un seul challenge.",
+          },
+        ],
+        visual: {
+          src: "/images/coup-de-pates-ensemble/app-accueil.webp",
+          alt: {
+            en: "The home screen of the Coup de Pates Ensemble app on a phone, surrounded by photos of employees and the company's premises",
+            fr: "L’écran d’accueil de l’application Coup de Pates Ensemble sur un téléphone, entouré de photos de collaborateurs et des locaux de Coup de Pates",
+          },
+          width: 1500,
+          height: 952,
+          placement: "wide",
+        },
+      },
+      {
+        name: { en: "Document control", fr: "Contrôle documentaire" },
+        summary: {
+          en: "A library of AI skills for the quality and marketing teams, which checks product documents for them.",
+          fr: "Une bibliothèque de skills IA pour les équipes qualité et marketing, qui vérifie les documents produit à leur place.",
+        },
+        points: [
+          {
+            en: "Check that a corrected label or catalogue follows every annotation, even boxes drawn in PowerPoint.",
+            fr: "Vérifier qu’une étiquette ou un catalogue corrigé respecte chaque annotation, même dessinée dans PowerPoint.",
+          },
+          {
+            en: "Flag everything that changed between two versions of a specification: 72 changes on a single document.",
+            fr: "Relever tout ce qui a changé entre deux versions d’un cahier des charges : 72 modifications sur un seul document.",
+          },
+          {
+            en: "Make sure the development sheet, specification, label, and technical sheet all say the same thing.",
+            fr: "Contrôler que la fiche de développement, le cahier des charges, l’étiquette et la fiche technique disent la même chose.",
+          },
+          {
+            en: "A side-by-side before/after viewer with every gap clickable, a report, and a PDF export.",
+            fr: "Un lecteur avant / après avec chaque écart cliquable, un rapport en français et un export PDF.",
+          },
+        ],
+      },
     ],
   },
 ];
+
+function localizeVisual(visual: RawVisual, locale: ContentLocale): CustomerVisual {
+  return {
+    src: visual.src,
+    alt: pick(visual.alt, locale),
+    width: visual.width,
+    height: visual.height,
+    placement: visual.placement,
+  };
+}
 
 function localize(raw: RawCustomer, locale: ContentLocale): Customer {
   return {
@@ -241,13 +333,7 @@ function localize(raw: RawCustomer, locale: ContentLocale): Customer {
     client: raw.client,
     logo: raw.logo,
     url: raw.url,
-    visuals: raw.visuals.map((visual) => ({
-      src: visual.src,
-      alt: pick(visual.alt, locale),
-      width: visual.width,
-      height: visual.height,
-      placement: visual.placement,
-    })),
+    visuals: raw.visuals.map((visual) => localizeVisual(visual, locale)),
     sector: pick(raw.sector, locale),
     metric: pick(raw.metric, locale),
     metricLabel: pick(raw.metricLabel, locale),
@@ -255,6 +341,12 @@ function localize(raw: RawCustomer, locale: ContentLocale): Customer {
     points: raw.points.map((p) => pick(p, locale)),
     overview: pick(raw.overview, locale),
     results: raw.results.map((r) => ({ value: pick(r.value, locale), label: pick(r.label, locale) })),
+    projects: raw.projects?.map((project) => ({
+      name: pick(project.name, locale),
+      summary: pick(project.summary, locale),
+      points: project.points.map((point) => pick(point, locale)),
+      visual: project.visual ? localizeVisual(project.visual, locale) : undefined,
+    })),
     quote: raw.quote
       ? { text: pick(raw.quote.text, locale), author: pick(raw.quote.author, locale) }
       : undefined,
