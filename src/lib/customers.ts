@@ -118,8 +118,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       fr: "pour un bilan aidant qui devient un plan d’action personnalisé",
     },
     summary: {
-      en: "Monka had signed its customers but had no tool that could deliver the service. In two months we shipped the caregiver app, Lifeline, the CRM for their coordinating nurses, and the API that ties them together.",
-      fr: "Monka avait signé ses clients sans outil capable de délivrer le service. En deux mois, on a livré l’app des aidants, Lifeline, le CRM des infirmières de coordination, et l’API qui relie le tout.",
+      en: "Monka supports people who care for a loved one, alongside coordinating nurses. To keep up with their growth, we shipped in two months the caregiver app, Lifeline, the CRM for their nurses, and the API that ties them together.",
+      fr: "Monka accompagne les personnes qui prennent soin d’un proche, avec des infirmières de coordination. Pour suivre leur croissance, on a livré en deux mois l’app des aidants, Lifeline, le CRM de leurs infirmières, et l’API qui relie le tout.",
     },
     points: [
       {
@@ -140,8 +140,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       },
     ],
     overview: {
-      en: "Monka supports people who care for a loved one. They had already signed their customers, with no tool able to deliver the service. We took over their existing API and CRM, and in two months put into production the caregiver app, Lifeline for the coordinating nurses, and the clinical engine that turns each assessment into an action plan, with encrypted, GDPR-compliant health data. Since then, we ship a new version roughly every two days.",
-      fr: "Monka accompagne les personnes qui prennent soin d’un proche. Ils avaient déjà signé leurs clients, sans outil capable de délivrer le service. On a repris leur API et leur ancien CRM, et en deux mois on a mis en production l’app des aidants, Lifeline pour les infirmières de coordination, et le moteur clinique qui transforme chaque bilan en plan d’action, avec des données de santé chiffrées et conformes RGPD. Depuis, on livre une nouvelle version tous les deux jours environ.",
+      en: "Monka supports people who care for a loved one, with coordinating nurses and partner insurers. To keep pace with their growth, we took over their existing API and CRM, and in two months put into production the caregiver app, Lifeline for the coordinating nurses, and the clinical engine that turns each assessment into an action plan, with encrypted, GDPR-compliant health data. Since then, we ship a new version roughly every two days.",
+      fr: "Monka accompagne les personnes qui prennent soin d’un proche, avec des infirmières de coordination et des assureurs partenaires. Pour tenir le rythme de leur croissance, on a repris leur API et leur CRM existants, et en deux mois on a mis en production l’app des aidants, Lifeline pour les infirmières de coordination, et le moteur clinique qui transforme chaque bilan en plan d’action, avec des données de santé chiffrées et conformes RGPD. Depuis, on livre une nouvelle version tous les deux jours environ.",
     },
     results: [
       { value: { en: "2 months", fr: "2 mois" }, label: { en: "To go live", fr: "Pour aller en prod" } },
@@ -166,29 +166,39 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     logo: "/images/clients/afp.svg",
     url: "https://www.afp.com",
     visuals: [],
-    sector: { en: "News · Journalism", fr: "Presse · Journalisme" },
-    metric: { en: "90M documents", fr: "90M documents" },
+    sector: { en: "News · MediaGen (France 2030)", fr: "Presse · MediaGen (France 2030)" },
+    metric: { en: "3 AI tools", fr: "3 outils IA" },
     metricLabel: {
-      en: "of text, image, and video, made searchable by AI",
-      fr: "de texte, image et vidéo, rendus explorables par l'IA",
+      en: "for newsrooms, within MediaGen, AFP's France 2030 generative AI project",
+      fr: "pour les rédactions, dans MediaGen, le projet France 2030 d’IA générative de l’AFP",
     },
     summary: {
-      en: "AFP is one of the world's largest news agencies. As part of a France 2030 project, we're building AI tools that help their journalists work faster, on top of a corpus of 90 million documents: articles, images, video, and wires.",
-      fr: "L'AFP est l'une des plus grandes agences de presse du monde. Dans le cadre d'un projet France 2030, on construit des outils IA qui aident leurs journalistes à travailler plus vite, sur un corpus de 90 millions de documents : articles, images, vidéos et dépêches.",
+      en: "With AFP, we're building MediaGen, a €4M France 2030 project backed by Bpifrance: trustworthy generative AI tools for newsrooms, always under journalists' control. We're part of the technical consortium alongside Kairntech and Dawex.",
+      fr: "Avec l’AFP, on construit MediaGen, un projet France 2030 de 4 M€ soutenu par Bpifrance : des outils d’IA générative de confiance pour les rédactions, toujours sous le contrôle des journalistes. On fait partie du consortium technique, aux côtés de Kairntech et Dawex.",
     },
     points: [
-      { en: "Multimodal search: ask a question, get every relevant article, image, and video across the archive.", fr: "Recherche multimodale : posez une question, obtenez tous les articles, images et vidéos pertinents." },
-      { en: "Topic watch that follows a subject and surfaces what matters.", fr: "Un outil de veille efficace, personnalisable et boosté par l’IA." },
-      { en: "A writing assistant for documentary research, fact-checking, and feedback.", fr: "Un assistant rédactionnel pour la recherche documentaire, la vérification des faits et les retours." },
+      {
+        en: "Augmented news monitoring: gather and analyze media, social networks, and press releases in real time.",
+        fr: "Veille augmentée : centraliser et analyser en temps réel les médias, les réseaux sociaux et les communiqués.",
+      },
+      {
+        en: "Multimodal search: explore and make the most of text, photo, and video archives.",
+        fr: "Recherche multimodale : explorer et valoriser les archives texte, photo et vidéo.",
+      },
+      {
+        en: "Content production help: turn one story into several formats and spot biases that could hurt its quality.",
+        fr: "Aide à la production : décliner une même information en plusieurs formats et repérer les biais qui nuiraient à sa qualité.",
+      },
     ],
     overview: {
-      en: "AFP is one of the world's largest news agencies. As part of a two-year France 2030 project, we're building AI tools that help their journalists work faster, on top of a corpus of 90 million documents: articles, images, video, and wires.",
-      fr: "L'AFP est l'une des plus grandes agences de presse du monde. Dans le cadre d'un projet France 2030 sur deux ans, on construit des outils IA qui aident leurs journalistes à travailler plus vite, sur un corpus de 90 millions de documents : articles, images, vidéos et dépêches.",
+      en: "MediaGen is one of the few France 2030 projects dedicated to the media. Led by AFP and backed by Bpifrance, it brings together a French consortium, Quivr/The Vibe Company, Kairntech, and Dawex, to build over 24 months generative AI tools that serve reliable information, under journalists' control. Some components will be released under an open license.",
+      fr: "MediaGen est l’un des rares projets France 2030 consacrés aux médias. Porté par l’AFP et soutenu par Bpifrance, il réunit un consortium français, Quivr/The Vibe Company, Kairntech et Dawex, pour construire en 24 mois des outils d’IA générative au service d’une information fiable, sous le contrôle des journalistes. Une partie des composants sera publiée en licence libre.",
     },
     results: [
-      { value: { en: "90M", fr: "90M" }, label: { en: "Documents made searchable", fr: "Documents rendus explorables" } },
-      { value: { en: "2 years", fr: "2 ans" }, label: { en: "France 2030 project", fr: "Projet France 2030" } },
-      { value: { en: "3 tools", fr: "3 outils" }, label: { en: "Watch, multimodal search, writing assistant", fr: "Veille, recherche multimodale, assistant rédactionnel" } },
+      { value: { en: "€4M", fr: "4 M€" }, label: { en: "France 2030 project, backed by Bpifrance", fr: "Projet France 2030, soutenu par Bpifrance" } },
+      { value: { en: "24 months", fr: "24 mois" }, label: { en: "To deliver three tools to newsrooms", fr: "Pour livrer trois outils aux rédactions" } },
+      { value: { en: "90M", fr: "90M" }, label: { en: "Archive documents made searchable", fr: "Documents d’archives rendus explorables" } },
+      { value: { en: "Open source", fr: "Open source" }, label: { en: "Some components released under an open license", fr: "Une partie des composants en licence libre" } },
     ],
   },
   {
