@@ -1,0 +1,19 @@
+src/components/home/useLoopCarousel.ts
+  s_88aed12fa75e8b::t_72fa5ff22e1d29 13-19,35,72-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "779c2f94182e45ae8077b83929ce47213ee2da63",
+  "prompts": {},
+  "sessions": {
+    "s_88aed12fa75e8b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f492f7ab-f175-4911-a12b-64b9680e1b54",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
