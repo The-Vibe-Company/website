@@ -10,6 +10,13 @@ export const LOOP_ARROW_CLASS =
 /** Copies of the card set rendered in the track; only the middle one is interactive. */
 export const LOOP_COPIES = [0, 1, 2] as const;
 
+/** Width of one copy of the card set, or 0 before the track has laid out. */
+function measureSetWidth(track: HTMLElement, setLen: number) {
+  const cards = track.querySelectorAll<HTMLElement>("[data-card]");
+  if (cards.length < setLen * 2) return 0;
+  return cards[setLen].offsetLeft - cards[0].offsetLeft;
+}
+
 /**
  * A horizontal track scrolled by hand (trackpad or arrows) in an infinite loop
  * that wraps seamlessly in both directions. Nothing auto-scrolls. Render the
@@ -25,11 +32,7 @@ export function useLoopCarousel(setLen: number, gap: number) {
     const track = trackRef.current;
     if (!track) return;
 
-    const setWidth = () => {
-      const cards = track.querySelectorAll<HTMLElement>("[data-card]");
-      if (cards.length < setLen * 2) return 0;
-      return cards[setLen].offsetLeft - cards[0].offsetLeft;
-    };
+    const setWidth = () => measureSetWidth(track, setLen);
 
     // Start in the middle copy so there is room to scroll left immediately.
     const init = () => {
@@ -66,8 +69,22 @@ export function useLoopCarousel(setLen: number, gap: number) {
     const card = track.querySelector<HTMLElement>("[data-card]");
     const amount = card ? card.getBoundingClientRect().width + gap : track.clientWidth;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    track.scrollBy({
-      left: direction * amount,
+    // Wrap *before* animating: if the destination would cross the loop bounds,
+    // jump one set width first so the smooth scroll stays inside them. Wrapping
+    // mid-animation (in onScroll) would cancel it and swallow the click.
+    let target = track.scrollLeft + direction * amount;
+    const w = measureSetWidth(track, setLen);
+    if (w > 0) {
+      if (target > w * 1.5) {
+        track.scrollLeft -= w;
+        target -= w;
+      } else if (target < w * 0.5) {
+        track.scrollLeft += w;
+        target += w;
+      }
+    }
+    track.scrollTo({
+      left: target,
       behavior: reduceMotion ? "auto" : "smooth",
     });
   };
