@@ -25,7 +25,7 @@ function measureSetWidth(track: HTMLElement, setLen: number) {
  * scroll position drifts past a copy it jumps by exactly one set width onto
  * identical content, so the wrap is invisible.
  */
-export function useLoopCarousel(setLen: number, gap: number) {
+export function useLoopCarousel(setLen: number) {
   const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,8 +48,14 @@ export function useLoopCarousel(setLen: number, gap: number) {
       requestAnimationFrame(() => {
         const w = setWidth();
         if (w > 0) {
-          if (track.scrollLeft < w * 0.5) track.scrollLeft += w;
-          else if (track.scrollLeft > w * 1.5) track.scrollLeft -= w;
+          // Wrap a card (plus rounding) beyond the band scrollByCard aims for.
+          // Its pre-animation jump keeps the target inside the band but can
+          // leave the start up to a card outside it; wrapping at the band edge
+          // pulled that start straight back and swallowed the click whenever
+          // card widths were fractional.
+          const margin = w / setLen + 2;
+          if (track.scrollLeft < w * 0.5 - margin) track.scrollLeft += w;
+          else if (track.scrollLeft > w * 1.5 + margin) track.scrollLeft -= w;
         }
         ticking = false;
       });
@@ -66,13 +72,28 @@ export function useLoopCarousel(setLen: number, gap: number) {
   const scrollByCard = (direction: 1 | -1) => {
     const track = trackRef.current;
     if (!track) return;
-    const card = track.querySelector<HTMLElement>("[data-card]");
-    const amount = card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+    // Measured rather than passed in, so it can never drift from the CSS gap,
+    // and to the subpixel: offsetLeft rounds, which crept half a pixel out of
+    // line per click on fractional card widths.
+    const cards = track.querySelectorAll<HTMLElement>("[data-card]");
+    const amount =
+      cards.length > 1
+        ? cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left
+        : track.clientWidth;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // Wrap *before* animating: if the destination would cross the loop bounds,
     // jump one set width first so the smooth scroll stays inside them. Wrapping
     // mid-animation (in onScroll) would cancel it and swallow the click.
-    let target = track.scrollLeft + direction * amount;
+    //
+    // Step from a card position, not from scrollLeft: browsers round scroll
+    // offsets to whole pixels, so adding a fractional step to the rounded
+    // offset crept half a pixel out of line on every click. The card behind
+    // the leading edge is taken in the direction of travel, so a click landing
+    // mid-animation still moves one card further instead of re-targeting the
+    // card already on its way.
+    const position = track.scrollLeft / amount;
+    const from = direction > 0 ? Math.ceil(position - 0.1) : Math.floor(position + 0.1);
+    let target = (from + direction) * amount;
     const w = measureSetWidth(track, setLen);
     if (w > 0) {
       if (target > w * 1.5) {

@@ -5,7 +5,8 @@
     "resources": "Resources",
     "getInTouch": "Get in touch",
     "searchShort": "Search...",
-    "searchLong": "Search resources..."
+    "searchLong": "Search resources...",
+    "bookCall": "Book 30 minutes"
   },
   "accessibility": {
     "skipToContent": "Skip to content",
@@ -48,7 +49,12 @@
         "label": "Advise",
         "desc": "Strategy, training, and the AI playbook for your team."
       }
-    }
+    },
+    "poster": [
+      "We build",
+      "your product,"
+    ],
+    "response": "Reply within 24h"
   },
   "runner": {
     "heading": "Mini game",
@@ -80,7 +86,15 @@
     "readCase": "Read the case",
     "prev": "Previous case",
     "next": "Next case",
-    "seeAll": "See all our case studies"
+    "seeAll": "See all our case studies",
+    "indexTitle": "The work, in numbers",
+    "pause": "Pause the slideshow",
+    "play": "Play the slideshow",
+    "goTo": "Show the {client} case"
+  },
+  "quote": {
+    "text": "Ils ne se contentent pas d’exécuter un brief : ils <em>challengent, structurent, prototypent et construisent</em> avec nous.",
+    "author": "Étienne, CEO of Monka"
   },
   "services": {
     "kicker": "// WHAT WE DO",
@@ -121,7 +135,9 @@
           "Support through the first production workflows"
         ]
       }
-    }
+    },
+    "indexTitle": "What we do",
+    "indexCount": "3 ways"
   },
   "process": {
     "kicker": "// 02 — HOW WE WORK",
@@ -158,7 +174,9 @@
     "barLeft": "OPEN SOURCE · ON GITHUB",
     "browseAll": "Browse all on GitHub",
     "prev": "Previous project",
-    "next": "Next project"
+    "next": "Next project",
+    "indexTitle": "Our products",
+    "indexTag": "Open source"
   },
   "finalCta": {
     "kicker": "NOW BOARDING",

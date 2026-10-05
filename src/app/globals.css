@@ -237,6 +237,15 @@
   outline-color: var(--background);
 }
 
+/* Phone homepage: the booking bar is fixed over the bottom of the screen, so
+   keyboard focus and in-page jumps stop clear of it instead of landing a
+   focused link right underneath it. */
+@media (max-width: 767px) {
+  html:has(#hero-mobile) {
+    scroll-padding-bottom: 88px;
+  }
+}
+
 /* -----------------------------------------------------------------------------
    Custom Utilities
    Only utilities that cannot be replicated with Tailwind classes

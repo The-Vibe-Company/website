@@ -28,7 +28,7 @@ const buildYear = new Date().getUTCFullYear();
 
 function FooterLink({ link }: { link: NavLink }) {
   const className =
-    "inline-flex items-center gap-1.5 text-sm text-background/85 transition-opacity hover:opacity-70";
+    "inline-flex items-center gap-1.5 py-1.5 text-sm text-background/85 transition-opacity hover:opacity-70 md:py-0";
   if (link.external) {
     return (
       <a
@@ -66,9 +66,11 @@ export function Footer() {
 
   return (
     <footer className="border-t-2 border-foreground bg-foreground text-background">
-      <div className="mx-auto max-w-[120rem] px-6 pb-6 pt-16 md:px-12 md:pt-20">
-        <div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-[2fr_1fr_1fr] md:gap-12">
-          <div className="flex flex-col">
+      <div className="mx-auto max-w-[120rem] px-6 pb-6 pt-12 md:px-12 md:pt-20">
+        {/* On a phone the two link lists sit side by side under the wordmark:
+            stacked, the footer alone ran past a full screen. */}
+        <div className="mb-12 grid grid-cols-2 gap-x-6 gap-y-10 md:mb-16 md:grid-cols-[2fr_1fr_1fr] md:gap-12">
+          <div className="col-span-2 flex flex-col md:col-span-1">
             <h2 className="m-0 mb-4 text-5xl font-bold leading-[0.9] tracking-[-0.04em] md:text-[56px]">
               The Vibe Co.
             </h2>
@@ -87,7 +89,7 @@ export function Footer() {
             <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
               {t("siteHeading")}
             </div>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+            <ul className="m-0 flex list-none flex-col gap-0.5 p-0 md:gap-2">
               {siteLinks.map((link) => (
                 <li key={link.href}>
                   <FooterLink link={link} />
@@ -100,7 +102,7 @@ export function Footer() {
             <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
               {t("elsewhereHeading")}
             </div>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+            <ul className="m-0 flex list-none flex-col gap-0.5 p-0 md:gap-2">
               {ELSEWHERE_LINKS.map((link) => (
                 <li key={link.label}>
                   <FooterLink link={link} />

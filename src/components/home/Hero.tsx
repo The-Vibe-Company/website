@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { BOOKING_URL } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import dynamic from "next/dynamic";
 import { useSyncExternalStore } from "react";
@@ -50,9 +51,10 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   const tFooter = useTranslations("footer");
 
   return (
+    // Phones get HeroMobile, a poster layout, in its place.
     <section
       id="hero"
-      className="relative overflow-hidden border-b-2 border-foreground bg-background"
+      className="relative hidden overflow-hidden border-b-2 border-foreground bg-background md:block"
     >
       <div
         aria-hidden="true"
@@ -134,7 +136,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
             delay: reduceMotion ? 0 : 0.2,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="mt-10 grid grid-cols-1 items-center gap-10 md:mt-12 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16"
+          className="mt-10 grid grid-cols-1 items-center gap-10 md:mt-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16"
         >
           <div>
             <p className="m-0 max-w-[620px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
@@ -142,8 +144,8 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
             </p>
           </div>
 
-          <div className="flex flex-col items-start gap-3 md:items-end">
-            <div className="flex flex-wrap items-center gap-x-10 gap-y-6 md:justify-end">
+          <div className="flex flex-col items-start gap-3 lg:items-end">
+            <div className="flex flex-wrap items-center gap-x-10 gap-y-6 lg:justify-end">
               <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
                 <a
                   href="https://www.ycombinator.com/companies/quivr"
@@ -168,7 +170,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
                 />
               </div>
             <a
-              href="https://cal.com/stangirard/30min"
+              href={BOOKING_URL}
               onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
               className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-6 py-4 text-[15px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
             >
@@ -181,7 +183,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           </div>
         </motion.div>
 
-        <div className="mt-4 flex md:justify-end">
+        <div className="mt-4 flex lg:justify-end">
           <a
             href="#services"
             onClick={() => captureEvent("see_what_we_do_clicked")}

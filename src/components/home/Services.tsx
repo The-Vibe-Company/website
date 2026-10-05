@@ -14,9 +14,34 @@ export function Services() {
   return (
     <section
       id="services"
-      className="mx-auto max-w-[100rem] scroll-mt-24 px-6 pb-24 pt-12 md:px-12 md:pb-28 md:pt-14"
+      className="mx-auto max-w-[100rem] scroll-mt-24 px-6 pb-2 pt-14 md:px-12 md:pb-28 md:pt-14"
     >
-      <div className="mb-12 border-b border-border pb-8 md:mb-16">
+      {/* Phones: a compact ruled header and numbered rows, pitch only. The
+          bullet lists stay on the wider cards. */}
+      <div className="flex items-baseline justify-between border-b-2 border-foreground pb-3.5 md:hidden">
+        <h2 className="m-0 text-[15px] font-bold tracking-[-0.01em] text-foreground">{t("indexTitle")}</h2>
+        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{t("indexCount")}</span>
+      </div>
+      <ol className="m-0 list-none p-0 md:hidden">
+        {SERVICES.map((service) => (
+          <li key={service.n} className="grid grid-cols-[64px_minmax(0,1fr)] gap-x-3.5 border-b border-border py-6 last:border-b-0">
+            <span
+              aria-hidden="true"
+              className="text-[56px] font-extrabold leading-[0.8] tracking-[-0.06em] text-transparent [-webkit-text-stroke:1.5px_var(--foreground)]"
+            >
+              {service.n}
+            </span>
+            <div>
+              <h3 className="m-0 text-2xl font-bold leading-[1.05] tracking-[-0.035em] text-foreground">
+                {t(`items.${service.key}.title`)}
+              </h3>
+              <p className="m-0 mt-2 text-[15px] leading-normal text-muted-foreground">{t(`items.${service.key}.desc`)}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div className="mb-12 hidden border-b border-border pb-8 md:mb-16 md:block">
         <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
           {t("kicker")}
         </span>
@@ -34,7 +59,7 @@ export function Services() {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="hidden grid-cols-1 gap-6 md:grid md:grid-cols-3">
         {SERVICES.map((service) => (
           // No fade-in: while a card faded in, the browser painted its text on a
           // separate, lighter layer, which flashed pale boxes behind each line.
