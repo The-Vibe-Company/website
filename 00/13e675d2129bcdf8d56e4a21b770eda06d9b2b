@@ -1,0 +1,21 @@
+src/app/globals.css
+  s_79c8771600065e::t_62b19451f5f3eb 240-248
+DESIGN.md
+  s_79c8771600065e::t_62b19451f5f3eb 391
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0013e675d2129bcdf8d56e4a21b770eda06d9b2b",
+  "prompts": {},
+  "sessions": {
+    "s_79c8771600065e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8a8faab1-5224-4de3-ba65-1886d77e246f",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
