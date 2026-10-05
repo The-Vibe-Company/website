@@ -391,7 +391,11 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           <motion.div
             ref={menuDialogRef}
             id="mobile-navigation-dialog"
-            className="fixed inset-0 z-[70] bg-background flex flex-col items-center justify-center gap-8"
+            // Safe centring plus its own scroll: on a landscape phone the
+            // stack is taller than the screen, and plain centring pushed the
+            // first link under the bar and the language switcher (the only
+            // one below lg) out of reach. py-20 keeps clear of the wordmark.
+            className="fixed inset-0 z-[70] flex flex-col items-center justify-center-safe gap-8 overflow-y-auto bg-background py-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
