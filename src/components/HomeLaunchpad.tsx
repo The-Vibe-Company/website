@@ -32,9 +32,11 @@ export function HomeLaunchpad({ locale }: { locale: ContentLocale }) {
         <Services />
         <Proof />
         <FinalCTA />
+        {/* Inside main, so the mobile menu makes it inert with the rest of
+            the page while it is open. */}
+        <MobileBookingBar />
       </main>
       <Footer />
-      <MobileBookingBar />
     </div>
   );
 }

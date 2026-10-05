@@ -48,9 +48,19 @@ export function FitText({
 
     fit(true);
     document.fonts?.ready.then(() => fit(true));
-    const observer = new ResizeObserver(() => fit());
+    // Measured on the next frame rather than inside the callback: resizing the
+    // type there changes the observed box again mid-delivery, which the
+    // browser reports as a ResizeObserver loop error.
+    let frame = 0;
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => fit());
+    });
     observer.observe(box);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
   }, [children, max]);
 
   const estimate = `calc(100cqw / ${(children.length * EM_PER_CHAR).toFixed(2)})`;

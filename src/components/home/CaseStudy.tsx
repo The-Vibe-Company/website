@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
@@ -71,10 +70,20 @@ const MONO = "font-mono text-[11px] uppercase tracking-[0.18em]";
 /** How long each case stays on screen before the phone carousel moves on. */
 const AUTOPLAY_MS = 4500;
 
-/** Distance between two cards of a track, gap included. */
+/** Distance between two cards of a track, gap included, to the subpixel. */
 function stepOf(track: HTMLElement) {
   const [first, second] = Array.from(track.children) as HTMLElement[];
-  return first && second ? second.offsetLeft - first.offsetLeft : track.clientWidth;
+  return first && second
+    ? second.getBoundingClientRect().left - first.getBoundingClientRect().left
+    : track.clientWidth;
+}
+
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
+function subscribeReducedMotion(onChange: () => void): () => void {
+  const query = window.matchMedia(REDUCED_MOTION);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
 }
 
 /** One case as a card of the phone carousel. */
@@ -122,7 +131,15 @@ function CaseSlide({ c, t }: { c: Customer; t: T }) {
 function CaseCarousel({ customers }: { customers: Customer[] }) {
   const t = useTranslations("caseStudy");
   const count = customers.length;
-  const reduceMotion = useReducedMotion() ?? false;
+  // Read through a store whose server value is false, so the first client
+  // render matches the server HTML; the real setting lands right after
+  // hydration. framer's hook answers on the very first client render, which
+  // made the markup differ and broke hydration for reduced-motion visitors.
+  const reduceMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    () => window.matchMedia(REDUCED_MOTION).matches,
+    () => false
+  );
   const [paused, setPaused] = useState(false);
   const [active, setActive] = useState(0);
   const trackRef = useRef<HTMLOListElement>(null);
@@ -160,10 +177,43 @@ function CaseCarousel({ customers }: { customers: Customer[] }) {
 
     let inView = false;
     let held = false;
-    let last = performance.now();
+    let last = 0;
     let frame = 0;
-    const observer = new IntersectionObserver(([entry]) => (inView = entry.isIntersecting), { threshold: 0.6 });
+
+    // The loop only runs while the row is on screen and the tab is visible:
+    // hidden on desktop or scrolled away, it costs nothing.
+    const tick = (now: number) => {
+      // A frame after a long gap (tab switched, phone locked) must not count
+      // that gap as time on screen, or the row would jump on return.
+      const dt = Math.min(now - last, 100);
+      last = now;
+      if (!inView || document.visibilityState !== "visible") {
+        frame = 0;
+        return;
+      }
+      if (!held) elapsedRef.current += dt;
+      if (fillRef.current) fillRef.current.style.transform = `scaleX(${Math.min(1, elapsedRef.current / AUTOPLAY_MS)})`;
+      if (elapsedRef.current >= AUTOPLAY_MS) {
+        elapsedRef.current = 0;
+        goTo((activeRef.current + 1) % count);
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    const start = () => {
+      if (frame || !inView || document.visibilityState !== "visible") return;
+      last = performance.now();
+      frame = requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        start();
+      },
+      { threshold: 0.6 }
+    );
     observer.observe(track);
+    document.addEventListener("visibilitychange", start);
     // Touch events rather than pointer events: a pointer is cancelled as soon
     // as the browser takes the gesture over to scroll, a touch is not.
     const hold = () => (held = true);
@@ -177,22 +227,10 @@ function CaseCarousel({ customers }: { customers: Customer[] }) {
     ] as const;
     events.forEach(([name, fn]) => track.addEventListener(name, fn, { passive: true }));
 
-    const tick = (now: number) => {
-      const dt = now - last;
-      last = now;
-      if (inView && !held && document.visibilityState === "visible") elapsedRef.current += dt;
-      if (fillRef.current) fillRef.current.style.transform = `scaleX(${Math.min(1, elapsedRef.current / AUTOPLAY_MS)})`;
-      if (elapsedRef.current >= AUTOPLAY_MS) {
-        elapsedRef.current = 0;
-        goTo((activeRef.current + 1) % count);
-      }
-      frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
+      document.removeEventListener("visibilitychange", start);
       events.forEach(([name, fn]) => track.removeEventListener(name, fn));
     };
   }, [autoplay, count, goTo]);
@@ -204,20 +242,20 @@ function CaseCarousel({ customers }: { customers: Customer[] }) {
       </h2>
 
       <div className="mx-6 mt-2 flex items-center gap-2">
-        {!reduceMotion && (
-          <button
-            type="button"
-            onClick={() => setPaused((p) => !p)}
-            aria-label={paused ? t("play") : t("pause")}
-            className="-ml-3 grid h-11 w-11 shrink-0 place-items-center text-foreground"
-          >
-            {paused ? (
-              <Play size={14} fill="currentColor" aria-hidden="true" />
-            ) : (
-              <Pause size={14} fill="currentColor" aria-hidden="true" />
-            )}
-          </button>
-        )}
+        {/* Always rendered, hidden by CSS under reduced motion, so the
+            server and client markup never differ. */}
+        <button
+          type="button"
+          onClick={() => setPaused((p) => !p)}
+          aria-label={paused ? t("play") : t("pause")}
+          className="-ml-3 grid h-11 w-11 shrink-0 place-items-center text-foreground motion-reduce:hidden"
+        >
+          {paused ? (
+            <Play size={14} fill="currentColor" aria-hidden="true" />
+          ) : (
+            <Pause size={14} fill="currentColor" aria-hidden="true" />
+          )}
+        </button>
         <div className="flex flex-1 gap-1.5">
           {customers.map((c, i) => (
             <button

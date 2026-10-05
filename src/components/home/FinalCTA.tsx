@@ -27,7 +27,7 @@ export function FinalCTA({ rail = "wide" }: { rail?: "wide" | "narrow" }) {
         <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-background/60">{`// ${t("kicker")}`}</span>
         {/* Looser than the hero's poster: this pair carries accents ("à",
             "è") that would otherwise cut into the line above. */}
-        <h2 className="m-0 mt-5 font-extrabold leading-[0.92] tracking-[-0.065em] [container-type:inline-size]">
+        <h2 className="m-0 mt-5 font-extrabold leading-[0.92] tracking-[-1px] [container-type:inline-size]">
           <FitText>{t("titleLine1")}</FitText>
           <FitText className="text-transparent [-webkit-text-stroke:2px_var(--background)]">{t("titleLine2")}</FitText>
         </h2>

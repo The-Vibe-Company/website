@@ -37,7 +37,10 @@ export function HeroMobile() {
         </span>
       </div>
 
-      <h1 className="m-0 mt-7 font-extrabold leading-[0.84] tracking-[-0.065em] text-foreground [container-type:inline-size]">
+      {/* Tracking in px, not em: an em value here would resolve against the
+          heading's own 16px, not the fitted lines, and that -1px is the
+          approved look. */}
+      <h1 className="m-0 mt-7 font-extrabold leading-[0.84] tracking-[-1px] text-foreground [container-type:inline-size]">
         <FitText>{poster[0]}</FitText>
         {/* The second line is drawn in outline, so the pair reads as one
             poster rather than two stacked headlines. */}
