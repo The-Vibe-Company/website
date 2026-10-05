@@ -146,6 +146,9 @@ function CaseCarousel({ customers }: { customers: Customer[] }) {
   const fillRef = useRef<HTMLSpanElement>(null);
   const activeRef = useRef(0);
   const elapsedRef = useRef(0);
+  // Set from the moment a case's time is up until the next card takes over,
+  // so the finished segment stays full instead of blinking empty mid-scroll.
+  const advancingRef = useRef(0);
   const autoplay = !paused && !reduceMotion;
 
   const goTo = useCallback(
@@ -165,6 +168,7 @@ function CaseCarousel({ customers }: { customers: Customer[] }) {
       if (index === activeRef.current) return;
       activeRef.current = index;
       elapsedRef.current = 0;
+      advancingRef.current = 0;
       setActive(index);
     };
     track.addEventListener("scroll", onScroll, { passive: true });
@@ -191,10 +195,18 @@ function CaseCarousel({ customers }: { customers: Customer[] }) {
         frame = 0;
         return;
       }
-      if (!held) elapsedRef.current += dt;
-      if (fillRef.current) fillRef.current.style.transform = `scaleX(${Math.min(1, elapsedRef.current / AUTOPLAY_MS)})`;
-      if (elapsedRef.current >= AUTOPLAY_MS) {
+      // Safety net: if the move never lands (scroll interrupted), start over.
+      if (advancingRef.current && now - advancingRef.current > 1500) {
+        advancingRef.current = 0;
         elapsedRef.current = 0;
+      }
+      if (!held && !advancingRef.current) elapsedRef.current += dt;
+      if (fillRef.current) fillRef.current.style.transform = `scaleX(${Math.min(1, elapsedRef.current / AUTOPLAY_MS)})`;
+      if (!advancingRef.current && elapsedRef.current >= AUTOPLAY_MS) {
+        // The timer is reset by the scroll handler once the next card is
+        // active; until then the finished segment holds full.
+        elapsedRef.current = AUTOPLAY_MS;
+        advancingRef.current = now;
         goTo((activeRef.current + 1) % count);
       }
       frame = requestAnimationFrame(tick);
@@ -216,7 +228,14 @@ function CaseCarousel({ customers }: { customers: Customer[] }) {
     document.addEventListener("visibilitychange", start);
     // Touch events rather than pointer events: a pointer is cancelled as soon
     // as the browser takes the gesture over to scroll, a touch is not.
-    const hold = () => (held = true);
+    const hold = () => {
+      held = true;
+      // A finger stopping the automatic move cancels it.
+      if (advancingRef.current) {
+        advancingRef.current = 0;
+        elapsedRef.current = 0;
+      }
+    };
     const release = () => (held = false);
     const events = [
       ["touchstart", hold],
@@ -266,7 +285,10 @@ function CaseCarousel({ customers }: { customers: Customer[] }) {
               aria-current={i === active || undefined}
               className="relative h-11 flex-1"
             >
-              <span className="absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 overflow-hidden bg-border">
+              {/* Unfilled segments in 45% ink, about 3.1:1 on paper: they are
+                  buttons, so they need the 3:1 of a UI component, which the
+                  warm border gray (1.4:1) did not reach. */}
+              <span className="absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 overflow-hidden bg-foreground/45">
                 {/* Cases already seen are full, the current one fills over
                     its time on screen. Keyed on the active index so every
                     segment starts clean when the carousel moves, wrap included. */}
