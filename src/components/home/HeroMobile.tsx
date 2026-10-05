@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { BOOKING_URL } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
@@ -32,9 +33,7 @@ export function HeroMobile() {
           </span>
           {tFooter("openToProjects")}
         </span>
-        <span>
-          <span className="max-[359px]:hidden">Paris · </span>YC W24
-        </span>
+        <span>Paris</span>
       </div>
 
       {/* Tracking in px, not em: an em value here would resolve against the
@@ -61,17 +60,35 @@ export function HeroMobile() {
         {t("subtitle")}
       </p>
 
-      <a
-        href={BOOKING_URL}
-        onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
-        className="mt-6 flex items-center justify-between bg-foreground px-[22px] py-5 text-[17px] font-semibold text-background"
-      >
-        {t("bookCall")}
-        <span aria-hidden="true" className="text-[22px] leading-none">
-          →
-        </span>
-      </a>
-      <p className={`m-0 mt-3 text-muted-foreground ${MONO}`}>{t("response")}</p>
+      {/* The same compact slab as on desktop: a full-width bar read as a
+          shove on a phone. */}
+      <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+        <a
+          href={BOOKING_URL}
+          onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
+          className="inline-flex items-center gap-3 bg-foreground px-6 py-4 text-[15px] font-semibold text-background"
+        >
+          {t("bookCall")}
+          <span aria-hidden="true" className="text-lg leading-none">
+            →
+          </span>
+        </a>
+        <span className={`text-muted-foreground ${MONO}`}>{t("response")}</span>
+      </div>
+
+      {/* The backers, as on desktop. */}
+      <div className="mt-8 flex items-center gap-6">
+        <a
+          href="https://www.ycombinator.com/companies/quivr"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex"
+        >
+          <Image src="/images/partners/y-combinator.svg" alt="Y Combinator W24" width={154} height={38} className="h-9 w-auto" />
+        </a>
+        <span aria-hidden="true" className="h-8 w-px bg-border" />
+        <Image src="/images/partners/france-2030.svg" alt="France 2030" width={52} height={52} className="h-11 w-auto" />
+      </div>
 
       {/* A fixed gap, not pinned to the foot of the screen: pinned, it opened
           a hole of several hundred pixels on any phone taller than the
