@@ -34,10 +34,10 @@ export function FinalCTA({ rail = "wide" }: { rail?: "wide" | "narrow" }) {
         <a
           href={BOOKING_URL}
           onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
-          className="mt-9 flex items-center justify-between bg-background px-[22px] py-5 text-[17px] font-semibold text-foreground"
+          className="mt-9 inline-flex items-center gap-3 bg-background px-6 py-4 text-[15px] font-semibold text-foreground"
         >
           {t("bookCall")}
-          <span aria-hidden="true" className="text-[22px] leading-none">
+          <span aria-hidden="true" className="text-lg leading-none">
             →
           </span>
         </a>

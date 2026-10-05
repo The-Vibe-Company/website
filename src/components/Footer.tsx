@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
@@ -38,9 +39,9 @@ function FooterLink({ link }: { link: NavLink }) {
         className={className}
       >
         {link.label}
-        <span aria-hidden="true" className="text-background/50">
-          ↗
-        </span>
+        {/* A drawn icon rather than the ↗ glyph, which rendered thin, pale
+            and off the baseline. */}
+        <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" className="text-background/50" />
       </a>
     );
   }
