@@ -25,7 +25,7 @@ function measureSetWidth(track: HTMLElement, setLen: number) {
  * scroll position drifts past a copy it jumps by exactly one set width onto
  * identical content, so the wrap is invisible.
  */
-export function useLoopCarousel(setLen: number, gap: number) {
+export function useLoopCarousel(setLen: number) {
   const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,8 +48,14 @@ export function useLoopCarousel(setLen: number, gap: number) {
       requestAnimationFrame(() => {
         const w = setWidth();
         if (w > 0) {
-          if (track.scrollLeft < w * 0.5) track.scrollLeft += w;
-          else if (track.scrollLeft > w * 1.5) track.scrollLeft -= w;
+          // Wrap a card (plus rounding) beyond the band scrollByCard aims for.
+          // Its pre-animation jump keeps the target inside the band but can
+          // leave the start up to a card outside it; wrapping at the band edge
+          // pulled that start straight back and swallowed the click whenever
+          // card widths were fractional.
+          const margin = w / setLen + 2;
+          if (track.scrollLeft < w * 0.5 - margin) track.scrollLeft += w;
+          else if (track.scrollLeft > w * 1.5 + margin) track.scrollLeft -= w;
         }
         ticking = false;
       });
@@ -66,8 +72,9 @@ export function useLoopCarousel(setLen: number, gap: number) {
   const scrollByCard = (direction: 1 | -1) => {
     const track = trackRef.current;
     if (!track) return;
-    const card = track.querySelector<HTMLElement>("[data-card]");
-    const amount = card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+    // Measured rather than passed in, so it can never drift from the CSS gap.
+    const cards = track.querySelectorAll<HTMLElement>("[data-card]");
+    const amount = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // Wrap *before* animating: if the destination would cross the loop bounds,
     // jump one set width first so the smooth scroll stays inside them. Wrapping

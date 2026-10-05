@@ -5,7 +5,8 @@
     "resources": "Ressources",
     "getInTouch": "Nous contacter",
     "searchShort": "Rechercher…",
-    "searchLong": "Chercher dans les ressources…"
+    "searchLong": "Chercher dans les ressources…",
+    "bookCall": "Prendre 30 minutes"
   },
   "accessibility": {
     "skipToContent": "Aller au contenu",
@@ -48,7 +49,12 @@
         "label": "Conseiller",
         "desc": "Stratégie, formation, et la marche à suivre pour mettre l'IA au service de votre équipe."
       }
-    }
+    },
+    "poster": [
+      "Agence",
+      "IA-First."
+    ],
+    "response": "Réponse sous 24h"
   },
   "runner": {
     "heading": "Mini-jeu",
@@ -80,7 +86,15 @@
     "readCase": "Lire le cas",
     "prev": "Cas précédent",
     "next": "Cas suivant",
-    "seeAll": "Voir tous les cas clients"
+    "seeAll": "Voir tous les cas clients",
+    "indexTitle": "Les cas, en chiffres",
+    "pause": "Mettre le défilement en pause",
+    "play": "Relancer le défilement",
+    "goTo": "Voir le cas {client}"
+  },
+  "quote": {
+    "text": "Ils ne se contentent pas d’exécuter un brief : ils <em>challengent, structurent, prototypent et construisent</em> avec nous.",
+    "author": "Étienne, CEO de Monka"
   },
   "services": {
     "kicker": "// CE QU'ON FAIT",
@@ -121,7 +135,9 @@
           "Accompagnement jusqu’aux premiers usages en production"
         ]
       }
-    }
+    },
+    "indexTitle": "Ce qu’on fait",
+    "indexCount": "3 façons"
   },
   "process": {
     "kicker": "// 02 — COMMENT ON TRAVAILLE",
@@ -158,7 +174,9 @@
     "barLeft": "OPEN SOURCE · SUR GITHUB",
     "browseAll": "Tout voir sur GitHub",
     "prev": "Projet précédent",
-    "next": "Projet suivant"
+    "next": "Projet suivant",
+    "indexTitle": "Nos produits",
+    "indexTag": "Open source"
   },
   "finalCta": {
     "kicker": "EMBARQUEMENT",

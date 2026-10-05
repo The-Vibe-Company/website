@@ -16,15 +16,42 @@ export function Proof() {
   const locale = useLocale() as ContentLocale;
   const t = useTranslations("proof");
   const projects = getProjects(locale);
-  const { trackRef, scrollByCard } = useLoopCarousel(projects.length, 20);
+  const { trackRef, scrollByCard } = useLoopCarousel(projects.length);
 
   return (
     <section
       id="proof"
       className="border-b border-border bg-background"
     >
-      <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
-        <div className="mb-12 md:mb-14">
+      <div className="mx-auto max-w-[100rem] px-6 pb-12 pt-14 md:px-12 md:py-28">
+        {/* Phones: one ruled row per product instead of a carousel, so all
+            six are in view without a swipe. */}
+        <div className="flex items-baseline justify-between border-b-2 border-foreground pb-3.5 md:hidden">
+          <h2 className="m-0 text-[15px] font-bold tracking-[-0.01em] text-foreground">{t("indexTitle")}</h2>
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{t("indexTag")}</span>
+        </div>
+        <ul className="m-0 list-none p-0 md:hidden">
+          {projects.map((p) => (
+            <li key={p.slug} className="border-b border-border last:border-b-0">
+              <Link
+                href={`/portfolio/${p.slug}`}
+                className="grid min-h-[68px] grid-cols-[36px_minmax(0,1fr)_auto] items-center gap-3.5 py-4 no-underline"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.logo} alt="" aria-hidden="true" className="h-9 w-9 rounded-md object-contain" loading="lazy" decoding="async" />
+                <span className="min-w-0">
+                  <span className="block font-mono text-[17px] font-bold tracking-[-0.02em] text-foreground">{p.name}</span>
+                  <span className="mt-0.5 block text-[13px] text-muted-foreground">{p.tag}</span>
+                </span>
+                <span aria-hidden="true" className="text-lg text-foreground">
+                  →
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mb-12 hidden md:mb-14 md:block">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
             {t("kicker")}
           </span>
@@ -52,13 +79,13 @@ export function Proof() {
           </p>
         </div>
 
-        <div className="mb-5 border-b border-border pb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+        <div className="mb-5 hidden border-b border-border pb-3 md:block font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
           <span className="font-semibold text-foreground">
             {t("barLeft")}
           </span>
         </div>
 
-        <div className="flex items-stretch gap-3 md:gap-4">
+        <div className="hidden items-stretch gap-3 md:flex md:gap-4">
           <button
             type="button"
             onClick={() => scrollByCard(-1)}
@@ -134,12 +161,12 @@ export function Proof() {
           </button>
         </div>
 
-        <div className="mt-10 flex justify-start">
+        <div className="mt-4 flex justify-start md:mt-10">
           <a
             href={ORG_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground transition-opacity hover:opacity-70"
+            className="inline-flex min-h-11 items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground transition-opacity hover:opacity-70"
           >
             <span className="underline decoration-1 underline-offset-4">{t("browseAll")}</span>
             <span aria-hidden="true" className="text-lg">

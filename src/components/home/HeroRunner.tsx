@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { Volume2, VolumeX } from "lucide-react";
+import { BOOKING_URL } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { RunnerAudio } from "@/lib/runner-audio";
 import type { RunnerItem } from "@/lib/runner-worlds";
@@ -98,10 +99,6 @@ export function recordOutcomeFor(score: number, previousBest: number): RecordOut
   if (score <= previousBest) return "none";
   return previousBest > 0 ? "beaten" : "first";
 }
-
-/** Where the free audit sends people: the same 30-minute call as the hero and
- *  the final CTA, so the prize is a real booking, not a special page. */
-const BOOKING_URL = "https://cal.com/stangirard/30min";
 
 // --- best score, kept in localStorage and read through an external store ------
 // A plain effect + setState would flag as a cascading render, and a lazy

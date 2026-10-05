@@ -14,6 +14,7 @@ import {
   cn,
   createTransition,
 } from "@/lib/design-system";
+import { BOOKING_URL } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { resourcesTheme } from "@/lib/resources-theme";
 
@@ -390,7 +391,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
           <motion.div
             ref={menuDialogRef}
             id="mobile-navigation-dialog"
-            className="fixed inset-0 z-[70] bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 z-[70] bg-background flex flex-col items-center justify-center gap-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -399,6 +400,19 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             aria-modal="true"
             aria-label={tA11y("mobileNavigation")}
           >
+            {/* Same wordmark, same spot as the bar it covers, so opening the
+                menu does not make the brand vanish. */}
+            <Link
+              href="/"
+              onClick={closeMobileMenu}
+              className={cn(
+                typography.label.mono,
+                "absolute left-6 top-4 inline-flex h-10 items-center gap-2 text-foreground"
+              )}
+            >
+              <Image src="/favicon.svg" alt="" aria-hidden="true" width={20} height={20} className="h-5 w-5" />
+              <span>THE VIBE CO.</span>
+            </Link>
             <button
               ref={menuCloseRef}
               className="absolute top-4 right-6 p-2"
@@ -448,20 +462,37 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                 </Link>
               </motion.div>
             ))}
-            <motion.a
-              href="mailto:founders@thevibecompany.co"
-              className={cn(components.button.primary, "mt-4 rounded-none")}
+            <motion.div
+              className="mt-4 flex flex-col items-center gap-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={createTransition(0.6, 0.2)}
-              onClick={() => {
-                captureEvent("get_in_touch_clicked", { location: "mobile_menu" });
-                closeMobileMenu();
-              }}
+              transition={createTransition(0.6, 0.3)}
             >
-              {t("getInTouch")}
-            </motion.a>
-            <LanguageSwitcher className="mt-2 text-sm" />
+              <a
+                href={BOOKING_URL}
+                onClick={() => {
+                  captureEvent("discovery_call_clicked", { location: "mobile_menu" });
+                  closeMobileMenu();
+                }}
+                className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-7 py-4 text-[15px] font-semibold text-background"
+              >
+                {t("bookCall")}
+                <span aria-hidden="true" className="text-lg">
+                  →
+                </span>
+              </a>
+              <a
+                href="mailto:founders@thevibecompany.co"
+                onClick={() => {
+                  captureEvent("get_in_touch_clicked", { location: "mobile_menu" });
+                  closeMobileMenu();
+                }}
+                className="inline-flex min-h-11 items-center text-sm text-muted-foreground underline decoration-1 underline-offset-4 hover:text-foreground"
+              >
+                {t("getInTouch")}
+              </a>
+            </motion.div>
+            <LanguageSwitcher className="text-sm" />
           </motion.div>
         )}
       </AnimatePresence>

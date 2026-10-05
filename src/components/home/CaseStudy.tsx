@@ -1,7 +1,9 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { getCustomers, type ContentLocale, type Customer } from "@/lib/customers";
 import { LOOP_ARROW_CLASS, LOOP_COPIES, useLoopCarousel } from "./useLoopCarousel";
@@ -64,6 +66,209 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
   );
 }
 
+const MONO = "font-mono text-[11px] uppercase tracking-[0.18em]";
+
+/** How long each case stays on screen before the phone carousel moves on. */
+const AUTOPLAY_MS = 4500;
+
+/** Distance between two cards of a track, gap included. */
+function stepOf(track: HTMLElement) {
+  const [first, second] = Array.from(track.children) as HTMLElement[];
+  return first && second ? second.offsetLeft - first.offsetLeft : track.clientWidth;
+}
+
+/** One case as a card of the phone carousel. */
+function CaseSlide({ c, t }: { c: Customer; t: T }) {
+  return (
+    <Link
+      href={`/case-studies/${c.slug}?from=home`}
+      className="group flex h-full flex-col border-2 border-foreground bg-background p-5 no-underline"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={c.logo} alt={c.client} className="h-[26px] w-auto self-start object-contain" loading="lazy" decoding="async" />
+      {/* Two lines reserved whatever the sector's length, so every card's
+          number sits at the same height as you swipe. */}
+      <span className={`mt-5 line-clamp-2 min-h-[3em] text-muted-foreground ${MONO}`}>{c.sector}</span>
+      {/* One size for every card's number, sized off the card's width so the
+          longest word ("questions") still fits a 320px phone; a long figure
+          wraps, balanced, rather than shrinking on its own. */}
+      <div className="mt-3 [container-type:inline-size]">
+        <p className="m-0 text-balance text-[length:min(60px,21cqw)] font-extrabold leading-[0.9] tracking-[-0.06em] text-foreground">
+          {c.metric}
+        </p>
+      </div>
+      <p className="m-0 mt-3 text-[15px] leading-[1.45] text-muted-foreground">{c.metricLabel}</p>
+      <span className="mt-auto flex items-center justify-between pt-6 font-mono text-xs uppercase tracking-[0.16em] text-foreground">
+        {t("readCase")}
+        <span
+          aria-hidden="true"
+          className="grid h-11 w-11 place-items-center border-2 border-foreground text-lg transition-colors group-active:bg-foreground group-active:text-background"
+        >
+          →
+        </span>
+      </span>
+    </Link>
+  );
+}
+
+/**
+ * Phones get the cases as stories: one card per screen width, moving on by
+ * itself every few seconds while a segmented bar above fills up, one segment
+ * per case. The movement is what shows the row can be swiped; the bar shows
+ * how many cases there are and how long until the next one, and each segment
+ * jumps to its case. A touch on the cards holds the timer, and it only runs
+ * while the row is on screen, the tab is visible, and motion is welcome.
+ */
+function CaseCarousel({ customers }: { customers: Customer[] }) {
+  const t = useTranslations("caseStudy");
+  const count = customers.length;
+  const reduceMotion = useReducedMotion() ?? false;
+  const [paused, setPaused] = useState(false);
+  const [active, setActive] = useState(0);
+  const trackRef = useRef<HTMLOListElement>(null);
+  const fillRef = useRef<HTMLSpanElement>(null);
+  const activeRef = useRef(0);
+  const elapsedRef = useRef(0);
+  const autoplay = !paused && !reduceMotion;
+
+  const goTo = useCallback(
+    (index: number) => {
+      const track = trackRef.current;
+      if (track) track.scrollTo({ left: index * stepOf(track), behavior: reduceMotion ? "auto" : "smooth" });
+    },
+    [reduceMotion]
+  );
+
+  // The card at the left edge is the active one, however it got there.
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const onScroll = () => {
+      const index = Math.min(count - 1, Math.max(0, Math.round(track.scrollLeft / stepOf(track))));
+      if (index === activeRef.current) return;
+      activeRef.current = index;
+      elapsedRef.current = 0;
+      setActive(index);
+    };
+    track.addEventListener("scroll", onScroll, { passive: true });
+    return () => track.removeEventListener("scroll", onScroll);
+  }, [count]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || !autoplay) return;
+
+    let inView = false;
+    let held = false;
+    let last = performance.now();
+    let frame = 0;
+    const observer = new IntersectionObserver(([entry]) => (inView = entry.isIntersecting), { threshold: 0.6 });
+    observer.observe(track);
+    // Touch events rather than pointer events: a pointer is cancelled as soon
+    // as the browser takes the gesture over to scroll, a touch is not.
+    const hold = () => (held = true);
+    const release = () => (held = false);
+    const events = [
+      ["touchstart", hold],
+      ["touchend", release],
+      ["touchcancel", release],
+      ["focusin", hold],
+      ["focusout", release],
+    ] as const;
+    events.forEach(([name, fn]) => track.addEventListener(name, fn, { passive: true }));
+
+    const tick = (now: number) => {
+      const dt = now - last;
+      last = now;
+      if (inView && !held && document.visibilityState === "visible") elapsedRef.current += dt;
+      if (fillRef.current) fillRef.current.style.transform = `scaleX(${Math.min(1, elapsedRef.current / AUTOPLAY_MS)})`;
+      if (elapsedRef.current >= AUTOPLAY_MS) {
+        elapsedRef.current = 0;
+        goTo((activeRef.current + 1) % count);
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      events.forEach(([name, fn]) => track.removeEventListener(name, fn));
+    };
+  }, [autoplay, count, goTo]);
+
+  return (
+    <div className="pb-2 pt-14 md:hidden">
+      <h2 className="m-0 mx-6 border-b-2 border-foreground pb-3.5 text-[15px] font-bold tracking-[-0.01em] text-foreground">
+        {t("indexTitle")}
+      </h2>
+
+      <div className="mx-6 mt-2 flex items-center gap-2">
+        {!reduceMotion && (
+          <button
+            type="button"
+            onClick={() => setPaused((p) => !p)}
+            aria-label={paused ? t("play") : t("pause")}
+            className="-ml-3 grid h-11 w-11 shrink-0 place-items-center text-foreground"
+          >
+            {paused ? (
+              <Play size={14} fill="currentColor" aria-hidden="true" />
+            ) : (
+              <Pause size={14} fill="currentColor" aria-hidden="true" />
+            )}
+          </button>
+        )}
+        <div className="flex flex-1 gap-1.5">
+          {customers.map((c, i) => (
+            <button
+              key={c.slug}
+              type="button"
+              onClick={() => goTo(i)}
+              aria-label={t("goTo", { client: c.client })}
+              aria-current={i === active || undefined}
+              className="relative h-11 flex-1"
+            >
+              <span className="absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 overflow-hidden bg-border">
+                {/* Cases already seen are full, the current one fills over
+                    its time on screen. Keyed on the active index so every
+                    segment starts clean when the carousel moves, wrap included. */}
+                <span
+                  key={active}
+                  ref={i === active ? fillRef : undefined}
+                  className="absolute inset-0 origin-left bg-foreground"
+                  style={{ transform: `scaleX(${i < active || (i === active && !autoplay) ? 1 : 0})` }}
+                />
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* The track runs edge to edge, and the gap between cards equals the
+          page gutter, so at rest exactly one card is on screen. */}
+      <ol
+        ref={trackRef}
+        className="m-0 mt-1 flex list-none snap-x snap-mandatory scroll-px-6 gap-6 overflow-x-auto px-6 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {customers.map((c) => (
+          <li key={c.slug} className="w-full shrink-0 snap-start">
+            <CaseSlide c={c} t={t as T} />
+          </li>
+        ))}
+      </ol>
+      <Link
+        href="/case-studies"
+        className="mx-6 mt-2 flex min-h-14 items-center justify-between font-mono text-xs uppercase tracking-[0.16em] text-orange-500 no-underline"
+      >
+        {t("seeAll")}
+        <span aria-hidden="true" className="text-base">
+          →
+        </span>
+      </Link>
+    </div>
+  );
+}
+
 function SectionHeader({ t }: { t: T }) {
   return (
     <div className="mb-12 md:mb-14">
@@ -92,11 +297,13 @@ export function CaseStudy() {
   const t = useTranslations("caseStudy") as T;
   const locale = useLocale() as ContentLocale;
   const customers = getCustomers(locale);
-  const { trackRef, scrollByCard } = useLoopCarousel(customers.length, 20);
+  const { trackRef, scrollByCard } = useLoopCarousel(customers.length);
 
   return (
     <section id="cases" className="border-b border-border bg-background">
-      <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
+      <CaseCarousel customers={customers} />
+
+      <div className="mx-auto hidden max-w-[100rem] px-6 py-24 md:block md:px-12 md:py-28">
         <SectionHeader t={t} />
 
         <div className="flex items-stretch gap-3 md:gap-4">

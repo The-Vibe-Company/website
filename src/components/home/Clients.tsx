@@ -13,7 +13,7 @@ interface Client {
   className: string;
 }
 
-const CLIENTS: Client[] = [
+export const CLIENTS: Client[] = [
   { name: "Agence France-Presse", src: "/images/clients/afp.svg", url: "https://www.afp.com", className: "h-8 md:h-9" },
   { name: "Coup de Pates", src: "/images/clients/coup-de-pates.svg", url: "https://www.coupdepates.fr", className: "h-9 md:h-11" },
   { name: "Monka", src: "/images/clients/monka.webp", url: "https://www.monka.care", className: "h-10 md:h-12" },
@@ -25,7 +25,8 @@ const CLIENTS: Client[] = [
 export function Clients() {
   const t = useTranslations("clients");
   return (
-    <section id="clients" className="bg-background py-10 md:py-12">
+    // Phones show these logos as a grid at the foot of the hero instead.
+    <section id="clients" className="hidden bg-background py-10 md:block md:py-12">
       <p className="mb-6 px-6 text-center font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground md:mb-7">
         {t("trustedBy")}
       </p>
