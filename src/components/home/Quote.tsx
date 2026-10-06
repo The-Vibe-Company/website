@@ -17,8 +17,7 @@ export function Quote() {
         “
       </span>
       <figure className="relative m-0">
-        {/* Étienne's own words, kept in French on every locale. */}
-        <blockquote lang="fr" className="m-0 text-[22px] font-medium leading-[1.32] tracking-[-0.02em]">
+        <blockquote className="m-0 text-[22px] font-medium leading-[1.32] tracking-[-0.02em]">
           {t.rich("text", { em: (chunks) => <em className="not-italic text-orange-500">{chunks}</em> })}
         </blockquote>
         <figcaption className="mt-6 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-background/60">
