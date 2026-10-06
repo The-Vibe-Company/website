@@ -151,7 +151,7 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     ],
     quote: {
       text: {
-        en: "Travailler avec The Vibe Company est très différent d'une relation classique avec une agence. Ils ne se contentent pas d'exécuter un brief : ils challengent, structurent, prototypent et construisent avec nous. Ils apportent à la fois une vraie vision produit, une forte expertise IA et un pragmatisme rare pour transformer des sujets complexes en solutions concrètes, utiles et rapidement déployées chez Monka.",
+        en: "Working with The Vibe Company is very different from a typical agency relationship. They don't just execute a brief: they challenge, structure, prototype and build with us. They bring a real product vision, deep AI expertise and a rare pragmatism to turn complex problems into concrete, useful solutions, deployed quickly at Monka.",
         fr: "Travailler avec The Vibe Company est très différent d'une relation classique avec une agence. Ils ne se contentent pas d'exécuter un brief : ils challengent, structurent, prototypent et construisent avec nous. Ils apportent à la fois une vraie vision produit, une forte expertise IA et un pragmatisme rare pour transformer des sujets complexes en solutions concrètes, utiles et rapidement déployées chez Monka.",
       },
       author: {
