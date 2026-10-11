@@ -33,15 +33,8 @@ import { AboutBookingCta } from "./AboutBookingCta";
  * this component; each declares the other through hreflang.
  *
  * Every number on the page is sourced from work already published on the site
- * (case studies, homepage) or confirmed by the founders. A fact that is still
- * waiting for validation is an empty string in `messages/*.json` and renders
- * nothing — see src/lib/about.ts for the list.
+ * (case studies, homepage) or confirmed by the founders — see src/lib/about.ts.
  */
-
-/** A [TO CONFIRM] field is an empty string: it renders nothing. */
-function filled(value: string): boolean {
-  return value.trim().length > 0;
-}
 
 export async function aboutMetadata(locale: string): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "about" });
@@ -70,12 +63,6 @@ export async function AboutPage({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "about" });
   const tServices = await getTranslations({ locale, namespace: "services" });
   const tProcess = await getTranslations({ locale, namespace: "process" });
-  const audience = t("audience");
-  const clientSegments = t("clients.segments");
-  const timelines = t("how.timelines");
-  const onboarding = t("how.onboarding");
-  const fundingDetail = t("faq.items.funding.aFunding");
-
   return (
     <div
       data-variant="hybrid"
@@ -97,10 +84,7 @@ export async function AboutPage({ locale }: { locale: string }) {
             {t("title")}
           </h1>
           <p className="m-0 mt-8 max-w-[680px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
-            {t("lede")}
-            {/* [TO CONFIRM] Target segments ("pour PME et startups" …). While
-                `about.audience` is empty the sentence simply stops here. */}
-            {filled(audience) ? ` ${t("audienceSentence", { segments: audience })}` : null}
+            {t("lede", { audience: t("audience") })}
           </p>
 
           <AboutBookingCta />
@@ -208,13 +192,6 @@ export async function AboutPage({ locale }: { locale: string }) {
         <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
           <h2 className={H2}>{t("clients.title")}</h2>
           <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("clients.intro")}</p>
-          {/* [TO CONFIRM] Exact client segments. `about.clients.segments` is
-              empty on purpose, so no segment is claimed here yet. */}
-          {filled(clientSegments) ? (
-            <p className={`${PROSE} mt-3 max-w-[680px]`}>
-              {t("clients.segmentsSentence", { segments: clientSegments })}
-            </p>
-          ) : null}
 
           <ul className="m-0 mt-10 grid list-none grid-cols-2 border-l border-t border-border p-0 md:mt-12 md:grid-cols-3">
             {CLIENTS.map((client) => (
@@ -285,19 +262,6 @@ export async function AboutPage({ locale }: { locale: string }) {
                     {t("team.linkedin")}
                     <span aria-hidden="true">↗</span>
                   </a>
-                  {/* [TO CONFIRM] Personal X profiles: `ABOUT_TEAM[].x` is
-                      empty, so no second link is rendered. */}
-                  {filled(member.x) ? (
-                    <a
-                      href={member.x}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
-                    >
-                      {t("team.x")}
-                      <span aria-hidden="true">↗</span>
-                    </a>
-                  ) : null}
                 </div>
               </article>
             ))}
@@ -354,73 +318,46 @@ export async function AboutPage({ locale }: { locale: string }) {
               ))}
             </ol>
 
-            <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
-              <div>
-                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/55">
-                  {t("how.contactTitle")}
-                </span>
-                <dl className="m-0 mt-4 grid grid-cols-1 gap-3">
-                  <div>
-                    <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
-                      {t("how.contactCall")}
-                    </dt>
-                    <dd className="m-0 mt-1">
-                      <a
-                        href={BOOKING_URL}
-                        className="text-[15px] text-background underline decoration-1 underline-offset-4 hover:opacity-70"
-                      >
-                        cal.com/stangirard/30min
-                      </a>
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
-                      {t("how.contactEmail")}
-                    </dt>
-                    <dd className="m-0 mt-1">
-                      <a
-                        href="mailto:founders@thevibecompany.co"
-                        className="text-[15px] text-background underline decoration-1 underline-offset-4 hover:opacity-70"
-                      >
-                        founders@thevibecompany.co
-                      </a>
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
-                      {t("how.contactResponse")}
-                    </dt>
-                    <dd className="m-0 mt-1 text-[15px] text-background">
-                      {t("response")}
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-
-              {/* [TO CONFIRM] Indicative timelines and the onboarding steps.
-                  Both fields are empty in the messages files, so neither block
-                  is rendered rather than promising a duration we have not
-                  validated. */}
-              {filled(timelines) ? (
+            <div className="mt-12">
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/55">
+                {t("how.contactTitle")}
+              </span>
+              <dl className="m-0 mt-5 grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-12">
                 <div>
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/55">
-                    {t("how.timelinesLabel")}
-                  </span>
-                  <p className="m-0 mt-4 text-[15px] leading-[1.6] text-white/70">
-                    {timelines}
-                  </p>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
+                    {t("how.contactCall")}
+                  </dt>
+                  <dd className="m-0 mt-1">
+                    <a
+                      href={BOOKING_URL}
+                      className="text-[15px] text-background underline decoration-1 underline-offset-4 hover:opacity-70"
+                    >
+                      cal.com/stangirard/30min
+                    </a>
+                  </dd>
                 </div>
-              ) : null}
-              {filled(onboarding) ? (
                 <div>
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/55">
-                    {t("how.onboardingLabel")}
-                  </span>
-                  <p className="m-0 mt-4 text-[15px] leading-[1.6] text-white/70">
-                    {onboarding}
-                  </p>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
+                    {t("how.contactEmail")}
+                  </dt>
+                  <dd className="m-0 mt-1">
+                    <a
+                      href="mailto:founders@thevibecompany.co"
+                      className="text-[15px] text-background underline decoration-1 underline-offset-4 hover:opacity-70"
+                    >
+                      founders@thevibecompany.co
+                    </a>
+                  </dd>
                 </div>
-              ) : null}
+                <div>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
+                    {t("how.contactResponse")}
+                  </dt>
+                  <dd className="m-0 mt-1 text-[15px] text-background">
+                    {t("response")}
+                  </dd>
+                </div>
+              </dl>
             </div>
           </div>
         </section>
@@ -499,8 +436,6 @@ export async function AboutPage({ locale }: { locale: string }) {
                           ))}
                         </span>
                       ) : (
-                        // Pricing and contract terms are empty [TO CONFIRM]
-                        // fields: the row stays, the cell shows nothing.
                         t(`facts.values.${key}`)
                       )}
                     </td>
@@ -516,32 +451,17 @@ export async function AboutPage({ locale }: { locale: string }) {
           <h2 className={H2}>{t("faq.title")}</h2>
 
           <div className="mt-10 border-t-2 border-foreground md:mt-12">
-            {ABOUT_FAQ_KEYS.map((key) => {
-              const answer = t(`faq.items.${key}.a`);
-              return (
-                <article
-                  key={key}
-                  className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-8"
-                >
-                  <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
-                    {t(`faq.items.${key}.q`)}
-                  </h3>
-                  <div>
-                    {/* [TO CONFIRM] `faq.items.cost.a` is empty: no price is
-                        published, so the question ships without an answer. */}
-                    {filled(answer) ? (
-                      <p className={`${PROSE} max-w-[70ch]`}>{answer}</p>
-                    ) : null}
-                    {/* [TO CONFIRM] What we can do about client funding.
-                        `faq.items.funding.aFunding` stays empty: France 2030 is
-                        a fact about us, not an offer to fund a client project. */}
-                    {key === "funding" && filled(fundingDetail) ? (
-                      <p className={`${PROSE} mt-3 max-w-[70ch]`}>{fundingDetail}</p>
-                    ) : null}
-                  </div>
-                </article>
-              );
-            })}
+            {ABOUT_FAQ_KEYS.map((key) => (
+              <article
+                key={key}
+                className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-8"
+              >
+                <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
+                  {t(`faq.items.${key}.q`)}
+                </h3>
+                <p className={`${PROSE} max-w-[70ch]`}>{t(`faq.items.${key}.a`)}</p>
+              </article>
+            ))}
           </div>
         </section>
 

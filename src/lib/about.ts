@@ -2,9 +2,8 @@
  * Confirmed facts and links for the About page (/fr/a-propos, /en/about).
  *
  * Everything here is either already published elsewhere on the site or
- * validated by the founders. Fields that are still waiting for validation are
- * empty strings carrying a [TO CONFIRM] comment: the page skips an empty field
- * rather than filling it with a guess, so nothing invented ever ships.
+ * validated by the founders. Nothing unconfirmed lives on this page: a fact we
+ * cannot source is left off it entirely rather than guessed at.
  */
 
 /** Order of the three services, same keys as the homepage `services` namespace. */
@@ -31,8 +30,6 @@ export interface AboutTeamMember {
   key: "stan" | "antoine";
   name: string;
   linkedin: string;
-  /** Personal X profile. Empty renders no link. */
-  x: string;
 }
 
 export const ABOUT_TEAM: AboutTeamMember[] = [
@@ -40,16 +37,11 @@ export const ABOUT_TEAM: AboutTeamMember[] = [
     key: "stan",
     name: "Stan Girard",
     linkedin: "https://linkedin.com/in/stan-girard",
-    // [TO CONFIRM] Stan's X profile. Left empty on purpose: the handle is not
-    // validated yet, and the page renders no link while the field is empty.
-    x: "",
   },
   {
     key: "antoine",
     name: "Antoine Dewez",
     linkedin: "https://linkedin.com/in/antoine-dewez-gelpe-367774157",
-    // [TO CONFIRM] Antoine's X profile — same rule as above.
-    x: "",
   },
 ];
 
@@ -76,11 +68,7 @@ export const ABOUT_FACT_KEYS = [
   "hq",
   "site",
   "offer",
-  // [TO CONFIRM] `about.facts.values.pricing` and `.terms` are empty in both
-  // messages files. The rows stay in the table with an empty value so the gap
-  // is visible instead of guessed.
-  "pricing",
-  "terms",
+  "funding",
   "clients",
   "projects",
   "networks",
@@ -88,13 +76,4 @@ export const ABOUT_FACT_KEYS = [
 ] as const;
 
 /** Order of the FAQ entries. */
-export const ABOUT_FAQ_KEYS = [
-  // [TO CONFIRM] `about.faq.items.cost.a` is empty: no price or range is
-  // published anywhere, so the question ships without an answer.
-  "cost",
-  "timeline",
-  "data",
-  "funding",
-  "start",
-  "freelance",
-] as const;
+export const ABOUT_FAQ_KEYS = ["timeline", "data", "start", "freelance"] as const;

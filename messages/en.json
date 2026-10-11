@@ -302,9 +302,8 @@
     "metaTitle": "About The Vibe Company: AI Agency in Paris (YC W24)",
     "metaDescription": "The Vibe Company is an AI-first agency based in Paris (YC W24): we build AI products, automate work with agents, and train teams. Answer within 24 hours.",
     "title": "About The Vibe Company",
-    "lede": "The Vibe Company is an AI-first agency based in Paris that builds AI products, automates work with agents, and trains teams.",
-    "audience": "",
-    "audienceSentence": "For {segments}.",
+    "lede": "The Vibe Company is an AI-first agency based in Paris that builds AI products, automates work with agents, and trains teams, for {audience}.",
+    "audience": "mid-size to large companies",
     "bookCall": "Book 30 minutes",
     "response": "Answer within 24h",
     "backedBy": "Backed by",
@@ -355,15 +354,13 @@
           "figure": "39.5k",
           "figureLabel": "GitHub stars on Quivr, our open-source RAG engine",
           "title": "A team that came through open source and Y Combinator",
-          "desc": "Before The Vibe Company we built Quivr, an open-source RAG engine that passed 39,500 stars on GitHub and took us to Y Combinator (W24). Both founders came through Theodo and Stockly. That is where our way of shipping comes from: fast, in public, and all the way to production."
+          "desc": "Before The Vibe Company we built Quivr, an open-source RAG engine that passed 39,500 stars on GitHub and took us to Y Combinator (W24), where we raised $1.7M. Both founders came through Theodo and Stockly. That is where our way of shipping comes from: fast, in public, and all the way to production."
         }
       }
     },
     "clients": {
       "title": "Who works with us",
       "intro": "Established groups and growing startups trust us with their products and their operations.",
-      "segments": "",
-      "segmentsSentence": "Our typical clients: {segments}.",
       "logoAlt": "{name} logo, a client of The Vibe Company",
       "seeCaseStudies": "See the case studies"
     },
@@ -380,8 +377,7 @@
           "bio": "Antoine started Quivr in 2023 with Stan Girard and built the company with him for two years, from open source to Y Combinator (W24). He co-runs The Vibe Company, where he stays close to the products shipped to clients."
         }
       },
-      "linkedin": "LinkedIn",
-      "x": "X"
+      "linkedin": "LinkedIn"
     },
     "how": {
       "title": "How it works",
@@ -390,11 +386,7 @@
       "contactTitle": "How to reach us",
       "contactCall": "30-minute call",
       "contactEmail": "Email",
-      "contactResponse": "Response time",
-      "timelines": "",
-      "timelinesLabel": "Indicative timelines",
-      "onboarding": "",
-      "onboardingLabel": "Onboarding"
+      "contactResponse": "Response time"
     },
     "facts": {
       "title": "Key facts",
@@ -409,8 +401,7 @@
         "hq": "Headquarters",
         "site": "Website",
         "offer": "Main offer",
-        "pricing": "Pricing",
-        "terms": "Contract terms",
+        "funding": "Funding",
         "clients": "Notable clients",
         "projects": "Projects delivered",
         "networks": "Social",
@@ -422,8 +413,7 @@
         "founded": "2024",
         "hq": "Paris, France",
         "offer": "Product development, agentic automation, AI strategy and training",
-        "pricing": "",
-        "terms": "",
+        "funding": "$1.7M raised with Y Combinator (W24)",
         "clients": "AFP, Monka, LocService, Trusk, Coup de Pates, Zapa",
         "projects": "Several dozen projects delivered",
         "notToConfuse": "thevibe.company, VIBE Company (Zurich), Vibe.co"
@@ -432,10 +422,6 @@
     "faq": {
       "title": "Frequently asked questions",
       "items": {
-        "cost": {
-          "q": "How much does a project cost?",
-          "a": ""
-        },
         "timeline": {
           "q": "How long does a project take?",
           "a": "We work in short cycles and you see working software early and often. At Monka, the caregiver app, the nurses' CRM and the clinical engine went into production in two months, then a new version roughly every two days. The timeline depends on the scope, which we set together during scoping."
@@ -443,11 +429,6 @@
         "data": {
           "q": "What happens to our data, and which standards do you work to?",
           "a": "We ship into secure production: GDPR, SOC 2, HDS and ISO 27001 are part of the frame we work in. For Monka, health data is encrypted and GDPR-compliant. Health data hosting (HDS) and security are two things we know well."
-        },
-        "funding": {
-          "q": "Do you work with public programmes such as France 2030?",
-          "a": "Yes. The Vibe Company is part of the technical consortium of MediaGen, the France 2030 project led by AFP, alongside Kairntech and Dawex. The consortium delivers three generative AI tools for newsrooms over 24 months, with some components released under an open license.",
-          "aFunding": ""
         },
         "start": {
           "q": "How do we start?",
