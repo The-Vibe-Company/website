@@ -235,6 +235,12 @@ components:
     typography: "{typography.label-sm}"
     rounded: "{rounded.none}"
     padding: "{spacing.gap-xs}"
+  fact-table-row:
+    backgroundColor: "{colors.background}"
+    textColor: "{colors.foreground}"
+    typography: "{typography.body-sm}"
+    rounded: "{rounded.none}"
+    padding: "{spacing.gap-sm}"
   muted-copy:
     backgroundColor: "{colors.background}"
     textColor: "{colors.muted-foreground}"
@@ -401,6 +407,8 @@ Case-study product imagery keeps the product UI legible instead of treating scre
 The footer is a three-column desktop grid: a wide identity and contact column followed by site navigation and external links. It collapses to one column on small screens. The narrow operational-status column is not part of the footer, while the lower status line remains visible below the divider.
 
 The `/v2` preview swaps the static hero for a playable canvas runner that reuses the standard top nav, sections, and footer. Its score readout and the per-world presentation panel are diegetic game UI; the surrounding page keeps the normal warm-paper components. This belongs to the preview surface only, and predates the runner band now on the canonical homepage; treat the homepage band as the current design and `/v2` as a superseded experiment.
+
+Reference tables state facts rather than decorate them. A key-facts table sits inside a single ink-bordered block with square corners, a 2px ink rule under its header row and hairline rules between rows. The left column is a mono, uppercase, wide-tracked label in muted ink, holding a fixed share of the width so every value starts on the same line; the right column is plain body copy, with links underlined rather than coloured. A fact we have not confirmed leaves its cell empty: a visible gap is honest, an invented value is not.
 
 Labels, tags, counters, and status chips use Geist Mono, uppercase text, wide tracking, and small scale. They should feel like technical readouts. Status dots can pulse, but they should remain tiny.
 

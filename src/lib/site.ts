@@ -40,6 +40,32 @@ export const INDEXABLE_STATIC_ROUTES: SiteRoute[] = [
   },
 ];
 
+/**
+ * A page whose URL segment is translated, so each language owns its own path.
+ * "/about" in English, "/a-propos" in French: one page, two canonicals, each
+ * declaring the other through hreflang.
+ */
+export type SplitPaths = { fr: string; en: string };
+
+export const ABOUT_PATHS: SplitPaths = { fr: "/a-propos", en: "/about" };
+
+export type SplitPathRoute = Omit<SiteRoute, "path"> & { paths: SplitPaths };
+
+export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
+  {
+    paths: ABOUT_PATHS,
+    title: "About",
+    description:
+      "Who The Vibe Company is: an AI-first agency in Paris, YC W24, with the key facts about the company, its team, and how it works.",
+    changeFrequency: "monthly",
+    priority: 0.7,
+  },
+];
+
+export function splitPath(paths: SplitPaths, locale: string): string {
+  return locale === "en" ? paths.en : paths.fr;
+}
+
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).toString();
 }
@@ -59,6 +85,20 @@ export function localizedAlternates(locale: string, path = "/") {
     languages: {
       fr: localizedUrl("fr", path),
       en: localizedUrl("en", path),
+    },
+  };
+}
+
+/**
+ * Alternates for a page whose path differs per language: the canonical is the
+ * current language's own URL, and both languages stay in the hreflang set.
+ */
+export function splitPathAlternates(locale: string, paths: SplitPaths) {
+  return {
+    canonical: localizedUrl(locale, splitPath(paths, locale)),
+    languages: {
+      fr: localizedUrl("fr", paths.fr),
+      en: localizedUrl("en", paths.en),
     },
   };
 }

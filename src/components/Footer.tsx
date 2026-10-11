@@ -2,7 +2,8 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { ABOUT_PATHS, splitPath } from "@/lib/site";
 
 interface NavLink {
   label: string;
@@ -53,13 +54,17 @@ function FooterLink({ link }: { link: NavLink }) {
 }
 
 export function Footer() {
+  const locale = useLocale();
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
 
   // Same sections as the top nav, so both cover every key page. "Case studies"
   // reuses the nav label (no extra footer translation key).
+  // "About" is the one page whose URL segment is translated (/en/about,
+  // /fr/a-propos), so its href is picked per language.
   const siteLinks: NavLink[] = [
     { label: t("home"), href: "/" },
+    { label: t("about"), href: splitPath(ABOUT_PATHS, locale) },
     { label: t("portfolio"), href: "/portfolio" },
     { label: tNav("caseStudies"), href: "/case-studies" },
     { label: t("resources"), href: "/resources" },

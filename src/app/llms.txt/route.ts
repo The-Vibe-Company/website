@@ -2,10 +2,12 @@ import { getAllContent } from "@/lib/content-source";
 import { getNavContentTypes, getUrlSlugForDbType } from "@/lib/content-types";
 import {
   absoluteUrl,
+  INDEXABLE_SPLIT_PATH_ROUTES,
   INDEXABLE_STATIC_ROUTES,
   localizedUrl,
   SITE_DESCRIPTION,
   SITE_NAME,
+  splitPath,
 } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -31,13 +33,24 @@ function buildLlmsTxt(): string {
   const content = getAllContent();
 
   const localizedSections = (["fr", "en"] as const).map((locale) => {
-    const corePages = INDEXABLE_STATIC_ROUTES.map((route) =>
-      routeListItem(
-        route.title,
-        localizedUrl(locale, route.path),
-        route.description,
+    const corePages = [
+      ...INDEXABLE_STATIC_ROUTES.map((route) =>
+        routeListItem(
+          route.title,
+          localizedUrl(locale, route.path),
+          route.description,
+        ),
       ),
-    );
+      // Pages whose URL segment is translated, so each language is cited on
+      // its own canonical (/en/about, /fr/a-propos).
+      ...INDEXABLE_SPLIT_PATH_ROUTES.map((route) =>
+        routeListItem(
+          route.title,
+          localizedUrl(locale, splitPath(route.paths, locale)),
+          route.description,
+        ),
+      ),
+    ];
 
     const contentSections = getNavContentTypes()
       .map((contentType) => {

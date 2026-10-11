@@ -197,7 +197,8 @@
     "resources": "Ressources",
     "mission": "Mission",
     "builtWithAi": "Construit avec l'IA",
-    "openToProjects": "Ouvert aux projets"
+    "openToProjects": "Ouvert aux projets",
+    "about": "À propos"
   },
   "caseStudiesPage": {
     "kicker": "// PROJETS CLIENTS",
@@ -295,5 +296,168 @@
     "metaDescription": "The Vibe Company est une agence née avec l’IA qui aide les startups à livrer plus vite grâce au développement assisté par l’IA, au prototypage et à l’exécution rapide.",
     "body": "On est bien trop occupés à livrer pour écrire notre propre page agence.",
     "bodyIronic": "Ironique ? Complètement."
+  },
+  "about": {
+    "kicker": "// À PROPOS",
+    "metaTitle": "À propos de The Vibe Company : agence IA à Paris (YC W24)",
+    "metaDescription": "The Vibe Company, agence IA-first à Paris (YC W24) : on conçoit des produits IA, on automatise avec des agents, on forme les équipes. Réponse sous 24 h.",
+    "title": "À propos de The Vibe Company",
+    "lede": "The Vibe Company est une agence IA-first basée à Paris qui conçoit des produits IA, automatise avec des agents et forme les équipes.",
+    "audience": "",
+    "audienceSentence": "Pour {segments}.",
+    "bookCall": "Prendre 30 minutes",
+    "response": "Réponse sous 24h",
+    "backedBy": "Soutenus par",
+    "services": {
+      "title": "Ce que fait The Vibe Company",
+      "intro": "Trois façons de travailler ensemble, les mêmes que sur notre page d’accueil.",
+      "items": {
+        "build": {
+          "desc": "On transforme votre besoin en produit fiable, par cycles courts, jusqu’à la mise en production. Le cadrage produit et technique, l’architecture, le développement, l’observabilité et la documentation font partie du travail. On livre en production sécurisée — RGPD, SOC 2, HDS et ISO 27001 — puis on passe la main à vos équipes."
+        },
+        "operate": {
+          "desc": "On audite vos workflows et on mesure le temps réellement passé, puis on crée les skills et on connecte vos outils. Les agents sont déployés chez vous, de façon sécurisée, sur les tâches répétitives. Le résultat se mesure au temps gagné par vos équipes, et on continue d’améliorer après la mise en service."
+        },
+        "advise": {
+          "desc": "On aide votre entreprise à prendre le pli de l’IA : choisir les usages qui créent de la valeur, décider quoi développer ou acheter. On construit ensuite une feuille de route d’adoption adaptée à votre organisation. Les formations sont pratiques, et on accompagne vos équipes jusqu’aux premiers usages en production."
+        }
+      }
+    },
+    "edge": {
+      "title": "Ce qui nous différencie",
+      "intro": "Des projets en production, chez des clients qui ont des contraintes réelles. Voici les chiffres qu’on peut citer.",
+      "items": {
+        "production": {
+          "figure": "2 mois",
+          "figureLabel": "pour mettre Monka en production",
+          "title": "Des produits en production, pas des prototypes",
+          "desc": "Chez Monka, on a repris l’API et le CRM existants, et mis en production en deux mois l’app des aidants, Lifeline (le CRM des infirmières de coordination) et le moteur clinique. Le bilan aidant compte 165 questions et le référentiel clinique a déjà connu 12 versions, sans casser l’app. Depuis, on livre une nouvelle version tous les deux jours environ."
+        },
+        "agents": {
+          "figure": "87%",
+          "figureLabel": "des tickets LocService traités grâce à nos brouillons IA",
+          "title": "Des agents qui tiennent le volume réel",
+          "desc": "LocService traite plusieurs centaines de tickets support par jour. On a lu tous leurs anciens tickets et leur documentation interne pour rédiger la réponse à chaque nouveau ticket, connectée à leurs API internes pour récupérer le vrai contexte client. Nos brouillons sont utilisés sur 87 % des tickets."
+        },
+        "sectors": {
+          "figure": "France 2030",
+          "figureLabel": "avec l’AFP, dans le projet MediaGen",
+          "title": "Des secteurs exigeants : presse, santé, agroalimentaire",
+          "desc": "The Vibe Company fait partie du consortium technique de MediaGen, le projet France 2030 d’IA générative de l’AFP, aux côtés de Kairntech et Dawex : trois outils pour les rédactions en 24 mois, dont une partie des composants sera publiée en licence libre. En santé, on travaille sur des données chiffrées et conformes au RGPD pour Monka. En agroalimentaire, on contrôle les documents produit de Coup de Pates."
+        },
+        "security": {
+          "figure": "4",
+          "figureLabel": "référentiels dans lesquels on livre : RGPD, SOC 2, HDS, ISO 27001",
+          "title": "La sécurité et l’exploitation font partie du livrable",
+          "desc": "L’hébergement de données de santé (HDS) et la sécurité sont deux sujets qu’on maîtrise, parce que nos clients en santé l’exigent. On est aussi très solides sur le frontend et le DevOps : l’interface comme la chaîne de déploiement font partie du même travail. On peut passer la main avec la documentation et les runbooks, ou continuer à faire tourner le produit."
+        },
+        "openSource": {
+          "figure": "39,5k",
+          "figureLabel": "étoiles GitHub sur Quivr, notre moteur RAG open source",
+          "title": "Une équipe passée par l’open source et Y Combinator",
+          "desc": "Avant The Vibe Company, on a construit Quivr, un moteur RAG open source qui a dépassé 39 500 étoiles sur GitHub et nous a menés chez Y Combinator (W24). Les deux fondateurs sont passés par Theodo et Stockly. C’est de là que vient notre façon de livrer : vite, en public, et jusqu’à la production."
+        }
+      }
+    },
+    "clients": {
+      "title": "Qui travaille avec nous",
+      "intro": "Des groupes établis comme des startups en croissance nous confient leurs produits et leurs opérations.",
+      "segments": "",
+      "segmentsSentence": "Nos clients types : {segments}.",
+      "logoAlt": "Logo {name}, client de The Vibe Company",
+      "seeCaseStudies": "Voir les cas clients"
+    },
+    "team": {
+      "title": "L’équipe",
+      "intro": "The Vibe Company est née de Quivr. Les deux fondateurs sont passés par Theodo et Stockly avant de lancer Quivr en 2023, puis de l’arrêter pour construire The Vibe Company.",
+      "originLink": "Lire « We are stopping Quivr. We are building The Vibe Company. »",
+      "role": "Co-fondateur",
+      "members": {
+        "stan": {
+          "bio": "Stan a créé Quivr en 2023, un moteur RAG open source devenu l’un des projets les plus suivis de GitHub, numéro 1 des tendances en juillet 2023. Il l’a construit avec Antoine Dewez, est passé par Y Combinator (W24), et dirige aujourd’hui The Vibe Company avec lui."
+        },
+        "antoine": {
+          "bio": "Antoine a lancé Quivr en 2023 avec Stan Girard et a construit l’entreprise avec lui pendant deux ans, de l’open source à Y Combinator (W24). Il co-dirige The Vibe Company, où il suit de près les produits livrés aux clients."
+        }
+      },
+      "linkedin": "LinkedIn",
+      "x": "X"
+    },
+    "how": {
+      "title": "Comment ça se passe",
+      "intro": "Le premier échange est un appel de 30 minutes. On répond sous 24 h, et vous voyez du logiciel qui marche tôt plutôt qu’un rapport.",
+      "stepsLabel": "Du brief à la production",
+      "contactTitle": "Nous joindre",
+      "contactCall": "Appel de 30 minutes",
+      "contactEmail": "Email",
+      "contactResponse": "Délai de réponse",
+      "timelines": "",
+      "timelinesLabel": "Délais indicatifs",
+      "onboarding": "",
+      "onboardingLabel": "Onboarding"
+    },
+    "facts": {
+      "title": "Faits clés",
+      "caption": "Faits clés sur The Vibe Company",
+      "columnFact": "Information",
+      "columnValue": "Valeur",
+      "rows": {
+        "name": "Nom",
+        "type": "Type",
+        "founded": "Création",
+        "founders": "Fondateurs",
+        "hq": "Siège",
+        "site": "Site",
+        "offer": "Offre principale",
+        "pricing": "Tarifs",
+        "terms": "Conditions du contrat",
+        "clients": "Clients notables",
+        "projects": "Projets livrés",
+        "networks": "Réseaux",
+        "notToConfuse": "À ne pas confondre avec"
+      },
+      "values": {
+        "name": "The Vibe Company",
+        "type": "Agence IA",
+        "founded": "2024",
+        "hq": "Paris, France",
+        "offer": "Développement de produits, automatisation agentique, stratégie et formation IA",
+        "pricing": "",
+        "terms": "",
+        "clients": "AFP, Monka, LocService, Trusk, Coup de Pates, Zapa",
+        "projects": "Plusieurs dizaines de projets livrés",
+        "notToConfuse": "thevibe.company, VIBE Company (Zurich), Vibe.co"
+      }
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "cost": {
+          "q": "Combien coûte un projet ?",
+          "a": ""
+        },
+        "timeline": {
+          "q": "Combien de temps prend un projet ?",
+          "a": "On travaille par cycles courts et vous voyez du logiciel qui marche tôt et souvent. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique sont partis en production en deux mois, puis une nouvelle version tous les deux jours environ. Le délai dépend du périmètre, qu’on fixe ensemble au cadrage."
+        },
+        "data": {
+          "q": "Que devient notre donnée, et quelles conformités visez-vous ?",
+          "a": "On livre en production sécurisée : RGPD, SOC 2, HDS et ISO 27001 font partie du cadre dans lequel on travaille. Pour Monka, les données de santé sont chiffrées et conformes au RGPD. L’hébergement de données de santé (HDS) et la sécurité sont deux sujets qu’on maîtrise."
+        },
+        "funding": {
+          "q": "Travaillez-vous avec des programmes publics comme France 2030 ?",
+          "a": "Oui. The Vibe Company fait partie du consortium technique de MediaGen, le projet France 2030 porté par l’AFP, aux côtés de Kairntech et Dawex. Le consortium livre en 24 mois trois outils d’IA générative pour les rédactions, dont une partie des composants sera publiée en licence libre.",
+          "aFunding": ""
+        },
+        "start": {
+          "q": "Comment on démarre ?",
+          "a": "Un appel de 30 minutes : vous expliquez le problème, on explique comment on le construirait. Si ça matche, on envoie une proposition à périmètre fixe. On répond sous 24 h."
+        },
+        "freelance": {
+          "q": "Quelle différence avec un freelance ?",
+          "a": "Une équipe complète plutôt qu’une paire de mains : cadrage produit et technique, développement, sécurité, exploitation. On couvre le frontend, le backend et le DevOps dans le même mouvement, jusqu’à la mise en production. À la fin, on passe la main à vos équipes avec la documentation et les runbooks, ou on continue de faire tourner le produit."
+        }
+      }
+    }
   }
 }
