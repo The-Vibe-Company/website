@@ -18,7 +18,7 @@ export async function generateMetadata({
   const description = t("description");
 
   return {
-    title: { absolute: SITE_NAME },
+    title: { absolute: t("homeTitle") },
     description,
     alternates: localizedAlternates(locale),
     ...localizedSocialMetadata({
