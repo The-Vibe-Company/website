@@ -12,6 +12,7 @@
     "content:focus-check": "bun scripts/validate-focus-articles.ts",
     "content:translations-check": "bun scripts/validate-article-translations.ts",
     "prebuild": "bun scripts/validate-victor-story.ts && bun scripts/validate-focus-articles.ts && bun scripts/validate-article-translations.ts && bun scripts/validate-content-images.ts && bun scripts/optimize-images.ts --check",
+    "cover:generate": "bun scripts/generate-cover.ts",
     "images:optimize": "bun scripts/optimize-images.ts",
     "images:check": "bun scripts/optimize-images.ts --check"
   },
