@@ -393,7 +393,10 @@ function isMarkdownTableStart(lines: string[], index: number): boolean {
   if (!header || !separator || !header.includes('|')) return false
 
   const headerCells = splitMarkdownTableRow(header)
-  if (headerCells.length < 2 || headerCells.some((cell) => !cell.trim())) return false
+  // GFM allows blank header cells — the usual shape for comparison tables whose
+  // top-left corner is empty — so only require a real multi-column header that
+  // labels at least one column.
+  if (headerCells.length < 2 || headerCells.every((cell) => !cell.trim())) return false
 
   return isMarkdownTableSeparator(separator)
 }

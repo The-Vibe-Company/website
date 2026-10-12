@@ -31,6 +31,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp": {
+      "sourceHash": "4e6943e70dccf101685b31b975bde6d126ae5cd2fb7f5c5a22ed07642c070c3e",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/cir-cii-playbook-evidence-system/generated/proof-matrix-review.webp": {
       "sourceHash": "9f02e3562f6e1fbcbd5af2a81eb66288a4206c823689004ea83e56ca0bc95ad6",
       "targetUrl": null,
@@ -278,6 +283,11 @@
     },
     "og:/images/resources/ai-music-with-an-artist/cover-mascotte.webp": {
       "sourceHash": "8254e9d216efea3dcbc7cb885483882b5f225370b4f23fe1cf2b4d849ad620ae",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp": {
+      "sourceHash": "4e6943e70dccf101685b31b975bde6d126ae5cd2fb7f5c5a22ed07642c070c3e",
       "targetUrl": null,
       "targetHash": null
     },
