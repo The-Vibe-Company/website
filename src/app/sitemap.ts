@@ -3,9 +3,12 @@ import { getAllContent } from "@/lib/content-source";
 import { getUrlSlugForDbType } from "@/lib/content-types";
 import { PROJECT_SLUGS } from "@/lib/projects";
 import {
+  INDEXABLE_SPLIT_PATH_ROUTES,
   INDEXABLE_STATIC_ROUTES,
   localizedUrl,
   monolingualAlternates,
+  splitPath,
+  type SplitPaths,
 } from "@/lib/site";
 
 type Extra = Omit<MetadataRoute.Sitemap[number], "url" | "alternates">;
@@ -27,6 +30,21 @@ function entries(path: string, extra: Extra): MetadataRoute.Sitemap {
   }));
 }
 
+// Same as `entries`, for a page whose URL segment is translated: each language
+// gets its own canonical, and both carry the same self-inclusive hreflang set.
+function splitEntries(paths: SplitPaths, extra: Extra): MetadataRoute.Sitemap {
+  return LOCALES.map((locale) => ({
+    url: localizedUrl(locale, splitPath(paths, locale)),
+    alternates: {
+      languages: {
+        fr: localizedUrl("fr", paths.fr),
+        en: localizedUrl("en", paths.en),
+      },
+    },
+    ...extra,
+  }));
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const allContent = getAllContent();
@@ -37,6 +55,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = INDEXABLE_STATIC_ROUTES.flatMap((route) =>
     entries(route.path, {
       lastModified: route.path.startsWith("/resources") ? latestContentDate : now,
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+    })
+  );
+
+  const splitPathRoutes = INDEXABLE_SPLIT_PATH_ROUTES.flatMap((route) =>
+    splitEntries(route.paths, {
+      lastModified: now,
       changeFrequency: route.changeFrequency,
       priority: route.priority,
     })
@@ -66,5 +92,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   // Case studies intentionally remain absent until client publication approval.
-  return [...staticRoutes, ...portfolioRoutes, ...contentRoutes];
+  return [
+    ...staticRoutes,
+    ...splitPathRoutes,
+    ...portfolioRoutes,
+    ...contentRoutes,
+  ];
 }

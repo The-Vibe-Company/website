@@ -198,7 +198,8 @@
     "resources": "Resources",
     "mission": "Mission",
     "builtWithAi": "Built with AI",
-    "openToProjects": "Open to projects"
+    "openToProjects": "Open to projects",
+    "about": "About"
   },
   "caseStudiesPage": {
     "kicker": "// CLIENT WORK",
@@ -296,5 +297,149 @@
     "metaDescription": "The Vibe Company is an AI-native agency helping startups ship products faster with AI development, prototyping, and rapid execution.",
     "body": "We are currently too busy shipping to write our own agency page.",
     "bodyIronic": "Ironic? Absolutely."
+  },
+  "about": {
+    "kicker": "// ABOUT",
+    "metaTitle": "About The Vibe Company: AI Agency in Paris (YC W24)",
+    "metaDescription": "The Vibe Company is an AI-first agency based in Paris (YC W24): we build AI products, automate work with agents, and train teams. Answer within 24 hours.",
+    "title": "About The Vibe Company",
+    "lede": "The Vibe Company is an AI-first agency based in Paris that builds AI products, automates work with agents, and trains teams, for {audience}.",
+    "audience": "mid-size to large companies",
+    "bookCall": "Book 30 minutes",
+    "response": "Answer within 24h",
+    "backedBy": "Backed by",
+    "services": {
+      "title": "What The Vibe Company does",
+      "intro": "Three ways to work together, the same three as on our homepage.",
+      "items": {
+        "build": {
+          "desc": "We turn your need into a reliable product, in short cycles, all the way to production. Product and technical scoping, architecture, development, observability and documentation are all part of the job. We ship into secure production — GDPR, SOC 2, HDS and ISO 27001 — then hand over to your teams."
+        },
+        "operate": {
+          "desc": "We audit your workflows and measure the time actually spent, then we build the skills and connect your tools. Agents are deployed in your environment, securely, on the repetitive work. The result is measured in time your teams get back, and we keep improving it after go-live."
+        },
+        "advise": {
+          "desc": "We help your company get the hang of AI: pick the use cases that create value, decide what to build and what to buy. Then we build an adoption roadmap that fits your organization. The training is hands-on, and we stay with your teams until the first use cases run in production."
+        }
+      }
+    },
+    "edge": {
+      "title": "What makes us different",
+      "intro": "Projects in production, for clients with real constraints. Here are the numbers we can put our name to.",
+      "items": {
+        "production": {
+          "figure": "2 months",
+          "figureLabel": "to put Monka into production",
+          "title": "Products in production, not prototypes",
+          "desc": "At Monka we took over the existing API and CRM, and in two months put into production the caregiver app, Lifeline (the CRM for their coordinating nurses) and the clinical engine. The caregiver assessment runs 165 questions, and the clinical framework has already gone through 12 versions without breaking the app. Since then we ship a new version roughly every two days."
+        },
+        "agents": {
+          "figure": "87%",
+          "figureLabel": "of LocService tickets answered with our AI drafts",
+          "title": "Agents that hold up at real volume",
+          "desc": "LocService handles several hundred support tickets a day. We read all their past tickets and internal documentation to draft the answer to every new one, connected to their internal APIs to pull the real customer context. Our drafts are used on 87% of tickets."
+        },
+        "sectors": {
+          "figure": "France 2030",
+          "figureLabel": "with AFP, on the MediaGen project",
+          "title": "Demanding sectors: news, healthcare, food",
+          "desc": "The Vibe Company is part of the technical consortium of MediaGen, AFP's France 2030 generative AI project, alongside Kairntech and Dawex: three tools for newsrooms in 24 months, with some components released under an open license. In healthcare, we work on encrypted, GDPR-compliant data for Monka. In food, we check Coup de Pates' product documents."
+        },
+        "security": {
+          "figure": "4",
+          "figureLabel": "frameworks we ship within: GDPR, SOC 2, HDS, ISO 27001",
+          "title": "Security and operations are part of the delivery",
+          "desc": "Health data hosting (HDS) and security are two things we know well, because our healthcare clients require it. We are also very strong on frontend and DevOps: the interface and the deployment pipeline are the same piece of work. We can hand over with documentation and runbooks, or keep running the product ourselves."
+        },
+        "openSource": {
+          "figure": "39.5k",
+          "figureLabel": "GitHub stars on Quivr, our open-source RAG engine",
+          "title": "A team that came through open source and Y Combinator",
+          "desc": "Before The Vibe Company we built Quivr, an open-source RAG engine that passed 39,500 stars on GitHub and took us to Y Combinator (W24), where we raised $1.7M. Both founders came through Theodo and Stockly. That is where our way of shipping comes from: fast, in public, and all the way to production."
+        }
+      }
+    },
+    "clients": {
+      "title": "Who works with us",
+      "intro": "Established groups and growing startups trust us with their products and their operations.",
+      "logoAlt": "{name} logo, a client of The Vibe Company",
+      "seeCaseStudies": "See the case studies"
+    },
+    "team": {
+      "title": "The team",
+      "intro": "The Vibe Company grew out of Quivr. Both founders came through Theodo and Stockly before starting Quivr in 2023, then stopping it to build The Vibe Company.",
+      "originLink": "Read \"We are stopping Quivr. We are building The Vibe Company.\"",
+      "role": "Co-founder",
+      "members": {
+        "stan": {
+          "bio": "Stan created Quivr in 2023, an open-source RAG engine that became one of the most followed projects on GitHub, number one trending in July 2023. He built it with Antoine Dewez, went through Y Combinator (W24), and now runs The Vibe Company with him."
+        },
+        "antoine": {
+          "bio": "Antoine started Quivr in 2023 with Stan Girard and built the company with him for two years, from open source to Y Combinator (W24). He co-runs The Vibe Company, where he stays close to the products shipped to clients."
+        }
+      },
+      "linkedin": "LinkedIn"
+    },
+    "how": {
+      "title": "How it works",
+      "intro": "The first exchange is a 30-minute call. We answer within 24 hours, and you see working software early rather than a report.",
+      "stepsLabel": "From brief to production",
+      "contactTitle": "How to reach us",
+      "contactCall": "30-minute call",
+      "contactEmail": "Email",
+      "contactResponse": "Response time"
+    },
+    "facts": {
+      "title": "Key facts",
+      "caption": "Key facts about The Vibe Company",
+      "columnFact": "Item",
+      "columnValue": "Value",
+      "rows": {
+        "name": "Name",
+        "type": "Type",
+        "founded": "Founded",
+        "founders": "Founders",
+        "hq": "Headquarters",
+        "site": "Website",
+        "offer": "Main offer",
+        "funding": "Funding",
+        "clients": "Notable clients",
+        "projects": "Projects delivered",
+        "networks": "Social",
+        "notToConfuse": "Not to be confused with"
+      },
+      "values": {
+        "name": "The Vibe Company",
+        "type": "AI agency",
+        "founded": "2024",
+        "hq": "Paris, France",
+        "offer": "Product development, agentic automation, AI strategy and training",
+        "funding": "$1.7M raised with Y Combinator (W24)",
+        "clients": "AFP, Monka, LocService, Trusk, Coup de Pates, Zapa",
+        "projects": "Several dozen projects delivered",
+        "notToConfuse": "thevibe.company, VIBE Company (Zurich), Vibe.co"
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "timeline": {
+          "q": "How long does a project take?",
+          "a": "We work in short cycles and you see working software early and often. At Monka, the caregiver app, the nurses' CRM and the clinical engine went into production in two months, then a new version roughly every two days. The timeline depends on the scope, which we set together during scoping."
+        },
+        "data": {
+          "q": "What happens to our data, and which standards do you work to?",
+          "a": "We ship into secure production: GDPR, SOC 2, HDS and ISO 27001 are part of the frame we work in. For Monka, health data is encrypted and GDPR-compliant. Health data hosting (HDS) and security are two things we know well."
+        },
+        "start": {
+          "q": "How do we start?",
+          "a": "A 30-minute call: you explain the problem, we explain how we would build it. If it is a fit, we send a fixed-scope proposal. We answer within 24 hours."
+        },
+        "freelance": {
+          "q": "How is this different from hiring a freelancer?",
+          "a": "A full team rather than a pair of hands: product and technical scoping, development, security, operations. We cover frontend, backend and DevOps in the same motion, all the way to production. At the end we hand over to your teams with documentation and runbooks, or we keep running the product."
+        }
+      }
+    }
   }
 }
