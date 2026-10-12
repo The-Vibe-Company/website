@@ -2,6 +2,7 @@
 title: "IA et données de santé : ce que l'HDS impose vraiment à votre projet"
 slug: ia-donnees-de-sante-hds
 language: fr
+translationKey: hds-health-data
 summary: "Certification HDS, 6 activités, référentiel 2024, RGPD : ce qu'il faut vérifier avant de mettre un projet IA en production sur des données de santé."
 publishedAt: 2026-10-12
 complexity: intermediate

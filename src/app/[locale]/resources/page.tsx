@@ -3,8 +3,12 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { ArticleBrowser, type ArticleCardItem } from '@/components/resources/ArticleBrowser';
 import { ResourcesHomeSearch } from '@/components/resources/ResourcesHomeSearch';
-import { getContentByType } from '@/lib/content-source';
-import type { ContentEntry } from '@/lib/content-source';
+import {
+  contentPath,
+  getContentByTypeForLanguage,
+  getContentTranslations,
+} from '@/lib/content-source';
+import type { ContentEntry, ContentLanguage } from '@/lib/content-source';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { localizedAlternates, localizedSocialMetadata } from '@/lib/site';
 
@@ -33,6 +37,16 @@ export async function generateMetadata({
 const VICTOR_SERIES = 'victor-story';
 
 function toCard(item: ContentEntry): ArticleCardItem {
+  // Only translated articles carry the pair; the rest keep a single flag.
+  const versions = getContentTranslations(item.type, item.slug);
+  const translations =
+    versions.length > 1
+      ? versions.map((version) => ({
+          language: version.language,
+          href: contentPath(version),
+        }))
+      : undefined;
+
   return {
     id: item.id,
     title: item.title,
@@ -41,6 +55,7 @@ function toCard(item: ContentEntry): ArticleCardItem {
     slug: item.slug,
     publishedAt: item.publishedAt ?? undefined,
     language: item.language,
+    translations,
     seriesDay: item.seriesDay,
     focus: item.focus,
     tool: item.tool,
@@ -58,10 +73,12 @@ export default async function ResourcesPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'resources' });
-  // Articles come from getContentByType already sorted by publishedAt desc, so
-  // both columns stay in chronological order (newest first). A freshly added
-  // article naturally lands at the top; its D-day badge comes from seriesDay.
-  const articles = getContentByType('article');
+  // Articles come back sorted by publishedAt desc, so both columns stay in
+  // chronological order (newest first). A freshly added article naturally lands
+  // at the top; its D-day badge comes from seriesDay. A translated article is
+  // represented once, by its version in the language being browsed.
+  const language: ContentLanguage = locale === 'en' ? 'en' : 'fr';
+  const articles = getContentByTypeForLanguage('article', language);
   const victorStory = articles.filter((a) => a.series === VICTOR_SERIES).map(toCard);
   const others = articles.filter((a) => a.series !== VICTOR_SERIES).map(toCard);
   const articleCount = articles.length;

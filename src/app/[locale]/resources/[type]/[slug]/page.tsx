@@ -1,19 +1,27 @@
 import type { Metadata } from 'next';
-import { Link } from "@/i18n/navigation";
+import { Link, permanentRedirect } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { KeepReading } from '@/components/resources/KeepReading';
-import { LanguageFlag } from '@/components/resources/LanguageFlag';
+import { TranslationSwitch } from '@/components/resources/TranslationSwitch';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { CONTENT_TYPES, getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
-import { getContentByType, getContentItem, getRelatedContent } from '@/lib/content-source';
+import {
+  contentPath,
+  getContentByType,
+  getContentForLanguage,
+  getContentItem,
+  getContentTranslations,
+  getRelatedContent,
+} from '@/lib/content-source';
+import type { ContentLanguage } from '@/lib/content-source';
 import { extractCoverImage, normalizeMarkdownBody } from '@/lib/markdown';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { localizedUrl, monolingualAlternates, SITE_NAME, SITE_URL } from '@/lib/site';
+import { contentAlternates, localizedUrl, SITE_NAME, SITE_URL } from '@/lib/site';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
@@ -43,6 +51,15 @@ const getRelated = cache(async (typeSlug: string, slug: string) => {
   return getRelatedContent(typeSlug, slug, 3)
 });
 
+/** Every language version of this article, as links the switch can render. */
+const getTranslationLinks = cache(async (typeSlug: string, slug: string) => {
+  const versions = getContentTranslations(typeSlug, slug);
+  return versions.map((version) => ({
+    language: version.language,
+    path: contentPath(version),
+  }));
+});
+
 export const dynamicParams = true;
 
 function formatDate(dateString: string, locale: string): string {
@@ -67,8 +84,9 @@ export async function generateMetadata({
   const item = await getContent(contentType.slug, slug);
   if (!item) return { title: 'Not Found' };
 
-  const canonicalPath = `/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`;
+  const canonicalPath = contentPath(item);
   const canonicalUrl = localizedUrl(item.language, canonicalPath);
+  const versions = await getTranslationLinks(contentType.slug, slug);
   const socialImage = item.ogImage ?? item.featuredImage;
   const socialImageUrl = socialImage?.url ? new URL(socialImage.url, SITE_URL).toString() : undefined;
   const socialImageSourceUrl = item.ogImage?.sourceUrl;
@@ -79,7 +97,7 @@ export async function generateMetadata({
   return {
     title: item.title,
     description: item.summary,
-    alternates: monolingualAlternates(item.language, canonicalPath),
+    alternates: contentAlternates(item.language, canonicalPath, versions),
     robots: locale === item.language ? undefined : { index: false, follow: true },
     openGraph: {
       type: 'article',
@@ -121,7 +139,21 @@ export default async function ContentDetailPage({
   const item = await getContent(contentType.slug, slug);
   if (!item) notFound();
 
+  // One article, one URL per language. Reaching a translated article under the
+  // other language's prefix (what the global FR/EN switch does, since it only
+  // swaps the prefix) lands here, so send the reader on to the version they
+  // actually asked for. An article with no translation is served as-is.
+  const language: ContentLanguage = locale === 'en' ? 'en' : 'fr';
+  const translated = getContentForLanguage(contentType.slug, slug, language);
+  if (translated) {
+    permanentRedirect({ href: contentPath(translated), locale });
+  }
+
   const related = await getRelated(contentType.slug, slug);
+  const translations = (await getTranslationLinks(contentType.slug, slug)).map((version) => ({
+    language: version.language,
+    href: version.path,
+  }));
   const t = await getTranslations('resources');
   const complexityLabels: Record<string, string> = {
     beginner: t('beginner'),
@@ -200,7 +232,11 @@ export default async function ContentDetailPage({
 
                   <div className="flex flex-col gap-1">
                     <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('language')}</span>
-                    <LanguageFlag language={item.language} variant="sidebar" />
+                    <TranslationSwitch
+                      language={item.language}
+                      translations={translations}
+                      variant="sidebar"
+                    />
                   </div>
 
                   {item.complexity && !isVictorStory && (
@@ -291,7 +327,11 @@ export default async function ContentDetailPage({
                     <span className="text-xs font-mono text-res-text-muted">{readingTime} min</span>
                   )}
                   <span className="text-res-text-muted/30">&bull;</span>
-                  <LanguageFlag language={item.language} variant="inline" />
+                  <TranslationSwitch
+                    language={item.language}
+                    translations={translations}
+                    variant="inline"
+                  />
                 </div>
               </div>
 

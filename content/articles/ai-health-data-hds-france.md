@@ -2,6 +2,7 @@
 title: "AI and health data in France: what HDS really means for your project"
 slug: ai-health-data-hds-france
 language: en
+translationKey: hds-health-data
 summary: "HDS certification, the 6 hosting activities, the 2024 framework and GDPR: what to check before putting an AI project on French health data into production."
 publishedAt: 2026-10-12
 complexity: intermediate

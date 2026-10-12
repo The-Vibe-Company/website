@@ -24,6 +24,8 @@
     "language": "Langue",
     "french": "Français",
     "english": "Anglais",
+    "readInFrench": "Lire en français",
+    "readInEnglish": "Lire en anglais",
     "installCommands": "Commandes d’installation",
     "externalGitHubSource": "Source GitHub externe"
   },

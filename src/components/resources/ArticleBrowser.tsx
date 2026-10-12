@@ -7,7 +7,10 @@ import { useTranslations, useLocale } from 'next-intl';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getUrlSlugForDbType } from '@/lib/content-types';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
-import { LanguageFlag } from '@/components/resources/LanguageFlag';
+import {
+  TranslationSwitch,
+  type TranslationLink,
+} from '@/components/resources/TranslationSwitch';
 import type { ContentLanguage } from '@/lib/content-source';
 
 export interface ArticleCardItem {
@@ -18,6 +21,8 @@ export interface ArticleCardItem {
   slug: string;
   publishedAt?: string;
   language?: ContentLanguage;
+  /** Every language version, when the article was translated. */
+  translations?: TranslationLink[];
   seriesDay?: number;
   focus?: boolean;
   tool?: boolean;
@@ -38,13 +43,18 @@ function formatDate(dateString: string | undefined, locale: string): string {
   });
 }
 
+/**
+ * The whole card is a click target, but the language switch inside it needs to
+ * stay its own link. So the card is a plain container and the title link spans
+ * it through an overlay pseudo-element, which keeps the markup free of nested
+ * anchors; the switch sits above that overlay.
+ */
 function ArticleCard({ item }: { item: ArticleCardItem }) {
   const t = useTranslations('resources');
   const locale = useLocale();
   return (
-    <Link
-      href={`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`}
-      className={`group flex h-[132px] gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
+    <article
+      className={`group relative flex h-[132px] gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
     >
       <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded">
         {item.image ? (
@@ -60,8 +70,13 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
         )}
       </div>
       <div className="flex-1 min-w-0 flex flex-col">
-        <h3 className="text-sm font-bold tracking-tight text-res-text leading-tight mb-1 line-clamp-2 group-hover:underline decoration-1 underline-offset-2">
-          {item.title}
+        <h3 className="text-sm font-bold tracking-tight text-res-text leading-tight mb-1 line-clamp-2">
+          <Link
+            href={`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`}
+            className="after:absolute after:inset-0 after:content-[''] group-hover:underline decoration-1 underline-offset-2"
+          >
+            {item.title}
+          </Link>
         </h3>
         {item.summary ? (
           <p
@@ -85,11 +100,18 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
               {t('tools')}
             </span>
           )}
-          {item.language && <LanguageFlag language={item.language} variant="inline" />}
+          {item.language && (
+            <TranslationSwitch
+              language={item.language}
+              translations={item.translations}
+              variant="inline"
+              className="relative z-10"
+            />
+          )}
           {item.publishedAt && <span>{formatDate(item.publishedAt, locale)}</span>}
         </div>
       </div>
-    </Link>
+    </article>
   );
 }
 

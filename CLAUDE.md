@@ -111,6 +111,64 @@ If you have questions about the product vision, please look at https://www.notio
 
 - Only use BUN for the project. Never use npm or yarn or pnpm for this project
 
+## Publishing an article
+
+An article is a Markdown file in `content/articles/<slug>.md`. Its frontmatter drives the whole pipeline, and three gates run on every pull request (`bun run content:victor-check`, `content:focus-check`, `content:translations-check`) plus the image gates in `prebuild`.
+
+### Bilingual articles
+
+An article published in both languages links its two files with a shared `translationKey`:
+
+```yaml
+# content/articles/ia-donnees-de-sante-hds.md
+language: fr
+translationKey: hds-health-data
+
+# content/articles/ai-health-data-hds-france.md
+language: en
+translationKey: hds-health-data
+```
+
+The key is language-neutral kebab-case and never appears on screen. With it, `/resources` shows one card per article — the version in the locale being browsed, falling back to whichever version exists — with an FR/EN switch on the card, each version is canonical on its own URL and declares the other through `hreflang` (plus `x-default` on the French one), and the sitemap carries the same alternates.
+
+One article means one URL per language, so reaching a translated article under the other language's prefix (`/en/resources/articles/ia-donnees-de-sante-hds`) **308-redirects** to that language's own version (`/en/resources/articles/ai-health-data-hds-france`). That is what makes the global FR/EN switch in the header work on an article: it only swaps the prefix, and the redirect carries it the rest of the way.
+
+An article with no translation simply omits `translationKey`, and behaves exactly as before: it stays readable under either prefix, canonical on its own language's URL and `noindex` on the other. Validation (`bun run content:translations-check`) rejects a key that is not shared by a second article, two versions in the same language, a key without an explicit `language`, a mis-cased `translationKey`, and a pair whose `series` values disagree.
+
+### Generating the cover
+
+Covers are generated in the house art direction (one mascot, stylized 3D clay, warm palette, no text) with:
+
+```bash
+bun run cover:generate --slug <article-slug> --scene "<the one metaphor to draw>"
+bun run cover:generate --slug <article-slug> --prompt-only   # review the prompt first, costs nothing
+```
+
+Without `--scene` the prompt falls back to the article's own title and summary, but choosing the metaphor yourself gives a far better cover. The script calls the Azure OpenAI image *edit* endpoint with the mascot reference attached, which is what keeps the character identical across covers, and writes `public/images/resources/<slug>/cover-mascotte.webp` at 1536x1024, webp quality 80. It refuses to overwrite an existing cover unless you pass `--force`.
+
+**The mascot reference PNG is committed at `public/brand/mascot-reference.png`** and is the default, so nothing to pass. It is the canonical `assets/avatar-tvc-mascotte.png` from the `generate-brand-image-marketing` skill (1024x1024). Override it with `--mascot <path>` or `TVC_MASCOT_REFERENCE` only to try a different character.
+
+**Mandatory visual check before committing a cover.** Open the generated file and compare it to the reference:
+
+- a glossy black swept-back pattern painted on top of the head, with a central point on the forehead;
+- a black V on the chest, with black shoulders;
+- **no golden badge** and nothing attached to the forehead — describing the head as a "winged emblem" is what makes the model add one.
+
+If the mascot drifted, regenerate with a corrected `--scene`. Never ship a cover that failed this check.
+
+Then run `bun run images:optimize` and `bun run content:check`.
+
+Configuration, all overridable by environment variable:
+
+| Variable | Default |
+| --- | --- |
+| `AZURE_OPENAI_API_KEY` (fallback `OPENAI_API_KEY`) | none — required |
+| `AZURE_OPENAI_IMAGE_ENDPOINT` | `https://quivr-sweden-central-resource.openai.azure.com/openai/v1` |
+| `AZURE_OPENAI_IMAGE_DEPLOYMENT` | `gpt-image-2-1` |
+| `TVC_MASCOT_REFERENCE` | `public/brand/mascot-reference.png` |
+
+The key lives in `.env.local` (bun loads it automatically, and `.gitignore` already covers `.env*`) or in a CI secret. **Never commit a key.** CI never calls the image API: cover generation is a human step, because the mascot check needs eyes on the result.
+
 ## Image Optimization
 
 For same-repo PRs that touch `content/**`, `public/images/**`, or `scripts/optimize-images.ts`, GitHub Actions runs:
