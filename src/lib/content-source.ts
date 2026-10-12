@@ -281,6 +281,20 @@ export const getContentTranslations = cache((type: string, slug: string): Conten
 })
 
 /**
+ * The version a given language should serve for this article, when the one
+ * being asked for is not it. Returns null when the article is already in that
+ * language, or has no version in it — in both cases the request is served
+ * as-is rather than redirected somewhere the reader did not ask for.
+ */
+export const getContentForLanguage = cache(
+  (type: string, slug: string, language: ContentLanguage): ContentEntry | null => {
+    const item = getContentItem(type, slug)
+    if (!item || item.language === language) return null
+    return getContentTranslations(type, slug).find((v) => v.language === language) ?? null
+  },
+)
+
+/**
  * One entry per article: the version written in `language` when it exists,
  * otherwise the only version that was published. This is what listings render,
  * so a translated article shows up as a single card instead of two.

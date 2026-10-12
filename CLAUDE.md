@@ -131,7 +131,9 @@ translationKey: hds-health-data
 
 The key is language-neutral kebab-case and never appears on screen. With it, `/resources` shows one card per article — the version in the locale being browsed, falling back to whichever version exists — with an FR/EN switch on the card, each version is canonical on its own URL and declares the other through `hreflang` (plus `x-default` on the French one), and the sitemap carries the same alternates.
 
-An article with no translation simply omits `translationKey`, and behaves exactly as before. Validation (`bun run content:translations-check`) rejects a key that is not shared by a second article, two versions in the same language, a key without an explicit `language`, a mis-cased `translationKey`, and a pair whose `series` values disagree.
+One article means one URL per language, so reaching a translated article under the other language's prefix (`/en/resources/articles/ia-donnees-de-sante-hds`) **308-redirects** to that language's own version (`/en/resources/articles/ai-health-data-hds-france`). That is what makes the global FR/EN switch in the header work on an article: it only swaps the prefix, and the redirect carries it the rest of the way.
+
+An article with no translation simply omits `translationKey`, and behaves exactly as before: it stays readable under either prefix, canonical on its own language's URL and `noindex` on the other. Validation (`bun run content:translations-check`) rejects a key that is not shared by a second article, two versions in the same language, a key without an explicit `language`, a mis-cased `translationKey`, and a pair whose `series` values disagree.
 
 ### Generating the cover
 

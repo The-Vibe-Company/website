@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Link } from "@/i18n/navigation";
+import { Link, permanentRedirect } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -11,10 +11,12 @@ import { CONTENT_TYPES, getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/l
 import {
   contentPath,
   getContentByType,
+  getContentForLanguage,
   getContentItem,
   getContentTranslations,
   getRelatedContent,
 } from '@/lib/content-source';
+import type { ContentLanguage } from '@/lib/content-source';
 import { extractCoverImage, normalizeMarkdownBody } from '@/lib/markdown';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
@@ -136,6 +138,16 @@ export default async function ContentDetailPage({
 
   const item = await getContent(contentType.slug, slug);
   if (!item) notFound();
+
+  // One article, one URL per language. Reaching a translated article under the
+  // other language's prefix (what the global FR/EN switch does, since it only
+  // swaps the prefix) lands here, so send the reader on to the version they
+  // actually asked for. An article with no translation is served as-is.
+  const language: ContentLanguage = locale === 'en' ? 'en' : 'fr';
+  const translated = getContentForLanguage(contentType.slug, slug, language);
+  if (translated) {
+    permanentRedirect({ href: contentPath(translated), locale });
+  }
 
   const related = await getRelated(contentType.slug, slug);
   const translations = (await getTranslationLinks(contentType.slug, slug)).map((version) => ({
