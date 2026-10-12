@@ -2,6 +2,7 @@
 title: "Agence IA, ESN, freelance ou équipe interne : comment choisir"
 slug: choisir-agence-ia-esn-freelance
 language: fr
+translationKey: choose-ai-agency
 summary: "Agence IA, ESN, freelance ou équipe interne : critères de décision, forfait ou régie, ce que doit contenir une proposition, comment juger un POC et des références. Le guide concret avant de signer."
 publishedAt: 2026-10-13
 complexity: beginner
