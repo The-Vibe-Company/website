@@ -103,6 +103,38 @@ export function splitPathAlternates(locale: string, paths: SplitPaths) {
   };
 }
 
+/** A language version of a piece of content, as an unprefixed site path. */
+export type ContentVersion = { language: string; path: string };
+
+/**
+ * Alternates for content published in one or more languages. Each version is
+ * canonical on its own URL and declares every translation, so a pair points at
+ * itself and at the other; `x-default` goes to the French version, the site's
+ * default language. Content published in a single language keeps the
+ * monolingual declaration.
+ */
+export function contentAlternates(
+  language: string,
+  path: string,
+  versions: ContentVersion[],
+) {
+  if (versions.length < 2) return monolingualAlternates(language, path);
+
+  const languages: Record<string, string> = {};
+  for (const version of versions) {
+    languages[version.language] = localizedUrl(version.language, version.path);
+  }
+
+  // Keep this in sync with `routing.defaultLocale`.
+  const fallback = versions.find((version) => version.language === "fr") ?? versions[0];
+  languages["x-default"] = localizedUrl(fallback.language, fallback.path);
+
+  return {
+    canonical: localizedUrl(language, path),
+    languages,
+  };
+}
+
 export function monolingualAlternates(language: string, path: string) {
   const canonical = localizedUrl(language, path);
 

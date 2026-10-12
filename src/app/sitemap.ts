@@ -1,12 +1,15 @@
 import type { MetadataRoute } from "next";
-import { getAllContent } from "@/lib/content-source";
-import { getUrlSlugForDbType } from "@/lib/content-types";
+import {
+  contentPath,
+  getAllContent,
+  getContentTranslations,
+} from "@/lib/content-source";
 import { PROJECT_SLUGS } from "@/lib/projects";
 import {
+  contentAlternates,
   INDEXABLE_SPLIT_PATH_ROUTES,
   INDEXABLE_STATIC_ROUTES,
   localizedUrl,
-  monolingualAlternates,
   splitPath,
   type SplitPaths,
 } from "@/lib/site";
@@ -71,8 +74,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // `/resources/[type]` routes redirect to the resources hub, so only emit
   // the hub and actual content detail pages as indexable sitemap entries.
   const contentRoutes = allContent.map((item) => {
-    const path = `/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`;
-    const publication = monolingualAlternates(item.language, path);
+    // A translated article keeps one entry per language version, each canonical
+    // on its own URL and declaring the other through hreflang.
+    const versions = getContentTranslations(item.type, item.slug).map((version) => ({
+      language: version.language,
+      path: contentPath(version),
+    }));
+    const publication = contentAlternates(item.language, contentPath(item), versions);
 
     return {
       url: publication.canonical,

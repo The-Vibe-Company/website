@@ -23,6 +23,9 @@ jobs:
       - name: Validate Focus articles
         run: bun run content:focus-check
 
+      - name: Validate article translations
+        run: bun run content:translations-check
+
   build:
     runs-on: ubuntu-latest
     env:
