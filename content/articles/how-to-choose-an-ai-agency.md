@@ -2,6 +2,7 @@
 title: "How to choose an AI agency: 10 questions before you sign"
 slug: how-to-choose-an-ai-agency
 language: en
+translationKey: choose-ai-agency
 summary: "AI agency, IT services firm, freelancer or in-house team? Decision criteria, fixed price vs time and materials, what a proposal should contain, and how to judge a POC and references."
 publishedAt: 2026-10-13
 complexity: beginner
