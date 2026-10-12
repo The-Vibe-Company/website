@@ -109,7 +109,7 @@
         "bullets": [
           "Product and technical discovery",
           "Architecture and development in short cycles",
-          "Secure production: GDPR, SOC 2, HDS, and ISO 27001",
+          "Secure production: GDPR and HDS",
           "Observability, documentation, and team handoff"
         ]
       },
