@@ -141,6 +141,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp": {
+      "sourceHash": "aa3cd4d5f419dd5ad95b4ba6e048cbff5b94db2b871503156ef6cd7ce2435235",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/je-mappelle-victor/cover-mascotte.webp": {
       "sourceHash": "45ebcbefd168157d9f07df956976c9def463be1894f7e85427ddb169660598de",
       "targetUrl": null,
@@ -308,6 +313,11 @@
     },
     "og:/images/resources/how-to-use-skillopt-to-train-agent-skills/cover-mascotte.webp": {
       "sourceHash": "9b9df6041d04521e63216a9e62cd66a29703abacbd710991193e65cf33718501",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp": {
+      "sourceHash": "aa3cd4d5f419dd5ad95b4ba6e048cbff5b94db2b871503156ef6cd7ce2435235",
       "targetUrl": null,
       "targetHash": null
     },
