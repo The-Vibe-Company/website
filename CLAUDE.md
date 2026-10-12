@@ -146,7 +146,7 @@ bun run cover:generate --slug <article-slug> --prompt-only   # review the prompt
 
 Without `--scene` the prompt falls back to the article's own title and summary, but choosing the metaphor yourself gives a far better cover. The script calls the Azure OpenAI image *edit* endpoint with the mascot reference attached, which is what keeps the character identical across covers, and writes `public/images/resources/<slug>/cover-mascotte.webp` at 1536x1024, webp quality 80. It refuses to overwrite an existing cover unless you pass `--force`.
 
-**The mascot reference PNG is not in this repo.** Pass it with `--mascot <path>` or set `TVC_MASCOT_REFERENCE`; the canonical file is `assets/avatar-tvc-mascotte.png` from the `generate-brand-image-marketing` skill. Dropping it at `public/brand/mascot-reference.png` makes it the default.
+**The mascot reference PNG is committed at `public/brand/mascot-reference.png`** and is the default, so nothing to pass. It is the canonical `assets/avatar-tvc-mascotte.png` from the `generate-brand-image-marketing` skill (1024x1024). Override it with `--mascot <path>` or `TVC_MASCOT_REFERENCE` only to try a different character.
 
 **Mandatory visual check before committing a cover.** Open the generated file and compare it to the reference:
 

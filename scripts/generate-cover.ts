@@ -156,8 +156,8 @@ async function generate(prompt: string, mascotPath: string): Promise<Buffer> {
     mascot = await fs.readFile(mascotPath)
   } catch {
     fail(
-      `mascot reference not found at ${mascotPath}. Pass it with --mascot <path> or set TVC_MASCOT_REFERENCE. ` +
-        'The canonical file is `assets/avatar-tvc-mascotte.png` from the `generate-brand-image-marketing` skill.',
+      `mascot reference not found at ${mascotPath}. It ships with the repo at ` +
+        'public/brand/mascot-reference.png — restore it, or point --mascot/TVC_MASCOT_REFERENCE at another copy.',
     )
   }
 
