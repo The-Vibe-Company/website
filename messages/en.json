@@ -313,7 +313,7 @@
       "intro": "Three ways to work together, the same three as on our homepage.",
       "items": {
         "build": {
-          "desc": "We turn your need into a reliable product, in short cycles, all the way to production. Product and technical scoping, architecture, development, observability and documentation are all part of the job. We ship into secure production — GDPR, SOC 2, HDS and ISO 27001 — then hand over to your teams."
+          "desc": "We turn your need into a reliable product, in short cycles, all the way to production. Product and technical scoping, architecture, development, observability and documentation are all part of the job. We ship into secure production — GDPR and HDS compliance, plus any security framework the client requires at project or hosting level — then hand over to your teams."
         },
         "operate": {
           "desc": "We audit your workflows and measure the time actually spent, then we build the skills and connect your tools. Agents are deployed in your environment, securely, on the repetitive work. The result is measured in time your teams get back, and we keep improving it after go-live."
@@ -346,8 +346,8 @@
           "desc": "The Vibe Company is part of the technical consortium of MediaGen, AFP's France 2030 generative AI project, alongside Kairntech and Dawex: three tools for newsrooms in 24 months, with some components released under an open license. In healthcare, we work on encrypted, GDPR-compliant data for Monka. In food, we check Coup de Pates' product documents."
         },
         "security": {
-          "figure": "4",
-          "figureLabel": "frameworks we ship within: GDPR, SOC 2, HDS, ISO 27001",
+          "figure": "2",
+          "figureLabel": "compliance frameworks we know well: GDPR and HDS",
           "title": "Security and operations are part of the delivery",
           "desc": "Health data hosting (HDS) and security are two things we know well, because our healthcare clients require it. We are also very strong on frontend and DevOps: the interface and the deployment pipeline are the same piece of work. We can hand over with documentation and runbooks, or keep running the product ourselves."
         },
@@ -429,7 +429,7 @@
         },
         "data": {
           "q": "What happens to our data, and which standards do you work to?",
-          "a": "We ship into secure production: GDPR, SOC 2, HDS and ISO 27001 are part of the frame we work in. For Monka, health data is encrypted and GDPR-compliant. Health data hosting (HDS) and security are two things we know well."
+          "a": "We ship into secure production: GDPR and HDS are compliance areas we know well. For Monka, health data is encrypted and GDPR-compliant. We apply the relevant security frameworks at project and hosting level when clients require them."
         },
         "start": {
           "q": "How do we start?",

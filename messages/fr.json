@@ -313,7 +313,7 @@
       "intro": "Trois façons de travailler ensemble, les mêmes que sur notre page d’accueil.",
       "items": {
         "build": {
-          "desc": "On transforme votre besoin en produit fiable, par cycles courts, jusqu’à la mise en production. Le cadrage produit et technique, l’architecture, le développement, l’observabilité et la documentation font partie du travail. On livre en production sécurisée — RGPD, SOC 2, HDS et ISO 27001 — puis on passe la main à vos équipes."
+          "desc": "On transforme votre besoin en produit fiable, par cycles courts, jusqu’à la mise en production. Le cadrage produit et technique, l’architecture, le développement, l’observabilité et la documentation font partie du travail. On livre en production sécurisée — conformité RGPD et HDS, plus tout référentiel de sécurité exigé par le client au niveau projet ou hébergement — puis on passe la main à vos équipes."
         },
         "operate": {
           "desc": "On audite vos workflows et on mesure le temps réellement passé, puis on crée les skills et on connecte vos outils. Les agents sont déployés chez vous, de façon sécurisée, sur les tâches répétitives. Le résultat se mesure au temps gagné par vos équipes, et on continue d’améliorer après la mise en service."
@@ -346,8 +346,8 @@
           "desc": "The Vibe Company fait partie du consortium technique de MediaGen, le projet France 2030 d’IA générative de l’AFP, aux côtés de Kairntech et Dawex : trois outils pour les rédactions en 24 mois, dont une partie des composants sera publiée en licence libre. En santé, on travaille sur des données chiffrées et conformes au RGPD pour Monka. En agroalimentaire, on contrôle les documents produit de Coup de Pates."
         },
         "security": {
-          "figure": "4",
-          "figureLabel": "référentiels dans lesquels on livre : RGPD, SOC 2, HDS, ISO 27001",
+          "figure": "2",
+          "figureLabel": "référentiels de conformité maîtrisés : RGPD et HDS",
           "title": "La sécurité et l’exploitation font partie du livrable",
           "desc": "L’hébergement de données de santé (HDS) et la sécurité sont deux sujets qu’on maîtrise, parce que nos clients en santé l’exigent. On est aussi très solides sur le frontend et le DevOps : l’interface comme la chaîne de déploiement font partie du même travail. On peut passer la main avec la documentation et les runbooks, ou continuer à faire tourner le produit."
         },
@@ -429,7 +429,7 @@
         },
         "data": {
           "q": "Que devient notre donnée, et quelles conformités visez-vous ?",
-          "a": "On livre en production sécurisée : RGPD, SOC 2, HDS et ISO 27001 font partie du cadre dans lequel on travaille. Pour Monka, les données de santé sont chiffrées et conformes au RGPD. L’hébergement de données de santé (HDS) et la sécurité sont deux sujets qu’on maîtrise."
+          "a": "On livre en production sécurisée : RGPD et HDS sont les référentiels de conformité qu’on maîtrise. Pour Monka, les données de santé sont chiffrées et conformes au RGPD. On applique les référentiels de sécurité pertinents au niveau projet et hébergement quand le client l’exige."
         },
         "start": {
           "q": "Comment on démarre ?",
