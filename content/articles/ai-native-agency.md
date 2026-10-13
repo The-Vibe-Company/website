@@ -38,6 +38,8 @@ You see it early. We show you a first version or a working prototype from the st
 
 Three specialties: HDS and security, frontend, DevOps. In these areas, rigor matters as much as speed.
 
+Our agents don't start from scratch. We give them skills: ready-to-use instructions and tools for a specific task, which we write ourselves and use on every project. We've been refining them for months, project after project, so every engagement benefits from what we learned on the previous ones. We manage and share them with [Skillpack](https://skillpack.app), the tool we built for that.
+
 One example: with Monka, a health platform already HDS-certified, the challenge was to build fast without stepping outside that framework. On a project like that, agents speed up production, and the team stays in control of everything that touches health data. The details are in our article on [AI and health data under HDS](/en/resources/articles/ai-health-data-hds-france).
 
 > **Got a project in mind?** Show it to us and we'll tell you how we'd approach it. [Book 30 minutes with Stan](https://cal.com/stangirard/30min).

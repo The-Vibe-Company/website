@@ -38,6 +38,8 @@ Vous voyez tôt. On vous montre une première version ou une maquette fonctionne
 
 Trois spécialités : HDS et sécurité, frontend, DevOps. Sur ces sujets, la rigueur compte autant que la vitesse.
 
+Nos agents ne partent pas de zéro. On leur donne des skills : des instructions et des outils prêts à l'emploi pour une tâche précise, qu'on écrit nous-mêmes et qu'on utilise sur chaque projet. On les peaufine depuis des mois, projet après projet, et chaque mission profite de ce qu'on a appris sur les précédentes. On les gère et on les partage avec [Skillpack](https://skillpack.app), l'outil qu'on a construit pour ça.
+
 Un exemple : avec Monka, une plateforme de santé déjà certifiée HDS, le défi était de construire vite sans sortir de ce cadre. Sur ce genre de projet, les agents accélèrent la production, et l'équipe garde la main sur tout ce qui touche aux données de santé. Le détail est dans notre article sur [l'IA et les données de santé HDS](/fr/resources/articles/ia-donnees-de-sante-hds).
 
 > **Vous avez un projet en tête ?** Montrez-le-nous, on vous dit comment on s'y prendrait. [Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).
