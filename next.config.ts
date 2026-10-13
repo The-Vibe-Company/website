@@ -25,6 +25,27 @@ const nextConfig: NextConfig = {
         destination: "/portfolio/skillpack",
         permanent: true,
       },
+      // /resources/learnings was removed; old URLs still 404 in Search Console.
+      {
+        source: "/:locale(fr|en)/resources/learnings",
+        destination: "/:locale/resources/articles",
+        permanent: true,
+      },
+      {
+        source: "/:locale(fr|en)/resources/learnings/:path*",
+        destination: "/:locale/resources/articles",
+        permanent: true,
+      },
+      {
+        source: "/resources/learnings",
+        destination: "/resources/articles",
+        permanent: true,
+      },
+      {
+        source: "/resources/learnings/:path*",
+        destination: "/resources/articles",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
