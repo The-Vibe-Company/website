@@ -56,6 +56,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/deployer-claude-code-entreprise/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/focus-skill-compta-qonto/cover.png": {
       "sourceHash": "6876ac6a6f51f901b21ff6ead50bc3a1a88c5ac76bdbd41ac9222d0bee3439af",
       "targetUrl": "/images/_optimized/resources/focus-skill-compta-qonto/cover.webp",
@@ -298,6 +303,11 @@
     },
     "og:/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
       "sourceHash": "8e6a77b8cfc219c537dbf498586043c9f410e0272f9cb46c8258c5c572cc406a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/deployer-claude-code-entreprise/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
       "targetUrl": null,
       "targetHash": null
     },
