@@ -1,6 +1,11 @@
 {
   "version": 1,
   "entries": {
+    "content:/images/resources/agence-ia-native/cover-mascotte.webp": {
+      "sourceHash": "897c6a1baf12d3dab4ae5630c97f74fa013765f1cf8705d36c5e8a0ada1eb776",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
       "sourceHash": "f148fe053ae1e59135bbc63e8408eb56b1c8daaf4f342d4e18c4f5054c1a4e7c",
       "targetUrl": null,
@@ -275,6 +280,11 @@
       "sourceHash": "e9e89047e6ea8c5f57a66166c03fbe731c04a90461225d225f8c02cdc4ca3dc7",
       "targetUrl": "/images/_optimized/resources/why-i-replaced-prompts-with-skills/generated/prompts-to-skills-cover.webp",
       "targetHash": "120debfea03a98f449f8cacafd672ae40c0a5ae0be5f138c39583d7c70328e6f"
+    },
+    "og:/images/resources/agence-ia-native/cover-mascotte.webp": {
+      "sourceHash": "897c6a1baf12d3dab4ae5630c97f74fa013765f1cf8705d36c5e8a0ada1eb776",
+      "targetUrl": null,
+      "targetHash": null
     },
     "og:/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
       "sourceHash": "f148fe053ae1e59135bbc63e8408eb56b1c8daaf4f342d4e18c4f5054c1a4e7c",
