@@ -12,7 +12,7 @@ coverAlt: "Une petite équipe et ses agents IA livrent un projet ensemble"
 ogImage: /images/resources/agence-ia-native/cover-mascotte.webp
 ---
 
-The Vibe Company est une agence IA native. On est passés par Y Combinator (W24), Et on livre du logiciel comme une entreprise de logiciel. De petites équipes seniors, des agents de code qui produisent tous les jours, et des humains qui cadrent, relisent et valident chaque livraison.
+The Vibe Company est une agence IA native. On est passés par Y Combinator (W24), et on livre du logiciel comme une entreprise de logiciel. De petites équipes seniors, des agents de code qui produisent tous les jours, et des humains qui cadrent, relisent et valident chaque livraison.
 
 Si vous êtes une ETI ou un grand compte et que vous cherchez un prestataire, voici ce que ça change pour vous.
 
