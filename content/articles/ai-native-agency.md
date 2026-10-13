@@ -12,58 +12,64 @@ coverAlt: "A small team and its AI agents deliver a project together"
 ogImage: /images/resources/agence-ia-native/cover-mascotte.webp
 ---
 
-A classic agency grows by hiring. An AI-native agency grows by having AI do the work. And it delivers the finished result to the client.
+The Vibe Company is an AI-native agency. We went through Y Combinator (W24), and we deliver software the way a software company does. Small senior teams, coding agents producing every day, and people who scope, review and sign off on every delivery.
 
-[Aaron Epstein](https://www.ycombinator.com/people/aaron-epstein) of Y Combinator summed up the idea in a Request for Startups on AI-native agencies. Here's his argument, and what it changes when you buy services.
+If you're a mid-size or large company looking for a partner, here's what that means for you.
 
-## The problem with classic agencies
+## What Y Combinator sees coming
 
-Epstein writes that agencies have always been "crazy hard to scale." He gives three reasons: low margins, slow manual work, and only one way to grow: adding people.
+[Aaron Epstein](https://www.ycombinator.com/people/aaron-epstein), a partner at Y Combinator, dedicated a Request for Startups to AI-native agencies. His diagnosis: agencies have always been "crazy hard to scale." Low margins, slow manual work, and only one way to grow: adding people.
 
-## What AI changes
+AI changes that. Instead of selling clients software that helps them do the work, the agency uses the software itself. It sells the finished product, at "100x the price." His examples: a design firm producing custom work before the contract is signed, an ad agency making video ads without a physical shoot, a law firm writing legal documents in minutes rather than weeks.
 
-The core idea: instead of selling clients software that helps them do the work, the agency uses the software itself. Then it sells the finished product for far more. He puts it at "100x the price."
+His conclusion: the agencies of the future will look like software companies, "with software margins," and will grow far bigger than today's.
 
-He gives three examples:
+That's the model we built The Vibe Company on.
 
-- A design firm that uses AI to produce custom work upfront, winning the client before the contract is signed.
-- An ad agency that creates video ads with AI, without the time and cost of a physical shoot.
-- A law firm that drafts legal documents in minutes instead of weeks.
+## How we deliver at The Vibe Company
 
-His conclusion: agencies of the future will look more like software companies, "with software margins," and can grow far bigger than today's agencies in these fragmented markets.
+Small senior teams. No pyramid of juniors billed by the day. Every project is run by experienced people who understand the business as well as the code.
 
-| | Classic agency | AI-native agency (per Aaron Epstein) |
-| --- | --- | --- |
-| Growth | Add people | AI does the work |
-| Speed | Slow, manual work | Much of the work produced by AI, far faster |
-| Margins | Low | Close to software |
-| What the client gets | Work done by hand | The finished product, made with AI |
+Coding agents, every day. Agents write, test and iterate. They produce much of the code. That's how we move fast without growing the team.
 
-## Why it matters for mid-size and large companies
+The team scopes, reviews and signs off. Agents produce, people decide. Nothing ships without being reviewed by someone accountable for it.
 
-He's writing for founders. But if you're buying, it suggests a few questions to ask a vendor:
+You see it early. We show you a first version or a working prototype from the start, often before the scope is locked. You judge on real work, not on slides.
 
-- **Buy a deliverable, not a tool.** An AI-native agency delivers the result. You don't have to learn any software.
-- **Ask to see work before signing.** If AI makes production fast, a vendor can show you a mockup or first version before the contract. That's the design firm example.
-- **Question timelines.** In Epstein's example, a law firm uses AI to write legal documents in minutes rather than weeks. If a vendor quotes you weeks for that kind of work, ask why.
-- **Keep human review.** Going faster doesn't mean you skip checking what's delivered. That goes double for code and sensitive documents.
+Three specialties: HDS and security, frontend, DevOps. In these areas, rigor matters as much as speed.
 
-## How we work at The Vibe Company
+Our agents don't start from scratch. We give them skills: ready-to-use instructions and tools for a specific task, which we write ourselves and use on every project. We've been refining them for months, project after project, so every engagement benefits from what we learned on the previous ones. We manage and share them with [Skillpack](https://skillpack.app), the tool we built for that.
 
-The Vibe Company is an AI agency in Paris, founded in 2024 by Stan Girard and Antoine Dewez (ex-Theodo, ex-Stockly). We went through Y Combinator (W24), raised $1.7M and are backed by France 2030 through MediaGen.
+One example: with Monka, a health platform already HDS-certified, the challenge was to build fast without stepping outside that framework. On a project like that, agents speed up production, and the team stays in control of everything that touches health data. The details are in our article on [AI and health data under HDS](/en/resources/articles/ai-health-data-hds-france).
 
-We've delivered dozens of projects, with three specialties: HDS and security, frontend, and DevOps. We use coding agents every day to deliver. The agents produce. The team scopes, reviews and signs off. That's the model Aaron Epstein describes, applied to software delivery.
+> **Got a project in mind?** Show it to us and we'll tell you how we'd approach it. [Book 30 minutes with Stan](https://cal.com/stangirard/30min).
 
-Worth knowing for procurement: we don't claim any security certification.
+## Why it's better for you
+
+You buy an outcome, not person-days. With a classic agency, you pay for time spent. With us, you pay for what gets delivered: a product that runs.
+
+You see before you sign. Producing costs less, so we can show you something concrete very early. You decide based on what you've seen, not on a promise.
+
+Human review stays. Moving fast doesn't mean shipping unchecked. Every delivery is reviewed and approved by the team, to the standard your security and compliance teams expect.
+
+## Who we are
+
+The Vibe Company was founded in Paris in 2024 by Stan Girard and Antoine Dewez (ex-Theodo, ex-Stockly). We went through Y Combinator (W24), raised $1.7M and are backed by France 2030 through MediaGen. We've run dozens of projects, and each one taught us something about working this way.
 
 ## FAQ
 
-**Is an AI-native agency a software vendor?**
-No. It uses the software itself and delivers you the finished result.
+**Is an AI-native agency just an agency that uses ChatGPT?**
+No. AI is at the core of production. Coding agents produce every day, and the team is organized around them to scope, review and sign off.
 
-**Is it necessarily cheaper?**
-Not necessarily. Epstein's argument is about the value of the finished product and the agency's margins, not about lower prices.
+**Who is accountable for what's delivered?**
+The team. Agents produce, but every delivery is reviewed and approved by a senior person.
+
+**Do you work with sensitive data?**
+Yes. HDS and security are one of our three specialties, alongside frontend and DevOps.
+
+**How do we get started?**
+With a 30-minute call with Stan, to understand your need and see what we can show you quickly.
 
 ## Let's talk about your project
 
-Want to see what an AI-native agency can deliver for your teams? [Book 30 minutes with Stan](https://cal.com/stangirard/30min).
+Want to see what an AI-native agency can deliver for your teams? Bring your need, and you'll leave with a first idea of how to build it. [Book 30 minutes with Stan](https://cal.com/stangirard/30min).

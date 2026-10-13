@@ -12,58 +12,64 @@ coverAlt: "Une petite équipe et ses agents IA livrent un projet ensemble"
 ogImage: /images/resources/agence-ia-native/cover-mascotte.webp
 ---
 
-Une agence classique grandit en embauchant. Une agence IA native grandit en faisant travailler l'IA. Et elle livre au client le résultat fini.
+The Vibe Company est une agence IA native. On est passés par Y Combinator (W24), et on livre du logiciel comme une entreprise de logiciel. De petites équipes seniors, des agents de code qui produisent tous les jours, et des humains qui cadrent, relisent et valident chaque livraison.
 
-[Aaron Epstein](https://www.ycombinator.com/people/aaron-epstein), de Y Combinator, a résumé l'idée dans un appel à projets (Request for Startups) consacré aux agences IA natives. Voici son argument, et ce que ça change quand vous achetez une prestation.
+Si vous êtes une ETI ou un grand compte et que vous cherchez un prestataire, voici ce que ça change pour vous.
 
-## Le problème des agences classiques
+## Ce que Y Combinator voit venir
 
-Pour Aaron Epstein, les agences ont toujours été « crazy hard to scale ». Il donne trois raisons : des marges faibles, un travail manuel et lent, et une seule façon de grandir : embaucher.
+[Aaron Epstein](https://www.ycombinator.com/people/aaron-epstein), partner chez Y Combinator, a consacré un appel à projets aux agences IA natives. Son constat : les agences ont toujours été « crazy hard to scale ». Marges faibles, travail manuel et lent, et une seule façon de grandir : embaucher.
 
-## Ce que l'IA change
+Avec l'IA, ça change. Au lieu de vendre au client un logiciel qui l'aide à faire le travail, l'agence utilise le logiciel elle-même. Elle vend le produit fini, à « 100x the price ». Ses exemples : un studio de design qui produit du travail sur mesure avant même la signature, une agence de pub qui crée des vidéos sans tournage, un cabinet d'avocats qui rédige en minutes plutôt qu'en semaines.
 
-L'idée centrale : au lieu de vendre au client un logiciel qui l'aide à faire le travail, l'agence utilise le logiciel elle-même. Elle vend le produit fini, bien plus cher. Il parle d'un prix « 100x » supérieur.
+Sa conclusion : les agences de demain ressembleront à des entreprises de logiciel, « with software margins », et grandiront bien plus que celles d'aujourd'hui.
 
-Il donne trois exemples :
+C'est le modèle sur lequel on a construit The Vibe Company.
 
-- Un studio de design qui produit du design sur mesure avec l'IA dès l'avant-vente, pour gagner le client avant même la signature.
-- Une agence de pub qui crée des vidéos publicitaires avec l'IA, sans le temps ni le coût d'un tournage.
-- Un cabinet d'avocats qui rédige des documents juridiques en minutes plutôt qu'en semaines.
+## Comment on livre chez The Vibe Company
 
-Sa conclusion : les agences de demain ressembleront davantage à des entreprises de logiciel, « with software margins », et pourront devenir bien plus grandes que les agences actuelles de ces marchés fragmentés.
+De petites équipes seniors. Pas de pyramide de juniors facturés à la journée. Chaque projet est porté par des profils expérimentés qui connaissent le métier autant que le code.
 
-| | Agence classique | Agence IA native (selon Aaron Epstein) |
-| --- | --- | --- |
-| Croissance | Ajouter des gens | L'IA fait le travail |
-| Vitesse | Travail manuel, lent | Une grande partie du travail produite par l'IA, beaucoup plus vite |
-| Marges | Faibles | Proches du logiciel |
-| Ce que reçoit le client | Du travail fait à la main | Le produit fini, produit avec l'IA |
+Des agents de code, tous les jours. Les agents écrivent, testent et itèrent. Ils produisent une grande partie du code. C'est ce qui nous permet d'aller vite sans gonfler les équipes.
 
-## Pourquoi c'est important pour les ETI et grands comptes
+L'équipe cadre, relit et valide. Les agents produisent, les humains décident. Rien n'est livré sans avoir été relu par quelqu'un qui en répond.
 
-Son texte s'adresse aux fondateurs. Mais côté acheteur, on en tire quelques questions à poser à un prestataire :
+Vous voyez tôt. On vous montre une première version ou une maquette fonctionnelle dès le début, souvent avant de figer le périmètre. Vous jugez sur pièce, pas sur une présentation.
 
-- **Achetez un livrable, pas un outil.** Une agence IA native vous livre le résultat. Pas besoin d'apprendre un logiciel.
-- **Demandez à voir avant de signer.** Si l'IA permet de produire vite, on peut vous montrer une maquette ou une première version avant le contrat. C'est l'exemple du studio de design.
-- **Questionnez les délais.** Dans l'exemple d'Aaron Epstein, un cabinet d'avocats rédige des documents juridiques en minutes plutôt qu'en semaines. Si un prestataire vous annonce des semaines pour ce genre de travail, demandez pourquoi.
-- **Gardez la relecture humaine.** Aller plus vite ne dispense pas de vérifier ce qui est livré. Surtout pour du code ou des documents sensibles.
+Trois spécialités : HDS et sécurité, frontend, DevOps. Sur ces sujets, la rigueur compte autant que la vitesse.
 
-## Comment on travaille chez The Vibe Company
+Nos agents ne partent pas de zéro. On leur donne des skills : des instructions et des outils prêts à l'emploi pour une tâche précise, qu'on écrit nous-mêmes et qu'on utilise sur chaque projet. On les peaufine depuis des mois, projet après projet, et chaque mission profite de ce qu'on a appris sur les précédentes. On les gère et on les partage avec [Skillpack](https://skillpack.app), l'outil qu'on a construit pour ça.
 
-The Vibe Company est une agence IA à Paris, fondée en 2024 par Stan Girard et Antoine Dewez (ex-Theodo, ex-Stockly). On est passés par Y Combinator (W24), on a levé 1,7 M$ et on est soutenus par France 2030 via MediaGen.
+Un exemple : avec Monka, une plateforme de santé déjà certifiée HDS, le défi était de construire vite sans sortir de ce cadre. Sur ce genre de projet, les agents accélèrent la production, et l'équipe garde la main sur tout ce qui touche aux données de santé. Le détail est dans notre article sur [l'IA et les données de santé HDS](/fr/resources/articles/ia-donnees-de-sante-hds).
 
-On a mené des dizaines de projets, avec trois spécialités : HDS et sécurité, frontend, DevOps. On utilise des agents de code tous les jours pour livrer. Les agents produisent. L'équipe cadre, relit et valide. C'est le modèle décrit par Aaron Epstein, appliqué au développement logiciel.
+> **Vous avez un projet en tête ?** Montrez-le-nous, on vous dit comment on s'y prendrait. [Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).
 
-Précision utile pour vos achats : on ne revendique aucune certification de sécurité.
+## Pourquoi c'est mieux pour vous
+
+Vous achetez un résultat, pas des jours-homme. Avec une agence classique, vous payez du temps passé. Avec nous, vous payez ce qui est livré : un produit qui tourne.
+
+Vous voyez avant de signer. Produire coûte moins cher, donc on peut vous montrer quelque chose de concret très tôt. Vous décidez sur ce que vous avez vu, pas sur une promesse.
+
+La relecture humaine reste. Aller vite ne veut pas dire livrer sans contrôle. Chaque livraison est relue et validée par l'équipe, avec le niveau d'exigence que vos équipes sécurité et conformité attendent.
+
+## Qui sommes-nous
+
+The Vibe Company a été fondée en 2024 à Paris par Stan Girard et Antoine Dewez (ex-Theodo, ex-Stockly). On est passés par Y Combinator (W24), on a levé 1,7 M$ et on est soutenus par France 2030 via MediaGen. On a mené des dizaines de projets, et chacun nous a appris quelque chose sur cette façon de travailler.
 
 ## FAQ
 
-**Une agence IA native, c'est un éditeur de logiciel ?**
-Non. Elle utilise le logiciel elle-même et vous livre le résultat fini.
+**Une agence IA native, c'est juste une agence qui utilise ChatGPT ?**
+Non. L'IA est au cœur de la production. Des agents de code produisent chaque jour, et l'équipe s'organise autour d'eux pour cadrer, relire et valider.
 
-**Est-ce que c'est forcément moins cher ?**
-Pas forcément. L'argument d'Aaron Epstein porte sur la valeur du produit fini et sur les marges de l'agence, pas sur un prix plus bas.
+**Qui est responsable de ce qui est livré ?**
+L'équipe. Les agents produisent, mais chaque livraison est relue et validée par une personne senior.
+
+**Vous travaillez avec des données sensibles ?**
+Oui. HDS et sécurité font partie de nos trois spécialités, avec le frontend et le DevOps.
+
+**Comment démarrer ?**
+Par un appel de 30 minutes avec Stan, pour comprendre votre besoin et voir ce qu'on peut vous montrer rapidement.
 
 ## Parlons de votre projet
 
-Vous voulez voir ce qu'une agence IA native peut livrer pour vos équipes ? [Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).
+Vous voulez voir ce qu'une agence IA native peut livrer pour vos équipes ? Venez avec votre besoin. Vous repartez avec une première idée de la façon de le construire. [Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).
