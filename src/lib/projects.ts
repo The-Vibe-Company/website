@@ -139,6 +139,38 @@ const PROJECTS_RAW: RawProject[] = [
       fr: "Bruno est la to-do sur laquelle tourne l’entreprise, sur le web et sur iPhone. On capture une idée à la voix en quelques secondes, on sépare ce qui brûle de ce qui peut attendre, et c’est Bruno qui vient vous relancer au lieu d’attendre qu’on l’ouvre.",
     },
   },
+  {
+    slug: "armada",
+    name: "Armada",
+    logo: "/projects/armada-favicon.svg",
+    cover: "/projects/armada-home.png",
+    accent: "#b6f15a",
+    url: "https://armada.thevibecompany.co",
+    repositoryUrl: "https://github.com/The-Vibe-Company/armada",
+    tag: { en: "Agent fleet", fr: "Flotte d’agents" },
+    date: { en: "Sep 2026", fr: "sept. 2026" },
+    status: { en: "Open source", fr: "Open source" },
+    description: {
+      en: "Armada runs a fleet of coding agents on one project. Each ticket goes to its own agent, a coordinator merges the green pull requests, and a live dashboard shows the whole fleet, from the first question to the merge.",
+      fr: "Armada fait tourner une flotte d’agents de code sur un même projet. Chaque ticket part chez son propre agent, un coordinateur merge les pull requests au vert, et un dashboard en direct montre toute la flotte, de la première question jusqu’au merge.",
+    },
+  },
+  {
+    slug: "aeom",
+    name: "AEOM",
+    logo: "/projects/aeom-favicon.svg",
+    cover: "/projects/aeom-home.png",
+    accent: "#ff5a3c",
+    url: "https://all-eyes-on-me-three.vercel.app",
+    repositoryUrl: "https://github.com/The-Vibe-Company/all-eyes-on-me",
+    tag: { en: "Frontend design", fr: "Design de front" },
+    date: { en: "Oct 2026", fr: "oct. 2026" },
+    status: { en: "Open source", fr: "Open source" },
+    description: {
+      en: "AEOM (All Eyes On Me) is the designer of a product coded by agents. It walks your app like a user, judges every screen against your taste, and rebuilds what gets in the way so the frontend looks like someone designed it.",
+      fr: "AEOM (All Eyes On Me) est le designer d’un produit codé par des agents. Il parcourt votre app comme un utilisateur, juge chaque écran selon votre goût, et refait ce qui gêne pour que le front ait l’air d’avoir été dessiné par quelqu’un.",
+    },
+  },
 ];
 
 function localize(raw: RawProject, locale: ContentLocale): Project {
