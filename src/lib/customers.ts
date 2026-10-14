@@ -331,18 +331,19 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     // agreed to make public.
     slug: "theodo",
     client: "Theodo",
+    // Official wordmark from theodo.com, filled with their primary red #ff512c.
     logo: "/images/clients/theodo.svg",
     url: "https://www.theodo.com",
     visuals: [],
     sector: { en: "Technical expertise · Software Factories", fr: "Expertise technique · Software Factories" },
     summary: {
-      en: "The Vibe Company supports Theodo as a technical expert on large-scale projects, such as building Software Factories for hundreds of developers, to help accelerate their teams.",
-      fr: "The Vibe Company accompagne Theodo en tant qu’expert technique sur des projets d’envergure, par exemple la création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
+      en: "The Vibe Company supports Theodo as a technical expert on critical projects for their clients, such as building Software Factories for hundreds of developers, to help accelerate their teams.",
+      fr: "The Vibe Company accompagne Theodo en tant qu’expert technique sur des projets critiques pour leurs clients, par exemple la création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
     },
     points: [
       {
-        en: "Technical expertise on large-scale projects.",
-        fr: "Une expertise technique sur des projets d’envergure.",
+        en: "Technical expertise on critical client projects.",
+        fr: "Une expertise technique sur des projets critiques pour leurs clients.",
       },
       {
         en: "Building Software Factories for hundreds of developers, to help accelerate their teams.",
@@ -350,8 +351,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       },
     ],
     overview: {
-      en: "The Vibe Company supports Theodo as a technical expert on large-scale projects, such as building Software Factories for hundreds of developers, to help accelerate their teams.",
-      fr: "The Vibe Company accompagne Theodo en tant qu’expert technique sur des projets d’envergure, par exemple la création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
+      en: "The Vibe Company supports Theodo as a technical expert on critical projects for their clients, such as building Software Factories for hundreds of developers, to help accelerate their teams.",
+      fr: "The Vibe Company accompagne Theodo en tant qu’expert technique sur des projets critiques pour leurs clients, par exemple la création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
     },
     results: [],
   },
