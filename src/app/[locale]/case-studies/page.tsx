@@ -94,14 +94,18 @@ export default async function CaseStudiesPage({
                   </span>
                 </div>
 
-                <div className="mt-6 border-t border-border pt-6">
-                  <div className="text-[44px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[52px]">
-                    {c.metric}
+                {c.metric ? (
+                  <div className="mt-6 border-t border-border pt-6">
+                    <div className="text-[44px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[52px]">
+                      {c.metric}
+                    </div>
+                    <div className="mt-2 text-sm text-muted-foreground">
+                      {c.metricLabel}
+                    </div>
                   </div>
-                  <div className="mt-2 text-sm text-muted-foreground">
-                    {c.metricLabel}
-                  </div>
-                </div>
+                ) : (
+                  <div aria-hidden="true" className="mt-6 border-t border-border" />
+                )}
 
                 <p className="m-0 mt-6 text-[15px] leading-[1.55] text-foreground">
                   {c.summary}
