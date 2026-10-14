@@ -1,4 +1,5 @@
 import { routing } from "@/i18n/routing";
+import { BOOKING_LOCATION_ATTRIBUTE } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 
 /**
@@ -15,13 +16,6 @@ import { captureEvent } from "@/lib/posthog";
  * - `article_slug`: the article's slug on an article page, else null.
  */
 export const BOOKING_LINK_CLICKED = "booking_link_clicked";
-
-/** Put `{...bookingLocation("hero")}` on a link or any of its ancestors. */
-export const BOOKING_LOCATION_ATTRIBUTE = "data-booking-location";
-
-export function bookingLocation(location: string) {
-  return { [BOOKING_LOCATION_ATTRIBUTE]: location };
-}
 
 /** True for cal.com URLs (cal.com itself or any of its subdomains). */
 export function isBookingHref(href: string | null | undefined): boolean {
@@ -67,10 +61,9 @@ export function getBookingLinkClickedProperties(link: Element, pathname: string)
 }
 
 export function trackBookingLinkClick(link: Element, pathname: string) {
-  // The CTAs navigate the same tab to cal.com: send through sendBeacon right
-  // away so the event survives the page unloading.
+  // The CTAs navigate the same tab to cal.com: skip the batch queue so the
+  // request (a keepalive fetch) leaves before the page unloads.
   captureEvent(BOOKING_LINK_CLICKED, getBookingLinkClickedProperties(link, pathname), {
     send_instantly: true,
-    transport: "sendBeacon",
   });
 }

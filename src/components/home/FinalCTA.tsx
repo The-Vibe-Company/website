@@ -2,8 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { BOOKING_URL } from "@/lib/booking";
-import { bookingLocation } from "@/lib/booking-tracking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { FitText } from "./FitText";
 

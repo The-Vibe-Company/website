@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { BOOKING_URL } from "@/lib/booking";
-import { bookingLocation } from "@/lib/booking-tracking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { cn } from "@/lib/design-system";
 import { captureEvent } from "@/lib/posthog";
 

@@ -18,8 +18,7 @@ import {
   ABOUT_TEAM,
   QUIVR_REPO_URL,
 } from "@/lib/about";
-import { BOOKING_URL } from "@/lib/booking";
-import { bookingLocation } from "@/lib/booking-tracking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import {
   ABOUT_PATHS,
   localizedSocialMetadata,

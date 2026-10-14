@@ -3,8 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { BOOKING_URL } from "@/lib/booking";
-import { bookingLocation } from "@/lib/booking-tracking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import dynamic from "next/dynamic";
 import { useSyncExternalStore } from "react";

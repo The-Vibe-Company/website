@@ -1,5 +1,5 @@
 import { renderMarkdown } from '@/lib/markdown'
-import { bookingLocation } from '@/lib/booking-tracking'
+import { bookingLocation } from '@/lib/booking'
 import { LazyAudioLoader } from './LazyAudioLoader'
 
 interface MarkdownRendererProps {

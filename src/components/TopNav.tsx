@@ -14,8 +14,7 @@ import {
   cn,
   createTransition,
 } from "@/lib/design-system";
-import { BOOKING_URL } from "@/lib/booking";
-import { bookingLocation } from "@/lib/booking-tracking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { resourcesTheme } from "@/lib/resources-theme";
 
