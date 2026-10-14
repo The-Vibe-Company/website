@@ -12,7 +12,7 @@ import { captureEvent } from "@/lib/posthog";
  * - `page`: the current pathname, locale prefix included.
  * - `location`: where on the page the link sits. Read from the nearest
  *   `data-booking-location` ancestor (or the link itself), then from the
- *   nearest `<header>`/`<nav>` or `<footer>`, else "other".
+ *   nearest `<footer>` or `<header>`/`<nav>`, else "other".
  * - `article_slug`: the article's slug on an article page, else null.
  */
 export const BOOKING_LINK_CLICKED = "booking_link_clicked";
@@ -47,8 +47,9 @@ export function getBookingLocation(link: Element): string {
   const tagged = link.closest(`[${BOOKING_LOCATION_ATTRIBUTE}]`);
   const location = tagged?.getAttribute(BOOKING_LOCATION_ATTRIBUTE);
   if (location) return location;
-  if (link.closest("header, nav")) return "header";
+  // Footer first, so a <nav> inside a footer still reads as "footer".
   if (link.closest("footer")) return "footer";
+  if (link.closest("header, nav")) return "header";
   return "other";
 }
 
