@@ -15,6 +15,7 @@ The wizard has completed a deep integration of PostHog analytics into The Vibe C
 | `skill_install_prompt_copied` | User copies the AI install prompt from a skill's detail page. | `src/components/resources/SkillAIInstaller.tsx` |
 | `skill_prompt_copied` | User copies the raw skill prompt text from a skill's detail page. | `src/components/resources/SkillPromptBlock.tsx` |
 | `skill_prompt_expanded` | User expands the full skill prompt to view the complete text. | `src/components/resources/SkillPromptBlock.tsx` |
+| `booking_link_clicked` | Any click on a cal.com link, site-wide (CTAs, header, footer, links inside article Markdown). Properties: `page`, `location`, `article_slug`. | `src/lib/booking-tracking.ts`, `src/components/BookingLinkTracker.tsx` |
 
 ## Next steps
 

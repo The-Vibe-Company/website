@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { BOOKING_URL } from "@/lib/booking";
+import { bookingLocation } from "@/lib/booking-tracking";
 import { captureEvent } from "@/lib/posthog";
 import { CLIENTS } from "./Clients";
 import { FitText } from "./FitText";
@@ -65,6 +66,7 @@ export function HeroMobile() {
       <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
         <a
           href={BOOKING_URL}
+          {...bookingLocation("hero")}
           onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
           className="inline-flex items-center gap-3 bg-foreground px-6 py-4 text-[15px] font-semibold text-background"
         >

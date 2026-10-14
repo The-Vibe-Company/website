@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { BOOKING_URL } from "@/lib/booking";
+import { bookingLocation } from "@/lib/booking-tracking";
 import { captureEvent } from "@/lib/posthog";
 import dynamic from "next/dynamic";
 import { useSyncExternalStore } from "react";
@@ -171,6 +172,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               </div>
             <a
               href={BOOKING_URL}
+              {...bookingLocation("hero")}
               onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
               className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-6 py-4 text-[15px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
             >

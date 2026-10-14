@@ -368,7 +368,7 @@ export default async function ContentDetailPage({
 
               <div className="prose-vibe prose-vibe-warm max-w-none">
                 {body.trim().length > 0 ? (
-                  <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" />
+                  <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" trackingLocation="article_body" />
                 ) : (
                   <div className="py-16 text-center border border-dashed border-res-border rounded-lg">
                     <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">

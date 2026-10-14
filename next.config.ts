@@ -2,6 +2,12 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
+  env: {
+    // Vercel's deployment environment ("production" | "preview" |
+    // "development"), inlined for the client. PostHog only initializes when it
+    // is "production"; it is empty locally and in CI.
+    NEXT_PUBLIC_VERCEL_ENV: process.env.VERCEL_ENV ?? "",
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
   },
