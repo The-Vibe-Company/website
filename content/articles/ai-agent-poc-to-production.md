@@ -36,62 +36,17 @@ Many generic checklists stop at “pick a model” and “secure the data.” Fo
 
 Before you label an agent “in prod,” clear every row. If a cell is empty, you still have an extended POC — not production.
 
-<table>
-<thead>
-<tr>
-<th>Criterion</th>
-<th>Decision to make</th>
-<th>Ready when</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bounded use case</td>
-<td>Which exact task does the agent do — and which does it refuse?</td>
-<td>Scope written down; out-of-scope cases listed</td>
-</tr>
-<tr>
-<td>Real data</td>
-<td>Has the agent been tested on real tickets / files / messages (anonymized if needed)?</td>
-<td>Eval set drawn from production, not only from the demo</td>
-</tr>
-<tr>
-<td>Measurable success</td>
-<td>Which metric decides Go / No-Go?</td>
-<td>Usage rate, time saved, or quality signed off by a business owner</td>
-</tr>
-<tr>
-<td>Business owner</td>
-<td>Who decides whether an answer is acceptable?</td>
-<td>A named person, not a committee</td>
-</tr>
-<tr>
-<td>Human escalation plan</td>
-<td>What happens when the agent is unsure or wrong?</td>
-<td>Queue, thresholds, on-call owner</td>
-</tr>
-<tr>
-<td>Observability</td>
-<td>Can you replay a tool call, a prompt, and a decision?</td>
-<td>Traces, logs, and failure examples you can inspect</td>
-</tr>
-<tr>
-<td>Progressive permissions</td>
-<td>Can the agent write, send, or change anything without approval?</td>
-<td>Read first; write under control; send only after human validation</td>
-</tr>
-<tr>
-<td>Cost per task</td>
-<td>What does a successful run cost at the expected volume?</td>
-<td>Known budget; alerts if it drifts</td>
-</tr>
-<tr>
-<td>Internal handover</td>
-<td>Can your team evolve the system without us?</td>
-<td>Docs, access, runbook, and training delivered</td>
-</tr>
-</tbody>
-</table>
+| Criterion | Decision to make | Ready when |
+| --- | --- | --- |
+| Bounded use case | Which exact task does the agent do — and which does it refuse? | Scope written down; out-of-scope cases listed |
+| Real data | Has the agent been tested on real tickets / files / messages (anonymized if needed)? | Eval set drawn from production, not only from the demo |
+| Measurable success | Which metric decides Go / No-Go? | Usage rate, time saved, or quality signed off by a business owner |
+| Business owner | Who decides whether an answer is acceptable? | A named person, not a committee |
+| Human escalation plan | What happens when the agent is unsure or wrong? | Queue, thresholds, on-call owner |
+| Observability | Can you replay a tool call, a prompt, and a decision? | Traces, logs, and failure examples you can inspect |
+| Progressive permissions | Can the agent write, send, or change anything without approval? | Read first; write under control; send only after human validation |
+| Cost per task | What does a successful run cost at the expected volume? | Known budget; alerts if it drifts |
+| Internal handover | Can your team evolve the system without us? | Docs, access, runbook, and training delivered |
 
 Three principles show up on every serious project.
 

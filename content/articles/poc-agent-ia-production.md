@@ -36,62 +36,17 @@ Beaucoup de checklists génériques s'arrêtent à « choisir le modèle » et �
 
 Avant de déclarer un agent « en prod », passez chaque ligne. Si une case reste vide, ce n'est pas encore de la production. C'est un POC prolongé.
 
-<table>
-<thead>
-<tr>
-<th>Critère</th>
-<th>Question à trancher</th>
-<th>Signe que c'est prêt</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Cas d'usage borné</td>
-<td>Quelle tâche précise l'agent fait-il, et laquelle refuse-t-il ?</td>
-<td>Périmètre écrit, cas hors scope listés</td>
-</tr>
-<tr>
-<td>Données réelles</td>
-<td>L'agent a-t-il été testé sur des tickets / dossiers / messages réels (anonymisés si besoin) ?</td>
-<td>Jeu d'évaluation issu de la production, pas seulement de la démo</td>
-</tr>
-<tr>
-<td>Critère de succès mesurable</td>
-<td>Quel indicateur décide du Go / No-Go ?</td>
-<td>Taux d'usage, temps gagné, ou qualité validée par un humain métier</td>
-</tr>
-<tr>
-<td>Propriétaire métier</td>
-<td>Qui décide si une réponse est acceptable ?</td>
-<td>Un nom, pas un comité</td>
-</tr>
-<tr>
-<td>Plan d'escalade humaine</td>
-<td>Que se passe-t-il quand l'agent doute ou se trompe ?</td>
-<td>File d'attente, seuils, personne de garde</td>
-</tr>
-<tr>
-<td>Observabilité</td>
-<td>Peut-on rejouer un tool call, un prompt et une décision ?</td>
-<td>Traces, logs, exemples d'échec consultables</td>
-</tr>
-<tr>
-<td>Permissions progressives</td>
-<td>L'agent peut-il écrire, envoyer, modifier sans validation ?</td>
-<td>Lecture d'abord, écriture sous contrôle, envoi sous validation humaine</td>
-</tr>
-<tr>
-<td>Coût par tâche</td>
-<td>Combien coûte une exécution réussie à l'échelle prévue ?</td>
-<td>Budget connu, alerte si dérive</td>
-</tr>
-<tr>
-<td>Reprise interne</td>
-<td>Votre équipe peut-elle faire évoluer le système sans nous ?</td>
-<td>Docs, accès, runbook, formation livrés</td>
-</tr>
-</tbody>
-</table>
+| Critère | Question à trancher | Signe que c'est prêt |
+| --- | --- | --- |
+| Cas d'usage borné | Quelle tâche précise l'agent fait-il, et laquelle refuse-t-il ? | Périmètre écrit, cas hors scope listés |
+| Données réelles | L'agent a-t-il été testé sur des tickets / dossiers / messages réels (anonymisés si besoin) ? | Jeu d'évaluation issu de la production, pas seulement de la démo |
+| Critère de succès mesurable | Quel indicateur décide du Go / No-Go ? | Taux d'usage, temps gagné, ou qualité validée par un humain métier |
+| Propriétaire métier | Qui décide si une réponse est acceptable ? | Un nom, pas un comité |
+| Plan d'escalade humaine | Que se passe-t-il quand l'agent doute ou se trompe ? | File d'attente, seuils, personne de garde |
+| Observabilité | Peut-on rejouer un tool call, un prompt et une décision ? | Traces, logs, exemples d'échec consultables |
+| Permissions progressives | L'agent peut-il écrire, envoyer, modifier sans validation ? | Lecture d'abord, écriture sous contrôle, envoi sous validation humaine |
+| Coût par tâche | Combien coûte une exécution réussie à l'échelle prévue ? | Budget connu, alerte si dérive |
+| Reprise interne | Votre équipe peut-elle faire évoluer le système sans nous ? | Docs, accès, runbook, formation livrés |
 
 Trois principes reviennent sur tous les projets sérieux.
 
