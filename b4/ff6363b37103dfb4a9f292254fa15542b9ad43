@@ -1,0 +1,23 @@
+public/projects/aeom-favicon.svg
+  s_f7c8f6f9963367::t_8535f1cf2a9221 1
+public/projects/armada-favicon.svg
+  s_f7c8f6f9963367::t_6f9ef6c9ef5480 1
+src/lib/projects.ts
+  s_f7c8f6f9963367::t_7abf9bf7a05745 142-173
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b4ff6363b37103dfb4a9f292254fa15542b9ad43",
+  "prompts": {},
+  "sessions": {
+    "s_f7c8f6f9963367": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5f869a71-021a-4d07-809b-3cbca7c9380f",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
