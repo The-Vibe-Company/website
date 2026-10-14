@@ -342,17 +342,25 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     },
     points: [
       {
-        en: "Technical expertise on critical client projects.",
-        fr: "Une expertise technique sur des projets critiques pour leurs clients.",
+        en: "Technical expertise embedded in Theodo’s teams, on critical projects for their clients.",
+        fr: "Une expertise technique intégrée aux équipes de Theodo, sur des projets critiques pour leurs clients.",
       },
       {
-        en: "Building Software Factories for hundreds of developers, to help accelerate their teams.",
-        fr: "La création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
+        en: "AI-assisted development industrialised at scale: Software Factories built for hundreds of developers.",
+        fr: "L’industrialisation du développement assisté par IA à grande échelle : des Software Factories pour des centaines de développeurs.",
+      },
+      {
+        en: "Standardised tools, agents, and skills, so every team starts from the same foundation.",
+        fr: "Des outils, des agents et des skills standardisés, pour que chaque équipe parte de la même base.",
+      },
+      {
+        en: "Support and training for the teams, so they adopt these practices and move faster.",
+        fr: "L’accompagnement et la formation des équipes, pour qu’elles adoptent ces pratiques et avancent plus vite.",
       },
     ],
     overview: {
-      en: "The Vibe Company supports Theodo as a technical expert on critical projects for their clients, such as building Software Factories for hundreds of developers, to help accelerate their teams.",
-      fr: "The Vibe Company accompagne Theodo en tant qu’expert technique sur des projets critiques pour leurs clients, par exemple la création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
+      en: "Theodo delivers critical projects for its clients, and brings in The Vibe Company as a technical expert embedded in its teams. The challenge: turn AI-assisted development from individual initiatives into a shared way of working, reliable enough for projects where quality cannot slip. Together, we build Software Factories for hundreds of developers: standardised tools, agents, and skills, plus the support and training that help every team adopt them and move faster.",
+      fr: "Theodo mène des projets critiques pour ses clients, et fait appel à The Vibe Company comme expert technique intégré à ses équipes. L’enjeu : faire passer le développement assisté par IA d’initiatives individuelles à une façon de travailler commune, assez fiable pour des projets où la qualité ne peut pas fléchir. Ensemble, on construit des Software Factories pour des centaines de développeurs : des outils, des agents et des skills standardisés, et l’accompagnement et la formation qui permettent à chaque équipe de les adopter et d’avancer plus vite.",
     },
     results: [],
   },
