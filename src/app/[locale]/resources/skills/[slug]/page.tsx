@@ -175,7 +175,7 @@ export default async function SkillDetailPage({
                     <section className="mt-8">
                       <SectionHeader title={t('notes')} />
                       <div className="prose-vibe prose-vibe-warm max-w-none">
-                        <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" />
+                        <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" trackingLocation="skill_body" />
                       </div>
                     </section>
                   )}

@@ -15,6 +15,9 @@ The wizard has completed a deep integration of PostHog analytics into The Vibe C
 | `skill_install_prompt_copied` | User copies the AI install prompt from a skill's detail page. | `src/components/resources/SkillAIInstaller.tsx` |
 | `skill_prompt_copied` | User copies the raw skill prompt text from a skill's detail page. | `src/components/resources/SkillPromptBlock.tsx` |
 | `skill_prompt_expanded` | User expands the full skill prompt to view the complete text. | `src/components/resources/SkillPromptBlock.tsx` |
+| `booking_link_clicked` | Any click on a cal.com link, site-wide: homepage/About/final CTAs, the mobile menu, and links inside article/skill Markdown. Untagged links fall back to `header`, `footer` or `other`. Properties: `page`, `location`, `article_slug`. | `src/lib/booking-tracking.ts`, `src/components/BookingLinkTracker.tsx` |
+
+> **Production only.** PostHog initializes only when `NEXT_PUBLIC_VERCEL_ENV` (inlined from Vercel's `VERCEL_ENV` in `next.config.ts`) is `production`. Local dev, previews and CI send nothing; every capture is a no-op there.
 
 ## Next steps
 
