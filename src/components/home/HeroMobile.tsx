@@ -103,7 +103,7 @@ export function HeroMobile() {
           {CLIENTS.map((client) => (
             <li
               key={client.name}
-              className="border-b border-r border-border [&:nth-child(3n)]:border-r-0 [&:nth-last-child(-n+3)]:border-b-0"
+              className="border-b border-r border-border [&:nth-child(3n)]:border-r-0 [&:nth-child(3n+1):nth-last-child(-n+3)]:border-b-0 [:nth-child(3n+1):nth-last-child(-n+3)~&]:border-b-0"
             >
               <a
                 href={client.url}

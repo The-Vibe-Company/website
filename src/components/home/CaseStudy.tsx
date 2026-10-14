@@ -33,12 +33,16 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
         </span>
       </div>
 
-      <div className="mt-6 border-t border-border pt-6">
-        <div className="text-[44px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[52px]">
-          {c.metric}
+      {c.metric ? (
+        <div className="mt-6 border-t border-border pt-6">
+          <div className="text-[44px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[52px]">
+            {c.metric}
+          </div>
+          <div className="mt-2 text-sm text-muted-foreground">{c.metricLabel}</div>
         </div>
-        <div className="mt-2 text-sm text-muted-foreground">{c.metricLabel}</div>
-      </div>
+      ) : (
+        <div aria-hidden="true" className="mt-6 border-t border-border" />
+      )}
 
       <p className="m-0 mt-6 text-[15px] leading-[1.55] text-foreground">{c.summary}</p>
 
@@ -101,12 +105,19 @@ function CaseSlide({ c, t }: { c: Customer; t: T }) {
       {/* One size for every card's number, sized off the card's width so the
           longest word ("questions") still fits a 320px phone; a long figure
           wraps, balanced, rather than shrinking on its own. */}
-      <div className="mt-3 [container-type:inline-size]">
-        <p className="m-0 text-balance text-[length:min(60px,21cqw)] font-extrabold leading-[0.9] tracking-[-0.06em] text-foreground">
-          {c.metric}
-        </p>
-      </div>
-      <p className="m-0 mt-3 text-[15px] leading-[1.45] text-muted-foreground">{c.metricLabel}</p>
+      {c.metric ? (
+        <>
+          <div className="mt-3 [container-type:inline-size]">
+            <p className="m-0 text-balance text-[length:min(60px,21cqw)] font-extrabold leading-[0.9] tracking-[-0.06em] text-foreground">
+              {c.metric}
+            </p>
+          </div>
+          <p className="m-0 mt-3 text-[15px] leading-[1.45] text-muted-foreground">{c.metricLabel}</p>
+        </>
+      ) : (
+        // A case without a headline figure leads with its summary instead.
+        <p className="m-0 mt-3 text-[15px] leading-[1.45] text-foreground">{c.summary}</p>
+      )}
       <span className="mt-auto flex items-center justify-between pt-6 font-mono text-xs uppercase tracking-[0.16em] text-foreground">
         {t("readCase")}
         <span

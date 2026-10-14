@@ -20,6 +20,7 @@ export const CLIENTS: Client[] = [
   { name: "Trusk", src: "/images/clients/trusk.svg", url: "https://www.trusk.com", className: "h-6 md:h-7" },
   { name: "LocService", src: "/images/clients/locservice.png", url: "https://www.locservice.fr", className: "h-6 md:h-7" },
   { name: "Zapa", src: "/images/clients/zapa.svg", url: "https://www.zapa.fr", className: "h-6 md:h-7" },
+  { name: "Theodo", src: "/images/clients/theodo.svg", url: "https://www.theodo.com", className: "h-6 md:h-7" },
 ];
 
 export function Clients() {

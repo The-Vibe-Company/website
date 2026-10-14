@@ -35,8 +35,9 @@ interface RawCustomer {
   url?: string;
   visuals: RawVisual[];
   sector: L;
-  metric: L;
-  metricLabel: L;
+  /** Optional: a confidential engagement can go without a headline figure. */
+  metric?: L;
+  metricLabel?: L;
   summary: L;
   points: L[];
   overview: L;
@@ -73,8 +74,8 @@ export interface Customer {
   url?: string;
   visuals: CustomerVisual[];
   sector: string;
-  metric: string;
-  metricLabel: string;
+  metric?: string;
+  metricLabel?: string;
   summary: string;
   points: string[];
   overview: string;
@@ -325,6 +326,35 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       },
     ],
   },
+  {
+    // Confidential engagement: no figure, result, or quote, only what Theodo
+    // agreed to make public.
+    slug: "theodo",
+    client: "Theodo",
+    logo: "/images/clients/theodo.svg",
+    url: "https://www.theodo.com",
+    visuals: [],
+    sector: { en: "Technical expertise · Software Factories", fr: "Expertise technique · Software Factories" },
+    summary: {
+      en: "The Vibe Company supports Theodo as a technical expert on large-scale projects, such as building Software Factories for hundreds of developers, to help accelerate their teams.",
+      fr: "The Vibe Company accompagne Theodo en tant qu’expert technique sur des projets d’envergure, par exemple la création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
+    },
+    points: [
+      {
+        en: "Technical expertise on large-scale projects.",
+        fr: "Une expertise technique sur des projets d’envergure.",
+      },
+      {
+        en: "Building Software Factories for hundreds of developers, to help accelerate their teams.",
+        fr: "La création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
+      },
+    ],
+    overview: {
+      en: "The Vibe Company supports Theodo as a technical expert on large-scale projects, such as building Software Factories for hundreds of developers, to help accelerate their teams.",
+      fr: "The Vibe Company accompagne Theodo en tant qu’expert technique sur des projets d’envergure, par exemple la création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
+    },
+    results: [],
+  },
 ];
 
 function localizeVisual(visual: RawVisual, locale: ContentLocale): CustomerVisual {
@@ -345,8 +375,8 @@ function localize(raw: RawCustomer, locale: ContentLocale): Customer {
     url: raw.url,
     visuals: raw.visuals.map((visual) => localizeVisual(visual, locale)),
     sector: pick(raw.sector, locale),
-    metric: pick(raw.metric, locale),
-    metricLabel: pick(raw.metricLabel, locale),
+    metric: raw.metric ? pick(raw.metric, locale) : undefined,
+    metricLabel: raw.metricLabel ? pick(raw.metricLabel, locale) : undefined,
     summary: pick(raw.summary, locale),
     points: raw.points.map((p) => pick(p, locale)),
     overview: pick(raw.overview, locale),
