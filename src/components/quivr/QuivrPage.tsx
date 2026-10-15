@@ -899,7 +899,8 @@ function AlertMock({
       </div>
 
       <div className="border-b border-border px-5 py-4">
-        <span className="inline-flex items-center gap-2 bg-orange-500 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white">
+        <span className="inline-flex items-center gap-2 border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-orange-500" />
           {match}
         </span>
         <p className="m-0 mt-2 text-[14px] leading-[1.5] text-foreground">{reason}</p>

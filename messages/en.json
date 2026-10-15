@@ -709,11 +709,11 @@
         },
         "selfHost": {
           "q": "Can I host Quivr myself?",
-          "a": "Yes. Quivr runs on servers you control, next to your application: one machine with Docker Compose to evaluate it, or a deployment with separate workers and a dedicated vector host. By default, document text never leaves your installation."
+          "a": "Yes. Quivr runs on servers you control, next to your application: one machine with Docker Compose to evaluate it, or a deployment with separate workers and a dedicated vector host. By default, Quivr itself sends document text nowhere outside your installation."
         },
         "support": {
           "q": "Where can I get help?",
-          "a": "For questions and bugs, use the issues and discussions of the GitHub repository. For business plugins, a production rollout or HDS hosting, The Vibe Company offers them as a service: book a call."
+          "a": "For questions and bugs, use the issues and discussions of the GitHub repository. For business plugins, planning a production rollout, or hosting that works to HDS requirements for health data, The Vibe Company can help as a service: book a call."
         }
       }
     },
