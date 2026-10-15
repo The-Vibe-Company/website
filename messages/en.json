@@ -525,7 +525,7 @@
       "alert": {
         "kicker": "Example",
         "title": "An alert that explains itself.",
-        "caption": "The Quivr docs’ own example: following a harbour strike.",
+        "caption": "Based on the Quivr docs’ example: following a harbour strike.",
         "label": "Animated example: an article matching a saved alert arrives, Quivr explains the match and sends a signed webhook to your app.",
         "steps": [
           "Alert saved",

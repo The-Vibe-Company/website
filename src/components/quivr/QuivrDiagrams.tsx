@@ -1,8 +1,15 @@
 "use client";
 
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { MotionConfig, motion, useInView } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 
 import { Link } from "@/i18n/navigation";
 import {
@@ -23,6 +30,12 @@ import {
  * opacity only); the looping signals are CSS keyframes on transform/opacity
  * (globals.css, `quivr-*`) that only run while the diagram is on screen; with
  * prefers-reduced-motion, everything renders in its final, static state.
+ *
+ * Hydration: the server cannot know the motion preference, so the first
+ * client render must match it. The preference is read through
+ * useSyncExternalStore (server value: false), entrances keep the same
+ * `initial` everywhere, and <MotionConfig reducedMotion="user"> drops their
+ * transforms for visitors who asked for less motion.
  */
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -32,9 +45,26 @@ const EXTERNAL = { target: "_blank", rel: "noopener noreferrer" } as const;
 const TEXT_LINK =
   "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
 
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+function subscribeReducedMotion(onChange: () => void) {
+  const query = window.matchMedia(REDUCED_MOTION_QUERY);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+/** The visitor's motion preference, false on the server and at hydration. */
+function usePrefersReducedMotion() {
+  return useSyncExternalStore(
+    subscribeReducedMotion,
+    () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
+    () => false,
+  );
+}
+
 /** True while the element is on screen and motion is allowed. */
 function useLive(ref: React.RefObject<HTMLElement | null>) {
-  const reduced = useReducedMotion() ?? false;
+  const reduced = usePrefersReducedMotion();
   const inView = useInView(ref, { margin: "-10% 0px -10% 0px" });
   return { live: inView && !reduced, reduced };
 }
@@ -53,13 +83,12 @@ function Reveal({
   delay?: number;
   from?: "up" | "left" | "right";
 }) {
-  const reduced = useReducedMotion() ?? false;
   const offset = from === "left" ? { x: -32 } : from === "right" ? { x: 32 } : { y: 20 };
   return (
     <motion.div
       className={className}
       style={style}
-      initial={reduced ? false : { opacity: 0, ...offset }}
+      initial={{ opacity: 0, ...offset }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, delay, ease: EASE }}
@@ -203,67 +232,69 @@ export function FlowDiagram() {
   );
 
   return (
-    <figure ref={ref} aria-label={t("label")} className="m-0">
-      {/* Desktop: left to right. */}
-      <div className="hidden grid-cols-[minmax(0,1fr)_minmax(40px,88px)_minmax(0,1.1fr)_minmax(40px,88px)_minmax(0,1fr)] grid-rows-4 gap-y-3 md:grid">
-        {sources.map((label, i) => (
-          <Reveal key={label} from="left" delay={i * 0.08} style={{ gridColumn: 1, gridRow: i + 1 }}>
-            {sourceNode(label, i)}
-          </Reveal>
-        ))}
-        {sources.map((label, i) => (
-          <div key={`in-${label}`} className="flex items-center" style={{ gridColumn: 2, gridRow: i + 1 }}>
-            <Lane running={live} animated={!reduced} delay={inDelay(i)} duration={FLOW_DURATION} />
-          </div>
-        ))}
-        <Reveal delay={0.2} style={{ gridColumn: 3, gridRow: "1 / span 4" }}>
-          {coreBlock}
-        </Reveal>
-        {outputs.map((output, i) => (
-          <div key={`out-${output.label}`} className="flex items-center" style={{ gridColumn: 4, gridRow: i + 1 }}>
-            <Lane running={live} animated={!reduced} delay={outDelay(i)} duration={FLOW_DURATION} />
-          </div>
-        ))}
-        {outputs.map((output, i) => (
-          <Reveal key={output.label} from="right" delay={0.3 + i * 0.08} style={{ gridColumn: 5, gridRow: i + 1 }}>
-            {outputNode(output, i)}
-          </Reveal>
-        ))}
-      </div>
-
-      {/* Phones: top to bottom. */}
-      <div className="flex flex-col md:hidden">
-        <div className="grid grid-cols-2 gap-2">
+    <MotionConfig reducedMotion="user">
+      <figure ref={ref} aria-label={t("label")} className="m-0">
+        {/* Desktop: left to right. */}
+        <div className="hidden grid-cols-[minmax(0,1fr)_minmax(40px,88px)_minmax(0,1.1fr)_minmax(40px,88px)_minmax(0,1fr)] grid-rows-4 gap-y-3 md:grid">
           {sources.map((label, i) => (
-            <Reveal key={label} delay={i * 0.06}>
+            <Reveal key={label} from="left" delay={i * 0.08} style={{ gridColumn: 1, gridRow: i + 1 }}>
               {sourceNode(label, i)}
             </Reveal>
           ))}
-        </div>
-        <div className="grid h-12 grid-cols-2">
-          {[0, 1].map((i) => (
-            <div key={i} className="flex justify-center">
-              <Lane axis="y" running={live} animated={!reduced} delay={inDelay(i * 2)} duration={FLOW_DURATION} />
+          {sources.map((label, i) => (
+            <div key={`in-${label}`} className="flex items-center" style={{ gridColumn: 2, gridRow: i + 1 }}>
+              <Lane running={live} animated={!reduced} delay={inDelay(i)} duration={FLOW_DURATION} />
             </div>
           ))}
-        </div>
-        <Reveal>{coreBlock}</Reveal>
-        <div className="grid h-12 grid-cols-2">
-          {[0, 1].map((i) => (
-            <div key={i} className="flex justify-center">
-              <Lane axis="y" running={live} animated={!reduced} delay={outDelay(i * 2)} duration={FLOW_DURATION} />
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-2 gap-2">
+          <Reveal delay={0.2} style={{ gridColumn: 3, gridRow: "1 / span 4" }}>
+            {coreBlock}
+          </Reveal>
           {outputs.map((output, i) => (
-            <Reveal key={output.label} delay={i * 0.06}>
+            <div key={`out-${output.label}`} className="flex items-center" style={{ gridColumn: 4, gridRow: i + 1 }}>
+              <Lane running={live} animated={!reduced} delay={outDelay(i)} duration={FLOW_DURATION} />
+            </div>
+          ))}
+          {outputs.map((output, i) => (
+            <Reveal key={output.label} from="right" delay={0.3 + i * 0.08} style={{ gridColumn: 5, gridRow: i + 1 }}>
               {outputNode(output, i)}
             </Reveal>
           ))}
         </div>
-      </div>
-    </figure>
+
+        {/* Phones: top to bottom. */}
+        <div className="flex flex-col md:hidden">
+          <div className="grid grid-cols-2 gap-2">
+            {sources.map((label, i) => (
+              <Reveal key={label} delay={i * 0.06}>
+                {sourceNode(label, i)}
+              </Reveal>
+            ))}
+          </div>
+          <div className="grid h-12 grid-cols-2">
+            {[0, 1].map((i) => (
+              <div key={i} className="flex justify-center">
+                <Lane axis="y" running={live} animated={!reduced} delay={inDelay(i * 2)} duration={FLOW_DURATION} />
+              </div>
+            ))}
+          </div>
+          <Reveal>{coreBlock}</Reveal>
+          <div className="grid h-12 grid-cols-2">
+            {[0, 1].map((i) => (
+              <div key={i} className="flex justify-center">
+                <Lane axis="y" running={live} animated={!reduced} delay={outDelay(i * 2)} duration={FLOW_DURATION} />
+              </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {outputs.map((output, i) => (
+              <Reveal key={output.label} delay={i * 0.06}>
+                {outputNode(output, i)}
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </figure>
+    </MotionConfig>
   );
 }
 
@@ -433,61 +464,63 @@ export function AlertDiagram() {
   );
 
   return (
-    <figure ref={ref} aria-label={t("label")} className="m-0">
-      <Reveal>
-        {/* Desktop: left to right. */}
-        <div className="hidden grid-cols-[minmax(0,1.15fr)_minmax(40px,72px)_minmax(0,1fr)_minmax(96px,140px)_minmax(0,0.85fr)] items-stretch md:grid">
-          {sourcePanel}
-          <div className="flex items-center">
-            <PacketLane axis="x" fire={step === 1} animated={!reduced} />
+    <MotionConfig reducedMotion="user">
+      <figure ref={ref} aria-label={t("label")} className="m-0">
+        <Reveal>
+          {/* Desktop: left to right. */}
+          <div className="hidden grid-cols-[minmax(0,1.15fr)_minmax(40px,72px)_minmax(0,1fr)_minmax(96px,140px)_minmax(0,0.85fr)] items-stretch md:grid">
+            {sourcePanel}
+            <div className="flex items-center">
+              <PacketLane axis="x" fire={step === 1} animated={!reduced} />
+            </div>
+            {quivrPanel}
+            <div className="relative flex items-center">
+              <span className="absolute left-1/2 top-[calc(50%-30px)] -translate-x-1/2">{webhookTag}</span>
+              <PacketLane axis="x" fire={step === 3} animated={!reduced} />
+            </div>
+            {appPanel}
           </div>
-          {quivrPanel}
-          <div className="relative flex items-center">
-            <span className="absolute left-1/2 top-[calc(50%-30px)] -translate-x-1/2">{webhookTag}</span>
-            <PacketLane axis="x" fire={step === 3} animated={!reduced} />
-          </div>
-          {appPanel}
-        </div>
 
-        {/* Phones: top to bottom. */}
-        <div className="flex flex-col md:hidden">
-          {sourcePanel}
-          <div className="flex h-12 justify-center">
-            <PacketLane axis="y" fire={step === 1} animated={!reduced} />
+          {/* Phones: top to bottom. */}
+          <div className="flex flex-col md:hidden">
+            {sourcePanel}
+            <div className="flex h-12 justify-center">
+              <PacketLane axis="y" fire={step === 1} animated={!reduced} />
+            </div>
+            {quivrPanel}
+            <div className="relative flex h-14 justify-center">
+              <span className="absolute left-[calc(50%+16px)] top-1/2 -translate-y-1/2">{webhookTag}</span>
+              <PacketLane axis="y" fire={step === 3} animated={!reduced} />
+            </div>
+            {appPanel}
           </div>
-          {quivrPanel}
-          <div className="relative flex h-14 justify-center">
-            <span className="absolute left-[calc(50%+16px)] top-1/2 -translate-y-1/2">{webhookTag}</span>
-            <PacketLane axis="y" fire={step === 3} animated={!reduced} />
-          </div>
-          {appPanel}
-        </div>
-      </Reveal>
+        </Reveal>
 
-      {/* The four steps, the current one inked. */}
-      <ol className="m-0 mt-6 grid list-none grid-cols-2 gap-x-4 gap-y-3 p-0 md:grid-cols-4">
-        {steps.map((label, i) => (
-          <li key={label} className="flex flex-col gap-2">
-            <span aria-hidden="true" className="relative block h-[2px] w-full overflow-hidden bg-border">
-              <motion.span
-                className="absolute inset-0 origin-left bg-foreground"
-                initial={false}
-                animate={{ scaleX: step >= i ? 1 : 0 }}
-                transition={{ duration: 0.4, ease: EASE }}
-              />
-            </span>
-            <span
-              className={`text-[13px] leading-[1.35] transition-colors duration-300 ${
-                step === i ? "font-semibold text-foreground" : "text-muted-foreground"
-              }`}
-            >
-              <span className="mr-1.5 font-mono text-[11px]">{String(i + 1).padStart(2, "0")}</span>
-              {label}
-            </span>
-          </li>
-        ))}
-      </ol>
-    </figure>
+        {/* The four steps, the current one inked. */}
+        <ol className="m-0 mt-6 grid list-none grid-cols-2 gap-x-4 gap-y-3 p-0 md:grid-cols-4">
+          {steps.map((label, i) => (
+            <li key={label} className="flex flex-col gap-2">
+              <span aria-hidden="true" className="relative block h-[2px] w-full overflow-hidden bg-border">
+                <motion.span
+                  className="absolute inset-0 origin-left bg-foreground"
+                  initial={false}
+                  animate={{ scaleX: step >= i ? 1 : 0 }}
+                  transition={{ duration: 0.4, ease: EASE }}
+                />
+              </span>
+              <span
+                className={`text-[13px] font-medium leading-[1.35] transition-colors duration-300 ${
+                  step === i ? "text-foreground" : "text-muted-foreground"
+                }`}
+              >
+                <span className="mr-1.5 font-mono text-[11px]">{String(i + 1).padStart(2, "0")}</span>
+                {label}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </figure>
+    </MotionConfig>
   );
 }
 
@@ -535,7 +568,7 @@ export function PluginDiagram() {
     <motion.div
       key={plugin.key}
       className="h-full"
-      initial={reduced ? false : { opacity: 0, x: from === "left" ? -56 : from === "right" ? 56 : 0, y: from === "up" ? 28 : 0 }}
+      initial={{ opacity: 0, x: from === "left" ? -56 : from === "right" ? 56 : 0, y: from === "up" ? 28 : 0 }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, amount: 0.4 }}
       transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.25 + i * 0.12 }}
@@ -548,7 +581,7 @@ export function PluginDiagram() {
     <motion.div
       className="flex h-full w-full items-center"
       style={{ transformOrigin: side === "left" ? "right center" : "left center" }}
-      initial={reduced ? false : { scaleX: 0 }}
+      initial={{ scaleX: 0 }}
       whileInView={{ scaleX: 1 }}
       viewport={{ once: true, amount: 0.4 }}
       transition={{ duration: 0.45, ease: EASE, delay: 0.45 + i * 0.12 }}
@@ -593,48 +626,50 @@ export function PluginDiagram() {
   );
 
   return (
-    <figure ref={ref} aria-label={t("label")} className="m-0">
-      {/* Desktop: the core in the middle, sources left, formats right. */}
-      <div className="hidden grid-cols-[minmax(0,1fr)_minmax(40px,88px)_minmax(0,1fr)_minmax(40px,88px)_minmax(0,1fr)] grid-rows-3 gap-y-4 md:grid">
-        {left.map((plugin, i) => (
-          <div key={plugin.key} style={{ gridColumn: 1, gridRow: i + 1 }}>
-            {snap(plugin, i, "left")}
-          </div>
-        ))}
-        {left.map((plugin, i) => (
-          <div key={`c-${plugin.key}`} style={{ gridColumn: 2, gridRow: i + 1 }}>
-            {connector(i, "left")}
-          </div>
-        ))}
-        <Reveal style={{ gridColumn: 3, gridRow: "1 / span 3" }}>{coreBlock}</Reveal>
-        {right.map((plugin, i) => (
-          <div key={`c-${plugin.key}`} style={{ gridColumn: 4, gridRow: i + 1 }}>
-            {connector(i + 3, "right")}
-          </div>
-        ))}
-        {right.map((plugin, i) => (
-          <div key={plugin.key} style={{ gridColumn: 5, gridRow: i + 1 }}>
-            {snap(plugin, i + 3, "right")}
-          </div>
-        ))}
-      </div>
-
-      {/* Phones: the core on top, plugins snapping in below it. */}
-      <div className="flex flex-col md:hidden">
-        <Reveal>{coreBlock}</Reveal>
-        <div className="flex h-12 justify-center">
-          <Lane axis="y" running={live} animated={!reduced} duration={2.8} reverse />
+    <MotionConfig reducedMotion="user">
+      <figure ref={ref} aria-label={t("label")} className="m-0">
+        {/* Desktop: the core in the middle, sources left, formats right. */}
+        <div className="hidden grid-cols-[minmax(0,1fr)_minmax(40px,88px)_minmax(0,1fr)_minmax(40px,88px)_minmax(0,1fr)] grid-rows-3 gap-y-4 md:grid">
+          {left.map((plugin, i) => (
+            <div key={plugin.key} style={{ gridColumn: 1, gridRow: i + 1 }}>
+              {snap(plugin, i, "left")}
+            </div>
+          ))}
+          {left.map((plugin, i) => (
+            <div key={`c-${plugin.key}`} style={{ gridColumn: 2, gridRow: i + 1 }}>
+              {connector(i, "left")}
+            </div>
+          ))}
+          <Reveal style={{ gridColumn: 3, gridRow: "1 / span 3" }}>{coreBlock}</Reveal>
+          {right.map((plugin, i) => (
+            <div key={`c-${plugin.key}`} style={{ gridColumn: 4, gridRow: i + 1 }}>
+              {connector(i + 3, "right")}
+            </div>
+          ))}
+          {right.map((plugin, i) => (
+            <div key={plugin.key} style={{ gridColumn: 5, gridRow: i + 1 }}>
+              {snap(plugin, i + 3, "right")}
+            </div>
+          ))}
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          {QUIVR_PLUGINS.map((plugin, i) => snap(plugin, i, "up"))}
-        </div>
-      </div>
 
-      <a href={QUIVR_PLUGINS_DOCS_URL} {...EXTERNAL} className={`mt-8 ${TEXT_LINK}`}>
-        {t("link")}
-        <span aria-hidden="true">↗</span>
-      </a>
-    </figure>
+        {/* Phones: the core on top, plugins snapping in below it. */}
+        <div className="flex flex-col md:hidden">
+          <Reveal>{coreBlock}</Reveal>
+          <div className="flex h-12 justify-center">
+            <Lane axis="y" running={live} animated={!reduced} duration={2.8} reverse />
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {QUIVR_PLUGINS.map((plugin, i) => snap(plugin, i, "up"))}
+          </div>
+        </div>
+
+        <a href={QUIVR_PLUGINS_DOCS_URL} {...EXTERNAL} className={`mt-8 ${TEXT_LINK}`}>
+          {t("link")}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </figure>
+    </MotionConfig>
   );
 }
 
@@ -647,7 +682,6 @@ const TIMELINE_KEYS = ["v1", "yc", "tvc", "v2"] as const;
 export function TimelineDiagram({ stars }: { stars: number | null }) {
   const t = useTranslations("quivr.diagrams.timeline");
   const locale = useLocale();
-  const reduced = useReducedMotion() ?? false;
 
   const node = (key: (typeof TIMELINE_KEYS)[number], i: number) => {
     const current = key === "v2";
@@ -655,7 +689,7 @@ export function TimelineDiagram({ stars }: { stars: number | null }) {
       <motion.li
         key={key}
         className="relative pb-8 pl-8 md:pb-0 md:pl-0 md:pr-6 md:pt-10"
-        initial={reduced ? false : { opacity: 0, y: 14 }}
+        initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.5, ease: EASE, delay: 0.35 + i * 0.22 }}
@@ -665,7 +699,7 @@ export function TimelineDiagram({ stars }: { stars: number | null }) {
           className={`absolute left-[-7px] top-0.5 h-4 w-4 border-2 border-foreground md:left-0 md:top-[-7px] ${
             current ? "bg-orange-500" : "bg-background"
           }`}
-          initial={reduced ? false : { scale: 0 }}
+          initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ type: "spring", stiffness: 420, damping: 18, delay: 0.3 + i * 0.22 }}
@@ -707,27 +741,29 @@ export function TimelineDiagram({ stars }: { stars: number | null }) {
   };
 
   return (
-    <div className="relative">
-      {/* The rule draws itself: across on desktop, down on phones. */}
-      <motion.span
-        aria-hidden="true"
-        className="absolute left-0 top-0 hidden h-[2px] w-full origin-left bg-foreground md:block"
-        initial={reduced ? false : { scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 1.2, ease: EASE }}
-      />
-      <motion.span
-        aria-hidden="true"
-        className="absolute left-0 top-0 h-full w-[2px] origin-top bg-foreground md:hidden"
-        initial={reduced ? false : { scaleY: 0 }}
-        whileInView={{ scaleY: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1.2, ease: EASE }}
-      />
-      <ol className="m-0 grid list-none grid-cols-1 p-0 md:grid-cols-4">
-        {TIMELINE_KEYS.map((key, i) => node(key, i))}
-      </ol>
-    </div>
+    <MotionConfig reducedMotion="user">
+      <div className="relative">
+        {/* The rule draws itself: across on desktop, down on phones. */}
+        <motion.span
+          aria-hidden="true"
+          className="absolute left-0 top-0 hidden h-[2px] w-full origin-left bg-foreground md:block"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 1.2, ease: EASE }}
+        />
+        <motion.span
+          aria-hidden="true"
+          className="absolute left-0 top-0 h-full w-[2px] origin-top bg-foreground md:hidden"
+          initial={{ scaleY: 0 }}
+          whileInView={{ scaleY: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 1.2, ease: EASE }}
+        />
+        <ol className="m-0 grid list-none grid-cols-1 p-0 md:grid-cols-4">
+          {TIMELINE_KEYS.map((key, i) => node(key, i))}
+        </ol>
+      </div>
+    </MotionConfig>
   );
 }

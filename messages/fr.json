@@ -525,7 +525,7 @@
       "alert": {
         "kicker": "Exemple",
         "title": "Une alerte qui s’explique.",
-        "caption": "L’exemple de la doc Quivr : suivre une grève portuaire.",
+        "caption": "D’après l’exemple de la doc Quivr : suivre une grève portuaire.",
         "label": "Exemple animé : un article qui correspond à une alerte arrive, Quivr explique pourquoi et envoie un webhook signé à votre app.",
         "steps": [
           "Alerte enregistrée",
