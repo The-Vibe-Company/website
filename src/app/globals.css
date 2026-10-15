@@ -198,6 +198,46 @@
   50% { transform: translateY(5px); }
 }
 
+/* Quivr page: a dot runs down each connector of the hero's flow card. */
+@keyframes quivr-flow {
+  from { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  to { transform: translateY(21px); opacity: 0; }
+}
+
+/* Quivr page diagrams (src/components/quivr/QuivrDiagrams.tsx). Transform and
+   opacity only; each runs only while its diagram is on screen. */
+@keyframes quivr-stream-x {
+  0% { transform: translateX(-100%); opacity: 0; }
+  8% { opacity: 1; }
+  78% { transform: translateX(0); opacity: 1; }
+  86%, 100% { transform: translateX(0); opacity: 0; }
+}
+
+@keyframes quivr-stream-y {
+  0% { transform: translateY(-100%); opacity: 0; }
+  8% { opacity: 1; }
+  78% { transform: translateY(0); opacity: 1; }
+  86%, 100% { transform: translateY(0); opacity: 0; }
+}
+
+/* An output lights up as the dot reaches it (same timing as its lane). */
+@keyframes quivr-ping {
+  0%, 74% { opacity: 0; }
+  82% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes quivr-blink {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+@keyframes quivr-halo {
+  from { transform: scale(1); opacity: 0.5; }
+  to { transform: scale(1.06); opacity: 0; }
+}
+
 /* -----------------------------------------------------------------------------
    Base Styles
    Minimal global styles using Tailwind's @layer system

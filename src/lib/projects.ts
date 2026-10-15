@@ -11,7 +11,8 @@ interface RawProject {
   slug: string;
   name: string;
   logo: string;
-  cover: string;
+  /** Product screenshot for the shared project template (optional). */
+  cover?: string;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;
   accent: string;
@@ -27,7 +28,8 @@ export interface Project {
   slug: string;
   name: string;
   logo: string;
-  cover: string;
+  /** Product screenshot for the shared project template (optional). */
+  cover?: string;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;
   accent: string;
@@ -169,6 +171,25 @@ const PROJECTS_RAW: RawProject[] = [
     description: {
       en: "AEOM (All Eyes On Me) is the designer of a product coded by agents. It walks your app like a user, judges every screen against your taste, and rebuilds what gets in the way so the frontend looks like someone designed it.",
       fr: "AEOM (All Eyes On Me) est le designer d’un produit codé par des agents. Il parcourt votre app comme un utilisateur, juge chaque écran selon votre goût, et refait ce qui gêne pour que le front ait l’air d’avoir été dessiné par quelqu’un.",
+    },
+  },
+  {
+    // The open-source engine the company grew out of, rebuilt as V2. It has
+    // its own product page (src/components/quivr/QuivrPage.tsx); the cover is
+    // the Quivr V2 web app (scripts/build-quivr-images.ts).
+    slug: "quivr",
+    name: "Quivr",
+    logo: "/projects/quivr-favicon.svg",
+    cover: "/projects/quivr-v2-product-feed-1200.webp",
+    accent: "#5b3fd6",
+    url: "https://github.com/The-Vibe-Company/quivr",
+    repositoryUrl: "https://github.com/The-Vibe-Company/quivr",
+    tag: { en: "Search & monitoring", fr: "Recherche et veille" },
+    date: { en: "Oct 2026", fr: "oct. 2026" },
+    status: { en: "Open source", fr: "Open source" },
+    description: {
+      en: "Quivr follows news, emails and social posts as they arrive, makes them searchable in seconds, and alerts you when a topic you follow comes up.",
+      fr: "Quivr suit les articles, les e-mails et les posts au fil de l’eau, les rend cherchables en quelques secondes, et vous prévient quand un sujet que vous suivez apparaît.",
     },
   },
 ];

@@ -79,13 +79,30 @@ export function localizedUrl(locale: string, path = "/"): string {
   return absoluteUrl(localizedPath(locale, path));
 }
 
-export function localizedAlternates(locale: string, path = "/") {
+export function localizedAlternates(
+  locale: string,
+  path = "/",
+  { xDefault = false }: { xDefault?: boolean } = {},
+) {
   return {
     canonical: localizedUrl(locale, path),
-    languages: {
-      fr: localizedUrl("fr", path),
-      en: localizedUrl("en", path),
-    },
+    languages: localizedLanguages(path, { xDefault }),
+  };
+}
+
+/**
+ * The self-inclusive hreflang set of a page served at the same path in both
+ * languages. With `xDefault`, the French URL (the site's default language,
+ * keep in sync with `routing.defaultLocale`) doubles as `x-default`.
+ */
+export function localizedLanguages(
+  path = "/",
+  { xDefault = false }: { xDefault?: boolean } = {},
+): Record<string, string> {
+  return {
+    fr: localizedUrl("fr", path),
+    en: localizedUrl("en", path),
+    ...(xDefault ? { "x-default": localizedUrl("fr", path) } : {}),
   };
 }
 
@@ -146,17 +163,24 @@ export function monolingualAlternates(language: string, path: string) {
   };
 }
 
+/** A social card image, as a site path, with its size and alt text. */
+export type SocialImage = { path: string; width: number; height: number; alt: string };
+
 export function localizedSocialMetadata({
   locale,
   path,
   title,
   description,
+  image,
 }: {
   locale: string;
   path?: string;
   title: string;
   description: string;
+  /** With an image, Twitter/X shows the large card, like articles do. */
+  image?: SocialImage;
 }): Pick<Metadata, "openGraph" | "twitter"> {
+  const imageUrl = image ? absoluteUrl(image.path) : undefined;
   return {
     openGraph: {
       type: "website",
@@ -165,11 +189,15 @@ export function localizedSocialMetadata({
       siteName: SITE_NAME,
       title,
       description,
+      ...(image && imageUrl
+        ? { images: [{ url: imageUrl, width: image.width, height: image.height, alt: image.alt }] }
+        : {}),
     },
     twitter: {
-      card: "summary",
+      card: imageUrl ? "summary_large_image" : "summary",
       title,
       description,
+      ...(imageUrl ? { images: [imageUrl] } : {}),
     },
   };
 }
