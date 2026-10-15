@@ -372,7 +372,7 @@ Resources and portfolio screens are more utilitarian. They should keep the same 
 
 Depth is mostly flat. Hierarchy comes from contrast, bands, borders, whitespace, and typography rather than soft drop shadows.
 
-Use the brutal offset shadow only for interactive lift on important cards and primary CTAs. The pattern is a slight up-left translation paired with a hard black shadow, usually 6px or 8px. This should feel mechanical and tactile.
+Use the brutal offset shadow only for interactive lift on important cards and primary CTAs. The pattern is a slight up-left translation paired with a hard black shadow, usually 6px or 8px. This should feel mechanical and tactile. The one static exception is a framed product or illustration panel on a product page, which may keep a fixed 8px ink offset shadow to read as an object set on the paper; it never lifts on hover.
 
 Navigation and overlays may use translucent surfaces with backdrop blur, but they should remain crisp. Avoid frosted-glass aesthetics, colored glows, floating blobs, and ambient shadows.
 
@@ -404,7 +404,7 @@ An article that exists in both languages is published once in the resources list
 
 The open-source project grid uses the canonical five-product catalogue. Its organization-level GitHub action is an underlined mono text link, never an orange slab or filled button.
 
-Case-study product imagery keeps the product UI legible instead of treating screenshots as decoration. Portrait mobile captures may sit beside the overview at no more than 360px wide; wide desktop captures span the case-study content section. Preserve each image's intrinsic ratio, localized alternative text, square border, and responsive dimensions. A product page may show its main UI capture inside a browser window drawn in the house style: a square 2px ink border, a thin ink-ruled title bar with outlined window dots (the last one the orange status signal) and a mono label, and the same static 8px ink offset shadow as the hero illustration beside it. The capture keeps its ratio and is never cropped to fit the frame.
+Case-study product imagery keeps the product UI legible instead of treating screenshots as decoration. Portrait mobile captures may sit beside the overview at no more than 360px wide; wide desktop captures span the case-study content section. Preserve each image's intrinsic ratio, localized alternative text, square border, and responsive dimensions. A product page may show its main UI capture inside a browser window drawn in the house style: a square 2px ink border, a thin ink-ruled title bar with outlined window dots (the last one the orange status signal) and a mono label, and the same static 8px ink offset shadow as the hero illustration above it. The capture keeps its ratio and is never cropped to fit the frame.
 
 The footer is a three-column desktop grid: a wide identity and contact column followed by site navigation and external links. It collapses to one column on small screens. The narrow operational-status column is not part of the footer, while the lower status line remains visible below the divider.
 
