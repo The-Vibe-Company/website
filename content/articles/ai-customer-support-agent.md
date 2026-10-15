@@ -100,4 +100,4 @@ If the AI interacts directly with the customer, Article 50 of the EU AI Act requ
 
 You get hundreds of tickets and want to know what AI can really take on? Bring a ticket export and your constraints. We'll tell you what fits AI drafts, what can be automated, and what should stay human.
 
-[Book 30 minutes with Stan](https://cal.com/stangirard/30min).
+[Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).

@@ -101,4 +101,4 @@ Décidez-le avant. Soit votre équipe reprend (docs, runbook, formation), soit u
 
 Vous avez un pilote qui marche en démo. Vous voulez savoir s'il est prêt pour la production — ou comment le construire pour qu'il le soit. Venez avec votre cas d'usage, vos contraintes, et ce que « succès » veut dire pour vous.
 
-[Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).
+[Réservez 30 minutes avec Stan](https://cal.com/stangirard/thevibecompany).

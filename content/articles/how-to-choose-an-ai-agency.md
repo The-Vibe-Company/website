@@ -167,4 +167,4 @@ Yes, it's a good path. Plan documentation, code ownership and handover sessions 
 
 The Vibe Company is an AI agency in Paris, founded in 2024 by Stan Girard and Antoine Dewez, formerly at Theodo and Stockly. In 30 minutes, we'll look at your case and tell you honestly whether an agency is the right fit, even if the answer is no.
 
-[Book 30 minutes to talk it through →](https://cal.com/stangirard/30min)
+[Book 30 minutes to talk it through →](https://cal.com/stangirard/thevibecompany)

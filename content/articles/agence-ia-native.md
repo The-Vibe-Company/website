@@ -42,7 +42,7 @@ Nos agents ne partent pas de zéro. On leur donne des skills : des instructions 
 
 Un exemple : avec Monka, une plateforme de santé déjà certifiée HDS, le défi était de construire vite sans sortir de ce cadre. Sur ce genre de projet, les agents accélèrent la production, et l'équipe garde la main sur tout ce qui touche aux données de santé. Le détail est dans notre article sur [l'IA et les données de santé HDS](/fr/resources/articles/ia-donnees-de-sante-hds).
 
-> **Vous avez un projet en tête ?** Montrez-le-nous, on vous dit comment on s'y prendrait. [Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).
+> **Vous avez un projet en tête ?** Montrez-le-nous, on vous dit comment on s'y prendrait. [Réservez 30 minutes avec Stan](https://cal.com/stangirard/thevibecompany).
 
 ## Pourquoi c'est mieux pour vous
 
@@ -72,4 +72,4 @@ Par un appel de 30 minutes avec Stan, pour comprendre votre besoin et voir ce qu
 
 ## Parlons de votre projet
 
-Vous voulez voir ce qu'une agence IA native peut livrer pour vos équipes ? Venez avec votre besoin. Vous repartez avec une première idée de la façon de le construire. [Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).
+Vous voulez voir ce qu'une agence IA native peut livrer pour vos équipes ? Venez avec votre besoin. Vous repartez avec une première idée de la façon de le construire. [Réservez 30 minutes avec Stan](https://cal.com/stangirard/thevibecompany).

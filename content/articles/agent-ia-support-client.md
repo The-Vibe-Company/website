@@ -100,4 +100,4 @@ Si l'IA échange directement avec le client, l'article 50 de l'AI Act l'impose d
 
 Vous recevez des centaines de tickets et vous voulez savoir ce que l'IA peut vraiment prendre en charge ? Venez avec un export de tickets et vos contraintes. On vous dit ce qui se prête à des brouillons, ce qui peut être automatisé, et ce qui doit rester humain.
 
-[Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).
+[Réservez 30 minutes avec Stan](https://cal.com/stangirard/thevibecompany).

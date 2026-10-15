@@ -42,7 +42,7 @@ Our agents don't start from scratch. We give them skills: ready-to-use instructi
 
 One example: with Monka, a health platform already HDS-certified, the challenge was to build fast without stepping outside that framework. On a project like that, agents speed up production, and the team stays in control of everything that touches health data. The details are in our article on [AI and health data under HDS](/en/resources/articles/ai-health-data-hds-france).
 
-> **Got a project in mind?** Show it to us and we'll tell you how we'd approach it. [Book 30 minutes with Stan](https://cal.com/stangirard/30min).
+> **Got a project in mind?** Show it to us and we'll tell you how we'd approach it. [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).
 
 ## Why it's better for you
 
@@ -72,4 +72,4 @@ With a 30-minute call with Stan, to understand your need and see what we can sho
 
 ## Let's talk about your project
 
-Want to see what an AI-native agency can deliver for your teams? Bring your need, and you'll leave with a first idea of how to build it. [Book 30 minutes with Stan](https://cal.com/stangirard/30min).
+Want to see what an AI-native agency can deliver for your teams? Bring your need, and you'll leave with a first idea of how to build it. [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).
