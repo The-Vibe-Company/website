@@ -31,29 +31,6 @@ export const QUIVR_V1_URL = `${QUIVR_REPO_URL}/tree/${QUIVR_V1_TAG}`;
 export const QUIVR_STORY_ARTICLE_PATH =
   "/resources/articles/quivr-to-the-vibe-company";
 
-/** The three plain-language benefits, then the usage example's steps. */
-export const QUIVR_BENEFIT_KEYS = ["nothingLost", "meaning", "alerts"] as const;
-export const QUIVR_EXAMPLE_STEPS = ["alert", "article", "match", "correction"] as const;
-
-export const QUIVR_PROBLEM_KEYS = ["loss", "versions", "meaning"] as const;
-
-/** Feature cards, in reading order, each with the docs guide behind it. */
-export const QUIVR_FEATURES = [
-  { key: "ingestion", href: `${QUIVR_DOCS_URL}/guides/add-content` },
-  { key: "search", href: `${QUIVR_DOCS_URL}/guides/search` },
-  { key: "alerts", href: `${QUIVR_DOCS_URL}/guides/alerts` },
-  { key: "webhooks", href: `${QUIVR_DOCS_URL}/guides/follow-changes` },
-  { key: "mcp", href: `${QUIVR_DOCS_URL}/guides/ai-agents` },
-] as const;
-
-/** What comes out of Quivr, in the architecture diagram's right column. */
-export const QUIVR_OUTPUT_KEYS = [
-  "outSearch",
-  "outAlerts",
-  "outFeed",
-  "outAgents",
-] as const;
-
 /** The stack the core runs on, from the README's architecture table. */
 export const QUIVR_STACK = [
   "Go",
@@ -79,9 +56,10 @@ export const QUIVR_PLUGINS = [
 
 export const QUIVR_SERVICE_KEYS = ["plugins", "production", "security"] as const;
 
-export const QUIVR_HISTORY_KEYS = ["v1", "tvc", "v2"] as const;
-
+/** The FAQ holds the longer answers, plain-words first. */
 export const QUIVR_FAQ_KEYS = [
+  "whatFor",
+  "underTheHood",
   "v1",
   "license",
   "production",

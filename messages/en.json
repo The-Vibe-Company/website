@@ -480,221 +480,157 @@
       "statsApi": "API · evaluation",
       "statsStack": "PostgreSQL · S3 · Temporal"
     },
-    "benefits": {
-      "kicker": "In plain words",
-      "title": "Three things Quivr does for you",
-      "items": {
-        "nothingLost": {
-          "title": "Nothing slips through",
-          "desc": "Every article, email and post is kept, even when a service goes down. When an article is corrected, the earlier version stays readable."
-        },
-        "meaning": {
-          "title": "Search by meaning, not just keywords",
-          "desc": "Ask in your own words. Quivr finds articles on the same subject even when they use other words, and shows the exact passage it found."
-        },
-        "alerts": {
-          "title": "Alerts that explain themselves",
-          "desc": "Describe a topic once, in plain words. When a new article matches, even in other words or another language, Quivr tells your app why, so your team hears about it by email or in the app."
-        }
-      }
-    },
-    "example": {
-      "kicker": "Example",
-      "title": "Following port strikes",
-      "steps": {
-        "alert": "You save an alert: “harbour strike” with “ferry” or “port”.",
-        "article": "A feed you follow publishes “Harbour strike halts the ferry”.",
-        "match": "Quivr catches it and says why: “harbour strike” and “ferry” appear in the title and the text.",
-        "correction": "The article is then corrected. Quivr keeps both versions and tells you whether it still matches your alert."
-      },
-      "mock": {
-        "label": "What it looks like",
-        "alert": "Your alert",
-        "query": "\"harbour strike\" AND (ferry OR port)",
-        "article": "New article",
-        "feed": "Example feed",
-        "headline": "Harbour strike halts the ferry",
-        "match": "Match",
-        "reason": "Matched “harbour strike” in title, body; “ferry” in title, body.",
-        "webhook": "Signed webhook sent to your app",
-        "correction": "Correction received: new version kept, follow-up sent"
-      }
-    },
-    "problem": {
-      "kicker": "The problem",
-      "title": "Content never stops arriving. Your monitoring can't drop any of it.",
-      "intro": "Press wires, mailboxes, X posts, RSS feeds: the content a newsroom tool, a media monitoring service or a research assistant follows keeps arriving, gets corrected, and is sometimes withdrawn. Searching it and following a topic over time takes more than a search box.",
-      "items": {
-        "loss": {
-          "title": "Nothing lost on the way",
-          "desc": "Services go down; the stream does not wait. A document confirmed as received has to stay received, and be processed once the outage is over."
-        },
-        "versions": {
-          "title": "Corrections without erasing history",
-          "desc": "Articles get corrected and withdrawn. You need the current text, the earlier one, and to know whether an alert still applies."
-        },
-        "meaning": {
-          "title": "Found by keyword and by meaning",
-          "desc": "An article on the same subject can use other words, or another language. Keyword search alone misses it."
-        }
-      }
-    },
-    "features": {
-      "kicker": "What Quivr does",
-      "title": "Built for streams, not for a one-off index.",
-      "guide": "Read the guide",
-      "items": {
-        "ingestion": {
-          "tag": "Ingestion",
-          "title": "Durable, idempotent ingestion",
-          "desc": "A write is acknowledged only once it is committed: an outage delays processing, it never loses content. Every write carries an idempotency key, so a replay returns the same result, and a correction creates a new immutable version instead of overwriting history."
-        },
-        "search": {
-          "tag": "Search",
-          "title": "Keyword and semantic search",
-          "desc": "Lexical, semantic and hybrid search on Weaviate, with multilingual E5 embeddings. Text is searchable by keyword as soon as it is segmented; vectors arrive afterwards. Every hit names its document, its version and the exact passage."
-        },
-        "alerts": {
-          "tag": "Alerts",
-          "title": "Keyword and meaning alerts",
-          "desc": "Save a query such as \"harbour strike\" AND (ferry OR port), or describe a subject in plain words to catch rephrased and translated articles. Every match records why it matched."
-        },
-        "webhooks": {
-          "tag": "Delivery",
-          "title": "Signed webhooks",
-          "desc": "When a new document matches an alert, Quivr sends a signed webhook (Standard Webhooks) to your receiver, retried for up to 24 hours by default. Your application can also follow every change through polling or SSE."
-        },
-        "mcp": {
-          "tag": "Agents",
-          "title": "MCP for AI agents",
-          "desc": "An AI agent such as Claude or Cursor searches your collections through MCP and cites the exact passage it quotes. The read profile only lists, searches and reads, no tool deletes, and the API key alone decides what the agent can read."
-        }
-      }
-    },
-    "architecture": {
-      "kicker": "Architecture",
-      "title": "A generic core. Everything specific lives in plugins.",
-      "intro": "The core stores, indexes and watches content, and stays generic. Formats, sources, AI models and business rules belong in plugins: small web services Quivr calls over HTTP, which you can swap or write yourself. Quivr ships a plugin for each job.",
-      "rule": "Keep customer-specific formats and rules out of the core; they belong in plugins.",
-      "ruleSource": "Quivr contributing rules",
-      "diagramLabel": "How content flows through Quivr",
-      "in": "In",
-      "out": "Out",
-      "sources": "Sources",
-      "sourcesNote": "Collected on a schedule, or pushed by a partner",
-      "app": "Your application",
-      "appNote": "Sends documents, searches, reads matches",
-      "core": "Quivr core",
-      "coreNote": "Go API and worker, one quivr binary",
-      "plugins": "Plugins",
-      "pluginsNote": "Formats, sources, models, ranking and alert rules, over HTTP",
-      "outSearch": "Search results, with their exact passage",
-      "outAlerts": "Signed webhooks on every match",
-      "outFeed": "Change feed, by polling or SSE",
-      "outAgents": "AI agents, over MCP",
-      "selfHostTitle": "Self-hosted, on servers you control",
-      "selfHostDesc": "Quivr runs next to your application, from one machine with Docker Compose to separate workers and a dedicated vector host. By default, document text goes nowhere outside your installation: the default plugins and the embedding model run there too.",
-      "stackLabel": "Stack",
-      "pluginsLink": "How plugins work"
-    },
-    "plugins": {
-      "title": "Plugins that ship with Quivr",
-      "items": {
-        "rss": {
-          "role": "Source",
-          "desc": "Collects the articles of RSS, Atom and JSON feeds."
-        },
-        "m365": {
-          "role": "Source",
-          "desc": "Collects the mail of a Microsoft 365 mailbox folder, with its attachments."
-        },
-        "x": {
-          "role": "Source",
-          "desc": "Collects the posts of an X list and follows edits and deletions.",
-          "name": "X lists"
-        },
-        "newsml": {
-          "role": "Format",
-          "desc": "Makes news agency items searchable, with their headlines and editorial metadata."
-        },
-        "pdf": {
-          "role": "Format",
-          "desc": "Makes PDF files searchable, one passage per page. No OCR for scanned pages."
-        },
-        "yours": {
-          "name": "Your plugin",
-          "role": "Yours",
-          "desc": "A source, a format, a ranking or an alert rule, in any language that serves HTTP."
-        }
-      }
-    },
     "status": {
-      "kicker": "Honest status",
-      "title": "Evaluation stage. Not for production yet.",
-      "desc": "The API is v0 and may change without notice, so do not run Quivr V2 in production yet. The local stack runs on Linux x86_64 and on Apple Silicon Macs, and there is no OCR: scanned documents stay unsearchable.",
-      "quickstartDesc": "The Quickstart gets Quivr running on your machine in about fifteen minutes: add an article, search it, get an alert.",
-      "quickstart": "Quickstart",
-      "docs": "Documentation",
-      "repo": "GitHub repository",
       "facts": {
-        "stage": "Stage",
-        "stageValue": "Evaluation",
-        "api": "API",
-        "apiValue": "v0",
         "license": "License",
-        "licenseValue": "MIT",
-        "runtime": "Runs on",
-        "runtimeValue": "Linux x86_64, Apple Silicon"
+        "apiValue": "v0"
+      }
+    },
+    "diagrams": {
+      "flow": {
+        "kicker": "How it works",
+        "title": "Everything comes in. Nothing slips through.",
+        "caption": "Every version is kept, searchable in seconds and checked against your topics.",
+        "label": "Animated diagram: sources stream into Quivr, which sends out search results, alerts, webhooks and answers to AI agents.",
+        "sources": [
+          "News feeds",
+          "Mailboxes",
+          "X lists",
+          "Your apps"
+        ],
+        "core": [
+          "Keeps every version",
+          "Makes it searchable",
+          "Watches your topics"
+        ],
+        "outputs": [
+          {
+            "label": "Search",
+            "note": "keyword + meaning"
+          },
+          {
+            "label": "Alerts",
+            "note": "on your topics"
+          },
+          {
+            "label": "Webhooks",
+            "note": "signed"
+          },
+          {
+            "label": "AI agents",
+            "note": "via MCP"
+          }
+        ]
+      },
+      "alert": {
+        "kicker": "Example",
+        "title": "An alert that explains itself.",
+        "caption": "The Quivr docs’ own example: following a harbour strike.",
+        "label": "Animated example: an article matching a saved alert arrives, Quivr explains the match and sends a signed webhook to your app.",
+        "steps": [
+          "Alert saved",
+          "Article arrives",
+          "Quivr explains the match",
+          "Signed webhook to your app"
+        ],
+        "alertLabel": "Your alert",
+        "query": "\"harbour strike\" AND (ferry OR port)",
+        "articleLabel": "New article",
+        "headline": [
+          {
+            "text": "Harbour strike",
+            "hit": true
+          },
+          {
+            "text": " halts the "
+          },
+          {
+            "text": "ferry",
+            "hit": true
+          }
+        ],
+        "match": "Match",
+        "reason": "“harbour strike” and “ferry” in the title and body",
+        "appLabel": "Your app",
+        "webhook": "Signed webhook",
+        "received": "Alert received",
+        "watching": "Watching for matches…",
+        "waiting": "Waiting for alerts"
+      },
+      "plugins": {
+        "kicker": "Architecture",
+        "title": "A generic core. Everything specific is a plugin.",
+        "caption": "Sources, formats, models and business rules are small HTTP services Quivr calls. Swap them, or write your own.",
+        "label": "Animated diagram: plugins for RSS, Microsoft 365, X lists, NewsML-G2, PDF and your own snap into the generic Quivr core.",
+        "coreTitle": "Quivr core",
+        "coreNote": "Generic",
+        "roles": {
+          "source": "Source",
+          "format": "Format",
+          "yours": "Yours"
+        },
+        "xLists": "X lists",
+        "yours": "Your plugin",
+        "link": "How plugins work"
+      },
+      "timeline": {
+        "kicker": "History",
+        "title": "From Quivr V1 to Quivr V2",
+        "items": {
+          "v1": {
+            "label": "V1 · 2023",
+            "title": "Open-source RAG “second brain”"
+          },
+          "yc": {
+            "label": "YC W24",
+            "title": "Through Y Combinator"
+          },
+          "tvc": {
+            "label": "2026",
+            "title": "Quivr becomes The Vibe Company"
+          },
+          "v2": {
+            "label": "V2 · today",
+            "title": "A content-stream engine, in evaluation (API v0)"
+          }
+        },
+        "stars": "{stars} stars on GitHub",
+        "v1Link": "Browse Quivr V1 (v1-final)",
+        "storyLink": "Read the story",
+        "quickstart": "Try V2 (Quickstart)"
       }
     },
     "services": {
       "kicker": "The Vibe Company",
       "title": "We deploy it for you",
-      "intro": "Quivr V2 is free and self-hostable. When you want it running on your content, with your rules, The Vibe Company, the team that builds Quivr, does it with you as a service.",
+      "intro": "Quivr is free and self-hostable. The team that builds it can set it up on your content.",
       "items": {
         "plugins": {
           "title": "Business plugins",
-          "desc": "Connectors for your sources, normalizers for your formats, alert rules for your domain. Written as plugins, so your specifics never fork the core."
+          "caption": "Your sources, formats and alert rules"
         },
         "production": {
-          "title": "Going to production",
-          "desc": "Installation on your infrastructure, sizing for your volumes, upgrades and monitoring. Quivr V2 is still in evaluation: we tell you plainly what is ready for your case and what is not."
+          "title": "Production rollout",
+          "caption": "Planned with you, sized for your volume"
         },
         "security": {
-          "title": "Security and HDS",
-          "desc": "Hosting that fits your constraints, working to HDS requirements for health data, with scoped API keys and verified TLS on outgoing connections. Text stays in your installation unless you turn on a plugin that calls an outside service."
+          "title": "Security & HDS",
+          "caption": "Working to HDS requirements for health data"
         }
       },
       "cta": "Book a call about Quivr"
     },
-    "history": {
-      "kicker": "History",
-      "title": "From Quivr V1 to Quivr V2",
-      "items": {
-        "v1": {
-          "label": "V1 · 2023",
-          "title": "An open-source RAG “second brain”",
-          "desc": "Quivr started in 2023 as an open-source RAG engine to build your second brain with generative AI. It became one of the most followed projects on GitHub, with {stars} stars, went through Y Combinator (W24), then focused on customer support."
-        },
-        "tvc": {
-          "label": "2026",
-          "title": "Quivr becomes The Vibe Company",
-          "desc": "The founders stopped Quivr as their company's direction to build The Vibe Company, an AI-native agency. The repository stayed open source."
-        },
-        "v2": {
-          "label": "V2 · today",
-          "title": "A new engine for content streams",
-          "desc": "Quivr V2 replaced the V1 code base on main: an engine in Go for durable ingestion, search and monitoring, built by The Vibe Company and still under the MIT license."
-        }
-      },
-      "communityTitle": "Still on V1?",
-      "communityDesc": "The V1 code is preserved at the v1-final tag, the last commit of Quivr V1 before V2 replaced it on main. Read it, fork it or run it from there.",
-      "v1Link": "Browse Quivr V1 (v1-final)",
-      "storyLink": "Read the story: from Quivr to The Vibe Company"
-    },
     "faq": {
       "title": "Frequently asked questions",
       "items": {
+        "whatFor": {
+          "q": "What does Quivr do for me, in plain words?",
+          "a": "It keeps every article, email and post, even when a service goes down, and keeps the earlier version when one is corrected. It lets you search by meaning, not just keywords, and shows the exact passage. And it tells your app when a new article matches a topic you described, with the reason it matched."
+        },
+        "underTheHood": {
+          "q": "What is under the hood?",
+          "a": "A Go engine, one binary for the API, the worker and migrations, on PostgreSQL, S3-compatible storage and Temporal. Search runs on Weaviate, by keyword and by vector, with multilingual E5 embeddings. It exposes an HTTP API (v0), signed webhooks, a change feed (polling or SSE) and MCP for AI agents."
+        },
         "v1": {
           "q": "What happened to Quivr V1?",
           "a": "Quivr V2 replaced the V1 code base on the main branch. V1 is preserved at the v1-final tag, the last commit of Quivr V1, so you can still read, fork or run it from there."

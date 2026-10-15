@@ -3,40 +3,33 @@ import { getTranslations } from "next-intl/server";
 import { BackLink } from "@/components/BackLink";
 import { Footer } from "@/components/Footer";
 import { TopNav } from "@/components/TopNav";
-import { Link } from "@/i18n/navigation";
 import { bookingLocation } from "@/lib/booking";
 import {
   formatStars,
-  formatStarsCompact,
-  QUIVR_BENEFIT_KEYS,
   QUIVR_BOOKING_URL,
   QUIVR_DOCS_URL,
-  QUIVR_EXAMPLE_STEPS,
   QUIVR_FAQ_KEYS,
-  QUIVR_FEATURES,
-  QUIVR_HISTORY_KEYS,
-  QUIVR_OUTPUT_KEYS,
-  QUIVR_PLUGINS,
-  QUIVR_PLUGINS_DOCS_URL,
-  QUIVR_PROBLEM_KEYS,
-  QUIVR_QUICKSTART_URL,
   QUIVR_REPO_URL,
   QUIVR_SERVICE_KEYS,
   QUIVR_SERVICES_ID,
-  QUIVR_STACK,
-  QUIVR_STORY_ARTICLE_PATH,
-  QUIVR_V1_URL,
 } from "@/lib/quivr";
+
+import {
+  AlertDiagram,
+  FlowDiagram,
+  PluginDiagram,
+  TimelineDiagram,
+} from "./QuivrDiagrams";
 
 /**
  * The Quivr product page, served at /fr/portfolio/quivr and
  * /en/portfolio/quivr in place of the shared project template.
  *
- * It opens in plain words (one sentence, three benefits, one example) for
- * non-technical readers, then goes into detail. Every visual is drawn in
- * code; no screenshots. Every fact comes from the Quivr README or
- * docs.quivr.thevibecompany.co (see src/lib/quivr.ts). The star count is
- * live, or a floor when GitHub does not answer.
+ * Under the hero, the page explains Quivr with animated diagrams and short
+ * captions (QuivrDiagrams.tsx); the longer answers are folded into the FAQ.
+ * Every visual is drawn in code; no screenshots. Every fact comes from the
+ * Quivr README or docs.quivr.thevibecompany.co (see src/lib/quivr.ts). The
+ * star count is live, or a floor when GitHub does not answer.
  */
 
 const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
@@ -64,6 +57,37 @@ function SectionKicker({ index, label }: { index: string; label: string }) {
       <span aria-hidden="true" className="h-px w-8 bg-border" />
       {label}
     </span>
+  );
+}
+
+/** A section around one diagram: kicker, title, one short caption. */
+function DiagramSection({
+  id,
+  index,
+  kicker,
+  title,
+  caption,
+  bordered = false,
+  children,
+}: {
+  id?: string;
+  index: string;
+  kicker: string;
+  title: string;
+  caption?: string;
+  bordered?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <section
+      id={id}
+      className={`${SECTION} scroll-mt-24 py-14 md:py-24 ${bordered ? "border-t border-border" : ""}`}
+    >
+      <SectionKicker index={index} label={kicker} />
+      <h2 className={H2}>{title}</h2>
+      {caption ? <p className={`${PROSE} mt-4 max-w-[560px]`}>{caption}</p> : null}
+      <div className="mt-10 md:mt-14">{children}</div>
+    </section>
   );
 }
 
@@ -204,348 +228,40 @@ export async function QuivrPage({
           </dl>
         </section>
 
-        {/* 2 — In plain words: three benefits. */}
-        <section className={`${SECTION} py-14 md:py-20`}>
-          <SectionKicker index="01" label={t("benefits.kicker")} />
-          <h2 className={H2}>{t("benefits.title")}</h2>
-          <div className="mt-10 grid grid-cols-1 gap-5 md:mt-14 md:grid-cols-3">
-            {QUIVR_BENEFIT_KEYS.map((key, i) => (
-              <article
-                key={key}
-                className="flex flex-col border border-foreground bg-background p-7 transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
-              >
-                <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="m-0 mt-6 text-[24px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[28px]">
-                  {t(`benefits.items.${key}.title`)}
-                </h3>
-                <p className={`${PROSE} mt-4`}>{t(`benefits.items.${key}.desc`)}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* 3 — One usage example, with the alert it produces drawn in code. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <SectionKicker index="02" label={t("example.kicker")} />
-          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-            <div>
-              <h2 className={H2}>{t("example.title")}</h2>
-              <ol className="m-0 mt-8 list-none p-0 md:mt-10">
-                {QUIVR_EXAMPLE_STEPS.map((step, i) => (
-                  <li
-                    key={step}
-                    className="grid grid-cols-[36px_1fr] gap-3 border-b border-border py-5 last:border-b-0"
-                  >
-                    <span className="pt-1 font-mono text-xs tracking-[0.1em] text-muted-foreground">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-[16px] leading-[1.5] text-foreground md:text-[17px]">
-                      {t(`example.steps.${step}`)}
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <AlertMock
-              label={t("example.mock.label")}
-              alert={t("example.mock.alert")}
-              query={t("example.mock.query")}
-              article={t("example.mock.article")}
-              feed={t("example.mock.feed")}
-              headline={t("example.mock.headline")}
-              match={t("example.mock.match")}
-              reason={t("example.mock.reason")}
-              webhook={t("example.mock.webhook")}
-              correction={t("example.mock.correction")}
-            />
-          </div>
-        </section>
-
-        {/* 4 — The problem: content streams that must not be dropped. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <SectionKicker index="03" label={t("problem.kicker")} />
-          <h2 className={H2}>{t("problem.title")}</h2>
-          <p className={`${PROSE} mt-5 max-w-[720px]`}>{t("problem.intro")}</p>
-
-          <div className="mt-10 grid grid-cols-1 border-t-2 border-foreground md:mt-14 md:grid-cols-3">
-            {QUIVR_PROBLEM_KEYS.map((key, i) => (
-              <article
-                key={key}
-                className="border-b border-border py-7 md:border-b-0 md:border-r md:px-7 md:py-9 md:first:pl-0 md:last:border-r-0"
-              >
-                <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="m-0 mt-4 text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground md:text-[26px]">
-                  {t(`problem.items.${key}.title`)}
-                </h3>
-                <p className={`${PROSE} mt-3`}>{t(`problem.items.${key}.desc`)}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* 5 — Features, each card pointing at its guide in the docs. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <SectionKicker index="04" label={t("features.kicker")} />
-          <h2 className={H2}>{t("features.title")}</h2>
-
-          <div className="mt-10 grid grid-cols-1 gap-5 md:mt-14 md:grid-cols-2 lg:grid-cols-3">
-            {QUIVR_FEATURES.map((feature, i) => (
-              <article
-                key={feature.key}
-                className="flex flex-col border border-foreground bg-background p-7 transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
-              >
-                <div className="mb-7 flex items-start justify-between gap-3">
-                  <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
-                    {t(`features.items.${feature.key}.tag`)}
-                  </span>
-                </div>
-                <h3 className="m-0 mb-4 text-[24px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[28px]">
-                  {t(`features.items.${feature.key}.title`)}
-                </h3>
-                <p className={`${PROSE} flex-1`}>
-                  {t(`features.items.${feature.key}.desc`)}
-                </p>
-                <a href={feature.href} {...EXTERNAL} className={`mt-6 self-start ${TEXT_LINK}`}>
-                  {t("features.guide")}
-                  <span aria-hidden="true">↗</span>
-                </a>
-              </article>
-            ))}
-
-            {/* Sixth cell: the bridge to the architecture section. */}
-            <a
-              href="#architecture"
-              data-surface="inverse"
-              className="group flex flex-col justify-between gap-10 border border-foreground bg-foreground p-7 text-background transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
-            >
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-background/60">
-                {t("architecture.kicker")}
-              </span>
-              <span className="text-[24px] font-bold leading-[1.05] tracking-[-0.035em] md:text-[28px]">
-                {t("architecture.title")}
-              </span>
-              <span aria-hidden="true" className="text-2xl leading-none transition-transform duration-300 group-hover:translate-y-1">
-                ↓
-              </span>
-            </a>
-          </div>
-        </section>
-
-        {/* 6 — Architecture: generic core, plugins at the edges, self-hosted. */}
-        <section
-          id="architecture"
-          className={`${SECTION} scroll-mt-24 border-t border-border py-14 md:py-20`}
+        {/* 2 — How it works: the data flow, animated. */}
+        <DiagramSection
+          index="01"
+          kicker={t("diagrams.flow.kicker")}
+          title={t("diagrams.flow.title")}
+          caption={t("diagrams.flow.caption")}
         >
-          <SectionKicker index="05" label={t("architecture.kicker")} />
-          <h2 className={H2}>{t("architecture.title")}</h2>
-          <p className={`${PROSE} mt-5 max-w-[720px]`}>{t("architecture.intro")}</p>
+          <FlowDiagram />
+        </DiagramSection>
 
-          <figure className="m-0 mt-10 md:mt-14">
-            <figcaption className="sr-only">{t("architecture.diagramLabel")}</figcaption>
-            <div className="grid grid-cols-1 items-stretch gap-3 lg:grid-cols-[minmax(0,1fr)_32px_minmax(0,1.25fr)_32px_minmax(0,1fr)] lg:gap-0">
-              {/* In */}
-              <div className="flex flex-col gap-3">
-                <span className={MONO}>{t("architecture.in")}</span>
-                <div className="flex-1 border border-foreground p-5">
-                  <h3 className="m-0 text-lg font-bold tracking-[-0.02em] text-foreground">
-                    {t("architecture.sources")}
-                  </h3>
-                  <p className="m-0 mt-2 text-sm leading-[1.5] text-muted-foreground">
-                    {t("architecture.sourcesNote")}
-                  </p>
-                </div>
-                <div className="flex-1 border border-foreground p-5">
-                  <h3 className="m-0 text-lg font-bold tracking-[-0.02em] text-foreground">
-                    {t("architecture.app")}
-                  </h3>
-                  <p className="m-0 mt-2 text-sm leading-[1.5] text-muted-foreground">
-                    {t("architecture.appNote")}
-                  </p>
-                </div>
-              </div>
+        {/* 3 — One example, played as a short sequence. */}
+        <DiagramSection
+          index="02"
+          kicker={t("diagrams.alert.kicker")}
+          title={t("diagrams.alert.title")}
+          caption={t("diagrams.alert.caption")}
+          bordered
+        >
+          <AlertDiagram />
+        </DiagramSection>
 
-              <Arrow />
+        {/* 4 — Architecture: plugins snapping into the generic core. */}
+        <DiagramSection
+          id="architecture"
+          index="03"
+          kicker={t("diagrams.plugins.kicker")}
+          title={t("diagrams.plugins.title")}
+          caption={t("diagrams.plugins.caption")}
+          bordered
+        >
+          <PluginDiagram />
+        </DiagramSection>
 
-              {/* Core, with its plugins underneath */}
-              <div className="flex flex-col gap-3">
-                <span className={`${MONO} hidden lg:invisible lg:block`} aria-hidden="true">
-                  &nbsp;
-                </span>
-                <div
-                  data-surface="inverse"
-                  className="border-2 border-foreground bg-foreground p-6 text-background"
-                >
-                  <h3 className="m-0 text-[26px] font-bold leading-none tracking-[-0.035em]">
-                    {t("architecture.core")}
-                  </h3>
-                  <p className="m-0 mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-background/60">
-                    {t("architecture.coreNote")}
-                  </p>
-                  <ul className="m-0 mt-5 flex list-none flex-wrap gap-2 p-0">
-                    {QUIVR_STACK.map((item) => (
-                      <li
-                        key={item}
-                        className="border border-white/25 px-2 py-0.5 font-mono text-[11px] tracking-[0.06em] text-background"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div
-                  aria-hidden="true"
-                  className="flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground"
-                >
-                  <span className="h-5 w-px bg-foreground" />
-                  HTTP
-                  <span className="h-5 w-px bg-foreground" />
-                </div>
-                <div className="flex-1 border-2 border-dashed border-foreground p-5">
-                  <h3 className="m-0 text-lg font-bold tracking-[-0.02em] text-foreground">
-                    {t("architecture.plugins")}
-                  </h3>
-                  <p className="m-0 mt-1 text-sm leading-[1.5] text-muted-foreground">
-                    {t("architecture.pluginsNote")}
-                  </p>
-                </div>
-              </div>
-
-              <Arrow />
-
-              {/* Out */}
-              <div className="flex flex-col gap-3">
-                <span className={MONO}>{t("architecture.out")}</span>
-                <ul className="m-0 flex flex-1 list-none flex-col border border-foreground p-0">
-                  {QUIVR_OUTPUT_KEYS.map((key) => (
-                    <li
-                      key={key}
-                      className="flex flex-1 items-center gap-3 border-b border-border px-5 py-4 text-[15px] font-semibold leading-[1.35] text-foreground last:border-b-0"
-                    >
-                      <span aria-hidden="true" className="font-mono text-muted-foreground">
-                        →
-                      </span>
-                      {t(`architecture.${key}`)}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </figure>
-
-          {/* The plugins that ship with Quivr, as cards, then yours. */}
-          <h3 className="m-0 mt-14 text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground md:mt-20 md:text-[26px]">
-            {t("plugins.title")}
-          </h3>
-          <ul className="m-0 mt-6 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
-            {QUIVR_PLUGINS.map((plugin) => {
-              const yours = plugin.key === "yours";
-              return (
-                <li key={plugin.key}>
-                  <a
-                    href={plugin.href}
-                    {...EXTERNAL}
-                    className={`group flex h-full flex-col border-2 p-5 no-underline transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)] ${
-                      yours ? "border-dashed border-foreground" : "border-foreground"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-[19px] font-bold tracking-[-0.02em] text-foreground">
-                        {plugin.name ?? t(`plugins.items.${plugin.key}.name`)}
-                      </span>
-                      <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground">
-                        {t(`plugins.items.${plugin.key}.role`)}
-                      </span>
-                    </div>
-                    <p className="m-0 mt-3 flex-1 text-sm leading-[1.55] text-muted-foreground">
-                      {t(`plugins.items.${plugin.key}.desc`)}
-                    </p>
-                    <span
-                      aria-hidden="true"
-                      className="mt-4 font-mono text-sm text-foreground transition-transform duration-300 group-hover:translate-x-1"
-                    >
-                      ↗
-                    </span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-
-          <div className="mt-12 grid grid-cols-1 gap-10 border-t-2 border-foreground pt-10 md:mt-16 md:grid-cols-2 md:gap-16">
-            {/* Quoted verbatim from the README, so in English on both pages. */}
-            <blockquote className="m-0">
-              <p lang="en" className="m-0 text-[24px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[32px]">
-                “{t("architecture.rule")}”
-              </p>
-              <footer className={`mt-4 ${MONO}`}>— {t("architecture.ruleSource")}</footer>
-            </blockquote>
-            <div>
-              <h3 className="m-0 text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground md:text-[26px]">
-                {t("architecture.selfHostTitle")}
-              </h3>
-              <p className={`${PROSE} mt-4`}>{t("architecture.selfHostDesc")}</p>
-              <a href={QUIVR_PLUGINS_DOCS_URL} {...EXTERNAL} className={`mt-5 ${TEXT_LINK}`}>
-                {t("architecture.pluginsLink")}
-                <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* 7 — Honest status: evaluation stage, API v0, where to start. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <SectionKicker index="06" label={t("status.kicker")} />
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:gap-16">
-            <div>
-              <h2 className={H2}>{t("status.title")}</h2>
-              <p className={`${PROSE} mt-5 max-w-[640px]`}>{t("status.desc")}</p>
-              <p className="m-0 mt-5 max-w-[640px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-foreground md:text-base">
-                {t("status.quickstartDesc")}
-              </p>
-              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-                <a href={QUIVR_QUICKSTART_URL} {...EXTERNAL} className={OUTLINE}>
-                  {t("status.quickstart")}
-                  <span aria-hidden="true">↗</span>
-                </a>
-                <a href={QUIVR_DOCS_URL} {...EXTERNAL} className={TEXT_LINK}>
-                  {t("status.docs")}
-                  <span aria-hidden="true">↗</span>
-                </a>
-                <a href={QUIVR_REPO_URL} {...EXTERNAL} className={TEXT_LINK}>
-                  {t("status.repo")}
-                  <span aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </div>
-            <dl className="m-0 self-start border border-foreground">
-              {(["stage", "api", "license", "runtime"] as const).map((key) => (
-                <div
-                  key={key}
-                  className="grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-4 border-b border-border px-5 py-4 last:border-b-0 md:px-6"
-                >
-                  <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                    {t(`status.facts.${key}`)}
-                  </dt>
-                  <dd className="m-0 flex items-center gap-2 text-[15px] font-semibold text-foreground">
-                    {key === "stage" ? (
-                      <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-orange-500" />
-                    ) : null}
-                    {t(`status.facts.${key}Value`)}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
-
-        {/* 8 — The service: what The Vibe Company does around the engine. */}
+        {/* 5 — The service: what The Vibe Company does around the engine. */}
         <section
           id={QUIVR_SERVICES_ID}
           data-surface="inverse"
@@ -553,7 +269,7 @@ export async function QuivrPage({
         >
           <div className={`${SECTION} py-16 md:py-24`}>
             <span className="mb-6 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/55">
-              <span className="text-background">07</span>
+              <span className="text-background">04</span>
               <span aria-hidden="true" className="h-px w-8 bg-white/25" />
               {t("services.kicker")}
             </span>
@@ -567,24 +283,21 @@ export async function QuivrPage({
             >
               {t("services.title")}
             </h2>
-            <p className="m-0 mt-5 max-w-[680px] text-[15px] leading-[1.6] text-white/70 md:text-base">
+            <p className="m-0 mt-5 max-w-[560px] text-[15px] leading-[1.6] text-white/70 md:text-base">
               {t("services.intro")}
             </p>
 
-            <ol className="m-0 mt-12 grid list-none grid-cols-1 border-t border-white/15 p-0 md:mt-16 md:grid-cols-3">
+            <ol className="m-0 mt-12 grid list-none grid-cols-1 gap-px border border-white/15 bg-white/15 p-0 md:mt-14 md:grid-cols-3">
               {QUIVR_SERVICE_KEYS.map((key, i) => (
-                <li
-                  key={key}
-                  className="border-b border-white/15 py-8 md:border-b-0 md:border-r md:px-8 md:py-10 md:first:pl-0 md:last:border-r-0"
-                >
+                <li key={key} className="bg-foreground p-6 md:p-8">
                   <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="m-0 mt-4 text-[24px] font-bold leading-[1.05] tracking-[-0.03em] text-background md:text-[28px]">
+                  <h3 className="m-0 mt-4 text-[22px] font-bold leading-[1.05] tracking-[-0.03em] text-background md:text-[26px]">
                     {t(`services.items.${key}.title`)}
                   </h3>
-                  <p className="m-0 mt-4 text-[15px] leading-[1.6] text-white/70 md:text-base">
-                    {t(`services.items.${key}.desc`)}
+                  <p className="m-0 mt-2 text-[15px] leading-[1.5] text-white/65">
+                    {t(`services.items.${key}.caption`)}
                   </p>
                 </li>
               ))}
@@ -593,7 +306,7 @@ export async function QuivrPage({
             <a
               href={QUIVR_BOOKING_URL}
               {...bookingLocation("quivr_services")}
-              className="mt-12 inline-flex items-center gap-3 border-2 border-background bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgba(255,255,255,0.35)] md:mt-14 md:px-7 md:py-5 md:text-[17px]"
+              className="mt-10 inline-flex items-center gap-3 border-2 border-background bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgba(255,255,255,0.35)] md:mt-12 md:px-7 md:py-5 md:text-[17px]"
             >
               {t("services.cta")}
               <span aria-hidden="true" className="text-lg leading-none">
@@ -603,77 +316,39 @@ export async function QuivrPage({
           </div>
         </section>
 
-        {/* 9 — History: V1, the move to The Vibe Company, V2. */}
-        <section className={`${SECTION} py-14 md:py-20`}>
-          <SectionKicker index="08" label={t("history.kicker")} />
-          <h2 className={H2}>{t("history.title")}</h2>
+        {/* 6 — History: V1 to V2, a timeline that draws itself. */}
+        <DiagramSection
+          index="05"
+          kicker={t("diagrams.timeline.kicker")}
+          title={t("diagrams.timeline.title")}
+        >
+          <TimelineDiagram stars={stars} />
+        </DiagramSection>
 
-          <ol className="m-0 mt-10 grid list-none grid-cols-1 p-0 md:mt-14 md:grid-cols-3">
-            {QUIVR_HISTORY_KEYS.map((key) => (
-              <li
-                key={key}
-                className="relative border-l-2 border-foreground pb-10 pl-6 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pr-10 md:pt-8"
-              >
-                <span
-                  aria-hidden="true"
-                  className={`absolute -left-[7px] top-0 h-3 w-3 border-2 border-foreground md:-top-[7px] md:left-0 ${
-                    key === "v2" ? "bg-orange-500" : "bg-background"
-                  }`}
-                />
-                <span className={MONO}>{t(`history.items.${key}.label`)}</span>
-                <h3 className="m-0 mt-3 text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground md:text-[26px]">
-                  {t(`history.items.${key}.title`)}
-                </h3>
-                <p className={`${PROSE} mt-3`}>
-                  {t(`history.items.${key}.desc`, {
-                    stars: formatStarsCompact(stars, locale),
-                  })}
-                </p>
-              </li>
-            ))}
-          </ol>
-
-          <div className="mt-10 flex flex-col gap-6 border border-foreground p-6 md:mt-14 md:flex-row md:items-center md:justify-between md:p-8">
-            <div className="max-w-[640px]">
-              <h3 className="m-0 text-[20px] font-bold tracking-[-0.03em] text-foreground md:text-[24px]">
-                {t("history.communityTitle")}
-              </h3>
-              <p className={`${PROSE} mt-2`}>{t("history.communityDesc")}</p>
-            </div>
-            <div className="flex flex-col items-start gap-4">
-              <a href={QUIVR_V1_URL} {...EXTERNAL} className={OUTLINE}>
-                {t("history.v1Link")}
-                <span aria-hidden="true">↗</span>
-              </a>
-              <Link href={QUIVR_STORY_ARTICLE_PATH} className={TEXT_LINK}>
-                {t("history.storyLink")}
-                <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* 10 — FAQ, plain HTML so every answer is crawlable. */}
+        {/* 7 — FAQ: the long answers live here, folded. Plain <details>, so
+            every answer is in the HTML and works without JavaScript. */}
         <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <SectionKicker index="09" label="FAQ" />
+          <SectionKicker index="06" label="FAQ" />
           <h2 className={H2}>{t("faq.title")}</h2>
-
           <div className="mt-10 border-t-2 border-foreground md:mt-12">
             {QUIVR_FAQ_KEYS.map((key) => (
-              <article
-                key={key}
-                className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-8"
-              >
-                <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
+              <details key={key} className="group border-b border-border">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-[19px] font-bold leading-[1.2] tracking-[-0.025em] text-foreground marker:hidden md:text-[22px] [&::-webkit-details-marker]:hidden">
                   {t(`faq.items.${key}.q`)}
-                </h3>
-                <p className={`${PROSE} max-w-[70ch]`}>{t(`faq.items.${key}.a`)}</p>
-              </article>
+                  <span
+                    aria-hidden="true"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center border border-foreground font-mono text-lg leading-none transition-transform duration-300 group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className={`${PROSE} max-w-[72ch] pb-7`}>{t(`faq.items.${key}.a`)}</p>
+              </details>
             ))}
           </div>
         </section>
 
-        {/* 11 — Final call, on the same grid paper as the homepage's. */}
+        {/* 8 — Final call, on the same grid paper as the homepage's. */}
         <section className="relative overflow-hidden border-y-2 border-foreground bg-background">
           <div
             aria-hidden="true"
@@ -726,18 +401,6 @@ export async function QuivrPage({
         </section>
       </main>
       <Footer />
-    </div>
-  );
-}
-
-function Arrow() {
-  return (
-    <div
-      aria-hidden="true"
-      className="flex items-center justify-center font-mono text-xl text-foreground lg:pt-7"
-    >
-      <span className="lg:hidden">↓</span>
-      <span className="hidden lg:inline">→</span>
     </div>
   );
 }
@@ -835,87 +498,5 @@ function FlowConnector() {
     <div aria-hidden="true" className="relative mx-auto h-7 w-px bg-foreground">
       <span className="absolute -left-[3px] top-0 h-[7px] w-[7px] rounded-full bg-foreground motion-safe:animate-[quivr-flow_1.6s_ease-in_infinite]" />
     </div>
-  );
-}
-
-/**
- * The usage example as Quivr would surface it: the saved alert, the article
- * that came in, the match with its reason, then what happens next. The texts
- * follow the docs' own harbour-strike example.
- */
-function AlertMock({
-  label,
-  alert,
-  query,
-  article,
-  feed,
-  headline,
-  match,
-  reason,
-  webhook,
-  correction,
-}: {
-  label: string;
-  alert: string;
-  query: string;
-  article: string;
-  feed: string;
-  headline: string;
-  match: string;
-  reason: string;
-  webhook: string;
-  correction: string;
-}) {
-  return (
-    <figure className="m-0 border-2 border-foreground bg-background shadow-[8px_8px_0_0_var(--foreground)]">
-      <figcaption
-        data-surface="inverse"
-        className="flex items-center justify-between gap-4 bg-foreground px-5 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-background"
-      >
-        <span>{label}</span>
-        <span aria-hidden="true" className="flex gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-white/30" />
-          <span className="h-2 w-2 rounded-full bg-white/30" />
-          <span className="h-2 w-2 rounded-full bg-orange-500" />
-        </span>
-      </figcaption>
-
-      <div className="border-b border-border px-5 py-4">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-          {alert}
-        </span>
-        <code className="mt-2 block border border-foreground bg-background px-3 py-2 font-mono text-[13px] text-foreground">
-          {query}
-        </code>
-      </div>
-
-      <div className="border-b border-border px-5 py-4">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-          {article} · {feed}
-        </span>
-        <div className="mt-2 text-[19px] font-bold leading-[1.2] tracking-[-0.02em] text-foreground">
-          {headline}
-        </div>
-      </div>
-
-      <div className="border-b border-border px-5 py-4">
-        <span className="inline-flex items-center gap-2 border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
-          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-orange-500" />
-          {match}
-        </span>
-        <p className="m-0 mt-2 text-[14px] leading-[1.5] text-foreground">{reason}</p>
-      </div>
-
-      <ul className="m-0 list-none p-0">
-        <li className="flex items-start gap-3 border-b border-border px-5 py-3 text-[14px] text-foreground">
-          <span aria-hidden="true" className="font-mono text-muted-foreground">→</span>
-          {webhook}
-        </li>
-        <li className="flex items-start gap-3 px-5 py-3 text-[14px] text-foreground">
-          <span aria-hidden="true" className="font-mono text-muted-foreground">→</span>
-          {correction}
-        </li>
-      </ul>
-    </figure>
   );
 }
