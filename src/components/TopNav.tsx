@@ -318,6 +318,8 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
             <ContactMenu
               location="nav"
+              // The fixed search panel (below xl) would cover the menu.
+              onOpen={() => setSearchOpen(false)}
               triggerClassName={cn(components.button.primary, "min-w-[150px] rounded-none text-center")}
               menuClassName="absolute right-0 top-full mt-2 w-max"
             />

@@ -15,6 +15,8 @@ interface ContactMenuProps {
   /** Classes for the popup (its position differs between bar and dialog). */
   menuClassName?: string;
   className?: string;
+  /** Called when the menu opens, e.g. to close another header panel. */
+  onOpen?: () => void;
   /** Called after a choice is made, e.g. to close the mobile dialog. */
   onSelect?: () => void;
 }
@@ -33,6 +35,7 @@ export function ContactMenu({
   triggerClassName,
   menuClassName,
   className,
+  onOpen,
   onSelect,
 }: ContactMenuProps) {
   const t = useTranslations("nav");
@@ -56,7 +59,10 @@ export function ContactMenu({
 
   const openMenu = (focusIndex: number) => {
     pendingFocus.current = focusIndex;
-    if (!open) captureEvent("get_in_touch_clicked", { location });
+    if (!open) {
+      captureEvent("get_in_touch_clicked", { location });
+      onOpen?.();
+    }
     setOpen(true);
   };
 
