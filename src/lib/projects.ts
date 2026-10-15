@@ -12,6 +12,8 @@ interface RawProject {
   name: string;
   logo: string;
   cover: string;
+  /** Alt text for the cover when it is not the product's homepage. */
+  coverAlt?: L;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;
   accent: string;
@@ -28,6 +30,7 @@ export interface Project {
   name: string;
   logo: string;
   cover: string;
+  coverAlt?: string;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;
   accent: string;
@@ -171,6 +174,29 @@ const PROJECTS_RAW: RawProject[] = [
       fr: "AEOM (All Eyes On Me) est le designer d’un produit codé par des agents. Il parcourt votre app comme un utilisateur, juge chaque écran selon votre goût, et refait ce qui gêne pour que le front ait l’air d’avoir été dessiné par quelqu’un.",
     },
   },
+  {
+    // The open-source engine the company grew out of, rebuilt as V2. Its
+    // project page adds a few sections of its own (src/lib/quivr.ts).
+    slug: "quivr",
+    name: "Quivr",
+    logo: "/projects/quivr-favicon.svg",
+    // The demo app shipped in the Quivr repository (docs-site/images).
+    cover: "/projects/quivr-home.png",
+    coverAlt: {
+      en: "Quivr's demo app: a live news feed, with the alerts each article triggered",
+      fr: "L’app de démo de Quivr : un fil d’actualité en direct, avec les alertes déclenchées par chaque article",
+    },
+    accent: "#5b3fd6",
+    url: "https://docs.quivr.thevibecompany.co",
+    repositoryUrl: "https://github.com/The-Vibe-Company/quivr",
+    tag: { en: "Search & monitoring", fr: "Recherche et veille" },
+    date: { en: "Oct 2026", fr: "oct. 2026" },
+    status: { en: "Open source", fr: "Open source" },
+    description: {
+      en: "Quivr follows news, emails and social posts as they arrive, makes them searchable in seconds, and alerts you when a topic you follow comes up.",
+      fr: "Quivr suit les articles, les e-mails et les posts au fil de l’eau, les rend cherchables en quelques secondes, et vous prévient quand un sujet que vous suivez apparaît.",
+    },
+  },
 ];
 
 function localize(raw: RawProject, locale: ContentLocale): Project {
@@ -179,6 +205,7 @@ function localize(raw: RawProject, locale: ContentLocale): Project {
     name: raw.name,
     logo: raw.logo,
     cover: raw.cover,
+    coverAlt: raw.coverAlt ? pick(raw.coverAlt, locale) : undefined,
     mobileCover: raw.mobileCover,
     accent: raw.accent,
     url: raw.url,

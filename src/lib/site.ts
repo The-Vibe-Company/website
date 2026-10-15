@@ -11,8 +11,6 @@ export type SiteRoute = {
   description: string;
   changeFrequency: "daily" | "weekly" | "monthly" | "yearly";
   priority: number;
-  /** Also declare the French URL as `x-default` in the hreflang set. */
-  xDefault?: boolean;
 };
 
 export const INDEXABLE_STATIC_ROUTES: SiteRoute[] = [
@@ -39,15 +37,6 @@ export const INDEXABLE_STATIC_ROUTES: SiteRoute[] = [
       "Shareable AI skills and articles from The Vibe Company.",
     changeFrequency: "weekly",
     priority: 0.8,
-  },
-  {
-    path: "/quivr",
-    title: "Quivr V2",
-    description:
-      "Quivr V2, the open-source engine by The Vibe Company that turns continuous content streams into search and monitoring: durable ingestion, hybrid search, alerts, webhooks, plugins and MCP.",
-    changeFrequency: "weekly",
-    priority: 0.8,
-    xDefault: true,
   },
 ];
 

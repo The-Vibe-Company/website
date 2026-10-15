@@ -1,14 +1,17 @@
 /**
- * Facts and links for the Quivr V2 page (/fr/quivr, /en/quivr).
+ * Facts and links for the Quivr project page (/fr/portfolio/quivr,
+ * /en/portfolio/quivr), which adds a few sections to the shared project
+ * template.
  *
  * Every claim on that page comes from the Quivr README
  * (github.com/The-Vibe-Company/quivr) or its documentation
  * (docs.quivr.thevibecompany.co). A fact neither source states is left off.
  */
 
-export const QUIVR_PATH = "/quivr";
+/** Quivr's slug in src/lib/projects.ts. */
+export const QUIVR_SLUG = "quivr";
 
-/** Anchor of the "We deploy it for you" section, the target of service CTAs. */
+/** Anchor of the "How we help" section, the target of service links. */
 export const QUIVR_SERVICES_ID = "services";
 
 /** The call booked from this page, distinct from the site-wide 30-minute call. */
@@ -18,8 +21,6 @@ export const QUIVR_REPO = "The-Vibe-Company/quivr";
 export const QUIVR_REPO_URL = `https://github.com/${QUIVR_REPO}`;
 export const QUIVR_DOCS_URL = "https://docs.quivr.thevibecompany.co";
 export const QUIVR_QUICKSTART_URL = `${QUIVR_DOCS_URL}/quickstart`;
-export const QUIVR_PLUGINS_DOCS_URL = `${QUIVR_DOCS_URL}/plugins/overview`;
-export const QUIVR_MCP_DOCS_URL = `${QUIVR_DOCS_URL}/guides/ai-agents`;
 
 /** The tag on the last commit of Quivr V1, before V2 replaced it on main. */
 export const QUIVR_V1_TAG = "v1-final";
@@ -29,61 +30,21 @@ export const QUIVR_V1_URL = `${QUIVR_REPO_URL}/tree/${QUIVR_V1_TAG}`;
 export const QUIVR_STORY_ARTICLE_PATH =
   "/resources/articles/quivr-to-the-vibe-company";
 
-/** Feature cards, in reading order, each with the docs guide behind it. */
-export const QUIVR_FEATURES = [
-  { key: "ingestion", href: `${QUIVR_DOCS_URL}/guides/add-content` },
-  { key: "search", href: `${QUIVR_DOCS_URL}/guides/search` },
-  { key: "alerts", href: `${QUIVR_DOCS_URL}/guides/alerts` },
-  { key: "webhooks", href: `${QUIVR_DOCS_URL}/guides/follow-changes` },
-  { key: "mcp", href: QUIVR_MCP_DOCS_URL },
-] as const;
+/** The three benefits, then the steps of the usage example, in order. */
+export const QUIVR_BENEFIT_KEYS = ["nothingLost", "meaning", "alerts"] as const;
+export const QUIVR_EXAMPLE_STEPS = ["alert", "article", "match", "correction"] as const;
 
-export const QUIVR_PROBLEM_KEYS = ["loss", "versions", "meaning"] as const;
+/** What The Vibe Company does around the engine. */
+export const QUIVR_HELP_KEYS = ["sources", "production", "hosting"] as const;
 
-/**
- * The first-party plugins the architecture diagram names, by role. Proper
- * nouns only: the X lists connector's label is translated in the page.
- */
-export const QUIVR_SOURCE_PLUGINS = ["RSS / Atom", "Microsoft 365"];
-export const QUIVR_FORMAT_PLUGINS = ["NewsML-G2", "PDF"];
-
-/** What comes out of Quivr, in the diagram's right-hand column. */
-export const QUIVR_OUTPUT_KEYS = [
-  "outSearch",
-  "outAlerts",
-  "outFeed",
-  "outAgents",
-] as const;
-
-export const QUIVR_HISTORY_KEYS = ["v1", "tvc", "v2"] as const;
-
-/** The stack the core runs on, from the README's architecture table. */
-export const QUIVR_STACK = [
-  "Go",
-  "PostgreSQL",
-  "S3",
-  "Temporal",
-  "Weaviate",
-  "E5",
-] as const;
-
-/** The steps a document goes through, as the README lists its step times. */
-export const QUIVR_PIPELINE_STEPS = [
-  "accepted",
-  "segmented",
-  "searchable",
-  "vectors",
-  "alerts",
-] as const;
-
-export const QUIVR_SERVICE_KEYS = ["plugins", "production", "security"] as const;
-
-export const QUIVR_FAQ_KEYS = [
-  "v1",
+/** Rows of the technical block at the bottom of the page. */
+export const QUIVR_TECH_KEYS = [
+  "engine",
+  "storage",
+  "search",
+  "plugins",
+  "integrations",
   "license",
-  "production",
-  "selfHost",
-  "support",
 ] as const;
 
 /**

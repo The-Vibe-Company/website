@@ -6,7 +6,12 @@ import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import {
+  QuivrDetailSections,
+  QuivrIntroSections,
+} from "@/components/quivr/QuivrProjectSections";
 import { PROJECT_SLUGS, getProject, type ContentLocale } from "@/lib/projects";
+import { formatStars, getQuivrStars, QUIVR_SLUG } from "@/lib/quivr";
 import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -23,12 +28,20 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "portfolio" });
   const project = getProject(slug, locale as ContentLocale);
   if (!project) return { title: t("back") };
-  const title = `${project.name} · ${t("back")}`;
-  const description = project.description;
+
+  // Quivr gets its own search title, absolute so the brand is not repeated.
+  const tQuivr =
+    slug === QUIVR_SLUG
+      ? await getTranslations({ locale, namespace: "quivr" })
+      : null;
+  const title = tQuivr ? tQuivr("metaTitle") : `${project.name} · ${t("back")}`;
+  const description = tQuivr ? tQuivr("metaDescription") : project.description;
   return {
-    title,
+    title: tQuivr ? { absolute: title } : title,
     description,
-    alternates: localizedAlternates(locale, `/portfolio/${slug}`),
+    alternates: localizedAlternates(locale, `/portfolio/${slug}`, {
+      xDefault: true,
+    }),
     ...localizedSocialMetadata({
       locale,
       path: `/portfolio/${slug}`,
@@ -49,10 +62,19 @@ export default async function PortfolioProjectPage({
   const project = getProject(slug, locale as ContentLocale);
   if (!project) notFound();
 
+  // Quivr's page adds a live GitHub star count (cached for an hour, see
+  // getQuivrStars) and a few sections of its own.
+  const isQuivr = slug === QUIVR_SLUG;
+  const tQuivr = isQuivr
+    ? await getTranslations({ locale, namespace: "quivr" })
+    : null;
+  const stars = isQuivr ? await getQuivrStars() : null;
+
   const meta = [
     { value: project.status, label: t("statusLabel") },
     { value: project.date, label: t("built") },
     { value: project.tag, label: t("typeLabel") },
+    ...(tQuivr ? [{ value: formatStars(stars, locale), label: tQuivr("stars") }] : []),
   ];
 
   return (
@@ -85,6 +107,11 @@ export default async function PortfolioProjectPage({
                 {project.tag}
               </span>
             </div>
+            {tQuivr ? (
+              <p className="m-0 mt-5 text-lg font-semibold tracking-[-0.01em] text-foreground md:text-xl">
+                {tQuivr("byline")}
+              </p>
+            ) : null}
             <div className="mt-4 font-mono text-sm uppercase tracking-[0.15em] text-muted-foreground">
               {project.status} · {t("built")} {project.date}
             </div>
@@ -93,13 +120,22 @@ export default async function PortfolioProjectPage({
           <p className="m-0 mt-10 max-w-[720px] text-xl leading-[1.5] text-foreground md:text-2xl">
             {project.description}
           </p>
+          {tQuivr ? (
+            <p className="m-0 mt-4 max-w-[720px] text-lg leading-[1.5] text-muted-foreground">
+              {tQuivr("forWhom")}
+            </p>
+          ) : null}
         </section>
 
         <section className="border-y border-border bg-background">
-          <div className="mx-auto grid max-w-[80rem] grid-cols-3 gap-px bg-border px-0">
+          <div
+            className={`mx-auto grid max-w-[80rem] gap-px bg-border px-0 ${
+              meta.length === 4 ? "grid-cols-2 md:grid-cols-4" : "grid-cols-3"
+            }`}
+          >
             {meta.map((item) => (
               <div key={item.label} className="flex flex-col gap-1 bg-background p-6 md:p-8">
-                <div className="text-[22px] font-bold leading-tight tracking-[-0.02em] text-foreground md:text-[28px]">
+                <div className="text-[22px] font-bold leading-tight tracking-[-0.02em] text-foreground tabular-nums md:text-[28px]">
                   {item.value}
                 </div>
                 <div className="mt-1 text-sm leading-snug text-muted-foreground">
@@ -109,6 +145,8 @@ export default async function PortfolioProjectPage({
             ))}
           </div>
         </section>
+
+        {isQuivr ? <QuivrIntroSections locale={locale} /> : null}
 
         <section className="mx-auto max-w-[80rem] px-6 py-16 md:px-12 md:py-20">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
@@ -128,7 +166,7 @@ export default async function PortfolioProjectPage({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={project.cover}
-                alt={`${project.name} homepage`}
+                alt={project.coverAlt ?? `${project.name} homepage`}
                 className="h-auto w-full"
                 loading="lazy"
               />
@@ -159,6 +197,8 @@ export default async function PortfolioProjectPage({
             </span>
           </a>
         </section>
+
+        {isQuivr ? <QuivrDetailSections locale={locale} stars={stars} /> : null}
 
         <FinalCTA rail="narrow" />
       </main>

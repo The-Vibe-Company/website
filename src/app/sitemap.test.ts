@@ -2,31 +2,36 @@ import { describe, expect, test } from "bun:test";
 
 import sitemap from "./sitemap";
 
+const SITE = "https://www.thevibecompany.co";
+
 describe("sitemap", () => {
-  test("lists the Quivr page in both languages with hreflang and x-default", () => {
-    const entries = sitemap().filter((entry) => entry.url.endsWith("/quivr"));
-    const languages = {
-      fr: "https://www.thevibecompany.co/fr/quivr",
-      en: "https://www.thevibecompany.co/en/quivr",
-      "x-default": "https://www.thevibecompany.co/fr/quivr",
-    };
+  test("lists the Quivr project page in both languages with hreflang and x-default", () => {
+    const entries = sitemap().filter((entry) =>
+      entry.url.endsWith("/portfolio/quivr"),
+    );
 
     expect(entries.map((entry) => entry.url).sort()).toEqual([
-      "https://www.thevibecompany.co/en/quivr",
-      "https://www.thevibecompany.co/fr/quivr",
+      `${SITE}/en/portfolio/quivr`,
+      `${SITE}/fr/portfolio/quivr`,
     ]);
     for (const entry of entries) {
-      expect(entry.alternates?.languages).toEqual(languages);
+      expect(entry.alternates?.languages).toEqual({
+        fr: `${SITE}/fr/portfolio/quivr`,
+        en: `${SITE}/en/portfolio/quivr`,
+        "x-default": `${SITE}/fr/portfolio/quivr`,
+      });
     }
   });
 
-  test("keeps the other static pages without x-default", () => {
-    const home = sitemap().find(
-      (entry) => entry.url === "https://www.thevibecompany.co/en",
-    );
+  test("drops the old /quivr URLs, which now redirect", () => {
+    expect(sitemap().some((entry) => /\/(fr|en)\/quivr$/.test(entry.url))).toBe(false);
+  });
+
+  test("keeps the static pages without x-default", () => {
+    const home = sitemap().find((entry) => entry.url === `${SITE}/en`);
     expect(home?.alternates?.languages).toEqual({
-      fr: "https://www.thevibecompany.co/fr",
-      en: "https://www.thevibecompany.co/en",
+      fr: `${SITE}/fr`,
+      en: `${SITE}/en`,
     });
   });
 });

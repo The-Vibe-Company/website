@@ -31,6 +31,18 @@ const nextConfig: NextConfig = {
         destination: "/portfolio/skillpack",
         permanent: true,
       },
+      // Quivr is presented as one of our projects. /quivr is the short URL
+      // the quivr.com redirects and shared links point to.
+      {
+        source: "/:locale(fr|en)/quivr",
+        destination: "/:locale/portfolio/quivr",
+        permanent: true,
+      },
+      {
+        source: "/quivr",
+        destination: "/portfolio/quivr",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {

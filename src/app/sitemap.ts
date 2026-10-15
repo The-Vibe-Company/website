@@ -58,15 +58,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     : now;
 
   const staticRoutes = INDEXABLE_STATIC_ROUTES.flatMap((route) =>
-    entries(
-      route.path,
-      {
-        lastModified: route.path.startsWith("/resources") ? latestContentDate : now,
-        changeFrequency: route.changeFrequency,
-        priority: route.priority,
-      },
-      { xDefault: route.xDefault },
-    )
+    entries(route.path, {
+      lastModified: route.path.startsWith("/resources") ? latestContentDate : now,
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+    })
   );
 
   const splitPathRoutes = INDEXABLE_SPLIT_PATH_ROUTES.flatMap((route) =>
@@ -97,12 +93,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
+  // Project pages also declare x-default (the French URL), the same way
+  // translated articles do.
   const portfolioRoutes = PROJECT_SLUGS.flatMap((slug) =>
-    entries(`/portfolio/${slug}`, {
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })
+    entries(
+      `/portfolio/${slug}`,
+      {
+        lastModified: now,
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      },
+      { xDefault: true },
+    )
   );
 
   // Case studies intentionally remain absent until client publication approval.
