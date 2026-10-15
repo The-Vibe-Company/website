@@ -336,6 +336,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     url: "https://www.theodo.com",
     visuals: [],
     sector: { en: "Technical expertise · Software Factories", fr: "Expertise technique · Software Factories" },
+    metric: { en: "AI Software Factories", fr: "AI Software Factories" },
+    metricLabel: { en: "for hundreds of developers", fr: "pour des centaines de développeurs" },
     summary: {
       en: "The Vibe Company supports Theodo as a technical expert on critical projects for their clients, such as building Software Factories for hundreds of developers, to help accelerate their teams.",
       fr: "The Vibe Company accompagne Theodo en tant qu’expert technique sur des projets critiques pour leurs clients, par exemple la création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
