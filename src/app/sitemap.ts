@@ -9,6 +9,7 @@ import {
   contentAlternates,
   INDEXABLE_SPLIT_PATH_ROUTES,
   INDEXABLE_STATIC_ROUTES,
+  localizedLanguages,
   localizedUrl,
   splitPath,
   type SplitPaths,
@@ -20,14 +21,15 @@ const LOCALES = ["fr", "en"] as const;
 
 // Each localized canonical gets its own sitemap entry. Both entries carry the
 // same self-inclusive hreflang set, as required for reciprocal alternates.
-function entries(path: string, extra: Extra): MetadataRoute.Sitemap {
+function entries(
+  path: string,
+  extra: Extra,
+  { xDefault = false }: { xDefault?: boolean } = {},
+): MetadataRoute.Sitemap {
   return LOCALES.map((locale) => ({
     url: localizedUrl(locale, path),
     alternates: {
-      languages: {
-        fr: localizedUrl("fr", path),
-        en: localizedUrl("en", path),
-      },
+      languages: localizedLanguages(path, { xDefault }),
     },
     ...extra,
   }));
@@ -56,11 +58,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     : now;
 
   const staticRoutes = INDEXABLE_STATIC_ROUTES.flatMap((route) =>
-    entries(route.path, {
-      lastModified: route.path.startsWith("/resources") ? latestContentDate : now,
-      changeFrequency: route.changeFrequency,
-      priority: route.priority,
-    })
+    entries(
+      route.path,
+      {
+        lastModified: route.path.startsWith("/resources") ? latestContentDate : now,
+        changeFrequency: route.changeFrequency,
+        priority: route.priority,
+      },
+      { xDefault: route.xDefault },
+    )
   );
 
   const splitPathRoutes = INDEXABLE_SPLIT_PATH_ROUTES.flatMap((route) =>

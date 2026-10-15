@@ -11,6 +11,8 @@ export type SiteRoute = {
   description: string;
   changeFrequency: "daily" | "weekly" | "monthly" | "yearly";
   priority: number;
+  /** Also declare the French URL as `x-default` in the hreflang set. */
+  xDefault?: boolean;
 };
 
 export const INDEXABLE_STATIC_ROUTES: SiteRoute[] = [
@@ -37,6 +39,15 @@ export const INDEXABLE_STATIC_ROUTES: SiteRoute[] = [
       "Shareable AI skills and articles from The Vibe Company.",
     changeFrequency: "weekly",
     priority: 0.8,
+  },
+  {
+    path: "/quivr",
+    title: "Quivr V2",
+    description:
+      "Quivr V2, the open-source engine by The Vibe Company that turns continuous content streams into search and monitoring: durable ingestion, hybrid search, alerts, webhooks, plugins and MCP.",
+    changeFrequency: "weekly",
+    priority: 0.8,
+    xDefault: true,
   },
 ];
 
@@ -79,13 +90,30 @@ export function localizedUrl(locale: string, path = "/"): string {
   return absoluteUrl(localizedPath(locale, path));
 }
 
-export function localizedAlternates(locale: string, path = "/") {
+export function localizedAlternates(
+  locale: string,
+  path = "/",
+  { xDefault = false }: { xDefault?: boolean } = {},
+) {
   return {
     canonical: localizedUrl(locale, path),
-    languages: {
-      fr: localizedUrl("fr", path),
-      en: localizedUrl("en", path),
-    },
+    languages: localizedLanguages(path, { xDefault }),
+  };
+}
+
+/**
+ * The self-inclusive hreflang set of a page served at the same path in both
+ * languages. With `xDefault`, the French URL (the site's default language,
+ * keep in sync with `routing.defaultLocale`) doubles as `x-default`.
+ */
+export function localizedLanguages(
+  path = "/",
+  { xDefault = false }: { xDefault?: boolean } = {},
+): Record<string, string> {
+  return {
+    fr: localizedUrl("fr", path),
+    en: localizedUrl("en", path),
+    ...(xDefault ? { "x-default": localizedUrl("fr", path) } : {}),
   };
 }
 

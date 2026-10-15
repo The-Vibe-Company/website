@@ -198,6 +198,12 @@
   50% { transform: translateY(5px); }
 }
 
+/* Quivr page: the pipeline card's steps settle in one after the other. */
+@keyframes quivr-step {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* -----------------------------------------------------------------------------
    Base Styles
    Minimal global styles using Tailwind's @layer system
