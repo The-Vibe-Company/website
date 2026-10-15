@@ -16,7 +16,7 @@ const fixture = () => ({
   triggerEvent: "BOOKING_CREATED",
   payload: {
     uid: "booking-unique-id",
-    type: "30min",
+    type: "thevibecompany",
     eventTypeId: 123,
     title: "Meeting between Jane Doe and Host",
     startTime: "2026-10-20T10:00:00Z",
@@ -63,7 +63,7 @@ describe("Cal webhook", () => {
     expect((await pending).status).toBe(200);
     expect(constructor).toHaveBeenCalledWith("test-project-key", { host: "https://us.i.posthog.com", flushAt: 1, flushInterval: 0, disableGeoip: true });
     expect(capture).toHaveBeenCalledWith({ distinctId: "booking-unique-id", event: "booking_completed", properties: {
-      source: "cal_webhook", $process_person_profile: false, event_type: "30min",
+      source: "cal_webhook", $process_person_profile: false, event_type: "thevibecompany",
       booking_start_time: "2026-10-20T10:00:00.000Z", duration_minutes: 30,
       utm_source: "linkedin", utm_campaign: "fall_launch",
     } });
@@ -109,10 +109,47 @@ describe("Cal webhook", () => {
     delete process.env.CAL_WEBHOOK_HASH_SALT;
     expect((await POST(request(JSON.stringify(booking)))).status).toBe(500);
   });
-  test("uses the event ID when the slug is absent and never falls back to title", async () => {
+  test("tracks only the thevibecompany event type", async () => {
+    expect((await POST(request())).status).toBe(200);
+    expect(capture).toHaveBeenCalledTimes(1);
+    expect(capture.mock.calls[0][0]).toMatchObject({ event: "booking_completed", properties: { event_type: "thevibecompany" } });
+  });
+  test.each(["30min", "15min", "thevibecompany-extra", "TheVibeCompany Call"])("acknowledges another event type (%s) without sending", async (type) => {
+    const booking = fixture(); booking.payload.type = type;
+    expect((await POST(request(JSON.stringify(booking)))).status).toBe(200);
+    expect(constructor).not.toHaveBeenCalled();
+    expect(capture).not.toHaveBeenCalled();
+  });
+  test.each([
+    ["empty", ""],
+    ["null", null],
+    ["absent", undefined],
+  ])("acknowledges a booking with a %s slug without sending", async (_label, type) => {
+    const booking: Record<string, unknown> = fixture();
+    const payload = { ...fixture().payload, type };
+    if (type === undefined) delete (payload as Record<string, unknown>).type;
+    booking.payload = payload;
+    expect((await POST(request(JSON.stringify(booking)))).status).toBe(200);
+    expect(constructor).not.toHaveBeenCalled();
+    expect(capture).not.toHaveBeenCalled();
+  });
+  test("never falls back to the event ID or title to decide", async () => {
     const booking = fixture(); booking.payload.type = "";
-    await POST(request(JSON.stringify(booking)));
-    expect(capture.mock.calls[0][0]).toMatchObject({ properties: { event_type_id: 123 } });
+    booking.payload.title = "thevibecompany";
+    expect((await POST(request(JSON.stringify(booking)))).status).toBe(200);
+    expect(capture).not.toHaveBeenCalled();
+  });
+  test.each([
+    ["eventTypeSlug", { eventTypeSlug: "thevibecompany" }],
+    ["eventType.slug", { eventType: { slug: "thevibecompany" } }],
+  ])("also accepts the slug from %s", async (_label, extra) => {
+    const booking = { ...fixture(), payload: { ...fixture().payload, type: "Rendez-vous The Vibe Company", ...extra } };
+    expect((await POST(request(JSON.stringify(booking)))).status).toBe(200);
+    expect(capture.mock.calls[0][0]).toMatchObject({ properties: { event_type: "thevibecompany" } });
+  });
+  test("acknowledges a booking without a payload without sending", async () => {
+    expect((await POST(request(JSON.stringify({ triggerEvent: "BOOKING_CREATED" })))).status).toBe(200);
+    expect(constructor).not.toHaveBeenCalled();
   });
   test("fails safely for missing analytics configuration", async () => {
     delete process.env.NEXT_PUBLIC_POSTHOG_KEY;

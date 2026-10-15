@@ -9,6 +9,22 @@ const object = (value: unknown): ObjectValue =>
     ? (value as ObjectValue)
     : {};
 
+/** The only Cal event type that counts as a site booking (cal.com/stangirard/thevibecompany). */
+const TRACKED_EVENT_TYPE_SLUG = "thevibecompany";
+
+/**
+ * The event type slug of a booking. Cal's default BOOKING_CREATED payload
+ * carries it as `payload.type` (`type: eventType.slug` in Cal's booking
+ * service; "the event type slug" in its webhook docs). `eventTypeSlug` and
+ * `eventType.slug` are not part of that payload: they are read only in case a
+ * custom payload template or a future payload version provides them.
+ */
+function eventTypeSlugs(payload: ObjectValue): string[] {
+  return [payload.type, payload.eventTypeSlug, object(payload.eventType).slug]
+    .filter((value): value is string => typeof value === "string")
+    .map((value) => value.trim());
+}
+
 const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
 
 /** Only marketing tokens, never arbitrary form answers, URLs, or meeting details. */
@@ -51,6 +67,10 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const payload = object(body.payload);
+  // Other event types on the same Cal account are acknowledged, never counted.
+  if (!eventTypeSlugs(payload).includes(TRACKED_EVENT_TYPE_SLUG)) {
+    return new Response(null, { status: 200 });
+  }
   const attendees = Array.isArray(payload.attendees) ? payload.attendees : [];
   let distinctId = typeof payload.uid === "string" && payload.uid ? payload.uid : undefined;
   if (!distinctId) {
@@ -66,16 +86,12 @@ export async function POST(request: Request): Promise<Response> {
   const host = process.env.NEXT_PUBLIC_POSTHOG_HOST;
   if (!key || !host) return new Response("Analytics not configured", { status: 500 });
 
+  // Cal's title contains attendee/organizer names. Use only the event slug.
   const properties: Record<string, string | number | boolean> = {
     source: "cal_webhook",
     $process_person_profile: false,
+    event_type: TRACKED_EVENT_TYPE_SLUG,
   };
-  // Cal's title contains attendee/organizer names. Use only the event slug or ID.
-  const eventType = marketingToken(payload.type, attendees);
-  if (eventType) properties.event_type = eventType;
-  else if (typeof payload.eventTypeId === "number" && Number.isSafeInteger(payload.eventTypeId)) {
-    properties.event_type_id = payload.eventTypeId;
-  }
   const start = typeof payload.startTime === "string" ? Date.parse(payload.startTime) : NaN;
   const end = typeof payload.endTime === "string" ? Date.parse(payload.endTime) : NaN;
   if (Number.isFinite(start)) properties.booking_start_time = new Date(start).toISOString();
