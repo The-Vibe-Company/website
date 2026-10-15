@@ -483,8 +483,8 @@
       "intro": "Anyone can download Quivr and run it on their own servers. When you want it working on your content, The Vibe Company, the team that builds it, sets it up with you.",
       "items": {
         "sources": "Connect your sources and your formats",
-        "production": "Take it to production on your servers, sized for your volume",
-        "hosting": "Secure hosting, including health data (HDS)"
+        "production": "Plan the move to production on your servers, sized for your volume",
+        "hosting": "Secure hosting, working to HDS requirements for health data"
       },
       "cta": "Book a call about Quivr"
     },

@@ -12,8 +12,6 @@ interface RawProject {
   name: string;
   logo: string;
   cover: string;
-  /** Alt text for the cover when it is not the product's homepage. */
-  coverAlt?: L;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;
   accent: string;
@@ -30,7 +28,6 @@ export interface Project {
   name: string;
   logo: string;
   cover: string;
-  coverAlt?: string;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;
   accent: string;
@@ -180,12 +177,7 @@ const PROJECTS_RAW: RawProject[] = [
     slug: "quivr",
     name: "Quivr",
     logo: "/projects/quivr-favicon.svg",
-    // The demo app shipped in the Quivr repository (docs-site/images).
     cover: "/projects/quivr-home.png",
-    coverAlt: {
-      en: "Quivr's demo app: a live news feed, with the alerts each article triggered",
-      fr: "L’app de démo de Quivr : un fil d’actualité en direct, avec les alertes déclenchées par chaque article",
-    },
     accent: "#5b3fd6",
     url: "https://docs.quivr.thevibecompany.co",
     repositoryUrl: "https://github.com/The-Vibe-Company/quivr",
@@ -205,7 +197,6 @@ function localize(raw: RawProject, locale: ContentLocale): Project {
     name: raw.name,
     logo: raw.logo,
     cover: raw.cover,
-    coverAlt: raw.coverAlt ? pick(raw.coverAlt, locale) : undefined,
     mobileCover: raw.mobileCover,
     accent: raw.accent,
     url: raw.url,

@@ -483,8 +483,8 @@
       "intro": "Tout le monde peut télécharger Quivr et le faire tourner sur ses serveurs. Quand vous voulez le faire marcher sur vos contenus, The Vibe Company, l’équipe qui le construit, le met en place avec vous.",
       "items": {
         "sources": "Brancher vos sources et vos formats",
-        "production": "Le passer en production sur vos serveurs, dimensionné pour vos volumes",
-        "hosting": "Un hébergement sécurisé, données de santé (HDS) comprises"
+        "production": "Préparer le passage en production sur vos serveurs, dimensionné pour vos volumes",
+        "hosting": "Un hébergement sécurisé, selon les exigences HDS pour les données de santé"
       },
       "cta": "Prendre rendez-vous pour Quivr"
     },

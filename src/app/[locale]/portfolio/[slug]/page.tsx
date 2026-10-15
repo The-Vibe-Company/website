@@ -166,7 +166,7 @@ export default async function PortfolioProjectPage({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={project.cover}
-                alt={project.coverAlt ?? `${project.name} homepage`}
+                alt={`${project.name} homepage`}
                 className="h-auto w-full"
                 loading="lazy"
               />
