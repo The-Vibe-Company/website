@@ -198,6 +198,13 @@
   50% { transform: translateY(5px); }
 }
 
+/* Quivr page: a dot runs down each connector of the hero's flow card. */
+@keyframes quivr-flow {
+  from { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  to { transform: translateY(21px); opacity: 0; }
+}
+
 /* -----------------------------------------------------------------------------
    Base Styles
    Minimal global styles using Tailwind's @layer system

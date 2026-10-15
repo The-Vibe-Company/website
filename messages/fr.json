@@ -447,11 +447,42 @@
   "quivr": {
     "metaTitle": "Quivr : recherche et veille open source sur l’actualité",
     "metaDescription": "Quivr par The Vibe Company (YC W24) : un moteur open source qui suit articles, e-mails et posts au fil de l’eau, les rend cherchables et vous alerte sur vos sujets.",
-    "byline": "Quivr V2 par The Vibe Company (YC W24)",
-    "forWhom": "Pensé pour les équipes qui construisent un outil de rédaction, un service de veille média ou un assistant de recherche.",
-    "stars": "Étoiles GitHub",
+    "hero": {
+      "kicker": "Open source · MIT · Go",
+      "titleLead": "Quivr V2",
+      "titleRest": "par The Vibe Company",
+      "lead": "Quivr suit les articles, les e-mails et les posts au fil de l’eau, les rend cherchables en quelques secondes, et vous prévient quand un sujet que vous suivez apparaît.",
+      "forWhom": "Pensé pour les équipes qui construisent un outil de rédaction, un service de veille média ou un assistant de recherche.",
+      "cta": "Parler de Quivr avec nous",
+      "repo": "Voir sur GitHub",
+      "docs": "Lire la doc",
+      "stars": "étoiles sur GitHub",
+      "status": "Phase d’évaluation · API v0",
+      "flow": {
+        "title": "Comment marche Quivr",
+        "in": "Entrée",
+        "out": "Sortie",
+        "sources": [
+          "Flux d’actu",
+          "Boîtes mail",
+          "Listes X",
+          "Votre app"
+        ],
+        "core": "Quivr",
+        "coreNote": "Garde chaque version · cherche · surveille vos sujets",
+        "outputs": [
+          "Recherche",
+          "Alertes",
+          "Webhooks",
+          "Agents IA"
+        ]
+      },
+      "statsApi": "API · évaluation",
+      "statsStack": "PostgreSQL · S3 · Temporal"
+    },
     "benefits": {
-      "kicker": "// Ce que ça vous apporte",
+      "kicker": "En clair",
+      "title": "Trois choses que Quivr fait pour vous",
       "items": {
         "nothingLost": {
           "title": "Rien ne passe à travers",
@@ -468,58 +499,230 @@
       }
     },
     "example": {
-      "kicker": "// Exemple",
+      "kicker": "Exemple",
       "title": "Suivre les grèves portuaires",
       "steps": {
         "alert": "Vous enregistrez une alerte : « grève portuaire » avec « ferry » ou « port ».",
         "article": "Un flux que vous suivez publie « La grève portuaire bloque le ferry ».",
         "match": "Quivr l’attrape et dit pourquoi : « grève portuaire » et « ferry » sont dans le titre et le texte.",
         "correction": "L’article est ensuite corrigé. Quivr garde les deux versions et vous dit s’il correspond toujours à votre alerte."
+      },
+      "mock": {
+        "label": "À quoi ça ressemble",
+        "alert": "Votre alerte",
+        "query": "\"grève portuaire\" AND (ferry OR port)",
+        "article": "Nouvel article",
+        "feed": "Flux d’exemple",
+        "headline": "La grève portuaire bloque le ferry",
+        "match": "Correspondance",
+        "reason": "Trouvé « grève portuaire » dans le titre et le texte ; « ferry » dans le titre et le texte.",
+        "webhook": "Webhook signé envoyé à votre app",
+        "correction": "Correction reçue : nouvelle version gardée, suivi envoyé"
       }
     },
-    "help": {
-      "kicker": "// Comment on vous aide",
-      "title": "Quivr est gratuit. On peut le faire tourner pour vous.",
-      "intro": "Tout le monde peut télécharger Quivr et le faire tourner sur ses serveurs. Quand vous voulez le faire marcher sur vos contenus, The Vibe Company, l’équipe qui le construit, le met en place avec vous.",
+    "problem": {
+      "kicker": "Le problème",
+      "title": "Les contenus n’arrêtent jamais d’arriver. Votre veille ne peut rien en perdre.",
+      "intro": "Dépêches, boîtes mail, posts X, flux RSS : ce que suit un outil de rédaction, un service de veille média ou un assistant de recherche arrive en continu, est corrigé, parfois retiré. Le chercher et suivre un sujet dans le temps demande plus qu’un champ de recherche.",
       "items": {
-        "sources": "Brancher vos sources et vos formats",
-        "production": "Préparer le passage en production sur vos serveurs, dimensionné pour vos volumes",
-        "hosting": "Un hébergement sécurisé, selon les exigences HDS pour les données de santé"
+        "loss": {
+          "title": "Rien ne se perd en route",
+          "desc": "Les services tombent, le flux n’attend pas. Un document confirmé comme reçu doit le rester, et être traité une fois la panne passée."
+        },
+        "versions": {
+          "title": "Corriger sans effacer l’historique",
+          "desc": "Les articles sont corrigés et retirés. Il faut le texte actuel, le précédent, et savoir si une alerte s’applique toujours."
+        },
+        "meaning": {
+          "title": "Trouvé par mot-clé et par sens",
+          "desc": "Un article sur le même sujet peut employer d’autres mots, ou une autre langue. La recherche par mot-clé seule le rate."
+        }
+      }
+    },
+    "features": {
+      "kicker": "Ce que fait Quivr",
+      "title": "Pensé pour des flux, pas pour un index figé.",
+      "guide": "Lire le guide",
+      "items": {
+        "ingestion": {
+          "tag": "Ingestion",
+          "title": "Ingestion durable et idempotente",
+          "desc": "Une écriture n’est confirmée qu’une fois enregistrée : une panne retarde le traitement, elle ne perd jamais de contenu. Chaque écriture porte une clé d’idempotence : un rejeu renvoie le même résultat, et une correction crée une nouvelle version immuable au lieu d’écraser l’historique."
+        },
+        "search": {
+          "tag": "Recherche",
+          "title": "Recherche par mot-clé et sémantique",
+          "desc": "Recherche lexicale, sémantique et hybride sur Weaviate, avec des embeddings E5 multilingues. Le texte est cherchable par mot-clé dès qu’il est découpé ; les vecteurs arrivent ensuite. Chaque résultat indique son document, sa version et le passage exact."
+        },
+        "alerts": {
+          "tag": "Alertes",
+          "title": "Alertes par mot-clé et par sens",
+          "desc": "Enregistrez une requête comme \"grève portuaire\" AND (ferry OR port), ou décrivez un sujet en langage courant pour attraper les articles reformulés ou traduits. Chaque correspondance garde la raison pour laquelle elle a été déclenchée."
+        },
+        "webhooks": {
+          "tag": "Diffusion",
+          "title": "Webhooks signés",
+          "desc": "Quand un nouveau document correspond à une alerte, Quivr envoie un webhook signé (Standard Webhooks) à votre récepteur, relancé jusqu’à 24 heures par défaut. Votre application peut aussi suivre chaque changement par polling ou SSE."
+        },
+        "mcp": {
+          "tag": "Agents",
+          "title": "MCP pour les agents IA",
+          "desc": "Un agent IA comme Claude ou Cursor cherche dans vos collections via MCP et cite le passage exact qu’il reprend. Le profil read ne fait que lister, chercher et lire, aucun outil ne supprime, et seule la clé d’API décide de ce que l’agent peut lire."
+        }
+      }
+    },
+    "architecture": {
+      "kicker": "Architecture",
+      "title": "Un cœur générique. Tout le spécifique vit dans des plugins.",
+      "intro": "Le cœur stocke, indexe et surveille les contenus, et reste générique. Formats, sources, modèles d’IA et règles métier vont dans des plugins : de petits services web que Quivr appelle en HTTP, que vous pouvez remplacer ou écrire vous-même. Quivr fournit un plugin pour chaque tâche.",
+      "rule": "Keep customer-specific formats and rules out of the core; they belong in plugins.",
+      "ruleSource": "Règles de contribution de Quivr",
+      "diagramLabel": "Le parcours d’un contenu dans Quivr",
+      "in": "Entrée",
+      "out": "Sortie",
+      "sources": "Sources",
+      "sourcesNote": "Collectées à intervalle régulier, ou poussées par un partenaire",
+      "app": "Votre application",
+      "appNote": "Envoie des documents, cherche, lit les correspondances",
+      "core": "Cœur Quivr",
+      "coreNote": "API et worker en Go, un seul binaire quivr",
+      "plugins": "Plugins",
+      "pluginsNote": "Formats, sources, modèles, classement et règles d’alerte, en HTTP",
+      "outSearch": "Résultats de recherche, avec leur passage exact",
+      "outAlerts": "Webhooks signés à chaque correspondance",
+      "outFeed": "Flux de changements, par polling ou SSE",
+      "outAgents": "Agents IA, via MCP",
+      "selfHostTitle": "Auto-hébergé, sur vos serveurs",
+      "selfHostDesc": "Quivr tourne à côté de votre application, d’une seule machine avec Docker Compose jusqu’à des workers séparés et un hôte vectoriel dédié. Par défaut, le texte des documents ne sort pas de votre installation : les plugins par défaut et le modèle d’embeddings y tournent aussi.",
+      "stackLabel": "Stack",
+      "pluginsLink": "Comment marchent les plugins"
+    },
+    "plugins": {
+      "title": "Les plugins fournis avec Quivr",
+      "items": {
+        "rss": {
+          "role": "Source",
+          "desc": "Collecte les articles des flux RSS, Atom et JSON Feed."
+        },
+        "m365": {
+          "role": "Source",
+          "desc": "Collecte le courrier d’un dossier de boîte Microsoft 365, avec ses pièces jointes."
+        },
+        "x": {
+          "role": "Source",
+          "desc": "Collecte les posts d’une liste X et suit les modifications et suppressions.",
+          "name": "Listes X"
+        },
+        "newsml": {
+          "role": "Format",
+          "desc": "Rend cherchables les dépêches d’agence, avec leurs titres et leurs métadonnées éditoriales."
+        },
+        "pdf": {
+          "role": "Format",
+          "desc": "Rend les PDF cherchables, un passage par page. Pas d’OCR pour les pages scannées."
+        },
+        "yours": {
+          "name": "Votre plugin",
+          "role": "Le vôtre",
+          "desc": "Une source, un format, un classement ou une règle d’alerte, dans n’importe quel langage qui sert du HTTP."
+        }
+      }
+    },
+    "status": {
+      "kicker": "Statut, honnêtement",
+      "title": "Phase d’évaluation. Pas encore pour la production.",
+      "desc": "L’API est en v0 et peut changer sans préavis : ne faites pas encore tourner Quivr V2 en production. La stack locale tourne sur Linux x86_64 et sur les Mac Apple Silicon, et il n’y a pas d’OCR : les documents scannés restent introuvables.",
+      "quickstartDesc": "Le Quickstart lance Quivr sur votre machine en une quinzaine de minutes : ajoutez un article, cherchez-le, recevez une alerte.",
+      "quickstart": "Quickstart",
+      "docs": "Documentation",
+      "repo": "Dépôt GitHub",
+      "facts": {
+        "stage": "Phase",
+        "stageValue": "Évaluation",
+        "api": "API",
+        "apiValue": "v0",
+        "license": "Licence",
+        "licenseValue": "MIT",
+        "runtime": "Tourne sur",
+        "runtimeValue": "Linux x86_64, Apple Silicon"
+      }
+    },
+    "services": {
+      "kicker": "The Vibe Company",
+      "title": "On le déploie pour vous",
+      "intro": "Quivr V2 est gratuit et auto-hébergeable. Quand vous voulez le faire tourner sur vos contenus, avec vos règles, The Vibe Company, l’équipe qui construit Quivr, le fait avec vous, en prestation.",
+      "items": {
+        "plugins": {
+          "title": "Plugins métier",
+          "desc": "Connecteurs pour vos sources, normaliseurs pour vos formats, règles d’alerte pour votre métier. Écrits en plugins, pour que vos spécificités ne forkent jamais le cœur."
+        },
+        "production": {
+          "title": "Passage en production",
+          "desc": "Installation sur votre infrastructure, dimensionnement pour vos volumes, mises à jour et supervision. Quivr V2 est encore en évaluation : on vous dit clairement ce qui est prêt pour votre cas, et ce qui ne l’est pas."
+        },
+        "security": {
+          "title": "Sécurité et HDS",
+          "desc": "Un hébergement adapté à vos contraintes, selon les exigences HDS pour les données de santé, avec des clés d’API restreintes et du TLS vérifié sur les connexions sortantes. Le texte reste dans votre installation, sauf si vous activez un plugin qui appelle un service externe."
+        }
       },
       "cta": "Prendre rendez-vous pour Quivr"
     },
-    "status": {
-      "kicker": "// Statut",
-      "title": "En évaluation",
-      "desc": "Quivr V2 est tout neuf : essayez-le, mais ne le mettez pas encore en production, son API peut encore changer.",
-      "quickstart": "L’essayer en une quinzaine de minutes"
-    },
-    "v1": {
-      "kicker": "// Quivr V1",
-      "desc": "Vous cherchez le Quivr d’origine, le « second cerveau » open source qui a réuni {stars} étoiles sur GitHub et nous a menés chez Y Combinator (W24) ? Son code est conservé tel quel au tag v1-final.",
-      "link": "Parcourir Quivr V1",
-      "story": "De Quivr à The Vibe Company"
-    },
-    "tech": {
-      "kicker": "// Sous le capot",
-      "rows": {
-        "engine": "Moteur",
-        "storage": "Stockage",
-        "search": "Recherche",
-        "plugins": "Plugins",
-        "integrations": "Intégrations",
-        "license": "Licence"
+    "history": {
+      "kicker": "Historique",
+      "title": "De Quivr V1 à Quivr V2",
+      "items": {
+        "v1": {
+          "label": "V1 · 2023",
+          "title": "Un « second cerveau » RAG open source",
+          "desc": "Quivr est né en 2023 comme moteur RAG open source pour construire son second cerveau avec l’IA générative. Il est devenu l’un des projets les plus suivis de GitHub, avec {stars} étoiles, est passé par Y Combinator (W24), puis s’est concentré sur le support client."
+        },
+        "tvc": {
+          "label": "2026",
+          "title": "Quivr devient The Vibe Company",
+          "desc": "Les fondateurs ont arrêté Quivr comme direction de leur entreprise pour construire The Vibe Company, une agence IA native. Le dépôt est resté open source."
+        },
+        "v2": {
+          "label": "V2 · aujourd’hui",
+          "title": "Un nouveau moteur pour les flux de contenus",
+          "desc": "Quivr V2 a remplacé le code de la V1 sur main : un moteur en Go pour l’ingestion durable, la recherche et la veille, construit par The Vibe Company et toujours sous licence MIT."
+        }
       },
-      "values": {
-        "engine": "Go, un seul binaire pour l’API, le worker et les migrations",
-        "storage": "PostgreSQL, stockage compatible S3, Temporal",
-        "search": "Weaviate, mot-clé et vecteurs, embeddings E5 multilingues",
-        "plugins": "RSS et Atom, mail Microsoft 365, listes X, NewsML-G2, PDF",
-        "integrations": "API HTTP v0, webhooks signés, flux de changements (polling ou SSE), MCP pour les agents IA",
-        "license": "MIT, auto-hébergeable"
-      },
-      "docs": "Documentation",
-      "repo": "GitHub"
+      "communityTitle": "Toujours sur la V1 ?",
+      "communityDesc": "Le code de la V1 est conservé au tag v1-final, le dernier commit de Quivr V1 avant que la V2 ne le remplace sur main. Lisez-le, forkez-le ou lancez-le à partir de là.",
+      "v1Link": "Parcourir Quivr V1 (v1-final)",
+      "storyLink": "Lire l’histoire : de Quivr à The Vibe Company"
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "v1": {
+          "q": "Qu’est devenue Quivr V1 ?",
+          "a": "Quivr V2 a remplacé le code de la V1 sur la branche main. La V1 est conservée au tag v1-final, le dernier commit de Quivr V1 : vous pouvez toujours la lire, la forker ou la lancer à partir de là."
+        },
+        "license": {
+          "q": "Sous quelle licence est Quivr ?",
+          "a": "MIT. Vous pouvez l’utiliser, le modifier et l’auto-héberger librement. Certains plugins s’appuient sur des bibliothèques sous leur propre licence, comme pypdf (BSD-3-Clause) pour le plugin PDF."
+        },
+        "production": {
+          "q": "Puis-je utiliser Quivr V2 en production ?",
+          "a": "Pas encore. Quivr V2 est en phase d’évaluation et son API est en v0, qui peut changer sans préavis. Essayez-le sur votre machine avec le Quickstart, et parlez-nous-en si vous voulez préparer un passage en production."
+        },
+        "selfHost": {
+          "q": "Puis-je héberger Quivr moi-même ?",
+          "a": "Oui. Quivr tourne sur des serveurs que vous contrôlez, à côté de votre application : une seule machine avec Docker Compose pour l’évaluer, ou un déploiement avec des workers séparés et un hôte vectoriel dédié. Par défaut, le texte des documents ne sort jamais de votre installation."
+        },
+        "support": {
+          "q": "Où trouver de l’aide ?",
+          "a": "Pour les questions et les bugs, utilisez les issues et les discussions du dépôt GitHub. Pour des plugins métier, un passage en production ou un hébergement HDS, The Vibe Company les propose en prestation : prenez rendez-vous."
+        }
+      }
+    },
+    "finalCta": {
+      "kicker": "Quivr V2",
+      "titleLine1": "Vos flux,",
+      "titleLine2": "cherchables.",
+      "cta": "Parler de Quivr avec nous",
+      "repo": "Mettre une étoile sur GitHub"
     }
   }
 }

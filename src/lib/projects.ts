@@ -11,7 +11,8 @@ interface RawProject {
   slug: string;
   name: string;
   logo: string;
-  cover: string;
+  /** Homepage screenshot for the shared project template; Quivr has its own page. */
+  cover?: string;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;
   accent: string;
@@ -27,7 +28,8 @@ export interface Project {
   slug: string;
   name: string;
   logo: string;
-  cover: string;
+  /** Homepage screenshot for the shared project template; Quivr has its own page. */
+  cover?: string;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;
   accent: string;
@@ -172,14 +174,13 @@ const PROJECTS_RAW: RawProject[] = [
     },
   },
   {
-    // The open-source engine the company grew out of, rebuilt as V2. Its
-    // project page adds a few sections of its own (src/lib/quivr.ts).
+    // The open-source engine the company grew out of, rebuilt as V2. It has
+    // its own product page (src/components/quivr/QuivrPage.tsx), so no cover.
     slug: "quivr",
     name: "Quivr",
     logo: "/projects/quivr-favicon.svg",
-    cover: "/projects/quivr-home.png",
     accent: "#5b3fd6",
-    url: "https://docs.quivr.thevibecompany.co",
+    url: "https://github.com/The-Vibe-Company/quivr",
     repositoryUrl: "https://github.com/The-Vibe-Company/quivr",
     tag: { en: "Search & monitoring", fr: "Recherche et veille" },
     date: { en: "Oct 2026", fr: "oct. 2026" },
