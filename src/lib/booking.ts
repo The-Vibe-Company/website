@@ -1,5 +1,8 @@
 /** The 30-minute discovery call every "book a call" CTA on the site opens. */
-export const BOOKING_URL = "https://cal.com/stangirard/30min";
+export const BOOKING_URL = "https://cal.com/stangirard/thevibecompany";
+
+/** Address behind the header contact menu's "email us" choice. */
+export const CONTACT_EMAIL = "stan@thevibecompany.co";
 
 /**
  * Tags where a booking link sits on the page; `booking_link_clicked` reports

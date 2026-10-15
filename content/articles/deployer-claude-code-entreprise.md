@@ -92,4 +92,4 @@ Il faut configurer, puis mener un pilote avant d'élargir. La durée dépend sur
 
 ## Parlons de votre déploiement
 
-Vous voulez cadrer un pilote Claude Code ou Codex pour vos équipes ? [Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).
+Vous voulez cadrer un pilote Claude Code ou Codex pour vos équipes ? [Réservez 30 minutes avec Stan](https://cal.com/stangirard/thevibecompany).

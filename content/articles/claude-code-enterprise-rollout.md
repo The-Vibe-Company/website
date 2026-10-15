@@ -92,4 +92,4 @@ Setup first, then a pilot before you expand. How long it takes mostly depends on
 
 ## Let's talk about your rollout
 
-Want to scope a Claude Code or Codex pilot for your teams? [Book 30 minutes with Stan](https://cal.com/stangirard/30min).
+Want to scope a Claude Code or Codex pilot for your teams? [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).

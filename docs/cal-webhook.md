@@ -1,8 +1,11 @@
 # Cal.com booking analytics
 
 `POST /api/webhooks/cal` verifies the hex HMAC-SHA256 signature against the raw
-request bytes before parsing JSON. Only `BOOKING_CREATED` on a Vercel production
-runtime sends `booking_completed`. Authenticated Ping tests return 200 without
+request bytes before parsing JSON. Only `BOOKING_CREATED` for the `thevibecompany`
+event type (the site's booking link, `cal.com/stangirard/thevibecompany`) on a
+Vercel production runtime sends `booking_completed`. Bookings of any other event
+type on the same Cal account, or with no slug, are acknowledged with 200 and send
+nothing. Authenticated Ping tests return 200 without
 sending an event. Missing configuration or delivery failures return 5xx.
 
 ## Setup
@@ -28,9 +31,14 @@ sending an event. Missing configuration or delivery failures return 5xx.
 
 - `distinct_id` is `payload.uid`; fallback is SHA-256 of normalized first-attendee
   email followed by `CAL_WEBHOOK_HASH_SALT`. No raw email is sent.
-- Properties: `source: cal_webhook`, `$process_person_profile: false`, `event_type`
-  from `payload.type` (a slug), or numeric `event_type_id` from `payload.eventTypeId`;
-  normalized `booking_start_time` and positive `duration_minutes` from start/end.
+- The event type slug is read from `payload.type`. Cal's webhook docs describe it
+  as "the event type slug", and Cal's booking service sets it to `eventType.slug`
+  for BOOKING_CREATED. `payload.eventTypeSlug` and `payload.eventType.slug` are not
+  in the default payload; they are also accepted in case a custom payload template
+  provides them. The title and `eventTypeId` are never used to decide.
+- Properties: `source: cal_webhook`, `$process_person_profile: false`,
+  `event_type: thevibecompany`; normalized `booking_start_time` and positive
+  `duration_minutes` from start/end.
 - Never copy the payload, responses, metadata, attendees, organizer, notes, title,
   or meeting location into PostHog. Cal's booking title can contain names and its
   location may be an address, phone number, or private meeting URL. GeoIP is off.

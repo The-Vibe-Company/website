@@ -101,4 +101,4 @@ Decide before you ship. Either your team takes over (docs, runbook, training), o
 
 You have a pilot that works in a demo. You want to know whether it is ready for production — or how to build it so that it will be. Bring your use case, your constraints, and what “success” means for you.
 
-[Book 30 minutes with Stan](https://cal.com/stangirard/30min).
+[Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).

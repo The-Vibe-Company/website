@@ -6,7 +6,9 @@
     "getInTouch": "Nous contacter",
     "searchShort": "Rechercher…",
     "searchLong": "Chercher dans les ressources…",
-    "bookCall": "Prendre 30 minutes"
+    "bookCall": "Prendre 30 minutes",
+    "contactBookCall": "Prendre rendez-vous",
+    "contactEmail": "Nous écrire"
   },
   "accessibility": {
     "skipToContent": "Aller au contenu",
