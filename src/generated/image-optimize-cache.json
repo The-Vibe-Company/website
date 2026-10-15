@@ -6,6 +6,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/agent-ia-support-client/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
       "sourceHash": "f148fe053ae1e59135bbc63e8408eb56b1c8daaf4f342d4e18c4f5054c1a4e7c",
       "targetUrl": null,
@@ -288,6 +293,11 @@
     },
     "og:/images/resources/agence-ia-native/cover-mascotte.webp": {
       "sourceHash": "897c6a1baf12d3dab4ae5630c97f74fa013765f1cf8705d36c5e8a0ada1eb776",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/agent-ia-support-client/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
       "targetUrl": null,
       "targetHash": null
     },
