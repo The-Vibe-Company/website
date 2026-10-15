@@ -23,6 +23,31 @@ export const QUIVR_DOCS_URL = "https://docs.quivr.thevibecompany.co";
 export const QUIVR_QUICKSTART_URL = `${QUIVR_DOCS_URL}/quickstart`;
 export const QUIVR_PLUGINS_DOCS_URL = `${QUIVR_DOCS_URL}/plugins/overview`;
 
+/**
+ * The Quivr V2 web app (live feed, filters, trending topics), built from the
+ * raw capture by scripts/build-quivr-images.ts. Width and height are the
+ * largest variant's, for the aspect ratio.
+ */
+export const QUIVR_PRODUCT_IMAGE = {
+  avif: [
+    { src: "/projects/quivr-v2-product-feed-1200.avif", width: 1200 },
+    { src: "/projects/quivr-v2-product-feed-2400.avif", width: 2400 },
+  ],
+  webp: [
+    { src: "/projects/quivr-v2-product-feed-1200.webp", width: 1200 },
+    { src: "/projects/quivr-v2-product-feed-2400.webp", width: 2400 },
+  ],
+  width: 2400,
+  height: 1310,
+} as const;
+
+/** The 1200x630 social card, from the same capture. */
+export const QUIVR_OG_IMAGE = {
+  url: "/projects/quivr-og.jpg",
+  width: 1200,
+  height: 630,
+} as const;
+
 /** The tag on the last commit of Quivr V1, before V2 replaced it on main. */
 export const QUIVR_V1_TAG = "v1-final";
 export const QUIVR_V1_URL = `${QUIVR_REPO_URL}/tree/${QUIVR_V1_TAG}`;

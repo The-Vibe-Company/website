@@ -480,6 +480,11 @@
       "statsApi": "API · évaluation",
       "statsStack": "PostgreSQL · S3 · Temporal"
     },
+    "product": {
+      "alt": "Interface de Quivr V2 : fil d’actualité en temps réel, filtres et sujets du moment",
+      "label": "Quivr V2 · Fil",
+      "caption": "L’app web de Quivr V2 : le fil en direct, ses filtres, les sujets du moment et les 7 derniers jours."
+    },
     "status": {
       "facts": {
         "license": "Licence",
@@ -614,7 +619,7 @@
         },
         "production": {
           "title": "Passage en production",
-          "caption": "Préparé avec vous, dimensionné pour vos volumes"
+          "caption": "On prépare avec vous le passage en production."
         },
         "security": {
           "title": "Sécurité et HDS",

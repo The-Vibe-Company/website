@@ -9,6 +9,7 @@ import {
   QUIVR_BOOKING_URL,
   QUIVR_DOCS_URL,
   QUIVR_FAQ_KEYS,
+  QUIVR_PRODUCT_IMAGE,
   QUIVR_REPO_URL,
   QUIVR_SERVICE_KEYS,
   QUIVR_SERVICES_ID,
@@ -46,6 +47,9 @@ const OUTLINE =
   "inline-flex items-center gap-3 border-2 border-foreground bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)] md:px-7 md:py-5 md:text-[17px]";
 
 const EXTERNAL = { target: "_blank", rel: "noopener noreferrer" } as const;
+
+/** The product window spans the page rail: 100rem minus its padding. */
+const PRODUCT_IMAGE_SIZES = "(min-width: 1600px) 1504px, (min-width: 768px) calc(100vw - 96px), calc(100vw - 48px)";
 
 /** Quivr's mark, the favicon of its demo app, also used on the project card. */
 const QUIVR_LOGO = "/projects/quivr-favicon.svg";
@@ -204,6 +208,50 @@ export async function QuivrPage({
               outputs={t.raw("hero.flow.outputs") as string[]}
             />
           </div>
+        </section>
+
+        {/* The product itself: the Quivr V2 web app, in a browser window drawn
+            in the site's ink. AVIF, then WebP, at 1200 and 2400 wide. */}
+        <section className={`${SECTION} pb-16 md:pb-24`}>
+          <figure className="m-0">
+            <div className="overflow-hidden border-2 border-foreground bg-background shadow-[10px_10px_0_0_var(--foreground)]">
+              <div className="flex items-center gap-4 border-b-2 border-foreground px-4 py-2.5 md:px-5">
+                <span aria-hidden="true" className="flex shrink-0 gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full border border-foreground" />
+                  <span className="h-2.5 w-2.5 rounded-full border border-foreground" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-orange-500" />
+                </span>
+                <span className="mx-auto truncate border border-border px-3 py-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground md:min-w-[240px] md:text-center">
+                  {t("product.label")}
+                </span>
+                <span className={`${MONO} hidden shrink-0 md:inline`}>API v0</span>
+              </div>
+              <picture>
+                <source
+                  type="image/avif"
+                  srcSet={QUIVR_PRODUCT_IMAGE.avif.map((v) => `${v.src} ${v.width}w`).join(", ")}
+                  sizes={PRODUCT_IMAGE_SIZES}
+                />
+                <source
+                  type="image/webp"
+                  srcSet={QUIVR_PRODUCT_IMAGE.webp.map((v) => `${v.src} ${v.width}w`).join(", ")}
+                  sizes={PRODUCT_IMAGE_SIZES}
+                />
+                <img
+                  src={QUIVR_PRODUCT_IMAGE.webp[0].src}
+                  alt={t("product.alt")}
+                  width={QUIVR_PRODUCT_IMAGE.width}
+                  height={QUIVR_PRODUCT_IMAGE.height}
+                  loading="lazy"
+                  decoding="async"
+                  className="block h-auto w-full"
+                />
+              </picture>
+            </div>
+            <figcaption className={`mt-5 ${MONO} normal-case tracking-[0.06em]`}>
+              {t("product.caption")}
+            </figcaption>
+          </figure>
         </section>
 
         {/* Stats band: the live star count, then what the README states. */}

@@ -480,6 +480,11 @@
       "statsApi": "API · evaluation",
       "statsStack": "PostgreSQL · S3 · Temporal"
     },
+    "product": {
+      "alt": "Quivr V2 interface: real-time news feed, filters and trending topics",
+      "label": "Quivr V2 · Feed",
+      "caption": "The Quivr V2 web app: the live feed, its filters, trending topics and the last 7 days."
+    },
     "status": {
       "facts": {
         "license": "License",
@@ -611,7 +616,7 @@
         },
         "production": {
           "title": "Production rollout",
-          "caption": "Planned with you, sized for your volume"
+          "caption": "We prepare the move to production with you."
         },
         "security": {
           "title": "Security & HDS",

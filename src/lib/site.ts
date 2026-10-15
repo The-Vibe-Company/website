@@ -163,17 +163,24 @@ export function monolingualAlternates(language: string, path: string) {
   };
 }
 
+/** A social card image, as a site path, with its size and alt text. */
+export type SocialImage = { path: string; width: number; height: number; alt: string };
+
 export function localizedSocialMetadata({
   locale,
   path,
   title,
   description,
+  image,
 }: {
   locale: string;
   path?: string;
   title: string;
   description: string;
+  /** With an image, Twitter/X shows the large card, like articles do. */
+  image?: SocialImage;
 }): Pick<Metadata, "openGraph" | "twitter"> {
+  const imageUrl = image ? absoluteUrl(image.path) : undefined;
   return {
     openGraph: {
       type: "website",
@@ -182,11 +189,15 @@ export function localizedSocialMetadata({
       siteName: SITE_NAME,
       title,
       description,
+      ...(image && imageUrl
+        ? { images: [{ url: imageUrl, width: image.width, height: image.height, alt: image.alt }] }
+        : {}),
     },
     twitter: {
-      card: "summary",
+      card: imageUrl ? "summary_large_image" : "summary",
       title,
       description,
+      ...(imageUrl ? { images: [imageUrl] } : {}),
     },
   };
 }

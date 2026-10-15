@@ -8,7 +8,7 @@ import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { QuivrPage } from "@/components/quivr/QuivrPage";
 import { PROJECT_SLUGS, getProject, type ContentLocale } from "@/lib/projects";
-import { getQuivrStars, QUIVR_SLUG } from "@/lib/quivr";
+import { getQuivrStars, QUIVR_OG_IMAGE, QUIVR_SLUG } from "@/lib/quivr";
 import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -45,6 +45,14 @@ export async function generateMetadata({
       path: `/portfolio/${slug}`,
       title,
       description,
+      image: tQuivr
+        ? {
+            path: QUIVR_OG_IMAGE.url,
+            width: QUIVR_OG_IMAGE.width,
+            height: QUIVR_OG_IMAGE.height,
+            alt: tQuivr("product.alt"),
+          }
+        : undefined,
     }),
   };
 }

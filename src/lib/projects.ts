@@ -175,10 +175,12 @@ const PROJECTS_RAW: RawProject[] = [
   },
   {
     // The open-source engine the company grew out of, rebuilt as V2. It has
-    // its own product page (src/components/quivr/QuivrPage.tsx), so no cover.
+    // its own product page (src/components/quivr/QuivrPage.tsx); the cover is
+    // the Quivr V2 web app (scripts/build-quivr-images.ts).
     slug: "quivr",
     name: "Quivr",
     logo: "/projects/quivr-favicon.svg",
+    cover: "/projects/quivr-v2-product-feed-1200.webp",
     accent: "#5b3fd6",
     url: "https://github.com/The-Vibe-Company/quivr",
     repositoryUrl: "https://github.com/The-Vibe-Company/quivr",
