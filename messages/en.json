@@ -3,10 +3,12 @@
     "portfolio": "Portfolio",
     "caseStudies": "Case studies",
     "resources": "Resources",
-    "getInTouch": "Get in touch",
+    "getInTouch": "Contact us",
     "searchShort": "Search...",
     "searchLong": "Search resources...",
-    "bookCall": "Book 30 minutes"
+    "bookCall": "Book 30 minutes",
+    "contactBookCall": "Book a call",
+    "contactEmail": "Email us"
   },
   "accessibility": {
     "skipToContent": "Skip to content",

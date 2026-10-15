@@ -237,6 +237,13 @@
   outline-color: var(--background);
 }
 
+/* Menu items (header contact menu) invert to ink when focused; the ring sits
+   inside them in paper so it stays visible and never spills past the panel. */
+[role="menuitem"]:focus-visible {
+  outline-color: var(--background);
+  outline-offset: -4px;
+}
+
 /* Phone homepage: the booking bar is fixed over the bottom of the screen, so
    keyboard focus and in-page jumps stop clear of it instead of landing a
    focused link right underneath it. */
