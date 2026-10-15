@@ -514,7 +514,7 @@
         "mcp": {
           "tag": "Agents",
           "title": "MCP for AI agents",
-          "desc": "An AI agent such as Claude or Cursor searches your collections through MCP and cites the exact passage it quotes. The default profile is read-only, and the API key alone decides what the agent can read."
+          "desc": "An AI agent such as Claude or Cursor searches your collections through MCP and cites the exact passage it quotes. The read profile only lists, searches and reads, no tool deletes, and the API key alone decides what the agent can read."
         }
       }
     },
@@ -543,7 +543,8 @@
       "selfHostTitle": "Self-hosted, on servers you control",
       "selfHostDesc": "Quivr runs next to your application, from one machine with Docker Compose to separate workers and a dedicated vector host. By default, document text goes nowhere outside your installation: the default plugins and the embedding model run there too.",
       "stackLabel": "Stack",
-      "pluginsLink": "How plugins work"
+      "pluginsLink": "How plugins work",
+      "xLists": "X lists"
     },
     "status": {
       "kicker": "Honest status",

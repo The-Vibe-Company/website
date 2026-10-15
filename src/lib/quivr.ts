@@ -40,8 +40,11 @@ export const QUIVR_FEATURES = [
 
 export const QUIVR_PROBLEM_KEYS = ["loss", "versions", "meaning"] as const;
 
-/** The first-party plugins the architecture diagram names, by role. */
-export const QUIVR_SOURCE_PLUGINS = ["RSS / Atom", "Microsoft 365", "X lists"];
+/**
+ * The first-party plugins the architecture diagram names, by role. Proper
+ * nouns only: the X lists connector's label is translated in the page.
+ */
+export const QUIVR_SOURCE_PLUGINS = ["RSS / Atom", "Microsoft 365"];
 export const QUIVR_FORMAT_PLUGINS = ["NewsML-G2", "PDF"];
 
 /** What comes out of Quivr, in the diagram's right-hand column. */

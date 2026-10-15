@@ -375,7 +375,7 @@ export async function QuivrPage({
                       {t("architecture.sources")}
                     </dt>
                     <dd className="m-0 text-sm font-semibold text-foreground">
-                      {QUIVR_SOURCE_PLUGINS.join(" · ")}
+                      {[...QUIVR_SOURCE_PLUGINS, t("architecture.xLists")].join(" · ")}
                     </dd>
                     <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                       {t("architecture.formats")}
@@ -410,8 +410,9 @@ export async function QuivrPage({
           </figure>
 
           <div className="mt-12 grid grid-cols-1 gap-10 border-t-2 border-foreground pt-10 md:mt-16 md:grid-cols-2 md:gap-16">
+            {/* Quoted verbatim from the README, so in English on both pages. */}
             <blockquote className="m-0">
-              <p className="m-0 text-[24px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[32px]">
+              <p lang="en" className="m-0 text-[24px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[32px]">
                 “{t("architecture.rule")}”
               </p>
               <footer className={`mt-4 ${MONO}`}>— {t("architecture.ruleSource")}</footer>
