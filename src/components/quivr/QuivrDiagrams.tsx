@@ -553,11 +553,13 @@ export function PluginDiagram() {
     <a
       href={plugin.href}
       {...EXTERNAL}
-      className={`group flex h-full items-center justify-between gap-3 border-2 bg-background px-4 py-3 no-underline transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_var(--foreground)] ${
+      className={`group flex h-full flex-wrap items-center justify-between gap-x-3 gap-y-1.5 border-2 bg-background px-4 py-3 no-underline transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_var(--foreground)] ${
         plugin.key === "yours" ? "border-dashed border-foreground" : "border-foreground"
       }`}
     >
-      <span className="text-[15px] font-bold tracking-[-0.01em] text-foreground md:text-base">{name(plugin)}</span>
+      <span className="min-w-0 break-words text-[15px] font-bold tracking-[-0.01em] text-foreground md:text-base">
+        {name(plugin)}
+      </span>
       <span className="shrink-0 border border-foreground px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-foreground">
         {t(`roles.${ROLE[plugin.key]}`)}
       </span>

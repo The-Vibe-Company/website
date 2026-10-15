@@ -404,7 +404,7 @@ An article that exists in both languages is published once in the resources list
 
 The open-source project grid uses the canonical five-product catalogue. Its organization-level GitHub action is an underlined mono text link, never an orange slab or filled button.
 
-Case-study product imagery keeps the product UI legible instead of treating screenshots as decoration. Portrait mobile captures may sit beside the overview at no more than 360px wide; wide desktop captures span the case-study content section. Preserve each image's intrinsic ratio, localized alternative text, square border, and responsive dimensions.
+Case-study product imagery keeps the product UI legible instead of treating screenshots as decoration. Portrait mobile captures may sit beside the overview at no more than 360px wide; wide desktop captures span the case-study content section. Preserve each image's intrinsic ratio, localized alternative text, square border, and responsive dimensions. A product page may show its main UI capture inside a browser window drawn in the house style: a square 2px ink border, a thin ink-ruled title bar with outlined window dots (the last one the orange status signal) and a mono label, and the same static 8px ink offset shadow as the hero illustration beside it. The capture keeps its ratio and is never cropped to fit the frame.
 
 The footer is a three-column desktop grid: a wide identity and contact column followed by site navigation and external links. It collapses to one column on small screens. The narrow operational-status column is not part of the footer, while the lower status line remains visible below the divider.
 

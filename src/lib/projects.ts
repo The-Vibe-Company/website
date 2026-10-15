@@ -11,7 +11,7 @@ interface RawProject {
   slug: string;
   name: string;
   logo: string;
-  /** Homepage screenshot for the shared project template; Quivr has its own page. */
+  /** Product screenshot for the shared project template (optional). */
   cover?: string;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;
@@ -28,7 +28,7 @@ export interface Project {
   slug: string;
   name: string;
   logo: string;
-  /** Homepage screenshot for the shared project template; Quivr has its own page. */
+  /** Product screenshot for the shared project template (optional). */
   cover?: string;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;

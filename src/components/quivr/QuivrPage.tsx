@@ -26,9 +26,10 @@ import {
  * The Quivr product page, served at /fr/portfolio/quivr and
  * /en/portfolio/quivr in place of the shared project template.
  *
- * Under the hero, the page explains Quivr with animated diagrams and short
- * captions (QuivrDiagrams.tsx); the longer answers are folded into the FAQ.
- * Every visual is drawn in code; no screenshots. Every fact comes from the
+ * Under the hero, the real Quivr V2 web app (one capture, framed as a browser
+ * window), then animated diagrams with short captions (QuivrDiagrams.tsx);
+ * the longer answers are folded into the FAQ. Apart from that capture, every
+ * visual is drawn in code; no docs screenshots. Every fact comes from the
  * Quivr README or docs.quivr.thevibecompany.co (see src/lib/quivr.ts). The
  * star count is live, or a floor when GitHub does not answer.
  */
@@ -214,7 +215,7 @@ export async function QuivrPage({
             in the site's ink. AVIF, then WebP, at 1200 and 2400 wide. */}
         <section className={`${SECTION} pb-16 md:pb-24`}>
           <figure className="m-0">
-            <div className="overflow-hidden border-2 border-foreground bg-background shadow-[10px_10px_0_0_var(--foreground)]">
+            <div className="overflow-hidden border-2 border-foreground bg-background shadow-[8px_8px_0_0_var(--foreground)]">
               <div className="flex items-center gap-4 border-b-2 border-foreground px-4 py-2.5 md:px-5">
                 <span aria-hidden="true" className="flex shrink-0 gap-1.5">
                   <span className="h-2.5 w-2.5 rounded-full border border-foreground" />
