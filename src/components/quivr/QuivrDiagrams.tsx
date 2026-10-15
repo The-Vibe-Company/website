@@ -29,7 +29,8 @@ import {
  * Motion rules: entrances reveal once on scroll (framer-motion, transform and
  * opacity only); the looping signals are CSS keyframes on transform/opacity
  * (globals.css, `quivr-*`) that only run while the diagram is on screen; with
- * prefers-reduced-motion, everything renders in its final, static state.
+ * prefers-reduced-motion, loops and movement stop and each diagram shows its
+ * final state, with at most a short fade.
  *
  * Hydration: the server cannot know the motion preference, so the first
  * client render must match it. The preference is read through
