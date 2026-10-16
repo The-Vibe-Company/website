@@ -8,7 +8,7 @@ publishedAt: 2026-10-16
 complexity: intermediate
 topics: AI Adoption, Strategy
 coverImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp
-coverAlt: "The mascot sorts CIR, CII and France 2030 folders on a desk beside a calculator and an AI agent blueprint"
+coverAlt: "The mascot stands on a chest of gold coins, holding a glowing orb between a flask and a lightbulb, under a blue-white-red ribbon"
 ogImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp
 ---
 

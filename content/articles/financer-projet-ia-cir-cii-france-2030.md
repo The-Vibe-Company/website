@@ -8,7 +8,7 @@ publishedAt: 2026-10-16
 complexity: intermediate
 topics: AI Adoption, Strategy
 coverImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp
-coverAlt: "La mascotte trie des dossiers CIR, CII et France 2030 sur un bureau, à côté d'une calculatrice et d'un plan d'agent IA"
+coverAlt: "La mascotte, debout sur un coffre de pièces d'or, tient une sphère lumineuse entre une fiole et une ampoule, sous un ruban bleu-blanc-rouge"
 ogImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp
 ---
 
