@@ -6,8 +6,8 @@
       "targetUrl": null,
       "targetHash": null
     },
-    "content:/images/resources/agent-ia-support-client/cover-mascotte-v2.webp": {
-      "sourceHash": "2b8ffc1dba466403df839215535ab5b62f4087757cb1b3a9d4d4d3e345e1a8ad",
+    "content:/images/resources/agent-ia-support-client/cover-mascotte-v3.webp": {
+      "sourceHash": "cf1f3963f444f101f7528f267d6ec30e8cd3ab5ebdf24893865628f0b4431061",
       "targetUrl": null,
       "targetHash": null
     },
@@ -66,13 +66,13 @@
       "targetUrl": null,
       "targetHash": null
     },
-    "content:/images/resources/deployer-claude-code-entreprise/cover-mascotte-v2.webp": {
-      "sourceHash": "d134e564e091d86349985c71f0ad24ba03576e9bf046d431469909d0681ce398",
+    "content:/images/resources/deployer-claude-code-entreprise/cover-mascotte-v3.webp": {
+      "sourceHash": "e5a4c2b263f576bc8bf3e6e9bc6a8976a98edba0f5430652a6443c53fc514dbd",
       "targetUrl": null,
       "targetHash": null
     },
-    "content:/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp": {
-      "sourceHash": "8a012859842bbc3807ab0cb138a4b1152efd948f26057ef91fdee1b191a3b397",
+    "content:/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp": {
+      "sourceHash": "92950414024f1db24bd16f7ee4b8c99f58e6a62d29bdf0301eee6eb687fa2f07",
       "targetUrl": null,
       "targetHash": null
     },
@@ -236,8 +236,8 @@
       "targetUrl": "/images/_optimized/resources/my-personal-os-lives-in-a-folder/granite-constellation.webp",
       "targetHash": "07032bc3da7e7238e2c8c9d829d2b32aa91d1b994dee6fd716997f02b8f0ac59"
     },
-    "content:/images/resources/poc-agent-ia-production/cover-mascotte-v2.webp": {
-      "sourceHash": "4a6a185cca7d82048b562ccfe5812873583e7e2cf4f4a6df66e1324669c21e9e",
+    "content:/images/resources/poc-agent-ia-production/cover-mascotte-v3.webp": {
+      "sourceHash": "6fee3582119108fa852c4a7542beb1bfec31a99859dea38136d035dcf0327d04",
       "targetUrl": null,
       "targetHash": null
     },
@@ -301,8 +301,8 @@
       "targetUrl": null,
       "targetHash": null
     },
-    "og:/images/resources/agent-ia-support-client/cover-mascotte-v2.webp": {
-      "sourceHash": "2b8ffc1dba466403df839215535ab5b62f4087757cb1b3a9d4d4d3e345e1a8ad",
+    "og:/images/resources/agent-ia-support-client/cover-mascotte-v3.webp": {
+      "sourceHash": "cf1f3963f444f101f7528f267d6ec30e8cd3ab5ebdf24893865628f0b4431061",
       "targetUrl": null,
       "targetHash": null
     },
@@ -336,13 +336,13 @@
       "targetUrl": null,
       "targetHash": null
     },
-    "og:/images/resources/deployer-claude-code-entreprise/cover-mascotte-v2.webp": {
-      "sourceHash": "d134e564e091d86349985c71f0ad24ba03576e9bf046d431469909d0681ce398",
+    "og:/images/resources/deployer-claude-code-entreprise/cover-mascotte-v3.webp": {
+      "sourceHash": "e5a4c2b263f576bc8bf3e6e9bc6a8976a98edba0f5430652a6443c53fc514dbd",
       "targetUrl": null,
       "targetHash": null
     },
-    "og:/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp": {
-      "sourceHash": "8a012859842bbc3807ab0cb138a4b1152efd948f26057ef91fdee1b191a3b397",
+    "og:/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp": {
+      "sourceHash": "92950414024f1db24bd16f7ee4b8c99f58e6a62d29bdf0301eee6eb687fa2f07",
       "targetUrl": null,
       "targetHash": null
     },
@@ -416,8 +416,8 @@
       "targetUrl": null,
       "targetHash": null
     },
-    "og:/images/resources/poc-agent-ia-production/cover-mascotte-v2.webp": {
-      "sourceHash": "4a6a185cca7d82048b562ccfe5812873583e7e2cf4f4a6df66e1324669c21e9e",
+    "og:/images/resources/poc-agent-ia-production/cover-mascotte-v3.webp": {
+      "sourceHash": "6fee3582119108fa852c4a7542beb1bfec31a99859dea38136d035dcf0327d04",
       "targetUrl": null,
       "targetHash": null
     },
