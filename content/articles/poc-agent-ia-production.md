@@ -7,9 +7,9 @@ summary: "Un POC d'agent IA qui impressionne en démo ne survit pas toujours en 
 publishedAt: 2026-10-14
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering
-coverImage: /images/resources/poc-agent-ia-production/cover-mascotte-v2.webp
-coverAlt: "La mascotte pousse un prototype de fusée en carton sur un pas de tir"
-ogImage: /images/resources/poc-agent-ia-production/cover-mascotte-v2.webp
+coverImage: /images/resources/poc-agent-ia-production/cover-mascotte-v3.webp
+coverAlt: "Un prototype de dirigeable en papier au premier plan, le vrai dirigeable derrière, et la mascotte qui coche une checklist"
+ogImage: /images/resources/poc-agent-ia-production/cover-mascotte-v3.webp
 ---
 
 Chez [The Vibe Company](https://www.thevibecompany.co/fr), agence IA native passée par Y Combinator (W24), on voit souvent le même scénario. Un agent IA qui brille en démo. Puis qui s'éteint dès qu'il touche les vrais tickets, les vraies données et les vraies équipes.

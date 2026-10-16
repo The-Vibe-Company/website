@@ -7,9 +7,9 @@ summary: "CIR, CII, Diag Data IA, plan Osez l'IA : panorama concret des disposit
 publishedAt: 2026-10-16
 complexity: intermediate
 topics: AI Adoption, Strategy
-coverImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp
-coverAlt: "La mascotte, debout sur une pile de pièces d'or, arrose une jeune pousse lumineuse en forme d'arbre-circuit"
-ogImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp
+coverImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp
+coverAlt: "La mascotte lit une carte au trésor dont le chemin en 4 étapes mène à un château-atelier"
+ogImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp
 ---
 
 Un projet IA coûte cher avant de rapporter : salaires, cloud, intégration, temps métier. En France, plusieurs dispositifs publics peuvent en absorber une partie — crédit d'impôt, diagnostic subventionné, appels à projets France 2030. Ils ne se valent pas, et ils ne se cumulent pas n'importe comment.

@@ -7,9 +7,9 @@ summary: "Chatbot autonome ou brouillons validés par vos agents ? Comment autom
 publishedAt: 2026-10-15
 complexity: intermediate
 topics: AI Agents, AI Adoption, AI Operations
-coverImage: /images/resources/agent-ia-support-client/cover-mascotte-v2.webp
-coverAlt: "La mascotte, casque audio sur la tête, tient un comptoir d'assistance entourée de bulles de discussion"
-ogImage: /images/resources/agent-ia-support-client/cover-mascotte-v2.webp
+coverImage: /images/resources/agent-ia-support-client/cover-mascotte-v3.webp
+coverAlt: "La mascotte prépare une réponse qu'une conseillère support valide avant son envoi par un tube pneumatique"
+ogImage: /images/resources/agent-ia-support-client/cover-mascotte-v3.webp
 ---
 
 Le support client est souvent le premier endroit où une entreprise veut mettre de l'IA. Le volume est là, les questions se répètent, et le coût se lit dans le nombre de personnes à recruter quand l'activité grossit.
