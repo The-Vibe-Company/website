@@ -71,6 +71,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/focus-skill-compta-qonto/cover.png": {
       "sourceHash": "6876ac6a6f51f901b21ff6ead50bc3a1a88c5ac76bdbd41ac9222d0bee3439af",
       "targetUrl": "/images/_optimized/resources/focus-skill-compta-qonto/cover.webp",
@@ -332,6 +337,11 @@
       "targetHash": null
     },
     "og:/images/resources/deployer-claude-code-entreprise/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte.webp": {
       "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
       "targetUrl": null,
       "targetHash": null
