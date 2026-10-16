@@ -18,7 +18,7 @@ import {
   ABOUT_TEAM,
   QUIVR_REPO_URL,
 } from "@/lib/about";
-import { BOOKING_URL } from "@/lib/booking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import {
   ABOUT_PATHS,
   localizedSocialMetadata,
@@ -330,9 +330,10 @@ export async function AboutPage({ locale }: { locale: string }) {
                   <dd className="m-0 mt-1">
                     <a
                       href={BOOKING_URL}
-                      className="text-[15px] text-background underline decoration-1 underline-offset-4 hover:opacity-70"
+                      {...bookingLocation("about_contact")}
+                      className="text-[15px] text-background underline decoration-1 underline-offset-4 wrap-anywhere hover:opacity-70"
                     >
-                      cal.com/stangirard/30min
+                      cal.com/stangirard/thevibecompany
                     </a>
                   </dd>
                 </div>

@@ -6,7 +6,9 @@ import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { QuivrPage } from "@/components/quivr/QuivrPage";
 import { PROJECT_SLUGS, getProject, type ContentLocale } from "@/lib/projects";
+import { getQuivrStars, QUIVR_OG_IMAGE, QUIVR_SLUG } from "@/lib/quivr";
 import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -23,17 +25,34 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "portfolio" });
   const project = getProject(slug, locale as ContentLocale);
   if (!project) return { title: t("back") };
-  const title = `${project.name} · ${t("back")}`;
-  const description = project.description;
+
+  // Quivr has its own product page, with its own search title (absolute, so
+  // the brand is not repeated by the layout template).
+  const tQuivr =
+    slug === QUIVR_SLUG
+      ? await getTranslations({ locale, namespace: "quivr" })
+      : null;
+  const title = tQuivr ? tQuivr("metaTitle") : `${project.name} · ${t("back")}`;
+  const description = tQuivr ? tQuivr("metaDescription") : project.description;
   return {
-    title,
+    title: tQuivr ? { absolute: title } : title,
     description,
-    alternates: localizedAlternates(locale, `/portfolio/${slug}`),
+    alternates: localizedAlternates(locale, `/portfolio/${slug}`, {
+      xDefault: true,
+    }),
     ...localizedSocialMetadata({
       locale,
       path: `/portfolio/${slug}`,
       title,
       description,
+      image: tQuivr
+        ? {
+            path: QUIVR_OG_IMAGE.url,
+            width: QUIVR_OG_IMAGE.width,
+            height: QUIVR_OG_IMAGE.height,
+            alt: tQuivr("product.alt"),
+          }
+        : undefined,
     }),
   };
 }
@@ -48,6 +67,12 @@ export default async function PortfolioProjectPage({
   const t = await getTranslations({ locale, namespace: "portfolio" });
   const project = getProject(slug, locale as ContentLocale);
   if (!project) notFound();
+
+  // Quivr gets a full product page instead of the shared template. Its live
+  // GitHub star count is cached for an hour (see getQuivrStars).
+  if (slug === QUIVR_SLUG) {
+    return <QuivrPage locale={locale} stars={await getQuivrStars()} />;
+  }
 
   const meta = [
     { value: project.status, label: t("statusLabel") },
@@ -123,16 +148,18 @@ export default async function PortfolioProjectPage({
                 : undefined
             }
           >
-            <div className="self-start overflow-hidden border border-foreground">
-              <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={project.cover}
-                alt={`${project.name} homepage`}
-                className="h-auto w-full"
-                loading="lazy"
-              />
-            </div>
+            {project.cover ? (
+              <div className="self-start overflow-hidden border border-foreground">
+                <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={project.cover}
+                  alt={`${project.name} homepage`}
+                  className="h-auto w-full"
+                  loading="lazy"
+                />
+              </div>
+            ) : null}
             {project.mobileCover && (
               <div className="mx-auto w-full max-w-[15rem] overflow-hidden border border-foreground md:flex md:max-w-none md:flex-col">
                 <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />

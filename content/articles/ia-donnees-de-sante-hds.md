@@ -143,4 +143,4 @@ Cela dépend du périmètre. Chez Monka, l'app, le CRM et le moteur clinique ét
 
 The Vibe Company est une agence IA à Paris, fondée en 2024 par Stan Girard et Antoine Dewez, passée par Y Combinator. La santé (HDS) et la sécurité font partie de nos spécialités, avec le frontend et le DevOps. On travaille avec des entreprises de taille moyenne à grande, de la cartographie des données à la mise en production.
 
-[Réservez 30 minutes pour parler de votre projet →](https://cal.com/stangirard/30min)
+[Réservez 30 minutes pour parler de votre projet →](https://cal.com/stangirard/thevibecompany)

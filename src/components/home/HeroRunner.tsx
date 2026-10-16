@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { Volume2, VolumeX } from "lucide-react";
-import { BOOKING_URL } from "@/lib/booking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { RunnerAudio } from "@/lib/runner-audio";
 import type { RunnerItem } from "@/lib/runner-worlds";
@@ -1507,6 +1507,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
           </p>
           <a
             href={BOOKING_URL}
+            {...bookingLocation("hero_runner_audit")}
             onClick={() =>
               captureEvent("discovery_call_clicked", { location: "hero_runner_audit", score })
             }

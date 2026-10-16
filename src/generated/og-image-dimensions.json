@@ -1,4 +1,12 @@
 {
+  "/images/resources/agence-ia-native/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
+  "/images/resources/agent-ia-support-client/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
   "/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
@@ -20,6 +28,14 @@
     "height": 1024
   },
   "/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
+  "/images/resources/deployer-claude-code-entreprise/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
+  "/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
@@ -76,6 +92,10 @@
     "height": 1024
   },
   "/images/resources/my-personal-os-lives-in-a-folder/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
+  "/images/resources/poc-agent-ia-production/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },

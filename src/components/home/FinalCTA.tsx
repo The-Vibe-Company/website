@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { BOOKING_URL } from "@/lib/booking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { FitText } from "./FitText";
 
@@ -33,6 +33,7 @@ export function FinalCTA({ rail = "wide" }: { rail?: "wide" | "narrow" }) {
         </h2>
         <a
           href={BOOKING_URL}
+          {...bookingLocation("cta_final")}
           onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
           className="mt-9 inline-flex items-center gap-3 bg-background px-6 py-4 text-[15px] font-semibold text-foreground"
         >
@@ -126,6 +127,7 @@ export function FinalCTA({ rail = "wide" }: { rail?: "wide" | "narrow" }) {
           >
             <a
               href={BOOKING_URL}
+              {...bookingLocation("cta_final")}
               onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
               className="inline-flex items-center border-2 border-foreground bg-foreground px-7 py-5 text-[17px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
             >

@@ -3,10 +3,12 @@
     "portfolio": "Portfolio",
     "caseStudies": "Case studies",
     "resources": "Resources",
-    "getInTouch": "Get in touch",
+    "getInTouch": "Contact us",
     "searchShort": "Search...",
     "searchLong": "Search resources...",
-    "bookCall": "Book 30 minutes"
+    "bookCall": "Book 30 minutes",
+    "contactBookCall": "Book a call",
+    "contactEmail": "Email us"
   },
   "accessibility": {
     "skipToContent": "Skip to content",
@@ -417,7 +419,7 @@
         "hq": "Paris, France",
         "offer": "Product development, agentic automation, AI strategy and training",
         "funding": "$1.7M raised with Y Combinator (W24)",
-        "clients": "AFP, Monka, LocService, Trusk, Coup de Pates, Zapa",
+        "clients": "AFP, Monka, LocService, Trusk, Coup de Pates, Zapa, Theodo",
         "projects": "Several dozen projects delivered",
         "notToConfuse": "thevibe.company, VIBE Company (Zurich), Vibe.co"
       }
@@ -442,6 +444,228 @@
           "a": "A full team rather than a pair of hands: product and technical scoping, development, security, operations. We cover frontend, backend and DevOps in the same motion, all the way to production. At the end we hand over to your teams with documentation and runbooks, or we keep running the product."
         }
       }
+    }
+  },
+  "quivr": {
+    "metaTitle": "Quivr: open-source news search and monitoring",
+    "metaDescription": "Quivr by The Vibe Company (YC W24): an open-source engine that follows news, emails and posts as they arrive, makes them searchable and alerts you on your topics.",
+    "hero": {
+      "kicker": "Open source · MIT · Go",
+      "titleLead": "Quivr V2",
+      "titleRest": "by The Vibe Company",
+      "lead": "Quivr follows news, emails and social posts as they arrive, makes them searchable in seconds, and alerts you when a topic you follow comes up.",
+      "forWhom": "Built for teams behind a newsroom tool, a media monitoring service or a research assistant.",
+      "cta": "Talk to us about Quivr",
+      "repo": "View on GitHub",
+      "docs": "Read the docs",
+      "stars": "stars on GitHub",
+      "status": "Evaluation stage · API v0",
+      "flow": {
+        "title": "How Quivr works",
+        "in": "In",
+        "out": "Out",
+        "sources": [
+          "News feeds",
+          "Mailboxes",
+          "X lists",
+          "Your app"
+        ],
+        "core": "Quivr",
+        "coreNote": "Keeps every version · searches · watches your topics",
+        "outputs": [
+          "Search",
+          "Alerts",
+          "Webhooks",
+          "AI agents"
+        ]
+      },
+      "statsApi": "API · evaluation",
+      "statsStack": "PostgreSQL · S3 · Temporal"
+    },
+    "product": {
+      "alt": "Quivr V2 interface: real-time news feed, filters and trending topics",
+      "label": "Quivr V2 · Feed",
+      "caption": "The Quivr V2 web app: the live feed, its filters, trending topics and the last 7 days."
+    },
+    "status": {
+      "facts": {
+        "license": "License",
+        "apiValue": "v0"
+      }
+    },
+    "diagrams": {
+      "flow": {
+        "kicker": "How it works",
+        "title": "Everything comes in. Nothing slips through.",
+        "caption": "Every version is kept, searchable in seconds and checked against your topics.",
+        "label": "Animated diagram: sources stream into Quivr, which sends out search results, alerts, webhooks and answers to AI agents.",
+        "sources": [
+          "News feeds",
+          "Mailboxes",
+          "X lists",
+          "Your apps"
+        ],
+        "core": [
+          "Keeps every version",
+          "Makes it searchable",
+          "Watches your topics"
+        ],
+        "outputs": [
+          {
+            "label": "Search",
+            "note": "keyword + meaning"
+          },
+          {
+            "label": "Alerts",
+            "note": "on your topics"
+          },
+          {
+            "label": "Webhooks",
+            "note": "signed"
+          },
+          {
+            "label": "AI agents",
+            "note": "via MCP"
+          }
+        ]
+      },
+      "alert": {
+        "kicker": "Example",
+        "title": "An alert that explains itself.",
+        "caption": "Based on the Quivr docs’ example: following a harbour strike.",
+        "label": "Animated example: an article matching a saved alert arrives, Quivr explains the match and sends a signed webhook to your app.",
+        "steps": [
+          "Alert saved",
+          "Article arrives",
+          "Quivr explains the match",
+          "Signed webhook to your app"
+        ],
+        "alertLabel": "Your alert",
+        "query": "\"harbour strike\" AND (ferry OR port)",
+        "articleLabel": "New article",
+        "headline": [
+          {
+            "text": "Harbour strike",
+            "hit": true
+          },
+          {
+            "text": " halts the "
+          },
+          {
+            "text": "ferry",
+            "hit": true
+          }
+        ],
+        "match": "Match",
+        "reason": "“harbour strike” and “ferry” in the title and body",
+        "appLabel": "Your app",
+        "webhook": "Signed webhook",
+        "received": "Alert received",
+        "watching": "Watching for matches…",
+        "waiting": "Waiting for alerts"
+      },
+      "plugins": {
+        "kicker": "Architecture",
+        "title": "A generic core. Everything specific is a plugin.",
+        "caption": "Sources, formats, models and business rules are small HTTP services Quivr calls. Swap them, or write your own.",
+        "label": "Animated diagram: plugins for RSS, Microsoft 365, X lists, NewsML-G2, PDF and your own snap into the generic Quivr core.",
+        "coreTitle": "Quivr core",
+        "coreNote": "Generic",
+        "roles": {
+          "source": "Source",
+          "format": "Format",
+          "yours": "Yours"
+        },
+        "xLists": "X lists",
+        "yours": "Your plugin",
+        "link": "How plugins work"
+      },
+      "timeline": {
+        "kicker": "History",
+        "title": "From Quivr V1 to Quivr V2",
+        "items": {
+          "v1": {
+            "label": "V1 · 2023",
+            "title": "Open-source RAG “second brain”"
+          },
+          "yc": {
+            "label": "YC W24",
+            "title": "Through Y Combinator"
+          },
+          "tvc": {
+            "label": "2026",
+            "title": "Quivr becomes The Vibe Company"
+          },
+          "v2": {
+            "label": "V2 · today",
+            "title": "A content-stream engine, in evaluation (API v0)"
+          }
+        },
+        "stars": "{stars} stars on GitHub",
+        "v1Link": "Browse Quivr V1 (v1-final)",
+        "storyLink": "Read the story",
+        "quickstart": "Try V2 (Quickstart)"
+      }
+    },
+    "services": {
+      "kicker": "The Vibe Company",
+      "title": "We deploy it for you",
+      "intro": "Quivr is free and self-hostable. The team that builds it can set it up on your content.",
+      "items": {
+        "plugins": {
+          "title": "Business plugins",
+          "caption": "Your sources, formats and alert rules"
+        },
+        "production": {
+          "title": "Production rollout",
+          "caption": "We prepare the move to production with you."
+        },
+        "security": {
+          "title": "Security & HDS",
+          "caption": "Working to HDS requirements for health data"
+        }
+      },
+      "cta": "Book a call about Quivr"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "whatFor": {
+          "q": "What does Quivr do for me, in plain words?",
+          "a": "It keeps every article, email and post, even when a service goes down, and keeps the earlier version when one is corrected. It lets you search by meaning, not just keywords, and shows the exact passage. And it tells your app when a new article matches a topic you described, with the reason it matched."
+        },
+        "underTheHood": {
+          "q": "What is under the hood?",
+          "a": "A Go engine, one binary for the API, the worker and migrations, on PostgreSQL, S3-compatible storage and Temporal. Search runs on Weaviate, by keyword and by vector, with multilingual E5 embeddings. It exposes an HTTP API (v0), signed webhooks, a change feed (polling or SSE) and MCP for AI agents."
+        },
+        "v1": {
+          "q": "What happened to Quivr V1?",
+          "a": "Quivr V2 replaced the V1 code base on the main branch. V1 is preserved at the v1-final tag, the last commit of Quivr V1, so you can still read, fork or run it from there."
+        },
+        "license": {
+          "q": "What is Quivr's license?",
+          "a": "MIT. It is free to use, modify and self-host. Some plugins rely on libraries with their own license, such as pypdf (BSD-3-Clause) for the PDF plugin."
+        },
+        "production": {
+          "q": "Can I use Quivr V2 in production?",
+          "a": "Not yet. Quivr V2 is at the evaluation stage and its API is v0, which may change without notice. Try it on your machine with the Quickstart, and talk to us if you want to plan a production rollout."
+        },
+        "selfHost": {
+          "q": "Can I host Quivr myself?",
+          "a": "Yes. Quivr runs on servers you control, next to your application: one machine with Docker Compose to evaluate it, or a deployment with separate workers and a dedicated vector host. By default, Quivr itself sends document text nowhere outside your installation."
+        },
+        "support": {
+          "q": "Where can I get help?",
+          "a": "For questions and bugs, use the issues and discussions of the GitHub repository. For business plugins, planning a production rollout, or hosting that works to HDS requirements for health data, The Vibe Company can help as a service: book a call."
+        }
+      }
+    },
+    "finalCta": {
+      "kicker": "Quivr V2",
+      "titleLine1": "Your streams,",
+      "titleLine2": "searchable.",
+      "cta": "Talk to us about Quivr",
+      "repo": "Star Quivr on GitHub"
     }
   }
 }

@@ -35,8 +35,9 @@ interface RawCustomer {
   url?: string;
   visuals: RawVisual[];
   sector: L;
-  metric: L;
-  metricLabel: L;
+  /** Optional: a confidential engagement can go without a headline figure. */
+  metric?: L;
+  metricLabel?: L;
   summary: L;
   points: L[];
   overview: L;
@@ -73,8 +74,8 @@ export interface Customer {
   url?: string;
   visuals: CustomerVisual[];
   sector: string;
-  metric: string;
-  metricLabel: string;
+  metric?: string;
+  metricLabel?: string;
   summary: string;
   points: string[];
   overview: string;
@@ -325,6 +326,46 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       },
     ],
   },
+  {
+    // Confidential engagement: no figure, result, or quote, only what Theodo
+    // agreed to make public.
+    slug: "theodo",
+    client: "Theodo",
+    // Official wordmark from theodo.com, filled with their primary red #ff512c.
+    logo: "/images/clients/theodo.svg",
+    url: "https://www.theodo.com",
+    visuals: [],
+    sector: { en: "Technical expertise · Software Factories", fr: "Expertise technique · Software Factories" },
+    metric: { en: "AI Software Factories", fr: "AI Software Factories" },
+    metricLabel: { en: "for hundreds of developers", fr: "pour des centaines de développeurs" },
+    summary: {
+      en: "The Vibe Company supports Theodo as a technical expert on critical projects for their clients, such as building Software Factories for hundreds of developers, to help accelerate their teams.",
+      fr: "The Vibe Company accompagne Theodo en tant qu’expert technique sur des projets critiques pour leurs clients, par exemple la création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
+    },
+    points: [
+      {
+        en: "Technical expertise embedded in Theodo's teams, on critical projects for their clients.",
+        fr: "Une expertise technique intégrée aux équipes de Theodo, sur des projets critiques pour leurs clients.",
+      },
+      {
+        en: "Industrializing AI-assisted development at scale: Software Factories for hundreds of developers.",
+        fr: "L’industrialisation du développement assisté par IA à grande échelle : des Software Factories pour des centaines de développeurs.",
+      },
+      {
+        en: "Standardized tools, agents, and skills, so every team starts from the same foundation.",
+        fr: "Des outils, des agents et des skills standardisés, pour que chaque équipe parte de la même base.",
+      },
+      {
+        en: "Support and training for the teams, so they adopt these practices and move faster.",
+        fr: "L’accompagnement et la formation des équipes, pour qu’elles adoptent ces pratiques et avancent plus vite.",
+      },
+    ],
+    overview: {
+      en: "Theodo delivers critical projects for its clients, and brings in The Vibe Company as a technical expert embedded in its teams. The challenge: industrialize AI-assisted development at scale, across the teams that deliver those projects. Together, we build Software Factories for hundreds of developers: standardized tools, agents, and skills, plus the support and training that help every team adopt them and move faster.",
+      fr: "Theodo mène des projets critiques pour ses clients, et fait appel à The Vibe Company comme expert technique intégré à ses équipes. L’enjeu : industrialiser le développement assisté par IA à grande échelle, pour les équipes qui mènent ces projets. Ensemble, on construit des Software Factories pour des centaines de développeurs : des outils, des agents et des skills standardisés, et l’accompagnement et la formation qui permettent à chaque équipe de les adopter et d’avancer plus vite.",
+    },
+    results: [],
+  },
 ];
 
 function localizeVisual(visual: RawVisual, locale: ContentLocale): CustomerVisual {
@@ -345,8 +386,8 @@ function localize(raw: RawCustomer, locale: ContentLocale): Customer {
     url: raw.url,
     visuals: raw.visuals.map((visual) => localizeVisual(visual, locale)),
     sector: pick(raw.sector, locale),
-    metric: pick(raw.metric, locale),
-    metricLabel: pick(raw.metricLabel, locale),
+    metric: raw.metric ? pick(raw.metric, locale) : undefined,
+    metricLabel: raw.metricLabel ? pick(raw.metricLabel, locale) : undefined,
     summary: pick(raw.summary, locale),
     points: raw.points.map((p) => pick(p, locale)),
     overview: pick(raw.overview, locale),

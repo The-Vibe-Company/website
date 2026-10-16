@@ -92,16 +92,20 @@ export default async function CaseStudyPage({
           </div>
 
           <div className="mt-10 border-t-2 border-foreground pt-8">
-            <div className="text-[56px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[80px]">
-              {customer.metric}
-            </div>
-            <div className="mt-3 text-lg text-muted-foreground">
-              {customer.metricLabel}
-            </div>
+            {customer.metric && (
+              <>
+                <div className="text-[56px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[80px]">
+                  {customer.metric}
+                </div>
+                <div className="mt-3 text-lg text-muted-foreground">
+                  {customer.metricLabel}
+                </div>
+              </>
+            )}
           </div>
 
           <div
-            className={`mt-10 grid gap-10 ${asideVisual ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:items-start lg:gap-14" : ""}`}
+            className={`${customer.metric ? "mt-10" : "mt-2"} grid gap-10 ${asideVisual ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:items-start lg:gap-14" : ""}`}
           >
             <div>
               <p className="m-0 max-w-[720px] text-xl leading-[1.5] text-foreground md:text-2xl">
@@ -135,52 +139,54 @@ export default async function CaseStudyPage({
           </div>
         </section>
 
-        <section className="border-y border-border bg-background">
-          {/* Every stat cell keeps the same width (the 4-up rhythm of the
-              80rem container) whatever the count: the strip narrows and stays
-              centered instead of stretching, so a study with 2 numbers reads
-              like one with 4. Separators are real cell borders (left between
-              columns, top between mobile rows) — sturdier than a gap-px
-              hairline, which can vanish with browser zoom rounding. */}
-          <div
-            className={`mx-auto grid grid-cols-2 px-0 ${
-              customer.results.length === 1
-                ? "max-w-[20rem] md:grid-cols-1"
-                : customer.results.length === 2
-                  ? "max-w-[40rem] md:grid-cols-2"
-                  : customer.results.length === 3
-                    ? "max-w-[60rem] md:grid-cols-3"
-                    : "max-w-[80rem] md:grid-cols-4"
-            }`}
-          >
-            {customer.results.map((stat, index) => {
-              const isLast = index === customer.results.length - 1;
-              const fullWidthOnMobile =
-                customer.results.length % 2 === 1 && isLast;
-              return (
-              <div
-                key={stat.value}
-                className={`flex flex-col gap-1 bg-background p-6 md:p-8 ${
-                  fullWidthOnMobile ? "col-span-2 md:col-span-1" : ""
-                } ${
-                  index === 0
-                    ? ""
-                    : index % 2 === 1 && !fullWidthOnMobile
-                      ? "border-l border-border"
-                      : "md:border-l md:border-border"
-                } ${index >= 2 ? "border-t border-border md:border-t-0" : ""}`}
-              >
-                <div className="text-[30px] font-bold leading-none tracking-[-0.03em] text-foreground md:text-[36px]">
-                  {stat.value}
+        {customer.results.length > 0 && (
+          <section className="border-y border-border bg-background">
+            {/* Every stat cell keeps the same width (the 4-up rhythm of the
+                80rem container) whatever the count: the strip narrows and stays
+                centered instead of stretching, so a study with 2 numbers reads
+                like one with 4. Separators are real cell borders (left between
+                columns, top between mobile rows) — sturdier than a gap-px
+                hairline, which can vanish with browser zoom rounding. */}
+            <div
+              className={`mx-auto grid grid-cols-2 px-0 ${
+                customer.results.length === 1
+                  ? "max-w-[20rem] md:grid-cols-1"
+                  : customer.results.length === 2
+                    ? "max-w-[40rem] md:grid-cols-2"
+                    : customer.results.length === 3
+                      ? "max-w-[60rem] md:grid-cols-3"
+                      : "max-w-[80rem] md:grid-cols-4"
+              }`}
+            >
+              {customer.results.map((stat, index) => {
+                const isLast = index === customer.results.length - 1;
+                const fullWidthOnMobile =
+                  customer.results.length % 2 === 1 && isLast;
+                return (
+                <div
+                  key={stat.value}
+                  className={`flex flex-col gap-1 bg-background p-6 md:p-8 ${
+                    fullWidthOnMobile ? "col-span-2 md:col-span-1" : ""
+                  } ${
+                    index === 0
+                      ? ""
+                      : index % 2 === 1 && !fullWidthOnMobile
+                        ? "border-l border-border"
+                        : "md:border-l md:border-border"
+                  } ${index >= 2 ? "border-t border-border md:border-t-0" : ""}`}
+                >
+                  <div className="text-[30px] font-bold leading-none tracking-[-0.03em] text-foreground md:text-[36px]">
+                    {stat.value}
+                  </div>
+                  <div className="mt-1 text-sm leading-snug text-muted-foreground">
+                    {stat.label}
+                  </div>
                 </div>
-                <div className="mt-1 text-sm leading-snug text-muted-foreground">
-                  {stat.label}
-                </div>
-              </div>
-              );
-            })}
-          </div>
-        </section>
+                );
+              })}
+            </div>
+          </section>
+        )}
 
         {customer.projects ? (
           customer.projects.map((project, index) => (

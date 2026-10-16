@@ -6,6 +6,7 @@ import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { ContactMenu } from "@/components/ContactMenu";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import {
   components,
@@ -14,7 +15,7 @@ import {
   cn,
   createTransition,
 } from "@/lib/design-system";
-import { BOOKING_URL } from "@/lib/booking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { resourcesTheme } from "@/lib/resources-theme";
 
@@ -128,6 +129,9 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
     });
 
     const handleKeyDown = (event: KeyboardEvent) => {
+      // Already handled inside the dialog, e.g. Escape closing the contact
+      // menu: it closes that menu only, not the whole dialog.
+      if (event.defaultPrevented) return;
       if (event.key === "Escape") {
         event.preventDefault();
         closeMobileMenu();
@@ -312,13 +316,13 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
             <LanguageSwitcher />
             <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
-            <a
-              href="mailto:founders@thevibecompany.co"
-              onClick={() => captureEvent("get_in_touch_clicked", { location: "nav" })}
-              className={cn(components.button.primary, "min-w-[150px] rounded-none text-center")}
-            >
-              {t("getInTouch")}
-            </a>
+            <ContactMenu
+              location="nav"
+              // The fixed search panel (below xl) would cover the menu.
+              onOpen={() => setSearchOpen(false)}
+              triggerClassName={cn(components.button.primary, "min-w-[150px] rounded-none text-center")}
+              menuClassName="absolute right-0 top-full mt-2 w-max"
+            />
           </div>
 
           {/* Mobile hamburger */}
@@ -474,6 +478,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             >
               <a
                 href={BOOKING_URL}
+                {...bookingLocation("header_mobile_menu")}
                 onClick={() => {
                   captureEvent("discovery_call_clicked", { location: "mobile_menu" });
                   closeMobileMenu();
@@ -485,16 +490,13 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                   →
                 </span>
               </a>
-              <a
-                href="mailto:founders@thevibecompany.co"
-                onClick={() => {
-                  captureEvent("get_in_touch_clicked", { location: "mobile_menu" });
-                  closeMobileMenu();
-                }}
-                className="inline-flex min-h-11 items-center text-sm text-muted-foreground underline decoration-1 underline-offset-4 hover:text-foreground"
-              >
-                {t("getInTouch")}
-              </a>
+              <ContactMenu
+                location="mobile_menu"
+                onSelect={closeMobileMenu}
+                className="flex flex-col items-center"
+                triggerClassName="min-h-11 text-sm text-muted-foreground underline decoration-1 underline-offset-4 hover:text-foreground aria-expanded:text-foreground"
+                menuClassName="mt-2 w-max"
+              />
             </motion.div>
             <LanguageSwitcher className="text-sm" />
           </motion.div>

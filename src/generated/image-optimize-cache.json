@@ -1,6 +1,16 @@
 {
   "version": 1,
   "entries": {
+    "content:/images/resources/agence-ia-native/cover-mascotte.webp": {
+      "sourceHash": "897c6a1baf12d3dab4ae5630c97f74fa013765f1cf8705d36c5e8a0ada1eb776",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/agent-ia-support-client/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
       "sourceHash": "f148fe053ae1e59135bbc63e8408eb56b1c8daaf4f342d4e18c4f5054c1a4e7c",
       "targetUrl": null,
@@ -53,6 +63,16 @@
     },
     "content:/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
       "sourceHash": "8e6a77b8cfc219c537dbf498586043c9f410e0272f9cb46c8258c5c572cc406a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/deployer-claude-code-entreprise/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
       "targetUrl": null,
       "targetHash": null
     },
@@ -216,6 +236,11 @@
       "targetUrl": "/images/_optimized/resources/my-personal-os-lives-in-a-folder/granite-constellation.webp",
       "targetHash": "07032bc3da7e7238e2c8c9d829d2b32aa91d1b994dee6fd716997f02b8f0ac59"
     },
+    "content:/images/resources/poc-agent-ia-production/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/premier-blocage-terminal/cover.png": {
       "sourceHash": "04e9142705b513015b17f2814cc0ecc8d0dd620361f2e4496cff04adb602d1e7",
       "targetUrl": "/images/_optimized/resources/premier-blocage-terminal/cover.webp",
@@ -271,6 +296,16 @@
       "targetUrl": "/images/_optimized/resources/why-i-replaced-prompts-with-skills/generated/prompts-to-skills-cover.webp",
       "targetHash": "120debfea03a98f449f8cacafd672ae40c0a5ae0be5f138c39583d7c70328e6f"
     },
+    "og:/images/resources/agence-ia-native/cover-mascotte.webp": {
+      "sourceHash": "897c6a1baf12d3dab4ae5630c97f74fa013765f1cf8705d36c5e8a0ada1eb776",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/agent-ia-support-client/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "og:/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
       "sourceHash": "f148fe053ae1e59135bbc63e8408eb56b1c8daaf4f342d4e18c4f5054c1a4e7c",
       "targetUrl": null,
@@ -298,6 +333,16 @@
     },
     "og:/images/resources/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia/cover-mascotte.webp": {
       "sourceHash": "8e6a77b8cfc219c537dbf498586043c9f410e0272f9cb46c8258c5c572cc406a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/deployer-claude-code-entreprise/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
       "targetUrl": null,
       "targetHash": null
     },
@@ -368,6 +413,11 @@
     },
     "og:/images/resources/my-personal-os-lives-in-a-folder/cover-mascotte.webp": {
       "sourceHash": "e1652b16857a4f48d3476c2a87d5133edbb057496b665ad173b5ab1cfc4b4b7d",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/poc-agent-ia-production/cover-mascotte.webp": {
+      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
       "targetUrl": null,
       "targetHash": null
     },

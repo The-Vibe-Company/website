@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { BOOKING_URL } from "@/lib/booking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { CLIENTS } from "./Clients";
 import { FitText } from "./FitText";
@@ -65,6 +65,7 @@ export function HeroMobile() {
       <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
         <a
           href={BOOKING_URL}
+          {...bookingLocation("hero")}
           onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
           className="inline-flex items-center gap-3 bg-foreground px-6 py-4 text-[15px] font-semibold text-background"
         >
@@ -102,7 +103,7 @@ export function HeroMobile() {
           {CLIENTS.map((client) => (
             <li
               key={client.name}
-              className="border-b border-r border-border [&:nth-child(3n)]:border-r-0 [&:nth-last-child(-n+3)]:border-b-0"
+              className="border-b border-r border-border [&:nth-child(3n)]:border-r-0 [&:nth-child(3n+1):nth-last-child(-n+3)]:border-b-0 [:nth-child(3n+1):nth-last-child(-n+3)~&]:border-b-0"
             >
               <a
                 href={client.url}

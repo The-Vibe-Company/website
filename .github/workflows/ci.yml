@@ -48,6 +48,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('bun.lock') }}-
 
+      - name: Unit tests
+        run: bun run test
+
       - name: Check image budgets
         run: bun run images:check
 

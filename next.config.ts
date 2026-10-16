@@ -2,6 +2,12 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
+  env: {
+    // Vercel's deployment environment ("production" | "preview" |
+    // "development"), inlined for the client. PostHog only initializes when it
+    // is "production"; it is empty locally and in CI.
+    NEXT_PUBLIC_VERCEL_ENV: process.env.VERCEL_ENV ?? "",
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
   },
@@ -23,6 +29,18 @@ const nextConfig: NextConfig = {
       {
         source: "/portfolio/the-companion",
         destination: "/portfolio/skillpack",
+        permanent: true,
+      },
+      // Quivr is presented as one of our projects. /quivr is the short URL
+      // the quivr.com redirects and shared links point to.
+      {
+        source: "/:locale(fr|en)/quivr",
+        destination: "/:locale/portfolio/quivr",
+        permanent: true,
+      },
+      {
+        source: "/quivr",
+        destination: "/portfolio/quivr",
         permanent: true,
       },
       // /resources/learnings was removed; old URLs still 404 in Search Console.

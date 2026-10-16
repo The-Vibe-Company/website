@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { BOOKING_URL } from "@/lib/booking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { cn } from "@/lib/design-system";
 import { captureEvent } from "@/lib/posthog";
 
@@ -51,6 +51,7 @@ export function MobileBookingBar() {
       </span>
       <a
         href={BOOKING_URL}
+        {...bookingLocation("mobile_booking_bar")}
         onClick={() => captureEvent("discovery_call_clicked", { location: "mobile_bar" })}
         className="inline-flex min-h-11 items-center gap-2 bg-foreground px-4 text-sm font-semibold text-background"
       >

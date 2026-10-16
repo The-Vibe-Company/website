@@ -133,4 +133,4 @@ It depends on scope. At Monka, the app, CRM and clinical engine were in producti
 
 The Vibe Company is an AI agency in Paris, founded in 2024 by Stan Girard and Antoine Dewez and backed by Y Combinator. Health data (HDS) and security are among our specialties, along with frontend and DevOps. We work with mid-size and large companies, from data mapping to production.
 
-[Book 30 minutes to discuss your project →](https://cal.com/stangirard/30min)
+[Book 30 minutes to discuss your project →](https://cal.com/stangirard/thevibecompany)

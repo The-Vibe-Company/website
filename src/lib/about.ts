@@ -53,7 +53,7 @@ export const ABOUT_SOCIALS = [
 ];
 
 /** The open-source engine the company grew out of. */
-export const QUIVR_REPO_URL = "https://github.com/The-Vibe-Company/quivr";
+export { QUIVR_REPO_URL } from "@/lib/quivr";
 
 /** The announcement that turned Quivr into The Vibe Company. */
 export const ABOUT_ORIGIN_ARTICLE_PATH =

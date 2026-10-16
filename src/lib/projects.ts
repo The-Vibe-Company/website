@@ -11,7 +11,8 @@ interface RawProject {
   slug: string;
   name: string;
   logo: string;
-  cover: string;
+  /** Product screenshot for the shared project template (optional). */
+  cover?: string;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;
   accent: string;
@@ -27,7 +28,8 @@ export interface Project {
   slug: string;
   name: string;
   logo: string;
-  cover: string;
+  /** Product screenshot for the shared project template (optional). */
+  cover?: string;
   /** Optional phone screenshot shown next to the cover on the project page. */
   mobileCover?: string;
   accent: string;
@@ -137,6 +139,57 @@ const PROJECTS_RAW: RawProject[] = [
     description: {
       en: "Bruno is the to-do we run the company on, on web and iPhone. Capture an idea by voice in seconds, sort what's on fire from what can wait, and let Bruno nudge you instead of waiting to be opened.",
       fr: "Bruno est la to-do sur laquelle tourne l’entreprise, sur le web et sur iPhone. On capture une idée à la voix en quelques secondes, on sépare ce qui brûle de ce qui peut attendre, et c’est Bruno qui vient vous relancer au lieu d’attendre qu’on l’ouvre.",
+    },
+  },
+  {
+    slug: "armada",
+    name: "Armada",
+    logo: "/projects/armada-favicon.svg",
+    cover: "/projects/armada-home.png",
+    accent: "#b6f15a",
+    url: "https://armada.thevibecompany.co",
+    repositoryUrl: "https://github.com/The-Vibe-Company/armada",
+    tag: { en: "Agent fleet", fr: "Flotte d’agents" },
+    date: { en: "Sep 2026", fr: "sept. 2026" },
+    status: { en: "Open source", fr: "Open source" },
+    description: {
+      en: "Armada runs a fleet of coding agents on one project. Each ticket goes to its own agent, a coordinator merges the green pull requests, and a live dashboard shows the whole fleet, from the first question to the merge.",
+      fr: "Armada fait tourner une flotte d’agents de code sur un même projet. Chaque ticket part chez son propre agent, un coordinateur merge les pull requests au vert, et un dashboard en direct montre toute la flotte, de la première question jusqu’au merge.",
+    },
+  },
+  {
+    slug: "aeom",
+    name: "AEOM",
+    logo: "/projects/aeom-favicon.svg",
+    cover: "/projects/aeom-home.png",
+    accent: "#ff5a3c",
+    url: "https://all-eyes-on-me-three.vercel.app",
+    repositoryUrl: "https://github.com/The-Vibe-Company/all-eyes-on-me",
+    tag: { en: "Frontend design", fr: "Design de front" },
+    date: { en: "Oct 2026", fr: "oct. 2026" },
+    status: { en: "Open source", fr: "Open source" },
+    description: {
+      en: "AEOM (All Eyes On Me) is the designer of a product coded by agents. It walks your app like a user, judges every screen against your taste, and rebuilds what gets in the way so the frontend looks like someone designed it.",
+      fr: "AEOM (All Eyes On Me) est le designer d’un produit codé par des agents. Il parcourt votre app comme un utilisateur, juge chaque écran selon votre goût, et refait ce qui gêne pour que le front ait l’air d’avoir été dessiné par quelqu’un.",
+    },
+  },
+  {
+    // The open-source engine the company grew out of, rebuilt as V2. It has
+    // its own product page (src/components/quivr/QuivrPage.tsx); the cover is
+    // the Quivr V2 web app (scripts/build-quivr-images.ts).
+    slug: "quivr",
+    name: "Quivr",
+    logo: "/projects/quivr-favicon.svg",
+    cover: "/projects/quivr-v2-product-feed-1200.webp",
+    accent: "#5b3fd6",
+    url: "https://github.com/The-Vibe-Company/quivr",
+    repositoryUrl: "https://github.com/The-Vibe-Company/quivr",
+    tag: { en: "Search & monitoring", fr: "Recherche et veille" },
+    date: { en: "Oct 2026", fr: "oct. 2026" },
+    status: { en: "Open source", fr: "Open source" },
+    description: {
+      en: "Quivr follows news, emails and social posts as they arrive, makes them searchable in seconds, and alerts you when a topic you follow comes up.",
+      fr: "Quivr suit les articles, les e-mails et les posts au fil de l’eau, les rend cherchables en quelques secondes, et vous prévient quand un sujet que vous suivez apparaît.",
     },
   },
 ];

@@ -167,4 +167,4 @@ Oui, c'est un bon chemin. Prévoyez dès le contrat la documentation, la propri�
 
 The Vibe Company est une agence IA à Paris, fondée en 2024 par Stan Girard et Antoine Dewez, anciens de Theodo et de Stockly. En 30 minutes, on regarde votre cas et on vous dit honnêtement si une agence est la bonne option, même si la réponse est non.
 
-[Réservez 30 minutes pour en parler →](https://cal.com/stangirard/30min)
+[Réservez 30 minutes pour en parler →](https://cal.com/stangirard/thevibecompany)

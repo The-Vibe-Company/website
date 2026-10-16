@@ -8,13 +8,17 @@ The wizard has completed a deep integration of PostHog analytics into The Vibe C
 | `discovery_call_clicked` | User clicks the primary 'Book a discovery call' CTA in the Hero section. | `src/components/home/Hero.tsx` |
 | `see_what_we_do_clicked` | User clicks the 'See what we do' anchor scroll link in the Hero section. | `src/components/home/Hero.tsx` |
 | `contact_cta_clicked` | User clicks the 'Book a discovery call' CTA in the final contact section. | `src/components/home/FinalCTA.tsx` |
-| `get_in_touch_clicked` | User clicks the 'Get in touch' button in the top navigation bar. | `src/components/TopNav.tsx` |
+| `get_in_touch_clicked` | User opens the header 'Nous contacter' / 'Contact us' menu (desktop bar: `location: nav`; mobile menu: `location: mobile_menu`). Also fired by the final CTA's email link. | `src/components/ContactMenu.tsx`, `src/components/home/FinalCTA.tsx` |
+| `contact_email_clicked` | User picks 'Nous écrire' / 'Email us' in the header contact menu. Property: `location` (`nav` or `mobile_menu`). | `src/components/ContactMenu.tsx` |
 | `nav_link_clicked` | User clicks a main navigation link (Portfolio or Resources) in the top nav. | `src/components/TopNav.tsx` |
 | `mobile_menu_opened` | User opens the mobile hamburger navigation menu. | `src/components/TopNav.tsx` |
 | `resources_searched` | User submits a search query on the resources home page. | `src/components/resources/ResourcesHomeSearch.tsx` |
 | `skill_install_prompt_copied` | User copies the AI install prompt from a skill's detail page. | `src/components/resources/SkillAIInstaller.tsx` |
 | `skill_prompt_copied` | User copies the raw skill prompt text from a skill's detail page. | `src/components/resources/SkillPromptBlock.tsx` |
 | `skill_prompt_expanded` | User expands the full skill prompt to view the complete text. | `src/components/resources/SkillPromptBlock.tsx` |
+| `booking_link_clicked` | Any click on a cal.com link, site-wide: homepage/About/final CTAs, the header contact menu, the mobile menu, and links inside article/skill Markdown. Untagged links fall back to `header`, `footer` or `other`. Properties: `page`, `location`, `article_slug`. | `src/lib/booking-tracking.ts`, `src/components/BookingLinkTracker.tsx` |
+
+> **Production only.** PostHog initializes only when `NEXT_PUBLIC_VERCEL_ENV` (inlined from Vercel's `VERCEL_ENV` in `next.config.ts`) is `production`. Local dev, previews and CI send nothing; every capture is a no-op there.
 
 ## Next steps
 
