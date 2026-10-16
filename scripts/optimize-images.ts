@@ -78,13 +78,23 @@ function getKind(sourceUrl: string, line: string): ImageJob['kind'] {
     : 'content'
 }
 
-async function collectImageJobs(markdownFiles: string[]): Promise<Map<string, ImageJob>> {
+function isRemoteMatch(text: string, index: number): boolean {
+  return index > 0 && /[\w.:/-]/.test(text[index - 1])
+}
+
+async function collectImageJobs(
+  markdownFiles: string[],
+): Promise<{ jobs: Map<string, ImageJob>; missing: number }> {
   const jobs = new Map<string, ImageJob>()
+  let missing = 0
 
   for (const file of markdownFiles) {
     const text = await fs.readFile(file, 'utf8')
 
     for (const match of text.matchAll(IMAGE_REF_PATTERN)) {
+      // `https://cdn.example.com/images/x.png` is a remote URL, not a file under public/.
+      if (isRemoteMatch(text, match.index ?? 0)) continue
+
       const sourceUrl = match[0]
       const sourcePath = toPublicPath(sourceUrl)
       const kind = getKind(sourceUrl, getLineAt(text, match.index ?? 0))
@@ -92,7 +102,10 @@ async function collectImageJobs(markdownFiles: string[]): Promise<Map<string, Im
       try {
         await fs.access(sourcePath)
       } catch {
-        console.warn(`[warn] Missing image referenced by ${path.relative(ROOT, file)}: ${sourceUrl}`)
+        // A missing image is an error, not something to skip: skipping it is how
+        // an article ends up shipped with a borrowed or absent cover.
+        console.error(`[fail] Missing image referenced by ${path.relative(ROOT, file)}: ${sourceUrl}`)
+        missing += 1
         continue
       }
 
@@ -115,7 +128,7 @@ async function collectImageJobs(markdownFiles: string[]): Promise<Map<string, Im
     }
   }
 
-  return jobs
+  return { jobs, missing }
 }
 
 async function hashFile(file: string): Promise<string> {
@@ -343,16 +356,16 @@ function formatBytes(bytes: number): string {
 
 async function main() {
   const markdownFiles = (await walkFiles(CONTENT_DIR)).filter((file) => file.endsWith('.md'))
-  const jobs = await collectImageJobs(markdownFiles)
+  const { jobs, missing } = await collectImageJobs(markdownFiles)
 
   if (checkOnly) {
-    const failures = await checkBudgets(jobs.values())
+    const failures = missing + (await checkBudgets(jobs.values()))
     process.exit(failures === 0 ? 0 : 1)
   }
 
   if (jobs.size === 0) {
     console.log('[ok] No content images found to optimize.')
-    return
+    process.exit(missing === 0 ? 0 : 1)
   }
 
   const manifest = await readManifest()
@@ -403,7 +416,7 @@ async function main() {
     console.log(`${cacheChanged ? '[updated]' : '[unchanged]'} ${path.relative(ROOT, CACHE_FILE)}`)
   }
 
-  const failures = await checkBudgets(jobs.values())
+  const failures = missing + (await checkBudgets(jobs.values()))
   process.exit(failures === 0 ? 0 : 1)
 }
 

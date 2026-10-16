@@ -26,6 +26,9 @@ jobs:
       - name: Validate article translations
         run: bun run content:translations-check
 
+      - name: Validate unique article covers
+        run: bun run content:covers-check
+
   build:
     runs-on: ubuntu-latest
     env:

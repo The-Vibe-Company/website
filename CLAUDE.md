@@ -113,7 +113,7 @@ If you have questions about the product vision, please look at https://www.notio
 
 ## Publishing an article
 
-An article is a Markdown file in `content/articles/<slug>.md`. Its frontmatter drives the whole pipeline, and three gates run on every pull request (`bun run content:victor-check`, `content:focus-check`, `content:translations-check`) plus the image gates in `prebuild`.
+An article is a Markdown file in `content/articles/<slug>.md`. Its frontmatter drives the whole pipeline, and four gates run on every pull request (`bun run content:victor-check`, `content:focus-check`, `content:translations-check`, `content:covers-check`) plus the image gates in `prebuild`.
 
 ### Bilingual articles
 
@@ -155,6 +155,8 @@ Without `--scene` the prompt falls back to the article's own title and summary, 
 - **no golden badge** and nothing attached to the forehead — describing the head as a "winged emblem" is what makes the model add one.
 
 If the mascot drifted, regenerate with a corrected `--scene`. Never ship a cover that failed this check.
+
+**Every article has its own cover, there is no placeholder.** If the cover cannot be generated (no API key, API down), stop and ask; never copy another article's cover in as a "temporary" one. `bun run content:covers-check` (`scripts/validate-unique-covers.ts`) hashes every `coverImage` and `ogImage` and fails when a cover is missing, or when two articles share byte-identical covers (even under different file names). The FR and EN versions of one article (same `translationKey`) count as one article and should reference the same file. A missing image referenced in Markdown also fails `bun run images:optimize` / `images:check` instead of being skipped.
 
 Then run `bun run images:optimize` and `bun run content:check`.
 

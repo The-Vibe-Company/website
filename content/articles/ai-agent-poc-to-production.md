@@ -7,9 +7,9 @@ summary: "An AI agent POC that shines in a demo often dies in production. Here i
 publishedAt: 2026-10-14
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering
-coverImage: /images/resources/poc-agent-ia-production/cover-mascotte.webp
-coverAlt: "A checklist connects an AI agent POC to a controlled production rollout"
-ogImage: /images/resources/poc-agent-ia-production/cover-mascotte.webp
+coverImage: /images/resources/poc-agent-ia-production/cover-mascotte-v2.webp
+coverAlt: "The mascot pushing a cardboard prototype rocket onto a launch pad"
+ogImage: /images/resources/poc-agent-ia-production/cover-mascotte-v2.webp
 ---
 
 At [The Vibe Company](https://www.thevibecompany.co/en), an AI-native agency backed by Y Combinator (W24), we see the same pattern again and again. An AI agent that looks great in a demo. Then stalls the moment it meets real tickets, real data, and real teams.

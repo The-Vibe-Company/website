@@ -7,9 +7,9 @@ summary: "Autonomous chatbot or AI drafts reviewed by your team? How to automate
 publishedAt: 2026-10-15
 complexity: intermediate
 topics: AI Agents, AI Adoption, AI Operations
-coverImage: /images/resources/agent-ia-support-client/cover-mascotte.webp
-coverAlt: "An AI agent prepares reply drafts that a support team reviews before sending"
-ogImage: /images/resources/agent-ia-support-client/cover-mascotte.webp
+coverImage: /images/resources/agent-ia-support-client/cover-mascotte-v2.webp
+coverAlt: "The mascot wearing a headset at a help desk, surrounded by chat bubbles"
+ogImage: /images/resources/agent-ia-support-client/cover-mascotte-v2.webp
 ---
 
 Customer support is often the first place a company wants to use AI. The volume is there, the questions repeat, and the cost shows up every time growth means hiring more people.

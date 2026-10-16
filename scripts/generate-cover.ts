@@ -21,6 +21,11 @@
  * generation. After generating, open the file and check the mascot against the
  * reference: black swept-back pattern on the head with a central point on the
  * forehead, black V on the chest, no golden badge. Regenerate if it drifted.
+ *
+ * There is no fallback cover. If the generation cannot run (no key, API down),
+ * stop: do not copy another article's cover in as a "temporary" one. Every
+ * article needs its own image, and `bun run content:covers-check` fails CI on
+ * any two articles whose covers have the same bytes.
  */
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
@@ -144,7 +149,8 @@ async function generate(prompt: string, mascotPath: string): Promise<Buffer> {
   const apiKey = process.env.AZURE_OPENAI_API_KEY ?? process.env.OPENAI_API_KEY
   if (!apiKey) {
     fail(
-      'no API key. Set AZURE_OPENAI_API_KEY (or OPENAI_API_KEY) in .env.local — never commit it.',
+      'no API key. Set AZURE_OPENAI_API_KEY (or OPENAI_API_KEY) in .env.local — never commit it. ' +
+        "Do not copy another article's cover as a placeholder: CI rejects duplicated covers.",
     )
   }
 
