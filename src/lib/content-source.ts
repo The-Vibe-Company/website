@@ -88,9 +88,9 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
       const title = data.title || slug
       const publishedAt = data.publishedAt || new Date().toISOString().slice(0, 10)
       const summary = data.summary || body.split('\n').find(Boolean)?.trim() || ''
-      const coverImage = data.coverImage || data.image || ''
+      const coverImage = data.coverImage || ''
       const optimizedCoverImage = coverImage ? getOptimizedImageUrl(coverImage) : ''
-      const coverAlt = data.coverAlt || data.imageAlt || title
+      const coverAlt = data.coverAlt || title
       const ogImage = data.ogImage || ''
       const optimizedOgImage = ogImage ? getOptimizedImageUrl(ogImage, 'og') : ''
       const topics = (data.topics || '')
