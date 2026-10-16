@@ -8,7 +8,7 @@ publishedAt: 2026-10-14
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering
 coverImage: /images/resources/poc-agent-ia-production/cover-mascotte-v2.webp
-coverAlt: "A checklist connects an AI agent POC to a controlled production rollout"
+coverAlt: "The mascot pushing a cardboard prototype rocket onto a launch pad"
 ogImage: /images/resources/poc-agent-ia-production/cover-mascotte-v2.webp
 ---
 

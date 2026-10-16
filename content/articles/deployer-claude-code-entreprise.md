@@ -7,9 +7,9 @@ summary: "Comment déployer Claude Code dans une entreprise de taille moyenne ou
 publishedAt: 2026-10-13
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering
-coverImage: /images/resources/deployer-claude-code-entreprise/cover-mascotte.webp
-coverAlt: "Une équipe de développeurs encadre un agent de code avec des règles partagées"
-ogImage: /images/resources/deployer-claude-code-entreprise/cover-mascotte.webp
+coverImage: /images/resources/deployer-claude-code-entreprise/cover-mascotte-v2.webp
+coverAlt: "La mascotte, à une console de contrôle, envoie de petits agents robots vers le bâtiment d'une entreprise"
+ogImage: /images/resources/deployer-claude-code-entreprise/cover-mascotte-v2.webp
 ---
 
 Installer Claude Code sur un poste est rapide. Le déployer pour 50 ou 500 développeurs, avec des règles que la sécurité accepte, c'est un autre projet.

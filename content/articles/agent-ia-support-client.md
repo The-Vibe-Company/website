@@ -8,7 +8,7 @@ publishedAt: 2026-10-15
 complexity: intermediate
 topics: AI Agents, AI Adoption, AI Operations
 coverImage: /images/resources/agent-ia-support-client/cover-mascotte-v2.webp
-coverAlt: "Un agent IA prépare des brouillons de réponse qu'une équipe support relit avant envoi"
+coverAlt: "La mascotte, casque audio sur la tête, tient un comptoir d'assistance entourée de bulles de discussion"
 ogImage: /images/resources/agent-ia-support-client/cover-mascotte-v2.webp
 ---
 

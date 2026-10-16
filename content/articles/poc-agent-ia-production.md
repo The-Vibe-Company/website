@@ -8,7 +8,7 @@ publishedAt: 2026-10-14
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering
 coverImage: /images/resources/poc-agent-ia-production/cover-mascotte-v2.webp
-coverAlt: "Une checklist relie un POC d'agent IA à sa mise en production sous contrôle humain"
+coverAlt: "La mascotte pousse un prototype de fusée en carton sur un pas de tir"
 ogImage: /images/resources/poc-agent-ia-production/cover-mascotte-v2.webp
 ---
 

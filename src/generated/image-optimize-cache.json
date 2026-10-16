@@ -66,8 +66,8 @@
       "targetUrl": null,
       "targetHash": null
     },
-    "content:/images/resources/deployer-claude-code-entreprise/cover-mascotte.webp": {
-      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
+    "content:/images/resources/deployer-claude-code-entreprise/cover-mascotte-v2.webp": {
+      "sourceHash": "d134e564e091d86349985c71f0ad24ba03576e9bf046d431469909d0681ce398",
       "targetUrl": null,
       "targetHash": null
     },
@@ -336,8 +336,8 @@
       "targetUrl": null,
       "targetHash": null
     },
-    "og:/images/resources/deployer-claude-code-entreprise/cover-mascotte.webp": {
-      "sourceHash": "cc17cc1e331252fa587fc2c5213d7c8590ffa5b3bbbae3c4d7711da6c96a3249",
+    "og:/images/resources/deployer-claude-code-entreprise/cover-mascotte-v2.webp": {
+      "sourceHash": "d134e564e091d86349985c71f0ad24ba03576e9bf046d431469909d0681ce398",
       "targetUrl": null,
       "targetHash": null
     },

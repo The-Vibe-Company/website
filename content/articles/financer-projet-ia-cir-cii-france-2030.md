@@ -8,7 +8,7 @@ publishedAt: 2026-10-16
 complexity: intermediate
 topics: AI Adoption, Strategy
 coverImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp
-coverAlt: "La mascotte, debout sur un coffre de pièces d'or, tient une sphère lumineuse entre une fiole et une ampoule, sous un ruban bleu-blanc-rouge"
+coverAlt: "La mascotte, debout sur une pile de pièces d'or, arrose une jeune pousse lumineuse en forme d'arbre-circuit"
 ogImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp
 ---
 
