@@ -43,6 +43,29 @@ const nextConfig: NextConfig = {
         destination: "/portfolio/quivr",
         permanent: true,
       },
+      // /resources/learnings was removed; old URLs still 404 in Search Console.
+      // They land on the /resources index directly: /resources/articles itself
+      // redirects there (temporarily), which would chain a 308 into a 307.
+      {
+        source: "/:locale(fr|en)/resources/learnings",
+        destination: "/:locale/resources",
+        permanent: true,
+      },
+      {
+        source: "/:locale(fr|en)/resources/learnings/:path*",
+        destination: "/:locale/resources",
+        permanent: true,
+      },
+      {
+        source: "/resources/learnings",
+        destination: "/resources",
+        permanent: true,
+      },
+      {
+        source: "/resources/learnings/:path*",
+        destination: "/resources",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
