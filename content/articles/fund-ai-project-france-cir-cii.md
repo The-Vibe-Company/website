@@ -7,9 +7,9 @@ summary: "CIR, CII, Diag Data IA, Osez l'IA: a practical map of French public sc
 publishedAt: 2026-10-16
 complexity: intermediate
 topics: AI Adoption, Strategy
-coverImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp
-coverAlt: "The mascot on a stack of gold coins, watering a glowing circuit-tree sprout"
-ogImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v2.webp
+coverImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp
+coverAlt: "The mascot reads a treasure map showing a four-milestone path to a castle workshop"
+ogImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp
 ---
 
 An AI project costs money before it pays off: salaries, cloud, integration, business time. In France, several public schemes can cover part of that — tax credits, a subsidised diagnostic, France 2030 calls. They are not interchangeable, and they do not stack in arbitrary ways.

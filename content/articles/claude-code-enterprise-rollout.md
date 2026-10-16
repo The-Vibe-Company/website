@@ -7,9 +7,9 @@ summary: "How to roll out Claude Code across a mid-size or large company: manage
 publishedAt: 2026-10-13
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering
-coverImage: /images/resources/deployer-claude-code-entreprise/cover-mascotte-v2.webp
-coverAlt: "The mascot at a control console, sending small robot agents toward a company building"
-ogImage: /images/resources/deployer-claude-code-entreprise/cover-mascotte-v2.webp
+coverImage: /images/resources/deployer-claude-code-entreprise/cover-mascotte-v3.webp
+coverAlt: "The mascot hands keys to developers at the gate of a citadel protected by a shield dome"
+ogImage: /images/resources/deployer-claude-code-entreprise/cover-mascotte-v3.webp
 ---
 
 Installing Claude Code on one laptop is quick. Rolling it out to 50 or 500 developers, under rules your security team accepts, is a different project.
