@@ -372,21 +372,16 @@
 }
 
 /* Cards: a muted-paper glow under the pointer, behind the card's content.
-   HomeMotion writes --spot-x / --spot-y; the card needs relative, isolate and
-   overflow-hidden. */
+   HomeMotion writes --spot-x / --spot-y; the card needs relative and isolate.
+   The glow is drawn inside the card's own box rather than moved as a disc, so
+   the card never needs overflow-hidden, which cut off its wider badges. */
 .vc-spotlight::before {
   content: "";
   position: absolute;
   z-index: -1;
-  top: 0;
-  left: 0;
-  width: 440px;
-  height: 440px;
-  margin: -220px 0 0 -220px;
-  border-radius: 9999px;
-  background: radial-gradient(closest-side, #eee7da, transparent);
+  inset: 0;
+  background: radial-gradient(220px circle at var(--spot-x, 50%) var(--spot-y, 50%), #eee7da, transparent);
   opacity: 0;
-  transform: translate3d(var(--spot-x, 0px), var(--spot-y, 0px), 0);
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
@@ -402,6 +397,14 @@
   transition:
     opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
     transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+}
+
+/* A page printed before it was scrolled still prints every section. */
+@media print {
+  [data-reveal="pending"] {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

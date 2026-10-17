@@ -17,9 +17,11 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
     <Link
       href={`/case-studies/${c.slug}?from=home`}
       tabIndex={clone ? -1 : undefined}
-      className="vc-spotlight group relative isolate flex h-full flex-col overflow-hidden border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
+      className="vc-spotlight group relative isolate flex h-full flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
     >
-      <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+      {/* Wraps the sector under the logo when the card is too narrow for both:
+          on a single row a long sector ran past the card's edge. */}
+      <div className="flex flex-col items-start gap-4 md:flex-row md:flex-wrap md:items-center md:justify-between">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={c.logo}

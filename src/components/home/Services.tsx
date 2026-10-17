@@ -65,7 +65,7 @@ export function Services() {
           // separate, lighter layer, which flashed pale boxes behind each line.
           <article
             key={service.n}
-            className="vc-spotlight group relative isolate flex flex-col overflow-hidden border border-foreground bg-background p-7 transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
+            className="vc-spotlight group relative isolate flex flex-col border border-foreground bg-background p-7 transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
           >
             <div className="mb-8 flex items-start justify-between gap-3">
               <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
