@@ -239,6 +239,192 @@
 }
 
 /* -----------------------------------------------------------------------------
+   Homepage motion (src/components/home/Hero.tsx, HomeMotion.tsx)
+   Transform and opacity only, except the hero words' short blur. Everything
+   here runs from the server HTML: no animation waits for JavaScript, and none
+   starts a hero line fully invisible.
+   ----------------------------------------------------------------------------- */
+
+/* Hero title, word by word: each word resolves from a soft blur. It starts
+   faint rather than invisible, so the title is painted on the first frame. */
+@keyframes vc-blur-in {
+  from {
+    opacity: 0.12;
+    filter: blur(10px);
+    transform: translate3d(0, 0.18em, 0);
+  }
+}
+
+.vc-blur-in {
+  animation: vc-blur-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) backwards;
+}
+
+@keyframes vc-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+}
+
+.vc-rise {
+  animation: vc-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) backwards;
+}
+
+/* One reflection across the claim once the title has landed. A translucent
+   paper band: invisible on the paper itself, it only lights the ink and the
+   highlighter it passes over. Plays once, never loops, as soon as the claim
+   it sits on has resolved (--d is the claim's own entrance delay). */
+@keyframes vc-glint {
+  from { transform: translate3d(-110%, 0, 0) skewX(-14deg); }
+  to { transform: translate3d(330%, 0, 0) skewX(-14deg); }
+}
+
+.vc-glint::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.7) 50%, transparent);
+  pointer-events: none;
+  animation: vc-glint 1.4s cubic-bezier(0.45, 0, 0.25, 1) calc(var(--d, 0ms) + 0.6s) both;
+}
+
+/* The hero's light: three warm washes drifting slowly behind the grid. Pure
+   radial gradients, so they are soft without a blur filter. */
+@keyframes vc-drift-a {
+  to { transform: translate3d(-8%, 10%, 0) scale(1.12); }
+}
+
+@keyframes vc-drift-b {
+  to { transform: translate3d(10%, -6%, 0) scale(0.92); }
+}
+
+@keyframes vc-drift-c {
+  to { transform: translate3d(-12%, -8%, 0) scale(1.08); }
+}
+
+.vc-aurora > span {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform;
+}
+
+.vc-aurora > span:nth-child(1) {
+  top: -30%;
+  right: -12%;
+  width: 62vw;
+  height: 62vw;
+  background: radial-gradient(closest-side, rgb(249 115 22 / 0.11), transparent);
+  animation: vc-drift-a 26s ease-in-out infinite alternate;
+}
+
+.vc-aurora > span:nth-child(2) {
+  top: 10%;
+  right: 22%;
+  width: 46vw;
+  height: 46vw;
+  background: radial-gradient(closest-side, rgb(238 206 160 / 0.2), transparent);
+  animation: vc-drift-b 32s ease-in-out infinite alternate;
+}
+
+.vc-aurora > span:nth-child(3) {
+  bottom: -35%;
+  left: -14%;
+  width: 54vw;
+  height: 54vw;
+  background: radial-gradient(closest-side, rgb(251 191 36 / 0.1), transparent);
+  animation: vc-drift-c 38s ease-in-out infinite alternate;
+}
+
+/* Paused while the hero is off screen (set by HomeMotion). */
+.vc-aurora[data-offscreen] > span {
+  animation-play-state: paused;
+}
+
+/* Ink slabs: a paper sheen sweeps across on hover and keyboard focus. The
+   slab needs overflow-hidden; its offset shadow is outside the box and stays. */
+.vc-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 45%;
+  background: linear-gradient(105deg, transparent 15%, rgb(253 251 247 / 0.24) 50%, transparent 85%);
+  transform: translate3d(-110%, 0, 0);
+  pointer-events: none;
+}
+
+.vc-shine:focus-visible::after {
+  transform: translate3d(240%, 0, 0);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover effects only where hover is real, like Tailwind's hover: variant, so
+   a tap on a phone never leaves a sheen or a glow stuck on. */
+@media (hover: hover) {
+  .vc-shine:hover::after {
+    transform: translate3d(240%, 0, 0);
+    transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .vc-spotlight:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Cards: a muted-paper glow under the pointer, behind the card's content.
+   HomeMotion writes --spot-x / --spot-y; the card needs relative and isolate.
+   The glow is drawn inside the card's own box rather than moved as a disc, so
+   the card never needs overflow-hidden, which cut off its wider badges. */
+.vc-spotlight::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(220px circle at var(--spot-x, 50%) var(--spot-y, 50%), #eee7da, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Scroll reveal. Only blocks still below the fold when the page loads are
+   hidden, and only by HomeMotion, so without JavaScript nothing is. */
+[data-reveal="pending"] {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+}
+
+[data-reveal="shown"] {
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+}
+
+/* A page printed before it was scrolled still prints every section. */
+@media print {
+  [data-reveal="pending"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vc-blur-in,
+  .vc-rise,
+  .vc-aurora > span:nth-child(n) {
+    animation: none;
+  }
+
+  .vc-glint::after,
+  .vc-shine::after {
+    display: none;
+  }
+
+  .vc-spotlight::before {
+    transition: none;
+  }
+}
+
+/* -----------------------------------------------------------------------------
    Base Styles
    Minimal global styles using Tailwind's @layer system
    ----------------------------------------------------------------------------- */

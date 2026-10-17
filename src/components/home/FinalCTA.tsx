@@ -129,7 +129,7 @@ export function FinalCTA({ rail = "wide" }: { rail?: "wide" | "narrow" }) {
               href={BOOKING_URL}
               {...bookingLocation("cta_final")}
               onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
-              className="inline-flex items-center border-2 border-foreground bg-foreground px-7 py-5 text-[17px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
+              className="vc-shine relative isolate inline-flex items-center overflow-hidden border-2 border-foreground bg-foreground px-7 py-5 text-[17px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
             >
               {t("bookCall")}
               <span aria-hidden="true" className="ml-3">
