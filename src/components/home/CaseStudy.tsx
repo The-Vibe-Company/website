@@ -17,7 +17,7 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
     <Link
       href={`/case-studies/${c.slug}?from=home`}
       tabIndex={clone ? -1 : undefined}
-      className="group flex h-full flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
+      className="vc-spotlight group relative isolate flex h-full flex-col overflow-hidden border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
     >
       <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -342,7 +342,7 @@ function CaseCarousel({ customers }: { customers: Customer[] }) {
 
 function SectionHeader({ t }: { t: T }) {
   return (
-    <div className="mb-12 md:mb-14">
+    <div data-reveal="" className="mb-12 md:mb-14">
       <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
         {t("kicker")}
       </span>

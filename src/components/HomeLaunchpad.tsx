@@ -11,6 +11,7 @@ import { CaseStudy } from "./home/CaseStudy";
 import { Proof } from "./home/Proof";
 import { Clients } from "./home/Clients";
 import { FinalCTA } from "./home/FinalCTA";
+import { HomeMotion } from "./home/HomeMotion";
 
 export function HomeLaunchpad({ locale }: { locale: ContentLocale }) {
   // Built on the server so the case-study and project catalogues never reach
@@ -35,6 +36,7 @@ export function HomeLaunchpad({ locale }: { locale: ContentLocale }) {
         {/* Inside main, so the mobile menu makes it inert with the rest of
             the page while it is open. */}
         <MobileBookingBar />
+        <HomeMotion />
       </main>
       <Footer />
     </div>

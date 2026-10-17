@@ -135,6 +135,8 @@ motion:
   normal: "0.6s"
   slow: "0.8s"
   smooth-ease: "cubic-bezier(0.16, 1, 0.3, 1)"
+  word-stagger: "70ms"
+  hero-light-drift: "26s to 38s ease-in-out infinite alternate"
   marquee: "20s linear infinite"
 components:
   page-background:
@@ -329,7 +331,7 @@ The Vibe Company design system is a warm-paper brutalist editorial system for an
 
 The dominant impression is deep black ink on a slightly warm paper canvas. Layouts are spacious but not soft. Large type, thin technical grid lines, monochrome rules, uppercase mono labels, and blunt black calls to action create the feeling of a shipping console crossed with an independent studio site. The interface should feel confident and operational, not decorative.
 
-The homepage is the core expression: warm paper, giant tight typography, a compact solid subheading beneath the hero display, black slab buttons, bordered cards, and horizontal bands. The hero opens with a single mono kicker (a small pulsing orange status dot and "open to projects"), then the headline. The subheading carries a low orange highlighter stroke under its words, cloned on each wrapped line, and the introduction hangs off a 2px ink rule on its left, like an editorial pull quote. A compact credential row beneath the introduction pairs the linked YC W24 mark with the France 2030 mark; both keep their original aspect ratios and accessible names. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
+The homepage is the core expression: warm paper, giant tight typography, a compact solid subheading beneath the hero display, black slab buttons, bordered cards, and horizontal bands. The hero opens with a single mono kicker (a small pulsing orange status dot and "open to projects"), then the headline. The subheading carries a low orange highlighter stroke under its words, cloned on each wrapped line, and the introduction hangs off a 2px ink rule on its left, like an editorial pull quote. A compact credential row beneath the introduction pairs the linked YC W24 mark with the France 2030 mark; both keep their original aspect ratios and accessible names. On desktop the hero arrives in under a second: the headline resolves word by word from a soft blur with a 70ms stagger, starting faint rather than invisible so the title is on screen from the very first frame, then the subheading resolves and a single paper reflection sweeps across it once; the kicker, introduction and credentials rise a few pixels into place. The entrance is pure CSS, so it plays without JavaScript, and with reduced motion requested the hero is simply there. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
 
 An experimental preview of the homepage lives at `/v2`. It keeps the full warm-paper system (the same top nav, sections, footer, deep ink, and Geist type) and only swaps the static hero for a playable, Chrome-dino-style runner on a canvas. Inside that canvas the game travels through a sequence of "worlds", each a product, a service, or the YC backing, and each world carries its own art direction (paper, ink, accent, and player colour) with a presentation panel that stays for the whole world. It is a preview, and it is now superseded: the canonical homepage carries its own, separate runner band described under Components below. The two share no code. Which one survives is an open decision — `/v2` and `src/components/home/runner/` are still in the tree.
 
@@ -376,6 +378,8 @@ Use the brutal offset shadow only for interactive lift on important cards and pr
 
 Navigation and overlays may use translucent surfaces with backdrop blur, but they should remain crisp. Avoid frosted-glass aesthetics, colored glows, floating blobs, and ambient shadows.
 
+The one sanctioned light is the desktop homepage hero's: three very faint warm washes (a peach orange, a sand, a pale amber, each a radial fade at 10–20% strength) drifting slowly underneath the technical grid, which carries a small warm-gray dot on every crossing. It reads as daylight moving across paper, never as a glow: no wash is ever strong enough to tint the text, it stops when the hero leaves the screen, and it holds still when reduced motion is requested. It belongs to that hero alone. The only other light is a pointer glow on the homepage's bordered cards: a disc of muted paper that follows a mouse pointer underneath the card's content, always the same muted paper whatever the card's accent.
+
 Dark sections should feel like solid matte slabs. Separate content inside them with low-opacity rules and muted inverse text. Keyboard focus rings invert with the surface they land on: the page draws a two-pixel ink ring, and every inverted surface flips it to paper, so focus never disappears into the slab it is sitting on.
 
 ## Shapes
@@ -388,7 +392,7 @@ Do not mix many radii in one view. If a surface is a card or a major action, squ
 
 ## Components
 
-Primary CTAs are black slabs on warm paper. They use bold Geist text, clear padding, square corners, and a right arrow when action-oriented. Hover states should lift slightly and gain a hard offset black shadow.
+Primary CTAs are black slabs on warm paper. They use bold Geist text, clear padding, square corners, and a right arrow when action-oriented. Hover states should lift slightly and gain a hard offset black shadow; the hero and closing slabs also pass a single faint paper sheen across their face as the pointer or keyboard focus arrives. On the homepage, section headers below the fold rise gently into place the first time they scroll into view; anything already on screen at load is left alone, and nothing is hidden when JavaScript or motion is unavailable.
 
 Cards are bordered rectangles, not soft containers. Service cards and product cards use black or warm-gray borders, square corners, tight internal hierarchy, mono metadata, and optional hard hover shadows. On the homepage, our own products sit in a single-row loop carousel with the same orange arrows as the case studies; each product card borrows that product's own accent as a quiet signature: a 3px rule across the top, a small dot beside the mono category, the product logo next to its name, and a hard hover shadow in the accent instead of ink. The accent never fills the card or colours its text. Resource cards use calmer warm borders and may sit on white surfaces.
 
@@ -424,7 +428,8 @@ Rules and dividers are part of the visual language. Use thin warm-gray rules for
 - Do reserve Geist Mono for metadata and operational UI, not long-form prose.
 - Do use square corners for content surfaces and slab CTAs.
 - Do preserve partner-logo and product-screenshot aspect ratios at every breakpoint.
-- Don't introduce marketing-style gradients, decorative orbs, soft bokeh, or colorful background washes.
+- Do keep motion to transform and opacity (the hero headline's brief blur is the one exception), play entrances once, and make every animated block readable with no JavaScript and with reduced motion.
+- Don't introduce marketing-style gradients, decorative orbs, soft bokeh, or colorful background washes. The desktop hero's faint drifting warm light is the single exception; do not repeat it elsewhere.
 - Don't turn pages into nested card layouts. Use full-width bands and unframed layouts first.
 - Don't over-round cards, inputs, or buttons. Pills are for nav and status.
 - Don't turn the GitHub catalogue link into a filled promotional CTA.
