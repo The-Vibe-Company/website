@@ -1,0 +1,19 @@
+src/components/ContactMenu.tsx
+  s_675c9d6d4137cd::t_3588792d26b580 154
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f78bac76f0caa334013a03b336e63ce6dfa7efe6",
+  "prompts": {},
+  "sessions": {
+    "s_675c9d6d4137cd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1f74fa15-58e9-4062-a240-244c327b531b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
