@@ -54,12 +54,13 @@ export function useLoopCarousel(setLen: number) {
       requestAnimationFrame(() => {
         const w = setWidth();
         if (w > 0) {
-          // Wrap a card (plus rounding) beyond the band scrollByCard aims for.
-          // Its pre-animation jump keeps the target inside the band but can
-          // leave the start up to a card outside it; wrapping at the band edge
-          // pulled that start straight back and swallowed the click whenever
-          // card widths were fractional.
-          const margin = w / setLen + 2;
+          // Wrap two cards (plus rounding) beyond the band scrollByCard keeps
+          // the track in. Its animations start inside the band and end less
+          // than two cards past it; wrapping any closer cancelled them
+          // mid-flight, the next click jumped straight back, and a quick
+          // series of clicks left the track stuck between two cards with
+          // dead arrows.
+          const margin = (2 * w) / setLen + 2;
           if (track.scrollLeft < w * 0.5 - margin) track.scrollLeft += w;
           else if (track.scrollLeft > w * 1.5 + margin) track.scrollLeft -= w;
         }
@@ -87,10 +88,17 @@ export function useLoopCarousel(setLen: number) {
         ? cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left
         : track.clientWidth;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Wrap *before* animating: if the destination would cross the loop bounds,
-    // jump one set width first so the smooth scroll stays inside them. Wrapping
-    // mid-animation (in onScroll) would cancel it and swallow the click.
-    //
+    // Wrap *before* animating, and on where the track is rather than where it
+    // is going: bring it back into the middle copy first (identical content,
+    // so the jump is invisible; it also stops any animation in flight, which
+    // the smooth scroll below picks up from there). The destination then lies
+    // less than two cards outside the band, where onScroll leaves it alone, so
+    // nothing wraps mid-animation and swallows the click.
+    const w = measureSetWidth(track, setLen);
+    if (w > 0) {
+      if (track.scrollLeft < w * 0.5) track.scrollLeft += w;
+      else if (track.scrollLeft >= w * 1.5) track.scrollLeft -= w;
+    }
     // Step from a card position, not from scrollLeft: browsers round scroll
     // offsets to whole pixels, so adding a fractional step to the rounded
     // offset crept half a pixel out of line on every click. The card behind
@@ -99,19 +107,8 @@ export function useLoopCarousel(setLen: number) {
     // card already on its way.
     const position = track.scrollLeft / amount;
     const from = direction > 0 ? Math.ceil(position - 0.1) : Math.floor(position + 0.1);
-    let target = (from + direction) * amount;
-    const w = measureSetWidth(track, setLen);
-    if (w > 0) {
-      if (target > w * 1.5) {
-        track.scrollLeft -= w;
-        target -= w;
-      } else if (target < w * 0.5) {
-        track.scrollLeft += w;
-        target += w;
-      }
-    }
     track.scrollTo({
-      left: target,
+      left: (from + direction) * amount,
       behavior: reduceMotion ? "auto" : "smooth",
     });
   };

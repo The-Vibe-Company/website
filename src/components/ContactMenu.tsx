@@ -151,7 +151,7 @@ export function ContactMenu({
         aria-controls={menuId}
         onClick={() => (open ? closeMenu(false) : openMenu(0))}
         onKeyDown={onTriggerKeyDown}
-        className={cn("inline-flex items-center justify-center gap-2", triggerClassName)}
+        className={cn("inline-flex cursor-pointer items-center justify-center gap-2", triggerClassName)}
       >
         {t("getInTouch")}
         <svg
