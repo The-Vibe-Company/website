@@ -48,17 +48,19 @@ interface TopNavProps {
   showResourcesSearch?: boolean;
 }
 
-export function TopNav(props: TopNavProps) {
-  return (
-    <Suspense fallback={null}>
-      <TopNavInner {...props} />
-    </Suspense>
-  );
+function InitialSearchQuery({ onQuery }: { onQuery: (query: string) => void }) {
+  const query = useSearchParams().get("q");
+  const applied = useRef(false);
+  useEffect(() => {
+    if (applied.current) return;
+    applied.current = true;
+    if (query) onQuery(query);
+  }, [query, onQuery]);
+  return null;
 }
 
-function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
+export function TopNav({ showResourcesSearch = false }: TopNavProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const pathname = usePathname();
   const t = useTranslations("nav");
   const tA11y = useTranslations("accessibility");
@@ -72,9 +74,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileMenuClosing, setMobileMenuClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState(
-    showResourcesSearch ? searchParams.get("q") || "" : ""
-  );
+  const [searchValue, setSearchValue] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const menuDialogRef = useRef<HTMLDivElement>(null);
@@ -181,6 +181,11 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
 
   return (
     <>
+      {showResourcesSearch && (
+        <Suspense fallback={null}>
+          <InitialSearchQuery onQuery={setSearchValue} />
+        </Suspense>
+      )}
       {/* Keyboard/screen-reader skip link: jumps past the nav to the page's
           main content. Hidden until focused. */}
       <a
@@ -308,7 +313,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                         transition={animations.easing.bounce}
                       />
                     )}
-                    {t(item.key)}
+                    <span>{t(item.key)}</span>
                   </Link>
                 </li>
               ))}

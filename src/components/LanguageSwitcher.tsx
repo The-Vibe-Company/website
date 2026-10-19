@@ -2,7 +2,6 @@
 
 import { useTransition } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/design-system";
 
@@ -15,7 +14,6 @@ export function LanguageSwitcher({ className }: { className?: string }) {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const t = useTranslations("accessibility");
   const [isPending, startTransition] = useTransition();
 
@@ -24,9 +22,12 @@ export function LanguageSwitcher({ className }: { className?: string }) {
     // Non-urgent navigation: React keeps the current page on screen until the
     // other language is ready, then swaps it in one go — no unmount flash.
     // The middleware remembers the choice in a cookie for the root redirect.
+    // The query is read at click time rather than with useSearchParams: that
+    // hook suspends during static rendering, which kept the whole nav out of
+    // the server HTML.
     startTransition(() => {
-      const query = searchParams.toString();
-      router.replace(query ? `${pathname}?${query}` : pathname, { locale: code });
+      const query = window.location.search;
+      router.replace(`${pathname}${query}`, { locale: code });
     });
   };
 
