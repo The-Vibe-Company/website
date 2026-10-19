@@ -77,15 +77,11 @@ export default async function PortfolioPage({
 
         <section className="mx-auto max-w-[100rem] px-6 pb-20 md:px-12 md:pb-28">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {projects.map((p, i) => (
+            {projects.map((p) => (
               <Link
                 key={p.slug}
                 href={`/portfolio/${p.slug}`}
-                // An odd last card spans both columns instead of sitting
-                // alone at half width.
-                className={`group flex flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8 ${
-                  projects.length % 2 === 1 && i === projects.length - 1 ? "md:col-span-2" : ""
-                }`}
+                className="group flex flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
               >
                 <div className="flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between md:gap-4">
                   <div className="flex min-w-0 items-center gap-3">

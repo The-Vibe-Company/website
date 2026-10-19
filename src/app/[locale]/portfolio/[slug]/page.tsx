@@ -6,9 +6,10 @@ import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
-import { QuivrPage } from "@/components/quivr/QuivrPage";
+import { QuivrFeedMock } from "@/components/quivr/QuivrFeedMock";
+import { QuivrSections } from "@/components/quivr/QuivrSections";
 import { PROJECT_SLUGS, getProject, type ContentLocale } from "@/lib/projects";
-import { getQuivrStars, QUIVR_OG_IMAGE, QUIVR_SLUG } from "@/lib/quivr";
+import { QUIVR_OG_IMAGE, QUIVR_SLUG } from "@/lib/quivr";
 import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -26,8 +27,8 @@ export async function generateMetadata({
   const project = getProject(slug, locale as ContentLocale);
   if (!project) return { title: t("back") };
 
-  // Quivr has its own product page, with its own search title (absolute, so
-  // the brand is not repeated by the layout template).
+  // Quivr keeps its own search title (absolute, so the brand is not repeated
+  // by the layout template) and social card.
   const tQuivr =
     slug === QUIVR_SLUG
       ? await getTranslations({ locale, namespace: "quivr" })
@@ -47,7 +48,7 @@ export async function generateMetadata({
       description,
       image: tQuivr
         ? {
-            path: QUIVR_OG_IMAGE.url,
+            path: QUIVR_OG_IMAGE.url[locale === "en" ? "en" : "fr"],
             width: QUIVR_OG_IMAGE.width,
             height: QUIVR_OG_IMAGE.height,
             alt: tQuivr("product.alt"),
@@ -67,12 +68,10 @@ export default async function PortfolioProjectPage({
   const t = await getTranslations({ locale, namespace: "portfolio" });
   const project = getProject(slug, locale as ContentLocale);
   if (!project) notFound();
-
-  // Quivr gets a full product page instead of the shared template. Its live
-  // GitHub star count is cached for an hour (see getQuivrStars).
-  if (slug === QUIVR_SLUG) {
-    return <QuivrPage locale={locale} stars={await getQuivrStars()} />;
-  }
+  // Quivr is an engine with an API, so on top of the shared template its
+  // product is drawn in code (QuivrFeedMock) and explained further down
+  // (QuivrSections).
+  const isQuivr = slug === QUIVR_SLUG;
 
   const meta = [
     { value: project.status, label: t("statusLabel") },
@@ -123,8 +122,10 @@ export default async function PortfolioProjectPage({
         <section className="border-y border-border bg-background">
           <div className="mx-auto grid max-w-[80rem] grid-cols-3 gap-px bg-border px-0">
             {meta.map((item) => (
-              <div key={item.label} className="flex flex-col gap-1 bg-background p-6 md:p-8">
-                <div className="text-[22px] font-bold leading-tight tracking-[-0.02em] text-foreground md:text-[28px]">
+              <div key={item.label} className="flex min-w-0 flex-col gap-1 bg-background p-4 sm:p-6 md:p-8">
+                {/* Long type words ("Bibliothèque", "Recherche") hyphenate on
+                    phones instead of pushing the band past the screen. */}
+                <div className="hyphens-auto break-words text-[20px] font-bold leading-tight tracking-[-0.02em] text-foreground sm:text-[22px] md:text-[28px]">
                   {item.value}
                 </div>
                 <div className="mt-1 text-sm leading-snug text-muted-foreground">
@@ -148,7 +149,9 @@ export default async function PortfolioProjectPage({
                 : undefined
             }
           >
-            {project.cover ? (
+            {isQuivr ? (
+              <QuivrFeedMock locale={locale} accent={project.accent} />
+            ) : project.cover ? (
               <div className="self-start overflow-hidden border border-foreground">
                 <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -186,6 +189,8 @@ export default async function PortfolioProjectPage({
             </span>
           </a>
         </section>
+
+        {isQuivr ? <QuivrSections locale={locale} /> : null}
 
         <FinalCTA rail="narrow" />
       </main>

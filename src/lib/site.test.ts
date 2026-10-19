@@ -15,9 +15,9 @@ describe("localizedSocialMetadata", () => {
       path: "/portfolio/quivr",
       title: "T",
       description: "D",
-      image: { path: "/projects/quivr-og.jpg", width: 1200, height: 630, alt: "Alt" },
+      image: { path: "/projects/quivr-og-fr.jpg", width: 1200, height: 630, alt: "Alt" },
     });
-    const url = "https://www.thevibecompany.co/projects/quivr-og.jpg";
+    const url = "https://www.thevibecompany.co/projects/quivr-og-fr.jpg";
     expect(meta.openGraph).toMatchObject({
       images: [{ url, width: 1200, height: 630, alt: "Alt" }],
     });

@@ -448,56 +448,101 @@
   },
   "quivr": {
     "metaTitle": "Quivr : recherche et veille open source sur l’actualité",
-    "metaDescription": "Quivr par The Vibe Company (YC W24) : un moteur open source qui suit articles, e-mails et posts au fil de l’eau, les rend cherchables et vous alerte sur vos sujets.",
-    "hero": {
-      "kicker": "Open source · MIT · Go",
-      "titleLead": "Quivr V2",
-      "titleRest": "par The Vibe Company",
-      "lead": "Quivr suit les articles, les e-mails et les posts au fil de l’eau, les rend cherchables en quelques secondes, et vous prévient quand un sujet que vous suivez apparaît.",
-      "forWhom": "Pensé pour les équipes qui construisent un outil de rédaction, un service de veille média ou un assistant de recherche.",
-      "cta": "Parler de Quivr avec nous",
-      "repo": "Voir sur GitHub",
-      "docs": "Lire la doc",
-      "stars": "étoiles sur GitHub",
-      "status": "Phase d’évaluation · API v0",
-      "flow": {
-        "title": "Comment marche Quivr",
-        "in": "Entrée",
-        "out": "Sortie",
-        "sources": [
-          "Flux d’actu",
-          "Boîtes mail",
-          "Listes X",
-          "Votre app"
-        ],
-        "core": "Quivr",
-        "coreNote": "Garde chaque version · cherche · surveille vos sujets",
-        "outputs": [
-          "Recherche",
-          "Alertes",
-          "Webhooks",
-          "Agents IA"
-        ]
-      },
-      "statsApi": "API · évaluation",
-      "statsStack": "PostgreSQL · S3 · Temporal"
-    },
+    "metaDescription": "Quivr par The Vibe Company (YC W24) : un moteur open source qui suit articles, e-mails et posts au fil de l’eau, les indexe pour la recherche et vous alerte sur vos sujets.",
     "product": {
-      "alt": "Interface de Quivr V2 : fil d’actualité en temps réel, filtres et sujets du moment",
-      "label": "Quivr V2 · Fil",
-      "caption": "L’app web de Quivr V2 : le fil en direct, ses filtres, les sujets du moment et les 7 derniers jours."
-    },
-    "status": {
-      "facts": {
-        "license": "Licence",
-        "apiValue": "v0"
+      "alt": "Interface de Quivr V2 : un fil d’articles en direct avec ses filtres, deux articles signalés par une alerte sur la grève portuaire, et les sujets du moment.",
+      "caption": "Illustration de l’app web de Quivr V2, avec des articles d’exemple : le fil en direct, ses filtres, une alerte et les sujets du moment.",
+      "mock": {
+        "title": "Fil",
+        "live": "En direct",
+        "search": "Rechercher un mot, un lieu, une personne…",
+        "filters": {
+          "all": "Tout",
+          "unread": "Non lus",
+          "date": "Date",
+          "alerts": "Alertes",
+          "sources": "Sources"
+        },
+        "markRead": "Tout marquer comme lu",
+        "group": "Dernière heure",
+        "alertTag": "Alerte",
+        "correctedTag": "Corrigé",
+        "items": [
+          {
+            "title": "La [grève portuaire] bloque le premier [ferry] du matin",
+            "source": "Flux d’actu · Transports",
+            "time": "il y a 2 min"
+          },
+          {
+            "title": "Les dockers du [port] reconduisent la [grève portuaire] jusqu’à vendredi",
+            "source": "Boîte mail · Revue de presse",
+            "time": "il y a 6 min"
+          },
+          {
+            "title": "Fret : les transporteurs réorganisent leurs tournées",
+            "source": "Liste X · Logistique",
+            "time": "il y a 9 min"
+          },
+          {
+            "title": "Le prix du gazole recule pour la troisième semaine",
+            "source": "Flux d’actu · Économie",
+            "time": "il y a 14 min"
+          },
+          {
+            "title": "Un entrepôt automatisé ouvre près de la gare de triage",
+            "source": "Votre app · Notes terrain",
+            "time": "il y a 21 min"
+          },
+          {
+            "title": "Météo marine : coup de vent attendu en fin de journée",
+            "source": "Flux d’actu · Météo",
+            "time": "il y a 27 min"
+          },
+          {
+            "title": "Le terminal à conteneurs teste un portique électrique",
+            "source": "Liste X · Logistique",
+            "time": "il y a 34 min"
+          },
+          {
+            "title": "Les ventes de vélos cargo progressent chez les artisans",
+            "source": "Flux d’actu · Économie",
+            "time": "il y a 41 min"
+          }
+        ],
+        "trending": {
+          "title": "Sujets du moment",
+          "period": "7 derniers jours",
+          "topics": [
+            "Grève portuaire",
+            "Ferry",
+            "Dockers",
+            "Fret",
+            "Gazole",
+            "Météo marine",
+            "Conteneurs",
+            "Entrepôts"
+          ]
+        },
+        "week": {
+          "title": "7 derniers jours",
+          "total": "{count} articles",
+          "days": [
+            "ven.",
+            "sam.",
+            "dim.",
+            "lun.",
+            "mar.",
+            "hier",
+            "auj."
+          ]
+        }
       }
     },
     "diagrams": {
       "flow": {
         "kicker": "Comment ça marche",
         "title": "Tout entre. Rien ne se perd.",
-        "caption": "Chaque version est gardée, cherchable en quelques secondes et comparée à vos sujets.",
+        "caption": "Chaque version est gardée, indexée pour être retrouvée en quelques secondes, puis comparée à vos sujets.",
         "label": "Schéma animé : les sources arrivent dans Quivr, qui renvoie des résultats de recherche, des alertes, des webhooks et des réponses aux agents IA.",
         "sources": [
           "Flux d’actu",
@@ -507,7 +552,7 @@
         ],
         "core": [
           "Garde chaque version",
-          "Rend cherchable",
+          "Indexe pour la recherche",
           "Surveille vos sujets"
         ],
         "outputs": [
@@ -528,86 +573,6 @@
             "note": "via MCP"
           }
         ]
-      },
-      "alert": {
-        "kicker": "Exemple",
-        "title": "Une alerte qui s’explique.",
-        "caption": "D’après l’exemple de la doc Quivr : suivre une grève portuaire.",
-        "label": "Exemple animé : un article qui correspond à une alerte arrive, Quivr explique pourquoi et envoie un webhook signé à votre app.",
-        "steps": [
-          "Alerte enregistrée",
-          "L’article arrive",
-          "Quivr explique la correspondance",
-          "Webhook signé vers votre app"
-        ],
-        "alertLabel": "Votre alerte",
-        "query": "\"grève portuaire\" AND (ferry OR port)",
-        "articleLabel": "Nouvel article",
-        "headline": [
-          {
-            "text": "La "
-          },
-          {
-            "text": "grève portuaire",
-            "hit": true
-          },
-          {
-            "text": " bloque le "
-          },
-          {
-            "text": "ferry",
-            "hit": true
-          }
-        ],
-        "match": "Correspondance",
-        "reason": "« grève portuaire » et « ferry » dans le titre et le texte",
-        "appLabel": "Votre app",
-        "webhook": "Webhook signé",
-        "received": "Alerte reçue",
-        "watching": "Surveille les nouveaux articles…",
-        "waiting": "En attente d’alertes"
-      },
-      "plugins": {
-        "kicker": "Architecture",
-        "title": "Un cœur générique. Tout le spécifique est un plugin.",
-        "caption": "Sources, formats, modèles et règles métier sont de petits services HTTP que Quivr appelle. Remplacez-les, ou écrivez les vôtres.",
-        "label": "Schéma animé : les plugins RSS, Microsoft 365, listes X, NewsML-G2, PDF et le vôtre se branchent sur le cœur générique de Quivr.",
-        "coreTitle": "Cœur Quivr",
-        "coreNote": "Générique",
-        "roles": {
-          "source": "Source",
-          "format": "Format",
-          "yours": "Le vôtre"
-        },
-        "xLists": "Listes X",
-        "yours": "Votre plugin",
-        "link": "Comment marchent les plugins"
-      },
-      "timeline": {
-        "kicker": "Historique",
-        "title": "De Quivr V1 à Quivr V2",
-        "items": {
-          "v1": {
-            "label": "V1 · 2023",
-            "title": "Un « second cerveau » RAG open source"
-          },
-          "yc": {
-            "label": "YC W24",
-            "title": "Passé par Y Combinator"
-          },
-          "tvc": {
-            "label": "2026",
-            "title": "Quivr devient The Vibe Company"
-          },
-          "v2": {
-            "label": "V2 · aujourd’hui",
-            "title": "Un moteur de flux de contenus, en évaluation (API v0)"
-          }
-        },
-        "stars": "{stars} étoiles sur GitHub",
-        "v1Link": "Parcourir Quivr V1 (v1-final)",
-        "storyLink": "Lire l’histoire",
-        "quickstart": "Essayer la V2 (Quickstart)"
       }
     },
     "services": {
@@ -662,13 +627,6 @@
           "a": "Pour les questions et les bugs, utilisez les issues et les discussions du dépôt GitHub. Pour des plugins métier, préparer un passage en production ou un hébergement selon les exigences HDS pour les données de santé, The Vibe Company peut vous accompagner en prestation : prenez rendez-vous."
         }
       }
-    },
-    "finalCta": {
-      "kicker": "Quivr V2",
-      "titleLine1": "Vos flux,",
-      "titleLine2": "cherchables.",
-      "cta": "Parler de Quivr avec nous",
-      "repo": "Mettre une étoile sur GitHub"
     }
   }
 }

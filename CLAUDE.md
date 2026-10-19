@@ -197,7 +197,7 @@ The image optimization system must stay lossless, source-preserving, and idempot
 
 The optimizer memoizes encoder results in `src/generated/image-optimize-cache.json`. The cache is committed, but must never be imported by app code because it contains source and target hashes that are only useful to the script. Cache keys use `${kind}:${sourceUrl}`. A cache entry with `targetUrl: null` means the generated variant was not smaller than the source, so the manifest should not point to a variant. If Sharp encoding settings change, bump `ENCODER_VERSION` in `scripts/optimize-images.ts` to invalidate old cache entries. Deleting the cache is safe; it only forces a full re-encode that should converge back to the same generated variants.
 
-The Quivr product images (on-page AVIF/WebP and the 1200x630 OG card) are derived from the raw capture `public/projects/quivr-v2-product-feed.png` by `bun scripts/build-quivr-images.ts` (deterministic; commit its outputs).
+The Quivr project page draws its web app in code (`src/components/quivr/QuivrFeedMock.tsx`, sample articles only). Its 1200x630 OG cards `public/projects/quivr-og-{fr,en}.jpg` are captures of that mock: re-run `./scripts/capture-quivr-og.sh` (needs the dev server) whenever the mock or its copy changes, and commit both images.
 
 To verify image budgets without rewriting files, run:
 
