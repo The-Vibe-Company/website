@@ -41,6 +41,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/automatisation-ia-entreprise/cover-mascotte.webp": {
+      "sourceHash": "f62cc1a50de1de3b1dcba623070c52f1ec52c95116f45d4db2cd43d2977147cb",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp": {
       "sourceHash": "4e6943e70dccf101685b31b975bde6d126ae5cd2fb7f5c5a22ed07642c070c3e",
       "targetUrl": null,
@@ -318,6 +323,11 @@
     },
     "og:/images/resources/ai-music-with-an-artist/cover-mascotte.webp": {
       "sourceHash": "8254e9d216efea3dcbc7cb885483882b5f225370b4f23fe1cf2b4d849ad620ae",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/automatisation-ia-entreprise/cover-mascotte.webp": {
+      "sourceHash": "f62cc1a50de1de3b1dcba623070c52f1ec52c95116f45d4db2cd43d2977147cb",
       "targetUrl": null,
       "targetHash": null
     },
