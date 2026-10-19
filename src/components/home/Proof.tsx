@@ -105,7 +105,6 @@ export function Proof() {
                   key={`${copy}-${p.slug}`}
                   data-card
                   aria-hidden={copy !== 1 || undefined}
-                  inert={copy !== 1 || undefined}
                   className={CARD_WIDTH}
                 >
                   <Link

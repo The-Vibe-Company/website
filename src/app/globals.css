@@ -198,15 +198,8 @@
   50% { transform: translateY(5px); }
 }
 
-/* Quivr page: a dot runs down each connector of the hero's flow card. */
-@keyframes quivr-flow {
-  from { transform: translateY(0); opacity: 0; }
-  30% { opacity: 1; }
-  to { transform: translateY(21px); opacity: 0; }
-}
-
-/* Quivr page diagrams (src/components/quivr/QuivrDiagrams.tsx). Transform and
-   opacity only; each runs only while its diagram is on screen. */
+/* Quivr page diagram (src/components/quivr/QuivrDiagrams.tsx). Transform and
+   opacity only; each runs only while the diagram is on screen. */
 @keyframes quivr-stream-x {
   0% { transform: translateX(-100%); opacity: 0; }
   8% { opacity: 1; }
@@ -231,11 +224,6 @@
 @keyframes quivr-blink {
   0%, 100% { opacity: 0.25; }
   50% { opacity: 1; }
-}
-
-@keyframes quivr-halo {
-  from { transform: scale(1); opacity: 0.5; }
-  to { transform: scale(1.06); opacity: 0; }
 }
 
 /* -----------------------------------------------------------------------------

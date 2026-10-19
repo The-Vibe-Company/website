@@ -174,13 +174,12 @@ const PROJECTS_RAW: RawProject[] = [
     },
   },
   {
-    // The open-source engine the company grew out of, rebuilt as V2. It has
-    // its own product page (src/components/quivr/QuivrPage.tsx); the cover is
-    // the Quivr V2 web app (scripts/build-quivr-images.ts).
+    // The open-source engine the company grew out of, rebuilt as V2. No
+    // cover: its page draws the web app in code (QuivrFeedMock) and adds
+    // QuivrSections under the shared template.
     slug: "quivr",
     name: "Quivr",
     logo: "/projects/quivr-favicon.svg",
-    cover: "/projects/quivr-v2-product-feed-1200.webp",
     accent: "#5b3fd6",
     url: "https://github.com/The-Vibe-Company/quivr",
     repositoryUrl: "https://github.com/The-Vibe-Company/quivr",
@@ -189,7 +188,7 @@ const PROJECTS_RAW: RawProject[] = [
     status: { en: "Open source", fr: "Open source" },
     description: {
       en: "Quivr follows news, emails and social posts as they arrive, makes them searchable in seconds, and alerts you when a topic you follow comes up.",
-      fr: "Quivr suit les articles, les e-mails et les posts au fil de l’eau, les rend cherchables en quelques secondes, et vous prévient quand un sujet que vous suivez apparaît.",
+      fr: "Quivr suit les articles, les e-mails et les posts au fil de l’eau, les indexe pour qu’on les retrouve en quelques secondes, et vous prévient quand un sujet que vous suivez apparaît.",
     },
   },
 ];
