@@ -7,7 +7,13 @@ import { useEffect, useRef } from "react";
 export const LOOP_ARROW_CLASS =
   "hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center self-center border-2 border-border text-orange-500 transition-colors hover:border-orange-500 hover:bg-orange-500 hover:text-background sm:flex";
 
-/** Copies of the card set rendered in the track; only the middle one is interactive. */
+/**
+ * Copies of the card set rendered in the track. Only the middle one is in the
+ * tab order and the accessibility tree (render the others with aria-hidden and
+ * tabIndex={-1}), but every copy stays clickable: scrolling by hand can stop
+ * with clone cards on screen, so never make them `inert`, which also drops
+ * their clicks.
+ */
 export const LOOP_COPIES = [0, 1, 2] as const;
 
 /** Width of one copy of the card set, or 0 before the track has laid out. */

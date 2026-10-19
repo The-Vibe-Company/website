@@ -397,7 +397,6 @@ export function CaseStudy() {
                   key={`${copy}-${c.slug}`}
                   data-card
                   aria-hidden={copy !== 1 || undefined}
-                  inert={copy !== 1 || undefined}
                   className={CARD_WIDTH}
                 >
                   <CaseStudyCard c={c} t={t} clone={copy !== 1} />
