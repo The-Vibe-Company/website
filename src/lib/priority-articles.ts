@@ -1,4 +1,4 @@
-/** Editorial order shared by the home links and the resources article cards. */
+/** Articles linked from the homepage footer (internal links, not a listing order). */
 export const PRIORITY_ARTICLES = {
   fr: [
     { key: 'chooseAgency', slug: 'choisir-agence-ia-esn-freelance' },
