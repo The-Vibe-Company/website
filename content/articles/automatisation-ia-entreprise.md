@@ -103,6 +103,8 @@ Notre façon de faire pour une automatisation :
 
 Pour la suite du parcours, deux lectures utiles : notre [checklist pour passer d'un POC d'agent IA à la production](https://www.thevibecompany.co/fr/resources/articles/poc-agent-ia-production), et notre panorama pour [financer un projet IA (CIR, CII, Diag Data IA, France 2030)](https://www.thevibecompany.co/fr/resources/articles/financer-projet-ia-cir-cii-france-2030). Si vous hésitez encore sur le prestataire, voici [comment choisir entre agence IA, ESN, freelance ou équipe interne](https://www.thevibecompany.co/fr/resources/articles/choisir-agence-ia-esn-freelance).
 
+Pour la vue d'ensemble (outils, mémoire, autorité, mesure), lisez notre [guide de l'agent IA en entreprise](https://www.thevibecompany.co/fr/resources/articles/agent-ia-entreprise).
+
 ## FAQ
 
 **Faut-il un agent IA pour automatiser un processus ?**

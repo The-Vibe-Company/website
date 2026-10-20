@@ -103,6 +103,8 @@ How we run an automation project:
 
 For the next steps, two useful reads: our [checklist for taking an AI agent from POC to production](https://www.thevibecompany.co/en/resources/articles/ai-agent-poc-to-production), and our overview of [how to fund an AI project in France (CIR, CII, Diag Data IA, France 2030)](https://www.thevibecompany.co/en/resources/articles/fund-ai-project-france-cir-cii). If you are still choosing a partner, here is [how to choose an AI agency](https://www.thevibecompany.co/en/resources/articles/how-to-choose-an-ai-agency).
 
+For the big picture (tools, memory, authority, measurement), read our [practical guide to AI agents for business](https://www.thevibecompany.co/en/resources/articles/ai-agents-for-business).
+
 ## FAQ
 
 **Do you need an AI agent to automate a process?**

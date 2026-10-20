@@ -6,6 +6,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/agent-ia-entreprise/cover-mascotte.webp": {
+      "sourceHash": "f6a969f676d8008cb45e6731cedfd0e509dcdf054bef861f5564ae1b8a76c845",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/agent-ia-support-client/cover-mascotte-v3.webp": {
       "sourceHash": "cf1f3963f444f101f7528f267d6ec30e8cd3ab5ebdf24893865628f0b4431061",
       "targetUrl": null,
@@ -303,6 +308,11 @@
     },
     "og:/images/resources/agence-ia-native/cover-mascotte.webp": {
       "sourceHash": "897c6a1baf12d3dab4ae5630c97f74fa013765f1cf8705d36c5e8a0ada1eb776",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/agent-ia-entreprise/cover-mascotte.webp": {
+      "sourceHash": "f6a969f676d8008cb45e6731cedfd0e509dcdf054bef861f5564ae1b8a76c845",
       "targetUrl": null,
       "targetHash": null
     },

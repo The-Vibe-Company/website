@@ -83,6 +83,8 @@ What that proves better than a demo:
 - a measurable usage metric (87% of drafts used);
 - natural escalation (human validation before send).
 
+For the big picture (tools, memory, authority, measurement), read our [practical guide to AI agents for business](https://www.thevibecompany.co/en/resources/articles/ai-agents-for-business).
+
 ## FAQ
 
 **How long does it take to go from POC to production?**

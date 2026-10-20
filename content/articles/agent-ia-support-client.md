@@ -82,6 +82,8 @@ The Vibe Company a été fondée en 2024 par Stan Girard et Antoine Dewez (ex-Th
 
 Notre façon de faire : partir de vos données réelles, livrer vite quelque chose que vos équipes utilisent, et mesurer l'usage plutôt que la démo.
 
+Pour la vue d'ensemble (outils, mémoire, autorité, mesure), lisez notre [guide de l'agent IA en entreprise](https://www.thevibecompany.co/fr/resources/articles/agent-ia-entreprise).
+
 ## FAQ
 
 **Un agent IA peut-il remplacer mon équipe support ?**
