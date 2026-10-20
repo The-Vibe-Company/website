@@ -25,7 +25,6 @@ export interface ArticleCardItem {
   translations?: TranslationLink[];
   seriesDay?: number;
   focus?: boolean;
-  priority?: boolean;
   tool?: boolean;
   image: { url: string; alt: string } | null;
 }
@@ -90,11 +89,6 @@ function ArticleCard({ item, hidden = false }: { item: ArticleCardItem; hidden?:
           {item.seriesDay != null && (
             <span className="inline-flex items-center rounded border border-orange-500/40 bg-orange-500/10 px-1.5 py-0.5 text-orange-600 tracking-wider">
               D{item.seriesDay}
-            </span>
-          )}
-          {item.priority && (
-            <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
-              {t('startHere')}
             </span>
           )}
           {item.focus && (
