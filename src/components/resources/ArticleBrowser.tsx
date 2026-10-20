@@ -25,6 +25,7 @@ export interface ArticleCardItem {
   translations?: TranslationLink[];
   seriesDay?: number;
   focus?: boolean;
+  priority?: boolean;
   tool?: boolean;
   image: { url: string; alt: string } | null;
 }
@@ -49,12 +50,13 @@ function formatDate(dateString: string | undefined, locale: string): string {
  * it through an overlay pseudo-element, which keeps the markup free of nested
  * anchors; the switch sits above that overlay.
  */
-function ArticleCard({ item }: { item: ArticleCardItem }) {
+function ArticleCard({ item, hidden = false }: { item: ArticleCardItem; hidden?: boolean }) {
   const t = useTranslations('resources');
   const locale = useLocale();
   return (
     <article
-      className={`group relative flex h-[132px] gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
+      hidden={hidden}
+      className={`group relative ${hidden ? 'hidden' : 'flex'} h-[132px] gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
     >
       <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded">
         {item.image ? (
@@ -88,6 +90,11 @@ function ArticleCard({ item }: { item: ArticleCardItem }) {
           {item.seriesDay != null && (
             <span className="inline-flex items-center rounded border border-orange-500/40 bg-orange-500/10 px-1.5 py-0.5 text-orange-600 tracking-wider">
               D{item.seriesDay}
+            </span>
+          )}
+          {item.priority && (
+            <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
+              {t('startHere')}
             </span>
           )}
           {item.focus && (
@@ -162,11 +169,9 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
   const showOthers = filter !== 'victor' && others.length > 0;
   const single = filter !== 'all';
 
-  const visibleVictor = filter === 'all' ? victorStory.slice(0, VICTOR_PREVIEW_LIMIT) : victorStory;
-  const hiddenVictor = victorStory.length - visibleVictor.length;
+  const hiddenVictor = filter === 'all' ? Math.max(0, victorStory.length - VICTOR_PREVIEW_LIMIT) : 0;
 
-  const visibleOthers = filter === 'all' ? others.slice(0, ARTICLES_PREVIEW_LIMIT) : others;
-  const hiddenOthers = others.length - visibleOthers.length;
+  const hiddenOthers = filter === 'all' ? Math.max(0, others.length - ARTICLES_PREVIEW_LIMIT) : 0;
 
   const tabs: { key: Filter; label: string; dot?: boolean }[] = [
     { key: 'all', label: t('all') },
@@ -236,8 +241,8 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
               ) : null
             }
           >
-            {visibleVictor.map((item) => (
-              <ArticleCard key={item.id} item={item} />
+            {victorStory.map((item, index) => (
+              <ArticleCard key={item.id} item={item} hidden={filter === 'all' && index >= VICTOR_PREVIEW_LIMIT} />
             ))}
           </Column>
         )}
@@ -260,8 +265,8 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
               ) : null
             }
           >
-            {visibleOthers.map((item) => (
-              <ArticleCard key={item.id} item={item} />
+            {others.map((item, index) => (
+              <ArticleCard key={item.id} item={item} hidden={filter === 'all' && index >= ARTICLES_PREVIEW_LIMIT} />
             ))}
           </Column>
         )}

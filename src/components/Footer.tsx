@@ -3,6 +3,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
+import { PRIORITY_ARTICLES } from "@/lib/priority-articles";
 import { ABOUT_PATHS, splitPath } from "@/lib/site";
 
 interface NavLink {
@@ -53,7 +54,7 @@ function FooterLink({ link }: { link: NavLink }) {
   );
 }
 
-export function Footer() {
+export function Footer({ showPriorityArticles = false }: { showPriorityArticles?: boolean }) {
   const locale = useLocale();
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
@@ -68,6 +69,12 @@ export function Footer() {
     { label: t("portfolio"), href: "/portfolio" },
     { label: tNav("caseStudies"), href: "/case-studies" },
     { label: t("resources"), href: "/resources" },
+    ...(showPriorityArticles
+      ? PRIORITY_ARTICLES[locale === "fr" ? "fr" : "en"].map(({ key, slug }) => ({
+          label: t(`priorityArticles.${key}`),
+          href: `/resources/articles/${slug}`,
+        }))
+      : []),
   ];
 
   return (
