@@ -83,6 +83,8 @@ Ce que ça prouve mieux qu'une démo :
 - un critère d'usage mesurable (87 % de brouillons utilisés) ;
 - une escalade naturelle (validation humaine avant envoi).
 
+Pour la vue d'ensemble (outils, mémoire, autorité, mesure), lisez notre [guide de l'agent IA en entreprise](https://www.thevibecompany.co/fr/resources/articles/agent-ia-entreprise).
+
 ## FAQ
 
 **Combien de temps faut-il pour passer d'un POC à la production ?**

@@ -82,6 +82,8 @@ The Vibe Company was founded in 2024 by Stan Girard and Antoine Dewez (ex-Theodo
 
 How we work: start from your real data, ship something your team actually uses, quickly, and measure usage rather than the demo.
 
+For the big picture (tools, memory, authority, measurement), read our [practical guide to AI agents for business](https://www.thevibecompany.co/en/resources/articles/ai-agents-for-business).
+
 ## FAQ
 
 **Can an AI agent replace my support team?**
