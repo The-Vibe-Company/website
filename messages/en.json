@@ -193,6 +193,11 @@
     "emailLabel": "EMAIL"
   },
   "footer": {
+    "priorityArticles": {
+      "chooseAgency": "How to choose an AI agency",
+      "healthData": "AI and health data (HDS) in France",
+      "aiNative": "What is an AI-native agency"
+    },
     "tagline": "An AI native agency. Paris.",
     "siteHeading": "SITE",
     "elsewhereHeading": "ELSEWHERE",
@@ -222,6 +227,7 @@
     "next": "Next"
   },
   "resources": {
+    "startHere": "Pinned",
     "kicker": "Resources",
     "title": "Articles & essays.",
     "subtitle": "What we are learning and building with AI at The Vibe Company, plus Victor's Story along the way.",

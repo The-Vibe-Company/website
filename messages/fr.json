@@ -193,6 +193,11 @@
     "emailLabel": "EMAIL"
   },
   "footer": {
+    "priorityArticles": {
+      "chooseAgency": "Comment choisir une agence IA",
+      "healthData": "IA et données de santé (HDS)",
+      "aiNative": "Qu’est-ce qu’une agence IA native"
+    },
     "tagline": "Une agence née avec l'IA. Paris.",
     "siteHeading": "SITE",
     "elsewhereHeading": "RÉSEAUX",
@@ -222,6 +227,7 @@
     "next": "Suivant"
   },
   "resources": {
+    "startHere": "Priorité",
     "kicker": "Ressources",
     "title": "Articles & essais.",
     "subtitle": "Ce qu’on apprend et construit avec l’IA chez The Vibe Company, ainsi que la Victor’s Story au passage.",
