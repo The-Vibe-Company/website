@@ -20,7 +20,7 @@ Ce guide sert à éviter de faire partie des 40 %. On y voit quand un agent se j
 
 ## Agent, assistant, automatisation : ne pas tout appeler agent
 
-Le même Gartner résume bien la règle : des agents quand il faut prendre des décisions, de l'automatisation pour les tâches routinières, des assistants pour la simple recherche d'information. Beaucoup de cas présentés comme agentiques n'en ont pas besoin.
+Gartner donne une règle simple : des agents quand il faut prendre des décisions, de l'automatisation pour les tâches routinières, des assistants pour la simple recherche d'information. Beaucoup de cas présentés comme agentiques n'en ont pas besoin.
 
 | Ce qu'il vous faut | Comment ça marche | Exemple |
 | --- | --- | --- |
@@ -28,29 +28,29 @@ Le même Gartner résume bien la règle : des agents quand il faut prendre des d
 | Automatisation | Un parcours fixe, avec parfois une étape IA | Classer chaque facture et préparer l'écriture |
 | Agent | Choisit les étapes et les outils selon le cas | Instruire une demande en allant chercher les pièces dans trois outils |
 
-Un bon test : si vous pouvez dessiner le parcours sur un tableau blanc et qu'il est toujours le même, vous n'avez pas besoin d'un agent. Notre guide sur [les processus à automatiser en premier](https://www.thevibecompany.co/fr/resources/articles/automatisation-ia-entreprise) détaille ce choix.
+Un bon test : si vous pouvez dessiner le parcours sur un tableau blanc et qu'il est toujours le même, vous n'avez pas besoin d'un agent. Notre guide sur [les processus à automatiser en premier](/fr/resources/articles/automatisation-ia-entreprise) détaille ce choix.
 
 ## Les quatre briques d'un agent qui tient en production
 
-Le modèle (Claude, GPT, Mistral…) compte moins qu'on ne le croit. Ce qui fait la différence entre une démo et un agent utilisé tous les jours, ce sont quatre briques autour.
+Le modèle (Claude, GPT, Mistral…) compte moins qu'on ne le croit. Entre une démo et un agent utilisé tous les jours, la différence tient à quatre briques autour.
 
 ### 1. Les outils : brancher l'agent sur vos vrais systèmes
 
 Un agent ne vaut que par ce qu'il peut lire et faire. Branché sur un export figé, il répond à côté. Branché sur vos API, vos bases et vos outils métier, il travaille avec le vrai contexte.
 
-Chez [LocService](https://www.thevibecompany.co/fr/case-studies/locservice), plateforme de location entre particuliers qui reçoit plusieurs centaines de tickets par jour, l'assistant de support est connecté aux API internes. Il voit le vrai dossier du client avant de rédiger. C'est une des raisons pour lesquelles ses brouillons sont utilisés sur 87 % des tickets. Le détail est dans notre article sur [l'agent IA pour le support client](https://www.thevibecompany.co/fr/resources/articles/agent-ia-support-client).
+Chez [LocService](/fr/case-studies/locservice), plateforme de location entre particuliers qui reçoit plusieurs centaines de tickets par jour, l'assistant de support est connecté aux API internes. Il voit le vrai dossier du client avant de rédiger. C'est en partie pour ça que ses brouillons sont utilisés sur 87 % des tickets. Le détail est dans notre article sur [l'agent IA pour le support client](/fr/resources/articles/agent-ia-support-client).
 
 ### 2. La mémoire : ce que l'entreprise sait, pas seulement ce qu'elle stocke
 
 Donner à un agent l'accès au Drive ne suffit pas. Il lui faut les règles, les exceptions, le « pourquoi on fait comme ça ». Sans cette mémoire, il refait les erreurs que l'équipe a appris à éviter.
 
-Nos [skills](https://www.thevibecompany.co/fr/resources/articles/les-skills) servent à ça : des consignes écrites, versionnées, que l'agent charge quand il en a besoin. On a développé l'idée dans [Agents don't lack tools, they lack company memory](https://www.thevibecompany.co/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory).
+Nos [skills](/fr/resources/articles/les-skills) servent à ça : des consignes écrites, versionnées, que l'agent charge quand il en a besoin. On a développé l'idée dans [Agents don't lack tools, they lack company memory](/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory).
 
 ### 3. L'autorité : ce que l'agent a le droit de faire seul
 
-C'est la vraie question de sécurité. Un agent qui lit des données n'a pas le même risque qu'un agent qui envoie un mail à un client ou valide un paiement. On raisonne en quatre niveaux : lire, proposer, préparer, exécuter. On démarre bas, et on monte quand les chiffres le justifient.
+C'est là que se joue la sécurité. Un agent qui lit des données n'a pas le même risque qu'un agent qui envoie un mail à un client ou valide un paiement. On raisonne en quatre niveaux : lire, proposer, préparer, exécuter. On démarre bas, et on monte quand les chiffres le justifient.
 
-La règle la plus utile tient en une phrase : écrire ce que l'agent fait quand il ne sait pas. Dans notre compta, une ligne bancaire que l'IA ne reconnaît pas part dans « Autre », et un humain tranche ([le détail ici](https://www.thevibecompany.co/fr/resources/articles/focus-skill-compta-qonto)). Pour aller plus loin : [le vrai risque des agents IA, c'est l'autorité](https://www.thevibecompany.co/fr/resources/articles/agents-ia-formation-autorite).
+La règle la plus utile tient en une phrase : écrire ce que l'agent fait quand il ne sait pas. Dans notre compta, une ligne bancaire que l'IA ne reconnaît pas part dans « Autre », et un humain tranche ([le détail ici](/fr/resources/articles/focus-skill-compta-qonto)). Pour creuser : [le vrai risque des agents IA, c'est l'autorité](/fr/resources/articles/agents-ia-formation-autorite).
 
 ### 4. La mesure : prouver que l'agent sert à quelque chose
 
@@ -65,9 +65,9 @@ Sans chiffres, le deuxième agent ne sera jamais financé. Avant de lancer, on n
 Dans les entreprises moyennes et grandes, les premiers agents qui tiennent ont souvent le même profil : beaucoup de volume, des données accessibles, et un humain qui valide déjà le travail.
 
 - **Le support client** : l'agent lit le ticket, l'historique et la doc, puis prépare la réponse. L'humain envoie.
-- **Le contrôle de documents** : pour [Coup de Pates](https://www.thevibecompany.co/fr/case-studies/coup-de-pates), une bibliothèque de skills vérifie les documents produit. L'IA pointe les écarts, l'équipe qualité décide.
-- **La veille et le tri** : notre [veille IA automatique](https://www.thevibecompany.co/fr/resources/articles/veille-ia-automatique) range chaque annonce dans un de quatre paniers, de l'alerte Slack immédiate à « rien ».
-- **Les agents de code** : déployer Claude Code ou Codex dans une équipe produit demande les mêmes briques (accès, règles, revue). On l'a expliqué dans [Claude Code en entreprise](https://www.thevibecompany.co/fr/resources/articles/deployer-claude-code-entreprise).
+- **Le contrôle de documents** : pour [Coup de Pates](/fr/case-studies/coup-de-pates), une bibliothèque de skills vérifie les documents produit. L'IA pointe les écarts, l'équipe qualité décide.
+- **La veille et le tri** : notre [veille IA automatique](/fr/resources/articles/veille-ia-automatique) range chaque annonce dans un de quatre paniers, de l'alerte Slack immédiate à « rien ».
+- **Les agents de code** : déployer Claude Code ou Codex dans une équipe produit demande les mêmes briques (accès, règles, revue). On l'a expliqué dans [Claude Code en entreprise](/fr/resources/articles/deployer-claude-code-entreprise).
 
 Ce qu'on garde pour plus tard : les décisions irréversibles, les processus que personne ne sait décrire, et les données qui vivent dans des mails et des têtes.
 
@@ -79,17 +79,17 @@ Ce qu'on garde pour plus tard : les décisions irréversibles, les processus que
 4. **Mettre en production petit**, avec une équipe pilote qui l'utilise vraiment, et un journal de chaque action.
 5. **Mesurer, puis élargir** l'autonomie ou le périmètre quand les chiffres le montrent.
 
-Le passage du pilote à la production est l'endroit où la plupart des projets cassent. On a écrit une [checklist complète du POC à la production](https://www.thevibecompany.co/fr/resources/articles/poc-agent-ia-production) pour cette étape.
+C'est entre le pilote et la production que la plupart des projets cassent. On a écrit une [checklist complète du POC à la production](/fr/resources/articles/poc-agent-ia-production) pour cette étape.
 
-### Données sensibles et financement
+## Données sensibles et financement
 
-Si vos données sont des données de santé, le cadre change : hébergement, accès, traçabilité. Notre guide [IA et données de santé (HDS)](https://www.thevibecompany.co/fr/resources/articles/ia-donnees-de-sante-hds) liste ce qu'il faut vérifier. Côté budget, certains dispositifs publics peuvent aider : voir [financer un projet IA (CIR, CII, Diag Data IA, France 2030)](https://www.thevibecompany.co/fr/resources/articles/financer-projet-ia-cir-cii-france-2030).
+Si vos données sont des données de santé, le cadre change : hébergement, accès, traçabilité. Notre guide [IA et données de santé (HDS)](/fr/resources/articles/ia-donnees-de-sante-hds) liste ce qu'il faut vérifier. Côté budget, certains dispositifs publics peuvent aider : voir [financer un projet IA (CIR, CII, Diag Data IA, France 2030)](/fr/resources/articles/financer-projet-ia-cir-cii-france-2030).
 
 ## Construire en interne ou se faire accompagner
 
-Les deux marchent. L'interne a l'avantage de connaître les processus. Il lui manque souvent l'expérience des pièges propres aux agents : droits trop larges, mémoire absente, pas de mesure. Un prestataire apporte cette expérience, à condition qu'il livre en production et transmette ce qu'il fait. Notre comparatif [agence IA, ESN, freelance ou équipe interne](https://www.thevibecompany.co/fr/resources/articles/choisir-agence-ia-esn-freelance) aide à trancher.
+Les deux marchent. Une équipe interne connaît les processus. Ce qui lui manque souvent, c'est l'expérience des pièges propres aux agents : droits trop larges, mémoire absente, pas de mesure. Un prestataire apporte cette expérience, à condition qu'il livre en production et transmette ce qu'il fait. Notre comparatif [agence IA, ESN, freelance ou équipe interne](/fr/resources/articles/choisir-agence-ia-esn-freelance) aide à trancher.
 
-[The Vibe Company](https://www.thevibecompany.co/fr) est une [agence IA native](https://www.thevibecompany.co/fr/resources/articles/agence-ia-native) fondée à Paris en 2024 par Stan Girard et Antoine Dewez, passée par Y Combinator (W24). On construit des agents branchés sur les vrais systèmes de nos clients, de l'assistant support de LocService aux produits livrés pour [Monka](https://www.thevibecompany.co/fr/case-studies/monka), mis en production en deux mois dans un environnement de données de santé déjà en place. Et on forme les équipes pour qu'elles fassent évoluer l'agent sans nous.
+[The Vibe Company](/fr) est une [agence IA native](/fr/resources/articles/agence-ia-native) fondée à Paris en 2024 par Stan Girard et Antoine Dewez. Avant l'agence, ils ont construit Quivr, un projet open source d'IA passé par Y Combinator (W24). On construit des agents branchés sur les vrais systèmes de nos clients, de l'assistant support de LocService aux produits livrés pour [Monka](/fr/case-studies/monka), mis en production en deux mois dans un environnement de données de santé déjà en place. Et on forme les équipes pour qu'elles fassent évoluer l'agent sans nous.
 
 ## FAQ
 

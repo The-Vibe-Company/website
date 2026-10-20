@@ -14,13 +14,13 @@ ogImage: /images/resources/agent-ia-entreprise/cover-mascotte.webp
 
 An AI agent for business is a program that gets a goal, picks its own steps, and acts in your tools to reach it: it reads a case file, queries the CRM, drafts a reply, opens a ticket. A chatbot answers. An agent does.
 
-It is also the most oversold topic of the moment. In June 2025, [Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) predicted that over 40% of agentic AI projects would be canceled by the end of 2027, because of rising costs, unclear business value or weak risk controls. It also estimated that only about 130 of the thousands of vendors calling themselves "agentic" were real.
+It's also the most oversold topic right now. In June 2025, [Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) predicted that over 40% of agentic AI projects would be canceled by the end of 2027, because of rising costs, unclear business value or weak risk controls. It also estimated that only about 130 of the thousands of vendors calling themselves "agentic" were real.
 
-This guide is about staying out of that 40%. When does an agent make sense, what does it need to survive production, and how do you launch the first one?
+This guide is about staying out of that 40%. It covers when an agent makes sense, what it needs to survive production, and how to launch the first one.
 
 ## Agent, assistant, automation: don't call everything an agent
 
-Gartner sums up the rule well: agents when decisions are needed, automation for routine workflows, assistants for simple retrieval. Many use cases sold as agentic don't need an agent at all.
+Gartner gives a simple rule: agents when decisions are needed, automation for routine workflows, assistants for simple retrieval. Many use cases sold as agentic don't need an agent at all.
 
 | What you need | How it works | Example |
 | --- | --- | --- |
@@ -28,27 +28,27 @@ Gartner sums up the rule well: agents when decisions are needed, automation for 
 | Automation | A fixed path, sometimes with one AI step | Classify each invoice and prepare the entry |
 | Agent | Picks steps and tools case by case | Process a request by pulling documents from three tools |
 
-A simple test: if you can draw the path on a whiteboard and it is always the same, you don't need an agent. Our guide on [which processes to automate first](https://www.thevibecompany.co/en/resources/articles/ai-automation-which-processes-first) covers that choice.
+A simple test: if you can draw the path on a whiteboard and it's always the same, you don't need an agent. Our guide on [which processes to automate first](/en/resources/articles/ai-automation-which-processes-first) covers that choice.
 
 ## The four building blocks of an agent that holds up in production
 
-The model (Claude, GPT, Mistral…) matters less than people think. What separates a demo from an agent people use every day is four blocks around it.
+The model (Claude, GPT, Mistral…) matters less than people think. What separates a demo from an agent people use every day is the four blocks around it.
 
 ### 1. Tools: connect the agent to your real systems
 
 An agent is only as good as what it can read and do. Fed a static export, it misses the point. Connected to your APIs, databases and business tools, it works with real context.
 
-At [LocService](https://www.thevibecompany.co/en/case-studies/locservice), a peer-to-peer rental platform that gets several hundred tickets a day, the support assistant is connected to internal APIs. It sees the customer's actual file before drafting. That is one reason its drafts are used on 87% of tickets. The full story is in our article on [AI agents for customer support](https://www.thevibecompany.co/en/resources/articles/ai-customer-support-agent).
+At [LocService](/en/case-studies/locservice), a peer-to-peer rental platform that gets several hundred tickets a day, the support assistant is connected to internal APIs. It sees the customer's actual file before drafting. That's part of why its drafts are used on 87% of tickets. The full story is in our article on [AI agents for customer support](/en/resources/articles/ai-customer-support-agent).
 
 ### 2. Memory: what the company knows, not just what it stores
 
-Giving an agent access to the shared drive is not enough. It needs the rules, the exceptions, the "why we do it this way". Without that memory, it repeats the mistakes your team learned to avoid.
+Giving an agent access to the shared drive isn't enough. It needs the rules, the exceptions, the "why we do it this way". Without that memory, it repeats the mistakes your team learned to avoid.
 
-That is what skills are for: written, versioned instructions the agent loads when it needs them. See [why I replaced prompts with skills](https://www.thevibecompany.co/en/resources/articles/why-i-replaced-prompts-with-skills) and [agents don't lack tools, they lack company memory](https://www.thevibecompany.co/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory).
+That's what skills are for: written, versioned instructions the agent loads when it needs them. See [why I replaced prompts with skills](/en/resources/articles/why-i-replaced-prompts-with-skills) and [agents don't lack tools, they lack company memory](/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory).
 
 ### 3. Authority: what the agent may do on its own
 
-This is the real security question. An agent that reads data does not carry the same risk as one that emails a customer or approves a payment. We think in four levels: read, propose, prepare, execute. Start low, and move up when the numbers justify it.
+This is where security really plays out. An agent that reads data doesn't carry the same risk as one that emails a customer or approves a payment. We think in four levels: read, propose, prepare, execute. Start low, and move up when the numbers justify it.
 
 The most useful rule fits in one sentence: write down what the agent does when it doesn't know. In our own bookkeeping, a bank line the AI can't recognize goes into "Other", and a human decides.
 
@@ -65,9 +65,9 @@ Without numbers, the second agent never gets funded. Before launch, record the b
 In mid-size and large companies, the first agents that stick tend to share a profile: high volume, accessible data, and a human who already reviews the work.
 
 - **Customer support**: the agent reads the ticket, history and docs, then drafts the reply. A human sends it.
-- **Document checks**: for [Coup de Pates](https://www.thevibecompany.co/en/case-studies/coup-de-pates), a library of skills checks product documents. The AI flags gaps, the quality team decides.
+- **Document checks**: for [Coup de Pates](/en/case-studies/coup-de-pates), a library of skills checks product documents. The AI flags gaps, the quality team decides.
 - **Monitoring and triage**: our internal AI watch sorts each announcement into one of four buckets, from an instant Slack alert to "nothing".
-- **Coding agents**: rolling out Claude Code or Codex in a product team needs the same blocks (access, rules, review). See our [Claude Code enterprise rollout](https://www.thevibecompany.co/en/resources/articles/claude-code-enterprise-rollout) guide.
+- **Coding agents**: rolling out Claude Code or Codex in a product team needs the same blocks (access, rules, review). See our [Claude Code enterprise rollout](/en/resources/articles/claude-code-enterprise-rollout) guide.
 
 What to keep for later: irreversible decisions, processes nobody can describe, and data that lives in inboxes and people's heads.
 
@@ -79,17 +79,17 @@ What to keep for later: irreversible decisions, processes nobody can describe, a
 4. **Go to production small**, with a pilot team that really uses it, and a log of every action.
 5. **Measure, then widen** autonomy or scope when the numbers show it.
 
-The move from pilot to production is where most projects break. We wrote a full [AI agent POC to production checklist](https://www.thevibecompany.co/en/resources/articles/ai-agent-poc-to-production) for that step.
+Most projects break between pilot and production. We wrote a full [AI agent POC to production checklist](/en/resources/articles/ai-agent-poc-to-production) for that step.
 
-### Sensitive data and funding
+## Sensitive data and funding
 
-If you handle health data in France, the rules change: hosting, access, traceability. Our guide on [AI and health data (HDS)](https://www.thevibecompany.co/en/resources/articles/ai-health-data-hds-france) lists what to check. On budget, some French public schemes can help: see [how to fund an AI project in France](https://www.thevibecompany.co/en/resources/articles/fund-ai-project-france-cir-cii).
+If you handle health data in France, the rules change: hosting, access, traceability. Our guide on [AI and health data (HDS)](/en/resources/articles/ai-health-data-hds-france) lists what to check. On budget, some French public schemes can help: see [how to fund an AI project in France](/en/resources/articles/fund-ai-project-france-cir-cii).
 
 ## Build in-house or get help
 
-Both work. An internal team knows the processes. What it often lacks is experience with agent-specific traps: rights that are too broad, no memory, no measurement. An outside partner brings that experience, as long as it ships to production and hands over what it builds. Our guide on [how to choose an AI agency](https://www.thevibecompany.co/en/resources/articles/how-to-choose-an-ai-agency) helps you decide.
+Both work. An internal team knows the processes. What it often lacks is experience with agent-specific traps: rights that are too broad, no memory, no measurement. An outside partner brings that experience, as long as it ships to production and hands over what it builds. Our guide on [how to choose an AI agency](/en/resources/articles/how-to-choose-an-ai-agency) helps you decide.
 
-[The Vibe Company](https://www.thevibecompany.co/en) is an [AI-native agency](https://www.thevibecompany.co/en/resources/articles/ai-native-agency) founded in Paris in 2024 by Stan Girard and Antoine Dewez, backed by Y Combinator (W24). We build agents wired into our clients' real systems, from LocService's support assistant to the products we shipped for [Monka](https://www.thevibecompany.co/en/case-studies/monka), live in two months inside an existing health-data environment. And we train teams so they can evolve the agent without us.
+[The Vibe Company](/en) is an [AI-native agency](/en/resources/articles/ai-native-agency) founded in Paris in 2024 by Stan Girard and Antoine Dewez. Before the agency, they built Quivr, an open-source AI project that went through Y Combinator (W24). We build agents wired into our clients' real systems, from LocService's support assistant to the products we shipped for [Monka](/en/case-studies/monka), live in two months inside an existing health-data environment. And we train teams so they can evolve the agent without us.
 
 ## FAQ
 
@@ -97,7 +97,7 @@ Both work. An internal team knows the processes. What it often lacks is experien
 A program that gets a goal, picks its steps and acts in your tools (CRM, ticketing, internal databases) to reach it, with defined rights and a human approving sensitive actions.
 
 **What is the difference between a chatbot and an AI agent?**
-A chatbot answers questions. An agent acts: it fetches information, prepares a file, opens a ticket. That is why permissions become the central question.
+A chatbot answers questions. An agent acts: it fetches information, prepares a file, opens a ticket. That's why permissions become the central question.
 
 **Do I need an agent to automate a process?**
 Often not. If the path is always the same, an automation with one AI step is enough, and cheaper to run.
