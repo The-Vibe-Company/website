@@ -4,7 +4,7 @@ import { getContentByTypeForLanguage } from "./content-source";
 
 describe("article listings", () => {
   for (const language of ["fr", "en"] as const) {
-    test(`lists ${language} articles newest first, with no pinned entries`, () => {
+    test(`lists ${language} articles newest first by publish date`, () => {
       const dates = getContentByTypeForLanguage("article", language).map(
         (item) => item.publishedAt,
       );
