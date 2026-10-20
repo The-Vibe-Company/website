@@ -64,7 +64,7 @@ function ArticleCard({
   return (
     <article
       hidden={hidden}
-      className={`group relative ${hidden ? 'hidden' : 'flex'} ${compact ? 'h-[84px]' : 'h-[132px]'} gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
+      className={`group relative ${hidden ? 'hidden' : 'flex'} ${compact ? 'min-h-[84px]' : 'h-[132px]'} gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
     >
       <div className={`relative ${compact ? 'w-12 h-12' : 'w-16 h-16'} shrink-0 overflow-hidden rounded`}>
         {item.image ? (
@@ -118,7 +118,7 @@ function ArticleCard({
               className="relative z-10"
             />
           )}
-          {item.publishedAt && <span>{formatDate(item.publishedAt, locale)}</span>}
+          {item.publishedAt && <span className="whitespace-nowrap">{formatDate(item.publishedAt, locale)}</span>}
         </div>
       </div>
     </article>
