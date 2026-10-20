@@ -31,9 +31,9 @@ export interface ArticleCardItem {
 
 type Filter = 'all' | 'victor' | 'articles';
 
-/** How many cards each column shows in the combined view before linking to the full list. */
+/** How many cards each section shows in the combined view before linking to the full list. */
 const ARTICLES_PREVIEW_LIMIT = 6;
-const VICTOR_PREVIEW_LIMIT = 6;
+const VICTOR_PREVIEW_LIMIT = 3;
 
 function formatDate(dateString: string | undefined, locale: string): string {
   if (!dateString) return '';
@@ -49,21 +49,30 @@ function formatDate(dateString: string | undefined, locale: string): string {
  * it through an overlay pseudo-element, which keeps the markup free of nested
  * anchors; the switch sits above that overlay.
  */
-function ArticleCard({ item, hidden = false }: { item: ArticleCardItem; hidden?: boolean }) {
+function ArticleCard({
+  item,
+  hidden = false,
+  compact = false,
+}: {
+  item: ArticleCardItem;
+  hidden?: boolean;
+  /** Smaller card without summary, used for the secondary Victor's Story preview. */
+  compact?: boolean;
+}) {
   const t = useTranslations('resources');
   const locale = useLocale();
   return (
     <article
       hidden={hidden}
-      className={`group relative ${hidden ? 'hidden' : 'flex'} h-[132px] gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
+      className={`group relative ${hidden ? 'hidden' : 'flex'} ${compact ? 'h-[84px]' : 'h-[132px]'} gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
     >
-      <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded">
+      <div className={`relative ${compact ? 'w-12 h-12' : 'w-16 h-16'} shrink-0 overflow-hidden rounded`}>
         {item.image ? (
           <Image
             src={item.image.url}
             alt={item.image.alt}
             fill
-            sizes="64px"
+            sizes={compact ? '48px' : '64px'}
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
@@ -79,7 +88,7 @@ function ArticleCard({ item, hidden = false }: { item: ArticleCardItem; hidden?:
             {item.title}
           </Link>
         </h3>
-        {item.summary ? (
+        {!compact && item.summary ? (
           <p
             className="text-xs text-res-text-muted leading-snug line-clamp-2"
             dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
@@ -116,27 +125,38 @@ function ArticleCard({ item, hidden = false }: { item: ArticleCardItem; hidden?:
   );
 }
 
-interface ColumnProps {
+interface SectionProps {
   name: string;
   count: number;
-  accent: 'victor' | 'articles';
-  layout?: 'list' | 'grid';
+  /** Secondary sections get a quieter header and a denser grid of compact cards. */
+  secondary?: boolean;
   children: ReactNode;
   footer?: ReactNode;
 }
 
-function Column({ name, count, accent, layout = 'list', children, footer }: ColumnProps) {
-  const borderClass = accent === 'victor' ? 'border-orange-500' : 'border-res-text';
-  const dotClass = accent === 'victor' ? 'bg-orange-500' : 'bg-res-text';
-  const cardsClass =
-    layout === 'grid' ? 'grid grid-cols-1 lg:grid-cols-2 gap-3' : 'flex flex-col gap-3';
+function Section({ name, count, secondary = false, children, footer }: SectionProps) {
+  const cardsClass = secondary
+    ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3'
+    : 'grid grid-cols-1 lg:grid-cols-2 gap-3';
 
   return (
     <div>
-      <div className={`flex items-center justify-between pb-2.5 mb-4 border-b-2 ${borderClass}`}>
+      <div
+        className={`flex items-center justify-between mb-4 ${
+          secondary ? 'pb-2 border-b border-res-border' : 'pb-2.5 border-b-2 border-res-text'
+        }`}
+      >
         <div className="flex items-center gap-2.5">
-          <span className={`w-1.5 h-1.5 rounded-full ${dotClass}`} aria-hidden="true" />
-          <h2 className="text-lg md:text-xl font-bold tracking-tight text-res-text">{name}</h2>
+          {!secondary && <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />}
+          <h2
+            className={
+              secondary
+                ? 'text-sm font-semibold tracking-tight text-res-text-muted'
+                : 'text-lg md:text-xl font-bold tracking-tight text-res-text'
+            }
+          >
+            {name}
+          </h2>
         </div>
         <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">{count}</span>
       </div>
@@ -167,10 +187,10 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
 
   const hiddenOthers = filter === 'all' ? Math.max(0, others.length - ARTICLES_PREVIEW_LIMIT) : 0;
 
-  const tabs: { key: Filter; label: string; dot?: boolean }[] = [
+  const tabs: { key: Filter; label: string }[] = [
     { key: 'all', label: t('all') },
-    { key: 'victor', label: t('victorStory'), dot: true },
     { key: 'articles', label: t('articles') },
+    { key: 'victor', label: t('victorStory') },
   ];
 
   return (
@@ -195,9 +215,6 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
                   active ? 'bg-res-text text-res-surface' : 'text-res-text-muted hover:text-res-text'
                 }`}
               >
-                {tab.dot && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500" aria-hidden="true" />
-                )}
                 {tab.label}
               </button>
             );
@@ -216,43 +233,18 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
         </button>
       )}
 
-      <div className={single ? '' : 'grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start'}>
-        {showVictor && (
-          <Column
-            name={t('victorStory')}
-            count={victorStory.length}
-            accent="victor"
-            layout={single ? 'grid' : 'list'}
-            footer={
-              hiddenVictor > 0 ? (
-                <button
-                  type="button"
-                  onClick={() => setFilter('victor')}
-                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
-                >
-                  {t('viewAllVictor', { count: victorStory.length })} &rarr;
-                </button>
-              ) : null
-            }
-          >
-            {victorStory.map((item, index) => (
-              <ArticleCard key={item.id} item={item} hidden={filter === 'all' && index >= VICTOR_PREVIEW_LIMIT} />
-            ))}
-          </Column>
-        )}
-
+      {/* Articles lead; Victor's Story follows as a quieter, compact section. */}
+      <div className="flex flex-col gap-12 md:gap-16">
         {showOthers && (
-          <Column
+          <Section
             name={t('articles')}
             count={others.length}
-            accent="articles"
-            layout={single ? 'grid' : 'list'}
             footer={
               hiddenOthers > 0 ? (
                 <button
                   type="button"
                   onClick={() => setFilter('articles')}
-                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
+                  className="col-span-full flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
                 >
                   {t('viewAllArticles', { count: others.length })} &rarr;
                 </button>
@@ -262,7 +254,35 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
             {others.map((item, index) => (
               <ArticleCard key={item.id} item={item} hidden={filter === 'all' && index >= ARTICLES_PREVIEW_LIMIT} />
             ))}
-          </Column>
+          </Section>
+        )}
+
+        {showVictor && (
+          <Section
+            name={t('victorStory')}
+            count={victorStory.length}
+            secondary={!single}
+            footer={
+              hiddenVictor > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => setFilter('victor')}
+                  className="col-span-full flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
+                >
+                  {t('viewAllVictor', { count: victorStory.length })} &rarr;
+                </button>
+              ) : null
+            }
+          >
+            {victorStory.map((item, index) => (
+              <ArticleCard
+                key={item.id}
+                item={item}
+                compact={!single}
+                hidden={filter === 'all' && index >= VICTOR_PREVIEW_LIMIT}
+              />
+            ))}
+          </Section>
         )}
       </div>
     </div>

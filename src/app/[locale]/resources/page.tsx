@@ -73,7 +73,7 @@ export default async function ResourcesPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'resources' });
-  // Articles come back sorted by publishedAt desc, so both columns stay in
+  // Articles come back sorted by publishedAt desc, so both sections stay in
   // chronological order (newest first). The D-day badge comes from seriesDay. A translated article is
   // represented once, by its version in the language being browsed.
   const language: ContentLanguage = locale === 'en' ? 'en' : 'fr';
