@@ -22,6 +22,7 @@ import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import {
   ABOUT_PATHS,
   localizedSocialMetadata,
+  localizedUrl,
   SITE_URL,
   splitPath,
   splitPathAlternates,
@@ -417,7 +418,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                         </span>
                       ) : key === "site" ? (
                         <a
-                          href={SITE_URL}
+                          href={localizedUrl(locale)}
                           className="underline decoration-1 underline-offset-4 hover:text-muted-foreground"
                         >
                           {SITE_URL}
