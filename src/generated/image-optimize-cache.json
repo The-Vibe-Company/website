@@ -271,6 +271,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/serveur-mcp-entreprise/cover-mascotte.webp": {
+      "sourceHash": "b80605b14d5c90c58e200f49dc078d41b4b2f00bafd0627aa14f6a36f5e29893",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/site-devient-produit/cover.png": {
       "sourceHash": "ff8f389b1a1b95411a5a18f63e0daad30265fb2e7836e9d74dd3f06dd89f6aef",
       "targetUrl": "/images/_optimized/resources/site-devient-produit/cover.webp",
@@ -453,6 +458,11 @@
     },
     "og:/images/resources/quivr-to-the-vibe-company/cover-mascotte.webp": {
       "sourceHash": "7109ea81c6c184b46946b6bbe7d7af272baa4adf0d4ee9ca1c3ffeb215d82b7b",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/serveur-mcp-entreprise/cover-mascotte.webp": {
+      "sourceHash": "b80605b14d5c90c58e200f49dc078d41b4b2f00bafd0627aa14f6a36f5e29893",
       "targetUrl": null,
       "targetHash": null
     },
