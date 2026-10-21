@@ -287,7 +287,7 @@ Not because YAML makes art. It does not.
 
 But memory matters when taste is fragile.
 
-I have written before that [agents need company memory](/resources/articles/agents-dont-lack-tools-they-lack-company-memory), because AI work falls apart when context disappears between iterations. This session made that idea feel more physical.
+I have written before that [agents need company memory](/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory), because AI work falls apart when context disappears between iterations. This session made that idea feel more physical.
 
 Memory helps you preserve decisions.
 

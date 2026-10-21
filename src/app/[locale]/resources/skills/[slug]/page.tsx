@@ -120,7 +120,7 @@ export default async function SkillDetailPage({
         <div className={`${resourcesTheme.section.padding} pb-12 md:pb-16`}>
           <div className="mx-auto max-w-6xl">
             <Link
-              href="/resources/skills"
+              href="/resources"
               className="mb-6 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
             >
               <ArrowLeft size={14} strokeWidth={1.8} className="group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
@@ -192,7 +192,7 @@ export default async function SkillDetailPage({
                 {t('relatedSkills')}
               </span>
               <Link
-                href="/resources/skills"
+                href="/resources"
                 className="text-[11px] font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
               >
                 {t('viewAll')} &rarr;
