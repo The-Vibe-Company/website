@@ -61,7 +61,7 @@ This is not about making the model "smarter." It is about removing ambiguity fro
 
 That is the same lesson we learned with MCP. A weak MCP surface exposes tools. A strong one teaches the company's method. A weak prompt tells the model what you want right now. A strong skill teaches the agent how this kind of work is done here.
 
-The broader version of that argument is in [MCP is how agents learn your company's taste](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done).
+The broader version of that argument is in [MCP is how agents learn your company's taste](/en/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done).
 
 ## Skills turn repetition into infrastructure
 
@@ -73,7 +73,7 @@ That does not fit in a cute prompt.
 
 It became a skill: use cases, confidence thresholds, Granite lookups, a local HTML review surface, state files, and a small bridge so decisions made in the browser can be read back by the agent.
 
-The same pattern showed up in publishing. A good article workflow is not "write a blog post." It is brief, internal research, external research, outline, draft, critique, semantic cocoon, asset decisions, repo packaging, preview validation, and publication gates. The same routing logic now applies to coding agents too: [the DeepSWE benchmark explains why I use Opus for planning and Codex for execution](/resources/articles/why-codex-felt-better-than-claude-deepswe).
+The same pattern showed up in publishing. A good article workflow is not "write a blog post." It is brief, internal research, external research, outline, draft, critique, semantic cocoon, asset decisions, repo packaging, preview validation, and publication gates. The same routing logic now applies to coding agents too: [the DeepSWE benchmark explains why I use Opus for planning and Codex for execution](/en/resources/articles/why-codex-felt-better-than-claude-deepswe).
 
 If that stays as a prompt, half the workflow depends on whether the current chat has enough room and whether I remembered to paste the latest version.
 
@@ -144,7 +144,7 @@ That is why Granite sits underneath most of my workflows. It gives skills a shar
 
 The skill defines the job. The memory gives the job continuity.
 
-I wrote the personal version of that system in [My personal OS lives in a folder](/resources/articles/my-personal-os-lives-in-a-folder).
+I wrote the personal version of that system in [My personal OS lives in a folder](/en/resources/articles/my-personal-os-lives-in-a-folder).
 
 This is where prompts really break down. A prompt can ask the model to "remember the company context." A skill can actually load the relevant context, write artifacts back, and make the next run better.
 
@@ -186,5 +186,5 @@ And repeated work deserves infrastructure.
 
 - [Claude Code: Extend Claude with skills](https://code.claude.com/docs/en/skills)
 - [OpenAI: A practical guide to building agents](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/)
-- [MCP is how agents learn your company's taste](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done)
-- [My personal OS lives in a folder](/resources/articles/my-personal-os-lives-in-a-folder)
+- [MCP is how agents learn your company's taste](/en/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done)
+- [My personal OS lives in a folder](/en/resources/articles/my-personal-os-lives-in-a-folder)

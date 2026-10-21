@@ -2,8 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { LanguageFlag } from '@/components/resources/LanguageFlag';
-import type { ContentEntry } from '@/lib/content-source';
-import { getUrlSlugForDbType } from '@/lib/content-types';
+import { contentPath, getContentForLanguage, type ContentEntry, type ContentLanguage } from '@/lib/content-source';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
 
@@ -16,8 +15,9 @@ function formatShortDate(dateString: string | undefined, locale: string): string
   });
 }
 
-function hrefFor(item: ContentEntry): string {
-  return `/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`;
+function linkFor(item: ContentEntry, locale: string) {
+  const target = getContentForLanguage(item.type, item.slug, locale as ContentLanguage) ?? item;
+  return { href: contentPath(target), locale: target.language };
 }
 
 /**
@@ -41,7 +41,7 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
         </span>
       </div>
 
-      <Link href={hrefFor(featured)} className="group block">
+      <Link {...linkFor(featured, locale)} className="group block">
         <article className="flex flex-col md:flex-row overflow-hidden rounded-lg border border-res-border bg-res-surface transition-colors hover:border-res-text/35">
           {featured.featuredImage?.url && (
             <div className="md:w-[44%] shrink-0 overflow-hidden aspect-[16/10] md:aspect-auto">
@@ -83,7 +83,7 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
           {secondary.map((r) => (
             <Link
               key={r.id}
-              href={hrefFor(r)}
+              {...linkFor(r, locale)}
               className="group flex gap-4 rounded-lg border border-res-border bg-res-surface p-4 transition-colors hover:border-res-text/35"
             >
               {r.featuredImage?.url && (

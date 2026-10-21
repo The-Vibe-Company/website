@@ -21,9 +21,9 @@ This post is about the system that made that possible. It is also an apology to 
 
 I started [Quivr](https://github.com/QuivrHQ/quivr) in 2023 with Antoine Dewez, and a team built it with us over two years — open-source RAG, Y Combinator W24, #1 trending on GitHub in July 2023. For two years, Quivr was our thesis on how LLMs and private knowledge should meet. I don't believe that thesis anymore. The system I use now does the opposite. 188 markdown files, an MCP server, a SQLite index. That is the whole stack.
 
-The company-level version of that transition is here: [We are stopping Quivr. We are building The Vibe Company.](/resources/articles/quivr-to-the-vibe-company)
+The company-level version of that transition is here: [We are stopping Quivr. We are building The Vibe Company.](/en/resources/articles/quivr-to-the-vibe-company)
 
-The broader company-level argument is here: [Agents don't lack tools. They lack company memory.](/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
+The broader company-level argument is here: [Agents don't lack tools. They lack company memory.](/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
 
 ![Granite knowledge constellation — 188 interlinked markdown notes forming a settled graph](/images/resources/my-personal-os-lives-in-a-folder/granite-constellation.png "188 notes, 1819 links — the company, the clients, the methodology, one graph.")
 
@@ -88,7 +88,7 @@ The title came from a pattern codified in a Claude Code skill called `/vibe_arti
 
 Every paragraph in this article points back to a note. Every note points back to a source. The reasoning is auditable.
 
-The same pattern showed up in a more operational context when we used agents to [compile a CIR/CII evidence dossier](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer): the output only worked because the agent could trace claims back to structured sources.
+The same pattern showed up in a more operational context when we used agents to [compile a CIR/CII evidence dossier](/fr/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer): the output only worked because the agent could trace claims back to structured sources.
 
 ## What this means if you build knowledge tools
 

@@ -32,7 +32,7 @@ No tie accepted. No full rewrite because the new prompt feels cleaner. No "the a
 
 Small edit. Hard gate. Keep or reject.
 
-The paper reports strong benchmark results: across six benchmarks, seven target models, and three execution harnesses, SkillOpt is best or tied in all 52 evaluated cells. On GPT-5.5, it reports average gains over no-skill accuracy of +23.5 points in direct chat, +24.8 inside the Codex loop, and +19.1 inside Claude Code. That same pattern shows up in long-horizon coding evals too: [DeepSWE helps explain why Codex felt better than Claude on real execution work](/resources/articles/why-codex-felt-better-than-claude-deepswe).
+The paper reports strong benchmark results: across six benchmarks, seven target models, and three execution harnesses, SkillOpt is best or tied in all 52 evaluated cells. On GPT-5.5, it reports average gains over no-skill accuracy of +23.5 points in direct chat, +24.8 inside the Codex loop, and +19.1 inside Claude Code. That same pattern shows up in long-horizon coding evals too: [DeepSWE helps explain why Codex felt better than Claude on real execution work](/en/resources/articles/why-codex-felt-better-than-claude-deepswe).
 
 Those numbers are interesting. The operating model is more important.
 
@@ -133,7 +133,7 @@ For content, that means checking whether the opening earns attention, whether cl
 
 For company workflows, it means checking the invisible parts of good work: order of operations, escalation, redaction, source quality, approval boundaries, and taste.
 
-This is the same argument we made in [MCP is how agents learn your company's taste](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done). Tool access is not enough. The method around the tool is where quality lives.
+This is the same argument we made in [MCP is how agents learn your company's taste](/en/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done). Tool access is not enough. The method around the tool is where quality lives.
 
 SkillOpt adds the missing training discipline to that method.
 
@@ -157,7 +157,7 @@ Pick your most valuable agent workflow. Turn its instructions into a real skill 
 
 That turns the instruction layer into company infrastructure.
 
-It also changes how you think about memory. In [Agents don't lack tools. They lack company memory.](/resources/articles/agents-dont-lack-tools-they-lack-company-memory), the argument was that agents need shaped, reusable company context. SkillOpt shows the same pattern from another direction: agents also need shaped, reusable company procedure.
+It also changes how you think about memory. In [Agents don't lack tools. They lack company memory.](/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory), the argument was that agents need shaped, reusable company context. SkillOpt shows the same pattern from another direction: agents also need shaped, reusable company procedure.
 
 The context tells the agent what the company knows.
 
@@ -167,7 +167,7 @@ Both should compound.
 
 That is why the Markdown detail matters. A plain file can be read by a human, edited by an agent, reviewed in Git, tested against examples, rolled back, and carried across runtimes. The fact that the deployed artifact is just `best_skill.md` is not a limitation. It is the point.
 
-We already see this direction inside our own work at The Vibe Company. The next layer after tools is not a bigger chat window. It is an operating system of memory, methods, reviews, and skills that agents can actually use. That is the broader reason we moved from Quivr to [The Vibe Company](/resources/articles/quivr-to-the-vibe-company).
+We already see this direction inside our own work at The Vibe Company. The next layer after tools is not a bigger chat window. It is an operating system of memory, methods, reviews, and skills that agents can actually use. That is the broader reason we moved from Quivr to [The Vibe Company](/en/resources/articles/quivr-to-the-vibe-company).
 
 SkillOpt gives one important piece of that operating system a name.
 
