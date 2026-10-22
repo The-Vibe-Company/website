@@ -184,7 +184,7 @@
     "indexTag": "Open source"
   },
   "finalCta": {
-    "kicker": "EMBARQUEMENT",
+    "kicker": "Prendre rendez-vous",
     "titleLine1": "Un problème",
     "titleLine2": "à résoudre ?",
     "bookCall": "Prendre 30 minutes",
@@ -273,6 +273,7 @@
     "copy": "Copier",
     "copied": "Copié",
     "copiedStatus": "Copié : {label}",
+    "copyFailed": "Copie impossible",
     "skillPrompt": "Prompt du skill",
     "promptStats": "{lineCount} lignes · {wordCount} mots",
     "collapsePrompt": "Réduire le prompt complet du skill",

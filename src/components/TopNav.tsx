@@ -36,19 +36,15 @@ function SearchIcon() {
   );
 }
 
-interface TopNavProps {
-  showResourcesSearch?: boolean;
-}
-
-export function TopNav(props: TopNavProps) {
+export function TopNav() {
   return (
     <Suspense fallback={null}>
-      <TopNavInner {...props} />
+      <TopNavInner />
     </Suspense>
   );
 }
 
-function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
+function TopNavInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -58,15 +54,14 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   // /case-studies/monka still lights up "Études de cas").
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
-  // /resources has its own large search box, so the bar does not repeat it.
-  const showSearch = showResourcesSearch && pathname !== "/resources";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileMenuClosing, setMobileMenuClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState(
-    showResourcesSearch ? searchParams.get("q") || "" : ""
-  );
+  const [searchValue, setSearchValue] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const searchToggleRef = useRef<HTMLButtonElement>(null);
+  const searchPanelRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const menuDialogRef = useRef<HTMLDivElement>(null);
   const menuCloseRef = useRef<HTMLButtonElement>(null);
@@ -77,28 +72,89 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
     setMobileMenuOpen(false);
   }, []);
 
-  const handleSearch = useCallback(
-    (value: string) => {
-      setSearchValue(value);
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-      debounceRef.current = setTimeout(() => {
-        if (value.trim()) {
-          router.push(`/resources/search?q=${encodeURIComponent(value.trim())}`, {
-            scroll: false,
-          });
-        } else {
-          router.push("/resources", { scroll: false });
-        }
-      }, 400);
+  const goToSearch = useCallback(
+    (value: string, options?: { scroll: false }) => {
+      const query = value.trim();
+      if (query) {
+        router.push(`/resources/search?q=${encodeURIComponent(query)}`, options);
+      } else {
+        router.push("/resources", options);
+      }
     },
     [router]
   );
+
+  // Typing inside the resources section searches as you type; anywhere else the
+  // search waits for Enter, so a pause in the middle of a word never carries
+  // the visitor off the page they are reading.
+  const inResources = pathname === "/resources" || pathname.startsWith("/resources/");
+
+  const handleSearchChange = useCallback(
+    (value: string) => {
+      setSearchValue(value);
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      if (!inResources) return;
+      debounceRef.current = setTimeout(() => goToSearch(value, { scroll: false }), 400);
+    },
+    [goToSearch, inResources]
+  );
+
+  const handleSearchSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      if (!searchValue.trim()) return;
+      goToSearch(searchValue);
+      setSearchOpen(false);
+    },
+    [goToSearch, searchValue]
+  );
+
+  const closeSearch = useCallback((returnFocus = false) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    setSearchOpen(false);
+    if (returnFocus) searchToggleRef.current?.focus();
+  }, []);
+
+  // The one search button, the same on every page. A page that shows its own
+  // search field (the resources home) is not given a second one: the button
+  // takes the visitor to it. Anywhere else it opens the search panel.
+  const toggleSearch = useCallback(() => {
+    if (searchOpen) {
+      closeSearch();
+      return;
+    }
+    const own = document.querySelector<HTMLInputElement>(
+      '#main-content input[type="search"]'
+    );
+    if (own) {
+      own.scrollIntoView({ block: "center" });
+      own.focus({ preventScroll: true });
+      return;
+    }
+    setSearchValue(pathname === "/resources/search" ? searchParams.get("q") || "" : "");
+    setSearchOpen(true);
+  }, [closeSearch, pathname, searchOpen, searchParams]);
 
   useEffect(() => {
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    if (!searchOpen) return;
+    searchInputRef.current?.focus();
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (searchPanelRef.current?.contains(target)) return;
+      if (searchToggleRef.current?.contains(target)) return;
+      setSearchOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [searchOpen]);
 
   useEffect(() => {
     if (!mobileMenuActive) return;
@@ -212,38 +268,21 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
               <span>THE VIBE CO.</span>
             </Link>
 
-            {/* Inline search. Kept in the flex flow (never absolutely centred) so
-                it can never slide under the nav links, and only shown from xl
-                up: below that the wordmark and the nav already fill the bar. */}
-            {showSearch && (
-              <label className="field field-sm ml-2 hidden min-w-0 max-w-sm flex-1 xl:flex">
-                <SearchIcon />
-                <input
-                  type="search"
-                  placeholder={t("searchShort")}
-                  value={searchValue}
-                  onChange={(e) => handleSearch(e.target.value)}
-                  aria-label={tA11y("searchResources")}
-                />
-              </label>
-            )}
-
-            {/* Right cluster: search toggle (below xl) + nav + menu button */}
+            {/* Right cluster: search + nav + menu button */}
             <div className="ml-auto flex shrink-0 items-center gap-2">
-              {/* Search toggle. Replaces the inline field below xl, on tablet as
-                  well as mobile. */}
-              {showSearch && (
-                <button
-                  type="button"
-                  className="round round-sm well xl:hidden"
-                  onClick={() => setSearchOpen((open) => !open)}
-                  aria-label={searchOpen ? tA11y("closeSearch") : tA11y("openSearch")}
-                  aria-controls="resources-search-panel"
-                  aria-expanded={searchOpen}
-                >
-                  <SearchIcon />
-                </button>
-              )}
+              {/* The search button, the same on every page and at every width:
+                  a round icon, compact enough for a phone. */}
+              <button
+                ref={searchToggleRef}
+                type="button"
+                className="round round-sm well"
+                onClick={toggleSearch}
+                aria-label={searchOpen ? tA11y("closeSearch") : tA11y("openSearch")}
+                aria-controls={searchOpen ? "header-search-panel" : undefined}
+                aria-expanded={searchOpen}
+              >
+                <SearchIcon />
+              </button>
 
               {/* Desktop nav */}
               <div className="hidden items-center gap-3 min-[1100px]:flex xl:gap-5">
@@ -278,7 +317,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                 className="round round-sm well min-[1100px]:hidden"
                 onClick={() => {
                   captureEvent("mobile_menu_opened");
-                  setSearchOpen(false);
+                  closeSearch();
                   setMobileMenuClosing(false);
                   setMobileMenuOpen(true);
                 }}
@@ -308,34 +347,48 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
         </div>
       </header>
 
-      {showSearch && (
-        <div
-          id="resources-search-panel"
-          aria-hidden={!searchOpen}
-          className={cn(
-            "fixed inset-x-0 z-[65] transition-all duration-200 xl:hidden",
-            searchOpen
-              ? "top-[84px] translate-y-0 opacity-100"
-              : "pointer-events-none top-[72px] -translate-y-2 opacity-0"
-          )}
-        >
-          <div className="wrap">
-            <div className="clay-quiet rounded-plate p-2">
-              <label className="field">
-                <SearchIcon />
-                <input
-                  type="search"
-                  placeholder={t("searchLong")}
-                  value={searchValue}
-                  onChange={(e) => handleSearch(e.target.value)}
-                  aria-label={tA11y("searchResources")}
-                  tabIndex={searchOpen ? 0 : -1}
-                />
-              </label>
+      {/* The search panel: one field under the header, mounted only while it is
+          open (so a page that shows its own field never has two of them). */}
+      <AnimatePresence>
+        {searchOpen && (
+          <motion.div
+            ref={searchPanelRef}
+            id="header-search-panel"
+            className="fixed inset-x-0 top-[84px] z-[65]"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18 }}
+            onKeyDown={(event) => {
+              if (event.key === "Escape") {
+                event.preventDefault();
+                closeSearch(true);
+              }
+            }}
+          >
+            <div className="wrap">
+              <form
+                role="search"
+                onSubmit={handleSearchSubmit}
+                className="clay-quiet rounded-plate p-2"
+              >
+                <label className="field">
+                  <SearchIcon />
+                  <input
+                    ref={searchInputRef}
+                    type="search"
+                    placeholder={t("searchLong")}
+                    value={searchValue}
+                    onChange={(e) => handleSearchChange(e.target.value)}
+                    aria-label={tA11y("searchResources")}
+                    enterKeyHint="search"
+                  />
+                </label>
+              </form>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Mobile menu: a porcelaine sheet. The wordmark and the close button sit
           exactly where the bar's wordmark and menu button are, so opening it

@@ -54,12 +54,15 @@
                    Bricolage runs about 1.4 characters per ch, so these hold
                    a line under 90 characters.
         pieces     clay, clay-quiet, lacquer, well, rim, rim-warm, groove,
-                   lift (hover rise for a piece that is a link).
+                   lift (hover rise for a piece that is a link), glaze (a
+                   picture or a product mock set into a piece: white glaze,
+                   hairline ring, clipped corners).
         small      chip (pressed tag) chip-dark (lacquer tag), num (lacquer
                    number badge), ticks (list with the black V bullet), dot,
                    dot-rim, facts (dl), seg (segmented tabs/filters, the active
                    item gets aria-current / aria-pressed / class on), tr is
-                   TranslationSwitch's own control.
+                   TranslationSwitch's own control (variant "card" is the compact
+                   flag + code for a list card).
         fields     field (input or label wrapping an input, pressed in),
                    field-area (textarea), field-hint, field-error.
         lists      entries > entry (> thumb + entry-body, with meta) for rows
@@ -68,12 +71,20 @@
                    (loading block), btn[aria-busy=true] (loading button).
         sections   section (top rhythm 80px phone, 120px desktop), section-tight.
       React helpers live in src/components/kit (Kicker, SectionTitle, Piece,
-      ButtonLink, LinkRim, Chip, Pointe, Arrow, Groove). The shared chrome
-      (TopNav, Footer, FinalCTA = the closing call, BackLink, LanguageSwitcher,
+      ButtonLink, LinkRim, Chip, Pointe, Arrow, Groove, Bead = the mascot's
+      clay head for the corner of a main piece). The shared chrome (TopNav,
+      Footer, FinalCTA = the closing call, BackLink, LanguageSwitcher,
       TranslationSwitch) already wears the kit: use them, do not rebuild them.
+      The header is the same on every page, search button included (it opens
+      the search panel, or goes to the page's own search field when the page
+      shows one); the resources layout ends with the Footer like any page.
+      The closing call is a clay slab with the rim light but no warm bounce:
+      that bounce belongs to the page's one main piece.
    5. Words. The booking action is called "Prendre 30 minutes" ("Book 30
       minutes") everywhere: header, closing call, hero, mobile bar. Do not
-      invent another label for it. Kickers carry no "//" prefix any more.
+      invent another label for it. The closing call's kicker above it reads
+      "Prendre rendez-vous" ("Book a call"). Kickers carry no "//" prefix any
+      more.
    6. Rules the checks hold: text is 12px at least (use text-xs, never an
       arbitrary size below it); a label holds on one line (whitespace-nowrap,
       cut with truncate or clamp-2); running text stays under 90 characters a
@@ -402,11 +413,11 @@ input:disabled {
   cursor: not-allowed;
 }
 
-/* Phone homepage: the booking bar is fixed over the bottom of the screen, so
-   keyboard focus and in-page jumps stop clear of it instead of landing a
-   focused link right underneath it. */
+/* Phone homepage (the page that renders the hero, #hero): the booking bar is
+   fixed over the bottom of the screen, so keyboard focus and in-page jumps stop
+   clear of it instead of landing a focused link right underneath it. */
 @media (max-width: 767px) {
-  html:has(#hero-mobile) {
+  html:has(#hero) {
     scroll-padding-bottom: 88px;
   }
 }
@@ -554,6 +565,36 @@ input:disabled {
     background: linear-gradient(180deg, rgba(11, 11, 12, 0.1) 0 1px, rgba(255, 255, 255, 0.95) 1px 2px);
   }
 
+  /* A glazed insert: a picture or a product drawn in code (a screenshot, the
+     Quivr feed mock) set into a clay piece. White glaze under it, a hairline
+     ring over it, the corners clipped. Radius 16 on a phone, 24 from 768px:
+     sized for a quiet piece with 8px (phone) or 12px of padding around it; give
+     it another radius with a utility (rounded-[14px]) where the frame differs.
+     The rules that adapt a mock to the site are right after the layer. */
+  .glaze {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #fff;
+  }
+
+  .glaze::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow:
+      inset 0 0 0 1px rgba(11, 11, 12, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  @media (min-width: 768px) {
+    .glaze {
+      border-radius: 24px;
+    }
+  }
+
   /* A piece that is a link rises a little under the pointer. */
   .lift {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -619,10 +660,15 @@ input:disabled {
     white-space: nowrap;
   }
 
+  /* The span clips for the ellipsis, and a clip at line-height 1 cut the
+     accent off "À" and "É": the padding gives the accent room inside the clip,
+     the negative margin takes the room back so the kicker keeps its height. */
   .kicker > span {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-block: 4px;
+    margin-block: -4px;
   }
 
   .pointe {
@@ -1095,6 +1141,24 @@ input:disabled {
   .field::placeholder {
     color: var(--muted);
     opacity: 1;
+  }
+
+  /* The browser's own clear button on a search field is a blue cross: draw it
+     in the field's muted ink instead, same size, still a button. */
+  .field input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    margin: 0 0 0 8px;
+    cursor: pointer;
+    background: var(--muted);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  .field input[type="search"]::-webkit-search-cancel-button:hover {
+    background: var(--ink);
   }
 
   .field:focus-within {
@@ -1750,6 +1814,21 @@ input:disabled {
       margin-top: 36px;
     }
   }
+}
+
+/* Inside a glazed insert, outside the layers so they beat the utility classes
+   of the product drawn there. Quivr's mock draws the web app in its own look
+   (the OG cards are captures of it), so its file stays as it is: here its ink
+   hairline turns into the studio's line, and the few mono labels it draws at
+   9 to 11px are raised to the site's 12px floor. */
+.glaze [data-quivr-mock] {
+  border-color: var(--line);
+}
+
+.glaze [class*="text-[9px]"],
+.glaze [class*="text-[10px]"],
+.glaze [class*="text-[11px]"] {
+  font-size: 12px;
 }
 
 /* The grid-paper overlay is not part of porcelaine. The class stays so a page

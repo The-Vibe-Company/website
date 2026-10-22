@@ -9,6 +9,7 @@ import { CLIENTS } from "@/components/home/Clients";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import {
   Arrow,
+  Bead,
   Chip,
   Groove,
   Kicker,
@@ -141,9 +142,6 @@ const LOGO_HEIGHTS: Record<string, number> = {
   Theodo: 26,
 };
 
-/** The kit's kicker clips its span (ellipsis), and with it the accent of "À" and "É": give the span room. */
-const KICKER_ROOM = "[&>span]:-my-1 [&>span]:py-1";
-
 const TEXT = "m-0 max-w-[56ch] text-base leading-[1.62] text-ink-2";
 
 /** A rim link that leaves the site: the mono label, the underline, the ↗ arrow. */
@@ -169,86 +167,6 @@ function ExternalLink({
   );
 }
 
-/** The clay bead of the hero: a glazed sphere with the mascot's black pattern. */
-function Bead({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 340 360"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <defs>
-        <radialGradient id="ab-bd" gradientUnits="userSpaceOnUse" cx="129" cy="101" r="232">
-          <stop offset="0" stopColor="#fff" />
-          <stop offset=".42" stopColor="#f8f8f6" />
-          <stop offset=".8" stopColor="#e2e2de" />
-          <stop offset="1" stopColor="#cdcdc8" />
-        </radialGradient>
-        <linearGradient id="ab-lacv" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#202022" />
-          <stop offset=".6" stopColor="#0a0a0b" />
-          <stop offset="1" stopColor="#000" />
-        </linearGradient>
-        <radialGradient id="ab-spec">
-          <stop offset="0" stopColor="#fff" stopOpacity=".9" />
-          <stop offset="1" stopColor="#fff" stopOpacity="0" />
-        </radialGradient>
-        <radialGradient id="ab-cs">
-          <stop offset="0" stopColor="#141416" stopOpacity=".26" />
-          <stop offset="1" stopColor="#141416" stopOpacity="0" />
-        </radialGradient>
-        <linearGradient id="ab-rimg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#ff7a1f" stopOpacity="0" />
-          <stop offset=".3" stopColor="#ff7a1f" />
-          <stop offset=".62" stopColor="#ffb46e" />
-          <stop offset="1" stopColor="#ff7a1f" stopOpacity="0" />
-        </linearGradient>
-        <clipPath id="ab-bclip">
-          <circle cx="170" cy="165" r="145" />
-        </clipPath>
-        <filter id="ab-soft" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="5" />
-        </filter>
-      </defs>
-      <ellipse cx="184" cy="326" rx="122" ry="14" fill="url(#ab-cs)" />
-      <circle cx="170" cy="165" r="145" fill="url(#ab-bd)" />
-      <g clipPath="url(#ab-bclip)">
-        <path
-          fill="url(#ab-lacv)"
-          d="M-10 -10 H350 V40 L320 42 Q312 38 306 36 Q302 72 286 98 Q274 80 260 70 Q252 106 232 132 Q216 108 200 96 Q192 132 170 158 Q148 132 140 96 Q124 108 108 132 Q88 106 80 70 Q66 80 54 98 Q38 72 34 36 Q28 38 20 42 L-10 40 Z"
-        />
-        <g fill="none" stroke="url(#ab-bd)" strokeWidth="7" strokeLinecap="round">
-          <path d="M190 -4 Q196 50 200 96" />
-          <path d="M150 -4 Q144 50 140 96" />
-          <path d="M212 -4 Q248 30 260 70" />
-          <path d="M128 -4 Q92 30 80 70" />
-          <path d="M236 -6 Q292 8 306 36" />
-          <path d="M104 -6 Q48 8 34 36" />
-        </g>
-      </g>
-      <g clipPath="url(#ab-bclip)">
-        <ellipse cx="116" cy="74" rx="58" ry="26" transform="rotate(-28 116 74)" fill="url(#ab-spec)" opacity=".55" />
-        <ellipse cx="108" cy="66" rx="15" ry="7" transform="rotate(-28 108 66)" fill="#fff" opacity=".75" />
-      </g>
-      <path
-        d="M242 40.3 A144 144 0 0 1 98 289.7"
-        fill="none"
-        stroke="url(#ab-rimg)"
-        strokeWidth="7"
-        opacity=".45"
-        filter="url(#ab-soft)"
-      />
-      <path
-        d="M242 40.3 A144 144 0 0 1 98 289.7"
-        fill="none"
-        stroke="url(#ab-rimg)"
-        strokeWidth="2.4"
-      />
-    </svg>
-  );
-}
-
 export async function AboutPage({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "about" });
   const tServices = await getTranslations({ locale, namespace: "services" });
@@ -271,7 +189,7 @@ export async function AboutPage({ locale }: { locale: string }) {
               className="relative overflow-hidden px-5 pb-6 pt-7 max-md:rounded-[28px] md:px-14 md:pb-11 md:pt-14 [--rim-angle:118deg]"
             >
               <Bead className="pointer-events-none absolute right-3.5 top-3.5 h-[110px] w-[104px] md:right-16 md:top-8 md:h-[265px] md:w-[250px]" />
-              <Kicker className={KICKER_ROOM}>{t("kicker")}</Kicker>
+              <Kicker>{t("kicker")}</Kicker>
               <h1 className="display d-lg mt-[4.75rem] md:mt-8">
                 {h1Line1}
                 {h1Line2 ? (
@@ -470,7 +388,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                   radius="xl"
                   className="flex flex-col p-6 max-md:rounded-[28px] md:p-10"
                 >
-                  <p className={cn("kicker", KICKER_ROOM)}>
+                  <p className="kicker">
                     <span className="dot" />
                     <span>{t("team.role")}</span>
                   </p>
@@ -510,7 +428,7 @@ export async function AboutPage({ locale }: { locale: string }) {
               </div>
 
               <div className="lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:pl-9 lg:pr-14">
-                <Kicker className={KICKER_ROOM}>{t("how.stepsLabel")}</Kicker>
+                <Kicker>{t("how.stepsLabel")}</Kicker>
                 <ol className="m-0 mt-5 list-none p-0">
                   {ABOUT_PROCESS_STEPS.map((step) => (
                     <li
@@ -540,7 +458,7 @@ export async function AboutPage({ locale }: { locale: string }) {
 
               <div className="lg:col-start-1 lg:row-start-2 lg:self-end lg:pl-14 lg:pr-9">
                 <div className="border-t border-white/15 pt-7 lg:mt-12">
-                  <Kicker className={KICKER_ROOM}>{t("how.contactTitle")}</Kicker>
+                  <Kicker>{t("how.contactTitle")}</Kicker>
                   <dl className="m-0 mt-5 grid gap-4">
                     <div>
                       <dt className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-on-lacquer-muted">

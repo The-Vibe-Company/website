@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { resourcesTheme } from '@/lib/resources-theme';
 
 type Variant = 'default' | 'primary';
@@ -45,12 +45,11 @@ export function CopyButton({
   onCopy,
 }: CopyButtonProps) {
   const t = useTranslations('resources');
-  const locale = useLocale();
   const [status, setStatus] = useState<Status>('idle');
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const resolvedLabel = label ?? t('copy');
   const resolvedCopiedLabel = copiedLabel ?? t('copied');
-  const failedLabel = locale === 'fr' ? 'Copie impossible' : 'Copy failed';
+  const failedLabel = t('copyFailed');
   const copied = status === 'copied';
   const failed = status === 'failed';
   const buttonLabel = copied

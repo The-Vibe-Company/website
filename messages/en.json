@@ -184,7 +184,7 @@
     "indexTag": "Open source"
   },
   "finalCta": {
-    "kicker": "NOW BOARDING",
+    "kicker": "Book a call",
     "titleLine1": "Got a problem",
     "titleLine2": "to solve?",
     "bookCall": "Book 30 minutes",
@@ -273,6 +273,7 @@
     "copy": "Copy",
     "copied": "Copied",
     "copiedStatus": "Copied: {label}",
+    "copyFailed": "Copy failed",
     "skillPrompt": "Skill prompt",
     "promptStats": "{lineCount} lines · {wordCount} words",
     "collapsePrompt": "Collapse full skill prompt",

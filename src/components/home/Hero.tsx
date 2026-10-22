@@ -4,7 +4,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Fragment, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
-import { ButtonLink, LinkRim } from "@/components/kit";
+import { Bead, ButtonLink, LinkRim } from "@/components/kit";
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import type { RunnerItem } from "@/lib/runner-worlds";
@@ -40,81 +40,6 @@ const QUICK_ITEMS = [
 ] as const;
 
 /**
- * The mascot's head as a white clay bead: the black swept-back pattern painted
- * on top, a soft specular, and the orange rim light along its far edge. Pure
- * decoration, drawn here because it exists nowhere else on the site. Gradient
- * ids carry a prefix so they never meet another inline svg's.
- */
-function Bead({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 340 360" aria-hidden="true" focusable="false">
-      <defs>
-        <radialGradient id="hb-bd" gradientUnits="userSpaceOnUse" cx="129" cy="101" r="232">
-          <stop offset="0" stopColor="#fff" />
-          <stop offset=".42" stopColor="#f8f8f6" />
-          <stop offset=".8" stopColor="#e2e2de" />
-          <stop offset="1" stopColor="#cdcdc8" />
-        </radialGradient>
-        <linearGradient id="hb-lac" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#202022" />
-          <stop offset=".6" stopColor="#0a0a0b" />
-          <stop offset="1" stopColor="#000" />
-        </linearGradient>
-        <radialGradient id="hb-spec">
-          <stop offset="0" stopColor="#fff" stopOpacity=".9" />
-          <stop offset="1" stopColor="#fff" stopOpacity="0" />
-        </radialGradient>
-        <radialGradient id="hb-cs">
-          <stop offset="0" stopColor="#141416" stopOpacity=".26" />
-          <stop offset="1" stopColor="#141416" stopOpacity="0" />
-        </radialGradient>
-        <linearGradient id="hb-rim" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#ff7a1f" stopOpacity="0" />
-          <stop offset=".3" stopColor="#ff7a1f" />
-          <stop offset=".62" stopColor="#ffb46e" />
-          <stop offset="1" stopColor="#ff7a1f" stopOpacity="0" />
-        </linearGradient>
-        <clipPath id="hb-clip">
-          <circle cx="170" cy="165" r="145" />
-        </clipPath>
-        <filter id="hb-soft" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="5" />
-        </filter>
-      </defs>
-      <ellipse cx="184" cy="326" rx="122" ry="14" fill="url(#hb-cs)" />
-      <circle cx="170" cy="165" r="145" fill="url(#hb-bd)" />
-      <g clipPath="url(#hb-clip)">
-        <path
-          fill="url(#hb-lac)"
-          d="M-10 -10 H350 V40 L320 42 Q312 38 306 36 Q302 72 286 98 Q274 80 260 70 Q252 106 232 132 Q216 108 200 96 Q192 132 170 158 Q148 132 140 96 Q124 108 108 132 Q88 106 80 70 Q66 80 54 98 Q38 72 34 36 Q28 38 20 42 L-10 40 Z"
-        />
-        <g fill="none" stroke="url(#hb-bd)" strokeWidth="7" strokeLinecap="round">
-          <path d="M190 -4 Q196 50 200 96" />
-          <path d="M150 -4 Q144 50 140 96" />
-          <path d="M212 -4 Q248 30 260 70" />
-          <path d="M128 -4 Q92 30 80 70" />
-          <path d="M236 -6 Q292 8 306 36" />
-          <path d="M104 -6 Q48 8 34 36" />
-        </g>
-      </g>
-      <g clipPath="url(#hb-clip)">
-        <ellipse cx="116" cy="74" rx="58" ry="26" transform="rotate(-28 116 74)" fill="url(#hb-spec)" opacity=".55" />
-        <ellipse cx="108" cy="66" rx="15" ry="7" transform="rotate(-28 108 66)" fill="#fff" opacity=".75" />
-      </g>
-      <path
-        d="M242 40.3 A144 144 0 0 1 98 289.7"
-        fill="none"
-        stroke="url(#hb-rim)"
-        strokeWidth="7"
-        opacity=".45"
-        filter="url(#hb-soft)"
-      />
-      <path d="M242 40.3 A144 144 0 0 1 98 289.7" fill="none" stroke="url(#hb-rim)" strokeWidth="2.4" />
-    </svg>
-  );
-}
-
-/**
  * The home hero, one layout from phone to desktop: the main piece of the page
  * (a clay slab with the orange rim light), then the runner on a black lacquer
  * band where there is a keyboard, then the three ways in as quiet pieces.
@@ -131,9 +56,6 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
 
   return (
     <section id="hero" className="pt-3.5 md:pt-[22px]">
-      {/* Marks the page as the one with the phone booking bar: the kit keeps
-          focus and in-page jumps clear of it from this id. */}
-      <span id="hero-mobile" hidden />
       <div className="wrap">
         <div
           className="clay rim rim-warm relative overflow-hidden rounded-[28px] px-5 pb-6 pt-7 md:rounded-slab md:px-14 md:pb-12 md:pt-14"

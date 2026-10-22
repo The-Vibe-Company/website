@@ -59,19 +59,6 @@ export async function generateMetadata({
   };
 }
 
-/**
- * Quivr's mock draws the web app in its own look (and the OG cards are captures
- * of it), so its file stays as it is. From the page it is framed as a glazed
- * insert: the clay piece clips it, its hairline turns into the studio's line,
- * and the few mono labels it draws under 12px are raised to the site's floor.
- */
-const QUIVR_INSERT_CSS = `
-.quivr-insert [data-quivr-mock] { border-color: var(--line); }
-.quivr-insert [class*="text-[9px]"],
-.quivr-insert [class*="text-[10px]"],
-.quivr-insert [class*="text-[11px]"] { font-size: 12px; }
-`;
-
 /** The engraved vertical (md and up) or horizontal (phone) line between facts. */
 const FACT_GROOVE =
   "relative before:pointer-events-none before:absolute before:left-0 before:right-0 before:top-0 before:h-[2px] before:bg-[linear-gradient(180deg,rgba(11,11,12,0.1)_0_1px,rgba(255,255,255,0.95)_1px_2px)] first:before:hidden md:before:bottom-0 md:before:left-0 md:before:right-auto md:before:top-6 md:before:h-auto md:before:w-[2px] md:before:bg-[linear-gradient(90deg,rgba(11,11,12,0.1)_0_1px,rgba(255,255,255,0.95)_1px_2px)]";
@@ -177,11 +164,8 @@ export default async function PortfolioProjectPage({
                   }
                 >
                   {isQuivr ? (
-                    <div className="quivr-insert min-w-0">
-                      <style dangerouslySetInnerHTML={{ __html: QUIVR_INSERT_CSS }} />
-                      <div className="overflow-hidden rounded-[14px] md:rounded-[16px]">
-                        <QuivrFeedMock locale={locale} accent={project.accent} />
-                      </div>
+                    <div className="glaze min-w-0 rounded-[14px] md:rounded-[16px]">
+                      <QuivrFeedMock locale={locale} accent={project.accent} />
                     </div>
                   ) : project.cover ? (
                     <figure className="rim relative m-0 self-start overflow-hidden rounded-[14px] bg-[#0a0a0b] [--rim-angle:130deg] md:rounded-[16px]">

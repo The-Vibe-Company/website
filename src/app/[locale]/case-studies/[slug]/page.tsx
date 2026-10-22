@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Suspense, type ReactNode } from "react";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
@@ -41,23 +41,6 @@ export async function generateMetadata({
       description,
     }),
   };
-}
-
-/** A picture set into the clay like a glazed insert (white glaze, hairline ring). */
-function Glaze({
-  className = "",
-  children,
-}: {
-  className?: string;
-  children: ReactNode;
-}) {
-  return (
-    <div
-      className={`relative overflow-hidden bg-white after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:shadow-[inset_0_0_0_1px_rgba(11,11,12,0.1),inset_0_1px_0_rgba(255,255,255,0.5)] after:content-[''] ${className}`}
-    >
-      {children}
-    </div>
-  );
 }
 
 /** What was done: an open list, the black arrow badge in front of each line. */
@@ -190,7 +173,7 @@ export default async function CaseStudyPage({
                 {!asideVisual && <div className="min-w-0">{story}</div>}
 
                 {asideVisual && (
-                  <Glaze className="mx-auto w-full max-w-[360px] rounded-[22px] lg:mx-0">
+                  <div className="glaze mx-auto w-full max-w-[360px] lg:mx-0">
                     <Image
                       src={asideVisual.src}
                       alt={asideVisual.alt}
@@ -200,7 +183,7 @@ export default async function CaseStudyPage({
                       className="h-auto w-full"
                       priority
                     />
-                  </Glaze>
+                  </div>
                 )}
               </div>
             </Piece>
@@ -268,7 +251,7 @@ export default async function CaseStudyPage({
                 </div>
                 {project.visual && (
                   <Piece tone="quiet" radius="xl" className="mt-12 p-2 md:p-3">
-                    <Glaze className="rounded-[24px] max-md:rounded-2xl">
+                    <div className="glaze">
                       <Image
                         src={project.visual.src}
                         alt={project.visual.alt}
@@ -277,7 +260,7 @@ export default async function CaseStudyPage({
                         sizes="(max-width: 767px) calc(100vw - 4rem), (max-width: 1247px) calc(100vw - 7.5rem), 1176px"
                         className="h-auto w-full"
                       />
-                    </Glaze>
+                    </div>
                   </Piece>
                 )}
               </div>
@@ -311,7 +294,7 @@ export default async function CaseStudyPage({
                         radius="xl"
                         className="p-2 md:p-3"
                       >
-                        <Glaze className="rounded-[24px] max-md:rounded-2xl">
+                        <div className="glaze">
                           <Image
                             src={visual.src}
                             alt={visual.alt}
@@ -320,7 +303,7 @@ export default async function CaseStudyPage({
                             sizes="(max-width: 767px) calc(100vw - 4rem), (max-width: 1247px) calc(100vw - 7.5rem), 1176px"
                             className="h-auto w-full"
                           />
-                        </Glaze>
+                        </div>
                       </Piece>
                     ))}
                   </div>
