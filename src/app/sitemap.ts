@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { CUSTOMER_SLUGS, getCustomer } from "@/lib/customers";
 import {
   contentPath,
   getAllContent,
@@ -107,11 +108,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     )
   );
 
-  // Case studies intentionally remain absent until client publication approval.
+  // Case studies use the route's customer source and FR/EN-only alternates.
+  const caseStudyRoutes = [
+    ...entries("/case-studies", {
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    }),
+    ...CUSTOMER_SLUGS.flatMap((slug) =>
+      entries(`/case-studies/${slug}`, {
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.7,
+      }).filter((_, index) => getCustomer(slug, LOCALES[index]))
+    ),
+  ];
+
   return [
     ...staticRoutes,
     ...splitPathRoutes,
     ...portfolioRoutes,
     ...contentRoutes,
+    ...caseStudyRoutes,
   ];
 }
