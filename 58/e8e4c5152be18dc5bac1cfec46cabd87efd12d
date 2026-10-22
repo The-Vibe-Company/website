@@ -1,0 +1,53 @@
+src/components/ContactMenu.tsx
+  s_c8af29a5af6da7::t_c237982b62e85d 4,10,12-13,15,20-24,27,31,36,38-51,53-54,58-67,70-76,79,82-84,87-88,90-91
+src/components/kit/index.tsx
+  s_c8af29a5af6da7::t_abf79dde06733c 1-254
+messages/en.json
+  s_c8af29a5af6da7::t_e260b637222aaa 6,10,88,105,148,175,214,221-223,290,298,312
+messages/fr.json
+  s_c8af29a5af6da7::t_5adc2ea1d82ae8 6,10,88,105,148,175,214,221-223,290,298,312
+src/app/[locale]/layout.tsx
+  s_c8af29a5af6da7::t_94abfc6eaac31d 2,12-21,74-81
+src/app/[locale]/not-found.tsx
+  s_c8af29a5af6da7::t_0619604b40e091 2,31-41
+src/app/globals.css
+  s_c8af29a5af6da7::t_0a5babe08a2a26 5-79,83-84,86-88,91-128,131-142,149-155,157-165,186-208,210-215,225-227,233-236,302-316,327-329,333-335,340-341,350-351,354-357,359-386,389-392,405,407-1644,1646-1647,1650-1720,1732,1734,1742-1749,1752-1754,1761-1763,1770-1772,1790-1793,1797,1800,1802,1809-1819,1841-1843,1863-1864,1888,1892,1895,1897,1899-1903,1907-1908,1913,1919-1920,1922,1937-1938,1945,1947,1999-2002,2084,2097,2116,2142-2143,2149,2163,2263,2296
+src/components/BackLink.tsx
+  s_c8af29a5af6da7::t_af1574b1db33ca 1,12-13
+src/components/Footer.tsx
+  s_c8af29a5af6da7::t_67a4b3b2c4ae46 35,39,43,70-89,92-96,99-101,110-112,122,125-126
+src/components/LanguageSwitcher.tsx
+  s_c8af29a5af6da7::t_7455f7e1d79a99 37,44-54
+src/components/TopNav.tsx
+  s_c8af29a5af6da7::t_32f4b7d41b7fe4 11,22-30,33-35,189,193-197,201-213,215-229,231-246,248-272,274-307,309,315-320,322-335,340-342,348-351,355,360-420,422-423,425,427-428,430
+src/components/home/FinalCTA.tsx
+  s_c8af29a5af6da7::t_fec8437b78fd02 4,9-18,20-21,25-35,40,43,46-50,59
+src/components/resources/ConditionalGridOverlay.tsx
+  s_c8af29a5af6da7::t_cebd2b874fc53c 3-8,10
+src/components/resources/LanguageFlag.tsx
+  s_c8af29a5af6da7::t_929ebf0422e591 5,13-14,17-35,37,40-47,49-65
+src/components/resources/SkillCard.tsx
+  s_c8af29a5af6da7::t_8e5e95ffe5c468 3,32-36,38,43,48-49,52,56-58
+src/components/resources/TranslationSwitch.tsx
+  s_c8af29a5af6da7::t_c61453a634846a 32-38,57,59-62,64-76
+src/lib/design-system.ts
+  s_c8af29a5af6da7::t_da91acce00c1bd 2-7,65-66,68-70,72,75-78,80,83-84,87-88,90-91,94,96,107-108,110-112,114,117-118,120-121,123-124,127,213-217,223-224,246,248-250,252,255-258,260-261,263-266,268-269,271-275,277,280-281,283,286-288,290-291,293-295,297,300,303-306,309-311,313-314,316-318,320-324,327,330
+src/lib/resources-theme.ts
+  s_c8af29a5af6da7::t_a40705aa613b26 2,4-8,13-17,21-24,29-31,35-38,41-42,44-47,51-52,56-59,63-65,69-70,72,76,78-83,85-90,92,94,96-98,102,107,110-111,113,129-131,134-136,139-141,144-146
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "58e8e4c5152be18dc5bac1cfec46cabd87efd12d",
+  "prompts": {},
+  "sessions": {
+    "s_c8af29a5af6da7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b81b232c-25c9-4494-8e89-f80c50a7c0c1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
