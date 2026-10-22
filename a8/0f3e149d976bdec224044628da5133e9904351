@@ -1,0 +1,25 @@
+src/app/globals.css
+  s_c8af29a5af6da7::t_ae3e02bffe437f 53-55,588,595,640,1058-1059,1284,1458,1481-1497,1754
+src/components/TopNav.tsx
+  s_c8af29a5af6da7::t_85051e0a00ec3d 219,249,278
+src/components/home/FitText.tsx
+  s_c8af29a5af6da7::t_5ce60a2c2315d4 6-7,11-12
+src/components/resources/TranslationSwitch.tsx
+  s_c8af29a5af6da7::t_fd263f55f7a41c 57,76-85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a80f3e149d976bdec224044628da5133e9904351",
+  "prompts": {},
+  "sessions": {
+    "s_c8af29a5af6da7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b81b232c-25c9-4494-8e89-f80c50a7c0c1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
