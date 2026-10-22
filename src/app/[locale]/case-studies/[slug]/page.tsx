@@ -109,6 +109,24 @@ export default async function CaseStudyPage({
   // kit's two-tone title, never a huge number with a caption under it.
   const headline = customer.metric ?? customer.client;
 
+  // The story: overview, then the client's quote when there is one.
+  const story = (
+    <>
+      <p className="lede m-0">{customer.overview}</p>
+
+      {customer.quote && (
+        <figure className="lede-bar m-0 mt-8 md:mt-10">
+          <blockquote className="m-0 font-medium text-ink">
+            &ldquo;{customer.quote.text}&rdquo;
+          </blockquote>
+          <figcaption className="mt-4 font-mono text-xs font-medium uppercase leading-snug tracking-[0.1em] text-muted-foreground">
+            {customer.quote.author}
+          </figcaption>
+        </figure>
+      )}
+    </>
+  );
+
   return (
     <div
       data-variant="hybrid"
@@ -142,10 +160,8 @@ export default async function CaseStudyPage({
               <Groove />
 
               <div
-                className={`mt-8 grid gap-10 md:mt-12 ${
-                  asideVisual
-                    ? "lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start lg:gap-x-[72px]"
-                    : ""
+                className={`mt-8 grid gap-10 md:mt-12 lg:items-start lg:gap-x-[72px] ${
+                  asideVisual ? "lg:grid-cols-[minmax(0,1fr)_360px]" : "lg:grid-cols-2"
                 }`}
               >
                 <div className="min-w-0">
@@ -167,20 +183,11 @@ export default async function CaseStudyPage({
                       headline
                     )}
                   </h1>
-
-                  <p className="lede mt-8 md:mt-10">{customer.overview}</p>
-
-                  {customer.quote && (
-                    <figure className="lede-bar m-0 mt-8 md:mt-10">
-                      <blockquote className="m-0 font-medium text-ink">
-                        &ldquo;{customer.quote.text}&rdquo;
-                      </blockquote>
-                      <figcaption className="mt-4 font-mono text-xs font-medium uppercase leading-snug tracking-[0.1em] text-muted-foreground">
-                        {customer.quote.author}
-                      </figcaption>
-                    </figure>
-                  )}
+                  {asideVisual && <div className="mt-8 md:mt-10">{story}</div>}
                 </div>
+
+                {/* Without a phone visual the story takes the second half of the slab. */}
+                {!asideVisual && <div className="min-w-0">{story}</div>}
 
                 {asideVisual && (
                   <Glaze className="mx-auto w-full max-w-[360px] rounded-[22px] lg:mx-0">
