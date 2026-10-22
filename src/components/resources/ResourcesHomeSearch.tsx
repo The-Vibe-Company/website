@@ -48,21 +48,20 @@ export function ResourcesHomeSearch() {
   );
 
   return (
-    <form onSubmit={handleSubmit} role="search" className="relative w-full sm:flex-1 max-w-xl">
-      <span aria-hidden="true" className="absolute left-4 top-1/2 -translate-y-1/2 text-res-text-muted">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="11" cy="11" r="8" />
-          <path d="m21 21-4.3-4.3" />
+    <form onSubmit={handleSubmit} role="search" className="w-full md:max-w-[560px] md:flex-1">
+      <label className="field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m21 21-5-5" />
         </svg>
-      </span>
-      <input
-        type="search"
-        placeholder={t('searchPlaceholder')}
-        value={value}
-        onChange={(event) => handleChange(event.target.value)}
-        className="w-full bg-res-surface border border-res-border pl-12 pr-4 py-3.5 text-base font-mono text-res-text placeholder:text-res-text-muted/60 focus:outline-none focus:border-res-text rounded-md transition-colors"
-        aria-label={tA11y('searchResources')}
-      />
+        <input
+          type="search"
+          placeholder={t('searchPlaceholder')}
+          value={value}
+          onChange={(event) => handleChange(event.target.value)}
+          aria-label={tA11y('searchResources')}
+        />
+      </label>
     </form>
   );
 }

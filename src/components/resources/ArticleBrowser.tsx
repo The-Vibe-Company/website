@@ -4,7 +4,8 @@ import { useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from 'next-intl';
-import { resourcesTheme } from '@/lib/resources-theme';
+import { Arrow, Chip, Pointe } from '@/components/kit';
+import { cn } from '@/lib/design-system';
 import { getUrlSlugForDbType } from '@/lib/content-types';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import {
@@ -32,7 +33,7 @@ export interface ArticleCardItem {
 
 type Filter = 'all' | 'victor' | 'articles';
 
-/** How many cards each column shows in the combined view before linking to the full list. */
+/** How many entries each column shows in the combined view before linking to the full list. */
 const ARTICLES_PREVIEW_LIMIT = 6;
 const VICTOR_PREVIEW_LIMIT = 6;
 
@@ -45,77 +46,67 @@ function formatDate(dateString: string | undefined, locale: string): string {
 }
 
 /**
- * The whole card is a click target, but the language switch inside it needs to
- * stay its own link. So the card is a plain container and the title link spans
- * it through an overlay pseudo-element, which keeps the markup free of nested
- * anchors; the switch sits above that overlay.
+ * One entry: a glazed cover, the title, two lines of summary and a meta row.
+ * The whole entry is a click target, but the language switch inside it needs
+ * to stay its own link. So the entry is a plain container and the title link
+ * spans it through an overlay pseudo-element, which keeps the markup free of
+ * nested anchors; the switch sits above that overlay. The cover is decorative:
+ * the title next to it names the link.
  */
-function ArticleCard({ item, hidden = false }: { item: ArticleCardItem; hidden?: boolean }) {
+function ArticleEntry({ item, hidden = false }: { item: ArticleCardItem; hidden?: boolean }) {
   const t = useTranslations('resources');
   const locale = useLocale();
   return (
     <article
       hidden={hidden}
-      className={`group relative ${hidden ? 'hidden' : 'flex'} h-[132px] gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
+      className={cn(
+        'entry clay-quiet lift group relative',
+        hidden && 'hidden',
+        'has-[h3_a:focus-visible]:outline-2 has-[h3_a:focus-visible]:outline-offset-3 has-[h3_a:focus-visible]:outline-ink',
+      )}
     >
-      <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded">
+      <span className="thumb rim">
         {item.image ? (
-          <Image
-            src={item.image.url}
-            alt={item.image.alt}
-            fill
-            sizes="64px"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-          />
+          <Image src={item.image.url} alt="" fill sizes="128px" className="object-cover" />
         ) : (
-          <div className="w-full h-full bg-res-bg-secondary border border-res-border" />
+          <span className="block h-full w-full bg-well" aria-hidden="true" />
         )}
-      </div>
-      <div className="flex-1 min-w-0 flex flex-col">
-        <h3 className="text-sm font-bold tracking-tight text-res-text leading-tight mb-1 line-clamp-2">
+      </span>
+      <div className="entry-body">
+        {item.priority && (
+          <div className="kicker mb-1.5">
+            <Pointe className="size-3.5" />
+            <span>{t('startHere')}</span>
+          </div>
+        )}
+        <h3 className="max-md:line-clamp-3">
           <Link
             href={`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`}
-            className="after:absolute after:inset-0 after:content-[''] group-hover:underline decoration-1 underline-offset-2"
+            className="outline-none after:absolute after:inset-0 after:rounded-[20px] after:content-[''] group-hover:underline group-hover:decoration-rim group-hover:decoration-2 group-hover:underline-offset-[3px]"
           >
             {item.title}
           </Link>
         </h3>
         {item.summary ? (
-          <p
-            className="text-xs text-res-text-muted leading-snug line-clamp-2"
-            dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
-          />
+          <p dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }} />
         ) : null}
-        <div className="mt-auto flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-          {item.seriesDay != null && (
-            <span className="inline-flex items-center rounded border border-orange-500/40 bg-orange-500/10 px-1.5 py-0.5 text-orange-600 tracking-wider">
-              D{item.seriesDay}
-            </span>
-          )}
-          {item.priority && (
-            <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
-              {t('startHere')}
-            </span>
-          )}
-          {item.focus && (
-            <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
-              {t('focus')}
-            </span>
-          )}
-          {item.tool && (
-            <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
-              {t('tools')}
-            </span>
-          )}
+        <div className="meta flex-wrap gap-y-1.5 max-md:gap-x-1.5 max-md:[&_.chip]:px-2">
+          {item.seriesDay != null && <Chip dark>D{item.seriesDay}</Chip>}
+          {item.focus && <Chip>{t('focus')}</Chip>}
+          {item.tool && <Chip>{t('tools')}</Chip>}
           {item.language && (
             <TranslationSwitch
               language={item.language}
               translations={item.translations}
-              variant="inline"
+              variant="card"
               className="relative z-10"
             />
           )}
-          {item.publishedAt && <span>{formatDate(item.publishedAt, locale)}</span>}
+          {item.publishedAt && (
+            <time dateTime={item.publishedAt} className="whitespace-nowrap">
+              {formatDate(item.publishedAt, locale)}
+            </time>
+          )}
         </div>
       </div>
     </article>
@@ -132,24 +123,26 @@ interface ColumnProps {
 }
 
 function Column({ name, count, accent, layout = 'list', children, footer }: ColumnProps) {
-  const borderClass = accent === 'victor' ? 'border-orange-500' : 'border-res-text';
-  const dotClass = accent === 'victor' ? 'bg-orange-500' : 'bg-res-text';
-  const cardsClass =
-    layout === 'grid' ? 'grid grid-cols-1 lg:grid-cols-2 gap-3' : 'flex flex-col gap-3';
+  const lit = accent === 'victor';
 
   return (
     <div>
-      <div className={`flex items-center justify-between pb-2.5 mb-4 border-b-2 ${borderClass}`}>
-        <div className="flex items-center gap-2.5">
-          <span className={`w-1.5 h-1.5 rounded-full ${dotClass}`} aria-hidden="true" />
-          <h2 className="text-lg md:text-xl font-bold tracking-tight text-res-text">{name}</h2>
-        </div>
-        <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">{count}</span>
+      <div className="flex items-center gap-3 px-1 pb-4">
+        <span className={cn('dot', lit && 'dot-rim')} aria-hidden="true" />
+        <h2 className="display d-xs m-0">{name}</h2>
+        <span className="chip ml-auto">{count}</span>
       </div>
-      <div className={cardsClass}>
-        {children}
-        {footer}
-      </div>
+      <div
+        aria-hidden="true"
+        className={cn(
+          'mb-[18px] h-0.5 rounded-sm',
+          lit
+            ? 'bg-[linear-gradient(90deg,var(--ink)_0_30%,var(--rim)_80%,var(--rim-hot))]'
+            : 'bg-[linear-gradient(90deg,var(--ink),#3a3a3c)]',
+        )}
+      />
+      <div className={cn('entries', layout === 'grid' && 'lg:grid-cols-2')}>{children}</div>
+      {footer}
     </div>
   );
 }
@@ -181,95 +174,91 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
 
   return (
     <div>
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-10">
+      <div className="clay mt-8 flex flex-col gap-2 rounded-plate p-2 md:mt-14 md:flex-row md:items-center md:justify-between md:gap-4 md:rounded-full md:p-2.5">
         {searchSlot}
-        <div
-          className="flex gap-1 self-start rounded-md border border-res-border bg-res-bg-secondary p-1"
-          role="tablist"
-          aria-label={tA11y('filterArticles')}
-        >
-          {tabs.map((tab) => {
-            const active = filter === tab.key;
-            return (
-              <button
-                key={tab.key}
-                type="button"
-                role="tab"
-                aria-selected={active}
-                onClick={() => setFilter(tab.key)}
-                className={`inline-flex cursor-pointer items-center gap-1.5 rounded px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition-colors ${
-                  active ? 'bg-res-text text-res-surface' : 'text-res-text-muted hover:text-res-text'
-                }`}
-              >
-                {tab.dot && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500" aria-hidden="true" />
-                )}
-                {tab.label}
-              </button>
-            );
-          })}
+        <div className="seg" role="group" aria-label={tA11y('filterArticles')}>
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              aria-pressed={filter === tab.key}
+              onClick={() => setFilter(tab.key)}
+              className="max-md:flex-1 max-md:gap-1.5 max-md:px-3"
+            >
+              {tab.dot && <span className="dot dot-rim" aria-hidden="true" />}
+              {tab.label}
+            </button>
+          ))}
         </div>
       </div>
 
-      {single && (
-        <button
-          type="button"
-          onClick={() => setFilter('all')}
-          className="group mb-6 inline-flex cursor-pointer items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
-        >
-          <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
-          {t('back')}
-        </button>
-      )}
-
-      <div className={single ? '' : 'grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start'}>
-        {showVictor && (
-          <Column
-            name={t('victorStory')}
-            count={victorStory.length}
-            accent="victor"
-            layout={single ? 'grid' : 'list'}
-            footer={
-              hiddenVictor > 0 ? (
-                <button
-                  type="button"
-                  onClick={() => setFilter('victor')}
-                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
-                >
-                  {t('viewAllVictor', { count: victorStory.length })} &rarr;
-                </button>
-              ) : null
-            }
-          >
-            {victorStory.map((item, index) => (
-              <ArticleCard key={item.id} item={item} hidden={filter === 'all' && index >= VICTOR_PREVIEW_LIMIT} />
-            ))}
-          </Column>
+      <div className="mt-10 md:mt-[52px]">
+        {single && (
+          <button type="button" onClick={() => setFilter('all')} className="back mb-4">
+            <Arrow direction="left" />
+            {t('back')}
+          </button>
         )}
 
-        {showOthers && (
-          <Column
-            name={t('articles')}
-            count={others.length}
-            accent="articles"
-            layout={single ? 'grid' : 'list'}
-            footer={
-              hiddenOthers > 0 ? (
-                <button
-                  type="button"
-                  onClick={() => setFilter('articles')}
-                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
-                >
-                  {t('viewAllArticles', { count: others.length })} &rarr;
-                </button>
-              ) : null
-            }
-          >
-            {others.map((item, index) => (
-              <ArticleCard key={item.id} item={item} hidden={filter === 'all' && index >= ARTICLES_PREVIEW_LIMIT} />
-            ))}
-          </Column>
-        )}
+        <div className={single ? '' : 'grid grid-cols-1 items-start gap-[52px] md:grid-cols-2 md:gap-9'}>
+          {showVictor && (
+            <Column
+              name={t('victorStory')}
+              count={victorStory.length}
+              accent="victor"
+              layout={single ? 'grid' : 'list'}
+              footer={
+                hiddenVictor > 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => setFilter('victor')}
+                    className="btn btn-clay btn-wide mt-4"
+                  >
+                    <span className="truncate">{t('viewAllVictor', { count: victorStory.length })}</span>
+                    <Arrow />
+                  </button>
+                ) : null
+              }
+            >
+              {victorStory.map((item, index) => (
+                <ArticleEntry
+                  key={item.id}
+                  item={item}
+                  hidden={filter === 'all' && index >= VICTOR_PREVIEW_LIMIT}
+                />
+              ))}
+            </Column>
+          )}
+
+          {showOthers && (
+            <Column
+              name={t('articles')}
+              count={others.length}
+              accent="articles"
+              layout={single ? 'grid' : 'list'}
+              footer={
+                hiddenOthers > 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => setFilter('articles')}
+                    className="btn btn-clay btn-wide mt-4"
+                  >
+                    <span className="truncate">{t('viewAllArticles', { count: others.length })}</span>
+                    <Arrow />
+                  </button>
+                ) : null
+              }
+            >
+              {others.map((item, index) => (
+                <ArticleEntry
+                  key={item.id}
+                  item={item}
+                  hidden={filter === 'all' && index >= ARTICLES_PREVIEW_LIMIT}
+                />
+              ))}
+            </Column>
+          )}
+        </div>
       </div>
     </div>
   );
