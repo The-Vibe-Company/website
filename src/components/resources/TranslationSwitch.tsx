@@ -27,17 +27,15 @@ const READ_IN: Record<ContentLanguage, 'readInFrench' | 'readInEnglish'> = {
   en: 'readInEnglish',
 };
 
-const SEPARATOR_SIZE: Record<SwitchVariant, string> = {
-  card: 'text-[10px]',
-  sidebar: 'text-sm',
-  inline: 'text-[10px]',
-};
-
 /**
  * Language control for an article. An article published in a single language
- * keeps showing its lone flag, exactly as before. A translated one shows the
- * pair, the version on screen at full strength and the other as a dimmed link
- * to its own URL, mirroring the `FR / EN` switch in the main nav.
+ * keeps showing its lone flag, exactly as before. A translated one shows a
+ * pressed-in rail with two labelled positions: the version on screen (flag and
+ * code) and a link to the other one, written out as « Lire en anglais » /
+ * « Lire en français » (and the English equivalents) so the way to the other
+ * language is plain text, not a bare flag. The link keeps its `aria-label`
+ * (the same words) and crosses locales: each version is canonical under its
+ * own language prefix.
  */
 export function TranslationSwitch({
   language,
@@ -56,28 +54,26 @@ export function TranslationSwitch({
     <span
       role="group"
       aria-label={t('language')}
-      className={`inline-flex items-center gap-1${className ? ` ${className}` : ''}`}
+      className={`tr max-w-full${className ? ` ${className}` : ''}`}
     >
-      <LanguageFlag language={language} variant={variant} />
+      <span aria-current="true" className="shrink-0">
+        <LanguageFlag language={language} variant={variant} decorative />
+        <span>{language.toUpperCase()}</span>
+      </span>
       {others.map((translation) => (
-        <span key={translation.language} className="inline-flex items-center gap-1">
-          <span
-            className={`font-mono text-res-border ${SEPARATOR_SIZE[variant]}`}
-            aria-hidden="true"
-          >
-            /
-          </span>
-          <Link
-            href={translation.href}
-            // Each version is canonical under its own language prefix, so the
-            // switch crosses locales instead of staying under the current one.
-            locale={translation.language}
-            aria-label={t(READ_IN[translation.language])}
-            className="inline-flex items-center opacity-40 transition-opacity hover:opacity-100 focus-visible:opacity-100"
-          >
-            <LanguageFlag language={translation.language} variant={variant} />
-          </Link>
-        </span>
+        <Link
+          key={translation.language}
+          href={translation.href}
+          // Each version is canonical under its own language prefix, so the
+          // switch crosses locales instead of staying under the current one.
+          locale={translation.language}
+          hrefLang={translation.language}
+          aria-label={t(READ_IN[translation.language])}
+          className="min-w-0"
+        >
+          <LanguageFlag language={translation.language} variant={variant} decorative />
+          <span className="truncate">{t(READ_IN[translation.language])}</span>
+        </Link>
       ))}
     </span>
   );
