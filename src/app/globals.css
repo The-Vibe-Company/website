@@ -54,7 +54,9 @@
                    Bricolage runs about 1.4 characters per ch, so these hold
                    a line under 90 characters.
         pieces     clay, clay-quiet, lacquer, well, rim, rim-warm, groove,
-                   lift (hover rise for a piece that is a link).
+                   lift (hover rise for a piece that is a link), glaze (a
+                   picture or a product mock set into a piece: white glaze,
+                   hairline ring, clipped corners).
         small      chip (pressed tag) chip-dark (lacquer tag), num (lacquer
                    number badge), ticks (list with the black V bullet), dot,
                    dot-rim, facts (dl), seg (segmented tabs/filters, the active
@@ -552,6 +554,36 @@ input:disabled {
     border: 0;
     margin: 0;
     background: linear-gradient(180deg, rgba(11, 11, 12, 0.1) 0 1px, rgba(255, 255, 255, 0.95) 1px 2px);
+  }
+
+  /* A glazed insert: a picture or a product drawn in code (a screenshot, the
+     Quivr feed mock) set into a clay piece. White glaze under it, a hairline
+     ring over it, the corners clipped. Radius 16 on a phone, 24 from 768px:
+     sized for a quiet piece with 8px (phone) or 12px of padding around it; give
+     it another radius with a utility (rounded-[14px]) where the frame differs.
+     The rules that adapt a mock to the site are right after the layer. */
+  .glaze {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #fff;
+  }
+
+  .glaze::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow:
+      inset 0 0 0 1px rgba(11, 11, 12, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  @media (min-width: 768px) {
+    .glaze {
+      border-radius: 24px;
+    }
   }
 
   /* A piece that is a link rises a little under the pointer. */
@@ -1755,6 +1787,21 @@ input:disabled {
       margin-top: 36px;
     }
   }
+}
+
+/* Inside a glazed insert, outside the layers so they beat the utility classes
+   of the product drawn there. Quivr's mock draws the web app in its own look
+   (the OG cards are captures of it), so its file stays as it is: here its ink
+   hairline turns into the studio's line, and the few mono labels it draws at
+   9 to 11px are raised to the site's 12px floor. */
+.glaze [data-quivr-mock] {
+  border-color: var(--line);
+}
+
+.glaze [class*="text-[9px]"],
+.glaze [class*="text-[10px]"],
+.glaze [class*="text-[11px]"] {
+  font-size: 12px;
 }
 
 /* The grid-paper overlay is not part of porcelaine. The class stays so a page
