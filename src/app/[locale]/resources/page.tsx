@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+import { SectionTitle } from '@/components/kit';
 import { ArticleBrowser, type ArticleCardItem } from '@/components/resources/ArticleBrowser';
 import { ResourcesHomeSearch } from '@/components/resources/ResourcesHomeSearch';
 import {
@@ -10,7 +11,6 @@ import {
 } from '@/lib/content-source';
 import type { ContentEntry, ContentLanguage } from '@/lib/content-source';
 import { PRIORITY_ARTICLES } from '@/lib/priority-articles';
-import { resourcesTheme } from '@/lib/resources-theme';
 import { localizedAlternates, localizedSocialMetadata } from '@/lib/site';
 
 export async function generateMetadata({
@@ -93,29 +93,28 @@ export default async function ResourcesPage({
   const articleCount = articles.length;
 
   return (
-    <main id="main-content" tabIndex={-1} className="pb-20 bg-res-bg">
-      <section
-        className={`${resourcesTheme.section.padding} pt-10 md:pt-16 pb-10 md:pb-12 border-b border-res-border`}
-      >
-        <div className="max-w-4xl">
-          <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-res-text-muted block mb-4">
-            {t('kicker')} / {articleCount} {articleCount === 1 ? 'article' : 'articles'}
-          </span>
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter leading-[0.92] text-res-text mb-5">
-            {t('title')}
-          </h1>
-          <p className="text-base md:text-lg text-res-text-muted leading-relaxed max-w-2xl">
-            {t('subtitle')}
-          </p>
+    <main id="main-content" tabIndex={-1} className="pb-24 md:pb-[120px]">
+      <section className="pt-12 md:pt-[76px]">
+        <div className="wrap">
+          <SectionTitle
+            as="h1"
+            size="lg"
+            kicker={
+              <>
+                {t('kicker')} <span className="bisque">/</span> {articleCount}{' '}
+                {articleCount === 1 ? 'article' : 'articles'}
+              </>
+            }
+            line1={t('title')}
+          >
+            <p>{t('subtitle')}</p>
+          </SectionTitle>
+          <ArticleBrowser
+            victorStory={victorStory}
+            others={others}
+            searchSlot={<ResourcesHomeSearch key="search" />}
+          />
         </div>
-      </section>
-
-      <section className={`${resourcesTheme.section.padding} pt-10`}>
-        <ArticleBrowser
-          victorStory={victorStory}
-          others={others}
-          searchSlot={<ResourcesHomeSearch />}
-        />
       </section>
     </main>
   );
