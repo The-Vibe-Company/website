@@ -1,0 +1,21 @@
+src/components/about/AboutBookingCta.tsx
+  s_c8af29a5af6da7::t_84a6a32d1b61ae 4,9-10,20-21,23-24,27,30-31
+src/components/about/AboutPage.tsx
+  s_c8af29a5af6da7::t_5e26567601ee66 3,10-18,31,65-236,242-243,251-257,259-272,274-281,283-304,307-308,312-334,336-337,339-340,342-344,348-393,396-410,412,415,417-424,426-432,436-444,446-456,458-472,474,476-503,505-565,567-568,572-594,596-597,599,601-633,635-636,639,641,643-653,658-680
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7ad3eaa51464c6b61b4296ff225e5020a62821d2",
+  "prompts": {},
+  "sessions": {
+    "s_c8af29a5af6da7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b81b232c-25c9-4494-8e89-f80c50a7c0c1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
