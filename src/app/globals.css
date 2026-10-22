@@ -324,8 +324,11 @@
     @apply box-border;
   }
 
+  /* No smooth scrolling: the sticky header must sit at the top the moment a page
+     is at scrollTop 0 (a smooth scroll back to the top leaves it mid-page in
+     a full-page capture), and in-page jumps land at once. */
   html {
-    @apply scroll-smooth h-full;
+    @apply h-full;
     /* In-page jumps (#contact, #main-content) stop below the sticky header. */
     scroll-padding-top: 6.5rem;
     -webkit-text-size-adjust: 100%;
@@ -566,7 +569,7 @@ input:disabled {
     font-family: var(--font-ui);
     font-weight: 680;
     font-stretch: 92%;
-    letter-spacing: -0.034em;
+    letter-spacing: -0.03em;
     line-height: 0.95;
     font-variation-settings: "opsz" 96;
     text-wrap: balance;
@@ -939,10 +942,26 @@ input:disabled {
   /* Label / value pairs (response time, e-mail). */
   .facts {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 10px 20px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
     align-items: baseline;
     margin: 0;
+  }
+
+  .facts dd + dt {
+    margin-top: 14px;
+  }
+
+  /* Label and value side by side once there is room for an e-mail address. */
+  @media (min-width: 560px) {
+    .facts {
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px 20px;
+    }
+
+    .facts dd + dt {
+      margin-top: 0;
+    }
   }
 
   .facts dt {

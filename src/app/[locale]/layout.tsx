@@ -75,7 +75,6 @@ export default async function LocaleLayout({
     // tokens in globals.css can resolve them.
     <html
       lang={locale}
-      data-scroll-behavior="smooth"
       className={`${bricolage.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
       <body className="antialiased">

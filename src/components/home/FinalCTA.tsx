@@ -26,7 +26,7 @@ export function FinalCTA({ rail }: { rail?: "wide" | "narrow" } = {}) {
       <div className="wrap">
         <div className="final-slab clay rim rim-warm">
           <Kicker>{t("kicker")}</Kicker>
-          <h2 className="display d-lg m-0">
+          <h2 className="display d-lg">
             {t("titleLine1")}
             <br />
             <span className="bisque">{t("titleLine2")}</span>
