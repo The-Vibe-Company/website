@@ -25,23 +25,24 @@ export function SkillPromptBlock({ body, label }: SkillPromptBlockProps) {
     <div className={resourcesTheme.skill.promptBlock}>
       <div className={resourcesTheme.skill.promptBlockToolbar}>
         <span className={resourcesTheme.skill.promptBlockLabel}>
-          <FileText size={13} strokeWidth={1.8} aria-hidden="true" />
-          <span>{label ?? t('skillPrompt')}</span>
-          <span className="hidden sm:inline">· {t('promptStats', { lineCount, wordCount })}</span>
+          <FileText size={14} strokeWidth={1.8} aria-hidden="true" className="shrink-0" />
+          <span className="truncate">{label ?? t('skillPrompt')}</span>
+          <span className="hidden whitespace-nowrap sm:inline">· {t('promptStats', { lineCount, wordCount })}</span>
         </span>
         <div className="flex shrink-0 items-center gap-2">
           {canExpand && (
             <button
               type="button"
               aria-label={expanded ? t('collapsePrompt') : t('expandPrompt')}
+              aria-expanded={expanded}
               onClick={() => {
                 if (!expanded) captureEvent("skill_prompt_expanded", { word_count: wordCount });
                 setExpanded((current) => !current);
               }}
-              className="inline-flex min-h-11 items-center gap-1.5 border border-res-border bg-res-surface px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider text-res-text-muted transition-colors hover:text-res-text"
+              className="btn btn-sm btn-clay"
             >
               <ChevronDown
-                size={13}
+                size={14}
                 strokeWidth={1.8}
                 className={expanded ? 'rotate-180 transition-transform' : 'transition-transform'}
                 aria-hidden="true"
@@ -67,7 +68,7 @@ export function SkillPromptBlock({ body, label }: SkillPromptBlockProps) {
         {trimmed}
       </pre>
       {!expanded && canExpand && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-res-bg-secondary to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#eeefee] to-transparent" />
       )}
     </div>
   );

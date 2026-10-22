@@ -349,6 +349,6 @@ const specLabel =
 const specValue = 'm-0 mt-2.5 flex min-h-7 flex-wrap items-center gap-2 text-base font-semibold';
 
 function splitTitle(title: string): [string, string | null] {
-  const match = title.match(/^(.{4,64}?[:：])\s+(.+)$/s);
+  const match = title.match(/^([^\n]{4,64}?[:：])\s+([\s\S]+)$/);
   return match ? [match[1], match[2]] : [title, null];
 }
