@@ -131,7 +131,7 @@ export default async function PortfolioProjectPage({
                 <span className="chip md:mt-1.5">{project.tag}</span>
               </div>
 
-              <Kicker className="mt-6 md:mt-[30px]">
+              <Kicker className="mt-6 tracking-[0.06em] md:mt-[30px] md:tracking-[0.14em]">
                 {project.status} · {t("built")} {project.date}
               </Kicker>
 
