@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -8,6 +8,16 @@ import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOv
 import { routing } from "@/i18n/routing";
 import { localizedAlternates, SITE_NAME, SITE_URL } from "@/lib/site";
 import "../globals.css";
+
+// Porcelaine type: Bricolage Grotesque for the page (its width and optical-size
+// axes carry the display titles), Geist Mono for metadata, kickers and chips.
+// Geist stays loaded as the canvas runner's sans and as the fallback.
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin", "latin-ext"],
+  axes: ["opsz", "wdth"],
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,10 +71,13 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} data-scroll-behavior="smooth">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    // The font variables sit on <html> so the root-level --font-ui / --font-code
+    // tokens in globals.css can resolve them.
+    <html
+      lang={locale}
+      className={`${bricolage.variable} ${geistSans.variable} ${geistMono.variable}`}
+    >
+      <body className="antialiased">
         <NextIntlClientProvider>
           <ClientProviders />
           <ConditionalGridOverlay />
