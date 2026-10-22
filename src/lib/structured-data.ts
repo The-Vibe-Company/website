@@ -231,7 +231,7 @@ const RESTRICTED_PATTERNS: RegExp[] = [
   /\bISO\b/,
   /\bMediaGen\b/i,
   /[€$£]/,
-  /\b(prix|tarifs?|tarification|pric(e|es|ed|ing))\b/i,
+  /\b(prix|tarifs?|tarification|forfaits?|euros?|dollars?|pric(e|es|ed|ing))\b/i,
   ...CLIENT_NAMES.map((name) => new RegExp(`\\b${escapeRegExp(name)}\\b`, "i")),
 ];
 
