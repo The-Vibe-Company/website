@@ -1,0 +1,23 @@
+src/app/[locale]/resources/[type]/[slug]/page.tsx
+  s_c8af29a5af6da7::t_7efe80ad95ebc7 2,6,175-177,181-207,209-212,214-240,242-260,264-266,268-286,290-292,296-298,301-304,306,310,312-313,315-329,334,342-354
+src/components/resources/KeepReading.tsx
+  s_c8af29a5af6da7::t_59a0325b9e0241 4,24-25,36-40,42-45,47,51-52,55,57-59,61-62,64,66-67,71-73,75-76,78-117
+src/components/resources/ReadingProgress.tsx
+  s_c8af29a5af6da7::t_8bd5bcf4d11309 3,5-8,10,13-18,23-28,31,33-38,43-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cb4898108f045d498948a1ca3b88323bdd38a0c8",
+  "prompts": {},
+  "sessions": {
+    "s_c8af29a5af6da7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b81b232c-25c9-4494-8e89-f80c50a7c0c1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
