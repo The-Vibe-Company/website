@@ -99,7 +99,7 @@ export default async function CaseStudiesPage({
                       className="group mt-6 flex rounded-full before:absolute before:inset-0 before:rounded-slab md:mt-[30px] md:inline-flex"
                     >
                       <span className="btn btn-lg btn-lacquer relative z-10 w-full transition-[filter,transform] group-hover:-translate-y-px group-hover:brightness-[1.18] md:w-auto">
-                        {t("readCase")}
+                        <span>{t("readCase")}</span>
                         <span className="sr-only">, {lead.client}</span>
                         <Arrow />
                       </span>
@@ -141,7 +141,7 @@ export default async function CaseStudiesPage({
                         href={`/case-studies/${c.slug}?from=case-studies`}
                         className="self-start before:absolute before:inset-0 before:rounded-piece md:self-center"
                       >
-                        {t("readCase")}
+                        <span>{t("readCase")}</span>
                         <span className="sr-only">, {c.client}</span>
                       </LinkRim>
                     </article>
