@@ -65,7 +65,7 @@ export async function aboutMetadata(locale: string): Promise<Metadata> {
 const CONTACT_LINK =
   "inline-flex min-h-11 items-center underline decoration-white/50 decoration-[1.5px] underline-offset-[5px] transition-colors [overflow-wrap:anywhere] hover:decoration-rim-hot";
 const FACT_LINK =
-  "inline-flex min-h-10 items-center underline decoration-black/55 decoration-[1.5px] underline-offset-[5px] transition-colors hover:decoration-rim hover:decoration-[3px]";
+  "inline-flex min-h-10 min-w-8 items-center justify-center underline decoration-black/55 decoration-[1.5px] underline-offset-[5px] transition-colors hover:decoration-rim hover:decoration-[3px]";
 
 const BRAND = "The Vibe Company";
 
@@ -434,7 +434,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                       alt={t("clients.logoAlt", { name: client.name })}
                       style={{ "--h": LOGO_HEIGHTS[client.name] ?? 28 } as CSSProperties}
                       className="h-[calc(var(--h)*.78*1px)] w-auto object-contain brightness-0 md:h-[calc(var(--h)*.86*1px)] xl:h-[calc(var(--h)*1px)]"
-                      loading="lazy"
+                      loading="eager"
                       decoding="async"
                     />
                   </a>
@@ -644,7 +644,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                             {SITE_URL}
                           </a>
                         ) : key === "networks" ? (
-                          <span className="flex flex-wrap items-center gap-x-5">
+                          <span className="flex flex-wrap items-center gap-x-3">
                             {ABOUT_SOCIALS.map((social) => (
                               <a
                                 key={social.label}
