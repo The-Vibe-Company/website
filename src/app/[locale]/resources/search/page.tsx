@@ -7,7 +7,6 @@ import { ContentCard } from '@/components/resources/ContentCard';
 import { ContentGrid } from '@/components/resources/ContentGrid';
 import { SkillCard } from '@/components/resources/SkillCard';
 import { searchContent } from '@/lib/content-source';
-import type { ContentEntry } from '@/lib/content-source';
 import { localizedAlternates, localizedSocialMetadata } from '@/lib/site';
 
 export const dynamic = 'force-dynamic';
@@ -38,27 +37,6 @@ export async function generateMetadata({
   };
 }
 
-/**
- * Best match first: a title that holds the query, then a summary, then the
- * body; inside a tier the language being browsed comes before the other one.
- * The sort is stable, so the date order of the source stays the tiebreaker.
- */
-function rankResults(results: ContentEntry[], query: string, locale: string): ContentEntry[] {
-  const needle = query.trim().toLowerCase();
-  const tier = (item: ContentEntry) =>
-    item.title.toLowerCase().includes(needle) ? 0 : item.summary.toLowerCase().includes(needle) ? 1 : 2;
-  const sameLanguage = (item: ContentEntry) => (item.language === locale ? 0 : 1);
-  return results
-    .map((item, index) => ({ item, index }))
-    .sort(
-      (a, b) =>
-        tier(a.item) - tier(b.item) ||
-        sameLanguage(a.item) - sameLanguage(b.item) ||
-        a.index - b.index,
-    )
-    .map(({ item }) => item);
-}
-
 export default async function SearchPage({
   params,
   searchParams,
@@ -73,7 +51,7 @@ export default async function SearchPage({
   if (!query) redirect({ href: '/resources', locale });
 
   const t = await getTranslations({ locale, namespace: 'resources' });
-  const results = rankResults(searchContent(query), query, locale).slice(0, 50);
+  const results = searchContent(query).slice(0, 50);
   const skillResults = results.filter((item) => item.type === 'skill');
   const articleResults = results.filter((item) => item.type !== 'skill');
 
