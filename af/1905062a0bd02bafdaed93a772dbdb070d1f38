@@ -1,0 +1,47 @@
+src/components/home/Clients.tsx
+  s_c8af29a5af6da7::t_c010976dc8ced2 2,11-12,15-20,24-30,33-38,41,43-72
+  s_c8af29a5af6da7::t_134e796f22db76 73-74
+src/components/home/Hero.tsx
+  s_c8af29a5af6da7::t_d88049938b3c05 4-5,7,42-121,133-140,142,144-148,150-153,155-156,158-173,176-179,181,185-204,207-213,215,217,219,221-223,225-226,228
+  s_c8af29a5af6da7::t_627b96c91988a5 230,232
+src/components/home/Proof.tsx
+  s_c8af29a5af6da7::t_e5dfd34b580628 5,7,11,13,15-19,27-31,33-35,37,40-43,46,59,61-70,76-78,82-88,91,94,96,99-101,103,105,109,111-120
+src/components/home/Services.tsx
+  s_c8af29a5af6da7::t_942b1e382dc395 4,12-16,21-29,31-36,39-50,52-53
+  s_c8af29a5af6da7::t_b2ccb576fedd3c 54
+src/components/home/CaseStudy.tsx
+  s_c8af29a5af6da7::t_9f9bd904582b26 5,7,9-10,14-17,23,25,30,34-35,39,43-44,46,48-50,52-56,58,60-62,64,69-72,81-88,91,103,106,108,111-113,115,119
+  s_c8af29a5af6da7::t_db348e2b74553e 117,120-121,124-132
+src/app/[locale]/v2/page.tsx
+  s_c8af29a5af6da7::t_ae8fd65e356561 2,10,31-43,48
+src/components/HomeLaunchpad.tsx
+  s_c8af29a5af6da7::t_8303e45aa2f1be 23-25,37
+src/components/home/HeroRunner.tsx
+  s_c8af29a5af6da7::t_f6bda907faf6f1 6,15-18,565-566,572-577,656,1255-1261,1263,1405-1406,1413,1415-1416,1419,1441,1444,1446,1454,1488,1493-1497,1510-1511,1514,1516-1518,1525
+src/components/home/MobileBookingBar.tsx
+  s_c8af29a5af6da7::t_9f34929b7959ac 5,12-15,22,46-47,50-54,56-65
+src/components/home/Process.tsx
+  s_c8af29a5af6da7::t_31c8300cee8f39 2,11-15,20-24,27,30-41,43-54
+src/components/home/Quote.tsx
+  s_c8af29a5af6da7::t_e3f23e514e7f72 4-6,12-34
+src/components/home/runner/VibeRunner.tsx
+  s_c8af29a5af6da7::t_e1717d3354a737 4-5,9-12,58-60,106-107,110,132,270-275,298,1014-1015,1018,1287,1294-1296,1304-1326,1331-1366,1368,1373-1396,1404-1407,1414,1422-1424,1428,1432,1437,1445,1456-1457,1459-1461
+src/components/home/useLoopCarousel.ts
+  s_c8af29a5af6da7::t_e5a0a35c7f39aa 5-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "af1905062a0bd02bafdaed93a772dbdb070d1f38",
+  "prompts": {},
+  "sessions": {
+    "s_c8af29a5af6da7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b81b232c-25c9-4494-8e89-f80c50a7c0c1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
