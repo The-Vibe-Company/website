@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { Volume2, VolumeX } from "lucide-react";
+import { ButtonLink } from "@/components/kit";
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { RunnerAudio } from "@/lib/runner-audio";
@@ -11,9 +12,10 @@ import type { RunnerItem } from "@/lib/runner-worlds";
 /**
  * The hero's runner band: the site's own take on the Chrome offline dino.
  *
- * It is an inverted ink panel inside the warm-paper hero, so it reads as a
- * screen cut into the page rather than a widget floating on it. The player is
- * a small paper bird whose wing beats while it runs.
+ * It is a black lacquer band under the hero slab, with the orange rim light on
+ * its edge, so it reads as a screen set into the page rather than a widget
+ * floating on it. The player is a small porcelain bird whose wing beats while
+ * it runs.
  *
  * Space / ArrowUp jumps, ArrowDown ducks, tap plays on touch. One canvas, one
  * fixed 60Hz timestep, so the difficulty curve is identical on every display.
@@ -560,19 +562,19 @@ const paintNight: Painter = (ctx, width, offset) => {
 
 interface Scene {
   key: string;
-  /** Each world is tinted rather than plain paper — the only colour in the
-   *  panel besides the orange accent. */
+  /** Each world is a different grey of the same clay: the panel keeps one
+   *  accent, the rim orange, and the scenery never competes with it. */
   tint: string;
   paint: Painter;
 }
 
 const SCENES: Scene[] = [
-  { key: "city", tint: "#9db4cf", paint: paintCity },
-  { key: "desert", tint: "#e0a566", paint: paintDesert },
-  { key: "forest", tint: "#7cba8d", paint: paintForest },
-  { key: "sea", tint: "#5fb4c6", paint: paintSea },
-  { key: "mountains", tint: "#b1abd8", paint: paintMountains },
-  { key: "night", tint: "#8d94e2", paint: paintNight },
+  { key: "city", tint: "#b9bab8", paint: paintCity },
+  { key: "desert", tint: "#c9c6c0", paint: paintDesert },
+  { key: "forest", tint: "#a9aaa8", paint: paintForest },
+  { key: "sea", tint: "#bcbdbc", paint: paintSea },
+  { key: "mountains", tint: "#aeafad", paint: paintMountains },
+  { key: "night", tint: "#c4c5c3", paint: paintNight },
 ];
 
 export const SCENE_KEYS = SCENES.map((scene) => scene.key);
@@ -651,7 +653,7 @@ function drawWorldName(
   ctx.globalAlpha = alpha * 0.65;
   ctx.fillStyle = scene.tint;
   ctx.letterSpacing = "4px";
-  ctx.font = `600 10px ui-monospace, "SF Mono", Menlo, monospace`;
+  ctx.font = `600 12px ui-monospace, "SF Mono", Menlo, monospace`;
   const kicker = card.detail
     ? `${card.kind.toUpperCase()} — ${card.detail.toUpperCase()}`
     : card.kind.toUpperCase();
@@ -1250,15 +1252,15 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
     const styles = getComputedStyle(canvas);
     const palette: Palette = {
-      // The panel is inverted: the page's foreground is the band's surface and
-      // the page's background is what gets drawn on it.
-      ink: styles.getPropertyValue("--foreground").trim() || "#0a0a0a",
-      paper: styles.getPropertyValue("--background").trim() || "#fdfbf7",
-      accent: "#f97316",
-      // Yellow with black stripes: the universal "watch your head". Its
-      // position tells it apart from the orange barriers — this hangs or
+      // The panel is black lacquer: ink is the lacquer itself, paper is the
+      // porcelaine white that gets drawn on it.
+      ink: styles.getPropertyValue("--lacquer").trim() || "#0c0c0d",
+      paper: styles.getPropertyValue("--on-lacquer").trim() || "#f3f3f1",
+      accent: styles.getPropertyValue("--rim").trim() || "#ff7a1f",
+      // The pale end of the rim light, with black stripes: "watch your head".
+      // Its position tells it apart from the orange barriers — this hangs or
       // flies, orange always stands on the ground.
-      duck: "#e9dd52",
+      duck: styles.getPropertyValue("--rim-hot").trim() || "#ffb46e",
       // The panel inherits the page font; the title card borrows it so the
       // names are set in the same voice as the hero above them.
       sans: styles.fontFamily || "system-ui, sans-serif",
@@ -1400,20 +1402,21 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     <section
       aria-labelledby="runner-heading"
       data-surface="inverse"
-      className="relative mt-8 hidden bg-foreground text-background lg:mt-10 lg:block"
+      className="lacquer rim relative hidden overflow-hidden rounded-plate lg:block"
+      style={{ "--rim-angle": "100deg" } as React.CSSProperties}
     >
       <h2 id="runner-heading" className="sr-only">
         {t("heading")}
       </h2>
 
       {/* Readout row, inside the panel: controls left, score right. */}
-      <div className="flex items-baseline justify-between gap-3 px-5 pb-1 pt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-background/55 md:gap-4 md:px-7 md:text-[11px] md:tracking-[0.2em]">
+      <div className="flex items-center justify-between gap-4 px-6 pt-3 font-mono text-xs uppercase tracking-[0.1em] text-on-lacquer-muted">
         <p className="m-0">{t("hint")}</p>
-        <p className="m-0 ml-auto flex shrink-0 items-center gap-2 tabular-nums md:gap-4">
-          <span className={isNewBest ? "text-orange-500" : "text-background"}>
+        <p className="m-0 ml-auto flex shrink-0 items-center gap-3.5 tabular-nums">
+          <span className={isNewBest ? "font-semibold text-orange-500" : "font-semibold text-on-lacquer"}>
             {t("score")} {pad(score)}
           </span>
-          <span aria-hidden="true" className="text-background/25">
+          <span aria-hidden="true" className="text-on-lacquer-muted/60">
             /
           </span>
           <span>
@@ -1435,12 +1438,12 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
             }}
             aria-pressed={muted}
             aria-label={muted ? t("soundOn") : t("soundOff")}
-            className="ml-1 cursor-pointer p-1 text-background/55 transition-colors hover:text-background"
+            className="grid h-11 w-11 cursor-pointer place-items-center rounded-full bg-[linear-gradient(180deg,#2a2a2c,#121213)] text-on-lacquer shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_1px_0_#000] transition-[filter] hover:brightness-125"
           >
             {muted ? (
-              <VolumeX aria-hidden="true" className="h-3.5 w-3.5" />
+              <VolumeX aria-hidden="true" className="h-[18px] w-[18px]" />
             ) : (
-              <Volume2 aria-hidden="true" className="h-3.5 w-3.5" />
+              <Volume2 aria-hidden="true" className="h-[18px] w-[18px]" />
             )}
           </button>
         </p>
@@ -1448,7 +1451,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
       <div
         ref={containerRef}
-        className="relative cursor-pointer select-none px-5 pb-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-background md:px-7 md:pb-4"
+        className="relative cursor-pointer select-none px-6 pb-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px]"
         role="button"
         tabIndex={0}
         aria-label={t("aria")}
@@ -1482,13 +1485,16 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
         {phase !== "running" && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <p className="m-0 border border-background/30 bg-foreground px-4 py-2 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-background md:text-xs">
+            <p className="clay m-0 inline-flex h-11 items-center whitespace-nowrap rounded-full px-6 text-center font-mono text-xs font-semibold uppercase tracking-[0.14em] text-ink">
               {phase === "idle" ? (
                 t("start")
               ) : (
                 <>
-                  <span className="text-orange-500">{t("over")}</span>{" "}
-                  <span aria-hidden="true">·</span> {t("restart")}
+                  <span className="text-rim-text">{t("over")}</span>
+                  <span aria-hidden="true" className="mx-2">
+                    ·
+                  </span>
+                  {t("restart")}
                 </>
               )}
             </p>
@@ -1501,21 +1507,22 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
           inside it would be unreachable and invalid. Out here it keeps its own
           tab stop and its own focus ring. */}
       {wonAudit && (
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-background/20 px-5 py-3 md:gap-4 md:px-7 md:py-4">
-          <p className="m-0 font-mono text-[11px] uppercase tracking-[0.2em] text-orange-500 md:text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-6 py-3">
+          <p className="m-0 font-mono text-xs uppercase tracking-[0.14em] text-orange-500">
             {t("audit")}
           </p>
-          <a
+          <ButtonLink
             href={BOOKING_URL}
+            variant="clay"
+            size="sm"
+            arrow
             {...bookingLocation("hero_runner_audit")}
             onClick={() =>
               captureEvent("discovery_call_clicked", { location: "hero_runner_audit", score })
             }
-            className="inline-flex items-center gap-2 border-2 border-background bg-background px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--background)] md:text-xs"
           >
             {t("auditCta")}
-            <span aria-hidden="true">→</span>
-          </a>
+          </ButtonLink>
         </div>
       )}
 

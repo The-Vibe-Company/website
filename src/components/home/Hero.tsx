@@ -1,12 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+import { Fragment, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
+import { ButtonLink, LinkRim } from "@/components/kit";
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
-import dynamic from "next/dynamic";
-import { useSyncExternalStore } from "react";
 import type { RunnerItem } from "@/lib/runner-worlds";
 
 /**
@@ -39,6 +39,86 @@ const QUICK_ITEMS = [
   { n: "03", key: "advise" },
 ] as const;
 
+/**
+ * The mascot's head as a white clay bead: the black swept-back pattern painted
+ * on top, a soft specular, and the orange rim light along its far edge. Pure
+ * decoration, drawn here because it exists nowhere else on the site. Gradient
+ * ids carry a prefix so they never meet another inline svg's.
+ */
+function Bead({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 340 360" aria-hidden="true" focusable="false">
+      <defs>
+        <radialGradient id="hb-bd" gradientUnits="userSpaceOnUse" cx="129" cy="101" r="232">
+          <stop offset="0" stopColor="#fff" />
+          <stop offset=".42" stopColor="#f8f8f6" />
+          <stop offset=".8" stopColor="#e2e2de" />
+          <stop offset="1" stopColor="#cdcdc8" />
+        </radialGradient>
+        <linearGradient id="hb-lac" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#202022" />
+          <stop offset=".6" stopColor="#0a0a0b" />
+          <stop offset="1" stopColor="#000" />
+        </linearGradient>
+        <radialGradient id="hb-spec">
+          <stop offset="0" stopColor="#fff" stopOpacity=".9" />
+          <stop offset="1" stopColor="#fff" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="hb-cs">
+          <stop offset="0" stopColor="#141416" stopOpacity=".26" />
+          <stop offset="1" stopColor="#141416" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="hb-rim" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#ff7a1f" stopOpacity="0" />
+          <stop offset=".3" stopColor="#ff7a1f" />
+          <stop offset=".62" stopColor="#ffb46e" />
+          <stop offset="1" stopColor="#ff7a1f" stopOpacity="0" />
+        </linearGradient>
+        <clipPath id="hb-clip">
+          <circle cx="170" cy="165" r="145" />
+        </clipPath>
+        <filter id="hb-soft" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="5" />
+        </filter>
+      </defs>
+      <ellipse cx="184" cy="326" rx="122" ry="14" fill="url(#hb-cs)" />
+      <circle cx="170" cy="165" r="145" fill="url(#hb-bd)" />
+      <g clipPath="url(#hb-clip)">
+        <path
+          fill="url(#hb-lac)"
+          d="M-10 -10 H350 V40 L320 42 Q312 38 306 36 Q302 72 286 98 Q274 80 260 70 Q252 106 232 132 Q216 108 200 96 Q192 132 170 158 Q148 132 140 96 Q124 108 108 132 Q88 106 80 70 Q66 80 54 98 Q38 72 34 36 Q28 38 20 42 L-10 40 Z"
+        />
+        <g fill="none" stroke="url(#hb-bd)" strokeWidth="7" strokeLinecap="round">
+          <path d="M190 -4 Q196 50 200 96" />
+          <path d="M150 -4 Q144 50 140 96" />
+          <path d="M212 -4 Q248 30 260 70" />
+          <path d="M128 -4 Q92 30 80 70" />
+          <path d="M236 -6 Q292 8 306 36" />
+          <path d="M104 -6 Q48 8 34 36" />
+        </g>
+      </g>
+      <g clipPath="url(#hb-clip)">
+        <ellipse cx="116" cy="74" rx="58" ry="26" transform="rotate(-28 116 74)" fill="url(#hb-spec)" opacity=".55" />
+        <ellipse cx="108" cy="66" rx="15" ry="7" transform="rotate(-28 108 66)" fill="#fff" opacity=".75" />
+      </g>
+      <path
+        d="M242 40.3 A144 144 0 0 1 98 289.7"
+        fill="none"
+        stroke="url(#hb-rim)"
+        strokeWidth="7"
+        opacity=".45"
+        filter="url(#hb-soft)"
+      />
+      <path d="M242 40.3 A144 144 0 0 1 98 289.7" fill="none" stroke="url(#hb-rim)" strokeWidth="2.4" />
+    </svg>
+  );
+}
+
+/**
+ * The home hero, one layout from phone to desktop: the main piece of the page
+ * (a clay slab with the orange rim light), then the runner on a black lacquer
+ * band where there is a keyboard, then the three ways in as quiet pieces.
+ */
 export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   // Server-side this is false, so the chunk is never even requested on a phone.
   const canRun = useSyncExternalStore(
@@ -46,195 +126,121 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
     () => window.matchMedia(RUNNER_MEDIA).matches,
     () => false,
   );
-  const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("hero");
   const tFooter = useTranslations("footer");
 
   return (
-    // Phones get HeroMobile, a poster layout, in its place.
-    <section
-      id="hero"
-      className="relative hidden overflow-hidden border-b-2 border-foreground bg-background md:block"
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-50"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%)",
-        }}
-      />
-
-      <div className="relative mx-auto max-w-[100rem] px-6 pb-14 pt-12 md:px-12 md:pb-16 md:pt-16">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-6 inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:mb-8"
+    <section id="hero" className="pt-3.5 md:pt-[22px]">
+      {/* Marks the page as the one with the phone booking bar: the kit keeps
+          focus and in-page jumps clear of it from this id. */}
+      <span id="hero-mobile" hidden />
+      <div className="wrap">
+        <div
+          className="clay rim rim-warm relative overflow-hidden rounded-[28px] px-5 pb-6 pt-7 md:rounded-slab md:px-14 md:pb-12 md:pt-14"
+          style={{ "--rim-angle": "118deg", "--bead": "clamp(180px, 22vw, 300px)" } as React.CSSProperties}
         >
-          <span aria-hidden="true" className="relative flex h-2 w-2">
-            {!reduceMotion && (
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-500 opacity-60" />
-            )}
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500" />
-          </span>
-          {tFooter("openToProjects")}
-        </motion.div>
+          <Bead className="pointer-events-none absolute right-3.5 top-3.5 h-[110px] w-[104px] md:right-[clamp(32px,4.7vw,60px)] md:top-[34px] md:h-auto md:w-[var(--bead)]" />
 
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.7,
-            delay: reduceMotion ? 0 : 0.05,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="m-0 flex max-w-[18ch] flex-col font-bold text-foreground"
-          style={{
-            fontSize: "clamp(48px, 7.4vw, 124px)",
-            lineHeight: 0.92,
-            letterSpacing: "-0.045em",
-          }}
-        >
-          <span className="block">
-            {t("titleLine1")}
-          </span>
-          <span
-            className="mt-4 block max-w-[30ch] md:mt-6 md:max-w-[40ch]"
-            style={{
-              fontSize: "clamp(1.25rem, 2.4vw, 2.25rem)",
-              fontWeight: 600,
-              lineHeight: 1.3,
-              letterSpacing: "-0.025em",
-            }}
-          >
-            {/* A low orange highlighter stroke under the words, cloned on each
-                wrapped line so it reads the same whatever the copy. */}
-            <span
-              className="[box-decoration-break:clone] [-webkit-box-decoration-break:clone]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(to top, rgb(249 115 22 / 0.28) 0.32em, transparent 0.32em)",
-                padding: "0 0.08em",
-              }}
-            >
-              {t("titleLine2")}
-            </span>
-          </span>
-        </motion.h1>
+          <p className="kicker">
+            <span aria-hidden="true" className="dot dot-rim" />
+            <span>{tFooter("openToProjects")}</span>
+          </p>
+          {/* The title and the line under it stay off the bead: they take the
+              room it leaves, and wrap word by word (never inside "IA-First")
+              when there is less of it. */}
+          <h1 className="display d-xl rise m-0 mt-[92px] max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
+            {t("titleLine1")
+              .split(" ")
+              .map((word, i) => (
+                <Fragment key={i}>
+                  {i > 0 ? " " : null}
+                  <span className="whitespace-nowrap">{word}</span>
+                </Fragment>
+              ))}
+          </h1>
+          <p className="rise m-0 mt-4 max-w-[820px] md:max-w-[min(820px,calc(100%-var(--bead)-24px))] text-[22px] font-medium leading-[1.12] tracking-[-0.018em] text-ink md:mt-[26px] md:text-[36px]">
+            {t("titleLine2")}
+          </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.6,
-            delay: reduceMotion ? 0 : 0.2,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="mt-10 grid grid-cols-1 items-center gap-10 md:mt-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16"
-        >
-          <div>
-            <p className="m-0 max-w-[620px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
-              {t("subtitle")}
-            </p>
-          </div>
+          <div className="mt-7 grid gap-[22px] md:mt-[52px] lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-end lg:gap-10">
+            <p className="lede-bar m-0 text-[16.5px] md:text-[18.5px]">{t("subtitle")}</p>
 
-          <div className="flex flex-col items-start gap-3 lg:items-end">
-            <div className="flex flex-wrap items-center gap-x-10 gap-y-6 lg:justify-end">
-              <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
-                <a
-                  href="https://www.ycombinator.com/companies/quivr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex transition-opacity hover:opacity-70"
-                >
-                  <Image
-                    src="/images/partners/y-combinator.svg"
-                    alt="Y Combinator W24"
-                    width={154}
-                    height={38}
-                    className="h-9 w-auto"
-                  />
-                </a>
+            <div className="flex gap-2">
+              <a
+                href="https://www.ycombinator.com/companies/quivr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="well inline-flex h-11 items-center whitespace-nowrap rounded-2xl px-1.5 transition-[filter] duration-200 hover:brightness-105 md:h-[52px] md:px-2"
+              >
+                <Image
+                  src="/images/partners/y-combinator.svg"
+                  alt="Y Combinator W24"
+                  width={154}
+                  height={38}
+                  className="h-8 w-auto rounded-lg md:h-9"
+                />
+              </a>
+              <span className="well inline-flex h-11 items-center gap-2 whitespace-nowrap rounded-2xl pl-1.5 pr-3 md:h-[52px] md:gap-2.5 md:pl-2 md:pr-4">
                 <Image
                   src="/images/partners/france-2030.svg"
-                  alt="France 2030"
-                  width={52}
-                  height={52}
-                  className="h-12 w-auto"
+                  alt=""
+                  width={34}
+                  height={34}
+                  className="h-[30px] w-[30px] md:h-[34px] md:w-[34px]"
                 />
-              </div>
-            <a
-              href={BOOKING_URL}
-              {...bookingLocation("hero")}
-              onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
-              className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-6 py-4 text-[15px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
-            >
-              {t("bookCall")}
-              <span aria-hidden="true" className="text-lg">
-                →
+                <span className="text-[13.5px] font-semibold leading-none">France 2030</span>
               </span>
-            </a>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 lg:flex-col lg:items-end lg:justify-start lg:gap-1">
+              <ButtonLink
+                href={BOOKING_URL}
+                size="lg"
+                arrow
+                {...bookingLocation("hero")}
+                onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
+                className="min-w-[210px] flex-1 lg:flex-none"
+              >
+                {t("bookCall")}
+              </ButtonLink>
+              <LinkRim
+                href="/case-studies"
+                arrow={false}
+                onClick={() => captureEvent("see_what_we_do_clicked")}
+              >
+                {t("seeWhatWeDo")}
+              </LinkRim>
             </div>
           </div>
-        </motion.div>
-
-        <div className="mt-4 flex lg:justify-end">
-          <a
-            href="#services"
-            onClick={() => captureEvent("see_what_we_do_clicked")}
-            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-4 hover:text-foreground"
-          >
-            {t("seeWhatWeDo")}
-          </a>
         </div>
 
-        {canRun ? (
-          <HeroRunner items={runnerItems} />
-        ) : (
-          /* Holds the panel's place from the server HTML so the game drops into
-             a gap that already exists. Mounting it client-side only, with no
-             placeholder, pushed the rest of the hero down after hydration. */
-          <div aria-hidden="true" className="mt-8 hidden lg:block lg:mt-10 lg:h-[254px]" />
-        )}
+        {/* The panel's place is held from the server HTML, and kept while the
+            game's chunk loads: the wrapper never goes away, so the game drops
+            into a gap that already exists instead of pulling the page up and
+            pushing it back down. */}
+        <div aria-hidden={canRun ? undefined : true} className="mt-4 hidden lg:block lg:min-h-[264px]">
+          {canRun ? <HeroRunner items={runnerItems} /> : null}
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.6,
-            delay: reduceMotion ? 0 : 0.1,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="mt-8 grid grid-cols-1 border-t border-border md:mt-10 md:grid-cols-3"
-        >
+        <ul className="m-0 mt-2.5 grid list-none gap-2.5 p-0 md:grid-cols-3 md:gap-4 lg:mt-4">
           {QUICK_ITEMS.map((item) => (
-            <div
+            <li
               key={item.n}
-              className="flex items-start gap-4 border-b border-border py-5 pr-6 last:border-b-0 md:border-b-0"
+              className="clay-quiet flex items-start gap-4 rounded-piece p-[18px] md:px-6 md:py-[22px]"
             >
-              <span className="pt-1 font-mono text-[11px] tracking-[0.2em] text-orange-500">
-                {item.n}
-              </span>
-              <div>
-                <div className="text-[22px] font-bold tracking-[-0.02em] text-foreground">
+              <span className="num">{item.n}</span>
+              <div className="min-w-0">
+                <p className="m-0 text-[22px] font-semibold leading-tight tracking-[-0.02em]">
                   {t(`items.${item.key}.label`)}
-                </div>
-                <div className="mt-0.5 text-sm text-muted-foreground">
+                </p>
+                <p className="m-0 mt-1 text-[15px] leading-[1.45] text-muted-foreground">
                   {t(`items.${item.key}.desc`)}
-                </div>
+                </p>
               </div>
-            </div>
+            </li>
           ))}
-        </motion.div>
+        </ul>
       </div>
-
     </section>
   );
 }
