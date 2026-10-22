@@ -1,17 +1,22 @@
 "use client";
 
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { Arrow, Groove, LinkRim, SectionTitle } from "@/components/kit";
 import { getProjects, type ContentLocale } from "@/lib/projects";
-import { LOOP_ARROW_CLASS, LOOP_COPIES, useLoopCarousel } from "./useLoopCarousel";
+import { LOOP_COPIES, LOOP_NEXT_CLASS, LOOP_PREV_CLASS, useLoopCarousel } from "./useLoopCarousel";
 
 const ORG_URL = "https://github.com/The-Vibe-Company";
 
-// One row: four cards on wide screens, fewer as the track narrows (gap is 20px).
+// One row: four cards on wide screens, fewer as the track narrows (gap is 18px).
 const CARD_WIDTH =
-  "w-[82%] shrink-0 sm:w-[calc(50%-10px)] lg:w-[calc((100%-40px)/3)] xl:w-[calc((100%-60px)/4)]";
+  "w-[78%] shrink-0 snap-start sm:w-[calc(50%-9px)] lg:w-[calc((100%-36px)/3)] xl:w-[calc((100%-54px)/4)]";
 
+/**
+ * The studio's own products, as a loop of quiet clay cards that start where
+ * the title starts. Every card has the same four rows (kind, name, text, way
+ * in), so the name and the logo tile sit at the same height in all of them.
+ */
 export function Proof() {
   const locale = useLocale() as ContentLocale;
   const t = useTranslations("proof");
@@ -19,85 +24,26 @@ export function Proof() {
   const { trackRef, scrollByCard } = useLoopCarousel(projects.length);
 
   return (
-    <section
-      id="proof"
-      className="border-b border-border bg-background"
-    >
-      <div className="mx-auto max-w-[100rem] px-6 pb-12 pt-14 md:px-12 md:py-28">
-        {/* Phones: one ruled row per product instead of a carousel, so all
-            six are in view without a swipe. */}
-        <div className="flex items-baseline justify-between border-b-2 border-foreground pb-3.5 md:hidden">
-          <h2 className="m-0 text-[15px] font-bold tracking-[-0.01em] text-foreground">{t("indexTitle")}</h2>
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{t("indexTag")}</span>
-        </div>
-        <ul className="m-0 list-none p-0 md:hidden">
-          {projects.map((p) => (
-            <li key={p.slug} className="border-b border-border last:border-b-0">
-              <Link
-                href={`/portfolio/${p.slug}`}
-                className="grid min-h-[68px] grid-cols-[36px_minmax(0,1fr)_auto] items-center gap-3.5 py-4 no-underline"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.logo} alt="" aria-hidden="true" className="h-9 w-9 rounded-md object-contain" loading="lazy" decoding="async" />
-                <span className="min-w-0">
-                  <span className="block font-mono text-[17px] font-bold tracking-[-0.02em] text-foreground">{p.name}</span>
-                  <span className="mt-0.5 block text-[13px] text-muted-foreground">{p.tag}</span>
-                </span>
-                <span aria-hidden="true" className="text-lg text-foreground">
-                  →
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+    <section id="proof" className="section">
+      <div className="wrap">
+        <SectionTitle kicker={t("kicker")} line1={t("titleLine1")} line2={t("titleLine2")} size="md">
+          {t("intro")}
+        </SectionTitle>
 
-        <div className="mb-12 hidden md:mb-14 md:block">
-          <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {t("kicker")}
-          </span>
-          <h2
-            className="m-0 font-bold text-foreground"
-            style={{
-              fontSize: "clamp(44px, 6vw, 88px)",
-              lineHeight: 0.92,
-              letterSpacing: "-0.045em",
-            }}
-          >
-            {t("titleLine1")}
-            <br />
-            <span
-              style={{
-                WebkitTextStroke: "1.5px var(--foreground)",
-                color: "transparent",
-              }}
-            >
-              {t("titleLine2")}
-            </span>
-          </h2>
-          <p className="m-0 mt-7 max-w-[620px] text-lg leading-[1.5] text-muted-foreground">
-            {t("intro")}
+        <div className="mt-12 flex items-center gap-4">
+          <p className="kicker m-0 shrink-0 text-ink">
+            <span>{t("barLeft")}</span>
           </p>
+          <Groove className="flex-1" />
         </div>
 
-        <div className="mb-5 hidden border-b border-border pb-3 md:block font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-          <span className="font-semibold text-foreground">
-            {t("barLeft")}
-          </span>
-        </div>
-
-        <div className="hidden items-stretch gap-3 md:flex md:gap-4">
-          <button
-            type="button"
-            onClick={() => scrollByCard(-1)}
-            aria-label={t("prev")}
-            className={LOOP_ARROW_CLASS}
-          >
-            <ArrowLeft size={22} strokeWidth={2.25} aria-hidden="true" />
-          </button>
-
+        {/* The hairline of a quiet piece is a shadow, so the track keeps one
+            pixel of room on each side (and 8px above and below for the lift)
+            instead of clipping it. */}
+        <div className="mt-7">
           <div
             ref={trackRef}
-            className="flex min-w-0 flex-1 gap-5 overflow-x-auto scroll-p-2 p-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="-mx-px -my-2 flex gap-[18px] overflow-x-auto px-px py-2 [-ms-overflow-style:none] [scrollbar-width:none] max-md:snap-x max-md:snap-mandatory [&::-webkit-scrollbar]:hidden"
           >
             {LOOP_COPIES.flatMap((copy) =>
               projects.map((p) => (
@@ -110,68 +56,68 @@ export function Proof() {
                   <Link
                     href={`/portfolio/${p.slug}`}
                     tabIndex={copy !== 1 ? -1 : undefined}
-                    // Each card borrows its project's accent (the same one its
-                    // portfolio page uses) for the top rule, arrow and hover shadow.
-                    style={{ "--card-accent": p.accent } as React.CSSProperties}
-                    className="group relative flex h-full flex-col overflow-hidden border border-foreground bg-background no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--card-accent)]"
+                    className="clay-quiet lift flex h-full min-h-[310px] flex-col rounded-piece px-5 pb-6 pt-5 no-underline"
                   >
-                    <div className="h-[3px] w-full bg-[var(--card-accent)]" aria-hidden="true" />
-                    <div className="flex flex-1 flex-col gap-3 p-6">
-                      <div className="flex items-center justify-between gap-3">
-                        <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                          <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--card-accent)]" />
-                          {p.tag}
-                        </span>
-                        <span aria-hidden="true" className="text-lg text-foreground transition-transform duration-300 group-hover:translate-x-1">
-                          →
-                        </span>
-                      </div>
-                      <div className="mt-3 flex items-center gap-3">
+                    <span className="flex items-start justify-between gap-2.5">
+                      <span className="flex min-w-0 items-center gap-2 font-mono text-xs uppercase leading-[1.3] tracking-[0.1em] text-muted-foreground">
+                        <span aria-hidden="true" className="dot" />
+                        <span className="truncate">{p.tag}</span>
+                      </span>
+                      <Arrow direction="up-right" className="h-[18px] w-[18px] flex-none" />
+                    </span>
+
+                    <span className="mt-[26px] flex items-center gap-3">
+                      <span className="well grid h-10 w-10 flex-none place-items-center rounded-pebble">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={p.logo}
                           alt=""
                           aria-hidden="true"
-                          className="h-8 w-8 shrink-0 rounded-sm object-contain"
+                          width={24}
+                          height={24}
+                          className="h-6 w-6 rounded-[5px] object-contain"
                           loading="lazy"
                           decoding="async"
                         />
-                        <h3 className="m-0 font-mono text-2xl font-bold tracking-[-0.03em] text-foreground">
-                          {p.name}
-                        </h3>
-                      </div>
-                      <p className="m-0 min-h-[60px] text-sm leading-[1.5] text-muted-foreground">
-                        {p.description}
-                      </p>
-                    </div>
+                      </span>
+                      <span className="min-w-0 truncate text-2xl font-bold tracking-[-0.02em]">{p.name}</span>
+                    </span>
+
+                    <span className="mt-3.5 line-clamp-7 text-[14.5px] leading-[1.5] text-muted-foreground">
+                      {p.description}
+                    </span>
                   </Link>
                 </div>
-              ))
+              )),
             )}
           </div>
+        </div>
 
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 md:mt-10">
+          <button
+            type="button"
+            onClick={() => scrollByCard(-1)}
+            aria-label={t("prev")}
+            className={`${LOOP_PREV_CLASS} order-1`}
+          >
+            <Arrow direction="left" />
+          </button>
+          <LinkRim
+            href={ORG_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="order-3 w-full justify-center md:order-2 md:w-auto"
+          >
+            {t("browseAll")}
+          </LinkRim>
           <button
             type="button"
             onClick={() => scrollByCard(1)}
             aria-label={t("next")}
-            className={LOOP_ARROW_CLASS}
+            className={`${LOOP_NEXT_CLASS} order-2 md:order-3`}
           >
-            <ArrowRight size={22} strokeWidth={2.25} aria-hidden="true" />
+            <Arrow />
           </button>
-        </div>
-
-        <div className="mt-4 flex justify-start md:mt-10">
-          <a
-            href={ORG_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground transition-opacity hover:opacity-70"
-          >
-            <span className="underline decoration-1 underline-offset-4">{t("browseAll")}</span>
-            <span aria-hidden="true" className="text-lg">
-              →
-            </span>
-          </a>
         </div>
       </div>
     </section>
