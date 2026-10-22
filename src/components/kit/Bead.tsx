@@ -3,31 +3,46 @@
 import { useEffect, useId, useRef } from "react";
 
 /*
- * VeeBee's head as a glazed clay bead. The cap and the face are painted on the
- * sphere and turn with the head; the light (shading, specular, orange rim)
- * stays where the studio lamp is. The head looks toward the pointer, sways on
- * its own when nobody points (touch screens, idle mouse), blinks now and then,
- * and holds still, facing forward, under prefers-reduced-motion.
+ * VeeBee's head as a glazed clay bead. The Vibe Co. mark is its cap, and the
+ * cap and the face are painted on the sphere, so they turn with the head; the
+ * light (shading, specular, orange rim) stays where the studio lamp is.
+ *
+ * The head looks toward the pointer, sways on its own when nobody points
+ * (touch screens, idle mouse) and blinks now and then. Its face changes too:
+ * it beams when the pointer comes close, and from time to time, on its own,
+ * winks, beams or looks surprised. Under prefers-reduced-motion it holds still,
+ * facing forward, with its quiet smile.
  */
 
 const CX = 170;
 const CY = 165;
+const EYE_Y = 214;
+const EYES = [104, 236] as const;
 const MAX_YAW = (36 * Math.PI) / 180;
 const MAX_PITCH = (15 * Math.PI) / 180;
 const IDLE_AFTER_MS = 3500;
+
+type Expression = "smile" | "joy" | "surprise" | "wink";
+const MOODS: readonly Expression[] = ["joy", "wink", "surprise"];
 
 export function Bead({ className }: { className?: string }) {
   const uid = useId().replace(/:/g, "");
   const id = (name: string) => `bead-${name}-${uid}`;
   const svgRef = useRef<SVGSVGElement>(null);
   const headRef = useRef<SVGGElement>(null);
-  const eyesRef = useRef<SVGGElement>(null);
+  const browsRef = useRef<SVGGElement>(null);
+  const openRefs = useRef<(SVGGElement | null)[]>([]);
+  const closedRefs = useRef<(SVGPathElement | null)[]>([]);
+  const mouthRefs = useRef<Partial<Record<"smile" | "joy" | "surprise", SVGGElement | null>>>({});
 
   useEffect(() => {
     const svg = svgRef.current;
     const head = headRef.current;
-    const eyes = eyesRef.current;
-    if (!svg || !head || !eyes) return;
+    const brows = browsRef.current;
+    const open = openRefs.current;
+    const closed = closedRefs.current;
+    const mouths = mouthRefs.current;
+    if (!svg || !head || !brows) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let frame = 0;
@@ -38,8 +53,33 @@ export function Bead({ className }: { className?: string }) {
     let targetYaw = 0;
     let targetPitch = 0;
     let pointedAt = -Infinity;
+    let near = false;
     let nextBlink = last + 2500 + Math.random() * 2500;
     let blinkStart = -Infinity;
+    let mood: Expression = "smile";
+    let moodUntil = 0;
+    let nextMood = last + 5000 + Math.random() * 4000;
+    let shown: Expression | null = null;
+
+    const setEye = (i: number, isOpen: boolean) => {
+      const o = open[i];
+      const c = closed[i];
+      if (o) o.style.opacity = isOpen ? "1" : "0";
+      if (c) c.style.opacity = isOpen ? "0" : "1";
+    };
+
+    const show = (expression: Expression) => {
+      if (expression === shown) return;
+      shown = expression;
+      setEye(0, expression !== "joy");
+      setEye(1, expression !== "joy" && expression !== "wink");
+      const mouth = expression === "joy" ? "joy" : expression === "surprise" ? "surprise" : "smile";
+      for (const key of ["smile", "joy", "surprise"] as const) {
+        const m = mouths[key];
+        if (m) m.style.opacity = key === mouth ? "1" : "0";
+      }
+      brows.style.transform = expression === "surprise" ? "translateY(-9px)" : "none";
+    };
 
     const onPointer = (event: PointerEvent) => {
       if (event.pointerType === "touch") return;
@@ -48,6 +88,7 @@ export function Bead({ className }: { className?: string }) {
       const dy = event.clientY - (box.top + box.height * 0.46);
       targetYaw = Math.max(-1, Math.min(1, dx / 460)) * MAX_YAW;
       targetPitch = Math.max(-1, Math.min(1, dy / 380)) * MAX_PITCH;
+      near = Math.hypot(dx, dy) < box.width * 0.85;
       pointedAt = performance.now();
     };
 
@@ -56,6 +97,7 @@ export function Bead({ className }: { className?: string }) {
       last = now;
 
       if (now - pointedAt > IDLE_AFTER_MS) {
+        near = false;
         const t = now / 1000;
         targetYaw = Math.sin(t * 0.55) * MAX_YAW * 0.6;
         targetPitch = Math.sin(t * 0.37 + 1.2) * MAX_PITCH * 0.4;
@@ -71,13 +113,25 @@ export function Bead({ className }: { className?: string }) {
         `translate(${CX + dx} ${CY + dy}) scale(${Math.cos(yaw)} ${Math.cos(pitch)}) translate(${-CX} ${-CY})`,
       );
 
+      // The face: beaming while the pointer is close, otherwise a short mood
+      // now and then, and back to the quiet smile.
+      if (!near && now >= nextMood) {
+        mood = MOODS[Math.floor(Math.random() * MOODS.length)];
+        moodUntil = now + (mood === "wink" ? 750 : 1400);
+        nextMood = moodUntil + 5500 + Math.random() * 5500;
+      }
+      show(near ? "joy" : now < moodUntil ? mood : "smile");
+
+      // Blinks, on the eyes that are open.
       if (now >= nextBlink) {
         blinkStart = now;
         nextBlink = now + (Math.random() < 0.2 ? 260 : 2800 + Math.random() * 3600);
       }
       const b = (now - blinkStart) / 150;
       const lid = b >= 0 && b < 1 ? 1 - Math.sin(b * Math.PI) * 0.92 : 1;
-      eyes.setAttribute("transform", `translate(0 212) scale(1 ${lid}) translate(0 -212)`);
+      for (const o of open) {
+        o?.setAttribute("transform", `translate(0 ${EYE_Y}) scale(1 ${lid}) translate(0 ${-EYE_Y})`);
+      }
 
       if (visible) frame = requestAnimationFrame(tick);
     };
@@ -111,6 +165,8 @@ export function Bead({ className }: { className?: string }) {
     };
   }, []);
 
+  const fade = { transition: "opacity 140ms ease-out" } as const;
+
   return (
     <svg ref={svgRef} className={className} viewBox="0 0 340 360" aria-hidden="true" focusable="false">
       <defs>
@@ -120,16 +176,16 @@ export function Bead({ className }: { className?: string }) {
           <stop offset=".8" stopColor="#e2e2de" />
           <stop offset="1" stopColor="#cdcdc8" />
         </radialGradient>
-        <linearGradient id={id("lac")} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#202022" />
-          <stop offset=".6" stopColor="#0a0a0b" />
-          <stop offset="1" stopColor="#000" />
-        </linearGradient>
-        <radialGradient id={id("eye")} cx=".5" cy=".68" r=".62">
-          <stop offset="0" stopColor="#9a6a3e" />
-          <stop offset=".45" stopColor="#4a2a15" />
-          <stop offset="1" stopColor="#120b06" />
+        <radialGradient id={id("socket")} cx=".38" cy=".3" r=".8">
+          <stop offset="0" stopColor="#fff" />
+          <stop offset=".7" stopColor="#f1f1ee" />
+          <stop offset="1" stopColor="#d6d6d1" />
         </radialGradient>
+        <linearGradient id={id("glow")} x1="0" y1="0" x2="0" y2="1">
+          <stop offset=".35" stopColor="#ff8a2a" stopOpacity="0" />
+          <stop offset=".8" stopColor="#ff8a2a" stopOpacity=".9" />
+          <stop offset="1" stopColor="#ffc07a" />
+        </linearGradient>
         <radialGradient id={id("turn")} gradientUnits="userSpaceOnUse" cx="150" cy="140" r="160">
           <stop offset=".55" stopColor="#141416" stopOpacity="0" />
           <stop offset="1" stopColor="#141416" stopOpacity=".2" />
@@ -151,6 +207,9 @@ export function Bead({ className }: { className?: string }) {
         <clipPath id={id("clip")}>
           <circle cx={CX} cy={CY} r="145" />
         </clipPath>
+        <clipPath id={id("mouth")}>
+          <path d="M142 256 Q170 298 198 256 Q170 267 142 256 Z" />
+        </clipPath>
         <filter id={id("soft")} x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="5" />
         </filter>
@@ -159,50 +218,79 @@ export function Bead({ className }: { className?: string }) {
       <circle cx={CX} cy={CY} r="145" fill={`url(#${id("bd")})`} />
       <g clipPath={`url(#${id("clip")})`}>
         <g ref={headRef}>
-          {/* The cap: black over the crown and down the sides, the white face
-              rising in two lobes with the black point between them. */}
-          <path
-            fill={`url(#${id("lac")})`}
-            d="M-260 -20 H600 V96 C470 104 362 160 318 232 C304 196 288 150 262 118 C244 94 214 90 200 108 C188 122 178 136 170 154 C162 136 152 122 140 108 C126 90 96 94 78 118 C52 150 36 196 22 232 C-22 160 -130 104 -260 96 Z"
-          />
-          {/* Swept-back stripes, tapered, curving from the crown down the
-              sides (mirrored right). */}
-          <g fill="#f3f3f0">
-            <path d="M163 30 C122 40 84 66 62 106 C50 130 42 156 38 182 C50 158 60 134 74 112 C96 78 126 56 165 44 Z" />
-            <path d="M152 18 C104 22 64 46 42 86 C34 100 29 116 26 132 C36 114 47 98 58 85 C84 54 114 36 155 30 Z" />
-            <path d="M177 30 C218 40 256 66 278 106 C290 130 298 156 302 182 C290 158 280 134 266 112 C244 78 214 56 175 44 Z" />
-            <path d="M188 18 C236 22 276 46 298 86 C306 100 311 116 314 132 C304 114 293 98 282 85 C256 54 226 36 185 30 Z" />
+          {/* The Vibe Co. mark worn as the cap: a black crown, the V coming
+              down to a point on the forehead, and on each side three thick
+              rounded strokes nested in arcs, the lowest ending just above
+              the eye like a brow. */}
+          <path fill="#0c0c0d" d="M-260 -20 H600 V30 C420 30 300 26 170 22 C40 26 -80 30 -260 30 Z" />
+          <path fill="#0c0c0d" d="M138 16 C150 66 160 110 170 152 C180 110 190 66 202 16 Z" />
+          <g fill="none" stroke="#0c0c0d" strokeWidth="26" strokeLinecap="round">
+            <path d="M132 26 C84 34 46 70 30 128" />
+            <path d="M141 60 C98 66 66 98 54 148" />
+            <path d="M208 26 C256 34 294 70 310 128" />
+            <path d="M199 60 C242 66 274 98 286 148" />
+            <g ref={browsRef} style={{ transition: "transform 220ms cubic-bezier(.2,.8,.2,1)" }}>
+              <path d="M145 96 C113 100 91 122 81 156" />
+              <path d="M195 96 C227 100 249 122 259 156" />
+            </g>
           </g>
-          {/* The short black brows, ends of the side bands, above the eyes. */}
-          <g fill="none" stroke="#0b0b0c" strokeWidth="4.5" strokeLinecap="round">
-            <path d="M96 174 Q116 160 142 166" />
-            <path d="M244 174 Q224 160 198 166" />
-          </g>
-          <g ref={eyesRef}>
-            {[122, 218].map((x) => (
-              <g key={x}>
-                <ellipse cx={x} cy="212" rx="27" ry="31" fill={`url(#${id("eye")})`} stroke="#0b0b0c" strokeWidth="2.5" />
-                <ellipse cx={x} cy="214" rx="13" ry="15" fill="#060606" />
-                <ellipse cx={x - 9} cy="199" rx="9.5" ry="10.5" fill="#fff" opacity=".96" />
-                <circle cx={x + 10} cy="225" r="3.8" fill="#fff" opacity=".85" />
-                <path
-                  d={`M${x + 3} 240 Q${x + 17} 236 ${x + 23} 222`}
-                  fill="none"
-                  stroke="#ff7a1f"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  opacity=".5"
-                />
+
+          {/* Big glossy black eyes set in a white rim, warm at the bottom
+              where the orange light catches them; closed, a black crescent. */}
+          {EYES.map((x, i) => (
+            <g key={x}>
+              <circle cx={x} cy={EYE_Y} r="41" fill={`url(#${id("socket")})`} stroke="#0c0c0d" strokeOpacity=".1" strokeWidth="1.5" />
+              <g
+                ref={(el) => {
+                  openRefs.current[i] = el;
+                }}
+                style={fade}
+              >
+                <circle cx={x} cy={EYE_Y} r="35" fill="#060607" />
+                <circle cx={x} cy={EYE_Y + 2} r="28" fill="none" stroke={`url(#${id("glow")})`} strokeWidth="6" />
+                <circle cx={x} cy={EYE_Y - 3} r="21" fill="#020203" />
+                <ellipse cx={x + 12} cy={EYE_Y - 14} rx="10" ry="11.5" fill="#fff" />
+                <circle cx={x - 14} cy={EYE_Y + 11} r="4" fill="#fff" opacity=".85" />
               </g>
-            ))}
+              <path
+                ref={(el) => {
+                  closedRefs.current[i] = el;
+                }}
+                d={`M${x - 27} ${EYE_Y + 6} Q${x} ${EYE_Y - 22} ${x + 27} ${EYE_Y + 6}`}
+                fill="none"
+                stroke="#0c0c0d"
+                strokeWidth="10"
+                strokeLinecap="round"
+                style={{ ...fade, opacity: 0 }}
+              />
+            </g>
+          ))}
+
+          <g
+            ref={(el) => {
+              mouthRefs.current.smile = el;
+            }}
+            style={fade}
+          >
+            <path d="M148 262 Q170 282 192 262 Q170 271 148 262 Z" fill="#1a1a1b" stroke="#1a1a1b" strokeWidth="2.5" strokeLinejoin="round" />
           </g>
-          <path
-            d="M152 258 Q170 271 188 258"
-            fill="none"
-            stroke="#141416"
-            strokeWidth="4.5"
-            strokeLinecap="round"
-          />
+          <g
+            ref={(el) => {
+              mouthRefs.current.joy = el;
+            }}
+            style={{ ...fade, opacity: 0 }}
+          >
+            <path d="M142 256 Q170 298 198 256 Q170 267 142 256 Z" fill="#1a1a1b" stroke="#1a1a1b" strokeWidth="2.5" strokeLinejoin="round" />
+            <ellipse cx="170" cy="283" rx="13" ry="7" fill="#e0603a" clipPath={`url(#${id("mouth")})`} />
+          </g>
+          <g
+            ref={(el) => {
+              mouthRefs.current.surprise = el;
+            }}
+            style={{ ...fade, opacity: 0 }}
+          >
+            <ellipse cx="170" cy="268" rx="9.5" ry="12" fill="#1a1a1b" />
+          </g>
         </g>
       </g>
       <circle cx={CX} cy={CY} r="145" fill={`url(#${id("turn")})`} />
