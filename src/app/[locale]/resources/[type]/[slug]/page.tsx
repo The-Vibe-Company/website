@@ -195,6 +195,7 @@ export default async function ContentDetailPage({
     publishedAt: item.publishedAt,
     language: item.language,
     imageUrl: socialImageUrl(item),
+    series: item.series,
   });
   const faq = faqPageSchema(extractMarkdownFaq(item.body));
 

@@ -132,6 +132,32 @@ describe("articles", () => {
     }
   });
 
+  test("Victor's Story articles are Victor's, every other article is Stan's", () => {
+    const victorStory = articles.filter((article) => article.series === "victor-story");
+    expect(victorStory.length).toBe(13);
+
+    for (const article of articles) {
+      const schema = articleSchema({
+        url: `${SITE}/${article.language}/resources/articles/${article.slug}`,
+        title: article.title,
+        publishedAt: article.publishedAt,
+        language: article.language,
+        series: article.series,
+      });
+      if (article.series === "victor-story") {
+        expect(schema.author).toEqual({
+          "@type": "Person",
+          name: "Victor Nivault",
+          jobTitle: "Builder",
+          worksFor: { "@type": "Organization", name: "The Vibe Company" },
+          sameAs: ["https://www.linkedin.com/in/victor-nivault-698a77217"],
+        });
+      } else {
+        expect(schema.author).toMatchObject({ "@type": "Person", name: "Stan Girard" });
+      }
+    }
+  });
+
   test("an article without a FAQ section gets no FAQPage", () => {
     expect(extractMarkdownFaq("## Intro\n\nText.\n\n## Next\n\n**Not a question**\nBody.")).toEqual([]);
     expect(faqPageSchema([])).toBeNull();

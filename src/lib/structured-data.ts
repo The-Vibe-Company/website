@@ -31,6 +31,17 @@ const STAN_GIRARD: JsonLdNode = {
   ],
 };
 
+/** Author of the Victor's Story series, which he writes in the first person. */
+const VICTOR_NIVAULT: JsonLdNode = {
+  "@type": "Person",
+  name: "Victor Nivault",
+  jobTitle: "Builder",
+  worksFor: { "@type": "Organization", name: SITE_NAME },
+  sameAs: ["https://www.linkedin.com/in/victor-nivault-698a77217"],
+};
+
+const VICTOR_STORY_SERIES = "victor-story";
+
 const ANTOINE_DEWEZ: JsonLdNode = {
   "@type": "Person",
   "@id": `${SITE_URL}/#antoine-dewez`,
@@ -114,6 +125,7 @@ export function articleSchema({
   publishedAt,
   language,
   imageUrl,
+  series,
 }: {
   url: string;
   title: string;
@@ -121,6 +133,8 @@ export function articleSchema({
   publishedAt: string;
   language: string;
   imageUrl?: string;
+  /** Victor's Story articles are Victor's; every other article is Stan's. */
+  series?: string;
 }): JsonLdNode {
   // The content has no separate update date, so the publication date stands
   // for both.
@@ -135,7 +149,7 @@ export function articleSchema({
     dateModified: publishedAt,
     ...(imageUrl ? { image: [imageUrl] } : {}),
     inLanguage: language,
-    author: STAN_GIRARD,
+    author: series === VICTOR_STORY_SERIES ? VICTOR_NIVAULT : STAN_GIRARD,
     publisher: PUBLISHER,
   };
 }
