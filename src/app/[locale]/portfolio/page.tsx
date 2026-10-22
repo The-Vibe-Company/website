@@ -5,8 +5,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { JsonLd } from "@/components/JsonLd";
 import { getProjects, type ContentLocale } from "@/lib/projects";
-import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
+import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
+import { breadcrumbList } from "@/lib/structured-data";
 
 export async function generateMetadata({
   params,
@@ -39,12 +41,20 @@ export default async function PortfolioPage({
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "portfolio" });
   const projects = getProjects(locale as ContentLocale);
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const tNav = await getTranslations({ locale, namespace: "nav" });
 
   return (
     <div
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
+      <JsonLd
+        data={breadcrumbList([
+          { name: tFooter("home"), url: localizedUrl(locale) },
+          { name: tNav("portfolio"), url: localizedUrl(locale, "/portfolio") },
+        ])}
+      />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="mx-auto max-w-[100rem] px-6 pb-16 pt-12 md:px-12 md:pb-20 md:pt-16">

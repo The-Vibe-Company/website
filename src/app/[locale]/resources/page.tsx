@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+import { JsonLd } from '@/components/JsonLd';
 import { ArticleBrowser, type ArticleCardItem } from '@/components/resources/ArticleBrowser';
 import { ResourcesHomeSearch } from '@/components/resources/ResourcesHomeSearch';
 import {
@@ -10,7 +11,8 @@ import {
 } from '@/lib/content-source';
 import type { ContentEntry, ContentLanguage } from '@/lib/content-source';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { localizedAlternates, localizedSocialMetadata } from '@/lib/site';
+import { localizedAlternates, localizedSocialMetadata, localizedUrl } from '@/lib/site';
+import { breadcrumbList } from '@/lib/structured-data';
 
 export async function generateMetadata({
   params,
@@ -81,9 +83,16 @@ export default async function ResourcesPage({
   const victorStory = articles.filter((a) => a.series === VICTOR_SERIES).map(toCard);
   const others = articles.filter((a) => a.series !== VICTOR_SERIES).map(toCard);
   const articleCount = articles.length;
+  const tFooter = await getTranslations({ locale, namespace: 'footer' });
 
   return (
     <main id="main-content" tabIndex={-1} className="pb-20 bg-res-bg">
+      <JsonLd
+        data={breadcrumbList([
+          { name: tFooter('home'), url: localizedUrl(locale) },
+          { name: tFooter('resources'), url: localizedUrl(locale, '/resources') },
+        ])}
+      />
       <section
         className={`${resourcesTheme.section.padding} pt-10 md:pt-16 pb-10 md:pb-12 border-b border-res-border`}
       >

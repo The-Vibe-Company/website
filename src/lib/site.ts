@@ -79,30 +79,28 @@ export function localizedUrl(locale: string, path = "/"): string {
   return absoluteUrl(localizedPath(locale, path));
 }
 
-export function localizedAlternates(
-  locale: string,
-  path = "/",
-  { xDefault = false }: { xDefault?: boolean } = {},
-) {
+export function localizedAlternates(locale: string, path = "/") {
   return {
     canonical: localizedUrl(locale, path),
-    languages: localizedLanguages(path, { xDefault }),
+    languages: localizedLanguages(path),
   };
 }
 
 /**
  * The self-inclusive hreflang set of a page served at the same path in both
- * languages. With `xDefault`, the French URL (the site's default language,
- * keep in sync with `routing.defaultLocale`) doubles as `x-default`.
+ * languages. The French URL (the site's default language, keep in sync with
+ * `routing.defaultLocale`) doubles as `x-default`.
  */
-export function localizedLanguages(
-  path = "/",
-  { xDefault = false }: { xDefault?: boolean } = {},
-): Record<string, string> {
+export function localizedLanguages(path = "/"): Record<string, string> {
+  return splitPathLanguages({ fr: path, en: path });
+}
+
+/** The hreflang set of a page whose path differs per language. */
+export function splitPathLanguages(paths: SplitPaths): Record<string, string> {
   return {
-    fr: localizedUrl("fr", path),
-    en: localizedUrl("en", path),
-    ...(xDefault ? { "x-default": localizedUrl("fr", path) } : {}),
+    fr: localizedUrl("fr", paths.fr),
+    en: localizedUrl("en", paths.en),
+    "x-default": localizedUrl("fr", paths.fr),
   };
 }
 
@@ -113,10 +111,7 @@ export function localizedLanguages(
 export function splitPathAlternates(locale: string, paths: SplitPaths) {
   return {
     canonical: localizedUrl(locale, splitPath(paths, locale)),
-    languages: {
-      fr: localizedUrl("fr", paths.fr),
-      en: localizedUrl("en", paths.en),
-    },
+    languages: splitPathLanguages(paths),
   };
 }
 
@@ -152,6 +147,10 @@ export function contentAlternates(
   };
 }
 
+/**
+ * Content published in a single language: it declares itself, and doubles as
+ * `x-default` since there is no other version to send anyone to.
+ */
 export function monolingualAlternates(language: string, path: string) {
   const canonical = localizedUrl(language, path);
 
@@ -159,12 +158,24 @@ export function monolingualAlternates(language: string, path: string) {
     canonical,
     languages: {
       [language]: canonical,
+      "x-default": canonical,
     },
   };
 }
 
-/** A social card image, as a site path, with its size and alt text. */
-export type SocialImage = { path: string; width: number; height: number; alt: string };
+export function openGraphLocale(locale: string): string {
+  return locale === "fr" ? "fr_FR" : "en_US";
+}
+
+/** A social card image, as a site path, with its alt text and, when known, its size. */
+export type SocialImage = { path: string; width?: number; height?: number; alt: string };
+
+/**
+ * The site's square logo (served from `src/app/icon.png`), the social card of
+ * any page that has no image of its own. It is also the logo declared in the
+ * Organization structured data.
+ */
+export const SITE_LOGO = { path: "/icon.png", width: 1024, height: 1024 } as const;
 
 export function localizedSocialMetadata({
   locale,
@@ -177,27 +188,35 @@ export function localizedSocialMetadata({
   path?: string;
   title: string;
   description: string;
-  /** With an image, Twitter/X shows the large card, like articles do. */
+  /**
+   * With an image, Twitter/X shows the large card, like articles do. Without
+   * one, the page shares the site logo on the small card.
+   */
   image?: SocialImage;
 }): Pick<Metadata, "openGraph" | "twitter"> {
-  const imageUrl = image ? absoluteUrl(image.path) : undefined;
+  const card = image ?? { ...SITE_LOGO, alt: SITE_NAME };
+  const imageUrl = absoluteUrl(card.path);
   return {
     openGraph: {
       type: "website",
-      locale: locale === "fr" ? "fr_FR" : "en_US",
+      locale: openGraphLocale(locale),
       url: localizedUrl(locale, path),
       siteName: SITE_NAME,
       title,
       description,
-      ...(image && imageUrl
-        ? { images: [{ url: imageUrl, width: image.width, height: image.height, alt: image.alt }] }
-        : {}),
+      images: [
+        {
+          url: imageUrl,
+          ...(card.width && card.height ? { width: card.width, height: card.height } : {}),
+          alt: card.alt,
+        },
+      ],
     },
     twitter: {
-      card: imageUrl ? "summary_large_image" : "summary",
+      card: image ? "summary_large_image" : "summary",
       title,
       description,
-      ...(imageUrl ? { images: [imageUrl] } : {}),
+      images: [imageUrl],
     },
   };
 }

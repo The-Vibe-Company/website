@@ -2,11 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { HomeLaunchpad } from "@/components/HomeLaunchpad";
-import {
-  localizedAlternates,
-  localizedSocialMetadata,
-  SITE_NAME,
-} from "@/lib/site";
+import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -15,15 +11,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
+  const title = t("homeTitle");
   const description = t("description");
 
   return {
-    title: { absolute: t("homeTitle") },
+    title: { absolute: title },
     description,
     alternates: localizedAlternates(locale),
     ...localizedSocialMetadata({
       locale,
-      title: SITE_NAME,
+      title,
       description,
     }),
   };

@@ -4,9 +4,11 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ClientProviders } from "@/components/ClientProviders";
+import { JsonLd } from "@/components/JsonLd";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
 import { routing } from "@/i18n/routing";
 import { localizedAlternates, SITE_NAME, SITE_URL } from "@/lib/site";
+import { siteGraph } from "@/lib/structured-data";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -65,6 +67,7 @@ export default async function LocaleLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <JsonLd data={siteGraph()} />
         <NextIntlClientProvider>
           <ClientProviders />
           <ConditionalGridOverlay />

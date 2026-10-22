@@ -3,6 +3,7 @@ import { Link, permanentRedirect } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { JsonLd } from '@/components/JsonLd';
 import { KeepReading } from '@/components/resources/KeepReading';
 import { TranslationSwitch } from '@/components/resources/TranslationSwitch';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
@@ -21,7 +22,8 @@ import { extractCoverImage, normalizeMarkdownBody } from '@/lib/markdown';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { contentAlternates, localizedUrl, SITE_NAME, SITE_URL } from '@/lib/site';
+import { contentAlternates, localizedUrl, openGraphLocale, SITE_NAME, SITE_URL } from '@/lib/site';
+import { articleSchema, breadcrumbList, extractMarkdownFaq, faqPageSchema } from '@/lib/structured-data';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
@@ -62,6 +64,11 @@ const getTranslationLinks = cache(async (typeSlug: string, slug: string) => {
 
 export const dynamicParams = true;
 
+function socialImageUrl(item: { ogImage?: { url: string } | null; featuredImage?: { url: string } | null }) {
+  const image = item.ogImage ?? item.featuredImage;
+  return image?.url ? new URL(image.url, SITE_URL).toString() : undefined;
+}
+
 function formatDate(dateString: string, locale: string): string {
   return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
     weekday: 'long',
@@ -88,7 +95,7 @@ export async function generateMetadata({
   const canonicalUrl = localizedUrl(item.language, canonicalPath);
   const versions = await getTranslationLinks(contentType.slug, slug);
   const socialImage = item.ogImage ?? item.featuredImage;
-  const socialImageUrl = socialImage?.url ? new URL(socialImage.url, SITE_URL).toString() : undefined;
+  const imageUrl = socialImageUrl(item);
   const socialImageSourceUrl = item.ogImage?.sourceUrl;
   const socialImageDimensions = getOgImageDimensions(socialImageSourceUrl);
   const socialTitle = item.title;
@@ -101,16 +108,17 @@ export async function generateMetadata({
     robots: locale === item.language ? undefined : { index: false, follow: true },
     openGraph: {
       type: 'article',
+      locale: openGraphLocale(item.language),
       url: canonicalUrl,
       siteName: SITE_NAME,
       title: socialTitle,
       description: socialDescription,
       publishedTime: item.publishedAt,
       tags: item.topics,
-      images: socialImageUrl
+      images: imageUrl
         ? [
             {
-              url: socialImageUrl,
+              url: imageUrl,
               ...(socialImageDimensions ?? {}),
               alt: socialImage?.alt ?? socialTitle,
             },
@@ -121,7 +129,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: socialTitle,
       description: socialDescription,
-      images: socialImageUrl ? [socialImageUrl] : undefined,
+      images: imageUrl ? [imageUrl] : undefined,
     },
   };
 }
@@ -172,8 +180,29 @@ export default async function ContentDetailPage({
   const isTool = item.tool === true;
   const categoryLabel = isVictorStory ? "Victor's Story" : 'Article';
 
+  // Structured data describes the canonical version, in its own language.
+  const canonicalUrl = localizedUrl(item.language, contentPath(item));
+  const tFooter = await getTranslations({ locale: item.language, namespace: 'footer' });
+  const breadcrumb = breadcrumbList([
+    { name: tFooter('home'), url: localizedUrl(item.language) },
+    { name: tFooter('resources'), url: localizedUrl(item.language, '/resources') },
+    { name: item.title, url: canonicalUrl },
+  ]);
+  const article = articleSchema({
+    url: canonicalUrl,
+    title: item.title,
+    summary: item.summary,
+    publishedAt: item.publishedAt,
+    language: item.language,
+    imageUrl: socialImageUrl(item),
+  });
+  const faq = faqPageSchema(extractMarkdownFaq(item.body));
+
   return (
     <>
+      <JsonLd data={article} />
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={faq} />
       <ReadingProgress />
       <main id="main-content" tabIndex={-1} className="pt-12 pb-24 min-h-screen bg-res-bg">
         <div className={`${resourcesTheme.section.padding} pb-24`}>
