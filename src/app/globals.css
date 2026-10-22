@@ -71,14 +71,19 @@
       ButtonLink, LinkRim, Chip, Pointe, Arrow, Groove). The shared chrome
       (TopNav, Footer, FinalCTA = the closing call, BackLink, LanguageSwitcher,
       TranslationSwitch) already wears the kit: use them, do not rebuild them.
-   5. Rules the checks hold: text is 12px at least (use text-xs, never an
+   5. Words. The booking action is called "Prendre 30 minutes" ("Book 30
+      minutes") everywhere: header, closing call, hero, mobile bar. Do not
+      invent another label for it. Kickers carry no "//" prefix any more.
+   6. Rules the checks hold: text is 12px at least (use text-xs, never an
       arbitrary size below it); a label holds on one line (whitespace-nowrap,
-      cut with truncate); lines stay under 90 characters (measure or max-w-prose
-      on running text); anything tapped is 24x24 at least (buttons here are 42px
-      and more); every clickable thing has a pointer cursor, a hover and a
-      focus ring; content never waits for a scroll-in animation (use .rise,
-      a time-based entrance, or nothing); prefers-reduced-motion is honoured
-      globally.
+      cut with truncate or clamp-2); running text stays under 90 characters a
+      line (max-w-[54ch] to [60ch] in Bricolage; max-w-prose is too wide);
+      anything tapped is 24x24 at least (buttons here are 42px and more); every
+      clickable thing has a pointer cursor, a hover and a focus ring; content
+      never waits for a scroll-in animation (whileInView with opacity 0 is out;
+      use .rise, a time-based entrance, or nothing); prefers-reduced-motion is
+      honoured globally. The header (.nav-wrap) is sticky and takes 68px in the
+      flow: never add a second sticky bar or a top padding to clear it.
    ============================================================================= */
 
 /* -----------------------------------------------------------------------------

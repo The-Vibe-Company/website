@@ -186,7 +186,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             main.scrollIntoView();
           }
         }}
-        className="btn btn-lacquer btn-sm sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[100]"
+        className="btn btn-lacquer btn-sm sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[100] focus:h-[42px] focus:whitespace-nowrap focus:px-[18px]"
       >
         {tA11y("skipToContent")}
       </a>
