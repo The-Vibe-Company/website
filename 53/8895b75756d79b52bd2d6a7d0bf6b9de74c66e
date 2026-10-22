@@ -1,0 +1,21 @@
+src/app/[locale]/case-studies/[slug]/page.tsx
+  s_c8af29a5af6da7::t_6883f23abe0a2e 3,13,46-83,108-111,119-124,126-142,144-169,171,173-183,185-197,199,203,205-241,246,248-260,262-275,280-287,292,294-321,323-335
+src/components/CaseStudyKeepReading.tsx
+  s_c8af29a5af6da7::t_501a1c158c5d89 4,8-11,21-23,25-29,33-34,38-42,45,48-49,52,55-57,59-60,62-95
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "538895b75756d79b52bd2d6a7d0bf6b9de74c66e",
+  "prompts": {},
+  "sessions": {
+    "s_c8af29a5af6da7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b81b232c-25c9-4494-8e89-f80c50a7c0c1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
