@@ -619,10 +619,15 @@ input:disabled {
     white-space: nowrap;
   }
 
+  /* The span clips for the ellipsis, and a clip at line-height 1 cut the
+     accent off "À" and "É": the padding gives the accent room inside the clip,
+     the negative margin takes the room back so the kicker keeps its height. */
   .kicker > span {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-block: 4px;
+    margin-block: -4px;
   }
 
   .pointe {
