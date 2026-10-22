@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 
 import { Footer } from "@/components/Footer";
@@ -130,6 +130,20 @@ const GROOVE_UPRIGHT =
   "lg:before:inset-y-8 lg:before:left-0 lg:before:w-[2px] lg:before:bg-[linear-gradient(90deg,rgba(11,11,12,.1)_0_1px,rgba(255,255,255,.95)_1px_2px)]";
 const GROOVE_DIVIDER = `before:pointer-events-none before:absolute before:content-[''] ${GROOVE_FLAT} ${GROOVE_UPRIGHT}`;
 
+/** Logo heights (px, at 1280) tuned so seven logos read at one optical size on one shelf. */
+const LOGO_HEIGHTS: Record<string, number> = {
+  "Agence France-Presse": 34,
+  "Coup de Pates": 38,
+  Monka: 46,
+  Trusk: 26,
+  LocService: 28,
+  Zapa: 24,
+  Theodo: 26,
+};
+
+/** The kit's kicker clips its span (ellipsis), and with it the accent of "À" and "É": give the span room. */
+const KICKER_ROOM = "[&>span]:-my-1 [&>span]:py-1";
+
 const TEXT = "m-0 max-w-[56ch] text-base leading-[1.62] text-ink-2";
 
 /** A rim link that leaves the site: the mono label, the underline, the ↗ arrow. */
@@ -257,8 +271,8 @@ export async function AboutPage({ locale }: { locale: string }) {
               className="relative overflow-hidden px-5 pb-6 pt-7 max-md:rounded-[28px] md:px-14 md:pb-11 md:pt-14 [--rim-angle:118deg]"
             >
               <Bead className="pointer-events-none absolute right-3.5 top-3.5 h-[110px] w-[104px] md:right-16 md:top-8 md:h-[265px] md:w-[250px]" />
-              <Kicker>{t("kicker")}</Kicker>
-              <h1 className="display d-lg mt-[4.75rem] md:mt-8 md:max-w-[12ch]">
+              <Kicker className={KICKER_ROOM}>{t("kicker")}</Kicker>
+              <h1 className="display d-lg mt-[4.75rem] md:mt-8">
                 {h1Line1}
                 {h1Line2 ? (
                   <>
@@ -404,7 +418,7 @@ export async function AboutPage({ locale }: { locale: string }) {
               as="ul"
               tone="quiet"
               radius="xl"
-              className="m-0 mt-10 flex list-none flex-wrap items-center justify-center gap-x-8 gap-y-1 px-5 py-3 max-md:rounded-[28px] md:mt-12 md:px-9 lg:justify-between"
+              className="m-0 mt-10 flex list-none flex-wrap items-center justify-center gap-x-5 gap-y-1 md:gap-x-6 px-5 py-3 max-md:rounded-[28px] md:mt-12 md:px-9 lg:justify-between"
             >
               {CLIENTS.map((client) => (
                 <li key={client.name} className="flex">
@@ -418,7 +432,8 @@ export async function AboutPage({ locale }: { locale: string }) {
                     <img
                       src={client.src}
                       alt={t("clients.logoAlt", { name: client.name })}
-                      className={`${client.className} w-auto object-contain brightness-0`}
+                      style={{ "--h": LOGO_HEIGHTS[client.name] ?? 28 } as CSSProperties}
+                      className="h-[calc(var(--h)*.78*1px)] w-auto object-contain brightness-0 md:h-[calc(var(--h)*.86*1px)] xl:h-[calc(var(--h)*1px)]"
                       loading="lazy"
                       decoding="async"
                     />
@@ -455,7 +470,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                   radius="xl"
                   className="flex flex-col p-6 max-md:rounded-[28px] md:p-10"
                 >
-                  <p className="kicker">
+                  <p className={cn("kicker", KICKER_ROOM)}>
                     <span className="dot" />
                     <span>{t("team.role")}</span>
                   </p>
@@ -495,7 +510,7 @@ export async function AboutPage({ locale }: { locale: string }) {
               </div>
 
               <div className="lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:pl-9 lg:pr-14">
-                <Kicker>{t("how.stepsLabel")}</Kicker>
+                <Kicker className={KICKER_ROOM}>{t("how.stepsLabel")}</Kicker>
                 <ol className="m-0 mt-5 list-none p-0">
                   {ABOUT_PROCESS_STEPS.map((step) => (
                     <li
@@ -525,7 +540,7 @@ export async function AboutPage({ locale }: { locale: string }) {
 
               <div className="lg:col-start-1 lg:row-start-2 lg:self-end lg:pl-14 lg:pr-9">
                 <div className="border-t border-white/15 pt-7 lg:mt-12">
-                  <Kicker>{t("how.contactTitle")}</Kicker>
+                  <Kicker className={KICKER_ROOM}>{t("how.contactTitle")}</Kicker>
                   <dl className="m-0 mt-5 grid gap-4">
                     <div>
                       <dt className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-on-lacquer-muted">
@@ -588,7 +603,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                   <tr>
                     <th
                       scope="col"
-                      className="py-5 pr-6 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground md:w-[38%] lg:w-[calc(33.333%+24px)]"
+                      className="py-5 pr-6 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground md:w-[38%] lg:w-[35.5%]"
                     >
                       {t("facts.columnFact")}
                     </th>
