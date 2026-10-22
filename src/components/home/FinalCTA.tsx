@@ -6,8 +6,9 @@ import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 
 /**
- * The closing call of every page: one clay slab with the orange rim light, the
- * title in two lines (the second in grey clay), then the booking action, named
+ * The closing call of every page: a clay slab with the orange rim light but no
+ * warm bounce (that is the page's one main piece's alone, the hero, the cover),
+ * the title in two lines (the second in grey clay), then the booking action, named
  * like the hero's and the header's (`finalCta.bookCall`), and the two facts
  * that make it safe to click (reply time, e-mail).
  *
@@ -24,7 +25,7 @@ export function FinalCTA({ rail }: { rail?: "wide" | "narrow" } = {}) {
   return (
     <section id="contact" className="section">
       <div className="wrap">
-        <div className="final-slab clay rim rim-warm">
+        <div className="final-slab clay rim">
           <Kicker>{t("kicker")}</Kicker>
           <h2 className="display d-lg">
             {t("titleLine1")}
