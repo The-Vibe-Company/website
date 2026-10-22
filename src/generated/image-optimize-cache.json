@@ -51,6 +51,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/chatgpt-entreprise/cover-mascotte.webp": {
+      "sourceHash": "21ae0f378c16906e1fbb5c0c78650609935e61f3df4434d0531e5cd6cfa64009",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp": {
       "sourceHash": "4e6943e70dccf101685b31b975bde6d126ae5cd2fb7f5c5a22ed07642c070c3e",
       "targetUrl": null,
@@ -343,6 +348,11 @@
     },
     "og:/images/resources/automatisation-ia-entreprise/cover-mascotte.webp": {
       "sourceHash": "f62cc1a50de1de3b1dcba623070c52f1ec52c95116f45d4db2cd43d2977147cb",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/chatgpt-entreprise/cover-mascotte.webp": {
+      "sourceHash": "21ae0f378c16906e1fbb5c0c78650609935e61f3df4434d0531e5cd6cfa64009",
       "targetUrl": null,
       "targetHash": null
     },
