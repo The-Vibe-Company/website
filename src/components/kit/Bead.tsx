@@ -16,8 +16,8 @@ import { useEffect, useId, useRef } from "react";
 
 const CX = 170;
 const CY = 165;
-const EYE_Y = 214;
-const EYES = [104, 236] as const;
+const EYE_Y = 206;
+const EYES = [101, 239] as const;
 const MAX_YAW = (36 * Math.PI) / 180;
 const MAX_PITCH = (15 * Math.PI) / 180;
 const IDLE_AFTER_MS = 3500;
@@ -60,6 +60,7 @@ export function Bead({ className }: { className?: string }) {
     let moodUntil = 0;
     let nextMood = last + 5000 + Math.random() * 4000;
     let shown: Expression | null = null;
+    let eyeScale = 1;
 
     const setEye = (i: number, isOpen: boolean) => {
       const o = open[i];
@@ -78,7 +79,9 @@ export function Bead({ className }: { className?: string }) {
         const m = mouths[key];
         if (m) m.style.opacity = key === mouth ? "1" : "0";
       }
-      brows.style.transform = expression === "surprise" ? "translateY(-9px)" : "none";
+      eyeScale = expression === "surprise" ? 1.1 : 1;
+      brows.style.transform =
+        expression === "surprise" ? "translateY(-7px)" : expression === "joy" ? "translateY(-3px)" : "none";
     };
 
     const onPointer = (event: PointerEvent) => {
@@ -130,7 +133,11 @@ export function Bead({ className }: { className?: string }) {
       const b = (now - blinkStart) / 150;
       const lid = b >= 0 && b < 1 ? 1 - Math.sin(b * Math.PI) * 0.92 : 1;
       for (const o of open) {
-        o?.setAttribute("transform", `translate(0 ${EYE_Y}) scale(1 ${lid}) translate(0 ${-EYE_Y})`);
+        const x = Number(o?.dataset.x ?? 0);
+        o?.setAttribute(
+          "transform",
+          `translate(${x} ${EYE_Y}) scale(${eyeScale} ${lid * eyeScale}) translate(${-x} ${-EYE_Y})`,
+        );
       }
 
       if (visible) frame = requestAnimationFrame(tick);
@@ -208,8 +215,25 @@ export function Bead({ className }: { className?: string }) {
           <circle cx={CX} cy={CY} r="145" />
         </clipPath>
         <clipPath id={id("mouth")}>
-          <path d="M142 256 Q170 298 198 256 Q170 267 142 256 Z" />
+          <path d="M142 242 Q170 238 198 242 Q192 276 170 278 Q148 276 142 242 Z" />
         </clipPath>
+        <mask id={id("mark")} maskUnits="userSpaceOnUse" x="-300" y="-60" width="940" height="440">
+          <rect x="-300" y="-60" width="940" height="440" fill="#fff" />
+          <g
+            transform="translate(-25.6 -44.6) scale(0.758 0.58)"
+            fill="none"
+            stroke="#000"
+            strokeWidth="40"
+            strokeLinecap="round"
+          >
+            <path d="M85 128 C170 128 235 200 268 372" />
+            <path d="M85 188 C150 188 190 260 200 368" />
+            <path d="M85 252 C120 260 135 300 140 368" />
+            <path d="M432 128 C350 128 292 160 262 212" />
+            <path d="M432 188 C345 188 290 260 268 372" />
+            <path d="M432 248 C390 252 350 290 338 368" />
+          </g>
+        </mask>
         <filter id={id("soft")} x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="5" />
         </filter>
@@ -218,53 +242,62 @@ export function Bead({ className }: { className?: string }) {
       <circle cx={CX} cy={CY} r="145" fill={`url(#${id("bd")})`} />
       <g clipPath={`url(#${id("clip")})`}>
         <g ref={headRef}>
-          {/* The Vibe Co. mark worn as the cap: a black crown, the V coming
-              down to a point on the forehead, and on each side three thick
-              rounded strokes nested in arcs, the lowest ending just above
-              the eye like a brow. */}
-          <path fill="#0c0c0d" d="M-260 -20 H600 V30 C420 30 300 26 170 22 C40 26 -80 30 -260 30 Z" />
-          <path fill="#0c0c0d" d="M138 16 C150 66 160 110 170 152 C180 110 190 66 202 16 Z" />
-          <g fill="none" stroke="#0c0c0d" strokeWidth="26" strokeLinecap="round">
-            <path d="M132 26 C84 34 46 70 30 128" />
-            <path d="M141 60 C98 66 66 98 54 148" />
-            <path d="M208 26 C256 34 294 70 310 128" />
-            <path d="M199 60 C242 66 274 98 286 148" />
-            <g ref={browsRef} style={{ transition: "transform 220ms cubic-bezier(.2,.8,.2,1)" }}>
-              <path d="M145 96 C113 100 91 122 81 156" />
-              <path d="M195 96 C227 100 249 122 259 156" />
-            </g>
-          </g>
+          {/* Black hair over the crown and down the sides, with The Vibe Co.
+              mark cut out of it, so the face's own white shows through the
+              strokes and runs down into the forehead between the locks. */}
+          <path
+            mask={`url(#${id("mark")})`}
+            fill="#0c0c0d"
+            d="M-260 -20 H600 V120 C420 125 345 160 318 236 C300 190 270 160 240 152 C210 146 190 146 170 146 C150 146 130 146 100 152 C70 160 40 190 22 236 C-5 160 -80 125 -260 120 Z"
+          />
 
-          {/* Big glossy black eyes set in a white rim, warm at the bottom
-              where the orange light catches them; closed, a black crescent. */}
+          {/* Big glossy eyes: near-black, a large pupil, an amber glow
+              along the bottom of the iris where the orange light catches it,
+              a big highlight up right and a small one on the left; closed, a
+              black crescent. */}
           {EYES.map((x, i) => (
             <g key={x}>
-              <circle cx={x} cy={EYE_Y} r="41" fill={`url(#${id("socket")})`} stroke="#0c0c0d" strokeOpacity=".1" strokeWidth="1.5" />
+              <ellipse cx={x} cy={EYE_Y} rx="37" ry="40" fill={`url(#${id("socket")})`} />
               <g
+                data-x={x}
                 ref={(el) => {
                   openRefs.current[i] = el;
                 }}
                 style={fade}
               >
-                <circle cx={x} cy={EYE_Y} r="35" fill="#060607" />
-                <circle cx={x} cy={EYE_Y + 2} r="28" fill="none" stroke={`url(#${id("glow")})`} strokeWidth="6" />
-                <circle cx={x} cy={EYE_Y - 3} r="21" fill="#020203" />
-                <ellipse cx={x + 12} cy={EYE_Y - 14} rx="10" ry="11.5" fill="#fff" />
-                <circle cx={x - 14} cy={EYE_Y + 11} r="4" fill="#fff" opacity=".85" />
+                <ellipse cx={x} cy={EYE_Y} rx="32" ry="36" fill="#0b0705" stroke="#050403" strokeWidth="2" />
+                <ellipse cx={x} cy={EYE_Y + 3} rx="25" ry="28" fill="none" stroke={`url(#${id("glow")})`} strokeWidth="5" />
+                <ellipse cx={x} cy={EYE_Y - 2} rx="19" ry="22" fill="#000" />
+                <circle cx={x + 11} cy={EYE_Y - 15} r="8" fill="#fff" />
+                <circle cx={x - 15} cy={EYE_Y + 2} r="4.5" fill="#fff" opacity=".9" />
               </g>
               <path
                 ref={(el) => {
                   closedRefs.current[i] = el;
                 }}
-                d={`M${x - 27} ${EYE_Y + 6} Q${x} ${EYE_Y - 22} ${x + 27} ${EYE_Y + 6}`}
+                d={`M${x - 26} ${EYE_Y + 6} Q${x} ${EYE_Y - 20} ${x + 26} ${EYE_Y + 6}`}
                 fill="none"
                 stroke="#0c0c0d"
-                strokeWidth="10"
+                strokeWidth="9"
                 strokeLinecap="round"
                 style={{ ...fade, opacity: 0 }}
               />
             </g>
           ))}
+
+          {/* Small brows, just under the hair line. */}
+          <g
+            ref={browsRef}
+            fill="none"
+            stroke="#0c0c0d"
+            strokeWidth="6"
+            strokeLinecap="round"
+            style={{ transition: "transform 220ms cubic-bezier(.2,.8,.2,1)" }}
+          >
+            {EYES.map((x) => (
+              <path key={x} d={`M${x - 14} ${EYE_Y - 42} Q${x} ${EYE_Y - 50} ${x + 14} ${EYE_Y - 43}`} />
+            ))}
+          </g>
 
           <g
             ref={(el) => {
@@ -272,7 +305,7 @@ export function Bead({ className }: { className?: string }) {
             }}
             style={fade}
           >
-            <path d="M148 262 Q170 282 192 262 Q170 271 148 262 Z" fill="#1a1a1b" stroke="#1a1a1b" strokeWidth="2.5" strokeLinejoin="round" />
+            <path d="M150 245 Q170 242 190 245 Q186 264 170 265 Q154 264 150 245 Z" fill="#1a1a1b" stroke="#1a1a1b" strokeWidth="2.5" strokeLinejoin="round" />
           </g>
           <g
             ref={(el) => {
@@ -280,8 +313,8 @@ export function Bead({ className }: { className?: string }) {
             }}
             style={{ ...fade, opacity: 0 }}
           >
-            <path d="M142 256 Q170 298 198 256 Q170 267 142 256 Z" fill="#1a1a1b" stroke="#1a1a1b" strokeWidth="2.5" strokeLinejoin="round" />
-            <ellipse cx="170" cy="283" rx="13" ry="7" fill="#e0603a" clipPath={`url(#${id("mouth")})`} />
+            <path d="M142 242 Q170 238 198 242 Q192 276 170 278 Q148 276 142 242 Z" fill="#1a1a1b" stroke="#1a1a1b" strokeWidth="2.5" strokeLinejoin="round" />
+            <ellipse cx="170" cy="274" rx="14" ry="8" fill="#e0603a" clipPath={`url(#${id("mouth")})`} />
           </g>
           <g
             ref={(el) => {
@@ -289,7 +322,7 @@ export function Bead({ className }: { className?: string }) {
             }}
             style={{ ...fade, opacity: 0 }}
           >
-            <ellipse cx="170" cy="268" rx="9.5" ry="12" fill="#1a1a1b" />
+            <ellipse cx="170" cy="255" rx="10" ry="12.5" fill="#1a1a1b" />
           </g>
         </g>
       </g>
