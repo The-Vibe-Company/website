@@ -40,10 +40,11 @@ export function Services() {
                 {t(`items.${service.key}.desc`)}
               </p>
 
-              {/* The list is for the wide cards: a phone gets the pitch only. */}
-              <div className="max-md:hidden">
-                <Groove className="mt-6" />
-                <ul className="ticks mt-[22px]">
+              {/* On a phone the list is tighter: smaller type and rhythm, the
+                  same points. */}
+              <div>
+                <Groove className="mt-5 md:mt-6" />
+                <ul className="ticks mt-4 gap-2 max-md:[&>li]:text-sm md:mt-[22px] md:gap-[11px]">
                   {(t.raw(`items.${service.key}.bullets`) as string[]).map((b) => (
                     <li key={b}>{b}</li>
                   ))}

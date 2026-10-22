@@ -45,13 +45,13 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
         </>
       ) : null}
 
-      <p className="m-0 mt-[18px] line-clamp-4 text-base leading-[1.55] text-ink-2 md:line-clamp-none">
+      <p className="m-0 mt-[18px] text-base leading-[1.55] text-ink-2">
         {c.summary}
       </p>
 
-      {/* The list of what was built is for the wide card; on a phone the
-          figure and the summary carry the case. */}
-      <ul className="ticks mt-5 max-md:hidden">
+      {/* The list of what was built, tighter on a phone: smaller type and
+          rhythm, the same points. */}
+      <ul className="ticks mt-4 gap-2 max-md:[&>li]:text-sm md:mt-5 md:gap-[11px]">
         {c.points.map((point) => (
           <li key={point}>{point}</li>
         ))}

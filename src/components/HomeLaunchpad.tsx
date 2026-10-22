@@ -34,7 +34,7 @@ export function HomeLaunchpad({ locale }: { locale: ContentLocale }) {
             the page while it is open. */}
         <MobileBookingBar />
       </main>
-      <Footer />
+      <Footer showPriorityArticles />
     </div>
   );
 }
