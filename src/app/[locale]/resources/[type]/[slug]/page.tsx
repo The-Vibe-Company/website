@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import { Link, permanentRedirect } from "@/i18n/navigation";
+import { permanentRedirect } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { BackLink } from '@/components/BackLink';
 import { KeepReading } from '@/components/resources/KeepReading';
 import { TranslationSwitch } from '@/components/resources/TranslationSwitch';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
@@ -20,7 +21,6 @@ import type { ContentLanguage } from '@/lib/content-source';
 import { extractCoverImage, normalizeMarkdownBody } from '@/lib/markdown';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
-import { resourcesTheme } from '@/lib/resources-theme';
 import { contentAlternates, localizedUrl, SITE_NAME, SITE_URL } from '@/lib/site';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
@@ -172,224 +172,183 @@ export default async function ContentDetailPage({
   const isTool = item.tool === true;
   const categoryLabel = isVictorStory ? "Victor's Story" : 'Article';
 
+  const hasTranslation = translations.some((version) => version.language !== item.language);
+  const [titleHead, titleTail] = splitTitle(item.title);
+
   return (
     <>
       <ReadingProgress />
-      <main id="main-content" tabIndex={-1} className="pt-12 pb-24 min-h-screen bg-res-bg">
-        <div className={`${resourcesTheme.section.padding} pb-24`}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 relative">
-
-            {/* Left Sidebar: Metadata */}
-            <aside className="lg:col-span-3 hidden lg:block">
-              <div className="sticky top-32 flex flex-col gap-8">
-                <Link
-                  href="/resources"
-                  className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
-                >
-                  <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
-                  {t('back')}
-                </Link>
-
-                <div className="flex flex-col items-start gap-2 self-start">
-                  <span
-                    className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
-                      isVictorStory
-                        ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
-                        : 'border-res-border text-res-text-muted'
-                    }`}
-                  >
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
-                      aria-hidden="true"
-                    />
-                    {categoryLabel}
-                  </span>
-                  {isFocus && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
-                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      {t('focus')}
+      <main id="main-content" tabIndex={-1} className="pb-24">
+        <article lang={item.language}>
+          {/* The page's one main piece: title, summary, cover and the article's own data. */}
+          <header className="pt-3.5 md:pt-[22px]">
+            <div className="wrap">
+              <div className="clay rim rim-warm rounded-[28px] px-[18px] pb-6 pt-2.5 [--rim-angle:125deg] md:rounded-slab md:px-12 md:pb-10 md:pt-5">
+                <div className="flex flex-wrap items-center justify-between gap-x-4">
+                  <BackLink href="/resources" label={t('back')} />
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="chip">
+                      <span className={`dot${isVictorStory ? ' dot-rim' : ''}`} aria-hidden="true" />
+                      {categoryLabel}
                     </span>
-                  )}
-                  {isTool && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
-                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      {t('tools')}
-                    </span>
-                  )}
+                    {isFocus && (
+                      <span className="chip">
+                        <span className="dot" aria-hidden="true" />
+                        {t('focus')}
+                      </span>
+                    )}
+                    {isTool && (
+                      <span className="chip">
+                        <span className="dot" aria-hidden="true" />
+                        {t('tools')}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
-                <div className="w-8 h-px bg-res-border" />
-
-                <div className="flex flex-col gap-4">
-                  {item.publishedAt && (
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('published')}</span>
-                      <span className="text-sm font-mono text-res-text-muted">
-                        {formatDate(item.publishedAt, locale)}
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('language')}</span>
-                    <TranslationSwitch
-                      language={item.language}
-                      translations={translations}
-                      variant="sidebar"
-                    />
+                <div
+                  className={`mt-2 grid items-start gap-6 md:mt-5 ${
+                    cover?.url ? 'lg:grid-cols-[minmax(0,1fr)_minmax(0,.96fr)] lg:gap-14' : ''
+                  }`}
+                >
+                  <div className="min-w-0">
+                    <h1 className="display m-0 text-4xl leading-none md:text-5xl lg:text-[56px] lg:leading-[0.98]">
+                      {titleTail ? (
+                        <>
+                          {titleHead} <span className="bisque block">{titleTail}</span>
+                        </>
+                      ) : (
+                        titleHead
+                      )}
+                    </h1>
+                    {item.summary ? (
+                      <p
+                        className="lede mt-[18px] lg:mt-[26px]"
+                        dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
+                      />
+                    ) : null}
+                    {hasTranslation && (
+                      <div className="mt-6">
+                        <TranslationSwitch
+                          language={item.language}
+                          translations={translations}
+                          variant="inline"
+                          className="[&>*]:min-h-10"
+                        />
+                      </div>
+                    )}
                   </div>
 
-                  {item.complexity && !isVictorStory && (
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('complexity')}</span>
-                      <span className="text-sm font-mono text-res-text-muted">
-                        {complexityLabels[item.complexity] || item.complexity}
-                      </span>
-                    </div>
-                  )}
-
-                  {readingTime > 0 && (
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('readTime')}</span>
-                      <span className="text-sm font-mono text-res-text-muted">{readingTime} min</span>
-                    </div>
+                  {cover?.url && (
+                    <figure className="m-0 p-2 max-md:order-first">
+                      <div className="rim relative aspect-[3/2] overflow-hidden rounded-[18px] outline outline-[7px] outline-[#e9eae9] [--rim-angle:135deg] md:rounded-3xl">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={cover.url}
+                          alt={cover.alt ?? item.title}
+                          width={1536}
+                          height={1024}
+                          className="h-full w-full object-cover"
+                          decoding="async"
+                        />
+                      </div>
+                      {coverCaption ? (
+                        <figcaption className="mt-5 text-xs font-mono text-muted-foreground">
+                          {coverCaption}
+                        </figcaption>
+                      ) : null}
+                    </figure>
                   )}
                 </div>
 
-                {item.topics?.length ? (
-                  <>
-                    <div className="w-8 h-px bg-res-border" />
-                    <div className="flex flex-col gap-2">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">
-                        {t('topics')}
-                      </span>
-                      <div className="flex flex-wrap gap-2">
+                {/* The article's own data, engraved under the title. */}
+                <hr className="groove mt-6 md:mt-9" />
+                <dl className="m-0 mt-5 grid grid-cols-2 items-start gap-x-4 gap-y-5 lg:flex lg:flex-wrap lg:gap-y-5 [&>div]:min-w-0 lg:[&>div]:border-l lg:[&>div]:border-ink/10 lg:[&>div]:px-6 lg:[&>div]:shadow-[-1px_0_0_rgba(255,255,255,0.9)] lg:[&>div:first-child]:border-l-0 lg:[&>div:first-child]:pl-0 lg:[&>div:first-child]:shadow-none">
+                  {item.publishedAt && (
+                    <div className="col-span-2">
+                      <dt className={specLabel}>{t('published')}</dt>
+                      <dd className={specValue}>
+                        <time dateTime={item.publishedAt} className="lg:whitespace-nowrap">
+                          {formatDate(item.publishedAt, locale)}
+                        </time>
+                      </dd>
+                    </div>
+                  )}
+                  {!hasTranslation && (
+                    <div>
+                      <dt className={specLabel}>{t('language')}</dt>
+                      <dd className={specValue}>
+                        <TranslationSwitch
+                          language={item.language}
+                          translations={translations}
+                          variant="inline"
+                        />
+                      </dd>
+                    </div>
+                  )}
+                  {item.complexity && !isVictorStory && (
+                    <div>
+                      <dt className={specLabel}>{t('complexity')}</dt>
+                      <dd className={specValue}>{complexityLabels[item.complexity] || item.complexity}</dd>
+                    </div>
+                  )}
+                  {readingTime > 0 && (
+                    <div>
+                      <dt className={specLabel}>{t('readTime')}</dt>
+                      <dd className={specValue}>{readingTime} min</dd>
+                    </div>
+                  )}
+                  {item.topics?.length ? (
+                    <div className="col-span-2 lg:min-w-0 lg:flex-1">
+                      <dt className={specLabel}>{t('topics')}</dt>
+                      <dd className={specValue}>
                         {item.topics.map((topic) => (
-                          <span
-                            key={topic}
-                            className="px-1.5 py-0.5 border border-res-border text-[10px] font-mono uppercase tracking-widest text-res-text-muted"
-                          >
+                          <span key={topic} className="chip">
                             {topic}
                           </span>
                         ))}
-                      </div>
+                      </dd>
                     </div>
-                  </>
-                ) : null}
-              </div>
-            </aside>
-
-            {/* Main Content */}
-            <article lang={item.language} className="lg:col-span-7 lg:col-start-5">
-              {/* Mobile Header elements */}
-              <div className="lg:hidden mb-8 flex flex-col gap-4">
-                <Link
-                  href="/resources"
-                  className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted"
-                >
-                  &larr; {t('back')}
-                </Link>
-                <div className="flex flex-col items-start gap-2 self-start">
-                  <span
-                    className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
-                      isVictorStory
-                        ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
-                        : 'border-res-border text-res-text-muted'
-                    }`}
-                  >
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
-                      aria-hidden="true"
-                    />
-                    {categoryLabel}
-                  </span>
-                  {isFocus && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
-                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      {t('focus')}
-                    </span>
-                  )}
-                  {isTool && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
-                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      {t('tools')}
-                    </span>
-                  )}
-                </div>
-                <div className="flex flex-wrap items-center gap-3">
-                  {item.publishedAt && (
-                    <span className="text-xs font-mono text-res-text-muted">
-                      {formatDate(item.publishedAt, locale)}
-                    </span>
-                  )}
-                  <span className="text-res-text-muted/30">&bull;</span>
-                  {readingTime > 0 && (
-                    <span className="text-xs font-mono text-res-text-muted">{readingTime} min</span>
-                  )}
-                  <span className="text-res-text-muted/30">&bull;</span>
-                  <TranslationSwitch
-                    language={item.language}
-                    translations={translations}
-                    variant="inline"
-                  />
-                </div>
-              </div>
-
-              <header className="mb-8 md:mb-12">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter mb-4 leading-[0.95] text-res-text">
-                  {item.title}
-                </h1>
-                {item.summary ? (
-                  <p
-                    className="text-base md:text-xl text-res-text-muted leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
-                  />
-                ) : null}
-              </header>
-
-              <div className="w-full h-px bg-res-border mb-8 md:mb-12" />
-
-              {cover?.url && (
-                <figure className="mb-8 md:mb-12">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={cover.url}
-                    alt={cover.alt ?? item.title}
-                    className="w-full h-auto rounded-lg border border-res-border"
-                    decoding="async"
-                  />
-                  {coverCaption ? (
-                    <figcaption className="mt-3 text-xs font-mono text-res-text-muted">
-                      {coverCaption}
-                    </figcaption>
                   ) : null}
-                </figure>
-              )}
-
-              <div className="prose-vibe prose-vibe-warm max-w-none">
-                {body.trim().length > 0 ? (
-                  <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" trackingLocation="article_body" />
-                ) : (
-                  <div className="py-16 text-center border border-dashed border-res-border rounded-lg">
-                    <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-                      {t('contentComingSoon')}
-                    </p>
-                  </div>
-                )}
+                </dl>
               </div>
-            </article>
-
-            {/* Right Sidebar: ToC Placeholder / Empty for now to create whitespace */}
-            <div className="hidden lg:block lg:col-span-2">
-              {/* Future: Table of Contents */}
             </div>
+          </header>
 
+          {/* The text: one calm column. */}
+          <div className="pt-14 md:pt-[88px]">
+            <div className="wrap">
+              {body.trim().length > 0 ? (
+                <MarkdownRenderer
+                  content={body}
+                  className="prose-vibe mx-auto"
+                  trackingLocation="article_body"
+                />
+              ) : (
+                <div className="state mx-auto max-w-[60ch]">
+                  <p className="state-title">{t('contentComingSoon')}</p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </article>
 
         {/* Related content */}
         <KeepReading items={related} />
       </main>
     </>
   );
+}
+
+/**
+ * « Titre : sous-titre » is set on two lines, the second in grey clay, like the
+ * titles elsewhere. A title with no colon stays whole.
+ */
+const specLabel =
+  'block whitespace-nowrap font-mono text-xs font-medium uppercase leading-none tracking-[0.14em] text-muted-foreground';
+const specValue = 'm-0 mt-2.5 flex min-h-7 flex-wrap items-center gap-2 text-base font-semibold';
+
+function splitTitle(title: string): [string, string | null] {
+  const match = title.match(/^([^\n]{4,64}?[:：])\s+([\s\S]+)$/);
+  return match ? [match[1], match[2]] : [title, null];
 }

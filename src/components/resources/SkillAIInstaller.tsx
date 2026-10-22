@@ -1,9 +1,10 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import { Bot } from 'lucide-react';
+import { Bot, ChevronDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+import { Kicker } from '@/components/kit';
 import { CopyButton } from '@/components/resources/CopyButton';
 import { captureEvent } from '@/lib/posthog';
 import {
@@ -15,6 +16,7 @@ interface SkillAIInstallerProps {
   context: SkillInstallContext;
 }
 
+/** The page's one main piece: the install prompt, copied in one press. */
 export function SkillAIInstaller({ context }: SkillAIInstallerProps) {
   const t = useTranslations('resources');
   const prompt = useMemo(() => buildAIInstallPrompt('generic', context), [context]);
@@ -30,43 +32,47 @@ export function SkillAIInstaller({ context }: SkillAIInstallerProps) {
   return (
     <section
       id="install-with-ai"
-      className="border border-res-text/25 bg-res-surface p-5 sm:p-6"
+      className="clay rim rim-warm rounded-[28px] p-6 [--rim-angle:125deg] md:rounded-slab md:p-8"
       aria-labelledby="ai-installer-heading"
     >
       <div className="flex items-start gap-4">
-        <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center bg-res-text text-res-surface">
-          <Bot size={17} strokeWidth={1.9} aria-hidden="true" />
+        <span className="num !h-11 !w-11">
+          <Bot size={18} strokeWidth={1.9} aria-hidden="true" />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
-            {t('recommended')}
-          </p>
+          <Kicker>{t('recommended')}</Kicker>
           <h3
             id="ai-installer-heading"
-            className="mt-1 text-2xl font-bold tracking-tight text-res-text"
+            className="display d-xs mt-3 m-0"
           >
             {t('installWithAi')}
           </h3>
-          <p className="mt-2 max-w-xl text-sm text-res-text-muted leading-relaxed">
-            {t('installWithAiDescription')}
-          </p>
         </div>
       </div>
+      <p className="mt-4 max-w-[54ch] text-[15px] leading-relaxed text-muted-foreground">
+        {t('installWithAiDescription')}
+      </p>
 
       <CopyButton
         value={prompt}
         variant="primary"
         label={t('copyInstallPrompt')}
         copiedLabel={t('copied')}
-        className="mt-5 w-full justify-center sm:w-auto"
+        className="mt-6 w-full !min-h-[52px] !px-6 !text-base sm:w-auto"
         onCopy={handleCopy}
       />
 
-      <details className="mt-5 border-t border-res-border pt-4">
-        <summary className="cursor-pointer text-[11px] font-mono uppercase tracking-wider text-res-text-muted hover:text-res-text">
+      <details className="group mt-6">
+        <summary className="flex min-h-11 items-center gap-2 border-t border-ink/10 pt-2 font-mono text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-ink">
+          <ChevronDown
+            size={14}
+            strokeWidth={1.8}
+            className="shrink-0 transition-transform group-open:rotate-180"
+            aria-hidden="true"
+          />
           {t('previewPrompt')}
         </summary>
-        <pre className="mt-3 max-h-56 overflow-auto bg-res-bg-secondary p-4 text-[12px] leading-relaxed font-mono text-res-text whitespace-pre-wrap break-words">
+        <pre className="well mt-3 max-h-56 overflow-auto whitespace-pre-wrap break-words rounded-piece p-4 font-mono text-xs leading-relaxed text-ink">
           {prompt}
         </pre>
       </details>
