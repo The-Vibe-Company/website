@@ -77,7 +77,7 @@ export function Bead({ className }: { className?: string }) {
       }
       const b = (now - blinkStart) / 150;
       const lid = b >= 0 && b < 1 ? 1 - Math.sin(b * Math.PI) * 0.92 : 1;
-      eyes.setAttribute("transform", `translate(0 206) scale(1 ${lid}) translate(0 -206)`);
+      eyes.setAttribute("transform", `translate(0 212) scale(1 ${lid}) translate(0 -212)`);
 
       if (visible) frame = requestAnimationFrame(tick);
     };
@@ -125,10 +125,10 @@ export function Bead({ className }: { className?: string }) {
           <stop offset=".6" stopColor="#0a0a0b" />
           <stop offset="1" stopColor="#000" />
         </linearGradient>
-        <radialGradient id={id("eye")} cx=".42" cy=".38" r=".7">
-          <stop offset="0" stopColor="#4a2c1a" />
-          <stop offset=".45" stopColor="#1c120c" />
-          <stop offset="1" stopColor="#050505" />
+        <radialGradient id={id("eye")} cx=".5" cy=".68" r=".62">
+          <stop offset="0" stopColor="#9a6a3e" />
+          <stop offset=".45" stopColor="#4a2a15" />
+          <stop offset="1" stopColor="#120b06" />
         </radialGradient>
         <radialGradient id={id("turn")} gradientUnits="userSpaceOnUse" cx="150" cy="140" r="160">
           <stop offset=".55" stopColor="#141416" stopOpacity="0" />
@@ -159,37 +159,45 @@ export function Bead({ className }: { className?: string }) {
       <circle cx={CX} cy={CY} r="145" fill={`url(#${id("bd")})`} />
       <g clipPath={`url(#${id("clip")})`}>
         <g ref={headRef}>
+          {/* The cap: black over the crown and down the sides, the white face
+              rising in two lobes with the black point between them. */}
           <path
             fill={`url(#${id("lac")})`}
-            d="M-260 -10 H600 V40 L320 42 Q312 38 306 36 Q302 72 286 98 Q274 80 260 70 Q252 106 232 132 Q216 108 200 96 Q192 132 170 158 Q148 132 140 96 Q124 108 108 132 Q88 106 80 70 Q66 80 54 98 Q38 72 34 36 Q28 38 20 42 L-260 40 Z"
+            d="M-260 -20 H600 V96 C470 104 362 160 318 232 C304 196 288 150 262 118 C244 94 214 90 200 108 C188 122 178 136 170 154 C162 136 152 122 140 108 C126 90 96 94 78 118 C52 150 36 196 22 232 C-22 160 -130 104 -260 96 Z"
           />
-          <g fill="none" stroke="#f4f4f1" strokeWidth="7" strokeLinecap="round">
-            <path d="M190 -4 Q196 50 200 96" />
-            <path d="M150 -4 Q144 50 140 96" />
-            <path d="M212 -4 Q248 30 260 70" />
-            <path d="M128 -4 Q92 30 80 70" />
-            <path d="M236 -6 Q292 8 306 36" />
-            <path d="M104 -6 Q48 8 34 36" />
+          {/* Swept-back stripes, tapered, curving from the crown down the
+              sides (mirrored right). */}
+          <g fill="#f3f3f0">
+            <path d="M163 30 C122 40 84 66 62 106 C50 130 42 156 38 182 C50 158 60 134 74 112 C96 78 126 56 165 44 Z" />
+            <path d="M152 18 C104 22 64 46 42 86 C34 100 29 116 26 132 C36 114 47 98 58 85 C84 54 114 36 155 30 Z" />
+            <path d="M177 30 C218 40 256 66 278 106 C290 130 298 156 302 182 C290 158 280 134 266 112 C244 78 214 56 175 44 Z" />
+            <path d="M188 18 C236 22 276 46 298 86 C306 100 311 116 314 132 C304 114 293 98 282 85 C256 54 226 36 185 30 Z" />
+          </g>
+          {/* The short black brows, ends of the side bands, above the eyes. */}
+          <g fill="none" stroke="#0b0b0c" strokeWidth="4.5" strokeLinecap="round">
+            <path d="M96 174 Q116 160 142 166" />
+            <path d="M244 174 Q224 160 198 166" />
           </g>
           <g ref={eyesRef}>
             {[122, 218].map((x) => (
               <g key={x}>
-                <ellipse cx={x} cy="206" rx="24" ry="28" fill={`url(#${id("eye")})`} />
-                <ellipse cx={x - 8} cy="195" rx="8.5" ry="9.5" fill="#fff" opacity=".95" />
-                <circle cx={x + 9} cy="217" r="3.4" fill="#fff" opacity=".8" />
+                <ellipse cx={x} cy="212" rx="27" ry="31" fill={`url(#${id("eye")})`} stroke="#0b0b0c" strokeWidth="2.5" />
+                <ellipse cx={x} cy="214" rx="13" ry="15" fill="#060606" />
+                <ellipse cx={x - 9} cy="199" rx="9.5" ry="10.5" fill="#fff" opacity=".96" />
+                <circle cx={x + 10} cy="225" r="3.8" fill="#fff" opacity=".85" />
                 <path
-                  d={`M${x + 4} 231 Q${x + 16} 227 ${x + 21} 216`}
+                  d={`M${x + 3} 240 Q${x + 17} 236 ${x + 23} 222`}
                   fill="none"
                   stroke="#ff7a1f"
                   strokeWidth="2"
                   strokeLinecap="round"
-                  opacity=".55"
+                  opacity=".5"
                 />
               </g>
             ))}
           </g>
           <path
-            d="M154 250 Q170 263 186 250"
+            d="M152 258 Q170 271 188 258"
             fill="none"
             stroke="#141416"
             strokeWidth="4.5"

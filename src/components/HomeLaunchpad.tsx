@@ -10,6 +10,7 @@ import { CaseStudy } from "./home/CaseStudy";
 import { Proof } from "./home/Proof";
 import { Clients } from "./home/Clients";
 import { FinalCTA } from "./home/FinalCTA";
+import { Reveal } from "./kit";
 
 export function HomeLaunchpad({ locale }: { locale: ContentLocale }) {
   // Built on the server so the case-study and project catalogues never reach
@@ -25,11 +26,21 @@ export function HomeLaunchpad({ locale }: { locale: ContentLocale }) {
             The client quote and the booking bar exist on phones only. */}
         <Hero runnerItems={runnerItems} />
         <Clients />
-        <CaseStudy />
-        <Quote />
+        {/* Below the fold, each band slides in once as it enters the screen
+            (never for reduced motion, no-JS or an automated browser). */}
+        <Reveal>
+          <CaseStudy />
+        </Reveal>
+        <Reveal>
+          <Quote />
+        </Reveal>
         <Services />
-        <Proof />
-        <FinalCTA />
+        <Reveal from="right">
+          <Proof />
+        </Reveal>
+        <Reveal from="scale">
+          <FinalCTA />
+        </Reveal>
         {/* Inside main, so the mobile menu makes it inert with the rest of
             the page while it is open. */}
         <MobileBookingBar />

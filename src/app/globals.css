@@ -93,9 +93,11 @@
       line (max-w-[54ch] to [60ch] in Bricolage; max-w-prose is too wide);
       anything tapped is 24x24 at least (buttons here are 42px and more); every
       clickable thing has a pointer cursor, a hover and a focus ring; content
-      never waits for a scroll-in animation (whileInView with opacity 0 is out;
-      use .rise, a time-based entrance, or nothing); prefers-reduced-motion is
-      honoured globally. The header (.nav-wrap) is sticky and takes 68px in the
+      never waits for a scroll-in animation it cannot see play (whileInView
+      with opacity 0 is out; use .rise, a time-based entrance, or Reveal /
+      useReveal from the kit, which hold content back only for a real visitor
+      whose element starts below the fold, never for no-JS, reduced motion or
+      an automated browser); prefers-reduced-motion is honoured globally. The header (.nav-wrap) is sticky and takes 68px in the
       flow: never add a second sticky bar or a top padding to clear it.
    ============================================================================= */
 
@@ -324,6 +326,10 @@
 @keyframes kit-rise {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shelf-slide {
+  to { transform: translate3d(-50%, 0, 0); }
 }
 
 @keyframes kit-sheen {
@@ -1405,6 +1411,118 @@ input:disabled {
      animation (fill-mode backwards only holds it before it starts). */
   .rise {
     animation: kit-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+
+  /* Scroll entrance, set by Reveal / useReveal (src/components/kit/Reveal).
+     Only "pending" hides, and only the script sets it, for a real visitor
+     whose element starts below the fold: the server HTML, reduced motion and
+     automated browsers always show everything. */
+  [data-reveal] {
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal="pending"] {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0);
+  }
+
+  [data-reveal="pending"][data-from="left"] {
+    transform: translate3d(-44px, 0, 0);
+  }
+
+  [data-reveal="pending"][data-from="right"] {
+    transform: translate3d(44px, 0, 0);
+  }
+
+  [data-reveal="pending"][data-from="scale"] {
+    transform: translate3d(0, 18px, 0) scale(0.965);
+  }
+
+  /* Logo shelf: one track holding the logos twice, sliding left by half its
+     width so the second half lands where the first began. Paused under the
+     pointer, faded at both ends. Under reduced motion, and while a logo has
+     the keyboard focus, it stops and shows the seven logos once, wrapped and
+     centred, so every one of them is in view. */
+  .shelf {
+    padding-left: 3.5rem;
+    mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  }
+
+  .shelf-track {
+    display: flex;
+    width: max-content;
+    animation: shelf-slide var(--shelf-duration, 42s) linear infinite;
+  }
+
+  .shelf-set {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 3.5rem;
+    padding-right: 3.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .shelf {
+      padding-left: 5rem;
+    }
+
+    .shelf-set {
+      gap: 5rem;
+      padding-right: 5rem;
+    }
+  }
+
+  .shelf:hover .shelf-track {
+    animation-play-state: paused;
+  }
+
+  .shelf:focus-within {
+    padding-inline: 1rem;
+    mask-image: none;
+  }
+
+  .shelf:focus-within .shelf-track {
+    width: auto;
+    animation: none;
+  }
+
+  .shelf:focus-within .shelf-set {
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 2.5rem;
+    padding-right: 0;
+  }
+
+  .shelf:focus-within .shelf-copy {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shelf {
+      padding-inline: 1rem;
+      mask-image: none;
+    }
+
+    .shelf-track {
+      width: auto;
+      animation: none;
+    }
+
+    .shelf-set {
+      flex: 1;
+      flex-wrap: wrap;
+      justify-content: center;
+      column-gap: 2.5rem;
+      padding-right: 0;
+    }
+
+    .shelf-copy {
+      display: none;
+    }
   }
 
   /* ---- Chrome: header ---- */

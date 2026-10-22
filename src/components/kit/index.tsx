@@ -23,6 +23,7 @@ export function Pointe({ className }: { className?: string }) {
 }
 
 export { Bead } from "./Bead";
+export { Reveal, useReveal, revealProps, type RevealFrom } from "./Reveal";
 
 /** A drawn arrow (never the → glyph, which sits off the baseline). */
 export function Arrow({

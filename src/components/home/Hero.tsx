@@ -61,16 +61,16 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           className="clay rim rim-warm relative overflow-hidden rounded-[28px] px-5 pb-6 pt-7 md:rounded-slab md:px-14 md:pb-12 md:pt-14"
           style={{ "--rim-angle": "118deg", "--bead": "clamp(180px, 22vw, 300px)" } as React.CSSProperties}
         >
-          <Bead className="pointer-events-none absolute right-3.5 top-3.5 h-[110px] w-[104px] md:right-[clamp(32px,4.7vw,60px)] md:top-[34px] md:h-auto md:w-[var(--bead)]" />
+          <Bead className="rise pointer-events-none absolute right-3.5 top-3.5 [animation-delay:160ms] [animation-duration:900ms] h-[110px] w-[104px] md:right-[clamp(32px,4.7vw,60px)] md:top-[34px] md:h-auto md:w-[var(--bead)]" />
 
-          <p className="kicker">
+          <p className="kicker rise">
             <span aria-hidden="true" className="dot dot-rim" />
             <span>{tFooter("openToProjects")}</span>
           </p>
           {/* The title and the line under it stay off the bead: they take the
               room it leaves, and wrap word by word (never inside "IA-First")
               when there is less of it. */}
-          <h1 className="display d-xl rise m-0 mt-[92px] max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
+          <h1 className="display d-xl rise m-0 [animation-delay:70ms] mt-[92px] max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
             {t("titleLine1")
               .split(" ")
               .map((word, i) => (
@@ -80,11 +80,11 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
                 </Fragment>
               ))}
           </h1>
-          <p className="rise m-0 mt-4 max-w-[820px] md:max-w-[min(820px,calc(100%-var(--bead)-24px))] text-[22px] font-medium leading-[1.12] tracking-[-0.018em] text-ink md:mt-[26px] md:text-[36px]">
+          <p className="rise m-0 mt-4 [animation-delay:150ms] max-w-[820px] md:max-w-[min(820px,calc(100%-var(--bead)-24px))] text-[22px] font-medium leading-[1.12] tracking-[-0.018em] text-ink md:mt-[26px] md:text-[36px]">
             {t("titleLine2")}
           </p>
 
-          <div className="mt-7 grid gap-[22px] md:mt-[52px] lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-end lg:gap-10">
+          <div className="rise mt-7 grid gap-[22px] [animation-delay:240ms] md:mt-[52px] lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-end lg:gap-10">
             <p className="lede-bar m-0 text-[16.5px] md:text-[18.5px]">{t("subtitle")}</p>
 
             <div className="flex gap-2">
@@ -140,15 +140,16 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
             game's chunk loads: the wrapper never goes away, so the game drops
             into a gap that already exists instead of pulling the page up and
             pushing it back down. */}
-        <div aria-hidden={canRun ? undefined : true} className="mt-4 hidden lg:block lg:min-h-[264px]">
+        <div aria-hidden={canRun ? undefined : true} className="rise mt-4 hidden [animation-delay:320ms] lg:block lg:min-h-[264px]">
           {canRun ? <HeroRunner items={runnerItems} /> : null}
         </div>
 
         <ul className="m-0 mt-2.5 grid list-none gap-2.5 p-0 md:grid-cols-3 md:gap-4 lg:mt-4">
-          {QUICK_ITEMS.map((item) => (
+          {QUICK_ITEMS.map((item, i) => (
             <li
               key={item.n}
-              className="clay-quiet flex items-start gap-4 rounded-piece p-[18px] md:px-6 md:py-[22px]"
+              style={{ animationDelay: `${380 + i * 90}ms` }}
+              className="rise clay-quiet flex items-start gap-4 rounded-piece p-[18px] md:px-6 md:py-[22px]"
             >
               <span className="num">{item.n}</span>
               <div className="min-w-0">

@@ -31,46 +31,60 @@ export const CLIENTS: Client[] = [
 ];
 
 /**
- * The client wall: one quiet clay shelf holding the seven logos in ink. A
- * three-column grid on phones, one row from 768px. Every logo carries its
- * intrinsic size, so the shelf is the same height before and after the images
- * arrive and nothing below it moves.
+ * The client wall: one quiet clay shelf whose logos slide past slowly, in ink.
+ * The track holds the seven logos twice (the copy hidden from assistive tech
+ * and the keyboard) and slides by half its width, so the loop has no seam. It
+ * pauses under the pointer or the keyboard, and under reduced motion it stops
+ * and shows the seven logos once, wrapped and centred. Every logo carries its
+ * intrinsic size, so the shelf never changes height when the images arrive.
  */
 export function Clients() {
   const t = useTranslations("clients");
+
+  const logos = (copy: boolean) => (
+    <ul
+      aria-hidden={copy || undefined}
+      className={`shelf-set m-0 list-none pl-0${copy ? " shelf-copy" : ""}`}
+    >
+      {CLIENTS.map((client) => (
+        <li key={client.name} className="flex h-[72px] shrink-0 items-center md:h-24">
+          <a
+            href={client.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={client.name}
+            tabIndex={copy ? -1 : undefined}
+            className="flex min-h-11 items-center justify-center rounded-lg px-1 transition-opacity duration-200 hover:opacity-55 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={client.src}
+              alt=""
+              width={client.width}
+              height={client.height}
+              style={{ "--phone": `${client.phone}px`, "--shelf": `${client.shelf}px` } as React.CSSProperties}
+              className="h-[var(--phone)] w-auto object-contain brightness-0 md:h-[var(--shelf)]"
+              loading="eager"
+              decoding="async"
+            />
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
 
   return (
     <section id="clients" className="pt-[72px] md:pt-24">
       <div className="wrap">
         <Kicker className="justify-center">{t("trustedBy")}</Kicker>
-        <ul className="clay-quiet m-0 mt-5 grid list-none grid-cols-3 rounded-plate p-2 md:flex md:flex-wrap md:items-center md:justify-center md:gap-x-9 md:gap-y-2 md:px-10 md:py-5 lg:h-24 lg:flex-nowrap lg:justify-between lg:gap-7 lg:rounded-full lg:px-11 lg:py-0">
-          {CLIENTS.map((client) => (
-            <li
-              key={client.name}
-              className="flex h-[68px] items-center justify-center last:col-span-3 md:h-auto md:last:col-span-1"
-            >
-              <a
-                href={client.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={client.name}
-                className="flex min-h-11 items-center justify-center px-2 transition-opacity duration-200 md:px-0 hover:opacity-55"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={client.src}
-                  alt=""
-                  width={client.width}
-                  height={client.height}
-                  style={{ "--phone": `${client.phone}px`, "--shelf": `${client.shelf}px` } as React.CSSProperties}
-                  className="h-[var(--phone)] w-auto max-w-[92px] object-contain brightness-0 md:h-[var(--shelf)] md:max-w-none"
-                  loading="eager"
-                  decoding="async"
-                />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="clay-quiet mt-5 overflow-hidden rounded-plate lg:rounded-full">
+          <div className="shelf [--shelf-duration:32s] md:[--shelf-duration:44s]">
+            <div className="shelf-track">
+              {logos(false)}
+              {logos(true)}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
