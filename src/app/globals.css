@@ -71,8 +71,10 @@
                    (loading block), btn[aria-busy=true] (loading button).
         sections   section (top rhythm 80px phone, 120px desktop), section-tight.
       React helpers live in src/components/kit (Kicker, SectionTitle, Piece,
-      ButtonLink, LinkRim, Chip, Pointe, Arrow, Groove, Bead = the mascot's
-      clay head for the corner of a main piece). The shared chrome (TopNav,
+      ButtonLink, LinkRim, Chip, Pointe, Arrow, Groove, Bead = VeeBee's
+      clay head for the corner of a main piece: it turns toward the pointer,
+      sways on its own on touch, blinks, and holds still under reduced
+      motion). The shared chrome (TopNav,
       Footer, FinalCTA = the closing call, BackLink, LanguageSwitcher,
       TranslationSwitch) already wears the kit: use them, do not rebuild them.
       The header is the same on every page, search button included (it opens
