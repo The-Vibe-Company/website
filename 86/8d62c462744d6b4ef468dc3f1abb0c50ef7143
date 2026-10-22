@@ -1,0 +1,32 @@
+src/components/resources/ArticleBrowser.tsx
+  s_c8af29a5af6da7::t_1e74621ab22ba9 7-8,36,49-54,56,62-66,68,70,72,74-82,85,91,93-96,101,105-109,126,130-133,135-145,177,179-191,195-200,203-255,257
+  s_c8af29a5af6da7::t_23acc1dd728394 256,258-261
+src/app/[locale]/resources/page.tsx
+  s_c8af29a5af6da7::t_42dbbf23920d66 4,96-116
+src/app/[locale]/resources/search/page.tsx
+  s_c8af29a5af6da7::t_92116d99d38f43 5,10,41-61,76,81-85,88,92-114,116-144,161-163,165
+src/components/resources/ContentCard.tsx
+  s_c8af29a5af6da7::t_349408515ef064 6,37-41,57-62,64-70,72-84,86-87
+src/components/resources/ContentGrid.tsx
+  s_c8af29a5af6da7::t_1909b4684cfb99 9-10
+src/components/resources/ResourcesHomeSearch.tsx
+  s_c8af29a5af6da7::t_2430776a86c49d 51-55,57-64
+src/components/resources/TypeListingClient.tsx
+  s_c8af29a5af6da7::t_a41017cd8dc6a9 54,101-103,105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "868d62c462744d6b4ef468dc3f1abb0c50ef7143",
+  "prompts": {},
+  "sessions": {
+    "s_c8af29a5af6da7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b81b232c-25c9-4494-8e89-f80c50a7c0c1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
