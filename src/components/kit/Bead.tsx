@@ -220,7 +220,7 @@ export function Bead({ className }: { className?: string }) {
         <mask id={id("mark")} maskUnits="userSpaceOnUse" x="-300" y="-60" width="940" height="440">
           <rect x="-300" y="-60" width="940" height="440" fill="#fff" />
           <g
-            transform="translate(-25.6 -44.6) scale(0.758 0.58)"
+            transform="translate(-25.6 -53.5) scale(0.758 0.55)"
             fill="none"
             stroke="#000"
             strokeWidth="40"
@@ -244,11 +244,12 @@ export function Bead({ className }: { className?: string }) {
         <g ref={headRef}>
           {/* Black hair over the crown and down the sides, with The Vibe Co.
               mark cut out of it, so the face's own white shows through the
-              strokes and runs down into the forehead between the locks. */}
+              strokes. Its lower edge draws an M: an arch over each eye, a
+              point coming down between them, the sides down along the eyes. */}
           <path
             mask={`url(#${id("mark")})`}
             fill="#0c0c0d"
-            d="M-260 -20 H600 V120 C420 125 345 160 318 236 C300 190 270 160 240 152 C210 146 190 146 170 146 C150 146 130 146 100 152 C70 160 40 190 22 236 C-5 160 -80 125 -260 120 Z"
+            d="M-260 -20 H600 V120 C420 125 345 170 320 240 C312 196 286 156 239 154 C206 153 184 162 170 178 C156 162 134 153 101 154 C54 156 28 196 20 240 C-5 170 -80 125 -260 120 Z"
           />
 
           {/* Big glossy eyes: near-black, a large pupil, an amber glow
