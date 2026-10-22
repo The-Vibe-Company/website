@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useSyncExternalStore } from "react";
+import { Fragment, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { ButtonLink, LinkRim } from "@/components/kit";
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
@@ -137,18 +137,28 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
       <div className="wrap">
         <div
           className="clay rim rim-warm relative overflow-hidden rounded-[28px] px-5 pb-6 pt-7 md:rounded-slab md:px-14 md:pb-12 md:pt-14"
-          style={{ "--rim-angle": "118deg" } as React.CSSProperties}
+          style={{ "--rim-angle": "118deg", "--bead": "clamp(180px, 22vw, 300px)" } as React.CSSProperties}
         >
-          <Bead className="pointer-events-none absolute right-3.5 top-3.5 h-[110px] w-[104px] md:right-[60px] md:top-[34px] md:h-[318px] md:w-[300px]" />
+          <Bead className="pointer-events-none absolute right-3.5 top-3.5 h-[110px] w-[104px] md:right-[clamp(32px,4.7vw,60px)] md:top-[34px] md:h-auto md:w-[var(--bead)]" />
 
           <p className="kicker">
             <span aria-hidden="true" className="dot dot-rim" />
             <span>{tFooter("openToProjects")}</span>
           </p>
-          <h1 className="display d-xl rise m-0 mt-[92px] max-w-[760px] md:mt-[34px]">
-            {t("titleLine1")}
+          {/* The title and the line under it stay off the bead: they take the
+              room it leaves, and wrap word by word (never inside "IA-First")
+              when there is less of it. */}
+          <h1 className="display d-xl rise m-0 mt-[92px] max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
+            {t("titleLine1")
+              .split(" ")
+              .map((word, i) => (
+                <Fragment key={i}>
+                  {i > 0 ? " " : null}
+                  <span className="whitespace-nowrap">{word}</span>
+                </Fragment>
+              ))}
           </h1>
-          <p className="rise m-0 mt-4 max-w-[820px] text-[22px] font-medium leading-[1.12] tracking-[-0.018em] text-ink md:mt-[26px] md:text-[36px]">
+          <p className="rise m-0 mt-4 max-w-[820px] md:max-w-[min(820px,calc(100%-var(--bead)-24px))] text-[22px] font-medium leading-[1.12] tracking-[-0.018em] text-ink md:mt-[26px] md:text-[36px]">
             {t("titleLine2")}
           </p>
 

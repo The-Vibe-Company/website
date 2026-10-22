@@ -1284,7 +1284,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
 
   render() {
     const { phase, sound, world, finalScore, bestScore, deadKicker, deadTitle, discovered, visitedNames } = this.state;
-    const { bookLabel, bookUrl } = this.props;
+    const { bookLabel = "Book 30 minutes", bookUrl = BOOKING_URL } = this.props;
     const isIdle = phase === "idle";
     const isDead = phase === "dead";
     const soundIcon = sound ? "♪" : "⊘";

@@ -43,7 +43,7 @@ export function Clients() {
     <section id="clients" className="pt-[72px] md:pt-24">
       <div className="wrap">
         <Kicker className="justify-center">{t("trustedBy")}</Kicker>
-        <ul className="clay-quiet m-0 mt-5 grid list-none grid-cols-3 rounded-plate p-2 md:flex md:h-24 md:items-center md:justify-between md:gap-7 md:rounded-full md:px-11 md:py-0">
+        <ul className="clay-quiet m-0 mt-5 grid list-none grid-cols-3 rounded-plate p-2 md:flex md:flex-wrap md:items-center md:justify-center md:gap-x-9 md:gap-y-2 md:px-10 md:py-5 lg:h-24 lg:flex-nowrap lg:justify-between lg:gap-7 lg:rounded-full lg:px-11 lg:py-0">
           {CLIENTS.map((client) => (
             <li
               key={client.name}
@@ -54,7 +54,7 @@ export function Clients() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={client.name}
-                className="flex min-h-11 items-center justify-center px-2 transition-opacity md:px-0 duration-200 hover:opacity-55"
+                className="flex min-h-11 items-center justify-center px-2 transition-opacity duration-200 md:px-0 hover:opacity-55"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
