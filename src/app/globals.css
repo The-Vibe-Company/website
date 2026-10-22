@@ -50,7 +50,9 @@
         kickers    kicker (> svg.pointe + span): 12px mono uppercase.
         titles     display + a size: d-xl (hero) d-lg (page h1, closing call)
                    d-md (section h2) d-sm d-xs; put the second line in
-                   span.bisque. lede = intro paragraph, measure = 62ch column.
+                   span.bisque. lede = intro paragraph (54ch), measure = 56ch column:
+                   Bricolage runs about 1.4 characters per ch, so these hold
+                   a line under 90 characters.
         pieces     clay, clay-quiet, lacquer, well, rim, rim-warm, groove,
                    lift (hover rise for a piece that is a link).
         small      chip (pressed tag) chip-dark (lacquer tag), num (lacquer
@@ -583,14 +585,14 @@ input:disabled {
   }
 
   .lede {
-    max-width: 62ch;
+    max-width: 54ch;
     font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
     line-height: 1.5;
     color: var(--ink-2);
   }
 
   .measure {
-    max-width: 62ch;
+    max-width: 56ch;
   }
 
   .mono {
@@ -635,7 +637,7 @@ input:disabled {
   /* The intro paragraph with its black lacquer bar (a drawn bar, not a border). */
   .lede-bar {
     position: relative;
-    max-width: 62ch;
+    max-width: 54ch;
     padding-left: 22px;
     font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
     line-height: 1.5;
@@ -1053,6 +1055,8 @@ input:disabled {
   .field textarea,
   .field select {
     flex: 1;
+    /* width 0 so the input's intrinsic 20 characters never hold the field open */
+    width: 0;
     min-width: 0;
     height: 100%;
     min-height: 44px;
@@ -1277,7 +1281,7 @@ input:disabled {
   }
 
   .state-body {
-    max-width: 52ch;
+    max-width: 48ch;
     color: var(--muted);
     line-height: 1.5;
   }
@@ -1451,6 +1455,7 @@ input:disabled {
   .tr {
     display: inline-flex;
     align-items: center;
+    min-width: 0;
     max-width: 100%;
     padding: 3px;
     gap: 2px;
@@ -1471,6 +1476,23 @@ input:disabled {
     white-space: nowrap;
     text-decoration: none;
     transition: color 0.18s ease, background-color 0.18s ease;
+  }
+
+  .tr > a {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  /* In the article's narrow side column the two positions stack. */
+  .tr[data-variant="sidebar"] {
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 18px;
+  }
+
+  .tr[data-variant="sidebar"] > * {
+    justify-content: flex-start;
+    border-radius: 14px;
   }
 
   .tr > a:hover {
@@ -1729,7 +1751,7 @@ input:disabled {
    Typography for Lexical-rendered content in article detail pages
    ----------------------------------------------------------------------------- */
 .prose-vibe {
-  max-width: 68ch;
+  max-width: 60ch;
   font-size: 17px;
   line-height: 1.75;
   color: var(--foreground);

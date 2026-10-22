@@ -3,12 +3,13 @@
 import { useLayoutEffect, useRef, type CSSProperties } from "react";
 import { cn } from "@/lib/design-system";
 
-/** Average advance of one glyph, in em, for heavy Geist at poster tracking. */
-const EM_PER_CHAR = 0.56;
+/** Average advance of one glyph, in em, for Bricolage Grotesque (92% width) at display tracking. */
+const EM_PER_CHAR = 0.5;
 
 /**
  * One line of display type sized to fill its container's width exactly, the
- * way a poster sets its headline. The parent must be a padding-free block with
+ * way a poster sets its headline. Give it the kit's `display` class for the
+ * porcelaine title face. The parent must be a padding-free block with
  * `container-type: inline-size`: the server renders an estimate in container
  * units from the character count, so the line arrives close to its final size,
  * then the client measures it once the fonts are in and on every width change.

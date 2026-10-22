@@ -54,6 +54,7 @@ export function TranslationSwitch({
     <span
       role="group"
       aria-label={t('language')}
+      data-variant={variant}
       className={`tr max-w-full${className ? ` ${className}` : ''}`}
     >
       <span aria-current="true" className="shrink-0">
@@ -72,7 +73,16 @@ export function TranslationSwitch({
           className="min-w-0"
         >
           <LanguageFlag language={translation.language} variant={variant} decorative />
-          <span className="truncate">{t(READ_IN[translation.language])}</span>
+          {variant === 'card' ? (
+            // A card row is narrow: the code on a phone, the full words from sm
+            // up. The link's aria-label always carries the full words.
+            <>
+              <span className="sm:hidden">{translation.language.toUpperCase()}</span>
+              <span className="hidden truncate sm:inline">{t(READ_IN[translation.language])}</span>
+            </>
+          ) : (
+            <span className="truncate">{t(READ_IN[translation.language])}</span>
+          )}
         </Link>
       ))}
     </span>

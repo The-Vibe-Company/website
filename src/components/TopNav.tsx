@@ -216,7 +216,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
                 it can never slide under the nav links, and only shown from xl
                 up: below that the wordmark and the nav already fill the bar. */}
             {showSearch && (
-              <label className="field field-sm ml-2 hidden max-w-sm flex-1 xl:flex">
+              <label className="field field-sm ml-2 hidden min-w-0 max-w-sm flex-1 xl:flex">
                 <SearchIcon />
                 <input
                   type="search"
@@ -246,7 +246,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
               )}
 
               {/* Desktop nav */}
-              <div className="hidden items-center gap-3 lg:flex xl:gap-5">
+              <div className="hidden items-center gap-3 min-[1100px]:flex xl:gap-5">
                 <ul className="nav-links">
                   {navItems.map((item) => (
                     <li key={item.key}>
@@ -275,7 +275,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
               <button
                 ref={menuTriggerRef}
                 type="button"
-                className="round round-sm well lg:hidden"
+                className="round round-sm well min-[1100px]:hidden"
                 onClick={() => {
                   captureEvent("mobile_menu_opened");
                   setSearchOpen(false);
