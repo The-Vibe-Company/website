@@ -6,6 +6,7 @@ import { Services } from "@/components/home/Services";
 import { Process } from "@/components/home/Process";
 import { Proof } from "@/components/home/Proof";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { HomeMotion } from "@/components/home/HomeMotion";
 import { localizedAlternates } from "@/lib/site";
 
 export async function generateMetadata({
@@ -39,6 +40,7 @@ export default function V2Home() {
         <Process />
         <Proof />
         <FinalCTA />
+        <HomeMotion />
       </main>
       <Footer />
     </div>

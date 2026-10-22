@@ -51,7 +51,7 @@ export function Proof() {
           ))}
         </ul>
 
-        <div className="mb-12 hidden md:mb-14 md:block">
+        <div data-reveal="" className="mb-12 hidden md:mb-14 md:block">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
             {t("kicker")}
           </span>
@@ -113,7 +113,7 @@ export function Proof() {
                     // Each card borrows its project's accent (the same one its
                     // portfolio page uses) for the top rule, arrow and hover shadow.
                     style={{ "--card-accent": p.accent } as React.CSSProperties}
-                    className="group relative flex h-full flex-col overflow-hidden border border-foreground bg-background no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--card-accent)]"
+                    className="vc-spotlight group relative isolate flex h-full flex-col overflow-hidden border border-foreground bg-background no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--card-accent)]"
                   >
                     <div className="h-[3px] w-full bg-[var(--card-accent)]" aria-hidden="true" />
                     <div className="flex flex-1 flex-col gap-3 p-6">

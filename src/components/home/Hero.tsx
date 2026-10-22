@@ -1,12 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import dynamic from "next/dynamic";
-import { useSyncExternalStore } from "react";
+import { Fragment, useSyncExternalStore, type CSSProperties } from "react";
 import type { RunnerItem } from "@/lib/runner-worlds";
 
 /**
@@ -39,6 +38,13 @@ const QUICK_ITEMS = [
   { n: "03", key: "advise" },
 ] as const;
 
+/** Animation delay for the CSS entrance classes in globals.css. */
+const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
+
+/** Gap between two words of the title, and when the title starts. */
+const WORD_STAGGER = 70;
+const TITLE_START = 60;
+
 export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   // Server-side this is false, so the chunk is never even requested on a phone.
   const canRun = useSyncExternalStore(
@@ -46,9 +52,12 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
     () => window.matchMedia(RUNNER_MEDIA).matches,
     () => false,
   );
-  const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("hero");
   const tFooter = useTranslations("footer");
+  // The entrance is CSS, so it plays from the server HTML: the title is in the
+  // page, readable, before any JavaScript runs.
+  const titleWords = t("titleLine1").split(" ");
+  const claimDelay = TITLE_START + titleWords.length * WORD_STAGGER + 40;
 
   return (
     // Phones get HeroMobile, a poster layout, in its place.
@@ -56,13 +65,20 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
       id="hero"
       className="relative hidden overflow-hidden border-b-2 border-foreground bg-background md:block"
     >
+      <div aria-hidden="true" data-hero-aurora className="vc-aurora pointer-events-none absolute inset-0 overflow-hidden">
+        <span />
+        <span />
+        <span />
+      </div>
+      {/* The grid, with a dot on every crossing. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-50"
         style={{
           backgroundImage:
-            "linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px)",
+            "radial-gradient(circle, #b4ac9f 1.25px, transparent 1.75px), linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
+          backgroundPosition: "-19.5px -19.5px, 0 0, 0 0",
           maskImage:
             "linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%)",
           WebkitMaskImage:
@@ -71,29 +87,17 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
       />
 
       <div className="relative mx-auto max-w-[100rem] px-6 pb-14 pt-12 md:px-12 md:pb-16 md:pt-16">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-6 inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:mb-8"
+        <div
+          className="vc-rise mb-6 inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:mb-8"
         >
           <span aria-hidden="true" className="relative flex h-2 w-2">
-            {!reduceMotion && (
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-500 opacity-60" />
-            )}
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-500 opacity-60 motion-reduce:hidden" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500" />
           </span>
           {tFooter("openToProjects")}
-        </motion.div>
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.7,
-            delay: reduceMotion ? 0 : 0.05,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+        <h1
           className="m-0 flex max-w-[18ch] flex-col font-bold text-foreground"
           style={{
             fontSize: "clamp(48px, 7.4vw, 124px)",
@@ -102,11 +106,19 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           }}
         >
           <span className="block">
-            {t("titleLine1")}
+            {titleWords.map((word, i) => (
+              <Fragment key={i}>
+                {i > 0 && " "}
+                <span className="vc-blur-in inline-block" style={delay(TITLE_START + i * WORD_STAGGER)}>
+                  {word}
+                </span>
+              </Fragment>
+            ))}
           </span>
           <span
-            className="mt-4 block max-w-[30ch] md:mt-6 md:max-w-[40ch]"
+            className="vc-blur-in vc-glint relative mt-4 block max-w-[30ch] overflow-hidden md:mt-6 md:max-w-[40ch]"
             style={{
+              ...delay(claimDelay),
               fontSize: "clamp(1.25rem, 2.4vw, 2.25rem)",
               fontWeight: 600,
               lineHeight: 1.3,
@@ -126,17 +138,11 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               {t("titleLine2")}
             </span>
           </span>
-        </motion.h1>
+        </h1>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.6,
-            delay: reduceMotion ? 0 : 0.2,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="mt-10 grid grid-cols-1 items-center gap-10 md:mt-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16"
+        <div
+          className="vc-rise mt-10 grid grid-cols-1 items-center gap-10 md:mt-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16"
+          style={delay(claimDelay + 80)}
         >
           <div>
             <p className="m-0 max-w-[620px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
@@ -173,7 +179,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               href={BOOKING_URL}
               {...bookingLocation("hero")}
               onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
-              className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-6 py-4 text-[15px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
+              className="vc-shine relative isolate inline-flex items-center gap-3 overflow-hidden border-2 border-foreground bg-foreground px-6 py-4 text-[15px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
             >
               {t("bookCall")}
               <span aria-hidden="true" className="text-lg">
@@ -182,7 +188,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
             </a>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         <div className="mt-4 flex lg:justify-end">
           <a
@@ -203,20 +209,12 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           <div aria-hidden="true" className="mt-8 hidden lg:block lg:mt-10 lg:h-[254px]" />
         )}
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.6,
-            delay: reduceMotion ? 0 : 0.1,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="mt-8 grid grid-cols-1 border-t border-border md:mt-10 md:grid-cols-3"
-        >
-          {QUICK_ITEMS.map((item) => (
+        <div className="mt-8 grid grid-cols-1 border-t border-border md:mt-10 md:grid-cols-3">
+          {QUICK_ITEMS.map((item, i) => (
             <div
               key={item.n}
+              data-reveal=""
+              style={{ "--reveal-delay": `${i * 70}ms` } as CSSProperties}
               className="flex items-start gap-4 border-b border-border py-5 pr-6 last:border-b-0 md:border-b-0"
             >
               <span className="pt-1 font-mono text-[11px] tracking-[0.2em] text-orange-500">
@@ -232,7 +230,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
     </section>
