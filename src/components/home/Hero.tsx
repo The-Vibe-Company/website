@@ -86,7 +86,13 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           {tFooter("openToProjects")}
         </motion.div>
 
-        <motion.h1
+        {/* An h2: HeroMobile, first in the DOM, carries the page's one h1.
+            Preflight resets both tags alike, so the look is unchanged. HeroMobile
+            is display:none from md up, so this heading stays level 1 for
+            assistive technology on desktop. */}
+        <motion.h2
+          role="heading"
+          aria-level={1}
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -126,7 +132,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               {t("titleLine2")}
             </span>
           </span>
-        </motion.h1>
+        </motion.h2>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}

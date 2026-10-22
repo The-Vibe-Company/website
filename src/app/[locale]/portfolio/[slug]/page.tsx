@@ -6,11 +6,13 @@ import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { JsonLd } from "@/components/JsonLd";
 import { QuivrFeedMock } from "@/components/quivr/QuivrFeedMock";
 import { QuivrSections } from "@/components/quivr/QuivrSections";
 import { PROJECT_SLUGS, getProject, type ContentLocale } from "@/lib/projects";
-import { QUIVR_OG_IMAGE, QUIVR_SLUG } from "@/lib/quivr";
-import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
+import { QUIVR_FAQ_KEYS, QUIVR_OG_IMAGE, QUIVR_SLUG } from "@/lib/quivr";
+import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
+import { breadcrumbList, faqPageSchema } from "@/lib/structured-data";
 
 export function generateStaticParams() {
   return PROJECT_SLUGS.map((slug) => ({ slug }));
@@ -38,9 +40,7 @@ export async function generateMetadata({
   return {
     title: tQuivr ? { absolute: title } : title,
     description,
-    alternates: localizedAlternates(locale, `/portfolio/${slug}`, {
-      xDefault: true,
-    }),
+    alternates: localizedAlternates(locale, `/portfolio/${slug}`),
     ...localizedSocialMetadata({
       locale,
       path: `/portfolio/${slug}`,
@@ -53,7 +53,9 @@ export async function generateMetadata({
             height: QUIVR_OG_IMAGE.height,
             alt: tQuivr("product.alt"),
           }
-        : undefined,
+        : project.cover
+          ? { path: project.cover, alt: `${project.name} homepage` }
+          : undefined,
     }),
   };
 }
@@ -72,6 +74,23 @@ export default async function PortfolioProjectPage({
   // product is drawn in code (QuivrFeedMock) and explained further down
   // (QuivrSections).
   const isQuivr = slug === QUIVR_SLUG;
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const tNav = await getTranslations({ locale, namespace: "nav" });
+  const breadcrumb = breadcrumbList([
+    { name: tFooter("home"), url: localizedUrl(locale) },
+    { name: tNav("portfolio"), url: localizedUrl(locale, "/portfolio") },
+    { name: project.name, url: localizedUrl(locale, `/portfolio/${slug}`) },
+  ]);
+  // The Quivr page shows a FAQ (QuivrSections); its markup repeats it.
+  const tQuivr = isQuivr ? await getTranslations({ locale, namespace: "quivr" }) : null;
+  const faq = tQuivr
+    ? faqPageSchema(
+        QUIVR_FAQ_KEYS.map((key) => ({
+          question: tQuivr(`faq.items.${key}.q`),
+          answer: tQuivr(`faq.items.${key}.a`),
+        })),
+      )
+    : null;
 
   const meta = [
     { value: project.status, label: t("statusLabel") },
@@ -84,6 +103,8 @@ export default async function PortfolioProjectPage({
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={faq} />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">

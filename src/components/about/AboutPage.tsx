@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
 import { TopNav } from "@/components/TopNav";
 import { CLIENTS } from "@/components/home/Clients";
 import { FinalCTA } from "@/components/home/FinalCTA";
@@ -27,6 +28,7 @@ import {
   splitPath,
   splitPathAlternates,
 } from "@/lib/site";
+import { breadcrumbList, faqPageSchema } from "@/lib/structured-data";
 import { AboutBookingCta } from "./AboutBookingCta";
 
 /**
@@ -64,11 +66,24 @@ export async function AboutPage({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "about" });
   const tServices = await getTranslations({ locale, namespace: "services" });
   const tProcess = await getTranslations({ locale, namespace: "process" });
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const breadcrumb = breadcrumbList([
+    { name: tFooter("home"), url: localizedUrl(locale) },
+    { name: tFooter("about"), url: localizedUrl(locale, splitPath(ABOUT_PATHS, locale)) },
+  ]);
+  const faq = faqPageSchema(
+    ABOUT_FAQ_KEYS.map((key) => ({
+      question: t(`faq.items.${key}.q`),
+      answer: t(`faq.items.${key}.a`),
+    })),
+  );
   return (
     <div
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={faq} />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         {/* 1 — The one H1 on the page, the value sentence, and the call. */}
@@ -448,7 +463,8 @@ export async function AboutPage({ locale }: { locale: string }) {
           </div>
         </section>
 
-        {/* 8 — Frequently asked questions, plain HTML, no JSON-LD. */}
+        {/* 8 — Frequently asked questions, mirrored word for word in the
+            FAQPage JSON-LD above (minus the answers that name a client). */}
         <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
           <h2 className={H2}>{t("faq.title")}</h2>
 

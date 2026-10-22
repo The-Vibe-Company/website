@@ -29,7 +29,7 @@ describe("sitemap", () => {
 
       expect(entry.url).toBe(page.canonical);
       expect(entry.alternates?.languages).toEqual(page.languages);
-      expect(Object.keys(entry.alternates!.languages!).sort()).toEqual(["en", "fr"]);
+      expect(Object.keys(entry.alternates!.languages!).sort()).toEqual(["en", "fr", "x-default"]);
       expect(url.search).toBe("");
       expect(entry.changeFrequency).toBe("monthly");
       expect(entry.priority).toBe(segments.length === 1 ? 0.8 : 0.7);
@@ -59,11 +59,21 @@ describe("sitemap", () => {
     expect(sitemap().some((entry) => /\/(fr|en)\/quivr$/.test(entry.url))).toBe(false);
   });
 
-  test("keeps the static pages without x-default", () => {
+  test("declares the French URL as x-default on the static pages", () => {
     const home = sitemap().find((entry) => entry.url === `${SITE}/en`);
     expect(home?.alternates?.languages).toEqual({
       fr: `${SITE}/fr`,
       en: `${SITE}/en`,
+      "x-default": `${SITE}/fr`,
+    });
+  });
+
+  test("declares x-default on the translated About page", () => {
+    const about = sitemap().find((entry) => entry.url === `${SITE}/en/about`);
+    expect(about?.alternates?.languages).toEqual({
+      fr: `${SITE}/fr/a-propos`,
+      en: `${SITE}/en/about`,
+      "x-default": `${SITE}/fr/a-propos`,
     });
   });
 });
