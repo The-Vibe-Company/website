@@ -1,0 +1,9 @@
+{
+  "name": "Voir un cas client en production",
+  "steps": [
+    { "do": "open", "path": "/fr" },
+    { "do": "click", "target": { "role": "link", "name": "Voir tous les cas clients" }, "lands": "/fr/case-studies" },
+    { "do": "click", "target": { "text": "Lire le cas", "within": { "role": "link", "name": "Monka" } }, "lands": "/fr/case-studies/monka" },
+    { "do": "see", "text": "165 questions" }
+  ]
+}
