@@ -1,0 +1,23 @@
+src/components/HomeLaunchpad.tsx
+  s_c8af29a5af6da7::t_a42b6bc25bf031 37
+src/components/home/CaseStudy.tsx
+  s_c8af29a5af6da7::t_4bf18a290f2204 48,52-54
+src/components/home/Services.tsx
+  s_c8af29a5af6da7::t_ad86a9127bb4d4 43-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ff128cd6474c775839209cc3179bdb2b3e32710b",
+  "prompts": {},
+  "sessions": {
+    "s_c8af29a5af6da7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b81b232c-25c9-4494-8e89-f80c50a7c0c1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
