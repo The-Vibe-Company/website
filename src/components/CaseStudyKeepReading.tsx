@@ -36,8 +36,8 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
               decoding="async"
             />
           </span>
-          <span className="flex min-w-0 flex-col items-start px-3 pb-2 pt-5 md:px-7 md:pb-3 md:pt-6">
-            <span className="flex max-w-full flex-wrap items-center gap-x-4 gap-y-2">
+          <div className="flex min-w-0 flex-col items-start px-3 pb-2 pt-5 md:px-7 md:pb-3 md:pt-6">
+            <div className="flex max-w-full flex-wrap items-center gap-x-4 gap-y-2">
               <span className="chip well">
                 <span className="dot dot-rim" aria-hidden="true" />
                 {t("next")}
@@ -45,7 +45,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
               <span className="min-w-0 max-w-full truncate font-mono text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">
                 {featured.sector}
               </span>
-            </span>
+            </div>
             <h3 className="display m-0 mt-4 text-[clamp(2rem,1.5rem+1.4vw,2.5rem)] leading-none decoration-rim decoration-2 underline-offset-[6px] group-hover:underline">
               {featured.client}
             </h3>
@@ -56,7 +56,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
               <span className="t">{t("readCase")}</span>
               <Arrow />
             </span>
-          </span>
+          </div>
         </Link>
 
         {secondary.length > 0 && (
@@ -77,7 +77,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
                     decoding="async"
                   />
                 </span>
-                <span className="flex min-w-0 flex-1 flex-col items-start">
+                <div className="flex min-w-0 flex-1 flex-col items-start">
                   <h3 className="display m-0 text-[1.1875rem] font-[650] leading-tight decoration-rim decoration-2 underline-offset-4 group-hover:underline">
                     {c.client}
                   </h3>
@@ -87,7 +87,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
                   <span className="mt-2.5 max-w-full truncate font-mono text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">
                     {c.sector}
                   </span>
-                </span>
+                </div>
               </Link>
             ))}
           </div>

@@ -251,7 +251,7 @@ export default async function CaseStudyPage({
                 {i > 0 && <Groove className="mb-12 md:mb-[72px]" />}
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-[240px_minmax(0,1fr)] md:gap-x-16">
                   <div>
-                    <Kicker as="p">{t("projectLabel", { n: i + 1 })}</Kicker>
+                    <Kicker as="p" className="self-start">{t("projectLabel", { n: i + 1 })}</Kicker>
                     <h2 className="display d-xs m-0 mt-4 max-w-[14ch]">{project.name}</h2>
                   </div>
                   <div className="min-w-0">
@@ -280,7 +280,7 @@ export default async function CaseStudyPage({
           <section className="section">
             <div className="wrap">
               <div className="grid grid-cols-1 gap-8 md:grid-cols-[240px_minmax(0,1fr)] md:gap-x-16">
-                <Kicker as="h2" className="md:pt-2.5">
+                <Kicker as="h2" className="self-start md:pt-2.5">
                   {t("whatWeDid")}
                 </Kicker>
                 <PointList points={customer.points} />
