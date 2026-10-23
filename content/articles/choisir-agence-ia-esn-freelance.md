@@ -145,6 +145,8 @@ Là où on est utiles : un produit ou un agent IA qui doit arriver en production
 - **LocService (location)** : plusieurs centaines de tickets support par jour. Un assistant lit les anciens tickets et la documentation, puis rédige la réponse selon le profil du client. Les brouillons sont utilisés sur 87 % des tickets ; l'équipe reste maître de ce qui part. [Lire le cas](/fr/case-studies/locservice)
 - **AFP (presse)** : des outils d'IA générative pour les rédactions dans MediaGen, projet France 2030 de 4 M€ soutenu par Bpifrance, avec Kairntech et Dawex, toujours sous le contrôle des journalistes. [Lire le cas](/fr/case-studies/afp)
 
+Une fois le prestataire choisi, voici [comment se déroule un projet avec un prestataire IA, du premier appel à la production](/fr/resources/articles/travailler-prestataire-ia).
+
 ## FAQ
 
 ### Agence IA ou ESN : quelle différence ?
