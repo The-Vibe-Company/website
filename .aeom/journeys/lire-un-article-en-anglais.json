@@ -1,8 +1,0 @@
-{
-  "name": "Lire un article en anglais",
-  "steps": [
-    { "do": "open", "path": "/fr/resources/articles/agence-ia-native" },
-    { "do": "click", "target": { "role": "link", "name": "Lire en anglais" }, "lands": "/en/resources/articles/ai-native-agency" },
-    { "do": "see", "text": "AI-native agency: an agency that looks like a software company" }
-  ]
-}

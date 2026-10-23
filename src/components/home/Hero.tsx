@@ -1,12 +1,12 @@
 "use client";
 
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import dynamic from "next/dynamic";
-import { Fragment, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
-import { Bead, ButtonLink, LinkRim } from "@/components/kit";
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
+import dynamic from "next/dynamic";
+import { useSyncExternalStore } from "react";
 import type { RunnerItem } from "@/lib/runner-worlds";
 
 /**
@@ -39,11 +39,6 @@ const QUICK_ITEMS = [
   { n: "03", key: "advise" },
 ] as const;
 
-/**
- * The home hero, one layout from phone to desktop: the main piece of the page
- * (a clay slab with the orange rim light), then the runner on a black lacquer
- * band where there is a keyboard, then the three ways in as quiet pieces.
- */
 export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   // Server-side this is false, so the chunk is never even requested on a phone.
   const canRun = useSyncExternalStore(
@@ -51,126 +46,201 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
     () => window.matchMedia(RUNNER_MEDIA).matches,
     () => false,
   );
+  const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("hero");
   const tFooter = useTranslations("footer");
 
   return (
-    <section id="hero" className="pt-3.5 md:pt-[22px]">
-      <div className="wrap">
-        <div
-          className="clay rim rim-warm relative overflow-hidden rounded-[28px] px-5 pb-6 pt-7 md:rounded-slab md:px-14 md:pb-12 md:pt-14"
-          style={{ "--rim-angle": "118deg", "--bead": "clamp(180px, 22vw, 300px)" } as React.CSSProperties}
-        >
-          {/* On a phone the bead floats in the top corner, so the kicker and the
-              title run beside it instead of starting under it; a word with no
-              room beside it drops below, never under the bead. */}
-          <Bead className="rise pointer-events-none float-right -mr-1.5 -mt-3.5 mb-2 ml-2.5 h-auto w-[clamp(88px,27vw,104px)] [animation-delay:160ms] [animation-duration:900ms] md:absolute md:right-[clamp(32px,4.7vw,60px)] md:top-[34px] md:float-none md:m-0 md:w-[var(--bead)]" />
+    // Phones get HeroMobile, a poster layout, in its place.
+    <section
+      id="hero"
+      className="relative hidden overflow-hidden border-b-2 border-foreground bg-background md:block"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-50"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%)",
+        }}
+      />
 
-          <p className="kicker rise">
-            <span aria-hidden="true" className="dot dot-rim" />
-            <span>{tFooter("openToProjects")}</span>
-          </p>
-          {/* The title and the line under it stay off the bead: they take the
-              room it leaves, and wrap word by word (never inside "IA-First")
-              when there is less of it. */}
-          {/* The page's one h1 carries both lines, the name and what we do,
-              each set in its own size. */}
-          <h1 className="m-0">
-            <span className="display d-xl rise block [animation-delay:70ms] mt-5 max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
-              {t("titleLine1")
-                .split(" ")
-                .map((word, i) => (
-                  <Fragment key={i}>
-                    {i > 0 ? " " : null}
-                    <span className="whitespace-nowrap">{word}</span>
-                  </Fragment>
-                ))}
-            </span>
-            <span className="rise mt-4 block [animation-delay:150ms] max-w-[820px] md:max-w-[min(820px,calc(100%-var(--bead)-24px))] text-[22px] font-medium leading-[1.12] tracking-[-0.018em] text-ink md:mt-[26px] md:text-[36px]">
+      <div className="relative mx-auto max-w-[100rem] px-6 pb-14 pt-12 md:px-12 md:pb-16 md:pt-16">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6 inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:mb-8"
+        >
+          <span aria-hidden="true" className="relative flex h-2 w-2">
+            {!reduceMotion && (
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-500 opacity-60" />
+            )}
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500" />
+          </span>
+          {tFooter("openToProjects")}
+        </motion.div>
+
+        {/* An h2: HeroMobile, first in the DOM, carries the page's one h1.
+            Preflight resets both tags alike, so the look is unchanged. HeroMobile
+            is display:none from md up, so this heading stays level 1 for
+            assistive technology on desktop. */}
+        <motion.h2
+          role="heading"
+          aria-level={1}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.7,
+            delay: reduceMotion ? 0 : 0.05,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="m-0 flex max-w-[18ch] flex-col font-bold text-foreground"
+          style={{
+            fontSize: "clamp(48px, 7.4vw, 124px)",
+            lineHeight: 0.92,
+            letterSpacing: "-0.045em",
+          }}
+        >
+          <span className="block">
+            {t("titleLine1")}
+          </span>
+          <span
+            className="mt-4 block max-w-[30ch] md:mt-6 md:max-w-[40ch]"
+            style={{
+              fontSize: "clamp(1.25rem, 2.4vw, 2.25rem)",
+              fontWeight: 600,
+              lineHeight: 1.3,
+              letterSpacing: "-0.025em",
+            }}
+          >
+            {/* A low orange highlighter stroke under the words, cloned on each
+                wrapped line so it reads the same whatever the copy. */}
+            <span
+              className="[box-decoration-break:clone] [-webkit-box-decoration-break:clone]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to top, rgb(249 115 22 / 0.28) 0.32em, transparent 0.32em)",
+                padding: "0 0.08em",
+              }}
+            >
               {t("titleLine2")}
             </span>
-          </h1>
+          </span>
+        </motion.h2>
 
-          <div className="rise mt-7 grid gap-[22px] [animation-delay:240ms] md:mt-[52px] lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-end lg:gap-10">
-            <p className="lede-bar m-0 text-[16.5px] md:text-[18.5px]">{t("subtitle")}</p>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.6,
+            delay: reduceMotion ? 0 : 0.2,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="mt-10 grid grid-cols-1 items-center gap-10 md:mt-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16"
+        >
+          <div>
+            <p className="m-0 max-w-[620px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+              {t("subtitle")}
+            </p>
+          </div>
 
-            <div className="flex gap-2">
-              <a
-                href="https://www.ycombinator.com/companies/quivr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="well inline-flex h-11 items-center whitespace-nowrap rounded-2xl px-1.5 transition-[filter] duration-200 hover:brightness-105 md:h-[52px] md:px-2"
-              >
-                <Image
-                  src="/images/partners/y-combinator.svg"
-                  alt="Y Combinator W24"
-                  width={154}
-                  height={38}
-                  className="h-8 w-auto rounded-lg md:h-9"
-                />
-              </a>
-              <span className="well inline-flex h-11 items-center gap-2 whitespace-nowrap rounded-2xl pl-1.5 pr-3 md:h-[52px] md:gap-2.5 md:pl-2 md:pr-4">
+          <div className="flex flex-col items-start gap-3 lg:items-end">
+            <div className="flex flex-wrap items-center gap-x-10 gap-y-6 lg:justify-end">
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
+                <a
+                  href="https://www.ycombinator.com/companies/quivr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex transition-opacity hover:opacity-70"
+                >
+                  <Image
+                    src="/images/partners/y-combinator.svg"
+                    alt="Y Combinator W24"
+                    width={154}
+                    height={38}
+                    className="h-9 w-auto"
+                  />
+                </a>
                 <Image
                   src="/images/partners/france-2030.svg"
-                  alt=""
-                  width={34}
-                  height={34}
-                  className="h-[30px] w-[30px] md:h-[34px] md:w-[34px]"
+                  alt="France 2030"
+                  width={52}
+                  height={52}
+                  className="h-12 w-auto"
                 />
-                <span className="text-[13.5px] font-semibold leading-none">France 2030</span>
+              </div>
+            <a
+              href={BOOKING_URL}
+              {...bookingLocation("hero")}
+              onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
+              className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-6 py-4 text-[15px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
+            >
+              {t("bookCall")}
+              <span aria-hidden="true" className="text-lg">
+                →
               </span>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 lg:flex-col lg:items-end lg:justify-start lg:gap-1">
-              <ButtonLink
-                href={BOOKING_URL}
-                size="lg"
-                arrow
-                {...bookingLocation("hero")}
-                onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
-                className="min-w-[210px] flex-1 lg:flex-none"
-              >
-                {t("bookCall")}
-              </ButtonLink>
-              <LinkRim
-                href="/case-studies"
-                arrow={false}
-                onClick={() => captureEvent("see_what_we_do_clicked")}
-              >
-                {t("seeWhatWeDo")}
-              </LinkRim>
+            </a>
             </div>
           </div>
+        </motion.div>
+
+        <div className="mt-4 flex lg:justify-end">
+          <a
+            href="#services"
+            onClick={() => captureEvent("see_what_we_do_clicked")}
+            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-4 hover:text-foreground"
+          >
+            {t("seeWhatWeDo")}
+          </a>
         </div>
 
-        {/* The panel's place is held from the server HTML, and kept while the
-            game's chunk loads: the wrapper never goes away, so the game drops
-            into a gap that already exists instead of pulling the page up and
-            pushing it back down. */}
-        <div aria-hidden={canRun ? undefined : true} className="rise mt-4 hidden [animation-delay:320ms] lg:block lg:min-h-[264px]">
-          {canRun ? <HeroRunner items={runnerItems} /> : null}
-        </div>
+        {canRun ? (
+          <HeroRunner items={runnerItems} />
+        ) : (
+          /* Holds the panel's place from the server HTML so the game drops into
+             a gap that already exists. Mounting it client-side only, with no
+             placeholder, pushed the rest of the hero down after hydration. */
+          <div aria-hidden="true" className="mt-8 hidden lg:block lg:mt-10 lg:h-[254px]" />
+        )}
 
-        <ul className="m-0 mt-2.5 grid list-none gap-2.5 p-0 md:grid-cols-3 md:gap-4 lg:mt-4">
-          {QUICK_ITEMS.map((item, i) => (
-            <li
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.6,
+            delay: reduceMotion ? 0 : 0.1,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="mt-8 grid grid-cols-1 border-t border-border md:mt-10 md:grid-cols-3"
+        >
+          {QUICK_ITEMS.map((item) => (
+            <div
               key={item.n}
-              style={{ animationDelay: `${380 + i * 90}ms` }}
-              className="rise clay-quiet flex items-start gap-4 rounded-piece p-[18px] md:px-6 md:py-[22px]"
+              className="flex items-start gap-4 border-b border-border py-5 pr-6 last:border-b-0 md:border-b-0"
             >
-              <span className="num">{item.n}</span>
-              <div className="min-w-0">
-                <p className="m-0 text-[22px] font-semibold leading-tight tracking-[-0.02em]">
+              <span className="pt-1 font-mono text-[11px] tracking-[0.2em] text-orange-500">
+                {item.n}
+              </span>
+              <div>
+                <div className="text-[22px] font-bold tracking-[-0.02em] text-foreground">
                   {t(`items.${item.key}.label`)}
-                </p>
-                <p className="m-0 mt-1 text-[15px] leading-[1.45] text-muted-foreground">
+                </div>
+                <div className="mt-0.5 text-sm text-muted-foreground">
                   {t(`items.${item.key}.desc`)}
-                </p>
+                </div>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </motion.div>
       </div>
+
     </section>
   );
 }

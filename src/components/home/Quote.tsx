@@ -1,37 +1,31 @@
 import { useTranslations } from "next-intl";
 
 /**
- * A client's own words between the cases and the services, on phones only: a
- * quiet clay piece, the quote set in two tones (the sentence in grey clay, the
- * line that sums the work up in ink), the client's logo to sign it.
+ * A client's own words between the cases and the services, on phones only: an
+ * ink band with a giant orange quotation mark hanging off its corner, and the
+ * line that sums the work up picked out in orange.
  */
 export function Quote() {
   const t = useTranslations("quote");
 
   return (
-    <section className="section-tight md:hidden">
-      <div className="wrap">
-        <figure className="clay-quiet relative m-0 rounded-plate px-6 pb-6 pt-5">
-          <span aria-hidden="true" className="display block select-none text-[88px] leading-[0.8] text-bisque">
-            “
-          </span>
-          <blockquote className="display m-0 mt-1 text-[26px] leading-[1.15] text-bisque">
-            {t.rich("text", { em: (chunks) => <em className="not-italic text-ink">{chunks}</em> })}
-          </blockquote>
-          <figcaption className="mt-6 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/clients/monka.webp"
-              alt=""
-              aria-hidden="true"
-              width={63}
-              height={22}
-              className="h-[22px] w-auto brightness-0"
-            />
-            {t("author")}
-          </figcaption>
-        </figure>
-      </div>
+    <section data-surface="inverse" className="relative overflow-hidden bg-foreground px-6 pb-11 pt-14 text-background md:hidden">
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-7 right-3 select-none text-[220px] font-black leading-none text-orange-500"
+      >
+        “
+      </span>
+      <figure className="relative m-0">
+        <blockquote className="m-0 text-[22px] font-medium leading-[1.32] tracking-[-0.02em]">
+          {t.rich("text", { em: (chunks) => <em className="not-italic text-orange-500">{chunks}</em> })}
+        </blockquote>
+        <figcaption className="mt-6 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-background/60">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/clients/monka.webp" alt="" aria-hidden="true" className="h-[22px] w-auto brightness-0 invert" />
+          {t("author")}
+        </figcaption>
+      </figure>
     </section>
   );
 }

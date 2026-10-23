@@ -27,20 +27,17 @@ const READ_IN: Record<ContentLanguage, 'readInFrench' | 'readInEnglish'> = {
   en: 'readInEnglish',
 };
 
+const SEPARATOR_SIZE: Record<SwitchVariant, string> = {
+  card: 'text-[10px]',
+  sidebar: 'text-sm',
+  inline: 'text-[10px]',
+};
+
 /**
  * Language control for an article. An article published in a single language
- * keeps showing its lone flag, exactly as before. A translated one shows a
- * pressed-in rail with two labelled positions: the version on screen (flag and
- * code) and a link to the other one, written out as « Lire en anglais » /
- * « Lire en français » (and the English equivalents) so the way to the other
- * language is plain text, not a bare flag. The link keeps its `aria-label`
- * (the same words) and crosses locales: each version is canonical under its
- * own language prefix.
- *
- * `variant="card"` is the compact form for a list card, where the control
- * shares a line with chips and a date: flag and code only (« FR | EN »), the
- * full words kept in the accessible name and the tooltip. Where the control
- * stands alone (the article page: `inline`, `sidebar`) the words are written out.
+ * keeps showing its lone flag, exactly as before. A translated one shows the
+ * pair, the version on screen at full strength and the other as a dimmed link
+ * to its own URL, mirroring the `FR / EN` switch in the main nav.
  */
 export function TranslationSwitch({
   language,
@@ -59,39 +56,28 @@ export function TranslationSwitch({
     <span
       role="group"
       aria-label={t('language')}
-      data-variant={variant}
-      className={`tr max-w-full${className ? ` ${className}` : ''}`}
+      className={`inline-flex items-center gap-1${className ? ` ${className}` : ''}`}
     >
-      <span aria-current="true" className="shrink-0">
-        <LanguageFlag language={language} variant={variant} decorative />
-        <span>{language.toUpperCase()}</span>
-      </span>
+      <LanguageFlag language={language} variant={variant} />
       {others.map((translation) => (
-        <Link
-          key={translation.language}
-          href={translation.href}
-          // Each version is canonical under its own language prefix, so the
-          // switch crosses locales instead of staying under the current one.
-          locale={translation.language}
-          hrefLang={translation.language}
-          aria-label={
-            variant === 'card'
-              ? `${translation.language.toUpperCase()}, ${t(READ_IN[translation.language])}`
-              : t(READ_IN[translation.language])
-          }
-          title={variant === 'card' ? t(READ_IN[translation.language]) : undefined}
-          className="min-w-0"
-        >
-          <LanguageFlag language={translation.language} variant={variant} decorative />
-          {variant === 'card' ? (
-            // A card row is narrow and shares its line with chips and the date:
-            // the compact form, flag and code. The link's aria-label (and its
-            // tooltip) always carries the full words.
-            <span>{translation.language.toUpperCase()}</span>
-          ) : (
-            <span className="truncate">{t(READ_IN[translation.language])}</span>
-          )}
-        </Link>
+        <span key={translation.language} className="inline-flex items-center gap-1">
+          <span
+            className={`font-mono text-res-border ${SEPARATOR_SIZE[variant]}`}
+            aria-hidden="true"
+          >
+            /
+          </span>
+          <Link
+            href={translation.href}
+            // Each version is canonical under its own language prefix, so the
+            // switch crosses locales instead of staying under the current one.
+            locale={translation.language}
+            aria-label={t(READ_IN[translation.language])}
+            className="inline-flex items-center opacity-40 transition-opacity hover:opacity-100 focus-visible:opacity-100"
+          >
+            <LanguageFlag language={translation.language} variant={variant} />
+          </Link>
+        </span>
       ))}
     </span>
   );

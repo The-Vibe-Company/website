@@ -1,14 +1,13 @@
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 
-import { Arrow, Kicker } from "@/components/kit";
 import type { Customer } from "@/lib/customers";
 
 /**
- * "Keep reading" block for case studies: one featured "Next" case (a quiet
- * clay piece, the client's logo on a pressed tile) followed by up to two
- * smaller ones. Case studies have no cover images, so the tiles show the
- * client logo instead. Every piece is a link and rises under the pointer.
+ * "Keep reading" block for case studies — same editorial format as the
+ * articles' KeepReading: one featured "Next" case with a large pane and
+ * summary, followed by up to two compact cards. Case studies have no cover
+ * images, so the panes show the client logo instead.
  */
 export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
   if (items.length === 0) return null;
@@ -18,81 +17,81 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
   const secondary = rest.slice(0, 2);
 
   return (
-    <section className="section">
-      <div className="wrap">
-        <Kicker as="h2">{t("keepReading")}</Kicker>
+    <section className="mx-auto max-w-[80rem] border-t border-border px-6 py-24 md:px-12">
+      <div className="mb-10">
+        <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+          {t("keepReading")}
+        </span>
+      </div>
 
-        <Link
-          href={`/case-studies/${featured.slug}`}
-          className="group clay-quiet lift mt-6 grid grid-cols-1 gap-2 rounded-plate p-3 no-underline md:mt-7 md:grid-cols-[5fr_6fr]"
-        >
-          <span className="flex min-h-[132px] items-center justify-center rounded-piece bg-[linear-gradient(180deg,#ececea,#f2f2f0)] p-8 md:min-h-[230px]">
+      <Link href={`/case-studies/${featured.slug}`} className="group block no-underline">
+        <article className="flex flex-col overflow-hidden rounded-lg border border-border bg-background transition-colors hover:border-foreground/35 md:flex-row">
+          <div className="flex aspect-[16/10] shrink-0 items-center justify-center border-b border-border p-10 md:aspect-auto md:w-[44%] md:border-b-0 md:border-r">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={featured.logo}
-              alt=""
-              className="h-10 w-auto max-w-[70%] object-contain md:h-12"
+              alt={featured.client}
+              className="h-10 w-auto max-w-[70%] object-contain transition-transform duration-300 group-hover:scale-105 md:h-12"
               loading="lazy"
               decoding="async"
             />
-          </span>
-          <div className="flex min-w-0 flex-col items-start px-3 pb-2 pt-5 md:px-7 md:pb-3 md:pt-6">
-            <div className="flex max-w-full flex-wrap items-center gap-x-4 gap-y-2">
-              <span className="chip well">
-                <span className="dot dot-rim" aria-hidden="true" />
+          </div>
+          <div className="flex flex-1 flex-col justify-center p-7 md:p-9">
+            <div className="mb-3 flex flex-wrap items-center gap-3">
+              <span className="inline-flex items-center rounded-full border border-orange-500/40 bg-orange-500/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-orange-600">
                 {t("next")}
               </span>
-              <span className="min-w-0 max-w-full truncate font-mono text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                 {featured.sector}
               </span>
             </div>
-            <h3 className="display m-0 mt-4 text-[clamp(2rem,1.5rem+1.4vw,2.5rem)] leading-none decoration-rim decoration-2 underline-offset-[6px] group-hover:underline">
+            <h3 className="mb-3 text-2xl font-bold leading-tight tracking-tighter text-foreground decoration-1 underline-offset-4 group-hover:underline md:text-3xl">
               {featured.client}
             </h3>
-            <p className="mb-4 mt-3.5 line-clamp-2 max-w-[56ch] text-base leading-normal text-muted-foreground md:text-[1.0625rem]">
+            <p className="mb-5 line-clamp-2 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
               {featured.summary}
             </p>
-            <span className="link-rim mt-auto">
-              <span className="t">{t("readCase")}</span>
-              <Arrow />
+            <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground transition-colors group-hover:text-foreground">
+              {t("readCase")}
+              <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
             </span>
           </div>
-        </Link>
+        </article>
+      </Link>
 
-        {secondary.length > 0 && (
-          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-            {secondary.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/case-studies/${c.slug}`}
-                className="group clay-quiet lift flex items-start gap-3 rounded-piece p-3.5 no-underline md:gap-[18px] md:p-4"
-              >
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] bg-[linear-gradient(180deg,#ececea,#f3f3f1)] p-2 md:h-[84px] md:w-[84px] md:rounded-2xl md:p-3">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={c.logo}
-                    alt=""
-                    className="max-h-full max-w-full object-contain"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </span>
-                <div className="flex min-w-0 flex-1 flex-col items-start">
-                  <h3 className="display m-0 text-[1.1875rem] font-[650] leading-tight decoration-rim decoration-2 underline-offset-4 group-hover:underline">
-                    {c.client}
-                  </h3>
-                  <p className="m-0 mt-1.5 line-clamp-2 text-[0.9375rem] leading-snug text-muted-foreground">
-                    {c.summary}
-                  </p>
-                  <span className="mt-2.5 max-w-full truncate font-mono text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">
-                    {c.sector}
-                  </span>
+      {secondary.length > 0 && (
+        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {secondary.map((c) => (
+            <Link
+              key={c.slug}
+              href={`/case-studies/${c.slug}`}
+              className="group flex gap-4 rounded-lg border border-border bg-background p-4 no-underline transition-colors hover:border-foreground/35"
+            >
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border p-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={c.logo}
+                  alt={c.client}
+                  className="max-h-full max-w-full object-contain"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div className="min-w-0 flex-1">
+                <h4 className="mb-1 line-clamp-2 text-sm font-bold leading-snug tracking-tight text-foreground decoration-1 underline-offset-2 group-hover:underline">
+                  {c.client}
+                </h4>
+                <p className="mb-2 line-clamp-2 text-xs leading-snug text-muted-foreground">
+                  {c.summary}
+                </p>
+                <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  {c.sector}
                 </div>
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

@@ -34,24 +34,32 @@ export function LanguageSwitcher({ className }: { className?: string }) {
     <div
       role="group"
       className={cn(
-        "lang well transition-opacity duration-200",
+        "inline-flex items-center gap-0.5 font-mono text-[11px] uppercase tracking-wider transition-opacity duration-200",
         isPending && "opacity-60",
         className
       )}
       aria-label={t("language")}
       aria-busy={isPending}
     >
-      {LOCALES.map((l) => (
-        <button
-          key={l.code}
-          type="button"
-          onClick={() => setLocale(l.code)}
-          disabled={isPending}
-          aria-label={t(l.code === "fr" ? "french" : "english")}
-          aria-pressed={locale === l.code}
-        >
-          {l.label}
-        </button>
+      {LOCALES.map((l, i) => (
+        <span key={l.code} className="inline-flex items-center">
+          {i > 0 && <span className="mx-1 text-border" aria-hidden="true">/</span>}
+          <button
+            type="button"
+            onClick={() => setLocale(l.code)}
+            disabled={isPending}
+            aria-label={t(l.code === "fr" ? "french" : "english")}
+            aria-pressed={locale === l.code}
+            className={cn(
+              "cursor-pointer transition-colors disabled:cursor-default",
+              locale === l.code
+                ? "text-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {l.label}
+          </button>
+        </span>
       ))}
     </div>
   );
