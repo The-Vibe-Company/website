@@ -67,7 +67,7 @@ export default async function LocaleLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <JsonLd data={siteGraph()} />
+        <JsonLd data={siteGraph(locale)} />
         <NextIntlClientProvider>
           <ClientProviders />
           <ConditionalGridOverlay />
