@@ -61,7 +61,10 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           className="clay rim rim-warm relative overflow-hidden rounded-[28px] px-5 pb-6 pt-7 md:rounded-slab md:px-14 md:pb-12 md:pt-14"
           style={{ "--rim-angle": "118deg", "--bead": "clamp(180px, 22vw, 300px)" } as React.CSSProperties}
         >
-          <Bead className="rise pointer-events-none absolute right-3.5 top-3.5 [animation-delay:160ms] [animation-duration:900ms] h-[110px] w-[104px] md:right-[clamp(32px,4.7vw,60px)] md:top-[34px] md:h-auto md:w-[var(--bead)]" />
+          {/* On a phone the bead floats in the top corner, so the kicker and the
+              title run beside it instead of starting under it; a word with no
+              room beside it drops below, never under the bead. */}
+          <Bead className="rise pointer-events-none float-right -mr-1.5 -mt-3.5 mb-2 ml-2.5 h-auto w-[clamp(88px,27vw,104px)] [animation-delay:160ms] [animation-duration:900ms] md:absolute md:right-[clamp(32px,4.7vw,60px)] md:top-[34px] md:float-none md:m-0 md:w-[var(--bead)]" />
 
           <p className="kicker rise">
             <span aria-hidden="true" className="dot dot-rim" />
@@ -73,7 +76,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           {/* The page's one h1 carries both lines, the name and what we do,
               each set in its own size. */}
           <h1 className="m-0">
-            <span className="display d-xl rise block [animation-delay:70ms] mt-[92px] max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
+            <span className="display d-xl rise block [animation-delay:70ms] mt-5 max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
               {t("titleLine1")
                 .split(" ")
                 .map((word, i) => (
