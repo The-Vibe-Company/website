@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { TopNav } from "@/components/TopNav";
+import { Arrow, SectionTitle } from "@/components/kit";
 import { Footer } from "@/components/Footer";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { JsonLd } from "@/components/JsonLd";
@@ -32,6 +33,35 @@ export async function generateMetadata({
   };
 }
 
+/** Statuses (both locales) that earn the orange status dot. */
+const LIVE_STATUSES = new Set(["Live", "En ligne"]);
+
+function Status({
+  status,
+  built,
+  date,
+  className,
+}: {
+  status: string;
+  built: string;
+  date: string;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`flex items-center gap-2.5 font-mono text-xs font-medium uppercase leading-[1.3] tracking-[0.1em] text-muted-foreground ${className ?? ""}`}
+    >
+      <span
+        aria-hidden="true"
+        className={`dot ${LIVE_STATUSES.has(status) ? "dot-rim" : ""}`}
+      />
+      <span>
+        {status} · {built} {date}
+      </span>
+    </span>
+  );
+}
+
 export default async function PortfolioPage({
   params,
 }: {
@@ -40,7 +70,10 @@ export default async function PortfolioPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "portfolio" });
-  const projects = getProjects(locale as ContentLocale);
+  // In alphabetical order, whatever order the catalogue keeps them in.
+  const projects = [...getProjects(locale as ContentLocale)].sort((a, b) =>
+    a.name.localeCompare(b.name, locale, { sensitivity: "base" }),
+  );
   const tFooter = await getTranslations({ locale, namespace: "footer" });
   const tNav = await getTranslations({ locale, namespace: "nav" });
 
@@ -57,71 +90,72 @@ export default async function PortfolioPage({
       />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section className="mx-auto max-w-[100rem] px-6 pb-16 pt-12 md:px-12 md:pb-20 md:pt-16">
-          <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {t("kicker")}
-          </span>
-          <h1
-            className="m-0 max-w-[18ch] font-bold text-foreground"
-            style={{
-              fontSize: "clamp(44px, 6.4vw, 96px)",
-              lineHeight: 0.92,
-              letterSpacing: "-0.045em",
-            }}
-          >
-            {t("titleLine1")}
-            <br />
-            <span
-              style={{
-                WebkitTextStroke: "1.5px var(--foreground)",
-                color: "transparent",
-              }}
+        <section className="pt-12 md:pt-[76px]">
+          <div className="wrap">
+            <SectionTitle
+              as="h1"
+              size="md"
+              kicker={t("kicker")}
+              line1={t("titleLine1")}
+              line2={t("titleLine2")}
             >
-              {t("titleLine2")}
-            </span>
-          </h1>
-          <p className="m-0 mt-8 max-w-[620px] text-lg leading-[1.5] text-muted-foreground">
-            {t("subtitle")}
-          </p>
+              {t("subtitle")}
+            </SectionTitle>
+          </div>
         </section>
 
-        <section className="mx-auto max-w-[100rem] px-6 pb-20 md:px-12 md:pb-28">
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {projects.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/portfolio/${p.slug}`}
-                className="group flex flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
-              >
-                <div className="flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between md:gap-4">
-                  <div className="flex min-w-0 items-center gap-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={p.logo}
-                      alt={`${p.name} logo`}
-                      className="h-8 w-8 shrink-0 rounded-sm object-contain"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <span className="truncate text-[26px] font-bold leading-none tracking-[-0.03em] text-foreground md:text-[30px]">
-                      {p.name}
+        <section className="pt-8 md:pt-14">
+          <div className="wrap">
+            {/* Every product with the same weight, in the catalogue's order:
+                flat on the studio floor, a clay plate rises under the one you
+                point at. */}
+            <ul className="rows m-0 list-none p-0">
+              {projects.map((p) => (
+                <li
+                  key={p.slug}
+                  className="-mx-2 before:left-2 before:right-2 md:-mx-6 md:before:left-6 md:before:right-6"
+                >
+                  <Link
+                    href={`/portfolio/${p.slug}`}
+                    className="group grid grid-cols-[48px_minmax(0,1fr)_44px] gap-x-3.5 gap-y-4 rounded-piece px-2 py-[22px] no-underline transition-[background,box-shadow] duration-200 hover:bg-clay hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_1px_1px_rgba(20,20,22,0.05),0_18px_30px_-24px_rgba(20,20,22,0.3)] focus-visible:bg-clay md:grid-cols-[56px_270px_minmax(0,1fr)_44px] md:items-start md:gap-x-7 md:px-6 md:py-7"
+                  >
+                    <span className="col-start-1 row-start-1 grid size-12 place-items-center rounded-[14px] bg-[radial-gradient(130%_110%_at_12%_-12%,#ffffff_0%,#fbfbfa_40%,#ececea_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_1px_2px_rgba(20,20,22,0.12),0_10px_14px_-10px_rgba(20,20,22,0.3)] md:size-14 md:rounded-2xl">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={p.logo}
+                        alt=""
+                        className="size-[34px] rounded-[10px] object-contain md:size-10"
+                        loading="lazy"
+                        decoding="async"
+                      />
                     </span>
-                  </div>
-                  <span className="shrink-0 border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground">
-                    {p.tag}
-                  </span>
-                </div>
-
-                <div className="mt-6 border-t border-border pt-5">
-                  <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
-                    {p.status} · {t("built")} {p.date}
-                  </div>
-                  <p className="m-0 mt-4 text-[15px] leading-[1.55] text-foreground">
-                    {p.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
+                    <div className="col-start-2 row-start-1 flex min-w-0 flex-col items-start gap-2 md:gap-2.5 md:pt-0.5">
+                      <h2 className="m-0 truncate text-[26px] font-bold leading-[1.05] tracking-[-0.03em] md:text-[28px]">
+                        {p.name}
+                      </h2>
+                      <span className="chip">{p.tag}</span>
+                    </div>
+                    <div className="col-span-3 row-start-2 min-w-0 md:col-span-1 md:col-start-3 md:row-start-1 md:pt-0.5">
+                      <p className="m-0 max-w-[54ch] text-[15.5px] leading-[1.55] text-ink-2 md:text-base">
+                        {p.description}
+                      </p>
+                      <Status
+                        className="mt-3.5"
+                        status={p.status}
+                        built={t("built")}
+                        date={p.date}
+                      />
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="well col-start-3 row-start-1 grid size-11 place-items-center self-start rounded-full text-ink transition-colors duration-200 group-hover:text-on-lacquer group-hover:[background:var(--lacquer)] group-focus-visible:text-on-lacquer group-focus-visible:[background:var(--lacquer)] md:col-start-4 md:self-center"
+                    >
+                      <Arrow className="size-[18px] transition-transform duration-200 group-hover:translate-x-0.5" />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

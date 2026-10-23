@@ -30,28 +30,17 @@ const ELSEWHERE_LINKS: NavLink[] = [
 const buildYear = new Date().getUTCFullYear();
 
 function FooterLink({ link }: { link: NavLink }) {
-  const className =
-    "inline-flex items-center gap-1.5 py-1.5 text-sm text-background/85 transition-opacity hover:opacity-70 md:py-0";
   if (link.external) {
     return (
-      <a
-        href={link.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={className}
-      >
+      <a href={link.href} target="_blank" rel="noopener noreferrer">
         {link.label}
         {/* A drawn icon rather than the ↗ glyph, which rendered thin, pale
             and off the baseline. */}
-        <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" className="text-background/50" />
+        <ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" />
       </a>
     );
   }
-  return (
-    <Link href={link.href} className={className}>
-      {link.label}
-    </Link>
-  );
+  return <Link href={link.href}>{link.label}</Link>;
 }
 
 export function Footer({ showPriorityArticles = false }: { showPriorityArticles?: boolean }) {
@@ -78,31 +67,38 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
   ];
 
   return (
-    <footer className="border-t-2 border-foreground bg-foreground text-background">
-      <div className="mx-auto max-w-[120rem] px-6 pb-6 pt-12 md:px-12 md:pt-20">
+    <footer className="footer lacquer" data-surface="inverse">
+      {/* The mascot's black V, with a line of orange light along its edge. */}
+      <svg
+        className="vneck"
+        viewBox="0 0 260 80"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <defs>
+          <linearGradient id="footer-vrim" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#ff7a1f" stopOpacity="0" />
+            <stop offset=".5" stopColor="#ffb46e" />
+            <stop offset="1" stopColor="#ff7a1f" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path d="M0 0 L130 78 L260 0" fill="none" stroke="url(#footer-vrim)" strokeWidth="2.4" />
+      </svg>
+
+      <div className="wrap">
         {/* On a phone the two link lists sit side by side under the wordmark:
             stacked, the footer alone ran past a full screen. */}
-        <div className="mb-12 grid grid-cols-2 gap-x-6 gap-y-10 md:mb-16 md:grid-cols-[2fr_1fr_1fr] md:gap-12">
-          <div className="col-span-2 flex flex-col md:col-span-1">
-            <h2 className="m-0 mb-4 text-5xl font-bold leading-[0.9] tracking-[-0.04em] md:text-[56px]">
-              The Vibe Co.
-            </h2>
-            <p className="m-0 mb-4 max-w-[280px] text-sm text-background/60">
-              {t("tagline")}
-            </p>
-            <a
-              href="mailto:founders@thevibecompany.co"
-              className="font-mono text-xs text-background underline underline-offset-4 hover:opacity-70"
-            >
-              founders@thevibecompany.co
-            </a>
+        <div className="foot-grid">
+          <div className="foot-brand">
+            <strong className="display">The Vibe Co.</strong>
+            <p>{t("tagline")}</p>
+            <a href="mailto:founders@thevibecompany.co">founders@thevibecompany.co</a>
           </div>
 
-          <div>
-            <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
-              {t("siteHeading")}
-            </div>
-            <ul className="m-0 flex list-none flex-col gap-0.5 p-0 md:gap-2">
+          <div className="foot-col">
+            <h2>{t("siteHeading")}</h2>
+            <ul>
               {siteLinks.map((link) => (
                 <li key={link.href}>
                   <FooterLink link={link} />
@@ -111,11 +107,9 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
             </ul>
           </div>
 
-          <div>
-            <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
-              {t("elsewhereHeading")}
-            </div>
-            <ul className="m-0 flex list-none flex-col gap-0.5 p-0 md:gap-2">
+          <div className="foot-col">
+            <h2>{t("elsewhereHeading")}</h2>
+            <ul>
               {ELSEWHERE_LINKS.map((link) => (
                 <li key={link.label}>
                   <FooterLink link={link} />
@@ -125,10 +119,11 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-between gap-3 border-t border-background/15 pt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-background/50">
+        <div className="foot-base">
           <span>© {buildYear} THE VIBE COMPANY</span>
           <span>YC W24 · {t("madeInFrance")}</span>
-          <span>{t("builtWithAi")} · {t("openToProjects")}</span>
+          <span>{t("builtWithAi")}</span>
+          <span>{t("openToProjects")}</span>
         </div>
       </div>
     </footer>

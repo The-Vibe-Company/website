@@ -3,11 +3,11 @@
     "portfolio": "Portfolio",
     "caseStudies": "Case studies",
     "resources": "Resources",
-    "getInTouch": "Contact us",
+    "getInTouch": "Book 30 minutes",
     "searchShort": "Search...",
     "searchLong": "Search resources...",
     "bookCall": "Book 30 minutes",
-    "contactBookCall": "Book a call",
+    "contactBookCall": "Book 30 minutes",
     "contactEmail": "Email us"
   },
   "accessibility": {
@@ -36,8 +36,8 @@
     "description": "An AI-native agency. Everything 10 to 20× faster with AI: products, ops, training. Our agency runs on AI too."
   },
   "hero": {
-    "titleLine1": "We build your product,",
-    "titleLine2": "10 to 20× faster.",
+    "titleLine1": "AI-First Agency",
+    "titleLine2": "Audit, automation, secure production.",
     "subtitle": "We build your products, we run agents inside your company, we train your teams. We run on AI ourselves, so you ship faster and for far less than a traditional team.",
     "bookCall": "Book 30 minutes",
     "seeWhatWeDo": "See what we do",
@@ -56,8 +56,8 @@
       }
     },
     "poster": [
-      "We build",
-      "your product,"
+      "AI-First",
+      "Agency."
     ],
     "response": "Reply within 24h"
   },
@@ -85,7 +85,7 @@
     "trustedBy": "We work for them"
   },
   "caseStudy": {
-    "kicker": "// CLIENT WORK",
+    "kicker": "Case studies",
     "titleLine1": "Built for clients,",
     "titleLine2": "live in production.",
     "readCase": "Read the case",
@@ -102,7 +102,7 @@
     "author": "Étienne, CEO of Monka"
   },
   "services": {
-    "kicker": "// WHAT WE DO",
+    "kicker": "WHAT WE DO",
     "titleLine1": "Three ways",
     "titleLine2": "to work together.",
     "items": {
@@ -145,7 +145,7 @@
     "indexCount": "3 ways"
   },
   "process": {
-    "kicker": "// 02 — HOW WE WORK",
+    "kicker": "02 — HOW WE WORK",
     "titleLine1": "From brief",
     "titleLine2": "to production.",
     "steps": {
@@ -172,7 +172,7 @@
     }
   },
   "proof": {
-    "kicker": "// OUR OWN PRODUCTS",
+    "kicker": "OUR OWN PRODUCTS",
     "titleLine1": "We build our own",
     "titleLine2": "products, in the open.",
     "intro": "We don't just build for clients. The same team ships its own open-source tools on GitHub. It's how we stay sharp and push what AI can do.",
@@ -184,7 +184,7 @@
     "indexTag": "Open source"
   },
   "finalCta": {
-    "kicker": "NOW BOARDING",
+    "kicker": "Book a call",
     "titleLine1": "Got a problem",
     "titleLine2": "to solve?",
     "bookCall": "Book 30 minutes",
@@ -211,16 +211,16 @@
     "about": "About"
   },
   "caseStudiesPage": {
-    "kicker": "// CLIENT WORK",
+    "kicker": "Case studies",
     "titleLine1": "Built for clients,",
     "titleLine2": "live in production.",
     "metaDescription": "Real AI products and automations we built and run for companies, fast, because we run on AI ourselves.",
     "readCase": "Read the case",
     "back": "Case studies",
     "backHome": "Home",
-    "whatWeDid": "// What we did",
-    "projectLabel": "// Project {n}",
-    "theProduct": "// The product",
+    "whatWeDid": "What we did",
+    "projectLabel": "Project {n}",
+    "theProduct": "The product",
     "visit": "Visit",
     "visitClient": "Visit {name}",
     "keepReading": "Keep Reading",
@@ -272,6 +272,7 @@
     "copy": "Copy",
     "copied": "Copied",
     "copiedStatus": "Copied: {label}",
+    "copyFailed": "Copy failed",
     "skillPrompt": "Skill prompt",
     "promptStats": "{lineCount} lines · {wordCount} words",
     "collapsePrompt": "Collapse full skill prompt",
@@ -286,7 +287,7 @@
     "previewPrompt": "Preview prompt"
   },
   "portfolio": {
-    "kicker": "// OUR OWN PRODUCTS",
+    "kicker": "Portfolio",
     "titleLine1": "Our own products,",
     "titleLine2": "shipped.",
     "subtitle": "A selection of products we designed and shipped, with homepage covers and ship dates.",
@@ -294,7 +295,7 @@
     "back": "Portfolio",
     "statusLabel": "Status",
     "typeLabel": "Type",
-    "theProduct": "// The product",
+    "theProduct": "The product",
     "visit": "Visit",
     "visitProject": "Visit {name}",
     "metaTitle": "Projects",
@@ -308,7 +309,7 @@
     "bodyIronic": "Ironic? Absolutely."
   },
   "about": {
-    "kicker": "// ABOUT",
+    "kicker": "ABOUT",
     "metaTitle": "About The Vibe Company: AI Agency in Paris (YC W24)",
     "metaDescription": "The Vibe Company is an AI agency in Paris founded in 2024 by Stan Girard and Antoine Dewez (YC W24). AI products, agents, HDS and security, for production.",
     "title": "About The Vibe Company",

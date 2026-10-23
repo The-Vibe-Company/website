@@ -2,121 +2,189 @@
 @source not "../../public";
 
 /* =============================================================================
-   DESIGN SYSTEM - Theme Configuration
-   
-   This file contains only essential theme tokens and utilities that cannot
-   be expressed as Tailwind classes. All component styles are defined in
-   @/lib/design-system.ts for consistency.
+   PORCELAINE: the one kit every page takes
+
+   Matter: glossy white clay pieces on a pale grey studio backdrop, black
+   lacquer for actions and dark bands, a thin orange rim light on the far edge
+   of the main pieces (a line, never a glow), grey "unglazed clay" for the
+   second line of titles, mono uppercase kickers, fields and tags pressed into
+   the surface. Light only: no dark mode, no grid paper, no warm paper.
+
+   HOW PAGES USE THE KIT
+   ---------------------
+   1. Tokens (CSS variables, set on :root, [data-variant="hybrid"] and
+      .resources-theme alike, so both surfaces are one):
+        surfaces   --studio (page) --clay (piece) --clay-lo --well (pressed in)
+        ink        --ink --ink-2 --muted (secondary text) --bisque (grey titles)
+        lacquer    --lacquer --on-lacquer --on-lacquer-muted
+        rim light  --rim (#ff7a1f, fills and lines) --rim-hot --rim-text (orange
+                   TEXT on a light surface, AA) --danger (errors only)
+        layout     --wrap (1200px) --gut (24px phone, 48px from 768px)
+        radii      --r-sm 12  --r-md 18  --r-lg 26  --r-xl 36
+      The shadcn names still work and now point at porcelaine: bg-background
+      = studio, bg-card = clay, bg-accent = well, text-foreground = ink,
+      text-muted-foreground, border-border. Tailwind colour utilities exist for
+      the kit: bg-clay bg-well bg-lacquer text-ink text-ink-2 text-bisque
+      text-on-lacquer text-on-lacquer-muted bg-rim text-rim-text; radius
+      utilities: rounded-pebble (12) rounded-piece (18) rounded-plate (26)
+      rounded-slab (36). Orange text on light: text-rim-text or text-orange-600
+      (both AA). text-orange-500 is the bright rim colour: only on lacquer, or
+      as a fill (bg-orange-500 / bg-rim).
+   2. One container: <div class="wrap"> is the page edge. The header, the
+      footer and the closing call use it, so a page's content starts where the
+      header's pill starts (x=48 at 1280, x=24 at 390). Use it for every
+      section; never re-declare max-w / px-6 md:px-12 on a section.
+   3. One main piece, then quieter ones. Each page gives ONE piece the full
+      treatment (class "clay rim rim-warm", radius --r-xl): the hero slab, the
+      cover, the featured case. Everything else is "clay-quiet" (hairline, no
+      ambient shadow) or, for repeated items, no card at all: a "rows" list
+      separated by "groove". Never a grid of identical shadowed cards, and
+      never a piece inside a piece. "lacquer" is for actions, number badges and
+      the one dark band a page may have. "well" is for fields, tags, tabs.
+   4. Components (classes, @layer components below; Tailwind utilities still
+      override them):
+        buttons    btn (+ btn-sm | btn-lg) with btn-lacquer (primary, black
+                   with a rim line), btn-clay (secondary), btn-quiet (text).
+                   link-rim (> span.t) is the mono "READ MORE" link with an
+                   orange underline. round / round-sm are icon buttons.
+        kickers    kicker (> svg.pointe + span): 12px mono uppercase.
+        titles     display + a size: d-xl (hero) d-lg (page h1, closing call)
+                   d-md (section h2) d-sm d-xs; put the second line in
+                   span.bisque. lede = intro paragraph (54ch), measure = 56ch column:
+                   Bricolage runs about 1.4 characters per ch, so these hold
+                   a line under 90 characters.
+        pieces     clay, clay-quiet, lacquer, well, rim, rim-warm, groove,
+                   lift (hover rise for a piece that is a link), glaze (a
+                   picture or a product mock set into a piece: white glaze,
+                   hairline ring, clipped corners).
+        small      chip (pressed tag) chip-dark (lacquer tag), num (lacquer
+                   number badge), ticks (list with the black V bullet), dot,
+                   dot-rim, facts (dl), seg (segmented tabs/filters, the active
+                   item gets aria-current / aria-pressed / class on), tr is
+                   TranslationSwitch's own control (variant "card" is the compact
+                   flag + code for a list card).
+        fields     field (input or label wrapping an input, pressed in),
+                   field-area (textarea), field-hint, field-error.
+        lists      entries > entry (> thumb + entry-body, with meta) for rows
+                   with a glazed cover; rows (grooved list, no cards).
+        states     state (empty / error panel, data-tone="error"), skeleton
+                   (loading block), btn[aria-busy=true] (loading button).
+        sections   section (top rhythm 80px phone, 120px desktop), section-tight.
+      React helpers live in src/components/kit (Kicker, SectionTitle, Piece,
+      ButtonLink, LinkRim, Chip, Pointe, Arrow, Groove, Bead = VeeBee's
+      clay head for the corner of a main piece: it turns toward the pointer,
+      sways on its own on touch, blinks, and holds still under reduced
+      motion). The shared chrome (TopNav,
+      Footer, FinalCTA = the closing call, BackLink, LanguageSwitcher,
+      TranslationSwitch) already wears the kit: use them, do not rebuild them.
+      The header is the same on every page, search button included (it opens
+      the search panel, or goes to the page's own search field when the page
+      shows one); the resources layout ends with the Footer like any page.
+      The closing call is a clay slab with the rim light but no warm bounce:
+      that bounce belongs to the page's one main piece.
+   5. Words. The booking action is called "Prendre 30 minutes" ("Book 30
+      minutes") everywhere: header, closing call, hero, mobile bar. Do not
+      invent another label for it. The closing call's kicker above it reads
+      "Prendre rendez-vous" ("Book a call"). Kickers carry no "//" prefix any
+      more.
+   6. Rules the checks hold: text is 12px at least (use text-xs, never an
+      arbitrary size below it); a label holds on one line (whitespace-nowrap,
+      cut with truncate or clamp-2); running text stays under 90 characters a
+      line (max-w-[54ch] to [60ch] in Bricolage; max-w-prose is too wide);
+      anything tapped is 24x24 at least (buttons here are 42px and more); every
+      clickable thing has a pointer cursor, a hover and a focus ring; content
+      never waits for a scroll-in animation it cannot see play (whileInView
+      with opacity 0 is out; use .rise, a time-based entrance, or Reveal /
+      useReveal from the kit, which hold content back only for a real visitor
+      whose element starts below the fold, never for no-JS, reduced motion or
+      an automated browser); prefers-reduced-motion is honoured globally. The header (.nav-wrap) is sticky and takes 68px in the
+      flow: never add a second sticky bar or a top padding to clear it.
    ============================================================================= */
 
 /* -----------------------------------------------------------------------------
-   Color Tokens (Light Mode)
+   Tokens. One block for the three scopes: the root, the home/portfolio/cases/
+   about surface and the resources surface are the same material.
    ----------------------------------------------------------------------------- */
-:root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --card: #f9f9f9;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --muted: #737373;
-  --muted-foreground: #525252;
-  --accent: #f5f5f5;
-  --accent-foreground: #171717;
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --radius: 0.5rem;
-}
-
-/* -----------------------------------------------------------------------------
-   Hybrid "Warm Paper" Variant — opt-in via [data-variant="hybrid"].
-   Used by the homepage to soften the brutalist white into a paper tone that
-   reads as more pro/clear without abandoning the brand's monochrome DNA.
-   This variant is light-only by design (the new home is always served light,
-   like the Resources theme), so we pin the full light palette here and let
-   it win over the dark-mode media query via specificity. Applied on the home
-   wrapper div (not body) so the variant is set server-side and avoids a flash
-   of incorrect theme before hydration.
-   ----------------------------------------------------------------------------- */
-[data-variant="hybrid"] {
-  color-scheme: light;
-  --background: #fdfbf7;
-  --foreground: #0a0a0a;
-  --card: #ffffff;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --muted: #737373;
-  --muted-foreground: #525252;
-  --accent: #f3f0ea;
-  --accent-foreground: #171717;
-  --border: #dcd7ce;
-  --input: #dcd7ce;
-}
-
-/* -----------------------------------------------------------------------------
-   Color Tokens (Dark Mode)
-   ----------------------------------------------------------------------------- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #030303;
-    --foreground: #ededed;
-    --card: #0a0a0a;
-    --card-foreground: #ededed;
-    --popover: #0a0a0a;
-    --popover-foreground: #ededed;
-    --muted: #a3a3a3;
-    --muted-foreground: #d4d4d4;
-    --accent: #262626;
-    --accent-foreground: #ededed;
-    --border: #262626;
-    --input: #262626;
-  }
-}
-
-/* -----------------------------------------------------------------------------
-   Resources Theme (scoped to .resources-theme)
-   Aligned with the homepage hybrid variant: light-only, warm-paper background,
-   same neutral text tokens. Pinned to color-scheme: light so it never flips to
-   dark on systems set to dark mode (matching the homepage behavior).
-   ----------------------------------------------------------------------------- */
+:root,
+[data-variant="hybrid"],
 .resources-theme {
   color-scheme: light;
 
-  /* Shared tokens: the TopNav and other site-wide components read these, so
-     they must match [data-variant="hybrid"] or the bar turns white (or dark on
-     a dark-mode system) on /resources only. */
-  --background: #fdfbf7;
-  --foreground: #0a0a0a;
-  --card: #ffffff;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --muted: #737373;
-  --muted-foreground: #525252;
-  --accent: #f3f0ea;
-  --accent-foreground: #171717;
-  --border: #dcd7ce;
-  --input: #dcd7ce;
+  /* Porcelaine */
+  --studio: #ebeced;
+  --clay: #fbfbfa;
+  --clay-lo: #f0f0ee;
+  --well: #e8e9e8;
+  --ink: #0b0b0c;
+  --ink-2: #2a2b2d;
+  --bisque: #7d7e7b;
+  --lacquer: #0c0c0d;
+  --on-lacquer: #f3f3f1;
+  --on-lacquer-muted: #9a9b9b;
+  --rim: #ff7a1f;
+  --rim-hot: #ffb46e;
+  --rim-text: #9c4308;
+  --danger: #b42318;
+  --line: #d3d4d3;
 
-  /* Surface tokens — match [data-variant="hybrid"] exactly */
-  --res-bg: #fdfbf7;
-  --res-bg-secondary: #f3f0ea;
-  --res-surface: #ffffff;
-  --res-border: #dcd7ce;
-  --res-text: #0a0a0a;
-  --res-text-muted: #525252;
+  /* Semantic names (shadcn style) the pages already use */
+  --background: var(--studio);
+  --foreground: var(--ink);
+  --card: var(--clay);
+  --card-foreground: var(--ink);
+  --popover: var(--clay);
+  --popover-foreground: var(--ink);
+  --muted: #5b5d60;
+  --muted-foreground: #5b5d60;
+  --accent: var(--well);
+  --accent-foreground: var(--ink);
+  --border: var(--line);
+  --input: var(--well);
 
-  /* Domain accent colors — kept for content categorization */
+  /* Resources surface: same values, the names its components read */
+  --res-bg: var(--studio);
+  --res-bg-secondary: var(--well);
+  --res-surface: var(--clay);
+  --res-border: var(--line);
+  --res-text: var(--ink);
+  --res-text-muted: #5b5d60;
+}
+
+:root {
+  --wrap: 1200px;
+  --gut: 24px;
+  --font-ui: var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-code: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --radius: 0.75rem;
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 26px;
+  --r-xl: 36px;
+
+  /* Domain accents: kept for content categorization on resource cards */
   --domain-dev: #2563eb;
   --domain-design: #db2777;
   --domain-ops: #059669;
   --domain-business: #d97706;
   --domain-ai: #7c3aed;
   --domain-marketing: #e11d48;
+}
 
-  /* Cross-platform emoji stack for language flags */
-  --font-flag: 'Apple Color Emoji', 'Twemoji Mozilla', 'Noto Color Emoji', 'Segoe UI Emoji', sans-serif;
+@media (min-width: 768px) {
+  :root {
+    --gut: 48px;
+  }
+}
+
+/* The studio backdrop: a seamless pale grey with a soft light from the top.
+   Page wrappers paint it themselves (they set bg-background), so it is
+   declared on them too, unlayered so it wins over that utility. */
+[data-variant="hybrid"],
+.resources-theme {
+  background:
+    radial-gradient(1400px 700px at 50% -200px, #f6f6f5 0%, rgba(246, 246, 245, 0) 70%),
+    var(--studio);
+  color: var(--ink);
 }
 
 /* -----------------------------------------------------------------------------
@@ -137,13 +205,36 @@
   --color-border: var(--border);
   --color-input: var(--input);
 
+  /* Porcelaine palette as utilities: bg-clay, text-ink, text-bisque... */
+  --color-studio: var(--studio);
+  --color-clay: var(--clay);
+  --color-clay-lo: var(--clay-lo);
+  --color-well: var(--well);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-bisque: var(--bisque);
+  --color-lacquer: var(--lacquer);
+  --color-on-lacquer: var(--on-lacquer);
+  --color-on-lacquer-muted: var(--on-lacquer-muted);
+  --color-rim: var(--rim);
+  --color-rim-hot: var(--rim-hot);
+  --color-rim-text: var(--rim-text);
+  --color-danger: var(--danger);
+
+  /* The orange scale, tuned to the rim light: 400 and 500 are light on dark
+     and fills; 600 and 700 are AA as text on porcelaine. */
+  --color-orange-400: #ffb46e;
+  --color-orange-500: #ff7a1f;
+  --color-orange-600: #9c4308;
+  --color-orange-700: #7d3506;
+
   /* Resources theme tokens */
-  --color-res-bg: var(--res-bg, #faf9f7);
-  --color-res-bg-secondary: var(--res-bg-secondary, #f5f3ef);
-  --color-res-surface: var(--res-surface, #ffffff);
-  --color-res-border: var(--res-border, #e8e5e0);
-  --color-res-text: var(--res-text, #1a1a1a);
-  --color-res-text-muted: var(--res-text-muted, #6b6560);
+  --color-res-bg: var(--res-bg, #ebeced);
+  --color-res-bg-secondary: var(--res-bg-secondary, #e8e9e8);
+  --color-res-surface: var(--res-surface, #fbfbfa);
+  --color-res-border: var(--res-border, #d3d4d3);
+  --color-res-text: var(--res-text, #0b0b0c);
+  --color-res-text-muted: var(--res-text-muted, #5b5d60);
 
   /* Domain accent colors */
   --color-domain-dev: var(--domain-dev, #4f46e5);
@@ -153,14 +244,18 @@
   --color-domain-ai: var(--domain-ai, #059669);
   --color-domain-marketing: var(--domain-marketing, #e11d48);
 
-  /* Typography */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Typography: Bricolage Grotesque for the page, Geist Mono for metadata */
+  --font-sans: var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Border radius */
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+  --radius-pebble: 12px;
+  --radius-piece: 18px;
+  --radius-plate: 26px;
+  --radius-slab: 36px;
 
   /* Animation durations */
   --animate-marquee: marquee 20s linear infinite;
@@ -226,26 +321,53 @@
   50% { opacity: 1; }
 }
 
+/* Kit: a time-based entrance (never tied to scroll, so a full-page capture
+   or a fast scroll always finds the content) and the loading sheen. */
+@keyframes kit-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shelf-slide {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes kit-sheen {
+  to { transform: translateX(100%); }
+}
+
+@keyframes kit-spin {
+  to { transform: rotate(360deg); }
+}
+
 /* -----------------------------------------------------------------------------
    Base Styles
-   Minimal global styles using Tailwind's @layer system
    ----------------------------------------------------------------------------- */
 @layer base {
   * {
     @apply box-border;
   }
 
+  /* No smooth scrolling: the sticky header must sit at the top the moment a page
+     is at scrollTop 0 (a smooth scroll back to the top leaves it mid-page in
+     a full-page capture), and in-page jumps land at once. */
   html {
-    @apply scroll-smooth h-full;
+    @apply h-full;
+    /* In-page jumps (#contact, #main-content) stop below the sticky header. */
+    scroll-padding-top: 6.5rem;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased leading-normal min-h-full overflow-x-hidden;
+    @apply bg-background text-foreground font-sans antialiased min-h-full overflow-x-hidden;
+    line-height: 1.55;
+    font-optical-sizing: auto;
   }
 
   /* Selection style */
   ::selection {
-    @apply bg-foreground text-background;
+    background: var(--ink);
+    color: var(--clay);
   }
 }
 
@@ -254,49 +376,1635 @@
    Only on keyboard focus (:focus-visible), never on mouse clicks. The audio
    waveform keeps its own custom focus style. */
 :focus-visible:not(.prose-vibe-audio__wave) {
-  outline: 2px solid var(--foreground);
-  outline-offset: 2px;
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
 }
 
-/* Ink surfaces flip the ring to paper. The ring above is drawn in the page's
-   foreground, which on an inverted panel is the panel's own background — the
-   focus ring would be there and invisible. */
+/* Lacquer and ink surfaces flip the ring to porcelaine: a ring drawn in ink
+   on a black band would be there and invisible. */
+.lacquer :focus-visible:not(.prose-vibe-audio__wave),
+.btn-lacquer :focus-visible,
 [data-surface="inverse"] :focus-visible:not(.prose-vibe-audio__wave) {
-  outline-color: var(--background);
+  outline-color: var(--on-lacquer);
 }
 
-/* Menu items (header contact menu) invert to ink when focused; the ring sits
-   inside them in paper so it stays visible and never spills past the panel. */
-[role="menuitem"]:focus-visible {
-  outline-color: var(--background);
-  outline-offset: -4px;
+/* The segmented rail scrolls, so it clips anything drawn outside a button:
+   the keyboard ring is drawn inside instead. */
+.seg > :focus-visible {
+  outline-offset: -3px;
 }
 
-/* Phone homepage: the booking bar is fixed over the bottom of the screen, so
-   keyboard focus and in-page jumps stop clear of it instead of landing a
-   focused link right underneath it. */
+/* A field draws its own ring on the pressed-in shell, not on the bare input. */
+.field input:focus-visible,
+.field textarea:focus-visible,
+.field select:focus-visible {
+  outline: none;
+}
+
+/* Every clickable thing turns the cursor into a pointer. Unlayered so a stray
+   utility on a button cannot take it away; disabled controls say so. */
+a[href],
+button,
+summary,
+select,
+label[for],
+[role="button"],
+[role="tab"],
+[role="link"],
+[role="menuitem"],
+[role="switch"],
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+input[type="submit"],
+input[type="button"] {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"],
+input:disabled {
+  cursor: not-allowed;
+}
+
+/* Phone homepage (the page that renders the hero, #hero): the booking bar is
+   fixed over the bottom of the screen, so keyboard focus and in-page jumps stop
+   clear of it instead of landing a focused link right underneath it. */
 @media (max-width: 767px) {
-  html:has(#hero-mobile) {
+  html:has(#hero) {
     scroll-padding-bottom: 88px;
   }
 }
 
 /* -----------------------------------------------------------------------------
+   Kit components
+   ----------------------------------------------------------------------------- */
+@layer components {
+
+  /* ---- Layout ---- */
+
+  .wrap {
+    width: 100%;
+    max-width: calc(var(--wrap) + 2 * var(--gut));
+    margin-inline: auto;
+    padding-inline: var(--gut);
+  }
+
+  .section {
+    padding-top: 80px;
+  }
+
+  .section-tight {
+    padding-top: 56px;
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      padding-top: 120px;
+    }
+
+    .section-tight {
+      padding-top: 80px;
+    }
+  }
+
+  /* ---- Materials ---- */
+
+  /* Glazed white clay: soft studio light from the top left, ambient shadow
+     below. The one main piece of a page. */
+  .clay,
+  .btn-clay {
+    background: radial-gradient(130% 110% at 12% -12%, #ffffff 0%, var(--clay) 34%, #ececea 100%);
+    color: var(--ink);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      inset 0 -2px 3px rgba(20, 20, 22, 0.035),
+      0 1px 1px rgba(20, 20, 22, 0.05),
+      0 3px 6px -2px rgba(20, 20, 22, 0.05),
+      0 26px 44px -30px rgba(20, 20, 22, 0.32);
+  }
+
+  /* The quieter piece: flat clay held by a hairline, no ambient shadow. For
+     everything that is not the page's main piece. */
+  .clay-quiet {
+    background: var(--clay);
+    color: var(--ink);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 0 0 1px rgba(20, 20, 22, 0.07),
+      0 1px 1px rgba(20, 20, 22, 0.04);
+  }
+
+  /* Black lacquer: a soft reflection on top, deep black below. */
+  .lacquer,
+  .btn-lacquer {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.035) 30%, rgba(255, 255, 255, 0) 58%),
+      radial-gradient(90% 70% at 88% 130%, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 60%),
+      var(--lacquer);
+    color: var(--on-lacquer);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.24),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+      0 2px 4px rgba(0, 0, 0, 0.16),
+      0 22px 40px -24px rgba(0, 0, 0, 0.55);
+  }
+
+  /* Pressed into the clay: fields, tags, tab rails. */
+  .well,
+  .chip,
+  .seg,
+  .field,
+  .tr {
+    background: linear-gradient(180deg, #e4e5e4 0%, #eeefee 100%);
+    box-shadow:
+      inset 0 1.5px 3px rgba(20, 20, 22, 0.13),
+      inset 0 0 0 1px rgba(20, 20, 22, 0.045),
+      0 1px 0 rgba(255, 255, 255, 0.95);
+  }
+
+  /* The orange rim light: a thin line of light caught on the far edge of a
+     volume. Put it on the main piece, the primary button, the active tab. */
+  .rim,
+  .btn-lacquer,
+  .seg > .on,
+  .seg > [aria-current="page"],
+  .seg > [aria-current="true"],
+  .seg > [aria-pressed="true"],
+  .seg > [aria-selected="true"] {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .rim::after,
+  .btn-lacquer::after,
+  .seg > .on::after,
+  .seg > [aria-current="page"]::after,
+  .seg > [aria-current="true"]::after,
+  .seg > [aria-pressed="true"]::after,
+  .seg > [aria-selected="true"]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(
+      var(--rim-angle, 128deg),
+      rgba(255, 122, 31, 0) 56%,
+      rgba(255, 122, 31, 0.85) 82%,
+      var(--rim-hot) 100%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* The warm bounce of the rim on the clay it leans on. Main piece only. */
+  .rim-warm {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 1px 1px rgba(20, 20, 22, 0.05),
+      0 26px 44px -30px rgba(20, 20, 22, 0.32),
+      14px 18px 34px -26px rgba(255, 122, 31, 0.45);
+  }
+
+  /* An engraved line in the clay. */
+  .groove {
+    display: block;
+    height: 2px;
+    border: 0;
+    margin: 0;
+    background: linear-gradient(180deg, rgba(11, 11, 12, 0.1) 0 1px, rgba(255, 255, 255, 0.95) 1px 2px);
+  }
+
+  /* A glazed insert: a picture or a product drawn in code (a screenshot, the
+     Quivr feed mock) set into a clay piece. White glaze under it, a hairline
+     ring over it, the corners clipped. Radius 16 on a phone, 24 from 768px:
+     sized for a quiet piece with 8px (phone) or 12px of padding around it; give
+     it another radius with a utility (rounded-[14px]) where the frame differs.
+     The rules that adapt a mock to the site are right after the layer. */
+  .glaze {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #fff;
+  }
+
+  .glaze::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow:
+      inset 0 0 0 1px rgba(11, 11, 12, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  @media (min-width: 768px) {
+    .glaze {
+      border-radius: 24px;
+    }
+  }
+
+  /* A piece that is a link rises a little under the pointer. */
+  .lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .lift:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 1px 1px rgba(20, 20, 22, 0.06),
+      0 4px 8px -2px rgba(20, 20, 22, 0.08),
+      0 30px 48px -30px rgba(20, 20, 22, 0.4);
+  }
+
+  /* ---- Type ---- */
+
+  .display {
+    font-family: var(--font-ui);
+    font-weight: 680;
+    font-stretch: 92%;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    font-variation-settings: "opsz" 96;
+    text-wrap: balance;
+  }
+
+  /* Sizes: phone to desktop in one clamp, matching the porcelaine boards
+     (136 / 112 / 84 / 64 / 32 at 1280). */
+  .d-xl { font-size: clamp(3.6rem, 1.2rem + 9.6vw, 8.5rem); }
+  .d-lg { font-size: clamp(3.25rem, 1rem + 7.4vw, 7rem); }
+  .d-md { font-size: clamp(2.875rem, 1rem + 5.6vw, 5.25rem); }
+  .d-sm { font-size: clamp(2.5rem, 1.4rem + 3vw, 4rem); }
+  .d-xs { font-size: clamp(1.75rem, 1.2rem + 1.4vw, 2rem); line-height: 1.02; }
+
+  .bisque {
+    color: var(--bisque);
+  }
+
+  .lede {
+    max-width: 54ch;
+    font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .measure {
+    max-width: 56ch;
+  }
+
+  .mono {
+    font-family: var(--font-code);
+  }
+
+  .kicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    font: 500 12px/1 var(--font-code);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* The span clips for the ellipsis, and a clip at line-height 1 cut the
+     accent off "À" and "É": the padding gives the accent room inside the clip,
+     the negative margin takes the room back so the kicker keeps its height. */
+  .kicker > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-block: 4px;
+    margin-block: -4px;
+  }
+
+  .pointe {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    color: var(--ink);
+  }
+
+  .lacquer .kicker,
+  [data-surface="inverse"] .kicker {
+    color: var(--on-lacquer-muted);
+  }
+
+  .lacquer .pointe,
+  [data-surface="inverse"] .pointe {
+    color: var(--on-lacquer);
+  }
+
+  /* The intro paragraph with its black lacquer bar (a drawn bar, not a border). */
+  .lede-bar {
+    position: relative;
+    max-width: 54ch;
+    padding-left: 22px;
+    font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .lede-bar::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    width: 4px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, #3a3a3c, #0b0b0c);
+  }
+
+  /* ---- Buttons ---- */
+
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 52px;
+    padding: 0 26px;
+    border-radius: 999px;
+    border: 0;
+    font: 600 16px/1 var(--font-ui);
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease, background-color 0.18s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-sm { min-height: 42px; padding: 0 18px; font-size: 14.5px; }
+  .btn-lg { min-height: 60px; padding: 0 30px; font-size: 17px; }
+  .btn-wide { width: 100%; }
+
+  .btn svg {
+    width: 18px;
+    height: 18px;
+    flex: none;
+  }
+
+  .btn:hover:not(:disabled):not([aria-disabled="true"]) {
+    transform: translateY(-1px);
+  }
+
+  .btn-lacquer:hover:not(:disabled):not([aria-disabled="true"]) {
+    filter: brightness(1.18);
+  }
+
+  .btn-clay:hover:not(:disabled):not([aria-disabled="true"]) {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 1px 1px rgba(20, 20, 22, 0.06),
+      0 4px 8px -2px rgba(20, 20, 22, 0.1),
+      0 22px 36px -24px rgba(20, 20, 22, 0.4);
+  }
+
+  .btn:active:not(:disabled):not([aria-disabled="true"]) {
+    transform: translateY(0) scale(0.985);
+  }
+
+  /* Text-only action: no material, a pressed-in wash on hover. */
+  .btn-quiet {
+    background: transparent;
+    color: var(--ink);
+    box-shadow: none;
+  }
+
+  .btn-quiet:hover:not(:disabled):not([aria-disabled="true"]) {
+    background: rgba(11, 11, 12, 0.06);
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Loading: the label stays, a small ring turns before it. */
+  .btn[aria-busy="true"] {
+    cursor: progress;
+  }
+
+  .btn[aria-busy="true"]::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    flex: none;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    animation: kit-spin 0.8s linear infinite;
+  }
+
+  /* The mono text link with the orange underline: wrap its label in span.t */
+  .link-rim {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font: 600 13px/1 var(--font-code);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .link-rim .t {
+    padding-bottom: 6px;
+    background: linear-gradient(90deg, var(--ink) 0 50%, var(--rim) 85%, var(--rim-hot)) left bottom / 100% 1.5px no-repeat;
+    transition: background-size 0.18s ease;
+  }
+
+  .link-rim:hover .t {
+    background-size: 100% 3px;
+  }
+
+  .link-rim svg {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    transition: transform 0.18s ease;
+  }
+
+  .link-rim:hover svg {
+    transform: translateX(3px);
+  }
+
+  .lacquer .link-rim,
+  [data-surface="inverse"] .link-rim {
+    color: var(--on-lacquer);
+  }
+
+  .lacquer .link-rim .t,
+  [data-surface="inverse"] .link-rim .t {
+    background-image: linear-gradient(90deg, var(--on-lacquer) 0 50%, var(--rim) 85%, var(--rim-hot));
+  }
+
+  /* Icon buttons: carousel arrows, menu, sound. Combine with clay or lacquer. */
+  .round {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex: none;
+    border: 0;
+    padding: 0;
+    color: var(--ink);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  }
+
+  .round-sm {
+    width: 44px;
+    height: 44px;
+  }
+
+  .round svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .round:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  .round:disabled {
+    opacity: 0.45;
+  }
+
+  .round.clay:hover:not(:disabled) {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 1px 1px rgba(20, 20, 22, 0.06),
+      0 4px 8px -2px rgba(20, 20, 22, 0.1),
+      0 18px 28px -20px rgba(20, 20, 22, 0.4);
+  }
+
+  .round.well:hover:not(:disabled) {
+    background: linear-gradient(180deg, #f2f3f2 0%, #fbfbfa 100%);
+  }
+
+  .round.lacquer {
+    color: var(--on-lacquer);
+  }
+
+  .round.lacquer:hover:not(:disabled) {
+    filter: brightness(1.18);
+  }
+
+  /* ---- Small pieces ---- */
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 26px;
+    max-width: 100%;
+    padding: 0 12px;
+    border-radius: 999px;
+    font: 500 12px/1 var(--font-code);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  a.chip {
+    transition: color 0.18s ease, filter 0.18s ease;
+  }
+
+  a.chip:hover {
+    color: var(--ink);
+    filter: brightness(1.04);
+  }
+
+  /* A dark tag (a day number, "Next"): lacquer, with the hot rim colour. */
+  .chip.chip-dark,
+  .chip-dark {
+    min-height: 26px;
+    padding: 0 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: var(--rim-hot);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.035) 30%, rgba(255, 255, 255, 0) 58%),
+      var(--lacquer);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 -1px 0 rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.16);
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ink);
+    flex: none;
+  }
+
+  .dot-rim {
+    background: var(--rim);
+    box-shadow: 0 0 0 3px rgba(255, 122, 31, 0.16);
+  }
+
+  /* Lacquer number badge: 01 02 03. */
+  .num {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font: 600 12px/1 var(--font-code);
+    letter-spacing: 0.04em;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.035) 30%, rgba(255, 255, 255, 0) 58%),
+      var(--lacquer);
+    color: var(--on-lacquer);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 2px 4px rgba(0, 0, 0, 0.16);
+  }
+
+  /* A list whose bullets are the mascot's black V. */
+  .ticks {
+    display: grid;
+    gap: 11px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ticks > li {
+    position: relative;
+    padding-left: 28px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+
+  .ticks > li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 6px;
+    width: 12px;
+    height: 10px;
+    background: linear-gradient(180deg, #3d3d40, #0b0b0c 60%);
+    clip-path: polygon(0 0, 26% 0, 50% 64%, 74% 0, 100% 0, 50% 100%);
+  }
+
+  /* Label / value pairs (response time, e-mail). */
+  .facts {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+    align-items: baseline;
+    margin: 0;
+  }
+
+  .facts dd + dt {
+    margin-top: 14px;
+  }
+
+  /* Label and value side by side once there is room for an e-mail address. */
+  @media (min-width: 560px) {
+    .facts {
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px 20px;
+    }
+
+    .facts dd + dt {
+      margin-top: 0;
+    }
+  }
+
+  .facts dt {
+    font: 500 12px/1 var(--font-code);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .facts dd {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .facts dd a {
+    display: inline-block;
+    padding: 12px 0;
+    margin: -12px 0;
+    font-family: var(--font-code);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--rim);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 5px;
+    overflow-wrap: anywhere;
+  }
+
+  .facts dd a:hover {
+    text-decoration-thickness: 3px;
+  }
+
+  /* A segmented rail: tabs, filters, language. Items are links or buttons; the
+     current one is aria-current / aria-pressed / aria-selected / .on. */
+  .seg {
+    display: inline-flex;
+    max-width: 100%;
+    padding: 4px;
+    gap: 2px;
+    border-radius: 999px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .seg::-webkit-scrollbar {
+    display: none;
+  }
+
+  .seg > * {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 0;
+    background: transparent;
+    font: 600 12px/1 var(--font-code);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    flex: none;
+    transition: color 0.18s ease, background-color 0.18s ease;
+  }
+
+  .seg > *:hover {
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .seg > .on,
+  .seg > [aria-current="page"],
+  .seg > [aria-current="true"],
+  .seg > [aria-pressed="true"],
+  .seg > [aria-selected="true"] {
+    --rim-angle: 110deg;
+    color: var(--on-lacquer);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.035) 30%, rgba(255, 255, 255, 0) 58%),
+      var(--lacquer);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 2px 4px rgba(0, 0, 0, 0.16);
+  }
+
+  /* ---- Fields (pressed in) ---- */
+
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 52px;
+    width: 100%;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 999px;
+    font: 400 16px/1.25 var(--font-ui);
+    color: var(--ink);
+  }
+
+  .field > svg {
+    width: 18px;
+    height: 18px;
+    flex: none;
+    color: var(--muted);
+  }
+
+  .field input,
+  .field textarea,
+  .field select {
+    flex: 1;
+    /* width 0 so the input's intrinsic 20 characters never hold the field open */
+    width: 0;
+    min-width: 0;
+    height: 100%;
+    min-height: 44px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder,
+  .field::placeholder {
+    color: var(--muted);
+    opacity: 1;
+  }
+
+  /* The browser's own clear button on a search field is a blue cross: draw it
+     in the field's muted ink instead, same size, still a button. */
+  .field input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    margin: 0 0 0 8px;
+    cursor: pointer;
+    background: var(--muted);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  .field input[type="search"]::-webkit-search-cancel-button:hover {
+    background: var(--ink);
+  }
+
+  .field:focus-within {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  .field:has([aria-invalid="true"]),
+  .field[aria-invalid="true"] {
+    outline: 2px solid var(--danger);
+    outline-offset: 2px;
+  }
+
+  .field:has(:disabled),
+  .field:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  /* Compact: inside the header pill. */
+  .field-sm {
+    min-height: 40px;
+    padding: 0 16px;
+    font-size: 15px;
+  }
+
+  .field-sm input {
+    min-height: 36px;
+  }
+
+  .field-area {
+    align-items: flex-start;
+    min-height: 140px;
+    padding: 16px 20px;
+    border-radius: var(--r-md);
+  }
+
+  .field-hint,
+  .field-error {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
+  .field-error {
+    color: var(--danger);
+    font-weight: 500;
+  }
+
+  /* ---- Lists ---- */
+
+  /* A list without cards: items separated by an engraved line. */
+  .rows > * + * {
+    border-top: 0;
+    position: relative;
+  }
+
+  .rows > * + *::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: linear-gradient(180deg, rgba(11, 11, 12, 0.1) 0 1px, rgba(255, 255, 255, 0.95) 1px 2px);
+  }
+
+  .entries {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* One row: glazed cover on the left, title, summary, meta line. */
+  .entry {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 14px;
+    align-items: stretch;
+    padding: 10px 14px 10px 10px;
+    border-radius: 20px;
+    min-height: 0;
+  }
+
+  @media (min-width: 768px) {
+    .entry {
+      grid-template-columns: 128px minmax(0, 1fr);
+      gap: 18px;
+      padding: 12px 18px 12px 12px;
+      min-height: 124px;
+    }
+  }
+
+  .thumb {
+    position: relative;
+    height: 92px;
+    border-radius: 14px;
+    overflow: hidden;
+    align-self: start;
+    --rim-angle: 135deg;
+  }
+
+  @media (min-width: 768px) {
+    .thumb {
+      height: 100px;
+    }
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .thumb::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+    z-index: 1;
+  }
+
+  .entry-body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding-top: 2px;
+  }
+
+  .entry h3,
+  .clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .entry h3 {
+    font-size: 16.5px;
+    font-weight: 650;
+    line-height: 1.28;
+    letter-spacing: -0.012em;
+  }
+
+  /* Two lines are kept for the title and two for the summary, short or long,
+     and the meta line keeps one chip's height: every card of a list, in both
+     columns, is the same height. */
+  @media (min-width: 768px) {
+    .entry h3 {
+      min-height: calc(2 * 1.28em);
+    }
+
+    .entry p {
+      min-height: calc(2 * 1.45em);
+    }
+
+    .entry .meta {
+      min-height: 36px;
+    }
+  }
+
+  .entry p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  a.entry:hover h3 {
+    text-decoration: underline;
+    text-decoration-color: var(--rim);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 10px;
+    font: 500 12px/1 var(--font-code);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .flag {
+    width: 18px;
+    height: 12px;
+    border-radius: 2.5px;
+    flex: none;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ---- States: empty, error, loading ---- */
+
+  .state {
+    display: grid;
+    justify-items: start;
+    gap: 12px;
+    padding: 28px 28px 30px;
+    border-radius: var(--r-md);
+    background: linear-gradient(180deg, #e4e5e4 0%, #eeefee 100%);
+    box-shadow:
+      inset 0 1.5px 3px rgba(20, 20, 22, 0.1),
+      inset 0 0 0 1px rgba(20, 20, 22, 0.045),
+      0 1px 0 rgba(255, 255, 255, 0.95);
+    color: var(--ink);
+  }
+
+  .state-title {
+    font: 650 22px/1.2 var(--font-ui);
+    letter-spacing: -0.02em;
+  }
+
+  .state-body {
+    max-width: 48ch;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .state[data-tone="error"] .kicker {
+    color: var(--danger);
+  }
+
+  .state[data-tone="error"] .pointe {
+    color: var(--danger);
+  }
+
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    min-height: 14px;
+    border-radius: var(--r-sm);
+    background: var(--well);
+  }
+
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+    transform: translateX(-100%);
+    animation: kit-sheen 1.4s ease-in-out infinite;
+  }
+
+  /* Time-based entrance. The element is visible whatever happens to the
+     animation (fill-mode backwards only holds it before it starts). */
+  .rise {
+    animation: kit-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+
+  /* Scroll entrance, set by Reveal / useReveal (src/components/kit/Reveal).
+     Only "pending" hides, and only the script sets it, for a real visitor
+     whose element starts below the fold: the server HTML, reduced motion and
+     automated browsers always show everything. */
+  [data-reveal] {
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal="pending"] {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0);
+  }
+
+  [data-reveal="pending"][data-from="left"] {
+    transform: translate3d(-44px, 0, 0);
+  }
+
+  [data-reveal="pending"][data-from="right"] {
+    transform: translate3d(44px, 0, 0);
+  }
+
+  [data-reveal="pending"][data-from="scale"] {
+    transform: translate3d(0, 18px, 0) scale(0.965);
+  }
+
+  @media print {
+    [data-reveal="pending"],
+    [data-reveal="pending"][data-from] {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Logo shelf: one track holding the logos twice, sliding left by half its
+     width so the second half lands where the first began. Paused under the
+     pointer, faded at both ends. Under reduced motion, and while a logo has
+     the keyboard focus (never a mouse click, which must land where it aimed), it stops and shows the seven logos once, wrapped and
+     centred, so every one of them is in view. */
+  .shelf {
+    padding-left: 3.5rem;
+    mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  }
+
+  .shelf-track {
+    display: flex;
+    width: max-content;
+    animation: shelf-slide var(--shelf-duration, 42s) linear infinite;
+  }
+
+  .shelf-set {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 3.5rem;
+    padding-right: 3.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .shelf {
+      padding-left: 5rem;
+    }
+
+    .shelf-set {
+      gap: 5rem;
+      padding-right: 5rem;
+    }
+  }
+
+  .shelf:hover .shelf-track {
+    animation-play-state: paused;
+  }
+
+  .shelf:has(:focus-visible) {
+    padding-inline: 1rem;
+    mask-image: none;
+  }
+
+  .shelf:has(:focus-visible) .shelf-track {
+    width: auto;
+    animation: none;
+  }
+
+  .shelf:has(:focus-visible) .shelf-set {
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 2.5rem;
+    padding-right: 0;
+  }
+
+  .shelf:has(:focus-visible) .shelf-copy {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shelf {
+      padding-inline: 1rem;
+      mask-image: none;
+    }
+
+    .shelf-track {
+      width: auto;
+      animation: none;
+    }
+
+    .shelf-set {
+      flex: 1;
+      flex-wrap: wrap;
+      justify-content: center;
+      column-gap: 2.5rem;
+      padding-right: 0;
+    }
+
+    .shelf-copy {
+      display: none;
+    }
+  }
+
+  /* ---- Chrome: header ---- */
+
+  .nav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    padding-top: 12px;
+    pointer-events: none;
+  }
+
+  /* When content scrolls under the pill it blurs out behind the top strip. */
+  .nav-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 -14px 0;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    -webkit-mask-image: linear-gradient(#000 62%, transparent);
+    mask-image: linear-gradient(#000 62%, transparent);
+    pointer-events: none;
+  }
+
+  .nav-wrap > .wrap {
+    position: relative;
+  }
+
+  .nav {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+    padding: 0 8px 0 16px;
+    border-radius: 999px;
+  }
+
+  @media (min-width: 1024px) {
+    .nav {
+      gap: 20px;
+      min-height: 64px;
+      padding: 0 10px 0 22px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .nav {
+      gap: 28px;
+    }
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font: 600 13px/1 var(--font-code);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .brand img {
+    width: 26px;
+    height: 25px;
+    flex: none;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font: 500 15px/1 var(--font-ui);
+    color: var(--ink-2);
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background-color 0.18s ease, color 0.18s ease;
+  }
+
+  .nav-link:hover {
+    background: rgba(11, 11, 12, 0.06);
+    color: var(--ink);
+  }
+
+  .nav-link[aria-current="page"] {
+    color: var(--ink);
+    background: linear-gradient(180deg, #e6e7e6, #f0f0ef);
+    box-shadow: inset 0 1.5px 3px rgba(20, 20, 22, 0.12), 0 1px 0 #fff;
+  }
+
+  /* Language: two pressed-in positions, the active one is a clay chip. */
+  .lang {
+    display: inline-flex;
+    padding: 3px;
+    border-radius: 999px;
+  }
+
+  .lang > button {
+    display: grid;
+    place-items: center;
+    min-width: 42px;
+    min-height: 38px;
+    padding: 0 6px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    font: 600 12px/1 var(--font-code);
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    transition: color 0.18s ease, background-color 0.18s ease;
+  }
+
+  .lang > button:hover:not(:disabled) {
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .lang > button[aria-pressed="true"] {
+    color: var(--ink);
+    background: radial-gradient(120% 120% at 20% 0%, #fff, #f2f2f0);
+    box-shadow: 0 1px 2px rgba(20, 20, 22, 0.14), inset 0 1px 0 #fff;
+  }
+
+  /* TranslationSwitch (article language control): same rail, with labels. */
+  .tr {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    max-width: 100%;
+    padding: 3px;
+    gap: 2px;
+    border-radius: 999px;
+  }
+
+  .tr > * {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 30px;
+    padding: 0 12px;
+    border-radius: 999px;
+    font: 600 12px/1 var(--font-code);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    text-decoration: none;
+    transition: color 0.18s ease, background-color 0.18s ease;
+  }
+
+  .tr > a {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  /* On a list card the switch shares its line with the chips: it takes their
+     26px height, so every card's meta line is the same. */
+  .tr[data-variant="card"] {
+    padding: 1px;
+  }
+
+  .tr[data-variant="card"] > * {
+    min-height: 24px;
+    gap: 6px;
+    padding: 0 9px;
+  }
+
+  /* In the article's narrow side column the two positions stack. */
+  .tr[data-variant="sidebar"] {
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 18px;
+  }
+
+  .tr[data-variant="sidebar"] > * {
+    justify-content: flex-start;
+    border-radius: 14px;
+  }
+
+  .tr > a:hover {
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .tr > [aria-current="true"] {
+    color: var(--ink);
+    background: radial-gradient(120% 120% at 20% 0%, #fff, #f2f2f0);
+    box-shadow: 0 1px 2px rgba(20, 20, 22, 0.14), inset 0 1px 0 #fff;
+  }
+
+  /* Back link: mono, an arrow that steps back on hover. */
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font: 600 12px/1 var(--font-code);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    text-decoration: none;
+    transition: color 0.18s ease;
+  }
+
+  .back:hover {
+    color: var(--ink);
+  }
+
+  .back svg {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    transition: transform 0.18s ease;
+  }
+
+  .back:hover svg {
+    transform: translateX(-3px);
+  }
+
+  /* ---- Chrome: footer (black lacquer with the mascot's V-neck) ---- */
+
+  .footer {
+    position: relative;
+    margin-top: 56px;
+    padding: 104px 0 28px;
+    clip-path: polygon(0 0, calc(50% - 74px) 0, 50% 48px, calc(50% + 74px) 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  @media (min-width: 768px) {
+    .footer {
+      margin-top: 80px;
+      padding-top: 132px;
+      clip-path: polygon(0 0, calc(50% - 130px) 0, 50% 78px, calc(50% + 130px) 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+
+  .vneck {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 148px;
+    height: 50px;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .vneck {
+      width: 260px;
+      height: 80px;
+    }
+  }
+
+  .foot-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 20px;
+  }
+
+  .foot-brand {
+    grid-column: 1 / -1;
+  }
+
+  @media (min-width: 768px) {
+    .foot-grid {
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .foot-brand {
+      grid-column: auto;
+    }
+  }
+
+  .foot-brand strong {
+    display: block;
+    font-size: clamp(2.875rem, 2rem + 2.4vw, 4rem);
+  }
+
+  .foot-brand p {
+    margin: 14px 0 0;
+    color: var(--on-lacquer-muted);
+    font-size: 15.5px;
+  }
+
+  .foot-brand a {
+    display: inline-block;
+    margin-top: 2px;
+    padding: 15px 0;
+    font: 500 14px/1 var(--font-code);
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.5);
+    text-underline-offset: 5px;
+    overflow-wrap: anywhere;
+  }
+
+  .foot-brand a:hover {
+    text-decoration-color: var(--rim-hot);
+  }
+
+  .foot-col h2 {
+    margin: 0 0 14px;
+    font: 500 12px/1 var(--font-code);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--on-lacquer-muted);
+  }
+
+  .foot-col ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .foot-col a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 42px;
+    font-size: 15.5px;
+    color: var(--on-lacquer);
+    text-decoration: none;
+    transition: color 0.18s ease;
+  }
+
+  .foot-col a:hover {
+    color: var(--rim-hot);
+  }
+
+  .foot-col a svg {
+    width: 12px;
+    height: 12px;
+    opacity: 0.7;
+  }
+
+  .foot-base {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 48px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font: 500 12px/1.6 var(--font-code);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--on-lacquer-muted);
+  }
+
+  .foot-base span {
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px) {
+    .foot-base {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 6px 20px;
+      margin-top: 72px;
+      letter-spacing: 0.14em;
+    }
+  }
+
+  /* ---- Chrome: the closing call ---- */
+
+  .final-slab {
+    border-radius: 28px;
+    padding: 32px 20px 28px;
+    --rim-angle: 140deg;
+  }
+
+  .final-slab .display {
+    margin-top: 22px;
+  }
+
+  .final-slab .groove {
+    margin-top: 28px;
+  }
+
+  .final-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 26px;
+    margin-top: 26px;
+  }
+
+  @media (min-width: 768px) {
+    .final-slab {
+      border-radius: var(--r-xl);
+      padding: 60px 56px 52px;
+    }
+
+    .final-slab .display {
+      margin-top: 26px;
+    }
+
+    .final-slab .groove {
+      margin-top: 44px;
+    }
+
+    .final-row {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      margin-top: 36px;
+    }
+  }
+}
+
+/* Inside a glazed insert, outside the layers so they beat the utility classes
+   of the product drawn there. Quivr's mock draws the web app in its own look
+   (the OG cards are captures of it), so its file stays as it is: here its ink
+   hairline turns into the studio's line, and the few mono labels it draws at
+   9 to 11px are raised to the site's 12px floor. */
+.glaze [data-quivr-mock] {
+  border-color: var(--line);
+}
+
+.glaze [class*="text-[9px]"],
+.glaze [class*="text-[10px]"],
+.glaze [class*="text-[11px]"] {
+  font-size: 12px;
+}
+
+/* The grid-paper overlay is not part of porcelaine. The class stays so a page
+   that still carries it paints nothing. */
+.bg-grid {
+  background: none;
+  display: none;
+}
+
+/* -----------------------------------------------------------------------------
    Custom Utilities
-   Only utilities that cannot be replicated with Tailwind classes
    ----------------------------------------------------------------------------- */
 @layer utilities {
-
-  /* Grid background overlay utility */
-  .bg-grid {
-    background-size: 40px 40px;
-    background-image:
-      linear-gradient(to right, var(--border) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
-    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-    @apply fixed inset-0 -z-10 opacity-15 pointer-events-none;
-  }
 
   /* Stroke text utility for outlined text effect */
   .stroke-text {
@@ -309,8 +2017,9 @@
    Typography for Lexical-rendered content in article detail pages
    ----------------------------------------------------------------------------- */
 .prose-vibe {
+  max-width: 60ch;
   font-size: 17px;
-  line-height: 1.8;
+  line-height: 1.75;
   color: var(--foreground);
 }
 
@@ -318,29 +2027,37 @@
   margin-bottom: 1.5em;
 }
 
+.prose-vibe h1,
+.prose-vibe h2,
+.prose-vibe h3 {
+  font-stretch: 92%;
+  font-variation-settings: "opsz" 48;
+  text-wrap: balance;
+}
+
 .prose-vibe h1 {
   font-size: 2.25em;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.1;
+  font-weight: 680;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
   margin-top: 2em;
   margin-bottom: 0.75em;
 }
 
 .prose-vibe h2 {
   font-size: 1.75em;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
+  font-weight: 680;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
   margin-top: 2em;
   margin-bottom: 0.75em;
 }
 
 .prose-vibe h3 {
   font-size: 1.35em;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
   margin-top: 1.75em;
   margin-bottom: 0.5em;
 }
@@ -358,20 +2075,34 @@
 
 .prose-vibe a {
   text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: opacity 0.2s;
+  text-decoration-color: var(--rim);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  transition: text-decoration-thickness 0.15s, color 0.15s;
 }
 
 .prose-vibe a:hover {
-  opacity: 0.7;
+  text-decoration-thickness: 3px;
 }
 
+/* The quote bar is drawn (lacquer, like the intro bar), not a side border. */
 .prose-vibe blockquote {
-  border-left: 2px solid var(--foreground);
+  position: relative;
   padding-left: 1.5em;
   margin: 2em 0;
   font-style: italic;
   color: var(--muted-foreground);
+}
+
+.prose-vibe blockquote::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.3em;
+  bottom: 0.3em;
+  width: 4px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #3a3a3c, #0b0b0c);
 }
 
 .prose-vibe ul,
@@ -395,8 +2126,9 @@
 .prose-vibe-table-wrap {
   margin: 2em 0;
   overflow-x: auto;
-  border: 1px solid var(--res-border, var(--border));
-  background: var(--res-surface, transparent);
+  border-radius: var(--r-md);
+  background: var(--clay);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 0 0 1px rgba(20, 20, 22, 0.07);
 }
 
 .prose-vibe table {
@@ -416,8 +2148,8 @@
 }
 
 .prose-vibe th {
-  font-family: var(--font-geist-mono);
-  font-size: 0.72rem;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -441,33 +2173,41 @@
 }
 
 .prose-vibe code {
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-code);
   font-size: 0.85em;
   background: var(--accent);
   padding: 0.15em 0.4em;
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
+/* Code blocks are small lacquer panels. */
 .prose-vibe pre {
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-code);
   font-size: 0.85em;
-  background: var(--accent);
+  line-height: 1.6;
+  color: var(--on-lacquer);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 30%, rgba(255, 255, 255, 0) 58%),
+    var(--lacquer);
   padding: 1.25em 1.5em;
   margin: 2em 0;
   overflow-x: auto;
-  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 4px rgba(0, 0, 0, 0.12);
 }
 
 .prose-vibe pre code {
   background: none;
+  color: inherit;
   padding: 0;
   border-radius: 0;
 }
 
 .prose-vibe hr {
-  border: none;
-  border-top: 1px solid var(--border);
+  border: 0;
+  height: 2px;
   margin: 2.5em 0;
+  background: linear-gradient(180deg, rgba(11, 11, 12, 0.1) 0 1px, rgba(255, 255, 255, 0.95) 1px 2px);
 }
 
 .prose-vibe img {
@@ -482,15 +2222,17 @@
 
 .prose-vibe-image img {
   width: 100%;
-  border: 1px solid var(--res-border, var(--border));
+  border-radius: var(--r-md);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(20, 20, 22, 0.07);
   background: var(--res-surface, transparent);
   margin: 0;
 }
 
 .prose-vibe-image figcaption {
   margin-top: 0.75rem;
+  font-family: var(--font-code);
   font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--res-text-muted, var(--muted-foreground));
 }
@@ -542,8 +2284,10 @@
   padding: 0;
   border: 0;
   border-radius: 999px;
-  color: #fff;
-  background: #f26f23;
+  color: var(--rim-hot);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.035) 30%, rgba(255, 255, 255, 0) 58%),
+    var(--lacquer);
   cursor: pointer;
   transition:
     opacity 0.2s,
@@ -625,7 +2369,7 @@
   top: 0.1rem;
   bottom: 0.1rem;
   width: 1px;
-  background: color-mix(in oklab, #f26f23 88%, var(--res-text, var(--foreground)));
+  background: color-mix(in oklab, var(--rim) 88%, var(--res-text, var(--foreground)));
   opacity: 0;
   transform: translateX(-50%);
   transition: opacity 0.15s;
@@ -638,7 +2382,7 @@
 }
 
 .prose-vibe-audio__wave:focus-visible {
-  box-shadow: 0 0 0 2px color-mix(in oklab, #f26f23 42%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--rim) 42%, transparent);
 }
 
 .prose-vibe-audio__wave-bars,
@@ -657,7 +2401,7 @@
 .prose-vibe-audio__wave-progress {
   clip-path: inset(0 calc(100% - var(--audio-progress)) 0 0);
   overflow: hidden;
-  color: #f26f23;
+  color: var(--rim);
   pointer-events: none;
 }
 
@@ -683,14 +2427,14 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  font-family: var(--font-geist-mono);
-  font-size: 0.68rem;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
   line-height: 1;
   color: var(--res-text-muted, var(--muted-foreground));
 }
 
 .prose-vibe-audio__current {
-  color: #f26f23;
+  color: var(--rim-text);
 }
 
 .prose-vibe-audio__rewind {
@@ -704,7 +2448,7 @@
   padding: 0;
   border: 0;
   border-radius: 999px;
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-code);
   font-size: 0.95rem;
   line-height: 1;
   color: var(--res-text-muted, var(--muted-foreground));
@@ -804,7 +2548,7 @@
 }
 
 .prose-vibe-warm a {
-  color: var(--domain-dev);
+  color: inherit;
 }
 
 /* Reduced motion - respect user preferences */
@@ -837,5 +2581,5 @@
    scrolls it to the top of the viewport, underneath the sticky TopNav, so the
    page would land one nav-height down. The margin keeps it at the very top. */
 #main-content {
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 7rem;
 }

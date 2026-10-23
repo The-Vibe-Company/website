@@ -8,16 +8,8 @@ import { useTranslations } from "next-intl";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { ContactMenu } from "@/components/ContactMenu";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import {
-  components,
-  typography,
-  animations,
-  cn,
-  createTransition,
-} from "@/lib/design-system";
-import { BOOKING_URL, bookingLocation } from "@/lib/booking";
+import { cn, createTransition } from "@/lib/design-system";
 import { captureEvent } from "@/lib/posthog";
-import { resourcesTheme } from "@/lib/resources-theme";
 
 const navItems = [
   { key: "portfolio", href: "/portfolio" },
@@ -25,38 +17,34 @@ const navItems = [
   { key: "resources", href: "/resources" },
 ] as const;
 
-// Each page renders its own TopNav, so it remounts on every client-side
-// navigation. The slide-in only plays on the first page of a visit; after
-// that the bar stays put instead of vanishing and fading back in.
-let hasPlayedEntrance = false;
-
 function SearchIcon() {
   return (
-    <span
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       aria-hidden="true"
-      className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-res-text-muted"
     >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="11" cy="11" r="8" />
-        <path d="m21 21-4.3-4.3" />
-      </svg>
-    </span>
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
+    </svg>
   );
 }
 
-interface TopNavProps {
-  showResourcesSearch?: boolean;
-}
-
-export function TopNav(props: TopNavProps) {
+export function TopNav() {
   return (
     <Suspense fallback={null}>
-      <TopNavInner {...props} />
+      <TopNavInner />
     </Suspense>
   );
 }
 
-function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
+function TopNavInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -66,16 +54,14 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   // /case-studies/monka still lights up "Études de cas").
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
-  // /resources has its own large search box, so the bar does not repeat it.
-  const showSearch = showResourcesSearch && pathname !== "/resources";
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileMenuClosing, setMobileMenuClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState(
-    showResourcesSearch ? searchParams.get("q") || "" : ""
-  );
+  const [searchValue, setSearchValue] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const searchToggleRef = useRef<HTMLButtonElement>(null);
+  const searchPanelRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const menuDialogRef = useRef<HTMLDivElement>(null);
   const menuCloseRef = useRef<HTMLButtonElement>(null);
@@ -86,28 +72,89 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
     setMobileMenuOpen(false);
   }, []);
 
-  const handleSearch = useCallback(
-    (value: string) => {
-      setSearchValue(value);
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-      debounceRef.current = setTimeout(() => {
-        if (value.trim()) {
-          router.push(`/resources/search?q=${encodeURIComponent(value.trim())}`, {
-            scroll: false,
-          });
-        } else {
-          router.push("/resources", { scroll: false });
-        }
-      }, 400);
+  const goToSearch = useCallback(
+    (value: string, options?: { scroll: false }) => {
+      const query = value.trim();
+      if (query) {
+        router.push(`/resources/search?q=${encodeURIComponent(query)}`, options);
+      } else {
+        router.push("/resources", options);
+      }
     },
     [router]
   );
+
+  // Typing inside the resources section searches as you type; anywhere else the
+  // search waits for Enter, so a pause in the middle of a word never carries
+  // the visitor off the page they are reading.
+  const inResources = pathname === "/resources" || pathname.startsWith("/resources/");
+
+  const handleSearchChange = useCallback(
+    (value: string) => {
+      setSearchValue(value);
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      if (!inResources) return;
+      debounceRef.current = setTimeout(() => goToSearch(value, { scroll: false }), 400);
+    },
+    [goToSearch, inResources]
+  );
+
+  const handleSearchSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      if (!searchValue.trim()) return;
+      goToSearch(searchValue);
+      setSearchOpen(false);
+    },
+    [goToSearch, searchValue]
+  );
+
+  const closeSearch = useCallback((returnFocus = false) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    setSearchOpen(false);
+    if (returnFocus) searchToggleRef.current?.focus();
+  }, []);
+
+  // The one search button, the same on every page. A page that shows its own
+  // search field (the resources home) is not given a second one: the button
+  // takes the visitor to it. Anywhere else it opens the search panel.
+  const toggleSearch = useCallback(() => {
+    if (searchOpen) {
+      closeSearch();
+      return;
+    }
+    const own = document.querySelector<HTMLInputElement>(
+      '#main-content input[type="search"]'
+    );
+    if (own) {
+      own.scrollIntoView({ block: "center" });
+      own.focus({ preventScroll: true });
+      return;
+    }
+    setSearchValue(pathname === "/resources/search" ? searchParams.get("q") || "" : "");
+    setSearchOpen(true);
+  }, [closeSearch, pathname, searchOpen, searchParams]);
 
   useEffect(() => {
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    if (!searchOpen) return;
+    searchInputRef.current?.focus();
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (searchPanelRef.current?.contains(target)) return;
+      if (searchToggleRef.current?.contains(target)) return;
+      setSearchOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [searchOpen]);
 
   useEffect(() => {
     if (!mobileMenuActive) return;
@@ -195,310 +242,245 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
             main.scrollIntoView();
           }
         }}
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[100] focus:rounded-full focus:border focus:border-foreground focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-lg"
+        className="btn btn-lacquer btn-sm sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[100] focus:h-[42px] focus:whitespace-nowrap focus:px-[18px]"
       >
         {tA11y("skipToContent")}
       </a>
-      <motion.nav
-        aria-label={tA11y("mainNavigation")}
+
+      {/* The header: one clay pill on the page's own edge (the same .wrap as the
+          content), sticky so it stays when the page scrolls. */}
+      <header
+        className="nav-wrap"
         aria-hidden={mobileMenuActive || undefined}
         inert={mobileMenuActive || undefined}
-        className="sticky top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 lg:px-24 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50"
-        initial={hasPlayedEntrance ? false : { opacity: 0, y: -20 }}
-        onAnimationComplete={() => {
-          hasPlayedEntrance = true;
-        }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={createTransition(0.6, 0.3)}
       >
-        {/* Wordmark */}
-        <Link
-          href="/"
-          className={cn(
-            typography.label.mono,
-            "inline-flex shrink-0 items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
-          )}
-        >
-          <Image
-            src="/favicon.svg"
-            alt="The Vibe Co. logo"
-            width={20}
-            height={20}
-            className="h-5 w-5"
-          />
-          <span>THE VIBE CO.</span>
-        </Link>
+        <div className="wrap">
+          <nav aria-label={tA11y("mainNavigation")} className="nav clay rim rounded-full">
+            {/* Wordmark */}
+            <Link href="/" className="brand">
+              <Image
+                src="/favicon.svg"
+                alt=""
+                width={26}
+                height={25}
+                priority
+              />
+              <span>THE VIBE CO.</span>
+            </Link>
 
-        {/* Inline search. Kept in the flex flow (never absolutely centered) so
-            it can never slide under the nav links, and only shown from xl up:
-            below that the wordmark and the nav already fill the bar. */}
-        {showSearch && (
-          <div className="relative hidden xl:block flex-1 min-w-0 max-w-sm mx-8">
-            <SearchIcon />
-            <input
-              type="search"
-              placeholder={t("searchShort")}
-              value={searchValue}
-              onChange={(e) => handleSearch(e.target.value)}
-              aria-label={tA11y("searchResources")}
-              // Fixed height so the bar keeps the same height as on pages
-              // without a search field.
-              className={cn(resourcesTheme.search.input, "h-9 py-0 pl-9")}
-            />
-          </div>
-        )}
-
-        {/* Right cluster: search toggle (below xl) + nav + hamburger */}
-        <div className="flex shrink-0 items-center gap-1 lg:gap-2">
-          {/* Search toggle. Replaces the inline field below xl, on tablet as
-              well as mobile. */}
-          {showSearch && (
-            <button
-              className="xl:hidden p-2"
-              onClick={() => setSearchOpen((open) => !open)}
-              aria-label={searchOpen ? tA11y("closeSearch") : tA11y("openSearch")}
-              aria-controls="resources-search-panel"
-              aria-expanded={searchOpen}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
+            {/* Right cluster: search + nav + menu button */}
+            <div className="ml-auto flex shrink-0 items-center gap-2">
+              {/* The search button, the same on every page and at every width:
+                  a round icon, compact enough for a phone. */}
+              <button
+                ref={searchToggleRef}
+                type="button"
+                className="round round-sm well"
+                onClick={toggleSearch}
+                aria-label={searchOpen ? tA11y("closeSearch") : tA11y("openSearch")}
+                aria-controls={searchOpen ? "header-search-panel" : undefined}
+                aria-expanded={searchOpen}
               >
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
-              </svg>
-            </button>
-          )}
+                <SearchIcon />
+              </button>
 
-          {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-2">
-            <ul className="flex items-center gap-2 list-none m-0 p-0">
-              {navItems.map((item, index) => (
-                <li key={item.key}>
-                  <Link
-                    href={item.href}
-                    aria-current={isActive(item.href) ? "page" : undefined}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                    onClick={() =>
-                      captureEvent("nav_link_clicked", {
-                        label: item.key,
-                        href: item.href,
-                        location: "desktop_nav",
-                      })
-                    }
-                    className={cn(
-                      components.nav.link,
-                      "relative",
-                      isActive(item.href) &&
-                        "text-foreground underline decoration-1 underline-offset-[6px]"
-                    )}
-                  >
-                    {hoveredIndex === index && (
-                      <motion.div
-                        layoutId="nav-hover"
-                        className="absolute inset-0 bg-muted/20 rounded-full -z-10"
-                        transition={animations.easing.bounce}
-                      />
-                    )}
-                    {t(item.key)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
-            <LanguageSwitcher />
-            <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
-            <ContactMenu
-              location="nav"
-              // The fixed search panel (below xl) would cover the menu.
-              onOpen={() => setSearchOpen(false)}
-              triggerClassName={cn(components.button.primary, "min-w-[150px] rounded-none text-center")}
-              menuClassName="absolute right-0 top-full mt-2 w-max"
-            />
-          </div>
+              {/* Desktop nav */}
+              <div className="hidden items-center gap-3 min-[1100px]:flex xl:gap-5">
+                <ul className="nav-links">
+                  {navItems.map((item) => (
+                    <li key={item.key}>
+                      <Link
+                        href={item.href}
+                        aria-current={isActive(item.href) ? "page" : undefined}
+                        onClick={() =>
+                          captureEvent("nav_link_clicked", {
+                            label: item.key,
+                            href: item.href,
+                            location: "desktop_nav",
+                          })
+                        }
+                        className="nav-link"
+                      >
+                        {t(item.key)}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <LanguageSwitcher />
+                <ContactMenu location="nav" />
+              </div>
 
-          {/* Mobile hamburger */}
-          <button
-            ref={menuTriggerRef}
-            className="lg:hidden p-2"
-            onClick={() => {
-              captureEvent("mobile_menu_opened");
-              setSearchOpen(false);
-              setMobileMenuClosing(false);
-              setMobileMenuOpen(true);
+              {/* Phone and tablet menu button */}
+              <button
+                ref={menuTriggerRef}
+                type="button"
+                className="round round-sm well min-[1100px]:hidden"
+                onClick={() => {
+                  captureEvent("mobile_menu_opened");
+                  closeSearch();
+                  setMobileMenuClosing(false);
+                  setMobileMenuOpen(true);
+                }}
+                aria-label={tA11y("openMenu")}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-navigation-dialog"
+                tabIndex={mobileMenuActive ? -1 : undefined}
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M4 7h16" />
+                  <path d="M4 12h16" />
+                  <path d="M4 17h16" />
+                </svg>
+              </button>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      {/* The search panel: one field under the header, mounted only while it is
+          open (so a page that shows its own field never has two of them). */}
+      <AnimatePresence>
+        {searchOpen && (
+          <motion.div
+            ref={searchPanelRef}
+            id="header-search-panel"
+            className="fixed inset-x-0 top-[84px] z-[65]"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18 }}
+            onKeyDown={(event) => {
+              if (event.key === "Escape") {
+                event.preventDefault();
+                closeSearch(true);
+              }
             }}
-            aria-label={tA11y("openMenu")}
-            aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-navigation-dialog"
-            tabIndex={mobileMenuActive ? -1 : undefined}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              {mobileMenuOpen ? (
-                <>
-                  <path d="M18 6L6 18" />
-                  <path d="M6 6l12 12" />
-                </>
-              ) : (
-                <>
-                  <path d="M3 12h18" />
-                  <path d="M3 6h18" />
-                  <path d="M3 18h18" />
-                </>
-              )}
-            </svg>
-          </button>
-        </div>
-      </motion.nav>
+            <div className="wrap">
+              <form
+                role="search"
+                onSubmit={handleSearchSubmit}
+                className="clay-quiet rounded-plate p-2"
+              >
+                <label className="field">
+                  <SearchIcon />
+                  <input
+                    ref={searchInputRef}
+                    type="search"
+                    placeholder={t("searchLong")}
+                    value={searchValue}
+                    onChange={(e) => handleSearchChange(e.target.value)}
+                    aria-label={tA11y("searchResources")}
+                    enterKeyHint="search"
+                  />
+                </label>
+              </form>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {showSearch && (
-        <div
-          id="resources-search-panel"
-          aria-hidden={!searchOpen}
-          className={`fixed left-0 right-0 z-[65] bg-background/95 backdrop-blur-xl border-b border-border/50 px-6 py-3 transition-all duration-200 xl:hidden ${searchOpen ? "top-16 opacity-100 translate-y-0" : "top-14 opacity-0 -translate-y-2 pointer-events-none"}`}
-        >
-          <div className="relative">
-            <SearchIcon />
-            <input
-              type="search"
-              placeholder={t("searchLong")}
-              value={searchValue}
-              onChange={(e) => handleSearch(e.target.value)}
-              aria-label={tA11y("searchResources")}
-              tabIndex={searchOpen ? 0 : -1}
-              className={cn(resourcesTheme.search.input, "pl-9")}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Mobile menu */}
+      {/* Mobile menu: a porcelaine sheet. The wordmark and the close button sit
+          exactly where the bar's wordmark and menu button are, so opening it
+          does not make the brand vanish. */}
       <AnimatePresence onExitComplete={() => setMobileMenuClosing(false)}>
         {mobileMenuOpen && (
           <motion.div
             ref={menuDialogRef}
             id="mobile-navigation-dialog"
-            // Safe centring plus its own scroll: on a landscape phone the
-            // stack is taller than the screen, and plain centring pushed the
-            // first link under the bar and the language switcher (the only
-            // one below lg) out of reach. py-20 keeps clear of the wordmark.
-            className="fixed inset-0 z-[70] flex flex-col items-center justify-center-safe gap-8 overflow-y-auto bg-background py-20"
+            data-variant="hybrid"
+            // Scrolls on its own: on a landscape phone the stack is taller than
+            // the screen.
+            className="fixed inset-0 z-[70] overflow-y-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
             role="dialog"
             aria-modal="true"
             aria-label={tA11y("mobileNavigation")}
           >
-            {/* Same wordmark, same spot as the bar it covers, so opening the
-                menu does not make the brand vanish. */}
-            <Link
-              href="/"
-              onClick={closeMobileMenu}
-              className={cn(
-                typography.label.mono,
-                "absolute left-6 top-4 inline-flex h-10 items-center gap-2 text-foreground"
-              )}
-            >
-              <Image src="/favicon.svg" alt="" aria-hidden="true" width={20} height={20} className="h-5 w-5" />
-              <span>THE VIBE CO.</span>
-            </Link>
-            <button
-              ref={menuCloseRef}
-              className="absolute top-4 right-6 p-2"
-              onClick={closeMobileMenu}
-              aria-label={tA11y("closeMenu")}
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M18 6L6 18" />
-                <path d="M6 6l12 12" />
-              </svg>
-            </button>
-            {navItems.map((item, index) => (
-              <motion.div
-                key={item.key}
-                className={cn(typography.heading.h3, "text-foreground")}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={createTransition(0.6, index * 0.1)}
-              >
-                <Link
-                  href={item.href}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                  className={cn(
-                    isActive(item.href) &&
-                      "underline decoration-1 underline-offset-[6px]"
-                  )}
-                  onClick={() => {
-                    captureEvent("nav_link_clicked", {
-                      label: item.key,
-                      href: item.href,
-                      location: "mobile_menu",
-                    });
-                    closeMobileMenu();
-                  }}
-                >
-                  {t(item.key)}
+            <div className="wrap flex min-h-full flex-col pb-10 pt-3">
+              <div className="flex min-h-14 items-center justify-between pl-4 pr-2">
+                <Link href="/" onClick={closeMobileMenu} className="brand">
+                  <Image src="/favicon.svg" alt="" aria-hidden="true" width={26} height={25} />
+                  <span>THE VIBE CO.</span>
                 </Link>
-              </motion.div>
-            ))}
-            <motion.div
-              className="mt-4 flex flex-col items-center gap-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={createTransition(0.6, 0.3)}
-            >
-              <a
-                href={BOOKING_URL}
-                {...bookingLocation("header_mobile_menu")}
-                onClick={() => {
-                  captureEvent("discovery_call_clicked", { location: "mobile_menu" });
-                  closeMobileMenu();
-                }}
-                className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-7 py-4 text-[15px] font-semibold text-background"
+                <button
+                  ref={menuCloseRef}
+                  type="button"
+                  className="round round-sm clay"
+                  onClick={closeMobileMenu}
+                  aria-label={tA11y("closeMenu")}
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M18 6L6 18" />
+                    <path d="M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <ul className="m-0 mt-10 flex list-none flex-col gap-1 p-0 px-4">
+                {navItems.map((item, index) => (
+                  <motion.li
+                    key={item.key}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={createTransition(0.5, index * 0.06)}
+                  >
+                    <Link
+                      href={item.href}
+                      aria-current={isActive(item.href) ? "page" : undefined}
+                      className={cn(
+                        "display d-md block py-2 text-ink transition-colors hover:text-bisque",
+                        isActive(item.href) &&
+                          "underline decoration-rim decoration-[3px] underline-offset-[10px]"
+                      )}
+                      onClick={() => {
+                        captureEvent("nav_link_clicked", {
+                          label: item.key,
+                          href: item.href,
+                          location: "mobile_menu",
+                        });
+                        closeMobileMenu();
+                      }}
+                    >
+                      {t(item.key)}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+
+              <motion.div
+                className="mt-auto flex flex-col items-center gap-6 pt-12"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={createTransition(0.5, 0.2)}
               >
-                {t("bookCall")}
-                <span aria-hidden="true" className="text-lg">
-                  →
-                </span>
-              </a>
-              <ContactMenu
-                location="mobile_menu"
-                onSelect={closeMobileMenu}
-                className="flex flex-col items-center"
-                triggerClassName="min-h-11 text-sm text-muted-foreground underline decoration-1 underline-offset-4 hover:text-foreground aria-expanded:text-foreground"
-                menuClassName="mt-2 w-max"
-              />
-            </motion.div>
-            <LanguageSwitcher className="text-sm" />
+                <ContactMenu location="mobile_menu" variant="stack" onSelect={closeMobileMenu} />
+                <LanguageSwitcher />
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

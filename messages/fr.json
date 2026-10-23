@@ -3,11 +3,11 @@
     "portfolio": "Nos projets",
     "caseStudies": "Cas clients",
     "resources": "Ressources",
-    "getInTouch": "Nous contacter",
+    "getInTouch": "Prendre 30 minutes",
     "searchShort": "Rechercher…",
     "searchLong": "Chercher dans les ressources…",
     "bookCall": "Prendre 30 minutes",
-    "contactBookCall": "Prendre rendez-vous",
+    "contactBookCall": "Prendre 30 minutes",
     "contactEmail": "Nous écrire"
   },
   "accessibility": {
@@ -85,7 +85,7 @@
     "trustedBy": "On travaille pour eux"
   },
   "caseStudy": {
-    "kicker": "// PROJETS CLIENTS",
+    "kicker": "Cas clients",
     "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",
     "readCase": "Lire le cas",
@@ -102,7 +102,7 @@
     "author": "Étienne, CEO de Monka"
   },
   "services": {
-    "kicker": "// CE QU'ON FAIT",
+    "kicker": "CE QU'ON FAIT",
     "titleLine1": "Trois façons",
     "titleLine2": "de travailler ensemble.",
     "items": {
@@ -145,7 +145,7 @@
     "indexCount": "3 façons"
   },
   "process": {
-    "kicker": "// 02 — COMMENT ON TRAVAILLE",
+    "kicker": "02 — COMMENT ON TRAVAILLE",
     "titleLine1": "Du brief",
     "titleLine2": "à la production.",
     "steps": {
@@ -172,7 +172,7 @@
     }
   },
   "proof": {
-    "kicker": "// NOS PROPRES PRODUITS",
+    "kicker": "NOS PROPRES PRODUITS",
     "titleLine1": "Ah, on fait aussi",
     "titleLine2": "nos produits.",
     "intro": "On crée des produits pour rendre notre équipe et nos clients plus efficaces avec l’IA. C’est aussi comme ça qu’on reste affûtés.",
@@ -184,7 +184,7 @@
     "indexTag": "Open source"
   },
   "finalCta": {
-    "kicker": "EMBARQUEMENT",
+    "kicker": "Prendre rendez-vous",
     "titleLine1": "Un problème",
     "titleLine2": "à résoudre ?",
     "bookCall": "Prendre 30 minutes",
@@ -211,16 +211,16 @@
     "about": "À propos"
   },
   "caseStudiesPage": {
-    "kicker": "// PROJETS CLIENTS",
+    "kicker": "Cas clients",
     "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",
     "metaDescription": "Découvrez des produits et automatisations IA conçus et mis en production pour nos clients.",
     "readCase": "Lire le cas",
     "back": "Cas clients",
     "backHome": "Accueil",
-    "whatWeDid": "// Ce qu’on a fait",
-    "projectLabel": "// Projet {n}",
-    "theProduct": "// Le produit",
+    "whatWeDid": "Ce qu’on a fait",
+    "projectLabel": "Projet {n}",
+    "theProduct": "Le produit",
     "visit": "Visiter",
     "visitClient": "Visiter {name}",
     "keepReading": "À lire ensuite",
@@ -272,6 +272,7 @@
     "copy": "Copier",
     "copied": "Copié",
     "copiedStatus": "Copié : {label}",
+    "copyFailed": "Copie impossible",
     "skillPrompt": "Prompt du skill",
     "promptStats": "{lineCount} lignes · {wordCount} mots",
     "collapsePrompt": "Réduire le prompt complet du skill",
@@ -286,7 +287,7 @@
     "previewPrompt": "Prévisualiser le prompt"
   },
   "portfolio": {
-    "kicker": "// NOS PRODUITS",
+    "kicker": "Nos projets",
     "titleLine1": "Nos propres produits,",
     "titleLine2": "en ligne.",
     "subtitle": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie.",
@@ -294,7 +295,7 @@
     "back": "Nos projets",
     "statusLabel": "Statut",
     "typeLabel": "Type",
-    "theProduct": "// Le produit",
+    "theProduct": "Le produit",
     "visit": "Visiter",
     "visitProject": "Visiter {name}",
     "metaTitle": "Projets",
@@ -308,7 +309,7 @@
     "bodyIronic": "Ironique ? Complètement."
   },
   "about": {
-    "kicker": "// À PROPOS",
+    "kicker": "À PROPOS",
     "metaTitle": "À propos de The Vibe Company : agence IA à Paris (YC W24)",
     "metaDescription": "The Vibe Company, agence IA à Paris fondée en 2024 par Stan Girard et Antoine Dewez (YC W24). Produits IA, agents, HDS et sécurité, jusqu’en production.",
     "title": "À propos de The Vibe Company",

@@ -1,32 +1,35 @@
 ---
 version: alpha
 name: The Vibe Company
-description: "A warm-paper, high-contrast AI-native agency design system with editorial density, brutalist borders, mono metadata, and fast shipping energy."
+description: "Porcelaine: white glazed clay pieces on a pale grey studio backdrop, black lacquer for actions and dark bands, a thin orange rim light, two-tone Bricolage Grotesque headings and mono metadata, so an AI-native agency reads as a studio that makes finished objects."
 colors:
-  primary: "#0A0A0A"
-  on-primary: "#FDFBF7"
-  secondary: "#525252"
-  tertiary: "#F97316"
-  neutral: "#FDFBF7"
-  background: "#FDFBF7"
-  foreground: "#0A0A0A"
-  surface: "#FFFFFF"
-  surface-muted: "#F3F0EA"
-  border: "#DCD7CE"
-  border-strong: "#0A0A0A"
-  muted: "#737373"
-  muted-foreground: "#525252"
-  accent: "#F3F0EA"
-  accent-foreground: "#171717"
-  inverse-surface: "#030303"
-  inverse-surface-raised: "#121212"
-  inverse-border: "#262626"
-  inverse-on-surface: "#EDEDED"
-  inverse-muted: "#A3A3A3"
-  accent-orange: "#F97316"
-  accent-green: "#10B981"
-  accent-green-soft: "#62D1AF"
-  accent-yellow: "#FACC15"
+  primary: "#0C0C0D"
+  on-primary: "#F3F3F1"
+  secondary: "#5B5D60"
+  tertiary: "#FF7A1F"
+  neutral: "#EBECED"
+  error: "#B42318"
+  background: "#EBECED"
+  on-background: "#0B0B0C"
+  surface: "#FBFBFA"
+  on-surface: "#0B0B0C"
+  studio: "#EBECED"
+  studio-bright: "#F6F6F5"
+  clay: "#FBFBFA"
+  clay-dim: "#ECECEA"
+  glaze: "#FFFFFF"
+  well: "#E8E9E8"
+  line: "#D3D4D3"
+  ink: "#0B0B0C"
+  ink-soft: "#2A2B2D"
+  muted: "#5B5D60"
+  bisque: "#7D7E7B"
+  lacquer: "#0C0C0D"
+  on-lacquer: "#F3F3F1"
+  on-lacquer-muted: "#9A9B9B"
+  rim: "#FF7A1F"
+  rim-hot: "#FFB46E"
+  rim-text: "#9C4308"
   domain-dev: "#2563EB"
   domain-design: "#DB2777"
   domain-ops: "#059669"
@@ -35,398 +38,723 @@ colors:
   domain-marketing: "#E11D48"
 typography:
   display-xl:
-    fontFamily: Geist
-    fontSize: 124px
-    fontWeight: 700
-    lineHeight: 0.88
-    letterSpacing: -0.05em
-  display-lg:
-    fontFamily: Geist
-    fontSize: 88px
-    fontWeight: 700
-    lineHeight: 0.92
-    letterSpacing: -0.045em
-  headline-lg:
-    fontFamily: Geist
-    fontSize: 56px
-    fontWeight: 700
+    fontFamily: Bricolage Grotesque
+    fontSize: 136px
+    fontWeight: 680
     lineHeight: 0.95
-    letterSpacing: -0.04em
+    letterSpacing: -0.03em
+    fontVariation: '"wdth" 92, "opsz" 96'
+  display-lg:
+    fontFamily: Bricolage Grotesque
+    fontSize: 112px
+    fontWeight: 680
+    lineHeight: 0.95
+    letterSpacing: -0.03em
+    fontVariation: '"wdth" 92, "opsz" 96'
+  headline-lg:
+    fontFamily: Bricolage Grotesque
+    fontSize: 84px
+    fontWeight: 680
+    lineHeight: 0.95
+    letterSpacing: -0.03em
+    fontVariation: '"wdth" 92, "opsz" 96'
   headline-md:
-    fontFamily: Geist
+    fontFamily: Bricolage Grotesque
+    fontSize: 64px
+    fontWeight: 680
+    lineHeight: 0.95
+    letterSpacing: -0.03em
+    fontVariation: '"wdth" 92, "opsz" 96'
+  headline-sm:
+    fontFamily: Bricolage Grotesque
+    fontSize: 32px
+    fontWeight: 680
+    lineHeight: 1.02
+    letterSpacing: -0.03em
+    fontVariation: '"wdth" 92, "opsz" 96'
+  subhead:
+    fontFamily: Bricolage Grotesque
     fontSize: 36px
-    fontWeight: 700
-    lineHeight: 1.05
-    letterSpacing: -0.035em
-  title-lg:
-    fontFamily: Geist
-    fontSize: 22px
-    fontWeight: 700
+    fontWeight: 500
+    lineHeight: 1.12
+    letterSpacing: -0.018em
+  reading-h2:
+    fontFamily: Bricolage Grotesque
+    fontSize: 30px
+    fontWeight: 680
     lineHeight: 1.1
+    letterSpacing: -0.03em
+    fontVariation: '"wdth" 92, "opsz" 48'
+  title-lg:
+    fontFamily: Bricolage Grotesque
+    fontSize: 22px
+    fontWeight: 650
+    lineHeight: 1.2
     letterSpacing: -0.02em
+  title-md:
+    fontFamily: Bricolage Grotesque
+    fontSize: 17px
+    fontWeight: 600
+    lineHeight: 1.3
+  title-sm:
+    fontFamily: Bricolage Grotesque
+    fontSize: 16.5px
+    fontWeight: 650
+    lineHeight: 1.28
+    letterSpacing: -0.012em
   body-lg:
-    fontFamily: Geist
-    fontSize: 19px
+    fontFamily: Bricolage Grotesque
+    fontSize: 20px
     fontWeight: 400
     lineHeight: 1.5
+  reading-md:
+    fontFamily: Bricolage Grotesque
+    fontSize: 17px
+    fontWeight: 400
+    lineHeight: 1.75
   body-md:
-    fontFamily: Geist
+    fontFamily: Bricolage Grotesque
     fontSize: 16px
     fontWeight: 400
     lineHeight: 1.55
   body-sm:
-    fontFamily: Geist
+    fontFamily: Bricolage Grotesque
+    fontSize: 15px
+    fontWeight: 400
+    lineHeight: 1.45
+  body-xs:
+    fontFamily: Bricolage Grotesque
     fontSize: 14px
     fontWeight: 400
-    lineHeight: 1.5
+    lineHeight: 1.45
+  nav-md:
+    fontFamily: Bricolage Grotesque
+    fontSize: 15px
+    fontWeight: 500
+    lineHeight: 1
+  button-lg:
+    fontFamily: Bricolage Grotesque
+    fontSize: 17px
+    fontWeight: 600
+    lineHeight: 1
+    letterSpacing: -0.005em
+  button-md:
+    fontFamily: Bricolage Grotesque
+    fontSize: 16px
+    fontWeight: 600
+    lineHeight: 1
+    letterSpacing: -0.005em
+  button-sm:
+    fontFamily: Bricolage Grotesque
+    fontSize: 14.5px
+    fontWeight: 600
+    lineHeight: 1
+    letterSpacing: -0.005em
+  label-lg:
+    fontFamily: Geist Mono
+    fontSize: 13px
+    fontWeight: 600
+    lineHeight: 1
+    letterSpacing: 0.1em
   label-md:
     fontFamily: Geist Mono
-    fontSize: 11px
+    fontSize: 12px
     fontWeight: 500
-    lineHeight: 1.2
-    letterSpacing: 0.2em
+    lineHeight: 1
+    letterSpacing: 0.14em
   label-sm:
     fontFamily: Geist Mono
-    fontSize: 10px
+    fontSize: 12px
     fontWeight: 500
-    lineHeight: 1.2
-    letterSpacing: 0.2em
+    lineHeight: 1
+    letterSpacing: 0.08em
+  code-md:
+    fontFamily: Geist Mono
+    fontSize: 15px
+    fontWeight: 500
+    lineHeight: 1.6
 rounded:
   none: 0px
-  sm: 2px
-  md: 8px
-  lg: 12px
+  tag: 8px
+  sm: 12px
+  thumb: 14px
+  inset: 16px
+  md: 18px
+  entry: 20px
+  glaze: 24px
+  lg: 26px
+  slab-phone: 28px
+  xl: 36px
   full: 9999px
 spacing:
-  grid-cell: 40px
-  page-x-sm: 24px
-  page-x-md: 48px
-  page-x-lg: 96px
-  section-y-sm: 56px
-  section-y-md: 96px
-  section-y-lg: 112px
-  section-y-xl: 128px
-  card-padding-md: 28px
-  card-padding-lg: 48px
+  wrap: 1200px
+  gutter-phone: 24px
+  gutter: 48px
+  header-flow: 68px
+  header-top: 12px
+  section-phone: 80px
+  section: 120px
+  section-tight-phone: 56px
+  section-tight: 80px
+  main-piece-padding-phone: 20px
+  main-piece-padding: 56px
+  quiet-piece-padding: 24px
+  state-padding: 28px
   gap-xs: 4px
   gap-sm: 8px
-  gap-md: 16px
-  gap-lg: 24px
-  gap-xl: 48px
-  max-width-wide: 100rem
-  max-width-copy: 640px
+  gap-md: 14px
+  gap-lg: 26px
+  gap-xl: 40px
+  tap-target: 44px
+  tap-floor: 24px
+  footer-top-phone: 104px
+  footer-top: 132px
+  footer-notch-width-phone: 148px
+  footer-notch-width: 260px
+  footer-notch-depth-phone: 48px
+  footer-notch-depth: 78px
+  rim-line: 1.5px
+  groove: 2px
+materials:
+  studio-backdrop: "radial-gradient(1400px 700px at 50% -200px, #F6F6F5 0%, rgba(246, 246, 245, 0) 70%), #EBECED"
+  glazed-clay: "radial-gradient(130% 110% at 12% -12%, #FFFFFF 0%, #FBFBFA 34%, #ECECEA 100%)"
+  quiet-clay: "#FBFBFA flat, held by a hairline ring"
+  black-lacquer: "linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.035) 30%, rgba(255, 255, 255, 0) 58%), radial-gradient(90% 70% at 88% 130%, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 60%), #0C0C0D"
+  pressed-well: "linear-gradient(180deg, #E4E5E4 0%, #EEEFEE 100%)"
+  rim-light: "linear-gradient(128deg, rgba(255, 122, 31, 0) 56%, rgba(255, 122, 31, 0.85) 82%, #FFB46E 100%), drawn as a 1.5px ring"
+  groove: "linear-gradient(180deg, rgba(11, 11, 12, 0.1) 0 1px, rgba(255, 255, 255, 0.95) 1px 2px)"
+  lacquer-bar: "linear-gradient(180deg, #3A3A3C, #0B0B0C), 4px wide, rounded"
+  rim-underline: "linear-gradient(90deg, #0B0B0C 0 50%, #FF7A1F 85%, #FFB46E), 1.5px, 3px on hover"
 borders:
-  hairline: "1px solid #DCD7CE"
-  strong: "2px solid #0A0A0A"
-  inverse-hairline: "1px solid #262626"
-  dashed-muted: "1px dashed rgba(10, 10, 10, 0.3)"
+  hairline: "1px solid #D3D4D3"
+  table-row: "1px solid rgba(0, 0, 0, 0.1)"
+  inverse-hairline: "1px solid rgba(255, 255, 255, 0.1)"
+  focus: "2px solid #0B0B0C, 3px offset"
+  focus-inverse: "2px solid #F3F3F1, 3px offset"
+  field-error: "2px solid #B42318, 2px offset"
 shadows:
-  none: "none"
-  brutal-sm: "6px 6px 0px #0A0A0A"
-  brutal-md: "8px 8px 0px #0A0A0A"
-  nav: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
-  subtle: "0 1px 2px rgba(0, 0, 0, 0.05)"
+  glazed-clay: "inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(20, 20, 22, 0.035), 0 1px 1px rgba(20, 20, 22, 0.05), 0 3px 6px -2px rgba(20, 20, 22, 0.05), 0 26px 44px -30px rgba(20, 20, 22, 0.32)"
+  quiet-clay: "inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 0 0 1px rgba(20, 20, 22, 0.07), 0 1px 1px rgba(20, 20, 22, 0.04)"
+  warm-bounce: "inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 1px 1px rgba(20, 20, 22, 0.05), 0 26px 44px -30px rgba(20, 20, 22, 0.32), 14px 18px 34px -26px rgba(255, 122, 31, 0.45)"
+  lift: "inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 1px 1px rgba(20, 20, 22, 0.06), 0 4px 8px -2px rgba(20, 20, 22, 0.08), 0 30px 48px -30px rgba(20, 20, 22, 0.4)"
+  black-lacquer: "inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 -1px 0 rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.16), 0 22px 40px -24px rgba(0, 0, 0, 0.55)"
+  pressed-well: "inset 0 1.5px 3px rgba(20, 20, 22, 0.13), inset 0 0 0 1px rgba(20, 20, 22, 0.045), 0 1px 0 rgba(255, 255, 255, 0.95)"
+  glaze-ring: "inset 0 0 0 1px rgba(11, 11, 12, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5)"
+  status-ring: "0 0 0 3px rgba(255, 122, 31, 0.16)"
 elevation:
-  flat: "No shadow; use contrast, bands, rules, and borders for hierarchy."
-  hover-lift: "Translate -2px on both axes and add the brutal-md offset shadow."
-  overlay: "Use a translucent warm or black surface with backdrop blur."
+  backdrop: "The studio itself: flat pale grey with a soft light falling from the top of the page."
+  pressed: "Fields, tags, rails and empty states sit below the surface: an inner shadow on top, a white lip underneath."
+  quiet: "Everything that is not the page's main piece: flat clay held by a hairline, no ambient shadow."
+  raised: "The page's one main piece and the closing call: glazed clay lit from the top left, a long soft ambient shadow below."
+  main: "The main piece alone adds the warm bounce: the rim light's orange caught on the backdrop it leans on, down and to the right."
+  hover-lift: "A piece that is a link rises 2px and its ambient shadow deepens; buttons rise 1px and press to 98.5%."
 motion:
-  fast: "0.3s"
-  normal: "0.6s"
-  slow: "0.8s"
-  smooth-ease: "cubic-bezier(0.16, 1, 0.3, 1)"
+  press: "0.18s ease"
+  lift: "0.2s ease"
+  sheet: "0.25s opacity"
+  entrance: "0.6s cubic-bezier(0.16, 1, 0.3, 1)"
+  busy: "0.8s linear infinite"
+  sheen: "1.4s ease-in-out infinite"
   marquee: "20s linear infinite"
 components:
-  page-background:
+  page:
     backgroundColor: "{colors.neutral}"
-    textColor: "{colors.foreground}"
+    textColor: "{colors.on-background}"
     typography: "{typography.body-md}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.page-x-sm}"
-  warm-grid-field:
-    backgroundColor: "{colors.background}"
-    textColor: "{colors.foreground}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.none}"
-    size: "{spacing.grid-cell}"
-  runner-band:
-    backgroundColor: "{colors.foreground}"
-    textColor: "{colors.background}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.page-x-sm}"
-  runner-reward-cta:
-    backgroundColor: "{colors.background}"
-    textColor: "{colors.foreground}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.gap-md}"
-  surface-card:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.foreground}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.card-padding-md}"
-  muted-panel:
-    backgroundColor: "{colors.surface-muted}"
-    textColor: "{colors.accent-foreground}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.card-padding-md}"
-  accent-panel:
-    backgroundColor: "{colors.accent}"
-    textColor: "{colors.accent-foreground}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.card-padding-lg}"
-  brutal-card:
-    backgroundColor: "{colors.background}"
-    textColor: "{colors.primary}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.card-padding-md}"
-  inverse-section:
-    backgroundColor: "{colors.inverse-surface}"
-    textColor: "{colors.inverse-on-surface}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.section-y-md}"
-  inverse-card:
-    backgroundColor: "{colors.inverse-surface-raised}"
-    textColor: "{colors.inverse-muted}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.card-padding-md}"
-  primary-cta:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.none}"
-    height: 56px
+    padding: "{spacing.gutter}"
+  header-pill:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label-lg}"
+    rounded: "{rounded.full}"
+    height: 64px
     padding: "{spacing.gap-lg}"
-  primary-cta-hover:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.gap-lg}"
-  nav-pill:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.body-sm}"
+  nav-link:
+    textColor: "{colors.ink-soft}"
+    typography: "{typography.nav-md}"
     rounded: "{rounded.full}"
     height: 40px
     padding: "{spacing.gap-md}"
-  secondary-link:
-    backgroundColor: "{colors.background}"
+  nav-link-current:
+    backgroundColor: "{colors.well}"
+    textColor: "{colors.ink}"
+    typography: "{typography.nav-md}"
+    rounded: "{rounded.full}"
+    height: 40px
+  language-switch-current:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.full}"
+    height: 38px
+  icon-button:
+    backgroundColor: "{colors.well}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.full}"
+    size: "{spacing.tap-target}"
+  carousel-previous:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.full}"
+    size: 52px
+  carousel-next:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.on-lacquer}"
+    rounded: "{rounded.full}"
+    size: 52px
+  main-piece:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.body-md}"
+    rounded: "{rounded.xl}"
+    padding: "{spacing.main-piece-padding}"
+  main-piece-phone:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.slab-phone}"
+    padding: "{spacing.main-piece-padding-phone}"
+  quiet-piece:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body-sm}"
+    rounded: "{rounded.lg}"
+    padding: "{spacing.quiet-piece-padding}"
+  rim-light:
+    backgroundColor: "{colors.tertiary}"
+    height: "{spacing.rim-line}"
+  glazed-insert:
+    backgroundColor: "{colors.glaze}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.glaze}"
+  glazed-insert-phone:
+    backgroundColor: "{colors.glaze}"
+    rounded: "{rounded.inset}"
+  lacquer-band:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.on-lacquer}"
+    typography: "{typography.body-md}"
+    rounded: "{rounded.lg}"
+    padding: "{spacing.main-piece-padding}"
+  lacquer-caption:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.on-lacquer-muted}"
+    typography: "{typography.label-md}"
+  lacquer-step-label:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.rim-hot}"
+    typography: "{typography.label-md}"
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.button-md}"
+    rounded: "{rounded.full}"
+    height: 52px
+    padding: "{spacing.gap-lg}"
+  button-primary-sm:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.button-sm}"
+    rounded: "{rounded.full}"
+    height: 42px
+    padding: 18px
+  button-primary-lg:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.button-lg}"
+    rounded: "{rounded.full}"
+    height: 60px
+    padding: 30px
+  button-secondary:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.ink}"
+    typography: "{typography.button-md}"
+    rounded: "{rounded.full}"
+    height: 52px
+    padding: "{spacing.gap-lg}"
+  button-quiet:
+    textColor: "{colors.ink}"
+    typography: "{typography.button-md}"
+    rounded: "{rounded.full}"
+    height: 52px
+  rim-link:
+    textColor: "{colors.ink}"
+    typography: "{typography.label-lg}"
+    height: "{spacing.tap-target}"
+  rim-underline:
+    backgroundColor: "{colors.rim}"
+    height: "{spacing.rim-line}"
+  back-link:
+    backgroundColor: "{colors.studio}"
+    textColor: "{colors.muted}"
+    typography: "{typography.label-md}"
+    height: "{spacing.tap-target}"
+  kicker:
+    backgroundColor: "{colors.studio}"
     textColor: "{colors.secondary}"
     typography: "{typography.label-md}"
+  display-title:
+    backgroundColor: "{colors.studio}"
+    textColor: "{colors.ink}"
+    typography: "{typography.display-lg}"
+  display-title-second-line:
+    textColor: "{colors.bisque}"
+    typography: "{typography.display-lg}"
+  hero-claim:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.ink}"
+    typography: "{typography.subhead}"
+  lede:
+    backgroundColor: "{colors.studio}"
+    textColor: "{colors.ink-soft}"
+    typography: "{typography.body-lg}"
+  lede-bar:
+    backgroundColor: "{colors.lacquer}"
+    rounded: 4px
+    width: 4px
+  chip:
+    backgroundColor: "{colors.well}"
+    textColor: "{colors.ink-soft}"
+    typography: "{typography.label-sm}"
     rounded: "{rounded.full}"
-    padding: "{spacing.gap-sm}"
-  text-cta:
-    backgroundColor: "{colors.background}"
-    textColor: "{colors.foreground}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.none}"
-    padding: 0px
-  mono-label:
-    backgroundColor: "{colors.background}"
+    height: 26px
+    padding: 12px
+  chip-dark:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.rim-hot}"
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.tag}"
+    height: 26px
+    padding: 10px
+  backer-badge:
+    backgroundColor: "{colors.well}"
+    textColor: "{colors.ink}"
+    typography: "{typography.title-sm}"
+    rounded: "{rounded.inset}"
+    height: 52px
+  number-badge:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.on-lacquer}"
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.full}"
+    size: 34px
+  status-dot:
+    backgroundColor: "{colors.rim}"
+    rounded: "{rounded.full}"
+    size: 7px
+  ink-dot:
+    backgroundColor: "{colors.ink}"
+    rounded: "{rounded.full}"
+    size: 7px
+  tick-bullet:
+    backgroundColor: "{colors.ink}"
+    width: 12px
+    height: 10px
+  segmented-rail:
+    backgroundColor: "{colors.well}"
     textColor: "{colors.muted}"
     typography: "{typography.label-sm}"
-    rounded: "{rounded.none}"
+    rounded: "{rounded.full}"
     padding: "{spacing.gap-xs}"
-  fact-table-row:
-    backgroundColor: "{colors.background}"
-    textColor: "{colors.foreground}"
+  segmented-current:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.on-lacquer}"
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.full}"
+    height: "{spacing.tap-target}"
+    padding: 18px
+  field:
+    backgroundColor: "{colors.well}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body-md}"
+    rounded: "{rounded.full}"
+    height: 52px
+    padding: 20px
+  field-placeholder:
+    backgroundColor: "{colors.well}"
+    textColor: "{colors.muted}"
+    typography: "{typography.body-md}"
+  field-area:
+    backgroundColor: "{colors.well}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body-md}"
+    rounded: "{rounded.md}"
+    height: 140px
+    padding: 16px
+  field-error:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.error}"
+    typography: "{typography.body-xs}"
+  groove:
+    backgroundColor: "{colors.line}"
+    height: "{spacing.groove}"
+  state-panel:
+    backgroundColor: "{colors.well}"
+    textColor: "{colors.ink}"
+    typography: "{typography.title-lg}"
+    rounded: "{rounded.md}"
+    padding: "{spacing.state-padding}"
+  state-error-kicker:
+    backgroundColor: "{colors.well}"
+    textColor: "{colors.error}"
+    typography: "{typography.label-md}"
+  skeleton:
+    backgroundColor: "{colors.well}"
+    rounded: "{rounded.sm}"
+  entry-row:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.ink}"
+    typography: "{typography.title-sm}"
+    rounded: "{rounded.entry}"
+    padding: 12px
+  entry-thumb:
+    rounded: "{rounded.thumb}"
+    width: 128px
+    height: 100px
+  entry-meta:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.muted}"
+    typography: "{typography.label-sm}"
+  facts-label:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.muted}"
+    typography: "{typography.label-md}"
+  facts-value:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.ink}"
+    typography: "{typography.title-md}"
+  facts-email:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.ink}"
+    typography: "{typography.code-md}"
+  orange-text-on-light:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.rim-text}"
+    typography: "{typography.label-md}"
+  article-body:
+    backgroundColor: "{colors.studio}"
+    textColor: "{colors.ink}"
+    typography: "{typography.reading-md}"
+  article-heading:
+    backgroundColor: "{colors.studio}"
+    textColor: "{colors.ink}"
+    typography: "{typography.reading-h2}"
+  article-code-block:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.on-lacquer}"
+    typography: "{typography.code-md}"
+    rounded: "{rounded.md}"
+  closing-call:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.ink}"
+    typography: "{typography.display-lg}"
+    rounded: "{rounded.xl}"
+    padding: "{spacing.main-piece-padding}"
+  phone-booking-bar:
+    backgroundColor: "{colors.clay}"
+    textColor: "{colors.muted}"
+    typography: "{typography.label-md}"
+    rounded: "{rounded.full}"
+    padding: 6px
+  footer:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.on-lacquer}"
     typography: "{typography.body-sm}"
     rounded: "{rounded.none}"
-    padding: "{spacing.gap-sm}"
-  muted-copy:
-    backgroundColor: "{colors.background}"
-    textColor: "{colors.muted-foreground}"
+    padding: "{spacing.footer-top}"
+  footer-heading:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.on-lacquer-muted}"
+    typography: "{typography.label-md}"
+  footer-link-hover:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.rim-hot}"
     typography: "{typography.body-sm}"
-  hard-rule:
-    backgroundColor: "{colors.border-strong}"
-    textColor: "{colors.on-primary}"
-    height: 2px
-  subtle-rule:
-    backgroundColor: "{colors.border}"
-    textColor: "{colors.foreground}"
-    height: 1px
-  inverse-rule:
-    backgroundColor: "{colors.inverse-border}"
-    textColor: "{colors.inverse-on-surface}"
-    height: 1px
-  inverse-muted-copy:
-    backgroundColor: "{colors.inverse-surface}"
-    textColor: "{colors.inverse-muted}"
-    typography: "{typography.body-sm}"
-  status-green:
-    backgroundColor: "{colors.accent-green}"
-    textColor: "{colors.primary}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.full}"
-    size: "{spacing.gap-sm}"
-  status-orange:
-    backgroundColor: "{colors.accent-orange}"
-    textColor: "{colors.primary}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.full}"
-    size: "{spacing.gap-sm}"
-  status-yellow:
-    backgroundColor: "{colors.accent-yellow}"
-    textColor: "{colors.primary}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.full}"
-    size: "{spacing.gap-sm}"
-  status-mint:
-    backgroundColor: "{colors.accent-green-soft}"
-    textColor: "{colors.primary}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.full}"
-    size: "{spacing.gap-sm}"
-  domain-dev-badge:
+  footer-notch:
+    backgroundColor: "{colors.rim-hot}"
+    width: "{spacing.footer-notch-width}"
+    height: "{spacing.footer-notch-depth}"
+  runner-band:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.on-lacquer-muted}"
+    typography: "{typography.label-md}"
+    rounded: "{rounded.lg}"
+    height: 200px
+  runner-new-best:
+    backgroundColor: "{colors.lacquer}"
+    textColor: "{colors.rim}"
+    typography: "{typography.label-md}"
+  runner-jump-slab:
+    backgroundColor: "{colors.on-lacquer}"
+    rounded: 3px
+    width: 12px
+  runner-double-jump-slab:
+    backgroundColor: "{colors.rim}"
+    rounded: 3px
+    width: 10px
+  runner-duck-bar:
+    backgroundColor: "{colors.rim-hot}"
+    rounded: 3px
+    height: 18px
+  domain-dev-marker:
     backgroundColor: "{colors.domain-dev}"
-    textColor: "#FFFFFF"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.gap-sm}"
-  domain-design-badge:
+    rounded: "{rounded.full}"
+    size: 7px
+  domain-design-marker:
     backgroundColor: "{colors.domain-design}"
-    textColor: "#FFFFFF"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.gap-sm}"
-  domain-ops-badge:
+    rounded: "{rounded.full}"
+    size: 7px
+  domain-ops-marker:
     backgroundColor: "{colors.domain-ops}"
-    textColor: "{colors.primary}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.gap-sm}"
-  domain-business-badge:
+    rounded: "{rounded.full}"
+    size: 7px
+  domain-business-marker:
     backgroundColor: "{colors.domain-business}"
-    textColor: "{colors.primary}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.gap-sm}"
-  domain-ai-badge:
+    rounded: "{rounded.full}"
+    size: 7px
+  domain-ai-marker:
     backgroundColor: "{colors.domain-ai}"
-    textColor: "#FFFFFF"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.gap-sm}"
-  domain-marketing-badge:
+    rounded: "{rounded.full}"
+    size: 7px
+  domain-marketing-marker:
     backgroundColor: "{colors.domain-marketing}"
-    textColor: "#FFFFFF"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.none}"
-    padding: "{spacing.gap-sm}"
+    rounded: "{rounded.full}"
+    size: 7px
 ---
 
 ## Overview
 
-The Vibe Company design system is a warm-paper brutalist editorial system for an AI-native agency. It should feel direct, engineered, fast, and transparent: a product team showing the work instead of wrapping it in glossy marketing ornament.
+The Vibe Company design system is called porcelaine. The site serves its own visuals: the mascot (white glossy clay, a black swept-back pattern on its head, a black V on its chest) and the clay-rendered article covers become the very matter of the interface. Every page is a set of white glazed clay pieces standing on a pale grey studio backdrop, with black lacquer for what you press and for the one dark band a page may carry, and a thin orange rim light caught along the far edge of the volumes. The agency should read as a studio that makes finished objects: calm, precise, tactile, lit like a product shot, never like a marketing page.
 
-The dominant impression is deep black ink on a slightly warm paper canvas. Layouts are spacious but not soft. Large type, thin technical grid lines, monochrome rules, uppercase mono labels, and blunt black calls to action create the feeling of a shipping console crossed with an independent studio site. The interface should feel confident and operational, not decorative.
+The dominant impression is soft grey light, white glaze and deep black. Headings are set in Bricolage Grotesque in two tones, the first line in ink and the second in grey unglazed clay. Metadata speaks in small uppercase mono. Fields, tags and tab rails are pressed into the surface rather than drawn on it. Article covers, screenshots and product mocks are set into the pieces like glazed inserts. The footer opens with the mascot's black V.
 
-The homepage is the core expression: warm paper, giant tight typography, a compact solid subheading beneath the hero display, black slab buttons, bordered cards, and horizontal bands. The hero opens with a single mono kicker (a small pulsing orange status dot and "open to projects"), then the headline. The subheading carries a low orange highlighter stroke under its words, cloned on each wrapped line, and the introduction hangs off a 2px ink rule on its left, like an editorial pull quote. A compact credential row beneath the introduction pairs the linked YC W24 mark with the France 2030 mark; both keep their original aspect ratios and accessible names. Portfolio and resources screens use the same vocabulary in quieter modes: dark production surfaces for project work and calm paper surfaces for reading.
+Composition follows one rule: one main piece per page, then quieter ones. The main piece (the hero slab, the article cover piece, the featured case or product) gets the full treatment: raised glazed clay, the largest radius, the rim light and its warm bounce on the backdrop. Everything after it is quieter: flat clay held by a hairline, rows divided by engraved grooves, or plain type on the backdrop. Shadows stay soft and low; orange stays rare.
 
-An experimental preview of the homepage lives at `/v2`. It keeps the full warm-paper system (the same top nav, sections, footer, deep ink, and Geist type) and only swaps the static hero for a playable, Chrome-dino-style runner on a canvas. Inside that canvas the game travels through a sequence of "worlds", each a product, a service, or the YC backing, and each world carries its own art direction (paper, ink, accent, and player colour) with a presentation panel that stays for the whole world. It is a preview, and it is now superseded: the canonical homepage carries its own, separate runner band described under Components below. The two share no code. Which one survives is an open decision — `/v2` and `src/components/home/runner/` are still in the tree.
+Homepage, Portfolio, Case studies, About and Resources share one kit: the same values, the same page edge, the same header, closing call and footer. There is no longer a homepage identity and a separate reading identity, and no warm paper, grid paper or hard offset shadows anywhere. The whole site is light only: every surface declares a light color scheme and never follows the system's dark mode.
+
+An experimental preview of the homepage lives at `/v2`. It keeps the porcelaine chrome (the same header pill, sections, closing call and footer) and only swaps the hero for a playable, Chrome-dino-style runner drawn across a full-width band. The band opens in the studio grey with an ink bird and grey mountain ranges; inside the canvas the game travels through a sequence of "worlds", each a product, a service, or the YC backing, and each world carries its own art direction (paper, ink, accent, and player colour) with a presentation panel that stays for the whole world. It is a preview, and it is superseded: the canonical homepage carries its own, separate runner band described under Components below. The two share no code, and which one survives is an open decision.
 
 ## Colors
 
-The palette is intentionally restrained. Warm paper and deep ink carry most of the product; color appears as a precise signal rather than a decorative fill.
+The palette is three materials and one light. Grey studio, white clay and black lacquer carry the whole product; orange only appears where light would catch an edge.
 
-- **Warm Paper (#FDFBF7):** The primary canvas. It is warmer than white and keeps the stark black typography from feeling sterile.
-- **Deep Ink (#0A0A0A):** The core brand color for headlines, rules, buttons, dark bands, and footer surfaces.
-- **Studio White (#FFFFFF):** Used for resource cards and raised surfaces that need a cleaner reading plane.
-- **Muted Paper (#F3F0EA):** A secondary surface for subtle panels, hover states, and calm-studio areas.
-- **Constructed Border (#DCD7CE):** The warm gray line used for grids, dividers, inputs, and low-emphasis structure.
-- **Inverse Black (#030303/#121212):** Used for process, portfolio, and footer sections. These should feel matte and production-grade, not glossy.
-- **Signal Accents:** Orange marks YC and occasional attention points. Green, yellow, and mint identify product status or portfolio accents. Domain colors are reserved for resource taxonomy and should stay small.
-- **Per-world art direction (preview hero only):** Inside the `/v2` runner hero, each world repaints the canvas with its own palette (emerald, orange, amber, slate-teal, indigo, violet, and a dark YC stage), including the player colour. These palettes are scoped to the game canvas and never change the warm-paper chrome around it.
+- **Studio (#EBECED):** The backdrop of every page, a seamless pale grey. A soft light falls from the top of the page (#F6F6F5 fading out over the first few hundred pixels), as in a photo studio. Sections that are not pieces sit directly on it.
+- **Clay (#FBFBFA):** The glazed white of every piece. On the raised pieces it is lit from the top left, from pure white (#FFFFFF) through clay to a shaded far edge (#ECECEA); quiet pieces use it flat.
+- **Glaze (#FFFFFF):** The white under a glazed insert (a cover, a screenshot, a product mock), so a transparent or slow image never shows the clay through it.
+- **Well (#E8E9E8):** Clay pressed in: fields, tags, tab rails, the language switch, empty states, skeletons and the key-facts table. It is drawn as a slight vertical gradient (#E4E5E4 to #EEEFEE) with an inner shadow.
+- **Line (#D3D4D3):** The hairline for routine structure. Pieces themselves are held by a much fainter ring of ink at 7%.
+- **Ink (#0B0B0C) and Ink soft (#2A2B2D):** Ink for titles and primary text; ink soft for ledes, list items and nav links.
+- **Muted (#5B5D60):** Secondary text, kickers, labels, placeholders and meta lines. It holds AA on the studio, the clay and the well.
+- **Bisque (#7D7E7B):** The grey of unglazed clay, used only for the second line of a display title or a two-tone quote. At 3.45:1 on the studio it is a display colour: it passes the large-text threshold at title sizes and is never used for body copy.
+- **Lacquer (#0C0C0D):** Deep black with a soft reflection across its upper half. It is the primary action, the number badges, the dark tags, the current tab, the code blocks, the one dark band of a page, and the footer. Text on it is #F3F3F1, with #9A9B9B for secondary text.
+- **Rim light (#FF7A1F, hot end #FFB46E):** A line of orange light, never a fill. The rim runs from transparent to orange to its hot end along the far edge of a volume.
+- **Rim text (#9C4308):** The only orange allowed as text on a light surface (AA on clay and studio). The bright rim colours are used as text only on lacquer.
+- **Error (#B42318):** Errors only: a field's ring and message, the kicker of an error state.
 
-Avoid large colorful areas. The site should remain primarily black, warm paper, and linework.
+Orange is restrained to light and signal: the rim line on the header pill, the main piece, the closing call, lacquer buttons and the current tab; the warm bounce under the main piece; the underline of mono links and article links; tiny status dots (open to projects, a product that is live, the lit daily series, the next case); short mono text on lacquer (a day number, the steps of the process band, a new best score); the footer's V; and the YC mark itself. It never fills a surface larger than a dot.
+
+Client and product identities keep their own colours only inside their own marks: logos, app icons, the underline of a product's name on its own page, and the product's own capture or mock. They never tint the pieces around them; on the homepage shelf and the product cards, the marks and dots are ink.
+
+Domain accents (blue for dev, pink for design, green for ops, amber for business, violet for AI, red for marketing) remain reserved for resource taxonomy. Resource tags currently render as monochrome pressed chips; when a domain colour is used it stays the size of a status dot and never fills a tag or a card.
+
+**Per-world art direction (preview hero only):** Inside the `/v2` runner hero, each world repaints the canvas with its own palette (emerald, orange, amber, slate-teal, indigo, violet, and a dark YC stage), including the player colour. These palettes are scoped to the game canvas and never change the porcelaine chrome around it.
 
 ## Typography
 
-Typography is the strongest identity element. Use Geist for all display, heading, and body text. Use Geist Mono for operational metadata, labels, dates, statuses, nav breadcrumbs, counters, and marquee text.
+Bricolage Grotesque sets everything that is not metadata. Its width and optical-size axes carry the voice: display titles run at 92% width, an optical size of 96, weight 680, tracking of -3% and a line height of 0.95, balanced across lines. They read as dense, slightly condensed objects rather than as headlines shouted across the page.
 
-Display typography is oversized, bold, and tightly tracked. Headlines should use heavy weight with very compressed line height, often below 1.0. This creates the blunt, poster-like agency voice visible on the homepage. The homepage hero pairs its display line with a smaller solid subheading for localized readability; reserve outline text for short emphasis in other major sections.
+Display sizes scale fluidly with the viewport, from the phone size to a ceiling reached around 1280px: the hero title 58 to 136px, a page title or the closing call 52 to 112px, a section title 46 to 84px, then 40 to 64px and 28 to 32px for smaller titles. A title is set in two lines whenever it has two thoughts: the first in ink, the second in bisque, the grey of clay before it is glazed. One title per section, one page title per page.
 
-Body copy is plain and readable. Keep it compact, usually 14-19px with 1.5-1.55 line height. The body voice should feel explanatory and pragmatic, not poetic.
+The hero adds a claim line under its title in medium weight (22px on a phone, 36px on desktop). Ledes run 17 to 20px in ink soft at a 54-character measure. Body copy is 16px at 1.55; cards and lists use 15px at 1.45 and 14px for summaries. Articles read at 17px with a line height of 1.75 in a 60-character column, with section titles in Bricolage at 680 weight. Running text never exceeds about 90 characters a line; Bricolage runs about 1.4 characters per character-width unit, which is why the measures look narrow.
 
-Mono labels are uppercase with generous letter spacing. They behave like interface instrumentation: section numbers, dates, build status, small navigation hints, and marquee text.
+Geist Mono speaks for the instruments: kickers, chips, meta lines, dates, counters, the wordmark, labels in tables and facts, the segmented rails and the score of the game. It is uppercase and tracked: 12px at 14% for kickers and labels, 12px at 8% for chips and meta, 13px semibold at 10% for the mono links and the wordmark. A kicker leads with the mascot's swept-back pattern as a small glyph and never with a typographic prefix. Text is never smaller than 12px, and a label always holds on one line, cut with an ellipsis when it must.
+
+Geist (sans) remains loaded only as a fallback and as the preview runner's canvas font.
 
 ## Layout
 
-Use full-width bands and wide inner containers. The primary desktop container can stretch up to 100rem; smaller prose areas should stay near 640px. Page gutters start at 24px, move to 48px on medium screens, and can reach 96px on large screens.
+One container makes the page edge: a 1200px content width with a 24px gutter on phones and 48px from 768px. The header pill, every section, the closing call and the footer all start on that edge, so content always lines up with the left end of the header (48px in at 1280, 24px in at 390).
 
-The homepage grid is a key brand asset. Use a 40px square technical grid on warm-paper sections where the page needs energy or a sense of construction. Keep the grid subtle and masked so it supports the composition without competing with text.
+The header is sticky and takes 68px of the flow; nothing else sticks to the top, and no page adds padding to clear it. Sections open with 80px above them on phones and 120px from 768px; tight sections use 56 and 80px.
 
-Sections use large vertical spacing, typically 96-128px; on the phone homepage they open on 56px instead, because each section there starts with a compact ruled header rather than a giant headline. Layouts should feel roomy at the band level but dense inside components. Cards and rows use strong alignment, visible dividers, and predictable columns.
+A page reads top to bottom as: the header, the one main piece, sections on the backdrop (each a kicker, a two-tone title, a lede, then its content), the closing call, the footer. Resources pages, articles and skills skip the closing call and run straight into the footer. Repeated items are either quiet pieces or a list of rows divided by grooves; a page is never a grid of identical shadowed cards, and a piece never sits inside another piece of the same weight.
 
-Resources and portfolio screens are more utilitarian. They should keep the same mono metadata, tight headings, thin dividers, and warm borders, but reduce spectacle in favor of scanability.
+Phones get the same composition as desktop, stacked, not a separate poster layout. Grids collapse to one column (the client shelf is a three-column grid on a phone and a single pill-shaped row on desktop; footer link lists sit side by side). Tap targets are 44px tall almost everywhere and never under 24px.
+
+Content never waits for a scroll-in animation: entrances are short, time-based rises that leave the content visible whatever happens, and reduced motion is honoured globally.
 
 ## Elevation & Depth
 
-Depth is mostly flat. Hierarchy comes from contrast, bands, borders, whitespace, and typography rather than soft drop shadows.
+Depth comes from material, not from stacking shadows. There are four levels:
 
-Use the brutal offset shadow only for interactive lift on important cards and primary CTAs. The pattern is a slight up-left translation paired with a hard black shadow, usually 6px or 8px. This should feel mechanical and tactile. The one static exception is a framed product or illustration panel on a product page, which may keep a fixed 8px ink offset shadow to read as an object set on the paper; it never lifts on hover.
+- **Pressed:** fields, tags, rails, the language switch, empty states and the key-facts table sit below the surface, with an inner shadow along their top edge and a white lip beneath.
+- **Backdrop:** sections laid directly on the studio grey, divided by grooves (a 1px line of ink at 10% over a 1px line of white, like a line engraved in clay).
+- **Quiet:** flat clay held by a hairline ring, with no ambient shadow. Everything that is not the page's main piece.
+- **Raised:** glazed clay lit from the top left, a white specular line along its top edge, and one long, soft ambient shadow below. The page's main piece and the closing call.
 
-Navigation and overlays may use translucent surfaces with backdrop blur, but they should remain crisp. Avoid frosted-glass aesthetics, colored glows, floating blobs, and ambient shadows.
+The rim light is a 1.5px line on the far edge of a volume, the colour building from nothing to orange to its hot end. It is a line of light, never a halo or a glow around the piece. The main piece alone adds the warm bounce: that orange caught softly on the backdrop it leans on, down and to the right. The closing call keeps the rim line but not the bounce, so the page still has one main piece.
 
-Dark sections should feel like solid matte slabs. Separate content inside them with low-opacity rules and muted inverse text. Keyboard focus rings invert with the surface they land on: the page draws a two-pixel ink ring, and every inverted surface flips it to paper, so focus never disappears into the slab it is sitting on.
+Lacquer has its own depth: a soft reflection over its upper half, a highlight on its top edge, a dark lip below and a short, deeper shadow. Lacquer buttons brighten on hover; raised pieces that are links rise 2px with a deeper shadow; buttons rise 1px and press down to 98.5%.
+
+Shadows stay restrained: low opacity, long negative spreads, never coloured except for the warm bounce. When content scrolls under the header, it blurs out behind a short masked strip at the top of the screen.
+
+Keyboard focus is a 2px ink ring offset by 3px; on lacquer it flips to the light lacquer text colour so it never disappears into the black. A field draws its ring around its pressed shell, not around the bare input.
 
 ## Shapes
 
-The shape language is sharp. Most containers, cards, inputs, labels, and CTAs use square corners. This reinforces the studio's engineered, no-nonsense tone.
+The shapes are those of fired clay: soft, rounded, generous. There are no square content corners.
 
-Use full pills only for global navigation CTAs, compact nav hover states, tiny status dots, and small rounded badges where the shape communicates status rather than content grouping.
+- Pills (fully rounded) for every button, field, chip, tab rail, the language switch and the header itself.
+- Circles for icon buttons (search, menu, mail, carousel arrows, sound) and the number badges.
+- Pieces scale their radius with their weight: 12px for small pebbles, 18px for text areas, empty states and code blocks, 26px for quiet pieces and the dark band, 36px for the main piece and the closing call (28px on phones). Entry rows use 20px, their cover thumbnails 14px, glazed inserts 24px (16px on phones), dark tags 8px.
+- Full-bleed bands, such as the footer, are square at the sides; the footer's top edge is cut by the mascot's V.
 
-Do not mix many radii in one view. If a surface is a card or a major action, square is the default. If it is a navigation or status affordance, a pill is acceptable.
+Three mascot shapes recur as ornament and never as illustration: the swept-back pattern as the kicker glyph, the black V as list bullets and as the footer's notch, and the mascot's head as a glazed white bead with the rim light along its edge, set in the corner of the home and about main pieces.
 
 ## Components
 
-Primary CTAs are black slabs on warm paper. They use bold Geist text, clear padding, square corners, and a right arrow when action-oriented. Hover states should lift slightly and gain a hard offset black shadow.
+The header is one clay pill with the rim line, sticky, set on the page edge. On the left, the glyph and the mono wordmark "THE VIBE CO."; on the right, a round pressed search button, the three section links in Bricolage (the current one pressed into the pill), the FR/EN switch (two pressed positions, the current one raised as a small clay chip), a round mail button and the small lacquer booking button. Below 1100px the right side keeps only the search and menu buttons. The search button is the same on every page: it opens one pressed field in a quiet tray under the header, or, on a page that shows its own search field, takes the visitor to it. The phone menu is a full-screen, opaque studio sheet that keeps the wordmark and the close button exactly where the bar had them, lists the sections in display type (the current one underlined by a 3px rim line), and ends with the large lacquer booking button, the e-mail as a mono rim link and the language switch.
 
-Cards are bordered rectangles, not soft containers. Service cards and product cards use black or warm-gray borders, square corners, tight internal hierarchy, mono metadata, and optional hard hover shadows. On the homepage, our own products sit in a single-row loop carousel with the same orange arrows as the case studies; each product card borrows that product's own accent as a quiet signature: a 3px rule across the top, a small dot beside the mono category, the product logo next to its name, and a hard hover shadow in the accent instead of ink. The accent never fills the card or colours its text. Resource cards use calmer warm borders and may sit on white surfaces.
+The booking action has one name everywhere: "Prendre 30 minutes" ("Book 30 minutes") in the header, the hero, the closing call and the phone bar. The kicker above the closing call reads "Prendre rendez-vous" ("Book a call").
 
-The homepage runner band sits inside the hero itself, between the call-to-action block and the 01/02/03 capability row, and it is the one inverted surface in the hero: an ink panel with paper drawn on it, which is what separates the game from the warm paper above and below it. The player is a small paper bird whose wing beats as it runs and stays raised in the air. Obstacles state the move, not the object: paper to jump, orange to double jump, yellow to duck. Shape says what a thing is, colour says what to do about it. Slabs are slim, round their corners only on the edges facing the bird so each points the way it hangs, and wear black diagonal hazard stripes when they need more than a plain jump. A ceiling bar's length is measured in how long it keeps you down — a quarter second to nearly a full one — so it stays a long duck at speed rather than flicking past; only its lower lip is solid — the same 12px the standing slabs are wide, so every obstacle is the same bar just hung differently — with the rest hanging as threads from the roof; flying predators are drawn as creatures with a beating wing that sweeps outside their hit box, which only ever works in the player's favour — orange means "this one needs something other than a jump", alongside its other uses on the crashed bird and a new best score. Behind them, one of six tinted scenes — city, desert, forest, sea, mountains, night — scrolls at a third of the world speed, swapping every ten seconds with a cross-fade. The tint is the only colour in the panel besides the accent, and it carries the world's identity. Each world belongs to one real client, project or backer, and their name is set as a giant hollow word across the sky — outlined rather than filled, in the world's tint, so obstacles and decor stay readable straight through it, and sized to the panel so a long name shrinks instead of running off a phone. It is painted last, over the obstacles: an obstacle drifting past must never cut through the middle of a client's name. A single letterspaced mono kicker sits above it — the kind and the sector, nothing else. The name is an announcement rather than a permanent label: it rises in, holds about four seconds, then drifts up and out, leaving the sky clear for the rest of the world's ten seconds. This is the reason the game is on the page at all: it tours the roster one world at a time, in a random order on each visit, drawn from the case-study and project catalogues so it grows with the site rather than with the game. The scenes are never named on screen — the visitor is meant to notice the client, not the hills. Whenever a run is not in progress — before the first press as much as after a loss — a near-solid ink veil drops over the whole world, leaving only the score line above the canvas and the replay message on top of it to read. Beating an existing personal best — passing it outright, never merely matching it — opens one extra row under the canvas, hairlined off from it: the congratulations set in accent mono on the left, and a paper slab on the right that books the same thirty-minute call as the hero. That slab is the only inverted primary call to action on the site, paper on ink rather than ink on paper, and it deliberately sits outside the canvas, because the canvas restarts the run on any press and a link inside it could never be clicked. The very first run of a visit sets the record rather than beating one, so it turns the score accent on and nothing else. Sound follows the same rule as the veil: it exists only while a run does. The bed is a looping ambient track, streamed rather than synthesised, fetched only when someone actually plays — a visitor who never presses space never downloads it, and never opens an audio context at all. It leans in slightly as the run speeds up and sits under the effects, which stay synthesised: a soft filtered breath upward on a jump, higher on the second; a short swish overhead when ducking; a dull thud under muffled noise on a crash. Every synthesised voice goes through a low-pass, which is what keeps them from turning metallic. A speaker toggle sits at the end of the score line and the choice is remembered; muting ramps the master to exactly zero, so it means silent rather than quiet. The panel never animates on load — the run starts only on a deliberate key press or click and freezes when scrolled out of view — and it does not exist below 1024px, and only then on a device with a hovering pointer: the game needs a keyboard, and a tablet that can only tap cannot duck under a ceiling bar, so on anything else the hero runs straight into the capability row and the game's code is never even fetched. Up to 1024px that hero also stacks its pitch above the badges and booking slab instead of setting them side by side, which squeezed the pitch to a word per line on tablets. Phones never see it: below 768px the homepage swaps it for the poster layout described next.
+Buttons are pills. The primary is black lacquer with the rim line, 52px tall (42px small, 60px large), Bricolage semibold with a drawn arrow when it moves you on. The secondary is raised clay; the quiet one is plain text with a pressed wash on hover. A busy button keeps its label and turns a small ring before it. The mono link ("LIRE LE CAS", "NOTRE TRAVAIL", "TOUT VOIR SUR GITHUB") is uppercase mono over an underline that runs from ink into rim orange and thickens on hover; it is how a page offers a way in without adding a second button. The open-source catalogue's GitHub action is always this link, never a filled button.
 
-Below 768px the homepage is laid out as a poster, not as the desktop page shrunk to fit. The first screen is one composition: a mono status line (open to projects on the left, the city on the right; the YC batch is carried by its badge further down), then the headline set as two lines that each fill the full content width, the first solid and the second drawn as an ink outline, so the pair reads as one poster rather than two stacked headlines. The claim follows with its orange highlighter, then the one-line pitch, a compact ink booking slab the same size as on desktop (a full-width bar read as a shove on a phone) with the response time in mono beside or under it, the Y Combinator and France 2030 badges separated by a hairline, and, after a fixed 40px gap, the client logos as a three-by-two grid of hairlined cells under a 2px ink rule, replacing the logo marquee. The hero is never stretched to the height of the screen: pinned there, the logos left a hole of several hundred pixels on any phone taller than the content. Every section after it opens on the same compact header: a short bold title, sometimes with a mono label on the right, and a 2px ink rule beneath, so the poster moments (the hero, the case numbers, the closing call) carry the scale and the headers do not compete with them. Case studies play as stories. Under a bare ruled header, a row of thin 3px segments, one per case in 45% ink (about 3:1 on paper, because each segment is a button), sits above a carousel of square-cornered cards with a 2px ink border; the track runs edge to edge, each card takes the full content width, and the gap between cards equals the page gutter, so at rest exactly one card is on screen and nothing of the next peeks in. The carousel moves on by itself every four and a half seconds while the current segment fills with ink from the left, and segments already seen stay full: the movement is what shows the row can be swiped, the bar shows how many cases there are and how long until the next one. Each segment jumps to its case, a small pause control sits before the bar, and the timer holds while a finger rests on the cards, while the row is off screen or the tab is hidden; with reduced motion requested it never starts, the pause control disappears, and the bar simply marks the current case. There are no arrows and no numeric counter. A card carries the logo, the sector in mono on two reserved lines, the headline number, its caption, and a "read the case" line ending in a square ink-bordered arrow. Every card's number is set at one shared size, derived from the card's width so the longest word still fits the narrowest phone, and a long figure wraps onto a second balanced line rather than shrinking on its own; with the sector's two lines reserved, the numbers sit at the same height on every card. A client quote then runs as an ink band, with a giant orange quotation mark hanging off its top corner and the phrase that sums the work up picked out in orange. Services become three ruled rows led by large outlined numerals, title and pitch only. Our products become a ruled list, logo, mono name, category, and an arrow, so all of them are visible without a swipe. The closing call to action turns to ink and runs straight into the footer as one dark slab: the question set as two width-filling lines like the hero (with looser leading, because its accents would otherwise cut into the line above), a compact paper slab, the response time and the email address. Once the hero has scrolled away, a slim bar fixed under the thumb, on translucent paper with an ink rule above it, carries the response time on the left and a compact booking button on the right, and steps aside again as soon as the closing call to action comes into view, so two booking calls are never on screen at once. Every phone tap target is at least 44px tall, however small its mono label.
+Section heads are a kicker, a two-tone display title and a lede. An introduction that frames a whole page hangs off a 4px lacquer bar on its left, drawn rather than bordered; article quotes reuse that bar.
 
-The mark itself is published once, under `public/brand`, so anything outside the site (an email signature, a deck, a partner page) links to the same file instead of carrying its own copy. Three variants, each as a transparent PNG at 192px and 512px wide: the rounded black square with white arcs for light backgrounds, the arcs alone in black for light backgrounds without the square, and the arcs alone in white for ink backgrounds. `public/favicon.svg` stays the in-product mark and the vector source both derive from; when the logo changes, both move together. These URLs are linked to, never surfaced by the site, and are served `noindex, noimageindex`.
+Small pieces: chips are pressed pills of mono uppercase; dark chips are lacquer tags with the hot rim colour for day numbers and "Next"; number badges are 34px lacquer circles in mono (01, 02, 03); lists use the mascot's black V as their bullet; status dots are 7px, ink or rim orange, the orange one with a faint ring. Label and value pairs (reply time, e-mail) set the label in muted mono and the value in semibold; an e-mail address is mono, underlined in rim orange. Segmented rails hold tabs and filters in a pressed pill; the current item becomes a lacquer pill with the rim line. Empty and error states are pressed panels with a kicker, a short title and one sentence; the error kicker turns red. Loading is a pressed block with a slow white sheen.
 
-Navigation is sticky, translucent, and understated. The wordmark is mono, compact, and paired with a small black logo. Desktop links are quiet until hover. The contact CTA is a black pill in the global nav, distinct from the square slab CTAs used in content, with a small chevron because it opens a menu rather than leaving the page: a square-cornered paper panel with a 2px ink border and a hard ink offset shadow, holding two rows (book a call, email us) split by a hairline, each inverting to ink on hover and keyboard focus. The mobile menu is an opaque paper sheet, never a translucent one, that keeps the wordmark exactly where the bar had it, lists the links in large bold type, and leads with the booking slab, with a quiet underlined contact link beneath it that opens the same two-row panel in place, pushing the language switch down rather than floating over it. In the ink footer, the two link lists sit side by side under the wordmark on a phone rather than stacking.
+The home hero is the page's main piece: a raised clay slab with the rim light and its bounce, the mascot bead in its top-right corner, a mono kicker led by a rim status dot ("Ouvert aux projets"), the title in display type, the claim in medium weight, the pitch on its lacquer bar, the Y Combinator W24 and France 2030 marks in two pressed tiles, and on the right the large lacquer booking button above the "Notre travail" mono link. Under it, on desktop, sits the runner band, then the three ways in (build, run, advise) as quiet pieces, each led by a lacquer number badge. The client logos follow in ink on one quiet clay shelf, under a centred kicker. Client cases and our own products scroll by hand in seamless loops of quiet pieces that start where the title starts, with a clay round button to go back, a lacquer one to go on, and between them a clay "see all" button or the GitHub mono link. Each case card is a link as a whole: logo, sector chip, a groove, the headline figure in display type, its caption in muted, the story and a V-bulleted list. Each product card has the same four rows (kind with an ink dot and an outward arrow, logo tile and name, text), so names line up across the row. Services are three quiet pieces on shared rows: number, chip, title, pitch, groove, a V-bulleted list. On phones, a client quote sits between the cases and the services as a quiet piece set in two tones, the sentence in bisque and the line that sums the work up in ink.
 
-An article that exists in both languages is published once in the resources list, in the language being browsed, and carries its own language switch rather than appearing twice. The switch reuses the flag already used as a language marker and borrows the `FR / EN` idiom from the global nav: the version on screen at full strength, a hairline slash, then the other language dimmed until hover, linking to that version's own URL. An article published in a single language keeps showing its lone flag, with nothing added. The switch sits in the card's mono metadata row and, on the article itself, under the sidebar's language label, so the affordance reads as metadata rather than as a second call to action.
+The homepage runner band is a black lacquer panel set into the page under the hero slab, with the rim light along its edge, so it reads as a screen set into the studio rather than a widget floating on it. A mono readout runs across its top (the controls on the left, score, record and a round sound button on the right). The player is a small porcelain bird whose wing beats as it runs and stays raised in the air; it turns orange when it crashes. Obstacles state the move, not the object: porcelain white to jump, rim orange to double jump, the hot pale end of the rim with black diagonal hazard stripes to duck; that last one always hangs or flies, while orange always stands on the ground. Slabs are slim, round their corners only on the edges facing the bird, and wear hazard stripes when they need more than a plain jump. A ceiling bar's length is measured in how long it keeps you down, a quarter second to nearly a full one, so it stays a long duck at speed; only its lower lip is solid, the rest hangs as threads from the roof. Flying predators have a beating wing that sweeps outside their hit box, which only ever works in the player's favour. Behind them, one of six scenes (city, desert, forest, sea, mountains, night) scrolls at about a third of the world speed and swaps every ten seconds with a cross-fade; each is a different grey of the same clay, so the panel keeps a single accent. Each world belongs to one real client, project or backer: its name is set as a giant hollow word across the sky, painted over the obstacles so nothing cuts through it and sized to the panel, under a single mono kicker giving the kind and the sector. The name rises in, holds a little under four seconds, then drifts out. The roster plays in a random order on each visit and is drawn from the case-study and project catalogues, so it grows with the site; scenes are never named. Whenever a run is not in progress, a near-solid lacquer veil drops over the world and a clay pill in the middle says how to start or restart (the loss itself in rim text). Beating an existing personal best outright opens one extra row under the canvas, hairlined off from it: the congratulations in orange mono and a clay button that books the same call as the hero, kept outside the canvas because the canvas restarts the run on any press; the first run of a visit only sets the record. Sound exists only while a run does: a streamed ambient bed fetched on the first deliberate run, and low-passed synthesised effects (a soft breath on a jump, higher on the second, a swish when ducking, a muffled thud on a crash); the sound toggle is remembered and muting means silence. The panel never animates on load, freezes when scrolled away, and only exists from 1024px on a device with a hovering pointer, because the game needs a keyboard; elsewhere its code is never fetched.
 
-The open-source project grid uses the canonical five-product catalogue. Its organization-level GitHub action is an underlined mono text link, never an orange slab or filled button.
+On phones, once the hero has scrolled away, a slim clay pill rides under the thumb with the reply time in mono on the left and a compact booking button on the right. It steps aside as soon as the closing call comes into view, so two booking calls are never on screen at once, and while hidden it is not painted at all.
 
-Case-study product imagery keeps the product UI legible instead of treating screenshots as decoration. Portrait mobile captures may sit beside the overview at no more than 360px wide; wide desktop captures span the case-study content section. Preserve each image's intrinsic ratio, localized alternative text, square border, and responsive dimensions. A product page may show its main UI capture inside a browser window drawn in the house style: a square 2px ink border, a thin ink-ruled title bar with outlined window dots (the last one the orange status signal) and a mono label, and the same static 8px ink offset shadow as the hero illustration above it. The capture keeps its ratio and is never cropped to fit the frame.
+The closing call ends every marketing page: a raised clay slab with the rim line but no warm bounce, a "Prendre rendez-vous" kicker, a two-tone question in display type ("Un problème / à résoudre ?"), a groove, then the large lacquer booking button on the left and the reply time and e-mail on the right.
 
-The footer is a three-column desktop grid: a wide identity and contact column followed by site navigation and external links. It collapses to one column on small screens. The narrow operational-status column is not part of the footer, while the lower status line remains visible below the divider.
+The footer is a full-width lacquer band that opens with the mascot's black V: a notch cut into its top edge, outlined by a line of hot rim light that fades out at both ends. It holds the brand name in display type, a muted tagline and the e-mail underlined in mono, then two link columns under mono headings (site, elsewhere), side by side even on a phone; links turn hot orange on hover. A faint hairline separates the base row of mono facts: copyright, YC W24 and made in France, built with AI, open to projects.
 
-The `/v2` preview swaps the static hero for a playable canvas runner that reuses the standard top nav, sections, and footer. Its score readout and the per-world presentation panel are diegetic game UI; the surrounding page keeps the normal warm-paper components. This belongs to the preview surface only, and predates the runner band now on the canonical homepage; treat the homepage band as the current design and `/v2` as a superseded experiment.
+Case-study and product pages lead with their main piece: the client logo on a pressed tile or the product's app icon, a sector chip, a two-tone headline (the figure in ink, its caption in bisque) or the product name in display type underlined in the product's own accent, the story or a pitch on its lacquer bar, and facts in hairline-separated columns. Product imagery stays legible rather than decorative: a phone capture, a screenshot or a product drawn in code is set into a piece as a glazed insert (white glaze, a faint ring, clipped corners), keeps its intrinsic ratio and its localized alternative text, and is never cropped to fit. What was built follows as rows with lacquer round arrows, numbers sit on the backdrop between hairlines, and "read next" offers one featured case and two smaller ones. The portfolio opens on one featured product as its main piece and lists the others as grooved rows: icon tile, name, chip, pitch, a status line led by a rim dot, a round arrow.
 
-Reference tables state facts rather than decorate them. A key-facts table sits inside a single ink-bordered block with square corners, a 2px ink rule under its header row and hairline rules between rows. The left column is a mono, uppercase, wide-tracked label in muted ink, holding a fixed share of the width so every value starts on the same line; the right column is plain body copy, with links underlined rather than coloured. A fact we have not confirmed leaves its cell empty: a visible gap is honest, an invented value is not.
+The resources home stacks a kicker with the article count, the page title and its lede, then one quiet tray holding the pressed search field and the segmented filter, then two columns. Each column opens with a dot, its title, a count chip and a 2px rule (ink, or ink running into rim orange for the daily series, which is the lit one). Entries are quiet rows: a glazed cover thumbnail with its own rim line, a title clamped to two lines that underlines in orange on hover, a two-line summary, then a meta row of a dark day chip, a pressed series chip, the language flag and the date. Each column ends on a wide clay button to see everything. Articles open with a main piece holding the back link, the type chip, the two-tone title, the summary, the language switch, the cover as a glazed insert, then a strip of meta (published, level, reading time, topics as chips) separated by hairlines. The body sits on the backdrop: links underlined in rim orange, quotes on the lacquer bar, code in small lacquer panels, tables framed in quiet clay with a pressed header row, rules drawn as grooves. Skills put the install action in the main piece and the prompt in a pressed block with a mono toolbar.
 
-Labels, tags, counters, and status chips use Geist Mono, uppercase text, wide tracking, and small scale. They should feel like technical readouts. Status dots can pulse, but they should remain tiny.
+An article that exists in both languages is published once in the resources list, in the language being browsed, and carries its own language switch rather than appearing twice: a pressed rail holding each version's flag and language code, the version on screen raised as a clay chip, the other one a link to its own URL. On a list card it is the compact flag-and-code pair in the meta row; on the article it sits under the summary in the main piece ("FR", "Lire en anglais"), and stacks its two positions in a narrow side column. An article published in a single language shows its lone flag, with nothing added.
 
-Rules and dividers are part of the visual language. Use thin warm-gray rules for routine separation and 2px deep-ink rules for major structural breaks.
+Reference tables state facts rather than decorate them. The key-facts table is pressed into the surface: mono uppercase labels in muted on the left, holding a fixed share of the width so every value starts on the same line, plain body values on the right, hairlines between rows, links underlined rather than coloured. A fact we have not confirmed leaves its cell empty: a visible gap is honest, an invented value is not. The about page carries the page's one lacquer band, the way a project runs from brief to production, with large display numerals and short mono step labels in hot orange.
+
+The mark itself is published once as standalone files, so anything outside the site (an email signature, a deck, a partner page) links to the same file instead of carrying its own copy. Three variants, each a transparent PNG at 192px and 512px wide: the rounded black square with white arcs for light backgrounds, the arcs alone in black for light backgrounds without the square, and the arcs alone in white for dark backgrounds. The in-product vector favicon is the source both derive from; when the logo changes, both move together. These files are linked to, never surfaced by the site, and are served noindex and noimageindex.
 
 ## Do's and Don'ts
 
-- Do use warm paper, deep ink, strong typography, and exact alignment as the default visual foundation.
-- Do make section hierarchy with bands, rules, scale, and contrast before adding decorative effects.
-- Do keep accents small and meaningful: status, taxonomy, product identity, or one key attention marker.
-- Do reserve Geist Mono for metadata and operational UI, not long-form prose.
-- Do use square corners for content surfaces and slab CTAs.
-- Do preserve partner-logo and product-screenshot aspect ratios at every breakpoint.
-- Don't introduce marketing-style gradients, decorative orbs, soft bokeh, or colorful background washes.
-- Don't turn pages into nested card layouts. Use full-width bands and unframed layouts first.
-- Don't over-round cards, inputs, or buttons. Pills are for nav and status.
-- Don't turn the GitHub catalogue link into a filled promotional CTA.
-- Don't use soft ambient shadows as the main hierarchy tool.
-- Don't let resource/domain colors overpower the monochrome brand system.
+- Do give each page one main piece (raised clay, the largest radius, the rim light and its warm bounce), then keep everything else quiet.
+- Do use black lacquer for actions, number badges, dark tags, the current tab and, at most, one dark band per page plus the footer.
+- Do set titles in two tones, ink then unglazed-clay grey, and lead sections with a mono kicker.
+- Do press fields, tags, rails and empty states into the surface instead of outlining them.
+- Do set covers, screenshots and product mocks as glazed inserts that keep their own ratio and colours.
+- Do keep orange as light and signal: rim lines, underlines, tiny status dots, short mono text on lacquer, and the YC mark.
+- Do keep every page on the one container, starting on the same edge as the header pill.
+- Do keep text at 12px or more, labels on one line, running text under 90 characters a line, and every clickable thing with a pointer, a hover and a focus ring.
+- Don't bring back warm paper, grid paper, hard offset shadows or square content cards.
+- Don't make the rim light a glow, a halo or a filled orange surface, and don't put orange text on a light surface except in the deep rim text colour.
+- Don't build a grid of identical shadowed cards, or put a piece inside a piece of the same weight.
+- Don't add a dark mode or let any surface follow the system theme.
+- Don't use bisque for body copy, or let client, product or domain colours tint the pieces around their marks.
+- Don't make content wait for a scroll-in animation, and don't add a second sticky bar.

@@ -1,0 +1,234 @@
+# The standard of The Vibe Company
+What the front holds to from now on: its direction, its tokens and its kit, each where it lives in the code, and its own rules.
+
+## Direction
+porcelaine: Sert les visuels du site : la mascotte et les couvertures d'articles deviennent la matière même de l'interface, blanc porcelaine brillant, laque noire et liseré de lumière orange, pour que l'agence ait l'air d'un studio qui fabrique des objets finis.
+
+## Tokens
+- `--studio: #ebeced` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--clay: #fbfbfa` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--clay-lo: #f0f0ee` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--well: #e8e9e8` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--ink: #0b0b0c` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--ink-2: #2a2b2d` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--bisque: #7d7e7b` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--lacquer: #0c0c0d` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--on-lacquer: #f3f3f1` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--on-lacquer-muted: #9a9b9b` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--rim: #ff7a1f` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--rim-hot: #ffb46e` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--rim-text: #9c4308` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--danger: #b42318` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--line: #d3d4d3` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--background: var(--studio)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--foreground: var(--ink)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--card: var(--clay)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--card-foreground: var(--ink)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--popover: var(--clay)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--popover-foreground: var(--ink)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--muted: #5b5d60` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--muted-foreground: #5b5d60` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--accent: var(--well)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--accent-foreground: var(--ink)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--border: var(--line)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--input: var(--well)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--res-bg: var(--studio)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--res-bg-secondary: var(--well)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--res-surface: var(--clay)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--res-border: var(--line)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--res-text: var(--ink)` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--res-text-muted: #5b5d60` in `src/app/globals.css`, under `:root, [data-variant="hybrid"], .resources-theme`
+- `--wrap: 1200px` in `src/app/globals.css`
+- `--gut: 24px` in `src/app/globals.css`
+- `--font-ui: var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif` in `src/app/globals.css`
+- `--font-code: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace` in `src/app/globals.css`
+- `--radius: 0.75rem` in `src/app/globals.css`
+- `--r-sm: 12px` in `src/app/globals.css`
+- `--r-md: 18px` in `src/app/globals.css`
+- `--r-lg: 26px` in `src/app/globals.css`
+- `--r-xl: 36px` in `src/app/globals.css`
+- `--domain-dev: #2563eb` in `src/app/globals.css`
+- `--domain-design: #db2777` in `src/app/globals.css`
+- `--domain-ops: #059669` in `src/app/globals.css`
+- `--domain-business: #d97706` in `src/app/globals.css`
+- `--domain-ai: #7c3aed` in `src/app/globals.css`
+- `--domain-marketing: #e11d48` in `src/app/globals.css`
+- `--gut: 48px` in `src/app/globals.css`, under `@media (min-width: 768px)`
+- `--color-background: var(--background)` in `src/app/globals.css`, under `@theme inline`
+- `--color-foreground: var(--foreground)` in `src/app/globals.css`, under `@theme inline`
+- `--color-card: var(--card)` in `src/app/globals.css`, under `@theme inline`
+- `--color-card-foreground: var(--card-foreground)` in `src/app/globals.css`, under `@theme inline`
+- `--color-popover: var(--popover)` in `src/app/globals.css`, under `@theme inline`
+- `--color-popover-foreground: var(--popover-foreground)` in `src/app/globals.css`, under `@theme inline`
+- `--color-muted: var(--muted)` in `src/app/globals.css`, under `@theme inline`
+- `--color-muted-foreground: var(--muted-foreground)` in `src/app/globals.css`, under `@theme inline`
+- `--color-accent: var(--accent)` in `src/app/globals.css`, under `@theme inline`
+- `--color-accent-foreground: var(--accent-foreground)` in `src/app/globals.css`, under `@theme inline`
+- `--color-border: var(--border)` in `src/app/globals.css`, under `@theme inline`
+- `--color-input: var(--input)` in `src/app/globals.css`, under `@theme inline`
+- `--color-studio: var(--studio)` in `src/app/globals.css`, under `@theme inline`
+- `--color-clay: var(--clay)` in `src/app/globals.css`, under `@theme inline`
+- `--color-clay-lo: var(--clay-lo)` in `src/app/globals.css`, under `@theme inline`
+- `--color-well: var(--well)` in `src/app/globals.css`, under `@theme inline`
+- `--color-ink: var(--ink)` in `src/app/globals.css`, under `@theme inline`
+- `--color-ink-2: var(--ink-2)` in `src/app/globals.css`, under `@theme inline`
+- `--color-bisque: var(--bisque)` in `src/app/globals.css`, under `@theme inline`
+- `--color-lacquer: var(--lacquer)` in `src/app/globals.css`, under `@theme inline`
+- `--color-on-lacquer: var(--on-lacquer)` in `src/app/globals.css`, under `@theme inline`
+- `--color-on-lacquer-muted: var(--on-lacquer-muted)` in `src/app/globals.css`, under `@theme inline`
+- `--color-rim: var(--rim)` in `src/app/globals.css`, under `@theme inline`
+- `--color-rim-hot: var(--rim-hot)` in `src/app/globals.css`, under `@theme inline`
+- `--color-rim-text: var(--rim-text)` in `src/app/globals.css`, under `@theme inline`
+- `--color-danger: var(--danger)` in `src/app/globals.css`, under `@theme inline`
+- `--color-orange-400: #ffb46e` in `src/app/globals.css`, under `@theme inline`
+- `--color-orange-500: #ff7a1f` in `src/app/globals.css`, under `@theme inline`
+- `--color-orange-600: #9c4308` in `src/app/globals.css`, under `@theme inline`
+- `--color-orange-700: #7d3506` in `src/app/globals.css`, under `@theme inline`
+- `--color-res-bg: var(--res-bg, #ebeced)` in `src/app/globals.css`, under `@theme inline`
+- `--color-res-bg-secondary: var(--res-bg-secondary, #e8e9e8)` in `src/app/globals.css`, under `@theme inline`
+- `--color-res-surface: var(--res-surface, #fbfbfa)` in `src/app/globals.css`, under `@theme inline`
+- `--color-res-border: var(--res-border, #d3d4d3)` in `src/app/globals.css`, under `@theme inline`
+- `--color-res-text: var(--res-text, #0b0b0c)` in `src/app/globals.css`, under `@theme inline`
+- `--color-res-text-muted: var(--res-text-muted, #5b5d60)` in `src/app/globals.css`, under `@theme inline`
+- `--color-domain-dev: var(--domain-dev, #4f46e5)` in `src/app/globals.css`, under `@theme inline`
+- `--color-domain-design: var(--domain-design, #7c3aed)` in `src/app/globals.css`, under `@theme inline`
+- `--color-domain-ops: var(--domain-ops, #0891b2)` in `src/app/globals.css`, under `@theme inline`
+- `--color-domain-business: var(--domain-business, #d97706)` in `src/app/globals.css`, under `@theme inline`
+- `--color-domain-ai: var(--domain-ai, #059669)` in `src/app/globals.css`, under `@theme inline`
+- `--color-domain-marketing: var(--domain-marketing, #e11d48)` in `src/app/globals.css`, under `@theme inline`
+- `--font-sans: var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif` in `src/app/globals.css`, under `@theme inline`
+- `--font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace` in `src/app/globals.css`, under `@theme inline`
+- `--radius-lg: var(--radius)` in `src/app/globals.css`, under `@theme inline`
+- `--radius-md: calc(var(--radius) - 2px)` in `src/app/globals.css`, under `@theme inline`
+- `--radius-sm: calc(var(--radius) - 4px)` in `src/app/globals.css`, under `@theme inline`
+- `--radius-pebble: 12px` in `src/app/globals.css`, under `@theme inline`
+- `--radius-piece: 18px` in `src/app/globals.css`, under `@theme inline`
+- `--radius-plate: 26px` in `src/app/globals.css`, under `@theme inline`
+- `--radius-slab: 36px` in `src/app/globals.css`, under `@theme inline`
+- `--animate-marquee: marquee 20s linear infinite` in `src/app/globals.css`, under `@theme inline`
+- `--animate-shimmer: shimmer 2s infinite` in `src/app/globals.css`, under `@theme inline`
+- `--rim-angle: 110deg` in `src/app/globals.css`, under `@layer components .seg > .on, .seg > [aria-current="page"], .seg > [aria-current="true"], .seg > [aria-pressed="true"], .seg > [aria-selected="true"]`
+- `--rim-angle: 135deg` in `src/app/globals.css`, under `@layer components .thumb`
+- `--rim-angle: 140deg` in `src/app/globals.css`, under `@layer components .final-slab`
+- `--audio-progress: 0%` in `src/app/globals.css`, under `.prose-vibe-audio`
+
+## Components
+- `.resources-theme` in `src/app/globals.css`
+- `.prose-vibe-audio__wave` in `src/app/globals.css`
+- `.lacquer` in `src/app/globals.css`
+- `.btn-lacquer` in `src/app/globals.css`
+- `.field` in `src/app/globals.css`
+- `.wrap` in `src/app/globals.css`
+- `.section` in `src/app/globals.css`
+- `.section-tight` in `src/app/globals.css`
+- `.clay` in `src/app/globals.css`
+- `.btn-clay` in `src/app/globals.css`
+- `.clay-quiet` in `src/app/globals.css`
+- `.well` in `src/app/globals.css`
+- `.chip` in `src/app/globals.css`
+- `.seg` in `src/app/globals.css`
+- `.tr` in `src/app/globals.css`
+- `.rim` in `src/app/globals.css`
+- `.on` in `src/app/globals.css`
+- `.rim-warm` in `src/app/globals.css`
+- `.groove` in `src/app/globals.css`
+- `.glaze` in `src/app/globals.css`
+- `.lift` in `src/app/globals.css`
+- `.display` in `src/app/globals.css`
+- `.d-xl` in `src/app/globals.css`
+- `.d-lg` in `src/app/globals.css`
+- `.d-md` in `src/app/globals.css`
+- `.d-sm` in `src/app/globals.css`
+- `.d-xs` in `src/app/globals.css`
+- `.bisque` in `src/app/globals.css`
+- `.lede` in `src/app/globals.css`
+- `.measure` in `src/app/globals.css`
+- `.mono` in `src/app/globals.css`
+- `.kicker` in `src/app/globals.css`
+- `.pointe` in `src/app/globals.css`
+- `.lede-bar` in `src/app/globals.css`
+- `.btn` in `src/app/globals.css`
+- `.btn-sm` in `src/app/globals.css`
+- `.btn-lg` in `src/app/globals.css`
+- `.btn-wide` in `src/app/globals.css`
+- `.btn-quiet` in `src/app/globals.css`
+- `.link-rim` in `src/app/globals.css`
+- `.t` in `src/app/globals.css`
+- `.round` in `src/app/globals.css`
+- `.round-sm` in `src/app/globals.css`
+- `.chip-dark` in `src/app/globals.css`
+- `.dot` in `src/app/globals.css`
+- `.dot-rim` in `src/app/globals.css`
+- `.num` in `src/app/globals.css`
+- `.ticks` in `src/app/globals.css`
+- `.facts` in `src/app/globals.css`
+- `.field-sm` in `src/app/globals.css`
+- `.field-area` in `src/app/globals.css`
+- `.field-hint` in `src/app/globals.css`
+- `.field-error` in `src/app/globals.css`
+- `.rows` in `src/app/globals.css`
+- `.entries` in `src/app/globals.css`
+- `.entry` in `src/app/globals.css`
+- `.thumb` in `src/app/globals.css`
+- `.entry-body` in `src/app/globals.css`
+- `.clamp-2` in `src/app/globals.css`
+- `.meta` in `src/app/globals.css`
+- `.flag` in `src/app/globals.css`
+- `.state` in `src/app/globals.css`
+- `.state-title` in `src/app/globals.css`
+- `.state-body` in `src/app/globals.css`
+- `.skeleton` in `src/app/globals.css`
+- `.rise` in `src/app/globals.css`
+- `.nav-wrap` in `src/app/globals.css`
+- `.nav` in `src/app/globals.css`
+- `.brand` in `src/app/globals.css`
+- `.nav-links` in `src/app/globals.css`
+- `.nav-link` in `src/app/globals.css`
+- `.lang` in `src/app/globals.css`
+- `.back` in `src/app/globals.css`
+- `.footer` in `src/app/globals.css`
+- `.vneck` in `src/app/globals.css`
+- `.foot-grid` in `src/app/globals.css`
+- `.foot-brand` in `src/app/globals.css`
+- `.foot-col` in `src/app/globals.css`
+- `.foot-base` in `src/app/globals.css`
+- `.final-slab` in `src/app/globals.css`
+- `.final-row` in `src/app/globals.css`
+- `.bg-grid` in `src/app/globals.css`
+- `.stroke-text` in `src/app/globals.css`
+- `.prose-vibe` in `src/app/globals.css`
+- `.prose-vibe-table-wrap` in `src/app/globals.css`
+- `.prose-vibe-image` in `src/app/globals.css`
+- `.prose-vibe-audio` in `src/app/globals.css`
+- `.prose-vibe-audio__title` in `src/app/globals.css`
+- `.prose-vibe-audio__player` in `src/app/globals.css`
+- `.prose-vibe-audio__load` in `src/app/globals.css`
+- `.prose-vibe-audio__play-icon` in `src/app/globals.css`
+- `.prose-vibe-audio__load-text` in `src/app/globals.css`
+- `.prose-vibe-audio__timeline` in `src/app/globals.css`
+- `.prose-vibe-audio__wave-bars` in `src/app/globals.css`
+- `.prose-vibe-audio__wave-progress` in `src/app/globals.css`
+- `.prose-vibe-audio__time` in `src/app/globals.css`
+- `.prose-vibe-audio__current` in `src/app/globals.css`
+- `.prose-vibe-audio__rewind` in `src/app/globals.css`
+- `.prose-vibe-gallery` in `src/app/globals.css`
+- `.prose-vibe-warm` in `src/app/globals.css`
+- `src/components/kit/index.tsx`
+- `src/components/TopNav.tsx`
+- `src/components/Footer.tsx`
+- `src/components/home/FinalCTA.tsx`
+- `src/components/ContactMenu.tsx`
+- `src/components/LanguageSwitcher.tsx`
+- `src/components/BackLink.tsx`
+- `src/components/resources/TranslationSwitch.tsx`
+- `src/components/resources/LanguageFlag.tsx`
+
+## Rules
+- One main piece per page: only the page's focal point (the hero slab, the cover, the featured case or project) is a `clay rim rim-warm` piece; everything else is `clay-quiet`, a `groove` row or the bare studio backdrop, never a grid of identical shadowed cards.
+- Every section sits on `wrap`: the header pill, the content and the footer share one edge (48 px at 1280, 24 px at 390).
+- The booking action is « Prendre 30 minutes » (EN « Book 30 minutes ») everywhere, a black lacquer pill with the orange rim; the closing call of a page is the kit's `FinalCTA`, kicker « Prendre rendez-vous ».
+- Orange is light, not paint: the rim line on the main piece, status dots and the YC badge; orange text on a light surface uses `--rim-text`.
+- Titles are Bricolage Grotesque in two tones: the first line in ink, the second in grey unglazed clay (`bisque`).
+- Kickers and metadata are mono uppercase; no text under 12 px; running text 54 to 60 characters wide.
+- Product visuals (app screens, mocks, phones, article covers) sit in a `glaze` insert, never pasted on the backdrop.
+- Light only: the home, resources and portfolio surfaces share one token block and stay `color-scheme: light`; no grid paper, no warm paper.

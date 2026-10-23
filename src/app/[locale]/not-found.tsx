@@ -1,5 +1,5 @@
 import { getLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { ButtonLink, Kicker } from "@/components/kit";
 import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 
@@ -28,22 +28,17 @@ export default async function NotFound() {
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
       <TopNav />
-      <main id="main-content" tabIndex={-1} className="flex flex-1 items-center justify-center px-6 py-24 md:px-12">
-        <div className="w-full max-w-lg text-center">
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-orange-500">
-            404
-          </span>
-          <h1 className="mt-4 text-4xl font-bold tracking-tighter text-foreground md:text-5xl">
-            {t.title}
-          </h1>
-          <p className="mx-auto mt-4 max-w-md text-muted-foreground">{t.body}</p>
-          <Link
-            href="/"
-            className="mt-8 inline-flex items-center gap-2 border-2 border-foreground bg-background px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
-          >
-            {t.cta}
-            <span aria-hidden="true">&rarr;</span>
-          </Link>
+      <main id="main-content" tabIndex={-1} className="flex-1 pt-4 md:pt-6">
+        <div className="wrap">
+          {/* The page's one main piece: clay with the rim light. */}
+          <section className="clay rim rim-warm rounded-slab px-6 py-14 md:px-14 md:py-24">
+            <Kicker>404</Kicker>
+            <h1 className="display d-lg m-0 mt-6 max-w-[14ch]">{t.title}</h1>
+            <p className="lede mt-6">{t.body}</p>
+            <ButtonLink href="/" variant="lacquer" size="lg" arrow className="mt-10">
+              {t.cta}
+            </ButtonLink>
+          </section>
         </div>
       </main>
       <Footer />
