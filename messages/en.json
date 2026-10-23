@@ -36,8 +36,8 @@
     "description": "An AI-native agency. Everything 10 to 20× faster with AI: products, ops, training. Our agency runs on AI too."
   },
   "hero": {
-    "titleLine1": "We build your product,",
-    "titleLine2": "10 to 20× faster.",
+    "titleLine1": "AI-First Agency",
+    "titleLine2": "Audit, automation, secure production.",
     "subtitle": "We build your products, we run agents inside your company, we train your teams. We run on AI ourselves, so you ship faster and for far less than a traditional team.",
     "bookCall": "Book 30 minutes",
     "seeWhatWeDo": "See what we do",
@@ -56,8 +56,8 @@
       }
     },
     "poster": [
-      "We build",
-      "your product,"
+      "AI-First",
+      "Agency."
     ],
     "response": "Reply within 24h"
   },

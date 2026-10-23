@@ -161,8 +161,8 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
 
   const tabs: { key: Filter; label: string; dot?: boolean }[] = [
     { key: 'all', label: t('all') },
-    { key: 'victor', label: t('victorStory'), dot: true },
     { key: 'articles', label: t('articles') },
+    { key: 'victor', label: t('victorStory'), dot: true },
   ];
 
   return (
@@ -194,35 +194,6 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
         )}
 
         <div className={single ? '' : 'grid grid-cols-1 items-start gap-[52px] md:grid-cols-2 md:gap-9'}>
-          {showVictor && (
-            <Column
-              name={t('victorStory')}
-              count={victorStory.length}
-              accent="victor"
-              layout={single ? 'grid' : 'list'}
-              footer={
-                hiddenVictor > 0 ? (
-                  <button
-                    type="button"
-                    onClick={() => setFilter('victor')}
-                    className="btn btn-clay btn-wide mt-4"
-                  >
-                    <span className="truncate">{t('viewAllVictor', { count: victorStory.length })}</span>
-                    <Arrow />
-                  </button>
-                ) : null
-              }
-            >
-              {victorStory.map((item, index) => (
-                <ArticleEntry
-                  key={item.id}
-                  item={item}
-                  hidden={filter === 'all' && index >= VICTOR_PREVIEW_LIMIT}
-                />
-              ))}
-            </Column>
-          )}
-
           {showOthers && (
             <Column
               name={t('articles')}
@@ -247,6 +218,35 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
                   key={item.id}
                   item={item}
                   hidden={filter === 'all' && index >= ARTICLES_PREVIEW_LIMIT}
+                />
+              ))}
+            </Column>
+          )}
+
+          {showVictor && (
+            <Column
+              name={t('victorStory')}
+              count={victorStory.length}
+              accent="victor"
+              layout={single ? 'grid' : 'list'}
+              footer={
+                hiddenVictor > 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => setFilter('victor')}
+                    className="btn btn-clay btn-wide mt-4"
+                  >
+                    <span className="truncate">{t('viewAllVictor', { count: victorStory.length })}</span>
+                    <Arrow />
+                  </button>
+                ) : null
+              }
+            >
+              {victorStory.map((item, index) => (
+                <ArticleEntry
+                  key={item.id}
+                  item={item}
+                  hidden={filter === 'all' && index >= VICTOR_PREVIEW_LIMIT}
                 />
               ))}
             </Column>

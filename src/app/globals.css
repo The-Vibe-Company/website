@@ -1315,6 +1315,23 @@ input:disabled {
     letter-spacing: -0.012em;
   }
 
+  /* Two lines are kept for the title and two for the summary, short or long,
+     and the meta line keeps one chip's height: every card of a list, in both
+     columns, is the same height. */
+  @media (min-width: 768px) {
+    .entry h3 {
+      min-height: calc(2 * 1.28em);
+    }
+
+    .entry p {
+      min-height: calc(2 * 1.45em);
+    }
+
+    .entry .meta {
+      min-height: 36px;
+    }
+  }
+
   .entry p {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -1689,6 +1706,18 @@ input:disabled {
   .tr > a {
     min-width: 0;
     overflow: hidden;
+  }
+
+  /* On a list card the switch shares its line with the chips: it takes their
+     26px height, so every card's meta line is the same. */
+  .tr[data-variant="card"] {
+    padding: 1px;
+  }
+
+  .tr[data-variant="card"] > * {
+    min-height: 24px;
+    gap: 6px;
+    padding: 0 9px;
   }
 
   /* In the article's narrow side column the two positions stack. */
