@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 
 import {
   contentAlternates,
+  defaultSocialMetadata,
   localizedAlternates,
   localizedSocialMetadata,
   monolingualAlternates,
@@ -11,14 +12,24 @@ import {
 const SITE = "https://www.thevibecompany.co";
 
 describe("localizedSocialMetadata", () => {
-  test("falls back to the site logo on the small card without an image", () => {
+  test("falls back to the default 1200x630 JPEG on the large card without an image", () => {
     const meta = localizedSocialMetadata({ locale: "en", path: "/about", title: "T", description: "D" });
-    const url = `${SITE}/icon.png`;
-    expect(meta.twitter).toMatchObject({ card: "summary", images: [url] });
+    const url = `${SITE}/og/default.jpg`;
+    expect(meta.twitter).toMatchObject({ card: "summary_large_image", images: [url] });
     expect(meta.openGraph).toMatchObject({
       locale: "en_US",
       url: `${SITE}/en/about`,
-      images: [{ url, width: 1024, height: 1024, alt: "The Vibe Company" }],
+      images: [{ url, width: 1200, height: 630, type: "image/jpeg", alt: "The Vibe Company" }],
+    });
+  });
+
+  test("layout defaults share the default card", () => {
+    const meta = defaultSocialMetadata("fr");
+    const url = `${SITE}/og/default.jpg`;
+    expect(meta.twitter).toMatchObject({ card: "summary_large_image", images: [url] });
+    expect(meta.openGraph).toMatchObject({
+      locale: "fr_FR",
+      images: [{ url, width: 1200, height: 630, type: "image/jpeg", alt: "The Vibe Company" }],
     });
   });
 

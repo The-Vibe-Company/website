@@ -17,10 +17,11 @@ import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
 import {
   absoluteUrl,
+  DEFAULT_OG_IMAGE,
   localizedUrl,
   monolingualAlternates,
+  openGraphImage,
   openGraphLocale,
-  SITE_LOGO,
   SITE_NAME,
   SITE_URL,
 } from '@/lib/site';
@@ -71,7 +72,7 @@ export async function generateMetadata({
       description: item.summary,
       publishedTime: item.publishedAt,
       tags: item.topics,
-      // A skill without a cover shares the site logo, like the other pages.
+      // A skill without a cover shares the default card, like the other pages.
       images: socialImageUrl
         ? [
             {
@@ -80,13 +81,13 @@ export async function generateMetadata({
               alt: socialImage?.alt ?? item.title,
             },
           ]
-        : [{ url: absoluteUrl(SITE_LOGO.path), width: SITE_LOGO.width, height: SITE_LOGO.height, alt: SITE_NAME }],
+        : [openGraphImage(DEFAULT_OG_IMAGE)],
     },
     twitter: {
-      card: socialImageUrl ? 'summary_large_image' : 'summary',
+      card: 'summary_large_image',
       title: item.title,
       description: item.summary,
-      images: [socialImageUrl ?? absoluteUrl(SITE_LOGO.path)],
+      images: [socialImageUrl ?? absoluteUrl(DEFAULT_OG_IMAGE.path)],
     },
   };
 }
