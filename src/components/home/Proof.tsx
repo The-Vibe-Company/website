@@ -43,8 +43,9 @@ export function Proof() {
         {/* The hairline of a quiet piece is a shadow, so the track keeps one
             pixel of room on each side (and 8px above and below for the lift)
             instead of clipping it. */}
-        {/* The arrows sit on either side of the cards, astride their edges,
-            centred on their height. */}
+        {/* From 768px the arrows sit on either side of the cards, astride
+            their edges, centred on their height. A phone swipes the track:
+            the next card's edge already shows there is more. */}
         <div className="relative mt-7">
           <div
             ref={trackRef}
@@ -100,7 +101,7 @@ export function Proof() {
             type="button"
             onClick={() => scrollByCard(-1)}
             aria-label={t("prev")}
-            className={`${LOOP_PREV_CLASS} absolute left-0 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2`}
+            className={`${LOOP_PREV_CLASS} absolute left-0 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 max-md:hidden`}
           >
             <Arrow direction="left" />
           </button>
@@ -108,13 +109,13 @@ export function Proof() {
             type="button"
             onClick={() => scrollByCard(1)}
             aria-label={t("next")}
-            className={`${LOOP_NEXT_CLASS} absolute right-0 top-1/2 z-10 translate-x-1/2 -translate-y-1/2`}
+            className={`${LOOP_NEXT_CLASS} absolute right-0 top-1/2 z-10 translate-x-1/2 -translate-y-1/2 max-md:hidden`}
           >
             <Arrow />
           </button>
         </div>
 
-        <div className="mt-8 flex justify-center md:mt-10">
+        <div className="mt-6 flex justify-center md:mt-10">
           <LinkRim
             href={ORG_URL}
             target="_blank"

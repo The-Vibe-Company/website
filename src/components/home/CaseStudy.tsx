@@ -45,13 +45,13 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
         </>
       ) : null}
 
-      <p className="m-0 mt-[18px] text-base leading-[1.55] text-ink-2">
+      <p className="m-0 mt-[18px] text-base leading-[1.55] text-ink-2 max-md:line-clamp-4">
         {c.summary}
       </p>
 
-      {/* The list of what was built, tighter on a phone: smaller type and
-          rhythm, the same points. */}
-      <ul className="ticks mt-4 gap-2 max-md:[&>li]:text-sm md:mt-5 md:gap-[11px]">
+      {/* The list of what was built, from 768px. A phone shows the compact
+          card (figure, the gist, the way in); the case page has the rest. */}
+      <ul className="ticks mt-5 gap-[11px] max-md:hidden">
         {c.points.map((point) => (
           <li key={point}>{point}</li>
         ))}
@@ -88,8 +88,9 @@ export function CaseStudy() {
         {/* The hairline of a quiet piece is a shadow, so the track keeps one
             pixel of room on each side (and 8px above and below for the lift)
             instead of clipping it. */}
-        {/* The arrows sit on either side of the cards, astride their edges,
-            centred on their height. */}
+        {/* From 768px the arrows sit on either side of the cards, astride
+            their edges, centred on their height. A phone swipes the track:
+            the next card's edge already shows there is more. */}
         <div className="relative mt-9 md:mt-12">
           <div
             ref={trackRef}
@@ -112,7 +113,7 @@ export function CaseStudy() {
             type="button"
             onClick={() => scrollByCard(-1)}
             aria-label={t("prev")}
-            className={`${LOOP_PREV_CLASS} absolute left-0 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2`}
+            className={`${LOOP_PREV_CLASS} absolute left-0 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 max-md:hidden`}
           >
             <Arrow direction="left" />
           </button>
@@ -120,13 +121,13 @@ export function CaseStudy() {
             type="button"
             onClick={() => scrollByCard(1)}
             aria-label={t("next")}
-            className={`${LOOP_NEXT_CLASS} absolute right-0 top-1/2 z-10 translate-x-1/2 -translate-y-1/2`}
+            className={`${LOOP_NEXT_CLASS} absolute right-0 top-1/2 z-10 translate-x-1/2 -translate-y-1/2 max-md:hidden`}
           >
             <Arrow />
           </button>
         </div>
 
-        <div className="mt-8 flex justify-center md:mt-10">
+        <div className="mt-6 flex justify-center md:mt-10">
           <ButtonLink href="/case-studies" variant="clay" arrow>
             {t("seeAll")}
           </ButtonLink>
