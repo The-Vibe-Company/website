@@ -1,0 +1,114 @@
+src/components/resources/KeepReading.tsx
+  s_c8af29a5af6da7::t_cb8df8ba8d01b1 43,84
+  s_c8af29a5af6da7::t_8b762be15998fb 6,18-20
+src/app/[locale]/layout.tsx
+  s_c8af29a5af6da7::t_f109d6beb1483c 80
+  s_c8af29a5af6da7::t_57752e21dc29c4 7,11,84
+src/components/about/AboutPage.tsx
+  s_c8af29a5af6da7::t_73e218e36fa2e9 577,606-607
+  s_c8af29a5af6da7::t_87f17ddc50f387 7,37,42,179-189,195-196
+src/app/[locale]/resources/skills/[slug]/page.tsx
+  s_c8af29a5af6da7::t_59ad73eb3aa81b 142,206
+  s_c8af29a5af6da7::t_a612ae3669ffef 8,17-26,66,73,82,85,88,109-114,137
+src/components/resources/ArticleBrowser.tsx
+  s_c8af29a5af6da7::t_cb7688ee1a1cba 7
+src/app/[locale]/resources/page.tsx
+  s_c8af29a5af6da7::t_0d38f298fdeb23 90-95
+  s_c8af29a5af6da7::t_277b75cba9b11b 5,14-15,79,84,86
+src/app/[locale]/case-studies/page.tsx
+  s_c8af29a5af6da7::t_2a47f76ecd7be2 8,10-11,47-48,55-60
+src/app/[locale]/portfolio/[slug]/page.tsx
+  s_c8af29a5af6da7::t_320effb3f25a53 10,14-16,44,57-59,83-99,112-113
+src/app/[locale]/portfolio/page.tsx
+  s_c8af29a5af6da7::t_278257ac4aa5fd 9,11-12,77-78,85-90
+src/app/[locale]/resources/[type]/[slug]/page.tsx
+  s_c8af29a5af6da7::t_fc11e1f6d89b1f 7,25-26,67-71,98,111,118,121,132,185-202,206-208
+content/articles/agents-dont-lack-tools-they-lack-company-memory.md
+  s_c8af29a5af6da7::t_34307bde4e8cc0 34,52,60,62
+content/articles/agents-ia-formation-autorite.md
+  s_c8af29a5af6da7::t_8f702f3490e8df 111
+content/articles/ai-agent-poc-to-production.md
+  s_c8af29a5af6da7::t_a9870d3edeed9a 88-89
+content/articles/ai-music-with-an-artist.md
+  s_c8af29a5af6da7::t_723290f4867a8e 290
+content/articles/chatgpt-enterprise-rollout.md
+  s_c8af29a5af6da7::t_9bd2051c92432b 1-79
+content/articles/chatgpt-entreprise.md
+  s_c8af29a5af6da7::t_bc360b8bd25139 1-79
+content/articles/choisir-agence-ia-esn-freelance.md
+  s_c8af29a5af6da7::t_38478069214f96 148-149
+content/articles/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia.md
+  s_c8af29a5af6da7::t_8b250e810bdd9d 154
+content/articles/how-to-choose-an-ai-agency.md
+  s_c8af29a5af6da7::t_34d261dd62e5c7 148-149
+content/articles/how-to-use-skillopt-to-train-agent-skills.md
+  s_c8af29a5af6da7::t_c81fb82897d8f4 35,136,160,170
+content/articles/la-regle-que-j-ai-failli-coder-en-dur.md
+  s_c8af29a5af6da7::t_9538e5c9dd026f 15,23
+content/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer.md
+  s_c8af29a5af6da7::t_d14f3c913cac2a 14,167,601
+content/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done.md
+  s_c8af29a5af6da7::t_cb78cfcf8d2a2e 74,111-115
+content/articles/my-personal-os-lives-in-a-folder.md
+  s_c8af29a5af6da7::t_d07186a168d1c2 24,26,91
+content/articles/poc-agent-ia-production.md
+  s_c8af29a5af6da7::t_4263313e15c54e 88-89
+content/articles/quivr-to-the-vibe-company.md
+  s_c8af29a5af6da7::t_5e826256cfdc9a 16,144
+content/articles/serveur-mcp-entreprise.md
+  s_c8af29a5af6da7::t_1511b85d4126e1 1-96
+content/articles/travailler-prestataire-ia.md
+  s_c8af29a5af6da7::t_3d45d848a953b5 1-115
+content/articles/what-is-an-mcp-server.md
+  s_c8af29a5af6da7::t_bfdc01c9f5ca55 1-96
+content/articles/why-codex-felt-better-than-claude-deepswe.md
+  s_c8af29a5af6da7::t_4e227a22b76f08 50,64,86-87
+content/articles/why-i-replaced-prompts-with-skills.md
+  s_c8af29a5af6da7::t_eb6d0f3fc44818 64,76,147,189-190
+content/articles/working-with-an-ai-development-agency.md
+  s_c8af29a5af6da7::t_b8f786ca6d9cf6 1-115
+next.config.ts
+  s_c8af29a5af6da7::t_f6281c7e58cabf 46-79
+src/app/[locale]/page.tsx
+  s_c8af29a5af6da7::t_7ece56e53c9c25 5,14,18,23
+src/app/sitemap.test.ts
+  s_c8af29a5af6da7::t_df300a83c761d9 2-3,10-39,62,67-76
+src/app/sitemap.ts
+  s_c8af29a5af6da7::t_b0aa3db6c3ee9c 2,16,26,30,42,92-107,109,111-113,120
+src/components/JsonLd.tsx
+  s_c8af29a5af6da7::t_7cc843d84c7093 1-15
+src/generated/image-optimize-cache.json
+  s_c8af29a5af6da7::t_d043698831dccd 54-58,279-283,294-298,359-363,479-483,489-493
+src/generated/og-image-dimensions.json
+  s_c8af29a5af6da7::t_0caa0bc0d12e69 30-33,126-129,134-137
+src/lib/article-links.test.ts
+  s_c8af29a5af6da7::t_c5efee8a3c1e5f 1-29
+src/lib/content-source.test.ts
+  s_c8af29a5af6da7::t_8dd5a73072f80c 1-16
+src/lib/priority-articles.ts
+  s_c8af29a5af6da7::t_0a9a230325729f 1
+src/lib/site.test.ts
+  s_c8af29a5af6da7::t_f7953c193ded22 3-11,14,16-22,40-74
+src/lib/site.ts
+  s_c8af29a5af6da7::t_5a1317dc6e3443 82,85,91-92,94-99,101-103,114,150-153,161,166-178,191-194,197-198,202,207-213,216,219
+src/lib/structured-data.test.ts
+  s_c8af29a5af6da7::t_6dc592b2948a12 1-215
+src/lib/structured-data.ts
+  s_c8af29a5af6da7::t_1c871addea9aad 1-284
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "32c40448f22d30d7a89f28f25489d5bee68e61c4",
+  "prompts": {},
+  "sessions": {
+    "s_c8af29a5af6da7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b81b232c-25c9-4494-8e89-f80c50a7c0c1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
