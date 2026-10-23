@@ -388,6 +388,12 @@
   outline-color: var(--on-lacquer);
 }
 
+/* The segmented rail scrolls, so it clips anything drawn outside a button:
+   the keyboard ring is drawn inside instead. */
+.seg > :focus-visible {
+  outline-offset: -3px;
+}
+
 /* A field draws its own ring on the pressed-in shell, not on the bare input. */
 .field input:focus-visible,
 .field textarea:focus-visible,
@@ -1070,12 +1076,6 @@ input:disabled {
     display: none;
   }
 
-  /* The rail scrolls, so it clips anything drawn outside a button: the
-     keyboard ring is drawn inside instead. */
-  .seg > :focus-visible {
-    outline-offset: -3px;
-  }
-
   .seg > * {
     display: inline-flex;
     align-items: center;
@@ -1464,7 +1464,8 @@ input:disabled {
   }
 
   @media print {
-    [data-reveal="pending"] {
+    [data-reveal="pending"],
+    [data-reveal="pending"][data-from] {
       opacity: 1;
       transform: none;
     }
