@@ -85,6 +85,8 @@ Ce que ça prouve mieux qu'une démo :
 
 Pour la vue d'ensemble (outils, mémoire, autorité, mesure), lisez notre [guide de l'agent IA en entreprise](https://www.thevibecompany.co/fr/resources/articles/agent-ia-entreprise).
 
+Une fois le prestataire choisi, voici [comment se déroule un projet avec un prestataire IA, du premier appel à la production](https://www.thevibecompany.co/fr/resources/articles/travailler-prestataire-ia).
+
 ## FAQ
 
 **Combien de temps faut-il pour passer d'un POC à la production ?**

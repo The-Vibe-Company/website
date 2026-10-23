@@ -145,6 +145,8 @@ Where we help: an AI product or agent that must reach production fast, in a mid-
 - **LocService (property rental)**: several hundred support tickets a day. An assistant reads past tickets and documentation, then drafts each reply based on the customer's profile. Drafts are used on 87% of tickets; the team decides what gets sent. [Read the case](/en/case-studies/locservice)
 - **AFP (news media)**: generative AI tools for newsrooms within MediaGen, a €4M France 2030 project backed by Bpifrance, alongside Kairntech and Dawex, always under journalists' control. [Read the case](/en/case-studies/afp)
 
+Once you've picked a partner, here's [how a project with an AI development agency runs, from first call to production](/en/resources/articles/working-with-an-ai-development-agency).
+
 ## FAQ
 
 ### AI agency or IT services firm: what's the difference?
