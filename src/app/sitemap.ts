@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { CUSTOMER_SLUGS, getCustomer } from "@/lib/customers";
 import {
   contentPath,
   getAllContent,
@@ -12,6 +13,7 @@ import {
   localizedLanguages,
   localizedUrl,
   splitPath,
+  splitPathLanguages,
   type SplitPaths,
 } from "@/lib/site";
 
@@ -21,15 +23,11 @@ const LOCALES = ["fr", "en"] as const;
 
 // Each localized canonical gets its own sitemap entry. Both entries carry the
 // same self-inclusive hreflang set, as required for reciprocal alternates.
-function entries(
-  path: string,
-  extra: Extra,
-  { xDefault = false }: { xDefault?: boolean } = {},
-): MetadataRoute.Sitemap {
+function entries(path: string, extra: Extra): MetadataRoute.Sitemap {
   return LOCALES.map((locale) => ({
     url: localizedUrl(locale, path),
     alternates: {
-      languages: localizedLanguages(path, { xDefault }),
+      languages: localizedLanguages(path),
     },
     ...extra,
   }));
@@ -41,10 +39,7 @@ function splitEntries(paths: SplitPaths, extra: Extra): MetadataRoute.Sitemap {
   return LOCALES.map((locale) => ({
     url: localizedUrl(locale, splitPath(paths, locale)),
     alternates: {
-      languages: {
-        fr: localizedUrl("fr", paths.fr),
-        en: localizedUrl("en", paths.en),
-      },
+      languages: splitPathLanguages(paths),
     },
     ...extra,
   }));
@@ -93,25 +88,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  // Project pages also declare x-default (the French URL), the same way
-  // translated articles do.
   const portfolioRoutes = PROJECT_SLUGS.flatMap((slug) =>
-    entries(
-      `/portfolio/${slug}`,
-      {
-        lastModified: now,
-        changeFrequency: "monthly" as const,
-        priority: 0.7,
-      },
-      { xDefault: true },
-    )
+    entries(`/portfolio/${slug}`, {
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })
   );
 
-  // Case studies intentionally remain absent until client publication approval.
+  // Case studies use the route's customer source and FR/EN-only alternates.
+  const caseStudyRoutes = [
+    ...entries("/case-studies", {
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    }),
+    ...CUSTOMER_SLUGS.flatMap((slug) =>
+      entries(`/case-studies/${slug}`, {
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.7,
+      }).filter((_, index) => getCustomer(slug, LOCALES[index]))
+    ),
+  ];
+
   return [
     ...staticRoutes,
     ...splitPathRoutes,
     ...portfolioRoutes,
     ...contentRoutes,
+    ...caseStudyRoutes,
   ];
 }

@@ -13,7 +13,7 @@ ogImage: /images/resources/quivr-to-the-vibe-company/cover-mascotte.webp
 
 We are stopping Quivr as our main company direction.
 
-We are now building [The Vibe Company](/agency).
+We are now building [The Vibe Company](/en).
 
 This message comes from both of us, Stan and Antoine. It is not easy to write, because Quivr has been such a big part of our lives. But the reason is simple: we believe the next big opportunity is no longer to sell an isolated AI tool. It is to rebuild how companies work with agents, context, and complete workflows.
 
@@ -141,7 +141,7 @@ When you give them a method, memory, an execution environment, and a real scope 
 
 That is also why we are building our own internal systems, like Granite, agent skills, and our publishing, delivery, and knowledge-management pipelines. We want to be our own first client. If our own company does not run better with our tools, we have no legitimacy selling them.
 
-We have started documenting this vision in other articles, especially on [company memory for agents](/resources/articles/agents-dont-lack-tools-they-lack-company-memory), [our personal OS](/resources/articles/my-personal-os-lives-in-a-folder), and [MCP servers as working methods](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done).
+We have started documenting this vision in other articles, especially on [company memory for agents](/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory), [our personal OS](/en/resources/articles/my-personal-os-lives-in-a-folder), and [MCP servers as working methods](/en/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done).
 
 ## Thank you
 

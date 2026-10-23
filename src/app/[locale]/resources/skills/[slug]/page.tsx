@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { BackLink } from '@/components/BackLink';
 import { Chip, Groove, Kicker, LinkRim } from '@/components/kit';
+import { JsonLd } from '@/components/JsonLd';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { SkillAIInstaller } from '@/components/resources/SkillAIInstaller';
@@ -13,7 +14,16 @@ import { SkillPromptBlock } from '@/components/resources/SkillPromptBlock';
 import { getContentByType, getContentItem, getRelatedContent } from '@/lib/content-source';
 import { normalizeMarkdownBody } from '@/lib/markdown';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
-import { localizedUrl, monolingualAlternates, SITE_NAME, SITE_URL } from '@/lib/site';
+import {
+  absoluteUrl,
+  localizedUrl,
+  monolingualAlternates,
+  openGraphLocale,
+  SITE_LOGO,
+  SITE_NAME,
+  SITE_URL,
+} from '@/lib/site';
+import { breadcrumbList } from '@/lib/structured-data';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
@@ -53,12 +63,14 @@ export async function generateMetadata({
     robots: locale === item.language ? undefined : { index: false, follow: true },
     openGraph: {
       type: 'article',
+      locale: openGraphLocale(item.language),
       url: canonicalUrl,
       siteName: SITE_NAME,
       title: item.title,
       description: item.summary,
       publishedTime: item.publishedAt,
       tags: item.topics,
+      // A skill without a cover shares the site logo, like the other pages.
       images: socialImageUrl
         ? [
             {
@@ -67,13 +79,13 @@ export async function generateMetadata({
               alt: socialImage?.alt ?? item.title,
             },
           ]
-        : undefined,
+        : [{ url: absoluteUrl(SITE_LOGO.path), width: SITE_LOGO.width, height: SITE_LOGO.height, alt: SITE_NAME }],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: socialImageUrl ? 'summary_large_image' : 'summary',
       title: item.title,
       description: item.summary,
-      images: socialImageUrl ? [socialImageUrl] : undefined,
+      images: [socialImageUrl ?? absoluteUrl(SITE_LOGO.path)],
     },
   };
 }
@@ -94,6 +106,12 @@ export default async function SkillDetailPage({
   const related = await getRelated(slug);
 
   const canonicalUrl = localizedUrl(item.language, `/resources/skills/${item.slug}`);
+  const tFooter = await getTranslations({ locale: item.language, namespace: 'footer' });
+  const breadcrumb = breadcrumbList([
+    { name: tFooter('home'), url: localizedUrl(item.language) },
+    { name: tFooter('resources'), url: localizedUrl(item.language, '/resources') },
+    { name: item.title, url: canonicalUrl },
+  ]);
 
   const installContext = {
     slug: item.slug,
@@ -116,11 +134,12 @@ export default async function SkillDetailPage({
 
   return (
     <>
+      <JsonLd data={breadcrumb} />
       <ReadingProgress />
       <main id="main-content" tabIndex={-1} className="pb-24">
         <article lang={item.language}>
           <div className="wrap pt-3.5 md:pt-[22px]">
-            <BackLink href="/resources/skills" label={t('skillsSection')} />
+            <BackLink href="/resources" label={t('skillsSection')} />
 
             <div className="mt-2 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:items-start lg:gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,440px)]">
               <div className="min-w-0">
@@ -184,7 +203,7 @@ export default async function SkillDetailPage({
                 <Kicker as="h2" className="text-ink">
                   <span id="related-skills-title">{t('relatedSkills')}</span>
                 </Kicker>
-                <LinkRim href="/resources/skills">{t('viewAll')}</LinkRim>
+                <LinkRim href="/resources">{t('viewAll')}</LinkRim>
               </div>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

@@ -47,7 +47,7 @@ Opus is still very good at taking a fuzzy intention and turning it into a plan. 
 
 But once the plan exists, execution is a different job. The agent has to be literal. It has to hold details. It has to apply the plan without reinterpreting it at every step. It has to go back to the tests, read the errors, fix, continue. In that mode, Codex with GPT-5.5 more often feels like an agent that keeps moving toward closure.
 
-This is also why benchmarks and workflow design have to be read together. In the [SkillOpt article](/resources/articles/how-to-use-skillopt-to-train-agent-skills), the useful lesson was that agent behavior improves when the instruction layer is validated against real tasks. DeepSWE is making a related point from the model-evaluation side: the benchmark has to look like the work.
+This is also why benchmarks and workflow design have to be read together. In the [SkillOpt article](/en/resources/articles/how-to-use-skillopt-to-train-agent-skills), the useful lesson was that agent behavior improves when the instruction layer is validated against real tasks. DeepSWE is making a related point from the model-evaluation side: the benchmark has to look like the work.
 
 DeepSWE does not prove my exact Conductor workflow. The main leaderboard uses a standardized harness, [mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent), to compare models in the same environment. So this is not a direct test of Codex CLI versus Claude Code, and certainly not a direct test of my local Conductor setup.
 
@@ -61,7 +61,7 @@ Datacurve also points to another issue: according to their audit, SWE-Bench Pro 
 
 A coding agent is not just a model. It is a model inside a harness, with tools, working memory, instructions, a verification loop, and a way to recover when it makes a mistake. That is why the right question is not "Claude or GPT?" in the abstract. The right question is: which model, for which part of the work, inside which system?
 
-This is the same reason I stopped treating repeated agent instructions as prompts and started turning them into durable workflow packages. The longer version is in [Why I replaced prompts with skills](/resources/articles/why-i-replaced-prompts-with-skills). The model matters. The surrounding operating surface matters too.
+This is the same reason I stopped treating repeated agent instructions as prompts and started turning them into durable workflow packages. The longer version is in [Why I replaced prompts with skills](/en/resources/articles/why-i-replaced-prompts-with-skills). The model matters. The surrounding operating surface matters too.
 
 Today, my rule looks roughly like this:
 
@@ -83,5 +83,5 @@ On that terrain, my feeling from the past few months just received a pretty soli
 - [DeepSWE on GitHub](https://github.com/datacurve-ai/deep-swe)
 - [DeepSWE methodology](https://deepswe.datacurve.ai/blog)
 - [mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent)
-- [How to use SkillOpt: train your agent skills, not your model](/resources/articles/how-to-use-skillopt-to-train-agent-skills)
-- [Agents don't lack tools. They lack company memory.](/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
+- [How to use SkillOpt: train your agent skills, not your model](/en/resources/articles/how-to-use-skillopt-to-train-agent-skills)
+- [Agents don't lack tools. They lack company memory.](/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory)

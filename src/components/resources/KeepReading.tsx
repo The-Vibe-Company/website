@@ -3,8 +3,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Arrow, Groove, Kicker } from '@/components/kit';
 import { LanguageFlag } from '@/components/resources/LanguageFlag';
-import type { ContentEntry } from '@/lib/content-source';
-import { getUrlSlugForDbType } from '@/lib/content-types';
+import { contentPath, getContentForLanguage, type ContentEntry, type ContentLanguage } from '@/lib/content-source';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 
 function formatShortDate(dateString: string | undefined, locale: string): string {
@@ -16,8 +15,9 @@ function formatShortDate(dateString: string | undefined, locale: string): string
   });
 }
 
-function hrefFor(item: ContentEntry): string {
-  return `/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`;
+function linkFor(item: ContentEntry, locale: string) {
+  const target = getContentForLanguage(item.type, item.slug, locale as ContentLanguage) ?? item;
+  return { href: contentPath(target), locale: target.language };
 }
 
 /**
@@ -40,7 +40,7 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
         </Kicker>
 
         <Link
-          href={hrefFor(featured)}
+          {...linkFor(featured, locale)}
           className="clay-quiet lift group mt-[22px] grid cursor-pointer items-center gap-1.5 rounded-[22px] p-2 md:rounded-plate md:p-3 lg:grid-cols-[minmax(0,43%)_minmax(0,1fr)] lg:gap-10"
         >
           {featured.featuredImage?.url && (
@@ -81,7 +81,7 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
               <li key={r.id} className="min-w-0">
                 <Groove />
                 <Link
-                  href={hrefFor(r)}
+                  {...linkFor(r, locale)}
                   className="group grid cursor-pointer grid-cols-[92px_minmax(0,1fr)] items-start gap-3.5 py-[18px] md:grid-cols-[104px_minmax(0,1fr)] md:gap-[18px] md:pb-[22px] md:pt-5"
                 >
                   {r.featuredImage?.url ? (

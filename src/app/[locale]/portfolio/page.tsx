@@ -6,8 +6,10 @@ import { TopNav } from "@/components/TopNav";
 import { Arrow, SectionTitle } from "@/components/kit";
 import { Footer } from "@/components/Footer";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { JsonLd } from "@/components/JsonLd";
 import { getProjects, type ContentLocale } from "@/lib/projects";
-import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
+import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
+import { breadcrumbList } from "@/lib/structured-data";
 
 export async function generateMetadata({
   params,
@@ -72,12 +74,20 @@ export default async function PortfolioPage({
   const projects = [...getProjects(locale as ContentLocale)].sort((a, b) =>
     a.name.localeCompare(b.name, locale, { sensitivity: "base" }),
   );
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const tNav = await getTranslations({ locale, namespace: "nav" });
 
   return (
     <div
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
+      <JsonLd
+        data={breadcrumbList([
+          { name: tFooter("home"), url: localizedUrl(locale) },
+          { name: tNav("portfolio"), url: localizedUrl(locale, "/portfolio") },
+        ])}
+      />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="pt-12 md:pt-[76px]">

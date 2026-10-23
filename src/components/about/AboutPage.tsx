@@ -4,6 +4,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
 import { TopNav } from "@/components/TopNav";
 import { CLIENTS } from "@/components/home/Clients";
 import { FinalCTA } from "@/components/home/FinalCTA";
@@ -33,10 +34,12 @@ import { cn } from "@/lib/design-system";
 import {
   ABOUT_PATHS,
   localizedSocialMetadata,
+  localizedUrl,
   SITE_URL,
   splitPath,
   splitPathAlternates,
 } from "@/lib/site";
+import { breadcrumbList, faqPageSchema } from "@/lib/structured-data";
 import { AboutBookingCta } from "./AboutBookingCta";
 
 /**
@@ -173,11 +176,24 @@ export async function AboutPage({ locale }: { locale: string }) {
   const tProcess = await getTranslations({ locale, namespace: "process" });
   const [h1Line1, h1Line2] = splitTitle(t("title"));
 
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const breadcrumb = breadcrumbList([
+    { name: tFooter("home"), url: localizedUrl(locale) },
+    { name: tFooter("about"), url: localizedUrl(locale, splitPath(ABOUT_PATHS, locale)) },
+  ]);
+  const faq = faqPageSchema(
+    ABOUT_FAQ_KEYS.map((key) => ({
+      question: t(`faq.items.${key}.q`),
+      answer: t(`faq.items.${key}.a`),
+    })),
+  );
   return (
     <div
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={faq} />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         {/* 1 — The one main piece: the H1, the value sentence, the call. */}
@@ -558,7 +574,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                             ))}
                           </span>
                         ) : key === "site" ? (
-                          <a href={SITE_URL} className={FACT_LINK}>
+                          <a href={localizedUrl(locale)} className={FACT_LINK}>
                             {SITE_URL}
                           </a>
                         ) : key === "networks" ? (
@@ -587,7 +603,8 @@ export async function AboutPage({ locale }: { locale: string }) {
           </div>
         </section>
 
-        {/* 8 — Frequently asked questions, plain HTML, no JSON-LD. */}
+        {/* 8 — Frequently asked questions, mirrored word for word in the
+            FAQPage JSON-LD above (minus the answers that name a client). */}
         <section className="section">
           <div className="wrap">
             <Title title={t("faq.title")} />

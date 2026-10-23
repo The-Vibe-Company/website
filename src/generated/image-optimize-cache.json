@@ -51,6 +51,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/chatgpt-entreprise/cover-mascotte.webp": {
+      "sourceHash": "21ae0f378c16906e1fbb5c0c78650609935e61f3df4434d0531e5cd6cfa64009",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp": {
       "sourceHash": "4e6943e70dccf101685b31b975bde6d126ae5cd2fb7f5c5a22ed07642c070c3e",
       "targetUrl": null,
@@ -271,6 +276,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/serveur-mcp-entreprise/cover-mascotte.webp": {
+      "sourceHash": "b80605b14d5c90c58e200f49dc078d41b4b2f00bafd0627aa14f6a36f5e29893",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/site-devient-produit/cover.png": {
       "sourceHash": "ff8f389b1a1b95411a5a18f63e0daad30265fb2e7836e9d74dd3f06dd89f6aef",
       "targetUrl": "/images/_optimized/resources/site-devient-produit/cover.webp",
@@ -280,6 +290,11 @@
       "sourceHash": "f4b22a0eeb810b1b019881d554d9e4d18e1d7f4f896a13314e444d316ed2a80b",
       "targetUrl": "/images/_optimized/resources/site-devient-produit/decouverte.webp",
       "targetHash": "d714a024379982de0807f70bae3543678c31d7e1b9ccbb10d18c8476509fc3fb"
+    },
+    "content:/images/resources/travailler-prestataire-ia/cover-mascotte.webp": {
+      "sourceHash": "affa34bd0b7e0a01a440bde1297e4d257c5b7618819dce271c03e4a08f0c6c5a",
+      "targetUrl": null,
+      "targetHash": null
     },
     "content:/images/resources/veille-ia-automatique/cover.png": {
       "sourceHash": "7d124c15b66d7e6f3ca3b0223abbde550c44416889545c37b2a192461b427d8e",
@@ -338,6 +353,11 @@
     },
     "og:/images/resources/automatisation-ia-entreprise/cover-mascotte.webp": {
       "sourceHash": "f62cc1a50de1de3b1dcba623070c52f1ec52c95116f45d4db2cd43d2977147cb",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/chatgpt-entreprise/cover-mascotte.webp": {
+      "sourceHash": "21ae0f378c16906e1fbb5c0c78650609935e61f3df4434d0531e5cd6cfa64009",
       "targetUrl": null,
       "targetHash": null
     },
@@ -456,8 +476,18 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "og:/images/resources/serveur-mcp-entreprise/cover-mascotte.webp": {
+      "sourceHash": "b80605b14d5c90c58e200f49dc078d41b4b2f00bafd0627aa14f6a36f5e29893",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "og:/images/resources/site-devient-produit/cover.png": {
       "sourceHash": "ff8f389b1a1b95411a5a18f63e0daad30265fb2e7836e9d74dd3f06dd89f6aef",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/travailler-prestataire-ia/cover-mascotte.webp": {
+      "sourceHash": "affa34bd0b7e0a01a440bde1297e4d257c5b7618819dce271c03e4a08f0c6c5a",
       "targetUrl": null,
       "targetHash": null
     },

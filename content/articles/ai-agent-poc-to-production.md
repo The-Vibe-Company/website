@@ -85,6 +85,8 @@ What that proves better than a demo:
 
 For the big picture (tools, memory, authority, measurement), read our [practical guide to AI agents for business](https://www.thevibecompany.co/en/resources/articles/ai-agents-for-business).
 
+Once you've picked a partner, here's [how a project with an AI development agency runs, from first call to production](https://www.thevibecompany.co/en/resources/articles/working-with-an-ai-development-agency).
+
 ## FAQ
 
 **How long does it take to go from POC to production?**

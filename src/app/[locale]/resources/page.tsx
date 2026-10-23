@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { SectionTitle } from '@/components/kit';
+import { JsonLd } from '@/components/JsonLd';
 import { ArticleBrowser, type ArticleCardItem } from '@/components/resources/ArticleBrowser';
 import { ResourcesHomeSearch } from '@/components/resources/ResourcesHomeSearch';
 import {
@@ -10,8 +11,8 @@ import {
   getContentTranslations,
 } from '@/lib/content-source';
 import type { ContentEntry, ContentLanguage } from '@/lib/content-source';
-import { PRIORITY_ARTICLES } from '@/lib/priority-articles';
-import { localizedAlternates, localizedSocialMetadata } from '@/lib/site';
+import { localizedAlternates, localizedSocialMetadata, localizedUrl } from '@/lib/site';
+import { breadcrumbList } from '@/lib/structured-data';
 
 export async function generateMetadata({
   params,
@@ -75,25 +76,23 @@ export default async function ResourcesPage({
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'resources' });
   // Articles come back sorted by publishedAt desc, so both columns stay in
-  // chronological order (newest first), after the pinned priority articles.
-  // The D-day badge comes from seriesDay. A translated article is
+  // chronological order (newest first). The D-day badge comes from seriesDay. A translated article is
   // represented once, by its version in the language being browsed.
   const language: ContentLanguage = locale === 'en' ? 'en' : 'fr';
   const articles = getContentByTypeForLanguage('article', language);
   const victorStory = articles.filter((a) => a.series === VICTOR_SERIES).map(toCard);
-  const prioritySlugs: readonly string[] = PRIORITY_ARTICLES[language].map(({ slug }) => slug);
-  const priorityRank = (slug: string) => {
-    const index = prioritySlugs.indexOf(slug);
-    return index === -1 ? prioritySlugs.length : index;
-  };
-  const others = articles
-    .filter((a) => a.series !== VICTOR_SERIES)
-    .sort((a, b) => priorityRank(a.slug) - priorityRank(b.slug))
-    .map((item) => ({ ...toCard(item), priority: prioritySlugs.includes(item.slug) }));
+  const others = articles.filter((a) => a.series !== VICTOR_SERIES).map(toCard);
   const articleCount = articles.length;
+  const tFooter = await getTranslations({ locale, namespace: 'footer' });
 
   return (
     <main id="main-content" tabIndex={-1} className="pb-24 md:pb-[120px]">
+      <JsonLd
+        data={breadcrumbList([
+          { name: tFooter('home'), url: localizedUrl(locale) },
+          { name: tFooter('resources'), url: localizedUrl(locale, '/resources') },
+        ])}
+      />
       <section className="pt-12 md:pt-[76px]">
         <div className="wrap">
           <SectionTitle

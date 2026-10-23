@@ -4,7 +4,7 @@ import { useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from 'next-intl';
-import { Arrow, Chip, Pointe } from '@/components/kit';
+import { Arrow, Chip } from '@/components/kit';
 import { cn } from '@/lib/design-system';
 import { getUrlSlugForDbType } from '@/lib/content-types';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
@@ -26,7 +26,6 @@ export interface ArticleCardItem {
   translations?: TranslationLink[];
   seriesDay?: number;
   focus?: boolean;
-  priority?: boolean;
   tool?: boolean;
   image: { url: string; alt: string } | null;
 }
@@ -73,12 +72,6 @@ function ArticleEntry({ item, hidden = false }: { item: ArticleCardItem; hidden?
         )}
       </span>
       <div className="entry-body">
-        {item.priority && (
-          <div className="kicker mb-1.5">
-            <Pointe className="size-3.5" />
-            <span>{t('startHere')}</span>
-          </div>
-        )}
         <h3 className="max-md:line-clamp-3">
           <Link
             href={`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`}

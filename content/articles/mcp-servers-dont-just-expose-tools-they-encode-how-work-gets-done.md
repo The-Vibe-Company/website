@@ -71,7 +71,7 @@ The first version exposed storage. The useful version exposed a way of working w
 
 That distinction shows up everywhere. A deployment MCP should teach release discipline. A CRM MCP should teach pipeline hygiene. A finance MCP should teach evidence, approvals, and traceability. A knowledge MCP should teach when to read, when to write, when to link, and when to say "this claim is not supported yet."
 
-We saw the same pattern again when we used agents to [compile a CIR/CII evidence dossier](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer). The output was useful because the agent did not start by writing. It started by reconstructing the proof chain from Linear, GitHub, docs, and source material. The method mattered more than the model.
+We saw the same pattern again when we used agents to [compile a CIR/CII evidence dossier](/fr/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer). The output was useful because the agent did not start by writing. It started by reconstructing the proof chain from Linear, GitHub, docs, and source material. The method mattered more than the model.
 
 That is the shift: MCP should not only expose the company's systems. It should expose the company's operating judgment.
 
@@ -108,8 +108,8 @@ The method gets you work you can trust.
 - [Anthropic introducing MCP](https://www.anthropic.com/news/model-context-protocol)
 - [OpenAI MCP documentation](https://developers.openai.com/api/docs/mcp)
 - [Granite on GitHub](https://github.com/The-Vibe-Company/Granite)
-- [Why I replaced prompts with skills](/resources/articles/why-i-replaced-prompts-with-skills)
-- [Agents don't lack tools. They lack company memory.](/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
-- [Le vrai sujet avec les agents IA, c'est la formation](/resources/articles/agents-ia-formation-autorite)
-- [My personal OS lives in a folder. My agents run my company from it.](/resources/articles/my-personal-os-lives-in-a-folder)
-- [Playbook: preparing a CIR/CII dossier with Claude Code](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer)
+- [Why I replaced prompts with skills](/en/resources/articles/why-i-replaced-prompts-with-skills)
+- [Agents don't lack tools. They lack company memory.](/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
+- [Le vrai sujet avec les agents IA, c'est la formation](/fr/resources/articles/agents-ia-formation-autorite)
+- [My personal OS lives in a folder. My agents run my company from it.](/en/resources/articles/my-personal-os-lives-in-a-folder)
+- [Playbook: preparing a CIR/CII dossier with Claude Code](/fr/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer)

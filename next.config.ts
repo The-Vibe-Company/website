@@ -43,6 +43,40 @@ const nextConfig: NextConfig = {
         destination: "/portfolio/quivr",
         permanent: true,
       },
+      // /agency was removed; old URLs still 404 in Search Console.
+      // The agency now lives on the home page, preserving the visitor's locale.
+      {
+        source: "/:locale(fr|en)/agency",
+        destination: "/:locale",
+        permanent: true,
+      },
+      {
+        source: "/agency",
+        destination: "/",
+        permanent: true,
+      },
+      // These content types were removed; old URLs still 404 in Search Console.
+      // Land on /resources directly to avoid the /resources/articles redirect.
+      {
+        source: "/:locale(fr|en)/resources/:type(tools|tutorials|concepts|focus)",
+        destination: "/:locale/resources",
+        permanent: true,
+      },
+      {
+        source: "/:locale(fr|en)/resources/:type(tools|tutorials|concepts|focus)/:path*",
+        destination: "/:locale/resources",
+        permanent: true,
+      },
+      {
+        source: "/resources/:type(tools|tutorials|concepts|focus)",
+        destination: "/resources",
+        permanent: true,
+      },
+      {
+        source: "/resources/:type(tools|tutorials|concepts|focus)/:path*",
+        destination: "/resources",
+        permanent: true,
+      },
       // /resources/learnings was removed; old URLs still 404 in Search Console.
       // They land on the /resources index directly: /resources/articles itself
       // redirects there (temporarily), which would chain a 308 into a 307.

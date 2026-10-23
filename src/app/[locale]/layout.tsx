@@ -4,9 +4,11 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ClientProviders } from "@/components/ClientProviders";
+import { JsonLd } from "@/components/JsonLd";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
 import { routing } from "@/i18n/routing";
 import { localizedAlternates, SITE_NAME, SITE_URL } from "@/lib/site";
+import { siteGraph } from "@/lib/structured-data";
 import "../globals.css";
 
 // Porcelaine type: Bricolage Grotesque for the page (its width and optical-size
@@ -75,9 +77,11 @@ export default async function LocaleLayout({
     // tokens in globals.css can resolve them.
     <html
       lang={locale}
+      data-scroll-behavior="smooth"
       className={`${bricolage.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
       <body className="antialiased">
+        <JsonLd data={siteGraph(locale)} />
         <NextIntlClientProvider>
           <ClientProviders />
           <ConditionalGridOverlay />

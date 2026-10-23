@@ -1,10 +1,42 @@
 import { describe, expect, test } from "bun:test";
+import { CUSTOMER_SLUGS, getCustomer } from "@/lib/customers";
+import { localizedAlternates } from "@/lib/site";
 
 import sitemap from "./sitemap";
 
 const SITE = "https://www.thevibecompany.co";
 
 describe("sitemap", () => {
+  test("lists the case-study index and every served customer locale with the page's hreflang", () => {
+    const locales = ["fr", "en"] as const;
+    const expected = [
+      ...locales.map((locale) => `${SITE}/${locale}/case-studies`),
+      ...CUSTOMER_SLUGS.flatMap((slug) =>
+        locales
+          .filter((locale) => getCustomer(slug, locale))
+          .map((locale) => `${SITE}/${locale}/case-studies/${slug}`)
+      ),
+    ];
+    const entries = sitemap().filter((entry) =>
+      new URL(entry.url).pathname.includes("/case-studies"),
+    );
+
+    expect(entries.map((entry) => entry.url).sort()).toEqual(expected.sort());
+    for (const entry of entries) {
+      const url = new URL(entry.url);
+      const [, locale, ...segments] = url.pathname.split("/");
+      const page = localizedAlternates(locale, `/${segments.join("/")}`);
+
+      expect(entry.url).toBe(page.canonical);
+      expect(entry.alternates?.languages).toEqual(page.languages);
+      expect(Object.keys(entry.alternates!.languages!).sort()).toEqual(["en", "fr", "x-default"]);
+      expect(url.search).toBe("");
+      expect(entry.changeFrequency).toBe("monthly");
+      expect(entry.priority).toBe(segments.length === 1 ? 0.8 : 0.7);
+      expect(entry.lastModified).toBeInstanceOf(Date);
+    }
+  });
+
   test("lists the Quivr project page in both languages with hreflang and x-default", () => {
     const entries = sitemap().filter((entry) =>
       entry.url.endsWith("/portfolio/quivr"),
@@ -27,11 +59,21 @@ describe("sitemap", () => {
     expect(sitemap().some((entry) => /\/(fr|en)\/quivr$/.test(entry.url))).toBe(false);
   });
 
-  test("keeps the static pages without x-default", () => {
+  test("declares the French URL as x-default on the static pages", () => {
     const home = sitemap().find((entry) => entry.url === `${SITE}/en`);
     expect(home?.alternates?.languages).toEqual({
       fr: `${SITE}/fr`,
       en: `${SITE}/en`,
+      "x-default": `${SITE}/fr`,
+    });
+  });
+
+  test("declares x-default on the translated About page", () => {
+    const about = sitemap().find((entry) => entry.url === `${SITE}/en/about`);
+    expect(about?.alternates?.languages).toEqual({
+      fr: `${SITE}/fr/a-propos`,
+      en: `${SITE}/en/about`,
+      "x-default": `${SITE}/fr/a-propos`,
     });
   });
 });

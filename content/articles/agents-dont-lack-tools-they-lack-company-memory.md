@@ -31,7 +31,7 @@ An agent with tool access is a fast reader in a room full of files. An agent wit
 
 ## memory has to be compiled
 
-That is why [Granite](https://github.com/The-Vibe-Company/Granite) exists. Not as a notes app. Not as a second brain. As a memory compiler for humans and agents. The more personal version of that story is in [My personal OS lives in a folder](/resources/articles/my-personal-os-lives-in-a-folder). The company version is simpler: memory should be an operating layer, not an accidental by-product of storage.
+That is why [Granite](https://github.com/The-Vibe-Company/Granite) exists. Not as a notes app. Not as a second brain. As a memory compiler for humans and agents. The more personal version of that story is in [My personal OS lives in a folder](/en/resources/articles/my-personal-os-lives-in-a-folder). The company version is simpler: memory should be an operating layer, not an accidental by-product of storage.
 
 The loop is deliberately plain:
 
@@ -49,7 +49,7 @@ That is exactly why the surface matters so much. The same vault can produce very
 
 ![A comparison of two agent surfaces operating on the same Granite vault: one exposes raw actions, the other teaches a memory workflow](/images/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-surface-compare.png "Same vault. Better surface. Better agent behavior.")
 
-A CRUD-shaped surface tells the model that the vault is basically storage. Search. Create. Update. Good luck. A better surface teaches the working method: wake up the vault, read before writing, preserve provenance, compile before output. Same markdown files, different behavior. The deeper argument is in [MCP is how agents learn your company's taste](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done). The same training problem appears when teams start giving agents authority, which is why [agent adoption is more about formation than tool choice](/resources/articles/agents-ia-formation-autorite).
+A CRUD-shaped surface tells the model that the vault is basically storage. Search. Create. Update. Good luck. A better surface teaches the working method: wake up the vault, read before writing, preserve provenance, compile before output. Same markdown files, different behavior. The deeper argument is in [MCP is how agents learn your company's taste](/en/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done). The same training problem appears when teams start giving agents authority, which is why [agent adoption is more about formation than tool choice](/fr/resources/articles/agents-ia-formation-autorite).
 
 ## what changes for companies
 
@@ -57,9 +57,9 @@ Once tool access is standardized, the advantage moves up the stack. It moves int
 
 That means a few things become non-negotiable. Provenance. Typed artifacts. Syntheses, not just captures. Review gates. Redaction rules. A memory layer that stays legible to humans as well as agents.
 
-That shift is also why we moved from Quivr to The Vibe Company. The full company announcement is here: [We are stopping Quivr. We are building The Vibe Company.](/resources/articles/quivr-to-the-vibe-company)
+That shift is also why we moved from Quivr to The Vibe Company. The full company announcement is here: [We are stopping Quivr. We are building The Vibe Company.](/en/resources/articles/quivr-to-the-vibe-company)
 
-In return, the ceiling changes. Now an agent can do more than summarize this week's mess. It can prepare a dossier, reconstruct a decision trail, surface missing evidence, and produce work that survives review. That is what the CIR/CII workflow proved in practice, and why we later turned that method into [a full playbook](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer).
+In return, the ceiling changes. Now an agent can do more than summarize this week's mess. It can prepare a dossier, reconstruct a decision trail, surface missing evidence, and produce work that survives review. That is what the CIR/CII workflow proved in practice, and why we later turned that method into [a full playbook](/fr/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer).
 
 Agents do not lack tools. They lack company memory.
 

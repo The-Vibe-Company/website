@@ -5,8 +5,10 @@ import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { Chip, LinkRim, SectionTitle } from "@/components/kit";
+import { JsonLd } from "@/components/JsonLd";
 import { getCustomers, type ContentLocale } from "@/lib/customers";
-import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
+import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
+import { breadcrumbList } from "@/lib/structured-data";
 
 export async function generateMetadata({
   params,
@@ -42,12 +44,20 @@ export default async function CaseStudiesPage({
   const customers = [...getCustomers(locale as ContentLocale)].sort((a, b) =>
     a.client.localeCompare(b.client, locale, { sensitivity: "base" }),
   );
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const tNav = await getTranslations({ locale, namespace: "nav" });
 
   return (
     <div
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
+      <JsonLd
+        data={breadcrumbList([
+          { name: tFooter("home"), url: localizedUrl(locale) },
+          { name: tNav("caseStudies"), url: localizedUrl(locale, "/case-studies") },
+        ])}
+      />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="pt-12 md:pt-[76px]">
