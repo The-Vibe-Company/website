@@ -67,5 +67,5 @@ function ArrowOut() {
 }
 
 function NativeDot() {
-  return <span className="dot" aria-hidden="true" />;
+  return <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" aria-hidden="true" />;
 }

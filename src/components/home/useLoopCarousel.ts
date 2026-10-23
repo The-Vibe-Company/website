@@ -2,11 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
-// Loop arrows, the kit's round buttons: clay to go back, black lacquer with
-// the orange rim to go on. Put them on one row under the track, so the cards
-// start where the section title starts.
-export const LOOP_PREV_CLASS = "round round-sm clay";
-export const LOOP_NEXT_CLASS = "round round-sm lacquer rim";
+// Loop arrows: grey frame, orange Lucide arrow (centers cleanly), fills orange
+// on hover — a cue that there are more cards to scroll to left and right.
+export const LOOP_ARROW_CLASS =
+  "hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center self-center border-2 border-border text-orange-500 transition-colors hover:border-orange-500 hover:bg-orange-500 hover:text-background sm:flex";
 
 /**
  * Copies of the card set rendered in the track. Only the middle one is in the
@@ -69,21 +68,11 @@ export function useLoopCarousel(setLen: number) {
       });
     };
 
-    // Re-centre only when the track's width changes: a phone fires resize
-    // whenever its address bar folds or unfolds, and that must not send a
-    // swiped carousel back to its first card.
-    let lastWidth = track.clientWidth;
-    const onResize = () => {
-      if (track.clientWidth === lastWidth) return;
-      lastWidth = track.clientWidth;
-      init();
-    };
-
     track.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", init);
     return () => {
       track.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", init);
     };
   }, [setLen]);
 

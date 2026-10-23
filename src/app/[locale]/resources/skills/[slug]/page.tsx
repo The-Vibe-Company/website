@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
+import { Link } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-import { BackLink } from '@/components/BackLink';
-import { Chip, Groove, Kicker, LinkRim } from '@/components/kit';
 import { JsonLd } from '@/components/JsonLd';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
@@ -14,6 +14,7 @@ import { SkillPromptBlock } from '@/components/resources/SkillPromptBlock';
 import { getContentByType, getContentItem, getRelatedContent } from '@/lib/content-source';
 import { normalizeMarkdownBody } from '@/lib/markdown';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
+import { resourcesTheme } from '@/lib/resources-theme';
 import {
   absoluteUrl,
   localizedUrl,
@@ -130,97 +131,107 @@ export default async function SkillDetailPage({
   const showDocumentation = skill.kind !== 'native' && body.trim().length > 0;
   const creatorNote = skill.creatorNote;
 
-  const [titleHead, titleTail] = splitTitle(item.title);
-
   return (
     <>
       <JsonLd data={breadcrumb} />
       <ReadingProgress />
-      <main id="main-content" tabIndex={-1} className="pb-24">
-        <article lang={item.language}>
-          <div className="wrap pt-3.5 md:pt-[22px]">
-            <BackLink href="/resources" label={t('skillsSection')} />
+      <main id="main-content" tabIndex={-1} className="pt-6 md:pt-8 pb-20 min-h-screen bg-res-bg">
+        <div className={`${resourcesTheme.section.padding} pb-12 md:pb-16`}>
+          <div className="mx-auto max-w-6xl">
+            <Link
+              href="/resources"
+              className="mb-6 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
+            >
+              <ArrowLeft size={14} strokeWidth={1.8} className="group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
+              {t('skillsSection')}
+            </Link>
 
-            <div className="mt-2 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:items-start lg:gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,440px)]">
-              <div className="min-w-0">
-                <header className="flex flex-col items-start gap-5">
-                  <Chip>{t('skillBadge')}</Chip>
+            <article lang={item.language}>
+              <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] xl:grid-cols-[minmax(0,1fr)_400px] lg:items-start">
+                <div className="min-w-0">
+                  <header className="flex flex-col gap-4">
+                    <span className="self-start px-2 py-1 border border-res-text/30 bg-res-text/5 text-[10px] font-mono uppercase tracking-widest text-res-text">
+                      {t('skillBadge')}
+                    </span>
 
-                  <h1 className="display m-0 text-4xl leading-none md:text-5xl lg:text-[56px] lg:leading-[0.98]">
-                    {titleTail ? (
-                      <>
-                        {titleHead} <span className="bisque block">{titleTail}</span>
-                      </>
-                    ) : (
-                      titleHead
+                    <h1 className="text-4xl md:text-5xl font-bold tracking-tighter leading-[0.95] text-res-text">
+                      {item.title}
+                    </h1>
+
+                    {item.summary && (
+                      <p
+                        className="text-base md:text-lg text-res-text-muted leading-relaxed max-w-3xl"
+                        dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
+                      />
                     )}
-                  </h1>
+                  </header>
 
-                  {item.summary && (
-                    <p
-                      className="lede m-0"
-                      dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
-                    />
+                  {creatorNote && (
+                    <CreatorNote note={creatorNote} label={t('creatorNote')} />
                   )}
-                </header>
 
-                {creatorNote && <CreatorNote note={creatorNote} label={t('creatorNote')} />}
+                  {skill.trigger && (
+                    <SkillSnapshot trigger={skill.trigger} label={t('goodFor')} />
+                  )}
+                </div>
 
-                {skill.trigger && <SkillSnapshot trigger={skill.trigger} label={t('goodFor')} />}
+                <aside className="lg:sticky lg:top-28 lg:row-span-2">
+                  <SkillAIInstaller context={installContext} />
+                </aside>
+
+                <div className="min-w-0 lg:col-start-1">
+                  {showPromptBlock && (
+                    <section className="mt-2 lg:mt-0">
+                      <SectionHeader
+                        title={t('prompt')}
+                        hint={t('promptHint')}
+                      />
+                      <SkillPromptBlock body={promptBody} />
+                    </section>
+                  )}
+
+                  {showDocumentation && (
+                    <section className="mt-8">
+                      <SectionHeader title={t('notes')} />
+                      <div className="prose-vibe prose-vibe-warm max-w-none">
+                        <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" trackingLocation="skill_body" />
+                      </div>
+                    </section>
+                  )}
+                </div>
               </div>
-
-              <aside className="lg:sticky lg:top-24 lg:row-span-2">
-                <SkillAIInstaller context={installContext} />
-              </aside>
-
-              <div className="min-w-0 lg:col-start-1">
-                {showPromptBlock && (
-                  <section className="mt-2 lg:mt-4" aria-labelledby="skill-prompt-title">
-                    <SectionHeader id="skill-prompt-title" title={t('prompt')} hint={t('promptHint')} />
-                    <SkillPromptBlock body={promptBody} />
-                  </section>
-                )}
-
-                {showDocumentation && (
-                  <section className="mt-10" aria-labelledby="skill-notes-title">
-                    <SectionHeader id="skill-notes-title" title={t('notes')} />
-                    <MarkdownRenderer
-                      content={body}
-                      className="prose-vibe"
-                      trackingLocation="skill_body"
-                    />
-                  </section>
-                )}
-              </div>
-            </div>
+            </article>
           </div>
-        </article>
+        </div>
 
         {related.length > 0 && (
-          <section className="pt-20 md:pt-28" aria-labelledby="related-skills-title">
-            <div className="wrap">
-              <div className="mb-8 flex flex-wrap items-center justify-between gap-x-4">
-                <Kicker as="h2" className="text-ink">
-                  <span id="related-skills-title">{t('relatedSkills')}</span>
-                </Kicker>
-                <LinkRim href="/resources">{t('viewAll')}</LinkRim>
-              </div>
+          <section className={`${resourcesTheme.section.padding} py-20 border-t border-res-border`}>
+            <div className="flex items-center justify-between gap-4 mb-10">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
+                {t('relatedSkills')}
+              </span>
+              <Link
+                href="/resources"
+                className="text-[11px] font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
+              >
+                {t('viewAll')} &rarr;
+              </Link>
+            </div>
 
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {related.map((r) => (
-                  <SkillCard
-                    key={r.id}
-                    title={r.title}
-                    summary={r.summary}
-                    slug={r.slug}
-                    publishedAt={r.publishedAt ?? undefined}
-                    language={r.language}
-                    topics={r.topics}
-                    complexity={r.complexity}
-                    skill={r.skill}
-                  />
-                ))}
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {related.map((r) => (
+                <SkillCard
+                  key={r.id}
+                  title={r.title}
+                  summary={r.summary}
+                  slug={r.slug}
+                  publishedAt={r.publishedAt ?? undefined}
+                  language={r.language}
+                  topics={r.topics}
+                  complexity={r.complexity}
+                  skill={r.skill}
+                />
+              ))}
             </div>
           </section>
         )}
@@ -229,52 +240,38 @@ export default async function SkillDetailPage({
   );
 }
 
-/**
- * « Titre : sous-titre » is set on two lines, the second in grey clay, like the
- * titles elsewhere. A title with no colon stays whole.
- */
-function splitTitle(title: string): [string, string | null] {
-  const match = title.match(/^([^\n]{4,64}?[:：])\s+([\s\S]+)$/);
-  return match ? [match[1], match[2]] : [title, null];
-}
-
-const labelClass =
-  'm-0 font-mono text-xs font-medium uppercase leading-none tracking-[0.14em] text-muted-foreground';
-
-/** The creator's note: pressed into the page, a drawn lacquer bar on its edge. */
 function CreatorNote({ note, label }: { note: string; label: string }) {
   return (
-    <aside className="well relative mt-8 max-w-[60ch] rounded-piece py-5 pl-9 pr-6">
-      <span
-        className="absolute bottom-5 left-[18px] top-5 w-1 rounded bg-gradient-to-b from-[#3a3a3c] to-ink"
-        aria-hidden="true"
-      />
-      <p className={labelClass}>{label}</p>
-      <p
-        className="m-0 mt-3 text-base leading-relaxed text-ink"
-        dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(note) }}
-      />
+    <aside className="mt-5 max-w-3xl border border-res-border bg-res-bg-secondary/60 px-4 py-4 md:px-5">
+      <div className="grid gap-2 md:grid-cols-[8.5rem_minmax(0,1fr)] md:gap-5">
+        <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
+          {label}
+        </p>
+        <p
+          className="text-sm md:text-[15px] leading-relaxed text-res-text"
+          dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(note) }}
+        />
+      </div>
     </aside>
   );
 }
 
 function SkillSnapshot({ trigger, label }: { trigger: string; label: string }) {
   return (
-    <section className="mt-8 max-w-[60ch]">
-      <Groove />
-      <p className={`${labelClass} mt-5`}>{label}</p>
-      <p className="m-0 mt-3 text-[15px] leading-relaxed text-ink-2">{trigger}</p>
+    <section className="mt-6 max-w-3xl border border-res-border bg-res-bg-secondary p-4">
+      <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted">
+        {label}
+      </p>
+      <p className="text-sm text-res-text leading-relaxed">{trigger}</p>
     </section>
   );
 }
 
-function SectionHeader({ id, title, hint }: { id: string; title: string; hint?: string }) {
+function SectionHeader({ title, hint }: { title: string; hint?: string }) {
   return (
-    <header className="mb-5 flex flex-col gap-2">
-      <Kicker as="h2" className="text-ink">
-        <span id={id}>{title}</span>
-      </Kicker>
-      {hint && <p className="m-0 max-w-[60ch] text-sm leading-relaxed text-muted-foreground">{hint}</p>}
+    <header className="mb-4 flex flex-col gap-1">
+      <h2 className="text-xs font-mono uppercase tracking-[0.2em] text-res-text">{title}</h2>
+      {hint && <p className="text-sm text-res-text-muted leading-relaxed">{hint}</p>}
     </header>
   );
 }

@@ -1,10 +1,8 @@
 /**
- * Unified Design System for The Vibe Company: porcelaine.
- *
- * Class-string compositions over the kit in src/app/globals.css (its top
- * comment says how pages use it: tokens, utility classes, components). The
- * names below are the ones pages already import; their values now point at
- * the porcelaine kit, so a page that uses them follows the direction.
+ * Unified Design System for The Vibe Company
+ * 
+ * This file serves as the single source of truth for all design tokens,
+ * style compositions, and component variants across the application.
  * 
  * Usage:
  * import { typography, colors, spacing, animations, components } from '@/lib/design-system';
@@ -62,38 +60,37 @@ export const typography = {
     mono: 'font-mono',
   },
   
-  // Display text: Bricolage, tight, two lines with the second in grey clay
-  // (wrap it in `bisque`). Sizes are fluid clamps, phone to desktop.
+  // Display text - for hero headlines
   display: {
-    hero: 'display d-xl',
-    large: 'display d-xl',
-    section: 'display d-md',
+    hero: 'text-[12vw] leading-[0.8] font-bold tracking-tighter',
+    large: 'text-[14vw] font-bold leading-[0.8] tracking-tighter',
+    section: 'text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9]',
   },
-
+  
   // Headings
   heading: {
-    h1: 'display d-lg',
-    h2: 'display d-md',
-    h3: 'display d-sm',
-    h4: 'display d-xs',
+    h1: 'text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter',
+    h2: 'text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]',
+    h3: 'text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight',
+    h4: 'text-xl md:text-2xl font-semibold tracking-tight',
   },
-
+  
   // Body text
   body: {
-    large: 'lede text-2xl md:text-3xl',
-    default: 'lede',
+    large: 'text-2xl md:text-3xl lg:text-4xl font-light tracking-tight',
+    default: 'text-xl md:text-2xl leading-relaxed',
     small: 'text-lg md:text-xl font-medium',
   },
-
-  // Labels and captions: mono, 12px at least
+  
+  // Labels and captions
   label: {
-    default: 'text-sm font-medium uppercase tracking-[0.14em]',
-    mono: 'text-xs font-mono uppercase tracking-[0.14em]',
+    default: 'text-sm font-medium uppercase tracking-widest',
+    mono: 'text-xs font-mono uppercase tracking-widest',
     small: 'text-xs font-medium',
   },
-
+  
   // Marquee text
-  marquee: 'display text-4xl md:text-6xl',
+  marquee: 'text-4xl md:text-6xl font-bold tracking-tighter',
 } as const;
 
 // =============================================================================
@@ -104,27 +101,26 @@ export const typography = {
  * Spacing system for consistent layout
  */
 export const spacing = {
-  // Page padding: the kit's gutter (24px phone, 48px from 768px), the same
-  // edge as the header.
+  // Page padding responsive
   page: {
-    x: 'px-[var(--gut)]',
-    y: 'py-20 md:py-28',
-    yLarge: 'py-28 md:py-40',
+    x: 'px-6 md:px-12 lg:px-24',
+    y: 'py-24 md:py-32',
+    yLarge: 'py-32 md:py-48',
   },
-
+  
   // Section spacing
   section: {
-    padding: 'py-20 md:py-28 px-[var(--gut)]',
-    paddingLarge: 'py-28 md:py-40 px-[var(--gut)]',
+    padding: 'py-24 md:py-32 px-6 md:px-12 lg:px-24',
+    paddingLarge: 'py-32 md:py-48 px-6 md:px-12 lg:px-24',
   },
-
-  // Container: one width for the header, the content and the closing call
+  
+  // Container max widths
   container: {
-    default: 'wrap',
-    narrow: 'mx-auto max-w-4xl',
+    default: 'max-w-[120rem] mx-auto',
+    narrow: 'max-w-4xl mx-auto',
     medium: 'max-w-2xl',
   },
-
+  
   // Gap sizes
   gap: {
     xs: 'gap-2',
@@ -210,18 +206,16 @@ export const effects = {
   // Shadow effects
   shadow: {
     none: 'shadow-none',
-    default: 'shadow-sm',
-    xl: 'shadow-md',
-    // Retired with the brutalist look; kept so old imports compile. Use the
-    // kit's pieces (clay / clay-quiet) instead of a hard offset shadow.
-    brutal: 'shadow-none',
+    default: 'shadow-lg',
+    xl: 'shadow-2xl',
+    brutal: 'shadow-[8px_8px_0px_0px_var(--foreground)]',
   },
   
   // Border radius
   radius: {
     none: 'rounded-none',
-    sm: 'rounded-pebble',
-    default: 'rounded-piece',
+    sm: 'rounded-sm',
+    default: 'rounded-lg',
     full: 'rounded-full',
   },
   
@@ -243,91 +237,90 @@ export const effects = {
  * Import and spread these to maintain consistency
  */
 export const components = {
-  // Badge/Tag styles: pressed-in tags (mono, 12px)
+  // Badge/Tag styles
   badge: {
-    base: 'chip',
-    default: 'chip',
-    solid: 'chip chip-dark',
+    base: 'inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono',
+    default: 'inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm text-xs font-mono',
+    solid: 'inline-flex items-center gap-2 px-2 py-1 bg-foreground text-background text-xs font-mono uppercase',
   },
-
+  
   // Status indicator
   statusDot: {
-    active: 'dot dot-rim',
-    success: 'dot dot-rim',
-    warning: 'dot',
-    error: 'dot',
+    active: 'w-2 h-2 rounded-full bg-foreground animate-pulse',
+    success: 'w-2 h-2 rounded-full bg-accent',
+    warning: 'w-2 h-2 rounded-full bg-muted',
+    error: 'w-2 h-2 rounded-full bg-foreground',
   },
-
-  // Button styles: lacquer is the primary, clay the secondary, quiet a text button
+  
+  // Button styles
   button: {
-    base: 'btn',
-    primary: 'btn btn-lacquer',
-    secondary: 'btn btn-clay',
-    ghost: 'btn btn-quiet',
+    base: 'font-medium transition-all',
+    primary: 'px-5 py-2 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity',
+    secondary: 'px-4 py-2 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground transition-colors',
+    ghost: 'hover:bg-muted/20 rounded-full transition-colors',
   },
-
-  // Piece styles: one main piece per page, the rest quiet
+  
+  // Card styles
   card: {
-    base: 'clay-quiet rounded-plate',
-    default: 'clay-quiet rounded-plate p-6 md:p-8',
-    hover: 'clay-quiet lift rounded-plate p-6 md:p-8',
-    glass: 'clay-quiet rounded-plate',
-    main: 'clay rim rim-warm rounded-slab p-6 md:p-12',
+    base: 'border border-border bg-background',
+    default: 'border border-foreground bg-background p-8 md:p-12',
+    hover: 'border border-foreground bg-background p-8 md:p-12 transition-all hover:shadow-[8px_8px_0px_0px_var(--foreground)]',
+    glass: 'bg-background/80 backdrop-blur-xl border border-border/50',
   },
-
+  
   // Navigation styles
   nav: {
-    dock: 'nav clay rim rounded-full',
-    link: 'nav-link',
+    dock: 'flex items-center gap-2 px-4 py-3 bg-background/80 backdrop-blur-xl border border-border/50 rounded-full shadow-2xl',
+    link: 'relative px-4 py-2 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground transition-colors',
   },
-
+  
   // Divider styles
   divider: {
-    horizontal: 'groove',
-    vertical: 'w-px h-4 bg-border',
-    dashed: 'groove',
+    horizontal: 'border-t border-foreground',
+    vertical: 'w-px h-4 bg-border/50',
+    dashed: 'border-t border-dashed border-foreground/30',
   },
-
-  // Container with a drawn lacquer bar on the left (no side border)
+  
+  // Container with border treatment
   bordered: {
-    left: 'lede-bar py-4',
-    leftSolid: 'lede-bar',
-    leftDashed: 'lede-bar',
+    left: 'border-l border-foreground/30 pl-8 md:pl-12 py-4',
+    leftSolid: 'border-l-2 border-foreground pl-6',
+    leftDashed: 'border-l border-dashed border-foreground pl-4 py-1',
   },
-
+  
   // Marquee container
   marquee: {
-    container: 'relative flex overflow-hidden w-full select-none py-2',
+    container: 'relative flex overflow-hidden w-full border-y border-border/50 bg-background/50 backdrop-blur-sm select-none',
     content: 'animate-marquee flex py-3 items-center whitespace-nowrap',
   },
-
-  // Grid overlay: retired (the backdrop is a seamless studio grey)
-  gridOverlay: 'hidden',
-
+  
+  // Grid overlay
+  gridOverlay: 'bg-grid',
+  
   // Links
   link: {
-    default: 'transition-colors hover:text-muted-foreground',
-    underline: 'underline decoration-rim decoration-[1.5px] underline-offset-4 hover:decoration-[3px] transition-all',
-    mono: 'underline decoration-rim decoration-[1.5px] underline-offset-4 hover:decoration-[3px]',
+    default: 'hover:text-muted-foreground transition-colors',
+    underline: 'underline underline-offset-2 hover:text-blue-400 transition-colors',
+    mono: 'hover:underline decoration-1 underline-offset-4',
   },
-
-  // Section headers: kicker with the pointe, then a groove
+  
+  // Section headers
   sectionHeader: {
-    wrapper: 'flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4',
-    title: 'kicker',
-    indicator: 'pointe',
+    wrapper: 'flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-foreground pb-6',
+    title: 'text-sm font-medium uppercase tracking-widest flex items-center gap-2',
+    indicator: 'w-2 h-2 bg-foreground',
   },
-
-  // Tag grid (tech stack, features, etc.): pressed-in tags, no hard grid
-  tagGrid: 'flex flex-wrap gap-2',
-  tagItem: 'chip',
-
+  
+  // Tag grid (tech stack, features, etc.)
+  tagGrid: 'grid grid-cols-2 sm:grid-cols-3 gap-0 border-t border-l border-foreground',
+  tagItem: 'px-3 py-4 border-r border-b border-foreground text-xs font-mono uppercase text-center hover:bg-foreground hover:text-background transition-colors cursor-crosshair flex items-center justify-center',
+  
   // Code/Terminal styles
   terminal: {
-    line: 'font-mono text-lg md:text-xl lede-bar py-1',
+    line: 'font-mono text-lg md:text-xl border-l border-dashed border-foreground pl-4 py-1',
     cursor: 'animate-pulse bg-foreground text-background px-1',
   },
-
+  
   // Custom cursor
   cursor: 'fixed top-0 left-0 w-2 h-2 rounded-full bg-foreground pointer-events-none z-[100] hidden md:block mix-blend-difference',
 } as const;

@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { resourcesTheme } from '@/lib/resources-theme';
 
 type Variant = 'default' | 'primary';
-type Status = 'idle' | 'copied' | 'failed';
 
 interface CopyButtonProps {
   value: string;
@@ -15,24 +14,6 @@ interface CopyButtonProps {
   className?: string;
   ariaLabel?: string;
   onCopy?: () => void;
-}
-
-/** Older browsers and non-secure pages have no clipboard API: select and copy. */
-function copyWithSelection(value: string): boolean {
-  const field = document.createElement('textarea');
-  field.value = value;
-  field.setAttribute('readonly', '');
-  field.style.position = 'fixed';
-  field.style.opacity = '0';
-  document.body.appendChild(field);
-  field.select();
-  try {
-    return document.execCommand('copy');
-  } catch {
-    return false;
-  } finally {
-    document.body.removeChild(field);
-  }
 }
 
 export function CopyButton({
@@ -45,52 +26,35 @@ export function CopyButton({
   onCopy,
 }: CopyButtonProps) {
   const t = useTranslations('resources');
-  const [status, setStatus] = useState<Status>('idle');
+  const [copied, setCopied] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const resolvedLabel = label ?? t('copy');
   const resolvedCopiedLabel = copiedLabel ?? t('copied');
-  const failedLabel = t('copyFailed');
-  const copied = status === 'copied';
-  const failed = status === 'failed';
   const buttonLabel = copied
     ? t('copiedStatus', { label: resolvedCopiedLabel })
-    : failed
-      ? failedLabel
-      : (ariaLabel ?? resolvedLabel);
+    : (ariaLabel ?? resolvedLabel);
 
   useEffect(() => () => {
     if (timerRef.current) clearTimeout(timerRef.current);
   }, []);
 
-  const settle = useCallback((next: Status) => {
-    setStatus(next);
-    if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => setStatus('idle'), next === 'failed' ? 3200 : 1600);
-  }, []);
-
   const handleCopy = useCallback(async () => {
-    let done = false;
     try {
       await navigator.clipboard.writeText(value);
-      done = true;
-    } catch {
-      done = copyWithSelection(value);
-    }
-    if (done) {
+      setCopied(true);
       onCopy?.();
-      settle('copied');
-    } else {
-      settle('failed');
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => setCopied(false), 1600);
+    } catch {
+      setCopied(false);
     }
-  }, [value, onCopy, settle]);
+  }, [value, onCopy]);
 
   const baseClass = copied
     ? resourcesTheme.skill.copyButtonSuccess
-    : failed
-      ? `${resourcesTheme.skill.copyButton} !text-danger`
-      : variant === 'primary'
-        ? resourcesTheme.skill.copyButtonPrimary
-        : resourcesTheme.skill.copyButton;
+    : variant === 'primary'
+      ? resourcesTheme.skill.copyButtonPrimary
+      : resourcesTheme.skill.copyButton;
 
   return (
     <button
@@ -99,24 +63,17 @@ export function CopyButton({
       aria-label={buttonLabel}
       className={[baseClass, className].filter(Boolean).join(' ')}
     >
-      <CopyIcon status={status} />
-      <span>{copied ? resolvedCopiedLabel : failed ? failedLabel : resolvedLabel}</span>
+      <CopyIcon copied={copied} />
+      <span>{copied ? resolvedCopiedLabel : resolvedLabel}</span>
     </button>
   );
 }
 
-function CopyIcon({ status }: { status: Status }) {
-  if (status === 'copied') {
+function CopyIcon({ copied }: { copied: boolean }) {
+  if (copied) {
     return (
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M20 6 9 17l-5-5" />
-      </svg>
-    );
-  }
-  if (status === 'failed') {
-    return (
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M18 6 6 18M6 6l12 12" />
       </svg>
     );
   }

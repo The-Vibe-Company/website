@@ -51,7 +51,7 @@ function TypeListingInner({ contentType, items, typeNavLinks, counts }: TypeList
       <section className={`${resourcesTheme.section.padding} pb-32`}>
         {items.length > 0 ? (
           isList ? (
-            <div className="entries lg:grid-cols-2">
+            <div className="space-y-8">
               {items.map((item) => (
                 <ContentCard
                   key={item.id}
@@ -98,11 +98,13 @@ function TypeListingInner({ contentType, items, typeNavLinks, counts }: TypeList
             </ContentGrid>
           )
         ) : (
-          <div className="state">
-            <p className="kicker">
-              <span>No {contentType.pluralLabel.toLowerCase()} yet</span>
+          <div className="rounded-xl border border-res-border p-12 text-center bg-res-surface">
+            <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
+              No {contentType.pluralLabel.toLowerCase()} yet
             </p>
-            <p className="state-body">Content is on its way. Check back soon.</p>
+            <p className="text-sm text-res-text-muted mt-2">
+              Content is on its way. Check back soon.
+            </p>
           </div>
         )}
       </section>

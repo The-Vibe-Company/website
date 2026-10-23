@@ -1,8 +1,0 @@
-{
-  "name": "Découvrir un produit de l'agence",
-  "steps": [
-    { "do": "open", "path": "/fr/portfolio" },
-    { "do": "click", "target": { "text": "Armada", "within": { "role": "link", "name": "Armada fait tourner" } }, "lands": "/fr/portfolio/armada" },
-    { "do": "see", "text": "Visiter Armada" }
-  ]
-}

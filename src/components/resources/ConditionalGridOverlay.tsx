@@ -1,11 +1,18 @@
 'use client';
 
-/**
- * The grid-paper overlay used to sit behind the pages that were not
- * /resources. Porcelaine is a seamless pale-grey studio backdrop with no grid,
- * so nothing is drawn any more; the component stays so the root layout keeps
- * one place to hang a future page-level backdrop on.
- */
+import { usePathname } from '@/i18n/navigation';
+import { ENSEMBLE_PATH } from '@/lib/coup-de-pates-ensemble';
+
+const GRID_OVERLAY_CLASS = 'bg-grid';
+
 export function ConditionalGridOverlay() {
-  return null;
+  const pathname = usePathname();
+  if (
+    pathname === '/' ||
+    pathname === '/v2' ||
+    pathname.startsWith('/resources') ||
+    pathname.startsWith('/portfolio') ||
+    pathname === ENSEMBLE_PATH
+  ) return null;
+  return <div className={GRID_OVERLAY_CLASS} />;
 }
