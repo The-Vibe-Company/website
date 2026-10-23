@@ -416,7 +416,10 @@ type Palette = {
   accent: string;
   /** Reserved for everything that has to be ducked under. */
   duck: string;
+  /** The grey of unglazed clay on lacquer: the second voice, for the names. */
+  muted: string;
   sans: string;
+  mono: string;
 };
 
 // --- decor ---------------------------------------------------------------
@@ -587,15 +590,15 @@ export interface WorldCard {
 }
 
 /**
- * The name of whoever this world belongs to, set as a giant hollow word across
- * the sky.
+ * The name of whoever this world belongs to, set across the sky the way the
+ * site sets its titles: Bricolage Grotesque, tight, in the grey of unglazed
+ * clay on the lacquer, with a mono kicker and the orange dot above it.
  *
  * This is why the game is on the page: it tours our clients, projects and
  * backers one world at a time. So the name is not a label on top of the game,
- * it is part of the scenery — outlined rather than filled so obstacles stay
- * readable through it, and sized to the panel so a long name shrinks instead
- * of running off the edge of a phone. Above it, a single mono kicker says who
- * they are; nothing else competes.
+ * it is part of the scenery — a quiet grey, so the white and orange obstacles
+ * stay the brightest things on the band, and sized to the panel so a long
+ * name shrinks instead of running off the edge of a phone.
  */
 const fitCache = new Map<string, number>();
 
@@ -610,7 +613,7 @@ function fittedSize(
   if (cached !== undefined) return cached;
 
   let size = 68;
-  ctx.font = `700 ${size}px ${palette.sans}`;
+  ctx.font = `800 ${size}px ${palette.sans}`;
   const maxWidth = width * 0.66;
   const measured = ctx.measureText(name).width;
   if (measured > maxWidth) size = Math.max(26, (size * maxWidth) / measured);
@@ -632,53 +635,47 @@ function nameAlpha(elapsed: number, idle: boolean): number {
 function drawWorldName(
   ctx: CanvasRenderingContext2D,
   card: WorldCard | undefined,
-  scene: Scene,
   alpha: number,
   width: number,
   palette: Palette,
 ): void {
   if (!card || !card.name || alpha <= 0.01) return;
-  const name = card.name.toUpperCase();
+  const name = card.name;
   const x = width / 2;
 
   // Rises into place on the way in, keeps drifting up on the way out.
   const drift = (1 - alpha) * 12;
 
   ctx.save();
-  ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
 
-  // Kicker above the name, magazine style: what they are and what they do, on
-  // one quiet line, so the big word underneath can just be the name.
-  ctx.globalAlpha = alpha * 0.65;
-  ctx.fillStyle = scene.tint;
-  ctx.letterSpacing = "4px";
-  ctx.font = `600 12px ui-monospace, "SF Mono", Menlo, monospace`;
-  const kicker = card.detail
-    ? `${card.kind.toUpperCase()} — ${card.detail.toUpperCase()}`
-    : card.kind.toUpperCase();
-  ctx.fillText(kicker, x, 26 - drift);
+  // Kicker: the orange dot, then what they are and what they do, on one
+  // quiet mono line, as every kicker of the site.
+  const kicker = (card.detail ? `${card.kind} · ${card.detail}` : card.kind).toUpperCase();
+  ctx.letterSpacing = "2.5px";
+  ctx.font = `500 12px ${palette.mono}`;
+  const kickerWidth = ctx.measureText(kicker).width;
+  const kickerX = x - kickerWidth / 2 + 8;
+  const kickerY = 22 - drift;
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = palette.accent;
+  ctx.beginPath();
+  ctx.arc(kickerX - 12, kickerY - 4, 3, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.textAlign = "left";
+  ctx.fillStyle = palette.muted;
+  ctx.fillText(kicker, kickerX, kickerY);
 
-  // Fit the word to the panel: short names get the full 68px, long ones shrink
-  // rather than run off the edge. Measured once per name and width, not per
-  // frame — measureText on a letterspaced string 60 times a second is real
-  // work for an answer that only changes when the world does.
-  ctx.letterSpacing = "5px";
+  // The name: Bricolage, tight, filled in the grey of unglazed clay. Fit to
+  // the panel: short names get the full 68px, long ones shrink rather than
+  // run off the edge. Measured once per name and width, not per frame.
+  ctx.textAlign = "center";
+  ctx.letterSpacing = "-2px";
   const size = fittedSize(ctx, name, width, palette);
-  ctx.font = `700 ${size}px ${palette.sans}`;
-
-  const baseline = 86 - drift;
-
-  // A whisper of fill gives the letters body without hiding what runs behind.
-  ctx.globalAlpha = alpha * 0.08;
-  ctx.fillStyle = scene.tint;
-  ctx.fillText(name, x, baseline);
-
-  ctx.globalAlpha = alpha * 0.8;
-  ctx.strokeStyle = scene.tint;
-  ctx.lineWidth = 1.6;
-  ctx.lineJoin = "round";
-  ctx.strokeText(name, x, baseline);
+  ctx.font = `800 ${size}px ${palette.sans}`;
+  ctx.globalAlpha = alpha * 0.6;
+  ctx.fillStyle = palette.muted;
+  ctx.fillText(name, x, 80 - drift);
   ctx.restore();
 }
 
@@ -736,9 +733,8 @@ function drawWorldNameLayer(
 ): void {
   if (cards.length === 0) return;
   const { index, elapsed, entering } = worldPhase(world);
-  const scene = SCENES[index % SCENES.length];
   const alpha = Math.min(entering, nameAlpha(elapsed, world.phase !== "running"));
-  drawWorldName(ctx, cards[index % cards.length], scene, alpha, width, palette);
+  drawWorldName(ctx, cards[index % cards.length], alpha, width, palette);
 }
 
 /**
@@ -1307,6 +1303,8 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       // The panel inherits the page font; the title card borrows it so the
       // names are set in the same voice as the hero above them.
       sans: styles.fontFamily || "system-ui, sans-serif",
+      muted: styles.getPropertyValue("--on-lacquer-muted").trim() || "#9a9b9b",
+      mono: styles.getPropertyValue("--font-code").trim() || "ui-monospace, Menlo, monospace",
     };
 
     let last = performance.now();
