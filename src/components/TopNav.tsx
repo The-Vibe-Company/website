@@ -259,7 +259,7 @@ function TopNavInner() {
             {/* Wordmark */}
             <Link href="/" className="brand">
               <Image
-                src="/brand/tvc-glyph-w192.png"
+                src="/favicon.svg"
                 alt=""
                 width={26}
                 height={25}
@@ -413,7 +413,7 @@ function TopNavInner() {
             <div className="wrap flex min-h-full flex-col pb-10 pt-3">
               <div className="flex min-h-14 items-center justify-between pl-4 pr-2">
                 <Link href="/" onClick={closeMobileMenu} className="brand">
-                  <Image src="/brand/tvc-glyph-w192.png" alt="" aria-hidden="true" width={26} height={25} />
+                  <Image src="/favicon.svg" alt="" aria-hidden="true" width={26} height={25} />
                   <span>THE VIBE CO.</span>
                 </Link>
                 <button

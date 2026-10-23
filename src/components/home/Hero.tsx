@@ -70,19 +70,23 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           {/* The title and the line under it stay off the bead: they take the
               room it leaves, and wrap word by word (never inside "IA-First")
               when there is less of it. */}
-          <h1 className="display d-xl rise m-0 [animation-delay:70ms] mt-[92px] max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
-            {t("titleLine1")
-              .split(" ")
-              .map((word, i) => (
-                <Fragment key={i}>
-                  {i > 0 ? " " : null}
-                  <span className="whitespace-nowrap">{word}</span>
-                </Fragment>
-              ))}
+          {/* The page's one h1 carries both lines, the name and what we do,
+              each set in its own size. */}
+          <h1 className="m-0">
+            <span className="display d-xl rise block [animation-delay:70ms] mt-[92px] max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
+              {t("titleLine1")
+                .split(" ")
+                .map((word, i) => (
+                  <Fragment key={i}>
+                    {i > 0 ? " " : null}
+                    <span className="whitespace-nowrap">{word}</span>
+                  </Fragment>
+                ))}
+            </span>
+            <span className="rise mt-4 block [animation-delay:150ms] max-w-[820px] md:max-w-[min(820px,calc(100%-var(--bead)-24px))] text-[22px] font-medium leading-[1.12] tracking-[-0.018em] text-ink md:mt-[26px] md:text-[36px]">
+              {t("titleLine2")}
+            </span>
           </h1>
-          <p className="rise m-0 mt-4 [animation-delay:150ms] max-w-[820px] md:max-w-[min(820px,calc(100%-var(--bead)-24px))] text-[22px] font-medium leading-[1.12] tracking-[-0.018em] text-ink md:mt-[26px] md:text-[36px]">
-            {t("titleLine2")}
-          </p>
 
           <div className="rise mt-7 grid gap-[22px] [animation-delay:240ms] md:mt-[52px] lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-end lg:gap-10">
             <p className="lede-bar m-0 text-[16.5px] md:text-[18.5px]">{t("subtitle")}</p>

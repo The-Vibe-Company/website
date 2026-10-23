@@ -2,7 +2,7 @@
 
 import React from "react";
 import { ButtonLink } from "@/components/kit";
-import { BOOKING_URL } from "@/lib/booking";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { DIMENSIONS, SCENE_DRAW, type Dimension, type SceneFn } from "./dimensions";
 
 /*
@@ -1320,7 +1320,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
                 A small team of AI specialists. We build products, automate ops, and train teams. Our agency itself runs on AI.
               </p>
               <div className="mt-7" style={{ pointerEvents: isIdle ? "auto" : "none" }}>
-                <ButtonLink href={bookUrl} size="lg" arrow>
+                <ButtonLink href={bookUrl} size="lg" arrow {...bookingLocation("v2_runner")}>
                   {bookLabel}
                 </ButtonLink>
               </div>
@@ -1456,7 +1456,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
               <button onClick={this.onRestart} className="btn btn-clay cursor-pointer">
                 Ship again <span aria-hidden="true">↻</span>
               </button>
-              <ButtonLink href={bookUrl} arrow>
+              <ButtonLink href={bookUrl} arrow {...bookingLocation("v2_runner_over")}>
                 {bookLabel}
               </ButtonLink>
             </div>
