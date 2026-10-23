@@ -97,7 +97,7 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
           </div>
 
           <div className="foot-col">
-            <h4>{t("siteHeading")}</h4>
+            <h2>{t("siteHeading")}</h2>
             <ul>
               {siteLinks.map((link) => (
                 <li key={link.href}>
@@ -108,7 +108,7 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
           </div>
 
           <div className="foot-col">
-            <h4>{t("elsewhereHeading")}</h4>
+            <h2>{t("elsewhereHeading")}</h2>
             <ul>
               {ELSEWHERE_LINKS.map((link) => (
                 <li key={link.label}>

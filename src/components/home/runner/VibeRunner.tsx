@@ -594,6 +594,8 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
 
   bindInput() {
     this._kd = (e: KeyboardEvent) => {
+      // A key typed into a field (the header search) is the visitor's, never a jump.
+      if (e.target instanceof HTMLElement && (e.target.isContentEditable || e.target.closest("input, textarea, select"))) return;
       if (e.code === "Space" || e.code === "ArrowUp") {
         // While playing, jump always wins — never swallowed by a focused link/button.
         if (this.state.phase === "running") {

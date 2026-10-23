@@ -1070,6 +1070,12 @@ input:disabled {
     display: none;
   }
 
+  /* The rail scrolls, so it clips anything drawn outside a button: the
+     keyboard ring is drawn inside instead. */
+  .seg > :focus-visible {
+    outline-offset: -3px;
+  }
+
   .seg > * {
     display: inline-flex;
     align-items: center;
@@ -1457,10 +1463,17 @@ input:disabled {
     transform: translate3d(0, 18px, 0) scale(0.965);
   }
 
+  @media print {
+    [data-reveal="pending"] {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   /* Logo shelf: one track holding the logos twice, sliding left by half its
      width so the second half lands where the first began. Paused under the
      pointer, faded at both ends. Under reduced motion, and while a logo has
-     the keyboard focus, it stops and shows the seven logos once, wrapped and
+     the keyboard focus (never a mouse click, which must land where it aimed), it stops and shows the seven logos once, wrapped and
      centred, so every one of them is in view. */
   .shelf {
     padding-left: 3.5rem;
@@ -1496,17 +1509,17 @@ input:disabled {
     animation-play-state: paused;
   }
 
-  .shelf:focus-within {
+  .shelf:has(:focus-visible) {
     padding-inline: 1rem;
     mask-image: none;
   }
 
-  .shelf:focus-within .shelf-track {
+  .shelf:has(:focus-visible) .shelf-track {
     width: auto;
     animation: none;
   }
 
-  .shelf:focus-within .shelf-set {
+  .shelf:has(:focus-visible) .shelf-set {
     flex: 1;
     flex-wrap: wrap;
     justify-content: center;
@@ -1514,7 +1527,7 @@ input:disabled {
     padding-right: 0;
   }
 
-  .shelf:focus-within .shelf-copy {
+  .shelf:has(:focus-visible) .shelf-copy {
     display: none;
   }
 
@@ -1854,7 +1867,7 @@ input:disabled {
     text-decoration-color: var(--rim-hot);
   }
 
-  .foot-col h4 {
+  .foot-col h2 {
     margin: 0 0 14px;
     font: 500 12px/1 var(--font-code);
     letter-spacing: 0.16em;

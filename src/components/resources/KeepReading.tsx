@@ -59,9 +59,9 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
               <span className="chip chip-dark">{t('next')}</span>
               <LanguageFlag language={featured.language} variant="inline" />
             </span>
-            <span className="display mt-3.5 block text-[26px] leading-[1.04] tracking-[-0.03em] decoration-rim decoration-2 underline-offset-[5px] group-hover:underline md:text-[32px] lg:mt-[18px]">
+            <h3 className="display m-0 mt-3.5 block text-[26px] leading-[1.04] tracking-[-0.03em] decoration-rim decoration-2 underline-offset-[5px] group-hover:underline md:text-[32px] lg:mt-[18px]">
               {featured.title}
-            </span>
+            </h3>
             {featured.summary ? (
               <span
                 className="mt-4 block max-w-[54ch] text-[15.5px] leading-[1.55] text-muted-foreground line-clamp-3 md:text-base"

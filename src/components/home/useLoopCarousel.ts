@@ -69,11 +69,21 @@ export function useLoopCarousel(setLen: number) {
       });
     };
 
+    // Re-centre only when the track's width changes: a phone fires resize
+    // whenever its address bar folds or unfolds, and that must not send a
+    // swiped carousel back to its first card.
+    let lastWidth = track.clientWidth;
+    const onResize = () => {
+      if (track.clientWidth === lastWidth) return;
+      lastWidth = track.clientWidth;
+      init();
+    };
+
     track.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", init);
+    window.addEventListener("resize", onResize);
     return () => {
       track.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", init);
+      window.removeEventListener("resize", onResize);
     };
   }, [setLen]);
 

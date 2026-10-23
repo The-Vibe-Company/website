@@ -83,8 +83,11 @@ export default async function CaseStudyPage({
   );
 
   // The other case studies, starting right after the current one (cyclic) so
-  // every page suggests a different "next" case.
-  const all = getCustomers(locale as ContentLocale);
+  // every page suggests a different "next" case, in the lists' alphabetical
+  // order.
+  const all = [...getCustomers(locale as ContentLocale)].sort((a, b) =>
+    a.client.localeCompare(b.client, locale, { sensitivity: "base" }),
+  );
   const index = all.findIndex((c) => c.slug === slug);
   const related = [...all.slice(index + 1), ...all.slice(0, index)].slice(0, 3);
 

@@ -206,7 +206,7 @@ export async function AboutPage({ locale }: { locale: string }) {
             >
               <Bead className="pointer-events-none absolute right-3.5 top-3.5 h-[110px] w-[104px] md:right-16 md:top-8 md:h-[265px] md:w-[250px]" />
               <Kicker>{t("kicker")}</Kicker>
-              <h1 className="display d-lg mt-[4.75rem] md:mt-8">
+              <h1 className="display d-lg mt-[4.75rem] md:mt-8 md:max-w-[calc(100%-285px)]">
                 {h1Line1}
                 {h1Line2 ? (
                   <>

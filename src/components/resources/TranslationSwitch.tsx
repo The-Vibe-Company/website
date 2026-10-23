@@ -74,7 +74,11 @@ export function TranslationSwitch({
           // switch crosses locales instead of staying under the current one.
           locale={translation.language}
           hrefLang={translation.language}
-          aria-label={t(READ_IN[translation.language])}
+          aria-label={
+            variant === 'card'
+              ? `${translation.language.toUpperCase()}, ${t(READ_IN[translation.language])}`
+              : t(READ_IN[translation.language])
+          }
           title={variant === 'card' ? t(READ_IN[translation.language]) : undefined}
           className="min-w-0"
         >

@@ -18,8 +18,14 @@
   --cdpe-hairline: #e3e6ec;
   --cdpe-display: var(--cdpe-font-display), "Segoe UI", system-ui, sans-serif;
 
-  /* The shared focus ring reads `--foreground`; pin it so it stays navy here. */
+  /* The shared focus ring reads `--foreground` (and `--ink` in the porcelaine
+     kit); pin both so it stays navy here. */
   --foreground: var(--cdpe-navy);
+  --ink: var(--cdpe-navy);
+
+  /* The site's body font is Bricolage now; this page keeps the client's
+     plain sans for its running text. */
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 
   color-scheme: light;
   display: flex;
