@@ -1,0 +1,28 @@
+src/components/home/CaseStudy.tsx
+  s_c8af29a5af6da7::t_8da2dbb15202e7 71-72,88-90,112,120,125-129
+  s_c8af29a5af6da7::t_41bf8be752c43c 130
+src/components/home/Proof.tsx
+  s_c8af29a5af6da7::t_8da2dbb15202e7 43-45,100,108,113-122
+  s_c8af29a5af6da7::t_75a7a395b7f125 123
+src/components/home/HeroRunner.tsx
+  s_c8af29a5af6da7::t_7504835f60009d 31,33,47,59,62,1160
+  s_c8af29a5af6da7::t_49a062641cc98a 776,778,785,789-791
+  s_c8af29a5af6da7::t_f64eac6df3267e 934
+  s_c8af29a5af6da7::t_e99845a7b3447d 17-18,745-751,753,762-764,770-775,777,779-784,786-787,795-796,798,801-806,808-813,816-831,833-838,840,842-847,1060
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "81b48e1248cd2354fda20e5ad256682cbba194d9",
+  "prompts": {},
+  "sessions": {
+    "s_c8af29a5af6da7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b81b232c-25c9-4494-8e89-f80c50a7c0c1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
