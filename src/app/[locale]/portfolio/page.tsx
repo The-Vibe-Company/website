@@ -31,9 +31,6 @@ export async function generateMetadata({
   };
 }
 
-/** The product the page leans on: the one main piece. */
-const FEATURED_SLUG = "armada";
-
 /** Statuses (both locales) that earn the orange status dot. */
 const LIVE_STATUSES = new Set(["Live", "En ligne"]);
 
@@ -72,8 +69,6 @@ export default async function PortfolioPage({
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "portfolio" });
   const projects = getProjects(locale as ContentLocale);
-  const featured = projects.find((p) => p.slug === FEATURED_SLUG) ?? projects[0];
-  const others = projects.filter((p) => p.slug !== featured?.slug);
 
   return (
     <div
@@ -96,58 +91,13 @@ export default async function PortfolioPage({
           </div>
         </section>
 
-        {featured ? (
-          <section className="pt-8 md:pt-14">
-            <div className="wrap">
-              {/* The one main piece: the whole slab opens the product page. */}
-              <Link
-                href={`/portfolio/${featured.slug}`}
-                className="group clay rim rim-warm grid gap-[22px] rounded-[28px] p-5 pb-[26px] no-underline [--rim-angle:118deg] md:grid-cols-[minmax(0,1fr)_300px] md:items-center md:gap-12 md:rounded-slab md:px-14 md:pb-14 md:pt-[52px]"
-              >
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-x-[18px] gap-y-3">
-                    <span className="chip h-[30px]">{featured.tag}</span>
-                    <Status
-                      status={featured.status}
-                      built={t("built")}
-                      date={featured.date}
-                    />
-                  </div>
-                  <h2 className="display m-0 mt-5 text-[clamp(4.25rem,2rem+8vw,7.75rem)] md:mt-[30px]">
-                    {featured.name}
-                  </h2>
-                  <p className="relative m-0 mt-5 max-w-[56ch] pl-[18px] text-[17px] leading-[1.5] text-ink-2 before:absolute before:bottom-1 before:left-0 before:top-1 before:w-1 before:rounded before:bg-[linear-gradient(180deg,#3a3a3c,#0b0b0c)] before:content-[''] md:mt-[30px] md:pl-[22px] md:text-xl">
-                    {featured.description}
-                  </p>
-                  <span
-                    aria-hidden="true"
-                    className="round lacquer rim mt-[26px] size-[60px] transition-transform duration-200 [--rim-angle:110deg] group-hover:translate-x-1 md:mt-[38px]"
-                  >
-                    <Arrow className="!size-[22px]" />
-                  </span>
-                </div>
-                <span
-                  aria-hidden="true"
-                  className="rim relative order-first size-[92px] shrink-0 justify-self-start rounded-[22px] shadow-[0_2px_3px_rgba(20,20,22,0.2),0_18px_20px_-14px_rgba(20,20,22,0.5)] [--rim-angle:132deg] before:pointer-events-none before:absolute before:inset-0 before:z-[1] before:rounded-[inherit] before:bg-[linear-gradient(158deg,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0.04)_30%,rgba(255,255,255,0)_52%)] before:content-[''] md:order-none md:size-[236px] md:justify-self-center md:rounded-[54px] md:shadow-[0_2px_3px_rgba(20,20,22,0.22),0_38px_40px_-28px_rgba(20,20,22,0.55)]"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={featured.logo}
-                    alt=""
-                    className="size-full rounded-[inherit]"
-                    decoding="async"
-                  />
-                </span>
-              </Link>
-            </div>
-          </section>
-        ) : null}
-
-        <section className="pt-7 md:pt-10">
+        <section className="pt-8 md:pt-14">
           <div className="wrap">
-            {/* The quieter ones: flat on the studio floor, a clay plate rises under the one you point at. */}
+            {/* Every product with the same weight, in the catalogue's order:
+                flat on the studio floor, a clay plate rises under the one you
+                point at. */}
             <ul className="rows m-0 list-none p-0">
-              {others.map((p) => (
+              {projects.map((p) => (
                 <li
                   key={p.slug}
                   className="-mx-2 before:left-2 before:right-2 md:-mx-6 md:before:left-6 md:before:right-6"
