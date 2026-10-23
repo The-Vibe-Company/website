@@ -46,6 +46,10 @@ const ANTOINE_DEWEZ: JsonLdNode = {
   "@type": "Person",
   "@id": `${SITE_URL}/#antoine-dewez`,
   name: "Antoine Dewez",
+  sameAs: [
+    "https://www.linkedin.com/in/antoine-dewez-367774157",
+    "https://x.com/AntoineZewed",
+  ],
 };
 
 const LOGO: JsonLdNode = {
@@ -64,9 +68,22 @@ const PUBLISHER: JsonLdNode = {
   logo: LOGO,
 };
 
-export function organizationNode(): JsonLdNode {
+const ORGANIZATION_DESCRIPTION = {
+  fr: "Agence IA native à Paris : agents IA, intégration de LLM et automatisation, du cadrage à la mise en production.",
+  en: "AI-native agency in Paris: AI agents, LLM integration and automation, from scoping to production.",
+};
+
+/**
+ * The company as an AI agency: an Organization that is also a
+ * ProfessionalService. It only states facts we can source: no contact
+ * details, commercial terms, ratings or certifications.
+ */
+export function organizationNode(locale: string): JsonLdNode {
   return {
     ...PUBLISHER,
+    "@type": ["Organization", "ProfessionalService"],
+    description: locale === "fr" ? ORGANIZATION_DESCRIPTION.fr : ORGANIZATION_DESCRIPTION.en,
+    image: LOGO.url,
     founder: [STAN_GIRARD, ANTOINE_DEWEZ],
     foundingDate: "2024",
     address: {
@@ -74,11 +91,23 @@ export function organizationNode(): JsonLdNode {
       addressLocality: "Paris",
       addressCountry: "FR",
     },
+    areaServed: [{ "@type": "Country", name: "France" }],
+    knowsAbout: [
+      "Artificial intelligence",
+      "AI agents",
+      "Large language models",
+      "Generative AI",
+      "AI automation",
+      "Model Context Protocol",
+    ],
     sameAs: [
       "https://www.linkedin.com/company/thevibeco",
       "https://www.ycombinator.com/companies/the-vibe-company",
       "https://github.com/The-Vibe-Company",
       "https://x.com/thevibecompany",
+      // Quivr pivoted into The Vibe Company.
+      "https://github.com/QuivrHQ",
+      "https://www.linkedin.com/company/getquivr",
     ],
   };
 }
@@ -94,11 +123,11 @@ export function websiteNode(): JsonLdNode {
   };
 }
 
-/** The site-wide graph, on every page. */
-export function siteGraph(): JsonLdNode {
+/** The site-wide graph, on every page, in the page's language. */
+export function siteGraph(locale: string): JsonLdNode {
   return {
     "@context": SCHEMA_CONTEXT,
-    "@graph": [organizationNode(), websiteNode()],
+    "@graph": [organizationNode(locale), websiteNode()],
   };
 }
 

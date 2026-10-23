@@ -30,28 +30,78 @@ const collapse = (text: string) => text.replace(/\s+/g, " ");
 
 describe("site graph", () => {
   test("declares the Organization and the WebSite", () => {
-    const graph = siteGraph() as { "@graph": Record<string, unknown>[] };
+    const graph = siteGraph("en") as { "@graph": Record<string, unknown>[] };
     const [organization, website] = graph["@graph"];
 
     expect(organization).toMatchObject({
-      "@type": "Organization",
+      "@type": ["Organization", "ProfessionalService"],
+      "@id": `${SITE}/#organization`,
       name: "The Vibe Company",
       url: SITE,
+      image: `${SITE}/icon.png`,
       logo: { url: `${SITE}/icon.png`, width: 1024, height: 1024 },
       foundingDate: "2024",
       address: { "@type": "PostalAddress", addressLocality: "Paris", addressCountry: "FR" },
+      areaServed: [{ "@type": "Country", name: "France" }],
+      knowsAbout: [
+        "Artificial intelligence",
+        "AI agents",
+        "Large language models",
+        "Generative AI",
+        "AI automation",
+        "Model Context Protocol",
+      ],
       sameAs: [
         "https://www.linkedin.com/company/thevibeco",
         "https://www.ycombinator.com/companies/the-vibe-company",
         "https://github.com/The-Vibe-Company",
         "https://x.com/thevibecompany",
+        "https://github.com/QuivrHQ",
+        "https://www.linkedin.com/company/getquivr",
       ],
     });
-    expect((organization.founder as { name: string }[]).map((person) => person.name)).toEqual([
-      "Stan Girard",
-      "Antoine Dewez",
+    expect(organization.founder).toMatchObject([
+      { "@id": `${SITE}/#stan-girard`, name: "Stan Girard" },
+      {
+        "@id": `${SITE}/#antoine-dewez`,
+        name: "Antoine Dewez",
+        sameAs: [
+          "https://www.linkedin.com/in/antoine-dewez-367774157",
+          "https://x.com/AntoineZewed",
+        ],
+      },
     ]);
     expect(website).toMatchObject({ "@type": "WebSite", name: "The Vibe Company", url: SITE });
+  });
+
+  test("describes the agency in the page's language", () => {
+    const description = (locale: string) =>
+      (siteGraph(locale) as { "@graph": Record<string, unknown>[] })["@graph"][0].description;
+
+    expect(description("fr")).toBe(
+      "Agence IA native à Paris : agents IA, intégration de LLM et automatisation, du cadrage à la mise en production.",
+    );
+    expect(description("en")).toBe(
+      "AI-native agency in Paris: AI agents, LLM integration and automation, from scoping to production.",
+    );
+  });
+
+  test("leaves out the optional business fields we cannot source", () => {
+    for (const locale of ["fr", "en"]) {
+      const json = JSON.stringify(siteGraph(locale));
+      for (const key of [
+        "priceRange",
+        "aggregateRating",
+        "review",
+        "telephone",
+        "email",
+        "openingHours",
+        "award",
+        "hasCredential",
+      ]) {
+        expect(json).not.toContain(`"${key}"`);
+      }
+    }
   });
 });
 
