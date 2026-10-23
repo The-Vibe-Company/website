@@ -68,7 +68,10 @@ export default async function PortfolioPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "portfolio" });
-  const projects = getProjects(locale as ContentLocale);
+  // In alphabetical order, whatever order the catalogue keeps them in.
+  const projects = [...getProjects(locale as ContentLocale)].sort((a, b) =>
+    a.name.localeCompare(b.name, locale, { sensitivity: "base" }),
+  );
 
   return (
     <div

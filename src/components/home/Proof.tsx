@@ -20,7 +20,10 @@ const CARD_WIDTH =
 export function Proof() {
   const locale = useLocale() as ContentLocale;
   const t = useTranslations("proof");
-  const projects = getProjects(locale);
+  // In alphabetical order, as on the portfolio.
+  const projects = [...getProjects(locale)].sort((a, b) =>
+    a.name.localeCompare(b.name, locale, { sensitivity: "base" }),
+  );
   const { trackRef, scrollByCard } = useLoopCarousel(projects.length);
 
   return (

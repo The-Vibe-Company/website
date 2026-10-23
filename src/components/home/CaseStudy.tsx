@@ -74,7 +74,10 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
 export function CaseStudy() {
   const t = useTranslations("caseStudy") as T;
   const locale = useLocale() as ContentLocale;
-  const customers = getCustomers(locale);
+  // In alphabetical order of the client, as on the case studies page.
+  const customers = [...getCustomers(locale)].sort((a, b) =>
+    a.client.localeCompare(b.client, locale, { sensitivity: "base" }),
+  );
   const { trackRef, scrollByCard } = useLoopCarousel(customers.length);
 
   return (

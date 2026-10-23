@@ -38,7 +38,10 @@ export default async function CaseStudiesPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "caseStudiesPage" });
-  const customers = getCustomers(locale as ContentLocale);
+  // In alphabetical order of the client, whatever order the data keeps them in.
+  const customers = [...getCustomers(locale as ContentLocale)].sort((a, b) =>
+    a.client.localeCompare(b.client, locale, { sensitivity: "base" }),
+  );
 
   return (
     <div
@@ -115,10 +118,10 @@ export default async function CaseStudiesPage({
 const SECTOR_CHIP =
   "h-auto max-w-full whitespace-normal rounded-pebble py-2 text-left leading-snug";
 
-/** A client mark set on a faint plate in the clay (not a second box). */
+/** A client mark, standing on the clay itself: no plate, so the sector chip under it is the only box. */
 function Logo({ src, alt }: { src: string; alt: string }) {
   return (
-    <span className="inline-flex h-16 min-w-[150px] items-center justify-center rounded-piece bg-[rgba(20,20,22,0.05)] px-6 md:h-[72px] md:min-w-[176px] md:px-7">
+    <span className="inline-flex h-10 items-center md:h-11">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
