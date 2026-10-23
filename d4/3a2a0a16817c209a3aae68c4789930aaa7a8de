@@ -1,0 +1,21 @@
+src/components/home/CaseStudy.tsx
+  s_c8af29a5af6da7::t_02273f991687bc 48,52-54,91-93,116,124,130
+src/components/home/Proof.tsx
+  s_c8af29a5af6da7::t_3dec6c4544bb2f 46-48,104,112,118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d43a2a0a16817c209a3aae68c4789930aaa7a8de",
+  "prompts": {},
+  "sessions": {
+    "s_c8af29a5af6da7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b81b232c-25c9-4494-8e89-f80c50a7c0c1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
