@@ -5,7 +5,7 @@ import { setRequestLocale } from "next-intl/server";
 import { EnsembleLanding } from "@/components/coup-de-pates/EnsembleLanding";
 import { permanentRedirect } from "@/i18n/navigation";
 import { ENSEMBLE_PATH } from "@/lib/coup-de-pates-ensemble";
-import { localizedUrl } from "@/lib/site";
+import { DEFAULT_OG_IMAGE, localizedUrl, openGraphImage, SITE_NAME } from "@/lib/site";
 import "./ensemble.css";
 
 // The client's display face. Scoped to this page through its CSS variable, so
@@ -38,8 +38,12 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     url: localizedUrl("fr", ENSEMBLE_PATH),
+    siteName: SITE_NAME,
     title: TITLE,
     description: DESCRIPTION,
+    // Declared here because this object replaces the layout's Open Graph
+    // defaults; the Twitter card already inherits the same image from them.
+    images: [openGraphImage(DEFAULT_OG_IMAGE)],
   },
 };
 

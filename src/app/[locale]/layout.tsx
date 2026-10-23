@@ -7,7 +7,7 @@ import { ClientProviders } from "@/components/ClientProviders";
 import { JsonLd } from "@/components/JsonLd";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
 import { routing } from "@/i18n/routing";
-import { localizedAlternates, SITE_NAME, SITE_URL } from "@/lib/site";
+import { defaultSocialMetadata, localizedAlternates, SITE_NAME, SITE_URL } from "@/lib/site";
 import { siteGraph } from "@/lib/structured-data";
 import "../globals.css";
 
@@ -46,6 +46,7 @@ export async function generateMetadata({
       icon: "/favicon.svg",
     },
     alternates: localizedAlternates(locale),
+    ...defaultSocialMetadata(locale),
   };
 }
 

@@ -167,15 +167,59 @@ export function openGraphLocale(locale: string): string {
   return locale === "fr" ? "fr_FR" : "en_US";
 }
 
-/** A social card image, as a site path, with its alt text and, when known, its size. */
-export type SocialImage = { path: string; width?: number; height?: number; alt: string };
+/**
+ * A social card image, as a site path, with its alt text and, when known, its
+ * size and MIME type.
+ */
+export type SocialImage = { path: string; width?: number; height?: number; type?: string; alt: string };
 
 /**
- * The site's square logo (served from `src/app/icon.png`), the social card of
- * any page that has no image of its own. It is also the logo declared in the
- * Organization structured data.
+ * The site's square logo (served from `src/app/icon.png`), declared as the
+ * logo in the Organization structured data. Not a social card: networks crop
+ * a square into their 1.91:1 frame.
  */
 export const SITE_LOGO = { path: "/icon.png", width: 1024, height: 1024 } as const;
+
+/**
+ * The social card of any page that has no image of its own. A 1.91:1 JPEG
+ * (not WebP, which LinkedIn does not render in link previews).
+ */
+export const DEFAULT_OG_IMAGE = {
+  path: "/og/default.jpg",
+  width: 1200,
+  height: 630,
+  type: "image/jpeg",
+  alt: SITE_NAME,
+} as const satisfies SocialImage;
+
+/** A social image as the `openGraph.images` entry Next.js expects. */
+export function openGraphImage(image: SocialImage) {
+  return {
+    url: absoluteUrl(image.path),
+    ...(image.width && image.height ? { width: image.width, height: image.height } : {}),
+    ...(image.type ? { type: image.type } : {}),
+    alt: image.alt,
+  };
+}
+
+/**
+ * Site-wide defaults for the layout, so a page that declares no social
+ * metadata of its own still shares the default card.
+ */
+export function defaultSocialMetadata(locale: string): Pick<Metadata, "openGraph" | "twitter"> {
+  return {
+    openGraph: {
+      type: "website",
+      locale: openGraphLocale(locale),
+      siteName: SITE_NAME,
+      images: [openGraphImage(DEFAULT_OG_IMAGE)],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: [absoluteUrl(DEFAULT_OG_IMAGE.path)],
+    },
+  };
+}
 
 export function localizedSocialMetadata({
   locale,
@@ -188,13 +232,10 @@ export function localizedSocialMetadata({
   path?: string;
   title: string;
   description: string;
-  /**
-   * With an image, Twitter/X shows the large card, like articles do. Without
-   * one, the page shares the site logo on the small card.
-   */
+  /** The page's own card. Without one, the page shares the default card. */
   image?: SocialImage;
 }): Pick<Metadata, "openGraph" | "twitter"> {
-  const card = image ?? { ...SITE_LOGO, alt: SITE_NAME };
+  const card = image ?? DEFAULT_OG_IMAGE;
   const imageUrl = absoluteUrl(card.path);
   return {
     openGraph: {
@@ -204,16 +245,10 @@ export function localizedSocialMetadata({
       siteName: SITE_NAME,
       title,
       description,
-      images: [
-        {
-          url: imageUrl,
-          ...(card.width && card.height ? { width: card.width, height: card.height } : {}),
-          alt: card.alt,
-        },
-      ],
+      images: [openGraphImage(card)],
     },
     twitter: {
-      card: image ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title,
       description,
       images: [imageUrl],
