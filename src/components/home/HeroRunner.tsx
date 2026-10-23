@@ -14,8 +14,8 @@ import type { RunnerItem } from "@/lib/runner-worlds";
  *
  * It is a black lacquer band under the hero slab, with the orange rim light on
  * its edge, so it reads as a screen set into the page rather than a widget
- * floating on it. The player is a small porcelain bird whose wing beats while
- * it runs.
+ * floating on it. The player is VeeBee, the mascot, in profile: a porcelain
+ * head with the black hair and the mark, running on two little feet.
  *
  * Space / ArrowUp jumps, ArrowDown ducks, tap plays on touch. One canvas, one
  * fixed 60Hz timestep, so the difficulty curve is identical on every display.
@@ -28,9 +28,9 @@ const WORLD = {
   groundY: 170,
   gravity: 2600,
   // Apex is v²/2g = 78px. The second jump adds ~50px on top, for a 128px
-  // ceiling that still leaves the bird inside the band.
+  // ceiling that still leaves VeeBee inside the band.
   jumpVelocity: -637,
-  /** The second jump tops the bird up to exactly this height above the line,
+  /** The second jump tops VeeBee up to exactly this height above the line,
    *  whenever it is pressed. Adding a fixed impulse instead would either be
    *  wasted right after take-off or overshoot the roof near the apex. */
   doubleJumpPeak: 130,
@@ -44,7 +44,7 @@ const WORLD = {
   // Speed gains acceleration × 10 px/s per second: about 55s to top speed.
   acceleration: 0.75,
   /** Gaps are seconds, not pixels. A pixel gap that is comfortable at 365 px/s
-   *  becomes unclearable at 620 — the bird is still in the air from the last
+   *  becomes unclearable at 620 — VeeBee is still in the air from the last
    *  jump. In time, the rhythm holds and speed alone tightens the reaction
    *  window, which is where the difficulty should come from. */
   spawnGapMin: 0.85,
@@ -56,10 +56,10 @@ const WORLD = {
    *  them both. */
   twinGap: 0.22,
   twinMaxHeight: 40,
-  /** Ceiling bars stop this far above the ground: under a ducking bird
+  /** Ceiling bars stop this far above the ground: under a ducking VeeBee
    *  (18px), over nothing else. */
   ceilingGap: 24,
-  /** Head-height flyer: clips a standing bird, misses a ducking one. */
+  /** Head-height flyer: clips a standing VeeBee, misses a ducking one. */
   flyerHighY: 44,
   flyerHighHeight: 18,
   /** Ground-height flyer: ducking is not enough, it has to be jumped. */
@@ -742,12 +742,15 @@ function drawWorldNameLayer(
 }
 
 /**
- * The player: a small paper bird. Everything is expressed as a fraction of its
- * box, so the same drawing squashes into the ducking silhouette without any
- * second set of numbers. The wing beats while running and stays raised in the
- * air, which doubles as the "am I airborne?" cue.
+ * The player: VeeBee in profile, running to the right. Everything is expressed
+ * as a fraction of its box, so the same drawing squashes into the ducking
+ * silhouette without any second set of numbers. A big porcelain head with the
+ * black hair over the crown and the back, The Vibe Co. mark sweeping back
+ * through it in two white strokes, a big eye looking ahead and a smile; a
+ * small body with the black V on its chest, and two feet that run on the
+ * ground and tuck in the air, which doubles as the "am I airborne?" cue.
  */
-function drawBird(
+function drawVeeBee(
   ctx: CanvasRenderingContext2D,
   world: World,
   box: { x: number; y: number; width: number; height: number },
@@ -756,52 +759,92 @@ function drawBird(
 ): void {
   const { x, y, width: w, height: h } = box;
   const px = (fx: number, fy: number): [number, number] => [x + fx * w, y + fy * h];
-
-  const beat = world.grounded ? Math.sin(world.t * 14) : 1;
-  // Kept inside the silhouette: a wing that leaves the body reads as a hole.
-  const wingTip = 0.32 - beat * 0.13;
+  const light = crashed ? palette.accent : palette.paper;
+  const dark = crashed ? palette.paper : palette.ink;
+  const head: [number, number, number, number] = [...px(0.5, 0.4), w * 0.38, h * 0.38];
 
   ctx.save();
-  ctx.fillStyle = crashed ? palette.accent : palette.paper;
-  ctx.strokeStyle = crashed ? palette.accent : palette.paper;
   ctx.lineJoin = "round";
   ctx.lineCap = "round";
 
-  // Tail, body and head in one silhouette.
+  // Feet: they take turns on the ground, and tuck under the body in the air.
+  const stride = world.grounded ? Math.sin(world.t * 16) * 0.12 : 0;
+  const reach = world.grounded ? 1.0 : 0.93;
+  ctx.strokeStyle = light;
+  ctx.lineWidth = Math.max(2, w * 0.09);
   ctx.beginPath();
-  ctx.moveTo(...px(0.02, 0.34));
-  ctx.lineTo(...px(0.24, 0.52));
-  ctx.bezierCurveTo(...px(0.3, 0.98), ...px(0.7, 1.0), ...px(0.76, 0.62));
-  ctx.bezierCurveTo(...px(0.82, 0.5), ...px(0.88, 0.42), ...px(0.86, 0.3));
-  ctx.bezierCurveTo(...px(0.84, 0.12), ...px(0.6, 0.08), ...px(0.5, 0.24));
-  ctx.bezierCurveTo(...px(0.42, 0.36), ...px(0.2, 0.36), ...px(0.02, 0.34));
+  ctx.moveTo(...px(0.42, 0.82));
+  ctx.lineTo(...px(0.42 + stride, reach));
+  ctx.moveTo(...px(0.58, 0.82));
+  ctx.lineTo(...px(0.58 - stride, reach));
+  ctx.stroke();
+
+  // Body, with the black V on the chest, on the side he runs toward.
+  ctx.fillStyle = light;
+  ctx.beginPath();
+  ctx.ellipse(...px(0.5, 0.77), w * 0.19, h * 0.11, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = dark;
+  ctx.beginPath();
+  ctx.moveTo(...px(0.55, 0.69));
+  ctx.lineTo(...px(0.68, 0.72));
+  ctx.lineTo(...px(0.6, 0.85));
   ctx.closePath();
   ctx.fill();
 
-  // Beak: a small wedge, the detail that makes it read as a bird at 32px.
+  // Head.
+  ctx.fillStyle = light;
   ctx.beginPath();
-  ctx.moveTo(...px(0.85, 0.22));
-  ctx.lineTo(...px(1.0, 0.3));
-  ctx.lineTo(...px(0.85, 0.36));
-  ctx.closePath();
+  ctx.ellipse(...head, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // Wing: a filled crescent cut out of the body. A stroke reads as a frown at
-  // this size; a shape reads as a wing.
-  ctx.fillStyle = crashed ? palette.paper : palette.ink;
+  // Hair over the crown and down the back, the mark sweeping back through it.
+  ctx.save();
   ctx.beginPath();
-  ctx.moveTo(...px(0.3, 0.62));
-  ctx.quadraticCurveTo(...px(0.45, wingTip), ...px(0.62, 0.52));
-  ctx.quadraticCurveTo(...px(0.48, 0.6), ...px(0.4, 0.72));
-  ctx.quadraticCurveTo(...px(0.34, 0.68), ...px(0.3, 0.62));
+  ctx.ellipse(...head, 0, 0, Math.PI * 2);
+  ctx.clip();
+  ctx.fillStyle = dark;
+  ctx.beginPath();
+  ctx.moveTo(...px(0.76, 0.12));
+  ctx.quadraticCurveTo(...px(0.66, 0.3), ...px(0.52, 0.3));
+  ctx.quadraticCurveTo(...px(0.38, 0.32), ...px(0.3, 0.62));
+  ctx.lineTo(...px(0, 0.72));
+  ctx.lineTo(...px(0, 0));
+  ctx.lineTo(...px(1, 0));
   ctx.closePath();
   ctx.fill();
-
-  // Eye.
-  ctx.fillStyle = crashed ? palette.paper : palette.ink;
+  ctx.strokeStyle = light;
+  ctx.lineWidth = Math.max(1.2, w * 0.05);
   ctx.beginPath();
-  ctx.arc(...px(0.7, 0.26), Math.max(1.2, h * 0.045), 0, Math.PI * 2);
+  ctx.moveTo(...px(0.64, 0.08));
+  ctx.quadraticCurveTo(...px(0.42, 0.12), ...px(0.24, 0.38));
+  ctx.moveTo(...px(0.62, 0.2));
+  ctx.quadraticCurveTo(...px(0.46, 0.22), ...px(0.32, 0.46));
+  ctx.stroke();
+  ctx.restore();
+
+  // The head's outline, so the black hair keeps it round on the black band.
+  ctx.strokeStyle = light;
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.ellipse(...head, 0, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // A big eye looking ahead, with its highlight, and the smile.
+  ctx.fillStyle = dark;
+  ctx.beginPath();
+  ctx.ellipse(...px(0.7, 0.47), w * 0.085, h * 0.11, 0, 0, Math.PI * 2);
   ctx.fill();
+  ctx.fillStyle = light;
+  ctx.beginPath();
+  ctx.arc(...px(0.73, 0.42), Math.max(0.8, w * 0.025), 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = dark;
+  ctx.lineWidth = Math.max(1, w * 0.045);
+  ctx.beginPath();
+  ctx.moveTo(...px(0.72, 0.63));
+  ctx.quadraticCurveTo(...px(0.79, 0.69), ...px(0.85, 0.6));
+  ctx.stroke();
   ctx.restore();
 }
 
@@ -888,7 +931,7 @@ function drawFlyer(
 
 /**
  * Standing and hanging obstacles. Corners are rounded only on the edges facing
- * the bird, so each one still points the way it hangs, and anything that needs
+ * VeeBee, so each one still points the way it hangs, and anything that needs
  * a move other than a plain jump wears diagonal hazard stripes.
  */
 function drawObstacle(
@@ -1014,7 +1057,7 @@ function draw(
     ctx.restore();
   }
 
-  drawBird(ctx, world, playerBox(world), palette, world.phase === "over");
+  drawVeeBee(ctx, world, playerBox(world), palette, world.phase === "over");
 
   // Foreground: the name goes over the obstacles, never under them.
   drawWorldNameLayer(ctx, world, width, palette, cards);
@@ -1114,7 +1157,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       audio().jump(false);
       return;
     }
-    // Second press mid-air: top the bird up to a fixed peak, and puff so the
+    // Second press mid-air: top VeeBee up to a fixed peak, and puff so the
     // move is legible.
     if (world.jumps >= 2) return;
     const climbed = WORLD.groundY - world.playerY;

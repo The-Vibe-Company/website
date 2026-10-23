@@ -40,7 +40,9 @@ export function Proof() {
         {/* The hairline of a quiet piece is a shadow, so the track keeps one
             pixel of room on each side (and 8px above and below for the lift)
             instead of clipping it. */}
-        <div className="mt-7">
+        {/* The arrows sit on either side of the cards, astride their edges,
+            centred on their height. */}
+        <div className="relative mt-7">
           <div
             ref={trackRef}
             className="-mx-px -my-2 flex gap-[18px] overflow-x-auto px-px py-2 [-ms-overflow-style:none] [scrollbar-width:none] max-md:snap-x max-md:snap-mandatory [&::-webkit-scrollbar]:hidden"
@@ -91,33 +93,33 @@ export function Proof() {
               )),
             )}
           </div>
-        </div>
-
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 md:mt-10">
           <button
             type="button"
             onClick={() => scrollByCard(-1)}
             aria-label={t("prev")}
-            className={`${LOOP_PREV_CLASS} order-1`}
+            className={`${LOOP_PREV_CLASS} absolute left-0 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2`}
           >
             <Arrow direction="left" />
           </button>
-          <LinkRim
-            href={ORG_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="order-3 w-full justify-center md:order-2 md:w-auto"
-          >
-            {t("browseAll")}
-          </LinkRim>
           <button
             type="button"
             onClick={() => scrollByCard(1)}
             aria-label={t("next")}
-            className={`${LOOP_NEXT_CLASS} order-2 md:order-3`}
+            className={`${LOOP_NEXT_CLASS} absolute right-0 top-1/2 z-10 translate-x-1/2 -translate-y-1/2`}
           >
             <Arrow />
           </button>
+        </div>
+
+        <div className="mt-8 flex justify-center md:mt-10">
+          <LinkRim
+            href={ORG_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="justify-center"
+          >
+            {t("browseAll")}
+          </LinkRim>
         </div>
       </div>
     </section>

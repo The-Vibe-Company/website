@@ -68,8 +68,8 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
 /**
  * The client cases, scrolled by hand (trackpad, swipe or the two round
  * buttons) in an infinite loop that wraps seamlessly in both directions (see
- * useLoopCarousel). The cards start where the title starts: the buttons sit
- * below, on one row with the way to every case.
+ * useLoopCarousel). The cards start where the title starts; the buttons sit
+ * on either side of them, and the way to every case below.
  */
 export function CaseStudy() {
   const t = useTranslations("caseStudy") as T;
@@ -85,7 +85,9 @@ export function CaseStudy() {
         {/* The hairline of a quiet piece is a shadow, so the track keeps one
             pixel of room on each side (and 8px above and below for the lift)
             instead of clipping it. */}
-        <div className="mt-9 md:mt-12">
+        {/* The arrows sit on either side of the cards, astride their edges,
+            centred on their height. */}
+        <div className="relative mt-9 md:mt-12">
           <div
             ref={trackRef}
             className="-mx-px -my-2 flex gap-3 overflow-x-auto px-px py-2 [-ms-overflow-style:none] [scrollbar-width:none] max-md:snap-x max-md:snap-mandatory md:gap-6 [&::-webkit-scrollbar]:hidden"
@@ -103,33 +105,28 @@ export function CaseStudy() {
               )),
             )}
           </div>
-        </div>
-
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 md:mt-10">
           <button
             type="button"
             onClick={() => scrollByCard(-1)}
             aria-label={t("prev")}
-            className={`${LOOP_PREV_CLASS} order-1`}
+            className={`${LOOP_PREV_CLASS} absolute left-0 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2`}
           >
             <Arrow direction="left" />
           </button>
-          <ButtonLink
-            href="/case-studies"
-            variant="clay"
-            arrow
-            className="order-3 w-full md:order-2 md:w-auto"
-          >
-            {t("seeAll")}
-          </ButtonLink>
           <button
             type="button"
             onClick={() => scrollByCard(1)}
             aria-label={t("next")}
-            className={`${LOOP_NEXT_CLASS} order-2 md:order-3`}
+            className={`${LOOP_NEXT_CLASS} absolute right-0 top-1/2 z-10 translate-x-1/2 -translate-y-1/2`}
           >
             <Arrow />
           </button>
+        </div>
+
+        <div className="mt-8 flex justify-center md:mt-10">
+          <ButtonLink href="/case-studies" variant="clay" arrow>
+            {t("seeAll")}
+          </ButtonLink>
         </div>
       </div>
     </section>
