@@ -1019,5 +1019,209 @@
     "homeLink": "Voir notre page Agence IA à Paris",
     "caseLink": "The Vibe Company est une <link>agence IA à Paris</link> : produits IA, agents et formation, jusqu’en production.",
     "aboutLink": "Notre page Agence IA à Paris"
+  },
+  "healthcareAi": {
+    "kicker": "// IA SANTÉ · EXIGENCES HDS",
+    "metaTitle": "IA santé & HDS : projets en production | The Vibe Company",
+    "metaDescription": "Projets IA sur données de santé, livrés selon les exigences RGPD et HDS. Cas Monka (prod en 2 mois). Agence IA Paris, YC W24. RDV sous 24 h.",
+    "title": "IA santé et HDS : on construit vos produits jusqu'en production",
+    "lede": "The Vibe Company construit des produits et agents IA pour la santé : app, CRM, moteurs cliniques, API partenaires — dans l’environnement HDS et le cadre RGPD de nos clients. On n’est pas un hébergeur certifié HDS : on livre vite et proprement là où vos données de santé doivent rester.",
+    "bookCall": "Prendre 30 minutes",
+    "response": "Réponse sous 24 h",
+    "breadcrumb": "IA santé & HDS",
+    "hero": {
+      "label": "Les faits",
+      "items": {
+        "monka": "Cas public Monka : app aidants, Lifeline et moteur clinique, en production en 2 mois, dans l’environnement HDS déjà en place chez le client.",
+        "cadence": "Des cycles courts : chez Monka, une nouvelle version de l’app tous les deux jours environ.",
+        "agency": "Agence IA à Paris, YC W24 (Quivr est devenu The Vibe Company).",
+        "framework": "On travaille selon les exigences RGPD et HDS, sans revendiquer de certification que nous n’avons pas."
+      },
+      "caseLabel": "Cas client santé",
+      "caseLink": "Lire le cas Monka"
+    },
+    "service": {
+      "name": "Projets IA santé selon exigences HDS",
+      "description": "Conception et développement de produits et d’agents IA sur données de santé (apps, CRM de coordination, moteurs cliniques versionnés, API partenaires), selon les exigences RGPD et HDS, dans l’environnement du client."
+    },
+    "audience": {
+      "title": "Pour qui cette page",
+      "intro": "Pour les équipes qui ont, ou vont avoir, un hébergeur HDS et un besoin produit IA concret.",
+      "typesLabel": "Qui",
+      "types": {
+        "startups": "Startups santé",
+        "publishers": "Éditeurs e-santé",
+        "insurers": "Assureurs et mutuelles",
+        "coordination": "Structures de coordination des soins",
+        "scaleups": "Scale-ups qui grandissent sur des données de santé"
+      },
+      "signalsLabel": "Les signaux",
+      "signals": [
+        "Un bilan ou un questionnaire clinique à transformer en parcours.",
+        "Un CRM pour des soignants ou des infirmières de coordination.",
+        "Des API à ouvrir à des partenaires, assureurs ou mutuelles.",
+        "Un LLM à brancher sur des données de santé.",
+        "La peur de « sortir » du périmètre HDS en allant vite."
+      ]
+    },
+    "offer": {
+      "title": "Ce qu’on livre dans un projet IA santé",
+      "intro": "Cinq briques, du produit que vos utilisateurs ouvrent chaque jour au cadre qui le fait tenir en production.",
+      "items": {
+        "products": {
+          "tag": "Produit",
+          "title": "Produits métier",
+          "desc": "Apps pour patients, aidants ou soignants, CRM de coordination, plans d’action générés à partir d’un bilan."
+        },
+        "engines": {
+          "tag": "Clinique",
+          "title": "Moteurs et référentiels versionnés",
+          "desc": "Un référentiel clinique qu’on fait évoluer sans casser l’app : 12 versions chez Monka à ce jour."
+        },
+        "integrations": {
+          "tag": "API",
+          "title": "Intégrations",
+          "desc": "API partenaires, webhooks signés et branchements sur les outils internes déjà en place."
+        },
+        "agents": {
+          "tag": "Agents",
+          "title": "Agents sous contrôle",
+          "desc": "Brouillons, suggestions et tâches répétitives. Ce qui part vers un patient ou un partenaire passe par un humain."
+        },
+        "production": {
+          "tag": "Prod",
+          "title": "Cadre de production",
+          "desc": "Droits d’accès, observabilité, logs et tests dans votre environnement, puis documentation et passation."
+        }
+      }
+    },
+    "hds": {
+      "title": "HDS : qui est certifié, et où on intervient",
+      "intro": "Le sujet est souvent mal posé. Voici la répartition, telle qu’on la pratique.",
+      "scope": {
+        "label": "Votre périmètre",
+        "host": {
+          "label": "Hébergeur HDS",
+          "desc": "Cloud ou infogéreur certifié sur les activités du référentiel qu’il réalise."
+        },
+        "us": {
+          "label": "The Vibe Company",
+          "desc": "Prestataire de développement : on construit à l’intérieur, sans en faire sortir les données."
+        }
+      },
+      "items": {
+        "host": {
+          "title": "La certification vise l’hébergeur",
+          "desc": "La certification HDS porte sur l’hébergeur et les activités du référentiel de l’Agence du Numérique en Santé qu’il réalise. Elle ne couvre pas automatiquement l’éditeur, ni l’agence qui développe."
+        },
+        "environment": {
+          "title": "On construit dans votre environnement",
+          "desc": "Votre hébergeur HDS est souvent déjà choisi. On développe à l’intérieur, avec les accès que vous nous ouvrez, et le code, les logs et les environnements de test y restent."
+        },
+        "ai": {
+          "title": "Les points de vigilance IA, traités en conception",
+          "desc": "Appels au modèle, logs, environnements de test, transferts hors EEE : c’est là qu’un projet IA sort du périmètre sans le savoir. On les règle avant d’écrire la première ligne."
+        },
+        "gdpr": {
+          "title": "L’HDS ne remplace pas le RGPD",
+          "desc": "L’HDS couvre l’hébergement. Le RGPD couvre tout le traitement : finalité, minimisation, durée de conservation, droits des personnes."
+        }
+      },
+      "articleLink": "Ce que l’HDS impose vraiment"
+    },
+    "proof": {
+      "title": "Ce qu’on a livré chez Monka",
+      "intro": "Monka accompagne les personnes qui prennent soin d’un proche, avec des infirmières de coordination et des assureurs partenaires. On a repris leur API et leur CRM existants, et on a construit dans leur environnement HDS.",
+      "points": [
+        "Une app pour les aidants : un bilan de 165 questions qui débouche sur un plan d’action, le cercle des proches, un chat avec l’infirmière et la prise de rendez-vous.",
+        "Lifeline, le CRM des infirmières de coordination.",
+        "Un moteur clinique versionné : 12 versions du référentiel, sans casser l’app.",
+        "Une API partenaire avec webhooks signés, pour que les assureurs suivent leurs bénéficiaires.",
+        "En production en deux mois, puis 90 versions de l’app en six mois : une tous les deux jours environ.",
+        "Des données de santé chiffrées et conformes au RGPD, dans l’environnement HDS déjà en place chez Monka. On n’en est pas sortis."
+      ],
+      "readCase": "Cas Monka",
+      "otherLabel": "Hors santé, aussi en production",
+      "other": "LocService : un agent rédige le brouillon de réponse à chaque ticket, connecté aux API internes ; l’humain relit et décide. Brouillons utilisés sur 87 % des tickets.",
+      "otherLink": "Lire le cas LocService"
+    },
+    "method": {
+      "title": "Comment on démarre un projet IA santé",
+      "intro": "Quatre étapes, et la question des données posée dès la première.",
+      "stepsLabel": "Quatre étapes",
+      "steps": {
+        "call": {
+          "label": "Appel",
+          "title": "Un appel de 30 minutes",
+          "desc": "Vos données, votre hébergeur, qui administre quoi, et l’objectif produit."
+        },
+        "scope": {
+          "label": "Cadrage",
+          "title": "Cadrer les flux et le périmètre",
+          "desc": "On cartographie les flux de données et le périmètre HDS et RGPD, puis on vous remet une proposition à périmètre fixe."
+        },
+        "cycles": {
+          "label": "Cycles courts",
+          "title": "Livrer par cycles courts, chez vous",
+          "desc": "Des versions testables tôt et souvent, construites dans votre environnement."
+        },
+        "production": {
+          "label": "Production",
+          "title": "Mettre en prod, mesurer, passer la main",
+          "desc": "Mise en production, mesure de ce qui compte, puis runbooks et formation de vos équipes."
+        }
+      }
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "certified": {
+          "q": "The Vibe Company est-elle certifiée HDS ?",
+          "a": "Non. On n’est pas un hébergeur de données de santé. On développe selon les exigences RGPD et HDS, en général dans l’environnement HDS déjà en place chez le client, comme dans le cas présenté sur cette page."
+        },
+        "needCertification": {
+          "q": "Faut-il être certifié HDS pour lancer un produit IA santé ?",
+          "a": "Souvent, c’est l’hébergeur (et parfois l’éditeur, selon qui a les accès) qui est dans le périmètre. On clarifie la répartition des activités dès le cadrage. Le détail est dans notre article sur l’HDS."
+        },
+        "timeline": {
+          "q": "Combien de temps jusqu’en production ?",
+          "a": "Ça dépend du socle. Exemple réel : chez un client santé dont l’environnement HDS était déjà en place, l’app, le CRM et le moteur clinique sont partis en production en deux mois. On ne donne pas de délai générique."
+        },
+        "llm": {
+          "q": "Vous appelez des LLM sur des dossiers patients ?",
+          "a": "On conçoit pour que les données de santé ne sortent pas du cadre décidé : modèle dans le périmètre, pseudonymisation avant l’appel, ou pas d’appel externe du tout. Pas de promesse magique."
+        },
+        "cost": {
+          "q": "Combien coûte un projet ?",
+          "a": "On fixe le périmètre après l’appel et le cadrage, dans une proposition écrite. Il n’y a pas de grille publique."
+        },
+        "otherPages": {
+          "q": "Quel lien avec vos pages agence IA à Paris et agents de durcissement ?",
+          "a": "La page agence IA à Paris présente l’offre générale. La page sur les agents de durcissement parle d’agents qui durcissent un produit et un SI. Cette page porte sur le secteur santé et le cadre HDS."
+        }
+      }
+    },
+    "further": {
+      "title": "Pour aller plus loin",
+      "readingLabel": "À lire",
+      "reading": {
+        "hds": "Ce que l’HDS impose vraiment à un projet IA",
+        "monka": "Cas Monka : app aidants, Lifeline et moteur clinique"
+      },
+      "alsoLabel": "Aussi chez The Vibe Company",
+      "agency": {
+        "title": "Agence IA à Paris",
+        "desc": "L’offre générale : produits IA, agents et formation, jusqu’en production."
+      },
+      "about": {
+        "title": "Qui est The Vibe Company",
+        "desc": "L’équipe, les fondateurs et les faits clés sur l’agence."
+      },
+      "hardening": {
+        "title": "Agents IA pour durcir produit et SI",
+        "desc": "Aussi : harden. Des agents qui scrutent secrets, dépendances, IAM et configs, en continu."
+      }
+    },
+    "caseLink": "Un projet sur données de santé ? Voir notre page <link>IA santé & HDS</link>."
   }
 }
