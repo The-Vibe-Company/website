@@ -131,6 +131,57 @@ export function siteGraph(locale: string): JsonLdNode {
   };
 }
 
+/**
+ * A page of the site, attached to the WebSite and about the Organization, so
+ * it extends the site graph instead of declaring a second company.
+ */
+export function webPageNode({
+  url,
+  name,
+  description,
+  language,
+}: {
+  url: string;
+  name: string;
+  description: string;
+  language: string;
+}): JsonLdNode {
+  return {
+    "@context": SCHEMA_CONTEXT,
+    "@type": "WebPage",
+    "@id": url,
+    url,
+    name,
+    ...(isPublishable(description) ? { description } : {}),
+    inLanguage: language,
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": ORGANIZATION_ID },
+  };
+}
+
+/** A service the company provides, in a city. No offer, price or rating. */
+export function serviceNode({
+  url,
+  name,
+  serviceType,
+  city,
+}: {
+  url: string;
+  name: string;
+  serviceType: string;
+  city: string;
+}): JsonLdNode {
+  return {
+    "@context": SCHEMA_CONTEXT,
+    "@type": "Service",
+    name,
+    serviceType,
+    provider: { "@id": ORGANIZATION_ID },
+    areaServed: { "@type": "City", name: city },
+    url,
+  };
+}
+
 export type Crumb = { name: string; url: string };
 
 /** The trail from the home page to the current page, all absolute URLs. */

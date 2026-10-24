@@ -76,4 +76,22 @@ describe("sitemap", () => {
       "x-default": `${SITE}/fr/a-propos`,
     });
   });
+
+  test("lists the AI agency in Paris landing page in both languages with x-default", () => {
+    const entries = sitemap().filter((entry) =>
+      /\/(fr\/agence-ia-paris|en\/ai-agency-paris)$/.test(entry.url),
+    );
+
+    expect(entries.map((entry) => entry.url).sort()).toEqual([
+      `${SITE}/en/ai-agency-paris`,
+      `${SITE}/fr/agence-ia-paris`,
+    ]);
+    for (const entry of entries) {
+      expect(entry.alternates?.languages).toEqual({
+        fr: `${SITE}/fr/agence-ia-paris`,
+        en: `${SITE}/en/ai-agency-paris`,
+        "x-default": `${SITE}/fr/agence-ia-paris`,
+      });
+    }
+  });
 });

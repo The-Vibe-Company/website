@@ -633,5 +633,213 @@
         }
       }
     }
+  },
+  "agencyParis": {
+    "metaTitle": "Agence IA à Paris — produits & agents | The Vibe Company",
+    "metaDescription": "Agence IA à Paris (YC W24) : produits IA, agents et formation jusqu'en production. Cas Monka, AFP, LocService. RDV sous 24 h.",
+    "breadcrumb": "Agence IA à Paris",
+    "serviceName": "Agence IA à Paris",
+    "kicker": "// AGENCE IA · PARIS",
+    "title": "Agence IA à Paris : on construit vos produits et agents IA jusqu'en production",
+    "lede": "The Vibe Company est une agence IA-first basée à Paris. On conçoit des produits IA, on déploie des agents dans vos outils et on forme vos équipes — pour les entreprises de taille moyenne à grande.",
+    "factsLabel": "En bref",
+    "facts": [
+      "Passés par Y Combinator (W24) avec Quivr, devenue The Vibe Company.",
+      "France 2030 avec l’AFP sur MediaGen.",
+      "Habitués aux données sensibles : on travaille selon les exigences RGPD et HDS."
+    ],
+    "bookCall": "Prendre 30 minutes",
+    "response": "Réponse sous 24 h",
+    "backedBy": "Soutenus par",
+    "clientsLabel": "Ils nous confient leurs produits",
+    "offers": {
+      "title": "Trois façons de travailler ensemble",
+      "intro": "Un produit complet, des agents sur vos workflows, ou la stratégie et la formation pour que vos équipes s’en servent vraiment.",
+      "items": {
+        "build": {
+          "label": "Construire",
+          "title": "Produits IA",
+          "desc": "Des produits et des outils internes, de bout en bout : cadrage, architecture, cycles courts, frontend, DevOps, observabilité, documentation et passation à vos équipes."
+        },
+        "operate": {
+          "label": "Piloter",
+          "title": "Agents & automatisation",
+          "desc": "Audit de vos workflows, création des skills, connexion à vos outils (CRM, support, docs, API), déploiement sécurisé des agents et mesure du temps gagné."
+        },
+        "advise": {
+          "label": "Conseiller",
+          "title": "Stratégie & formation",
+          "desc": "Priorisation des usages, choix entre développer et acheter, feuille de route d’adoption, et formations pratiques sur vos propres cas."
+        }
+      }
+    },
+    "audience": {
+      "title": "Pour qui on travaille",
+      "intro": "Des entreprises de taille moyenne à grande, avec un problème concret et un besoin de résultat en production, pas d’une démo.",
+      "signalsLabel": "Les signaux qui reviennent",
+      "signals": [
+        "Des tâches répétitives qui prennent le temps de vos équipes.",
+        "Un produit à sortir vite.",
+        "Des données sensibles : santé, données personnelles.",
+        "Le besoin que vos équipes adoptent vraiment l’IA."
+      ],
+      "sectorsLabel": "Secteurs déjà livrés",
+      "sectors": {
+        "monka": "Santé",
+        "afp": "Presse",
+        "locservice": "Location",
+        "coup-de-pates": "Agroalimentaire",
+        "theodo": "Tech · Software Factories"
+      }
+    },
+    "method": {
+      "title": "Comment ça se passe",
+      "intro": "Pas de délai générique : le calendrier dépend du périmètre, qu’on fixe ensemble au cadrage.",
+      "stepsLabel": "De l’appel à la production",
+      "steps": {
+        "call": {
+          "label": "APPEL",
+          "title": "Un appel de 30 minutes",
+          "desc": "Votre problème, vos outils, vos contraintes. On vous dit franchement si l’IA est la bonne réponse. Réponse sous 24 h."
+        },
+        "scope": {
+          "label": "CADRAGE",
+          "title": "Comment le travail se fait vraiment",
+          "desc": "On regarde le travail tel qu’il se fait, et pour une automatisation, on mesure le temps passé. Si ça matche, on envoie une proposition à périmètre fixe."
+        },
+        "cycles": {
+          "label": "CYCLES COURTS",
+          "title": "Des versions testables tôt et souvent",
+          "desc": "Vous voyez du logiciel qui marche tôt et régulièrement. Chez Monka, on livre une nouvelle version tous les deux jours environ."
+        },
+        "production": {
+          "label": "PRODUCTION",
+          "title": "Une production sécurisée",
+          "desc": "Droits d’accès, observabilité et documentation, selon les exigences RGPD et HDS quand le contexte l’exige. Chez Monka, l’environnement HDS était déjà en place : l’app, le CRM et le moteur clinique sont partis en production en deux mois sans en sortir."
+        },
+        "handover": {
+          "label": "PASSATION",
+          "title": "Mesure et passation",
+          "desc": "On mesure les gains, on écrit les runbooks et on forme votre équipe pour qu’elle reprenne le produit. Ou on continue de le faire tourner."
+        }
+      }
+    },
+    "proof": {
+      "title": "Ce qu’on a livré",
+      "intro": "Des projets publics, avec les chiffres déjà publiés dans nos cas clients.",
+      "readCase": "Lire le cas {name}",
+      "cases": {
+        "monka": {
+          "sector": "Santé",
+          "figure": "2 mois",
+          "figureLabel": "pour passer en production",
+          "points": [
+            "Un bilan aidant de 165 questions qui débouche sur un plan d’action.",
+            "Lifeline, le CRM des infirmières de coordination.",
+            "Un moteur clinique versionné : 12 versions du référentiel, sans casser l’app.",
+            "Une API partenaire avec webhooks signés, pour les assureurs.",
+            "Des données de santé chiffrées et conformes au RGPD, dans l’environnement HDS du client."
+          ]
+        },
+        "afp": {
+          "sector": "Presse · France 2030",
+          "figure": "4 M€",
+          "figureLabel": "MediaGen, projet France 2030 soutenu par Bpifrance",
+          "points": [
+            "Trois outils pour les rédactions : veille augmentée, recherche multimodale, aide à la production.",
+            "Dans le consortium technique, aux côtés de Kairntech et Dawex."
+          ]
+        },
+        "locservice": {
+          "sector": "Location · Support client",
+          "figure": "87 %",
+          "figureLabel": "des tickets traités grâce à nos brouillons IA",
+          "points": [
+            "Des centaines de tickets support par jour.",
+            "Connecté à leurs API internes pour récupérer le vrai contexte client."
+          ]
+        },
+        "coup-de-pates": {
+          "sector": "Agroalimentaire · RSE et qualité",
+          "figure": "2 projets",
+          "figureLabel": "une app RSE et des skills de contrôle qualité",
+          "points": [
+            "Ensemble, l’app iOS et Android qui fait vivre l’engagement RSE auprès des équipes.",
+            "Des skills IA qui contrôlent les documents produit et relèvent chaque écart."
+          ]
+        },
+        "theodo": {
+          "sector": "Tech · Software Factories",
+          "figure": "Des centaines",
+          "figureLabel": "de développeurs outillés par des Software Factories",
+          "points": [
+            "Expert technique intégré aux équipes de Theodo sur des projets critiques pour leurs clients."
+          ]
+        }
+      }
+    },
+    "security": {
+      "title": "Sécurité, RGPD et HDS",
+      "intro": "Nos clients en santé nous confient des données sensibles. La sécurité fait partie du livrable, pas d’une étape à part.",
+      "items": {
+        "compliance": {
+          "title": "Selon les exigences RGPD et HDS",
+          "desc": "On travaille selon les exigences RGPD et HDS, une spécialité qu’on pratique en santé. Chez Monka, les données de santé sont chiffrées et conformes au RGPD, et tout le développement est resté dans l’environnement HDS du client."
+        },
+        "privilege": {
+          "title": "Des agents au moindre privilège",
+          "desc": "Un agent n’accède qu’à ce dont sa tâche a besoin, avec des droits limités, visibles et révocables."
+        },
+        "human": {
+          "title": "Un humain sur ce qui part",
+          "desc": "Ce qui sort vers vos clients passe par une personne. Chez LocService, l’agent rédige des brouillons et l’équipe support garde la main sur la réponse."
+        }
+      },
+      "readLabel": "À lire",
+      "articles": {
+        "hds": "IA et données de santé : ce que l’HDS impose vraiment à votre projet",
+        "authority": "Le vrai risque des agents IA, c’est l’autorité",
+        "blackOctober": "Black October : ce que ça change pour vos agents IA"
+      }
+    },
+    "team": {
+      "title": "Qui est derrière",
+      "desc": "The Vibe Company a été fondée à Paris en 2024 par Stan Girard et Antoine Dewez, tous deux passés par Theodo et Stockly. Avant, ils ont construit Quivr, un moteur RAG open source qui a dépassé 39 500 étoiles sur GitHub, sont passés par Y Combinator (W24) et ont levé 1,7 M$. Quivr est devenue The Vibe Company.",
+      "notToConfuse": "Aucun lien avec thevibe.company, VIBE Company (Zurich) ni Vibe.co.",
+      "aboutLink": "Qui sommes-nous",
+      "originLink": "Lire « We are stopping Quivr. We are building The Vibe Company. »"
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "cost": {
+          "q": "Combien coûte un projet ?",
+          "a": "Ça dépend du périmètre : un agent sur un seul workflow n’a rien à voir avec un produit complet. On donne un chiffre précis après l’appel et le cadrage, dans une proposition écrite à périmètre fixe."
+        },
+        "timeline": {
+          "q": "En combien de temps quelque chose est en production ?",
+          "a": "On avance par cycles courts, avec des versions testables tôt et régulièrement, et le délai dépend du périmètre fixé au cadrage. Exemple réel : chez un client santé, l’app des aidants, le CRM des infirmières et le moteur clinique sont partis en production en deux mois, dans l’environnement HDS déjà en place."
+        },
+        "start": {
+          "q": "Par où commencer sans projet précis ?",
+          "a": "Par l’appel de 30 minutes. On regarde où votre équipe perd du temps et on vous dit ce qui vaut la peine d’être automatisé ou construit. Si le besoin est surtout de prioriser, notre offre stratégie et formation est faite pour ça."
+        },
+        "data": {
+          "q": "Travaillez-vous sur des données sensibles (santé, données personnelles) ?",
+          "a": "Oui, c’est une exigence courante chez nos clients en santé. On livre selon les exigences RGPD et HDS : données chiffrées, accès limités au strict nécessaire, et un développement qui reste dans votre environnement HDS quand il existe déjà."
+        },
+        "code": {
+          "q": "À qui appartient le code ?",
+          "a": "On documente et on forme votre équipe pour qu’elle puisse reprendre le produit. La propriété intellectuelle et la maintenance sont détaillées dans la proposition écrite."
+        },
+        "paris": {
+          "q": "Vous êtes à Paris ?",
+          "a": "Oui, l’agence est basée à Paris depuis 2024. Le premier échange se fait en visio pour aller vite, et on travaille aussi avec des équipes hors Île-de-France, en français comme en anglais."
+        }
+      }
+    },
+    "homeLink": "Voir notre page Agence IA à Paris",
+    "caseLink": "The Vibe Company est une <link>agence IA à Paris</link> : produits IA, agents et formation, jusqu’en production.",
+    "aboutLink": "Notre page Agence IA à Paris"
   }
 }

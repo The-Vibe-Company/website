@@ -633,5 +633,212 @@
         }
       }
     }
+  },
+  "agencyParis": {
+    "metaTitle": "AI Agency in Paris: ship products & agents | The Vibe Company",
+    "metaDescription": "Paris AI agency (YC W24): AI products, agents and training shipped to production. Monka, AFP, LocService cases. Reply within 24h.",
+    "breadcrumb": "AI agency in Paris",
+    "serviceName": "AI agency in Paris",
+    "kicker": "// AI AGENCY · PARIS",
+    "title": "AI agency in Paris: we build your AI products and agents, all the way to production",
+    "lede": "The Vibe Company is an AI-first agency based in Paris. We design AI products, deploy agents inside your tools and train your teams — for mid-size and large companies.",
+    "factsLabel": "At a glance",
+    "facts": [
+      "Backed by Y Combinator (W24) with Quivr, which became The Vibe Company.",
+      "France 2030 with AFP on MediaGen.",
+      "Used to sensitive data: we work to GDPR and HDS requirements."
+    ],
+    "bookCall": "Book 30 minutes",
+    "response": "Reply within 24h",
+    "backedBy": "Backed by",
+    "clientsLabel": "They trust us with their products",
+    "offers": {
+      "title": "Three ways to work together",
+      "intro": "A complete product, agents on your workflows, or the strategy and training your teams need to actually use AI.",
+      "items": {
+        "build": {
+          "label": "Build",
+          "title": "AI products",
+          "desc": "Products and internal tools, end to end: scoping, architecture, short cycles, frontend, DevOps, observability, documentation and handover to your teams."
+        },
+        "operate": {
+          "label": "Operate",
+          "title": "Agents & automation",
+          "desc": "An audit of your workflows, the skills built, your tools connected (CRM, support, docs, APIs), agents deployed securely, and the time saved measured."
+        },
+        "advise": {
+          "label": "Advise",
+          "title": "Strategy & training",
+          "desc": "Prioritizing use cases, deciding what to build or buy, an adoption roadmap, and hands-on training on your own cases."
+        }
+      }
+    },
+    "audience": {
+      "title": "Who we work with",
+      "intro": "Mid-size and large companies with a concrete problem that needs a result in production, not a demo.",
+      "signalsLabel": "The signals we see",
+      "signals": [
+        "Repetitive tasks eating your teams’ time.",
+        "A product that needs to ship fast.",
+        "Sensitive data: health, personal data.",
+        "The need for your teams to really adopt AI."
+      ],
+      "sectorsLabel": "Sectors we have shipped for",
+      "sectors": {
+        "monka": "Healthcare",
+        "afp": "News",
+        "locservice": "Rentals",
+        "coup-de-pates": "Food",
+        "theodo": "Tech · Software Factories"
+      }
+    },
+    "method": {
+      "title": "How it works",
+      "intro": "No generic timeline: the schedule depends on the scope, which we set together during scoping.",
+      "stepsLabel": "From the call to production",
+      "steps": {
+        "call": {
+          "label": "CALL",
+          "title": "A 30-minute call",
+          "desc": "Your problem, your tools, your constraints. We tell you honestly whether AI is the right answer. Reply within 24h."
+        },
+        "scope": {
+          "label": "SCOPING",
+          "title": "How the work really gets done",
+          "desc": "We look at the work as it is actually done, and for an automation, we measure the time spent. If it’s a fit, we send a fixed-scope proposal."
+        },
+        "cycles": {
+          "label": "SHORT CYCLES",
+          "title": "Testable versions, early and often",
+          "desc": "You see working software early and regularly. At Monka, we ship a new version roughly every two days."
+        },
+        "production": {
+          "label": "PRODUCTION",
+          "title": "Secure production",
+          "desc": "Access rights, observability and documentation, to GDPR and HDS requirements when the context calls for it. At Monka, the HDS environment was already in place: the app, the CRM and the clinical engine went into production in two months without ever leaving it."
+        },
+        "handover": {
+          "label": "HANDOVER",
+          "title": "Measure and hand over",
+          "desc": "We measure the gains, write the runbooks and train your team to take the product over. Or we keep running it."
+        }
+      }
+    },
+    "proof": {
+      "title": "What we have shipped",
+      "intro": "Public projects only, with the figures already published in our case studies.",
+      "readCase": "Read the {name} case",
+      "cases": {
+        "monka": {
+          "sector": "Healthcare",
+          "figure": "2 months",
+          "figureLabel": "to go into production",
+          "points": [
+            "A 165-question caregiver assessment that leads to an action plan.",
+            "Lifeline, the CRM for coordinating nurses.",
+            "A versioned clinical engine: 12 versions of the care framework, without breaking the app.",
+            "A partner API with signed webhooks, for insurers.",
+            "Encrypted, GDPR-compliant health data, inside the client’s HDS environment."
+          ]
+        },
+        "afp": {
+          "sector": "News · France 2030",
+          "figure": "€4M",
+          "figureLabel": "MediaGen, a France 2030 project backed by Bpifrance",
+          "points": [
+            "Three tools for newsrooms: augmented monitoring, multimodal search, production assistance.",
+            "Part of the technical consortium, alongside Kairntech and Dawex."
+          ]
+        },
+        "locservice": {
+          "sector": "Rentals · Customer support",
+          "figure": "87%",
+          "figureLabel": "of tickets answered with our AI drafts",
+          "points": [
+            "Hundreds of support tickets a day.",
+            "Connected to their internal APIs to pull real customer context."
+          ]
+        },
+        "coup-de-pates": {
+          "sector": "Food · CSR and quality",
+          "figure": "2 projects",
+          "figureLabel": "a CSR app and quality-control skills",
+          "points": [
+            "Ensemble, the iOS and Android app that brings the CSR commitment to life for the teams.",
+            "AI skills that check product documents and flag every discrepancy."
+          ]
+        },
+        "theodo": {
+          "sector": "Tech · Software Factories",
+          "figure": "Hundreds",
+          "figureLabel": "of developers equipped with Software Factories",
+          "points": [
+            "Technical expert embedded in Theodo’s teams on critical projects for their clients."
+          ]
+        }
+      }
+    },
+    "security": {
+      "title": "Security, GDPR and HDS",
+      "intro": "Our healthcare clients trust us with sensitive data. Security is part of the deliverable, not a separate step.",
+      "items": {
+        "compliance": {
+          "title": "To GDPR and HDS requirements",
+          "desc": "We work to GDPR and HDS requirements, a specialty we practice in healthcare. At Monka, health data is encrypted and GDPR-compliant, and all development stayed inside the client’s HDS environment."
+        },
+        "privilege": {
+          "title": "Least-privilege agents",
+          "desc": "An agent only reaches what its task needs, with limited, visible and revocable rights."
+        },
+        "human": {
+          "title": "A human on what goes out",
+          "desc": "What goes out to your customers goes through a person. At LocService, the agent writes drafts and the support team stays in charge of the reply."
+        }
+      },
+      "readLabel": "Further reading",
+      "articles": {
+        "hds": "AI and health data in France: what HDS really means for your project",
+        "blackOctober": "Black October: what it means for AI agents"
+      }
+    },
+    "team": {
+      "title": "Who is behind it",
+      "desc": "The Vibe Company was founded in Paris in 2024 by Stan Girard and Antoine Dewez, both formerly at Theodo and Stockly. Before that, they built Quivr, an open-source RAG engine that passed 39,500 stars on GitHub, went through Y Combinator (W24) and raised $1.7M. Quivr became The Vibe Company.",
+      "notToConfuse": "Not affiliated with thevibe.company, VIBE Company (Zurich) or Vibe.co.",
+      "aboutLink": "About us",
+      "originLink": "Read “We are stopping Quivr. We are building The Vibe Company.”"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "cost": {
+          "q": "How much does a project cost?",
+          "a": "It depends on the scope: an agent on a single workflow is nothing like a complete product. We give you a precise figure after the call and the scoping, in a written fixed-scope proposal."
+        },
+        "timeline": {
+          "q": "How long until something is in production?",
+          "a": "We move in short cycles, with testable versions early and regularly, and the timeline depends on the scope set during scoping. A real example: for a healthcare client, the caregiver app, the nurses’ CRM and the clinical engine went into production in two months, inside the HDS environment already in place."
+        },
+        "start": {
+          "q": "Where do we start without a precise project?",
+          "a": "With the 30-minute call. We look at where your team loses time and tell you what is worth automating or building. If what you mostly need is to prioritize, our strategy and training offer is built for that."
+        },
+        "data": {
+          "q": "Do you work with sensitive data (health, personal data)?",
+          "a": "Yes, it is a common requirement among our healthcare clients. We deliver to GDPR and HDS requirements: encrypted data, access limited to what is strictly needed, and development that stays inside your HDS environment when you already have one."
+        },
+        "code": {
+          "q": "Who owns the code?",
+          "a": "We document and train your team so it can take the product over. Intellectual property and maintenance are set out in the written proposal."
+        },
+        "paris": {
+          "q": "Are you based in Paris?",
+          "a": "Yes, the agency has been based in Paris since 2024. The first conversation happens over video to move fast, and we also work with teams outside the Paris region, in French or English."
+        }
+      }
+    },
+    "homeLink": "See our AI agency in Paris page",
+    "caseLink": "The Vibe Company is an <link>AI agency in Paris</link>: AI products, agents and training, all the way to production.",
+    "aboutLink": "Our AI agency in Paris page"
   }
 }

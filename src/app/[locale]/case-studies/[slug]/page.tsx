@@ -11,7 +11,13 @@ import { CaseStudyBackLink } from "@/components/CaseStudyBackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { CaseStudyKeepReading } from "@/components/CaseStudyKeepReading";
 import { CUSTOMER_SLUGS, getCustomer, getCustomers, type ContentLocale } from "@/lib/customers";
-import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
+import { Link } from "@/i18n/navigation";
+import {
+  AGENCY_PARIS_PATHS,
+  localizedAlternates,
+  localizedSocialMetadata,
+  splitPath,
+} from "@/lib/site";
 
 export function generateStaticParams() {
   return CUSTOMER_SLUGS.map((slug) => ({ slug }));
@@ -50,6 +56,7 @@ export default async function CaseStudyPage({
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "caseStudiesPage" });
+  const tAgency = await getTranslations({ locale, namespace: "agencyParis" });
   const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) notFound();
 
@@ -300,6 +307,21 @@ export default async function CaseStudyPage({
         )}
 
         <CaseStudyKeepReading items={related} />
+
+        <section className="mx-auto max-w-[80rem] px-6 pb-16 md:px-12 md:pb-20">
+          <p className="m-0 max-w-[680px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
+            {tAgency.rich("caseLink", {
+              link: (chunks) => (
+                <Link
+                  href={splitPath(AGENCY_PARIS_PATHS, locale)}
+                  className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
+                >
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </p>
+        </section>
 
         <FinalCTA rail="narrow" />
       </main>
