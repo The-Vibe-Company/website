@@ -217,14 +217,14 @@ export function serviceSchema({
   name,
   serviceType,
   description,
-  language,
 }: {
   url: string;
   name: string;
   serviceType: string;
   description: string;
-  language: string;
 }): JsonLdNode {
+  // No `inLanguage`: schema.org does not define it on Service. The WebPage
+  // node carries the page language.
   return {
     "@context": SCHEMA_CONTEXT,
     "@type": "Service",
@@ -233,7 +233,6 @@ export function serviceSchema({
     name,
     serviceType,
     ...(isPublishable(description) ? { description } : {}),
-    inLanguage: language,
     provider: { "@id": ORGANIZATION_ID },
     areaServed: { "@type": "Country", name: "France" },
   };

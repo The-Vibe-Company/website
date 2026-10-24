@@ -39,6 +39,12 @@ describe("hardening landing", () => {
     expect(MESSAGES.fr.title).toBe("Utiliser des agents IA pour durcir votre produit et votre SI");
     expect(MESSAGES.en.metaTitle).toBe("AI Agents to Harden Your Product & Stack | The Vibe Company");
     expect(MESSAGES.en.title).toBe("Use AI agents to harden your product and your infrastructure");
+    expect(MESSAGES.fr.metaDescription).toBe(
+      "Déployez une flotte d'agents IA pour durcir produit et SI : secrets, deps, IAM, configs, review PR. Exigences RGPD et HDS. Agence à Paris.",
+    );
+    expect(MESSAGES.en.metaDescription).toBe(
+      "Deploy AI agents to harden product and infrastructure: secrets, deps, IAM, configs, PR review. Built to GDPR and HDS requirements. Paris agency.",
+    );
     for (const messages of Object.values(MESSAGES)) {
       expect(messages.metaTitle.length).toBeLessThanOrEqual(60);
       expect(messages.metaDescription.length).toBeLessThanOrEqual(160);
@@ -95,7 +101,6 @@ describe("hardening landing", () => {
       name: MESSAGES.fr.service.name,
       serviceType: "AI agents for product and infrastructure hardening",
       description: MESSAGES.fr.service.description,
-      language: "fr",
     });
 
     expect(service).toMatchObject({
@@ -107,6 +112,7 @@ describe("hardening landing", () => {
     });
     expect(service.description).toBe(MESSAGES.fr.service.description);
     expect(service).not.toHaveProperty("offers");
+    expect(service).not.toHaveProperty("inLanguage");
     expect(isPublishable(MESSAGES.en.service.description)).toBe(true);
   });
 

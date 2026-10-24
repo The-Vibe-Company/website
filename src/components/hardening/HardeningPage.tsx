@@ -99,7 +99,6 @@ export async function HardeningPage({ locale }: { locale: string }) {
     name: t("service.name"),
     serviceType: "AI agents for product and infrastructure hardening",
     description: t("service.description"),
-    language: locale,
   });
   const faq = faqPageSchema(
     HARDENING_FAQ_KEYS.map((key) => ({
