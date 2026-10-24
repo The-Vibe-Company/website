@@ -401,7 +401,8 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                     <blockquote className="m-0 text-[15px] leading-[1.6] text-foreground">
                       {locale === "fr" ? `« ${monka.quote.text} »` : `“${monka.quote.text}”`}
                     </blockquote>
-                    <figcaption className={`mt-3 ${MONO}`}>
+                    {/* Not uppercased: the attribution reads exactly as written. */}
+                    <figcaption className="mt-3 font-mono text-[12px] tracking-[0.04em] text-muted-foreground">
                       {t("proof.quoteAttribution", { author: monka.quote.author })}
                     </figcaption>
                   </figure>
