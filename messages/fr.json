@@ -1438,5 +1438,180 @@
       "responseValue": "SOUS 24 H",
       "emailLabel": "EMAIL"
     }
+  },
+  "mediaAi": {
+    "kicker": "// IA MÉDIAS · RÉDACTIONS",
+    "metaTitle": "IA médias : outils pour les rédactions | The Vibe Company",
+    "metaDescription": "Outils IA pour rédactions et médias, jusqu'en production. Preuve AFP / MediaGen (France 2030). Agence IA Paris, YC W24. RDV sous 24 h.",
+    "title": "IA pour les médias : on construit les outils des rédactions jusqu'en production",
+    "lede": "The Vibe Company construit des outils d'IA générative pour les rédactions et les organisations médias : veille, archives, aide à la production, sous le contrôle des journalistes. Preuve publique : MediaGen, le projet France 2030 d'IA générative de l'AFP, où on est membre du consortium technique.",
+    "bookCall": "Prendre 30 minutes",
+    "response": "Réponse sous 24 h",
+    "breadcrumb": "IA médias",
+    "hero": {
+      "label": "Les faits",
+      "items": {
+        "mediagen": "MediaGen (AFP) : 3 outils pour les rédactions, veille augmentée, recherche multimodale, aide à la production.",
+        "france2030": "Projet France 2030, 4 M€, soutenu par Bpifrance. Consortium Quivr/The Vibe Company, Kairntech, Dawex. Horizon 24 mois.",
+        "openSource": "Une partie des composants prévue en licence libre.",
+        "agency": "Agence IA à Paris, YC W24 (Quivr est devenu The Vibe Company)."
+      }
+    },
+    "service": {
+      "name": "Projets IA pour médias et rédactions",
+      "description": "Conception et développement d'outils d'IA générative pour les rédactions et les organisations médias (veille, recherche multimodale dans les archives, aide à la production), sous le contrôle des journalistes, jusqu'en production."
+    },
+    "audience": {
+      "title": "Pour qui cette page",
+      "intro": "Pour les groupes de presse, rédactions, agences d'info, médias audiovisuels, pure players et orgs de contenu ou de documentation qui veulent des outils IA en conditions réelles, pas une démo ChatGPT.",
+      "typesLabel": "Qui",
+      "types": {
+        "press": "Groupes de presse et rédactions",
+        "agencies": "Agences d'information",
+        "broadcast": "Médias audiovisuels",
+        "pureplayers": "Pure players et orgs de contenu / documentation"
+      },
+      "signalsLabel": "Les signaux",
+      "signals": [
+        "Un flux de veille saturé",
+        "Des archives texte, photo ou vidéo sous-exploitées",
+        "Des déclinaisons multi-formats trop coûteuses",
+        "La peur des hallucinations ou des biais sur l'info publiée",
+        "Le besoin de garder le journaliste dans la boucle"
+      ]
+    },
+    "offer": {
+      "title": "Ce qu'on livre pour un projet IA médias",
+      "intro": "Cinq briques, de la veille au cadre qui tient en production.",
+      "items": {
+        "monitoring": {
+          "title": "Veille et monitoring",
+          "desc": "Centraliser et analyser médias, réseaux et communiqués. Angle MediaGen : veille augmentée."
+        },
+        "archives": {
+          "title": "Archives et recherche multimodale",
+          "desc": "Explorer et valoriser un fonds texte, photo et vidéo."
+        },
+        "production": {
+          "title": "Aide à la production",
+          "desc": "Décliner une information en plusieurs formats. Aides au repérage de biais ou de risques qualité. C'est l'humain qui publie."
+        },
+        "agents": {
+          "title": "Agents sous contrôle éditorial",
+          "desc": "Brouillons, suggestions et tâches répétitives. Pas d'envoi ni de publication sans validation."
+        },
+        "framework": {
+          "title": "Cadre de production",
+          "desc": "Droits d'accès, observabilité, logs et tests, puis documentation et passation. Ou co-exploitation."
+        }
+      }
+    },
+    "proof": {
+      "title": "MediaGen : ce que ça prouve (et ce que ça ne prouve pas)",
+      "intro": "MediaGen est l'un des rares projets France 2030 consacrés aux médias. Porté par l'AFP, soutenu par Bpifrance.",
+      "items": {
+        "member": "The Vibe Company (via Quivr / The Vibe Company) est membre du consortium technique. On construit les outils. On n'est pas l'AFP.",
+        "ships": "Ça prouve qu'on sait shipper de l'IA générative sous contraintes médias : fiabilité, contrôle éditorial, open source partiel.",
+        "notDossier": "Ce que ça ne veut pas dire : on ne monte pas votre dossier France 2030 ou Bpifrance."
+      },
+      "funding": "Pour le panorama des aides (CIR, CII, Diag…) : <link>Financer un projet IA : CIR, CII, France 2030</link>",
+      "case": "Preuve détaillée : <link>Cas AFP / MediaGen</link>"
+    },
+    "afp": {
+      "title": "Ce qu'on construit avec l'AFP dans MediaGen",
+      "intro": "Avec l'AFP, on construit MediaGen : des outils d'IA générative pour les rédactions, toujours sous le contrôle des journalistes.",
+      "stats": {
+        "budget": {
+          "label": "Budget projet",
+          "value": "4 M€"
+        },
+        "frame": {
+          "label": "Cadre",
+          "value": "France 2030, soutenu par Bpifrance"
+        },
+        "horizon": {
+          "label": "Horizon",
+          "value": "24 mois"
+        },
+        "tools": {
+          "label": "Outils",
+          "value": "3"
+        }
+      },
+      "points": [
+        "Veille augmentée : centraliser et analyser en temps réel les médias, les réseaux sociaux et les communiqués.",
+        "Recherche multimodale : explorer et valoriser les archives texte, photo et vidéo.",
+        "Aide à la production : décliner une même information en plusieurs formats, et repérer les biais qui nuiraient à sa qualité.",
+        "Consortium : Quivr/The Vibe Company, Kairntech, Dawex.",
+        "Une partie des composants sera publiée en licence libre.",
+        "Information fiable, sous le contrôle des journalistes."
+      ],
+      "readCase": "Lire le cas AFP"
+    },
+    "method": {
+      "title": "Comment on démarre un projet IA médias",
+      "steps": {
+        "call": {
+          "title": "Un appel de 30 minutes",
+          "desc": "Flux rédactionnels, sources, archives, risque éditorial, qui publie."
+        },
+        "scope": {
+          "title": "Cadrer un premier outil",
+          "desc": "Un workflow à périmètre fixe, avec des critères de succès : temps, volume, taux d'acceptation humaine."
+        },
+        "cycles": {
+          "title": "Cycles courts",
+          "desc": "Souvent en brouillon ou suggestion d'abord. Jamais de publication auto sans garde-fou."
+        },
+        "production": {
+          "title": "Mettre en prod, mesurer, passer la main",
+          "desc": "Runbooks, formation, ou run conjoint."
+        }
+      }
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "replace": {
+          "q": "Vous remplacez les journalistes ?",
+          "a": "Non. On construit des outils sous contrôle éditorial : brouillons, veille, recherche, déclinaisons. La décision de publier reste humaine."
+        },
+        "mediagen": {
+          "q": "C'est quoi MediaGen ?",
+          "a": "Le projet France 2030 d'IA générative de l'AFP. On est dans le consortium technique avec Kairntech et Dawex. Détail : <case>cas AFP</case>."
+        },
+        "funding": {
+          "q": "Vous pouvez faire financer notre projet via France 2030 ?",
+          "a": "Non. MediaGen prouve qu'on shippe dans ce cadre. Ce n'est pas une offre de montage de dossier Bpifrance. Voir <funding>article CIR, CII, France 2030</funding> pour le panorama des aides."
+        },
+        "timeline": {
+          "q": "Combien de temps jusqu'en production ?",
+          "a": "Ça dépend du socle (CMS, DAM, APIs, droits). MediaGen : construction sur 24 mois côté projet France 2030. Ce n'est pas un délai générique pour tout client."
+        },
+        "hallucinations": {
+          "q": "Et les hallucinations / biais ?",
+          "a": "On conçoit pour limiter le risque : garde-fous, validation humaine, traçabilité. Pas de promesse « zéro erreur »."
+        },
+        "otherPages": {
+          "q": "Quelle différence avec la page agence Paris / agents en prod ?",
+          "a": "<agency>La page agence IA à Paris</agency> présente l'offre générale. <agents>Agents en production</agents> = déploiement d'agents métier transverses. Cette page = secteur médias / rédactions, avec la preuve AFP."
+        },
+        "cost": {
+          "q": "Combien coûte un projet ?",
+          "a": "On fixe le périmètre après l'appel et le cadrage, dans une proposition écrite. Il n'y a pas de grille publique."
+        }
+      }
+    },
+    "about": "Qui est The Vibe Company : <link>À propos</link>",
+    "caseLink": "Un outil IA pour une rédaction ? Voir notre page <link>IA médias</link>.",
+    "finalCta": {
+      "kicker": "IA MÉDIAS",
+      "titleLine1": "Un outil IA pour",
+      "titleLine2": "votre rédaction ?",
+      "bookCall": "Prendre 30 minutes",
+      "responseLabel": "RÉPONSE",
+      "responseValue": "SOUS 24 H",
+      "emailLabel": "EMAIL"
+    }
   }
 }

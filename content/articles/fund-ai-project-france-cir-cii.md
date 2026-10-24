@@ -114,4 +114,6 @@ We build the projects and document the technical work. Tax filing sits with your
 
 You have an AI use case in mind and want to know what actually gets funded — build, Diag, CIR/CII, or a France 2030-style call? Bring the scope, company size and timeline. We will say what we can build, what fits a Bpifrance diagnostic, and what to ask your accountant.
 
+[Building AI for a newsroom?](/en/ai-for-media) Our AI for Media page covers what we build for newsrooms, with the MediaGen proof.
+
 [Book 30 minutes with Stan](https://cal.com/stangirard/30min).

@@ -15,6 +15,7 @@ import { Link } from "@/i18n/navigation";
 import {
   AGENCY_PARIS_PATHS,
   HEALTHCARE_AI_PATHS,
+  MEDIA_AI_PATHS,
   localizedAlternates,
   localizedSocialMetadata,
   splitPath,
@@ -59,6 +60,7 @@ export default async function CaseStudyPage({
   const t = await getTranslations({ locale, namespace: "caseStudiesPage" });
   const tAgency = await getTranslations({ locale, namespace: "agencyParis" });
   const tHealthcare = await getTranslations({ locale, namespace: "healthcareAi" });
+  const tMedia = await getTranslations({ locale, namespace: "mediaAi" });
   const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) notFound();
 
@@ -318,6 +320,21 @@ export default async function CaseStudyPage({
                 link: (chunks) => (
                   <Link
                     href={splitPath(HEALTHCARE_AI_PATHS, locale)}
+                    className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </p>
+          ) : null}
+          {/* The newsroom case also points at the media AI landing. */}
+          {slug === "afp" ? (
+            <p className="m-0 mb-4 max-w-[680px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
+              {tMedia.rich("caseLink", {
+                link: (chunks) => (
+                  <Link
+                    href={splitPath(MEDIA_AI_PATHS, locale)}
                     className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
                   >
                     {chunks}
