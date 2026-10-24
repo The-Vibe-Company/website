@@ -1039,6 +1039,8 @@
         "team": "The same YC W24 team that ships AI products to production (LocService, Monka, Coup de Pates…)."
       }
     },
+    "bookCall": "Book 30 minutes",
+    "response": "Answer within 24h",
     "breadcrumb": "AI agents in production",
     "service": {
       "name": "AI agent deployment to production",

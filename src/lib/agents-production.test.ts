@@ -7,6 +7,7 @@ import {
   AGENTS_PRODUCTION_CASE_SLUGS,
   AGENTS_PRODUCTION_FAQ_KEYS,
   AUTOMATION_GUIDE_PATHS,
+  plainText,
   POC_CHECKLIST_PATHS,
 } from "./agents-production";
 import { BOOKING_URL } from "./booking";
@@ -87,15 +88,38 @@ describe("agents in production landing", () => {
     expect(MESSAGES.en.proof.cases.locservice).toContain("87%");
   });
 
-  test("the whole FAQ goes into the FAQPage markup", () => {
-    for (const messages of Object.values(MESSAGES)) {
-      const items = AGENTS_PRODUCTION_FAQ_KEYS.map((key) => ({
-        question: messages.faq.items[key].q,
-        answer: messages.faq.items[key].a,
+  test("the FAQPage restates the visible answers as plain text", () => {
+    const answers = (locale: "fr" | "en") =>
+      AGENTS_PRODUCTION_FAQ_KEYS.map((key) => ({
+        question: MESSAGES[locale].faq.items[key].q,
+        answer: plainText(MESSAGES[locale].faq.items[key].a),
       }));
-      const schema = faqPageSchema(items) as { mainEntity: unknown[] };
-      expect(schema.mainEntity).toHaveLength(AGENTS_PRODUCTION_FAQ_KEYS.length);
+    type Entity = { name: string; acceptedAnswer: { text: string } };
+
+    // English keeps every answer free of client names: all six go in.
+    const en = faqPageSchema(answers("en")) as { mainEntity: Entity[] };
+    expect(en.mainEntity).toHaveLength(AGENTS_PRODUCTION_FAQ_KEYS.length);
+
+    // The French timeline answer names LocService, which structured data
+    // never carries, so that one stays on the page only.
+    const fr = faqPageSchema(answers("fr")) as { mainEntity: Entity[] };
+    expect(fr.mainEntity.map((entity) => entity.name)).not.toContain(
+      MESSAGES.fr.faq.items.timeline.q,
+    );
+    expect(fr.mainEntity).toHaveLength(AGENTS_PRODUCTION_FAQ_KEYS.length - 1);
+    for (const entity of fr.mainEntity) {
+      expect(entity.acceptedAnswer.text).not.toMatch(/[<>]/);
     }
+    expect(plainText(MESSAGES.fr.faq.items.article.a)).toBe(
+      "L’article explique. Cette page est l’offre pour qu’on déploie chez vous jusqu’en production.",
+    );
+  });
+
+  test("the booking CTA keeps the briefed French labels", () => {
+    expect(MESSAGES.fr.bookCall).toBe("Prendre 30 minutes");
+    expect(MESSAGES.fr.response).toBe("Réponse sous 24 h");
+    expect(MESSAGES.en.bookCall).toBe(en.about.bookCall);
+    expect(MESSAGES.en.response).toBe(en.about.response);
   });
 
   test("the Service is provided by the Organization and carries no offer", () => {

@@ -11,10 +11,21 @@ import { FitText } from "./FitText";
  * index pages run on 100rem, the two detail pages on 80rem. The width used to
  * be hard-coded to 1400px, which matched neither — so its kicker never lined
  * up with the page around it. Each caller states its own rail now.
+ *
+ * A landing can swap the two-line question for its own (`title`); everything
+ * else, the call and the contact lines, stays shared.
  */
-export function FinalCTA({ rail = "wide" }: { rail?: "wide" | "narrow" }) {
+export function FinalCTA({
+  rail = "wide",
+  title,
+}: {
+  rail?: "wide" | "narrow";
+  title?: { line1: string; line2: string };
+}) {
   const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("finalCta");
+  const line1 = title?.line1 ?? t("titleLine1");
+  const line2 = title?.line2 ?? t("titleLine2");
 
   return (
     <section
@@ -28,8 +39,8 @@ export function FinalCTA({ rail = "wide" }: { rail?: "wide" | "narrow" }) {
         {/* Looser than the hero's poster: this pair carries accents ("à",
             "è") that would otherwise cut into the line above. */}
         <h2 className="m-0 mt-5 font-extrabold leading-[0.92] tracking-[-1px] [container-type:inline-size]">
-          <FitText>{t("titleLine1")}</FitText>
-          <FitText className="text-transparent [-webkit-text-stroke:2px_var(--background)]">{t("titleLine2")}</FitText>
+          <FitText>{line1}</FitText>
+          <FitText className="text-transparent [-webkit-text-stroke:2px_var(--background)]">{line2}</FitText>
         </h2>
         <a
           href={BOOKING_URL}
@@ -103,14 +114,14 @@ export function FinalCTA({ rail = "wide" }: { rail?: "wide" | "narrow" }) {
               letterSpacing: "-0.05em",
             }}
           >
-            <span>{t("titleLine1")}</span>
+            <span>{line1}</span>
             <span
               style={{
                 WebkitTextStroke: "2px var(--foreground)",
                 color: "transparent",
               }}
             >
-              {t("titleLine2")}
+              {line2}
             </span>
           </motion.h2>
 

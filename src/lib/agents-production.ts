@@ -76,3 +76,11 @@ export const AUTOMATION_GUIDE_PATHS: LocalizedPath = {
   fr: "/resources/articles/automatisation-ia-entreprise",
   en: "/resources/articles/ai-automation-which-processes-first",
 };
+
+/**
+ * A message's text with its rich-text tags (`<guide>…</guide>`) removed, for
+ * the FAQPage markup, which restates the visible answer as plain text.
+ */
+export function plainText(message: string): string {
+  return message.replace(/<\/?[a-zA-Z]+>/g, "");
+}

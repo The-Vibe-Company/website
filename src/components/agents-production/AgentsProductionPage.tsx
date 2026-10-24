@@ -19,6 +19,7 @@ import {
   AGENTS_PRODUCTION_NOT_KEYS,
   AGENTS_PRODUCTION_OFFER_KEYS,
   AUTOMATION_GUIDE_PATHS,
+  plainText,
   POC_CHECKLIST_PATHS,
 } from "@/lib/agents-production";
 import { getCustomer, type ContentLocale } from "@/lib/customers";
@@ -117,10 +118,13 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
     serviceType: "Enterprise AI agent deployment and production operations",
     description: t("service.description"),
   });
+  // FAQPage carries the visible answer as plain text, with its inline link
+  // tags stripped. An answer that names a client is left out by
+  // `faqPageSchema` (see `isPublishable`).
   const faq = faqPageSchema(
     AGENTS_PRODUCTION_FAQ_KEYS.map((key) => ({
       question: t(`faq.items.${key}.q`),
-      answer: t(`faq.items.${key}.a`),
+      answer: plainText(t.raw(`faq.items.${key}.a`) as string),
     })),
   );
 
@@ -129,25 +133,55 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
   );
   const [featured, ...others] = cases;
 
-  // The links under each FAQ answer stay out of the answer itself, so the
-  // FAQPage markup restates the visible answer word for word.
-  const faqLinks: Partial<Record<(typeof AGENTS_PRODUCTION_FAQ_KEYS)[number], PageLink[]>> = {
-    start: [{ label: t("faq.links.automation"), href: automation, locale: pageLocale }],
-    timeline: [
-      { label: t("faq.links.locservice"), href: "/case-studies/locservice", locale: pageLocale },
-    ],
-    data: [
-      { label: t("faq.links.health"), href: splitPath(HEALTHCARE_AI_PATHS, locale), locale: pageLocale },
-      { label: t("faq.links.hds"), href: hdsGuide, locale: pageLocale },
-    ],
-    article: [{ label: t("faq.links.guide"), href: guide, locale: pageLocale }],
-    hardening: [{ label: t("faq.links.hardening"), href: hardening, locale: pageLocale }],
+  // Links inside the FAQ answers (the French copy) and under them (the
+  // English copy, which keeps a `faq.links` block). Each language only
+  // renders the variant its messages define.
+  const inlineLink = (href: string) => {
+    const InlineLink = (chunks: ReactNode) => (
+      <Link href={href} className={TEXT_LINK}>
+        {chunks}
+      </Link>
+    );
+    return InlineLink;
   };
+  const faqTags = {
+    automation: inlineLink(automation),
+    health: inlineLink(splitPath(HEALTHCARE_AI_PATHS, locale)),
+    hds: inlineLink(hdsGuide),
+    guide: inlineLink(guide),
+    hardening: inlineLink(hardening),
+  };
+  const faqLinks: Partial<Record<(typeof AGENTS_PRODUCTION_FAQ_KEYS)[number], PageLink[]>> =
+    t.has("faq.links")
+      ? {
+          start: [{ label: t("faq.links.automation"), href: automation, locale: pageLocale }],
+          timeline: [
+            { label: t("faq.links.locservice"), href: "/case-studies/locservice", locale: pageLocale },
+          ],
+          data: [
+            { label: t("faq.links.health"), href: splitPath(HEALTHCARE_AI_PATHS, locale), locale: pageLocale },
+            { label: t("faq.links.hds"), href: hdsGuide, locale: pageLocale },
+          ],
+          article: [{ label: t("faq.links.guide"), href: guide, locale: pageLocale }],
+          hardening: [{ label: t("faq.links.hardening"), href: hardening, locale: pageLocale }],
+        }
+      : {};
 
-  // The authority article exists in French only, so it is always linked there.
+  // Card links, only where the language's copy defines a label. The authority
+  // article exists in French only, so it is always linked there.
   const offerLinks: Partial<Record<(typeof AGENTS_PRODUCTION_OFFER_KEYS)[number], PageLink>> = {
-    scope: { label: t("offer.items.scope.link"), href: automation, locale: pageLocale },
-    authority: { label: t("offer.items.authority.link"), href: AGENT_AUTHORITY_PATH, locale: "fr" },
+    ...(t.has("offer.items.scope.link")
+      ? { scope: { label: t("offer.items.scope.link"), href: automation, locale: pageLocale } }
+      : {}),
+    ...(t.has("offer.items.authority.link")
+      ? {
+          authority: {
+            label: t("offer.items.authority.link"),
+            href: AGENT_AUTHORITY_PATH,
+            locale: "fr",
+          },
+        }
+      : {}),
   };
 
   const reading: { key: string; href: string; locale: Locale }[] = [
@@ -207,7 +241,11 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
             ))}
           </ul>
 
-          <AboutBookingCta page={page} location="cta_agents_production_hero" />
+          <AboutBookingCta
+            page={page}
+            location="cta_agents_production_hero"
+            namespace="agentsProduction"
+          />
           <AboutBackers label={tAbout("backedBy")} />
         </section>
 
@@ -300,9 +338,11 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
             >
               {t("method.title")}
             </h2>
-            <p className="m-0 mt-5 max-w-[680px] text-[15px] leading-[1.6] text-white/70 md:text-base">
-              {t("method.intro")}
-            </p>
+            {t.has("method.intro") ? (
+              <p className="m-0 mt-5 max-w-[680px] text-[15px] leading-[1.6] text-white/70 md:text-base">
+                {t("method.intro")}
+              </p>
+            ) : null}
 
             <span className="mt-12 block border-b border-white/15 pb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-white/55 md:mt-16">
               {t("method.stepsLabel")}
@@ -336,10 +376,17 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
             <div className="mt-12 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-[200px_1fr] md:gap-12">
               <span aria-hidden="true" className="hidden md:block" />
               <div>
-                <p className="m-0 max-w-[620px] text-lg leading-[1.45] text-background md:text-[21px]">
-                  {t("method.ctaTitle")}
-                </p>
-                <AboutBookingCta page={page} location="cta_agents_production_method" inverse />
+                {t.has("method.ctaTitle") ? (
+                  <p className="m-0 max-w-[620px] text-lg leading-[1.45] text-background md:text-[21px]">
+                    {t("method.ctaTitle")}
+                  </p>
+                ) : null}
+                <AboutBookingCta
+                  page={page}
+                  location="cta_agents_production_method"
+                  namespace="agentsProduction"
+                  inverse
+                />
                 <Link
                   href={checklist}
                   className="mt-8 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-background underline decoration-1 underline-offset-4 hover:text-white/70"
@@ -355,7 +402,9 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
         {/* 5 — Proof: agents already running, published cases only. */}
         <section className={`${SECTION} py-14 md:py-20`}>
           <h2 className={H2}>{t("proof.title")}</h2>
-          <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("proof.intro")}</p>
+          {t.has("proof.intro") ? (
+            <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("proof.intro")}</p>
+          ) : null}
 
           {featured ? (
             <article className="mt-10 grid grid-cols-1 border-2 border-foreground bg-background md:mt-14 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
@@ -388,7 +437,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                   href={`/case-studies/${featured.slug}`}
                   className={`${MONO_LINK} mt-8 self-start`}
                 >
-                  {t("proof.readCase")}
+                  {t("proof.readCase", { client: featured.client })}
                   <span aria-hidden="true">→</span>
                 </Link>
               </div>
@@ -410,7 +459,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                   href={`/case-studies/${customer.slug}`}
                   className={`${MONO_LINK} mt-6 border-t border-border pt-5`}
                 >
-                  {t("proof.readCase")}
+                  {t("proof.readCase", { client: customer.client })}
                   <span aria-hidden="true">→</span>
                 </Link>
               </article>
@@ -428,10 +477,12 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="m-0 mt-4 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[22px]">
-                  {t(`not.items.${key}.title`)}
+                  {t.rich(`not.items.${key}.title`, { hardening: inlineLink(hardening) })}
                 </h3>
-                <p className={`${PROSE} mt-3`}>{t(`not.items.${key}.desc`)}</p>
-                {key === "hardening" ? (
+                {t.has(`not.items.${key}.desc`) ? (
+                  <p className={`${PROSE} mt-3`}>{t(`not.items.${key}.desc`)}</p>
+                ) : null}
+                {t.has(`not.items.${key}.link`) ? (
                   <Link href={hardening} className={`${MONO_LINK} mt-5`}>
                     {t("not.items.hardening.link")}
                     <span aria-hidden="true">→</span>
@@ -456,7 +507,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                   {t(`faq.items.${key}.q`)}
                 </h3>
                 <div className="flex max-w-[70ch] flex-col gap-4">
-                  <p className={PROSE}>{t(`faq.items.${key}.a`)}</p>
+                  <p className={PROSE}>{t.rich(`faq.items.${key}.a`, faqTags)}</p>
                   {faqLinks[key] ? (
                     <div className="flex flex-wrap gap-x-6 gap-y-3">
                       {faqLinks[key].map((link) => (
@@ -528,7 +579,13 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
           </div>
         </section>
 
-        <FinalCTA />
+        <FinalCTA
+          title={
+            t.has("finalCta.titleLine1")
+              ? { line1: t("finalCta.titleLine1"), line2: t("finalCta.titleLine2") }
+              : undefined
+          }
+        />
       </main>
       <Footer />
     </div>
