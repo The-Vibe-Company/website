@@ -12,7 +12,7 @@ coverAlt: "The Vibe Company mascot places glowing digital API keys into a locked
 ogImage: /images/resources/black-october-securite-agents-ia/cover-mascotte.webp
 ---
 
-In mid-October 2026, two stories hit tech press and X at once: critical flaws in the PHP engine (PHP2Shell), and a Railway security incident that led the platform to urge secret rotation. The cluster quickly picked up the nickname Black October. For a company shipping AI, the real question is not generic cybersecurity. It is how you secure an AI agent when legacy runtimes and SaaS API keys become attack surfaces.
+In mid-October 2026, two stories hit tech press and X at once: critical flaws in the PHP engine (PHP2Shell), and a Railway security incident that led the platform to urge secret rotation. The cluster quickly picked up the nickname Black October. For a company shipping AI, the real question isn't generic cybersecurity. It's how you secure an AI agent when legacy runtimes and SaaS API keys become attack surfaces.
 
 > This is not legal advice and not an incident-response playbook. For your case, talk to your security lead, your DPO, or a specialized partner.
 
@@ -20,7 +20,7 @@ In mid-October 2026, two stories hit tech press and X at once: critical flaws in
 
 ### PHP2Shell: flaws in the PHP core
 
-On October 21, 2026, PHP shipped patches for two critical vulnerabilities known as PHP2Shell: [CVE-2026-109618](https://www.cve.org/CVERecord?id=CVE-2026-109618) and [CVE-2026-109619](https://www.cve.org/CVERecord?id=CVE-2026-109619). According to [Wiz Research](https://www.wiz.io/blog/php2shell-php-rce), these are memory-safety issues in the PHP engine itself, with demonstrated unauthenticated remote code execution on representative deployments (WordPress, Drupal, Joomla), and process-memory disclosure that can expose passwords, tokens, or API keys. Wiz reports severity reaching CVSS 9.2.
+On October 21, 2026, PHP shipped patches for two critical vulnerabilities known as PHP2Shell: [CVE-2026-109618](https://www.cve.org/CVERecord?id=CVE-2026-109618) and [CVE-2026-109619](https://www.cve.org/CVERecord?id=CVE-2026-109619). According to [Wiz Research](https://www.wiz.io/blog/php2shell-php-rce), these are memory-safety issues in the PHP engine itself. Wiz shows unauthenticated remote code execution on representative deployments (WordPress, Drupal, Joomla), and process-memory disclosure that can expose passwords, tokens, or API keys. Severity reaches CVSS 9.2.
 
 The [PHP Foundation](https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/) announced fixed releases: PHP 8.5.12, 8.4.27, 8.3.36, and 8.2.35. [CISA](https://www.cisa.gov/news-events/alerts/2026/10/21/critical-vulnerabilities-php-require-immediate-patching) urged organizations to patch immediately and noted that PHP installations serving web requests (Apache mod_php, PHP-FPM, php-cgi, and others) are in scope.
 
@@ -28,9 +28,9 @@ In France, [CERT-FR](https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-014/) p
 
 ### Railway incident: secrets and AI provider keys
 
-In parallel, Railway published a [preliminary report](https://blog.railway.com/p/preliminary-report-october-security-incident) on a security incident around October 20-22, 2026. According to that report, a malicious actor gained unauthorized access to a subset of Railway internal systems. Suspected intent: obtain AI provider API keys. Railway states that at most **1.85% of workspaces** may have had environment variables potentially compromised, and recommends that all customers who stored secrets before October 21 rotate them. [TechCrunch](https://techcrunch.com/2026/10/22/developer-platform-railway-urges-all-users-to-revoke-secret-keys-after-cyberattack/) and [BleepingComputer](https://www.bleepingcomputer.com/news/security/railway-warns-devs-to-rotate-secrets-after-potential-breach/) covered the rotation call.
+In parallel, Railway published a [preliminary report](https://blog.railway.com/p/preliminary-report-october-security-incident) on a security incident around October 20-22, 2026. According to that report, a malicious actor gained unauthorized access to a subset of Railway internal systems. Suspected intent: obtain AI provider API keys. Railway states that at most 1.85% of workspaces may have had environment variables potentially compromised. The platform recommends that all customers who stored secrets before October 21 rotate them. [TechCrunch](https://techcrunch.com/2026/10/22/developer-platform-railway-urges-all-users-to-revoke-secret-keys-after-cyberattack/) and [BleepingComputer](https://www.bleepingcomputer.com/news/security/railway-warns-devs-to-rotate-secrets-after-potential-breach/) covered the rotation call.
 
-Two facts, one lesson for AI teams: patch the runtime on one side, govern secrets on the other. A well-designed agent is not enough if the keys it uses sit in a broad env, or if a neighboring PHP app is still unpatched.
+Two facts, one lesson for AI teams: patch the runtime on one side, govern secrets on the other. A well-designed agent isn't enough if the keys it uses sit in a broad env, or if a neighboring PHP app is still unpatched.
 
 ## The real risk for a company shipping AI
 
@@ -41,9 +41,9 @@ Many companies now run two stacks side by side:
 
 The risks cross. Memory disclosure on PHP can expose tokens. A PaaS incident can expose the same keys your agent uses to read the CRM or write a ticket. And an over-privileged agent turns a stolen key into action: send mail, edit a record, call an internal API.
 
-This is not abstract. As soon as an agent moves from "summarize" to "execute", the surface changes. We map that ladder in French in [Le vrai risque des agents IA, c'est l'autorité](/fr/resources/articles/agents-ia-formation-autorite). For the broader business frame, see [AI agents for business](/en/resources/articles/ai-agents-for-business).
+This isn't abstract. As soon as an agent moves from "summarize" to "execute", the surface changes. We map that ladder in French in [Le vrai risque des agents IA, c'est l'autorité](/fr/resources/articles/agents-ia-formation-autorite). For the broader business frame, see [AI agents for business](/en/resources/articles/ai-agents-for-business).
 
-French SMBs that still run an unmaintained PHP site or back office, and at the same time wire an agent to SaaS keys, stack both exposures. Black October put them on the same week.
+French SMBs that still run an unmaintained PHP site or back office, and at the same time wire an agent to SaaS keys, stack both exposures. Black October put both issues on the same week.
 
 ## TVC grid: read, propose, prepare, execute (and secrets out of agent context)
 
@@ -59,16 +59,16 @@ To secure an AI agent, start by classifying what it is allowed to do:
 Three concrete rules we apply at The Vibe Company:
 
 1. **Secrets out of agent context.** The agent must not "see" the API key in clear text in its prompt or logs. Calls go through a backend or vault that injects the secret at HTTP time, not into the system message.
-2. **Least privilege per level.** A read-mode agent does not get the same scopes as an execute-mode agent. Separate service accounts, separate scopes, expiration.
+2. **Least privilege per level.** A read-mode agent doesn't get the same scopes as an execute-mode agent. Separate service accounts, separate scopes, expiration.
 3. **Human validation before irreversible actions.** Mail send, CRM write, deploy, payment: stay in "prepare" until logs, quotas, and a kill switch exist.
 
-Black October does not change this grid. It makes it urgent. If SaaS keys can leak through a PaaS or a legacy runtime, a wide execute-mode agent becomes the multiplier.
+Black October doesn't change this grid. It makes it urgent. If SaaS keys can leak through a PaaS or a legacy runtime, a wide execute-mode agent becomes the multiplier.
 
 ## France: HDS and sensitive data
 
 When the data is health data, secrets and agents sit in a stricter frame. HDS certification covers hosting of health data. We explain it in [AI and health data in France: what HDS really means](/en/resources/articles/ai-health-data-hds-france).
 
-Important, and we say it plainly: **The Vibe Company is not "HDS-certified"**. At [Monka](/en/case-studies/monka), the client was already HDS-hosted. We built the caregiver app, nurse CRM, and clinical engine **inside the client's HDS environment**. No data left it. That is the model we recommend: build in the client's compliant environment, do not claim the certification yourself.
+Important, and we say it plainly: The Vibe Company is not "HDS-certified". At [Monka](/en/case-studies/monka), the client was already HDS-hosted. We built the caregiver app, nurse CRM, and clinical engine inside the client's HDS environment. No data left it. That's the model we recommend: build in the client's compliant environment. Don't claim the certification yourself.
 
 For an agent that touches patient records or clinical assessments:
 

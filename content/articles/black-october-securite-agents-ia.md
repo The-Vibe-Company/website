@@ -20,7 +20,7 @@ Mi-octobre 2026, deux sujets ont occupé la presse tech et X en même temps : de
 
 ### PHP2Shell : failles dans le cœur de PHP
 
-Le 21 octobre 2026, PHP a publié des correctifs pour deux vulnérabilités critiques regroupées sous le nom PHP2Shell : [CVE-2026-109618](https://www.cve.org/CVERecord?id=CVE-2026-109618) et [CVE-2026-109619](https://www.cve.org/CVERecord?id=CVE-2026-109619). Selon [Wiz Research](https://www.wiz.io/blog/php2shell-php-rce), il s'agit de problèmes de sécurité mémoire dans le moteur PHP lui-même, avec démonstration d'exécution de code à distance sans authentification sur des déploiements représentatifs (WordPress, Drupal, Joomla), et de divulgation de mémoire de processus pouvant contenir mots de passe, tokens ou clés API. Wiz indique un score CVSS allant jusqu'à 9.2.
+Le 21 octobre 2026, PHP a publié des correctifs pour deux vulnérabilités critiques regroupées sous le nom PHP2Shell : [CVE-2026-109618](https://www.cve.org/CVERecord?id=CVE-2026-109618) et [CVE-2026-109619](https://www.cve.org/CVERecord?id=CVE-2026-109619). Selon [Wiz Research](https://www.wiz.io/blog/php2shell-php-rce), ce sont des problèmes de sécurité mémoire dans le moteur PHP lui-même. Wiz montre une exécution de code à distance sans authentification sur des déploiements représentatifs (WordPress, Drupal, Joomla), et une divulgation de mémoire de processus pouvant contenir mots de passe, tokens ou clés API. Le score CVSS annoncé va jusqu'à 9.2.
 
 La [PHP Foundation](https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/) a annoncé les versions corrigées : PHP 8.5.12, 8.4.27, 8.3.36 et 8.2.35. La [CISA](https://www.cisa.gov/news-events/alerts/2026/10/21/critical-vulnerabilities-php-require-immediate-patching) a appelé à patcher immédiatement et rappelle que les installations qui servent des requêtes web (Apache mod_php, PHP-FPM, php-cgi, etc.) sont concernées.
 
@@ -28,9 +28,9 @@ En France, le [CERT-FR](https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-014/
 
 ### Incident Railway : secrets et clés AI providers
 
-En parallèle, Railway a publié un [rapport préliminaire](https://blog.railway.com/p/preliminary-report-october-security-incident) sur un incident de sécurité autour du 20-22 octobre 2026. D'après ce rapport, un acteur malveillant a obtenu un accès non autorisé à un sous-ensemble de systèmes internes Railway. L'intention suspectée : récupérer des clés API de fournisseurs d'IA. Railway indique qu'au plus **1,85 % des workspaces** ont pu avoir des variables d'environnement potentiellement compromises, et recommande à tous les clients ayant stocké des secrets avant le 21 octobre de les faire tourner. [TechCrunch](https://techcrunch.com/2026/10/22/developer-platform-railway-urges-all-users-to-revoke-secret-keys-after-cyberattack/) et [BleepingComputer](https://www.bleepingcomputer.com/news/security/railway-warns-devs-to-rotate-secrets-after-potential-breach/) ont relayé l'appel à rotation.
+En parallèle, Railway a publié un [rapport préliminaire](https://blog.railway.com/p/preliminary-report-october-security-incident) sur un incident de sécurité autour du 20-22 octobre 2026. D'après ce rapport, un acteur malveillant a obtenu un accès non autorisé à un sous-ensemble de systèmes internes Railway. L'intention suspectée : récupérer des clés API de fournisseurs d'IA. Railway indique qu'au plus 1,85 % des workspaces ont pu avoir des variables d'environnement potentiellement compromises. La plateforme recommande à tous les clients ayant stocké des secrets avant le 21 octobre de les faire tourner. [TechCrunch](https://techcrunch.com/2026/10/22/developer-platform-railway-urges-all-users-to-revoke-secret-keys-after-cyberattack/) et [BleepingComputer](https://www.bleepingcomputer.com/news/security/railway-warns-devs-to-rotate-secrets-after-potential-breach/) ont relayé l'appel à rotation.
 
-Deux faits, une même leçon pour les équipes IA : le patch du runtime d'un côté, la gouvernance des secrets de l'autre. Un agent bien pensé ne suffit pas si les clés qu'il utilise vivent en clair dans un env trop large, ou si le PHP d'un outil métier à côté n'est plus patché.
+Deux faits, une même leçon pour les équipes IA : patcher le runtime d'un côté, gouverner les secrets de l'autre. Un agent bien pensé ne suffit pas si les clés qu'il utilise vivent en clair dans un env trop large, ou si le PHP d'un outil métier à côté n'est plus patché.
 
 ## Le vrai risque pour une boîte qui ship de l'IA
 
@@ -41,9 +41,9 @@ Beaucoup d'entreprises ont aujourd'hui deux stacks en parallèle :
 
 Le risque se croise. Une divulgation mémoire côté PHP peut exposer des tokens. Un incident PaaS peut exposer les mêmes clés que votre agent utilise pour lire le CRM ou écrire dans un ticket. Et un agent trop privilégié transforme une clé volée en action : envoyer un mail, modifier une fiche, appeler une API métier.
 
-Ce n'est pas théorique. On le voit dans les projets : dès qu'un agent passe de « résumer » à « exécuter », la surface change. On détaille cette grille dans [Le vrai risque des agents IA, c'est l'autorité](/fr/resources/articles/agents-ia-formation-autorite). Pour le cadre entreprise plus large, voir aussi [Agents IA en entreprise](/fr/resources/articles/agent-ia-entreprise).
+Ce n'est pas théorique. On le voit dans les projets. Dès qu'un agent passe de « résumer » à « exécuter », la surface change. On détaille cette grille dans [Le vrai risque des agents IA, c'est l'autorité](/fr/resources/articles/agents-ia-formation-autorite). Pour le cadre entreprise plus large, voir aussi [Agents IA en entreprise](/fr/resources/articles/agent-ia-entreprise).
 
-Les PME françaises qui gardent un site ou un back-office PHP non maintenu, et qui branchent en même temps un agent sur des clés SaaS, cumulent les deux expositions. Black October les a mises sur la même semaine.
+Les PME françaises qui gardent un site ou un back-office PHP non maintenu, et qui branchent en même temps un agent sur des clés SaaS, cumulent les deux expositions. Black October a mis les deux sujets sur la même semaine.
 
 ## Grille TVC : lire, proposer, préparer, exécuter (et secrets hors contexte)
 
@@ -68,14 +68,14 @@ Black October ne change pas cette grille. Il la rend urgente. Si vos clés SaaS 
 
 Quand les données sont de santé, le sujet secrets + agents se joue dans un cadre plus strict. La certification HDS porte sur l'hébergement des données de santé. On l'explique dans [IA et données de santé : ce que l'HDS impose vraiment](/fr/resources/articles/ia-donnees-de-sante-hds).
 
-Point important, et on le répète clairement : **The Vibe Company n'est pas « certifiée HDS »**. Chez [Monka](/fr/case-studies/monka), le client était déjà hébergé en HDS. On a construit l'app aidants, le CRM infirmières et le moteur clinique **dans l'environnement HDS du client**. Aucune donnée n'en sortait. C'est ce modèle qu'on recommande : construire dans l'env conforme du client, pas prétendre porter la certification à sa place.
+Point important, et on le répète clairement : The Vibe Company n'est pas « certifiée HDS ». Chez [Monka](/fr/case-studies/monka), le client était déjà hébergé en HDS. On a construit l'app aidants, le CRM infirmières et le moteur clinique dans l'environnement HDS du client. Aucune donnée n'en sortait. C'est ce modèle qu'on recommande : construire dans l'env conforme du client, pas prétendre porter la certification à sa place.
 
 Pour un agent qui touche des dossiers patients ou des bilans :
 
 - les prompts, logs et embeddings restent dans le périmètre HDS ;
 - les appels modèle ne partent pas vers une API grand public avec des données en clair ;
 - les secrets d'API restent dans le coffre de l'environnement client, pas dans le chat de l'agent ;
-- les droits de l'agent restent au niveau « lire / proposer » tant que la validation métier n'est pas cadré.
+- les droits de l'agent restent au niveau « lire / proposer » tant que la validation métier n'est pas cadrée.
 
 ## Checklist 48 h après Black October
 
