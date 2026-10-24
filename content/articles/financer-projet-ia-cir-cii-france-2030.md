@@ -114,4 +114,6 @@ On construit les projets et on documente le travail technique. Le montage et le 
 
 Vous avez un cas d'usage IA en tête et vous voulez savoir ce qui se finance vraiment — build, Diag, CIR/CII, ou un appel type France 2030 ? Venez avec le périmètre, la taille de l'entreprise et le calendrier. On vous dit ce qu'on peut construire, ce qui relève plutôt d'un diagnostic Bpifrance, et ce qu'il faut poser à votre expert-comptable.
 
+[Un outil IA pour votre rédaction ?](/fr/ia-medias) Notre page IA médias détaille ce qu'on construit pour les rédactions, avec la preuve MediaGen.
+
 [Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).

@@ -1435,5 +1435,180 @@
         "desc": "AI products and agents on health data, built to GDPR and HDS requirements."
       }
     }
+  },
+  "mediaAi": {
+    "kicker": "// AI FOR MEDIA · NEWSROOMS",
+    "metaTitle": "AI for Media: tools for newsrooms | The Vibe Company",
+    "metaDescription": "AI tools for newsrooms and media orgs, shipped to production. AFP / MediaGen proof (France 2030). Paris AI agency, YC W24. Reply within 24h.",
+    "title": "AI for media: we build newsroom tools all the way to production",
+    "lede": "The Vibe Company builds generative AI tools for newsrooms and media organizations: monitoring, archives, production assist — under journalist control. Public proof: MediaGen, AFP's France 2030 generative AI project, where we are a technical consortium member.",
+    "bookCall": "Book 30 minutes",
+    "response": "Reply within 24h",
+    "breadcrumb": "AI for Media",
+    "hero": {
+      "label": "The facts",
+      "items": {
+        "mediagen": "MediaGen (AFP): 3 newsroom tools — augmented monitoring, multimodal search, production assist.",
+        "france2030": "France 2030 project, €4M, supported by Bpifrance. Consortium Quivr/The Vibe Company, Kairntech, Dawex. 24-month horizon.",
+        "openSource": "Some components planned as open source.",
+        "agency": "Paris AI agency, YC W24 (Quivr became The Vibe Company)."
+      }
+    },
+    "service": {
+      "name": "AI projects for media and newsrooms",
+      "description": "Design and development of generative AI tools for newsrooms and media organizations (monitoring, multimodal archive search, production assist), under journalist control, all the way to production."
+    },
+    "audience": {
+      "title": "Who this page is for",
+      "intro": "For press groups, newsrooms, news agencies, broadcasters, pure players and content or documentation organizations that want AI tools in real conditions, not a ChatGPT demo.",
+      "typesLabel": "Who",
+      "types": {
+        "press": "Press groups and newsrooms",
+        "agencies": "News agencies",
+        "broadcast": "Broadcast media",
+        "pureplayers": "Pure players and content / documentation orgs"
+      },
+      "signalsLabel": "The signals",
+      "signals": [
+        "A saturated monitoring feed",
+        "Text, photo or video archives that go underused",
+        "Multi-format versions that cost too much",
+        "Fear of hallucinations or bias in published news",
+        "The need to keep the journalist in the loop"
+      ]
+    },
+    "offer": {
+      "title": "What we deliver on a media AI project",
+      "intro": "Five building blocks, from monitoring to a framework that holds in production.",
+      "items": {
+        "monitoring": {
+          "title": "News monitoring",
+          "desc": "Gather and analyze media, social networks and press releases. The MediaGen angle: augmented monitoring."
+        },
+        "archives": {
+          "title": "Archives and multimodal search",
+          "desc": "Explore and make the most of a text, photo and video collection."
+        },
+        "production": {
+          "title": "Production assist",
+          "desc": "Turn one story into several formats. Help spotting bias or quality risks. A human publishes."
+        },
+        "agents": {
+          "title": "Agents under editorial control",
+          "desc": "Drafts, suggestions and repetitive tasks. Nothing is sent or published without sign-off."
+        },
+        "framework": {
+          "title": "Production framework",
+          "desc": "Access rights, observability, logs and tests, then documentation and handoff. Or joint operation."
+        }
+      }
+    },
+    "proof": {
+      "title": "MediaGen: what it proves (and what it doesn't)",
+      "intro": "MediaGen is one of the few France 2030 projects dedicated to the media. Led by AFP, supported by Bpifrance.",
+      "items": {
+        "member": "The Vibe Company (via Quivr / The Vibe Company) is a member of the technical consortium. We build the tools. We are not AFP.",
+        "ships": "It proves we can ship generative AI under media constraints: reliability, editorial control, partial open source.",
+        "notDossier": "What it does not mean: we do not put together your France 2030 or Bpifrance application."
+      },
+      "funding": "For an overview of French funding schemes (CIR, CII, Diag…): <link>How to fund an AI project in France: CIR, CII, France 2030</link>",
+      "case": "Detailed proof: <link>AFP / MediaGen case</link>"
+    },
+    "afp": {
+      "title": "What we are building with AFP in MediaGen",
+      "intro": "With AFP, we are building MediaGen: generative AI tools for newsrooms, always under journalists' control.",
+      "stats": {
+        "budget": {
+          "label": "Project budget",
+          "value": "€4M"
+        },
+        "frame": {
+          "label": "Frame",
+          "value": "France 2030, supported by Bpifrance"
+        },
+        "horizon": {
+          "label": "Horizon",
+          "value": "24 months"
+        },
+        "tools": {
+          "label": "Tools",
+          "value": "3"
+        }
+      },
+      "points": [
+        "Augmented monitoring: gather and analyze media, social networks and press releases in real time.",
+        "Multimodal search: explore and make the most of text, photo and video archives.",
+        "Production assist: turn one story into several formats, and spot biases that could hurt its quality.",
+        "Consortium: Quivr/The Vibe Company, Kairntech, Dawex.",
+        "Some components will be released under an open license.",
+        "Reliable information, under journalists' control."
+      ],
+      "readCase": "Read the AFP case"
+    },
+    "method": {
+      "title": "How we start a media AI project",
+      "steps": {
+        "call": {
+          "title": "A 30-minute call",
+          "desc": "Editorial workflows, sources, archives, editorial risk, who publishes."
+        },
+        "scope": {
+          "title": "Scope a first tool",
+          "desc": "One fixed-scope workflow, with success criteria: time, volume, human acceptance rate."
+        },
+        "cycles": {
+          "title": "Short cycles",
+          "desc": "Often as drafts or suggestions first. Never auto-publishing without guardrails."
+        },
+        "production": {
+          "title": "Ship, measure, hand over",
+          "desc": "Runbooks, training, or joint operation."
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "replace": {
+          "q": "Do you replace journalists?",
+          "a": "No. We build tools under editorial control: drafts, monitoring, search, multi-format versions. The decision to publish stays human."
+        },
+        "mediagen": {
+          "q": "What is MediaGen?",
+          "a": "AFP's France 2030 generative AI project. We are in the technical consortium with Kairntech and Dawex. Details: <case>the AFP case</case>."
+        },
+        "funding": {
+          "q": "Can you get our project funded through France 2030?",
+          "a": "No. MediaGen proves we ship in that frame. It is not a Bpifrance application service. See <funding>our article on CIR, CII and France 2030</funding> for an overview of funding schemes."
+        },
+        "timeline": {
+          "q": "How long until production?",
+          "a": "It depends on your stack (CMS, DAM, APIs, rights). MediaGen: built over 24 months on the France 2030 project side. That is a project timeline, not a generic delay for every client."
+        },
+        "hallucinations": {
+          "q": "What about hallucinations and bias?",
+          "a": "We design to limit the risk: guardrails, human validation, traceability. No “zero error” promise."
+        },
+        "otherPages": {
+          "q": "How is this different from your Paris agency and agents in production pages?",
+          "a": "<agency>The AI agency in Paris page</agency> presents the general offer. <agents>AI agents in production</agents> covers deploying cross-functional business agents. This page covers the media and newsroom sector, with the AFP proof."
+        },
+        "cost": {
+          "q": "How much does a project cost?",
+          "a": "We set the scope after the call and the framing, in a written proposal. There is no public rate card."
+        }
+      }
+    },
+    "about": "Who The Vibe Company is: <link>About</link>",
+    "caseLink": "Building AI for a newsroom? See our <link>AI for Media</link> page.",
+    "finalCta": {
+      "kicker": "AI FOR MEDIA",
+      "titleLine1": "Need an AI tool",
+      "titleLine2": "for your newsroom?",
+      "bookCall": "Book 30 minutes",
+      "responseLabel": "RESPONSE",
+      "responseValue": "WITHIN 24H",
+      "emailLabel": "EMAIL"
+    }
   }
 }

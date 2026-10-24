@@ -73,6 +73,12 @@ export const HEALTHCARE_AI_PATHS: SplitPaths = {
   en: "/healthcare-ai-hds",
 };
 
+/** The media AI landing: newsroom tools, with the AFP / MediaGen proof. */
+export const MEDIA_AI_PATHS: SplitPaths = {
+  fr: "/ia-medias",
+  en: "/ai-for-media",
+};
+
 export type SplitPathRoute = Omit<SiteRoute, "path"> & { paths: SplitPaths };
 
 export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
@@ -113,6 +119,14 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
     title: "Healthcare AI & HDS",
     description:
       "The Vibe Company builds AI products and agents on French health data, to GDPR and HDS requirements, inside the client's HDS environment. The Monka case: in production in two months.",
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
+    paths: MEDIA_AI_PATHS,
+    title: "AI for media",
+    description:
+      "The Vibe Company builds generative AI tools for newsrooms and media organizations, all the way to production, under journalist control: monitoring, multimodal archive search, production assist. Proof: MediaGen, AFP's France 2030 project.",
     changeFrequency: "monthly",
     priority: 0.8,
   },

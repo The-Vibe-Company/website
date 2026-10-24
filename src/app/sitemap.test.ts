@@ -148,4 +148,22 @@ describe("sitemap", () => {
       });
     }
   });
+
+  test("lists the media AI landing on its translated paths, with x-default", () => {
+    const entries = sitemap().filter((entry) =>
+      /\/(fr\/ia-medias|en\/ai-for-media)$/.test(entry.url),
+    );
+
+    expect(entries.map((entry) => entry.url).sort()).toEqual([
+      `${SITE}/en/ai-for-media`,
+      `${SITE}/fr/ia-medias`,
+    ]);
+    for (const entry of entries) {
+      expect(entry.alternates?.languages).toEqual({
+        fr: `${SITE}/fr/ia-medias`,
+        en: `${SITE}/en/ai-for-media`,
+        "x-default": `${SITE}/fr/ia-medias`,
+      });
+    }
+  });
 });
