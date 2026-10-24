@@ -34,7 +34,7 @@ export function AboutBookingCta({
         onClick={() => captureEvent("cta_booking_click", { page })}
         className={`inline-flex items-center gap-3 border-2 px-6 py-4 text-[15px] font-semibold transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 md:px-7 md:py-5 md:text-[17px] ${
           inverse
-            ? "border-background bg-background text-foreground hover:shadow-[6px_6px_0_0_rgba(255,255,255,0.35)]"
+            ? "border-background bg-background text-foreground hover:shadow-[6px_6px_0_0_var(--background)]"
             : "border-foreground bg-foreground text-background hover:shadow-[6px_6px_0_0_var(--foreground)]"
         }`}
       >
