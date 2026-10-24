@@ -1024,6 +1024,211 @@
     "caseLink": "The Vibe Company is an <link>AI agency in Paris</link>: AI products, agents and training, all the way to production.",
     "aboutLink": "Our AI agency in Paris page"
   },
+  "healthcareAi": {
+    "kicker": "// HEALTHCARE AI · HDS REQUIREMENTS",
+    "metaTitle": "Healthcare AI & HDS: ship to production | The Vibe Company",
+    "metaDescription": "AI projects on French health data, built to GDPR and HDS requirements. Monka case (2 months to prod). Paris AI agency, YC W24. Reply within 24h.",
+    "title": "Healthcare AI and HDS: we build your products all the way to production",
+    "lede": "The Vibe Company builds AI products and agents for healthcare: apps, CRMs, clinical engines, partner APIs — inside our clients' HDS environment and GDPR framework. We are not an HDS-certified host: we ship fast and cleanly where your health data has to stay.",
+    "bookCall": "Book 30 minutes",
+    "response": "Reply within 24h",
+    "breadcrumb": "Healthcare AI & HDS",
+    "hero": {
+      "label": "The facts",
+      "items": {
+        "monka": "Public Monka case: caregiver app, Lifeline and clinical engine, in production in 2 months, inside the HDS environment the client already had.",
+        "cadence": "Short cycles: at Monka, a new app release roughly every two days.",
+        "agency": "AI agency in Paris, YC W24 (Quivr became The Vibe Company).",
+        "framework": "We work to GDPR and HDS requirements, without claiming a certification we do not hold."
+      },
+      "caseLabel": "Healthcare case study",
+      "caseLink": "Read the Monka case"
+    },
+    "service": {
+      "name": "Healthcare AI projects to HDS requirements",
+      "description": "Design and development of AI products and agents on health data (apps, care-coordination CRMs, versioned clinical engines, partner APIs), to GDPR and HDS requirements, inside the client's environment."
+    },
+    "audience": {
+      "title": "Who this page is for",
+      "intro": "For teams that have, or will soon have, an HDS host and a concrete AI product need.",
+      "typesLabel": "Who",
+      "types": {
+        "startups": "Health startups",
+        "publishers": "Digital health software publishers",
+        "insurers": "Insurers and mutual health funds",
+        "coordination": "Care-coordination organisations",
+        "scaleups": "Scale-ups growing on health data"
+      },
+      "signalsLabel": "The signals",
+      "signals": [
+        "An assessment or clinical questionnaire to turn into a care pathway.",
+        "A CRM for clinicians or coordinating nurses.",
+        "APIs to open to partners, insurers or mutual funds.",
+        "An LLM to connect to health data.",
+        "The fear of stepping outside the HDS perimeter by moving fast."
+      ]
+    },
+    "offer": {
+      "title": "What we deliver in a healthcare AI project",
+      "intro": "Five building blocks, from the product your users open every day to the framework that keeps it running in production.",
+      "items": {
+        "products": {
+          "tag": "Product",
+          "title": "Business products",
+          "desc": "Apps for patients, caregivers or clinicians, care-coordination CRMs, action plans generated from an assessment."
+        },
+        "engines": {
+          "tag": "Clinical",
+          "title": "Versioned engines and frameworks",
+          "desc": "A clinical framework that evolves without breaking the app: 12 versions at Monka so far."
+        },
+        "integrations": {
+          "tag": "API",
+          "title": "Integrations",
+          "desc": "Partner APIs, signed webhooks and connections to the internal tools you already run."
+        },
+        "agents": {
+          "tag": "Agents",
+          "title": "Agents under control",
+          "desc": "Drafts, suggestions and repetitive tasks. Anything that goes to a patient or a partner goes through a human."
+        },
+        "production": {
+          "tag": "Prod",
+          "title": "Production framework",
+          "desc": "Access rights, observability, logs and tests inside your environment, then documentation and handover."
+        }
+      }
+    },
+    "hds": {
+      "title": "HDS: who is certified, and where we work",
+      "intro": "The question is often framed the wrong way. Here is the split, as we practise it.",
+      "scope": {
+        "label": "Your perimeter",
+        "host": {
+          "label": "HDS host",
+          "desc": "Cloud or managed-service provider, certified for the activities of the framework it performs."
+        },
+        "us": {
+          "label": "The Vibe Company",
+          "desc": "Development partner: we build inside, without taking the data out."
+        }
+      },
+      "items": {
+        "host": {
+          "title": "The certification is the host's",
+          "desc": "HDS certification covers the host and the activities of the French Digital Health Agency's framework that it performs. It does not automatically extend to the software publisher, or to the agency that builds the product."
+        },
+        "environment": {
+          "title": "We build inside your environment",
+          "desc": "Your HDS host is often already chosen. We develop inside it, with the access you grant us, and the code, logs and test environments stay there."
+        },
+        "ai": {
+          "title": "AI pitfalls, handled at design time",
+          "desc": "Model calls, logs, test environments, transfers outside the EEA: that is where an AI project leaves the perimeter without noticing. We settle them before the first line of code."
+        },
+        "gdpr": {
+          "title": "HDS does not replace GDPR",
+          "desc": "HDS covers hosting. GDPR covers the whole processing: purpose, minimisation, retention, data subject rights."
+        }
+      },
+      "articleLink": "What HDS really requires"
+    },
+    "proof": {
+      "title": "What we shipped at Monka",
+      "intro": "Monka supports people who care for a loved one, with coordinating nurses and partner insurers. We took over their existing API and CRM, and built inside their HDS environment.",
+      "points": [
+        "A caregiver app: a 165-question assessment that leads to an action plan, the circle of close ones, a chat with the nurse, and appointment booking.",
+        "Lifeline, the CRM for coordinating nurses.",
+        "A versioned clinical engine: 12 versions of the framework, without breaking the app.",
+        "A partner API with signed webhooks, so insurers can follow the people they cover.",
+        "In production in two months, then 90 app releases in six months: one roughly every two days.",
+        "Encrypted, GDPR-compliant health data, inside the HDS environment Monka already had. We never stepped outside it."
+      ],
+      "readCase": "Monka case",
+      "otherLabel": "Outside healthcare, also in production",
+      "other": "LocService: an agent drafts the reply to every ticket, connected to internal APIs; a human reviews and decides. Drafts used on 87% of tickets.",
+      "otherLink": "Read the LocService case",
+      "quoteAttribution": "{author}"
+    },
+    "method": {
+      "title": "How we start a healthcare AI project",
+      "intro": "Four steps, with the data question asked in the first one.",
+      "stepsLabel": "Four steps",
+      "steps": {
+        "call": {
+          "label": "Call",
+          "title": "A 30-minute call",
+          "desc": "Your data, your host, who administers what, and the product goal."
+        },
+        "scope": {
+          "label": "Scoping",
+          "title": "Scope the flows and the perimeter",
+          "desc": "We map the data flows and the HDS and GDPR perimeter, then hand you a fixed-scope proposal."
+        },
+        "cycles": {
+          "label": "Short cycles",
+          "title": "Ship in short cycles, on your side",
+          "desc": "Testable releases early and often, built inside your environment."
+        },
+        "production": {
+          "label": "Production",
+          "title": "Go live, measure, hand over",
+          "desc": "Go-live, measurement of what matters, then runbooks and training for your teams."
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "certified": {
+          "q": "Is The Vibe Company HDS-certified?",
+          "a": "No. We are not a health data host. We build to GDPR and HDS requirements, usually inside the HDS environment the client already has, as in the case shown on this page."
+        },
+        "needCertification": {
+          "q": "Do you need HDS certification to launch a healthcare AI product?",
+          "a": "Often it is the host (and sometimes the software publisher, depending on who has access) that falls within the scope. We clarify the split of activities during scoping. The details are in our HDS article."
+        },
+        "timeline": {
+          "q": "How long until production?",
+          "a": "It depends on the foundation. A real example: at a healthcare client whose HDS environment was already in place, the app, the CRM and the clinical engine went live in two months. We do not quote a generic timeline."
+        },
+        "llm": {
+          "q": "Do you send patient records to LLMs?",
+          "a": "We design so that health data never leaves the agreed framework: a model inside the perimeter, pseudonymisation before the call, or no external call at all. No magic promises."
+        },
+        "cost": {
+          "q": "How much does a project cost?",
+          "a": "We set the scope after the call and the scoping, in a written proposal. There is no public rate card."
+        },
+        "otherPages": {
+          "q": "How does this relate to your AI agency in Paris and hardening agents pages?",
+          "a": "The AI agency in Paris page covers our general offer. The hardening page is about agents that harden a product and its infrastructure. This page is about the healthcare sector and the HDS framework."
+        }
+      }
+    },
+    "further": {
+      "title": "Further reading",
+      "readingLabel": "Read",
+      "reading": {
+        "hds": "What HDS really requires for an AI project",
+        "monka": "Monka case: caregiver app, Lifeline and clinical engine"
+      },
+      "alsoLabel": "Also at The Vibe Company",
+      "agency": {
+        "title": "AI agency in Paris",
+        "desc": "Our general offer: AI products, agents and training, all the way to production."
+      },
+      "about": {
+        "title": "Who The Vibe Company is",
+        "desc": "The team, the founders and the key facts about the agency."
+      },
+      "hardening": {
+        "title": "AI agents to harden your product & stack",
+        "desc": "Also: harden. Agents that watch secrets, dependencies, IAM and configs, continuously."
+      }
+    },
+    "caseLink": "Working with health data? See our <link>Healthcare AI & HDS</link> page."
+  },
   "agentsProduction": {
     "kicker": "// AGENTS · POC → PRODUCTION",
     "metaTitle": "AI Agents in Production: from POC to run | The Vibe Company",

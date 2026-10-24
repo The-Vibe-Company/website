@@ -579,12 +579,10 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
           </div>
         </section>
 
+        {/* The French copy closes on its own question; English keeps the
+            shared one. */}
         <FinalCTA
-          title={
-            t.has("finalCta.titleLine1")
-              ? { line1: t("finalCta.titleLine1"), line2: t("finalCta.titleLine2") }
-              : undefined
-          }
+          namespace={t.has("finalCta") ? "agentsProduction.finalCta" : undefined}
         />
       </main>
       <Footer />

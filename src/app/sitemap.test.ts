@@ -130,4 +130,22 @@ describe("sitemap", () => {
       });
     }
   });
+
+  test("lists the healthcare AI landing on its translated paths, with x-default", () => {
+    const entries = sitemap().filter((entry) =>
+      /\/(fr\/ia-sante-hds|en\/healthcare-ai-hds)$/.test(entry.url),
+    );
+
+    expect(entries.map((entry) => entry.url).sort()).toEqual([
+      `${SITE}/en/healthcare-ai-hds`,
+      `${SITE}/fr/ia-sante-hds`,
+    ]);
+    for (const entry of entries) {
+      expect(entry.alternates?.languages).toEqual({
+        fr: `${SITE}/fr/ia-sante-hds`,
+        en: `${SITE}/en/healthcare-ai-hds`,
+        "x-default": `${SITE}/fr/ia-sante-hds`,
+      });
+    }
+  });
 });

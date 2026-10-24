@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { existsSync } from "node:fs";
 
 import en from "../../messages/en.json";
 import fr from "../../messages/fr.json";
@@ -13,7 +14,7 @@ import {
 import { BOOKING_URL } from "./booking";
 import { getContentItem } from "./content-source";
 import { getCustomer } from "./customers";
-import { AGENTS_PRODUCTION_PATHS, splitPathAlternates } from "./site";
+import { AGENTS_PRODUCTION_PATHS, HEALTHCARE_AI_PATHS, splitPathAlternates } from "./site";
 import { faqPageSchema, serviceNode } from "./structured-data";
 
 const SITE = "https://www.thevibecompany.co";
@@ -79,6 +80,18 @@ describe("agents in production landing", () => {
         expect(getCustomer(slug, locale)).toBeDefined();
       }
     }
+  });
+
+  test("links to sibling landings that exist on both segments", () => {
+    for (const path of Object.values(HEALTHCARE_AI_PATHS)) {
+      expect(existsSync(`src/app/[locale]${path}/page.tsx`)).toBe(true);
+    }
+  });
+
+  test("the French closing question carries every key the shared one has", () => {
+    expect(Object.keys(MESSAGES.fr.finalCta).sort()).toEqual(Object.keys(fr.finalCta).sort());
+    expect(MESSAGES.fr.finalCta.titleLine2).toBe("à mener jusqu’au run\u00a0?");
+    expect(MESSAGES.en).not.toHaveProperty("finalCta");
   });
 
   test("cites LocService first and keeps its published 87% figure", () => {

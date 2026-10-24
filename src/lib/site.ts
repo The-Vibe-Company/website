@@ -61,19 +61,16 @@ export const AGENTS_PRODUCTION_PATHS: SplitPaths = {
   en: "/ai-agents-in-production",
 };
 
-/**
- * The healthcare AI landing (AI on health data, HDS), same slugs as its own
- * PR (#267). Linked before that PR lands, so the link 404s until then.
- */
-export const HEALTHCARE_AI_PATHS: SplitPaths = {
-  fr: "/ia-sante-hds",
-  en: "/healthcare-ai-hds",
-};
-
 /** The commercial "AI agency in Paris" landing page. */
 export const AGENCY_PARIS_PATHS: SplitPaths = {
   fr: "/agence-ia-paris",
   en: "/ai-agency-paris",
+};
+
+/** The healthcare AI landing: AI products built to GDPR and HDS requirements. */
+export const HEALTHCARE_AI_PATHS: SplitPaths = {
+  fr: "/ia-sante-hds",
+  en: "/healthcare-ai-hds",
 };
 
 export type SplitPathRoute = Omit<SiteRoute, "path"> & { paths: SplitPaths };
@@ -108,6 +105,14 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
     title: "AI agents in production",
     description:
       "The Vibe Company takes a company's AI agents from POC to daily production: workflow scoping, skills wired into existing tools, authority and guardrails, measurement and handoff.",
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
+    paths: HEALTHCARE_AI_PATHS,
+    title: "Healthcare AI & HDS",
+    description:
+      "The Vibe Company builds AI products and agents on French health data, to GDPR and HDS requirements, inside the client's HDS environment. The Monka case: in production in two months.",
     changeFrequency: "monthly",
     priority: 0.8,
   },
