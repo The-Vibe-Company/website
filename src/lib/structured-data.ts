@@ -159,25 +159,31 @@ export function webPageNode({
   };
 }
 
-/** A service the company provides, in a city. No offer, price or rating. */
+/**
+ * A service the company provides, in a city or, without one, in France. No
+ * offer, price or rating; the description only when it is publishable.
+ */
 export function serviceNode({
   url,
   name,
   serviceType,
   city,
+  description,
 }: {
   url: string;
   name: string;
   serviceType: string;
-  city: string;
+  city?: string;
+  description?: string;
 }): JsonLdNode {
   return {
     "@context": SCHEMA_CONTEXT,
     "@type": "Service",
     name,
     serviceType,
+    ...(description && isPublishable(description) ? { description } : {}),
     provider: { "@id": ORGANIZATION_ID },
-    areaServed: { "@type": "City", name: city },
+    areaServed: city ? { "@type": "City", name: city } : { "@type": "Country", name: "France" },
     url,
   };
 }

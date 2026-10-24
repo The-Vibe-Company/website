@@ -451,6 +451,184 @@
       }
     }
   },
+  "hardening": {
+    "kicker": "// AGENTS · HARDEN PRODUCT & STACK",
+    "metaTitle": "AI Agents to Harden Your Product & Stack | The Vibe Company",
+    "metaDescription": "Deploy AI agents to harden product and infrastructure: secrets, deps, IAM, configs, PR review. Built to GDPR and HDS requirements. Paris agency.",
+    "title": "Use AI agents to harden your product and your infrastructure",
+    "lede": "At The Vibe Company, we deploy agents that watch secrets, dependencies, IAM, configs and pull requests — continuously, inside your CI/CD and your infrastructure — to shrink the attack surface before anything reaches production.",
+    "hero": {
+      "label": "What you get",
+      "items": {
+        "fleet": "A fleet of agents and versioned skills, not a one-shot audit delivered as a PDF.",
+        "stack": "Plugged into your stack (CI, repos, cloud, SaaS) with least privilege.",
+        "compliance": "Delivered to GDPR and HDS requirements when the context calls for it.",
+        "team": "The same YC W24 team that ships AI products to production (Monka, LocService, AFP…)."
+      }
+    },
+    "breadcrumb": "AI agents for product hardening",
+    "service": {
+      "name": "AI agents to harden your product and infrastructure",
+      "description": "A fleet of AI agents and versioned skills that continuously hardens the product and the infrastructure: secrets, dependencies, IAM and SaaS permissions, configs and infrastructure as code, security review of pull requests. Critical decisions stay with humans."
+    },
+    "problem": {
+      "title": "Classic security tools are no longer enough on their own",
+      "p1": "The surface to protect has changed: dozens of SaaS tools wired into your data, coding agents opening pull requests, years of accumulated configs and permissions. Each tool sees its own slice; nobody sees the whole.",
+      "p2": "A one-off audit or a quarterly scan captures a state that drifts the very next day: a role widened “temporarily”, a dependency bumped, a bucket opened for a test. CTOs, CISOs and platform leads need a continuous loop, not one more report.",
+      "p3": "Recent incidents are a reminder: exposed secrets and legacy runtimes are still open doors. We broke them down in <link>Black October: what it means for AI agents</link>."
+    },
+    "offer": {
+      "title": "What the agent fleet covers",
+      "intro": "Six workstreams, plugged into the tools you already run. Each agent has a clear scope, minimal permissions and skills versioned like code.",
+      "items": {
+        "secrets": {
+          "tag": "Repos · CI",
+          "title": "Secrets & credentials",
+          "desc": "Detects keys and tokens in repos, CI, tickets and logs. The agents raise the alert and prepare the rotation; a human approves it."
+        },
+        "dependencies": {
+          "tag": "Supply chain",
+          "title": "Dependencies & supply chain",
+          "desc": "Tracks CVEs, lockfiles and risky packages, with merge policies enforced right in the CI."
+        },
+        "iam": {
+          "tag": "Cloud · SaaS",
+          "title": "IAM & SaaS permissions",
+          "desc": "Role drift, dormant accounts, overly broad OAuth scopes: the agents spot the gap and propose the way back to least privilege."
+        },
+        "configs": {
+          "tag": "IaC",
+          "title": "Configs & infrastructure as code",
+          "desc": "Drift in security groups, buckets and policies between what your code declares and what actually runs."
+        },
+        "review": {
+          "tag": "Pull requests",
+          "title": "Security PR review",
+          "desc": "Review skills dedicated to sensitive diffs (authentication, crypto, input validation) that comment on the pull request before it merges."
+        },
+        "agents": {
+          "tag": "Agents · MCP",
+          "title": "Agent & MCP perimeter",
+          "desc": "Before agents plug into your systems: tool allowlists, server-side secret injection, sandboxed execution.",
+          "link": "What is an MCP server?"
+        }
+      },
+      "guardrails": "The agents propose and automate behind guardrails. Critical decisions (rotating a production secret, changing permissions, a sensitive merge) stay with humans."
+    },
+    "method": {
+      "title": "How we roll it out with you",
+      "intro": "Not a scanner you plug in and forget: a fleet of agents running in your environment, with your tools and your teams.",
+      "stepsLabel": "Six steps",
+      "steps": {
+        "map": {
+          "label": "Mapping",
+          "title": "Map the surface",
+          "desc": "Repos, CI, cloud, critical SaaS and the agents already in place: we start from what actually exists."
+        },
+        "prioritize": {
+          "label": "Prioritizing",
+          "title": "Prioritize by risk and effort",
+          "desc": "We start with what exposes the most for the least effort. No endless scanner, no backlog of a thousand alerts."
+        },
+        "deploy": {
+          "label": "Deploying",
+          "title": "Deploy skills and agents in your environment",
+          "desc": "The agents run on your side, with minimal permissions and skills versioned like the rest of your code."
+        },
+        "integrate": {
+          "label": "Integrating",
+          "title": "Wire in CI/CD and your alert channels",
+          "desc": "Findings land in the pull requests, tickets and channels your teams already use."
+        },
+        "measure": {
+          "label": "Measuring",
+          "title": "Measure the useful signal",
+          "desc": "We track true positives handled, not vanity dashboards."
+        },
+        "handover": {
+          "label": "Handover",
+          "title": "Hand over, or operate with you",
+          "desc": "Documentation, runbooks and training for your teams. Or we keep running the fleet alongside you."
+        }
+      }
+    },
+    "proof": {
+      "title": "Why The Vibe Company",
+      "points": {
+        "production": "We already run agents and products in production, for clients with real constraints: the case studies below give the details.",
+        "public": "We write about it in public: <black>Black October</black>, <authority>agent authority</authority> (in French), and an upcoming series on hardening products and infrastructure.",
+        "agency": "AI agency in Paris, YC W24. We work to GDPR and HDS requirements."
+      },
+      "casesLabel": "Case studies",
+      "cases": {
+        "theodo": "Technical expert embedded in Theodo's teams: Software Factories for hundreds of developers, with standardized tools, agents and skills.",
+        "monka": "Shipped to production in two months inside Monka's existing HDS environment, building on the API and CRM already in place.",
+        "locservice": "An agent drafts the reply to every ticket, connected to internal APIs; a human reviews and decides. Drafts used on 87% of tickets."
+      },
+      "readCase": "Read the case"
+    },
+    "not": {
+      "title": "What this is not",
+      "items": {
+        "ciso": {
+          "title": "Not a replacement for your CISO or a pentest",
+          "desc": "The agents equip your security team, they do not replace it. A penetration test by a qualified provider remains a separate exercise."
+        },
+        "compliance": {
+          "title": "Not a compliance promise",
+          "desc": "We sell no label and no certification. We work to the GDPR and HDS requirements of your context, and document what was done."
+        },
+        "prompt": {
+          "title": "Not just “securing the prompt”",
+          "desc": "Securing the agents themselves matters, but here the hardening targets your product and your infrastructure."
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "scanners": {
+          "q": "How do agents differ from a classic SAST/DAST scanner?",
+          "a": "They complement each other. Scanners stay useful in the CI. Agents chain context across several tools (code, tickets, configs, permissions), connect the signals and prepare the fix."
+        },
+        "production": {
+          "q": "Do you touch production?",
+          "a": "With minimal permissions. Every sensitive change is a proposal that a human on your team approves before it is applied."
+        },
+        "data": {
+          "q": "What about data, health data (HDS) in particular?",
+          "a": "We work to GDPR and HDS requirements. When health data is involved, the agents run inside the client's covered environment. We claim no certification we do not hold."
+        },
+        "agentSecurity": {
+          "q": "How does this relate to securing the agents themselves?",
+          "a": "The two reinforce each other. To secure an agent (authority, secrets, execution), read our Black October article and our article on agent authority. For agents that harden your product and your infrastructure, this is the page."
+        },
+        "start": {
+          "q": "Where do we start?",
+          "a": "With a 30-minute call: your current surface, your CI and your critical SaaS. We will tell you straight whether a fleet of agents makes sense for you."
+        }
+      }
+    },
+    "further": {
+      "title": "Going further",
+      "readingLabel": "Read next",
+      "reading": {
+        "blackOctober": "Black October: PHP flaws, stolen secrets, and what it means for AI agents",
+        "authority": "The real risk of AI agents is authority (in French)",
+        "mcp": "What is an MCP server? Connecting AI agents to your tools",
+        "hds": "AI and health data in France: what HDS really means"
+      },
+      "alsoLabel": "Also at The Vibe Company",
+      "agency": {
+        "title": "AI agency in Paris",
+        "desc": "AI products, agents and training, from scoping to production."
+      },
+      "about": {
+        "title": "About us",
+        "desc": "The team, the founders and the key facts about the agency."
+      }
+    }
+  },
   "quivr": {
     "metaTitle": "Quivr: open-source news search and monitoring",
     "metaDescription": "Quivr by The Vibe Company (YC W24): an open-source engine that follows news, emails and posts as they arrive, makes them searchable and alerts you on your topics.",
