@@ -1217,8 +1217,8 @@
         "desc": "The team, the founders and the key facts about the agency."
       },
       "hardening": {
-        "title": "Also: harden",
-        "desc": "AI agents to harden your product and your infrastructure."
+        "title": "AI agents to harden your product & stack",
+        "desc": "Also: harden. Agents that watch secrets, dependencies, IAM and configs, continuously."
       }
     },
     "caseLink": "Working with health data? See our <link>Healthcare AI & HDS</link> page."

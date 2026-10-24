@@ -1218,8 +1218,8 @@
         "desc": "L’équipe, les fondateurs et les faits clés sur l’agence."
       },
       "hardening": {
-        "title": "Aussi : harden",
-        "desc": "Des agents IA pour durcir votre produit et votre SI."
+        "title": "Agents IA pour durcir produit et SI",
+        "desc": "Aussi : harden. Des agents qui scrutent secrets, dépendances, IAM et configs, en continu."
       }
     },
     "caseLink": "Un projet sur données de santé ? Voir notre page <link>IA santé & HDS</link>."
