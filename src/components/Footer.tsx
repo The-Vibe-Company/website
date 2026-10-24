@@ -3,6 +3,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
+import { FOOTER_OFFERINGS } from "@/lib/footer-offerings";
 import { PRIORITY_ARTICLES } from "@/lib/priority-articles";
 import { ABOUT_PATHS, splitPath } from "@/lib/site";
 
@@ -77,12 +78,17 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
       : []),
   ];
 
+  const offeringLinks: NavLink[] = FOOTER_OFFERINGS.map(({ key, paths }) => ({
+    label: t(`offerings.${key}`),
+    href: splitPath(paths, locale),
+  }));
+
   return (
     <footer className="border-t-2 border-foreground bg-foreground text-background">
       <div className="mx-auto max-w-[120rem] px-6 pb-6 pt-12 md:px-12 md:pt-20">
-        {/* On a phone the two link lists sit side by side under the wordmark:
+        {/* On a phone the link lists sit two by two under the wordmark:
             stacked, the footer alone ran past a full screen. */}
-        <div className="mb-12 grid grid-cols-2 gap-x-6 gap-y-10 md:mb-16 md:grid-cols-[2fr_1fr_1fr] md:gap-12">
+        <div className="mb-12 grid grid-cols-2 gap-x-6 gap-y-10 md:mb-16 md:grid-cols-[2fr_1fr_1fr_1fr] md:gap-12">
           <div className="col-span-2 flex flex-col md:col-span-1">
             <h2 className="m-0 mb-4 text-5xl font-bold leading-[0.9] tracking-[-0.04em] md:text-[56px]">
               The Vibe Co.
@@ -104,6 +110,19 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
             </div>
             <ul className="m-0 flex list-none flex-col gap-0.5 p-0 md:gap-2">
               {siteLinks.map((link) => (
+                <li key={link.href}>
+                  <FooterLink link={link} />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
+              {t("offeringsHeading")}
+            </div>
+            <ul className="m-0 flex list-none flex-col gap-0.5 p-0 md:gap-2">
+              {offeringLinks.map((link) => (
                 <li key={link.href}>
                   <FooterLink link={link} />
                 </li>
