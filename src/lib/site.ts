@@ -61,6 +61,12 @@ export const AGENCY_PARIS_PATHS: SplitPaths = {
   en: "/ai-agency-paris",
 };
 
+/** The healthcare AI landing: AI products built to GDPR and HDS requirements. */
+export const HEALTHCARE_AI_PATHS: SplitPaths = {
+  fr: "/ia-sante-hds",
+  en: "/healthcare-ai-hds",
+};
+
 export type SplitPathRoute = Omit<SiteRoute, "path"> & { paths: SplitPaths };
 
 export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
@@ -85,6 +91,14 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
     title: "AI agents to harden your product & stack",
     description:
       "The Vibe Company deploys AI agents that harden a product and its infrastructure: secrets, dependencies, IAM, configs and security PR review, with a human signing off on critical changes.",
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
+    paths: HEALTHCARE_AI_PATHS,
+    title: "Healthcare AI & HDS",
+    description:
+      "The Vibe Company builds AI products and agents on French health data, to GDPR and HDS requirements, inside the client's HDS environment. The Monka case: in production in two months.",
     changeFrequency: "monthly",
     priority: 0.8,
   },
