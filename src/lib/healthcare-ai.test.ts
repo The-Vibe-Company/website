@@ -36,7 +36,7 @@ describe("healthcare AI landing", () => {
   });
 
   test("keeps the briefed title, meta description and H1", () => {
-    expect(MESSAGES.fr.metaTitle).toBe("IA santé & HDS : projets en production | The Vibe Company");
+    expect(MESSAGES.fr.metaTitle).toBe("IA santé et HDS : projets en production | The Vibe Company");
     expect(MESSAGES.fr.metaDescription).toBe(
       "Projets IA sur données de santé, livrés selon les exigences RGPD et HDS. Cas Monka (prod en 2 mois). Agence IA Paris, YC W24. RDV sous 24 h.",
     );
@@ -106,12 +106,22 @@ describe("healthcare AI landing", () => {
     }
   });
 
-  test("the whole FAQ goes into the FAQPage markup", () => {
+  test("quotes Étienne word for word from the case study, with the dash attribution in French", () => {
+    const quote = getCustomer(HEALTHCARE_CASE_SLUG, "fr")!.quote!;
+    const rendered = `« ${quote.text} » ${fr.healthcareAi.proof.quoteAttribution.replace("{author}", quote.author)}`;
+    expect(rendered).toBe(
+      "« Travailler avec The Vibe Company est très différent d'une relation classique avec une agence. Ils ne se contentent pas d'exécuter un brief : ils challengent, structurent, prototypent et construisent avec nous. Ils apportent à la fois une vraie vision produit, une forte expertise IA et un pragmatisme rare pour transformer des sujets complexes en solutions concrètes, utiles et rapidement déployées chez Monka. » — Étienne, CEO et cofondateur de Monka",
+    );
+  });
+
+  test("the whole FAQ goes into the FAQPage markup, without its link tags", () => {
     for (const messages of Object.values(MESSAGES)) {
       const items = HEALTHCARE_FAQ_KEYS.map((key) => ({
         question: messages.faq.items[key].q,
-        answer: messages.faq.items[key].a,
+        // What `t.markup` returns with pass-through tags.
+        answer: messages.faq.items[key].a.replace(/<\/?(hds|agency|hardening)>/g, ""),
       }));
+      for (const item of items) expect(item.answer).not.toMatch(/[<>]/);
       for (const item of items) {
         expect(isPublishable(item.question)).toBe(true);
         expect(isPublishable(item.answer)).toBe(true);

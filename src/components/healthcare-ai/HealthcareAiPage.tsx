@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 
 import { Footer } from "@/components/Footer";
@@ -69,10 +70,19 @@ const H2 =
 const MONO =
   "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
 const PROSE = "m-0 text-[15px] leading-[1.6] text-muted-foreground md:text-base";
+const TEXT_LINK =
+  "text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
 const MONO_LINK =
   "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
 const CARD_HOVER =
   "transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]";
+
+/** The FAQ answers' link tags, kept as plain text for the JSON-LD. */
+const FAQ_PLAIN_TAGS = {
+  hds: (chunks: string) => chunks,
+  agency: (chunks: string) => chunks,
+  hardening: (chunks: string) => chunks,
+};
 
 export async function HealthcareAiPage({ locale }: { locale: string }) {
   const contentLocale: ContentLocale = locale === "en" ? "en" : "fr";
@@ -86,6 +96,23 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
   const monka = getCustomer(HEALTHCARE_CASE_SLUG, contentLocale);
   const secondary = getCustomer(HEALTHCARE_SECONDARY_CASE_SLUG, contentLocale);
   const monkaPath = `/case-studies/${HEALTHCARE_CASE_SLUG}`;
+  const faqLinks = {
+    hds: (chunks: ReactNode) => (
+      <Link href={hdsArticle} className={TEXT_LINK}>
+        {chunks}
+      </Link>
+    ),
+    agency: (chunks: ReactNode) => (
+      <Link href={splitPath(AGENCY_PARIS_PATHS, locale)} className={TEXT_LINK}>
+        {chunks}
+      </Link>
+    ),
+    hardening: (chunks: ReactNode) => (
+      <Link href={splitPath(HARDENING_PATHS, locale)} className={TEXT_LINK}>
+        {chunks}
+      </Link>
+    ),
+  };
 
   const jsonLd = [
     webPageNode({
@@ -101,7 +128,8 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
     faqPageSchema(
       HEALTHCARE_FAQ_KEYS.map((key) => ({
         question: t(`faq.items.${key}.q`),
-        answer: t(`faq.items.${key}.a`),
+        // The answers' inline links, dropped to the text the reader sees.
+        answer: t.markup(`faq.items.${key}.a`, FAQ_PLAIN_TAGS),
       })),
     ),
     serviceNode({
@@ -310,14 +338,16 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                       <p className={`${PROSE} mt-2 max-w-[68ch]`}>
                         {t(`hds.items.${key}.desc`)}
                       </p>
+                      {key === "ai" ? (
+                        <Link href={hdsArticle} className={`${MONO_LINK} mt-4`}>
+                          {t("hds.articleLink")}
+                          <span aria-hidden="true">→</span>
+                        </Link>
+                      ) : null}
                     </div>
                   </article>
                 ))}
               </div>
-              <Link href={hdsArticle} className={`${MONO_LINK} mt-8`}>
-                {t("hds.articleLink")}
-                <span aria-hidden="true">→</span>
-              </Link>
             </div>
           </div>
         </section>
@@ -371,7 +401,9 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                     <blockquote className="m-0 text-[15px] leading-[1.6] text-foreground">
                       {locale === "fr" ? `« ${monka.quote.text} »` : `“${monka.quote.text}”`}
                     </blockquote>
-                    <figcaption className={`mt-3 ${MONO}`}>{monka.quote.author}</figcaption>
+                    <figcaption className={`mt-3 ${MONO}`}>
+                      {t("proof.quoteAttribution", { author: monka.quote.author })}
+                    </figcaption>
                   </figure>
                 ) : null}
               </div>
@@ -484,7 +516,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                 <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
                   {t(`faq.items.${key}.q`)}
                 </h3>
-                <p className={`${PROSE} max-w-[70ch]`}>{t(`faq.items.${key}.a`)}</p>
+                <p className={`${PROSE} max-w-[70ch]`}>{t.rich(`faq.items.${key}.a`, faqLinks)}</p>
               </article>
             ))}
           </div>
@@ -550,7 +582,9 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
           </div>
         </section>
 
-        <FinalCTA />
+        {/* The French page closes on its own line; the English one keeps the
+            site-wide closing. */}
+        <FinalCTA namespace={locale === "fr" ? "healthcareAi.finalCta" : undefined} />
       </main>
       <Footer />
     </div>

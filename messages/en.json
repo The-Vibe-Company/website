@@ -1142,7 +1142,8 @@
       "readCase": "Monka case",
       "otherLabel": "Outside healthcare, also in production",
       "other": "LocService: an agent drafts the reply to every ticket, connected to internal APIs; a human reviews and decides. Drafts used on 87% of tickets.",
-      "otherLink": "Read the LocService case"
+      "otherLink": "Read the LocService case",
+      "quoteAttribution": "{author}"
     },
     "method": {
       "title": "How we start a healthcare AI project",

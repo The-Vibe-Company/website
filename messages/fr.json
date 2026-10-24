@@ -1022,10 +1022,10 @@
   },
   "healthcareAi": {
     "kicker": "// IA SANTÉ · EXIGENCES HDS",
-    "metaTitle": "IA santé & HDS : projets en production | The Vibe Company",
+    "metaTitle": "IA santé et HDS : projets en production | The Vibe Company",
     "metaDescription": "Projets IA sur données de santé, livrés selon les exigences RGPD et HDS. Cas Monka (prod en 2 mois). Agence IA Paris, YC W24. RDV sous 24 h.",
     "title": "IA santé et HDS : on construit vos produits jusqu'en production",
-    "lede": "The Vibe Company construit des produits et agents IA pour la santé : app, CRM, moteurs cliniques, API partenaires — dans l’environnement HDS et le cadre RGPD de nos clients. On n’est pas un hébergeur certifié HDS : on livre vite et proprement là où vos données de santé doivent rester.",
+    "lede": "The Vibe Company construit des produits et agents IA pour la santé : app, CRM, moteurs cliniques, API partenaires, dans l’environnement HDS et le cadre RGPD de nos clients. On n’est pas un hébergeur certifié HDS. On livre vite et proprement là où vos données de santé doivent rester.",
     "bookCall": "Prendre 30 minutes",
     "response": "Réponse sous 24 h",
     "breadcrumb": "IA santé & HDS",
@@ -1035,7 +1035,7 @@
         "monka": "Cas public Monka : app aidants, Lifeline et moteur clinique, en production en 2 mois, dans l’environnement HDS déjà en place chez le client.",
         "cadence": "Des cycles courts : chez Monka, une nouvelle version de l’app tous les deux jours environ.",
         "agency": "Agence IA à Paris, YC W24 (Quivr est devenu The Vibe Company).",
-        "framework": "On travaille selon les exigences RGPD et HDS, sans revendiquer de certification que nous n’avons pas."
+        "framework": "On travaille selon les exigences RGPD et HDS, sans revendiquer de certification qu’on n’a pas."
       },
       "caseLabel": "Cas client santé",
       "caseLink": "Lire le cas Monka"
@@ -1057,11 +1057,11 @@
       },
       "signalsLabel": "Les signaux",
       "signals": [
-        "Un bilan ou un questionnaire clinique à transformer en parcours.",
-        "Un CRM pour des soignants ou des infirmières de coordination.",
-        "Des API à ouvrir à des partenaires, assureurs ou mutuelles.",
-        "Un LLM à brancher sur des données de santé.",
-        "La peur de « sortir » du périmètre HDS en allant vite."
+        "Un bilan ou un questionnaire clinique à transformer en parcours",
+        "Un CRM pour des soignants ou des infirmières de coordination",
+        "Des API à ouvrir à des partenaires, assureurs ou mutuelles",
+        "Un LLM à brancher sur des données de santé",
+        "La peur de « sortir » du périmètre HDS en allant vite"
       ]
     },
     "offer": {
@@ -1116,7 +1116,7 @@
         },
         "environment": {
           "title": "On construit dans votre environnement",
-          "desc": "Votre hébergeur HDS est souvent déjà choisi. On développe à l’intérieur, avec les accès que vous nous ouvrez, et le code, les logs et les environnements de test y restent."
+          "desc": "Votre hébergeur HDS est souvent déjà choisi. On développe à l’intérieur, avec les accès que vous ouvrez, et le code, les logs et les environnements de test y restent."
         },
         "ai": {
           "title": "Les points de vigilance IA, traités en conception",
@@ -1127,7 +1127,7 @@
           "desc": "L’HDS couvre l’hébergement. Le RGPD couvre tout le traitement : finalité, minimisation, durée de conservation, droits des personnes."
         }
       },
-      "articleLink": "Ce que l’HDS impose vraiment"
+      "articleLink": "Détail : ce que l’HDS impose vraiment"
     },
     "proof": {
       "title": "Ce qu’on a livré chez Monka",
@@ -1141,9 +1141,10 @@
         "Des données de santé chiffrées et conformes au RGPD, dans l’environnement HDS déjà en place chez Monka. On n’en est pas sortis."
       ],
       "readCase": "Cas Monka",
-      "otherLabel": "Hors santé, aussi en production",
-      "other": "LocService : un agent rédige le brouillon de réponse à chaque ticket, connecté aux API internes ; l’humain relit et décide. Brouillons utilisés sur 87 % des tickets.",
-      "otherLink": "Lire le cas LocService"
+      "otherLabel": "LocService",
+      "other": "Aussi, hors santé, pour la cadence de shipping : chez LocService, nos brouillons IA sont utilisés sur 87 % des tickets support.",
+      "otherLink": "Cas LocService",
+      "quoteAttribution": "— {author}"
     },
     "method": {
       "title": "Comment on démarre un projet IA santé",
@@ -1181,7 +1182,7 @@
         },
         "needCertification": {
           "q": "Faut-il être certifié HDS pour lancer un produit IA santé ?",
-          "a": "Souvent, c’est l’hébergeur (et parfois l’éditeur, selon qui a les accès) qui est dans le périmètre. On clarifie la répartition des activités dès le cadrage. Le détail est dans notre article sur l’HDS."
+          "a": "Souvent, c’est l’hébergeur (et parfois l’éditeur, selon qui a les accès) qui est dans le périmètre. On clarifie la répartition des activités dès le cadrage. Le détail est dans <hds>notre article sur l’HDS</hds>."
         },
         "timeline": {
           "q": "Combien de temps jusqu’en production ?",
@@ -1197,7 +1198,7 @@
         },
         "otherPages": {
           "q": "Quel lien avec vos pages agence IA à Paris et agents de durcissement ?",
-          "a": "La page agence IA à Paris présente l’offre générale. La page sur les agents de durcissement parle d’agents qui durcissent un produit et un SI. Cette page porte sur le secteur santé et le cadre HDS."
+          "a": "<agency>La page agence IA à Paris</agency> présente l’offre générale. <hardening>La page sur les agents de durcissement</hardening> parle d’agents qui durcissent un produit et un SI. Cette page porte sur le secteur santé et le cadre HDS."
         }
       }
     },
@@ -1222,6 +1223,15 @@
         "desc": "Aussi : harden. Des agents qui scrutent secrets, dépendances, IAM et configs, en continu."
       }
     },
-    "caseLink": "Un projet sur données de santé ? Voir notre page <link>IA santé & HDS</link>."
+    "caseLink": "Un projet sur données de santé ? Voir notre page <link>IA santé & HDS</link>.",
+    "finalCta": {
+      "kicker": "IA SANTÉ",
+      "titleLine1": "Un projet IA santé",
+      "titleLine2": "à cadrer ?",
+      "bookCall": "Prendre 30 minutes",
+      "responseLabel": "RÉPONSE",
+      "responseValue": "SOUS 24 H",
+      "emailLabel": "EMAIL"
+    }
   }
 }
