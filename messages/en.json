@@ -200,6 +200,7 @@
     },
     "tagline": "An AI native agency. Paris.",
     "siteHeading": "SITE",
+    "offeringsHeading": "OFFERINGS",
     "elsewhereHeading": "ELSEWHERE",
     "madeInFrance": "Made in France",
     "home": "Home",
@@ -208,7 +209,13 @@
     "mission": "Mission",
     "builtWithAi": "Built with AI",
     "openToProjects": "Open to projects",
-    "about": "About"
+    "about": "About",
+    "offerings": {
+      "agencyParis": "AI agency Paris",
+      "hardening": "AI agents product hardening",
+      "healthcareAi": "Healthcare AI / HDS",
+      "agentsProduction": "AI agents in production"
+    }
   },
   "caseStudiesPage": {
     "kicker": "// CLIENT WORK",

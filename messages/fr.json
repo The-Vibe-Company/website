@@ -200,6 +200,7 @@
     },
     "tagline": "Une agence née avec l'IA. Paris.",
     "siteHeading": "SITE",
+    "offeringsHeading": "OFFRES",
     "elsewhereHeading": "RÉSEAUX",
     "madeInFrance": "Fabriqué en France",
     "home": "Accueil",
@@ -208,7 +209,13 @@
     "mission": "Mission",
     "builtWithAi": "Construit avec l'IA",
     "openToProjects": "Ouvert aux projets",
-    "about": "À propos"
+    "about": "À propos",
+    "offerings": {
+      "agencyParis": "Agence IA Paris",
+      "hardening": "Agents IA sécurité produit",
+      "healthcareAi": "IA santé / HDS",
+      "agentsProduction": "Agents IA en production"
+    }
   },
   "caseStudiesPage": {
     "kicker": "// PROJETS CLIENTS",
