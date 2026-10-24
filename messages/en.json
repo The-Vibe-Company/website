@@ -113,8 +113,9 @@
         "bullets": [
           "Product and technical discovery",
           "Architecture and development in short cycles",
-          "Secure production: GDPR and HDS",
-          "Observability, documentation, and team handoff"
+          "Agents that harden product and IT: secrets, dependencies, IAM, configs, security PR review",
+          "Shipped with observability, runbooks and access controls from sprint one",
+          "Built to GDPR and HDS requirements when the domain calls for it (healthcare)"
         ]
       },
       "operate": {
@@ -196,7 +197,8 @@
     "priorityArticles": {
       "chooseAgency": "How to choose an AI agency",
       "healthData": "AI and health data (HDS) in France",
-      "aiNative": "What is an AI-native agency"
+      "aiNative": "What is an AI-native agency",
+      "blackOctober": "Black October: securing AI agents"
     },
     "tagline": "An AI native agency. Paris.",
     "siteHeading": "SITE",

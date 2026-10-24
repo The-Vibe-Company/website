@@ -113,8 +113,9 @@
         "bullets": [
           "Cadrage produit et technique",
           "Architecture et développement par cycles courts",
-          "Production sécurisée : RGPD et HDS",
-          "Observabilité, documentation et passation à vos équipes"
+          "Agents qui durcissent produit et SI : secrets, dépendances, IAM, configs, review sécurité des PR",
+          "Mise en prod avec observabilité, runbooks et contrôles d’accès dès le premier sprint",
+          "Exigences RGPD et HDS prises en compte quand le métier l’impose (santé)"
         ]
       },
       "operate": {
@@ -196,7 +197,8 @@
     "priorityArticles": {
       "chooseAgency": "Comment choisir une agence IA",
       "healthData": "IA et données de santé (HDS)",
-      "aiNative": "Qu’est-ce qu’une agence IA native"
+      "aiNative": "Qu’est-ce qu’une agence IA native",
+      "blackOctober": "Black October : sécuriser ses agents IA"
     },
     "tagline": "Une agence née avec l'IA. Paris.",
     "siteHeading": "SITE",
