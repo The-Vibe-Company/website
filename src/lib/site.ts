@@ -49,6 +49,21 @@ export type SplitPaths = { fr: string; en: string };
 
 export const ABOUT_PATHS: SplitPaths = { fr: "/a-propos", en: "/about" };
 
+/** The service landing on hardening a product and its stack with AI agents. */
+export const HARDENING_PATHS: SplitPaths = {
+  fr: "/agents-ia-securite-produit",
+  en: "/ai-agents-product-hardening",
+};
+
+/**
+ * The "AI agency in Paris" landing. Linked from the hardening landing before
+ * it ships: until then the link resolves to the localized 404.
+ */
+export const AGENCY_PARIS_PATHS: SplitPaths = {
+  fr: "/agence-ia-paris",
+  en: "/ai-agency-paris",
+};
+
 export type SplitPathRoute = Omit<SiteRoute, "path"> & { paths: SplitPaths };
 
 export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
@@ -59,6 +74,14 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
       "Who The Vibe Company is: an AI-first agency in Paris, YC W24, with the key facts about the company, its team, and how it works.",
     changeFrequency: "monthly",
     priority: 0.7,
+  },
+  {
+    paths: HARDENING_PATHS,
+    title: "AI agents to harden your product & stack",
+    description:
+      "The Vibe Company deploys AI agents that harden a product and its infrastructure: secrets, dependencies, IAM, configs and security PR review, with a human signing off on critical changes.",
+    changeFrequency: "monthly",
+    priority: 0.8,
   },
 ];
 

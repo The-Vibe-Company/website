@@ -76,4 +76,22 @@ describe("sitemap", () => {
       "x-default": `${SITE}/fr/a-propos`,
     });
   });
+
+  test("lists the hardening landing on its translated paths, with x-default", () => {
+    const entries = sitemap().filter((entry) =>
+      /\/(agents-ia-securite-produit|ai-agents-product-hardening)$/.test(entry.url),
+    );
+
+    expect(entries.map((entry) => entry.url).sort()).toEqual([
+      `${SITE}/en/ai-agents-product-hardening`,
+      `${SITE}/fr/agents-ia-securite-produit`,
+    ]);
+    for (const entry of entries) {
+      expect(entry.alternates?.languages).toEqual({
+        fr: `${SITE}/fr/agents-ia-securite-produit`,
+        en: `${SITE}/en/ai-agents-product-hardening`,
+        "x-default": `${SITE}/fr/agents-ia-securite-produit`,
+      });
+    }
+  });
 });

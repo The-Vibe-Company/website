@@ -11,14 +11,21 @@ import { captureEvent } from "@/lib/posthog";
  * About page can be told apart from the homepage CTAs (which fire
  * `discovery_call_clicked` and `contact_cta_clicked`).
  */
-export function AboutBookingCta({ page = "about" }: { page?: string }) {
+export function AboutBookingCta({
+  page = "about",
+  location = "cta_about",
+}: {
+  page?: string;
+  /** `booking_link_clicked` location, one per page that renders this slab. */
+  location?: string;
+}) {
   const t = useTranslations("about");
 
   return (
     <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 md:mt-10">
       <a
         href={BOOKING_URL}
-        {...bookingLocation("cta_about")}
+        {...bookingLocation(location)}
         onClick={() => captureEvent("cta_booking_click", { page })}
         className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-6 py-4 text-[15px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)] md:px-7 md:py-5 md:text-[17px]"
       >

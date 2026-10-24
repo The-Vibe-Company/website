@@ -111,4 +111,6 @@ On [php.net](https://www.php.net/) and in the [PHP Foundation post](https://thep
 
 The Vibe Company is an AI agency in Paris (YC, Quivr pivot). We help teams ship useful agents into secure production: authority, secrets, observability, and HDS framing when the data requires it.
 
+The other side of the topic: using agents to harden your product and your infrastructure (secrets, dependencies, IAM, configs, pull request review). That is what our page on [AI agents to harden your product and stack](/en/ai-agents-product-hardening) covers.
+
 [Book an agent architecture / secure production audit →](https://cal.com/stangirard/thevibecompany)

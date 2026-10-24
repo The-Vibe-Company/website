@@ -111,4 +111,6 @@ Sur [php.net](https://www.php.net/) et dans le billet de la [PHP Foundation](htt
 
 The Vibe Company est une agence IA à Paris (YC, pivot Quivr). On aide les équipes à passer des agents utiles en production sécurisée : autorité, secrets, observabilité, et cadre HDS quand les données l'exigent.
 
+L'autre versant du sujet : utiliser des agents pour durcir votre produit et votre SI (secrets, dépendances, IAM, configs, review des pull requests). C'est l'objet de notre page [Agents IA pour durcir produit et SI](/fr/agents-ia-securite-produit).
+
 [Réserver un audit architecture agents / prod sécurisée →](https://cal.com/stangirard/thevibecompany)

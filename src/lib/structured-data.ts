@@ -183,6 +183,62 @@ export function articleSchema({
   };
 }
 
+/** A page as a WebPage node, part of the site and about the agency. */
+export function webPageSchema({
+  url,
+  name,
+  description,
+  language,
+}: {
+  url: string;
+  name: string;
+  description: string;
+  language: string;
+}): JsonLdNode {
+  return {
+    "@context": SCHEMA_CONTEXT,
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name,
+    ...(isPublishable(description) ? { description } : {}),
+    inLanguage: language,
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": ORGANIZATION_ID },
+  };
+}
+
+/**
+ * A service the agency sells, provided by the Organization node. Only the name,
+ * type, and a publishable description: no offers, prices or certifications.
+ */
+export function serviceSchema({
+  url,
+  name,
+  serviceType,
+  description,
+  language,
+}: {
+  url: string;
+  name: string;
+  serviceType: string;
+  description: string;
+  language: string;
+}): JsonLdNode {
+  return {
+    "@context": SCHEMA_CONTEXT,
+    "@type": "Service",
+    "@id": `${url}#service`,
+    url,
+    name,
+    serviceType,
+    ...(isPublishable(description) ? { description } : {}),
+    inLanguage: language,
+    provider: { "@id": ORGANIZATION_ID },
+    areaServed: { "@type": "Country", name: "France" },
+  };
+}
+
 export type FaqItem = { question: string; answer: string };
 
 /**
