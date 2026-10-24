@@ -112,4 +112,6 @@ With one high-volume process, accessible data and a human who already reviews th
 
 Got a process in mind, or a pilot that won't reach production? Bring the volume, the tools in place and what's blocking. We'll tell you honestly whether an agent is the right answer, and if not, what you need instead.
 
+Want us to deploy it with you, from scoping to the daily run? That is what our [AI agents in production](/en/ai-agents-in-production) offer covers.
+
 [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).

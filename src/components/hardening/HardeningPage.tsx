@@ -28,6 +28,7 @@ import {
 import {
   ABOUT_PATHS,
   AGENCY_PARIS_PATHS,
+  AGENTS_PRODUCTION_PATHS,
   HARDENING_PATHS,
   localizedSocialMetadata,
   localizedUrl,
@@ -401,6 +402,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
               <div className="mt-4 grid grid-cols-1 gap-5">
                 {(
                   [
+                    { key: "agentsProduction", href: splitPath(AGENTS_PRODUCTION_PATHS, locale) },
                     { key: "agency", href: splitPath(AGENCY_PARIS_PATHS, locale) },
                     { key: "about", href: splitPath(ABOUT_PATHS, locale) },
                   ] as const

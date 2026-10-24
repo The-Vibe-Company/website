@@ -55,6 +55,12 @@ export const HARDENING_PATHS: SplitPaths = {
   en: "/ai-agents-product-hardening",
 };
 
+/** The service landing on taking a company's AI agents from POC to production. */
+export const AGENTS_PRODUCTION_PATHS: SplitPaths = {
+  fr: "/agents-ia-production",
+  en: "/ai-agents-in-production",
+};
+
 /** The commercial "AI agency in Paris" landing page. */
 export const AGENCY_PARIS_PATHS: SplitPaths = {
   fr: "/agence-ia-paris",
@@ -91,6 +97,14 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
     title: "AI agents to harden your product & stack",
     description:
       "The Vibe Company deploys AI agents that harden a product and its infrastructure: secrets, dependencies, IAM, configs and security PR review, with a human signing off on critical changes.",
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
+    paths: AGENTS_PRODUCTION_PATHS,
+    title: "AI agents in production",
+    description:
+      "The Vibe Company takes a company's AI agents from POC to daily production: workflow scoping, skills wired into existing tools, authority and guardrails, measurement and handoff.",
     changeFrequency: "monthly",
     priority: 0.8,
   },
