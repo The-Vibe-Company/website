@@ -105,4 +105,6 @@ Decide before you ship. Either your team takes over (docs, runbook, training), o
 
 You have a pilot that works in a demo. You want to know whether it is ready for production — or how to build it so that it will be. Bring your use case, your constraints, and what “success” means for you.
 
+We apply this checklist with you: that is our [AI agents in production](/en/ai-agents-in-production) offer, from the instrumented pilot to the daily run.
+
 [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).

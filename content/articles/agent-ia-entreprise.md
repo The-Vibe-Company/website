@@ -112,4 +112,6 @@ Par un seul processus à fort volume, avec des données accessibles et un humain
 
 Vous avez un processus en tête, ou un pilote qui ne passe pas en production ? Venez avec le volume, les outils en place et ce qui bloque. On vous dit franchement si un agent est la bonne réponse, et sinon ce qu'il faut à la place.
 
+Vous voulez qu'on le déploie avec vous, du cadrage au run quotidien ? C'est l'objet de notre offre [Agents IA en production](/fr/agents-ia-production).
+
 [Réservez 30 minutes avec Stan](https://cal.com/stangirard/thevibecompany).

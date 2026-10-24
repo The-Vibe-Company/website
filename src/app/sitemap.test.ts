@@ -112,4 +112,22 @@ describe("sitemap", () => {
       });
     }
   });
+
+  test("lists the agents in production landing on its translated paths, with x-default", () => {
+    const entries = sitemap().filter((entry) =>
+      /\/(agents-ia-production|ai-agents-in-production)$/.test(entry.url),
+    );
+
+    expect(entries.map((entry) => entry.url).sort()).toEqual([
+      `${SITE}/en/ai-agents-in-production`,
+      `${SITE}/fr/agents-ia-production`,
+    ]);
+    for (const entry of entries) {
+      expect(entry.alternates?.languages).toEqual({
+        fr: `${SITE}/fr/agents-ia-production`,
+        en: `${SITE}/en/ai-agents-in-production`,
+        "x-default": `${SITE}/fr/agents-ia-production`,
+      });
+    }
+  });
 });

@@ -626,6 +626,10 @@
       "about": {
         "title": "Qui sommes-nous",
         "desc": "L’équipe, les fondateurs et les faits clés sur l’agence."
+      },
+      "agentsProduction": {
+        "title": "Agents IA en production",
+        "desc": "Des agents métier branchés sur vos outils, du POC au run quotidien."
       }
     }
   },
@@ -842,7 +846,8 @@
         "operate": {
           "label": "Piloter",
           "title": "Agents & automatisation",
-          "desc": "Audit de vos workflows, création des skills, connexion à vos outils (CRM, support, docs, API), déploiement sécurisé des agents et mesure du temps gagné."
+          "desc": "Audit de vos workflows, création des skills, connexion à vos outils (CRM, support, docs, API), déploiement sécurisé des agents et mesure du temps gagné.",
+          "link": "Agents IA en production"
         },
         "advise": {
           "label": "Conseiller",
@@ -1019,5 +1024,203 @@
     "homeLink": "Voir notre page Agence IA à Paris",
     "caseLink": "The Vibe Company est une <link>agence IA à Paris</link> : produits IA, agents et formation, jusqu’en production.",
     "aboutLink": "Notre page Agence IA à Paris"
+  },
+  "agentsProduction": {
+    "kicker": "// AGENTS · POC → PRODUCTION",
+    "metaTitle": "Agents IA en production : du POC au run | The Vibe Company",
+    "metaDescription": "Déployez des agents IA en entreprise jusqu'en production : outils, garde-fous, mesure, passation. Cas LocService (87 % des tickets). Agence Paris, YC W24.",
+    "title": "Agents IA en entreprise : on les mène jusqu'en production",
+    "lede": "Beaucoup d’agents IA restent au stade de la démo. Chez The Vibe Company, on les branche sur vos outils, on pose les garde-fous (autorité, droits, humain dans la boucle) et on les amène jusqu’au run quotidien — avec une mesure claire du temps gagné.",
+    "hero": {
+      "label": "Ce qu’on met en place",
+      "items": {
+        "tools": "Audit de vos workflows, puis des skills branchés sur vos outils : CRM, support, docs, API.",
+        "guardrails": "Des garde-fous : moindre privilège, et un humain sur tout ce qui part (chez LocService, l’agent rédige des brouillons).",
+        "measure": "Une mesure avant/après, puis la documentation et la passation — ou on continue d’opérer avec vous.",
+        "team": "La même équipe YC W24 qui met des produits IA en production (LocService, Monka, Coup de Pates…)."
+      }
+    },
+    "breadcrumb": "Agents IA en production",
+    "service": {
+      "name": "Déploiement d'agents IA en production",
+      "description": "Le déploiement d’agents IA métier dans l’entreprise, du POC au run quotidien : cadrage du premier workflow, skills connectés aux outils existants, autorité et garde-fous, mémoire et contexte, observabilité, run et passation. Les actions sensibles restent validées par un humain."
+    },
+    "problem": {
+      "title": "Le POC ne meurt pas faute de modèle — il meurt faute de prod",
+      "p1": "La démo marche. Puis viennent les vraies questions : quels droits donner à l’agent, sur quels outils (dont les API changent ou tombent), qui en est propriétaire quand il se trompe, et quelle métrique dit qu’il est utile. Faute de réponse, personne n’ose le laisser agir, et le pilote reste un pilote.",
+      "p2": "Les COO, les responsables support et les CTO produit n’attendent pas un slide de plus. Ils veulent un premier agent utile en conditions réelles, branché sur leurs systèmes, que leurs équipes utilisent chaque jour.",
+      "p3": "Vous découvrez le sujet ? Commencez par notre <link>guide de l’agent IA en entreprise</link>. Cette page décrit comment on le déploie avec vous."
+    },
+    "offer": {
+      "title": "Ce qu’inclut un déploiement d’agents chez vous",
+      "intro": "Six briques, livrées dans votre environnement et sur vos outils. Pas un silo de chat de plus : un agent qui travaille là où vos équipes travaillent déjà.",
+      "items": {
+        "scope": {
+          "tag": "Cadrage",
+          "title": "Cadrage du premier workflow",
+          "desc": "On cherche où le temps part vraiment, avec une grille simple : volume × répétitivité × risque. On retient un workflow, pas dix.",
+          "link": "Quels processus automatiser en premier"
+        },
+        "skills": {
+          "tag": "Skills · Outils",
+          "title": "Skills et outils",
+          "desc": "Des skills versionnés et des connexions à vos systèmes existants : CRM, outil de support, base documentaire, API internes."
+        },
+        "authority": {
+          "tag": "Autorité",
+          "title": "Autorité et garde-fous",
+          "desc": "Ce que l’agent peut lire, proposer et faire, écrit noir sur blanc. Les actions sensibles passent par une validation humaine.",
+          "link": "L’autorité des agents IA"
+        },
+        "memory": {
+          "tag": "Contexte",
+          "title": "Mémoire et contexte",
+          "desc": "Tickets, documentation, historique client : l’agent s’appuie sur votre contexte réel, dans le périmètre décidé ensemble, et pas au-delà."
+        },
+        "observability": {
+          "tag": "Observabilité",
+          "title": "Observabilité",
+          "desc": "Logs de chaque action, taux d’acceptation des propositions, escalades vers l’humain : on voit ce que l’agent fait et ce qu’il rapporte."
+        },
+        "run": {
+          "tag": "Run",
+          "title": "Run et passation",
+          "desc": "Runbooks, formation de vos équipes ou co-exploitation : l’agent a un propriétaire le jour où il passe en production."
+        }
+      },
+      "complement": "Complémentaire de nos <hardening>agents pour durcir produit et SI</hardening> (la sécurité de votre stack) et de notre article sur <authority>l’autorité des agents IA</authority> (ce qu’un agent a le droit de faire)."
+    },
+    "method": {
+      "title": "De la démo au run quotidien",
+      "intro": "On ne passe pas d’un POC à la production d’un coup. On élargit le périmètre au rythme où la confiance se construit, mesures à l’appui.",
+      "stepsLabel": "Six étapes",
+      "steps": {
+        "call": {
+          "label": "Appel",
+          "title": "Un appel de 30 minutes",
+          "desc": "Le processus candidat, les outils en place, le niveau de risque. À la fin de l’appel, vous savez si un premier agent tient la route chez vous."
+        },
+        "scope": {
+          "label": "Cadrage",
+          "title": "Un cadrage à périmètre fixe",
+          "desc": "Un seul workflow, et des critères de succès mesurables posés avant d’écrire la première ligne."
+        },
+        "pilot": {
+          "label": "Pilote",
+          "title": "Un pilote instrumenté",
+          "desc": "L’agent tourne dans des conditions proches du réel, souvent en brouillon d’abord : il propose, votre équipe décide."
+        },
+        "scale": {
+          "label": "Montée en charge",
+          "title": "Élargir quand les chiffres tiennent",
+          "desc": "On élargit le périmètre seulement quand l’acceptation humaine et les métriques tiennent. Pas avant."
+        },
+        "production": {
+          "label": "Production",
+          "title": "Une production sécurisée",
+          "desc": "Droits revus, documentation à jour, et les exigences RGPD et HDS respectées quand le contexte l’exige."
+        },
+        "handover": {
+          "label": "Passation",
+          "title": "Passation ou run conjoint",
+          "desc": "Votre équipe reprend l’agent avec les runbooks et la formation, ou on continue à l’opérer avec vous."
+        }
+      },
+      "ctaTitle": "Un POC qui dort dans un coin ? On part de ce qui existe et on l’amène jusqu’au run, avec vos équipes.",
+      "checklist": "La checklist complète avant le Go production"
+    },
+    "proof": {
+      "title": "Agents déjà en conditions réelles",
+      "intro": "Des cas publiés sur ce site, avec leurs chiffres. Rien d’autre.",
+      "cases": {
+        "locservice": "Un agent rédige le brouillon de réponse à chaque ticket, connecté aux API internes, sur des centaines de tickets par jour. L’humain relit et décide : les brouillons sont utilisés sur 87 % des tickets.",
+        "coup-de-pates": "Des skills IA de contrôle qualité qui vérifient les documents produit (étiquettes, cahiers des charges) et relèvent chaque écart, en plus d’Ensemble, l’app RSE des collaborateurs.",
+        "theodo": "Expert technique intégré aux équipes de Theodo : des Software Factories pour des centaines de développeurs, avec des agents et des skills standardisés."
+      },
+      "readCase": "Lire le cas"
+    },
+    "not": {
+      "title": "Ce que ce n’est pas",
+      "items": {
+        "chatbot": {
+          "title": "Pas un chatbot générique",
+          "desc": "Un chat sans outils ni contexte ne change pas le travail de vos équipes. Ici, l’agent est branché sur vos systèmes et a un rôle précis."
+        },
+        "replace": {
+          "title": "Pas « on remplace votre équipe support »",
+          "desc": "L’agent prend la part répétitive. Vos équipes gardent la décision, la relation client et les cas difficiles."
+        },
+        "hardening": {
+          "title": "Pas notre offre de durcissement",
+          "desc": "Durcir secrets, IAM ou CI avec une flotte d’agents, c’est une autre page.",
+          "link": "Agents IA pour durcir produit et SI"
+        },
+        "promise": {
+          "title": "Pas une promesse de conformité ni de zéro erreur",
+          "desc": "Un agent se trompe parfois. On le conçoit pour que l’erreur se voie, remonte à un humain et se corrige, et on documente ce qui est fait."
+        }
+      }
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "start": {
+          "q": "Par quel processus commencer ?",
+          "a": "Par un processus à fort volume, aux règles relativement stables, où une erreur de l’agent reste maîtrisée. Souvent, l’agent commence par rédiger un brouillon plutôt que d’envoyer directement."
+        },
+        "timeline": {
+          "q": "Combien de temps jusqu’à un agent utile ?",
+          "a": "On travaille par cycles courts, et on ne donne pas de délai générique avant d’avoir vu le processus. Sur notre cas support client publié, les brouillons de l’agent sont utilisés sur 87 % des tickets, à raison de plusieurs centaines de tickets par jour."
+        },
+        "existing": {
+          "q": "Et si on a déjà un POC en interne ?",
+          "a": "On part de l’existant : outils, prompts, et la dette d’autorité accumulée (ce que l’agent peut faire sans que personne ne l’ait décidé). On industrialise plutôt que de tout réécrire."
+        },
+        "data": {
+          "q": "Et les données sensibles ?",
+          "a": "On travaille selon les exigences RGPD et HDS. Quand des données de santé sont en jeu, l’agent tourne dans l’environnement couvert du client. On ne revendique aucune certification que nous n’avons pas."
+        },
+        "article": {
+          "q": "Quelle différence avec votre article « Agent IA en entreprise » ?",
+          "a": "L’article explique ce qu’est un agent et comment démarrer. Cette page, c’est l’offre : on déploie l’agent avec vous, jusqu’en production."
+        },
+        "hardening": {
+          "q": "Et le lien avec vos agents pour durcir produit et SI ?",
+          "a": "Le durcissement, c’est une flotte d’agents qui sécurise votre produit et votre SI. Ici, ce sont des agents métier en production. Les deux se cumulent souvent."
+        }
+      },
+      "links": {
+        "automation": "Quels processus automatiser en premier",
+        "locservice": "Lire le cas LocService",
+        "health": "IA et données de santé (HDS)",
+        "hds": "Ce que l’HDS impose vraiment",
+        "guide": "Lire le guide",
+        "hardening": "Agents IA pour durcir produit et SI"
+      }
+    },
+    "further": {
+      "title": "Pour aller plus loin",
+      "readingLabel": "À lire",
+      "reading": {
+        "guide": "Agent IA en entreprise : le guide pour bien démarrer",
+        "checklist": "Du POC à la production : la checklist d’un agent IA qui tient",
+        "automation": "Automatisation IA en entreprise : quels processus automatiser en premier",
+        "authority": "Le vrai risque des agents IA, c’est l’autorité",
+        "hds": "IA et données de santé : ce que l’HDS impose vraiment"
+      },
+      "alsoLabel": "Aussi chez The Vibe Company",
+      "agency": {
+        "title": "Agence IA à Paris",
+        "desc": "Produits IA, agents et formation, du cadrage à la mise en production."
+      },
+      "hardening": {
+        "title": "Agents IA pour durcir produit et SI",
+        "desc": "Une flotte d’agents qui surveille secrets, dépendances, IAM, configs et pull requests."
+      },
+      "health": {
+        "title": "IA et données de santé",
+        "desc": "Des produits et des agents IA sur données de santé, selon les exigences RGPD et HDS."
+      }
+    }
   }
 }
