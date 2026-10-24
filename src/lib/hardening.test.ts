@@ -14,7 +14,7 @@ import {
   MCP_GUIDE_PATHS,
 } from "./hardening";
 import { HARDENING_PATHS, splitPathAlternates } from "./site";
-import { faqPageSchema, isPublishable, serviceSchema, webPageSchema } from "./structured-data";
+import { faqPageSchema, isPublishable, serviceNode, webPageNode } from "./structured-data";
 
 const SITE = "https://www.thevibecompany.co";
 const MESSAGES = { fr: fr.hardening, en: en.hardening } as const;
@@ -96,7 +96,7 @@ describe("hardening landing", () => {
 
   test("the Service is provided by the Organization and carries no offer", () => {
     const url = `${SITE}/fr/agents-ia-securite-produit`;
-    const service = serviceSchema({
+    const service = serviceNode({
       url,
       name: MESSAGES.fr.service.name,
       serviceType: "AI agents for product and infrastructure hardening",
@@ -105,7 +105,7 @@ describe("hardening landing", () => {
 
     expect(service).toMatchObject({
       "@type": "Service",
-      "@id": `${url}#service`,
+      url,
       name: "Agents IA pour durcir produit et SI",
       serviceType: "AI agents for product and infrastructure hardening",
       provider: { "@id": `${SITE}/#organization` },
@@ -113,16 +113,17 @@ describe("hardening landing", () => {
     expect(service.description).toBe(MESSAGES.fr.service.description);
     expect(service).not.toHaveProperty("offers");
     expect(service).not.toHaveProperty("inLanguage");
+    expect(service.areaServed).toEqual({ "@type": "Country", name: "France" });
     expect(isPublishable(MESSAGES.en.service.description)).toBe(true);
   });
 
   test("the WebPage belongs to the site", () => {
     const url = `${SITE}/en/ai-agents-product-hardening`;
     expect(
-      webPageSchema({ url, name: MESSAGES.en.title, description: MESSAGES.en.metaDescription, language: "en" }),
+      webPageNode({ url, name: MESSAGES.en.title, description: MESSAGES.en.metaDescription, language: "en" }),
     ).toMatchObject({
       "@type": "WebPage",
-      "@id": `${url}#webpage`,
+      "@id": url,
       url,
       inLanguage: "en",
       isPartOf: { "@id": `${SITE}/#website` },

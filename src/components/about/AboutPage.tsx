@@ -21,6 +21,7 @@ import {
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import {
   ABOUT_PATHS,
+  AGENCY_PARIS_PATHS,
   localizedSocialMetadata,
   localizedUrl,
   SITE_URL,
@@ -67,6 +68,7 @@ export async function AboutPage({ locale }: { locale: string }) {
   const tServices = await getTranslations({ locale, namespace: "services" });
   const tProcess = await getTranslations({ locale, namespace: "process" });
   const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const tAgency = await getTranslations({ locale, namespace: "agencyParis" });
   const breadcrumb = breadcrumbList([
     { name: tFooter("home"), url: localizedUrl(locale) },
     { name: tFooter("about"), url: localizedUrl(locale, splitPath(ABOUT_PATHS, locale)) },
@@ -135,6 +137,14 @@ export async function AboutPage({ locale }: { locale: string }) {
               </article>
             ))}
           </div>
+
+          <Link
+            href={splitPath(AGENCY_PARIS_PATHS, locale)}
+            className="mt-8 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
+          >
+            {tAgency("aboutLink")}
+            <span aria-hidden="true">→</span>
+          </Link>
         </section>
 
         {/* 3 — What sets us apart, each claim carrying a figure we can source. */}

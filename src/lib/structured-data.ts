@@ -131,6 +131,63 @@ export function siteGraph(locale: string): JsonLdNode {
   };
 }
 
+/**
+ * A page of the site, attached to the WebSite and about the Organization, so
+ * it extends the site graph instead of declaring a second company.
+ */
+export function webPageNode({
+  url,
+  name,
+  description,
+  language,
+}: {
+  url: string;
+  name: string;
+  description: string;
+  language: string;
+}): JsonLdNode {
+  return {
+    "@context": SCHEMA_CONTEXT,
+    "@type": "WebPage",
+    "@id": url,
+    url,
+    name,
+    ...(isPublishable(description) ? { description } : {}),
+    inLanguage: language,
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": ORGANIZATION_ID },
+  };
+}
+
+/**
+ * A service the company provides, in a city or, without one, in France. No
+ * offer, price or rating; the description only when it is publishable.
+ */
+export function serviceNode({
+  url,
+  name,
+  serviceType,
+  city,
+  description,
+}: {
+  url: string;
+  name: string;
+  serviceType: string;
+  city?: string;
+  description?: string;
+}): JsonLdNode {
+  return {
+    "@context": SCHEMA_CONTEXT,
+    "@type": "Service",
+    name,
+    serviceType,
+    ...(description && isPublishable(description) ? { description } : {}),
+    provider: { "@id": ORGANIZATION_ID },
+    areaServed: city ? { "@type": "City", name: city } : { "@type": "Country", name: "France" },
+    url,
+  };
+}
+
 export type Crumb = { name: string; url: string };
 
 /** The trail from the home page to the current page, all absolute URLs. */
@@ -180,61 +237,6 @@ export function articleSchema({
     inLanguage: language,
     author: series === VICTOR_STORY_SERIES ? VICTOR_NIVAULT : STAN_GIRARD,
     publisher: PUBLISHER,
-  };
-}
-
-/** A page as a WebPage node, part of the site and about the agency. */
-export function webPageSchema({
-  url,
-  name,
-  description,
-  language,
-}: {
-  url: string;
-  name: string;
-  description: string;
-  language: string;
-}): JsonLdNode {
-  return {
-    "@context": SCHEMA_CONTEXT,
-    "@type": "WebPage",
-    "@id": `${url}#webpage`,
-    url,
-    name,
-    ...(isPublishable(description) ? { description } : {}),
-    inLanguage: language,
-    isPartOf: { "@id": WEBSITE_ID },
-    about: { "@id": ORGANIZATION_ID },
-  };
-}
-
-/**
- * A service the agency sells, provided by the Organization node. Only the name,
- * type, and a publishable description: no offers, prices or certifications.
- */
-export function serviceSchema({
-  url,
-  name,
-  serviceType,
-  description,
-}: {
-  url: string;
-  name: string;
-  serviceType: string;
-  description: string;
-}): JsonLdNode {
-  // No `inLanguage`: schema.org does not define it on Service. The WebPage
-  // node carries the page language.
-  return {
-    "@context": SCHEMA_CONTEXT,
-    "@type": "Service",
-    "@id": `${url}#service`,
-    url,
-    name,
-    serviceType,
-    ...(isPublishable(description) ? { description } : {}),
-    provider: { "@id": ORGANIZATION_ID },
-    areaServed: { "@type": "Country", name: "France" },
   };
 }
 

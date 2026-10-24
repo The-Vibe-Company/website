@@ -55,10 +55,7 @@ export const HARDENING_PATHS: SplitPaths = {
   en: "/ai-agents-product-hardening",
 };
 
-/**
- * The "AI agency in Paris" landing. Linked from the hardening landing before
- * it ships: until then the link resolves to the localized 404.
- */
+/** The commercial "AI agency in Paris" landing page. */
 export const AGENCY_PARIS_PATHS: SplitPaths = {
   fr: "/agence-ia-paris",
   en: "/ai-agency-paris",
@@ -74,6 +71,14 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
       "Who The Vibe Company is: an AI-first agency in Paris, YC W24, with the key facts about the company, its team, and how it works.",
     changeFrequency: "monthly",
     priority: 0.7,
+  },
+  {
+    paths: AGENCY_PARIS_PATHS,
+    title: "AI agency in Paris",
+    description:
+      "The Vibe Company, an AI agency in Paris (YC W24): AI products, agents and training shipped to production, with the Monka, AFP and LocService cases.",
+    changeFrequency: "monthly",
+    priority: 0.9,
   },
   {
     paths: HARDENING_PATHS,

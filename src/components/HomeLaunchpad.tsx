@@ -7,6 +7,7 @@ import { HeroMobile } from "./home/HeroMobile";
 import { MobileBookingBar } from "./home/MobileBookingBar";
 import { Quote } from "./home/Quote";
 import { Services } from "./home/Services";
+import { AgencyParisLink } from "./home/AgencyParisLink";
 import { CaseStudy } from "./home/CaseStudy";
 import { Proof } from "./home/Proof";
 import { Clients } from "./home/Clients";
@@ -30,6 +31,7 @@ export function HomeLaunchpad({ locale }: { locale: ContentLocale }) {
         <CaseStudy />
         <Quote />
         <Services />
+        <AgencyParisLink />
         <Proof />
         <FinalCTA />
         {/* Inside main, so the mobile menu makes it inert with the rest of

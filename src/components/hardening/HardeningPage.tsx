@@ -37,8 +37,8 @@ import {
 import {
   breadcrumbList,
   faqPageSchema,
-  serviceSchema,
-  webPageSchema,
+  serviceNode,
+  webPageNode,
 } from "@/lib/structured-data";
 
 /**
@@ -88,13 +88,13 @@ export async function HardeningPage({ locale }: { locale: string }) {
     { name: tFooter("home"), url: localizedUrl(locale) },
     { name: t("breadcrumb"), url: pageUrl },
   ]);
-  const webPage = webPageSchema({
+  const webPage = webPageNode({
     url: pageUrl,
     name: t("title"),
     description: t("metaDescription"),
     language: locale,
   });
-  const service = serviceSchema({
+  const service = serviceNode({
     url: pageUrl,
     name: t("service.name"),
     serviceType: "AI agents for product and infrastructure hardening",
