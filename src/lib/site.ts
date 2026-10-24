@@ -62,10 +62,10 @@ export const AGENTS_PRODUCTION_PATHS: SplitPaths = {
 };
 
 /**
- * The healthcare landing (AI on health data, HDS). Linked before its own PR
- * lands, so the link 404s until then.
+ * The healthcare AI landing (AI on health data, HDS), same slugs as its own
+ * PR (#267). Linked before that PR lands, so the link 404s until then.
  */
-export const HEALTHCARE_HDS_PATHS: SplitPaths = {
+export const HEALTHCARE_AI_PATHS: SplitPaths = {
   fr: "/ia-sante-hds",
   en: "/healthcare-ai-hds",
 };

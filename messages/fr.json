@@ -1098,7 +1098,7 @@
         "call": {
           "label": "Appel",
           "title": "Un appel de 30 minutes",
-          "desc": "Le processus candidat, les outils en place, le niveau de risque. On vous dit franchement si un agent est la bonne réponse."
+          "desc": "Le processus candidat, les outils en place, le niveau de risque. À la fin de l’appel, vous savez si un premier agent tient la route chez vous."
         },
         "scope": {
           "label": "Cadrage",
@@ -1126,7 +1126,7 @@
           "desc": "Votre équipe reprend l’agent avec les runbooks et la formation, ou on continue à l’opérer avec vous."
         }
       },
-      "ctaTitle": "Un pilote qui ne passe pas en production ? Venez avec le processus, les outils en place et ce qui bloque.",
+      "ctaTitle": "Un POC qui dort dans un coin ? On part de ce qui existe et on l’amène jusqu’au run, avec vos équipes.",
       "checklist": "La checklist complète avant le Go production"
     },
     "proof": {
@@ -1135,7 +1135,6 @@
       "cases": {
         "locservice": "Un agent rédige le brouillon de réponse à chaque ticket, connecté aux API internes, sur des centaines de tickets par jour. L’humain relit et décide : les brouillons sont utilisés sur 87 % des tickets.",
         "coup-de-pates": "Des skills IA de contrôle qualité qui vérifient les documents produit (étiquettes, cahiers des charges) et relèvent chaque écart, en plus d’Ensemble, l’app RSE des collaborateurs.",
-        "monka": "Des cycles courts en environnement sensible : mise en production en deux mois dans l’environnement HDS existant, puis une nouvelle version environ tous les deux jours.",
         "theodo": "Expert technique intégré aux équipes de Theodo : des Software Factories pour des centaines de développeurs, avec des agents et des skills standardisés."
       },
       "readCase": "Lire le cas"

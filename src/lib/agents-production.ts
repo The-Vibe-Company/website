@@ -36,13 +36,12 @@ export const AGENTS_PRODUCTION_METHOD_STEPS = [
   { n: "06", key: "handover" },
 ] as const;
 
-/** Case studies cited as proof, all live under /case-studies/<slug>. */
-export const AGENTS_PRODUCTION_CASE_SLUGS = [
-  "locservice",
-  "coup-de-pates",
-  "monka",
-  "theodo",
-] as const;
+/**
+ * Case studies cited as proof, all live under /case-studies/<slug>. Only the
+ * ones where an agent or skills actually run: Monka (an app, a CRM and a
+ * clinical engine) stays out of this list.
+ */
+export const AGENTS_PRODUCTION_CASE_SLUGS = ["locservice", "coup-de-pates", "theodo"] as const;
 
 /** What the offer is not, to set expectations. */
 export const AGENTS_PRODUCTION_NOT_KEYS = ["chatbot", "replace", "hardening", "promise"] as const;

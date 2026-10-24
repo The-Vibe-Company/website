@@ -1097,7 +1097,7 @@
         "call": {
           "label": "Call",
           "title": "A 30-minute call",
-          "desc": "The candidate process, the tools in place, the level of risk. We tell you straight whether an agent is the right answer."
+          "desc": "The candidate process, the tools in place, the level of risk. By the end of the call, you know whether a first agent holds up at your company."
         },
         "scope": {
           "label": "Scoping",
@@ -1125,7 +1125,7 @@
           "desc": "Your team takes the agent over with runbooks and training, or we keep operating it alongside you."
         }
       },
-      "ctaTitle": "A pilot that won't reach production? Bring the process, the tools in place and what's blocking.",
+      "ctaTitle": "A POC gathering dust? We start from what exists and take it all the way to the daily run, with your teams.",
       "checklist": "The full checklist before going to production"
     },
     "proof": {
@@ -1134,7 +1134,6 @@
       "cases": {
         "locservice": "An agent drafts the reply to every ticket, connected to internal APIs, on hundreds of tickets a day. A human reviews and decides: the drafts are used on 87% of tickets.",
         "coup-de-pates": "Quality-control AI skills that check product documents (labels, specifications) and flag every discrepancy, alongside Ensemble, the employee CSR app.",
-        "monka": "Short cycles in a sensitive environment: shipped to production in two months inside the existing HDS environment, then a new release roughly every two days.",
         "theodo": "Technical expert embedded in Theodo's teams: Software Factories for hundreds of developers, with standardized agents and skills."
       },
       "readCase": "Read the case"

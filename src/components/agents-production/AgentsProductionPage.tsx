@@ -27,7 +27,7 @@ import {
   AGENCY_PARIS_PATHS,
   AGENTS_PRODUCTION_PATHS,
   HARDENING_PATHS,
-  HEALTHCARE_HDS_PATHS,
+  HEALTHCARE_AI_PATHS,
   localizedSocialMetadata,
   localizedUrl,
   splitPath,
@@ -137,7 +137,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
       { label: t("faq.links.locservice"), href: "/case-studies/locservice", locale: pageLocale },
     ],
     data: [
-      { label: t("faq.links.health"), href: splitPath(HEALTHCARE_HDS_PATHS, locale), locale: pageLocale },
+      { label: t("faq.links.health"), href: splitPath(HEALTHCARE_AI_PATHS, locale), locale: pageLocale },
       { label: t("faq.links.hds"), href: hdsGuide, locale: pageLocale },
     ],
     article: [{ label: t("faq.links.guide"), href: guide, locale: pageLocale }],
@@ -160,7 +160,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
   const siblings = [
     { key: "hardening", href: hardening },
     { key: "agency", href: splitPath(AGENCY_PARIS_PATHS, locale) },
-    { key: "health", href: splitPath(HEALTHCARE_HDS_PATHS, locale) },
+    { key: "health", href: splitPath(HEALTHCARE_AI_PATHS, locale) },
   ] as const;
 
   return (
@@ -395,7 +395,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
             </article>
           ) : null}
 
-          <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
             {others.map((customer) => (
               <article
                 key={customer.slug}
