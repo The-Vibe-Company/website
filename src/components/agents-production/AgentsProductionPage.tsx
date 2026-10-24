@@ -493,7 +493,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
           </div>
         </section>
 
-        {/* 7 — FAQ, mirrored word for word in the FAQPage JSON-LD above. */}
+        {/* 7 — FAQ, restated as plain text in the FAQPage JSON-LD above. */}
         <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
           <h2 className={H2}>{t("faq.title")}</h2>
 

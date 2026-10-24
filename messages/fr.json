@@ -1125,7 +1125,7 @@
           "desc": "Runbooks, formation, ou on continue d’opérer avec vous."
         }
       },
-      "checklist": "Checklist : POC agent IA → production"
+      "checklist": "Checklist : du POC agent IA à la production"
     },
     "proof": {
       "title": "Agents déjà en conditions réelles",
@@ -1208,7 +1208,7 @@
     },
     "finalCta": {
       "titleLine1": "Un premier agent",
-      "titleLine2": "à mener jusqu’au run ?"
+      "titleLine2": "à mener jusqu’au run ?"
     }
   }
 }

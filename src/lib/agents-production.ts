@@ -46,7 +46,7 @@ export const AGENTS_PRODUCTION_CASE_SLUGS = ["locservice", "coup-de-pates", "the
 /** What the offer is not, to set expectations. */
 export const AGENTS_PRODUCTION_NOT_KEYS = ["chatbot", "replace", "hardening", "promise"] as const;
 
-/** Order of the FAQ entries, mirrored word for word in the FAQPage JSON-LD. */
+/** Order of the FAQ entries, restated as plain text in the FAQPage JSON-LD. */
 export const AGENTS_PRODUCTION_FAQ_KEYS = [
   "start",
   "timeline",
