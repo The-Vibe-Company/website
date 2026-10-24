@@ -626,6 +626,10 @@
       "about": {
         "title": "About us",
         "desc": "The team, the founders and the key facts about the agency."
+      },
+      "agentsProduction": {
+        "title": "AI agents in production",
+        "desc": "Business agents wired into your tools, from POC to the daily run."
       }
     }
   },
@@ -842,7 +846,8 @@
         "operate": {
           "label": "Operate",
           "title": "Agents & automation",
-          "desc": "An audit of your workflows, the skills built, your tools connected (CRM, support, docs, APIs), agents deployed securely, and the time saved measured."
+          "desc": "An audit of your workflows, the skills built, your tools connected (CRM, support, docs, APIs), agents deployed securely, and the time saved measured.",
+          "link": "AI agents in production"
         },
         "advise": {
           "label": "Advise",
@@ -1018,5 +1023,204 @@
     "homeLink": "See our AI agency in Paris page",
     "caseLink": "The Vibe Company is an <link>AI agency in Paris</link>: AI products, agents and training, all the way to production.",
     "aboutLink": "Our AI agency in Paris page"
+  },
+  "agentsProduction": {
+    "kicker": "// AGENTS · POC → PRODUCTION",
+    "metaTitle": "AI Agents in Production: from POC to run | The Vibe Company",
+    "metaDescription": "Deploy AI agents in your company to production: tools, guardrails, measurement, handoff. LocService case (87% of tickets). Paris agency, YC W24.",
+    "title": "AI agents at work: we take them all the way to production",
+    "lede": "Many AI agents never get past the demo. At The Vibe Company, we wire them into your tools, put the guardrails in place (authority, permissions, a human in the loop) and take them all the way to the daily run — with a clear measure of the time saved.",
+    "hero": {
+      "label": "What we put in place",
+      "items": {
+        "tools": "An audit of your workflows, then skills wired into your tools: CRM, support, docs, APIs.",
+        "guardrails": "Guardrails: least privilege, and a human on everything that goes out (at LocService, the agent writes drafts).",
+        "measure": "A before/after measurement, then documentation and handoff — or we keep operating it with you.",
+        "team": "The same YC W24 team that ships AI products to production (LocService, Monka, Coup de Pates…)."
+      }
+    },
+    "breadcrumb": "AI agents in production",
+    "service": {
+      "name": "AI agent deployment to production",
+      "description": "Deploying business AI agents inside a company, from POC to the daily run: scoping the first workflow, skills connected to existing tools, authority and guardrails, memory and context, observability, run and handoff. Sensitive actions stay approved by a human."
+    },
+    "problem": {
+      "title": "A POC doesn't die for lack of a model — it dies for lack of production",
+      "p1": "The demo works. Then the real questions arrive: which permissions the agent gets, on which tools (whose APIs change or go down), who owns it when it gets things wrong, and which metric says it is useful. With no answers, nobody dares let it act, and the pilot stays a pilot.",
+      "p2": "COOs, heads of support and product CTOs are not waiting for one more slide. They want a first agent that is useful in real conditions, wired into their systems, that their teams use every day.",
+      "p3": "New to the topic? Start with our <link>guide to AI agents for business</link>. This page is about deploying one with you."
+    },
+    "offer": {
+      "title": "What an agent deployment at your company includes",
+      "intro": "Six building blocks, delivered in your environment and on your tools. Not one more chat silo: an agent that works where your teams already work.",
+      "items": {
+        "scope": {
+          "tag": "Scoping",
+          "title": "Scoping the first workflow",
+          "desc": "We find where the time really goes, with a simple grid: volume × repetitiveness × risk. We pick one workflow, not ten.",
+          "link": "Which processes to automate first"
+        },
+        "skills": {
+          "tag": "Skills · Tools",
+          "title": "Skills and tools",
+          "desc": "Versioned skills and connections to the systems you already run: CRM, support tool, knowledge base, internal APIs."
+        },
+        "authority": {
+          "tag": "Authority",
+          "title": "Authority and guardrails",
+          "desc": "What the agent may read, propose and do, written down in black and white. Sensitive actions go through human approval.",
+          "link": "Agent authority (in French)"
+        },
+        "memory": {
+          "tag": "Context",
+          "title": "Memory and context",
+          "desc": "Tickets, documentation, customer history: the agent works from your real context, within the scope agreed together, and no further."
+        },
+        "observability": {
+          "tag": "Observability",
+          "title": "Observability",
+          "desc": "Logs of every action, acceptance rate of its proposals, escalations to a human: you see what the agent does and what it is worth."
+        },
+        "run": {
+          "tag": "Run",
+          "title": "Run and handoff",
+          "desc": "Runbooks, training for your teams, or joint operation: the agent has an owner the day it goes to production."
+        }
+      },
+      "complement": "Complementary to our <hardening>AI agents to harden your product and stack</hardening> (the security of your infrastructure) and to our article on <authority>agent authority</authority> (in French; what an agent is allowed to do)."
+    },
+    "method": {
+      "title": "From the demo to the daily run",
+      "intro": "You don't go from POC to production in one leap. We widen the scope as trust builds, with the numbers to back it.",
+      "stepsLabel": "Six steps",
+      "steps": {
+        "call": {
+          "label": "Call",
+          "title": "A 30-minute call",
+          "desc": "The candidate process, the tools in place, the level of risk. We tell you straight whether an agent is the right answer."
+        },
+        "scope": {
+          "label": "Scoping",
+          "title": "Fixed-scope framing",
+          "desc": "A single workflow, and measurable success criteria set before the first line is written."
+        },
+        "pilot": {
+          "label": "Pilot",
+          "title": "An instrumented pilot",
+          "desc": "The agent runs in near-real conditions, often as drafts first: it proposes, your team decides."
+        },
+        "scale": {
+          "label": "Scaling",
+          "title": "Widen once the numbers hold",
+          "desc": "We widen the scope only when human acceptance and the metrics hold up. Not before."
+        },
+        "production": {
+          "label": "Production",
+          "title": "Secure production",
+          "desc": "Permissions reviewed, documentation up to date, and GDPR and HDS requirements met when the context calls for it."
+        },
+        "handover": {
+          "label": "Handoff",
+          "title": "Handoff or joint run",
+          "desc": "Your team takes the agent over with runbooks and training, or we keep operating it alongside you."
+        }
+      },
+      "ctaTitle": "A pilot that won't reach production? Bring the process, the tools in place and what's blocking.",
+      "checklist": "The full checklist before going to production"
+    },
+    "proof": {
+      "title": "Agents already running in real conditions",
+      "intro": "Case studies published on this site, with their numbers. Nothing else.",
+      "cases": {
+        "locservice": "An agent drafts the reply to every ticket, connected to internal APIs, on hundreds of tickets a day. A human reviews and decides: the drafts are used on 87% of tickets.",
+        "coup-de-pates": "Quality-control AI skills that check product documents (labels, specifications) and flag every discrepancy, alongside Ensemble, the employee CSR app.",
+        "monka": "Short cycles in a sensitive environment: shipped to production in two months inside the existing HDS environment, then a new release roughly every two days.",
+        "theodo": "Technical expert embedded in Theodo's teams: Software Factories for hundreds of developers, with standardized agents and skills."
+      },
+      "readCase": "Read the case"
+    },
+    "not": {
+      "title": "What this is not",
+      "items": {
+        "chatbot": {
+          "title": "Not a generic chatbot",
+          "desc": "A chat with no tools and no context does not change how your teams work. Here, the agent is wired into your systems and has a precise role."
+        },
+        "replace": {
+          "title": "Not “we replace your support team”",
+          "desc": "The agent takes the repetitive part. Your teams keep the decisions, the customer relationship and the hard cases."
+        },
+        "hardening": {
+          "title": "Not our hardening offer",
+          "desc": "Hardening secrets, IAM or CI with a fleet of agents is a different page.",
+          "link": "AI agents to harden your product and stack"
+        },
+        "promise": {
+          "title": "Not a compliance or zero-error promise",
+          "desc": "An agent sometimes gets things wrong. We design it so the error shows, reaches a human and gets fixed, and we document what was done."
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "start": {
+          "q": "Which process should we start with?",
+          "a": "A high-volume process, with fairly stable rules, where an agent's mistake stays contained. Often the agent starts by writing a draft rather than sending directly."
+        },
+        "timeline": {
+          "q": "How long until an agent is useful?",
+          "a": "We work in short cycles, and we won't give you a generic timeline before we have seen the process. On our published customer support case, the agent's drafts are used on 87% of tickets, out of several hundred tickets a day."
+        },
+        "existing": {
+          "q": "What if we already have an in-house POC?",
+          "a": "We start from what exists: tools, prompts, and the authority debt that has piled up (what the agent can do without anyone having decided it). We industrialize rather than rewrite everything."
+        },
+        "data": {
+          "q": "What about sensitive data?",
+          "a": "We work to GDPR and HDS requirements. When health data is involved, the agent runs inside the client's covered environment. We claim no certification we do not hold."
+        },
+        "article": {
+          "q": "How is this different from your “AI agents for business” article?",
+          "a": "The article explains what an agent is and how to get started. This page is the offer: we deploy the agent with you, all the way to production."
+        },
+        "hardening": {
+          "q": "How does this relate to your AI agents for hardening?",
+          "a": "Hardening is a fleet of agents that secures your product and your infrastructure. Here, these are business agents in production. The two often go together."
+        }
+      },
+      "links": {
+        "automation": "Which processes to automate first",
+        "locservice": "Read the LocService case",
+        "health": "Healthcare AI (HDS)",
+        "hds": "What HDS really means",
+        "guide": "Read the guide",
+        "hardening": "AI agents to harden your product and stack"
+      }
+    },
+    "further": {
+      "title": "Going further",
+      "readingLabel": "Read next",
+      "reading": {
+        "guide": "AI agents for business: a practical guide to getting started",
+        "checklist": "From AI agent POC to production: the checklist that holds up",
+        "automation": "AI automation for companies: which processes to automate first",
+        "authority": "The real risk of AI agents is authority (in French)",
+        "hds": "AI and health data in France: what HDS really means"
+      },
+      "alsoLabel": "Also at The Vibe Company",
+      "agency": {
+        "title": "AI agency in Paris",
+        "desc": "AI products, agents and training, from scoping to production."
+      },
+      "hardening": {
+        "title": "AI agents to harden your product & stack",
+        "desc": "A fleet of agents watching secrets, dependencies, IAM, configs and pull requests."
+      },
+      "health": {
+        "title": "Healthcare AI",
+        "desc": "AI products and agents on health data, built to GDPR and HDS requirements."
+      }
+    }
   }
 }

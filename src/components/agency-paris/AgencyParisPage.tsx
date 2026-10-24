@@ -22,6 +22,7 @@ import { getCustomer, type ContentLocale } from "@/lib/customers";
 import {
   ABOUT_PATHS,
   AGENCY_PARIS_PATHS,
+  AGENTS_PRODUCTION_PATHS,
   localizedSocialMetadata,
   localizedUrl,
   splitPath,
@@ -233,6 +234,12 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                   </span>
                 </h3>
                 <p className={PROSE}>{t(`offers.items.${key}.desc`)}</p>
+                {key === "operate" ? (
+                  <Link href={splitPath(AGENTS_PRODUCTION_PATHS, locale)} className={`${TEXT_LINK} mt-5`}>
+                    {t("offers.items.operate.link")}
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                ) : null}
               </article>
             ))}
           </div>
