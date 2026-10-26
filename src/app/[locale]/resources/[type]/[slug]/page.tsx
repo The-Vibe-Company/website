@@ -101,8 +101,14 @@ export async function generateMetadata({
   const socialTitle = item.title;
   const socialDescription = item.summary;
 
+  // When an article declares its own SEO title, use it as an absolute <title>
+  // so the layout's `%s | The Vibe Company` template does not append the brand
+  // a second time (the SEO title already includes it). H1 and social titles
+  // keep using `item.title`.
+  const htmlTitle = item.seoTitle ? { absolute: item.seoTitle } : item.title;
+
   return {
-    title: item.title,
+    title: htmlTitle,
     description: item.summary,
     alternates: contentAlternates(item.language, canonicalPath, versions),
     robots: locale === item.language ? undefined : { index: false, follow: true },

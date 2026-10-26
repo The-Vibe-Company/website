@@ -1,5 +1,6 @@
 ---
 title: "Rolling Out Claude Code in the Enterprise: Security, Settings and Method"
+seoTitle: "Claude Code enterprise rollout guide | The Vibe Company"
 slug: claude-code-enterprise-rollout
 translationKey: claude-code-enterprise
 language: en

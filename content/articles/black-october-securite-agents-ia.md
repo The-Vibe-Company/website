@@ -1,5 +1,6 @@
 ---
 title: "Black October : failles PHP, secrets volés, ce que ça change pour vos agents IA"
+seoTitle: "Black October : failles PHP, agents IA | The Vibe Company"
 slug: black-october-securite-agents-ia
 translationKey: black-october-ai-agent-security
 language: fr

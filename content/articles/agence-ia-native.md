@@ -1,5 +1,6 @@
 ---
 title: "Agence IA native : une agence qui ressemble à une entreprise de logiciel"
+seoTitle: "Agence IA native vs ESN classique | The Vibe Company"
 slug: agence-ia-native
 translationKey: ai-native-agency
 language: fr

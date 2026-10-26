@@ -1,5 +1,6 @@
 ---
 title: "How to fund an AI project in France: CIR, CII, Diag Data IA, France 2030"
+seoTitle: "Fund AI in France: CIR, CII, France 2030 | The Vibe Company"
 slug: fund-ai-project-france-cir-cii
 translationKey: fund-ai-project-france
 language: en

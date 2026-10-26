@@ -1,5 +1,6 @@
 ---
 title: "ChatGPT Enterprise vs Business vs custom agents: how to choose and roll out ChatGPT at work"
+seoTitle: "ChatGPT Enterprise vs Business vs custom | The Vibe Company"
 slug: chatgpt-enterprise-rollout
 translationKey: chatgpt-business-rollout-guide
 language: en

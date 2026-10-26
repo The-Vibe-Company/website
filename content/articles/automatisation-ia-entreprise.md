@@ -1,5 +1,6 @@
 ---
 title: "Automatisation IA en entreprise : quels processus automatiser en premier"
+seoTitle: "Automatisation IA : process à prioriser | The Vibe Company"
 slug: automatisation-ia-entreprise
 translationKey: ai-process-automation
 language: fr

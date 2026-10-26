@@ -1,5 +1,6 @@
 ---
 title: "Comment on a écrit notre CIR pour récupérer 150 000 euros grâce à l'IA"
+seoTitle: "CIR avec l'IA : 150 000 € récupérés | The Vibe Company"
 slug: comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia
 language: fr
 summary: "Comment on a transformé Linear, GitHub, Notion, Google Drive et nos exports internes en dossier CIR/CII de 100 pages. Pas avec un prompt magique, mais avec une vraie chaîne de preuve."
