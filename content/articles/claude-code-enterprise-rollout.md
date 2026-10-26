@@ -79,6 +79,8 @@ The Vibe Company is an AI agency in Paris, founded in 2024 by Stan Girard and An
 
 We use these coding agents every day to ship. On a rollout, we set up managed settings and permissions, write `CLAUDE.md` files with your teams and train people during the pilot. Useful for procurement: we don't claim any security certification.
 
+Once the tool is framed, agents can also harden your product inside CI: see [AI security agents to harden a SaaS: secrets, deps and CI](/en/resources/articles/ai-security-agents-harden-saas).
+
 ## FAQ
 
 **Do I need an Enterprise plan to roll out Claude Code?**

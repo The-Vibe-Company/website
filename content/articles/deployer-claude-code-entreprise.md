@@ -79,6 +79,8 @@ The Vibe Company est une agence IA à Paris, fondée en 2024 par Stan Girard et 
 
 On utilise ces agents de code tous les jours pour livrer. Sur un déploiement, on s'occupe de la configuration des réglages managés et des permissions, l'écriture des `CLAUDE.md` avec vos équipes, et la formation pendant le pilote. Précision utile pour vos achats : on ne revendique aucune certification de sécurité.
 
+Une fois l'outil cadré, des agents peuvent aussi durcir votre produit dans la CI : voir [Agents IA et sécurité : durcir un SaaS, ses secrets et sa CI](/fr/resources/articles/agents-ia-durcir-saas).
+
 ## FAQ
 
 **Faut-il un plan Enterprise pour déployer Claude Code ?**
