@@ -39,6 +39,13 @@ export interface ContentEntry {
   id: string
   slug: string
   title: string
+  /**
+   * Optional, SEO-only HTML <title> for the detail page. When present it is
+   * used as an absolute title so the layout's `%s | The Vibe Company` template
+   * does not append the brand a second time; H1 and social titles stay on
+   * `title`.
+   */
+  seoTitle?: string
   summary: string
   body: string
   type: string
@@ -105,6 +112,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         id: `${type.slug}:${slug}`,
         slug,
         title,
+        seoTitle: data.seoTitle?.trim() || undefined,
         summary,
         body,
         type: type.slug,

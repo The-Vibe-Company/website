@@ -1,5 +1,6 @@
 ---
 title: "What is an MCP server? A business guide to connecting AI agents to your tools"
+seoTitle: "What is an MCP server? Business guide | The Vibe Company"
 slug: what-is-an-mcp-server
 translationKey: mcp-server-business-guide
 language: en

@@ -1,5 +1,6 @@
 ---
 title: "ChatGPT en entreprise : Business, Enterprise ou outil sur mesure, comment choisir et déployer"
+seoTitle: "ChatGPT entreprise : Business ou custom | The Vibe Company"
 slug: chatgpt-entreprise
 translationKey: chatgpt-business-rollout-guide
 language: fr

@@ -1,5 +1,6 @@
 ---
 title: "I tried to make music with AI. An artist showed me what the machine could not hear."
+seoTitle: "AI music with an artist: limits of AI | The Vibe Company"
 slug: ai-music-with-an-artist
 language: en
 summary: "A founder who uses AI every day spent a session making music with an artist. The tools generated fast. The hard part was knowing what was worth keeping."

@@ -1,5 +1,6 @@
 ---
 title: "Serveur MCP en entreprise : brancher vos agents IA sur vos outils sans perdre le contrôle"
+seoTitle: "Serveur MCP entreprise pour agents IA | The Vibe Company"
 slug: serveur-mcp-entreprise
 translationKey: mcp-server-business-guide
 language: fr
