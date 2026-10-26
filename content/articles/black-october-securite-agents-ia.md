@@ -89,6 +89,8 @@ Pour un agent qui touche des dossiers patients ou des bilans :
 6. **Sortir les secrets du contexte.** Vérifier qu'aucune clé n'apparaît dans les prompts, les traces LangSmith/PostHog, les tickets de debug ou les captures d'écran.
 7. **Cas santé.** Si données de santé : revoir les flux avec le guide [HDS](/fr/resources/articles/ia-donnees-de-sante-hds) et le DPO. Ne pas improviser un appel modèle hors environnement couvert.
 
+Pour l'usage inverse, des agents IA qui durcissent votre produit (secrets, dépendances, IAM, review de PR dans la CI), voir [Agents IA et sécurité : durcir un SaaS, ses secrets et sa CI](/fr/resources/articles/agents-ia-durcir-saas).
+
 ## FAQ
 
 ### Est-ce que Black October vise seulement PHP ?

@@ -89,6 +89,8 @@ Do this within two days if you have a PHP web stack, agents, or both:
 6. **Pull secrets out of context.** Confirm no key appears in prompts, LangSmith/PostHog traces, debug tickets, or screenshots.
 7. **Health data.** If health data is in play: review flows with the [HDS guide](/en/resources/articles/ai-health-data-hds-france) and your DPO. Do not improvise a model call outside a covered environment.
 
+For the reverse use case, AI agents that harden your product (secrets, dependencies, IAM, security PR review in CI), see [AI security agents to harden a SaaS: secrets, deps and CI](/en/resources/articles/ai-security-agents-harden-saas).
+
 ## FAQ
 
 ### Does Black October only affect PHP?

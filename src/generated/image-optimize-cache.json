@@ -31,6 +31,11 @@
       "targetUrl": "/images/_optimized/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-surface-compare.webp",
       "targetHash": "1c14cb89cc1ebfe2f9c0d61c6d3855f4b9b70e6dcd53b1fcb35d23e7b9f4a9ec"
     },
+    "content:/images/resources/agents-ia-durcir-saas/cover-mascotte.webp": {
+      "sourceHash": "d5ffd4747e658ced3540f4d4964f4b4cfb9894df0935c730fa99171f765921b6",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/agents-ia-formation-autorite/cover-mascotte.webp": {
       "sourceHash": "6effd0efc718d658224b24c2a664e66d8e65ab2ac8cfa2db0237462fc67ec80a",
       "targetUrl": null,
@@ -343,6 +348,11 @@
     },
     "og:/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
       "sourceHash": "f148fe053ae1e59135bbc63e8408eb56b1c8daaf4f342d4e18c4f5054c1a4e7c",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/agents-ia-durcir-saas/cover-mascotte.webp": {
+      "sourceHash": "d5ffd4747e658ced3540f4d4964f4b4cfb9894df0935c730fa99171f765921b6",
       "targetUrl": null,
       "targetHash": null
     },
