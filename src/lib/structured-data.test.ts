@@ -9,6 +9,7 @@ import {
   faqPageSchema,
   isPublishable,
   siteGraph,
+  webPageNode,
 } from "./structured-data";
 
 const SITE = "https://www.thevibecompany.co";
@@ -118,6 +119,59 @@ describe("breadcrumbList", () => {
         { position: 2, name: "Portfolio", item: `${SITE}/en/portfolio` },
       ],
     });
+  });
+
+  test("case study detail has a three-step trail ending on the client", () => {
+    const url = `${SITE}/en/case-studies/theodo`;
+    expect(
+      breadcrumbList([
+        { name: "Home", url: `${SITE}/en` },
+        { name: "Case studies", url: `${SITE}/en/case-studies` },
+        { name: "Theodo", url },
+      ]),
+    ).toMatchObject({
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { position: 1, name: "Home", item: `${SITE}/en` },
+        { position: 2, name: "Case studies", item: `${SITE}/en/case-studies` },
+        { position: 3, name: "Theodo", item: url },
+      ],
+    });
+  });
+});
+
+describe("webPageNode", () => {
+  test("attaches the case study page to the site WebSite and Organization", () => {
+    const url = `${SITE}/en/case-studies/theodo`;
+    const node = webPageNode({
+      url,
+      name: "Theodo · Case studies",
+      description: "A short publishable description.",
+      language: "en",
+    });
+
+    expect(node).toMatchObject({
+      "@type": "WebPage",
+      "@id": url,
+      url,
+      name: "Theodo · Case studies",
+      description: "A short publishable description.",
+      inLanguage: "en",
+      isPartOf: { "@id": `${SITE}/#website` },
+      about: { "@id": `${SITE}/#organization` },
+    });
+  });
+
+  test("drops a description that mentions a client name", () => {
+    const node = webPageNode({
+      url: `${SITE}/en/case-studies/theodo`,
+      name: "Theodo · Case studies",
+      // The Theodo summary mentions the client by name — kept out of markup
+      // by isPublishable, same policy as other pages.
+      description: "The Vibe Company supports Theodo as a technical expert.",
+      language: "en",
+    });
+    expect(node).not.toHaveProperty("description");
   });
 });
 
