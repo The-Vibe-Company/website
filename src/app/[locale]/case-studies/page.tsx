@@ -8,7 +8,7 @@ import { FinalCTA } from "@/components/home/FinalCTA";
 import { JsonLd } from "@/components/JsonLd";
 import { getCustomers, type ContentLocale } from "@/lib/customers";
 import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
-import { breadcrumbList } from "@/lib/structured-data";
+import { breadcrumbList, webPageNode } from "@/lib/structured-data";
 
 export async function generateMetadata({
   params,
@@ -44,17 +44,28 @@ export default async function CaseStudiesPage({
   const tFooter = await getTranslations({ locale, namespace: "footer" });
   const tNav = await getTranslations({ locale, namespace: "nav" });
 
+  const pageUrl = localizedUrl(locale, "/case-studies");
+  const jsonLd = [
+    webPageNode({
+      url: pageUrl,
+      name: t("back"),
+      description: t("metaDescription"),
+      language: locale,
+    }),
+    breadcrumbList([
+      { name: tFooter("home"), url: localizedUrl(locale) },
+      { name: tNav("caseStudies"), url: pageUrl },
+    ]),
+  ];
+
   return (
     <div
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
-      <JsonLd
-        data={breadcrumbList([
-          { name: tFooter("home"), url: localizedUrl(locale) },
-          { name: tNav("caseStudies"), url: localizedUrl(locale, "/case-studies") },
-        ])}
-      />
+      {jsonLd.map((node, i) => (
+        <JsonLd key={i} data={node} />
+      ))}
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="mx-auto max-w-[100rem] px-6 pb-16 pt-12 md:px-12 md:pb-20 md:pt-16">

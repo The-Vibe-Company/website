@@ -10,6 +10,7 @@ import { BackLink } from "@/components/BackLink";
 import { CaseStudyBackLink } from "@/components/CaseStudyBackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { CaseStudyKeepReading } from "@/components/CaseStudyKeepReading";
+import { JsonLd } from "@/components/JsonLd";
 import { CUSTOMER_SLUGS, getCustomer, getCustomers, type ContentLocale } from "@/lib/customers";
 import { Link } from "@/i18n/navigation";
 import {
@@ -18,8 +19,10 @@ import {
   MEDIA_AI_PATHS,
   localizedAlternates,
   localizedSocialMetadata,
+  localizedUrl,
   splitPath,
 } from "@/lib/site";
+import { breadcrumbList, webPageNode } from "@/lib/structured-data";
 
 export function generateStaticParams() {
   return CUSTOMER_SLUGS.map((slug) => ({ slug }));
@@ -61,8 +64,26 @@ export default async function CaseStudyPage({
   const tAgency = await getTranslations({ locale, namespace: "agencyParis" });
   const tHealthcare = await getTranslations({ locale, namespace: "healthcareAi" });
   const tMedia = await getTranslations({ locale, namespace: "mediaAi" });
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const tNav = await getTranslations({ locale, namespace: "nav" });
   const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) notFound();
+
+  const pageUrl = localizedUrl(locale, `/case-studies/${slug}`);
+  const pageName = `${customer.client} · ${t("back")}`;
+  const jsonLd = [
+    webPageNode({
+      url: pageUrl,
+      name: pageName,
+      description: customer.summary,
+      language: locale,
+    }),
+    breadcrumbList([
+      { name: tFooter("home"), url: localizedUrl(locale) },
+      { name: tNav("caseStudies"), url: localizedUrl(locale, "/case-studies") },
+      { name: customer.client, url: pageUrl },
+    ]),
+  ];
 
   const asideVisual = customer.visuals.find(
     (visual) => visual.placement === "aside",
@@ -82,6 +103,9 @@ export default async function CaseStudyPage({
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
+      {jsonLd.map((node, i) => (
+        <JsonLd key={i} data={node} />
+      ))}
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
