@@ -665,7 +665,7 @@
   },
   "quivr": {
     "metaTitle": "Quivr: open-source news search and monitoring",
-    "metaDescription": "Quivr by The Vibe Company (YC W24): an open-source engine that follows news, emails and posts as they arrive, makes them searchable and alerts you on your topics.",
+    "metaDescription": "Quivr (YC W24): open-source engine that follows news, emails and posts, makes them searchable and alerts you.",
     "product": {
       "alt": "The Quivr V2 interface: a live feed of articles with its filters, two articles flagged by a harbour strike alert, and trending topics.",
       "caption": "An illustration of the Quivr V2 web app, with sample articles: the live feed, its filters, an alert and trending topics.",
