@@ -15,13 +15,21 @@
  * landings use the FR path, matching `INDEXABLE_SPLIT_PATH_ROUTES.paths.fr`.
  */
 
-export const HOME_LASTMOD = "2026-10-22";
+// Home: `services.items.build.bullets` was reworked on 2026-10-24 (#270
+// "soft-home security bullets + cross-links"), which is page-visible.
+export const HOME_LASTMOD = "2026-10-24";
 export const PORTFOLIO_INDEX_LASTMOD = "2026-10-22";
 export const CASE_STUDIES_INDEX_LASTMOD = "2026-10-15";
 
-/** Keyed by `INDEXABLE_SPLIT_PATH_ROUTES.paths.fr`. */
+/**
+ * Keyed by `INDEXABLE_SPLIT_PATH_ROUTES.paths.fr`.
+ *
+ * About (`/a-propos` + `/about`) renders the `services` and `agencyParis`
+ * message namespaces, both reworked on 2026-10-24 — the About lastmod is
+ * floored to that date even though the dedicated `about` namespace is older.
+ */
 export const SPLIT_PATH_LASTMOD: Record<string, string> = {
-  "/a-propos": "2026-10-12",
+  "/a-propos": "2026-10-24",
   "/agence-ia-paris": "2026-10-24",
   "/agents-ia-securite-produit": "2026-10-24",
   "/agents-ia-production": "2026-10-24",
@@ -42,13 +50,21 @@ export const PROJECT_LASTMOD: Record<string, string> = {
   quivr: "2026-10-19",
 };
 
-/** Keyed by `CUSTOMER_SLUGS` entry. */
+/**
+ * Keyed by `CUSTOMER_SLUGS` entry.
+ *
+ * Every case study detail page renders `agencyParis.caseLink` (plus
+ * `healthcareAi.caseLink` for Monka and `mediaAi.caseLink` for AFP), all
+ * three message keys added on 2026-10-24 by the matching SEO landings
+ * (#264–#269). Even customers whose own copy in `src/lib/customers.ts` is
+ * older therefore pick 2026-10-24 as their lastmod floor.
+ */
 export const CUSTOMER_LASTMOD: Record<string, string> = {
-  monka: "2026-10-06",
-  afp: "2026-09-25",
-  locservice: "2026-08-08",
-  "coup-de-pates": "2026-09-25",
-  theodo: "2026-10-15",
+  monka: "2026-10-24",
+  afp: "2026-10-24",
+  locservice: "2026-10-24",
+  "coup-de-pates": "2026-10-24",
+  theodo: "2026-10-24",
 };
 
 /**
