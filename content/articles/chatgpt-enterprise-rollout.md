@@ -4,7 +4,7 @@ seoTitle: "ChatGPT Enterprise vs Business vs custom | The Vibe Company"
 slug: chatgpt-enterprise-rollout
 translationKey: chatgpt-business-rollout-guide
 language: en
-summary: "What ChatGPT Business and Enterprise actually change for a company, what they don't do, and when a custom agent wired into your own tools is the better call. Plus a four-step rollout plan."
+summary: "ChatGPT Business or Enterprise vs a custom agent: what changes, what doesn't, and when to build your own."
 publishedAt: 2026-10-22
 complexity: intermediate
 topics: AI Agents, AI Operations, Security

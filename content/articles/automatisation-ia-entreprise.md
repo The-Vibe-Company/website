@@ -4,7 +4,7 @@ seoTitle: "Automatisation IA : process à prioriser | The Vibe Company"
 slug: automatisation-ia-entreprise
 translationKey: ai-process-automation
 language: fr
-summary: "Workflow classique, étape IA ou agent : comment choisir le premier processus à automatiser avec l'IA dans une entreprise moyenne ou grande, avec une grille de choix, les indicateurs à suivre et des exemples réels (LocService, notre compta)."
+summary: "Quel premier processus automatiser avec l'IA : grille de choix, indicateurs, exemples LocService et compta interne."
 publishedAt: 2026-10-19
 complexity: intermediate
 topics: AI Adoption, AI Operations

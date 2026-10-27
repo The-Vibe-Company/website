@@ -4,7 +4,7 @@ seoTitle: "Financer un projet IA : CIR, CII, aides | The Vibe Company"
 slug: financer-projet-ia-cir-cii-france-2030
 translationKey: fund-ai-project-france
 language: fr
-summary: "CIR, CII, Diag Data IA, plan Osez l'IA : panorama concret des dispositifs pour financer un projet IA (agents, automatisation, produit), avec les taux officiels et le cas MediaGen / AFP (France 2030)."
+summary: "CIR, CII, Diag Data IA, Osez l'IA : financer un projet IA (agents, automatisation, produit), avec le cas MediaGen / AFP."
 publishedAt: 2026-10-16
 complexity: intermediate
 topics: AI Adoption, Strategy

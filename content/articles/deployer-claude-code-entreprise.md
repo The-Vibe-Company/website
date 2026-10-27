@@ -4,7 +4,7 @@ seoTitle: "Déployer Claude Code en entreprise | The Vibe Company"
 slug: deployer-claude-code-entreprise
 translationKey: claude-code-enterprise
 language: fr
-summary: "Comment déployer Claude Code dans une entreprise de taille moyenne ou grande : réglages managés, permissions, données, pilote et mesure. Le guide concret, sources officielles à l'appui."
+summary: "Déployer Claude Code en entreprise : réglages managés, permissions, données, pilote et mesure. Guide concret."
 publishedAt: 2026-10-13
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering

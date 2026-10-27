@@ -4,7 +4,7 @@ seoTitle: "AI automation: which processes go first | The Vibe Company"
 slug: ai-automation-which-processes-first
 translationKey: ai-process-automation
 language: en
-summary: "Classic workflow, AI step or agent: how a mid-size or large company should pick its first process to automate with AI, with a scoring grid, the metrics to track and real examples (LocService, our own bookkeeping)."
+summary: "Which process to automate first with AI: a scoring grid, metrics to track, and real examples (LocService, bookkeeping)."
 publishedAt: 2026-10-19
 complexity: intermediate
 topics: AI Adoption, AI Operations

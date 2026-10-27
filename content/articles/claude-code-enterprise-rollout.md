@@ -4,7 +4,7 @@ seoTitle: "Claude Code enterprise rollout guide | The Vibe Company"
 slug: claude-code-enterprise-rollout
 translationKey: claude-code-enterprise
 language: en
-summary: "How to roll out Claude Code across a mid-size or large company: managed settings, permissions, data, pilot and measurement. A practical guide backed by official docs."
+summary: "Roll out Claude Code in a mid-size or large company: managed settings, permissions, data, pilot and measurement."
 publishedAt: 2026-10-13
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering

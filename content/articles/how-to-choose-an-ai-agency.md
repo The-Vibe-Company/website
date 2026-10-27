@@ -4,7 +4,7 @@ seoTitle: "How to choose an AI agency: 10 questions | The Vibe Company"
 slug: how-to-choose-an-ai-agency
 language: en
 translationKey: choose-ai-agency
-summary: "AI agency, IT services firm, freelancer or in-house team? Decision criteria, fixed price vs time and materials, what a proposal should contain, and how to judge a POC and references."
+summary: "AI agency, IT firm, freelancer or in-house: criteria, pricing model, and how to judge a POC and proposal before you sign."
 publishedAt: 2026-10-13
 complexity: beginner
 topics: AI Adoption, AI Agents, Strategy

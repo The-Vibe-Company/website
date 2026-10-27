@@ -4,7 +4,7 @@ seoTitle: "Agence IA, ESN ou freelance : choisir | The Vibe Company"
 slug: choisir-agence-ia-esn-freelance
 language: fr
 translationKey: choose-ai-agency
-summary: "Agence IA, ESN, freelance ou équipe interne : critères de décision, forfait ou régie, ce que doit contenir une proposition, comment juger un POC et des références. Le guide concret avant de signer."
+summary: "Agence IA, ESN, freelance ou interne : critères, forfait ou régie, juger un POC et une proposition avant de signer."
 publishedAt: 2026-10-13
 complexity: beginner
 topics: AI Adoption, AI Agents, Strategy

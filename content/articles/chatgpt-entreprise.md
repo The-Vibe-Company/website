@@ -4,7 +4,7 @@ seoTitle: "ChatGPT entreprise : Business ou custom | The Vibe Company"
 slug: chatgpt-entreprise
 translationKey: chatgpt-business-rollout-guide
 language: fr
-summary: "Ce que changent les offres ChatGPT Business et Enterprise pour une entreprise, ce qu'elles ne font pas, et quand il vaut mieux construire un agent sur mesure branché sur vos outils. Avec une méthode de déploiement en quatre étapes."
+summary: "ChatGPT Business ou Enterprise vs agent sur mesure : ce que ça change, les limites, et quand construire le vôtre."
 publishedAt: 2026-10-22
 complexity: intermediate
 topics: AI Agents, AI Operations, Security
