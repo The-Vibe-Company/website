@@ -72,8 +72,11 @@ function ArticleCard({ item, hidden = false }: { item: ArticleCardItem; hidden?:
       </div>
       <div className="flex-1 min-w-0 flex flex-col">
         <h3 className="text-sm font-bold tracking-tight text-res-text leading-tight mb-1 line-clamp-2">
+          {/* An article lives under its own language's prefix only, whatever
+              the listing is browsed in, so the card links straight there. */}
           <Link
             href={`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`}
+            locale={item.language}
             className="after:absolute after:inset-0 after:content-[''] group-hover:underline decoration-1 underline-offset-2"
           >
             {item.title}

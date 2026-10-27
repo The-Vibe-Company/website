@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Link } from "@/i18n/navigation";
+import { Link, permanentRedirect } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
@@ -62,7 +62,6 @@ export async function generateMetadata({
     title: `${item.title} | Skills`,
     description: item.summary,
     alternates: monolingualAlternates(item.language, canonicalPath),
-    robots: locale === item.language ? undefined : { index: false, follow: true },
     openGraph: {
       type: 'article',
       locale: openGraphLocale(item.language),
@@ -101,6 +100,12 @@ export default async function SkillDetailPage({
   setRequestLocale(locale);
   const item = await getSkill(slug);
   if (!item) notFound();
+
+  // A skill is published in one language, under that language's prefix only:
+  // the other prefix redirects there instead of serving a duplicate.
+  if (item.language !== locale) {
+    permanentRedirect({ href: `/resources/skills/${item.slug}`, locale: item.language });
+  }
 
   const t = await getTranslations('resources');
   const skill = item.skill ?? { kind: 'native' as const };
