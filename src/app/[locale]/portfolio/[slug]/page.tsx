@@ -211,6 +211,47 @@ export default async function PortfolioProjectPage({
           </a>
         </section>
 
+        {project.story ? (
+          <section className="border-t border-border">
+            <div className="mx-auto flex max-w-[80rem] flex-col gap-14 px-6 py-16 md:gap-16 md:px-12 md:py-20">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
+                <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {t("storyWhy")}
+                </h2>
+                <p className="m-0 max-w-[720px] text-xl leading-[1.5] text-foreground">
+                  {project.story.why}
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
+                <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {t("storyHow")}
+                </h2>
+                <ul className="m-0 flex max-w-[720px] list-none flex-col gap-5 p-0">
+                  {project.story.how.map((step) => (
+                    <li
+                      key={step}
+                      className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
+                    >
+                      <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
+                        →
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
+                <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {t("storyAudience")}
+                </h2>
+                <p className="m-0 max-w-[720px] text-lg leading-[1.6] text-foreground">
+                  {project.story.audience}
+                </p>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
         {isQuivr ? <QuivrSections locale={locale} /> : null}
 
         <FinalCTA rail="narrow" />

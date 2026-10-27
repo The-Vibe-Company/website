@@ -97,6 +97,7 @@ export default async function CaseStudyPage({
   const all = getCustomers(locale as ContentLocale);
   const index = all.findIndex((c) => c.slug === slug);
   const related = [...all.slice(index + 1), ...all.slice(0, index)].slice(0, 3);
+  const guide = customer.related;
 
   return (
     <div
@@ -277,19 +278,26 @@ export default async function CaseStudyPage({
               <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
                 {t("whatWeDid")}
               </h2>
-              <ul className="m-0 flex list-none flex-col gap-5 p-0">
-                {customer.points.map((point) => (
-                  <li
-                    key={point}
-                    className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
-                  >
-                    <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
-                      →
-                    </span>
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
+              <div>
+                {customer.approach && (
+                  <p className="m-0 mb-8 max-w-[720px] text-xl leading-[1.5] text-foreground">
+                    {customer.approach}
+                  </p>
+                )}
+                <ul className="m-0 flex list-none flex-col gap-5 p-0">
+                  {customer.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
+                    >
+                      <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
+                        →
+                      </span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </section>
         )}
@@ -359,6 +367,22 @@ export default async function CaseStudyPage({
                 link: (chunks) => (
                   <Link
                     href={splitPath(MEDIA_AI_PATHS, locale)}
+                    className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </p>
+          ) : null}
+          {/* A case told in more depth in a guide points at it. */}
+          {guide ? (
+            <p className="m-0 mb-4 max-w-[680px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
+              {t.rich("relatedArticle", {
+                title: guide.title,
+                link: (chunks) => (
+                  <Link
+                    href={guide.href}
                     className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
                   >
                     {chunks}
