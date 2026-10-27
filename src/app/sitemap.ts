@@ -7,6 +7,15 @@ import {
 } from "@/lib/content-source";
 import { PROJECT_SLUGS } from "@/lib/projects";
 import {
+  CASE_STUDIES_INDEX_LASTMOD,
+  customerLastmod,
+  HOME_LASTMOD,
+  lastmodDate,
+  PORTFOLIO_INDEX_LASTMOD,
+  projectLastmod,
+  splitPathLastmod,
+} from "@/lib/sitemap-lastmod";
+import {
   contentAlternates,
   INDEXABLE_SPLIT_PATH_ROUTES,
   INDEXABLE_STATIC_ROUTES,
@@ -45,16 +54,23 @@ function splitEntries(paths: SplitPaths, extra: Extra): MetadataRoute.Sitemap {
   }));
 }
 
+// `lastModified` for a static route not driven by its own content source.
+function staticLastmod(path: string, latestContentDate: Date): Date {
+  if (path.startsWith("/resources")) return latestContentDate;
+  if (path === "/") return lastmodDate(HOME_LASTMOD);
+  if (path === "/portfolio") return lastmodDate(PORTFOLIO_INDEX_LASTMOD);
+  throw new Error(`sitemap: no lastmod for static route "${path}"`);
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   const allContent = getAllContent();
   const latestContentDate = allContent[0]?.publishedAt
     ? new Date(allContent[0].publishedAt)
-    : now;
+    : lastmodDate(HOME_LASTMOD);
 
   const staticRoutes = INDEXABLE_STATIC_ROUTES.flatMap((route) =>
     entries(route.path, {
-      lastModified: route.path.startsWith("/resources") ? latestContentDate : now,
+      lastModified: staticLastmod(route.path, latestContentDate),
       changeFrequency: route.changeFrequency,
       priority: route.priority,
     })
@@ -62,7 +78,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const splitPathRoutes = INDEXABLE_SPLIT_PATH_ROUTES.flatMap((route) =>
     splitEntries(route.paths, {
-      lastModified: now,
+      lastModified: splitPathLastmod(route.paths.fr),
       changeFrequency: route.changeFrequency,
       priority: route.priority,
     })
@@ -90,7 +106,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const portfolioRoutes = PROJECT_SLUGS.flatMap((slug) =>
     entries(`/portfolio/${slug}`, {
-      lastModified: now,
+      lastModified: projectLastmod(slug),
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })
@@ -99,13 +115,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Case studies use the route's customer source and FR/EN-only alternates.
   const caseStudyRoutes = [
     ...entries("/case-studies", {
-      lastModified: now,
+      lastModified: lastmodDate(CASE_STUDIES_INDEX_LASTMOD),
       changeFrequency: "monthly",
       priority: 0.8,
     }),
     ...CUSTOMER_SLUGS.flatMap((slug) =>
       entries(`/case-studies/${slug}`, {
-        lastModified: now,
+        lastModified: customerLastmod(slug),
         changeFrequency: "monthly",
         priority: 0.7,
       }).filter((_, index) => getCustomer(slug, LOCALES[index]))
