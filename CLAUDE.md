@@ -85,6 +85,10 @@ The expected result is 0 errors and 0 avoidable warnings.
 
 When planning, always create a graph of tasks and dependencies between them.
 
+## SEO changes
+
+Before any SEO PR or SEO fix, run `bun run seo:check` (fast smoke check of locale redirects, sitemap, cards, titles, plus the content gates) and do not open the PR if it fails. Details in `AGENTS.md`.
+
 ## Vercel
 
 never deploy to vercel manually, let the CI/CD do it.
