@@ -1,5 +1,6 @@
 ---
 title: "MCP is how agents learn your company's taste"
+seoTitle: "MCP: teach agents your company's taste | The Vibe Company"
 slug: mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done
 language: en
 summary: "Tool access is the shallow promise of MCP. The real value is packaging company judgment - context, order, permissions, review, and taste - into a surface agents can actually use."

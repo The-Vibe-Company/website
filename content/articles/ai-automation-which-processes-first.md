@@ -1,5 +1,6 @@
 ---
 title: "AI automation for companies: which processes to automate first"
+seoTitle: "AI automation: which processes go first | The Vibe Company"
 slug: ai-automation-which-processes-first
 translationKey: ai-process-automation
 language: en

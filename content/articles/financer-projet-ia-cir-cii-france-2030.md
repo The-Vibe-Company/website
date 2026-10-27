@@ -1,5 +1,6 @@
 ---
 title: "Financer un projet IA : CIR, CII, Diag Data IA, France 2030"
+seoTitle: "Financer un projet IA : CIR, CII, aides | The Vibe Company"
 slug: financer-projet-ia-cir-cii-france-2030
 translationKey: fund-ai-project-france
 language: fr

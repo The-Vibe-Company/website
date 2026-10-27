@@ -1,5 +1,6 @@
 ---
 title: "Je veux que mes relecteurs n'aient plus rien à corriger"
+seoTitle: "Comment j'écris mes articles avec l'IA | The Vibe Company"
 slug: comment-j-ecris-ces-articles
 language: fr
 summary: "Je publie quatre articles par semaine sur mon apprentissage avec l'IA. Je ne les tape pas d'une traite, et l'IA ne les écrit pas toute seule non plus. Dès le début, je me suis fixé un but, un skill qui relit aussi bien que mes relecteurs humains, jusqu'au jour où ils n'auront plus besoin de relire."

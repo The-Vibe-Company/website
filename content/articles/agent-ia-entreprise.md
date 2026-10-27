@@ -1,5 +1,6 @@
 ---
 title: "Agent IA en entreprise : le guide pour bien démarrer"
+seoTitle: "Agent IA en entreprise : bien démarrer | The Vibe Company"
 slug: agent-ia-entreprise
 translationKey: ai-agents-enterprise-guide
 language: fr

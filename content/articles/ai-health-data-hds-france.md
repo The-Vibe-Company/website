@@ -1,5 +1,6 @@
 ---
 title: "AI and health data in France: what HDS really means for your project"
+seoTitle: "AI and health data in France: HDS guide | The Vibe Company"
 slug: ai-health-data-hds-france
 language: en
 translationKey: hds-health-data

@@ -1,5 +1,6 @@
 ---
 title: "Ce qui fait la différence avec l'IA, ce ne sont pas les prompts"
+seoTitle: "Skills IA : plus utiles que les prompts | The Vibe Company"
 slug: les-skills
 language: fr
 summary: "Stan m'a vite convaincu : avec l'IA, le vrai levier, ce sont les skills, pas les prompts. Mes premiers skills, ma première loop pour tester mon site, et ceux que j'ai fini par créer moi-même, alors que je ne code pas."

@@ -1,5 +1,6 @@
 ---
 title: "Agents IA et sécurité : durcir un SaaS, ses secrets et sa CI"
+seoTitle: "Agents IA sécurité : durcir un SaaS | The Vibe Company"
 slug: agents-ia-durcir-saas
 translationKey: ai-agents-harden-saas
 language: fr

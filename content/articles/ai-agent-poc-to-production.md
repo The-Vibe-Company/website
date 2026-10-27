@@ -1,5 +1,6 @@
 ---
 title: "From AI agent POC to production: the checklist that holds up"
+seoTitle: "AI agent POC to production checklist | The Vibe Company"
 slug: ai-agent-poc-to-production
 translationKey: ai-agent-poc-to-production
 language: en

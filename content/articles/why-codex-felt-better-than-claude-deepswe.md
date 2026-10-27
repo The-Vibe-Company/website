@@ -1,5 +1,6 @@
 ---
 title: "The benchmark that finally explains why Codex felt better than Claude"
+seoTitle: "Codex vs Claude: what DeepSWE explains | The Vibe Company"
 slug: why-codex-felt-better-than-claude-deepswe
 language: en
 summary: "DeepSWE gives a measurable reason why Codex with GPT-5.5 has felt stronger than Claude Opus 4.7 for long, multi-file vibe coding tasks: it tests the ability to close the loop."

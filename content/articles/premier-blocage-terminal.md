@@ -1,5 +1,6 @@
 ---
 title: "Mon premier vrai blocage, ce n'était pas de créer le site"
+seoTitle: "Mon premier blocage : le terminal | The Vibe Company"
 slug: premier-blocage-terminal
 language: fr
 summary: "Créer le site, ça allait. Mon vrai blocage est venu du terminal : coller des commandes que je ne comprenais pas, sans rien voir bouger à l'écran. Comment j'ai tenu, et le déclic quand un push a mis le site à jour tout seul."

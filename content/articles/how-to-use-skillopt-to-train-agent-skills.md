@@ -1,5 +1,6 @@
 ---
 title: "How to use SkillOpt: train your agent skills, not your model"
+seoTitle: "How to use SkillOpt to train agent skills | The Vibe Company"
 slug: how-to-use-skillopt-to-train-agent-skills
 summary: "The new SkillOpt paper is easy to misread as prompt optimization. The useful lesson is more operational: treat skill files as trainable, validated artifacts."
 publishedAt: 2026-05-27
