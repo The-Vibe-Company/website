@@ -4,6 +4,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { LanguageFlag } from '@/components/resources/LanguageFlag';
 import { contentPath, getContentForLanguage, type ContentEntry, type ContentLanguage } from '@/lib/content-source';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
+import { getCoverImageDimensions } from '@/lib/og-image-dimensions';
 import { resourcesTheme } from '@/lib/resources-theme';
 
 function formatShortDate(dateString: string | undefined, locale: string): string {
@@ -49,6 +50,7 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
               <img
                 src={featured.featuredImage.url}
                 alt={featured.featuredImage.alt ?? featured.title}
+                {...getCoverImageDimensions(featured.featuredImage.sourceUrl)}
                 className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 decoding="async"
               />
@@ -92,6 +94,7 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
                   <img
                     src={r.featuredImage.url}
                     alt={r.featuredImage.alt ?? r.title}
+                    {...getCoverImageDimensions(r.featuredImage.sourceUrl)}
                     className="h-full w-full object-cover"
                     decoding="async"
                   />

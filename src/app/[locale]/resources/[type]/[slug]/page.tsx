@@ -24,7 +24,7 @@ import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { contentAlternates, localizedUrl, openGraphLocale, SITE_NAME, SITE_URL } from '@/lib/site';
 import { articleSchema, breadcrumbList, extractMarkdownFaq, faqPageSchema } from '@/lib/structured-data';
-import { getOgImageDimensions } from '@/lib/og-image-dimensions';
+import { getCoverImageDimensions, getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
   return getAllStaticParams();
@@ -176,6 +176,7 @@ export default async function ContentDetailPage({
   };
 
   const cover = item.featuredImage;
+  const coverDimensions = getCoverImageDimensions(cover?.sourceUrl);
   const { body: bodyWithoutCover, caption: coverCaption } = cover?.sourceUrl
     ? extractCoverImage(item.body, cover.sourceUrl)
     : { body: item.body, caption: undefined };
@@ -391,6 +392,8 @@ export default async function ContentDetailPage({
                   <img
                     src={cover.url}
                     alt={cover.alt ?? item.title}
+                    width={coverDimensions.width}
+                    height={coverDimensions.height}
                     className="w-full h-auto rounded-lg border border-res-border"
                     decoding="async"
                   />
