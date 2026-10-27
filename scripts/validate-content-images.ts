@@ -59,7 +59,7 @@ async function readDimensions(file: string): Promise<Dimensions | null> {
 
 async function validateMarkdownFile(file: string): Promise<{
   failures: Failure[]
-  entry: { sourceUrl: string; dimensions: Dimensions } | null
+  entries: { sourceUrl: string; dimensions: Dimensions }[]
 }> {
   const relFile = path.relative(ROOT, file)
   const failures: Failure[] = []
@@ -69,13 +69,13 @@ async function validateMarkdownFile(file: string): Promise<{
 
   if (!ogImage) {
     failures.push({ file: relFile, reason: 'missing `ogImage:` frontmatter field' })
-    return { failures, entry: null }
+    return { failures, entries: [] }
   }
 
   const sourcePath = toPublicPath(ogImage)
   if (!isInsidePublic(sourcePath)) {
     failures.push({ file: relFile, reason: `ogImage path escapes the public/ directory: ${ogImage}` })
-    return { failures, entry: null }
+    return { failures, entries: [] }
   }
 
   let stat: Awaited<ReturnType<typeof fs.stat>>
@@ -83,7 +83,7 @@ async function validateMarkdownFile(file: string): Promise<{
     stat = await fs.stat(sourcePath)
   } catch {
     failures.push({ file: relFile, reason: `ogImage file not found at public${ogImage}` })
-    return { failures, entry: null }
+    return { failures, entries: [] }
   }
 
   if (stat.size > MAX_BYTES) {
@@ -96,7 +96,7 @@ async function validateMarkdownFile(file: string): Promise<{
   const dimensions = await readDimensions(sourcePath)
   if (!dimensions) {
     failures.push({ file: relFile, reason: `ogImage at public${ogImage} could not be read by sharp` })
-    return { failures, entry: null }
+    return { failures, entries: [] }
   }
 
   if (dimensions.width < MIN_WIDTH) {
@@ -115,10 +115,22 @@ async function validateMarkdownFile(file: string): Promise<{
   }
 
   if (failures.length > 0) {
-    return { failures, entry: null }
+    return { failures, entries: [] }
   }
 
-  return { failures, entry: { sourceUrl: ogImage, dimensions } }
+  const entries = [{ sourceUrl: ogImage, dimensions }]
+
+  // The article page renders the cover with explicit width/height (no layout
+  // shift), so record its intrinsic size too. A missing cover is reported by
+  // validate-unique-covers.ts, not here.
+  const coverImage = data.coverImage?.trim() ?? ''
+  if (coverImage && coverImage !== ogImage) {
+    const coverPath = toPublicPath(coverImage)
+    const coverDimensions = isInsidePublic(coverPath) ? await readDimensions(coverPath) : null
+    if (coverDimensions) entries.push({ sourceUrl: coverImage, dimensions: coverDimensions })
+  }
+
+  return { failures, entries }
 }
 
 async function writeDimensionsFile(map: Record<string, Dimensions>): Promise<void> {
@@ -149,10 +161,10 @@ async function main() {
     for (const file of files) {
       const result = await validateMarkdownFile(file)
       failures.push(...result.failures)
-      if (result.entry) {
-        dimensions[result.entry.sourceUrl] = result.entry.dimensions
-        validated += 1
+      for (const entry of result.entries) {
+        dimensions[entry.sourceUrl] = entry.dimensions
       }
+      if (result.entries.length > 0) validated += 1
     }
   }
 
