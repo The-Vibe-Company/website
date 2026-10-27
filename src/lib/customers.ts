@@ -38,6 +38,8 @@ interface RawCustomer {
   /** Optional: a confidential engagement can go without a headline figure. */
   metric?: L;
   metricLabel?: L;
+  /** Search snippet (≤155 chars); falls back to the summary. */
+  metaDescription?: L;
   summary: L;
   points: L[];
   overview: L;
@@ -80,6 +82,7 @@ export interface Customer {
   sector: string;
   metric?: string;
   metricLabel?: string;
+  metaDescription: string;
   summary: string;
   points: string[];
   overview: string;
@@ -123,6 +126,10 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     metricLabel: {
       en: "in a caregiver assessment that turns into a personal action plan",
       fr: "pour un bilan aidant qui devient un plan d’action personnalisé",
+    },
+    metaDescription: {
+      en: "Monka: caregiver app, Lifeline and nurses' CRM shipped in 2 months, plus the API that ties them together.",
+      fr: "Monka : app aidants, Lifeline et CRM infirmières livrés en 2 mois, avec l'API qui relie le tout.",
     },
     summary: {
       en: "Monka supports people who care for a loved one, alongside coordinating nurses. To keep up with their growth, we shipped in two months the caregiver app, Lifeline, the CRM for their nurses, and the API that ties them together.",
@@ -179,6 +186,10 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       en: "for newsrooms, within MediaGen, AFP's France 2030 generative AI project",
       fr: "pour les rédactions, dans MediaGen, le projet France 2030 d’IA générative de l’AFP",
     },
+    metaDescription: {
+      en: "With AFP, we're building MediaGen (€4M France 2030): trustworthy generative AI for newsrooms, under journalists' control.",
+      fr: "Avec l'AFP, on construit MediaGen (France 2030, 4 M€) : IA générative de confiance pour les rédactions, sous contrôle journalistique.",
+    },
     summary: {
       en: "With AFP, we're building MediaGen, a €4M France 2030 project backed by Bpifrance: trustworthy generative AI tools for newsrooms, always under journalists' control. We're part of the technical consortium alongside Kairntech and Dawex.",
       fr: "Avec l’AFP, on construit MediaGen, un projet France 2030 de 4 M€ soutenu par Bpifrance : des outils d’IA générative de confiance pour les rédactions, toujours sous le contrôle des journalistes. On fait partie du consortium technique, aux côtés de Kairntech et Dawex.",
@@ -219,6 +230,10 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     metricLabel: {
       en: "of support tickets answered with our AI drafts",
       fr: "des tickets support traités grâce à nos brouillons IA",
+    },
+    metaDescription: {
+      en: "LocService: we read past tickets and internal docs to draft each support answer, tailored to the customer's history.",
+      fr: "LocService : on lit tickets et docs internes pour rédiger chaque réponse support, adaptée au profil et à l'historique client.",
     },
     summary: {
       en: "LocService handles several hundred support tickets a day. We read all their past tickets and internal docs to draft the answer for each new one, tailored to the customer's profile and history.",
@@ -268,6 +283,10 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     metricLabel: {
       en: "a CSR app for the teams, and AI skills for quality control",
       fr: "une app RSE pour les équipes, et des skills IA pour le contrôle qualité",
+    },
+    metaDescription: {
+      en: "Coup de Pates: Ensemble app for teams, plus AI skills that check product documents.",
+      fr: "Coup de Pates : app Ensemble pour les équipes, et skills IA qui vérifient les documents produit.",
     },
     summary: {
       en: "Coup de Pates supplies frozen products to food professionals. We built them Ensemble, the app that brings employees together around events like a step challenge, and a library of AI skills that checks their product documents.",
@@ -363,6 +382,10 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     sector: { en: "Technical expertise · Software Factories", fr: "Expertise technique · Software Factories" },
     metric: { en: "AI Software Factories", fr: "AI Software Factories" },
     metricLabel: { en: "for hundreds of developers", fr: "pour des centaines de développeurs" },
+    metaDescription: {
+      en: "The Vibe Company supports Theodo as a technical expert on Software Factories that help accelerate their teams.",
+      fr: "The Vibe Company accompagne Theodo comme expert technique sur des Software Factories pour accélérer leurs équipes.",
+    },
     summary: {
       en: "The Vibe Company supports Theodo as a technical expert on critical projects for their clients, such as building Software Factories for hundreds of developers, to help accelerate their teams.",
       fr: "The Vibe Company accompagne Theodo en tant qu’expert technique sur des projets critiques pour leurs clients, par exemple la création de Software Factories pour des centaines de développeurs, afin d’accélérer leurs équipes.",
@@ -417,6 +440,7 @@ function localize(raw: RawCustomer, locale: ContentLocale): Customer {
     sector: pick(raw.sector, locale),
     metric: raw.metric ? pick(raw.metric, locale) : undefined,
     metricLabel: raw.metricLabel ? pick(raw.metricLabel, locale) : undefined,
+    metaDescription: pick(raw.metaDescription ?? raw.summary, locale),
     summary: pick(raw.summary, locale),
     points: raw.points.map((p) => pick(p, locale)),
     overview: pick(raw.overview, locale),

@@ -36,7 +36,7 @@ export async function generateMetadata({
       ? await getTranslations({ locale, namespace: "quivr" })
       : null;
   const title = tQuivr ? tQuivr("metaTitle") : `${project.name} · ${t("back")}`;
-  const description = tQuivr ? tQuivr("metaDescription") : project.description;
+  const description = tQuivr ? tQuivr("metaDescription") : project.metaDescription;
   return {
     title: tQuivr ? { absolute: title } : title,
     description,

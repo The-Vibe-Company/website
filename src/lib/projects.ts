@@ -34,6 +34,8 @@ interface RawProject {
   tag: L;
   date: L;
   status: L;
+  /** Search snippet (≤155 chars); falls back to the description. */
+  metaDescription?: L;
   description: L;
   story?: RawStory;
 }
@@ -52,6 +54,7 @@ export interface Project {
   tag: string;
   date: string;
   status: string;
+  metaDescription: string;
   description: string;
   story?: ProjectStory;
 }
@@ -118,6 +121,10 @@ const PROJECTS_RAW: RawProject[] = [
     tag: { en: "Skill library", fr: "Bibliothèque de skills" },
     date: { en: "Feb 2026", fr: "févr. 2026" },
     status: { en: "Live", fr: "En ligne" },
+    metaDescription: {
+      en: "Skillpack: a shared skill library. Package your team's best prompts and reuse them in your AI.",
+      fr: "Skillpack : bibliothèque de skills partagée. Empaquetez les meilleurs prompts de l'équipe et réutilisez-les dans votre IA.",
+    },
     description: {
       en: "Skillpack is a shared skill library for teams. Package your colleagues' best prompts as reusable skills, browse what the team has built, and use them in your AI for anything.",
       fr: "Skillpack est une bibliothèque de skills partagée pour les équipes. On empaquette les meilleurs prompts de ses collègues en skills réutilisables, on parcourt ce que l’équipe a construit, et on les utilise dans son IA pour tout.",
@@ -210,6 +217,10 @@ const PROJECTS_RAW: RawProject[] = [
     tag: { en: "Agent OS", fr: "OS pour agents" },
     date: { en: "Apr 2026", fr: "avr. 2026" },
     status: { en: "Open source", fr: "Open source" },
+    metaDescription: {
+      en: "Granite: the personal OS your agent runs on — markdown notes, SQLite index, typed contracts for navigable memory.",
+      fr: "Granite : l'OS personnel de votre agent — notes markdown, index SQLite et contrats typés pour une mémoire navigable.",
+    },
     description: {
       en: "Granite is the personal OS your agent runs on: markdown notes, a SQLite index, and a typed contract system that turns local files into a navigable company memory.",
       fr: "Granite est l’OS personnel sur lequel tourne votre agent. Des notes markdown, un index SQLite et un système de contrats typés qui transforme vos fichiers locaux en une mémoire d’entreprise navigable.",
@@ -258,6 +269,10 @@ const PROJECTS_RAW: RawProject[] = [
     tag: { en: "Local dashboard", fr: "Dashboard local" },
     date: { en: "Jul 2026", fr: "juil. 2026" },
     status: { en: "Open source", fr: "Open source" },
+    metaDescription: {
+      en: "VibeDeck: a dashboard of sites, feeds and media panels. Everything stays on your machine — no account, no tracking.",
+      fr: "VibeDeck : dashboard de sites, flux et médias en panneaux. Tout reste sur votre machine, sans compte ni tracking.",
+    },
     description: {
       en: "VibeDeck gathers your favorite sites, feeds and media into a dashboard of panels you compose freely. Everything stays on your machine: no account, no server, no tracking.",
       fr: "VibeDeck rassemble vos sites, flux et médias favoris dans un dashboard de panneaux que vous composez librement. Tout reste sur votre machine : sans compte, sans serveur, sans tracking.",
@@ -307,6 +322,10 @@ const PROJECTS_RAW: RawProject[] = [
     tag: { en: "Team to-do", fr: "To-do d’équipe" },
     date: { en: "Sep 2026", fr: "sept. 2026" },
     status: { en: "Internal tool", fr: "Outil interne" },
+    metaDescription: {
+      en: "Bruno: the web and iPhone to-do we run the company on. Voice capture, priorities, and follow-ups that find you.",
+      fr: "Bruno : la to-do web et iPhone de l'entreprise. Capture vocale, priorités, et relances sans ouvrir l'app.",
+    },
     description: {
       en: "Bruno is the to-do we run the company on, on web and iPhone. Capture an idea by voice in seconds, sort what's on fire from what can wait, and let Bruno nudge you instead of waiting to be opened.",
       fr: "Bruno est la to-do sur laquelle tourne l’entreprise, sur le web et sur iPhone. On capture une idée à la voix en quelques secondes, on sépare ce qui brûle de ce qui peut attendre, et c’est Bruno qui vient vous relancer au lieu d’attendre qu’on l’ouvre.",
@@ -355,6 +374,10 @@ const PROJECTS_RAW: RawProject[] = [
     tag: { en: "Agent fleet", fr: "Flotte d’agents" },
     date: { en: "Sep 2026", fr: "sept. 2026" },
     status: { en: "Open source", fr: "Open source" },
+    metaDescription: {
+      en: "Armada: a fleet of coding agents on one project, with coordinated merges and a live dashboard.",
+      fr: "Armada : une flotte d'agents de code sur un même projet, avec merge coordonné et dashboard en direct.",
+    },
     description: {
       en: "Armada runs a fleet of coding agents on one project. Each ticket goes to its own agent, a coordinator merges the green pull requests, and a live dashboard shows the whole fleet, from the first question to the merge.",
       fr: "Armada fait tourner une flotte d’agents de code sur un même projet. Chaque ticket part chez son propre agent, un coordinateur merge les pull requests au vert, et un dashboard en direct montre toute la flotte, de la première question jusqu’au merge.",
@@ -403,6 +426,10 @@ const PROJECTS_RAW: RawProject[] = [
     tag: { en: "Frontend design", fr: "Design de front" },
     date: { en: "Oct 2026", fr: "oct. 2026" },
     status: { en: "Open source", fr: "Open source" },
+    metaDescription: {
+      en: "AEOM: the designer for a product coded by agents. It walks the app, judges screens, and fixes what feels off.",
+      fr: "AEOM : le designer d'un produit codé par des agents. Il parcourt l'app, juge les écrans et refait ce qui gêne.",
+    },
     description: {
       en: "AEOM (All Eyes On Me) is the designer of a product coded by agents. It walks your app like a user, judges every screen against your taste, and rebuilds what gets in the way so the frontend looks like someone designed it.",
       fr: "AEOM (All Eyes On Me) est le designer d’un produit codé par des agents. Il parcourt votre app comme un utilisateur, juge chaque écran selon votre goût, et refait ce qui gêne pour que le front ait l’air d’avoir été dessiné par quelqu’un.",
@@ -473,6 +500,7 @@ function localize(raw: RawProject, locale: ContentLocale): Project {
     tag: pick(raw.tag, locale),
     date: pick(raw.date, locale),
     status: pick(raw.status, locale),
+    metaDescription: pick(raw.metaDescription ?? raw.description, locale),
     description: pick(raw.description, locale),
     story: raw.story
       ? {

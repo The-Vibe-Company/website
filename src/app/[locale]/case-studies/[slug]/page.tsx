@@ -39,7 +39,7 @@ export async function generateMetadata({
   const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) return { title: t("back") };
   const title = `${customer.client} · ${t("back")}`;
-  const description = customer.summary;
+  const description = customer.metaDescription;
   return {
     title,
     description,
