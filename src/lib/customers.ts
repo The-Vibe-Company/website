@@ -41,6 +41,10 @@ interface RawCustomer {
   summary: L;
   points: L[];
   overview: L;
+  /** Optional: how we approached the work, shown above the "what we did" list. */
+  approach?: L;
+  /** Optional: a guide on the site that tells the case in more depth. */
+  related?: { href: L; title: L };
   results: RawStat[];
   /** When set, the case page tells each project in turn instead of one list. */
   projects?: RawProject[];
@@ -79,6 +83,8 @@ export interface Customer {
   summary: string;
   points: string[];
   overview: string;
+  approach?: string;
+  related?: { href: string; title: string };
   results: CustomerStat[];
   projects?: CustomerProject[];
   quote?: { text: string; author: string };
@@ -222,10 +228,29 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       { en: "Connected to their internal APIs to pull real customer context.", fr: "Connecté à leurs API internes pour récupérer le vrai contexte client." },
       { en: "Classification rules so the same question gets the right answer per customer type.", fr: "Des règles de classification pour que la même question ait la bonne réponse selon le type de client." },
       { en: "Hundreds of tickets a day, our drafts used on 87% of them.", fr: "Des centaines de tickets par jour, nos brouillons utilisés sur 87% d'entre eux." },
+      {
+        en: "A human sends every reply: a support agent reviews the draft, fixes it if needed, then sends it.",
+        fr: "Un humain envoie chaque réponse : un agent du support relit le brouillon, le corrige si besoin, puis l'envoie.",
+      },
+      {
+        en: "One simple measure, checked day to day: is the draft used? Not a score on a test set chosen in advance.",
+        fr: "Une mesure simple, suivie au quotidien : le brouillon est-il utilisé ? Pas un score sur un jeu de test choisi à l'avance.",
+      },
     ],
     overview: {
-      en: "LocService handles several hundred customer-support tickets a day. We built an assistant that reads all their past tickets and internal documentation to draft the answer for each new ticket, tailored to the customer's profile and history.",
-      fr: "LocService est une plateforme de location immobilière entre particuliers qui traite plusieurs centaines de tickets support par jour. On a construit un assistant qui lit tous leurs anciens tickets et leur documentation interne pour rédiger la réponse à chaque nouveau ticket, adaptée au profil et à l'historique du client.",
+      en: "LocService is a peer-to-peer property rental platform that handles several hundred customer-support tickets a day. We built an assistant that reads all their past tickets and internal documentation to draft the answer for each new ticket, tailored to the customer's profile and history. The AI prepares, a person sends: the support team stays in charge of every reply.",
+      fr: "LocService est une plateforme de location immobilière entre particuliers qui traite plusieurs centaines de tickets support par jour. On a construit un assistant qui lit tous leurs anciens tickets et leur documentation interne pour rédiger la réponse à chaque nouveau ticket, adaptée au profil et à l'historique du client. L'IA prépare, l'humain envoie : l'équipe support garde la main sur chaque réponse.",
+    },
+    approach: {
+      en: "We did not build a chatbot that answers customers on its own. On a support desk where the right answer depends on each customer's file, an AI mistake shows right away, and it goes out with LocService's name on it. So the assistant does the research and the writing, and the team keeps the decision. What made the drafts right was not a clever prompt: it was the real customer context pulled from their systems, and rules that recognize the case before drafting.",
+      fr: "On n'a pas construit un chatbot qui répond seul aux clients. Sur un support où la bonne réponse dépend du dossier de chacun, une erreur de l'IA se voit tout de suite, et elle part avec le nom de LocService dessus. L'assistant fait donc le travail de recherche et de rédaction, et l'équipe garde la décision. Ce qui rend les brouillons justes, ce n'est pas un prompt astucieux : c'est le vrai contexte client récupéré dans leurs systèmes, et des règles qui reconnaissent le cas avant de rédiger.",
+    },
+    related: {
+      href: { en: "/resources/articles/ai-customer-support-agent", fr: "/resources/articles/agent-ia-support-client" },
+      title: {
+        en: "AI agents for customer support: automate without hurting service",
+        fr: "Agent IA pour le support client : automatiser sans dégrader le service",
+      },
     },
     results: [
       { value: { en: "87%", fr: "87%" }, label: { en: "Of tickets answered with our AI drafts", fr: "Des tickets traités grâce à nos brouillons IA" } },
@@ -364,6 +389,10 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       en: "Theodo delivers critical projects for its clients, and brings in The Vibe Company as a technical expert embedded in its teams. The challenge: industrialize AI-assisted development at scale, across the teams that deliver those projects. Together, we build Software Factories for hundreds of developers: standardized tools, agents, and skills, plus the support and training that help every team adopt them and move faster.",
       fr: "Theodo mène des projets critiques pour ses clients, et fait appel à The Vibe Company comme expert technique intégré à ses équipes. L’enjeu : industrialiser le développement assisté par IA à grande échelle, pour les équipes qui mènent ces projets. Ensemble, on construit des Software Factories pour des centaines de développeurs : des outils, des agents et des skills standardisés, et l’accompagnement et la formation qui permettent à chaque équipe de les adopter et d’avancer plus vite.",
     },
+    approach: {
+      en: "A Software Factory is the common base every development team works from: the same tools, the same agents, the same skills, and the rules that come with them. Without it, each team cobbles together its own way of using AI, and good practices stay stuck in a single repository. Security is one of the areas where that shared base pays off fastest, because a rule forgotten in one repository is enough to open a door. Both founders of The Vibe Company came through Theodo themselves.",
+      fr: "Une Software Factory, c’est la base commune sur laquelle travaillent toutes les équipes de développement : les mêmes outils, les mêmes agents, les mêmes skills, et les règles qui vont avec. Sans elle, chaque équipe bricole son propre usage de l’IA, et les bonnes pratiques restent coincées dans un seul dépôt. La sécurité est un des domaines où cette base commune paie le plus vite, parce qu’une règle oubliée dans un seul dépôt suffit à ouvrir une porte. Les deux fondateurs de The Vibe Company sont eux-mêmes passés par Theodo.",
+    },
     results: [],
   },
 ];
@@ -391,6 +420,10 @@ function localize(raw: RawCustomer, locale: ContentLocale): Customer {
     summary: pick(raw.summary, locale),
     points: raw.points.map((p) => pick(p, locale)),
     overview: pick(raw.overview, locale),
+    approach: raw.approach ? pick(raw.approach, locale) : undefined,
+    related: raw.related
+      ? { href: pick(raw.related.href, locale), title: pick(raw.related.title, locale) }
+      : undefined,
     results: raw.results.map((r) => ({ value: pick(r.value, locale), label: pick(r.label, locale) })),
     projects: raw.projects?.map((project) => ({
       name: pick(project.name, locale),

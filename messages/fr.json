@@ -234,7 +234,16 @@
     "visit": "Visiter",
     "visitClient": "Visiter {name}",
     "keepReading": "À lire ensuite",
-    "next": "Suivant"
+    "next": "Suivant",
+    "subtitle": "Des produits, des agents et des automatisations IA en production chez nos clients : santé, presse, location immobilière, agroalimentaire, et des équipes tech à grande échelle. Chaque cas raconte le point de départ, ce qu’on a construit et comment on a travaillé.",
+    "relatedArticle": "Pour aller plus loin, lisez notre guide <link>{title}</link>.",
+    "about": {
+      "kicker": "// COMMENT ON TRAVAILLE",
+      "title": "Du premier appel à la production.",
+      "p1": "Chaque projet commence par un appel de 30 minutes : vous expliquez le problème, on explique comment on le construirait. Si ça colle, on envoie une proposition à périmètre fixe, puis un prototype cliquable avant la moindre ligne de code de production.",
+      "p2": "Pendant le build, vous voyez du logiciel qui marche tôt et souvent, et on mesure le résultat à l’usage réel plutôt qu’à la démo. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique sont passés en production en deux mois, avec depuis une nouvelle version tous les deux jours environ. Chez LocService, les brouillons de l’assistant sont utilisés sur 87 % des tickets.",
+      "p3": "Ensuite, deux options : on confie le code à votre équipe avec la documentation et les runbooks, ou on continue de le faire tourner. Avec Theodo, la formation des équipes fait partie du travail, pour qu’elles adoptent elles-mêmes ces pratiques et avancent plus vite."
+    }
   },
   "resources": {
     "kicker": "Ressources",
@@ -308,7 +317,17 @@
     "visit": "Visiter",
     "visitProject": "Visiter {name}",
     "metaTitle": "Projets",
-    "metaDescription": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie."
+    "metaDescription": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie.",
+    "storyWhy": "// Pourquoi on l’a construit",
+    "storyHow": "// Comment ça marche",
+    "storyAudience": "// Pour qui",
+    "about": {
+      "kicker": "// POURQUOI NOS PROPRES PRODUITS",
+      "title": "Nos premiers clients, c’est nous.",
+      "p1": "The Vibe Company est une agence IA, et une bonne partie de ce qu’on sait faire, on l’a d’abord construit pour nous. Chacun de ces produits part d’une friction qu’on vivait au quotidien : partager le rapport qu’un agent vient de produire, ranger les skills de l’équipe, donner une mémoire à nos agents, coordonner plusieurs agents de code sur un même projet, ou ne plus perdre une idée lancée en réunion.",
+      "p2": "Plusieurs d’entre eux font tourner l’agence tous les jours : Bruno pour la to-do de l’entreprise, Skillpack pour nos skills, Granite pour la mémoire de nos agents. C’est comme ça qu’on apprend ce qui tient en production et ce qui casse, avant d’en parler à un client. Si notre propre entreprise ne tourne pas mieux avec nos outils, on n’a aucune légitimité à les vendre.",
+      "p3": "La plupart sont open source et publiés sur GitHub, souvent sous licence MIT : vous pouvez lire le code, les installer chez vous ou vous en inspirer. Quivr, le moteur open source dont l’entreprise est née, fait aussi partie de la liste. Chaque fiche explique pourquoi on a construit le produit, comment il marche et à qui il sert."
+    }
   },
   "agency": {
     "kicker": "Agence",

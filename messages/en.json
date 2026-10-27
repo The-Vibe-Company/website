@@ -234,7 +234,16 @@
     "visit": "Visit",
     "visitClient": "Visit {name}",
     "keepReading": "Keep Reading",
-    "next": "Next"
+    "next": "Next",
+    "subtitle": "AI products, agents and automations running in production for our clients: healthcare, news, property rentals, food, and engineering teams at scale. Each case covers the starting point, what we built and how we worked.",
+    "relatedArticle": "To go further, read our guide <link>{title}</link>.",
+    "about": {
+      "kicker": "// HOW WE WORK",
+      "title": "From the first call to production.",
+      "p1": "Every project starts with a 30-minute call: you explain the problem, we explain how we would build it. If it fits, we send a fixed-scope proposal, then a clickable prototype before a single line of production code.",
+      "p2": "During the build, you see working software early and often, and we measure the result by real usage rather than by the demo. At Monka, the caregiver app, the nurses' CRM and the clinical engine went live in two months, and a new version has shipped roughly every two days since. At LocService, the assistant's drafts are used on 87% of tickets.",
+      "p3": "Then there are two options: we hand the code over to your team with the documentation and runbooks, or we keep running it. With Theodo, training the teams is part of the job, so they adopt these practices themselves and move faster."
+    }
   },
   "resources": {
     "kicker": "Resources",
@@ -308,7 +317,17 @@
     "visit": "Visit",
     "visitProject": "Visit {name}",
     "metaTitle": "Projects",
-    "metaDescription": "A selection of products we designed and shipped, with homepage covers and ship dates."
+    "metaDescription": "A selection of products we designed and shipped, with homepage covers and ship dates.",
+    "storyWhy": "// Why we built it",
+    "storyHow": "// How it works",
+    "storyAudience": "// Who it's for",
+    "about": {
+      "kicker": "// WHY WE BUILD OUR OWN PRODUCTS",
+      "title": "Our first client is us.",
+      "p1": "The Vibe Company is an AI agency, and a good part of what we know how to do, we first built for ourselves. Each of these products starts from a friction we lived with every day: sharing the report an agent just produced, organizing the team's skills, giving our agents a memory, coordinating several coding agents on one project, or simply not losing an idea thrown out in a meeting.",
+      "p2": "Several of them run the agency every day: Bruno for the company to-do, Skillpack for our skills, Granite for our agents' memory. That is how we learn what holds up in production and what breaks, before we bring it to a client. If our own company does not run better with our tools, we have no legitimacy selling them.",
+      "p3": "Most of them are open source and published on GitHub, often under the MIT license: you can read the code, run them yourself or borrow ideas from them. Quivr, the open-source engine the company grew out of, is on the list too. Each page explains why we built the product, how it works and who it is for."
+    }
   },
   "agency": {
     "kicker": "Agency",

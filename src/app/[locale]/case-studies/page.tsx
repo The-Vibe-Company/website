@@ -91,6 +91,9 @@ export default async function CaseStudiesPage({
               {t("titleLine2")}
             </span>
           </h1>
+          <p className="m-0 mt-8 max-w-[620px] text-lg leading-[1.5] text-muted-foreground">
+            {t("subtitle")}
+          </p>
         </section>
 
         <section className="mx-auto max-w-[100rem] px-6 pb-20 md:px-12 md:pb-28">
@@ -142,6 +145,24 @@ export default async function CaseStudiesPage({
                 </span>
               </Link>
             ))}
+          </div>
+        </section>
+
+        <section className="border-t border-border">
+          <div className="mx-auto grid max-w-[100rem] grid-cols-1 gap-8 px-6 py-16 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16 md:px-12 md:py-24">
+            <div>
+              <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                {t("about.kicker")}
+              </span>
+              <h2 className="m-0 max-w-[16ch] text-[34px] font-bold leading-[1.02] tracking-[-0.035em] text-foreground md:text-[48px]">
+                {t("about.title")}
+              </h2>
+            </div>
+            <div className="flex max-w-[720px] flex-col gap-6 text-lg leading-[1.6] text-foreground">
+              <p className="m-0">{t("about.p1")}</p>
+              <p className="m-0">{t("about.p2")}</p>
+              <p className="m-0">{t("about.p3")}</p>
+            </div>
           </div>
         </section>
 
