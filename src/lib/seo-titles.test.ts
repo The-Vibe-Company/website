@@ -5,11 +5,13 @@ import fr from "../../messages/fr.json";
 import { SITE_NAME } from "./site";
 
 // Portfolio and resources go through the `%s | ${SITE_NAME}` layout
-// template; the home title is absolute and already carries the brand.
+// template; the home and agency titles are absolute and already carry the brand.
 const BRAND_SUFFIX = ` | ${SITE_NAME}`;
 
 const RENDERED = {
   "fr /": fr.meta.homeTitle,
+  "en /": en.meta.homeTitle,
+  "en /ai-agency-paris": en.agencyParis.metaTitle,
   "fr /portfolio": fr.portfolio.metaTitle + BRAND_SUFFIX,
   "en /portfolio": en.portfolio.metaTitle + BRAND_SUFFIX,
   "fr /resources": fr.resources.metaTitle + BRAND_SUFFIX,

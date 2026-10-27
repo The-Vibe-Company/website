@@ -32,7 +32,7 @@
     "externalGitHubSource": "External GitHub source"
   },
   "meta": {
-    "homeTitle": "AI Agency in Paris: Agents, Skills & Training | The Vibe Company",
+    "homeTitle": "AI Agency in Paris: Agents & Training | The Vibe Company",
     "description": "An AI-native agency. Everything 10 to 20× faster with AI: products, ops, training. Our agency runs on AI too."
   },
   "hero": {
@@ -847,7 +847,7 @@
     }
   },
   "agencyParis": {
-    "metaTitle": "AI Agency in Paris: ship products & agents | The Vibe Company",
+    "metaTitle": "AI Agency in Paris: products & agents | The Vibe Company",
     "metaDescription": "Paris AI agency (YC W24): AI products, agents and training shipped to production. Monka, AFP, LocService cases. Reply within 24h.",
     "breadcrumb": "AI agency in Paris",
     "serviceName": "AI agency in Paris",
