@@ -85,6 +85,8 @@ Notre façon de faire : partir de vos données réelles, livrer vite quelque cho
 
 Pour la vue d'ensemble (outils, mémoire, autorité, mesure), lisez notre [guide de l'agent IA en entreprise](https://www.thevibecompany.co/fr/resources/articles/agent-ia-entreprise).
 
+Pour aller plus loin sur la partie documents (recherche, sources citées, droits d'accès), voir [RAG en entreprise : connecter l'IA à vos documents](/fr/resources/articles/rag-entreprise).
+
 ## FAQ
 
 **Un agent IA peut-il remplacer mon équipe support ?**

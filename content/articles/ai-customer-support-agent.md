@@ -85,6 +85,8 @@ How we work: start from your real data, ship something your team actually uses, 
 
 For the big picture (tools, memory, authority, measurement), read our [practical guide to AI agents for business](https://www.thevibecompany.co/en/resources/articles/ai-agents-for-business).
 
+For the document side of this (retrieval, cited sources, access rights), see [Enterprise RAG: connect generative AI to your documents](/en/resources/articles/enterprise-rag).
+
 ## FAQ
 
 **Can an AI agent replace my support team?**
