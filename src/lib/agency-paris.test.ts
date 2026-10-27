@@ -18,7 +18,7 @@ describe("AI agency in Paris landing", () => {
     expect(fr.agencyParis.title).toBe(
       "Agence IA à Paris : on construit vos produits et agents IA jusqu'en production",
     );
-    expect(en.agencyParis.metaTitle).toBe("AI Agency in Paris: ship products & agents | The Vibe Company");
+    expect(en.agencyParis.metaTitle).toBe("AI Agency in Paris: products & agents | The Vibe Company");
     expect(en.agencyParis.metaDescription).toBe(
       "Paris AI agency (YC W24): AI products, agents and training shipped to production. Monka, AFP, LocService cases. Reply within 24h.",
     );
