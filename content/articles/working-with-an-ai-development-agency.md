@@ -1,5 +1,6 @@
 ---
 title: "Working with an AI development agency: project stages"
+seoTitle: "Working with an AI agency: project stages | The Vibe Company"
 slug: working-with-an-ai-development-agency
 translationKey: working-with-ai-agency-project-steps
 language: en

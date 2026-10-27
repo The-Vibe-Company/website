@@ -1,5 +1,6 @@
 ---
 title: "Du POC à la production : la checklist d'un agent IA qui tient"
+seoTitle: "Agent IA : du POC à la production | The Vibe Company"
 slug: poc-agent-ia-production
 translationKey: ai-agent-poc-to-production
 language: fr

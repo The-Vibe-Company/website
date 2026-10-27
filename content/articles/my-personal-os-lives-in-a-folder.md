@@ -1,5 +1,6 @@
 ---
 title: "My personal OS lives in a folder. My agents run my company from it."
+seoTitle: "My personal OS lives in a folder | The Vibe Company"
 slug: my-personal-os-lives-in-a-folder
 language: en
 summary: "I built Quivr. The system I actually use every day to run my company does the opposite. 188 markdown files, an MCP server that teaches agents a methodology, no semantic search, no embeddings. Here's why this is where personal software is going — and how I wrote this article with it."

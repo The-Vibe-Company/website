@@ -1,5 +1,6 @@
 ---
 title: "Agence IA, ESN, freelance ou équipe interne : comment choisir"
+seoTitle: "Agence IA, ESN ou freelance : choisir | The Vibe Company"
 slug: choisir-agence-ia-esn-freelance
 language: fr
 translationKey: choose-ai-agency

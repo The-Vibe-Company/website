@@ -1,5 +1,6 @@
 ---
 title: "AI security agents to harden a SaaS: secrets, deps and CI"
+seoTitle: "AI security agents to harden a SaaS | The Vibe Company"
 slug: ai-security-agents-harden-saas
 translationKey: ai-agents-harden-saas
 language: en

@@ -1,5 +1,6 @@
 ---
 title: "How to choose an AI agency: 10 questions before you sign"
+seoTitle: "How to choose an AI agency: 10 questions | The Vibe Company"
 slug: how-to-choose-an-ai-agency
 language: en
 translationKey: choose-ai-agency

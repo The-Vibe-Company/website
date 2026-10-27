@@ -1,5 +1,6 @@
 ---
 title: "J'ai monté une veille qui suit l'actu IA à ma place"
+seoTitle: "Veille IA automatique : mon système | The Vibe Company"
 slug: veille-ia-automatique
 language: fr
 summary: "L'IA bouge trop vite pour tout suivre à la main, et je n'ai aucun réseau social. Alors j'ai monté une veille qui surveille, trie et me remonte ce qui compte, sans que j'y passe mes journées."

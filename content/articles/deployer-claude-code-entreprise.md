@@ -1,5 +1,6 @@
 ---
 title: "Déployer Claude Code en entreprise : sécurité, réglages et méthode"
+seoTitle: "Déployer Claude Code en entreprise | The Vibe Company"
 slug: deployer-claude-code-entreprise
 translationKey: claude-code-enterprise
 language: fr

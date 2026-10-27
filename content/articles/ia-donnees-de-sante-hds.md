@@ -1,5 +1,6 @@
 ---
 title: "IA et données de santé : ce que l'HDS impose vraiment à votre projet"
+seoTitle: "IA et données de santé : le guide HDS | The Vibe Company"
 slug: ia-donnees-de-sante-hds
 language: fr
 translationKey: hds-health-data

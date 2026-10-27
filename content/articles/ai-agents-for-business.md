@@ -1,5 +1,6 @@
 ---
 title: "AI agents for business: a practical guide to getting started"
+seoTitle: "AI agents for business: a practical guide | The Vibe Company"
 slug: ai-agents-for-business
 translationKey: ai-agents-enterprise-guide
 language: en

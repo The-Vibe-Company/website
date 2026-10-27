@@ -1,5 +1,6 @@
 ---
 title: "Agent IA pour le support client : automatiser sans dégrader le service"
+seoTitle: "Agent IA support client : automatiser | The Vibe Company"
 slug: agent-ia-support-client
 translationKey: ai-customer-support-agent
 language: fr

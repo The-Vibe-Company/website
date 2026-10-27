@@ -1,5 +1,6 @@
 ---
 title: "L'outil qui me fait vraiment gagner du temps : Superwhisper"
+seoTitle: "Superwhisper : gagner du temps en dictant | The Vibe Company"
 slug: l-outil-qui-me-fait-gagner-du-temps
 language: fr
 summary: "Je ne tape presque plus, je parle à mon ordinateur toute la journée. Le premier outil que j'ai installé, la dictée vocale, est celui qui m'a fait gagner le plus de temps. Et le vrai bonus, je ne l'avais pas vu venir : à l'oral, je demande bien mieux les choses à l'IA."

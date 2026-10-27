@@ -1,5 +1,6 @@
 ---
 title: "Travailler avec un prestataire IA : les étapes d'un projet"
+seoTitle: "Prestataire IA : les étapes d'un projet | The Vibe Company"
 slug: travailler-prestataire-ia
 translationKey: working-with-ai-agency-project-steps
 language: fr

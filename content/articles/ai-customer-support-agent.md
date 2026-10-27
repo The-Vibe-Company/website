@@ -1,5 +1,6 @@
 ---
 title: "AI agents for customer support: automate without hurting service"
+seoTitle: "AI agents for customer support: a guide | The Vibe Company"
 slug: ai-customer-support-agent
 translationKey: ai-customer-support-agent
 language: en

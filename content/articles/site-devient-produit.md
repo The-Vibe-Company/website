@@ -1,5 +1,6 @@
 ---
 title: "Le jour où mon site a arrêté d'être une simple liste"
+seoTitle: "Quand mon site est devenu un produit | The Vibe Company"
 slug: site-devient-produit
 language: fr
 summary: "Au départ, mon site d'animés n'était qu'une liste. Comment il s'est mis à recommander, à se donner une vraie identité, et à ressembler à un produit. Toujours sans coder."
