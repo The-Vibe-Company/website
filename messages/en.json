@@ -247,6 +247,7 @@
   },
   "resources": {
     "kicker": "Resources",
+    "metaTitle": "AI Resources: articles & hands-on guides",
     "title": "Articles & essays.",
     "subtitle": "What we are learning and building with AI at The Vibe Company, plus Victor's Story along the way.",
     "searchPlaceholder": "Search articles, topics…",
@@ -316,7 +317,7 @@
     "theProduct": "// The product",
     "visit": "Visit",
     "visitProject": "Visit {name}",
-    "metaTitle": "Projects",
+    "metaTitle": "AI Projects: products built by our agency",
     "metaDescription": "A selection of products we designed and shipped, with homepage covers and ship dates.",
     "storyWhy": "// Why we built it",
     "storyHow": "// How it works",

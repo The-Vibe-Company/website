@@ -6,14 +6,18 @@
  * An article WITHOUT a `translationKey` is perfectly valid: it simply has no
  * translation yet and keeps behaving as a standalone article.
  *
+ * Every article, translated or not, must declare an explicit `language` (`fr`
+ * or `en`): it decides which prefix the article is canonical on, and the other
+ * prefix redirects there. A missing value would silently default to `en` and
+ * send a French article's readers to the wrong URL. Skills follow the same
+ * rule, so they are checked for `language` too.
+ *
  * Rules for every article that declares `translationKey`:
  *   1. the value must be a lowercase kebab-case slug (e.g. `hds-health-data`);
- *   2. it must declare an explicit `language` (`fr` or `en`), since the key is
- *      what decides which version a given locale gets;
- *   3. no two articles may share both the same key and the same language;
- *   4. the key must be shared by at least one other article, otherwise it is a
+ *   2. no two articles may share both the same key and the same language;
+ *   3. the key must be shared by at least one other article, otherwise it is a
  *      typo or a leftover, and the pairing silently does nothing;
- *   5. every article in a group must declare the same `series`, so a pair never
+ *   4. every article in a group must declare the same `series`, so a pair never
  *      splits across the two columns of the resources list.
  *
  * Also catches a mis-cased `translationKey` key (e.g. `translationkey:`), which
@@ -28,6 +32,7 @@ import { parseFrontmatter } from '../src/lib/parse-frontmatter'
 
 const ROOT = process.cwd()
 const ARTICLES_DIR = path.join(ROOT, 'content', 'articles')
+const SKILLS_DIR = path.join(ROOT, 'content', 'skills')
 
 /** Frontmatter keys whose casing matters: a typo silently unlinks the pair. */
 const CANONICAL_KEYS = ['translationKey', 'language']
@@ -87,6 +92,15 @@ async function main(): Promise<void> {
       }
     }
 
+    const language = data.language?.trim() ?? ''
+    if (!LANGUAGES.includes(language)) {
+      failures.push({
+        file: rel,
+        reason: `must declare \`language: fr\` or \`language: en\` (found ${language ? `"${language}"` : 'nothing'}); it decides which URL the article is canonical on.`,
+      })
+      continue
+    }
+
     const key = data.translationKey?.trim()
     if (!key) continue
 
@@ -94,15 +108,6 @@ async function main(): Promise<void> {
       failures.push({
         file: rel,
         reason: `translationKey "${key}" must be lowercase kebab-case (e.g. "hds-health-data").`,
-      })
-      continue
-    }
-
-    const language = data.language?.trim() ?? ''
-    if (!LANGUAGES.includes(language)) {
-      failures.push({
-        file: rel,
-        reason: `declares translationKey "${key}" so it must also declare \`language: fr\` or \`language: en\` (found ${language ? `"${language}"` : 'nothing'}).`,
       })
       continue
     }
@@ -145,6 +150,19 @@ async function main(): Promise<void> {
     }
   }
 
+  // Skills have no translations, but redirect on `language` the same way.
+  const skillFiles = await listMarkdown(SKILLS_DIR)
+  for (const file of skillFiles) {
+    const { data } = parseFrontmatter(await fs.readFile(file, 'utf8'))
+    const language = data.language?.trim() ?? ''
+    if (!LANGUAGES.includes(language)) {
+      failures.push({
+        file: path.relative(ROOT, file),
+        reason: `must declare \`language: fr\` or \`language: en\` (found ${language ? `"${language}"` : 'nothing'}); it decides which URL the skill is canonical on.`,
+      })
+    }
+  }
+
   if (failures.length > 0) {
     for (const failure of failures) {
       console.error(`[fail] ${failure.file}: ${failure.reason}`)
@@ -154,7 +172,7 @@ async function main(): Promise<void> {
   }
 
   console.log(
-    `[ok] ${files.length} article(s) checked, ${groups.size} translation pair(s) validated.`,
+    `[ok] ${files.length} article(s) and ${skillFiles.length} skill(s) checked, ${groups.size} translation pair(s) validated.`,
   )
 }
 

@@ -32,7 +32,7 @@
     "externalGitHubSource": "Source GitHub externe"
   },
   "meta": {
-    "homeTitle": "Agence IA à Paris : produits, agents et formation | The Vibe Company",
+    "homeTitle": "Agence IA à Paris : agents et formation | The Vibe Company",
     "description": "Une agence IA-first qui conçoit des produits, déploie des automatisations agentiques et forme les équipes, de l'audit à la production sécurisée."
   },
   "hero": {
@@ -247,6 +247,7 @@
   },
   "resources": {
     "kicker": "Ressources",
+    "metaTitle": "Ressources IA : nos articles et guides",
     "title": "Articles & essais.",
     "subtitle": "Ce qu’on apprend et construit avec l’IA chez The Vibe Company, ainsi que la Victor’s Story au passage.",
     "searchPlaceholder": "Chercher un article, un sujet…",
@@ -316,7 +317,7 @@
     "theProduct": "// Le produit",
     "visit": "Visiter",
     "visitProject": "Visiter {name}",
-    "metaTitle": "Projets",
+    "metaTitle": "Projets IA : réalisations de notre agence",
     "metaDescription": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie.",
     "storyWhy": "// Pourquoi on l’a construit",
     "storyHow": "// Comment ça marche",

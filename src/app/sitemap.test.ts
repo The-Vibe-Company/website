@@ -1,4 +1,5 @@
 import { describe, expect, setSystemTime, test } from "bun:test";
+import { contentPath, getAllContent } from "@/lib/content-source";
 import { CUSTOMER_SLUGS, getCustomer } from "@/lib/customers";
 import { PROJECT_SLUGS } from "@/lib/projects";
 import { localizedAlternates } from "@/lib/site";
@@ -249,5 +250,16 @@ describe("sitemap", () => {
         "x-default": `${SITE}/fr/ia-medias`,
       });
     }
+  });
+  test("lists every article and skill once, under its own language's prefix only", () => {
+    const content = getAllContent();
+    const expected = content.map((item) => `${SITE}/${item.language}${contentPath(item)}`);
+    const entries = sitemap().filter((entry) =>
+      /\/resources\/(articles|skills)\//.test(entry.url),
+    );
+
+    // A French-only article never shows up under /en (nor an English-only one
+    // under /fr): that URL redirects to the canonical one.
+    expect(entries.map((entry) => entry.url).sort()).toEqual(expected.sort());
   });
 });
