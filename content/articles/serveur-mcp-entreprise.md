@@ -87,6 +87,8 @@ Une méthode simple en trois temps :
 
 Si vous en êtes à cadrer votre premier agent, notre [guide de l'agent IA en entreprise](/fr/resources/articles/agent-ia-entreprise) et notre [checklist du POC à la production](/fr/resources/articles/poc-agent-ia-production) vont plus loin sur la mesure et le passage en production.
 
+MCP donne des outils à vos agents. Pour qu'ils répondent à partir de vos documents, avec leurs sources et vos droits d'accès, voir [RAG en entreprise : connecter l'IA à vos documents](/fr/resources/articles/rag-entreprise).
+
 ## En résumé
 
 - Un serveur MCP expose un outil de l'entreprise à des agents IA dans un format standard.

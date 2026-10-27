@@ -87,6 +87,8 @@ A simple three-step method:
 
 If you're scoping your first agent, our [practical guide to AI agents for business](/en/resources/articles/ai-agents-for-business) and our [POC-to-production checklist](/en/resources/articles/ai-agent-poc-to-production) go further on measurement and going live.
 
+MCP gives your agents tools. To have them answer from your documents, with sources and your access rights, see [Enterprise RAG: connect generative AI to your documents](/en/resources/articles/enterprise-rag).
+
 ## In short
 
 - An MCP server exposes a company tool to AI agents in a standard format.
