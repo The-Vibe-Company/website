@@ -1,5 +1,6 @@
 import { expect, test } from 'bun:test'
 import { getContentByType, getContentItem } from './content-source'
+import { ABOUT_ORIGIN_ARTICLE_LOCALE, ABOUT_ORIGIN_ARTICLE_PATH } from './about'
 
 test('article body links use a locale and the target article canonical URL', () => {
   const invalid: string[] = []
@@ -26,4 +27,10 @@ test('article body links use a locale and the target article canonical URL', () 
     }
   }
   expect(invalid).toEqual([])
+})
+
+test('the About origin article is linked under its own language', () => {
+  const slug = ABOUT_ORIGIN_ARTICLE_PATH.replace('/resources/articles/', '')
+  // A wrong locale here would link two indexable pages to a redirect.
+  expect(getContentItem('article', slug)?.language).toBe(ABOUT_ORIGIN_ARTICLE_LOCALE)
 })
