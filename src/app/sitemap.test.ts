@@ -1,6 +1,12 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, setSystemTime, test } from "bun:test";
 import { CUSTOMER_SLUGS, getCustomer } from "@/lib/customers";
+import { PROJECT_SLUGS } from "@/lib/projects";
 import { localizedAlternates } from "@/lib/site";
+import {
+  CUSTOMER_LASTMOD,
+  PROJECT_LASTMOD,
+  SPLIT_PATH_LASTMOD,
+} from "@/lib/sitemap-lastmod";
 
 import sitemap from "./sitemap";
 
@@ -146,6 +152,84 @@ describe("sitemap", () => {
         en: `${SITE}/en/healthcare-ai-hds`,
         "x-default": `${SITE}/fr/ia-sante-hds`,
       });
+    }
+  });
+
+  test("every lastmod is stable across deploys (not the build timestamp)", () => {
+    setSystemTime(new Date("2026-01-01T00:00:00.000Z"));
+    const atStart = sitemap().map((entry) => [entry.url, (entry.lastModified as Date).toISOString()] as const);
+    setSystemTime(new Date("2030-01-01T00:00:00.000Z"));
+    const atEnd = sitemap().map((entry) => [entry.url, (entry.lastModified as Date).toISOString()] as const);
+    setSystemTime();
+
+    expect(atEnd).toEqual(atStart);
+  });
+
+  test("no lastmod is in the future", () => {
+    // Articles under /resources use their frontmatter `publishedAt`, which can
+    // be a future date for a scheduled post; everything else must be <= today.
+    setSystemTime(new Date("2026-10-27T00:00:00.000Z"));
+    const today = new Date("2026-10-27T23:59:59.999Z");
+    const futures = sitemap().filter(
+      (entry) =>
+        !entry.url.includes("/resources/") &&
+        (entry.lastModified as Date).getTime() > today.getTime(),
+    );
+    setSystemTime();
+
+    expect(futures).toEqual([]);
+  });
+
+  test("the sitemap keeps its 102 URLs and every entry still declares x-default", () => {
+    const entries = sitemap();
+    expect(entries).toHaveLength(102);
+    for (const entry of entries) {
+      const keys = Object.keys(entry.alternates!.languages!);
+      expect(keys).toContain("x-default");
+      // Pages served at the same path in both languages (homepage, portfolio,
+      // case studies, projects) carry the full fr/en/x-default set. Content
+      // and split-path landings are covered by their own dedicated tests.
+    }
+
+    // The 46 URLs that used to carry the build timestamp still each declare
+    // the full self-inclusive fr/en/x-default set.
+    const buildTimeUrls = entries.filter(
+      (entry) =>
+        !entry.url.includes("/resources/articles/") &&
+        !entry.url.includes("/resources/skills/"),
+    );
+    for (const entry of buildTimeUrls) {
+      expect(Object.keys(entry.alternates!.languages!).sort()).toEqual([
+        "en",
+        "fr",
+        "x-default",
+      ]);
+    }
+  });
+
+  test("every PROJECT_SLUGS entry has a lastmod date", () => {
+    for (const slug of PROJECT_SLUGS) {
+      expect(PROJECT_LASTMOD[slug]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    }
+  });
+
+  test("every CUSTOMER_SLUGS entry has a lastmod date", () => {
+    for (const slug of CUSTOMER_SLUGS) {
+      expect(CUSTOMER_LASTMOD[slug]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    }
+  });
+
+  test("every split-path landing has a lastmod date keyed by its FR path", () => {
+    const landings = [
+      "/a-propos",
+      "/agence-ia-paris",
+      "/agents-ia-securite-produit",
+      "/agents-ia-production",
+      "/ia-sante-hds",
+      "/ia-medias",
+    ];
+    for (const path of landings) {
+      expect(SPLIT_PATH_LASTMOD[path]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     }
   });
 
