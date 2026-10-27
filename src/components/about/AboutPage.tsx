@@ -11,6 +11,7 @@ import {
   ABOUT_EDGE_KEYS,
   ABOUT_FACT_KEYS,
   ABOUT_FAQ_KEYS,
+  ABOUT_ORIGIN_ARTICLE_LOCALE,
   ABOUT_ORIGIN_ARTICLE_PATH,
   ABOUT_PROCESS_STEPS,
   ABOUT_SERVICE_KEYS,
@@ -235,6 +236,7 @@ export async function AboutPage({ locale }: { locale: string }) {
           <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("team.intro")}</p>
           <Link
             href={ABOUT_ORIGIN_ARTICLE_PATH}
+            locale={ABOUT_ORIGIN_ARTICLE_LOCALE}
             className="mt-4 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
           >
             {t("team.originLink")}

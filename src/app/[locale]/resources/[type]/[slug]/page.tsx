@@ -11,8 +11,8 @@ import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { CONTENT_TYPES, getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
 import {
   contentPath,
+  getCanonicalContentForLanguage,
   getContentByType,
-  getContentForLanguage,
   getContentItem,
   getContentTranslations,
   getRelatedContent,
@@ -111,7 +111,6 @@ export async function generateMetadata({
     title: htmlTitle,
     description: item.summary,
     alternates: contentAlternates(item.language, canonicalPath, versions),
-    robots: locale === item.language ? undefined : { index: false, follow: true },
     openGraph: {
       type: 'article',
       locale: openGraphLocale(item.language),
@@ -153,14 +152,15 @@ export default async function ContentDetailPage({
   const item = await getContent(contentType.slug, slug);
   if (!item) notFound();
 
-  // One article, one URL per language. Reaching a translated article under the
-  // other language's prefix (what the global FR/EN switch does, since it only
-  // swaps the prefix) lands here, so send the reader on to the version they
-  // actually asked for. An article with no translation is served as-is.
+  // One article, one URL per language. Reaching an article under the other
+  // language's prefix (what the global FR/EN switch does, since it only swaps
+  // the prefix) lands here. A translated article sends the reader on to the
+  // version they asked for; an article published in one language only sends
+  // them to its own URL, so the other prefix never serves a duplicate.
   const language: ContentLanguage = locale === 'en' ? 'en' : 'fr';
-  const translated = getContentForLanguage(contentType.slug, slug, language);
-  if (translated) {
-    permanentRedirect({ href: contentPath(translated), locale });
+  const target = getCanonicalContentForLanguage(contentType.slug, slug, language) ?? item;
+  if (target.slug !== item.slug || target.language !== locale) {
+    permanentRedirect({ href: contentPath(target), locale: target.language });
   }
 
   const related = await getRelated(contentType.slug, slug);

@@ -9,7 +9,7 @@ import { AboutBookingCta } from "@/components/about/AboutBookingCta";
 import { CLIENTS } from "@/components/home/Clients";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { Link } from "@/i18n/navigation";
-import { ABOUT_ORIGIN_ARTICLE_PATH } from "@/lib/about";
+import { ABOUT_ORIGIN_ARTICLE_LOCALE, ABOUT_ORIGIN_ARTICLE_PATH } from "@/lib/about";
 import {
   AGENCY_PARIS_ARTICLES,
   AGENCY_PARIS_CASE_SLUGS,
@@ -470,7 +470,11 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                   {t("team.aboutLink")}
                   <span aria-hidden="true">→</span>
                 </Link>
-                <Link href={ABOUT_ORIGIN_ARTICLE_PATH} className={TEXT_LINK}>
+                <Link
+                  href={ABOUT_ORIGIN_ARTICLE_PATH}
+                  locale={ABOUT_ORIGIN_ARTICLE_LOCALE}
+                  className={TEXT_LINK}
+                >
                   {t("team.originLink")}
                   <span aria-hidden="true">→</span>
                 </Link>

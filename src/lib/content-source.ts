@@ -303,6 +303,21 @@ export const getContentForLanguage = cache(
 )
 
 /**
+ * The version `/{language}/resources/{type}/{slug}` should be served as: the
+ * one written in that language when the article has it, otherwise the only
+ * version that was published, in its own language. When the result is not
+ * the requested entry under the requested language, the URL is a duplicate
+ * and must redirect there. Returns null when the slug does not exist.
+ */
+export const getCanonicalContentForLanguage = cache(
+  (type: string, slug: string, language: ContentLanguage): ContentEntry | null => {
+    const item = getContentItem(type, slug)
+    if (!item) return null
+    return getContentForLanguage(type, slug, language) ?? item
+  },
+)
+
+/**
  * One entry per article: the version written in `language` when it exists,
  * otherwise the only version that was published. This is what listings render,
  * so a translated article shows up as a single card instead of two.
