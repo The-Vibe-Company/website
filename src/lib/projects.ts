@@ -79,16 +79,16 @@ const PROJECTS_RAW: RawProject[] = [
       },
       how: [
         {
-          en: "One command, npx vanish-cli site ./demo, publishes a static folder and returns a real public URL. Single files (a screenshot, a PDF, a deck) work too.",
-          fr: "Une seule commande, npx vanish-cli site ./demo, publie un dossier statique et renvoie une vraie URL publique. Un fichier seul (une capture, un PDF, une présentation) passe aussi.",
+          en: "One command, npx vanish-cli site ./demo, publishes a static folder and returns a real public URL. Single files work too: a screenshot without an account, a PDF or a deck once you sign in.",
+          fr: "Une seule commande, npx vanish-cli site ./demo, publie un dossier statique et renvoie une vraie URL publique. Un fichier seul passe aussi : une capture sans compte, un PDF ou une présentation une fois connecté.",
         },
         {
           en: "Nothing is transformed: HTML stays HTML, Markdown stays Markdown, and every file is served as it is.",
           fr: "Rien n’est transformé : le HTML reste du HTML, le Markdown reste du Markdown, et chaque fichier est servi tel quel.",
         },
         {
-          en: "Links expire on their own. Without an account, they stay up for 24 to 48 hours. The Pro plan keeps them for up to a year and lets you pick the address.",
-          fr: "Les liens disparaissent tout seuls. Sans compte, ils restent en ligne de 24 à 48 heures. L’offre Pro permet de les garder jusqu’à un an et de choisir l’adresse.",
+          en: "Links expire on their own: after 24 hours without an account, 48 hours with a free account. The Pro plan keeps them for up to a year and lets you pick the address.",
+          fr: "Les liens disparaissent tout seuls : au bout de 24 heures sans compte, 48 heures avec un compte gratuit. L’offre Pro permet de les garder jusqu’à un an et de choisir l’adresse.",
         },
         {
           en: "The skills shipped for agents ask before publishing anything that looks like a secret, customer data or a private document.",
@@ -387,8 +387,8 @@ const PROJECTS_RAW: RawProject[] = [
         },
       ],
       audience: {
-        en: "For teams already using coding agents who want to go from one agent to a fleet without losing control. Workers run on Conductor Cloud or in Claude Code, tickets live in Linear and code on GitHub. Armada is open source under the MIT license and installs with npm, on Node 22 or later.",
-        fr: "Pour les équipes qui utilisent déjà des agents de code et veulent passer d’un agent à une flotte sans perdre le contrôle. Les agents tournent sur Conductor Cloud ou dans Claude Code, les tickets vivent dans Linear et le code sur GitHub. Armada est open source sous licence MIT et s’installe avec npm, à partir de Node 22.",
+        en: "For teams already using coding agents who want to go from one agent to a fleet without losing control. Workers run on your own machine, on Conductor Cloud or in Claude Code, tickets live in Linear and code on GitHub. Armada is open source under the MIT license and installs with npm, on Node 22 or later.",
+        fr: "Pour les équipes qui utilisent déjà des agents de code et veulent passer d’un agent à une flotte sans perdre le contrôle. Les agents tournent sur votre propre machine, sur Conductor Cloud ou dans Claude Code, les tickets vivent dans Linear et le code sur GitHub. Armada est open source sous licence MIT et s’installe avec npm, à partir de Node 22.",
       },
     },
   },
@@ -418,7 +418,7 @@ const PROJECTS_RAW: RawProject[] = [
           fr: "Il parcourt votre app comme un utilisateur, en rejouant trois à cinq parcours clés dans un vrai navigateur, sur téléphone et sur ordinateur.",
         },
         {
-          en: "It measures twenty-seven concrete checks, from contrast to keyboard focus to tap target size, and judges score every screen against design principles.",
+          en: "It runs twenty-seven concrete checks, from contrast to keyboard focus to tap target size, and judge agents score every screen against design principles.",
           fr: "Il mesure vingt-sept points concrets, du contraste au focus clavier en passant par la taille des zones à toucher, et des juges évaluent chaque écran selon des principes de design.",
         },
         {
