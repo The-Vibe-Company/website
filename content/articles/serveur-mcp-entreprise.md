@@ -4,7 +4,7 @@ seoTitle: "Serveur MCP entreprise pour agents IA | The Vibe Company"
 slug: serveur-mcp-entreprise
 translationKey: mcp-server-business-guide
 language: fr
-summary: "Ce qu'est un serveur MCP, ce qu'il change pour une entreprise qui veut des agents IA dans ses vrais outils, et les points à vérifier avant d'en installer un ou d'en faire construire un : droits, authentification, validation humaine, suivi."
+summary: "Serveur MCP : ce que c'est, ce que ça change pour des agents dans vos outils, et les checks droits / auth / validation."
 publishedAt: 2026-10-21
 complexity: intermediate
 topics: AI Agents, AI Operations, Security

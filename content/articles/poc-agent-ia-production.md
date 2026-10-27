@@ -4,7 +4,7 @@ seoTitle: "Agent IA : du POC à la production | The Vibe Company"
 slug: poc-agent-ia-production
 translationKey: ai-agent-poc-to-production
 language: fr
-summary: "Un POC d'agent IA qui impressionne en démo ne survit pas toujours en production. Voici la checklist concrète pour passer du pilote à un agent utilisé au quotidien, avec les cas Monka et LocService."
+summary: "Du POC d'agent IA à la production : checklist concrète, avec les cas Monka et LocService."
 publishedAt: 2026-10-14
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering

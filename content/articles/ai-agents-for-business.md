@@ -4,7 +4,7 @@ seoTitle: "AI agents for business: a practical guide | The Vibe Company"
 slug: ai-agents-for-business
 translationKey: ai-agents-enterprise-guide
 language: en
-summary: "What an AI agent really is in a company, when you need one (and when you don't), the four building blocks that keep it working in production (tools, memory, authority, measurement) and how to launch your first one in a mid-size or large company."
+summary: "AI agents for business: when you need one, the 4 building blocks (tools, memory, authority, measurement), and how to start."
 publishedAt: 2026-10-20
 complexity: intermediate
 topics: AI Adoption, AI Agents, Strategy

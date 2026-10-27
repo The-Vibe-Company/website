@@ -4,7 +4,7 @@ seoTitle: "Agence IA native vs ESN classique | The Vibe Company"
 slug: agence-ia-native
 translationKey: ai-native-agency
 language: fr
-summary: "Qu'est-ce qu'une agence IA native, en quoi elle diffère d'une agence classique et ce que ça change pour les entreprises qui achètent des prestations. D'après Aaron Epstein (Y Combinator)."
+summary: "Agence IA native vs agence classique : ce que ça change pour les entreprises qui achètent des prestations (Aaron Epstein, YC)."
 publishedAt: 2026-10-13
 complexity: beginner
 topics: AI Adoption, AI Agents, Engineering

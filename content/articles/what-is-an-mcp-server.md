@@ -4,7 +4,7 @@ seoTitle: "What is an MCP server? Business guide | The Vibe Company"
 slug: what-is-an-mcp-server
 translationKey: mcp-server-business-guide
 language: en
-summary: "What an MCP server is, what it changes for a company that wants AI agents working inside its real tools, and what to check before you install one or have one built: permissions, authentication, human approval, logging."
+summary: "What an MCP server is, what it changes for AI agents in real tools, and checks before install: permissions, auth, logging."
 publishedAt: 2026-10-21
 complexity: intermediate
 topics: AI Agents, AI Operations, Security

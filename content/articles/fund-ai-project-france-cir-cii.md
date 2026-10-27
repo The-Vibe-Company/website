@@ -4,7 +4,7 @@ seoTitle: "Fund AI in France: CIR, CII, France 2030 | The Vibe Company"
 slug: fund-ai-project-france-cir-cii
 translationKey: fund-ai-project-france
 language: en
-summary: "CIR, CII, Diag Data IA, Osez l'IA: a practical map of French public schemes to fund an AI project (agents, automation, product), with official rates and the MediaGen / AFP France 2030 case."
+summary: "CIR, CII, Diag Data IA, Osez l'IA: fund an AI project in France, with official rates and the MediaGen / AFP case."
 publishedAt: 2026-10-16
 complexity: intermediate
 topics: AI Adoption, Strategy

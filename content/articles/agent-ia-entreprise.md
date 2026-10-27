@@ -4,7 +4,7 @@ seoTitle: "Agent IA en entreprise : bien démarrer | The Vibe Company"
 slug: agent-ia-entreprise
 translationKey: ai-agents-enterprise-guide
 language: fr
-summary: "Ce qu'est vraiment un agent IA en entreprise, quand il en faut un (et quand non), les quatre briques qui le font tenir en production (outils, mémoire, autorité, mesure) et la méthode pour lancer le premier dans une entreprise moyenne ou grande."
+summary: "Agent IA en entreprise : quand en faut-il un, les 4 briques (outils, mémoire, autorité, mesure) et comment lancer le premier."
 publishedAt: 2026-10-20
 complexity: intermediate
 topics: AI Adoption, AI Agents, Strategy

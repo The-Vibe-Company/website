@@ -4,7 +4,7 @@ seoTitle: "AI agent POC to production checklist | The Vibe Company"
 slug: ai-agent-poc-to-production
 translationKey: ai-agent-poc-to-production
 language: en
-summary: "An AI agent POC that shines in a demo often dies in production. Here is a concrete checklist to move from pilot to an agent your teams actually use — with Monka and LocService as proof."
+summary: "From AI agent POC to production: a concrete checklist, with Monka and LocService as proof."
 publishedAt: 2026-10-14
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering

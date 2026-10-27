@@ -4,7 +4,7 @@ seoTitle: "AI agents for customer support: a guide | The Vibe Company"
 slug: ai-customer-support-agent
 translationKey: ai-customer-support-agent
 language: en
-summary: "Autonomous chatbot or AI drafts reviewed by your team? How to automate customer support with AI without losing quality, with the LocService case (87% of tickets) and lessons from Klarna and Air Canada."
+summary: "Automate customer support with AI without losing quality: LocService (87% of tickets), plus Klarna and Air Canada lessons."
 publishedAt: 2026-10-15
 complexity: intermediate
 topics: AI Agents, AI Adoption, AI Operations

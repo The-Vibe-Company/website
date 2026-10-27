@@ -4,7 +4,7 @@ seoTitle: "Agent IA support client : automatiser | The Vibe Company"
 slug: agent-ia-support-client
 translationKey: ai-customer-support-agent
 language: fr
-summary: "Chatbot autonome ou brouillons validés par vos agents ? Comment automatiser le support client avec l'IA sans perdre la qualité, avec le cas LocService (87 % des tickets) et les leçons de Klarna et Air Canada."
+summary: "Automatiser le support client avec l'IA sans perdre la qualité : cas LocService (87 % des tickets), Klarna et Air Canada."
 publishedAt: 2026-10-15
 complexity: intermediate
 topics: AI Agents, AI Adoption, AI Operations
