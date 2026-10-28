@@ -134,7 +134,7 @@ Pas forcément. PostgreSQL avec une extension comme [pgvector](https://github.co
 
 ### RAG ou mémoire d'agent : quelle différence ?
 
-Le RAG va chercher des passages dans vos documents au moment de la question. Une mémoire d'agent garde ce que l'agent a appris en travaillant : la préférence d'un client, une décision prise la semaine dernière, l'état d'un dossier. Pour répondre à partir d'une documentation, le RAG suffit souvent. Dès que l'agent doit suivre un travail dans la durée, il lui faut aussi une mémoire qu'une personne peut relire et corriger. On détaille les briques d'un agent, mémoire comprise, dans notre [guide de l'agent IA en entreprise](/fr/resources/articles/agent-ia-entreprise).
+Le RAG va chercher des passages dans vos documents au moment de la question. Une mémoire d'agent garde ce que l'agent a appris en travaillant : la préférence d'un client, une décision prise la semaine dernière, l'état d'un dossier. Pour répondre à partir d'une documentation, le RAG suffit souvent. Dès que l'agent doit suivre un travail dans la durée, il lui faut aussi une mémoire qu'une personne peut relire et corriger. Les briques d'un agent, mémoire comprise, sont dans notre [guide de l'agent IA en entreprise](/fr/resources/articles/agent-ia-entreprise).
 
 ## Connecter l'IA à vos documents
 
