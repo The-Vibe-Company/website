@@ -96,6 +96,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp": {
+      "sourceHash": "1da35bba40796bc1509c379cba6ad8478e8be0322546b216f806e11305ab328e",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp": {
       "sourceHash": "92950414024f1db24bd16f7ee4b8c99f58e6a62d29bdf0301eee6eb687fa2f07",
       "targetUrl": null,
@@ -403,6 +408,11 @@
     },
     "og:/images/resources/deployer-claude-code-entreprise/cover-mascotte-v3.webp": {
       "sourceHash": "e5a4c2b263f576bc8bf3e6e9bc6a8976a98edba0f5430652a6443c53fc514dbd",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp": {
+      "sourceHash": "1da35bba40796bc1509c379cba6ad8478e8be0322546b216f806e11305ab328e",
       "targetUrl": null,
       "targetHash": null
     },
