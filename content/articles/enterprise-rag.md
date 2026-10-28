@@ -132,6 +132,10 @@ The retrieved passages are sent to the model with every question. Check retentio
 
 Not necessarily. PostgreSQL with an extension like [pgvector](https://github.com/pgvector/pgvector) is enough for many projects. The choice matters less than document quality, hybrid search and permission filtering.
 
+### RAG or agent memory: what's the difference?
+
+RAG pulls passages from your documents at question time. Agent memory keeps what the agent learned while working: a customer's preference, a decision made last week, where a case stands. To answer from documentation, RAG is often enough. Once an agent has to follow work over time, it also needs a memory that a person can read and correct. We cover the building blocks of an agent, memory included, in our [guide to AI agents for business](/en/resources/articles/ai-agents-for-business).
+
 ## Connect AI to your documents
 
 The Vibe Company is an AI agency in Paris. We build RAG systems and agents that plug into your documents and tools, respect your company's access rights, and cite their sources.
