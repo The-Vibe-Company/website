@@ -132,6 +132,10 @@ Les passages retrouvés sont envoyés au modèle à chaque question. Vérifiez l
 
 Pas forcément. PostgreSQL avec une extension comme [pgvector](https://github.com/pgvector/pgvector) suffit pour beaucoup de projets. Le choix compte moins que la qualité des documents, la recherche hybride et le filtrage par droits.
 
+### RAG ou mémoire d'agent : quelle différence ?
+
+Le RAG va chercher des passages dans vos documents au moment de la question. Une mémoire d'agent garde ce que l'agent a appris en travaillant : la préférence d'un client, une décision prise la semaine dernière, l'état d'un dossier. Pour répondre à partir d'une documentation, le RAG suffit souvent. Dès que l'agent doit suivre un travail dans la durée, il lui faut aussi une mémoire qu'une personne peut relire et corriger. Les briques d'un agent, mémoire comprise, sont dans notre [guide de l'agent IA en entreprise](/fr/resources/articles/agent-ia-entreprise).
+
 ## Connecter l'IA à vos documents
 
 The Vibe Company est une agence IA à Paris. On conçoit des RAG et des agents branchés sur vos documents et vos outils, avec les droits d'accès de votre entreprise et des réponses qui citent leurs sources.
