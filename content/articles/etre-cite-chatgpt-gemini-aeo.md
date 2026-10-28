@@ -1,29 +1,29 @@
 ---
-title: "Être cité par ChatGPT : checklist AEO agence IA"
-seoTitle: "Être cité par ChatGPT : checklist AEO | The Vibe Company"
+title: "Être cité par ChatGPT : guide pratique AEO"
+seoTitle: "Être cité par ChatGPT : guide AEO | The Vibe Company"
 slug: etre-cite-chatgpt-gemini-aeo
-translationKey: aeo-agency-citations
+translationKey: aeo-chatgpt-citations
 language: fr
-summary: "Checklist AEO pour une agence IA : être crawlable, publier des pages citables, prouver son expertise et mesurer vos citations ChatGPT, Gemini et AI Overviews."
+summary: "Comment être cité par ChatGPT et Gemini : rendre votre site crawlable, publier des pages citables, prouver votre expertise et mesurer chaque mois."
 publishedAt: 2026-10-28
 complexity: intermediate
-topics: AI Marketing, Answer Engines, Agency Growth
+topics: Answer Engines, AI Search, Content Marketing
 coverImage: /images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp
-coverAlt: "La mascotte pointe une bulle de réponse IA qui cite une fiche agence, reliée à un panneau robots.txt et à une checklist ouverte"
+coverAlt: "La mascotte pointe une bulle de réponse IA qui cite une page web, reliée à un panneau robots.txt et à une checklist ouverte"
 ogImage: /images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp
 ---
 
-Vos prospects posent déjà « Agence IA Paris », « Agents IA entreprise » ou « IA santé HDS » dans ChatGPT, Gemini et les AI Overviews de Google. Si votre site n'est pas une source citable, la réponse cite quelqu'un d'autre. L'[Answer Engine Optimization](https://www.semrush.com/blog/answer-engine-optimization/) (AEO) regroupe les pratiques qui augmentent vos chances d'y apparaître. Au-delà d'un glossaire marketing, c'est une checklist pour une [agence IA à Paris](/fr/agence-ia-paris) qui veut être recommandée, pas seulement rankée.
+Vos clients et prospects posent déjà leurs questions dans ChatGPT, Gemini et les AI Overviews de Google. « Quel outil pour… », « Qui fait… », « Comment choisir… ». Si votre site n'est pas une source claire et crawlable, la réponse cite quelqu'un d'autre. L'[Answer Engine Optimization](https://www.semrush.com/blog/answer-engine-optimization/) (AEO) regroupe les pratiques qui augmentent vos chances d'y apparaître.
 
-Ce guide clarifie AEO, GEO et SEO. Il explique comment ChatGPT et Google choisissent leurs sources, puis déroule les actions techniques, éditoriales, off-site et de mesure. Angle volontaire : agence IA B2B, software factory, agents, cadre HDS. Pas e-commerce générique.
+Ce guide s'adresse aux fondateurs, marketeurs et responsables contenu qui veulent rendre leur marque **éligible et pertinente** pour les citations IA. Pas de jargon magique : crawler les bots, publier des pages answer-first, dater ses preuves, gagner des mentions hors site, et mesurer chaque mois avec un protocole simple.
 
-## Pourquoi une agence IA doit viser les citations
+## Pourquoi viser les citations (et pas seulement le SEO)
 
-Le SEO classique reste utile. Il ne répond plus seul à « qui ChatGPT recommande-t-il pour construire des agents en production ? ». Les acheteurs formulent des prompts conversationnels. Les modèles réécrivent la requête, cherchent sur le web (ou via des partenaires), puis citent un sous-ensemble de pages.
+Le SEO classique reste utile. Il ne répond plus seul à la question « qui ChatGPT recommande-t-il sur mon sujet ? ». Les acheteurs formulent des prompts conversationnels. Les modèles réécrivent la requête, cherchent sur le web (ou via des partenaires), puis citent un sous-ensemble de pages.
 
-Pour The Vibe Company, on suit dix prompts AISV (visibilité dans les réponses IA), parmi lesquels Agence IA Paris, Agents IA entreprise, IA santé et hébergement de données de santé, Automatisation IA, Software factory IA. Pas de classement magique à hacker. Pour chaque prompt, on vise une page claire, à jour, prouvable, que les bots peuvent crawler.
+Google le dit sans détour dans [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features) : pas d'exigences techniques supplémentaires pour les AI Overviews ou AI Mode au-delà d'être indexé et éligible aux extraits. Le reste, c'est du SEO solide, plus des citations, des mentions et du contenu qui répond d'abord, développe ensuite.
 
-Google le dit sans détour dans [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features) : pas d'exigences techniques supplémentaires pour les AI Overviews ou AI Mode au-delà d'être indexé et éligible aux extraits. Le reste, c'est du SEO solide… plus des citations, des mentions et du contenu answer-first.
+L'objectif reste terre à terre. Pour les questions que posent vraiment vos acheteurs, il vous faut une page claire, à jour, prouvable, que les bots peuvent crawler.
 
 ## AEO, GEO, SEO : vocabulaire clair
 
@@ -35,33 +35,33 @@ Google le dit sans détour dans [AI features and your website](https://developer
 
 En pratique, AEO et GEO visent souvent le même résultat : être cité ou mentionné dans une réponse IA. Le jargon change selon les cabinets. Sur X comme dans les guides, la distinction est surtout marketing. Ce qui compte : pages citables + crawl bots + preuves + mentions hors site.
 
-Le papier GEO d'Aggarwal et al. montre jusqu'à 40 % de gain de visibilité dans leurs expériences de labo (GEO-bench). À prendre comme un signal de labo, pas comme une promesse client : citations, citations de sources, statistiques sourcées aident.
+Le papier GEO d'Aggarwal et al. montre jusqu'à 40 % de gain de visibilité **dans leurs expériences de labo** (GEO-bench). À lire comme un signal de labo, pas comme une promesse client. Citations, citations de sources et statistiques sourcées aident.
 
 ## Comment ChatGPT et Google choisissent (vraiment) leurs sources
 
 ### Côté Google (AI Overviews / AI Mode)
 
-Google rappelle qu'il n'y a pas de markup « AI-only » secret. Les bonnes pratiques restent celles du SEO : crawl, liens internes, texte visible, données structurées alignées sur le texte. Les AI Overviews peuvent aussi faire du query fan-out : plusieurs recherches liées sur des sous-thèmes. Une citation n'implique donc pas forcément d'être n°1 sur la requête initiale.
+Google rappelle qu'il n'y a pas de markup « AI-only » secret. Les bonnes pratiques restent celles du SEO : crawl, liens internes, texte visible, données structurées alignées sur le texte. Les AI Overviews peuvent aussi faire du **query fan-out** : plusieurs recherches liées sur des sous-thèmes. Une citation n'implique donc pas forcément d'être n°1 sur la requête initiale.
 
 Dans Search Console, le [contrôle Search generative AI](https://support.google.com/webmasters/answer/16908024) (rollout mondial noté fin août 2026) laisse Inclure ou Exclure AI Overviews, AI Mode et Discover génératif. Par défaut : include. Ce contrôle n'est pas le même levier que `Google-Extended` (entraînement des modèles). Les confondre dans un article ou un robots.txt, c'est une erreur classique.
 
 ### Côté ChatGPT (recherche web)
 
-OpenAI documente dans [Searching the web with ChatGPT](https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt) que les citations peuvent être incomplètes, datées ou incorrectes. Il faut vérifier la source. Pour être *éligible*, le site doit autoriser OAI-Searchbot et le trafic depuis les IP publiées dans [searchbot.json](https://openai.com/searchbot.json). Aucune plateforme ne garantit une citation.
+OpenAI documente dans [Searching the web with ChatGPT](https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt) que les citations **peuvent être incomplètes, datées ou incorrectes**. Il faut vérifier la source. Pour être *éligible*, le site doit autoriser **OAI-Searchbot** et le trafic depuis les IP publiées dans [searchbot.json](https://openai.com/searchbot.json). Aucune plateforme ne garantit une citation.
 
 ## Checklist technique : être crawlable par les bots IA
 
 1. **Autoriser OAI-Searchbot** (et vérifier que CDN / WAF ne bloquent pas les IP OpenAI search).
 2. **Laisser le contrôle Search generative AI sur Include**, sauf raison métier forte d'exclure.
 3. **Ne pas confondre** `Google-Extended` (training) et le contrôle Search generative AI (apparition dans les réponses Search).
-4. **Éviter les `noindex` accidentels** sur les pages que vous voulez voir citées (définitions, guides, cas).
+4. **Éviter les `noindex` accidentels** sur les pages que vous voulez voir citées (définitions, guides, FAQ, cas).
 5. **Texte visible dans le HTML** : une réponse clé ne doit pas vivre uniquement dans une image ou un PDF scanné.
 6. **Sitemap et liens internes** vers les pages « answer-first » (voir section contenu).
 7. **Surveiller les logs** : bots IA absents = problème d'infra, pas seulement de contenu.
 
 Un fichier `llms.txt` ou un schema inventé ne remplace pas ces bases. OpenAI documente le crawl OAI-Searchbot + la pertinence, pas une garantie de placement.
 
-## Checklist contenu : pages citables pour une agence IA
+## Checklist contenu : quelles pages rendre citables
 
 Une page citable répond en quelques phrases, puis développe. Elle date ses faits. Elle cite des sources primaires. Elle se rafraîchit (les analyses relayées par Semrush lient souvent fraîcheur et citations ; traitez ça comme une hypothèse opérationnelle, pas une loi).
 
@@ -70,34 +70,36 @@ Structure type :
 1. Réponse courte en tête (définition ou critères).
 2. Tableau ou liste scannable.
 3. Preuves datées (cas, chiffres sourcés, liens officiels).
-4. FAQ en questions réelles d'acheteurs B2B.
+4. FAQ en questions réelles de vos acheteurs.
 5. Date de mise à jour visible.
 
-### Pages à prioriser (alignées AISV)
+### Types de pages à prioriser
 
-**Agence IA Paris : qui choisir.** Critères : livraison en production, cas nommés, stack, sécurité, rythme de livraison. Lien naturel vers [comment choisir une agence IA](/fr/resources/articles/choisir-agence-ia-esn-freelance) et la landing [agence IA Paris](/fr/agence-ia-paris).
+Pas besoin d'inventer un « site AEO ». Travaillez d'abord les formats que les modèles aiment citer :
 
-**Agents IA en entreprise.** Architecture, garde-fous, droits d'accès, observabilité. Relier à [agents IA en entreprise](/fr/resources/articles/agent-ia-entreprise) et à l'offre [agents pour durcir produit et SI](/fr/agents-ia-securite-produit).
+**Pages catégorie / offre.** Ce que vous vendez, pour qui, avec quels critères de choix. Une landing claire bat une homepage fourre-tout.
 
-**IA santé et HDS.** Expliquer le cadre d'hébergement de données de santé, sans s'auto-présenter comme organisme certifié. On a livré chez [Monka](/fr/case-studies/monka) *dans* un environnement HDS déjà en place. Détail dans [IA et données de santé : ce que l'HDS impose](/fr/resources/articles/ia-donnees-de-sante-hds).
+**Guides how-to.** « Comment faire X », critères, étapes, pièges. Exemple de forme : un article comme [comment choisir une agence IA](/fr/resources/articles/choisir-agence-ia-esn-freelance) répond d'abord, puis détaille.
 
-**Automatisation IA.** Cas, ROI méthodologique, processus à automatiser en premier. Lien vers [automatisation IA en entreprise](/fr/resources/articles/automatisation-ia-entreprise).
+**Définitions et concepts.** Une page qui explique clairement un terme technique (ex. [RAG en entreprise](/fr/resources/articles/rag-entreprise) ou [agents IA en entreprise](/fr/resources/articles/agent-ia-entreprise)) devient une source naturelle quand quelqu'un demande « c'est quoi… ».
 
-**Software factory IA.** Définition, livrables, standardisation d'outils et de skills (cas [Theodo](/fr/case-studies/theodo) : factories pour des centaines de développeurs). Compléter avec [agents IA pour durcir un SaaS](/fr/resources/articles/agents-ia-durcir-saas).
+**FAQ acheteur.** Les vraies questions de vente, pas les FAQ légales. Une question = une réponse courte + un développement.
 
-**RAG / connaissance interne.** Si le prompt porte sur « connecter l'IA aux documents », pointer [RAG en entreprise](/fr/resources/articles/rag-entreprise).
+**Études de cas.** Résultats nommés, contexte, contraintes. Un cas comme [LocService](/fr/case-studies/locservice) ou [Monka](/fr/case-studies/monka) montre ce qui a été livré, pas seulement ce qui est promis.
 
-## Checklist preuves et entité (E-E-A-T agence)
+**Pages « cadre / conformité ».** Si votre marché a des règles (santé, données, sécurité), expliquez le *cadre* avec des sources officielles. Ne vous inventez pas de badge. Pour la santé en France, le détail du cadre HDS est dans [IA et données de santé](/fr/resources/articles/ia-donnees-de-sante-hds).
 
-Les moteurs de réponse aiment les entités claires. Pour une agence :
+## Checklist preuves et entité (E-E-A-T marque)
 
-- **Cas clients nommés** avec résultats vérifiables (Monka, AFP / MediaGen, LocService, Theodo…).
-- **Signaux institutionnels autorisés** : Y Combinator (W24), projet France 2030 MediaGen avec l'AFP.
+Les moteurs de réponse aiment les entités claires. Pour une marque ou un produit :
+
+- **Cas clients ou preuves nommées** avec résultats vérifiables.
+- **Signaux institutionnels réels** (levées, programmes publics, partenariats) : seulement ce qui est vrai et sourçable.
 - **Auteurs nommés** sur les guides techniques (pas seulement « L'équipe »).
 - **Stats toujours sourcées** ; si la source est secondaire, caveat ou omission.
 - **Pages À propos / équipe / méthodes** cohérentes avec les articles.
 
-Évitez les certifications inventées et toute auto-certification HDS. Le cadre réglementaire et l'expérience projet suffisent, et ils sont plus crédibles.
+Évitez les certifications inventées et toute auto-attribution de labels que vous n'avez pas. Le cadre réglementaire et l'expérience projet suffisent, et ils sont plus crédibles.
 
 ## Checklist off-site : devenir mentionnable
 
@@ -110,28 +112,19 @@ Le contenu seul ne suffit pas toujours. Les playbooks practitioners (Hoffman, wo
 5. Citations de qualité (autres sites qui vous nomment comme source).
 6. Re-check des mentions toutes les 3 à 4 semaines.
 
-Visez les « core sources » de *votre* secteur (presse tech FR, blogs ESN, docs open source), sans inventer de pourcentages viraux non audités.
+Visez les « core sources » de *votre* secteur (presse spécialisée, blogs experts, docs open source), sans inventer de pourcentages viraux non audités.
 
-## Protocole de mesure : 10 prompts AISV à rejouer chaque mois
+## Protocole de mesure : 5 à 10 questions acheteur, chaque mois
 
-Sans mesure, l'AEO reste du folklore. Protocole simple :
+Sans mesure, l'AEO reste du folklore. Protocole simple, à faire vous-même :
 
-1. Fixer **10 prompts** en français (ceux de votre AISV).
+1. Lister **5 à 10 questions** que posent vraiment vos acheteurs (pas des keywords Ads, des phrases conversationnelles).
 2. Les rejouer sur **ChatGPT** (avec recherche web) et **Gemini**. Option : Perplexity, AI Mode Google.
 3. Pour chaque run, noter : citation (URL), mention (nom sans lien), absence, ton (positif / neutre / négatif), concurrent cité.
 4. Garder date, modèle / mode, et capture.
 5. Comparer mois après mois. Tools type Semrush AI Visibility, Mentions.so ou toolkits OSS (treg) = options, pas obligation.
 
-Important : ce brief et cet article ne prétendent pas que The Vibe Company est déjà citée. La baseline live est un follow-up à faire, pas un chiffre inventé.
-
-## Ce que font déjà les cabinets FR (et le trou à prendre)
-
-Sur les SERP FR AEO/GEO qu'on a tirés le 28/10/2026 (DataForSEO, loc France), aucun Theodo, OCTO, Galadrim, Sicara ni TVC n'apparaît dans le top organique des requêtes type « être cité par ChatGPT » ou « Answer Engine Optimization ». Le SERP est saturé de guides marketing génériques.
-
-- **Theodo / OCTO / Galadrim** : fort sur delivery IA et thought leadership tech, quasi silencieux sur AEO/GEO « comment être cité ».
-- **Artefact** : publie du GEO *pour clients* (ex. case Accor × GetMint, travel). Utile, mais ce n'est pas une checklist pour une agence IA qui veut *elle-même* être recommandée sur agents, HDS ou software factory.
-
-Opportunité : publier la référence FR « agence IA × AEO », ancrée production et prompts AISV, plutôt qu'un énième glossaire.
+Vous mesurez votre éligibilité et votre présence. Aucune plateforme ne vend un slot garanti dans une réponse modèle.
 
 ## Mythes AEO à éviter
 
@@ -141,30 +134,30 @@ Opportunité : publier la référence FR « agence IA × AEO », ancrée product
 4. **« AEO et GEO sont opposés »** : souvent le même objectif, vocabulaire différent.
 5. **« Bloquer Google-Extended sort des AI Overviews »** : non, training ≠ contrôle Search generative AI.
 6. **« Les citations ChatGPT sont toujours justes »** : OpenAI dit le contraire.
-7. **Chiffres viraux non audités** (études blog, stats GetMint/Peakace reprises sans méthodo) : skip ou caveat fort. Ici on les omet.
+7. **Chiffres viraux non audités** (études blog reprises sans méthodo) : skip ou caveat fort. Ici on les omet.
 
 ## Checklist récap (à imprimer)
 
 1. OAI-Searchbot autorisé + IP search OK.
 2. Search generative AI = Include (sauf exclusion volontaire).
 3. Pas de confusion Google-Extended / contrôle Search.
-4. Pages AISV answer-first, texte visible, FAQ B2B.
+4. Pages answer-first sur vos questions acheteur, texte visible, FAQ réelle.
 5. Preuves datées + auteurs nommés.
-6. Cas clients + YC / France 2030 là où c'est vrai.
-7. Cadre HDS expliqué sans auto-certification.
-8. Liens internes vers offres et cas.
+6. Cas ou preuves nommées là où c'est vrai.
+7. Cadre réglementaire expliqué sans faux badges.
+8. Liens internes vers offres, guides et cas.
 9. Mentions off-site authentiques.
-10. 10 prompts rejoués chaque mois (ChatGPT + Gemini).
+10. 5 à 10 prompts rejoués chaque mois (ChatGPT + Gemini).
 11. Refresh des pages stratégiques dans l'année.
 12. Aucune promesse « on vous fait citer ».
-13. Sources primaires dans l'article (Google, OpenAI, arXiv, Semrush).
+13. Sources primaires dans vos pages (docs officielles, papers, données).
 14. CTA après la valeur, pas avant.
 
 ## FAQ
 
 ### Quelle différence entre AEO et GEO ?
 
-AEO (Answer Engine Optimization) désigne les pratiques pour apparaître dans les réponses IA. GEO (Generative Engine Optimization) vient surtout du papier KDD 2024 et du même objectif côté moteurs génératifs. Pour une agence, traitez-les comme un même chantier : pages citables + crawl + mentions.
+AEO (Answer Engine Optimization) désigne les pratiques pour apparaître dans les réponses IA. GEO (Generative Engine Optimization) vient surtout du papier KDD 2024 et du même objectif côté moteurs génératifs. Traitez-les comme un même chantier : pages citables + crawl + mentions.
 
 ### Faut-il un fichier llms.txt ?
 
@@ -172,7 +165,7 @@ OpenAI ne le documente pas comme une exigence pour être cité. Priorité : OAI-
 
 ### ChatGPT peut-il citer mon site sans clic Google ?
 
-Oui, via sa recherche web et ses partenaires, si vous êtes crawlable et jugé pertinent. Ce n'est pas le même classement que le top 10 Google classique.
+Oui, via sa recherche web et ses partenaires, si vous êtes crawlable et jugé pertinent. Le classement n'est pas celui du top 10 Google classique.
 
 ### AI Overviews, c'est la même chose que ChatGPT ?
 
@@ -182,8 +175,8 @@ Non. AI Overviews / AI Mode sont des surfaces Google Search. ChatGPT est un prod
 
 Non. On peut viser l'éligibilité et la pertinence. Aucune plateforme ne vend un placement garanti dans une réponse modèle.
 
-## Faire de votre agence une source citable
+## Cartographier vos pages citables
 
-The Vibe Company est une agence IA à Paris (YC W24). On construit des produits, des agents et des software factories qui tournent en production. Si vous voulez cartographier vos pages citables, vos prompts AISV et votre crawl bots IA, on peut le faire ensemble.
+The Vibe Company est une [agence IA à Paris](/fr/agence-ia-paris) (YC W24). On construit des produits, des agents et des software factories qui tournent en production. Si vous voulez cartographier les pages à rendre citables et votre crawl bots IA, on peut le faire ensemble.
 
 [Réserver un échange sur votre visibilité IA →](https://cal.com/stangirard/thevibecompany)
