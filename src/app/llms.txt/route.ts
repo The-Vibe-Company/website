@@ -1,3 +1,6 @@
+import fr from "../../../messages/fr.json";
+import en from "../../../messages/en.json";
+import { getCustomers } from "@/lib/customers";
 import { getAllContent } from "@/lib/content-source";
 import { getNavContentTypes, getUrlSlugForDbType } from "@/lib/content-types";
 import {
@@ -29,28 +32,55 @@ function routeListItem(title: string, url: string, description?: string): string
   return `- [${escapeLinkText(title)}](${url})${suffix}`;
 }
 
+// Reuse the exact message fields consumed by each French page's metadata.
+// English core entries retain their existing labels and descriptions.
+const frenchCoreMetadata: Record<string, { title: string; description: string }> = {
+  "/": { title: fr.meta.homeTitle, description: fr.meta.description },
+  "/portfolio": { title: fr.portfolio.metaTitle, description: fr.portfolio.metaDescription },
+  "/resources": { title: fr.resources.metaTitle, description: fr.resources.subtitle },
+  "/a-propos": { title: fr.about.metaTitle, description: fr.about.metaDescription },
+  "/agence-ia-paris": { title: fr.agencyParis.metaTitle, description: fr.agencyParis.metaDescription },
+  "/agents-ia-securite-produit": { title: fr.hardening.metaTitle, description: fr.hardening.metaDescription },
+  "/agents-ia-production": { title: fr.agentsProduction.metaTitle, description: fr.agentsProduction.metaDescription },
+  "/ia-sante-hds": { title: fr.healthcareAi.metaTitle, description: fr.healthcareAi.metaDescription },
+  "/ia-medias": { title: fr.mediaAi.metaTitle, description: fr.mediaAi.metaDescription },
+};
+
 function buildLlmsTxt(): string {
   const content = getAllContent();
 
   const localizedSections = (["fr", "en"] as const).map((locale) => {
     const corePages = [
-      ...INDEXABLE_STATIC_ROUTES.map((route) =>
+      ...INDEXABLE_STATIC_ROUTES,
+      ...INDEXABLE_SPLIT_PATH_ROUTES.map((route) => ({
+        ...route,
+        path: splitPath(route.paths, locale),
+      })),
+    ].map((route) => {
+      const metadata = locale === "fr" ? frenchCoreMetadata[route.path] : route;
+      return routeListItem(
+        metadata.title,
+        localizedUrl(locale, route.path),
+        metadata.description,
+      );
+    });
+
+    const messages = locale === "fr" ? fr : en;
+    const caseStudies = [
+      `### ${locale === "fr" ? "Cas clients" : "Case studies"}`,
+      routeListItem(
+        messages.caseStudiesPage.back,
+        localizedUrl(locale, "/case-studies"),
+        messages.caseStudiesPage.metaDescription,
+      ),
+      ...getCustomers(locale).map((customer) =>
         routeListItem(
-          route.title,
-          localizedUrl(locale, route.path),
-          route.description,
+          `${customer.client} · ${messages.caseStudiesPage.back}`,
+          localizedUrl(locale, `/case-studies/${customer.slug}`),
+          customer.metaDescription,
         ),
       ),
-      // Pages whose URL segment is translated, so each language is cited on
-      // its own canonical (/en/about, /fr/a-propos).
-      ...INDEXABLE_SPLIT_PATH_ROUTES.map((route) =>
-        routeListItem(
-          route.title,
-          localizedUrl(locale, splitPath(route.paths, locale)),
-          route.description,
-        ),
-      ),
-    ];
+    ].join("\n\n");
 
     const contentSections = getNavContentTypes()
       .map((contentType) => {
@@ -84,6 +114,7 @@ function buildLlmsTxt(): string {
       `## ${locale === "fr" ? "French" : "English"} canonical URLs`,
       "### Core Pages",
       ...corePages,
+      caseStudies,
       ...contentSections,
     ].join("\n\n");
   });
