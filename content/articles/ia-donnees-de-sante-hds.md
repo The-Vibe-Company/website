@@ -1,6 +1,6 @@
 ---
 title: "IA et données de santé : ce que l'HDS impose vraiment à votre projet"
-seoTitle: "IA et données de santé : le guide HDS | The Vibe Company"
+seoTitle: "Projet IA et données de santé : guide HDS | The Vibe Company"
 slug: ia-donnees-de-sante-hds
 language: fr
 translationKey: hds-health-data
@@ -14,6 +14,8 @@ ogImage: /images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp
 ---
 
 Un projet IA en santé bloque rarement sur le modèle. Il bloque le jour où quelqu'un demande : « Et les données, elles sont où ? »
+
+**La réponse courte.** Pour mener un projet IA sur des données de santé en France, il faut cinq choses. Cartographier les flux (application, modèle, logs, sauvegardes). Choisir un hébergeur certifié HDS selon le référentiel 2024, sur les activités dont vous avez besoin. Garder les appels au modèle, les logs et les index dans ce périmètre, ou pseudonymiser avant. Régler le RGPD avec le DPO : base légale, analyse d'impact, formalités CNIL. Et tester sans données réelles. La suite détaille chaque point.
 
 À ce moment-là, la démo sur notebook ne suffit plus. Il faut savoir qui héberge, qui administre, qui sauvegarde, et par où passent les données quand l'application appelle un modèle. En France, la plupart des réponses tiennent en trois lettres : HDS.
 
@@ -48,7 +50,7 @@ Le référentiel découpe l'hébergement en six activités. Un hébergeur est ce
 5. **Administration et exploitation** du système d'information contenant les données de santé.
 6. **Sauvegarde externalisée** des données de santé.
 
-Les libellés exacts figurent à l'article [R.1111-9 du code de la santé publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036658481). On parle souvent de « niveaux », mais ce ne sont pas des paliers : ce sont des activités, et un hébergeur choisit celles sur lesquelles il se fait certifier.
+Les libellés exacts figurent à l'article [R.1111-9 du code de la santé publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036658481). On parle souvent de « niveaux ». En réalité ce sont des activités, pas des paliers, et un hébergeur choisit celles sur lesquelles il se fait certifier.
 
 Une lecture simple, que Stan Girard détaillait dans [« Comprendre la certification HDS en 5 minutes »](https://www.theodo.com/blog/comprendre-la-certification-hds-en-5-minutes) sur le blog de Theodo :
 
@@ -73,17 +75,17 @@ Le référentiel révisé a été publié au Journal officiel le 16 mai 2024 ([A
   - si l'hébergeur ou l'un de ses sous-traitants est soumis à une loi d'un pays tiers sans niveau de protection adéquat au sens du RGPD, il doit le dire au client et exposer le risque d'accès non autorisé ;
   - l'hébergeur doit publier une cartographie des transferts de données possibles hors EEE.
 
-Ces règles imposent la transparence. Elles ne protègent pas un hébergeur des lois extraterritoriales. Le niveau de risque acceptable, c'est à vous de le fixer.
+Ces règles imposent la transparence. Elles ne protègent pas un hébergeur des lois extraterritoriales. Le niveau de risque acceptable, à vous de le fixer.
 
 Donc, en octobre 2026, un certificat HDS selon l'ancien référentiel ne devrait plus être valable. Demandez le certificat à jour, avec ses dates et ses activités.
 
 ## Où l'IA complique les choses : modèles, API et logs
 
-Un projet IA crée des chemins de données qu'une application classique n'a pas. C'est eux qu'il faut cartographier :
+Un projet IA crée des chemins de données qu'une application classique n'a pas. Ce sont eux qu'il faut cartographier :
 
 - **L'appel au modèle.** Si l'application envoie un dossier patient à une API de modèle de langage, cette donnée quitte votre hébergeur. Il faut savoir où l'appel est traité, si le fournisseur garde les requêtes, et s'il est couvert pour des données de santé. Sinon, il faut pseudonymiser avant l'appel, ou faire tourner le modèle dans un environnement HDS.
 - **Les logs et l'observabilité.** Les traces de prompts et de réponses contiennent souvent des données de santé en clair. Elles doivent vivre au même niveau de sécurité que la base principale.
-- **Les embeddings et les index de recherche.** Une base vectorielle construite à partir de comptes rendus médicaux contient des données de santé. Elle est dans le périmètre.
+- **Les embeddings et les index de recherche.** Une base vectorielle construite à partir de comptes rendus médicaux contient des données de santé. Elle est dans le périmètre. On explique comment fonctionne ce type d'architecture dans [« RAG en entreprise »](/fr/resources/articles/rag-entreprise).
 - **Les environnements de test.** Pas de vraies données patients dans un environnement de démo non certifié.
 - **Les droits de l'agent.** Un agent qui peut lire un dossier n'a pas forcément besoin de pouvoir le modifier. On en parle dans [« Le vrai risque des agents IA, c'est l'autorité »](/fr/resources/articles/agents-ia-formation-autorite).
 
@@ -97,7 +99,9 @@ L'HDS couvre l'hébergement. Le RGPD couvre tout le traitement. Les données de 
 - évaluer les risques pour les personnes, souvent via une analyse d'impact (AIPD) pour des données de santé à grande échelle ;
 - prévoir des mesures de sécurité, comme le chiffrement.
 
-La CNIL rappelle aussi qu'un modèle entraîné sur des données personnelles peut lui-même rester soumis au RGPD. Si vous comptez entraîner ou affiner un modèle sur des données patients, réglez ce point avant d'écrire la première ligne de code.
+La CNIL rappelle aussi qu'un modèle entraîné sur des données personnelles peut lui-même rester soumis au RGPD. Vous comptez entraîner ou affiner un modèle sur des données patients ? Réglez ce point avant la première ligne de code.
+
+En mars 2026, la CNIL a publié une fiche dédiée à l'IA en santé ([cnil.fr](https://www.cnil.fr/fr/ia-et-sante-developper-et-evaluer-des-systemes-ia-conformes)). Elle assimile le développement d'un système d'IA destiné à la santé à une recherche, étude ou évaluation dans le domaine de la santé. Dans la majorité des cas, il faut donc une formalité préalable : une déclaration de conformité à une méthodologie de référence (MR-001, MR-003 ou MR-004), ou une demande d'autorisation si le projet sort de ce cadre. La fiche couvre la constitution des bases, le développement et l'évaluation. Le simple déploiement d'un outil déjà fourni n'y est pas traité.
 
 ## Check-list avant de lancer un projet IA sur des données de santé
 
@@ -108,13 +112,16 @@ La CNIL rappelle aussi qu'un modèle entraîné sur des données personnelles pe
 5. Pour chaque appel à un modèle : traitement dans un environnement couvert, ou données pseudonymisées.
 6. Chiffrer les données, au repos et en transit, et restreindre les accès au strict nécessaire.
 7. Mener l'analyse RGPD avec le DPO : base légale, durée de conservation, AIPD si nécessaire.
-8. Garder les environnements de test sans données réelles.
+8. Si vous entraînez ou évaluez un modèle sur ces données, identifier la formalité CNIL (méthodologie de référence ou autorisation) avant de commencer.
+9. Garder les environnements de test sans données réelles.
+
+Pour la suite, du prototype à la production, voyez notre [check-list POC → prod pour un agent IA](/fr/resources/articles/poc-agent-ia-production).
 
 ## Ce qu'on a appris chez Monka
 
 Monka accompagne les aidants avec des infirmières de coordination. Quand on est arrivés, Monka était déjà hébergée en HDS et en conformité. Notre job : développer très vite à l'intérieur de cet environnement. En deux mois, on a mis en production l'app des aidants, Lifeline (le CRM des infirmières) et le moteur clinique qui transforme un bilan de 165 questions en plan d'action. Le référentiel clinique est passé par 12 versions.
 
-La leçon : quand le socle HDS existe déjà, un projet IA peut aller très vite, à condition de rester dans cet environnement. Aucune donnée n'en sort, et les logs comme les environnements de test vivent à l'intérieur. C'est ce qui permet d'itérer vite sans rouvrir le sujet conformité à chaque version.
+La leçon : quand le socle HDS existe déjà, un projet IA peut aller très vite, à condition de rester dans cet environnement. Aucune donnée n'en sort, et les logs comme les environnements de test vivent à l'intérieur. Du coup, on itère vite sans rouvrir le sujet conformité à chaque version.
 
 [Lire le cas Monka →](/fr/case-studies/monka)
 
@@ -131,6 +138,18 @@ Pas avec les versions grand public. Il faut un environnement dont l'hébergement
 ### Le référentiel HDS 2024 est-il déjà obligatoire ?
 
 Oui. Les nouveaux candidats sont évalués sur cette version depuis le 16 novembre 2024, et les hébergeurs déjà certifiés devaient avoir migré au plus tard le 16 mai 2026.
+
+### Faut-il une analyse d'impact (AIPD) pour un projet IA sur des données de santé ?
+
+Souvent, oui. La CNIL publie une liste de traitements pour lesquels l'AIPD est obligatoire ([cnil.fr](https://www.cnil.fr/fr/liste-traitements-aipd-requise)). Un traitement absent de la liste peut quand même en demander une s'il remplit au moins deux des neuf critères européens, par exemple données sensibles et traitement à grande échelle. C'est le DPO qui tranche, de préférence avant le développement.
+
+### Faut-il faire une démarche auprès de la CNIL pour un projet IA en santé ?
+
+Pour entraîner ou évaluer un modèle sur des données de santé, le plus souvent oui. Selon la fiche CNIL de mars 2026, c'est une déclaration de conformité à une méthodologie de référence (MR-001, MR-003 ou MR-004), ou une demande d'autorisation si le projet n'entre pas dans ce cadre.
+
+### Une base vectorielle construite sur des dossiers patients doit-elle rester en HDS ?
+
+Oui. Les embeddings, les index et les textes sources issus de dossiers patients contiennent des données de santé. Ils se traitent comme la base principale : chez un hébergeur certifié pour les activités concernées, avec les mêmes droits d'accès.
 
 ### HDS et RGPD, c'est la même chose ?
 
