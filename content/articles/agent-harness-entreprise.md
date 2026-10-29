@@ -13,9 +13,9 @@ coverAlt: "La mascotte serre une clé sur le socle d’un dôme de verre qui pro
 ogImage: /images/resources/agent-harness-entreprise/cover-mascotte.webp
 ---
 
-Un agent harness, c'est tout ce qui entoure le modèle : la boucle qui l'appelle, les outils et les skills qu'il peut utiliser, le sandbox où il exécute du code, le contexte qu'on lui donne et les contrôles qui décident si son travail est accepté. En entreprise, c'est là que se jouent la fiabilité et la sécurité d'un agent IA. Changer de modèle prend une ligne de config. Construire le harness autour prend des semaines, et c'est lui qui fait la différence en production.
+Un agent harness, c'est tout ce qui entoure le modèle : la boucle qui l'appelle, les outils et les skills qu'il peut utiliser, le sandbox où il exécute du code, le contexte qu'on lui donne et les contrôles qui décident si son travail est accepté. En entreprise, c'est là que se jouent la fiabilité et la sécurité d'un agent IA. Changer de modèle prend une ligne de config. Construire le harness autour prend des semaines, et c'est lui qui tient, ou pas, en production.
 
-Cet article s'adresse aux CTO et responsables techniques qui veulent passer d'agents en démo à des agents qui tournent sur de vrais systèmes. On y voit les six briques d'un harness, pourquoi commencer avec un seul agent, et ce que la recherche publiée par Anthropic le 27 octobre 2026 sur les chaînes d'exploits Chrome change pour votre sandbox et votre cycle de patch.
+On écrit ici pour les CTO et responsables techniques qui veulent passer d'agents en démo à des agents qui tournent sur de vrais systèmes. Au programme : les six briques d'un harness, pourquoi commencer avec un seul agent, et ce que la recherche publiée par Anthropic le 27 octobre 2026 sur les chaînes d'exploits Chrome change pour votre sandbox et votre cycle de patch.
 
 ## Agent harness : définition simple
 
@@ -33,7 +33,7 @@ Le même modèle peut donner des résultats très différents selon le harness. 
 
 ## Pourquoi le harness compte plus que le choix du modèle
 
-Les débats en entreprise portent souvent sur le modèle : Claude, GPT, Gemini, open source. C'est une décision utile mais réversible. Les problèmes qui bloquent une mise en production viennent presque toujours d'ailleurs :
+Les débats en entreprise portent souvent sur le modèle : Claude, GPT, Gemini, open source. Ça compte, mais ça se change. Les problèmes qui bloquent une mise en production viennent presque toujours d'ailleurs :
 
 - l'agent boucle sans fin sur une tâche et brûle le budget ;
 - il a accès à un outil d'écriture en production alors qu'il devait seulement lire ;
@@ -41,7 +41,7 @@ Les débats en entreprise portent souvent sur le modèle : Claude, GPT, Gemini, 
 - une page web ou un document piégé lui fait exécuter une commande ;
 - un diff sensible part en merge sans relecture.
 
-Aucun de ces problèmes ne se règle en changeant de modèle. Ils se règlent dans le harness. C'est aussi pour ça qu'on parle de software factory : une base commune d'outils, d'agents, de skills et de règles que toutes les équipes partagent. Chez [Theodo](/fr/case-studies/theodo), on construit ce type de base pour des centaines de développeurs, et la plus grosse partie du travail porte sur ce qui entoure le modèle.
+Changer de modèle n'en règle aucun. Tout se règle dans le harness. C'est aussi pour ça qu'on parle de software factory : une base commune d'outils, d'agents, de skills et de règles que toutes les équipes partagent. Chez [Theodo](/fr/case-studies/theodo), on construit ce type de base pour des centaines de développeurs, et la plus grosse partie du travail porte sur ce qui entoure le modèle.
 
 ## Les six briques à mettre autour du modèle
 
@@ -56,7 +56,7 @@ Aucun de ces problèmes ne se règle en changeant de modèle. Ils se règlent da
 
 ### 1. La boucle : budgets et conditions d'arrêt
 
-La boucle de base est simple : le modèle propose des appels d'outils, le harness les exécute, renvoie les résultats, et recommence. Ce qui compte, ce sont les limites. Dans son guide [When to fold subagents into your main agent loop](https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop), Anthropic décrit une boucle qui s'arrête quand le modèle répond ou quand il atteint un budget, avec des budgets de tours et de coût et des « write gates » fixés dans le harness, pas dans le prompt.
+La boucle de base est simple : le modèle propose des appels d'outils, le harness les exécute, renvoie les résultats, et recommence. Le vrai sujet, ce sont les limites. Dans son guide [When to fold subagents into your main agent loop](https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop), Anthropic décrit une boucle qui s'arrête quand le modèle répond ou quand il atteint un budget, avec des budgets de tours et de coût et des « write gates » fixés dans le harness, pas dans le prompt.
 
 À mettre en place :
 
@@ -70,11 +70,11 @@ Anthropic constate qu'au-delà de 30 à 50 définitions d'outils dans le prompt 
 
 Les skills jouent le même rôle pour les méthodes. Un skill décrit comment votre équipe fait un travail : les étapes, les règles, les cas limites. L'agent voit une courte description et ne charge le reste qu'au moment utile. On a expliqué comment les skills structurent un usage de l'IA dans [ce qui fait la différence, ce ne sont pas les prompts](/fr/resources/articles/les-skills). Pour connecter l'agent à vos systèmes, voir aussi [serveur MCP en entreprise](/fr/resources/articles/serveur-mcp-entreprise).
 
-Point souvent oublié : les permissions vivent dans l'outil. Anthropic recommande que chaque outil vérifie ce que l'utilisateur appelant a le droit de voir ou de faire, et renvoie un refus lisible. Un seul agent peut alors servir des utilisateurs aux droits différents, sans un agent par niveau d'accès.
+Ce qu'on oublie souvent : les permissions vivent dans l'outil. Anthropic recommande que chaque outil vérifie ce que l'utilisateur appelant a le droit de voir ou de faire, et renvoie un refus lisible. Un seul agent peut alors servir des utilisateurs aux droits différents, sans un agent par niveau d'accès.
 
 ### 3. Sandbox et isolation : partir du principe que l'agent sera piégé
 
-Dès qu'un agent exécute du code, lit des pages web ou manipule des fichiers, il faut supposer qu'un contenu malveillant finira par lui parvenir. Le sandbox limite les dégâts :
+Dès qu'un agent exécute du code, lit des pages web ou manipule des fichiers, partez du principe qu'un contenu malveillant finira par lui arriver. Le sandbox limite les dégâts :
 
 - environnement éphémère par tâche, détruit à la fin ;
 - liste blanche de commandes et sortie réseau limitée aux domaines nécessaires ;
@@ -90,14 +90,14 @@ Plus la fenêtre de contexte se remplit, plus le modèle se disperse. Le harness
 
 ### 5. Evals : 10 tâches de référence avant tout changement
 
-Sans eval, chaque modification du prompt, des outils ou du modèle est un pari. Anthropic recommande un jeu de tests de bout en bout tenu par une petite équipe centrale, et note que 10 exemples de référence suffisent pour démarrer. Deux conseils pratiques du même guide :
+Sans eval, chaque modif du prompt, des outils ou du modèle, c'est un pari. Anthropic recommande un jeu de tests de bout en bout tenu par une petite équipe centrale, et note que 10 exemples de référence suffisent pour démarrer. Deux conseils pratiques du même guide :
 
 - regarder quelles tâches ont basculé, pas seulement le score global ;
 - lancer chaque tâche plusieurs fois, car certaines régressions n'apparaissent que sur une exécution sur deux.
 
 ### 6. Revue par niveau de risque
 
-Tout ne mérite pas la même relecture. Une bonne règle : classer chaque action de l'agent par réversibilité.
+Tout ne mérite pas la même relecture. Une règle simple : classer chaque action de l'agent par réversibilité.
 
 - Lire et résumer : pas de validation.
 - Proposer un diff, un ticket, un brouillon : relecture légère ou automatique.
@@ -108,7 +108,7 @@ On décrit ces niveaux (lire, proposer, préparer, exécuter) dans [le vrai risq
 
 ## Un seul agent avant l'essaim
 
-La tentation est forte de construire un orchestrateur et une dizaine de sous-agents spécialisés, un par équipe. Anthropic met en garde contre ce schéma, qu'il compare à la loi de Conway : l'architecture finit par copier l'organigramme. Dans son article sur les [systèmes multi-agents](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them), l'éditeur indique que ces systèmes consomment en général 3 à 10 fois plus de tokens qu'un agent unique pour une tâche équivalente. Dans son guide plus récent, il cite un client dont la boucle unique tournait environ deux fois plus vite que l'architecture multi-agents qu'elle remplaçait.
+On a vite envie de construire un orchestrateur et une dizaine de sous-agents spécialisés, un par équipe. Anthropic met en garde contre ce schéma, qu'il compare à la loi de Conway : l'architecture finit par copier l'organigramme. Dans son article sur les [systèmes multi-agents](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them), l'éditeur indique que ces systèmes consomment en général 3 à 10 fois plus de tokens qu'un agent unique pour une tâche équivalente. Dans son guide plus récent, il cite un client dont la boucle unique tournait environ deux fois plus vite que l'architecture multi-agents qu'elle remplaçait.
 
 Anthropic garde les sous-agents pour trois cas :
 
@@ -128,7 +128,7 @@ Le 27 octobre 2026, l'équipe Frontier Red Team d'Anthropic a publié [Discoveri
 - Windows : déni de service à distance dans l'implémentation QUIC du noyau (CVE-2026-33096), trouvé par analyse du binaire avec Ghidra ;
 - Linux : exécution de commandes en root à distance, sans clic, via multipath TCP (CVE-2026-98432).
 
-Côté Chrome, Anthropic indique que 62 CVE ont été attribuées et corrigées à la version 156, toutes de sévérité critique ou haute. Les [notes de version Chrome du 27 octobre](https://chromereleases.googleblog.com/) (156.0.8078.73/.74) créditent plusieurs correctifs à « Xinyang Ge (Anthropic), assisted by Claude », dont deux critiques. Attention aux chiffres qui circulent : cette mise à jour compte 52 correctifs de sécurité, tous rapporteurs confondus. Ce n'est pas le même périmètre que le décompte d'Anthropic.
+Côté Chrome, Anthropic indique que 62 CVE ont été attribuées et corrigées à la version 156, toutes de sévérité critique ou haute. Les [notes de version Chrome du 27 octobre](https://chromereleases.googleblog.com/) (156.0.8078.73/.74) créditent plusieurs correctifs à « Xinyang Ge (Anthropic), assisted by Claude », dont deux critiques. Attention aux chiffres qui circulent : cette mise à jour compte 52 correctifs de sécurité, tous rapporteurs confondus. Le décompte d'Anthropic couvre un autre périmètre.
 
 Quatre leçons pour un harness d'entreprise :
 
@@ -136,7 +136,7 @@ Quatre leçons pour un harness d'entreprise :
 
 **Mettez à jour ce que vos agents utilisent.** Beaucoup d'agents pilotent un Chromium headless pour naviguer ou tester. L'image de leur sandbox doit suivre les versions stables, comme les postes de travail. Ici : 156.0.8078.73 ou plus récent.
 
-**Les résultats viennent d'un harness, pas d'un prompt.** Anthropic décrit une plateforme d'agents de scan lancés en parallèle, chacun évalué sur le nombre de vulnérabilités nouvelles qu'il apporte, avec un suivi de couverture, une analyse automatique des variantes et un pipeline standard de vérification et de notation du risque. C'est exactement les briques ci-dessus : boucle, outils, evals, revue.
+**Les résultats viennent d'un harness, pas d'un prompt.** Anthropic décrit une plateforme d'agents de scan lancés en parallèle, chacun évalué sur le nombre de vulnérabilités nouvelles qu'il apporte, avec un suivi de couverture, une analyse automatique des variantes et un pipeline standard de vérification et de notation du risque. On retrouve les briques ci-dessus : boucle, outils, evals, revue.
 
 **Scannez au moment de la PR.** Corriger le stock ne règle que la moitié du problème, écrit Anthropic : l'autre moitié, c'est réduire le rythme d'entrée de nouvelles failles. L'équipe recommande de scanner chaque pull request et a publié un plugin Claude Code pour ça. Sa conclusion : scanner son propre code compte plus que jamais. Trouver et enchaîner plusieurs failles était réservé à quelques équipes spécialisées ; selon Anthropic, les modèles de pointe le font désormais avec peu d'intervention humaine.
 
@@ -179,6 +179,6 @@ Par l'eval et les limites : 10 tâches de référence rejouables, un budget par 
 
 ## Construire le harness de vos agents
 
-The Vibe Company est une agence IA à Paris. On construit des agents, des produits IA et des software factories qui tournent en production, avec les boucles, les skills, le sandbox et les règles de revue qui vont avec. Si vous voulez auditer le harness de vos agents ou en poser un premier, on peut en parler.
+The Vibe Company est une agence IA à Paris. On construit des agents, des produits IA et des software factories qui tournent en production, avec les boucles, les skills, le sandbox et les règles de revue qui vont avec. Vous voulez auditer le harness de vos agents ou en poser un premier ? Parlons-en.
 
 [Réserver un échange sur vos agents →](https://cal.com/stangirard/thevibecompany)
