@@ -8,9 +8,9 @@ import { absoluteUrl, SITE_LOGO, SITE_NAME, SITE_URL } from "@/lib/site";
  * BreadcrumbList, Article and FAQPage nodes.
  *
  * Structured data only restates what the pages already say. Free text that
- * comes from company page copy and article summaries goes through
- * `isPublishable` first. Article FAQs restate the published editorial content
- * in full, including sourced examples and client names.
+ * comes from page copy (article summaries, FAQ answers) goes through
+ * `isPublishable` first: client names, pricing, certifications and grant
+ * programmes stay out of the markup, even where the visible page mentions them.
  */
 
 type JsonLdNode = Record<string, unknown>;
@@ -250,21 +250,12 @@ export function faqPageSchema(items: FaqItem[]): JsonLdNode | null {
   const publishable = items.filter(
     (item) => isPublishable(item.question) && isPublishable(item.answer),
   );
-  return buildFaqPageSchema(publishable);
-}
-
-/** Restate every published article FAQ, without the company-copy filter. */
-export function articleFaqPageSchema(markdown: string): JsonLdNode | null {
-  return buildFaqPageSchema(extractMarkdownFaq(markdown));
-}
-
-function buildFaqPageSchema(items: FaqItem[]): JsonLdNode | null {
-  if (items.length === 0) return null;
+  if (publishable.length === 0) return null;
 
   return {
     "@context": SCHEMA_CONTEXT,
     "@type": "FAQPage",
-    mainEntity: items.map((item) => ({
+    mainEntity: publishable.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: { "@type": "Answer", text: item.answer },
