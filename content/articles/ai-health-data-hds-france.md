@@ -25,7 +25,7 @@ We went through this with [Monka](/en/case-studies/monka). Inside their existing
 
 ## HDS in two sentences
 
-HDS (Hébergeur de Données de Santé, health data host) certification guarantees that a host applies a security level suited to personal health data. It is issued by an accredited independent certification body, based on a framework published by France's Agence du Numérique en Santé ([esante.gouv.fr](https://esante.gouv.fr/produits-services/hds)).
+HDS (Hébergeur de Données de Santé, health data host) certification guarantees that a host applies a security level suited to personal health data. It's issued by an accredited independent certification body, based on a framework published by France's Agence du Numérique en Santé ([esante.gouv.fr](https://esante.gouv.fr/produits-services/hds)).
 
 The obligation comes from article L.1111-8 of the French Public Health Code: anyone hosting health data collected during prevention, diagnosis, care or social-medical follow-up, on behalf of a third party or the patient, must be certified.
 
@@ -50,7 +50,7 @@ The framework splits hosting into six activities, and hosts are certified activi
 5. **Administration and operations** of the information system containing health data.
 6. **External backup** of health data.
 
-The official wording is in [article R.1111-9 of the French Public Health Code](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036658481). People often say "levels", but these aren't tiers: they are activities, and a host picks which ones it gets certified for.
+The official wording is in [article R.1111-9 of the French Public Health Code](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036658481). People often say "levels". They're really activities, not tiers, and a host picks which ones it gets certified for.
 
 A simple reading, which Stan Girard laid out in ["Comprendre la certification HDS en 5 minutes"](https://www.theodo.com/blog/comprendre-la-certification-hds-en-5-minutes) (in French, on the Theodo blog):
 
@@ -83,7 +83,7 @@ So in October 2026, ask for an up-to-date certificate, with its dates and activi
 
 - **The model call.** Sending a patient record to an LLM API means the data leaves your host. You need to know where the call is processed, whether requests are retained, and whether the provider is covered for health data. If not, pseudonymize before the call or run the model in an HDS environment.
 - **Logs and observability.** Prompt and response traces often contain health data in clear text. Keep them at the same security level as the main database.
-- **Embeddings and search indexes.** A vector store built from medical reports contains health data. It's in scope. We explain how this kind of setup works in ["Enterprise RAG"](/en/resources/articles/enterprise-rag).
+- **Embeddings and search indexes.** A vector store built from medical reports contains health data, so it's in scope. We explain how this kind of setup works in ["Enterprise RAG"](/en/resources/articles/enterprise-rag).
 - **Test environments.** No real patient data in an uncertified demo environment.
 - **Agent permissions.** An agent that can read a record doesn't necessarily need to edit it.
 
@@ -111,7 +111,7 @@ For the next step, from prototype to production, see our [AI agent POC to produc
 
 Monka supports family caregivers with coordination nurses. When we arrived, Monka was already HDS-hosted and compliant. Our job was to build fast inside that environment. In two months we shipped the caregiver app, Lifeline (the nurses' CRM) and the clinical engine that turns a 165-question assessment into an action plan. The clinical reference went through 12 versions.
 
-The lesson: when the HDS foundation already exists, an AI project can move very fast as long as it stays inside that environment. No data leaves it, and logs and test environments live inside it too. That's what lets you iterate fast without reopening compliance at every release.
+The lesson: when the HDS foundation already exists, an AI project can move very fast as long as it stays inside that environment. No data leaves it, and logs and test environments live inside it too. So you can iterate fast without reopening compliance at every release.
 
 [Read the Monka case study →](/en/case-studies/monka)
 

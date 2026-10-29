@@ -50,7 +50,7 @@ Le référentiel découpe l'hébergement en six activités. Un hébergeur est ce
 5. **Administration et exploitation** du système d'information contenant les données de santé.
 6. **Sauvegarde externalisée** des données de santé.
 
-Les libellés exacts figurent à l'article [R.1111-9 du code de la santé publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036658481). On parle souvent de « niveaux », mais ce ne sont pas des paliers : ce sont des activités, et un hébergeur choisit celles sur lesquelles il se fait certifier.
+Les libellés exacts figurent à l'article [R.1111-9 du code de la santé publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036658481). On parle souvent de « niveaux ». En réalité ce sont des activités, pas des paliers, et un hébergeur choisit celles sur lesquelles il se fait certifier.
 
 Une lecture simple, que Stan Girard détaillait dans [« Comprendre la certification HDS en 5 minutes »](https://www.theodo.com/blog/comprendre-la-certification-hds-en-5-minutes) sur le blog de Theodo :
 
@@ -75,13 +75,13 @@ Le référentiel révisé a été publié au Journal officiel le 16 mai 2024 ([A
   - si l'hébergeur ou l'un de ses sous-traitants est soumis à une loi d'un pays tiers sans niveau de protection adéquat au sens du RGPD, il doit le dire au client et exposer le risque d'accès non autorisé ;
   - l'hébergeur doit publier une cartographie des transferts de données possibles hors EEE.
 
-Ces règles imposent la transparence. Elles ne protègent pas un hébergeur des lois extraterritoriales. Le niveau de risque acceptable, c'est à vous de le fixer.
+Ces règles imposent la transparence. Elles ne protègent pas un hébergeur des lois extraterritoriales. Le niveau de risque acceptable, à vous de le fixer.
 
 Donc, en octobre 2026, un certificat HDS selon l'ancien référentiel ne devrait plus être valable. Demandez le certificat à jour, avec ses dates et ses activités.
 
 ## Où l'IA complique les choses : modèles, API et logs
 
-Un projet IA crée des chemins de données qu'une application classique n'a pas. C'est eux qu'il faut cartographier :
+Un projet IA crée des chemins de données qu'une application classique n'a pas. Ce sont eux qu'il faut cartographier :
 
 - **L'appel au modèle.** Si l'application envoie un dossier patient à une API de modèle de langage, cette donnée quitte votre hébergeur. Il faut savoir où l'appel est traité, si le fournisseur garde les requêtes, et s'il est couvert pour des données de santé. Sinon, il faut pseudonymiser avant l'appel, ou faire tourner le modèle dans un environnement HDS.
 - **Les logs et l'observabilité.** Les traces de prompts et de réponses contiennent souvent des données de santé en clair. Elles doivent vivre au même niveau de sécurité que la base principale.
@@ -99,7 +99,7 @@ L'HDS couvre l'hébergement. Le RGPD couvre tout le traitement. Les données de 
 - évaluer les risques pour les personnes, souvent via une analyse d'impact (AIPD) pour des données de santé à grande échelle ;
 - prévoir des mesures de sécurité, comme le chiffrement.
 
-La CNIL rappelle aussi qu'un modèle entraîné sur des données personnelles peut lui-même rester soumis au RGPD. Si vous comptez entraîner ou affiner un modèle sur des données patients, réglez ce point avant d'écrire la première ligne de code.
+La CNIL rappelle aussi qu'un modèle entraîné sur des données personnelles peut lui-même rester soumis au RGPD. Vous comptez entraîner ou affiner un modèle sur des données patients ? Réglez ce point avant la première ligne de code.
 
 En mars 2026, la CNIL a publié une fiche dédiée à l'IA en santé ([cnil.fr](https://www.cnil.fr/fr/ia-et-sante-developper-et-evaluer-des-systemes-ia-conformes)). Elle assimile le développement d'un système d'IA destiné à la santé à une recherche, étude ou évaluation dans le domaine de la santé. Dans la majorité des cas, il faut donc une formalité préalable : une déclaration de conformité à une méthodologie de référence (MR-001, MR-003 ou MR-004), ou une demande d'autorisation si le projet sort de ce cadre. La fiche couvre la constitution des bases, le développement et l'évaluation. Le simple déploiement d'un outil déjà fourni n'y est pas traité.
 
@@ -121,7 +121,7 @@ Pour la suite, du prototype à la production, voyez notre [check-list POC → pr
 
 Monka accompagne les aidants avec des infirmières de coordination. Quand on est arrivés, Monka était déjà hébergée en HDS et en conformité. Notre job : développer très vite à l'intérieur de cet environnement. En deux mois, on a mis en production l'app des aidants, Lifeline (le CRM des infirmières) et le moteur clinique qui transforme un bilan de 165 questions en plan d'action. Le référentiel clinique est passé par 12 versions.
 
-La leçon : quand le socle HDS existe déjà, un projet IA peut aller très vite, à condition de rester dans cet environnement. Aucune donnée n'en sort, et les logs comme les environnements de test vivent à l'intérieur. C'est ce qui permet d'itérer vite sans rouvrir le sujet conformité à chaque version.
+La leçon : quand le socle HDS existe déjà, un projet IA peut aller très vite, à condition de rester dans cet environnement. Aucune donnée n'en sort, et les logs comme les environnements de test vivent à l'intérieur. Du coup, on itère vite sans rouvrir le sujet conformité à chaque version.
 
 [Lire le cas Monka →](/fr/case-studies/monka)
 
