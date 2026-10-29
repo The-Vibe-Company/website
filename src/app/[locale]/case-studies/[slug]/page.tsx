@@ -38,7 +38,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "caseStudiesPage" });
   const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) return { title: t("back") };
-  const title = `${customer.client} · ${t("back")}`;
+  const title = customer.metaTitle ?? `${customer.client} · ${t("back")}`;
   const description = customer.metaDescription;
   return {
     title,
