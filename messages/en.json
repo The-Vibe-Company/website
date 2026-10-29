@@ -221,6 +221,7 @@
     }
   },
   "caseStudiesPage": {
+    "metaTitle": "AI case studies: projects in production",
     "kicker": "// CLIENT WORK",
     "titleLine1": "Built for clients,",
     "titleLine2": "live in production.",

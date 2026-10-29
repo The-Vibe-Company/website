@@ -221,6 +221,7 @@
     }
   },
   "caseStudiesPage": {
+    "metaTitle": "Cas clients IA : projets en production",
     "kicker": "// PROJETS CLIENTS",
     "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",

@@ -39,6 +39,7 @@ interface RawCustomer {
   metric?: L;
   metricLabel?: L;
   /** Search snippet (≤155 chars); falls back to the summary. */
+  metaTitle?: L;
   metaDescription?: L;
   summary: L;
   points: L[];
@@ -82,6 +83,7 @@ export interface Customer {
   sector: string;
   metric?: string;
   metricLabel?: string;
+  metaTitle?: string;
   metaDescription: string;
   summary: string;
   points: string[];
@@ -126,6 +128,10 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     metricLabel: {
       en: "in a caregiver assessment that turns into a personal action plan",
       fr: "pour un bilan aidant qui devient un plan d’action personnalisé",
+    },
+    metaTitle: {
+      fr: "Monka : app aidants et CRM en 2 mois",
+      en: "Monka: caregiver app and CRM in 2 months",
     },
     metaDescription: {
       en: "Monka: caregiver app, Lifeline and nurses' CRM shipped in 2 months, plus the API that ties them together.",
@@ -186,6 +192,10 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       en: "for newsrooms, within MediaGen, AFP's France 2030 generative AI project",
       fr: "pour les rédactions, dans MediaGen, le projet France 2030 d’IA générative de l’AFP",
     },
+    metaTitle: {
+      fr: "AFP : IA générative pour les rédactions",
+      en: "AFP: generative AI tools for newsrooms",
+    },
     metaDescription: {
       en: "With AFP, we're building MediaGen (€4M France 2030): trustworthy generative AI for newsrooms, under journalists' control.",
       fr: "Avec l'AFP, on construit MediaGen (France 2030, 4 M€) : IA générative de confiance pour les rédactions, sous contrôle journalistique.",
@@ -230,6 +240,10 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     metricLabel: {
       en: "of support tickets answered with our AI drafts",
       fr: "des tickets support traités grâce à nos brouillons IA",
+    },
+    metaTitle: {
+      fr: "LocService : IA pour le support client",
+      en: "LocService: AI for support ticket replies",
     },
     metaDescription: {
       en: "LocService: we read past tickets and internal docs to draft each support answer, tailored to the customer's history.",
@@ -283,6 +297,10 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     metricLabel: {
       en: "a CSR app for the teams, and AI skills for quality control",
       fr: "une app RSE pour les équipes, et des skills IA pour le contrôle qualité",
+    },
+    metaTitle: {
+      fr: "Coup de Pates : app équipes et skills IA",
+      en: "Coup de Pates: team app and AI skills",
     },
     metaDescription: {
       en: "Coup de Pates: Ensemble app for teams, plus AI skills that check product documents.",
@@ -382,6 +400,10 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     sector: { en: "Technical expertise · Software Factories", fr: "Expertise technique · Software Factories" },
     metric: { en: "AI Software Factories", fr: "AI Software Factories" },
     metricLabel: { en: "for hundreds of developers", fr: "pour des centaines de développeurs" },
+    metaTitle: {
+      fr: "Theodo : expertise Software Factories IA",
+      en: "Theodo: AI Software Factories expertise",
+    },
     metaDescription: {
       en: "The Vibe Company supports Theodo as a technical expert on Software Factories that help accelerate their teams.",
       fr: "The Vibe Company accompagne Theodo comme expert technique sur des Software Factories pour accélérer leurs équipes.",
@@ -440,6 +462,7 @@ function localize(raw: RawCustomer, locale: ContentLocale): Customer {
     sector: pick(raw.sector, locale),
     metric: raw.metric ? pick(raw.metric, locale) : undefined,
     metricLabel: raw.metricLabel ? pick(raw.metricLabel, locale) : undefined,
+    metaTitle: raw.metaTitle ? pick(raw.metaTitle, locale) : undefined,
     metaDescription: pick(raw.metaDescription ?? raw.summary, locale),
     summary: pick(raw.summary, locale),
     points: raw.points.map((p) => pick(p, locale)),
