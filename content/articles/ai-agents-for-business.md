@@ -92,6 +92,8 @@ Both work. An internal team knows the processes. What it often lacks is experien
 
 [The Vibe Company](/en) is an [AI-native agency](/en/resources/articles/ai-native-agency) founded in Paris in 2024 by Stan Girard and Antoine Dewez. Before the agency, they built Quivr, an open-source AI project that went through Y Combinator (W24). We build agents wired into our clients' real systems, from LocService's support assistant to the products we shipped for [Monka](/en/case-studies/monka), live in two months inside an existing health-data environment. And we train teams so they can evolve the agent without us.
 
+For the layer that makes all this hold in production (the loop, the sandbox, skills, evals and review by risk level), see also [enterprise agent harness: loops, sandbox, skills](/en/resources/articles/enterprise-agent-harness).
+
 ## FAQ
 
 **What is an AI agent for business?**

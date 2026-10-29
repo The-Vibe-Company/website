@@ -92,6 +92,8 @@ Les deux marchent. Une équipe interne connaît les processus. Ce qui lui manque
 
 [The Vibe Company](/fr) est une [agence IA native](/fr/resources/articles/agence-ia-native) fondée à Paris en 2024 par Stan Girard et Antoine Dewez. Avant l'agence, ils ont construit Quivr, un projet open source d'IA passé par Y Combinator (W24). On construit des agents branchés sur les vrais systèmes de nos clients, de l'assistant support de LocService aux produits livrés pour [Monka](/fr/case-studies/monka), mis en production en deux mois dans un environnement de données de santé déjà en place. Et on forme les équipes pour qu'elles fassent évoluer l'agent sans nous.
 
+Pour la couche qui fait tenir tout ça en production (la boucle, le sandbox, les skills, les evals et la revue par niveau de risque), voir aussi [agent harness en entreprise : loops, sandbox, skills](/fr/resources/articles/agent-harness-entreprise).
+
 ## FAQ
 
 **Qu'est-ce qu'un agent IA en entreprise ?**
