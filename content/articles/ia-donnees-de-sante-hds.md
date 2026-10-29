@@ -1,6 +1,6 @@
 ---
 title: "IA et données de santé : ce que l'HDS impose vraiment à votre projet"
-seoTitle: "IA et données de santé : le guide HDS | The Vibe Company"
+seoTitle: "Projet IA et données de santé : guide HDS | The Vibe Company"
 slug: ia-donnees-de-sante-hds
 language: fr
 translationKey: hds-health-data
@@ -14,6 +14,8 @@ ogImage: /images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp
 ---
 
 Un projet IA en santé bloque rarement sur le modèle. Il bloque le jour où quelqu'un demande : « Et les données, elles sont où ? »
+
+**La réponse courte.** Pour mener un projet IA sur des données de santé en France, il faut cinq choses. Cartographier les flux (application, modèle, logs, sauvegardes). Choisir un hébergeur certifié HDS selon le référentiel 2024, sur les activités dont vous avez besoin. Garder les appels au modèle, les logs et les index dans ce périmètre, ou pseudonymiser avant. Régler le RGPD avec le DPO : base légale, analyse d'impact, formalités CNIL. Et tester sans données réelles. La suite détaille chaque point.
 
 À ce moment-là, la démo sur notebook ne suffit plus. Il faut savoir qui héberge, qui administre, qui sauvegarde, et par où passent les données quand l'application appelle un modèle. En France, la plupart des réponses tiennent en trois lettres : HDS.
 
@@ -83,7 +85,7 @@ Un projet IA crée des chemins de données qu'une application classique n'a pas.
 
 - **L'appel au modèle.** Si l'application envoie un dossier patient à une API de modèle de langage, cette donnée quitte votre hébergeur. Il faut savoir où l'appel est traité, si le fournisseur garde les requêtes, et s'il est couvert pour des données de santé. Sinon, il faut pseudonymiser avant l'appel, ou faire tourner le modèle dans un environnement HDS.
 - **Les logs et l'observabilité.** Les traces de prompts et de réponses contiennent souvent des données de santé en clair. Elles doivent vivre au même niveau de sécurité que la base principale.
-- **Les embeddings et les index de recherche.** Une base vectorielle construite à partir de comptes rendus médicaux contient des données de santé. Elle est dans le périmètre.
+- **Les embeddings et les index de recherche.** Une base vectorielle construite à partir de comptes rendus médicaux contient des données de santé. Elle est dans le périmètre. On explique comment fonctionne ce type d'architecture dans [« RAG en entreprise »](/fr/resources/articles/rag-entreprise).
 - **Les environnements de test.** Pas de vraies données patients dans un environnement de démo non certifié.
 - **Les droits de l'agent.** Un agent qui peut lire un dossier n'a pas forcément besoin de pouvoir le modifier. On en parle dans [« Le vrai risque des agents IA, c'est l'autorité »](/fr/resources/articles/agents-ia-formation-autorite).
 
@@ -99,6 +101,8 @@ L'HDS couvre l'hébergement. Le RGPD couvre tout le traitement. Les données de 
 
 La CNIL rappelle aussi qu'un modèle entraîné sur des données personnelles peut lui-même rester soumis au RGPD. Si vous comptez entraîner ou affiner un modèle sur des données patients, réglez ce point avant d'écrire la première ligne de code.
 
+En mars 2026, la CNIL a publié une fiche dédiée à l'IA en santé ([cnil.fr](https://www.cnil.fr/fr/ia-et-sante-developper-et-evaluer-des-systemes-ia-conformes)). Elle assimile le développement d'un système d'IA destiné à la santé à une recherche, étude ou évaluation dans le domaine de la santé. Dans la majorité des cas, il faut donc une formalité préalable : une déclaration de conformité à une méthodologie de référence (MR-001, MR-003 ou MR-004), ou une demande d'autorisation si le projet sort de ce cadre. La fiche couvre la constitution des bases, le développement et l'évaluation. Le simple déploiement d'un outil déjà fourni n'y est pas traité.
+
 ## Check-list avant de lancer un projet IA sur des données de santé
 
 1. Lister toutes les données traitées et confirmer lesquelles sont des données de santé.
@@ -108,7 +112,10 @@ La CNIL rappelle aussi qu'un modèle entraîné sur des données personnelles pe
 5. Pour chaque appel à un modèle : traitement dans un environnement couvert, ou données pseudonymisées.
 6. Chiffrer les données, au repos et en transit, et restreindre les accès au strict nécessaire.
 7. Mener l'analyse RGPD avec le DPO : base légale, durée de conservation, AIPD si nécessaire.
-8. Garder les environnements de test sans données réelles.
+8. Si vous entraînez ou évaluez un modèle sur ces données, identifier la formalité CNIL (méthodologie de référence ou autorisation) avant de commencer.
+9. Garder les environnements de test sans données réelles.
+
+Pour la suite, du prototype à la production, voyez notre [check-list POC → prod pour un agent IA](/fr/resources/articles/poc-agent-ia-production).
 
 ## Ce qu'on a appris chez Monka
 
@@ -131,6 +138,18 @@ Pas avec les versions grand public. Il faut un environnement dont l'hébergement
 ### Le référentiel HDS 2024 est-il déjà obligatoire ?
 
 Oui. Les nouveaux candidats sont évalués sur cette version depuis le 16 novembre 2024, et les hébergeurs déjà certifiés devaient avoir migré au plus tard le 16 mai 2026.
+
+### Faut-il une analyse d'impact (AIPD) pour un projet IA sur des données de santé ?
+
+Souvent, oui. La CNIL publie une liste de traitements pour lesquels l'AIPD est obligatoire ([cnil.fr](https://www.cnil.fr/fr/liste-traitements-aipd-requise)). Un traitement absent de la liste peut quand même en demander une s'il remplit au moins deux des neuf critères européens, par exemple données sensibles et traitement à grande échelle. C'est le DPO qui tranche, de préférence avant le développement.
+
+### Faut-il faire une démarche auprès de la CNIL pour un projet IA en santé ?
+
+Pour entraîner ou évaluer un modèle sur des données de santé, le plus souvent oui. Selon la fiche CNIL de mars 2026, c'est une déclaration de conformité à une méthodologie de référence (MR-001, MR-003 ou MR-004), ou une demande d'autorisation si le projet n'entre pas dans ce cadre.
+
+### Une base vectorielle construite sur des dossiers patients doit-elle rester en HDS ?
+
+Oui. Les embeddings, les index et les textes sources issus de dossiers patients contiennent des données de santé. Ils se traitent comme la base principale : chez un hébergeur certifié pour les activités concernées, avec les mêmes droits d'accès.
 
 ### HDS et RGPD, c'est la même chose ?
 
