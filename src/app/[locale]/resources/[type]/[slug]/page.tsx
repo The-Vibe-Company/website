@@ -23,7 +23,7 @@ import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { contentAlternates, localizedUrl, openGraphLocale, SITE_NAME, SITE_URL } from '@/lib/site';
-import { articleSchema, breadcrumbList, extractMarkdownFaq, faqPageSchema } from '@/lib/structured-data';
+import { articleSchema, articleFaqPageSchema, breadcrumbList } from '@/lib/structured-data';
 import { getCoverImageDimensions, getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
@@ -204,7 +204,7 @@ export default async function ContentDetailPage({
     imageUrl: socialImageUrl(item),
     series: item.series,
   });
-  const faq = faqPageSchema(extractMarkdownFaq(item.body));
+  const faq = articleFaqPageSchema(item.body);
 
   return (
     <>

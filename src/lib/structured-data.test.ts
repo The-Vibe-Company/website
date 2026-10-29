@@ -4,6 +4,7 @@ import { getContentByType } from "./content-source";
 import { normalizeMarkdownBody, renderMarkdown } from "./markdown";
 import {
   articleSchema,
+  articleFaqPageSchema,
   breadcrumbList,
   extractMarkdownFaq,
   faqPageSchema,
@@ -215,8 +216,8 @@ describe("articles", () => {
   });
 
   // The headline is the article's own title, required and kept verbatim; the
-  // free text the markup adds (description, FAQ) is what gets filtered.
-  test("structured data never carries restricted terms beyond the title", () => {
+  // summary the markup adds is filtered; published article FAQs stay complete.
+  test("article metadata never carries restricted terms beyond the title", () => {
     for (const article of articles) {
       const schemas = [
         articleSchema({
@@ -226,7 +227,6 @@ describe("articles", () => {
           publishedAt: article.publishedAt,
           language: article.language,
         }),
-        faqPageSchema(extractMarkdownFaq(article.body)),
       ];
       for (const schema of schemas) {
         if (!schema) continue;
@@ -262,8 +262,60 @@ describe("articles", () => {
     }
   });
 
+  for (const article of articles) {
+    test(`FAQPage preserves every source FAQ question: ${article.slug}`, () => {
+      // Count independently from extractMarkdownFaq, including the final block
+      // at EOF or immediately before the next section.
+      const section = article.body
+        .split(/^##\s+(?:FAQ|Questions fréquentes|Frequently asked questions)\s*$/im)[1]
+        ?.split(/^#{1,2}\s/m)[0] ?? "";
+      const sourceCount = section.split("\n").filter((line) =>
+        /^###\s+\S/.test(line.trim()) || /^\*\*.+\*\*$/.test(line.trim()),
+      ).length;
+      const schema = articleFaqPageSchema(article.body);
+      const questions = (schema?.mainEntity ?? []) as { "@type": string }[];
+      expect(questions).toHaveLength(sourceCount);
+      expect(questions.every((question) => question["@type"] === "Question")).toBe(true);
+      if (sourceCount === 0) expect(schema).toBeNull();
+    });
+  }
+
+  test.each(["ia-donnees-de-sante-hds", "ai-health-data-hds-france"])(
+    "HDS FAQPage includes all eight answers, including the final Monka example: %s",
+    (slug) => {
+      const article = articles.find((entry) => entry.slug === slug)!;
+      const items = extractMarkdownFaq(article.body);
+      const schema = articleFaqPageSchema(article.body)!;
+      expect(schema.mainEntity).toHaveLength(8);
+      expect((schema.mainEntity as unknown[]).at(-1)).toEqual({
+        "@type": "Question",
+        name: items.at(-1)!.question,
+        acceptedAnswer: { "@type": "Answer", text: items.at(-1)!.answer },
+      });
+    },
+  );
+
+  test.each(["", "\n\n## Next section\nOther content."])(
+    "article FAQ keeps the final answer at EOF or before another section: %s",
+    (ending) => {
+      const schema = articleFaqPageSchema(
+        "## FAQ\n\n### How long?\n\nAt Monka, it took two months." + ending,
+      );
+      expect(schema?.mainEntity).toEqual([{
+        "@type": "Question",
+        name: "How long?",
+        acceptedAnswer: { "@type": "Answer", text: "At Monka, it took two months." },
+      }]);
+    },
+  );
+
+  test("company FAQ markup still applies the company-copy filter", () => {
+    expect(faqPageSchema([{ question: "How long?", answer: "At Monka, it took two months." }])).toBeNull();
+  });
+
   test("an article without a FAQ section gets no FAQPage", () => {
     expect(extractMarkdownFaq("## Intro\n\nText.\n\n## Next\n\n**Not a question**\nBody.")).toEqual([]);
     expect(faqPageSchema([])).toBeNull();
+    expect(articleFaqPageSchema("## Intro\n\nText.")).toBeNull();
   });
 });
