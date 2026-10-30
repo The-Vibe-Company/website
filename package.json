@@ -13,6 +13,7 @@
     "content:translations-check": "bun scripts/validate-article-translations.ts",
     "content:covers-check": "bun scripts/validate-unique-covers.ts",
     "seo:check": "bun scripts/seo-smoke-check.ts",
+    "agents:check": "bun scripts/check-agent-access.ts",
     "prebuild": "bun scripts/validate-victor-story.ts && bun scripts/validate-focus-articles.ts && bun scripts/validate-article-translations.ts && bun scripts/validate-unique-covers.ts && bun scripts/validate-content-images.ts && bun scripts/optimize-images.ts --check",
     "cover:generate": "bun scripts/generate-cover.ts",
     "images:optimize": "bun scripts/optimize-images.ts",
@@ -44,5 +45,8 @@
     "eslint-config-next": "16.1.1",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "patchedDependencies": {
+    "next@16.1.1": "patches/next@16.1.1.patch"
   }
 }

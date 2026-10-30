@@ -85,6 +85,8 @@ The expected result is 0 errors and 0 avoidable warnings.
 
 When planning, always create a graph of tasks and dependencies between them.
 
+`bun run agents:check` uses curl to verify public agent endpoints, Markdown/HTML negotiation, MCP and discovery digests against a running local server.
+
 ## SEO changes
 
 Before any SEO PR or SEO fix, run `bun run seo:check` (fast smoke check of locale redirects, sitemap, cards, titles, plus the content gates) and do not open the PR if it fails. Details in `AGENTS.md`.
