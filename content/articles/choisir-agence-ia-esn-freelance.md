@@ -148,6 +148,8 @@ Là où on est utiles : un produit ou un agent IA qui doit arriver en production
 
 Une fois le prestataire choisi, voici [comment se déroule un projet avec un prestataire IA, du premier appel à la production](/fr/resources/articles/travailler-prestataire-ia).
 
+Si vous cherchez surtout à comparer les trois options sur les coûts et les délais, on a détaillé [agence IA, freelance ou ESN : que choisir selon le projet](/fr/resources/articles/agence-ia-vs-freelance-esn), avec les TJM sourcés et le coût complet.
+
 ## FAQ
 
 ### Agence IA ou ESN : quelle différence ?
