@@ -143,7 +143,10 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/.well-known/ai-catalog.json",
-        headers: [{ key: "Content-Type", value: "application/ai-catalog+json" }],
+        headers: [
+          { key: "Content-Type", value: "application/json" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+        ],
       },
       {
         // Brand assets live here only so email signatures have a stable

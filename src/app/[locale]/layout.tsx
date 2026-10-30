@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { WebMcp } from "@/components/WebMcp";
 import { ClientProviders } from "@/components/ClientProviders";
 import { JsonLd } from "@/components/JsonLd";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
@@ -65,12 +66,16 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} data-scroll-behavior="smooth">
+      <head>
+        <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <JsonLd data={siteGraph(locale)} />
         <NextIntlClientProvider>
           <ClientProviders />
+          <WebMcp />
           <ConditionalGridOverlay />
           {children}
         </NextIntlClientProvider>

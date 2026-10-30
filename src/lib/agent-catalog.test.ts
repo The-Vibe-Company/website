@@ -33,3 +33,37 @@ test("A2A discovery interfaces match the implemented protocol and endpoint", () 
   }]);
   expect(card.protocolVersion).toBe("0.3.0");
 });
+
+test("ARD catalog identifies the host and every public capability with resolvable artifacts", () => {
+  const catalog = JSON.parse(readFileSync("public/.well-known/ai-catalog.json", "utf8"));
+  expect(catalog.specVersion).toBe("1.0");
+  expect(catalog.host).toEqual({ displayName: "The Vibe Company", identifier: "did:web:www.thevibecompany.co" });
+  expect(catalog.entries).toHaveLength(3);
+  expect(new Set(catalog.entries.map((entry: { identifier: string }) => entry.identifier)).size).toBe(3);
+  expect(catalog.entries.map((entry: { url: string }) => new URL(entry.url).pathname).sort()).toEqual([
+    "/.well-known/agent-card.json", "/.well-known/agent-skills/index.json", "/.well-known/mcp/server-card.json",
+  ]);
+  for (const entry of catalog.entries) {
+    expect(entry.identifier).toMatch(/^urn:air:www\.thevibecompany\.co:[a-z0-9-]+:[a-z0-9-]+$/);
+    expect(entry.displayName.length).toBeGreaterThan(0);
+    expect(entry.type).toMatch(/^application\/[a-z0-9.+-]+$/);
+    expect(Number("url" in entry) + Number("data" in entry)).toBe(1);
+    expect(entry.representativeQueries.length).toBeGreaterThanOrEqual(2);
+    expect(entry.representativeQueries.length).toBeLessThanOrEqual(5);
+    expect(new URL(entry.url).origin).toBe("https://www.thevibecompany.co");
+    expect(JSON.parse(readFileSync(`public${new URL(entry.url).pathname}`, "utf8"))).toBeTruthy();
+  }
+  expect(catalog.entries[1].type).toBe("application/a2a-agent-card+json");
+});
+
+test("Poppy is website-only and auth.md documents anonymous access without a fictitious issuer", () => {
+  const poppy = JSON.parse(readFileSync("public/.well-known/poppy.json", "utf8"));
+  expect(poppy).toEqual({ protocol_version: "0.1", organization: { name: "The Vibe Company", domain: "thevibecompany.co" }, web: {} });
+  const auth = readFileSync("public/auth.md", "utf8");
+  expect(auth).toMatch(/^# .*auth\.md$/m);
+  expect(auth).toContain("Audience: AI agents");
+  expect(auth).toContain("Registration/provisioning endpoint: none required");
+  expect(auth).toContain("Anonymous/no-auth public access only");
+  expect(auth).toContain("Do not send credentials");
+  expect(auth).not.toMatch(/agent_auth|register_uri|authorization_endpoint|token_endpoint/);
+});
