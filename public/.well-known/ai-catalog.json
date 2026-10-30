@@ -1,0 +1,10 @@
+{
+  "specVersion": "1.0",
+  "entries": [
+    {
+      "identifier": "urn:air:www.thevibecompany.co:mcp:public-content",
+      "type": "application/mcp-server-card+json",
+      "url": "https://www.thevibecompany.co/mcp/server-card"
+    }
+  ]
+}

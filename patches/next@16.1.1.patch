@@ -1,0 +1,26 @@
+diff --git a/dist/build/templates/app-page.js b/dist/build/templates/app-page.js
+index d9f1f8a1405b0940f2a50bd787c882b25a57f1a4..5fda63c63149f4a7f896b5a612f9a812a7c27a42 100644
+--- a/dist/build/templates/app-page.js
++++ b/dist/build/templates/app-page.js
+@@ -316,7 +316,7 @@ async function handler(req, res, ctx) {
+     };
+     try {
+         const varyHeader = routeModule.getVaryHeader(resolvedPathname, interceptionRoutePatterns);
+-        res.setHeader('Vary', varyHeader);
++        res.setHeader('Vary', [res.getHeader('Vary'), varyHeader].filter(Boolean).join(', '));
+         const invokeRouteModule = async (span, context)=>{
+             const nextReq = new _node.NodeNextRequest(req);
+             const nextRes = new _node.NodeNextResponse(res);
+diff --git a/dist/esm/build/templates/app-page.js b/dist/esm/build/templates/app-page.js
+index 2df7115605d0ebbad5fdae142261107c0a517fb8..feb92eed3012ef016ce463f137bbe9c20876318b 100644
+--- a/dist/esm/build/templates/app-page.js
++++ b/dist/esm/build/templates/app-page.js
+@@ -244,7 +244,7 @@ export async function handler(req, res, ctx) {
+     };
+     try {
+         const varyHeader = routeModule.getVaryHeader(resolvedPathname, interceptionRoutePatterns);
+-        res.setHeader('Vary', varyHeader);
++        res.setHeader('Vary', [res.getHeader('Vary'), varyHeader].filter(Boolean).join(', '));
+         const invokeRouteModule = async (span, context)=>{
+             const nextReq = new NodeNextRequest(req);
+             const nextRes = new NodeNextResponse(res);

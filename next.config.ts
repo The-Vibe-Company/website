@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { AGENT_LINK_HEADER } from "./src/lib/agent-discovery";
 
 const nextConfig: NextConfig = {
   env: {
@@ -120,6 +121,30 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      {
+        source: "/:path*",
+        headers: [{ key: "Link", value: AGENT_LINK_HEADER }],
+      },
+      ...["/", "/:locale(fr|en)", "/:locale(fr|en)/resources/articles/:slug"].map((source) => ({
+        source,
+        headers: [{ key: "Vary", value: "Accept" }],
+      })),
+      {
+        source: "/.well-known/agent-skills/:name/SKILL.md",
+        headers: [{ key: "Content-Type", value: "text/markdown; charset=utf-8" }],
+      },
+      {
+        source: "/auth.md",
+        headers: [{ key: "Content-Type", value: "text/markdown; charset=utf-8" }],
+      },
+      {
+        source: "/mcp/server-card",
+        headers: [{ key: "Content-Type", value: "application/mcp-server-card+json" }],
+      },
+      {
+        source: "/.well-known/ai-catalog.json",
+        headers: [{ key: "Content-Type", value: "application/ai-catalog+json" }],
+      },
       {
         // Brand assets live here only so email signatures have a stable
         // absolute URL. They are reachable by link, never surfaced by the
