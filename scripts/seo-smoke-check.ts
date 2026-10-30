@@ -81,6 +81,7 @@ const GATES: { name: string; args: string[] }[] = [
       'src/lib/site.test.ts',
       'src/lib/seo-titles.test.ts',
       'src/lib/structured-data.test.ts',
+      'src/lib/favicons.test.ts',
     ],
   },
 ]
