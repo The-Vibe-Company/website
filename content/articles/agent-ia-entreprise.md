@@ -17,9 +17,9 @@ Un agent IA en entreprise, c'est un programme qui reçoit un objectif, choisit l
 
 **La réponse courte.** Pour déployer un agent IA en production dans une entreprise française, partez d'un seul processus à fort volume où un humain valide déjà le travail. Branchez l'agent sur vos vrais outils avec un compte de service aux droits minimaux. Écrivez ce qu'il fait quand il doute. Réglez le RGPD avec votre DPO avant la mise en ligne, prévenez les personnes qu'elles échangent avec une IA, et gardez toute action critique sous validation humaine. Puis mesurez chaque semaine avant d'élargir.
 
-C'est aussi le sujet le plus survendu du moment. En juin 2025, [Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) prévoyait que plus de 40 % des projets d'IA agentique seraient abandonnés d'ici fin 2027, à cause des coûts, d'une valeur floue ou de contrôles de risque insuffisants. Le cabinet estimait aussi qu'environ 130 éditeurs seulement, sur des milliers qui se disent « agentiques », proposaient de vrais agents.
+C'est aussi un des sujets les plus survendus du moment. En juin 2025, [Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) prévoyait que plus de 40 % des projets d'IA agentique seraient abandonnés d'ici fin 2027, à cause des coûts, d'une valeur floue ou de contrôles de risque insuffisants. Le cabinet estimait aussi qu'environ 130 éditeurs seulement, sur des milliers qui se disent « agentiques », proposaient de vrais agents.
 
-Ce guide sert à éviter de faire partie des 40 %. On y voit quand un agent se justifie, ce qu'il lui faut pour tenir en production, et comment lancer le premier.
+L'idée ici, c'est de ne pas finir dans ces 40 %. On regarde quand un agent se justifie, ce qu'il lui faut pour tenir en production, et comment lancer le premier.
 
 ## Agent, assistant, automatisation : ne pas tout appeler agent
 
@@ -35,7 +35,7 @@ Un bon test : si vous pouvez dessiner le parcours sur un tableau blanc et qu'il 
 
 ## Les quatre briques d'un agent qui tient en production
 
-Le modèle (Claude, GPT, Mistral…) compte moins qu'on ne le croit. Entre une démo et un agent utilisé tous les jours, la différence tient à quatre briques autour.
+Le modèle (Claude, GPT, Mistral…) compte moins qu'on ne le croit. Ce qui sépare une démo d'un agent utilisé tous les jours, ce sont les quatre briques autour.
 
 ### 1. Les outils : brancher l'agent sur vos vrais systèmes
 
@@ -51,13 +51,13 @@ Nos [skills](/fr/resources/articles/les-skills) servent à ça : des consignes �
 
 ### 3. L'autorité : ce que l'agent a le droit de faire seul
 
-C'est là que se joue la sécurité. Un agent qui lit des données n'a pas le même risque qu'un agent qui envoie un mail à un client ou valide un paiement. On raisonne en quatre niveaux : lire, proposer, préparer, exécuter. On démarre bas, et on monte quand les chiffres le justifient.
+La sécurité se joue surtout ici. Un agent qui lit des données n'a pas le même risque qu'un agent qui envoie un mail à un client ou valide un paiement. On raisonne en quatre niveaux : lire, proposer, préparer, exécuter. On démarre bas, et on monte quand les chiffres le justifient.
 
 La règle la plus utile tient en une phrase : écrire ce que l'agent fait quand il ne sait pas. Dans notre compta, une ligne bancaire que l'IA ne reconnaît pas part dans « Autre », et un humain tranche ([le détail ici](/fr/resources/articles/focus-skill-compta-qonto)). Pour creuser : [le vrai risque des agents IA, c'est l'autorité](/fr/resources/articles/agents-ia-formation-autorite).
 
 ### 4. La mesure : prouver que l'agent sert à quelque chose
 
-Sans chiffres, le deuxième agent ne sera jamais financé. Avant de lancer, on note l'état de départ : temps par cas, volume, taux d'erreur. Après, on suit trois chiffres chaque semaine :
+Sans chiffres, personne ne financera le deuxième agent. Avant de lancer, on note l'état de départ : temps par cas, volume, taux d'erreur. Après, on suit trois chiffres chaque semaine :
 
 - **le taux d'utilisation** : la part des sorties de l'agent vraiment utilisées (87 % chez LocService) ;
 - **le taux de correction** : la part que l'humain réécrit ou rejette ;
@@ -76,7 +76,7 @@ Ce qu'on garde pour plus tard : les décisions irréversibles, les processus que
 
 ## Lancer son premier agent en cinq étapes
 
-1. **Choisir un seul processus**, mesurable, avec un humain qui valide. Pas un catalogue de vingt cas d'usage.
+1. **Choisir un seul processus**, mesurable, avec un humain qui valide. Inutile de partir avec un catalogue de vingt cas d'usage.
 2. **Écrire les règles** : ce que l'agent doit faire, ce qu'il ne doit jamais faire, et ce qu'il fait quand il doute.
 3. **Brancher les vrais outils** avec des droits minimaux : un compte de service dédié, en lecture d'abord.
 4. **Mettre en production petit**, avec une équipe pilote qui l'utilise vraiment, et un journal de chaque action.
@@ -86,7 +86,7 @@ C'est entre le pilote et la production que la plupart des projets cassent. On a 
 
 ## Le cadre français : RGPD, AI Act et ANSSI
 
-En France, un agent qui part en production passe par trois textes. Aucun n'interdit de déployer. Tous changent la façon de le faire.
+En France, un agent qui part en production passe par trois textes. Aucun n'interdit de déployer, mais tous changent la façon de faire.
 
 **Le RGPD, avec la CNIL comme référence.** Dès que l'agent lit des données clients ou salariés, vous traitez des données personnelles. Dans sa [FAQ sur l'IA générative](https://www.cnil.fr/fr/les-questions-reponses-de-la-cnil-sur-lutilisation-dun-systeme-dia-generative), la CNIL demande de clarifier votre rôle et celui du fournisseur, avec un contrat de sous-traitance si besoin. Elle précise qu'une entreprise qui branche un modèle sur sa propre base documentaire (RAG) devient responsable de ce traitement si la base contient des données personnelles. Elle recommande d'associer le DPO et, le cas échéant, de mener une analyse d'impact (AIPD). Les [grands principes de la CNIL pour l'IA](https://www.cnil.fr/fr/ia-les-grands-principes-pour-se-mettre-en-conformite) font la synthèse.
 
