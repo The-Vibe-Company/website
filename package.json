@@ -16,6 +16,7 @@
     "agents:check": "bun scripts/check-agent-access.ts",
     "prebuild": "bun scripts/validate-victor-story.ts && bun scripts/validate-focus-articles.ts && bun scripts/validate-article-translations.ts && bun scripts/validate-unique-covers.ts && bun scripts/validate-content-images.ts && bun scripts/optimize-images.ts --check",
     "cover:generate": "bun scripts/generate-cover.ts",
+    "favicons:generate": "bun scripts/generate-favicons.ts",
     "images:optimize": "bun scripts/optimize-images.ts",
     "images:check": "bun scripts/optimize-images.ts --check",
     "test": "bun test"

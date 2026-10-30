@@ -40,7 +40,7 @@ describe("site graph", () => {
       name: "The Vibe Company",
       url: SITE,
       image: `${SITE}/icon.png`,
-      logo: { url: `${SITE}/icon.png`, width: 1024, height: 1024 },
+      logo: { url: `${SITE}/icon.png`, width: 512, height: 512 },
       foundingDate: "2024",
       address: { "@type": "PostalAddress", addressLocality: "Paris", addressCountry: "FR" },
       areaServed: [{ "@type": "Country", name: "France" }],

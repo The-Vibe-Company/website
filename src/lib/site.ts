@@ -244,11 +244,28 @@ export function openGraphLocale(locale: string): string {
 export type SocialImage = { path: string; width?: number; height?: number; type?: string; alt: string };
 
 /**
- * The site's square logo (served from `src/app/icon.png`), declared as the
- * logo in the Organization structured data. Not a social card: networks crop
- * a square into their 1.91:1 frame.
+ * The site's square logo (`public/icon.png`, generated from `favicon.svg` by
+ * `bun run favicons:generate`), declared as the logo in the Organization
+ * structured data. Not a social card: networks crop a square into their 1.91:1
+ * frame.
  */
-export const SITE_LOGO = { path: "/icon.png", width: 1024, height: 1024 } as const;
+export const SITE_LOGO = { path: "/icon.png", width: 512, height: 512 } as const;
+
+/**
+ * Every favicon, declared in <head> by the locale layout. The rasters are
+ * generated from `favicon.svg` by `bun run favicons:generate`; Google's
+ * search-result favicon needs a square raster whose side is a multiple of 48.
+ */
+export const SITE_ICONS = {
+  icon: [
+    { url: "/favicon.ico", sizes: "16x16 32x32 48x48", type: "image/x-icon" },
+    { url: "/favicon.svg", type: "image/svg+xml" },
+    { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+    { url: "/favicon-96.png", sizes: "96x96", type: "image/png" },
+    { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
+  ],
+  apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+} satisfies NonNullable<Metadata["icons"]>;
 
 /**
  * The social card of any page that has no image of its own. A 1.91:1 JPEG
