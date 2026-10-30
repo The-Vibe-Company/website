@@ -25,3 +25,11 @@ test("all published MCP cards advertise the live server identity and supported p
     expect(new URL(card.remotes[0].url).pathname).toBe("/mcp");
   }
 });
+
+test("A2A discovery interfaces match the implemented protocol and endpoint", () => {
+  const card = JSON.parse(readFileSync("public/.well-known/agent-card.json", "utf8"));
+  expect(card.supportedInterfaces).toEqual([{
+    url: card.url, protocolBinding: card.preferredTransport, protocolVersion: card.protocolVersion,
+  }]);
+  expect(card.protocolVersion).toBe("0.3.0");
+});

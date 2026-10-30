@@ -3,7 +3,7 @@ name: The Vibe Company public agent access
 authentication: none
 ---
 
-# Public access
+# auth.md — public access
 
 No authentication, account, API key, OAuth token, or agent registration is required
 to read The Vibe Company's public website or use its public read-only agent tools.

@@ -8,7 +8,9 @@ Article language redirects follow the existing HTML canonical rules.
 Next.js 16.1.1 overwrites custom `Vary` values in its App Page response template
 ([upstream issue #85852](https://github.com/vercel/next.js/issues/85852)).
 The Bun patch in `patches/next@16.1.1.patch` merges existing values with Next's
-RSC fields in both distributed templates. Keep this patch until an upgrade
+RSC fields in both distributed templates. The manifest patch also includes `Accept`
+in the default RSC Vary fields consumed by Vercel's static/SSG adapter; otherwise
+the CDN replaces the configured Vary header on prerendered HTML. Keep this patch until an upgrade
 preserves custom `Vary` values; validate with `bun run agents:check` before removing it.
 
 `/.well-known/agent-skills/index.json` describes the two static SKILL.md artifacts.
