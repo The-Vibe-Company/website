@@ -148,6 +148,8 @@ Where we help: an AI product or agent that must reach production fast, in a mid-
 
 Once you've picked a partner, here's [how a project with an AI development agency runs, from first call to production](/en/resources/articles/working-with-an-ai-development-agency).
 
+If what you mainly need is to compare the three options on cost and timeline, we broke down [AI agency vs freelancer vs IT services firm](/en/resources/articles/ai-agency-vs-freelancer-vs-it-services), with sourced day rates and the total cost.
+
 ## FAQ
 
 ### AI agency or IT services firm: what's the difference?

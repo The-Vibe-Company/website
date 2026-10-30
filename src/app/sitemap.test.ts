@@ -169,11 +169,14 @@ describe("sitemap", () => {
   test("no lastmod is in the future", () => {
     // Articles under /resources use their frontmatter `publishedAt`, which can
     // be a future date for a scheduled post; everything else must be <= today.
+    // The /resources listing itself carries `latestContentDate` (sitemap.ts),
+    // so it inherits that same exemption and the match must not require a
+    // trailing slash.
     setSystemTime(new Date("2026-10-29T00:00:00.000Z"));
     const today = new Date("2026-10-29T23:59:59.999Z");
     const futures = sitemap().filter(
       (entry) =>
-        !entry.url.includes("/resources/") &&
+        !/\/resources(\/|$)/.test(entry.url) &&
         (entry.lastModified as Date).getTime() > today.getTime(),
     );
     setSystemTime();
@@ -181,9 +184,9 @@ describe("sitemap", () => {
     expect(futures).toEqual([]);
   });
 
-  test("the sitemap keeps its 108 URLs and every entry still declares x-default", () => {
+  test("the sitemap keeps its 110 URLs and every entry still declares x-default", () => {
     const entries = sitemap();
-    expect(entries).toHaveLength(108);
+    expect(entries).toHaveLength(110);
     for (const entry of entries) {
       const keys = Object.keys(entry.alternates!.languages!);
       expect(keys).toContain("x-default");
