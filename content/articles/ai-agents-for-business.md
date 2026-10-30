@@ -1,10 +1,10 @@
 ---
-title: "AI agents for business: a practical guide to getting started"
-seoTitle: "AI agents for business: a practical guide | The Vibe Company"
+title: "AI agents for business: a practical guide to production"
+seoTitle: "Deploying AI agents in business | The Vibe Company"
 slug: ai-agents-for-business
 translationKey: ai-agents-enterprise-guide
 language: en
-summary: "AI agents for business: when you need one, the 4 building blocks (tools, memory, authority, measurement), and how to start."
+summary: "How to deploy an AI agent in production in Europe: the 4 building blocks, GDPR, the AI Act and ANSSI guidance, and five steps from pilot to daily use."
 publishedAt: 2026-10-20
 complexity: intermediate
 topics: AI Adoption, AI Agents, Strategy
@@ -15,9 +15,11 @@ ogImage: /images/resources/agent-ia-entreprise/cover-mascotte.webp
 
 An AI agent for business is a program that gets a goal, picks its own steps, and acts in your tools to reach it: it reads a case file, queries the CRM, drafts a reply, opens a ticket. A chatbot answers. An agent does.
 
-It's also the most oversold topic right now. In June 2025, [Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) predicted that over 40% of agentic AI projects would be canceled by the end of 2027, because of rising costs, unclear business value or weak risk controls. It also estimated that only about 130 of the thousands of vendors calling themselves "agentic" were real.
+**The short answer.** To deploy an AI agent in production in a European company, start with one high-volume process where a human already reviews the work. Connect the agent to your real tools with a service account that has minimal rights. Write down what it does when in doubt. Sort out GDPR with your DPO before go-live, tell people they're talking to an AI, and keep every critical action under human approval. Then measure every week before you widen its scope.
 
-This guide is about staying out of that 40%. It covers when an agent makes sense, what it needs to survive production, and how to launch the first one.
+It's also one of the most oversold topics right now. In June 2025, [Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) predicted that over 40% of agentic AI projects would be canceled by the end of 2027, because of rising costs, unclear business value or weak risk controls. It also estimated that only about 130 of the thousands of vendors calling themselves "agentic" were real.
+
+The point here is to stay out of that 40%. We'll look at when an agent makes sense, what it needs to survive production, and how to launch the first one.
 
 ## Agent, assistant, automation: don't call everything an agent
 
@@ -49,13 +51,13 @@ That's what skills are for: written, versioned instructions the agent loads when
 
 ### 3. Authority: what the agent may do on its own
 
-This is where security really plays out. An agent that reads data doesn't carry the same risk as one that emails a customer or approves a payment. We think in four levels: read, propose, prepare, execute. Start low, and move up when the numbers justify it.
+This is where most of the security work happens. An agent that reads data doesn't carry the same risk as one that emails a customer or approves a payment. We think in four levels: read, propose, prepare, execute. Start low, and move up when the numbers justify it.
 
 The most useful rule fits in one sentence: write down what the agent does when it doesn't know. In our own bookkeeping, a bank line the AI can't recognize goes into "Other", and a human decides.
 
 ### 4. Measurement: prove the agent is worth it
 
-Without numbers, the second agent never gets funded. Before launch, record the baseline: time per case, volume, error rate. After launch, track three numbers every week:
+Without numbers, nobody funds the second agent. Before launch, record the baseline: time per case, volume, error rate. After launch, track three numbers every week:
 
 - **usage rate**: the share of the agent's output actually used (87% at LocService);
 - **correction rate**: the share a human rewrites or rejects;
@@ -74,13 +76,25 @@ What to keep for later: irreversible decisions, processes nobody can describe, a
 
 ## Launch your first agent in five steps
 
-1. **Pick one process**, measurable, with a human who validates. Not a catalog of twenty use cases.
+1. **Pick one process**, measurable, with a human who validates. Skip the catalog of twenty use cases.
 2. **Write the rules**: what the agent must do, what it must never do, and what it does when in doubt.
 3. **Connect the real tools** with minimal rights: a dedicated service account, read-only first.
 4. **Go to production small**, with a pilot team that really uses it, and a log of every action.
 5. **Measure, then widen** autonomy or scope when the numbers show it.
 
 Most projects break between pilot and production. We wrote a full [AI agent POC to production checklist](/en/resources/articles/ai-agent-poc-to-production) for that step.
+
+## The European and French framework: GDPR, the AI Act and ANSSI
+
+In France, an agent heading to production runs into three texts. None of them forbids deploying, but all of them change how you do it.
+
+**GDPR, with the CNIL as reference.** As soon as the agent reads customer or employee data, you are processing personal data. In its [FAQ on generative AI](https://www.cnil.fr/fr/les-questions-reponses-de-la-cnil-sur-lutilisation-dun-systeme-dia-generative) (in French), the CNIL, France's data protection authority, asks you to clarify your role and the vendor's, with a processing agreement if needed. It states that a company connecting a model to its own document base (RAG) becomes responsible for that processing if the base holds personal data. It recommends involving the DPO and, where relevant, running a data protection impact assessment (DPIA).
+
+**The AI Act, with a settled timeline.** The EU AI Act has [applied since 2 August 2026](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai). For a business agent, the rule that matters right away is transparency: anyone talking to a chatbot or agent must know they are dealing with a machine. High-risk systems (hiring, worker management, access to credit…) face heavy obligations from 2 December 2027, a date pushed back by the "AI Omnibus" that entered into force in July 2026. A support or document-check agent usually isn't in that category. An agent that screens CVs is.
+
+**ANSSI's recommendations.** France's cybersecurity agency published [Security recommendations for a generative AI system](https://messervices.cyber.gouv.fr/guides/en-security-recommendations-generative-ai-system) (April 2024, 35 recommendations), and it maps closely to agents. Three are worth reading first. Ban automated use of AI for critical actions on the information system. Prefer SecNumCloud-qualified hosting when the system runs in a public cloud. Plan a degraded mode, so the business keeps running when the AI is switched off.
+
+On hosting, the CNIL notes that with an API, control of the system sits almost entirely with the vendor. For sensitive data it considers on-premise deployment, or a cloud set up under contract, the safer route, with close attention to transfers outside the EU. That's often what decides between a US API, a European model like Mistral, or an open model you host yourself. If the agent searches your documents, our [enterprise RAG](/en/resources/articles/enterprise-rag) guide covers the access rights to plan.
 
 ## Sensitive data and funding
 
@@ -92,7 +106,7 @@ Both work. An internal team knows the processes. What it often lacks is experien
 
 [The Vibe Company](/en) is an [AI-native agency](/en/resources/articles/ai-native-agency) founded in Paris in 2024 by Stan Girard and Antoine Dewez. Before the agency, they built Quivr, an open-source AI project that went through Y Combinator (W24). We build agents wired into our clients' real systems, from LocService's support assistant to the products we shipped for [Monka](/en/case-studies/monka), live in two months inside an existing health-data environment. And we train teams so they can evolve the agent without us.
 
-For the layer that makes all this hold in production (the loop, the sandbox, skills, evals and review by risk level), see also [enterprise agent harness: loops, sandbox, skills](/en/resources/articles/enterprise-agent-harness).
+For the layer that makes all this hold in production (the loop, the sandbox, skills, evals and review by risk level), see also [enterprise agent harness: loops, sandbox, skills](/en/resources/articles/enterprise-agent-harness). And if your topic is the security of the product itself, read [hardening a SaaS with AI security agents](/en/resources/articles/ai-security-agents-harden-saas).
 
 ## FAQ
 
@@ -108,6 +122,15 @@ Often not. If the path is always the same, an automation with one AI step is eno
 **How do you secure an AI agent?**
 Minimal rights, a dedicated service account, a log of every action, human approval for anything leaving the company, and a written rule for when the agent doesn't know.
 
+**How do you deploy an AI agent in production in a European company?**
+One measurable process, real tools connected with minimal rights, a written rule for cases of doubt, and human approval on critical actions. On compliance: GDPR with your DPO (impact assessment if needed), telling people they are talking to an AI (AI Act), and ANSSI's security recommendations if you operate in France.
+
+**Does the AI Act apply to a business AI agent?**
+Yes, since 2 August 2026, at least for transparency: people must know they are talking to an AI. The heavy obligations only target high-risk uses, such as hiring or access to credit, from 2 December 2027.
+
+**Where should you host an AI agent that handles sensitive data?**
+The CNIL considers on-premise deployment, or a cloud set up under a processing agreement, the safer option, with an eye on transfers outside the EU. ANSSI recommends SecNumCloud-qualified hosting in a public cloud. For health data in France, you also need an HDS-certified host.
+
 **Where should we start?**
 With one high-volume process, accessible data and a human who already reviews the work. Measure before, measure after, then widen.
 
@@ -115,6 +138,6 @@ With one high-volume process, accessible data and a human who already reviews th
 
 Got a process in mind, or a pilot that won't reach production? Bring the volume, the tools in place and what's blocking. We'll tell you honestly whether an agent is the right answer, and if not, what you need instead.
 
-Want us to deploy it with you, from scoping to the daily run? That is what our [AI agents in production](/en/ai-agents-in-production) offer covers.
+Want us to deploy it with you, from scoping to the daily run? That's what our [AI agents in production](/en/ai-agents-in-production) offer covers.
 
 [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).
