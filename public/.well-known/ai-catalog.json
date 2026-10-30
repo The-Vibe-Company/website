@@ -1,10 +1,39 @@
 {
   "specVersion": "1.0",
+  "host": {
+    "displayName": "The Vibe Company",
+    "identifier": "did:web:www.thevibecompany.co"
+  },
   "entries": [
     {
       "identifier": "urn:air:www.thevibecompany.co:mcp:public-content",
+      "displayName": "The Vibe Company public content MCP server",
       "type": "application/mcp-server-card+json",
-      "url": "https://www.thevibecompany.co/mcp/server-card"
+      "url": "https://www.thevibecompany.co/.well-known/mcp/server-card.json",
+      "representativeQueries": [
+        "Find public articles about AI agents",
+        "Get The Vibe Company booking link"
+      ]
+    },
+    {
+      "identifier": "urn:air:www.thevibecompany.co:a2a:public-content",
+      "displayName": "The Vibe Company public content agent",
+      "type": "application/a2a-agent-card+json",
+      "url": "https://www.thevibecompany.co/.well-known/agent-card.json",
+      "representativeQueries": [
+        "Read a public article from The Vibe Company",
+        "List English articles about AI"
+      ]
+    },
+    {
+      "identifier": "urn:air:www.thevibecompany.co:skills:public-skills",
+      "displayName": "The Vibe Company agent skills",
+      "type": "application/json",
+      "url": "https://www.thevibecompany.co/.well-known/agent-skills/index.json",
+      "representativeQueries": [
+        "How can an agent read The Vibe Company articles?",
+        "Where can I find the public booking link?"
+      ]
     }
   ]
 }

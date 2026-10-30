@@ -27,3 +27,4 @@ Allow: /
 Content-Signal: search=yes, ai-input=yes, ai-train=yes
 
 Sitemap: https://www.thevibecompany.co/sitemap.xml
+Agentmap: https://www.thevibecompany.co/.well-known/ai-catalog.json

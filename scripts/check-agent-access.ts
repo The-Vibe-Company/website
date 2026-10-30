@@ -37,6 +37,7 @@ try {
     const block = robots.body.split("\n\n").find((block) => block.startsWith(`User-agent: ${agent}\n`));
     check(Boolean(block?.includes("Allow: /") && block.includes("Content-Signal: search=yes, ai-input=yes, ai-train=yes")), `robots policy for ${agent}`);
   }
+  check(robots.body.includes("Agentmap: https://www.thevibecompany.co/.well-known/ai-catalog.json"), "robots advertises ARD Agentmap");
   const llms = await curl("/llms.txt");
   check(llms.status === 200 && llms.body.startsWith("# "), "llms.txt 200 Markdown source");
   for (const path of ["/", "/fr", "/en", "/fr/resources/articles/je-mappelle-victor"]) {
@@ -44,6 +45,7 @@ try {
     const md = await curl(path, ["Accept: text/markdown"]);
     check(html.status === (path === "/" ? 307 : 200), `${path} preserves HTML status`);
     if (path !== "/") check(html.headers.get("content-type")?.includes("text/html") === true, `${path} HTML content type`);
+    if (path !== "/") check(/<link[^>]+rel="ai-catalog"[^>]+href="\/.well-known\/ai-catalog.json"/.test(html.body), `${path} HTML advertises ARD catalog`);
     for (const response of [html, md]) {
       check(response.headers.get("vary")?.toLowerCase().split(/,\s*/).includes("accept") === true, `${path} Vary includes Accept`);
       check(["describedby", "sitemap", "service-desc"].every((rel) => response.headers.get("link")?.includes(`rel="${rel}"`)), `${path} discovery Link headers`);
@@ -66,10 +68,25 @@ try {
     const response = await curl(path);
     check(response.status === 200 && Boolean(JSON.parse(response.body)), `${path} 200 valid JSON`);
   }
+  const ard = await curl("/.well-known/ai-catalog.json");
+  check(ard.headers.get("content-type")?.includes("application/json") === true && ard.headers.get("access-control-allow-origin") === "*", "ARD is JSON with public CORS");
+  const manifest = JSON.parse(ard.body);
+  check(manifest.host.displayName === "The Vibe Company" && manifest.entries.length === 3, "ARD identifies host and three public capabilities");
+  for (const entry of manifest.entries) {
+    const target = await curl(new URL(entry.url).pathname);
+    check(target.status === 200 && Boolean(JSON.parse(target.body)), `ARD target ${new URL(entry.url).pathname} returns 200 JSON`);
+  }
+  const poppy = await curl("/.well-known/poppy.json");
+  const protocol = JSON.parse(poppy.body);
+  check(poppy.status === 200 && poppy.headers.get("content-type")?.includes("application/json") === true && protocol.protocol_version === "0.1" && protocol.organization.domain === "thevibecompany.co" && !protocol.auth && !protocol.agent && !protocol.apis, "Poppy serves website-only JSON without OAuth claims");
+  for (const path of ["/.well-known/oauth-authorization-server", "/.well-known/openid-configuration", "/.well-known/oauth-protected-resource"]) {
+    check((await curl(path)).status === 404, `${path} remains 404 (no authorization server)`);
+  }
   const catalog = await curl("/.well-known/api-catalog");
   check(catalog.status === 200 && catalog.headers.get("content-type") === "application/linkset+json" && JSON.parse(catalog.body).linkset.length > 0, "api-catalog 200 application/linkset+json");
   const auth = await curl("/auth.md");
   check(auth.status === 200 && auth.body.includes("authentication: none"), "auth.md declares public access");
+  check(/^# .*auth\.md$/m.test(auth.body) && auth.body.includes("Audience: AI agents") && auth.body.includes("Registration/provisioning endpoint: none required") && auth.body.includes("Anonymous/no-auth public access only") && auth.body.includes("Do not send credentials"), "auth.md describes registration, methods and credentials honestly");
   const mcpHeaders = ["Content-Type: application/json", "Accept: application/json, text/event-stream"];
   const initialize = await curl("/mcp", mcpHeaders, { jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "curl-smoke", version: "1" } } });
   check(initialize.status === 200 && JSON.parse(initialize.body).result.protocolVersion === "2025-06-18", "MCP initialize succeeds");

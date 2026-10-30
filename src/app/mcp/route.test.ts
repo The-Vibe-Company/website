@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { getContentByType } from "@/lib/content-source";
+import { getContentByType, getContentTranslations } from "@/lib/content-source";
 import { GET, OPTIONS, POST } from "./route";
 
 const rpc = (body: unknown, headers: Record<string, string> = {}) => POST(new Request("https://www.thevibecompany.co/mcp", {
@@ -35,6 +35,21 @@ describe("public read-only MCP", () => {
     expect(read.isError).toBe(false);
     expect(read.structuredContent.markdown).toContain(item.body);
     expect((await (await call("get_booking_link")).json()).result.structuredContent.url).toBe("https://cal.com/stangirard/thevibecompany");
+  });
+
+  test("locale resolves translated and untranslated articles without HTTP redirects", async () => {
+    for (const item of getContentByType("article")) {
+      const locale = item.language === "fr" ? "en" : "fr";
+      const target = getContentTranslations("article", item.slug).find((entry) => entry.language === locale) ?? item;
+      const response = await call("read_article", { slug: item.slug, locale });
+      expect(response.status).toBe(200);
+      const { result } = await response.json();
+      expect(result.isError).toBe(false);
+      expect(result.structuredContent.slug).toBe(target.slug);
+      expect(result.structuredContent.language).toBe(target.language);
+      expect(result.structuredContent.markdown).toContain(target.body);
+    }
+    expect((await (await call("read_article", { slug: "je-mappelle-victor", locale: "de" })).json()).result.isError).toBe(true);
   });
 
   test("bad input cannot traverse files, fetch URLs, read skills or execute writes", async () => {

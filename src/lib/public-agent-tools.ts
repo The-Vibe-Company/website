@@ -1,4 +1,4 @@
-import { contentPath, getContentItem, getContentByType } from "@/lib/content-source";
+import { contentPath, getCanonicalContentForLanguage, getContentItem, getContentByType } from "@/lib/content-source";
 import { localizedUrl } from "@/lib/site";
 
 export const AGENT_SERVER_INFO = { name: "co.thevibecompany/public-content", version: "1.0.0" };
@@ -20,8 +20,8 @@ export const PUBLIC_TOOLS = [
   },
   {
     name: "read_article",
-    description: "Read a public TVC article as Markdown, using a slug from list_articles.",
-    inputSchema: { type: "object", properties: { slug: { type: "string", minLength: 1, maxLength: 200 } }, required: ["slug"], additionalProperties: false },
+    description: "Read a public TVC article as Markdown, using a slug from list_articles. Optionally select its canonical translation by locale.",
+    inputSchema: { type: "object", properties: { slug: { type: "string", minLength: 1, maxLength: 200 }, locale: { type: "string", enum: ["fr", "en"] } }, required: ["slug"], additionalProperties: false },
     annotations,
   },
   {
@@ -39,7 +39,7 @@ function object(value: unknown): value is Record<string, unknown> {
 /** Operates exclusively on the same checked-in public content used by the site. */
 export function callPublicTool(name: string, value: unknown = {}) {
   if (!object(value)) throw new Error("Arguments must be an object");
-  const allowed = name === "list_articles" ? ["query", "language", "limit", "offset"] : name === "read_article" ? ["slug"] : [];
+  const allowed = name === "list_articles" ? ["query", "language", "limit", "offset"] : name === "read_article" ? ["slug", "locale"] : [];
   if (Object.keys(value).some((key) => !allowed.includes(key))) throw new Error("Unknown argument");
   if (name === "get_booking_link") return { url: PUBLIC_BOOKING_URL };
   if (name === "list_articles") {
@@ -65,7 +65,10 @@ export function callPublicTool(name: string, value: unknown = {}) {
   }
   if (name === "read_article") {
     if (typeof value.slug !== "string" || !/^[a-z0-9][a-z0-9-]{0,199}$/.test(value.slug)) throw new Error("Invalid article slug");
-    const item = getContentItem("article", value.slug);
+    if (value.locale !== undefined && value.locale !== "fr" && value.locale !== "en") throw new Error("Invalid locale");
+    const item = value.locale
+      ? getCanonicalContentForLanguage("article", value.slug, value.locale)
+      : getContentItem("article", value.slug);
     if (!item) throw new Error("Public article not found");
     return {
       slug: item.slug, title: item.title, language: item.language,
