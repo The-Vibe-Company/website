@@ -15,7 +15,7 @@ ogImage: /images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp
 
 **La réponse courte.** Agence IA, freelance ou ESN : tout dépend du projet. Prenez un freelance pour une tâche IA précise que votre équipe saura reprendre : un connecteur, un pipeline d'extraction, un audit. Prenez une ESN pour ajouter des profils à une équipe qui sait déjà ce qu'elle construit, sur la durée. Prenez une agence IA quand il faut livrer un produit ou un agent complet en production, vite, sans avoir l'équipe en interne. Le bon choix dépend moins du tarif journalier que de trois questions : qui porte le résultat, qui pilote au quotidien, et qui reprend le système dans un an.
 
-La plupart des comparatifs s'arrêtent au TJM. C'est le chiffre le moins utile. Un freelance à 700 € par jour qui livre seul en six semaines peut coûter moins cher qu'une équipe à 1 000 € par jour. L'inverse arrive aussi, quand il faut piloter, recoller l'interface, la sécurité et l'infrastructure derrière lui. Ce guide part de votre projet, pas du prestataire.
+La plupart des comparatifs s'arrêtent au TJM. Pourtant, c'est le chiffre qui vous dit le moins de choses. Un freelance à 700 € par jour qui livre seul en six semaines peut coûter moins cher qu'une équipe à 1 000 € par jour. L'inverse arrive aussi, quand il faut piloter, recoller l'interface, la sécurité et l'infrastructure derrière lui. Ici, on part de votre projet, et le prestataire vient après.
 
 ## Le comparatif en un tableau
 
@@ -30,7 +30,7 @@ La plupart des comparatifs s'arrêtent au TJM. C'est le chiffre le moins utile. 
 | Risque principal | dépendance à une personne | profils interchangeables, pilotage lourd | dépendance si rien n'est transmis |
 | Gagne quand | le besoin tient en une phrase | le volume et la durée priment | il faut aller en production vite |
 
-Ces cases sont des tendances, pas des lois. Il existe des ESN très pointues en IA et des freelances qui travaillent en collectif. Jugez sur les projets livrés, pas sur l'étiquette.
+Ces cases décrivent des tendances. Ce ne sont pas des lois. Il existe des ESN très pointues en IA et des freelances qui travaillent en collectif. Regardez les projets livrés plutôt que l'étiquette.
 
 ## Ce que coûte vraiment chaque option
 
@@ -48,7 +48,7 @@ Côté agences IA, il n'existe pas de baromètre public fiable. Les fourchettes 
 
 ### Le coût complet, pas le TJM
 
-Pour comparer honnêtement, additionnez :
+Pour comparer sans se raconter d'histoires, additionnez :
 
 1. **La prestation** : jours × TJM, ou prix des lots.
 2. **Votre temps de pilotage** : spécifier, arbitrer, tester. En régie, ce temps est chez vous, et il est souvent sous-estimé.
@@ -56,13 +56,13 @@ Pour comparer honnêtement, additionnez :
 4. **Le fonctionnement** : appels aux modèles, hébergement, monitoring.
 5. **La suite** : maintenance, évolutions quand les modèles changent, transmission.
 
-Un projet IA n'est jamais figé. Les modèles changent tous les quelques mois, vos données et vos processus aussi. L'option la moins chère au démarrage est rarement la moins chère à un an.
+Un projet IA ne reste jamais figé. Les modèles changent tous les quelques mois, vos données et vos processus aussi. L'option la moins chère au démarrage est rarement la moins chère à un an.
 
 ## Quand chaque option gagne
 
 ### Le freelance gagne quand le besoin tient en une phrase
 
-« Extraire les montants et les dates de nos contrats PDF vers notre ERP, avec un taux d'erreur mesuré sur 200 documents. » Voilà un bon mandat de freelance. Le périmètre est clair, le critère de succès aussi, et quelqu'un chez vous saura faire tourner le résultat.
+« Extraire les montants et les dates de nos contrats PDF vers notre ERP, avec un taux d'erreur mesuré sur 200 documents. » Ça, c'est un bon mandat de freelance. Le périmètre est clair, le critère de succès aussi, et quelqu'un chez vous saura faire tourner le résultat.
 
 Il gagne aussi sur l'expertise rare : un audit de votre architecture RAG, une évaluation de modèles, un coup de main sur un point dur pour une équipe qui existe déjà.
 
@@ -72,7 +72,7 @@ Il gagne aussi sur l'expertise rare : un audit de votre architecture RAG, une é
 
 Vous avez une équipe produit, une roadmap, et il vous manque des bras pendant dix-huit mois ? Une ESN sait fournir plusieurs profils, les remplacer, et passer vos achats et vos questionnaires de sécurité. C'est son métier.
 
-Le revers : en régie, vous pilotez. Si le besoin IA est encore flou, vous payez des jours pour le découvrir. Et la régie a un cadre légal : le code du travail interdit [toute opération à but lucratif ayant pour objet exclusif le prêt de main-d'œuvre](https://code.travail.gouv.fr/code-du-travail/l8241-1). Une prestation saine repose sur un vrai savoir-faire et un encadrement par le prestataire, pas sur des consultants dirigés au quotidien comme des salariés. Votre service juridique et vos achats connaissent le sujet. Posez-leur la question avant de signer.
+Le revers : en régie, vous pilotez. Si le besoin IA est encore flou, vous payez des jours pour le découvrir. Et la régie a un cadre légal : le code du travail interdit [toute opération à but lucratif ayant pour objet exclusif le prêt de main-d'œuvre](https://code.travail.gouv.fr/code-du-travail/l8241-1). Une prestation saine repose sur un vrai savoir-faire et un encadrement par le prestataire. Des consultants dirigés au quotidien comme des salariés, c'est autre chose. Votre service juridique et vos achats connaissent le sujet. Posez-leur la question avant de signer.
 
 ### L'agence IA gagne quand il faut aller en production vite
 
@@ -95,9 +95,9 @@ Le risque : finir dépendant d'un système que personne chez vous ne comprend. F
 
 ## Combiner plutôt que choisir
 
-Les meilleurs montages mélangent souvent les options. Une agence construit le premier système et forme l'équipe pendant que vous recrutez. Un freelance reprend ensuite la maintenance. Une ESN renforce les équipes une fois la méthode posée.
+Souvent, les montages qui marchent le mieux mélangent les options. Une agence construit le premier système et forme l'équipe pendant que vous recrutez. Un freelance reprend ensuite la maintenance. Une ESN renforce les équipes une fois la méthode posée.
 
-Le cas [Theodo](/fr/case-studies/theodo) en est un exemple. Theodo mène des projets critiques pour ses clients et fait appel à The Vibe Company comme expert technique intégré à ses équipes. Ensemble, on construit des software factories pour des centaines de développeurs : des outils, des agents et des skills standardisés, plus l'accompagnement et la formation pour que chaque équipe les adopte. Ici, l'agence ne remplace pas les équipes en place. Elle leur donne une base commune pour aller plus vite.
+Le cas [Theodo](/fr/case-studies/theodo) en est un exemple. Theodo mène des projets critiques pour ses clients et fait appel à The Vibe Company comme expert technique intégré à ses équipes. Ensemble, on construit des software factories pour des centaines de développeurs : des outils, des agents et des skills standardisés, plus l'accompagnement et la formation pour que chaque équipe les adopte. Dans ce montage, l'agence ne remplace personne : elle donne aux équipes en place une base commune pour aller plus vite.
 
 Une software factory sert aussi à durcir le produit. Une règle de sécurité oubliée dans un seul dépôt suffit à ouvrir une porte. Quand les agents et les skills sont partagés, un contrôle de secrets ou de dépendances s'applique partout à la fois. On détaille cette approche dans [agents IA pour durcir un SaaS](/fr/resources/articles/agents-ia-durcir-saas) et dans notre guide de l'[agent harness en entreprise](/fr/resources/articles/agent-harness-entreprise).
 

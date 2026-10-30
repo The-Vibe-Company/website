@@ -13,9 +13,9 @@ coverAlt: "The mascot holds a map at a three-way signpost: a light scooter, a co
 ogImage: /images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp
 ---
 
-**The short answer.** AI agency, freelancer or IT services firm: it depends on the project. Hire a freelancer for a precise AI task your team can take over: a connector, an extraction pipeline, an audit. Hire an IT services firm (what the French call an ESN) to add people to a team that already knows what it is building, over the long run. Hire an AI agency when you need a complete product or agent in production, fast, without the team in-house. The right choice depends less on the day rate than on three questions: who owns the outcome, who manages the work day to day, and who takes the system over in a year.
+**The short answer.** AI agency, freelancer or IT services firm: it depends on the project. Hire a freelancer for a precise AI task your team can take over: a connector, an extraction pipeline, an audit. Hire an IT services firm (what the French call an ESN) to add people to a team that already knows what it's building, over the long run. Hire an AI agency when you need a complete product or agent in production, fast, without the team in-house. The right choice depends less on the day rate than on three questions: who owns the outcome, who manages the work day to day, and who takes the system over in a year.
 
-Most comparisons stop at the day rate. It's the least useful number. A €700-a-day freelancer who ships alone in six weeks can cost less than a team billing €1,000 a day. The opposite happens too, when someone has to manage the work and then add the interface, security and infrastructure around it. This guide starts from your project, not from the vendor.
+Most comparisons stop at the day rate. Yet it's the number that tells you the least. A €700-a-day freelancer who ships alone in six weeks can cost less than a team billing €1,000 a day. The opposite happens too, when someone has to manage the work and then add the interface, security and infrastructure around it. So we start from your project and get to the vendor after.
 
 ## The comparison in one table
 
@@ -30,7 +30,7 @@ Most comparisons stop at the day rate. It's the least useful number. A €700-a-
 | Main risk | depending on one person | interchangeable profiles, heavy management | lock-in if nothing is handed over |
 | Wins when | the need fits in one sentence | volume and duration matter most | you need to reach production fast |
 
-These cells are tendencies, not rules. Some IT services firms are very strong in AI, and some freelancers work in collectives. Judge on shipped projects, not on the label.
+These cells describe tendencies. They aren't rules. Some IT services firms are very strong in AI, and some freelancers work in collectives. Look at shipped projects rather than the label.
 
 ## What each option really costs
 
@@ -44,19 +44,19 @@ The most solid public numbers are for freelancers in France:
 
 For IT services firms, [La Fabrique du Net](https://www.lafabriquedunet.fr/agences/pages/agences-esn-ssii/tarifs) reports day rates from €320 to €2,000 depending on the profile, and estimates that a mid-level developer for three months comes to roughly €25,000 to €35,000.
 
-For AI agencies, there is no reliable public benchmark. The ranges you see on blogs come from the agencies themselves. Ask for a price per phase with a deliverable, and compare it with the total cost of the other options.
+For AI agencies, there's no reliable public benchmark. The ranges you see on blogs come from the agencies themselves. Ask for a price per phase with a deliverable, and compare it with the total cost of the other options.
 
 ### Total cost, not the day rate
 
-To compare fairly, add up:
+For an honest comparison, add up:
 
 1. **The service**: days × rate, or the price of each phase.
-2. **Your management time**: specifying, deciding, testing. On time and materials, that time sits with you, and it is often underestimated.
+2. **Your management time**: specifying, deciding, testing. On time and materials, that time sits with you, and it's often underestimated.
 3. **What is missing around it**: a freelancer who knows models won't necessarily build the interface, authentication, hosting or security. Someone will have to.
 4. **Running costs**: model calls, hosting, monitoring.
 5. **What comes next**: maintenance, updates when models change, handover.
 
-An AI project is never frozen. Models change every few months, and so do your data and processes. The cheapest option on day one is rarely the cheapest after a year.
+An AI project never stays frozen. Models change every few months, and so do your data and processes. The cheapest option on day one is rarely the cheapest after a year.
 
 ## When each option wins
 
@@ -72,7 +72,7 @@ It breaks down when the project needs interface, back end, infrastructure and se
 
 You have a product team and a roadmap, and you're short of hands for eighteen months? An IT services firm can supply several profiles, replace them, and get through your procurement and security questionnaires. That's its job.
 
-The flip side: on time and materials, you manage the work. If the AI need is still fuzzy, you pay for days spent finding out. In France, time and materials also has a legal frame: the labour code bans [any for-profit operation whose sole purpose is lending staff](https://code.travail.gouv.fr/code-du-travail/l8241-1). A sound engagement relies on real expertise and supervision by the vendor, not on consultants directed day to day like employees. Your legal and procurement teams know the topic. Ask them before you sign.
+The flip side: on time and materials, you manage the work. If the AI need is still fuzzy, you pay for days spent finding out. In France, time and materials also has a legal frame: the labour code bans [any for-profit operation whose sole purpose is lending staff](https://code.travail.gouv.fr/code-du-travail/l8241-1). A sound engagement relies on real expertise and supervision by the vendor. Consultants directed day to day like employees are a different thing. Your legal and procurement teams know the topic. Ask them before you sign.
 
 ### The AI agency wins when you need production, fast
 
@@ -95,9 +95,9 @@ The risk: ending up dependent on a system nobody on your side understands. Put i
 
 ## Combine instead of choosing
 
-The best setups often mix options. An agency builds the first system and trains the team while you hire. A freelancer then takes over maintenance. An IT services firm reinforces the teams once the method is in place.
+The setups that work best often mix options. An agency builds the first system and trains the team while you hire. A freelancer then takes over maintenance. An IT services firm reinforces the teams once the method is in place.
 
-The [Theodo](/en/case-studies/theodo) case is one example. Theodo delivers critical projects for its clients and brings in The Vibe Company as a technical expert embedded in its teams. Together, we build software factories for hundreds of developers: standardized tools, agents and skills, plus the support and training so every team adopts them. Here, the agency doesn't replace the existing teams. It gives them a shared base so they move faster.
+The [Theodo](/en/case-studies/theodo) case is one example. Theodo delivers critical projects for its clients and brings in The Vibe Company as a technical expert embedded in its teams. Together, we build software factories for hundreds of developers: standardized tools, agents and skills, plus the support and training so every team adopts them. In this setup, the agency doesn't replace anyone: it gives the existing teams a shared base so they move faster.
 
 A software factory also helps harden the product. A security rule forgotten in a single repository is enough to open a door. When agents and skills are shared, a secrets or dependency check applies everywhere at once. We cover this approach in [AI security agents to harden a SaaS](/en/resources/articles/ai-security-agents-harden-saas) and in our guide to the [enterprise agent harness](/en/resources/articles/enterprise-agent-harness).
 
