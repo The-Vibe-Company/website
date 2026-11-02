@@ -1764,7 +1764,7 @@
             "paragraphs": [
               "The booking buttons are plain links to cal.com. The site embeds no cal.com widget and loads nothing from cal.com until you click. The click itself is counted in PostHog.",
               "On cal.com, you enter your name, your email and the details of the meeting. Cal.com processes them under its own privacy policy, and we receive them to prepare the call.",
-              "When a meeting is booked, cal.com notifies our server. We then record a single PostHog event, “booking_completed”, with the booking identifier (failing that, a salted hash of the email, never the email itself), the start time, the duration and any campaign parameters. Your name, your email and the booking details are not sent to PostHog."
+              "When a meeting is booked, cal.com notifies our server. We then record a single PostHog event, “booking_completed”, with the booking identifier (failing that, a salted hash of the email, never the email itself), the start time, the duration and any campaign parameters. Your name, your email and the content of the booking are not sent to PostHog."
             ]
           },
           {
