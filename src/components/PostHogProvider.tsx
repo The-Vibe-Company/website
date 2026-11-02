@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { capturePageview, isPostHogEnabled } from "@/lib/posthog";
+import { captureEvent, isPostHogEnabled } from "@/lib/posthog";
 
 type Props = {
   children: React.ReactNode;
@@ -14,20 +14,22 @@ function PostHogPageView() {
   const query = searchParams.toString();
 
   useEffect(() => {
-    capturePageview(`${window.location.origin}${pathname}${query ? `?${query}` : ""}`);
+    const url = `${window.location.origin}${pathname}${query ? `?${query}` : ""}`;
+    captureEvent("$pageview", {
+      $current_url: url,
+    });
   }, [pathname, query]);
 
   return null;
 }
 
-// Nothing reads PostHog through React context, so there is no provider from
-// posthog-js/react: importing it would bring the whole library back into the
-// first chunks (see src/lib/posthog.ts).
 export function PostHogProvider({ children }: Props) {
   if (!isPostHogEnabled) {
     return <>{children}</>;
   }
 
+  // No posthog-js/react context: nothing reads it, and importing it would pull
+  // posthog-js back into the page bundle (see loadPostHog()).
   return (
     <>
       {children}

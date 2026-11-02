@@ -10,112 +10,67 @@ export const isPostHogEnabled =
   process.env.NEXT_PUBLIC_VERCEL_ENV === "production" &&
   Boolean(process.env.NEXT_PUBLIC_POSTHOG_KEY);
 
-type Properties = Record<string, string | number | boolean | null | undefined>;
+// posthog-js weighs ~57 KB gzipped. It is fetched on demand rather than
+// bundled with the page, so it never competes with the first paint: see
+// schedulePostHogLoad(). Until then captures wait in `pending` with their own
+// timestamp; once it is in they go out synchronously, which matters for
+// clicks that navigate the tab away.
+let loading: Promise<PostHog> | null = null;
+let loaded: PostHog | null = null;
+const pending: Parameters<PostHog["capture"]>[] = [];
 
-let client: Promise<PostHog> | undefined;
-let startLoading: (() => void) | undefined;
-let loadRequested = false;
-
-/**
- * posthog-js is ~56 KB of compressed script. Imported statically it sat in the
- * first chunks of every page and ran before hydration, so on a phone the
- * download held back the hero's paint (it was most of the homepage's LCP in
- * Lighthouse). It is now fetched at the visitor's first interaction, once the
- * page has loaded and the main thread is idle, or as soon as an event needs
- * it, whichever comes first. Events captured before then wait for it.
- */
-function posthogClient(): Promise<PostHog> | undefined {
-  if (!isPostHogEnabled || typeof window === "undefined") return undefined;
-  if (!client) {
-    const gate = new Promise<void>((resolve) => {
-      startLoading = resolve;
+export function loadPostHog(): Promise<PostHog> {
+  loading ??= import("posthog-js").then(({ default: posthog }) => {
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+      api_host: "/ingest",
+      ui_host: "https://us.posthog.com",
+      defaults: "2026-01-30",
+      capture_pageview: false,
+      capture_pageleave: true,
+      person_profiles: "identified_only",
+      capture_exceptions: true,
+      debug: process.env.NODE_ENV === "development",
     });
-    if (loadRequested) startLoading?.();
-    client = gate
-      .then(() => import("posthog-js"))
-      .then(({ default: posthog }) => {
-        posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-          api_host: "/ingest",
-          ui_host: "https://us.posthog.com",
-          defaults: "2026-01-30",
-          capture_pageview: false,
-          capture_pageleave: true,
-          person_profiles: "identified_only",
-          capture_exceptions: true,
-          debug: process.env.NODE_ENV === "development",
-        });
-        return posthog;
-      })
-      .catch((error: unknown) => {
-        // A failed download (offline, a deploy replacing the chunk) would
-        // otherwise turn analytics off for the rest of the visit.
-        client = undefined;
-        throw error;
-      });
-  }
-  return client;
-}
-
-/** Loads PostHog now rather than at the next idle moment. */
-function loadPostHogNow() {
-  loadRequested = true;
-  posthogClient();
-  startLoading?.();
+    loaded = posthog;
+    for (const args of pending.splice(0)) posthog.capture(...args);
+    return posthog;
+  });
+  return loading;
 }
 
 /**
- * Schedules PostHog off the critical path: after the load event and an idle
- * moment, or at the first pointer or key press, which comes before the click
- * of a booking CTA that navigates away.
+ * Loads PostHog once the page has finished loading and the main thread is
+ * idle, or at the first interaction if that comes sooner. Events captured
+ * before then wait for it instead of being dropped.
  */
-export function loadPostHogWhenIdle() {
-  if (!posthogClient()) return;
-  for (const type of ["pointerdown", "keydown"] as const) {
-    window.addEventListener(type, loadPostHogNow, { once: true, capture: true, passive: true });
-  }
-  // Safari has no requestIdleCallback.
-  const whenIdle = () =>
-    typeof window.requestIdleCallback === "function"
-      ? window.requestIdleCallback(loadPostHogNow, { timeout: 3000 })
-      : window.setTimeout(loadPostHogNow, 1);
-  if (document.readyState === "complete") whenIdle();
-  else window.addEventListener("load", whenIdle, { once: true });
-}
+export function schedulePostHogLoad() {
+  if (!isPostHogEnabled || typeof window === "undefined") return;
 
-/**
- * Captures once PostHog is there. PostHog reads the URL and the time when the
- * event is sent, so both are pinned here: a queued event keeps the page and
- * the moment it happened on, even after a client-side navigation.
- */
-function enqueue(eventName: string, properties: Properties | undefined, options: CaptureOptions | undefined) {
-  const pending = posthogClient();
-  if (!pending) return;
-  const pinned = {
-    $current_url: window.location.href,
-    $pathname: window.location.pathname,
-    ...properties,
+  const load = () => {
+    for (const type of INTERACTIONS) removeEventListener(type, load, true);
+    void loadPostHog();
   };
-  const timestamp = options?.timestamp ?? new Date();
-  pending.then(
-    (posthog) => posthog.capture(eventName, pinned, { ...options, timestamp }),
-    // Analytics is best effort: a failed load drops this event, not the page.
-    () => undefined,
-  );
+  const loadWhenIdle = () => {
+    if ("requestIdleCallback" in window) requestIdleCallback(load, { timeout: 2000 });
+    else setTimeout(load, 1);
+  };
+
+  for (const type of INTERACTIONS) addEventListener(type, load, { capture: true, once: true, passive: true });
+  if (document.readyState === "complete") loadWhenIdle();
+  else addEventListener("load", loadWhenIdle, { once: true });
 }
 
-export function captureEvent(eventName: string, properties?: Properties, options?: CaptureOptions) {
+const INTERACTIONS = ["pointerdown", "keydown", "scroll"] as const;
+
+export function captureEvent(
+  eventName: string,
+  properties?: Record<string, string | number | boolean | null | undefined>,
+  options?: CaptureOptions,
+) {
   if (!isPostHogEnabled) return;
-  enqueue(eventName, properties, options);
-  // A click on a booking CTA can come before the idle moment: start the load
-  // right away so the event still has a chance to leave before navigation.
-  loadPostHogNow();
-}
-
-/**
- * The pageview fires on every route mount, hydration included, so it waits for
- * the scheduled load instead of forcing it: forcing it would put PostHog back
- * in front of the first paint.
- */
-export function capturePageview(url: string) {
-  enqueue("$pageview", { $current_url: url }, undefined);
+  if (loaded) {
+    loaded.capture(eventName, properties, options);
+    return;
+  }
+  pending.push([eventName, properties, { ...options, timestamp: options?.timestamp ?? new Date() }]);
 }

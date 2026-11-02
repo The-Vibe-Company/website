@@ -1,3 +1,5 @@
-import { loadPostHogWhenIdle } from "@/lib/posthog";
+import { schedulePostHogLoad } from "@/lib/posthog";
 
-loadPostHogWhenIdle();
+// PostHog is loaded after the page has painted, not imported here: see
+// schedulePostHogLoad() in src/lib/posthog.ts.
+schedulePostHogLoad();

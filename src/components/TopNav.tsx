@@ -49,16 +49,27 @@ interface TopNavProps {
 }
 
 export function TopNav(props: TopNavProps) {
+  // useSearchParams() keeps a static page from server-rendering everything up
+  // to this boundary. The fallback is the same bar without the query, so the
+  // server HTML already holds its height and the page does not shift down
+  // when the client takes over.
   return (
-    <Suspense fallback={null}>
-      <TopNavInner {...props} />
+    <Suspense fallback={<TopNavInner {...props} />}>
+      <TopNavWithQuery {...props} />
     </Suspense>
   );
 }
 
-function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
-  const router = useRouter();
+function TopNavWithQuery(props: TopNavProps) {
   const searchParams = useSearchParams();
+  return <TopNavInner {...props} initialQuery={searchParams.get("q") || ""} />;
+}
+
+function TopNavInner({
+  showResourcesSearch = false,
+  initialQuery = "",
+}: TopNavProps & { initialQuery?: string }) {
+  const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("nav");
   const tA11y = useTranslations("accessibility");
@@ -73,7 +84,7 @@ function TopNavInner({ showResourcesSearch = false }: TopNavProps) {
   const [mobileMenuClosing, setMobileMenuClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState(
-    showResourcesSearch ? searchParams.get("q") || "" : ""
+    showResourcesSearch ? initialQuery : ""
   );
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
