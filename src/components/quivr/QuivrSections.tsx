@@ -4,6 +4,7 @@ import { bookingLocation } from "@/lib/booking";
 import {
   QUIVR_BOOKING_URL,
   QUIVR_FAQ_KEYS,
+  QUIVR_MEDIAGEN_SOURCE,
   QUIVR_SERVICE_KEYS,
   QUIVR_SERVICES_ID,
 } from "@/lib/quivr";
@@ -39,6 +40,18 @@ export async function QuivrSections({ locale }: { locale: string }) {
           <div className="mt-10 md:mt-14">
             <QuivrBento locale={locale} />
           </div>
+          {/* The one line naming MediaGen and AFP, with its source. */}
+          <p className="m-0 mt-6 max-w-[720px] text-[15px] leading-[1.6] text-muted-foreground">
+            {t("features.mediagen.text")}{" "}
+            <a
+              href={QUIVR_MEDIAGEN_SOURCE[locale === "en" ? "en" : "fr"]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whitespace-nowrap text-foreground underline decoration-1 underline-offset-4 hover:decoration-2"
+            >
+              {t("features.mediagen.link")}
+            </a>
+          </p>
         </div>
       </section>
 

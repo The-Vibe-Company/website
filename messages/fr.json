@@ -773,6 +773,10 @@
           "Temporal",
           "Weaviate"
         ]
+      },
+      "mediagen": {
+        "text": "Quivr fait partie du consortium de MediaGen, un projet d’IA générative pour les médias porté par l’AFP et sélectionné dans le cadre de France 2030.",
+        "link": "Communiqué de l’AFP ↗"
       }
     },
     "services": {

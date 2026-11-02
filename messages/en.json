@@ -773,6 +773,10 @@
           "Temporal",
           "Weaviate"
         ]
+      },
+      "mediagen": {
+        "text": "Quivr is part of the consortium behind MediaGen, a generative AI project for the media led by AFP and selected under the France 2030 plan.",
+        "link": "AFP press release ↗"
       }
     },
     "services": {
