@@ -3,14 +3,42 @@
 import { useLayoutEffect, useRef, type CSSProperties } from "react";
 import { cn } from "@/lib/design-system";
 
-/** Average advance of one glyph, in em, for heavy Geist at poster tracking. */
-const EM_PER_CHAR = 0.56;
+/**
+ * Advance widths of Geist ExtraBold, in thousandths of an em, measured in the
+ * browser (canvas `measureText` at 1000px). Accented letters share their base
+ * letter's advance, so they are looked up through it.
+ */
+const ADVANCE: Record<string, number> = {
+  A: 750, B: 710, C: 745, D: 723, E: 628, F: 609, G: 751, H: 724, I: 310, J: 637, K: 705, L: 592, M: 927,
+  N: 753, O: 788, P: 679, Q: 781, R: 706, S: 695, T: 615, U: 708, V: 751, W: 1038, X: 715, Y: 650, Z: 610,
+  a: 609, b: 647, c: 615, d: 647, e: 620, f: 464, g: 647, h: 621, i: 294, j: 355, k: 666, l: 328, m: 907,
+  n: 621, o: 633, p: 647, q: 647, r: 440, s: 586, t: 462, u: 618, v: 633, w: 859, x: 671, y: 603, z: 598,
+  "0": 703, "1": 470, "2": 665, "3": 662, "4": 670, "5": 686, "6": 638, "7": 551, "8": 684, "9": 643,
+  " ": 221, ".": 248, ",": 248, ";": 315, ":": 315, "!": 272, "?": 602, "'": 212, "’": 261, "-": 417,
+  "–": 597, "—": 913, "&": 734, "(": 339, ")": 339, "/": 536, "«": 682, "»": 695, '"': 405, "%": 833,
+  "+": 574, "@": 981,
+};
+
+/** Kerning tightens a heavy line by about 1.8% against the sum of its advances. */
+const KERNING = 0.982;
+
+/** Both callers set `tracking-[-1px]`, applied after every glyph. */
+const TRACKING_PX = -1;
+
+/** Width of `text` set at 1em, in em: what the server sizes the line from. */
+export function emWidth(text: string): number {
+  let width = 0;
+  for (const char of text) {
+    width += ADVANCE[char] ?? ADVANCE[char.normalize("NFD")[0]] ?? 600;
+  }
+  return (width / 1000) * KERNING;
+}
 
 /**
  * One line of display type sized to fill its container's width exactly, the
  * way a poster sets its headline. The parent must be a padding-free block with
  * `container-type: inline-size`: the server renders an estimate in container
- * units from the character count, so the line arrives close to its final size,
+ * units from the glyphs' advance widths, so the line arrives at its final size,
  * then the client measures it once the fonts are in and on every width change.
  */
 export function FitText({
@@ -63,7 +91,13 @@ export function FitText({
     };
   }, [children, max]);
 
-  const estimate = `calc(100cqw / ${(children.length * EM_PER_CHAR).toFixed(2)})`;
+  // A flat 0.56em per glyph used to be the estimate. It held for "We build"
+  // but not for French: on a 412px phone it set "Agence" at 108px (it fits at
+  // 97, so it ran off the screen) and the narrow glyphs of "IA-First." at
+  // 72px (it fits at 91), and hydration had to re-set the whole poster.
+  // Summing the real advances lands within about 1%.
+  const glyphs = [...children].length;
+  const estimate = `calc((100cqw + ${-TRACKING_PX * glyphs}px) / ${emWidth(children).toFixed(4)})`;
 
   return (
     <span
