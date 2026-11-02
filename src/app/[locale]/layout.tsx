@@ -15,18 +15,16 @@ import "../globals.css";
 // Porcelaine type: Bricolage Grotesque for the page (its width and optical-size
 // axes carry the display titles), Geist Mono for metadata, kickers and chips.
 // Geist stays loaded as the canvas runner's sans and as the fallback.
-// Bricolage is not preloaded: with its two axes the latin file alone is
-// ~130 KB (latin-ext ~55 KB more), and preloading them put the fonts on the
-// mobile LCP's critical path (simulated LCP 2.6 s -> 4.5 s). It is fetched as
-// soon as the CSS is parsed; until then the text is set in the metric-matched
-// Arial fallback next/font generates, so the swap does not shift the layout.
-// latin-ext still loads on demand (unicode-range).
+// Only the latin subset of Bricolage is preloaded: with its two axes it is
+// ~130 KB, and latin-ext (~55 KB more, loaded on demand through its
+// unicode-range) has no place on the mobile critical path. It stays
+// preloaded: without it the swap from the Arial fallback, which cannot take the
+// display titles' 92% width, shifted the hero (CLS 0.06 in CI).
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
   axes: ["opsz", "wdth"],
   display: "swap",
-  preload: false,
 });
 
 // Not preloaded: the page text is set in Bricolage, so Geist only serves the
