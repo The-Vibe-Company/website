@@ -3,11 +3,13 @@ import { describe, expect, test } from "bun:test";
 import { getContentByType } from "./content-source";
 import { normalizeMarkdownBody, renderMarkdown } from "./markdown";
 import {
+  articleFaqPageSchema,
   articleSchema,
   breadcrumbList,
   extractMarkdownFaq,
   faqPageSchema,
   isPublishable,
+  isPublishableInArticleFaq,
   siteGraph,
   webPageNode,
 } from "./structured-data";
@@ -226,14 +228,67 @@ describe("articles", () => {
           publishedAt: article.publishedAt,
           language: article.language,
         }),
-        faqPageSchema(extractMarkdownFaq(article.body)),
       ];
       for (const schema of schemas) {
         if (!schema) continue;
         const rest = { ...schema, headline: undefined, url: undefined, mainEntityOfPage: undefined };
         expect(isPublishable(JSON.stringify(rest))).toBe(true);
       }
+      const faq = articleFaqPageSchema(article.body);
+      if (faq) expect(isPublishableInArticleFaq(JSON.stringify(faq))).toBe(true);
     }
+  });
+
+  // Regression: entries naming a client (Monka, LocService) or a price word
+  // ("forfait", "€") used to be dropped, so the markup had fewer questions than
+  // the page (e.g. "Combien de temps faut-il…" on the HDS article).
+  test("every article FAQ question visible on the page is in the FAQPage markup", () => {
+    const withFaq = articles.filter((article) => /^## FAQ\s*$/m.test(article.body));
+    for (const article of withFaq) {
+      const items = extractMarkdownFaq(article.body);
+      const visible = (article.body.split(/^## FAQ\s*$/m)[1] ?? "")
+        .split(/^#{1,2}\s/m)[0]
+        .split("\n")
+        .filter((line) => /^###\s+\S/.test(line.trim()) || /^\*\*.+\*\*$/.test(line.trim()));
+      expect({ slug: article.slug, count: items.length }).toEqual({ slug: article.slug, count: visible.length });
+
+      const faq = articleFaqPageSchema(article.body) as { mainEntity: { name: string }[] } | null;
+      const kept = items.filter(
+        (item) => isPublishableInArticleFaq(item.question) && isPublishableInArticleFaq(item.answer),
+      );
+      expect({ slug: article.slug, questions: faq?.mainEntity.map((q) => q.name) ?? [] }).toEqual({
+        slug: article.slug,
+        questions: kept.map((item) => item.question),
+      });
+    }
+
+    const hds = articles.find((article) => article.slug === "ia-donnees-de-sante-hds");
+    const hdsFaq = articleFaqPageSchema(hds!.body) as { mainEntity: { name: string }[] };
+    expect(hdsFaq.mainEntity.map((q) => q.name)).toContain(
+      "Combien de temps faut-il pour mettre en production un projet IA en santé ?",
+    );
+  });
+
+  test("article FAQ markup keeps certifications and the grant programme out", () => {
+    const markdown = [
+      "## FAQ",
+      "",
+      "### Combien de temps faut-il ?",
+      "",
+      "Chez Monka, deux mois, au forfait.",
+      "",
+      "### Êtes-vous certifiés ?",
+      "",
+      "Nous ne sommes pas certifiés SOC 2.",
+      "",
+      "### Quel financement ?",
+      "",
+      "Le projet MediaGen.",
+    ].join("\n");
+    const faq = articleFaqPageSchema(markdown) as { mainEntity: { name: string }[] };
+    expect(faq.mainEntity.map((q) => q.name)).toEqual(["Combien de temps faut-il ?"]);
+    expect(isPublishableInArticleFaq("ISO 27001")).toBe(false);
+    expect(articleFaqPageSchema("## FAQ\n\n### SOC 2 ?\n\nNon.")).toBeNull();
   });
 
   test("Victor's Story articles are Victor's, every other article is Stan's", () => {
