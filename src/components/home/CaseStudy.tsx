@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { getCustomers, type ContentLocale, type Customer } from "@/lib/customers";
 import { LOOP_ARROW_CLASS, LOOP_COPIES, useLoopCarousel } from "./useLoopCarousel";
+import { clientLogoSize } from "@/lib/client-logos";
 
 // Two cards fit flush, no overflow.
 const CARD_WIDTH = "w-[86%] shrink-0 sm:w-[70%] md:w-[calc(50%-10px)]";
@@ -24,6 +25,7 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
         <img
           src={c.logo}
           alt={c.client}
+          {...clientLogoSize(c.logo)}
           className="h-7 w-auto object-contain md:h-8"
           loading="lazy"
           decoding="async"
@@ -98,7 +100,7 @@ function CaseSlide({ c, t }: { c: Customer; t: T }) {
       className="group flex h-full flex-col border-2 border-foreground bg-background p-5 no-underline"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={c.logo} alt={c.client} className="h-[26px] w-auto self-start object-contain" loading="lazy" decoding="async" />
+      <img src={c.logo} alt={c.client} {...clientLogoSize(c.logo)} className="h-[26px] w-auto self-start object-contain" loading="lazy" decoding="async" />
       {/* Two lines reserved whatever the sector's length, so every card's
           number sits at the same height as you swipe. */}
       <span className={`mt-5 line-clamp-2 min-h-[3em] text-muted-foreground ${MONO}`}>{c.sector}</span>

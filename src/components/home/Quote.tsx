@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { clientLogoSize } from "@/lib/client-logos";
 
 /**
  * A client's own words between the cases and the services, on phones only: an
@@ -22,7 +23,7 @@ export function Quote() {
         </blockquote>
         <figcaption className="mt-6 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-background/60">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/clients/monka.webp" alt="" aria-hidden="true" className="h-[22px] w-auto brightness-0 invert" loading="lazy" decoding="async" />
+          <img src="/images/clients/monka.webp" alt="" aria-hidden="true" {...clientLogoSize("/images/clients/monka.webp")} className="h-[22px] w-auto brightness-0 invert" loading="lazy" decoding="async" />
           {t("author")}
         </figcaption>
       </figure>

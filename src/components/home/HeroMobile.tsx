@@ -6,6 +6,7 @@ import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { CLIENTS } from "./Clients";
 import { FitText } from "./FitText";
+import { clientLogoSize } from "@/lib/client-logos";
 
 const MONO = "font-mono text-[11px] uppercase tracking-[0.18em]";
 
@@ -121,6 +122,7 @@ export function HeroMobile() {
                 <img
                   src={client.src}
                   alt={client.name}
+                  {...clientLogoSize(client.src)}
                   className="max-h-[26px] w-auto max-w-[72%] object-contain brightness-0"
                   loading="lazy"
                   decoding="async"

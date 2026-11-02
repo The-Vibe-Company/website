@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Marquee } from "@/components/Marquee";
+import { clientLogoSize } from "@/lib/client-logos";
 
 interface Client {
   name: string;
@@ -49,6 +50,7 @@ export function Clients() {
             <img
               src={client.src}
               alt={client.name}
+              {...clientLogoSize(client.src)}
               className={`${client.className} w-auto object-contain brightness-0`}
               loading="eager"
               fetchPriority="low"

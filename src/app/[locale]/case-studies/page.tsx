@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { getCustomers, type ContentLocale } from "@/lib/customers";
 import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
 import { breadcrumbList, webPageNode } from "@/lib/structured-data";
+import { clientLogoSize } from "@/lib/client-logos";
 
 export async function generateMetadata({
   params,
@@ -109,6 +110,7 @@ export default async function CaseStudiesPage({
                   <img
                     src={c.logo}
                     alt={c.client}
+                    {...clientLogoSize(c.logo)}
                     className="h-7 w-auto object-contain md:h-8"
                     loading="lazy"
                     decoding="async"

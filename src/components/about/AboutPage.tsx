@@ -32,6 +32,7 @@ import {
 import { breadcrumbList, faqPageSchema } from "@/lib/structured-data";
 import { AboutBackers } from "./AboutBackers";
 import { AboutBookingCta } from "./AboutBookingCta";
+import { clientLogoSize } from "@/lib/client-logos";
 
 /**
  * The About page, served at /fr/a-propos and /en/about. Both routes render
@@ -212,6 +213,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                   <img
                     src={client.src}
                     alt={t("clients.logoAlt", { name: client.name })}
+                    {...clientLogoSize(client.src)}
                     className={`${client.className} w-auto object-contain brightness-0`}
                     loading="lazy"
                     decoding="async"
