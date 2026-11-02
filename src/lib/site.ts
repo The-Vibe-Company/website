@@ -143,7 +143,7 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
     paths: CONTACT_PATHS,
     title: "Contact",
     description:
-      "How to reach The Vibe Company: the two founders, Stan Girard and Antoine Dewez, an email address, and a 30-minute call to book online. Based in Montreuil, France.",
+      "How to reach The Vibe Company: the two founders, Stan Girard and Antoine Dewez, an email address, and a 30-minute call to book online. Offices in Paris, registered office in Montreuil.",
     changeFrequency: "yearly",
     priority: 0.6,
   },

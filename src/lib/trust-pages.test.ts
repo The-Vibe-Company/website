@@ -59,4 +59,24 @@ describe("contact and privacy copy", () => {
     expect(CONTACT_EMAIL).toBe("stan@thevibecompany.co");
     expect(BOOKING_URL).toBe("https://cal.com/stangirard/thevibecompany");
   });
+
+  test.each(["fr", "en"] as const)("%s carries the verified publisher and host details", (locale) => {
+    const privacy = strings(MESSAGES[locale].privacy).join("\n");
+    const contact = strings(MESSAGES[locale].contact).join("\n");
+    for (const fact of [
+      "981 841 109",
+      "FR96 981 841 109",
+      "44 boulevard Paul Vaillant-Couturier, 93100 Montreuil",
+      "10 rue La Vacquerie, 75011 Paris",
+      "440 N Barranca Avenue #4133, Covina, CA 91723",
+      "Google Workspace",
+      "Quivr SAS",
+    ]) {
+      expect(privacy).toContain(fact);
+    }
+    expect(contact).toContain("44 boulevard Paul Vaillant-Couturier, 93100 Montreuil");
+    expect(contact).toContain("10 rue La Vacquerie, 75011 Paris");
+    // No registry city is published for the RCS: never name one.
+    expect(privacy).not.toMatch(/RCS (de |of )?[A-Z]/);
+  });
 });

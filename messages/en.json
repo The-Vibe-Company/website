@@ -1625,11 +1625,11 @@
   },
   "contact": {
     "metaTitle": "Contact The Vibe Company, AI agency (YC W24)",
-    "metaDescription": "How to reach The Vibe Company: co-founders Stan Girard and Antoine Dewez, in Montreuil, France. Email stan@thevibecompany.co or book a 30-minute call online.",
+    "metaDescription": "How to reach The Vibe Company: co-founders Stan Girard and Antoine Dewez, offices in Paris. Email stan@thevibecompany.co or book a 30-minute call online.",
     "breadcrumb": "Contact",
     "kicker": "Contact",
     "title": "Contact The Vibe Company",
-    "lede": "Two people run this site: Stan Girard and Antoine Dewez, the co-founders of The Vibe Company, an AI agency based in Montreuil, just outside Paris. Whether you email or book a call, you talk to a founder directly.",
+    "lede": "Two people run this site: Stan Girard and Antoine Dewez, the co-founders of The Vibe Company, an AI agency with offices in Paris and a registered office in Montreuil. Whether you email or book a call, you talk to a founder directly.",
     "bookCall": "Book 30 minutes",
     "response": "A 30-minute call, booked on cal.com",
     "email": {
@@ -1650,15 +1650,15 @@
       "rows": {
         "company": "Company",
         "founders": "Founders",
-        "city": "City",
-        "address": "Postal address",
+        "offices": "Offices",
+        "headquarters": "Registered office",
         "email": "Email"
       },
       "values": {
-        "company": "The Vibe Company",
+        "company": "Quivr SAS, operating under the brand The Vibe Company",
         "founders": "Stan Girard, Antoine Dewez",
-        "city": "Montreuil (Seine-Saint-Denis), France",
-        "address": "TO BE CONFIRMED"
+        "offices": "10 rue La Vacquerie, 75011 Paris, France",
+        "headquarters": "44 boulevard Paul Vaillant-Couturier, 93100 Montreuil, France"
       }
     },
     "what": {
@@ -1687,7 +1687,7 @@
       "controller": {
         "title": "Who is responsible for your data",
         "paragraphs": [
-          "thevibecompany.co is published by The Vibe Company, an AI agency founded by Stan Girard and Antoine Dewez and based in Montreuil (Seine-Saint-Denis), France. The Vibe Company is the controller of the processing described on this page.",
+          "thevibecompany.co is published by Quivr SAS, operating under the brand The Vibe Company, the AI agency founded by Stan Girard and Antoine Dewez. Quivr SAS is the controller of the processing described on this page.",
           "For any question about your data, write to stan@thevibecompany.co."
         ],
         "table": {
@@ -1698,20 +1698,32 @@
           ],
           "rows": [
             [
-              "Name",
-              "The Vibe Company"
+              "Publisher",
+              "Quivr SAS (registered name QUIVR), operating under the brand The Vibe Company"
             ],
             [
               "Legal form and share capital",
-              "TO BE CONFIRMED"
+              "Simplified joint-stock company (SAS), share capital of €100.00 (fixed)"
             ],
             [
-              "SIREN and RCS registration",
-              "TO BE CONFIRMED"
+              "Registration",
+              "SIREN 981 841 109, registered in the French National Business Register (RNE) on November 24, 2023"
+            ],
+            [
+              "Registered office SIRET",
+              "981 841 109 00011"
+            ],
+            [
+              "EU VAT number",
+              "FR96 981 841 109"
             ],
             [
               "Registered office",
-              "Montreuil (Seine-Saint-Denis), France. Full address: TO BE CONFIRMED"
+              "44 boulevard Paul Vaillant-Couturier, 93100 Montreuil, France"
+            ],
+            [
+              "Offices",
+              "10 rue La Vacquerie, 75011 Paris, France"
             ],
             [
               "Publication director",
@@ -1727,7 +1739,7 @@
             ],
             [
               "Host",
-              "Vercel Inc., United States. Address: TO BE CONFIRMED"
+              "Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, United States"
             ]
           ]
         }
@@ -1741,10 +1753,10 @@
           {
             "title": "Audience measurement with PostHog",
             "paragraphs": [
-              "On the production site only, the PostHog library records page views (the page address, query string included, for instance the text of a search in the resources), page leaves, the clicks and interactions it captures automatically, and JavaScript errors. On top of that come the events we named ourselves: clicks on our booking, contact and navigation buttons, opening the mobile menu, a search in the resources (query length and word count only), expanding or copying a skill prompt, games of the homepage mini-game, with their score and, when a record falls, the previous record.",
+              "On the production site only, the PostHog library records page views (the page address, query string included, for instance the text of a search in the resources), page leaves, the clicks and interactions it captures automatically, click and scroll positions for heatmaps, page performance measurements (Web Vitals) and JavaScript errors. On top of that come the events we named ourselves: clicks on our booking, contact and navigation buttons, opening the mobile menu, a search in the resources (query length and word count only), expanding or copying a skill prompt, games of the homepage mini-game, with their score and, when a record falls, the previous record.",
               "PostHog adds technical details: browser, operating system, screen size, referring page, campaign parameters (utm_*) and ad click identifiers found in the address (gclid, fbclid, msclkid, li_fat_id, ttclid…).",
-              "The data goes through /ingest, a relay on our own domain, then on to PostHog, in its United States region. Whether PostHog keeps the IP address: TO BE CONFIRMED. The site never calls PostHog’s identify function and creates no person profile: your visits are not tied to your name or email, only to a random identifier specific to your browser.",
-              "Session recording, surveys and IP-based geolocation: the site’s code does not turn them off, so whether they run depends on the PostHog project settings. TO BE CONFIRMED."
+              "The data goes through /ingest, a relay on our own domain, then on to PostHog, in its United States region. The PostHog project setting that anonymizes IP addresses is not turned on: the IP address sent with events is not masked. By default, PostHog derives an approximate location from it (country, city) and adds it to the events. The site never calls PostHog’s identify function and creates no person profile: your visits are not tied to your name or email, only to a random identifier specific to your browser.",
+              "Session recording (replay) is turned off in the PostHog project, and surveys are not enabled."
             ]
           },
           {
@@ -1758,13 +1770,13 @@
           {
             "title": "Email",
             "paragraphs": [
-              "If you write to us, we receive your email address, your name if it appears and the content of your message. They are used to answer you and keep track of the conversation. Email provider: TO BE CONFIRMED."
+              "If you write to us, we receive your email address, your name if it appears and the content of your message. They are used to answer you and keep track of the conversation. Our email runs on Google Workspace (Gmail)."
             ]
           },
           {
             "title": "Hosting on Vercel",
             "paragraphs": [
-              "The site is hosted by Vercel. Like any host, Vercel processes the technical data of each request (IP address, browser, requested page, date and time) to serve pages and protect the service. Traffic to the site is encrypted over HTTPS.",
+              "The site is hosted by Vercel. Like any host, Vercel processes the technical data of each request (IP address, browser, requested page, date and time) to serve pages and protect the service. Traffic to the site is encrypted over HTTPS. Pages are served from Vercel’s network, close to the visitor; the site’s server functions, such as receiving cal.com notifications, run in Washington, D.C., United States (region iad1).",
               "When you open an address with no language in it, such as /contact, the site reads the country Vercel derives from your IP address to choose between French and English. The site does not store that country.",
               "Vercel Web Analytics and Speed Insights are not installed. Fonts are served from our own domain: no request goes to Google Fonts."
             ]
@@ -1875,33 +1887,33 @@
           "columns": [
             "Provider",
             "Role",
-            "Location"
+            "Location and safeguards"
           ],
           "rows": [
             [
-              "PostHog",
+              "PostHog, Inc.",
               "Audience measurement",
-              "United States, PostHog’s US region"
+              "United States (PostHog’s US region). Participates in the EU–US Data Privacy Framework; standard contractual clauses in its data processing agreement."
             ],
             [
-              "Vercel",
+              "Vercel Inc.",
               "Site hosting",
-              "United States. Deployment region: TO BE CONFIRMED"
+              "United States (server functions in region iad1, Washington, D.C.). Participates in the EU–US Data Privacy Framework; standard contractual clauses."
             ],
             [
-              "Cal.com",
+              "Cal.com, Inc.",
               "Booking",
-              "TO BE CONFIRMED"
+              "United States. Participates in the EU–US Data Privacy Framework; 2021 standard contractual clauses for other cases."
             ],
             [
-              "Email provider",
-              "Email",
-              "TO BE CONFIRMED"
+              "Google (Google Workspace)",
+              "Email (Gmail)",
+              "Standard contractual clauses provided for in Google’s data processing addendum. Data location: TO BE CONFIRMED."
             ]
           ]
         },
         "after": [
-          "This data may therefore be transferred outside the European Union. Safeguards covering these transfers (European Commission standard contractual clauses, EU–US Data Privacy Framework): TO BE CONFIRMED."
+          "This data is therefore transferred outside the European Union. PostHog, Vercel and Cal.com state that they participate in the EU–US Data Privacy Framework, recognized by the European Commission, and provide standard contractual clauses for the cases it does not cover."
         ]
       },
       "retention": {

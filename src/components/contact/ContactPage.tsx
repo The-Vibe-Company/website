@@ -50,7 +50,7 @@ const PROSE = "m-0 text-[15px] leading-[1.6] text-muted-foreground md:text-base"
 const TEXT_LINK =
   "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
 
-const DETAIL_KEYS = ["company", "founders", "city", "address", "email"] as const;
+const DETAIL_KEYS = ["company", "founders", "offices", "headquarters", "email"] as const;
 
 export async function ContactPage({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "contact" });
