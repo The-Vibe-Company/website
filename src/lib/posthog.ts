@@ -10,17 +10,116 @@ export const isPostHogEnabled =
   process.env.NEXT_PUBLIC_VERCEL_ENV === "production" &&
   Boolean(process.env.NEXT_PUBLIC_POSTHOG_KEY);
 
+export type EventProperties = Record<string, string | number | boolean | null | undefined>;
+
+type QueuedCapture = [eventName: string, properties: EventProperties, options: CaptureOptions];
+
+export type PostHogQueueOptions = {
+  /** Fetches posthog-js and initializes it. Retried when it rejects. */
+  importPostHog: () => Promise<PostHog>;
+  /** Where the visitor is right now, stamped on events that have to wait. */
+  pageContext?: () => EventProperties;
+  maxAttempts?: number;
+  /** Delay before the second attempt, doubled before each following one. */
+  retryDelayMs?: number;
+  maxPending?: number;
+  wait?: (ms: number) => Promise<void>;
+};
+
+/**
+ * The URL posthog-js would read itself if it were loaded. A queued event is
+ * sent later, possibly after a client-side navigation, so it carries these
+ * instead of the URL at send time. `$referrer` is left out: posthog-js takes
+ * it from the session, not the event, and it does not change on client-side
+ * navigations anyway.
+ */
+export function currentPageContext(): EventProperties {
+  if (typeof window === "undefined") return {};
+  const { href, host, pathname } = window.location;
+  return { $current_url: href, $host: host, $pathname: pathname };
+}
+
+/**
+ * Captures go to `pending` with their own timestamp and URL until posthog-js
+ * is in; then they are replayed in order and later ones go out synchronously,
+ * which matters for clicks that navigate the tab away.
+ *
+ * A failed import (flaky network, chunk evicted by a deploy) is retried a few
+ * times with backoff. After the last attempt the queue is dropped and captures
+ * become no-ops for the rest of the page, so nothing grows or loops forever.
+ * The queue itself is capped and keeps the oldest events, which include the
+ * landing `$pageview`.
+ */
+export function createPostHogQueue({
+  importPostHog,
+  pageContext = currentPageContext,
+  maxAttempts = 3,
+  retryDelayMs = 1000,
+  maxPending = 100,
+  wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+}: PostHogQueueOptions) {
+  let loading: Promise<PostHog | null> | null = null;
+  let loaded: PostHog | null = null;
+  let abandoned = false;
+  const pending: QueuedCapture[] = [];
+
+  async function importWithRetry(): Promise<PostHog | null> {
+    for (let attempt = 1; ; attempt++) {
+      try {
+        return await importPostHog();
+      } catch (error) {
+        if (attempt >= maxAttempts) {
+          console.warn(`PostHog failed to load after ${attempt} attempts, analytics are off for this page.`, error);
+          return null;
+        }
+        await wait(retryDelayMs * 2 ** (attempt - 1));
+      }
+    }
+  }
+
+  function load(): Promise<PostHog | null> {
+    loading ??= importWithRetry().then((posthog) => {
+      if (!posthog) {
+        abandoned = true;
+        pending.length = 0;
+        return null;
+      }
+      loaded = posthog;
+      for (const args of pending.splice(0)) posthog.capture(...args);
+      return posthog;
+    });
+    return loading;
+  }
+
+  function capture(eventName: string, properties?: EventProperties, options?: CaptureOptions) {
+    if (loaded) {
+      loaded.capture(eventName, properties, options);
+      return;
+    }
+    if (abandoned || pending.length >= maxPending) return;
+    pending.push([
+      eventName,
+      { ...pageContext(), ...properties },
+      { ...options, timestamp: options?.timestamp ?? new Date() },
+    ]);
+  }
+
+  return { load, capture };
+}
+
 // posthog-js weighs ~57 KB gzipped. It is fetched on demand rather than
 // bundled with the page, so it never competes with the first paint: see
-// schedulePostHogLoad(). Until then captures wait in `pending` with their own
-// timestamp; once it is in they go out synchronously, which matters for
-// clicks that navigate the tab away.
-let loading: Promise<PostHog> | null = null;
-let loaded: PostHog | null = null;
-const pending: Parameters<PostHog["capture"]>[] = [];
+// schedulePostHogLoad().
+//
+// Turbopack remembers a chunk that failed to load and rejects every later
+// import() of it without going back to the network, so once the bundled chunk
+// has failed the retries load PostHog's own build through the /ingest proxy
+// instead.
+let bundledChunkFailed = false;
 
-export function loadPostHog(): Promise<PostHog> {
-  loading ??= import("posthog-js").then(({ default: posthog }) => {
+const queue = createPostHogQueue({
+  importPostHog: async () => {
+    const posthog = bundledChunkFailed ? await loadPostHogScript() : await importBundledPostHog();
     posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
       api_host: "/ingest",
       ui_host: "https://us.posthog.com",
@@ -31,12 +130,38 @@ export function loadPostHog(): Promise<PostHog> {
       capture_exceptions: true,
       debug: process.env.NODE_ENV === "development",
     });
-    loaded = posthog;
-    for (const args of pending.splice(0)) posthog.capture(...args);
     return posthog;
-  });
-  return loading;
+  },
+});
+
+async function importBundledPostHog(): Promise<PostHog> {
+  try {
+    return (await import("posthog-js")).default;
+  } catch (error) {
+    bundledChunkFailed = true;
+    throw error;
+  }
 }
+
+function loadPostHogScript(): Promise<PostHog> {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "/ingest/static/array.js";
+    script.async = true;
+    script.onload = () => {
+      const { posthog } = window as Window & { posthog?: PostHog };
+      if (posthog) resolve(posthog);
+      else reject(new Error("/ingest/static/array.js did not define window.posthog"));
+    };
+    script.onerror = () => {
+      script.remove();
+      reject(new Error("Failed to load /ingest/static/array.js"));
+    };
+    document.head.append(script);
+  });
+}
+
+export const loadPostHog = queue.load;
 
 /**
  * Loads PostHog once the page has finished loading and the main thread is
@@ -62,15 +187,7 @@ export function schedulePostHogLoad() {
 
 const INTERACTIONS = ["pointerdown", "keydown", "scroll"] as const;
 
-export function captureEvent(
-  eventName: string,
-  properties?: Record<string, string | number | boolean | null | undefined>,
-  options?: CaptureOptions,
-) {
+export function captureEvent(eventName: string, properties?: EventProperties, options?: CaptureOptions) {
   if (!isPostHogEnabled) return;
-  if (loaded) {
-    loaded.capture(eventName, properties, options);
-    return;
-  }
-  pending.push([eventName, properties, { ...options, timestamp: options?.timestamp ?? new Date() }]);
+  queue.capture(eventName, properties, options);
 }
