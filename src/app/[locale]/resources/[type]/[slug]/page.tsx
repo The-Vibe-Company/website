@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Link, permanentRedirect } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
@@ -389,14 +390,20 @@ export default async function ContentDetailPage({
 
               {cover?.url && (
                 <figure className="mb-8 md:mb-12">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  {/* The cover is the LCP element on mobile: served through the
+                      Next image optimizer (AVIF/WebP at the rendered width),
+                      preloaded with high priority, never lazy. `sizes` follows
+                      the article column: full width minus the section padding,
+                      then 7 of 12 columns (gap-12) from lg. */}
+                  <Image
                     src={cover.url}
                     alt={cover.alt ?? item.title}
                     width={coverDimensions.width}
                     height={coverDimensions.height}
+                    sizes="(min-width: 1024px) calc(58.33vw - 132px), (min-width: 768px) calc(100vw - 96px), calc(100vw - 48px)"
+                    preload
+                    fetchPriority="high"
                     className="w-full h-auto rounded-lg border border-res-border"
-                    decoding="async"
                   />
                   {coverCaption ? (
                     <figcaption className="mt-3 text-xs font-mono text-res-text-muted">
