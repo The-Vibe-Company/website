@@ -14,11 +14,15 @@ export type EventProperties = Record<string, string | number | boolean | null | 
 
 type QueuedCapture = [eventName: string, properties: EventProperties, options: CaptureOptions];
 
+export type BrowserUrl = { get: () => string; set: (url: string) => void };
+
 export type PostHogQueueOptions = {
-  /** Fetches posthog-js and initializes it. Retried when it rejects. */
+  /** Fetches posthog-js. Retried, with `initPostHog`, when either throws. */
   importPostHog: () => Promise<PostHog>;
+  initPostHog: (posthog: PostHog) => void;
   /** Where the visitor is right now, stamped on events that have to wait. */
   pageContext?: () => EventProperties;
+  browserUrl?: BrowserUrl;
   maxAttempts?: number;
   /** Delay before the second attempt, doubled before each following one. */
   retryDelayMs?: number;
@@ -40,11 +44,25 @@ export function currentPageContext(): EventProperties {
 }
 
 /**
+ * posthog-js also reads `location` on its own when it initializes and sends:
+ * campaign parameters (utm_*, gclid...), the session entry URL, the person's
+ * initial URL, `$prev_pageview_pathname`. So queued events are replayed with
+ * the address bar briefly set back to the URL each one happened on, then
+ * restored, all in the same task. The native replaceState is called rather
+ * than the one Next.js patches, so the router never sees it. Only the `title`
+ * posthog-js stamps on a `$pageview` still comes from the page on screen.
+ */
+const addressBar: BrowserUrl = {
+  get: () => location.href,
+  set: (url) => History.prototype.replaceState.call(history, history.state, "", url),
+};
+
+/**
  * Captures go to `pending` with their own timestamp and URL until posthog-js
  * is in; then they are replayed in order and later ones go out synchronously,
  * which matters for clicks that navigate the tab away.
  *
- * A failed import (flaky network, chunk evicted by a deploy) is retried a few
+ * A failed load (flaky network, chunk evicted by a deploy) is retried a few
  * times with backoff. After the last attempt the queue is dropped and captures
  * become no-ops for the rest of the page, so nothing grows or loops forever.
  * The queue itself is capped and keeps the oldest events, which include the
@@ -52,7 +70,9 @@ export function currentPageContext(): EventProperties {
  */
 export function createPostHogQueue({
   importPostHog,
+  initPostHog,
   pageContext = currentPageContext,
+  browserUrl = addressBar,
   maxAttempts = 3,
   retryDelayMs = 1000,
   maxPending = 100,
@@ -63,10 +83,35 @@ export function createPostHogQueue({
   let abandoned = false;
   const pending: QueuedCapture[] = [];
 
+  // Runs `send` with the address bar showing the URL of each queued event it
+  // is handed, starting with the oldest one, and restores the real URL after.
+  function atQueuedUrls(send: (showUrlOf: (event: QueuedCapture) => void) => void) {
+    if (pending.length === 0) return send(() => {});
+    const actualUrl = browserUrl.get();
+    let shownUrl = actualUrl;
+    const show = (url: unknown) => {
+      if (typeof url !== "string" || url === shownUrl) return;
+      try {
+        browserUrl.set(url);
+        shownUrl = url;
+      } catch {
+        // The event still carries its own $current_url and $pathname.
+      }
+    };
+    try {
+      show(pending[0][1].$current_url);
+      send((event) => show(event[1].$current_url));
+    } finally {
+      show(actualUrl);
+    }
+  }
+
   async function importWithRetry(): Promise<PostHog | null> {
     for (let attempt = 1; ; attempt++) {
       try {
-        return await importPostHog();
+        const posthog = await importPostHog();
+        atQueuedUrls(() => initPostHog(posthog));
+        return posthog;
       } catch (error) {
         if (attempt >= maxAttempts) {
           console.warn(`PostHog failed to load after ${attempt} attempts, analytics are off for this page.`, error);
@@ -84,8 +129,14 @@ export function createPostHogQueue({
         pending.length = 0;
         return null;
       }
+      atQueuedUrls((showUrlOf) => {
+        for (const event of pending) {
+          showUrlOf(event);
+          posthog.capture(...event);
+        }
+      });
+      pending.length = 0;
       loaded = posthog;
-      for (const args of pending.splice(0)) posthog.capture(...args);
       return posthog;
     });
     return loading;
@@ -118,8 +169,8 @@ export function createPostHogQueue({
 let bundledChunkFailed = false;
 
 const queue = createPostHogQueue({
-  importPostHog: async () => {
-    const posthog = bundledChunkFailed ? await loadPostHogScript() : await importBundledPostHog();
+  importPostHog: () => (bundledChunkFailed ? loadPostHogScript() : importBundledPostHog()),
+  initPostHog: (posthog) => {
     posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
       api_host: "/ingest",
       ui_host: "https://us.posthog.com",
@@ -130,7 +181,6 @@ const queue = createPostHogQueue({
       capture_exceptions: true,
       debug: process.env.NODE_ENV === "development",
     });
-    return posthog;
   },
 });
 
