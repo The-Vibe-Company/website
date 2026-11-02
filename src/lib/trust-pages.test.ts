@@ -76,6 +76,7 @@ describe("contact and privacy copy", () => {
     }
     expect(contact).toContain("44 boulevard Paul Vaillant-Couturier, 93100 Montreuil");
     expect(contact).toContain("10 rue La Vacquerie, 75011 Paris");
+    expect(contact).toContain("SIREN 981 841 109");
     // No registry city is published for the RCS: never name one.
     expect(privacy).not.toMatch(/RCS (de |of )?[A-Z]/);
   });
