@@ -3,6 +3,78 @@
 @source not "../../.agents";
 @source not "../../.claude";
 
+/* Bricolage Grotesque, in the two cuts the site uses (src/lib/fonts.ts). The
+   fallback faces are next/font's metric matches for each cut, so the swap
+   keeps every line box. */
+@font-face {
+  font-family: "Bricolage";
+  src: url("/fonts/bricolage-text-latin-v1.woff2") format("woff2");
+  font-weight: 300 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bricolage Fallback";
+  src: local("Arial");
+  ascent-override: 82.62%;
+  descent-override: 23.99%;
+  line-gap-override: 0%;
+  size-adjust: 112.57%;
+}
+
+@font-face {
+  font-family: "Bricolage Display";
+  src: url("/fonts/bricolage-display-latin-v1.woff2") format("woff2");
+  font-weight: 600 700;
+  font-stretch: 92%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bricolage Display Fallback";
+  src: local("Arial");
+  ascent-override: 101.96%;
+  descent-override: 29.6%;
+  line-gap-override: 0%;
+  size-adjust: 91.21%;
+}
+
+/* Geist Mono (metadata, kickers, chips) and Geist (the runner's canvas, a
+   fallback), latin only, with next/font's metric-matched fallbacks. */
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/geist-mono-latin-v1.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Geist Mono Fallback";
+  src: local("Arial");
+  ascent-override: 74.67%;
+  descent-override: 21.92%;
+  line-gap-override: 0%;
+  size-adjust: 134.59%;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/geist-latin-v1.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Geist Fallback";
+  src: local("Arial");
+  ascent-override: 95.94%;
+  descent-override: 28.16%;
+  line-gap-override: 0%;
+  size-adjust: 104.76%;
+}
+
 /* =============================================================================
    PORCELAINE: the one kit every page takes
 
@@ -155,6 +227,10 @@
 :root {
   --wrap: 1200px;
   --gut: 24px;
+  --font-geist-sans: "Geist", "Geist Fallback";
+  --font-geist-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-bricolage: "Bricolage", "Bricolage Fallback";
+  --font-bricolage-display: "Bricolage Display", "Bricolage Display Fallback";
   --font-ui: var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   /* The titles' own instance of Bricolage: narrower (wdth 92) and cut for
      large sizes (opsz 96). */

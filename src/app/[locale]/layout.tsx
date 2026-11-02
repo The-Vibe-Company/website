@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import localFont from "next/font/local";
 import { notFound } from "next/navigation";
+import { preload } from "react-dom";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { WebMcp } from "@/components/WebMcp";
@@ -10,49 +9,22 @@ import { JsonLd } from "@/components/JsonLd";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
 import { routing } from "@/i18n/routing";
 import { defaultSocialMetadata, localizedAlternates, SITE_ICONS, SITE_NAME, SITE_URL } from "@/lib/site";
+import { PRELOADED_FONT_URLS } from "@/lib/fonts";
 import { siteGraph } from "@/lib/structured-data";
 import "../globals.css";
 
 // Porcelaine type: Bricolage Grotesque for the page, Geist Mono for metadata,
-// kickers and chips. Geist stays loaded as the canvas runner's sans and as the
-// fallback.
+// kickers and chips, Geist for the desktop runner's canvas and as a fallback.
+// All four are self-hosted and declared in globals.css (src/lib/fonts.ts): with
+// next/font their @font-face rules came in extra render-blocking stylesheets.
 //
 // Bricolage is self-hosted as two instances of the Google variable font, built
 // by scripts/fonts/build-bricolage.py, because the full latin file (wght, opsz
 // and wdth axes, ~130 KB) weighed on the mobile LCP. Together they are ~74 KB,
-// both preloaded so the swap never shifts the hero:
+// both preloaded below, with Geist Mono, so the swap never shifts the hero:
 // - display (titles): wdth 92 and opsz 96 fixed, weights 600-700, ~34 KB;
 // - text: wdth 100, opsz fixed at 16, weights 300-800, ~39 KB.
 // Latin only: no page text uses a latin-ext glyph.
-const bricolage = localFont({
-  src: "../fonts/bricolage-text-latin.woff2",
-  variable: "--font-bricolage",
-  weight: "300 800",
-  display: "swap",
-});
-
-const bricolageDisplay = localFont({
-  src: "../fonts/bricolage-display-latin.woff2",
-  variable: "--font-bricolage-display",
-  weight: "600 700",
-  declarations: [{ prop: "font-stretch", value: "92%" }],
-  display: "swap",
-});
-
-// Not preloaded: the page text is set in Bricolage, so Geist only serves the
-// desktop runner's canvas and the odd fallback glyph.
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-  preload: false,
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -93,14 +65,12 @@ export default async function LocaleLayout({
   // Enable static rendering for this locale (next-intl).
   setRequestLocale(locale);
 
+  for (const href of PRELOADED_FONT_URLS) {
+    preload(href, { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
+  }
+
   return (
-    // The font variables sit on <html> so the root-level --font-ui / --font-code
-    // tokens in globals.css can resolve them.
-    <html
-      lang={locale}
-      data-scroll-behavior="smooth"
-      className={`${bricolage.variable} ${bricolageDisplay.variable} ${geistSans.variable} ${geistMono.variable}`}
-    >
+    <html lang={locale} data-scroll-behavior="smooth">
       <head>
         <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
       </head>
