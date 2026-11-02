@@ -66,7 +66,12 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               room beside it drops below, never under the bead. */}
           <Bead className="rise pointer-events-none float-right -mr-1.5 -mt-3.5 mb-2 ml-2.5 h-auto w-[clamp(88px,27vw,104px)] [animation-delay:160ms] [animation-duration:900ms] md:absolute md:right-[clamp(32px,4.7vw,60px)] md:top-[34px] md:float-none md:m-0 md:w-[var(--bead)]" />
 
-          <p className="kicker rise">
+          {/* The text above the fold is painted in the first frame, never
+              behind an entrance animation: it is the page's LCP element (the
+              title on FR, the pitch on EN), and an opacity ramp holds the LCP
+              back and pulls every script chunk into its critical path. Only
+              the bead, which is not text, rises in. */}
+          <p className="kicker">
             <span aria-hidden="true" className="dot dot-rim" />
             <span>{tFooter("openToProjects")}</span>
           </p>
@@ -76,7 +81,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
           {/* The page's one h1 carries both lines, the name and what we do,
               each set in its own size. */}
           <h1 className="m-0">
-            <span className="display d-xl rise block [animation-delay:70ms] mt-5 max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
+            <span className="display d-xl block mt-5 max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
               {t("titleLine1")
                 .split(" ")
                 .map((word, i) => (
@@ -86,12 +91,12 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
                   </Fragment>
                 ))}
             </span>
-            <span className="rise mt-4 block [animation-delay:150ms] max-w-[820px] md:max-w-[min(820px,calc(100%-var(--bead)-24px))] text-[22px] font-medium leading-[1.12] tracking-[-0.018em] text-ink md:mt-[26px] md:text-[36px]">
+            <span className="mt-4 block max-w-[820px] md:max-w-[min(820px,calc(100%-var(--bead)-24px))] text-[22px] font-medium leading-[1.12] tracking-[-0.018em] text-ink md:mt-[26px] md:text-[36px]">
               {t("titleLine2")}
             </span>
           </h1>
 
-          <div className="rise mt-7 grid gap-[22px] [animation-delay:240ms] md:mt-[52px] lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-end lg:gap-10">
+          <div className="mt-7 grid gap-[22px] md:mt-[52px] lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-end lg:gap-10">
             <p className="lede-bar m-0 text-[16.5px] md:text-[18.5px]">{t("subtitle")}</p>
 
             <div className="flex gap-2">

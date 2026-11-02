@@ -172,7 +172,7 @@ export default async function CaseStudyPage({
             <Piece
               tone="main"
               radius="xl"
-              className="rise mt-2 p-5 pb-7 [--rim-angle:118deg] max-md:rounded-[28px] md:px-10 md:pb-12 md:pt-9 lg:px-14 lg:pb-[60px]"
+              className="mt-2 p-5 pb-7 [--rim-angle:118deg] max-md:rounded-[28px] md:px-10 md:pb-12 md:pt-9 lg:px-14 lg:pb-[60px]"
             >
               <div className="flex flex-col items-start gap-4 pb-5 md:flex-row md:items-center md:justify-between md:pb-7">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
