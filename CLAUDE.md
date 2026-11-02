@@ -29,6 +29,8 @@ Always add the link to the issue in the PR description.
 
 Always use frontend-design skill and ui-ux-pro-max skill for designing pages and components or when the user asks you to design something.
 
+For faux product UI (product shots, feature bento grids, demo animations), use the Stageshow skill in `.agents/skills/stageshow` (linked from `.claude/skills/stageshow`, pinned in `skills-lock.json`). It is reference material only: never install its `package.json` or run its scripts, and copy only the few tokens or patterns a page needs into `src/` (the folder is excluded from `tsconfig.json`, ESLint and Tailwind's source scan).
+
 ## Layout Architecture (CRITICAL)
 
 **NEVER create `src/app/layout.tsx`** (root layout). The frontend route group already owns its own `<html>`:
