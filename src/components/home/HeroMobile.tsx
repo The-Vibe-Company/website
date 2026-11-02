@@ -112,13 +112,16 @@ export function HeroMobile() {
                 aria-label={client.name}
                 className="flex h-[76px] items-center justify-center"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                {/* Lazy: an eager <img> is preloaded by React in <head>, where
+                    the seven logos competed with the poster's fonts and CSS.
+                    h-auto undoes next/image's height="0". */}
+                <Image
                   src={client.src}
                   alt={client.name}
-                  className="max-h-[26px] w-auto max-w-[72%] object-contain brightness-0"
-                  loading="eager"
-                  decoding="async"
+                  width={0}
+                  height={0}
+                  sizes="100px"
+                  className="h-auto max-h-[26px] w-auto max-w-[72%] object-contain brightness-0"
                 />
               </a>
             </li>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
@@ -20,13 +21,15 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
       className="group flex h-full flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
     >
       <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        {/* Sized by its height class alone, as before: width/height 0 only
+            let next/image pick a srcset from `sizes`. */}
+        <Image
           src={c.logo}
           alt={c.client}
+          width={0}
+          height={0}
+          sizes="200px"
           className="h-7 w-auto object-contain md:h-8"
-          loading="lazy"
-          decoding="async"
         />
         <span className="max-w-full border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground md:shrink-0">
           {c.sector}
@@ -97,8 +100,7 @@ function CaseSlide({ c, t }: { c: Customer; t: T }) {
       href={`/case-studies/${c.slug}?from=home`}
       className="group flex h-full flex-col border-2 border-foreground bg-background p-5 no-underline"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={c.logo} alt={c.client} className="h-[26px] w-auto self-start object-contain" loading="lazy" decoding="async" />
+      <Image src={c.logo} alt={c.client} width={0} height={0} sizes="160px" className="h-[26px] w-auto self-start object-contain" />
       {/* Two lines reserved whatever the sector's length, so every card's
           number sits at the same height as you swipe. */}
       <span className={`mt-5 line-clamp-2 min-h-[3em] text-muted-foreground ${MONO}`}>{c.sector}</span>

@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getProjects, type ContentLocale } from "@/lib/projects";
@@ -37,8 +38,7 @@ export function Proof() {
                 href={`/portfolio/${p.slug}`}
                 className="grid min-h-[68px] grid-cols-[36px_minmax(0,1fr)_auto] items-center gap-3.5 py-4 no-underline"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.logo} alt="" aria-hidden="true" className="h-9 w-9 rounded-md object-contain" loading="lazy" decoding="async" />
+                <Image src={p.logo} alt="" aria-hidden="true" width={36} height={36} className="h-9 w-9 rounded-md object-contain" />
                 <span className="min-w-0">
                   <span className="block font-mono text-[17px] font-bold tracking-[-0.02em] text-foreground">{p.name}</span>
                   <span className="mt-0.5 block text-[13px] text-muted-foreground">{p.tag}</span>
@@ -127,14 +127,13 @@ export function Proof() {
                         </span>
                       </div>
                       <div className="mt-3 flex items-center gap-3">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                           src={p.logo}
                           alt=""
                           aria-hidden="true"
+                          width={32}
+                          height={32}
                           className="h-8 w-8 shrink-0 rounded-sm object-contain"
-                          loading="lazy"
-                          decoding="async"
                         />
                         <h3 className="m-0 font-mono text-2xl font-bold tracking-[-0.03em] text-foreground">
                           {p.name}
