@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 /**
@@ -22,7 +21,8 @@ export function Quote() {
           {t.rich("text", { em: (chunks) => <em className="not-italic text-orange-500">{chunks}</em> })}
         </blockquote>
         <figcaption className="mt-6 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-background/60">
-          <Image src="/images/clients/monka.webp" alt="" aria-hidden="true" width={0} height={0} sizes="64px" className="h-[22px] w-auto brightness-0 invert" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/clients/monka.webp" alt="" aria-hidden="true" className="h-[22px] w-auto brightness-0 invert" loading="lazy" decoding="async" />
           {t("author")}
         </figcaption>
       </figure>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Marquee } from "@/components/Marquee";
 
@@ -46,15 +45,14 @@ export function Clients() {
                 scroll into view; low priority, which also keeps React from
                 preloading them in <head> on phones, where this band is
                 display:none, ahead of the hero's fonts and CSS. */}
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={client.src}
               alt={client.name}
-              width={0}
-              height={0}
-              sizes="170px"
               className={`${client.className} w-auto object-contain brightness-0`}
               loading="eager"
               fetchPriority="low"
+              decoding="async"
             />
           </a>
         ))}
