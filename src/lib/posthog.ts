@@ -57,6 +57,8 @@ const addressBar: BrowserUrl = {
   set: (url) => History.prototype.replaceState.call(history, history.state, "", url),
 };
 
+const MAX_REPLAYED_URLS = 5;
+
 /**
  * Captures go to `pending` with their own timestamp and URL until posthog-js
  * is in; then they are replayed in order and later ones go out synchronously,
@@ -83,26 +85,33 @@ export function createPostHogQueue({
   let abandoned = false;
   const pending: QueuedCapture[] = [];
 
-  // Runs `send` with the address bar showing the URL of each queued event it
-  // is handed, starting with the oldest one, and restores the real URL after.
-  function atQueuedUrls(send: (showUrlOf: (event: QueuedCapture) => void) => void) {
-    if (pending.length === 0) return send(() => {});
+  // Runs `send` with the address bar showing the URL of each event it is
+  // handed, starting with the oldest one, and restores the real URL after.
+  // Browsers throttle replaceState (Safari throws past ~100 calls in 10 s),
+  // so a queue spanning many pages is sent without the rewrite: its events
+  // still carry their own $current_url and $pathname.
+  function atUrlsOf(events: QueuedCapture[], send: (showUrlOf: (event: QueuedCapture) => void) => void) {
+    const urls = new Set(events.map(([, properties]) => properties.$current_url));
+    if (events.length === 0 || urls.size > MAX_REPLAYED_URLS) return send(() => {});
     const actualUrl = browserUrl.get();
     let shownUrl = actualUrl;
     const show = (url: unknown) => {
       if (typeof url !== "string" || url === shownUrl) return;
       try {
         browserUrl.set(url);
-        shownUrl = url;
       } catch {
-        // The event still carries its own $current_url and $pathname.
+        // Same fallback as a long queue: the event carries its own URL.
       }
+      // Read back: Chrome ignores throttled calls without throwing.
+      shownUrl = browserUrl.get();
     };
     try {
-      show(pending[0][1].$current_url);
+      show(events[0][1].$current_url);
       send((event) => show(event[1].$current_url));
     } finally {
-      show(actualUrl);
+      // Tried twice: a tab left on an old URL breaks reloads and shared links.
+      for (let tries = 0; tries < 2 && shownUrl !== actualUrl; tries++) show(actualUrl);
+      if (shownUrl !== actualUrl) console.warn(`PostHog could not restore the address bar to ${actualUrl}.`);
     }
   }
 
@@ -110,7 +119,7 @@ export function createPostHogQueue({
     for (let attempt = 1; ; attempt++) {
       try {
         const posthog = await importPostHog();
-        atQueuedUrls(() => initPostHog(posthog));
+        atUrlsOf(pending, () => initPostHog(posthog));
         return posthog;
       } catch (error) {
         if (attempt >= maxAttempts) {
@@ -129,14 +138,18 @@ export function createPostHogQueue({
         pending.length = 0;
         return null;
       }
-      atQueuedUrls((showUrlOf) => {
-        for (const event of pending) {
+      const queued = pending.splice(0);
+      loaded = posthog;
+      atUrlsOf(queued, (showUrlOf) => {
+        for (const event of queued) {
           showUrlOf(event);
-          posthog.capture(...event);
+          try {
+            posthog.capture(...event);
+          } catch {
+            // One bad event must not hold back the rest of the queue.
+          }
         }
       });
-      pending.length = 0;
-      loaded = posthog;
       return posthog;
     });
     return loading;

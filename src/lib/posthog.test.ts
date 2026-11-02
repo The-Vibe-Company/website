@@ -141,6 +141,63 @@ describe("events queued before PostHog loads", () => {
     expect(sent.map(({ properties }) => properties?.$pathname)).toEqual(["/fr"]);
   });
 
+  test("spanning many pages are sent without rewriting the address bar", async () => {
+    const { navigate, pageContext, browserUrl, urlChanges } = fakeLocation("/fr");
+    const { posthog, sent } = fakePostHog();
+    const queue = queueWith({ importPostHog: async () => posthog, pageContext, browserUrl });
+    const pages = ["/fr", "/fr/a", "/fr/b", "/fr/c", "/fr/d", "/fr/e"];
+
+    for (const page of pages) {
+      navigate(page);
+      queue.capture("$pageview");
+    }
+    await queue.load();
+
+    expect(urlChanges).toEqual([]);
+    expect(sent.map(({ properties }) => properties?.$pathname)).toEqual(pages);
+  });
+
+  test("warn when the address bar cannot be put back", async () => {
+    const { navigate, pageContext, location } = fakeLocation("/fr");
+    const { posthog } = fakePostHog();
+    const browserUrl = {
+      get: () => location.href,
+      set: (url: string) => {
+        if (url === `${SITE}/fr/resources`) throw new DOMException("Too many calls", "SecurityError");
+        location.href = url;
+      },
+    };
+    const queue = queueWith({ importPostHog: async () => posthog, pageContext, browserUrl });
+    const warn = spyOn(console, "warn").mockImplementation(() => {});
+
+    try {
+      queue.capture("$pageview");
+      navigate("/fr/resources");
+      await queue.load();
+      expect(warn).toHaveBeenCalledTimes(1);
+    } finally {
+      warn.mockRestore();
+    }
+  });
+
+  test("are all sent even if one of them throws, and later ones go straight out", async () => {
+    const { posthog, sent } = fakePostHog();
+    const capture = posthog.capture.bind(posthog);
+    posthog.capture = ((event: string, ...rest: []) => {
+      if (event === "broken") throw new Error("bad event");
+      return capture(event, ...rest);
+    }) as PostHog["capture"];
+    const queue = queueWith({ importPostHog: async () => posthog });
+
+    queue.capture("$pageview");
+    queue.capture("broken");
+    queue.capture("cta_clicked");
+    expect(await queue.load()).toBe(posthog);
+    queue.capture("booking_opened");
+
+    expect(sent.map(({ event }) => event)).toEqual(["$pageview", "cta_clicked", "booking_opened"]);
+  });
+
   test("keep the time they happened at", async () => {
     const { posthog, sent } = fakePostHog();
     const queue = queueWith({ importPostHog: async () => posthog });
