@@ -23,6 +23,7 @@ import {
   splitPath,
 } from "@/lib/site";
 import { breadcrumbList, webPageNode } from "@/lib/structured-data";
+import { clientLogoSize } from "@/lib/client-logos";
 
 export function generateStaticParams() {
   return CUSTOMER_SLUGS.map((slug) => ({ slug }));
@@ -120,6 +121,7 @@ export default async function CaseStudyPage({
             <img
               src={customer.logo}
               alt={customer.client}
+              {...clientLogoSize(customer.logo)}
               className="h-9 w-auto object-contain md:h-11"
             />
             <span className="border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground">

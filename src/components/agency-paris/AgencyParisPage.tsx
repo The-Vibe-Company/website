@@ -34,6 +34,7 @@ import {
   serviceNode,
   webPageNode,
 } from "@/lib/structured-data";
+import { clientLogoSize } from "@/lib/client-logos";
 
 /**
  * The commercial "AI agency in Paris" landing page, served at
@@ -198,6 +199,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                   <img
                     src={client.src}
                     alt={client.name}
+                    {...clientLogoSize(client.src)}
                     className={`${client.className} w-auto object-contain brightness-0`}
                     loading="lazy"
                     decoding="async"
@@ -519,6 +521,7 @@ function CaseHeader({ logo, client, sector }: { logo: string; client: string; se
         <img
           src={logo}
           alt={client}
+          {...clientLogoSize(logo)}
           className="h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
           loading="lazy"
           decoding="async"
