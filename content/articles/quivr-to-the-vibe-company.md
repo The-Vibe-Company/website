@@ -4,6 +4,7 @@ seoTitle: "We are stopping Quivr | The Vibe Company"
 slug: quivr-to-the-vibe-company
 language: en
 summary: "A message from Stan and Antoine: after Quivr, YC, open source, and our customer support pivot, we are stopping Quivr as our main company direction to build The Vibe Company, an AI-native company focused on real workflows."
+seoDescription: "A message from Stan and Antoine: after Quivr, YC, open source and a support pivot, we are stopping Quivr as our main focus to build The Vibe Company."
 publishedAt: 2026-04-24
 complexity: intermediate
 topics: Quivr, The Vibe Company, Company Building

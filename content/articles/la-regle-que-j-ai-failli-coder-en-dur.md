@@ -4,6 +4,7 @@ seoTitle: "La règle que j'ai failli coder en dur | The Vibe Company"
 slug: la-regle-que-j-ai-failli-coder-en-dur
 language: fr
 summary: "On avait une règle maison pour ranger nos skills, et je l'ai codée en dur dans une branche de Companion, notre produit. Deux PR, des tests tout verts, une revue de code sans rien à redire. Puis la review de Stan a tout arrêté : un produit fait pour d'autres entreprises ne doit imposer aucune règle de chez nous. J'ai tout fermé et j'ai fait en sorte que notre règle devienne notre configuration."
+seoDescription: "J'avais codé en dur notre règle de rangement des skills dans Companion. Tests verts, puis la review de Stan a tout arrêté : la règle devient config."
 publishedAt: 2026-07-15
 series: victor-story
 seriesDay: 12

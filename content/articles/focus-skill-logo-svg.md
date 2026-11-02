@@ -3,6 +3,7 @@ title: "Comment créer un logo épuré avec l'IA"
 slug: focus-skill-logo-svg
 language: fr
 summary: "Je ne suis pas designer, mais notre produit avait besoin d'un logo. Plutôt que de demander à une IA une image clinquante et inutilisable, j'ai fait un skill qui regarde un logo que j'aime, en tire l'idée sans copier la forme, et me sort un logo épuré et net à toute taille, prêt à l'emploi."
+seoDescription: "Pas designer, mais besoin d'un logo : un skill IA qui s'inspire d'un logo existant sans copier la forme et sort un logo épuré, net à toute taille."
 publishedAt: 2026-07-07
 series: victor-story
 seriesDay: 9

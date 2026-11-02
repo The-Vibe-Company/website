@@ -11,6 +11,7 @@ import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { CONTENT_TYPES, getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
 import {
   contentPath,
+  toPlainText,
   getCanonicalContentForLanguage,
   getContentByType,
   getContentItem,
@@ -99,7 +100,7 @@ export async function generateMetadata({
   const socialImageSourceUrl = item.ogImage?.sourceUrl;
   const socialImageDimensions = getOgImageDimensions(socialImageSourceUrl);
   const socialTitle = item.title;
-  const socialDescription = item.summary;
+  const socialDescription = item.seoDescription ?? toPlainText(item.summary);
 
   // When an article declares its own SEO title, use it as an absolute <title>
   // so the layout's `%s | The Vibe Company` template does not append the brand
@@ -109,7 +110,7 @@ export async function generateMetadata({
 
   return {
     title: htmlTitle,
-    description: item.summary,
+    description: socialDescription,
     alternates: contentAlternates(item.language, canonicalPath, versions),
     openGraph: {
       type: 'article',
@@ -198,7 +199,7 @@ export default async function ContentDetailPage({
   const article = articleSchema({
     url: canonicalUrl,
     title: item.title,
-    summary: item.summary,
+    summary: item.seoDescription ?? toPlainText(item.summary),
     publishedAt: item.publishedAt,
     language: item.language,
     imageUrl: socialImageUrl(item),

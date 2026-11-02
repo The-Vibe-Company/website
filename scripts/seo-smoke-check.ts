@@ -40,6 +40,7 @@ import sitemap from '../src/app/sitemap'
 import { ABOUT_ORIGIN_ARTICLE_LOCALE, ABOUT_ORIGIN_ARTICLE_PATH } from '../src/lib/about'
 import {
   contentPath,
+  toPlainText,
   getAllContent,
   getCanonicalContentForLanguage,
   getContentByTypeForLanguage,
@@ -166,6 +167,21 @@ const sitemapEntries = sitemap()
 const sitemapUrls = new Set(sitemapEntries.map((entry) => entry.url))
 
 const checks: Check[] = [
+  {
+    name: 'article meta descriptions fit in 160 characters without markdown or escaped quotes',
+    run: () => {
+      const failures: string[] = []
+      for (const item of content.filter((entry) => entry.type === 'article')) {
+        const description = item.seoDescription ?? toPlainText(item.summary)
+        const length = [...description].length
+        if (length > 160) failures.push(`${item.id}: meta description is ${length} characters (max 160).`)
+        if (description.includes('**') || /\\["']/.test(description)) {
+          failures.push(`${item.id}: meta description contains markdown or a backslash-escaped quote.`)
+        }
+      }
+      return failures
+    },
+  },
   {
     name: 'sitemap lists each entry once, under its own language only',
     run: () => {
