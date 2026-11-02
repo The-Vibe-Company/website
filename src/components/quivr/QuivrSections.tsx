@@ -41,7 +41,7 @@ export async function QuivrSections({ locale }: { locale: string }) {
 
   return (
     <>
-      <section className="section">
+      <section className="section defer-render">
         <div className="wrap">
           <SectionTitle
             kicker={t("features.kicker")}
@@ -69,7 +69,7 @@ export async function QuivrSections({ locale }: { locale: string }) {
         </div>
       </section>
 
-      <section id={QUIVR_SERVICES_ID} className="section scroll-mt-24">
+      <section id={QUIVR_SERVICES_ID} className="section defer-render scroll-mt-24">
         <div className="wrap">
           <div
             data-surface="inverse"
@@ -125,7 +125,7 @@ export async function QuivrSections({ locale }: { locale: string }) {
 
       {/* Plain <details>, so every answer is in the HTML and works without
           JavaScript. */}
-      <section className="section">
+      <section className="section defer-render">
         <div className="wrap">
           <SectionTitle kicker="FAQ" line1={faq1} line2={faq2} size="sm" />
           <Groove className="mt-10 md:mt-12" />

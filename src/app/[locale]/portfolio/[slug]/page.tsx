@@ -232,7 +232,7 @@ export default async function PortfolioProjectPage({
 
         {/* Why it exists, how it works, who it is for: the page's own prose. */}
         {project.story ? (
-          <section className="section-tight">
+          <section className="section-tight defer-render">
             <div className="wrap">
               <div className="clay-quiet rounded-[22px] px-5 py-2 md:rounded-plate md:px-12 md:py-4">
                 <div className={STORY_ROW}>

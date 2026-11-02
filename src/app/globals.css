@@ -1412,6 +1412,20 @@ input:disabled {
     animation: kit-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   }
 
+  /* Below-the-fold bands: the browser skips their style, layout and paint
+     until they come near the viewport, so the first frame (and the LCP) is
+     not held back by laying out the whole page. The intrinsic size is only a
+     placeholder for the scrollbar; once rendered, the real size is kept
+     (`auto`). Never on anything that can be on screen at load. */
+  .defer-render {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+    /* content-visibility clips painting to the box: room for the pieces'
+       drop shadows below, given back so the layout does not move. */
+    padding-bottom: 56px;
+    margin-bottom: -56px;
+  }
+
   /* Scroll entrance, set by Reveal / useReveal (src/components/kit/Reveal).
      Only "pending" hides, and only the script sets it, for a real visitor
      whose element starts below the fold: the server HTML, reduced motion and
@@ -1768,6 +1782,8 @@ input:disabled {
   .footer {
     position: relative;
     margin-top: 56px;
+    /* It defers its render too (.defer-render) but needs no shadow room. */
+    margin-bottom: 0;
     padding: 104px 0 28px;
     clip-path: polygon(0 0, calc(50% - 74px) 0, 50% 48px, calc(50% + 74px) 0, 100% 0, 100% 100%, 0 100%);
   }

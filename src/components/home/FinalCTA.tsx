@@ -30,7 +30,7 @@ export function FinalCTA({
   const t = useTranslations(namespace);
 
   return (
-    <section id="contact" className="section">
+    <section id="contact" className="section defer-render">
       <div className="wrap">
         <div className="final-slab clay rim">
           <Kicker>{t("kicker")}</Kicker>
