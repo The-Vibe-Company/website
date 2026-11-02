@@ -52,6 +52,11 @@ const MONO =
   "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
 const PROSE = "m-0 max-w-[72ch] text-[15px] leading-[1.65] text-muted-foreground md:text-base";
 
+/** "01", "02"…: sections are numbered "NN. Title" in the headings and the contents. */
+function sectionNumber(index: number): string {
+  return String(index + 1).padStart(2, "0");
+}
+
 function Paragraphs({ paragraphs }: { paragraphs?: string[] }) {
   if (!paragraphs?.length) return null;
   return (
@@ -176,7 +181,7 @@ export async function PrivacyPage({ locale }: { locale: string }) {
                     className="flex gap-3 text-sm leading-[1.35] text-foreground hover:text-muted-foreground"
                   >
                     <span className="font-mono text-[11px] leading-[1.6] text-muted-foreground">
-                      {String(i + 1).padStart(2, "0")}
+                      {`${sectionNumber(i)}.`}
                     </span>
                     <span>{sections[key].title}</span>
                   </a>
@@ -195,12 +200,12 @@ export async function PrivacyPage({ locale }: { locale: string }) {
                   aria-labelledby={`${key}-title`}
                   className="scroll-mt-24 border-b border-border py-10 first:pt-0 last:border-b-0 md:py-14"
                 >
-                  <span className={MONO}>{String(i + 1).padStart(2, "0")}</span>
+                  {/* One text node, "01. Title", so the number reads with the heading. */}
                   <h2
                     id={`${key}-title`}
-                    className="m-0 mt-3 font-bold text-foreground text-[clamp(26px,3.4vw,42px)] leading-[1] tracking-[-0.04em]"
+                    className="m-0 font-bold text-foreground text-[clamp(26px,3.4vw,42px)] leading-[1] tracking-[-0.04em]"
                   >
-                    {section.title}
+                    {`${sectionNumber(i)}. ${section.title}`}
                   </h2>
                   <Paragraphs paragraphs={section.paragraphs} />
 
