@@ -58,8 +58,7 @@ export function Clients() {
           >
             {/* Eager, or the copies clipped by the track would pop in as they
                 scroll into view; low priority, which also keeps React from
-                preloading them in <head> on phones, where this band is
-                display:none, ahead of the hero's fonts and CSS. */}
+                preloading them in <head> ahead of the hero's fonts and CSS. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={client.src}

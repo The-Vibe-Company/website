@@ -58,7 +58,7 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
               />
             </span>
           )}
-          <span className="flex min-w-0 flex-col items-start px-3 pb-2.5 pt-4 lg:py-3.5 lg:pl-0 lg:pr-8">
+          <div className="flex min-w-0 flex-col items-start px-3 pb-2.5 pt-4 lg:py-3.5 lg:pl-0 lg:pr-8">
             <span className="flex items-center gap-3">
               <span className="chip chip-dark">{t('next')}</span>
               <LanguageFlag language={featured.language} variant="inline" />
@@ -76,7 +76,7 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
               <span className="t">{t('readArticle')}</span>
               <Arrow />
             </span>
-          </span>
+          </div>
         </Link>
 
         {secondary.length > 0 && (
@@ -100,7 +100,7 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
                   ) : (
                     <span className="thumb well !h-[72px] md:!h-[78px]" aria-hidden="true" />
                   )}
-                  <span className="flex min-w-0 flex-col">
+                  <div className="flex min-w-0 flex-col">
                     <h3 className="clamp-2 text-base font-semibold leading-[1.28] tracking-[-0.012em] decoration-rim decoration-2 underline-offset-[3px] group-hover:underline md:text-[17px]">
                       {r.title}
                     </h3>
@@ -116,7 +116,7 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
                         <time dateTime={r.publishedAt}>{formatShortDate(r.publishedAt, locale)}</time>
                       )}
                     </span>
-                  </span>
+                  </div>
                 </Link>
               </li>
             ))}

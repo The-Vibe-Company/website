@@ -150,11 +150,13 @@ export function TopNav() {
       const target = event.target as Node;
       if (searchPanelRef.current?.contains(target)) return;
       if (searchToggleRef.current?.contains(target)) return;
-      setSearchOpen(false);
+      // Through closeSearch, so a pending search-as-you-type cannot fire
+      // after the visitor has clicked away to another link.
+      closeSearch();
     };
     document.addEventListener("pointerdown", onPointerDown);
     return () => document.removeEventListener("pointerdown", onPointerDown);
-  }, [searchOpen]);
+  }, [closeSearch, searchOpen]);
 
   useEffect(() => {
     if (!mobileMenuActive) return;

@@ -238,7 +238,7 @@ export default async function CaseStudyPage({
 
         {/* RESULTS: the figures, quiet, on the page's own left edge */}
         {customer.results.length > 0 && (
-          <section className="section-tight" aria-label={customer.client}>
+          <section className="section-tight">
             <div className="wrap">
               <Groove />
               <ul

@@ -190,7 +190,7 @@ export default async function PortfolioProjectPage({
                   }
                 >
                   {isQuivr ? (
-                    <div className="min-w-0 overflow-hidden rounded-[14px] md:rounded-[16px]">
+                    <div className="min-w-0">
                       <QuivrStage locale={locale} accent={project.accent} />
                     </div>
                   ) : project.cover ? (

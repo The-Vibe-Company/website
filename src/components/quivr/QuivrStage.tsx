@@ -196,7 +196,7 @@ export async function QuivrStage({ locale, accent }: { locale: string; accent: s
             {t("mock.alert.topic")}
           </div>
           <div className="mt-1 text-[13px] leading-snug text-muted-foreground">{t("mock.alert.count")}</div>
-          <code className="mt-3 block border border-border bg-[#f6f2ea] px-2.5 py-2 font-mono text-[11px] leading-snug text-foreground md:whitespace-nowrap">
+          <code className="mt-3 block border border-border bg-well px-2.5 py-2 font-mono text-[11px] leading-snug text-foreground md:whitespace-nowrap">
             {t("mock.alert.rule")}
           </code>
           <div className={`mt-3 flex items-center gap-2 text-[12px] leading-snug text-foreground ${s.sent}`}>

@@ -35,7 +35,6 @@ function twoLines(title: string): [string, string?] {
 
 export async function QuivrSections({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "quivr" });
-  const tCta = await getTranslations({ locale, namespace: "finalCta" });
   const [flow1, flow2] = twoLines(t("features.title"));
   const [services1, services2] = twoLines(t("services.title"));
   const [faq1, faq2] = twoLines(t("faq.title"));
@@ -117,7 +116,7 @@ export async function QuivrSections({ locale }: { locale: string }) {
                 className="w-full md:w-auto"
                 {...bookingLocation("quivr_services")}
               >
-                {tCta("bookCall")}
+                {t("services.cta")}
               </ButtonLink>
             </div>
           </div>
