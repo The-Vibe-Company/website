@@ -84,7 +84,7 @@ typography:
     fontWeight: 680
     lineHeight: 1.1
     letterSpacing: -0.03em
-    fontVariation: '"wdth" 92, "opsz" 48'
+    fontVariation: '"wdth" 92, "opsz" 96'
   title-lg:
     fontFamily: Bricolage Grotesque
     fontSize: 22px
@@ -660,7 +660,7 @@ Domain accents (blue for dev, pink for design, green for ops, amber for business
 
 ## Typography
 
-Bricolage Grotesque sets everything that is not metadata. Its width and optical-size axes carry the voice: display titles run at 92% width, an optical size of 96, weight 680, tracking of -3% and a line height of 0.95, balanced across lines. They read as dense, slightly condensed objects rather than as headlines shouted across the page.
+Bricolage Grotesque sets everything that is not metadata. Its width and optical-size axes carry the voice: display titles run at 92% width, an optical size of 96, weight 680, tracking of -3% and a line height of 0.95, balanced across lines. They read as dense, slightly condensed objects rather than as headlines shouted across the page. Article headings share that cut. Running text stays at full width with the optical size of body copy (16), so the page carries exactly two cuts of the face: the condensed display cut for titles and the text cut for everything else, which keeps the type light enough to arrive with the first paint.
 
 Display sizes scale fluidly with the viewport, from the phone size to a ceiling reached around 1280px: the hero title 58 to 136px, a page title or the closing call 52 to 112px, a section title 46 to 84px, then 40 to 64px and 28 to 32px for smaller titles. A title is set in two lines whenever it has two thoughts: the first in ink, the second in bisque, the grey of clay before it is glazed. One title per section, one page title per page.
 

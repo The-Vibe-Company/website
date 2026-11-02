@@ -156,6 +156,9 @@
   --wrap: 1200px;
   --gut: 24px;
   --font-ui: var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  /* The titles' own instance of Bricolage: narrower (wdth 92) and cut for
+     large sizes (opsz 96). */
+  --font-display: var(--font-bricolage-display), var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-code: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
   --radius: 0.75rem;
   --r-sm: 12px;
@@ -600,12 +603,11 @@ input:disabled {
   /* ---- Type ---- */
 
   .display {
-    font-family: var(--font-ui);
+    font-family: var(--font-display);
     font-weight: 680;
     font-stretch: 92%;
     letter-spacing: -0.03em;
     line-height: 0.95;
-    font-variation-settings: "opsz" 96;
     text-wrap: balance;
   }
 
@@ -2004,8 +2006,8 @@ input:disabled {
 .prose-vibe h1,
 .prose-vibe h2,
 .prose-vibe h3 {
+  font-family: var(--font-display);
   font-stretch: 92%;
-  font-variation-settings: "opsz" 48;
   text-wrap: balance;
 }
 

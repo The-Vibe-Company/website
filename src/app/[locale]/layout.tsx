@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -12,18 +13,29 @@ import { defaultSocialMetadata, localizedAlternates, SITE_ICONS, SITE_NAME, SITE
 import { siteGraph } from "@/lib/structured-data";
 import "../globals.css";
 
-// Porcelaine type: Bricolage Grotesque for the page (its width and optical-size
-// axes carry the display titles), Geist Mono for metadata, kickers and chips.
-// Geist stays loaded as the canvas runner's sans and as the fallback.
-// Only the latin subset of Bricolage is preloaded: with its two axes it is
-// ~130 KB, and latin-ext (~55 KB more, loaded on demand through its
-// unicode-range) has no place on the mobile critical path. It stays
-// preloaded: without it the swap from the Arial fallback, which cannot take the
-// display titles' 92% width, shifted the hero (CLS 0.06 in CI).
-const bricolage = Bricolage_Grotesque({
+// Porcelaine type: Bricolage Grotesque for the page, Geist Mono for metadata,
+// kickers and chips. Geist stays loaded as the canvas runner's sans and as the
+// fallback.
+//
+// Bricolage is self-hosted as two instances of the Google variable font, built
+// by scripts/fonts/build-bricolage.py, because the full latin file (wght, opsz
+// and wdth axes, ~130 KB) weighed on the mobile LCP. Together they are ~74 KB,
+// both preloaded so the swap never shifts the hero:
+// - display (titles): wdth 92 and opsz 96 fixed, weights 600-700, ~34 KB;
+// - text: wdth 100, opsz fixed at 16, weights 300-800, ~39 KB.
+// Latin only: no page text uses a latin-ext glyph.
+const bricolage = localFont({
+  src: "../fonts/bricolage-text-latin.woff2",
   variable: "--font-bricolage",
-  subsets: ["latin"],
-  axes: ["opsz", "wdth"],
+  weight: "300 800",
+  display: "swap",
+});
+
+const bricolageDisplay = localFont({
+  src: "../fonts/bricolage-display-latin.woff2",
+  variable: "--font-bricolage-display",
+  weight: "600 700",
+  declarations: [{ prop: "font-stretch", value: "92%" }],
   display: "swap",
 });
 
@@ -87,7 +99,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       data-scroll-behavior="smooth"
-      className={`${bricolage.variable} ${geistSans.variable} ${geistMono.variable}`}
+      className={`${bricolage.variable} ${bricolageDisplay.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
       <head>
         <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
