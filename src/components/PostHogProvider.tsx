@@ -15,8 +15,11 @@ function PostHogPageView() {
 
   useEffect(() => {
     const url = `${window.location.origin}${pathname}${query ? `?${query}` : ""}`;
+    // Passed explicitly: if PostHog is still loading, the pageview waits in a
+    // queue and must not pick up the URL of a later page (see captureEvent()).
     captureEvent("$pageview", {
       $current_url: url,
+      $pathname: pathname,
     });
   }, [pathname, query]);
 
