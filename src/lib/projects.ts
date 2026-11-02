@@ -209,7 +209,9 @@ const PROJECTS_RAW: RawProject[] = [
   {
     slug: "granite",
     name: "Granite",
-    logo: "/projects/granite-favicon.png",
+    // 192px WebP (8 KB): the 1024px PNG it replaces weighed 519 KB for slots
+    // of 56px at most.
+    logo: "/projects/granite-favicon.webp",
     cover: "/projects/granite-home.png",
     accent: "#62D1AF",
     url: "https://github.com/The-Vibe-Company/Granite",
