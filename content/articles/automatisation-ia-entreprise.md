@@ -21,15 +21,15 @@ Pour le mettre en place, l'équipe métier peut s'en charger avec un outil no-co
 
 ## Pourquoi le premier choix compte
 
-Presque toutes les grandes entreprises utilisent déjà l'IA quelque part. En France, d'après l'[Insee](https://www.insee.fr/fr/statistiques/9025878), 18 % des entreprises de 10 salariés ou plus utilisaient au moins une technologie d'IA en 2025, et 58 % de celles de 250 salariés ou plus.
+Les grandes entreprises ont presque toutes déjà de l'IA quelque part. Selon [Eurostat](https://ec.europa.eu/eurostat/web/products-eurostat-news/w/ddn-20251211-2), 20 % des entreprises de l'UE de 10 salariés ou plus utilisaient l'IA en 2025. En France, d'après l'[Insee](https://www.insee.fr/fr/statistiques/9025878), 18 % des entreprises de 10 salariés ou plus utilisaient au moins une technologie d'IA en 2025, et 58 % de celles de 250 salariés ou plus.
 
-L'usage, ce n'est pas le problème. Le résultat, si. Dans l'enquête [State of AI de McKinsey](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai) publiée en 2026, 37 % des répondants attribuent un impact sur l'EBIT à l'IA, et seulement 6 % en tirent au moins 5 % de leur EBIT. Côté [BCG](https://www.bcg.com/publications/2024/wheres-value-in-ai), en 2024, 4 % des entreprises créaient une valeur substantielle avec l'IA et 74 % n'en montraient pas encore de concrète.
+Le souci, c'est rarement l'usage. C'est le résultat. Dans l'enquête [State of AI de McKinsey](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai) publiée en 2026, 37 % des répondants attribuent un impact sur l'EBIT à l'IA, et seulement 6 % en tirent au moins 5 % de leur EBIT. Côté [BCG](https://www.bcg.com/publications/2024/wheres-value-in-ai), en 2024, 4 % des entreprises créaient une valeur substantielle avec l'IA et 74 % n'en montraient pas encore de concrète.
 
-Ce qui sépare les deux groupes tient souvent à une décision prise très tôt : quel processus on automatise en premier, et comment. Cet article donne une méthode simple pour faire ce choix, sans acheter un outil d'abord et chercher l'usage ensuite.
+Ce qui sépare les deux groupes tient souvent à une décision prise très tôt : quel processus on automatise en premier, et comment. Voici une méthode simple pour faire ce choix, plutôt que d'acheter un outil puis de lui chercher un usage.
 
 ## Trois niveaux d'automatisation, trois risques différents
 
-« Automatiser avec l'IA » recouvre trois choses qu'il vaut mieux ne pas mélanger.
+« Automatiser avec l'IA » peut vouloir dire trois choses différentes, et mieux vaut ne pas les mélanger.
 
 | Niveau | Comment ça marche | Bon exemple | Le risque principal |
 | --- | --- | --- | --- |
@@ -39,7 +39,7 @@ Ce qui sépare les deux groupes tient souvent à une décision prise très tôt 
 
 La règle qu'on applique : prendre le niveau le plus simple qui règle le problème. Si des règles suffisent, pas besoin d'IA. Si une étape de lecture ou de rédaction débloque tout, pas besoin d'agent. L'agent se justifie quand le chemin change vraiment d'un cas à l'autre.
 
-Beaucoup de projets ratés commencent à l'envers : on veut « un agent », puis on cherche où le mettre.
+Beaucoup de projets ratés partent à l'envers : on veut « un agent », puis on cherche où le mettre.
 
 ## La grille pour choisir le premier processus
 
@@ -55,11 +55,11 @@ Pour le premier projet, on cherche un processus qui coche le plus de cases possi
 
 Un processus à 8 ou plus est un bon premier candidat. En dessous de 5, il faut souvent régler autre chose avant : des données éparpillées, un processus que chacun fait à sa façon, ou une erreur trop chère pour un premier essai.
 
-Le critère le plus sous-estimé est le quatrième. Un humain qui valide, c'est ce qui permet d'aller en production vite sans prendre de risque inutile. L'IA prépare, la personne décide. Ensuite, quand les chiffres le montrent, on élargit ce que l'IA fait seule.
+On sous-estime souvent le quatrième critère. Avoir un humain qui valide, c'est ce qui permet d'aller en production vite sans prendre de risque inutile. L'IA prépare, la personne décide. Ensuite, quand les chiffres le montrent, on élargit ce que l'IA fait seule.
 
 ## Les processus qui marchent bien en premier
 
-Voici les familles qui reviennent le plus souvent en haut de la grille, avec des cas qu'on connaît de l'intérieur.
+Voici les types de processus qui sortent le plus souvent en tête de la grille, avec des cas sur lesquels on a travaillé.
 
 **Les réponses au support client.** Beaucoup de volume, un historique de tickets riche, et un agent humain qui relit déjà chaque réponse. Chez [LocService](https://www.thevibecompany.co/fr/case-studies/locservice), une plateforme de location entre particuliers qui reçoit plusieurs centaines de tickets par jour, on a construit un assistant qui lit les anciens tickets et la documentation interne pour rédiger la réponse à chaque nouveau ticket. Il est branché sur leurs API internes pour avoir le vrai contexte client. Résultat : les brouillons IA sont utilisés sur 87 % des tickets. Le détail de la méthode est dans notre article sur [l'agent IA pour le support client](https://www.thevibecompany.co/fr/resources/articles/agent-ia-support-client).
 
@@ -67,7 +67,7 @@ Voici les familles qui reviennent le plus souvent en haut de la grille, avec des
 
 **Le contrôle de conformité de documents.** Vérifier qu'une fiche produit, un contrat ou un dossier contient bien ce qu'il doit contenir. Pour [Coup de Pates](https://www.thevibecompany.co/fr/case-studies/coup-de-pates), on a construit une bibliothèque de skills IA qui vérifie leurs documents produit. L'IA pointe les écarts, l'équipe qualité garde la décision.
 
-**La veille et le tri d'information.** Lire des sources, repérer ce qui compte, router au bon endroit. En interne, notre [veille IA automatique](https://www.thevibecompany.co/fr/resources/articles/veille-ia-automatique) range chaque annonce dans un de quatre paniers : alerte Slack immédiate, point dans la newsletter de l'équipe, simple note, ou rien. Le vrai travail n'est pas de collecter, c'est de trier.
+**La veille et le tri d'information.** Lire des sources, repérer ce qui compte, router au bon endroit. En interne, notre [veille IA automatique](https://www.thevibecompany.co/fr/resources/articles/veille-ia-automatique) range chaque annonce dans un de quatre paniers : alerte Slack immédiate, point dans la newsletter de l'équipe, simple note, ou rien. Collecter, c'est facile. Le vrai travail, c'est le tri.
 
 ### Ce qu'il vaut mieux garder pour plus tard
 
@@ -77,7 +77,7 @@ Voici les familles qui reviennent le plus souvent en haut de la grille, avec des
 
 ## Qui peut mettre en place l'automatisation IA ?
 
-La question revient à chaque premier projet. Il y a cinq options, et le bon choix dépend surtout du niveau d'automatisation visé (voir le premier tableau) et de l'accès à vos systèmes.
+La question revient à chaque premier projet. On voit cinq options, et le bon choix dépend surtout du niveau d'automatisation visé (voir le premier tableau) et de l'accès à vos systèmes.
 
 | Option | Quand c'est le bon choix | La limite à surveiller |
 | --- | --- | --- |
@@ -93,9 +93,9 @@ Notre règle : si un outil no-code règle le problème, prenez-le. Faites appel 
 
 ## Repenser le processus, pas seulement l'outiller
 
-Le chiffre le plus utile de l'enquête McKinsey n'est pas le taux d'adoption. C'est celui-ci : près des trois quarts des entreprises les plus performantes avec l'IA disent avoir profondément repensé leurs processus à cause de l'IA, contre un quart pour les autres.
+Dans l'enquête McKinsey, le chiffre le plus utile à nos yeux est celui-ci, plus que le taux d'adoption : près des trois quarts des entreprises les plus performantes avec l'IA disent avoir profondément repensé leurs processus à cause de l'IA, contre un quart pour les autres.
 
-Concrètement, plaquer un modèle sur un processus existant donne rarement le gain attendu. Il faut se poser trois questions avant d'écrire une ligne de code :
+Plaquer un modèle sur un processus existant donne rarement le gain attendu. Posez-vous trois questions avant d'écrire une ligne de code :
 
 1. Quelle étape disparaît vraiment, et laquelle change de nature (rédiger devient relire, chercher devient vérifier) ?
 2. Qui valide, à quel moment, et avec quelle information sous les yeux ?
@@ -103,7 +103,7 @@ Concrètement, plaquer un modèle sur un processus existant donne rarement le ga
 
 ## Mesurer avant d'automatiser
 
-Si vous ne mesurez pas l'état de départ, vous ne pourrez pas prouver le gain. Et sans gain prouvé, le deuxième projet ne sera pas financé. Avant de lancer, notez au minimum :
+Si vous ne mesurez pas l'état de départ, vous ne pourrez pas prouver le gain. Et sans gain prouvé, personne ne finance le deuxième projet. Avant de lancer, notez au minimum :
 
 | Indicateur | Pourquoi | Exemple |
 | --- | --- | --- |
@@ -113,7 +113,7 @@ Si vous ne mesurez pas l'état de départ, vous ne pourrez pas prouver le gain. 
 | Délai de bout en bout | Ce que voit le client | Temps entre la demande et la réponse |
 | Coût de fonctionnement | Ce que coûte un cas | Appels au modèle, infrastructure, temps de relecture |
 
-Le dernier point compte de plus en plus. Dans la même enquête McKinsey, environ un répondant sur cinq dit que les coûts de fonctionnement de l'IA, tokens compris, ont limité son usage. Un cas qui coûte plus cher en relecture qu'il ne fait gagner n'est pas une automatisation, c'est un déplacement de travail.
+Le dernier point compte de plus en plus. Dans la même enquête McKinsey, environ un répondant sur cinq dit que les coûts de fonctionnement de l'IA, tokens compris, ont limité son usage. Si un cas coûte plus cher en relecture qu'il ne fait gagner, on a juste déplacé le travail.
 
 ## Comment on s'y prend chez The Vibe Company
 
