@@ -54,6 +54,9 @@ jobs:
       - name: Unit tests
         run: bun run test
 
+      - name: Typecheck performance guardrails
+        run: bun run perf:typecheck
+
       - name: Check image budgets
         run: bun run images:check
 
