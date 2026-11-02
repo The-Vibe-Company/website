@@ -87,6 +87,8 @@ When planning, always create a graph of tasks and dependencies between them.
 
 `bun run agents:check` uses curl to verify public agent endpoints, Markdown/HTML negotiation, MCP and discovery digests against a running local server.
 
+`bun run indexnow:submit-all --dry-run` runs `scripts/indexnow.ts` to inspect production sitemap URLs and IndexNow payloads without submitting (see `docs/indexnow.md`).
+
 ## SEO changes
 
 Before any SEO PR or SEO fix, run `bun run seo:check` (fast smoke check of locale redirects, sitemap, cards, titles, plus the content gates) and do not open the PR if it fails. Details in `AGENTS.md`.

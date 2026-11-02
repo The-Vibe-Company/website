@@ -8,9 +8,13 @@ import { absoluteUrl, SITE_LOGO, SITE_NAME, SITE_URL } from "@/lib/site";
  * BreadcrumbList, Article and FAQPage nodes.
  *
  * Structured data only restates what the pages already say. Free text that
- * comes from page copy (article summaries, FAQ answers) goes through
- * `isPublishable` first: client names, pricing, certifications and grant
- * programmes stay out of the markup, even where the visible page mentions them.
+ * comes from page copy (article summaries, company-page FAQ answers) goes
+ * through `isPublishable` first: client names, pricing, certifications and
+ * grant programmes stay out of the markup, even where the visible page
+ * mentions them. Article FAQs are published editorial answers (client examples
+ * link to public case studies, amounts are official scheme rates), so they go
+ * through the narrower `isPublishableInArticleFaq`: only certifications and
+ * the grant programme are kept out.
  */
 
 type JsonLdNode = Record<string, unknown>;
@@ -246,21 +250,41 @@ export type FaqItem = { question: string; answer: string };
  * FAQPage markup for a FAQ that is visible on the page, word for word. Entries
  * that fail `isPublishable` are left out; with none left, there is no markup.
  */
-export function faqPageSchema(items: FaqItem[]): JsonLdNode | null {
-  const publishable = items.filter(
-    (item) => isPublishable(item.question) && isPublishable(item.answer),
+export function faqPageSchema(
+  items: FaqItem[],
+  publishable: (text: string) => boolean = isPublishable,
+): JsonLdNode | null {
+  const kept = items.filter(
+    (item) => publishable(item.question) && publishable(item.answer),
   );
-  if (publishable.length === 0) return null;
+  if (kept.length === 0) return null;
 
   return {
     "@context": SCHEMA_CONTEXT,
     "@type": "FAQPage",
-    mainEntity: publishable.map((item) => ({
+    mainEntity: kept.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: { "@type": "Answer", text: item.answer },
     })),
   };
+}
+
+/**
+ * FAQPage markup for an article's `## FAQ` section: every visible question,
+ * word for word, except entries that name a certification or the grant
+ * programme (see `isPublishableInArticleFaq`).
+ */
+export function articleFaqPageSchema(markdown: string): JsonLdNode | null {
+  return faqPageSchema(extractMarkdownFaq(markdown), isPublishableInArticleFaq);
+}
+
+/** Restated in no markup at all: certifications and the grant programme. */
+const CERTIFICATION_PATTERNS: RegExp[] = [/\bSOC\s?2\b/i, /\bISO\b/, /\bMediaGen\b/i];
+
+/** Whether an article FAQ question or answer can be restated in structured data. */
+export function isPublishableInArticleFaq(text: string): boolean {
+  return !CERTIFICATION_PATTERNS.some((pattern) => pattern.test(text));
 }
 
 const FAQ_HEADING = /^##\s+(faq|questions fréquentes|frequently asked questions)\s*$/i;
@@ -327,9 +351,7 @@ const CLIENT_NAMES = [
 ];
 
 const RESTRICTED_PATTERNS: RegExp[] = [
-  /\bSOC\s?2\b/i,
-  /\bISO\b/,
-  /\bMediaGen\b/i,
+  ...CERTIFICATION_PATTERNS,
   /[€$£]/,
   /\b(prix|tarifs?|tarification|forfaits?|euros?|dollars?|pric(e|es|ed|ing))\b/i,
   ...CLIENT_NAMES.map((name) => new RegExp(`\\b${escapeRegExp(name)}\\b`, "i")),
