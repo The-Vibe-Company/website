@@ -25,3 +25,11 @@ bun run seo:check
 When a change touches article content, also run the gates listed in `CLAUDE.md` ("Publishing an article"): `bun run content:victor-check`, `content:focus-check`, `content:translations-check`, `content:covers-check`, and `bun run images:check`.
 
 If an intentional change to the redirect or link rules makes a check obsolete, update `scripts/seo-smoke-check.ts` in the same PR and say why in the description. Never weaken a check just to get a green run.
+
+## Performance guardrails
+
+See [docs/performance-guardrails.md](docs/performance-guardrails.md) for the PR/Preview workflow, blocking budgets, warnings, and neutral infrastructure failures. Run `bun run perf:test` and `bun run perf:typecheck` when changing guardrail scripts. For diff-only asset budgets, use `bun run images:check --diff "$(git rev-parse origin/main)" "$(git rev-parse HEAD)"`.
+
+Never commit review screenshots under `screenshots/` (including `screenshots/pr-XXX/`); use the gitignored `.context/` directory and CI artifacts instead. This supersedes the older screenshot-commit instruction in `CLAUDE.md`. The CI guard rejects added/modified screenshots, and the phrase `DO NOT MERGE` in PR title/body/labels. Keep new PRs in draft when requested.
+
+Protected Vercel previews use the GitHub Actions secret `VERCEL_AUTOMATION_BYPASS_SECRET`; never log its value. LCP/TBT regressions warn unless the repository variable `PERF_REGRESSION_BLOCKING=true`; CLS >0.05 remains blocking with sufficient valid preview samples.
