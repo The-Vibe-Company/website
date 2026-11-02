@@ -218,7 +218,9 @@
       "healthcareAi": "IA santé / HDS",
       "agentsProduction": "Agents IA en production",
       "mediaAi": "IA médias"
-    }
+    },
+    "contact": "Contact",
+    "privacy": "Confidentialité"
   },
   "caseStudiesPage": {
     "metaTitle": "Cas clients IA : projets en production",
@@ -1620,6 +1622,339 @@
       "responseLabel": "RÉPONSE",
       "responseValue": "SOUS 24 H",
       "emailLabel": "EMAIL"
+    }
+  },
+  "contact": {
+    "metaTitle": "Contact : The Vibe Company, agence IA (YC W24)",
+    "metaDescription": "Contacter The Vibe Company : Stan Girard et Antoine Dewez, co-fondateurs, à Montreuil. Écrivez à stan@thevibecompany.co ou réservez 30 minutes en ligne.",
+    "breadcrumb": "Contact",
+    "kicker": "Contact",
+    "title": "Contacter The Vibe Company",
+    "lede": "Derrière ce site, il y a deux personnes : Stan Girard et Antoine Dewez, les co-fondateurs de The Vibe Company, une agence IA basée à Montreuil, aux portes de Paris. Par e-mail comme par appel, vous parlez directement à un fondateur.",
+    "bookCall": "Prendre 30 minutes",
+    "response": "Appel de 30 minutes, réservé sur cal.com",
+    "email": {
+      "title": "Par e-mail",
+      "body": "Quelques lignes suffisent : ce que vous voulez construire ou automatiser, où vous en êtes, et votre calendrier si vous en avez un. Pas besoin de cahier des charges pour un premier échange."
+    },
+    "team": {
+      "title": "Qui vous répond",
+      "role": "Co-fondateur",
+      "members": {
+        "stan": "A créé Quivr en 2023, un moteur RAG open source, et l’a mené jusqu’à Y Combinator (W24). Dirige aujourd’hui The Vibe Company avec Antoine.",
+        "antoine": "A lancé Quivr avec Stan en 2023. Co-dirige The Vibe Company, où il suit de près les produits livrés aux clients."
+      }
+    },
+    "details": {
+      "title": "Coordonnées",
+      "caption": "Coordonnées de The Vibe Company",
+      "rows": {
+        "company": "Société",
+        "founders": "Fondateurs",
+        "city": "Ville",
+        "address": "Adresse postale",
+        "email": "E-mail"
+      },
+      "values": {
+        "company": "The Vibe Company",
+        "founders": "Stan Girard, Antoine Dewez",
+        "city": "Montreuil (Seine-Saint-Denis), France",
+        "address": "À CONFIRMER"
+      }
+    },
+    "what": {
+      "title": "Ce que nous faisons",
+      "body": "The Vibe Company est une agence IA (YC W24). Nous concevons des produits IA, mettons des agents au travail dans les outils de nos clients et formons leurs équipes, jusqu’à la mise en production.",
+      "link": "En savoir plus sur l’agence"
+    },
+    "data": {
+      "title": "Vos données",
+      "body": "Ce que vous nous envoyez sert à vous répondre. Ce que le site collecte, et pourquoi, est détaillé dans notre politique de confidentialité.",
+      "link": "Lire la politique de confidentialité"
+    }
+  },
+  "privacy": {
+    "metaTitle": "Politique de confidentialité | The Vibe Company",
+    "metaDescription": "Ce que thevibecompany.co collecte et pourquoi : mesure d’audience PostHog, lien de rendez-vous cal.com, hébergement Vercel, cookies, et vos droits RGPD.",
+    "breadcrumb": "Confidentialité",
+    "kicker": "Confidentialité",
+    "title": "Politique de confidentialité",
+    "updated": "Mise à jour le 2 novembre 2026",
+    "lede": "Ce site n’a ni compte à créer, ni formulaire de contact, ni publicité. Il mesure son audience avec PostHog, renvoie vers cal.com pour prendre rendez-vous et il est hébergé chez Vercel. Cette page dit, outil par outil, ce qui est collecté, pourquoi, et comment exercer vos droits.",
+    "tbcMarker": "À CONFIRMER",
+    "tbcNote": "La mention « À CONFIRMER » signale une information que nous n’avons pas encore vérifiée. Elle sera complétée ici.",
+    "tocLabel": "Sommaire",
+    "sections": {
+      "controller": {
+        "title": "Qui est responsable de vos données",
+        "paragraphs": [
+          "Le site thevibecompany.co est édité par The Vibe Company, une agence IA fondée par Stan Girard et Antoine Dewez et basée à Montreuil (Seine-Saint-Denis). The Vibe Company est responsable des traitements décrits sur cette page.",
+          "Pour toute question sur vos données, écrivez à stan@thevibecompany.co."
+        ],
+        "table": {
+          "caption": "Informations légales sur l’éditeur du site",
+          "columns": [
+            "Information",
+            "Valeur"
+          ],
+          "rows": [
+            [
+              "Nom",
+              "The Vibe Company"
+            ],
+            [
+              "Forme juridique et capital",
+              "À CONFIRMER"
+            ],
+            [
+              "SIREN et RCS",
+              "À CONFIRMER"
+            ],
+            [
+              "Siège social",
+              "Montreuil (Seine-Saint-Denis), France. Adresse complète : À CONFIRMER"
+            ],
+            [
+              "Directeur de la publication",
+              "À CONFIRMER"
+            ],
+            [
+              "Délégué à la protection des données (DPO)",
+              "À CONFIRMER"
+            ],
+            [
+              "Contact données personnelles",
+              "stan@thevibecompany.co"
+            ],
+            [
+              "Hébergeur",
+              "Vercel Inc., États-Unis. Adresse : À CONFIRMER"
+            ]
+          ]
+        }
+      },
+      "collected": {
+        "title": "Ce que le site collecte",
+        "paragraphs": [
+          "Cette liste a été établie à partir du code du site. Elle couvre quatre sources : la mesure d’audience, la prise de rendez-vous, l’e-mail et l’hébergement."
+        ],
+        "items": [
+          {
+            "title": "Mesure d’audience avec PostHog",
+            "paragraphs": [
+              "Sur le site en production uniquement, la bibliothèque PostHog enregistre les pages vues (adresse de la page, paramètres compris, par exemple le texte d’une recherche dans les ressources), les départs de page, les clics et interactions qu’elle capte automatiquement, et les erreurs JavaScript. S’y ajoutent les événements que nous avons nommés : clics sur nos boutons de rendez-vous, de contact et de navigation, ouverture du menu mobile, recherche dans les ressources (longueur de la requête seulement), dépliage ou copie d’un prompt de skill, parties du mini-jeu de la page d’accueil et leur score.",
+              "PostHog y joint des informations techniques : navigateur, système d’exploitation, taille d’écran, page de provenance et paramètres de campagne (utm_*).",
+              "Les données passent par /ingest, un relais sur notre propre domaine, puis partent chez PostHog, dans sa région États-Unis. Le site n’appelle jamais la fonction d’identification de PostHog et ne crée pas de profil de personne : vos visites ne sont pas reliées à votre nom ni à votre e-mail, seulement à un identifiant aléatoire propre à votre navigateur.",
+              "Enregistrement des sessions, sondages et géolocalisation à partir de l’adresse IP : le code du site ne les désactive pas, leur activation dépend des réglages du projet PostHog. À CONFIRMER."
+            ]
+          },
+          {
+            "title": "Prise de rendez-vous avec cal.com",
+            "paragraphs": [
+              "Les boutons de rendez-vous sont de simples liens vers cal.com. Le site n’intègre aucun module cal.com et ne charge rien depuis cal.com tant que vous ne cliquez pas. Le clic lui-même est compté dans PostHog.",
+              "Sur cal.com, vous saisissez votre nom, votre e-mail et les informations du rendez-vous. Cal.com les traite selon sa propre politique de confidentialité, et nous les recevons pour préparer l’appel.",
+              "Quand un rendez-vous est pris, cal.com prévient notre serveur. Nous enregistrons alors un seul événement dans PostHog, « booking_completed », avec l’identifiant de la réservation (à défaut, une empreinte salée de l’e-mail, jamais l’e-mail lui-même), l’heure de début, la durée et d’éventuels paramètres de campagne. Ni votre nom, ni votre e-mail, ni le contenu de la réservation ne sont envoyés à PostHog."
+            ]
+          },
+          {
+            "title": "Échanges par e-mail",
+            "paragraphs": [
+              "Si vous nous écrivez, nous recevons votre adresse e-mail, votre nom s’il apparaît et le contenu de votre message. Ils servent à vous répondre et à suivre la conversation. Fournisseur de messagerie : À CONFIRMER."
+            ]
+          },
+          {
+            "title": "Hébergement chez Vercel",
+            "paragraphs": [
+              "Le site est hébergé par Vercel. Comme tout hébergeur, Vercel traite les données techniques de chaque requête (adresse IP, navigateur, page demandée, date et heure) pour servir les pages et protéger le service. Les échanges avec le site sont chiffrés en HTTPS.",
+              "Quand vous ouvrez une adresse sans langue, par exemple /contact, le site lit le pays que Vercel déduit de votre adresse IP pour choisir entre le français et l’anglais. Le site n’enregistre pas ce pays.",
+              "Vercel Web Analytics et Speed Insights ne sont pas installés. Les polices de caractères sont servies depuis notre domaine : aucune requête n’est envoyée à Google Fonts."
+            ]
+          }
+        ]
+      },
+      "cookies": {
+        "title": "Cookies et stockage local",
+        "paragraphs": [
+          "Le site n’affiche pas de bandeau de consentement aujourd’hui. Voici tout ce qu’il dépose dans votre navigateur."
+        ],
+        "table": {
+          "caption": "Cookies et stockage local utilisés par le site",
+          "columns": [
+            "Nom",
+            "Type",
+            "Rôle",
+            "Durée"
+          ],
+          "rows": [
+            [
+              "NEXT_LOCALE",
+              "Cookie du site",
+              "Retient la langue choisie, français ou anglais.",
+              "Jusqu’à la fermeture du navigateur"
+            ],
+            [
+              "ph_<clé du projet>_posthog",
+              "Cookie et localStorage, PostHog (production)",
+              "Identifiant aléatoire du navigateur et de la visite en cours, pour la mesure d’audience.",
+              "Cookie : 365 jours, réglage par défaut de PostHog"
+            ],
+            [
+              "ph_<clé du projet>_window_id, ph_<clé du projet>_primary_window_exists",
+              "sessionStorage, PostHog (production)",
+              "Distingue les onglets ouverts sur le site.",
+              "Jusqu’à la fermeture de l’onglet"
+            ],
+            [
+              "tvc-runner-best, tvc-runner-muted",
+              "localStorage du site",
+              "Meilleur score et son coupé du mini-jeu de la page d’accueil. Ces valeurs ne quittent pas votre navigateur.",
+              "Jusqu’à ce que vous les effaciez"
+            ],
+            [
+              "vibeco_runner_best",
+              "localStorage du site",
+              "Meilleur score du jeu de la page d’aperçu /v2. Cette valeur ne quitte pas votre navigateur.",
+              "Jusqu’à ce que vous l’effaciez"
+            ]
+          ]
+        },
+        "after": [
+          "Vous pouvez supprimer ou bloquer ces cookies et ce stockage dans les réglages de votre navigateur : le site continue de fonctionner. Base légale des traceurs PostHog et nécessité d’un consentement préalable : À CONFIRMER."
+        ]
+      },
+      "purposes": {
+        "title": "Pourquoi, et sur quelle base légale",
+        "paragraphs": [
+          "Chaque traitement a une finalité précise. Les bases légales indiquées restent à valider."
+        ],
+        "table": {
+          "caption": "Finalités et bases légales des traitements",
+          "columns": [
+            "Finalité",
+            "Données",
+            "Base légale"
+          ],
+          "rows": [
+            [
+              "Mesurer l’audience et améliorer le site",
+              "Événements PostHog, identifiant aléatoire",
+              "Intérêt légitime ou consentement : À CONFIRMER"
+            ],
+            [
+              "Préparer et suivre un rendez-vous",
+              "Données saisies sur cal.com, événement booking_completed",
+              "Mesures précontractuelles prises à votre demande : À CONFIRMER"
+            ],
+            [
+              "Répondre à vos messages",
+              "Adresse e-mail, nom, contenu du message",
+              "Intérêt légitime : À CONFIRMER"
+            ],
+            [
+              "Servir et sécuriser le site",
+              "Données techniques des requêtes, chez Vercel",
+              "Intérêt légitime : À CONFIRMER"
+            ],
+            [
+              "Retenir votre langue",
+              "Cookie NEXT_LOCALE",
+              "Cookie nécessaire au service demandé : À CONFIRMER"
+            ]
+          ]
+        },
+        "after": [
+          "Le site n’utilise aucun traceur publicitaire et ne prend aucune décision automatisée à votre sujet."
+        ]
+      },
+      "recipients": {
+        "title": "Qui reçoit ces données",
+        "paragraphs": [
+          "Outre The Vibe Company, ces prestataires techniques traitent une partie des données, chacun pour son rôle."
+        ],
+        "table": {
+          "caption": "Prestataires qui traitent des données du site",
+          "columns": [
+            "Prestataire",
+            "Rôle",
+            "Localisation"
+          ],
+          "rows": [
+            [
+              "PostHog",
+              "Mesure d’audience",
+              "États-Unis, région US de PostHog"
+            ],
+            [
+              "Vercel",
+              "Hébergement du site",
+              "États-Unis. Région de déploiement : À CONFIRMER"
+            ],
+            [
+              "Cal.com",
+              "Prise de rendez-vous",
+              "À CONFIRMER"
+            ],
+            [
+              "Fournisseur de messagerie",
+              "E-mail",
+              "À CONFIRMER"
+            ]
+          ]
+        },
+        "after": [
+          "Ces données peuvent donc être transférées hors de l’Union européenne. Garanties qui encadrent ces transferts (clauses contractuelles types de la Commission européenne, Data Privacy Framework UE–États-Unis) : À CONFIRMER."
+        ]
+      },
+      "retention": {
+        "title": "Combien de temps nous les gardons",
+        "table": {
+          "caption": "Durées de conservation",
+          "columns": [
+            "Données",
+            "Durée"
+          ],
+          "rows": [
+            [
+              "Événements PostHog",
+              "À CONFIRMER"
+            ],
+            [
+              "Cookie PostHog",
+              "365 jours, réglage par défaut de PostHog"
+            ],
+            [
+              "Cookie NEXT_LOCALE",
+              "Jusqu’à la fermeture du navigateur"
+            ],
+            [
+              "E-mails",
+              "À CONFIRMER"
+            ],
+            [
+              "Données de rendez-vous sur cal.com",
+              "À CONFIRMER"
+            ],
+            [
+              "Journaux techniques chez Vercel",
+              "À CONFIRMER"
+            ]
+          ]
+        }
+      },
+      "rights": {
+        "title": "Vos droits",
+        "paragraphs": [
+          "Le RGPD et la loi Informatique et Libertés vous donnent le droit d’accéder à vos données, de les faire rectifier ou effacer, de vous opposer à leur traitement ou d’en demander la limitation, et de recevoir celles que vous nous avez fournies dans un format réutilisable (portabilité). Vous pouvez aussi retirer à tout moment un consentement donné et définir des directives sur le sort de vos données après votre décès.",
+          "Pour exercer ces droits, écrivez à stan@thevibecompany.co. Le RGPD nous laisse un mois pour vous répondre.",
+          "Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL, sur www.cnil.fr."
+        ]
+      },
+      "changes": {
+        "title": "Évolutions de cette page",
+        "paragraphs": [
+          "Cette page suit le site : quand un outil est ajouté ou retiré, elle est mise à jour et sa date change. Dernière mise à jour : 2 novembre 2026."
+        ]
+      }
     }
   }
 }

@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
 import { ENSEMBLE_PATH } from "@/lib/coup-de-pates-ensemble";
 import { hasMarkdownRepresentation, prefersMarkdown } from "@/lib/agent-discovery";
+import { translatedSplitPath } from "@/lib/site";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -68,8 +69,10 @@ export function middleware(request: NextRequest) {
       locale = country && country !== "FR" ? "en" : "fr";
     }
 
+    // A translated segment goes straight to that language's version
+    // (/privacy -> /fr/confidentialite), not through a second redirect.
     const url = request.nextUrl.clone();
-    url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
+    url.pathname = `/${locale}${pathname === "/" ? "" : translatedSplitPath(pathname, locale)}`;
     return NextResponse.redirect(url);
   }
 
