@@ -4,7 +4,7 @@ seoTitle: "AI automation: which processes go first | The Vibe Company"
 slug: ai-automation-which-processes-first
 translationKey: ai-process-automation
 language: en
-summary: "Which process to automate first with AI: a scoring grid, metrics to track, and real examples (LocService, bookkeeping)."
+summary: "Which process to automate first with AI, and who can set it up: a scoring grid, in-house vs agency vs no-code tools, and the LocService case."
 publishedAt: 2026-10-19
 complexity: intermediate
 topics: AI Adoption, AI Operations
@@ -12,6 +12,14 @@ coverImage: /images/resources/automatisation-ia-entreprise/cover-mascotte.webp
 coverAlt: "The mascot picks the first process to automate on a large board, inside a workshop where folders move along a conveyor belt"
 ogImage: /images/resources/automatisation-ia-entreprise/cover-mascotte.webp
 ---
+
+## The short answer
+
+Start with a single process: high volume, accessible data, mistakes you can catch, and someone who already reviews the work. Customer support, document classification and compliance checks often come out on top.
+
+To set it up, the business team can handle it with a no-code tool as long as the flow stays simple. An AI agency makes sense when the AI has to be wired into your APIs and databases, taken to production, and measured before and after.
+
+## Why the first choice matters
 
 Most large companies already use AI somewhere. According to [Eurostat](https://ec.europa.eu/eurostat/web/products-eurostat-news/w/ddn-20251211-2), 20% of EU enterprises with 10 or more employees used AI in 2025. In France, [Insee](https://www.insee.fr/fr/statistiques/9025878) puts the figure at 18% overall and 58% for companies with 250 employees or more.
 
@@ -67,6 +75,22 @@ These are the families that most often land at the top of the grid, with cases w
 - **Processes nobody can describe.** If two people on the team do the task two different ways, the AI will not settle it for you. Write the rule first.
 - **Data that lives in emails and people's heads.** Without a reliable source, the AI makes things up or stops. In that case, the first project is data access.
 
+## Who can set up AI automation?
+
+This question comes up on every first project. There are five options, and the right one mostly depends on the level of automation you need (see the first table) and on access to your systems.
+
+| Option | When it is the right call | The limit to watch |
+| --- | --- | --- |
+| The business team with a no-code tool (Make, Zapier, n8n) | A simple workflow, with or without an AI step, between tools that already have a connector | Nobody owns it when the flow breaks or the AI gets it wrong |
+| A vendor agent platform (Microsoft Copilot Studio, for example) | Your teams already live in that vendor's ecosystem | You depend on its roadmap and its connectors |
+| The in-house IT or data team | Developers have time and know the internal APIs | The project comes after the product roadmap |
+| A freelancer | A short, well-defined scope, or a prototype | One person, so a continuity risk |
+| An AI agency | The AI has to be wired into your real APIs and databases, taken to production and measured | It must leave your team able to take over |
+
+Two useful details. n8n can be [self-hosted on your own infrastructure](https://docs.n8n.io/hosting/), which matters when data must not leave your walls. And Microsoft describes [Copilot Studio](https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio) as a low-code studio for building agents and workflows connected to your organisation's data and systems.
+
+Our rule: if a no-code tool solves the problem, use it. Bring in a partner when the process touches internal systems, when a mistake is expensive, or when nobody in-house has time to follow the numbers. For a detailed comparison, read [AI agency vs freelancer vs IT services firm](https://www.thevibecompany.co/en/resources/articles/ai-agency-vs-freelancer-vs-it-services).
+
 ## Redesign the process, do not just add a tool
 
 The most useful number in the McKinsey survey is not the adoption rate. It is this one: nearly three quarters of AI high performers say they have fundamentally redesigned workflows because of AI, compared with a quarter of everyone else.
@@ -102,6 +126,8 @@ How we run an automation project:
 - **We keep a human in the loop at first**, and widen autonomy when the numbers justify it.
 - **We measure before and after**, so the decision to scale rests on facts.
 
+When the automation involves an agent, our [AI agents in production](https://www.thevibecompany.co/en/ai-agents-in-production) offer explains how we take it from POC to run.
+
 For the next steps, two useful reads: our [checklist for taking an AI agent from POC to production](https://www.thevibecompany.co/en/resources/articles/ai-agent-poc-to-production), and our overview of [how to fund an AI project in France (CIR, CII, Diag Data IA, France 2030)](https://www.thevibecompany.co/en/resources/articles/fund-ai-project-france-cir-cii). If you are still choosing a partner, here is [how to choose an AI agency](https://www.thevibecompany.co/en/resources/articles/how-to-choose-an-ai-agency).
 
 For the big picture (tools, memory, authority, measurement), read our [practical guide to AI agents for business](https://www.thevibecompany.co/en/resources/articles/ai-agents-for-business).
@@ -120,6 +146,15 @@ It mostly depends on data access and how many tools need to be connected. The ri
 **How do you stop the AI from making mistakes in production?**
 Write down what it does when it does not know (a "to check" category, a handoff to a human), keep human validation at the start, and track the correction rate week after week.
 
+**Who can set up AI agents to automate a team's work?**
+Five profiles: the business team with a no-code tool (Make, Zapier, n8n), a vendor platform such as Copilot Studio, the in-house IT or data team, a freelancer, or an AI agency. No-code is enough for simple flows between tools. As soon as the agent touches internal APIs or expensive decisions, you need developers, in-house or external.
+
+**Are Make, n8n or Zapier enough to automate with AI?**
+Often, for a first workflow with one AI step between tools that already have a connector. They hit their limits when you need to read internal data with no connector, handle the cases where the AI does not know, or track a correction rate. n8n has an edge when data must stay with you: it can be self-hosted.
+
+**How do you choose an AI automation agency in France?**
+Ask which process it would start with and why, how it measures the starting point, and how it connects the AI to your systems. Be wary of a proposal that opens with a catalogue of use cases or a tool to buy. And ask for client cases with a number measured before and after.
+
 **Will AI automation replace jobs?**
 In the cases we see, it mostly changes the nature of the work: writing becomes reviewing, searching becomes checking. The time freed up goes to the complex cases, which are also where people make the difference.
 
@@ -128,3 +163,6 @@ In the cases we see, it mostly changes the nature of the work: writing becomes r
 You have two or three processes in mind and do not know which one to tackle? Bring the volume, the tools in place and what is stuck today. We will run the grid together and tell you honestly which one will deliver a measurable result, and which one is better left for later.
 
 [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).
+
+
+</cursor_untrusted_data_1337

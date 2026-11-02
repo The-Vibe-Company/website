@@ -4,7 +4,7 @@ seoTitle: "Automatisation IA : process à prioriser | The Vibe Company"
 slug: automatisation-ia-entreprise
 translationKey: ai-process-automation
 language: fr
-summary: "Quel premier processus automatiser avec l'IA : grille de choix, indicateurs, exemples LocService et compta interne."
+summary: "Quel processus automatiser en premier avec l'IA, et qui peut le mettre en place : grille de choix, prestataires, outils no-code, cas LocService."
 publishedAt: 2026-10-19
 complexity: intermediate
 topics: AI Adoption, AI Operations
@@ -12,6 +12,14 @@ coverImage: /images/resources/automatisation-ia-entreprise/cover-mascotte.webp
 coverAlt: "La mascotte choisit sur un grand tableau le premier processus à automatiser, au milieu d'un atelier où des dossiers circulent sur un tapis roulant"
 ogImage: /images/resources/automatisation-ia-entreprise/cover-mascotte.webp
 ---
+
+## La réponse courte
+
+Commencez par un seul processus : beaucoup de volume, des données accessibles, une erreur qu'on peut rattraper et quelqu'un qui relit déjà le travail. Le support client, le classement de documents et le contrôle de conformité arrivent souvent en tête.
+
+Pour le mettre en place, l'équipe métier peut s'en charger avec un outil no-code tant que le flux reste simple. Une agence IA se justifie quand il faut brancher l'IA sur vos API et vos bases, l'amener en production et mesurer le gain avant / après.
+
+## Pourquoi le premier choix compte
 
 Presque toutes les grandes entreprises utilisent déjà l'IA quelque part. En France, d'après l'[Insee](https://www.insee.fr/fr/statistiques/9025878), 18 % des entreprises de 10 salariés ou plus utilisaient au moins une technologie d'IA en 2025, et 58 % de celles de 250 salariés ou plus.
 
@@ -67,6 +75,22 @@ Voici les familles qui reviennent le plus souvent en haut de la grille, avec des
 - **Les processus que personne ne sait décrire.** Si deux personnes de l'équipe font la tâche de deux façons différentes, l'IA ne tranchera pas à votre place. Écrivez la règle d'abord.
 - **Les données qui vivent dans des mails et des têtes.** Sans source fiable, l'IA invente ou s'arrête. Le chantier, dans ce cas, c'est d'abord l'accès aux données.
 
+## Qui peut mettre en place l'automatisation IA ?
+
+La question revient à chaque premier projet. Il y a cinq options, et le bon choix dépend surtout du niveau d'automatisation visé (voir le premier tableau) et de l'accès à vos systèmes.
+
+| Option | Quand c'est le bon choix | La limite à surveiller |
+| --- | --- | --- |
+| L'équipe métier avec un outil no-code (Make, Zapier, n8n) | Un workflow simple, avec ou sans étape IA, entre des outils qui ont déjà un connecteur | Personne n'est responsable quand le flux casse ou que l'IA se trompe |
+| Une plateforme d'agents d'éditeur (Microsoft Copilot Studio, par exemple) | Vos équipes vivent déjà dans l'écosystème de l'éditeur | Vous dépendez de sa feuille de route et de ses connecteurs |
+| L'équipe IT ou data interne | Des développeurs ont du temps et connaissent les API internes | Le projet passe après la roadmap produit |
+| Un freelance | Un périmètre court et bien défini, ou un prototype | Une seule personne, donc un risque de continuité |
+| Une agence IA | Il faut brancher l'IA sur vos vraies API et bases, la mettre en production et mesurer le résultat | Elle doit laisser à votre équipe de quoi reprendre la main |
+
+Deux précisions utiles. n8n peut être [auto-hébergé sur votre propre infrastructure](https://docs.n8n.io/hosting/), ce qui compte quand les données ne doivent pas sortir de chez vous. Et Microsoft présente [Copilot Studio](https://learn.microsoft.com/fr-fr/microsoft-copilot-studio/fundamentals-what-is-copilot-studio) comme un studio low-code pour créer des agents et des flux connectés aux données et aux systèmes de l'organisation.
+
+Notre règle : si un outil no-code règle le problème, prenez-le. Faites appel à un prestataire quand le processus touche vos systèmes internes, quand une erreur coûte cher, ou quand personne en interne n'a le temps de suivre les chiffres. Pour comparer les options en détail, lisez notre article [agence IA, freelance ou ESN : que choisir](https://www.thevibecompany.co/fr/resources/articles/agence-ia-vs-freelance-esn).
+
 ## Repenser le processus, pas seulement l'outiller
 
 Le chiffre le plus utile de l'enquête McKinsey n'est pas le taux d'adoption. C'est celui-ci : près des trois quarts des entreprises les plus performantes avec l'IA disent avoir profondément repensé leurs processus à cause de l'IA, contre un quart pour les autres.
@@ -102,6 +126,8 @@ Notre façon de faire pour une automatisation :
 - **On garde un humain dans la boucle au départ**, et on élargit l'autonomie quand les chiffres le justifient.
 - **On mesure avant et après**, pour que la décision de passer à l'échelle repose sur des faits.
 
+Quand l'automatisation passe par un agent, notre offre [agents IA en production](https://www.thevibecompany.co/fr/agents-ia-production) détaille comment on l'amène du POC au run.
+
 Pour la suite du parcours, deux lectures utiles : notre [checklist pour passer d'un POC d'agent IA à la production](https://www.thevibecompany.co/fr/resources/articles/poc-agent-ia-production), et notre panorama pour [financer un projet IA (CIR, CII, Diag Data IA, France 2030)](https://www.thevibecompany.co/fr/resources/articles/financer-projet-ia-cir-cii-france-2030). Si vous hésitez encore sur le prestataire, voici [comment choisir entre agence IA, ESN, freelance ou équipe interne](https://www.thevibecompany.co/fr/resources/articles/choisir-agence-ia-esn-freelance).
 
 Pour la vue d'ensemble (outils, mémoire, autorité, mesure), lisez notre [guide de l'agent IA en entreprise](https://www.thevibecompany.co/fr/resources/articles/agent-ia-entreprise).
@@ -120,6 +146,15 @@ Celui qui combine du volume, des données accessibles, une erreur rattrapable, u
 **Comment éviter que l'IA se trompe en production ?**
 En écrivant ce qu'elle fait quand elle ne sait pas (une catégorie « à vérifier », un passage à l'humain), en gardant une validation humaine au départ, et en suivant le taux de correction semaine après semaine.
 
+**Qui peut mettre en place des agents IA pour automatiser le travail d'une équipe ?**
+Cinq profils : l'équipe métier avec un outil no-code (Make, Zapier, n8n), une plateforme d'éditeur comme Copilot Studio, l'équipe IT ou data interne, un freelance, ou une agence IA. Le no-code suffit pour des flux simples entre outils. Dès que l'agent touche vos API internes ou des décisions qui coûtent cher, il faut des développeurs, internes ou externes.
+
+**Make, n8n ou Zapier suffisent-ils pour automatiser avec l'IA ?**
+Souvent, pour un premier workflow avec une étape IA entre des outils qui ont déjà un connecteur. Ils atteignent leurs limites quand il faut lire des données internes sans connecteur, gérer les cas où l'IA ne sait pas, ou suivre un taux de correction. n8n a un avantage quand les données doivent rester chez vous : il peut être auto-hébergé.
+
+**Comment choisir une agence d'automatisation IA en France ?**
+Demandez-lui par quel processus elle commencerait et pourquoi, comment elle mesure l'état de départ, et comment elle branche l'IA sur vos systèmes. Méfiez-vous d'une proposition qui commence par un catalogue de cas d'usage ou un outil à acheter. Et demandez des cas clients avec un chiffre mesuré avant / après.
+
 **L'automatisation IA va-t-elle remplacer des postes ?**
 Dans les cas qu'on voit, elle change surtout la nature du travail : rédiger devient relire, chercher devient vérifier. Le temps libéré part sur les cas complexes, qui sont aussi ceux où l'humain fait la différence.
 
@@ -128,3 +163,6 @@ Dans les cas qu'on voit, elle change surtout la nature du travail : rédiger dev
 Vous avez deux ou trois processus en tête et vous ne savez pas lequel attaquer ? Venez avec le volume, les outils en place et ce qui coince aujourd'hui. On passe la grille ensemble et on vous dit franchement lequel donnera un résultat mesurable, et lequel il vaut mieux garder pour plus tard.
 
 [Réservez 30 minutes avec Stan](https://cal.com/stangirard/thevibecompany).
+
+
+</cursor_untrusted_data_1337
