@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { Volume2, VolumeX } from "lucide-react";
+import { ButtonLink } from "@/components/kit";
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { RunnerAudio } from "@/lib/runner-audio";
@@ -11,9 +12,10 @@ import type { RunnerItem } from "@/lib/runner-worlds";
 /**
  * The hero's runner band: the site's own take on the Chrome offline dino.
  *
- * It is an inverted ink panel inside the warm-paper hero, so it reads as a
- * screen cut into the page rather than a widget floating on it. The player is
- * a small paper bird whose wing beats while it runs.
+ * It is a black lacquer band under the hero slab, with the orange rim light on
+ * its edge, so it reads as a screen set into the page rather than a widget
+ * floating on it. The player is VeeBee, the mascot, in profile: a porcelain
+ * head with the black hair and the mark, running on two little feet.
  *
  * Space / ArrowUp jumps, ArrowDown ducks, tap plays on touch. One canvas, one
  * fixed 60Hz timestep, so the difficulty curve is identical on every display.
@@ -26,9 +28,9 @@ const WORLD = {
   groundY: 170,
   gravity: 2600,
   // Apex is v²/2g = 78px. The second jump adds ~50px on top, for a 128px
-  // ceiling that still leaves the bird inside the band.
+  // ceiling that still leaves VeeBee inside the band.
   jumpVelocity: -637,
-  /** The second jump tops the bird up to exactly this height above the line,
+  /** The second jump tops VeeBee up to exactly this height above the line,
    *  whenever it is pressed. Adding a fixed impulse instead would either be
    *  wasted right after take-off or overshoot the roof near the apex. */
   doubleJumpPeak: 130,
@@ -42,7 +44,7 @@ const WORLD = {
   // Speed gains acceleration × 10 px/s per second: about 55s to top speed.
   acceleration: 0.75,
   /** Gaps are seconds, not pixels. A pixel gap that is comfortable at 365 px/s
-   *  becomes unclearable at 620 — the bird is still in the air from the last
+   *  becomes unclearable at 620 — VeeBee is still in the air from the last
    *  jump. In time, the rhythm holds and speed alone tightens the reaction
    *  window, which is where the difficulty should come from. */
   spawnGapMin: 0.85,
@@ -54,10 +56,10 @@ const WORLD = {
    *  them both. */
   twinGap: 0.22,
   twinMaxHeight: 40,
-  /** Ceiling bars stop this far above the ground: under a ducking bird
+  /** Ceiling bars stop this far above the ground: under a ducking VeeBee
    *  (18px), over nothing else. */
   ceilingGap: 24,
-  /** Head-height flyer: clips a standing bird, misses a ducking one. */
+  /** Head-height flyer: clips a standing VeeBee, misses a ducking one. */
   flyerHighY: 44,
   flyerHighHeight: 18,
   /** Ground-height flyer: ducking is not enough, it has to be jumped. */
@@ -414,7 +416,10 @@ type Palette = {
   accent: string;
   /** Reserved for everything that has to be ducked under. */
   duck: string;
+  /** The grey of unglazed clay on lacquer: the second voice, for the names. */
+  muted: string;
   sans: string;
+  mono: string;
 };
 
 // --- decor ---------------------------------------------------------------
@@ -560,19 +565,19 @@ const paintNight: Painter = (ctx, width, offset) => {
 
 interface Scene {
   key: string;
-  /** Each world is tinted rather than plain paper — the only colour in the
-   *  panel besides the orange accent. */
+  /** Each world is a different grey of the same clay: the panel keeps one
+   *  accent, the rim orange, and the scenery never competes with it. */
   tint: string;
   paint: Painter;
 }
 
 const SCENES: Scene[] = [
-  { key: "city", tint: "#9db4cf", paint: paintCity },
-  { key: "desert", tint: "#e0a566", paint: paintDesert },
-  { key: "forest", tint: "#7cba8d", paint: paintForest },
-  { key: "sea", tint: "#5fb4c6", paint: paintSea },
-  { key: "mountains", tint: "#b1abd8", paint: paintMountains },
-  { key: "night", tint: "#8d94e2", paint: paintNight },
+  { key: "city", tint: "#b9bab8", paint: paintCity },
+  { key: "desert", tint: "#c9c6c0", paint: paintDesert },
+  { key: "forest", tint: "#a9aaa8", paint: paintForest },
+  { key: "sea", tint: "#bcbdbc", paint: paintSea },
+  { key: "mountains", tint: "#aeafad", paint: paintMountains },
+  { key: "night", tint: "#c4c5c3", paint: paintNight },
 ];
 
 export const SCENE_KEYS = SCENES.map((scene) => scene.key);
@@ -585,15 +590,15 @@ export interface WorldCard {
 }
 
 /**
- * The name of whoever this world belongs to, set as a giant hollow word across
- * the sky.
+ * The name of whoever this world belongs to, set across the sky the way the
+ * site sets its titles: Bricolage Grotesque, tight, in the grey of unglazed
+ * clay on the lacquer, with a mono kicker and the orange dot above it.
  *
  * This is why the game is on the page: it tours our clients, projects and
  * backers one world at a time. So the name is not a label on top of the game,
- * it is part of the scenery — outlined rather than filled so obstacles stay
- * readable through it, and sized to the panel so a long name shrinks instead
- * of running off the edge of a phone. Above it, a single mono kicker says who
- * they are; nothing else competes.
+ * it is part of the scenery — a quiet grey, so the white and orange obstacles
+ * stay the brightest things on the band, and sized to the panel so a long
+ * name shrinks instead of running off the edge of a phone.
  */
 const fitCache = new Map<string, number>();
 
@@ -608,7 +613,7 @@ function fittedSize(
   if (cached !== undefined) return cached;
 
   let size = 68;
-  ctx.font = `700 ${size}px ${palette.sans}`;
+  ctx.font = `800 ${size}px ${palette.sans}`;
   const maxWidth = width * 0.66;
   const measured = ctx.measureText(name).width;
   if (measured > maxWidth) size = Math.max(26, (size * maxWidth) / measured);
@@ -630,53 +635,47 @@ function nameAlpha(elapsed: number, idle: boolean): number {
 function drawWorldName(
   ctx: CanvasRenderingContext2D,
   card: WorldCard | undefined,
-  scene: Scene,
   alpha: number,
   width: number,
   palette: Palette,
 ): void {
   if (!card || !card.name || alpha <= 0.01) return;
-  const name = card.name.toUpperCase();
+  const name = card.name;
   const x = width / 2;
 
   // Rises into place on the way in, keeps drifting up on the way out.
   const drift = (1 - alpha) * 12;
 
   ctx.save();
-  ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
 
-  // Kicker above the name, magazine style: what they are and what they do, on
-  // one quiet line, so the big word underneath can just be the name.
-  ctx.globalAlpha = alpha * 0.65;
-  ctx.fillStyle = scene.tint;
-  ctx.letterSpacing = "4px";
-  ctx.font = `600 10px ui-monospace, "SF Mono", Menlo, monospace`;
-  const kicker = card.detail
-    ? `${card.kind.toUpperCase()} — ${card.detail.toUpperCase()}`
-    : card.kind.toUpperCase();
-  ctx.fillText(kicker, x, 26 - drift);
+  // Kicker: the orange dot, then what they are and what they do, on one
+  // quiet mono line, as every kicker of the site.
+  const kicker = (card.detail ? `${card.kind} · ${card.detail}` : card.kind).toUpperCase();
+  ctx.letterSpacing = "2.5px";
+  ctx.font = `500 12px ${palette.mono}`;
+  const kickerWidth = ctx.measureText(kicker).width;
+  const kickerX = x - kickerWidth / 2 + 8;
+  const kickerY = 22 - drift;
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = palette.accent;
+  ctx.beginPath();
+  ctx.arc(kickerX - 12, kickerY - 4, 3, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.textAlign = "left";
+  ctx.fillStyle = palette.muted;
+  ctx.fillText(kicker, kickerX, kickerY);
 
-  // Fit the word to the panel: short names get the full 68px, long ones shrink
-  // rather than run off the edge. Measured once per name and width, not per
-  // frame — measureText on a letterspaced string 60 times a second is real
-  // work for an answer that only changes when the world does.
-  ctx.letterSpacing = "5px";
+  // The name: Bricolage, tight, filled in the grey of unglazed clay. Fit to
+  // the panel: short names get the full 68px, long ones shrink rather than
+  // run off the edge. Measured once per name and width, not per frame.
+  ctx.textAlign = "center";
+  ctx.letterSpacing = "-2px";
   const size = fittedSize(ctx, name, width, palette);
-  ctx.font = `700 ${size}px ${palette.sans}`;
-
-  const baseline = 86 - drift;
-
-  // A whisper of fill gives the letters body without hiding what runs behind.
-  ctx.globalAlpha = alpha * 0.08;
-  ctx.fillStyle = scene.tint;
-  ctx.fillText(name, x, baseline);
-
-  ctx.globalAlpha = alpha * 0.8;
-  ctx.strokeStyle = scene.tint;
-  ctx.lineWidth = 1.6;
-  ctx.lineJoin = "round";
-  ctx.strokeText(name, x, baseline);
+  ctx.font = `800 ${size}px ${palette.sans}`;
+  ctx.globalAlpha = alpha * 0.6;
+  ctx.fillStyle = palette.muted;
+  ctx.fillText(name, x, 80 - drift);
   ctx.restore();
 }
 
@@ -734,18 +733,20 @@ function drawWorldNameLayer(
 ): void {
   if (cards.length === 0) return;
   const { index, elapsed, entering } = worldPhase(world);
-  const scene = SCENES[index % SCENES.length];
   const alpha = Math.min(entering, nameAlpha(elapsed, world.phase !== "running"));
-  drawWorldName(ctx, cards[index % cards.length], scene, alpha, width, palette);
+  drawWorldName(ctx, cards[index % cards.length], alpha, width, palette);
 }
 
 /**
- * The player: a small paper bird. Everything is expressed as a fraction of its
- * box, so the same drawing squashes into the ducking silhouette without any
- * second set of numbers. The wing beats while running and stays raised in the
- * air, which doubles as the "am I airborne?" cue.
+ * The player: VeeBee in profile, running to the right. Everything is expressed
+ * as a fraction of its box, so the same drawing squashes into the ducking
+ * silhouette without any second set of numbers. A big porcelain head with the
+ * black hair over the crown and the back, The Vibe Co. mark sweeping back
+ * through it in two white strokes, a big eye looking ahead and a smile; a
+ * small body with the black V on its chest, and two feet that run on the
+ * ground and tuck in the air, which doubles as the "am I airborne?" cue.
  */
-function drawBird(
+function drawVeeBee(
   ctx: CanvasRenderingContext2D,
   world: World,
   box: { x: number; y: number; width: number; height: number },
@@ -754,52 +755,92 @@ function drawBird(
 ): void {
   const { x, y, width: w, height: h } = box;
   const px = (fx: number, fy: number): [number, number] => [x + fx * w, y + fy * h];
-
-  const beat = world.grounded ? Math.sin(world.t * 14) : 1;
-  // Kept inside the silhouette: a wing that leaves the body reads as a hole.
-  const wingTip = 0.32 - beat * 0.13;
+  const light = crashed ? palette.accent : palette.paper;
+  const dark = crashed ? palette.paper : palette.ink;
+  const head: [number, number, number, number] = [...px(0.5, 0.4), w * 0.38, h * 0.38];
 
   ctx.save();
-  ctx.fillStyle = crashed ? palette.accent : palette.paper;
-  ctx.strokeStyle = crashed ? palette.accent : palette.paper;
   ctx.lineJoin = "round";
   ctx.lineCap = "round";
 
-  // Tail, body and head in one silhouette.
+  // Feet: they take turns on the ground, and tuck under the body in the air.
+  const stride = world.grounded ? Math.sin(world.t * 16) * 0.12 : 0;
+  const reach = world.grounded ? 1.0 : 0.93;
+  ctx.strokeStyle = light;
+  ctx.lineWidth = Math.max(2, w * 0.09);
   ctx.beginPath();
-  ctx.moveTo(...px(0.02, 0.34));
-  ctx.lineTo(...px(0.24, 0.52));
-  ctx.bezierCurveTo(...px(0.3, 0.98), ...px(0.7, 1.0), ...px(0.76, 0.62));
-  ctx.bezierCurveTo(...px(0.82, 0.5), ...px(0.88, 0.42), ...px(0.86, 0.3));
-  ctx.bezierCurveTo(...px(0.84, 0.12), ...px(0.6, 0.08), ...px(0.5, 0.24));
-  ctx.bezierCurveTo(...px(0.42, 0.36), ...px(0.2, 0.36), ...px(0.02, 0.34));
+  ctx.moveTo(...px(0.42, 0.82));
+  ctx.lineTo(...px(0.42 + stride, reach));
+  ctx.moveTo(...px(0.58, 0.82));
+  ctx.lineTo(...px(0.58 - stride, reach));
+  ctx.stroke();
+
+  // Body, with the black V on the chest, on the side he runs toward.
+  ctx.fillStyle = light;
+  ctx.beginPath();
+  ctx.ellipse(...px(0.5, 0.77), w * 0.19, h * 0.11, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = dark;
+  ctx.beginPath();
+  ctx.moveTo(...px(0.55, 0.69));
+  ctx.lineTo(...px(0.68, 0.72));
+  ctx.lineTo(...px(0.6, 0.85));
   ctx.closePath();
   ctx.fill();
 
-  // Beak: a small wedge, the detail that makes it read as a bird at 32px.
+  // Head.
+  ctx.fillStyle = light;
   ctx.beginPath();
-  ctx.moveTo(...px(0.85, 0.22));
-  ctx.lineTo(...px(1.0, 0.3));
-  ctx.lineTo(...px(0.85, 0.36));
-  ctx.closePath();
+  ctx.ellipse(...head, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // Wing: a filled crescent cut out of the body. A stroke reads as a frown at
-  // this size; a shape reads as a wing.
-  ctx.fillStyle = crashed ? palette.paper : palette.ink;
+  // Hair over the crown and down the back, the mark sweeping back through it.
+  ctx.save();
   ctx.beginPath();
-  ctx.moveTo(...px(0.3, 0.62));
-  ctx.quadraticCurveTo(...px(0.45, wingTip), ...px(0.62, 0.52));
-  ctx.quadraticCurveTo(...px(0.48, 0.6), ...px(0.4, 0.72));
-  ctx.quadraticCurveTo(...px(0.34, 0.68), ...px(0.3, 0.62));
+  ctx.ellipse(...head, 0, 0, Math.PI * 2);
+  ctx.clip();
+  ctx.fillStyle = dark;
+  ctx.beginPath();
+  ctx.moveTo(...px(0.76, 0.12));
+  ctx.quadraticCurveTo(...px(0.66, 0.3), ...px(0.52, 0.3));
+  ctx.quadraticCurveTo(...px(0.38, 0.32), ...px(0.3, 0.62));
+  ctx.lineTo(...px(0, 0.72));
+  ctx.lineTo(...px(0, 0));
+  ctx.lineTo(...px(1, 0));
   ctx.closePath();
   ctx.fill();
-
-  // Eye.
-  ctx.fillStyle = crashed ? palette.paper : palette.ink;
+  ctx.strokeStyle = light;
+  ctx.lineWidth = Math.max(1.2, w * 0.05);
   ctx.beginPath();
-  ctx.arc(...px(0.7, 0.26), Math.max(1.2, h * 0.045), 0, Math.PI * 2);
+  ctx.moveTo(...px(0.64, 0.08));
+  ctx.quadraticCurveTo(...px(0.42, 0.12), ...px(0.24, 0.38));
+  ctx.moveTo(...px(0.62, 0.2));
+  ctx.quadraticCurveTo(...px(0.46, 0.22), ...px(0.32, 0.46));
+  ctx.stroke();
+  ctx.restore();
+
+  // The head's outline, so the black hair keeps it round on the black band.
+  ctx.strokeStyle = light;
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.ellipse(...head, 0, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // A big eye looking ahead, with its highlight, and the smile.
+  ctx.fillStyle = dark;
+  ctx.beginPath();
+  ctx.ellipse(...px(0.7, 0.47), w * 0.085, h * 0.11, 0, 0, Math.PI * 2);
   ctx.fill();
+  ctx.fillStyle = light;
+  ctx.beginPath();
+  ctx.arc(...px(0.73, 0.42), Math.max(0.8, w * 0.025), 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = dark;
+  ctx.lineWidth = Math.max(1, w * 0.045);
+  ctx.beginPath();
+  ctx.moveTo(...px(0.72, 0.63));
+  ctx.quadraticCurveTo(...px(0.79, 0.69), ...px(0.85, 0.6));
+  ctx.stroke();
   ctx.restore();
 }
 
@@ -886,7 +927,7 @@ function drawFlyer(
 
 /**
  * Standing and hanging obstacles. Corners are rounded only on the edges facing
- * the bird, so each one still points the way it hangs, and anything that needs
+ * VeeBee, so each one still points the way it hangs, and anything that needs
  * a move other than a plain jump wears diagonal hazard stripes.
  */
 function drawObstacle(
@@ -1012,7 +1053,7 @@ function draw(
     ctx.restore();
   }
 
-  drawBird(ctx, world, playerBox(world), palette, world.phase === "over");
+  drawVeeBee(ctx, world, playerBox(world), palette, world.phase === "over");
 
   // Foreground: the name goes over the obstacles, never under them.
   drawWorldNameLayer(ctx, world, width, palette, cards);
@@ -1112,7 +1153,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       audio().jump(false);
       return;
     }
-    // Second press mid-air: top the bird up to a fixed peak, and puff so the
+    // Second press mid-air: top VeeBee up to a fixed peak, and puff so the
     // move is legible.
     if (world.jumps >= 2) return;
     const climbed = WORLD.groundY - world.playerY;
@@ -1250,18 +1291,20 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
     const styles = getComputedStyle(canvas);
     const palette: Palette = {
-      // The panel is inverted: the page's foreground is the band's surface and
-      // the page's background is what gets drawn on it.
-      ink: styles.getPropertyValue("--foreground").trim() || "#0a0a0a",
-      paper: styles.getPropertyValue("--background").trim() || "#fdfbf7",
-      accent: "#f97316",
-      // Yellow with black stripes: the universal "watch your head". Its
-      // position tells it apart from the orange barriers — this hangs or
+      // The panel is black lacquer: ink is the lacquer itself, paper is the
+      // porcelaine white that gets drawn on it.
+      ink: styles.getPropertyValue("--lacquer").trim() || "#0c0c0d",
+      paper: styles.getPropertyValue("--on-lacquer").trim() || "#f3f3f1",
+      accent: styles.getPropertyValue("--rim").trim() || "#ff7a1f",
+      // The pale end of the rim light, with black stripes: "watch your head".
+      // Its position tells it apart from the orange barriers — this hangs or
       // flies, orange always stands on the ground.
-      duck: "#e9dd52",
+      duck: styles.getPropertyValue("--rim-hot").trim() || "#ffb46e",
       // The panel inherits the page font; the title card borrows it so the
       // names are set in the same voice as the hero above them.
       sans: styles.fontFamily || "system-ui, sans-serif",
+      muted: styles.getPropertyValue("--on-lacquer-muted").trim() || "#9a9b9b",
+      mono: styles.getPropertyValue("--font-code").trim() || "ui-monospace, Menlo, monospace",
     };
 
     let last = performance.now();
@@ -1400,20 +1443,21 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     <section
       aria-labelledby="runner-heading"
       data-surface="inverse"
-      className="relative mt-8 hidden bg-foreground text-background lg:mt-10 lg:block"
+      className="lacquer rim relative hidden overflow-hidden rounded-plate lg:block"
+      style={{ "--rim-angle": "100deg" } as React.CSSProperties}
     >
       <h2 id="runner-heading" className="sr-only">
         {t("heading")}
       </h2>
 
       {/* Readout row, inside the panel: controls left, score right. */}
-      <div className="flex items-baseline justify-between gap-3 px-5 pb-1 pt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-background/55 md:gap-4 md:px-7 md:text-[11px] md:tracking-[0.2em]">
+      <div className="flex items-center justify-between gap-4 px-6 pt-3 font-mono text-xs uppercase tracking-[0.1em] text-on-lacquer-muted">
         <p className="m-0">{t("hint")}</p>
-        <p className="m-0 ml-auto flex shrink-0 items-center gap-2 tabular-nums md:gap-4">
-          <span className={isNewBest ? "text-orange-500" : "text-background"}>
+        <p className="m-0 ml-auto flex shrink-0 items-center gap-3.5 tabular-nums">
+          <span className={isNewBest ? "font-semibold text-orange-500" : "font-semibold text-on-lacquer"}>
             {t("score")} {pad(score)}
           </span>
-          <span aria-hidden="true" className="text-background/25">
+          <span aria-hidden="true" className="text-on-lacquer-muted/60">
             /
           </span>
           <span>
@@ -1435,12 +1479,12 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
             }}
             aria-pressed={muted}
             aria-label={muted ? t("soundOn") : t("soundOff")}
-            className="ml-1 cursor-pointer p-1 text-background/55 transition-colors hover:text-background"
+            className="grid h-11 w-11 cursor-pointer place-items-center rounded-full bg-[linear-gradient(180deg,#2a2a2c,#121213)] text-on-lacquer shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_1px_0_#000] transition-[filter] hover:brightness-125"
           >
             {muted ? (
-              <VolumeX aria-hidden="true" className="h-3.5 w-3.5" />
+              <VolumeX aria-hidden="true" className="h-[18px] w-[18px]" />
             ) : (
-              <Volume2 aria-hidden="true" className="h-3.5 w-3.5" />
+              <Volume2 aria-hidden="true" className="h-[18px] w-[18px]" />
             )}
           </button>
         </p>
@@ -1448,7 +1492,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
       <div
         ref={containerRef}
-        className="relative cursor-pointer select-none px-5 pb-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-background md:px-7 md:pb-4"
+        className="relative cursor-pointer select-none px-6 pb-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px]"
         role="button"
         tabIndex={0}
         aria-label={t("aria")}
@@ -1482,13 +1526,16 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
 
         {phase !== "running" && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <p className="m-0 border border-background/30 bg-foreground px-4 py-2 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-background md:text-xs">
+            <p className="clay m-0 inline-flex h-11 items-center whitespace-nowrap rounded-full px-6 text-center font-mono text-xs font-semibold uppercase tracking-[0.14em] text-ink">
               {phase === "idle" ? (
                 t("start")
               ) : (
                 <>
-                  <span className="text-orange-500">{t("over")}</span>{" "}
-                  <span aria-hidden="true">·</span> {t("restart")}
+                  <span className="text-rim-text">{t("over")}</span>
+                  <span aria-hidden="true" className="mx-2">
+                    ·
+                  </span>
+                  {t("restart")}
                 </>
               )}
             </p>
@@ -1501,21 +1548,22 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
           inside it would be unreachable and invalid. Out here it keeps its own
           tab stop and its own focus ring. */}
       {wonAudit && (
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-background/20 px-5 py-3 md:gap-4 md:px-7 md:py-4">
-          <p className="m-0 font-mono text-[11px] uppercase tracking-[0.2em] text-orange-500 md:text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-6 py-3">
+          <p className="m-0 font-mono text-xs uppercase tracking-[0.14em] text-orange-500">
             {t("audit")}
           </p>
-          <a
+          <ButtonLink
             href={BOOKING_URL}
+            variant="clay"
+            size="sm"
+            arrow
             {...bookingLocation("hero_runner_audit")}
             onClick={() =>
               captureEvent("discovery_call_clicked", { location: "hero_runner_audit", score })
             }
-            className="inline-flex items-center gap-2 border-2 border-background bg-background px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--background)] md:text-xs"
           >
             {t("auditCta")}
-            <span aria-hidden="true">→</span>
-          </a>
+          </ButtonLink>
         </div>
       )}
 

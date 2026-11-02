@@ -1,11 +1,15 @@
 "use client";
 
 import React from "react";
+import { ButtonLink } from "@/components/kit";
+import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { DIMENSIONS, SCENE_DRAW, type Dimension, type SceneFn } from "./dimensions";
 
 /*
- * VibeRunner — the playable endless-runner hero, embedded inside the existing
- * warm-paper homepage (TopNav + sections + Footer are provided by the page).
+ * VibeRunner — the playable endless-runner hero, embedded inside the
+ * porcelaine homepage (TopNav + sections + Footer are provided by the page).
+ * Its text sits on the page's own rail (the `wrap`), so it starts where the
+ * header does; only the canvas runs edge to edge.
  *
  * Difficulty mirrors the Chrome/Firefox T-Rex runner exactly: the engine runs
  * the dino's per-frame model (SPEED 6 -> MAX 13 px/frame, ACCELERATION 0.001,
@@ -51,6 +55,9 @@ interface DiscoveredDim {
 
 interface VibeRunnerProps {
   pauseMotion?: boolean;
+  /** The booking action's label (`finalCta.bookCall`), the same everywhere. */
+  bookLabel?: string;
+  bookUrl?: string;
 }
 
 interface VibeRunnerState {
@@ -96,10 +103,11 @@ interface Cloud {
   s: number;
 }
 
-const HOME_DA = { paper: "#fdfbf7", ink: "#0a0a0a", accent: "#0a0a0a", player: "#0a0a0a" };
+// The opening world is the studio itself: porcelaine grey and lacquer black.
+const HOME_DA = { paper: "#ebeced", ink: "#0b0b0c", accent: "#0b0b0c", player: "#0b0b0c" };
 
 export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState> {
-  static defaultProps: Required<VibeRunnerProps> = { pauseMotion: false };
+  static defaultProps: Required<VibeRunnerProps> = { pauseMotion: false, bookLabel: "Book 30 minutes", bookUrl: BOOKING_URL };
 
   private canvasRef = React.createRef<HTMLCanvasElement>();
   private wrapRef = React.createRef<HTMLDivElement>();
@@ -121,6 +129,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   private _reducedMotion = false;
   private _visible = true;
   private _io: IntersectionObserver | null = null;
+  private _ro: ResizeObserver | null = null;
 
   // dino-derived px constants (set in tune())
   private BASE_SPEED = 0;
@@ -258,6 +267,12 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
     this.buildGrain();
     this._onResize = () => this.resize();
     window.addEventListener("resize", this._onResize);
+    // The hero is as tall as its text needs, so its height can change without
+    // the window moving (a font arriving, a line wrapping): follow the canvas.
+    if (typeof ResizeObserver !== "undefined") {
+      this._ro = new ResizeObserver(() => this.resize());
+      this._ro.observe(cv);
+    }
     this.resize();
     try {
       this.best = parseInt(localStorage.getItem("vibeco_runner_best") || "0", 10) || 0;
@@ -280,6 +295,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
   componentWillUnmount() {
     cancelAnimationFrame(this._raf);
     if (this._io) this._io.disconnect();
+    if (this._ro) this._ro.disconnect();
     window.removeEventListener("resize", this._onResize);
     this.unbind();
     if (this._ac) {
@@ -578,6 +594,8 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
 
   bindInput() {
     this._kd = (e: KeyboardEvent) => {
+      // A key typed into a field (the header search) is the visitor's, never a jump.
+      if (e.target instanceof HTMLElement && (e.target.isContentEditable || e.target.closest("input, textarea, select"))) return;
       if (e.code === "Space" || e.code === "ArrowUp") {
         // While playing, jump always wins — never swallowed by a focused link/button.
         if (this.state.phase === "running") {
@@ -995,10 +1013,11 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
       }
     }
 
-    // clouds (faint arcs)
+    // clouds (faint arcs). Not while the headline is up: they drifted across
+    // its letters.
     ctx.strokeStyle = this.rgb(ink, 0.12);
     ctx.lineWidth = 1.5;
-    for (const cl of this.clouds) {
+    for (const cl of this.state.phase === "idle" ? [] : this.clouds) {
       ctx.beginPath();
       ctx.arc(cl.x, cl.y, 22 * cl.s * S, Math.PI * 0.15, Math.PI * 0.95, true);
       ctx.stroke();
@@ -1267,13 +1286,16 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
 
   render() {
     const { phase, sound, world, finalScore, bestScore, deadKicker, deadTitle, discovered, visitedNames } = this.state;
+    const { bookLabel = "Book 30 minutes", bookUrl = BOOKING_URL } = this.props;
     const isIdle = phase === "idle";
     const isDead = phase === "dead";
     const soundIcon = sound ? "♪" : "⊘";
     const hudColor = world ? world.ink : "var(--foreground)";
 
     return (
-      <div ref={this.wrapRef} style={{ position: "relative", width: "100%", height: "clamp(560px, 86vh, 880px)", overflow: "hidden", borderBottom: "2px solid var(--foreground)" }}>
+      // As tall as the text needs (and the bird needs under it), never shorter
+      // than a screen's worth: the CTA can never end up under the sprite.
+      <div ref={this.wrapRef} className="relative w-full overflow-hidden border-b border-border" style={{ minHeight: "clamp(600px, 88vh, 900px)" }}>
         <canvas
           ref={this.canvasRef}
           role="img"
@@ -1281,98 +1303,117 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block", touchAction: "manipulation", cursor: "pointer" }}
         />
 
-        {/* Marketing block — existing homepage hero tone; fades out on play.
-            pointer-events stay off the block so canvas taps pass through to start;
-            only the CTA opts in, and only while idle. */}
-        <div data-ui="marketing" style={{ position: "absolute", left: 0, right: 0, top: 0, zIndex: 2, padding: "clamp(76px, 12vh, 132px) clamp(20px, 6vw, 80px) 0", pointerEvents: "none" }}>
-          <div style={{ maxWidth: 760 }}>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 18 }}>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 10, border: "1px solid var(--foreground)", padding: "6px 14px", fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--foreground)" }}>
-                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#f97316", animation: "vc-pulse 2s infinite" }} />
-                Open to projects · Built with AI
-              </span>
-            </div>
-            <h1 style={{ margin: 0, fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 0.92, fontSize: "clamp(40px, 7vw, 104px)", color: "var(--foreground)" }}>
-              <span style={{ display: "block" }}>AI-native agency.</span>
-              <span style={{ display: "block", WebkitTextStroke: "1.5px var(--foreground)", color: "transparent" }}>Everything way faster.</span>
-            </h1>
-            <p style={{ margin: "20px 0 0", maxWidth: 540, fontSize: "clamp(15px, 1.7vw, 19px)", lineHeight: 1.5, color: "var(--foreground)", opacity: 0.62 }}>
-              A small team of AI specialists. We build products, automate ops, and train teams. Our agency itself runs on AI.
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 16, marginTop: 26, pointerEvents: isIdle ? "auto" : "none" }}>
-              <a href="mailto:founders@thevibecompany.co" style={{ display: "inline-flex", alignItems: "center", gap: 12, border: "2px solid var(--foreground)", background: "var(--foreground)", color: "var(--background)", padding: "14px 24px", fontSize: 15, fontWeight: 600, textDecoration: "none" }}>
-                Book a discovery call <span aria-hidden="true">→</span>
-              </a>
-              <span style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--foreground)", opacity: 0.55 }}>↑ Space — discover our worlds</span>
+        {/* Marketing block — fades out on play. pointer-events stay off the
+            block so canvas taps pass through to start; only the CTA opts in,
+            and only while idle. The 200px under it is the bird's room. */}
+        <div data-ui="marketing" className="pointer-events-none relative z-[2]" style={{ padding: "clamp(76px, 12vh, 132px) 0 200px" }}>
+          <div className="wrap">
+            <div className="max-w-[900px]">
+              <p className="kicker m-0">
+                <span aria-hidden="true" className="dot dot-rim" />
+                <span>Open to projects · Built with AI</span>
+              </p>
+              <h1 className="display d-md m-0 mt-5">
+                AI-native agency.
+                <br />
+                <span className="bisque">Everything way faster.</span>
+              </h1>
+              <p className="lede m-0 mt-5">
+                A small team of AI specialists. We build products, automate ops, and train teams. Our agency itself runs on AI.
+              </p>
+              <div className="mt-7" style={{ pointerEvents: isIdle ? "auto" : "none" }}>
+                <ButtonLink href={bookUrl} size="lg" arrow {...bookingLocation("v2_runner")}>
+                  {bookLabel}
+                </ButtonLink>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Score / sound HUD — always visible, coloured by the current world */}
-        <div style={{ position: "absolute", top: "clamp(76px, 12vh, 132px)", right: "clamp(20px, 6vw, 80px)", zIndex: 3, textAlign: "right", fontFamily: MONO, pointerEvents: "auto", color: hudColor }}>
-          <div style={{ fontSize: 10.5, letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.55 }}>Shipped</div>
-          <div data-hud="score" style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1 }}>0</div>
-          <div style={{ fontSize: 11, letterSpacing: "0.06em", opacity: 0.55, marginTop: 4 }}>Best <span data-hud="best">0</span></div>
-          {/* discovery progress — one dot per dimension, filled once visited */}
-          {!isIdle && (
-            <div style={{ display: "flex", gap: 5, justifyContent: "flex-end", marginTop: 10 }} aria-label={`${visitedNames.length} of ${DIMENSIONS.length} dimensions discovered`}>
-              {DIMENSIONS.map((d) => (
-                <span
-                  key={d.name}
-                  title={visitedNames.includes(d.name) ? d.name : undefined}
-                  style={{
-                    width: 7,
-                    height: 7,
-                    borderRadius: "50%",
-                    background: visitedNames.includes(d.name) ? d.accent : "transparent",
-                    border: visitedNames.includes(d.name) ? "1px solid transparent" : "1px solid currentColor",
-                    opacity: visitedNames.includes(d.name) ? 1 : 0.35,
-                  }}
-                />
-              ))}
+        {/* Score / sound HUD — always visible, coloured by the current world.
+            A row under the header on a phone, a column on the rail's right
+            edge from 768px, so it never meets the headline's first line. */}
+        <div className="pointer-events-none absolute inset-x-0 top-4 z-[3] md:top-[clamp(76px,12vh,132px)]" style={{ color: hudColor, fontFamily: MONO }}>
+          <div className="wrap flex justify-end">
+            <div className="pointer-events-auto flex items-center gap-3.5 md:block md:text-right">
+              <div className="text-xs uppercase tracking-[0.1em] opacity-70">Shipped</div>
+              <div data-hud="score" className="text-[clamp(28px,4vw,44px)] font-bold leading-none tracking-[-0.02em]">0</div>
+              <div className="text-xs tracking-[0.06em] opacity-70 md:mt-1">Best <span data-hud="best">0</span></div>
+              {/* discovery progress — one dot per dimension, filled once visited */}
+              {!isIdle && (
+                <div className="flex gap-[5px] md:mt-2.5 md:justify-end" aria-label={`${visitedNames.length} of ${DIMENSIONS.length} dimensions discovered`}>
+                  {DIMENSIONS.map((d) => (
+                    <span
+                      key={d.name}
+                      title={visitedNames.includes(d.name) ? d.name : undefined}
+                      style={{
+                        width: 7,
+                        height: 7,
+                        borderRadius: "50%",
+                        background: visitedNames.includes(d.name) ? d.accent : "transparent",
+                        border: visitedNames.includes(d.name) ? "1px solid transparent" : "1px solid currentColor",
+                        opacity: visitedNames.includes(d.name) ? 1 : 0.35,
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+              <button
+                onClick={this.onToggleSound}
+                title="Toggle sound"
+                aria-label="Toggle sound"
+                className="grid h-9 w-9 cursor-pointer place-items-center rounded-full border border-current bg-transparent text-sm opacity-80 transition-opacity hover:opacity-100 md:ml-auto md:mt-3"
+              >
+                {soundIcon}
+              </button>
             </div>
-          )}
-          <button onClick={this.onToggleSound} title="Toggle sound" aria-label="Toggle sound" style={{ marginTop: 12, width: 30, height: 30, borderRadius: 9999, border: "1px solid currentColor", background: "transparent", color: "currentColor", cursor: "pointer", fontSize: 13, opacity: 0.8 }}>{soundIcon}</button>
+          </div>
         </div>
 
         {/* Dimension card — persistent product card revealing this facet of TVC */}
         {world && !isIdle && !isDead && (
-          <div style={{ position: "absolute", left: "clamp(20px,6vw,80px)", top: "clamp(76px,12vh,120px)", zIndex: 4, pointerEvents: "none", display: "flex", alignItems: "stretch", gap: 14, maxWidth: 540 }}>
-            <span style={{ width: 4, borderRadius: 4, flex: "none", background: world.accent }} />
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                {world.logo ? (
-                  <LogoImg src={world.logo} size={22} />
-                ) : (
-                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: world.accent }} />
-                )}
-                <span style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: world.ink, opacity: 0.7 }}>{world.tag}</span>
+          <div className="pointer-events-none absolute inset-x-0 z-[4]" style={{ top: "clamp(76px,12vh,120px)" }}>
+            <div className="wrap">
+              <div className="flex max-w-[540px] items-stretch gap-3.5">
+                <span style={{ width: 4, borderRadius: 4, flex: "none", background: world.accent }} />
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    {world.logo ? (
+                      <LogoImg src={world.logo} size={22} />
+                    ) : (
+                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: world.accent }} />
+                    )}
+                    <span style={{ fontFamily: MONO, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.14em", color: world.ink, opacity: 0.75 }}>{world.tag}</span>
+                  </div>
+                  <div style={{ fontFamily: SANS, fontSize: "clamp(28px, 4.4vw, 48px)", fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 1.0, marginTop: 8, color: world.ink }}>{world.name}</div>
+                  <div style={{ fontSize: "clamp(14px, 1.6vw, 18px)", lineHeight: 1.45, marginTop: 8, color: world.ink, opacity: 0.75, maxWidth: 420 }}>{world.line}</div>
+                  <a
+                    href={world.url}
+                    target={world.external ? "_blank" : undefined}
+                    rel={world.external ? "noopener noreferrer" : undefined}
+                    style={{ pointerEvents: "auto", display: "inline-flex", alignItems: "center", gap: 6, marginTop: 12, fontFamily: MONO, fontSize: 12, letterSpacing: "0.04em", color: world.accent, textDecoration: "none", borderBottom: `1px solid ${world.accent}`, paddingBottom: 1 }}
+                  >
+                    {world.linkLabel ?? `visit ${world.name}`} <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
               </div>
-              <div style={{ fontFamily: SANS, fontSize: "clamp(28px, 4.4vw, 48px)", fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 1.0, marginTop: 8, color: world.ink }}>{world.name}</div>
-              <div style={{ fontSize: "clamp(14px, 1.6vw, 18px)", lineHeight: 1.45, marginTop: 8, color: world.ink, opacity: 0.7, maxWidth: 420 }}>{world.line}</div>
-              <a
-                href={world.url}
-                target={world.external ? "_blank" : undefined}
-                rel={world.external ? "noopener noreferrer" : undefined}
-                style={{ pointerEvents: "auto", display: "inline-flex", alignItems: "center", gap: 6, marginTop: 12, fontFamily: MONO, fontSize: 12, letterSpacing: "0.04em", color: world.accent, textDecoration: "none", borderBottom: `1px solid ${world.accent}`, paddingBottom: 1 }}
-              >
-                {world.linkLabel ?? `visit ${world.name}`} <span aria-hidden="true">↗</span>
-              </a>
             </div>
           </div>
         )}
 
         {/* Controls hint while playing */}
         {!isIdle && !isDead && (
-          <div style={{ position: "absolute", right: "clamp(20px,6vw,80px)", bottom: "clamp(20px,4vh,40px)", zIndex: 4, pointerEvents: "none", fontFamily: MONO, fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.1em", color: world ? world.ink : "var(--foreground)", opacity: 0.5 }}>
-            {"Space / tap — jump   ·   ↓ / hold-low — duck"}
+          <div className="pointer-events-none absolute inset-x-0 z-[4]" style={{ bottom: "clamp(20px,4vh,40px)" }}>
+            <div className="wrap text-right text-xs uppercase tracking-[0.1em]" style={{ fontFamily: MONO, color: world ? world.ink : "var(--foreground)", opacity: 0.6 }}>
+              {"Space / tap — jump   ·   ↓ / hold-low — duck"}
+            </div>
           </div>
         )}
 
         {/* Idle prompt */}
         {isIdle && (
           <div style={{ position: "absolute", left: 0, right: 0, bottom: "clamp(20px,5vh,52px)", zIndex: 4, display: "flex", justifyContent: "center", pointerEvents: "none" }}>
-            <div data-ui="prompt" style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--foreground)", opacity: 0.6, animation: "vc-bob 1.7s ease-in-out infinite" }}>
+            <div data-ui="prompt" className="text-center text-xs uppercase tracking-[0.18em]" style={{ fontFamily: MONO, color: "var(--foreground)", opacity: 0.7, animation: "vc-bob 1.7s ease-in-out infinite" }}>
               {"↑  Space — discover our worlds  ↑"}
             </div>
           </div>
@@ -1380,25 +1421,22 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
 
         {/* Dead overlay */}
         {isDead && (
-          <div style={{ position: "absolute", inset: 0, zIndex: 5, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: 28, background: "rgba(10,10,10,0.68)", backdropFilter: "blur(3px)", WebkitBackdropFilter: "blur(3px)", color: "#fafaf7" }}>
-            <div style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", opacity: 0.55, marginBottom: 14 }}>
-              {"// "}
-              {deadKicker}
-            </div>
-            <h2 style={{ margin: 0, fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 0.95, fontSize: "clamp(36px, 6.5vw, 76px)" }}>{deadTitle}</h2>
+          <div data-surface="inverse" style={{ position: "absolute", inset: 0, zIndex: 5, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: 28, background: "rgba(12,12,13,0.72)", backdropFilter: "blur(3px)", WebkitBackdropFilter: "blur(3px)", color: "var(--on-lacquer)" }}>
+            <div style={{ fontFamily: MONO, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.14em", opacity: 0.7, marginBottom: 14 }}>{deadKicker}</div>
+            <h2 className="display m-0 text-[clamp(36px,6.5vw,76px)]">{deadTitle}</h2>
             <div style={{ display: "flex", gap: 32, margin: "24px 0 26px", fontFamily: MONO }}>
               <div>
                 <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em" }}>{finalScore}</div>
-                <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", opacity: 0.5, marginTop: 4 }}>Shipped</div>
+                <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.1em", opacity: 0.7, marginTop: 4 }}>Shipped</div>
               </div>
               <div>
                 <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.02em" }}>{bestScore}</div>
-                <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", opacity: 0.5, marginTop: 4 }}>Best</div>
+                <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.1em", opacity: 0.7, marginTop: 4 }}>Best</div>
               </div>
             </div>
             {discovered.length > 0 && (
               <div style={{ marginBottom: 24, maxWidth: 580 }}>
-                <div style={{ fontFamily: MONO, fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.12em", opacity: 0.55, marginBottom: 12 }}>Dimensions you discovered</div>
+                <div style={{ fontFamily: MONO, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.12em", opacity: 0.7, marginBottom: 12 }}>Dimensions you discovered</div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
                   {discovered.map((dm) => (
                     <a
@@ -1406,7 +1444,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
                       href={dm.url}
                       target={dm.external ? "_blank" : undefined}
                       rel={dm.external ? "noopener noreferrer" : undefined}
-                      style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 12px", border: "1px solid rgba(250,250,247,0.22)", borderRadius: 8, color: "#fafaf7", textDecoration: "none", fontSize: 13 }}
+                      style={{ display: "inline-flex", alignItems: "center", gap: 8, minHeight: 36, padding: "8px 12px", border: "1px solid rgba(243,243,241,0.22)", borderRadius: 12, color: "var(--on-lacquer)", textDecoration: "none", fontSize: 13 }}
                     >
                       {dm.logo && <LogoImg src={dm.logo} size={16} />}
                       <span style={{ fontWeight: 600 }}>{dm.name}</span>
@@ -1417,12 +1455,12 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
               </div>
             )}
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
-              <button onClick={this.onRestart} style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "14px 24px", border: 0, background: "#fafaf7", color: "#0a0a0a", fontFamily: "inherit", fontSize: 15, fontWeight: 600, cursor: "pointer" }}>
-                Ship again <span style={{ width: 24, height: 24, borderRadius: "50%", background: "#0a0a0a", color: "#fafaf7", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>↻</span>
+              <button onClick={this.onRestart} className="btn btn-clay cursor-pointer">
+                Ship again <span aria-hidden="true">↻</span>
               </button>
-              <a href="mailto:founders@thevibecompany.co" style={{ display: "inline-flex", alignItems: "center", padding: "14px 24px", border: "1px solid rgba(250,250,247,0.3)", color: "#fafaf7", fontSize: 15, fontWeight: 600, textDecoration: "none" }}>
-                Book a call →
-              </a>
+              <ButtonLink href={bookUrl} arrow {...bookingLocation("v2_runner_over")}>
+                {bookLabel}
+              </ButtonLink>
             </div>
           </div>
         )}

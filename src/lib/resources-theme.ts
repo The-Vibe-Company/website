@@ -1,127 +1,116 @@
 /**
- * Resources "Calm Studio" Design Tokens
+ * Resources design tokens, now on the porcelaine kit.
  *
- * Scoped design tokens for the /resources section.
- * These complement the main design-system.ts for the warm knowledge platform feel.
+ * The resources pages used to carry their own softer, rounded "calm studio"
+ * card style. There is one kit for the whole site now (see the top comment of
+ * src/app/globals.css): these strings are thin names over its classes, kept so
+ * the resources components that import them follow the direction. Text is 12px
+ * at least; there is no dark variant (the surface is light only).
  */
 
 export const resourcesTheme = {
   card: {
-    base: 'bg-res-surface border border-res-border hover:border-res-text/35 transition-all duration-200',
-    hover: 'hover:shadow-[0_14px_45px_rgba(17,17,16,0.08)]',
-    featured:
-      'bg-res-surface border border-res-border overflow-hidden transition-all duration-300 hover:border-res-text-muted/50',
+    // Repeated items are quiet pieces: flat clay on a hairline, a small rise on
+    // hover. The page's one featured piece takes the full treatment.
+    base: 'clay-quiet lift rounded-plate',
+    hover: '',
+    featured: 'clay rim rim-warm rounded-slab overflow-hidden',
   },
 
   badge: {
-    type: 'px-2 py-0.5 border border-res-border text-[10px] font-mono uppercase tracking-widest text-res-text-muted',
-    domain:
-      'inline-flex items-center gap-1.5 px-2 py-0.5 border border-res-border text-[10px] font-mono uppercase tracking-widest text-res-text',
-    domainDot: 'inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-res-text-muted',
+    type: 'chip',
+    domain: 'chip',
+    domainDot:
+      'inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.08em] text-res-text-muted',
   },
 
   flag: {
     base: 'inline-flex items-center leading-none select-none',
-    card: 'text-base opacity-80 motion-safe:group-hover:scale-110 motion-safe:group-hover:opacity-100 transition-all duration-300',
-    sidebar: 'self-start text-xl',
-    inline: 'text-base',
+    card: '',
+    sidebar: '',
+    inline: '',
   },
 
   nav: {
-    container:
-      'fixed top-0 left-0 right-0 z-50 bg-res-bg/80 backdrop-blur-md border-b border-res-border',
-    inner: 'flex items-center justify-between h-14 px-6 md:px-12 lg:px-24',
-    breadcrumb: 'text-xs font-mono uppercase tracking-widest text-res-text-muted',
-    brandLink: 'text-xs font-mono uppercase tracking-widest text-res-text hover:text-res-text-muted transition-colors',
+    container: 'fixed top-0 left-0 right-0 z-50 bg-res-bg/80 backdrop-blur-md',
+    inner: 'wrap flex items-center justify-between h-14',
+    breadcrumb: 'text-xs font-mono uppercase tracking-[0.14em] text-res-text-muted',
+    brandLink: 'text-xs font-mono uppercase tracking-[0.14em] text-res-text hover:text-res-text-muted transition-colors',
   },
 
+  // The type rail is the kit's segmented control: the container is `seg`, its
+  // items are the links, the current one carries `on`.
   typeNav: {
-    container: 'flex items-center gap-px bg-res-border p-px overflow-x-auto',
-    pill: 'flex items-center gap-1.5 px-4 py-2 text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap shrink-0 border-r border-res-border last:border-r-0',
-    pillActive: 'bg-res-text text-res-surface',
-    pillInactive:
-      'bg-res-surface text-res-text-muted hover:text-res-text hover:bg-res-bg-secondary',
+    container: 'seg',
+    pill: 'gap-1.5',
+    pillActive: 'on',
+    pillInactive: '',
   },
 
   filter: {
-    pill: 'px-3 py-1.5 border border-res-border text-[10px] font-mono uppercase tracking-widest transition-all hover:border-res-text-muted',
-    pillInactive: 'text-res-text-muted bg-res-surface',
+    pill: 'chip transition-colors hover:text-res-text',
+    pillInactive: 'text-res-text-muted',
   },
 
   section: {
-    padding: 'px-6 md:px-12 lg:px-24',
-    header:
-      'text-xs font-mono uppercase tracking-widest text-res-text flex items-center gap-3 mb-8 pb-4 border-b border-res-border w-full',
-    headerIndicator: 'w-2 h-2 bg-res-text',
+    // The page edge: the same container as the header.
+    padding: 'wrap',
+    header: 'kicker mb-8 w-full',
+    headerIndicator: 'dot',
   },
 
   search: {
-    // Same look as the big search box on /resources (surface, warm border,
-    // mono type, rounded-md); callers add left padding for the magnifier.
-    input:
-      'w-full bg-res-surface border border-res-border px-4 py-2 text-sm font-mono placeholder:text-res-text-muted/60 focus:outline-none focus:border-res-text transition-colors text-res-text rounded-md',
-    compact:
-      'w-full bg-res-surface border border-res-border px-3 py-1.5 text-xs font-mono placeholder:text-res-text-muted/60 focus:outline-none focus:border-res-text transition-colors text-res-text rounded-md',
+    // A pressed-in field; callers add left padding for the magnifier.
+    input: 'field',
+    compact: 'field field-sm',
   },
 
   skill: {
-    sourceBadgeNative:
-      'inline-flex items-center gap-1.5 px-2 py-1 border border-res-border bg-res-surface text-[10px] font-mono uppercase tracking-widest text-res-text',
-    sourceBadgeExternal:
-      'inline-flex items-center gap-1.5 px-2 py-1 border border-res-text/40 bg-res-text text-res-surface text-[10px] font-mono uppercase tracking-widest hover:bg-res-text/85 transition-colors',
+    sourceBadgeNative: 'chip',
+    sourceBadgeExternal: 'chip chip-dark transition-[filter] hover:brightness-125',
     promptBlock:
-      'relative bg-res-bg-secondary border border-res-border font-mono text-[13px] leading-relaxed text-res-text overflow-hidden',
+      'relative well rounded-piece font-mono text-[13px] leading-relaxed text-res-text overflow-hidden',
     promptBlockBody:
       'overflow-y-auto p-4 sm:p-5 pt-20 sm:pt-16 whitespace-pre-wrap break-words transition-[max-height] duration-300',
     promptBlockToolbar:
-      'absolute top-0 left-0 right-0 flex items-center justify-between gap-3 px-3 sm:px-4 py-2 bg-res-bg-secondary/95 backdrop-blur-sm border-b border-res-border z-10',
+      'absolute top-0 left-0 right-0 flex items-center justify-between gap-3 px-3 sm:px-4 py-2 bg-res-bg-secondary/95 backdrop-blur-sm z-10',
     promptBlockLabel:
-      'inline-flex min-w-0 items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-res-text-muted',
-    installBlock:
-      'border border-res-border bg-res-surface overflow-hidden',
-    installTabs:
-      'flex items-center gap-px bg-res-border border-b border-res-border overflow-x-auto',
-    installTab:
-      'min-h-11 px-4 py-2 text-[11px] font-mono uppercase tracking-wider whitespace-nowrap shrink-0 transition-colors',
-    installTabActive: 'bg-res-text text-res-surface',
-    installTabInactive:
-      'bg-res-surface text-res-text-muted hover:text-res-text hover:bg-res-bg-secondary',
+      'inline-flex min-w-0 items-center gap-2 text-xs font-mono uppercase tracking-[0.14em] text-res-text-muted',
+    installBlock: 'clay-quiet rounded-plate overflow-hidden',
+    installTabs: 'seg m-3',
+    installTab: '',
+    installTabActive: 'on',
+    installTabInactive: '',
     installCommand:
-      'flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-3 font-mono text-[13px] text-res-text overflow-x-auto',
-    generatorWrap:
-      'border border-res-text/25 bg-res-bg-secondary p-4 sm:p-5 space-y-5 shadow-[0_18px_60px_rgba(17,17,16,0.08)]',
-    generatorTargetGroup: 'grid grid-cols-2 sm:flex sm:items-center gap-px bg-res-border p-px overflow-hidden',
-    generatorTarget:
-      'min-h-11 px-3 py-2 text-[11px] font-mono uppercase tracking-wider whitespace-nowrap shrink-0 transition-colors',
-    generatorTargetActive: 'bg-res-text text-res-surface',
-    generatorTargetInactive:
-      'bg-res-surface text-res-text-muted hover:text-res-text',
+      'flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 pb-4 pt-1 font-mono text-[13px] text-res-text overflow-x-auto',
+    generatorWrap: 'clay-quiet rounded-plate p-4 sm:p-5 space-y-5',
+    generatorTargetGroup: 'seg',
+    generatorTarget: '',
+    generatorTargetActive: 'on',
+    generatorTargetInactive: '',
     generatorOutput:
-      'max-h-[260px] sm:max-h-[360px] overflow-auto p-4 text-[12px] sm:text-[13px] leading-relaxed font-mono text-res-text whitespace-pre-wrap break-words',
+      'well rounded-piece max-h-[260px] sm:max-h-[360px] overflow-auto p-4 text-[13px] leading-relaxed font-mono text-res-text whitespace-pre-wrap break-words',
     metaSidebarLabel:
-      'text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted',
+      'text-xs font-mono uppercase tracking-[0.14em] text-res-text-muted',
     metaSidebarValue: 'text-sm text-res-text',
-    copyButton:
-      'inline-flex min-h-11 shrink-0 items-center gap-1.5 px-3 py-2 text-[11px] font-mono uppercase tracking-wider border border-res-border bg-res-surface text-res-text-muted hover:text-res-text hover:bg-res-bg-secondary transition-colors',
-    copyButtonPrimary:
-      'inline-flex min-h-11 shrink-0 items-center gap-1.5 px-3 py-2 text-[11px] font-mono uppercase tracking-wider border border-res-text bg-res-text text-res-surface hover:bg-res-text/85 transition-colors',
-    copyButtonSuccess:
-      'inline-flex min-h-11 shrink-0 items-center gap-1.5 px-3 py-2 text-[11px] font-mono uppercase tracking-wider border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400',
+    copyButton: 'btn btn-sm btn-clay shrink-0',
+    copyButtonPrimary: 'btn btn-sm btn-lacquer shrink-0',
+    copyButtonSuccess: 'btn btn-sm btn-clay shrink-0 text-emerald-700',
   },
 
   stats: {
-    container: 'flex items-center gap-6 text-xs font-mono text-res-text-muted border-l border-res-border pl-6',
+    container: 'flex items-center gap-6 text-xs font-mono text-res-text-muted',
     separator: 'hidden',
     number: 'font-semibold text-res-text mr-1.5',
   },
   tool: {
-    card: 'bg-res-surface border border-res-border hover:border-res-text-muted/50 transition-all duration-200 hover:shadow-sm',
+    card: 'clay-quiet lift rounded-plate',
     cardInner: 'p-6 flex flex-col h-full',
     logoWrap:
-      'w-12 h-12 rounded-lg bg-res-bg-secondary border border-res-border flex items-center justify-center overflow-hidden shrink-0',
-    leverageBar: 'h-1.5 bg-res-bg-secondary rounded-full overflow-hidden',
+      'well rounded-piece w-12 h-12 flex items-center justify-center overflow-hidden shrink-0',
+    leverageBar: 'h-1.5 well rounded-full overflow-hidden',
     leverageFill: 'h-full rounded-full transition-all duration-500',
-    pricingBadge: 'px-2 py-0.5 text-[10px] font-mono uppercase tracking-widest border',
+    pricingBadge: 'chip',
   },
 } as const;
 
@@ -137,24 +126,24 @@ export const categoryLabels: Record<string, string> = {
 
 export const pricingColors: Record<string, { bg: string; text: string; border: string }> = {
   free: {
-    bg: 'bg-emerald-50 dark:bg-emerald-950/30',
-    text: 'text-emerald-700 dark:text-emerald-400',
-    border: 'border-emerald-200 dark:border-emerald-800',
+    bg: 'bg-emerald-50',
+    text: 'text-emerald-700',
+    border: 'border-emerald-200',
   },
   freemium: {
-    bg: 'bg-amber-50 dark:bg-amber-950/30',
-    text: 'text-amber-700 dark:text-amber-400',
-    border: 'border-amber-200 dark:border-amber-800',
+    bg: 'bg-amber-50',
+    text: 'text-amber-800',
+    border: 'border-amber-200',
   },
   paid: {
-    bg: 'bg-blue-50 dark:bg-blue-950/30',
-    text: 'text-blue-700 dark:text-blue-400',
-    border: 'border-blue-200 dark:border-blue-800',
+    bg: 'bg-blue-50',
+    text: 'text-blue-700',
+    border: 'border-blue-200',
   },
   enterprise: {
-    bg: 'bg-purple-50 dark:bg-purple-950/30',
-    text: 'text-purple-700 dark:text-purple-400',
-    border: 'border-purple-200 dark:border-purple-800',
+    bg: 'bg-purple-50',
+    text: 'text-purple-700',
+    border: 'border-purple-200',
   },
 };
 

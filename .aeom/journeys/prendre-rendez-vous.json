@@ -1,0 +1,8 @@
+{
+  "name": "Prendre rendez-vous",
+  "steps": [
+    { "do": "open", "path": "/fr" },
+    { "do": "see", "text": "Prendre 30 minutes" },
+    { "do": "see", "text": "founders@thevibecompany.co" }
+  ]
+}

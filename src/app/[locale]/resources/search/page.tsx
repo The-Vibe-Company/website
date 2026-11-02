@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
-import { Link } from "@/i18n/navigation";
 import type React from 'react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { redirect } from '@/i18n/navigation';
+import { ButtonLink, Kicker } from '@/components/kit';
 import { ContentCard } from '@/components/resources/ContentCard';
 import { ContentGrid } from '@/components/resources/ContentGrid';
 import { SkillCard } from '@/components/resources/SkillCard';
 import { searchContent } from '@/lib/content-source';
-import { resourcesTheme } from '@/lib/resources-theme';
 import { localizedAlternates, localizedSocialMetadata } from '@/lib/site';
 
 export const dynamic = 'force-dynamic';
@@ -57,76 +56,70 @@ export default async function SearchPage({
   const articleResults = results.filter((item) => item.type !== 'skill');
 
   return (
-    <main id="main-content" tabIndex={-1} className="pt-12 pb-12">
-      <section className={`${resourcesTheme.section.padding} pt-2 pb-8 border-b border-res-border mb-8`}>
-        <div className="max-w-4xl">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted block mb-3">
-            {t('searchResults')}
-          </span>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-3 leading-[0.95] text-res-text">
+    <main id="main-content" tabIndex={-1} className="pb-24 md:pb-[120px]">
+      <section className="pt-12 md:pt-[76px]">
+        <div className="wrap">
+          <Kicker>{t('searchResults')}</Kicker>
+          <h1 className="display d-sm mt-5 break-words">
             &ldquo;{query}&rdquo;
           </h1>
-          <p className="text-base md:text-lg text-res-text-muted max-w-2xl leading-relaxed">
-            {t('foundResults', { count: results.length })}
-          </p>
+          <p className="lede mt-6">{t('foundResults', { count: results.length })}</p>
         </div>
       </section>
 
-      <section className={`${resourcesTheme.section.padding} pb-32`}>
-        {results.length > 0 ? (
-          <div className="space-y-14">
-            {skillResults.length > 0 && (
-              <SearchSection title={t('skillsSection')} count={skillResults.length} countLabel={t('resultCount', { count: skillResults.length })}>
-                <ContentGrid columns={3}>
-                  {skillResults.map((item) => (
-                    <SkillCard
-                      key={item.id}
-                      title={item.title}
-                      summary={item.summary}
-                      slug={item.slug}
-                      publishedAt={item.publishedAt ?? undefined}
-                      language={item.language}
-                      topics={item.topics}
-                      complexity={item.complexity}
-                      skill={item.skill}
-                    />
-                  ))}
-                </ContentGrid>
-              </SearchSection>
-            )}
+      <section className="section-tight">
+        <div className="wrap">
+          {results.length > 0 ? (
+            <div className="grid gap-14 md:gap-16">
+              {skillResults.length > 0 && (
+                <SearchSection title={t('skillsSection')} countLabel={t('resultCount', { count: skillResults.length })}>
+                  <ContentGrid columns={3}>
+                    {skillResults.map((item) => (
+                      <SkillCard
+                        key={item.id}
+                        title={item.title}
+                        summary={item.summary}
+                        slug={item.slug}
+                        publishedAt={item.publishedAt ?? undefined}
+                        language={item.language}
+                        topics={item.topics}
+                        complexity={item.complexity}
+                        skill={item.skill}
+                      />
+                    ))}
+                  </ContentGrid>
+                </SearchSection>
+              )}
 
-            {articleResults.length > 0 && (
-              <SearchSection title={t('articles')} count={articleResults.length} countLabel={t('resultCount', { count: articleResults.length })}>
-                <div className="space-y-6">
-                  {articleResults.map((item) => (
-                    <ContentCard
-                      key={item.id}
-                      title={item.title}
-                      summary={item.summary}
-                      type={item.type}
-                      slug={item.slug}
-                      publishedAt={item.publishedAt ?? undefined}
-                      language={item.language}
-                      featuredImage={item.featuredImage}
-                    />
-                  ))}
-                </div>
-              </SearchSection>
-            )}
-          </div>
-        ) : (
-          <div className="rounded-xl border border-res-border p-12 text-center bg-res-surface">
-            <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-              {t('noResults')}
-            </p>
-            <p className="text-sm text-res-text-muted mt-2">
-              {t('tryAdjusting')}
-            </p>
-            <Link href="/resources" className="inline-block mt-8 text-xs font-mono uppercase tracking-widest text-res-text border-b border-res-text pb-1 hover:text-res-text-muted hover:border-res-text-muted transition-colors">
-              {t('clearSearch')}
-            </Link>
-          </div>
-        )}
+              {articleResults.length > 0 && (
+                <SearchSection title={t('articles')} countLabel={t('resultCount', { count: articleResults.length })}>
+                  <div className="entries lg:grid-cols-2">
+                    {articleResults.map((item) => (
+                      <ContentCard
+                        key={item.id}
+                        title={item.title}
+                        summary={item.summary}
+                        type={item.type}
+                        slug={item.slug}
+                        publishedAt={item.publishedAt ?? undefined}
+                        language={item.language}
+                        featuredImage={item.featuredImage}
+                      />
+                    ))}
+                  </div>
+                </SearchSection>
+              )}
+            </div>
+          ) : (
+            <div className="state">
+              <Kicker>{t('noResults')}</Kicker>
+              <p className="state-title">{t('tryAdjusting')}</p>
+              <ButtonLink href="/resources" variant="clay" size="sm" arrow className="mt-2">
+                {t('clearSearch')}
+              </ButtonLink>
+            </div>
+          )}
+        </div>
       </section>
     </main>
   );
@@ -138,18 +131,16 @@ function SearchSection({
   children,
 }: {
   title: string;
-  count: number;
   countLabel: string;
   children: React.ReactNode;
 }) {
   return (
     <section>
-      <header className="mb-6 flex items-baseline gap-3 border-b border-res-border pb-4">
-        <h2 className="text-2xl font-bold tracking-tight text-res-text">{title}</h2>
-        <span className="text-[11px] font-mono uppercase tracking-widest text-res-text-muted">
-          {countLabel}
-        </span>
+      <header className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2">
+        <h2 className="display d-xs m-0">{title}</h2>
+        <span className="chip">{countLabel}</span>
       </header>
+      <hr className="groove mb-5" />
       {children}
     </section>
   );

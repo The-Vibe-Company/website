@@ -183,7 +183,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
             ))}
           </ul>
 
-          <AboutBookingCta
+          <AboutBookingCta className="mt-9 md:mt-10"
             page={page}
             location="cta_healthcare_ai_hero"
             namespace="healthcareAi"
@@ -495,7 +495,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
               ))}
             </ol>
 
-            <AboutBookingCta
+            <AboutBookingCta className="mt-9 md:mt-10"
               page={page}
               location="cta_healthcare_ai_method"
               namespace="healthcareAi"

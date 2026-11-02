@@ -241,7 +241,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
             ))}
           </ul>
 
-          <AboutBookingCta
+          <AboutBookingCta className="mt-9 md:mt-10"
             page={page}
             location="cta_agents_production_hero"
             namespace="agentsProduction"
@@ -381,7 +381,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                     {t("method.ctaTitle")}
                   </p>
                 ) : null}
-                <AboutBookingCta
+                <AboutBookingCta className="mt-9 md:mt-10"
                   page={page}
                   location="cta_agents_production_method"
                   namespace="agentsProduction"

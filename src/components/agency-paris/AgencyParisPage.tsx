@@ -159,7 +159,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
             </div>
           </div>
 
-          <AboutBookingCta page={page} location="cta_agency_paris_hero" namespace="agencyParis" />
+          <AboutBookingCta className="mt-9 md:mt-10" page={page} location="cta_agency_paris_hero" namespace="agencyParis" />
 
           {/* The same two backers as the About page. */}
           <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-border pt-7 md:mt-12">
@@ -340,7 +340,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
               ))}
             </ol>
 
-            <AboutBookingCta
+            <AboutBookingCta className="mt-9 md:mt-10"
               page={page}
               location="cta_agency_paris_method"
               namespace="agencyParis"

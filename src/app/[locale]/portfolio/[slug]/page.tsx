@@ -6,6 +6,7 @@ import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { Arrow, ButtonLink, Groove, Kicker } from "@/components/kit";
 import { JsonLd } from "@/components/JsonLd";
 import { QuivrStage } from "@/components/quivr/QuivrStage";
 import { QuivrSections } from "@/components/quivr/QuivrSections";
@@ -60,6 +61,14 @@ export async function generateMetadata({
   };
 }
 
+/** One row of the story: its label on the left from md, the text beside it, a groove between rows. */
+const STORY_ROW =
+  "relative grid grid-cols-1 gap-4 py-7 before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-[linear-gradient(180deg,rgba(11,11,12,0.1)_0_1px,rgba(255,255,255,0.95)_1px_2px)] first:before:hidden md:grid-cols-[240px_1fr] md:gap-16 md:py-10";
+
+/** The engraved vertical (md and up) or horizontal (phone) line between facts. */
+const FACT_GROOVE =
+  "relative before:pointer-events-none before:absolute before:left-0 before:right-0 before:top-0 before:h-[2px] before:bg-[linear-gradient(180deg,rgba(11,11,12,0.1)_0_1px,rgba(255,255,255,0.95)_1px_2px)] first:before:hidden md:before:bottom-0 md:before:left-0 md:before:right-auto md:before:top-6 md:before:h-auto md:before:w-[2px] md:before:bg-[linear-gradient(90deg,rgba(11,11,12,0.1)_0_1px,rgba(255,255,255,0.95)_1px_2px)]";
+
 export default async function PortfolioProjectPage({
   params,
 }: {
@@ -75,6 +84,7 @@ export default async function PortfolioProjectPage({
   // (QuivrSections). Its repository link lives in that feature grid, so the
   // page keeps a single call to action: booking a call.
   const isQuivr = slug === QUIVR_SLUG;
+  const hasMedia = isQuivr || Boolean(project.cover);
   const tFooter = await getTranslations({ locale, namespace: "footer" });
   const tNav = await getTranslations({ locale, namespace: "nav" });
   const breadcrumb = breadcrumbList([
@@ -108,148 +118,148 @@ export default async function PortfolioProjectPage({
       <JsonLd data={faq} />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
-          <BackLink href="/portfolio" label={t("back")} />
+        {/* Identity: the page's one main piece. */}
+        <section className="pt-3 md:pt-5">
+          <div className="wrap">
+            <BackLink href="/portfolio" label={t("back")} />
 
-          <div className="mt-10 border-t-2 border-foreground pt-8">
-            <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between md:gap-6">
-              <div className="flex min-w-0 items-center gap-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={project.logo}
-                  alt={`${project.name} logo`}
-                  className="h-12 w-12 shrink-0 rounded-sm object-contain md:h-14 md:w-14"
-                />
-                <h1
-                  className="m-0 text-[44px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[64px]"
-                  style={{ textDecoration: "underline", textDecorationColor: project.accent, textUnderlineOffset: "0.12em", textDecorationThickness: "4px" }}
+            <div className="clay rim rim-warm mt-1 rounded-[28px] px-5 pb-5 pt-7 [--rim-angle:122deg] md:rounded-slab md:px-14 md:pb-10 md:pt-[52px]">
+              <div className="flex flex-col-reverse items-start gap-5 md:flex-row md:justify-between md:gap-6">
+                <div className="flex min-w-0 items-center gap-3.5 md:gap-7">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={project.logo}
+                    alt={`${project.name} logo`}
+                    width={104}
+                    height={104}
+                    className="h-[52px] w-[52px] shrink-0 rounded-[14px] object-contain shadow-[0_2px_4px_rgba(0,0,0,0.14),0_18px_28px_-18px_rgba(0,0,0,0.5)] md:h-[104px] md:w-[104px] md:rounded-[26px]"
+                  />
+                  <h1
+                    className="display m-0 min-w-0 text-[clamp(2.75rem,12vw,4.25rem)] tracking-[-0.04em] underline decoration-[4px] underline-offset-[0.1em] md:text-[clamp(4.25rem,10.4vw,8.25rem)] md:decoration-[5px]"
+                    style={{ textDecorationColor: project.accent }}
+                  >
+                    {project.name}
+                  </h1>
+                </div>
+                <span className="chip md:mt-1.5">{project.tag}</span>
+              </div>
+
+              <Kicker className="mt-6 tracking-[0.06em] md:mt-[30px] md:tracking-[0.14em]">
+                {project.status} · {t("built")} {project.date}
+              </Kicker>
+
+              <p className="lede-bar m-0 mt-5 max-w-[54ch] text-[19px] font-[450] leading-[1.45] md:mt-6 md:text-[26px] md:leading-[1.4]">
+                {project.description}
+              </p>
+
+              <Groove className="mt-7 md:mt-10" />
+
+              <dl className="m-0 grid grid-cols-1 md:grid-cols-3">
+                {meta.map((item) => (
+                  <div
+                    key={item.label}
+                    className={`${FACT_GROOVE} flex min-w-0 items-center justify-between gap-3 py-3.5 md:flex-col-reverse md:items-start md:justify-end md:gap-2 md:pb-1 md:pl-6 md:pr-4 md:pt-[26px] md:first:pl-0`}
+                  >
+                    <dt className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
+                      {item.label}
+                    </dt>
+                    <dd className="display m-0 min-w-0 text-right text-[22px] leading-[1.1] md:text-left md:text-[28px]">
+                      {item.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        {/* The product: a glazed insert, then the action. */}
+        <section className="section-tight">
+          <div className="wrap">
+            <Kicker as="h2">{t("theProduct")}</Kicker>
+
+            {hasMedia ? (
+              <div className="clay-quiet mt-5 rounded-[22px] p-2 pb-5 md:rounded-plate md:p-3 md:pb-7">
+                <div
+                  // Columns sized by image aspect (16:10 web, ~9:19.5 phone); the phone frame then
+                  // stretches to the row so both frames end on the same line.
+                  className={
+                    project.mobileCover
+                      ? "grid gap-4 md:grid-cols-[minmax(0,1.6fr)_minmax(0,0.455fr)] md:gap-5"
+                      : undefined
+                  }
                 >
-                  {project.name}
-                </h1>
-              </div>
-              <span className="shrink-0 self-start border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground md:self-auto">
-                {project.tag}
-              </span>
-            </div>
-            <div className="mt-4 font-mono text-sm uppercase tracking-[0.15em] text-muted-foreground">
-              {project.status} · {t("built")} {project.date}
-            </div>
-          </div>
-
-          <p className="m-0 mt-10 max-w-[720px] text-xl leading-[1.5] text-foreground md:text-2xl">
-            {project.description}
-          </p>
-        </section>
-
-        <section className="border-y border-border bg-background">
-          <div className="mx-auto grid max-w-[80rem] grid-cols-3 gap-px bg-border px-0">
-            {meta.map((item) => (
-              <div key={item.label} className="flex min-w-0 flex-col gap-1 bg-background p-4 sm:p-6 md:p-8">
-                {/* Long type words ("Bibliothèque", "Recherche") hyphenate on
-                    phones instead of pushing the band past the screen. */}
-                <div className="hyphens-auto break-words text-[20px] font-bold leading-tight tracking-[-0.02em] text-foreground sm:text-[22px] md:text-[28px]">
-                  {item.value}
+                  {isQuivr ? (
+                    <div className="min-w-0 overflow-hidden rounded-[14px] md:rounded-[16px]">
+                      <QuivrStage locale={locale} accent={project.accent} />
+                    </div>
+                  ) : project.cover ? (
+                    <figure className="rim relative m-0 self-start overflow-hidden rounded-[14px] bg-[#0a0a0b] [--rim-angle:130deg] md:rounded-[16px]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={project.cover}
+                        alt={`${project.name} homepage`}
+                        className="block h-auto w-full"
+                        loading="lazy"
+                      />
+                    </figure>
+                  ) : null}
+                  {project.mobileCover && (
+                    <figure className="rim relative m-0 mx-auto w-full max-w-[15rem] overflow-hidden rounded-[14px] bg-[#0a0a0b] [--rim-angle:130deg] md:flex md:max-w-none md:flex-col md:rounded-[16px]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={project.mobileCover}
+                        alt={`${project.name} iPhone app`}
+                        className="block h-auto w-full md:min-h-0 md:flex-1 md:object-cover md:object-top"
+                        loading="lazy"
+                      />
+                    </figure>
+                  )}
                 </div>
-                <div className="mt-1 text-sm leading-snug text-muted-foreground">
-                  {item.label}
-                </div>
+                {isQuivr ? null : (
+                  <div className="px-2.5 pt-5 md:px-[18px] md:pt-7">
+                    <ProjectLink url={project.url} label={t("visitProject", { name: project.name })} />
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-[80rem] px-6 py-16 md:px-12 md:py-20">
-          <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {t("theProduct")}
-          </span>
-          <div
-            // Columns sized by image aspect (16:10 web, ~9:19.5 phone); the phone frame then stretches
-            // to the row so both frames end on the same line.
-            className={
-              project.mobileCover
-                ? "grid gap-6 md:grid-cols-[minmax(0,1.6fr)_minmax(0,0.455fr)] md:gap-8"
-                : undefined
-            }
-          >
-            {isQuivr ? (
-              <QuivrStage locale={locale} accent={project.accent} />
-            ) : project.cover ? (
-              <div className="self-start overflow-hidden border border-foreground">
-                <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={project.cover}
-                  alt={`${project.name} homepage`}
-                  className="h-auto w-full"
-                  loading="lazy"
-                />
-              </div>
-            ) : null}
-            {project.mobileCover && (
-              <div className="mx-auto w-full max-w-[15rem] overflow-hidden border border-foreground md:flex md:max-w-none md:flex-col">
-                <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={project.mobileCover}
-                  alt={`${project.name} iPhone app`}
-                  className="h-auto w-full md:min-h-0 md:flex-1 md:object-cover md:object-top"
-                  loading="lazy"
-                />
+            ) : (
+              <div className="mt-5">
+                <ProjectLink url={project.url} label={t("visitProject", { name: project.name })} />
               </div>
             )}
           </div>
-
-          {isQuivr ? null : (
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-3 border-2 border-foreground bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
-          >
-            {t("visitProject", { name: project.name })}
-            <span aria-hidden="true" className="text-lg">
-              &#8599;
-            </span>
-          </a>
-          )}
         </section>
 
+        {/* Why it exists, how it works, who it is for: the page's own prose. */}
         {project.story ? (
-          <section className="border-t border-border">
-            <div className="mx-auto flex max-w-[80rem] flex-col gap-14 px-6 py-16 md:gap-16 md:px-12 md:py-20">
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
-                <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {t("storyWhy")}
-                </h2>
-                <p className="m-0 max-w-[720px] text-xl leading-[1.5] text-foreground">
-                  {project.story.why}
-                </p>
-              </div>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
-                <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {t("storyHow")}
-                </h2>
-                <ul className="m-0 flex max-w-[720px] list-none flex-col gap-5 p-0">
-                  {project.story.how.map((step) => (
-                    <li
-                      key={step}
-                      className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
-                    >
-                      <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
-                        →
-                      </span>
-                      <span>{step}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
-                <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {t("storyAudience")}
-                </h2>
-                <p className="m-0 max-w-[720px] text-lg leading-[1.6] text-foreground">
-                  {project.story.audience}
-                </p>
+          <section className="section-tight">
+            <div className="wrap">
+              <div className="clay-quiet rounded-[22px] px-5 py-2 md:rounded-plate md:px-12 md:py-4">
+                <div className={STORY_ROW}>
+                  <Kicker as="h2">{t("storyWhy")}</Kicker>
+                  <p className="m-0 max-w-[720px] text-[19px] leading-[1.5] text-ink md:text-xl">
+                    {project.story.why}
+                  </p>
+                </div>
+                <div className={STORY_ROW}>
+                  <Kicker as="h2">{t("storyHow")}</Kicker>
+                  <ul className="m-0 flex max-w-[720px] list-none flex-col gap-4 p-0">
+                    {project.story.how.map((step) => (
+                      <li key={step} className="flex gap-4 text-[17px] leading-[1.55] text-ink-2">
+                        <span aria-hidden="true" className="pt-0.5 font-mono text-orange-500">
+                          →
+                        </span>
+                        <span>{step}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={STORY_ROW}>
+                  <Kicker as="h2">{t("storyAudience")}</Kicker>
+                  <p className="m-0 max-w-[720px] text-[17px] leading-[1.6] text-ink-2">
+                    {project.story.audience}
+                  </p>
+                </div>
               </div>
             </div>
           </section>
@@ -261,5 +271,21 @@ export default async function PortfolioProjectPage({
       </main>
       <Footer />
     </div>
+  );
+}
+
+/** The one way out of the page: the product itself, in a new tab. */
+function ProjectLink({ url, label }: { url: string; label: string }) {
+  return (
+    <ButtonLink
+      href={url}
+      size="lg"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-full md:w-auto"
+    >
+      {label}
+      <Arrow direction="up-right" />
+    </ButtonLink>
   );
 }

@@ -3,11 +3,11 @@
     "portfolio": "Nos projets",
     "caseStudies": "Cas clients",
     "resources": "Ressources",
-    "getInTouch": "Nous contacter",
+    "getInTouch": "Prendre 30 minutes",
     "searchShort": "Rechercher…",
     "searchLong": "Chercher dans les ressources…",
     "bookCall": "Prendre 30 minutes",
-    "contactBookCall": "Prendre rendez-vous",
+    "contactBookCall": "Prendre 30 minutes",
     "contactEmail": "Nous écrire"
   },
   "accessibility": {
@@ -85,7 +85,7 @@
     "trustedBy": "On travaille pour eux"
   },
   "caseStudy": {
-    "kicker": "// PROJETS CLIENTS",
+    "kicker": "Cas clients",
     "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",
     "readCase": "Lire le cas",
@@ -102,7 +102,7 @@
     "author": "Étienne, CEO de Monka"
   },
   "services": {
-    "kicker": "// CE QU'ON FAIT",
+    "kicker": "CE QU'ON FAIT",
     "titleLine1": "Trois façons",
     "titleLine2": "de travailler ensemble.",
     "items": {
@@ -146,7 +146,7 @@
     "indexCount": "3 façons"
   },
   "process": {
-    "kicker": "// 02 — COMMENT ON TRAVAILLE",
+    "kicker": "02 — COMMENT ON TRAVAILLE",
     "titleLine1": "Du brief",
     "titleLine2": "à la production.",
     "steps": {
@@ -173,7 +173,7 @@
     }
   },
   "proof": {
-    "kicker": "// NOS PROPRES PRODUITS",
+    "kicker": "NOS PROPRES PRODUITS",
     "titleLine1": "Ah, on fait aussi",
     "titleLine2": "nos produits.",
     "intro": "On crée des produits pour rendre notre équipe et nos clients plus efficaces avec l’IA. C’est aussi comme ça qu’on reste affûtés.",
@@ -185,7 +185,7 @@
     "indexTag": "Open source"
   },
   "finalCta": {
-    "kicker": "EMBARQUEMENT",
+    "kicker": "Prendre rendez-vous",
     "titleLine1": "Un problème",
     "titleLine2": "à résoudre ?",
     "bookCall": "Prendre 30 minutes",
@@ -222,16 +222,16 @@
   },
   "caseStudiesPage": {
     "metaTitle": "Cas clients IA : projets en production",
-    "kicker": "// PROJETS CLIENTS",
+    "kicker": "Cas clients",
     "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",
     "metaDescription": "Découvrez des produits et automatisations IA conçus et mis en production pour nos clients.",
     "readCase": "Lire le cas",
     "back": "Cas clients",
     "backHome": "Accueil",
-    "whatWeDid": "// Ce qu’on a fait",
-    "projectLabel": "// Projet {n}",
-    "theProduct": "// Le produit",
+    "whatWeDid": "Ce qu’on a fait",
+    "projectLabel": "Projet {n}",
+    "theProduct": "Le produit",
     "visit": "Visiter",
     "visitClient": "Visiter {name}",
     "keepReading": "À lire ensuite",
@@ -239,7 +239,7 @@
     "subtitle": "Des produits, des agents et des automatisations IA en production chez nos clients : santé, presse, location immobilière, agroalimentaire, et des équipes tech à grande échelle. Chaque cas raconte le point de départ, ce qu’on a construit et comment on a travaillé.",
     "relatedArticle": "Pour aller plus loin, lisez notre guide <link>{title}</link>.",
     "about": {
-      "kicker": "// COMMENT ON TRAVAILLE",
+      "kicker": "COMMENT ON TRAVAILLE",
       "title": "Du premier appel à la production.",
       "p1": "Chaque projet commence par un appel de 30 minutes : vous expliquez le problème, on explique comment on le construirait. Si ça colle, on envoie une proposition à périmètre fixe, puis un prototype cliquable avant la moindre ligne de code de production.",
       "p2": "Pendant le build, vous voyez du logiciel qui marche tôt et souvent, et on mesure le résultat à l’usage réel plutôt qu’à la démo. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique sont passés en production en deux mois, avec depuis une nouvelle version tous les deux jours environ. Chez LocService, les brouillons de l’assistant sont utilisés sur 87 % des tickets.",
@@ -293,6 +293,7 @@
     "copy": "Copier",
     "copied": "Copié",
     "copiedStatus": "Copié : {label}",
+    "copyFailed": "Copie impossible",
     "skillPrompt": "Prompt du skill",
     "promptStats": "{lineCount} lignes · {wordCount} mots",
     "collapsePrompt": "Réduire le prompt complet du skill",
@@ -307,7 +308,7 @@
     "previewPrompt": "Prévisualiser le prompt"
   },
   "portfolio": {
-    "kicker": "// NOS PRODUITS",
+    "kicker": "Nos projets",
     "titleLine1": "Nos propres produits,",
     "titleLine2": "en ligne.",
     "subtitle": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie.",
@@ -315,16 +316,16 @@
     "back": "Nos projets",
     "statusLabel": "Statut",
     "typeLabel": "Type",
-    "theProduct": "// Le produit",
+    "theProduct": "Le produit",
     "visit": "Visiter",
     "visitProject": "Visiter {name}",
     "metaTitle": "Projets IA : réalisations de notre agence",
     "metaDescription": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie.",
-    "storyWhy": "// Pourquoi on l’a construit",
-    "storyHow": "// Comment ça marche",
-    "storyAudience": "// Pour qui",
+    "storyWhy": "Pourquoi on l’a construit",
+    "storyHow": "Comment ça marche",
+    "storyAudience": "Pour qui",
     "about": {
-      "kicker": "// POURQUOI NOS PROPRES PRODUITS",
+      "kicker": "POURQUOI NOS PROPRES PRODUITS",
       "title": "Nos premiers clients, c’est nous.",
       "p1": "The Vibe Company est une agence IA, et une bonne partie de ce qu’on sait faire, on l’a d’abord construit pour nous. Chacun de ces produits part d’une friction qu’on vivait au quotidien : partager le rapport qu’un agent vient de produire, ranger les skills de l’équipe, donner une mémoire à nos agents, coordonner plusieurs agents de code sur un même projet, ou ne plus perdre une idée lancée en réunion.",
       "p2": "Plusieurs d’entre eux font tourner l’agence tous les jours : Bruno pour la to-do de l’entreprise, Skillpack pour nos skills, Granite pour la mémoire de nos agents. C’est comme ça qu’on apprend ce qui tient en production et ce qui casse, avant d’en parler à un client. Si notre propre entreprise ne tourne pas mieux avec nos outils, on n’a aucune légitimité à les vendre.",
@@ -339,7 +340,7 @@
     "bodyIronic": "Ironique ? Complètement."
   },
   "about": {
-    "kicker": "// À PROPOS",
+    "kicker": "À PROPOS",
     "metaTitle": "À propos de The Vibe Company : agence IA à Paris (YC W24)",
     "metaDescription": "The Vibe Company, agence IA à Paris fondée en 2024 par Stan Girard et Antoine Dewez (YC W24). Produits IA, agents, HDS et sécurité, jusqu’en production.",
     "title": "À propos de The Vibe Company",
