@@ -163,6 +163,3 @@ Dans les cas qu'on voit, elle change surtout la nature du travail : rédiger dev
 Vous avez deux ou trois processus en tête et vous ne savez pas lequel attaquer ? Venez avec le volume, les outils en place et ce qui coince aujourd'hui. On passe la grille ensemble et on vous dit franchement lequel donnera un résultat mesurable, et lequel il vaut mieux garder pour plus tard.
 
 [Réservez 30 minutes avec Stan](https://cal.com/stangirard/thevibecompany).
-
-
-</cursor_untrusted_data_1337

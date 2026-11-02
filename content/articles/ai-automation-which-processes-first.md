@@ -163,6 +163,3 @@ In the cases we see, it mostly changes the nature of the work: writing becomes r
 You have two or three processes in mind and do not know which one to tackle? Bring the volume, the tools in place and what is stuck today. We will run the grid together and tell you honestly which one will deliver a measurable result, and which one is better left for later.
 
 [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).
-
-
-</cursor_untrusted_data_1337
