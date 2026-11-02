@@ -669,22 +669,13 @@
     "metaDescription": "Quivr (YC W24): open-source engine that follows news, emails and posts, makes them searchable and alerts you.",
     "product": {
       "alt": "The Quivr V2 interface: a live feed of articles with its filters, two articles flagged by a harbour strike alert, and trending topics.",
-      "caption": "An illustration of the Quivr V2 web app, with sample articles: the live feed, its filters, an alert and trending topics.",
+      "stageAlt": "The Quivr V2 interface: in the live feed of articles, a new article about the harbour strike arrives and triggers an alert, sent to your app with the rule that matched.",
+      "caption": "An illustration of the Quivr V2 web app, with sample articles: a new article triggers an alert on a topic you follow.",
       "mock": {
         "title": "Feed",
         "live": "Live",
-        "search": "Search for a word, a place, a person…",
-        "filters": {
-          "all": "All",
-          "unread": "Unread",
-          "date": "Date",
-          "alerts": "Alerts",
-          "sources": "Sources"
-        },
-        "markRead": "Mark all as read",
-        "group": "Last hour",
+        "alerts": "Alerts",
         "alertTag": "Alert",
-        "correctedTag": "Corrected",
         "items": [
           {
             "title": "[Harbour strike] halts the first [ferry] of the morning",
@@ -695,101 +686,92 @@
             "title": "[Port] dockers extend the [harbour strike] until Friday",
             "source": "Mailbox · Press review",
             "time": "6 min ago"
-          },
-          {
-            "title": "Freight: hauliers reroute their delivery rounds",
-            "source": "X list · Logistics",
-            "time": "9 min ago"
-          },
-          {
-            "title": "Diesel prices fall for a third week in a row",
-            "source": "News feed · Economy",
-            "time": "14 min ago"
-          },
-          {
-            "title": "An automated warehouse opens next to the rail yard",
-            "source": "Your app · Field notes",
-            "time": "21 min ago"
-          },
-          {
-            "title": "Marine forecast: gale expected by the end of the day",
-            "source": "News feed · Weather",
-            "time": "27 min ago"
-          },
-          {
-            "title": "The container terminal trials an electric crane",
-            "source": "X list · Logistics",
-            "time": "34 min ago"
-          },
-          {
-            "title": "Cargo bike sales grow among tradespeople",
-            "source": "News feed · Economy",
-            "time": "41 min ago"
           }
         ],
-        "trending": {
-          "title": "Trending topics",
-          "period": "Last 7 days",
-          "topics": [
-            "Harbour strike",
-            "Ferry",
-            "Dockers",
-            "Freight",
-            "Diesel",
-            "Marine forecast",
-            "Containers",
-            "Warehouses"
-          ]
-        },
-        "week": {
-          "title": "Last 7 days",
-          "total": "{count} articles",
-          "days": [
-            "Fri",
-            "Sat",
-            "Sun",
-            "Mon",
-            "Tue",
-            "Yest.",
-            "Today"
-          ]
+        "alert": {
+          "kicker": "Alert",
+          "topic": "Harbour strike",
+          "count": "2 new articles match",
+          "rule": "\"harbour strike\" AND (ferry OR port)",
+          "sent": "Sent to your app as a signed webhook"
         }
       }
     },
-    "diagrams": {
-      "flow": {
-        "kicker": "How it works",
-        "title": "Everything comes in. Nothing slips through.",
-        "caption": "Every version is kept, searchable in seconds and checked against your topics.",
-        "label": "Animated diagram: sources stream into Quivr, which sends out search results, alerts, webhooks and answers to AI agents.",
-        "sources": [
+    "features": {
+      "kicker": "How it works",
+      "title": "Everything comes in. Nothing slips through.",
+      "caption": "Every version is kept, searchable in seconds and checked against your topics.",
+      "search": {
+        "title": "Search by meaning.",
+        "body": "Not just keywords: Quivr shows the exact passage.",
+        "query": "ports at a standstill",
+        "mode": "Keyword + meaning",
+        "result": {
+          "title": "Island shuttles stay docked",
+          "source": "News feed · Transport",
+          "passage": "“No departures are planned until the picket line is lifted,” the operator said."
+        }
+      },
+      "license": {
+        "title": "Open source.",
+        "body": "Read the code, change it, host it.",
+        "value": "MIT",
+        "label": "License"
+      },
+      "versions": {
+        "title": "Nothing is overwritten.",
+        "body": "A corrected article keeps its earlier version.",
+        "before": "Diesel prices fall for a [second] week in a row",
+        "after": "Diesel prices fall for a [third] week in a row",
+        "corrected": "Corrected"
+      },
+      "sources": {
+        "title": "Plug in your sources.",
+        "body": "Articles, emails and posts come in as they are published.",
+        "items": [
           "News feeds",
           "Mailboxes",
           "X lists",
           "Your apps"
-        ],
-        "core": [
-          "Keeps every version",
-          "Makes it searchable",
-          "Watches your topics"
-        ],
-        "outputs": [
+        ]
+      },
+      "outputs": {
+        "title": "Wired into your app.",
+        "body": "And open to your AI agents.",
+        "items": [
           {
-            "label": "Search",
-            "note": "keyword + meaning"
-          },
-          {
-            "label": "Alerts",
-            "note": "on your topics"
+            "label": "HTTP API",
+            "note": "v0"
           },
           {
             "label": "Webhooks",
             "note": "signed"
           },
           {
-            "label": "AI agents",
-            "note": "via MCP"
+            "label": "Change feed",
+            "note": "polling or SSE"
+          },
+          {
+            "label": "MCP",
+            "note": "AI agents"
           }
+        ]
+      },
+      "yc": {
+        "title": "Through Y Combinator.",
+        "body": "Quivr is the project that took its founders to YC."
+      },
+      "selfHost": {
+        "title": "On your servers.",
+        "body": "By default, Quivr sends your document text nowhere else.",
+        "servers": "Your servers",
+        "command": "docker compose up",
+        "core": "Go engine",
+        "stack": [
+          "PostgreSQL",
+          "S3 storage",
+          "Temporal",
+          "Weaviate"
         ]
       }
     },

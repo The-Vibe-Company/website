@@ -6,7 +6,7 @@ set -euo pipefail
 #
 # Usage: ./scripts/capture-quivr-og.sh
 #
-# Captures the Quivr V2 web app drawn by QuivrFeedMock on /fr and
+# Captures the Quivr V2 web app drawn by QuivrStage on /fr and
 # /en/portfolio/quivr, at 2x, and writes the 1200x630 Open Graph / Twitter
 # cards public/projects/quivr-og-{fr,en}.jpg. Needs the dev server
 # (./scripts/dev-start.sh) and agent-browser. Re-run whenever the mock or its

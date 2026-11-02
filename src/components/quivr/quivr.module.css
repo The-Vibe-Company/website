@@ -1,0 +1,297 @@
+/*
+ * The Quivr project page's product stage and feature grid, framed and timed
+ * after the Stageshow skill (.agents/skills/stageshow): its two easing curves,
+ * a corner bleed with one satellite, a fade at the window's foot, and one
+ * beat per picture, played once when it scrolls into view.
+ *
+ * Every animation is declared paused at its first frame and only runs once
+ * PlayOnView sets [data-play] on its root. Without scripting or with reduced
+ * motion nothing is declared at all, so the still (the final state) shows.
+ * Transform and opacity only, inside reserved boxes: no layout shift.
+ */
+
+.stage,
+.tile {
+  /* Stageshow: travel and arrival-from-nowhere curves (references/motion.md). */
+  --travel: cubic-bezier(0.45, 0, 0.1, 1);
+  --arrive: cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ---------------------------------------------------------------- Stage -- */
+
+.stage {
+  position: relative;
+  height: 580px;
+  overflow: hidden;
+  background-color: #f6f2ea;
+  background-image:
+    linear-gradient(to right, rgba(220, 215, 206, 0.6) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(220, 215, 206, 0.6) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Phones: pinned, bottom bleed. The window is inset on three sides and runs
+   off the bottom; the alert sits over its filler rows. */
+.window {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  right: 16px;
+  height: 520px;
+}
+
+.satellite {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 20px;
+}
+
+/* Wider: a corner bleed. The window is inset top and left and runs off the
+   right and the bottom; the alert straddles its left edge, over filler. */
+@media (min-width: 768px) {
+  .stage {
+    height: 560px;
+  }
+
+  .window {
+    top: 48px;
+    left: 18%;
+    right: auto;
+    width: calc(82% + 64px);
+    height: 600px;
+  }
+
+  .satellite {
+    top: 320px;
+    bottom: auto;
+    left: max(32px, calc(18% - 160px));
+    right: auto;
+    width: 320px;
+  }
+}
+
+/* The list under the newest article: it carries the rows below it down. */
+.track {
+  /* Filler rows fade out at the window's foot. */
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
+
+.mark {
+  position: relative;
+  white-space: nowrap;
+}
+
+/* The alert's matched words: an orange underline drawn under them. */
+.mark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: #f97316;
+  transform-origin: left;
+}
+
+/* ----------------------------------------------------------------- Bento -- */
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "search" "license" "versions" "sources" "outputs" "yc" "selfhost";
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "search search"
+      "license versions"
+      "sources outputs"
+      "selfhost selfhost"
+      "yc yc";
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: 420px 360px 360px;
+    grid-template-areas:
+      "search search license"
+      "versions sources outputs"
+      "yc selfhost selfhost";
+  }
+}
+
+.tile {
+  position: relative;
+  container-type: inline-size;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.search { grid-area: search; }
+.license { grid-area: license; }
+.versions { grid-area: versions; }
+.sources { grid-area: sources; }
+.outputs { grid-area: outputs; }
+.yc { grid-area: yc; }
+.selfhost { grid-area: selfhost; }
+
+/* A picture is pinned to its tile's foot and cropped by it. */
+.picture {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 220px;
+  overflow: hidden;
+}
+
+.search .picture {
+  min-height: 380px;
+}
+
+@media (min-width: 768px) {
+  .search .picture {
+    min-height: 320px;
+  }
+}
+
+/* Only the filler cards under the result reach the faded foot. */
+.fadeFoot {
+  mask-image: linear-gradient(to bottom, #000 78%, transparent);
+}
+
+.fadeSides {
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* The struck word in the earlier version. */
+.strike {
+  position: relative;
+}
+
+.strike::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: 55%;
+  height: 2px;
+  background: currentColor;
+  transform-origin: left;
+}
+
+/* The passage that matched, highlighted behind its words, line by line. */
+.passage {
+  background-image: linear-gradient(rgba(249, 115, 22, 0.16), rgba(249, 115, 22, 0.16));
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* A connector in the self-hosting diagram, drawn from its start. */
+.wire {
+  transform-origin: left;
+}
+
+.wireY {
+  transform-origin: top;
+}
+
+/* ---------------------------------------------------------------- Motion -- */
+
+@keyframes enter-row {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes carry {
+  from { transform: translateY(-72px); }
+  to { transform: none; }
+}
+
+@keyframes draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes draw-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes highlight {
+  from { background-size: 0% 100%; }
+  to { background-size: 100% 100%; }
+}
+
+@keyframes drop {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes drift {
+  from { transform: translateX(32px); }
+  to { transform: none; }
+}
+
+@keyframes reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+/* Ends lit, like the still. */
+@keyframes blink {
+  0%, 49% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  /* Stage: a new article lands on top and carries the feed down, its matched
+     words are underlined, then the alert arrives with the rule that matched
+     and the webhook sent. About three seconds, once; the result stays. */
+  .stage .track { animation: carry 900ms var(--travel) 300ms both; }
+  .stage .newRow { animation: enter-row 700ms var(--arrive) 500ms both; }
+  .stage .mark::after { animation: draw 450ms var(--travel) 1200ms both; }
+  .stage .mark + .mark::after { animation-delay: 1320ms; }
+  .stage .newTag { animation: fade 300ms ease-out 1400ms both; }
+  .stage .satellite { animation: drop 900ms var(--arrive) 1800ms both; }
+  .stage .sent { animation: fade 400ms ease-out 2600ms both; }
+
+  /* Tiles: one small beat each, 110ms apart along a row (--i). */
+  .tile { --lead: calc(var(--i, 0) * 110ms + 250ms); }
+  .tile .typed { animation: reveal 900ms steps(14, end) var(--lead) both; }
+  .tile .caret { animation: blink 1s step-end calc(var(--lead) + 900ms) 3 both; }
+  .tile .result { animation: rise 800ms var(--arrive) calc(var(--lead) + 1000ms) both; }
+  .tile .passage { animation: highlight 700ms var(--travel) calc(var(--lead) + 1600ms) both; }
+  .tile .strike::after { animation: draw 500ms var(--travel) calc(var(--lead) + 500ms) both; }
+  .tile .later { animation: rise 800ms var(--arrive) calc(var(--lead) + 900ms) both; }
+  .tile .drift { animation: drift 1400ms var(--travel) var(--lead) both; }
+  .tile .light { animation: fade 300ms ease-out calc(var(--lead) + var(--j, 0) * 160ms + 300ms) both; }
+  .tile .wire { animation: draw 600ms var(--travel) calc(var(--lead) + var(--j, 0) * 120ms + 200ms) both; }
+  .tile .wireY { animation-name: draw-y; }
+
+  /* Held on their first frame until PlayOnView sets [data-play]. Important,
+     because each `animation` shorthand above resets the play state. */
+  .stage:not([data-play]) *,
+  .stage:not([data-play]) *::after,
+  .tile:not([data-play]) *,
+  .tile:not([data-play]) *::after {
+    animation-play-state: paused !important;
+  }
+}

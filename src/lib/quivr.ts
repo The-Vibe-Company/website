@@ -21,8 +21,8 @@ export const QUIVR_REPO = "The-Vibe-Company/quivr";
 export const QUIVR_REPO_URL = `https://github.com/${QUIVR_REPO}`;
 
 /**
- * The 1200x630 social cards, one per language: captures of the web app drawn
- * in QuivrFeedMock, made by scripts/capture-quivr-og.sh.
+ * The 1200x630 social cards, one per language: captures of the earlier
+ * full-feed drawing of the web app, made by scripts/capture-quivr-og.sh.
  */
 export const QUIVR_OG_IMAGE = {
   url: { fr: "/projects/quivr-og-fr.jpg", en: "/projects/quivr-og-en.jpg" },
