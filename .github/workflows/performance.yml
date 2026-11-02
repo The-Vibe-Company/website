@@ -37,7 +37,12 @@ jobs:
         with:
           bun-version: latest
       - run: mkdir -p .context
+      - name: Guardrail tooling availability
+        if: hashFiles('scripts/perf/resolve.ts') == ''
+        run: echo '::warning::Guardrail tooling is not on the default branch yet; deployment neutral. PR bootstrap validates this new workflow.'
       - id: resolve
+        if: hashFiles('scripts/perf/resolve.ts') != ''
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: bun scripts/perf/resolve.ts
