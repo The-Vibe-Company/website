@@ -669,8 +669,8 @@
     "metaDescription": "Quivr (YC W24): open-source engine that follows news, emails and posts, makes them searchable and alerts you.",
     "product": {
       "alt": "The Quivr V2 interface: a live feed of articles with its filters, two articles flagged by a harbour strike alert, and trending topics.",
-      "stageAlt": "The Quivr V2 interface: in the live feed of articles, a new article about the harbour strike arrives and triggers an alert, sent to your app with the rule that matched.",
-      "caption": "An illustration of the Quivr V2 web app, with sample articles: a new article triggers an alert on a topic you follow.",
+      "stageAlt": "The Quivr V2 interface: a new article about the harbour strike lands in the live feed and triggers an alert, sent to your app with the rule that matched.",
+      "caption": "An illustration of the Quivr V2 web app, with sample articles: a new article comes in and triggers an alert on a topic you follow.",
       "mock": {
         "title": "Feed",
         "live": "Live",
@@ -703,7 +703,7 @@
       "caption": "Every version is kept, searchable in seconds and checked against your topics.",
       "search": {
         "title": "Search by meaning.",
-        "body": "Not just keywords: Quivr shows the exact passage.",
+        "body": "Not just by keyword. Quivr shows you the exact passage.",
         "query": "ports at a standstill",
         "mode": "Keyword + meaning",
         "result": {
@@ -720,14 +720,14 @@
       },
       "versions": {
         "title": "Nothing is overwritten.",
-        "body": "A corrected article keeps its earlier version.",
+        "body": "When an article gets corrected, Quivr keeps the earlier version.",
         "before": "Diesel prices fall for a [second] week in a row",
         "after": "Diesel prices fall for a [third] week in a row",
         "corrected": "Corrected"
       },
       "sources": {
         "title": "Plug in your sources.",
-        "body": "Articles, emails and posts come in as they are published.",
+        "body": "Articles, emails and posts come in as they're published.",
         "items": [
           "News feeds",
           "Mailboxes",
@@ -737,7 +737,7 @@
       },
       "outputs": {
         "title": "Wired into your app.",
-        "body": "And open to your AI agents.",
+        "body": "Your AI agents can query it too.",
         "items": [
           {
             "label": "HTTP API",
@@ -758,8 +758,8 @@
         ]
       },
       "yc": {
-        "title": "Through Y Combinator.",
-        "body": "Quivr is the project that took its founders to YC."
+        "title": "Went through Y Combinator.",
+        "body": "Quivr is what got its founders into YC."
       },
       "selfHost": {
         "title": "On your servers.",

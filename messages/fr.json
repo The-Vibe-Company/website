@@ -669,8 +669,8 @@
     "metaDescription": "Quivr (YC W24) : moteur open source qui suit articles, e-mails et posts, les indexe et vous alerte sur vos sujets.",
     "product": {
       "alt": "Interface de Quivr V2 : un fil d’articles en direct avec ses filtres, deux articles signalés par une alerte sur la grève portuaire, et les sujets du moment.",
-      "stageAlt": "Interface de Quivr V2 : dans le fil d’articles en direct, un nouvel article sur la grève portuaire arrive et déclenche une alerte, envoyée à votre application avec la règle qui a correspondu.",
-      "caption": "Illustration de l’app web de Quivr V2, avec des articles d’exemple : un nouvel article déclenche une alerte sur un sujet suivi.",
+      "stageAlt": "Interface de Quivr V2 : un nouvel article sur la grève portuaire arrive dans le fil en direct et déclenche une alerte, envoyée à votre application avec la règle qui l’a déclenchée.",
+      "caption": "Illustration de l’app web de Quivr V2, avec des articles d’exemple : un nouvel article arrive et déclenche une alerte sur un sujet que vous suivez.",
       "mock": {
         "title": "Fil",
         "live": "En direct",
@@ -703,7 +703,7 @@
       "caption": "Chaque version est gardée, indexée pour être retrouvée en quelques secondes, puis comparée à vos sujets.",
       "search": {
         "title": "Cherchez par le sens.",
-        "body": "Pas seulement par mot-clé : Quivr montre le passage exact.",
+        "body": "Pas seulement par mot-clé. Quivr vous montre le passage exact.",
         "query": "ports à l’arrêt",
         "mode": "Mot-clé + sens",
         "result": {
@@ -720,7 +720,7 @@
       },
       "versions": {
         "title": "Rien n’est écrasé.",
-        "body": "Un article corrigé garde sa version précédente.",
+        "body": "Quand un article est corrigé, Quivr garde la version d’avant.",
         "before": "Le prix du gazole recule pour la [deuxième] semaine",
         "after": "Le prix du gazole recule pour la [troisième] semaine",
         "corrected": "Corrigé"
@@ -737,7 +737,7 @@
       },
       "outputs": {
         "title": "Branché sur votre app.",
-        "body": "Et interrogeable par vos agents IA.",
+        "body": "Vos agents IA peuvent aussi l’interroger.",
         "items": [
           {
             "label": "API HTTP",
@@ -759,7 +759,7 @@
       },
       "yc": {
         "title": "Passé par Y Combinator.",
-        "body": "C’est Quivr qui a mené ses fondateurs chez YC."
+        "body": "C’est avec Quivr que ses fondateurs sont entrés chez YC."
       },
       "selfHost": {
         "title": "Sur vos serveurs.",
