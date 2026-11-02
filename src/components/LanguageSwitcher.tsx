@@ -2,7 +2,6 @@
 
 import { useTransition } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/design-system";
 
@@ -15,7 +14,6 @@ export function LanguageSwitcher({ className }: { className?: string }) {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const t = useTranslations("accessibility");
   const [isPending, startTransition] = useTransition();
 
@@ -25,7 +23,9 @@ export function LanguageSwitcher({ className }: { className?: string }) {
     // other language is ready, then swaps it in one go — no unmount flash.
     // The middleware remembers the choice in a cookie for the root redirect.
     startTransition(() => {
-      const query = searchParams.toString();
+      // Read at click time rather than through useSearchParams(), which would
+      // keep the nav out of the server HTML on static pages.
+      const query = window.location.search.slice(1);
       router.replace(query ? `${pathname}?${query}` : pathname, { locale: code });
     });
   };

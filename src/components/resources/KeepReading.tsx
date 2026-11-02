@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from 'next-intl/server';
 
@@ -46,13 +47,14 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
         <article className="flex flex-col md:flex-row overflow-hidden rounded-lg border border-res-border bg-res-surface transition-colors hover:border-res-text/35">
           {featured.featuredImage?.url && (
             <div className="md:w-[44%] shrink-0 overflow-hidden aspect-[16/10] md:aspect-auto">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              {/* Below the fold: lazy, and sized to the card so it never
+                  competes with the article cover (the LCP). */}
+              <Image
                 src={featured.featuredImage.url}
                 alt={featured.featuredImage.alt ?? featured.title}
                 {...getCoverImageDimensions(featured.featuredImage.sourceUrl)}
+                sizes="(min-width: 768px) 44vw, calc(100vw - 48px)"
                 className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                decoding="async"
               />
             </div>
           )}
@@ -90,13 +92,12 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
             >
               {r.featuredImage?.url && (
                 <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={r.featuredImage.url}
                     alt={r.featuredImage.alt ?? r.title}
                     {...getCoverImageDimensions(r.featuredImage.sourceUrl)}
+                    sizes="80px"
                     className="h-full w-full object-cover"
-                    decoding="async"
                   />
                 </div>
               )}
