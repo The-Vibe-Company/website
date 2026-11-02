@@ -1,0 +1,211 @@
+name: Performance guardrails
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled, ready_for_review]
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    if: >-
+      github.event_name == 'pull_request' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'Preview' &&
+       github.event.deployment.creator.login == 'vercel[bot]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    continue-on-error: true
+    permissions:
+      contents: read
+      pull-requests: read
+      deployments: read
+    outputs:
+      pr: ${{ steps.resolve.outputs.pr }}
+      sha: ${{ steps.resolve.outputs.sha }}
+      base: ${{ steps.resolve.outputs.base }}
+      preview: ${{ steps.resolve.outputs.preview }}
+    steps:
+      # Deployment runs execute trusted default-branch tooling, never deployed PR code.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'deployment_status' && github.event.repository.default_branch || github.sha }}
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: mkdir -p .context
+      - name: Guardrail tooling availability
+        if: hashFiles('scripts/perf/resolve.ts') == ''
+        run: echo '::warning::Guardrail tooling is not on the default branch yet; deployment neutral. PR bootstrap validates this new workflow.'
+      - id: resolve
+        if: hashFiles('scripts/perf/resolve.ts') != ''
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bun scripts/perf/resolve.ts
+      - uses: actions/upload-artifact@v4
+        if: steps.resolve.outputs.pr != ''
+        with:
+          name: perf-pr
+          path: .context/perf-pr.json
+          include-hidden-files: true
+          retention-days: 3
+
+  measure:
+    needs: resolve
+    if: needs.resolve.outputs.pr != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    continue-on-error: true
+    # Both event types serialize by actual PR, not by branch or deployment id.
+    concurrency:
+      group: perf-pr-${{ needs.resolve.outputs.pr }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'deployment_status' && github.event.repository.default_branch || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.19.0'
+      - name: Install tooling
+        id: install
+        continue-on-error: true
+        run: bun install --frozen-lockfile --ignore-scripts
+      - uses: actions/download-artifact@v4
+        with:
+          name: perf-pr
+          path: .context
+      - name: Check diff assets, priority and leftovers
+        if: steps.install.outcome == 'success'
+        env:
+          BASE_SHA: ${{ needs.resolve.outputs.base }}
+          HEAD_SHA: ${{ needs.resolve.outputs.sha }}
+          PREVIEW_URL: ${{ needs.resolve.outputs.preview }}
+        run: bun scripts/perf/run.ts --static
+      # Preserve confirmed blockers even if Chrome or the measurement step times out.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perf-static
+          path: .context/perf/report.json
+          if-no-files-found: warn
+          include-hidden-files: true
+          retention-days: 3
+      - name: Alternate mobile Lighthouse prod and preview
+        if: steps.install.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 35
+        env:
+          BASE_SHA: ${{ needs.resolve.outputs.base }}
+          HEAD_SHA: ${{ needs.resolve.outputs.sha }}
+          PREVIEW_URL: ${{ needs.resolve.outputs.preview }}
+          PERF_REGRESSION_BLOCKING: ${{ vars.PERF_REGRESSION_BLOCKING }}
+          # PR bootstrap has no bypass secret. Only trusted deployment tooling receives it.
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.event_name == 'deployment_status' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
+        run: bun scripts/perf/run.ts --lighthouse
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perf-report
+          path: .context/perf/report.json
+          if-no-files-found: warn
+          include-hidden-files: true
+          retention-days: 3
+
+  report:
+    name: Publish guardrails
+    needs: [resolve, measure]
+    if: always() && needs.resolve.outputs.pr != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: write
+      checks: write
+    concurrency:
+      group: perf-report-pr-${{ needs.resolve.outputs.pr }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          pattern: perf-*
+          path: reports
+      - name: Update the single sticky comment and SHA check
+        uses: actions/github-script@v7
+        env:
+          PR_NUMBER: ${{ needs.resolve.outputs.pr }}
+          HEAD_SHA: ${{ needs.resolve.outputs.sha }}
+          PREVIEW_URL: ${{ needs.resolve.outputs.preview }}
+        with:
+          script: |
+            try {
+            const fs = require('node:fs');
+            const sha = process.env.HEAD_SHA;
+            const issue_number = Number(process.env.PR_NUMBER);
+            const marker = '<!-- tvc-performance-guardrails -->';
+            const clean = s => String(s).replace(/[<>|\r\n`]/g, ' ').replace(/@/g, '＠').slice(0, 300);
+            const findings = [];
+            let report;
+            for (const path of ['reports/perf-report/report.json', 'reports/perf-static/report.json']) {
+              try { report = JSON.parse(fs.readFileSync(path, 'utf8')); break; } catch {}
+            }
+            if (report?.sha !== sha) report = undefined;
+            const pages = report?.pages || [];
+            findings.push(...(report?.findings || []).filter(f => !(f.check === 'leftovers' && /^PR (title|body|labels) contains/.test(f.message))));
+            if (!report?.staticComplete || !pages.every(p => p.prod.length >= 3 && p.preview.length >= 3)) {
+              findings.push({level: 'warning', check: 'infrastructure', message: 'Missing/incomplete Lighthouse measurements; unavailable metrics are neutral.'});
+            }
+            let pr;
+            try { pr = (await github.rest.pulls.get({...context.repo, pull_number: issue_number})).data; }
+            catch { core.warning('PR unavailable; reporting neutral.'); return; }
+            if (pr.head.sha !== sha || pr.state !== 'open') { core.notice('Stale run; newer PR head wins.'); return; }
+            // Re-read current metadata: editing title/body/labels must clear/set the block without a new deployment.
+            for (const [field, value] of Object.entries({title: pr.title, body: pr.body || '', labels: pr.labels.map(l => l.name).join('\n')})) {
+              if (/do\s+not\s+merge/i.test(value)) findings.push({level: 'blocking', check: 'leftovers', message: `PR ${field} contains the merge-stop phrase.`});
+            }
+            let comments = [], commentsAvailable = true;
+            try { comments = await github.paginate(github.rest.issues.listComments, {...context.repo, issue_number, per_page:100}); }
+            catch { commentsAvailable = false; core.warning('Comments unavailable; reporting neutral.'); }
+            const sticky = comments.find(c => c.user?.login === 'github-actions[bot]' && c.body?.includes(marker));
+            let previous;
+            try { previous = JSON.parse(Buffer.from(sticky?.body?.match(/<!-- tvc-perf-state:([A-Za-z0-9+/=]+) -->/)?.[1] || '', 'base64').toString()); } catch {}
+            const complete = report && pages.length === 4 && pages.every(p => p.prod.length >= 3 && p.preview.length >= 3);
+            const hasMedians = pages.some(p => p.prod.length >= 3 || p.preview.length >= 3);
+            let table = report?.table || 'Measurements unavailable.';
+            if (!complete && previous?.sha === sha) {
+              if (previous.complete || (previous.measured && !hasMedians)) table = previous.table;
+              findings.push(...previous.findings.filter(f => ['cls','lcp','tbt','head-preloads'].includes(f.check)));
+              findings.push({level:'warning', check:'previous-measurement', message:'Preserved measurements and performance verdict from an earlier run on this same SHA.'});
+            }
+            if (!report?.staticComplete && previous?.sha === sha) findings.push(...previous.findings.filter(f => ['asset-size','asset-format','image-priority','leftovers'].includes(f.check)));
+            findings.splice(0, findings.length, ...new Map(findings.map(f => [`${f.level}:${f.check}:${f.message}`, f])).values());
+            findings.sort((a,b) => Number(b.level === 'blocking') - Number(a.level === 'blocking'));
+            const state = {sha, measured:hasMedians || (previous?.sha === sha && previous?.measured) || false, complete:complete || (previous?.sha === sha && previous?.complete) || false, table,
+              staticComplete:report?.staticComplete || (previous?.sha === sha && previous?.staticComplete) || false,
+              findings:findings.filter(f => ['cls','lcp','tbt','head-preloads','asset-size','asset-format','image-priority'].includes(f.check) || (f.check === 'leftovers' && !/^PR (title|body|labels) contains/.test(f.message))).slice(0,80).map(f => ({...f, message:clean(f.message)}))};
+            const encodedState = Buffer.from(JSON.stringify(state)).toString('base64');
+            const blocked = findings.some(f => f.level === 'blocking');
+            const body = `${marker}\n### Performance guardrails\n\nSHA: \`${sha}\`\nPreview: ${clean(process.env.PREVIEW_URL || 'unavailable')}\n\nMobile, cold browser, alternating prod/preview in one job; median per metric (≥3 runs each).\n\n${table}\n\n${findings.length ? findings.slice(0,80).map(f => `- **${clean(f.level).toUpperCase()}** [${clean(f.check)}] ${clean(f.message)}`).join('\n') : '- All measured budgets and diff checks passed.'}\n\nBlocking: changed raster >200 KiB; SVG >50 KiB; screenshots/; merge-stop phrase; preview median CLS >0.05. LCP >20% AND >300 ms / TBT >100 ms warn unless PERF_REGRESSION_BLOCKING=true. Priority lint and head preloads warn. Missing measurements/infrastructure are neutral.\n\n[Workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})\n\n<!-- tvc-perf-state:${encodedState} -->`;
+            try {
+              if (sticky) await github.rest.issues.updateComment({...context.repo, comment_id:sticky.id, body});
+              else if (commentsAvailable) await github.rest.issues.createComment({...context.repo, issue_number, body});
+            } catch { core.warning('Sticky comment unavailable (permissions/network/quota); neutral.'); }
+            try {
+              await github.rest.checks.create({...context.repo, name:'Performance budgets', head_sha:sha, status:'completed', conclusion:blocked ? 'failure' : findings.some(f => f.check === 'infrastructure') ? 'neutral' : 'success', output:{title:blocked ? 'Performance blockers found' : 'Performance report', summary:body}});
+            } catch { core.warning('SHA check publication unavailable (permissions/network/quota); neutral.'); }
+            if (blocked) core.setFailed('Confirmed performance/leftover budget violation; see sticky report.');
+
+            } catch { core.warning('Guardrail reporting unavailable; infrastructure neutral.'); }
