@@ -4,6 +4,7 @@ seoTitle: "Le vrai risque des agents IA : l'autorité | The Vibe Company"
 slug: agents-ia-formation-autorite
 language: fr
 summary: "La sécurité des agents IA ne se décide pas seulement par marque d'outil. Elle dépend surtout du niveau d'autorité accordé : lire, proposer, préparer ou exécuter."
+seoDescription: "La sécurité des agents IA dépend moins de l'outil que du niveau d'autorité qu'on leur donne : lire, proposer, préparer ou exécuter."
 publishedAt: 2026-04-29
 complexity: intermediate
 topics: AI Agents, AI Adoption, Security

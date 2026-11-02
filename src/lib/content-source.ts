@@ -46,6 +46,8 @@ export interface ContentEntry {
    * `title`.
    */
   seoTitle?: string
+  /** Optional plain-text description for metadata; the visible summary stays unchanged. */
+  seoDescription?: string
   summary: string
   body: string
   type: string
@@ -75,6 +77,16 @@ export interface ContentEntry {
     alt?: string
   } | null
   skill?: SkillMeta
+}
+
+/** Plain text for metadata: unwrap inline Markdown, then decode punctuation escapes. */
+export function toPlainText(value: string): string {
+  return value
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\[([^\]]+)\]\((?:[^()\s]|\([^()]*\))*\)/g, '$1')
+    .replace(/\*\*(.+?)\*\*|__(.+?)__/g, '$1$2')
+    .replace(/\*([^*]+)\*|_([^_]+)_/g, '$1$2')
+    .replace(/\\([!"#$%&'()*+,\-./:;<=>?@[\]\\^_`{|}~])/g, '$1')
 }
 
 const CONTENT_ROOT = path.join(process.cwd(), 'content')
@@ -113,6 +125,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         slug,
         title,
         seoTitle: data.seoTitle?.trim() || undefined,
+        seoDescription: data.seoDescription?.trim() || undefined,
         summary,
         body,
         type: type.slug,

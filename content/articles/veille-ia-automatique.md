@@ -4,6 +4,7 @@ seoTitle: "Veille IA automatique : mon système | The Vibe Company"
 slug: veille-ia-automatique
 language: fr
 summary: "L'IA bouge trop vite pour tout suivre à la main, et je n'ai aucun réseau social. Alors j'ai monté une veille qui surveille, trie et me remonte ce qui compte, sans que j'y passe mes journées."
+seoDescription: "L'IA bouge trop vite pour la suivre à la main. Ma veille IA automatique surveille, trie et me remonte ce qui compte, sans y passer mes journées."
 publishedAt: 2026-07-02
 series: victor-story
 seriesDay: 6

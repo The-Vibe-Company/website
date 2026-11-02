@@ -4,6 +4,7 @@ seoTitle: "Mon travail se documente tout seul | The Vibe Company"
 slug: mon-travail-se-documente-tout-seul
 language: fr
 summary: "Je ne tiendrai jamais un journal à la main. Alors j'ai monté un système qui documente mon travail tout seul : un filet qui garde la trace de tout ce que je touche, et une couche qui relit mes conversations pour en tirer le pourquoi, déclenchée à chaque moment clé. Sans que j'aie rien à remplir. Et en écrivant cet article, je l'ai encore amélioré."
+seoDescription: "Un système qui documente mon travail tout seul : un filet qui trace ce que je touche, et une couche qui relit mes conversations pour en tirer le pourquoi."
 publishedAt: 2026-07-03
 series: victor-story
 seriesDay: 7

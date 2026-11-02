@@ -4,6 +4,7 @@ seoTitle: "Dossier CIR avec Claude Code en 10 étapes | The Vibe Company"
 slug: laisser-lia-faire-votre-cir-sans-la-laisser-inventer
 language: fr
 summary: "Le mode opératoire pour transformer Linear, GitHub, Notion, Drive et vos exports en dossier CIR/CII vérifiable : repo atelier, matrice de preuves, agents spécialisés, LaTeX et validation humaine."
+seoDescription: "Transformer Linear, GitHub, Notion, Drive et vos exports en dossier CIR/CII vérifiable : repo atelier, matrice de preuves, agents et validation humaine."
 publishedAt: 2026-04-23
 complexity: advanced
 topics: AI Operations, Research Tax Credit, Agent Workflows
