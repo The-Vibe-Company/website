@@ -184,9 +184,9 @@ describe("sitemap", () => {
     expect(futures).toEqual([]);
   });
 
-  test("the sitemap keeps its 110 URLs and every entry still declares x-default", () => {
+  test("the sitemap keeps its 112 URLs and every entry still declares x-default", () => {
     const entries = sitemap();
-    expect(entries).toHaveLength(110);
+    expect(entries).toHaveLength(112);
     for (const entry of entries) {
       const keys = Object.keys(entry.alternates!.languages!);
       expect(keys).toContain("x-default");
