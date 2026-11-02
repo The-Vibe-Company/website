@@ -260,7 +260,7 @@ export function TopNav() {
             <Link href="/" className="brand">
               <Image
                 src="/favicon.svg"
-                alt=""
+                alt="The Vibe Co. logo"
                 width={26}
                 height={25}
                 priority

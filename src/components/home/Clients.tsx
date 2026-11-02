@@ -63,7 +63,7 @@ export function Clients() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={client.src}
-              alt=""
+              alt={copy ? "" : client.name}
               width={client.width}
               height={client.height}
               style={{ "--phone": `${client.phone}px`, "--shelf": `${client.shelf}px` } as React.CSSProperties}

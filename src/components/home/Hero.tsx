@@ -112,7 +112,7 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               <span className="well inline-flex h-11 items-center gap-2 whitespace-nowrap rounded-2xl pl-1.5 pr-3 md:h-[52px] md:gap-2.5 md:pl-2 md:pr-4">
                 <Image
                   src="/images/partners/france-2030.svg"
-                  alt=""
+                  alt="France 2030"
                   width={34}
                   height={34}
                   className="h-[30px] w-[30px] md:h-[34px] md:w-[34px]"

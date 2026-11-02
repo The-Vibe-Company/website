@@ -30,7 +30,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={featured.logo}
-              alt=""
+              alt={featured.client}
               className="h-10 w-auto max-w-[70%] object-contain md:h-12"
               loading="lazy"
               decoding="async"
@@ -71,7 +71,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={c.logo}
-                    alt=""
+                    alt={c.client}
                     className="max-h-full max-w-full object-contain"
                     loading="lazy"
                     decoding="async"

@@ -123,7 +123,7 @@ export default async function PortfolioPage({
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={p.logo}
-                        alt=""
+                        alt={`${p.name} logo`}
                         className="size-[34px] rounded-[10px] object-contain md:size-10"
                         loading="lazy"
                         decoding="async"
