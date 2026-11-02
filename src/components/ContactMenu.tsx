@@ -4,11 +4,11 @@ import { useTranslations } from "next-intl";
 import { Arrow } from "@/components/kit";
 import { BOOKING_URL, CONTACT_EMAIL, bookingLocation } from "@/lib/booking";
 import { cn } from "@/lib/design-system";
-import { captureEvent } from "@/lib/posthog";
+import { trackHeaderContact, type ContactLocation } from "./contact-events";
 
 interface ContactMenuProps {
   /** Reported as `location` by the analytics events fired from the control. */
-  location: "nav" | "mobile_menu";
+  location: ContactLocation;
   /** "bar" sits in the header pill; "stack" is the centred pair of the phone sheet. */
   variant?: "bar" | "stack";
   className?: string;
@@ -23,8 +23,9 @@ interface ContactMenuProps {
  * is the button itself. The e-mail address stays one tap away, as a labelled
  * icon button beside it.
  *
- * The cal.com link is tracked as `booking_link_clicked` by BookingLinkTracker,
- * the e-mail link as `contact_email_clicked`.
+ * The cal.com link is tracked as `booking_link_clicked` by BookingLinkTracker.
+ * Each choice also reports `get_in_touch_clicked`, as the old menu button did
+ * (see trackHeaderContact).
  */
 export function ContactMenu({
   location,
@@ -40,7 +41,7 @@ export function ContactMenu({
       href={BOOKING_URL}
       {...bookingLocation(location === "nav" ? "header_contact_menu" : "header_mobile_menu")}
       onClick={() => {
-        captureEvent("discovery_call_clicked", { location });
+        trackHeaderContact("book", location);
         onSelect?.();
       }}
       className={cn("btn btn-lacquer", stacked ? "btn-lg" : "btn-sm")}
@@ -51,7 +52,7 @@ export function ContactMenu({
   );
 
   const onMail = () => {
-    captureEvent("contact_email_clicked", { location });
+    trackHeaderContact("email", location);
     onSelect?.();
   };
 
