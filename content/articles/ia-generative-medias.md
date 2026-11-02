@@ -15,7 +15,7 @@ ogImage: /images/resources/ia-generative-medias/cover-mascotte.webp
 
 **La réponse courte.** Dans les médias, l'IA générative sert surtout à sept choses : transcrire et traduire, faire la veille, fouiller les archives, décliner un sujet en plusieurs formats, aider à l'édition (titres, résumés, métadonnées), dépouiller des documents pour une enquête et contrôler la qualité avant publication. Elle ne remplace pas le travail de terrain ni la décision de publier. Les usages qui marchent ont tous le même point commun : l'outil prépare, un journaliste vérifie et signe.
 
-On voit beaucoup de démos de ChatGPT qui « écrit un article ». Ce n'est pas là que les rédactions gagnent du temps. Elles en gagnent sur les tâches de fond qui mangent les journées : la transcription d'une interview d'une heure, le tri de 400 communiqués, la recherche d'une photo de 2009 dans un fonds mal indexé. Ce guide passe en revue les sept usages, avec pour chacun un exemple réel et le garde-fou qui va avec.
+On voit beaucoup de démos de ChatGPT qui « écrit un article ». Les rédactions gagnent surtout du temps ailleurs, sur les tâches de fond qui mangent les journées : la transcription d'une interview d'une heure, le tri de 400 communiqués, la recherche d'une photo de 2009 dans un fonds mal indexé. Voici les sept usages, chacun avec un exemple réel et son garde-fou.
 
 ## Où en sont les rédactions
 
@@ -26,7 +26,7 @@ Le rapport [Journalism, media and technology trends and predictions 2026](https:
 - **44 %** décrivent les résultats de leurs projets IA comme « prometteurs », **42 %** comme « limités ».
 - **67 %** disent n'avoir supprimé aucun poste grâce à l'IA.
 
-Autrement dit : tout le monde s'y met, peu de projets changent vraiment la donne. La différence se fait sur le choix de l'usage et sur la façon de le brancher dans le travail réel.
+Bref, tout le monde s'y met, mais peu de projets changent vraiment les choses. Ce qui fait la différence, c'est le choix de l'usage et la façon de le brancher dans le travail de tous les jours.
 
 ## Les 7 usages concrets
 
@@ -34,13 +34,13 @@ Autrement dit : tout le monde s'y met, peu de projets changent vraiment la donne
 
 C'est l'usage le plus répandu, et le moins risqué. Une interview, une conférence de presse ou une vidéo devient du texte exploitable en quelques minutes, puis une traduction de travail.
 
-L'exemple qui montre l'échelle : selon le Reuters Institute, le New York Times a transcrit des milliers de podcasts et de vidéos pour analyser les prises de parole de Charlie Kirk. Le travail a pris deux semaines. Des enquêtes comparables prenaient auparavant un an ou plus.
+Pour donner une idée de l'échelle : selon le Reuters Institute, le New York Times a transcrit des milliers de podcasts et de vidéos pour analyser les prises de parole de Charlie Kirk. Le travail a pris deux semaines. Des enquêtes comparables prenaient auparavant un an ou plus.
 
 **Garde-fou :** une transcription sert à chercher et à citer, pas à publier telle quelle. Toute citation reprise dans un papier se vérifie sur l'enregistrement.
 
 ### 2. La veille augmentée
 
-Un flux de veille saturé est l'un des premiers signaux qu'on entend en rédaction. L'IA générative centralise les sources (médias, réseaux sociaux, communiqués), regroupe ce qui parle du même sujet, résume et alerte.
+Demandez à une rédaction ce qui coince, et le flux de veille saturé arrive vite dans la conversation. L'IA générative centralise les sources (médias, réseaux sociaux, communiqués), regroupe ce qui parle du même sujet, résume et alerte.
 
 Deux exemples cités par le Reuters Institute : Helsingin Sanomat, en Finlande, fait tourner des bots qui surveillent des chaînes Telegram russophones publiques et alertent les journalistes. L'agence Reuters utilise FactGenie, qui extrait les faits clés des communiqués pour que les journalistes les vérifient vite. 150 journalistes s'en servent, et le temps moyen d'envoi de certaines alertes a été divisé par deux.
 
@@ -48,11 +48,11 @@ Deux exemples cités par le Reuters Institute : Helsingin Sanomat, en Finlande, 
 
 ### 3. Fouiller les archives
 
-Beaucoup de médias ont un fonds texte, photo et vidéo énorme et sous-exploité, parce que la recherche par mots-clés ne retrouve que ce qui a été bien indexé. La recherche sémantique et multimodale permet de chercher par sens (« manifestation d'agriculteurs devant une préfecture, de nuit ») et de retrouver images et extraits vidéo, pas seulement des articles.
+Beaucoup de médias ont un énorme fonds texte, photo et vidéo dont ils se servent peu, parce que la recherche par mots-clés ne retrouve que ce qui a été bien indexé. La recherche sémantique et multimodale permet de chercher par sens (« manifestation d'agriculteurs devant une préfecture, de nuit ») et de retrouver images et extraits vidéo, pas seulement des articles.
 
 Techniquement, c'est un RAG appliqué à un fonds d'archives. On explique le principe dans notre guide du [RAG en entreprise](/fr/resources/articles/rag-entreprise).
 
-**Garde-fou :** l'outil doit afficher le document source, sa date et ses droits d'usage. Une archive sans contexte est une erreur en puissance.
+**Garde-fou :** l'outil doit afficher le document source, sa date et ses droits d'usage. Ressortir une archive sans son contexte, c'est s'exposer à une erreur.
 
 ### 4. Décliner un sujet en plusieurs formats
 
@@ -74,7 +74,7 @@ Rapports publics, décisions de justice, budgets, fuites de milliers de pages : 
 
 ### 7. Contrôler la qualité avant publication
 
-C'est l'usage le moins visible et peut-être le plus utile : relire un papier pour repérer un chiffre qui ne correspond pas à la source, une formulation biaisée, un nom mal orthographié, une affirmation sans attribution. C'est d'ailleurs l'un des trois outils du projet MediaGen de l'AFP : repérer les biais qui nuiraient à la qualité de l'information.
+On en parle peu, et c'est peut-être le plus utile : relire un papier pour repérer un chiffre qui ne correspond pas à la source, une formulation biaisée, un nom mal orthographié, une affirmation sans attribution. C'est d'ailleurs l'un des trois outils du projet MediaGen de l'AFP : repérer les biais qui nuiraient à la qualité de l'information.
 
 **Garde-fou :** l'outil signale, il ne corrige pas en silence. Le journaliste voit chaque alerte et décide.
 
@@ -96,7 +96,7 @@ En pratique, le bon réflexe est le même dans les deux cas : un humain identifi
 
 ## Une rédaction ouvre son SI à des contenus qu'elle ne maîtrise pas
 
-Un point souvent oublié. Un outil de veille ou de dépouillement lit par définition des contenus extérieurs : communiqués, pages web, PDF reçus d'une source inconnue. C'est exactement là que se loge l'injection de prompt indirecte, première vulnérabilité du classement [OWASP LLM01:2025](https://genai.owasp.org/llmrisk/llm01-prompt-injection/) : une instruction cachée dans un document modifie le comportement du modèle qui le lit.
+On l'oublie souvent. Un outil de veille ou de dépouillement lit forcément des contenus extérieurs : communiqués, pages web, PDF reçus d'une source inconnue. C'est exactement là que se loge l'injection de prompt indirecte, première vulnérabilité du classement [OWASP LLM01:2025](https://genai.owasp.org/llmrisk/llm01-prompt-injection/) : une instruction cachée dans un document modifie le comportement du modèle qui le lit.
 
 On peut confier une partie de cette défense à des agents. Un agent de contrôle rejoue une batterie de documents piégés à chaque modification de l'outil, vérifie que l'assistant n'a que des droits de lecture et jamais celui de publier dans le CMS, et que les clés d'accès ne traînent pas dans les prompts ou les logs. On détaille cette approche dans [agents IA pour durcir un SaaS](/fr/resources/articles/agents-ia-durcir-saas).
 
@@ -110,7 +110,7 @@ On peut confier une partie de cette défense à des agents. Un agent de contrôl
 
 Une partie des composants sera publiée en licence libre. Et tout est conçu pour rester sous le contrôle des journalistes. Comme le dit Fabrice Fries, PDG de l'AFP, dans le [communiqué de lancement](https://www.afp.com/fr/lagence/notre-actualite/communiques-de-presse/lafp-lance-mediagen-un-projet-dia-generative-au) : « MediaGen est un des rares projets France 2030 consacrés aux médias. Il doit démontrer que l'innovation en intelligence artificielle peut se faire au service d'une information fiable, responsable et indépendante. »
 
-Précision utile : The Vibe Company est membre du consortium technique. On construit les outils, on n'est pas l'AFP, et on ne monte pas de dossiers France 2030. Pour le panorama des aides, voir [financer un projet IA : CIR, CII et France 2030](/fr/resources/articles/financer-projet-ia-cir-cii-france-2030).
+Pour être clair, The Vibe Company est membre du consortium technique. On construit les outils, on n'est pas l'AFP, et on ne monte pas de dossiers France 2030. Pour le panorama des aides, voir [financer un projet IA : CIR, CII et France 2030](/fr/resources/articles/financer-projet-ia-cir-cii-france-2030).
 
 ## Par où commencer
 
