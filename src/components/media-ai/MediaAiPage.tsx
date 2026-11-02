@@ -38,6 +38,7 @@ import {
   serviceNode,
   webPageNode,
 } from "@/lib/structured-data";
+import { clientLogoSize } from "@/lib/client-logos";
 
 /**
  * The media AI landing, served at /fr/ia-medias and /en/ai-for-media. Both
@@ -299,6 +300,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
                     <img
                       src={afp.logo}
                       alt={afp.client}
+                      {...clientLogoSize(afp.logo)}
                       className="h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
                       loading="lazy"
                       decoding="async"

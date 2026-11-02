@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { Arrow, ButtonLink, Groove, SectionTitle } from "@/components/kit";
 import { getCustomers, type ContentLocale, type Customer } from "@/lib/customers";
 import { LOOP_COPIES, LOOP_NEXT_CLASS, LOOP_PREV_CLASS, useLoopCarousel } from "./useLoopCarousel";
+import { clientLogoSize } from "@/lib/client-logos";
 
 // A card and a sliver of the next on phones, two cards flush from 768px.
 const CARD_WIDTH = "w-[86%] shrink-0 snap-start sm:w-[70%] md:w-[calc(50%-12px)]";
@@ -26,6 +27,7 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={c.logo}
+          {...clientLogoSize(c.logo)}
           alt={c.client}
           className="h-7 w-auto max-w-full object-contain md:h-8"
           loading="lazy"

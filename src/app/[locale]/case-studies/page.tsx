@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { getCustomers, type ContentLocale } from "@/lib/customers";
 import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
 import { breadcrumbList, webPageNode } from "@/lib/structured-data";
+import { clientLogoSize } from "@/lib/client-logos";
 
 export async function generateMetadata({
   params,
@@ -163,6 +164,7 @@ function Logo({ src, alt }: { src: string; alt: string }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
+        {...clientLogoSize(src)}
         alt={alt}
         className="h-7 w-auto max-w-full object-contain md:h-8"
         loading="lazy"

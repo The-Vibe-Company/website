@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { clientLogoSize } from "@/lib/client-logos";
 
 /**
  * A client's own words between the cases and the services, on phones only: a
@@ -24,8 +25,7 @@ export function Quote() {
               src="/images/clients/monka.webp"
               alt=""
               aria-hidden="true"
-              width={63}
-              height={22}
+              {...clientLogoSize("/images/clients/monka.webp")}
               className="h-[22px] w-auto brightness-0"
               loading="lazy"
               decoding="async"

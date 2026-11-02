@@ -43,6 +43,7 @@ import {
 } from "@/lib/site";
 import { breadcrumbList, faqPageSchema } from "@/lib/structured-data";
 import { AboutBookingCta } from "./AboutBookingCta";
+import { clientLogoSize } from "@/lib/client-logos";
 
 /**
  * The About page, served at /fr/a-propos and /en/about. Both routes render
@@ -372,6 +373,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={client.src}
+                      {...clientLogoSize(client.src)}
                       alt={t("clients.logoAlt", { name: client.name })}
                       style={{ "--h": LOGO_HEIGHTS[client.name] ?? 28 } as CSSProperties}
                       className="h-[calc(var(--h)*.78*1px)] w-auto object-contain brightness-0 md:h-[calc(var(--h)*.86*1px)] xl:h-[calc(var(--h)*1px)]"

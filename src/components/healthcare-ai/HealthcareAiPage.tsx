@@ -38,6 +38,7 @@ import {
   serviceNode,
   webPageNode,
 } from "@/lib/structured-data";
+import { clientLogoSize } from "@/lib/client-logos";
 
 /**
  * The healthcare AI landing, served at /fr/ia-sante-hds and
@@ -202,6 +203,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                 <img
                   src={monka.logo}
                   alt={monka.client}
+                  {...clientLogoSize(monka.logo)}
                   className="h-8 w-auto max-w-[160px] object-contain"
                   loading="lazy"
                   decoding="async"
@@ -370,6 +372,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                     <img
                       src={monka.logo}
                       alt={monka.client}
+                      {...clientLogoSize(monka.logo)}
                       className="h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
                       loading="lazy"
                       decoding="async"

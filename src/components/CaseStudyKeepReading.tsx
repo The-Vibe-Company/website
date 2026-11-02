@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 import { Arrow, Kicker } from "@/components/kit";
 import type { Customer } from "@/lib/customers";
+import { clientLogoSize } from "@/lib/client-logos";
 
 /**
  * "Keep reading" block for case studies: one featured "Next" case (a quiet
@@ -30,6 +31,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={featured.logo}
+              {...clientLogoSize(featured.logo)}
               alt={featured.client}
               className="h-10 w-auto max-w-[70%] object-contain md:h-12"
               loading="lazy"
@@ -71,6 +73,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={c.logo}
+                    {...clientLogoSize(c.logo)}
                     alt={c.client}
                     className="max-h-full max-w-full object-contain"
                     loading="lazy"

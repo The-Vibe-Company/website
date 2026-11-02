@@ -24,6 +24,7 @@ import {
   splitPath,
 } from "@/lib/site";
 import { breadcrumbList, webPageNode } from "@/lib/structured-data";
+import { clientLogoSize } from "@/lib/client-logos";
 
 export function generateStaticParams() {
   return CUSTOMER_SLUGS.map((slug) => ({ slug }));
@@ -178,6 +179,7 @@ export default async function CaseStudyPage({
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={customer.logo}
+                  {...clientLogoSize(customer.logo)}
                   alt={customer.client}
                   className="h-10 w-auto max-w-[60%] object-contain md:h-[54px]"
                 />
