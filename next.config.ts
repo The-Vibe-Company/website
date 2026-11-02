@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 import { AGENT_LINK_HEADER } from "./src/lib/agent-discovery";
+import { INDEXNOW_KEY_PATH } from "./src/lib/indexnow";
 
 const nextConfig: NextConfig = {
   env: {
@@ -121,6 +122,10 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      {
+        source: INDEXNOW_KEY_PATH,
+        headers: [{ key: "Content-Type", value: "text/plain; charset=utf-8" }],
+      },
       {
         source: "/:path*",
         headers: [{ key: "Link", value: AGENT_LINK_HEADER }],
