@@ -211,6 +211,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/ia-generative-medias/cover-mascotte.webp": {
+      "sourceHash": "105413597491bffdbd9485a9c81f02381d418c33653f86be0281240e03323578",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/je-mappelle-victor/cover-mascotte.webp": {
       "sourceHash": "45ebcbefd168157d9f07df956976c9def463be1894f7e85427ddb169660598de",
       "targetUrl": null,
@@ -468,6 +473,11 @@
     },
     "og:/images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp": {
       "sourceHash": "1169a15480a31405ef50fdc380e4b0e542c1fc7ccc0416c77b448e137face26d",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/ia-generative-medias/cover-mascotte.webp": {
+      "sourceHash": "105413597491bffdbd9485a9c81f02381d418c33653f86be0281240e03323578",
       "targetUrl": null,
       "targetHash": null
     },
