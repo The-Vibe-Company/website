@@ -669,22 +669,13 @@
     "metaDescription": "Quivr (YC W24) : moteur open source qui suit articles, e-mails et posts, les indexe et vous alerte sur vos sujets.",
     "product": {
       "alt": "Interface de Quivr V2 : un fil d’articles en direct avec ses filtres, deux articles signalés par une alerte sur la grève portuaire, et les sujets du moment.",
-      "caption": "Illustration de l’app web de Quivr V2, avec des articles d’exemple : le fil en direct, ses filtres, une alerte et les sujets du moment.",
+      "stageAlt": "Interface de Quivr V2 : un nouvel article sur la grève portuaire arrive dans le fil en direct et déclenche une alerte, envoyée à votre application avec la règle qui l’a déclenchée.",
+      "caption": "Illustration de l’app web de Quivr V2, avec des articles d’exemple : un nouvel article arrive et déclenche une alerte sur un sujet que vous suivez.",
       "mock": {
         "title": "Fil",
         "live": "En direct",
-        "search": "Rechercher un mot, un lieu, une personne…",
-        "filters": {
-          "all": "Tout",
-          "unread": "Non lus",
-          "date": "Date",
-          "alerts": "Alertes",
-          "sources": "Sources"
-        },
-        "markRead": "Tout marquer comme lu",
-        "group": "Dernière heure",
+        "alerts": "Alertes",
         "alertTag": "Alerte",
-        "correctedTag": "Corrigé",
         "items": [
           {
             "title": "La [grève portuaire] bloque le premier [ferry] du matin",
@@ -695,102 +686,97 @@
             "title": "Les dockers du [port] reconduisent la [grève portuaire] jusqu’à vendredi",
             "source": "Boîte mail · Revue de presse",
             "time": "il y a 6 min"
-          },
-          {
-            "title": "Fret : les transporteurs réorganisent leurs tournées",
-            "source": "Liste X · Logistique",
-            "time": "il y a 9 min"
-          },
-          {
-            "title": "Le prix du gazole recule pour la troisième semaine",
-            "source": "Flux d’actu · Économie",
-            "time": "il y a 14 min"
-          },
-          {
-            "title": "Un entrepôt automatisé ouvre près de la gare de triage",
-            "source": "Votre app · Notes terrain",
-            "time": "il y a 21 min"
-          },
-          {
-            "title": "Météo marine : coup de vent attendu en fin de journée",
-            "source": "Flux d’actu · Météo",
-            "time": "il y a 27 min"
-          },
-          {
-            "title": "Le terminal à conteneurs teste un portique électrique",
-            "source": "Liste X · Logistique",
-            "time": "il y a 34 min"
-          },
-          {
-            "title": "Les ventes de vélos cargo progressent chez les artisans",
-            "source": "Flux d’actu · Économie",
-            "time": "il y a 41 min"
           }
         ],
-        "trending": {
-          "title": "Sujets du moment",
-          "period": "7 derniers jours",
-          "topics": [
-            "Grève portuaire",
-            "Ferry",
-            "Dockers",
-            "Fret",
-            "Gazole",
-            "Météo marine",
-            "Conteneurs",
-            "Entrepôts"
-          ]
-        },
-        "week": {
-          "title": "7 derniers jours",
-          "total": "{count} articles",
-          "days": [
-            "ven.",
-            "sam.",
-            "dim.",
-            "lun.",
-            "mar.",
-            "hier",
-            "auj."
-          ]
+        "alert": {
+          "kicker": "Alerte",
+          "topic": "Grève portuaire",
+          "count": "2 nouveaux articles correspondent",
+          "rule": "\"grève portuaire\" AND (ferry OR port)",
+          "sent": "Envoyée à votre app par webhook signé"
         }
       }
     },
-    "diagrams": {
-      "flow": {
-        "kicker": "Comment ça marche",
-        "title": "Tout entre. Rien ne se perd.",
-        "caption": "Chaque version est gardée, indexée pour être retrouvée en quelques secondes, puis comparée à vos sujets.",
-        "label": "Schéma animé : les sources arrivent dans Quivr, qui renvoie des résultats de recherche, des alertes, des webhooks et des réponses aux agents IA.",
-        "sources": [
+    "features": {
+      "kicker": "Comment ça marche",
+      "title": "Tout entre. Rien ne se perd.",
+      "caption": "Chaque version est gardée, indexée pour être retrouvée en quelques secondes, puis comparée à vos sujets.",
+      "search": {
+        "title": "Cherchez par le sens.",
+        "body": "Pas seulement par mot-clé. Quivr vous montre le passage exact.",
+        "query": "ports à l’arrêt",
+        "mode": "Mot-clé + sens",
+        "result": {
+          "title": "Les navettes vers l’île restent à quai",
+          "source": "Flux d’actu · Transports",
+          "passage": "« Aucun départ n’est prévu avant la levée du piquet de grève », précise la compagnie."
+        }
+      },
+      "license": {
+        "title": "Open source.",
+        "body": "Lisez le code, modifiez-le, hébergez-le.",
+        "value": "MIT",
+        "label": "Licence"
+      },
+      "versions": {
+        "title": "Rien n’est écrasé.",
+        "body": "Quand un article est corrigé, Quivr garde la version d’avant.",
+        "before": "Le prix du gazole recule pour la [deuxième] semaine",
+        "after": "Le prix du gazole recule pour la [troisième] semaine",
+        "corrected": "Corrigé"
+      },
+      "sources": {
+        "title": "Branchez vos sources.",
+        "body": "Articles, e-mails et posts arrivent au fil de l’eau.",
+        "items": [
           "Flux d’actu",
           "Boîtes mail",
           "Listes X",
           "Vos apps"
-        ],
-        "core": [
-          "Garde chaque version",
-          "Indexe pour la recherche",
-          "Surveille vos sujets"
-        ],
-        "outputs": [
+        ]
+      },
+      "outputs": {
+        "title": "Branché sur votre app.",
+        "body": "Vos agents IA peuvent aussi l’interroger.",
+        "items": [
           {
-            "label": "Recherche",
-            "note": "mot-clé + sens"
-          },
-          {
-            "label": "Alertes",
-            "note": "sur vos sujets"
+            "label": "API HTTP",
+            "note": "v0"
           },
           {
             "label": "Webhooks",
             "note": "signés"
           },
           {
-            "label": "Agents IA",
-            "note": "via MCP"
+            "label": "Flux de changements",
+            "note": "polling ou SSE"
+          },
+          {
+            "label": "MCP",
+            "note": "agents IA"
           }
         ]
+      },
+      "yc": {
+        "title": "Passé par Y Combinator.",
+        "body": "C’est avec Quivr que ses fondateurs sont entrés chez YC."
+      },
+      "selfHost": {
+        "title": "Sur vos serveurs.",
+        "body": "Par défaut, Quivr n’envoie lui-même le texte de vos documents nulle part ailleurs.",
+        "servers": "Vos serveurs",
+        "command": "docker compose up",
+        "core": "Moteur en Go",
+        "stack": [
+          "PostgreSQL",
+          "Stockage S3",
+          "Temporal",
+          "Weaviate"
+        ]
+      },
+      "mediagen": {
+        "text": "Quivr fait partie du consortium de MediaGen, un projet d’IA générative pour les médias porté par l’AFP et sélectionné dans le cadre de France 2030.",
+        "link": "Communiqué de l’AFP ↗"
       }
     },
     "services": {

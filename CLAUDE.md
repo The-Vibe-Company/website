@@ -29,6 +29,8 @@ Always add the link to the issue in the PR description.
 
 Always use frontend-design skill and ui-ux-pro-max skill for designing pages and components or when the user asks you to design something.
 
+For faux product UI (product shots, feature bento grids, demo animations), use the Stageshow skill in `.agents/skills/stageshow` (linked from `.claude/skills/stageshow`, pinned in `skills-lock.json`). It is reference material only: never install its `package.json` or run its scripts, and copy only the few tokens or patterns a page needs into `src/` (the folder is excluded from `tsconfig.json`, ESLint and Tailwind's source scan).
+
 ## Layout Architecture (CRITICAL)
 
 **NEVER create `src/app/layout.tsx`** (root layout). The frontend route group already owns its own `<html>`:
@@ -207,7 +209,7 @@ The optimizer memoizes encoder results in `src/generated/image-optimize-cache.js
 
 Favicons: `bun run favicons:generate` regenerates `public/favicon.ico`, `favicon-{48,96,192}.png`, `apple-touch-icon.png` and `icon.png` (512, also the Organization logo) from `public/favicon.svg`; they are declared through `SITE_ICONS` in `src/lib/site.ts` and `src/app/manifest.ts`.
 
-The Quivr project page draws its web app in code (`src/components/quivr/QuivrFeedMock.tsx`, sample articles only). Its 1200x630 OG cards `public/projects/quivr-og-{fr,en}.jpg` are captures of that mock: re-run `./scripts/capture-quivr-og.sh` (needs the dev server) whenever the mock or its copy changes, and commit both images.
+The Quivr project page draws its web app in code (`src/components/quivr/QuivrStage.tsx` for the product shot, `QuivrBento.tsx` for the feature grid, sample articles only). Its 1200x630 OG cards `public/projects/quivr-og-{fr,en}.jpg` are captures of the earlier full-feed mock, kept as they were on purpose when the page was redrawn (THE-2187 left every SEO surface unchanged). `./scripts/capture-quivr-og.sh` (needs the dev server) now captures the stage: re-run it only when you mean to change the social cards, and commit both images.
 
 To verify image budgets without rewriting files, run:
 
