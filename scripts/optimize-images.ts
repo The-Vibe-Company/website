@@ -355,6 +355,17 @@ function formatBytes(bytes: number): string {
 }
 
 async function main() {
+  // Strict PR budgets share the same entry point as the existing image gate.
+  // This mode inspects only added/modified Git blobs and never rewrites images.
+  const diffIndex = process.argv.indexOf('--diff')
+  if (diffIndex !== -1) {
+    const { changedPaths, changedAssets } = await import('./perf/git')
+    const findings = changedAssets(changedPaths(process.argv[diffIndex + 1], process.argv[diffIndex + 2]), process.argv[diffIndex + 2])
+    for (const finding of findings) console.log(`[${finding.level}] ${finding.message}`)
+    if (!findings.length) console.log('[ok] Changed image budgets')
+    process.exit(findings.some(f => f.level === 'blocking') ? 1 : 0)
+  }
+
   const markdownFiles = (await walkFiles(CONTENT_DIR)).filter((file) => file.endsWith('.md'))
   const { jobs, missing } = await collectImageJobs(markdownFiles)
 

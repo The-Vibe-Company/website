@@ -20,7 +20,9 @@
     "favicons:generate": "bun scripts/generate-favicons.ts",
     "images:optimize": "bun scripts/optimize-images.ts",
     "images:check": "bun scripts/optimize-images.ts --check",
-    "test": "bun test"
+    "test": "bun test",
+    "perf:test": "bun test scripts/perf",
+    "perf:typecheck": "tsc -p scripts/perf/tsconfig.json"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.73.0",
@@ -43,8 +45,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "chrome-launcher": "1.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
+    "lighthouse": "13.0.3",
+    "puppeteer-core": "24.37.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
