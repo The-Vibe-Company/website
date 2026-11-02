@@ -239,8 +239,8 @@ export async function QuivrBento({ locale }: { locale: string }) {
                     style={{ "--j": j } as CSSProperties}
                   />
                 </span>
-                <span className="text-[14px] font-semibold text-foreground">{output.label}</span>
-                <span className={`ml-auto shrink-0 whitespace-nowrap text-right text-muted-foreground ${MONO}`}>{output.note}</span>
+                <span className="min-w-0 text-[14px] font-semibold text-foreground">{output.label}</span>
+                <span className={`ml-auto min-w-0 text-right text-muted-foreground ${MONO}`}>{output.note}</span>
               </div>
             ))}
           </div>

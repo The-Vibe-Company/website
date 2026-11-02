@@ -21,7 +21,7 @@
 
 .stage {
   position: relative;
-  height: 580px;
+  height: 640px;
   overflow: hidden;
   background-color: #f6f2ea;
   background-image:
@@ -37,7 +37,8 @@
   top: 20px;
   left: 16px;
   right: 16px;
-  height: 520px;
+  /* Always past the foot, whatever the stage's height. */
+  bottom: -48px;
 }
 
 .satellite {
@@ -45,6 +46,14 @@
   left: 28px;
   right: 28px;
   bottom: 20px;
+}
+
+/* The narrowest phones wrap both articles onto more lines: a taller stage
+   keeps the alert over the filler rows, never over the second article. */
+@media (max-width: 374px) {
+  .stage {
+    height: 680px;
+  }
 }
 
 /* Wider: a corner bleed. The window is inset top and left and runs off the
@@ -59,6 +68,7 @@
     left: 18%;
     right: auto;
     width: calc(82% + 64px);
+    bottom: auto;
     height: 600px;
   }
 
@@ -152,6 +162,11 @@
 
 .search .picture {
   min-height: 380px;
+}
+
+/* Phones: room for the corrected headline whole, however it wraps. */
+.versions .picture {
+  min-height: 280px;
 }
 
 @media (min-width: 768px) {

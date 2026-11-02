@@ -763,7 +763,7 @@
       },
       "selfHost": {
         "title": "On your servers.",
-        "body": "By default, Quivr sends your document text nowhere else.",
+        "body": "By default, Quivr itself sends your document text nowhere else.",
         "servers": "Your servers",
         "command": "docker compose up",
         "core": "Go engine",
