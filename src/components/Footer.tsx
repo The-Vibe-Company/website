@@ -73,7 +73,7 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
   }));
 
   return (
-    <footer className="footer lacquer defer-render" data-surface="inverse">
+    <footer className="footer lacquer" data-surface="inverse">
       {/* The mascot's black V, with a line of orange light along its edge. */}
       <svg
         className="vneck"

@@ -116,8 +116,7 @@ export default async function PortfolioProjectPage({
     >
       <JsonLd data={breadcrumb} />
       <JsonLd data={faq} />
-      {/* One-word title above the fold: the display cut need not be preloaded. */}
-      <TopNav preloadDisplayFont={false} />
+      <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         {/* Identity: the page's one main piece. */}
         <section className="pt-3 md:pt-5">
@@ -233,7 +232,7 @@ export default async function PortfolioProjectPage({
 
         {/* Why it exists, how it works, who it is for: the page's own prose. */}
         {project.story ? (
-          <section className="section-tight defer-render">
+          <section className="section-tight">
             <div className="wrap">
               <div className="clay-quiet rounded-[22px] px-5 py-2 md:rounded-plate md:px-12 md:py-4">
                 <div className={STORY_ROW}>

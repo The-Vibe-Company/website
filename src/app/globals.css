@@ -3,27 +3,6 @@
 @source not "../../.agents";
 @source not "../../.claude";
 
-/* The display cut of Bricolage (src/lib/fonts.ts): declared here rather than
-   through next/font so each page decides whether to preload it. The fallback
-   face is next/font's metric match for this cut, so a late swap keeps the
-   title's box. */
-@font-face {
-  font-family: "Bricolage Display";
-  src: url("/fonts/bricolage-display-latin-v1.woff2") format("woff2");
-  font-weight: 600 700;
-  font-stretch: 92%;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Bricolage Display Fallback";
-  src: local("Arial");
-  ascent-override: 101.96%;
-  descent-override: 29.6%;
-  line-gap-override: 0%;
-  size-adjust: 91.21%;
-}
-
 /* =============================================================================
    PORCELAINE: the one kit every page takes
 
@@ -179,7 +158,7 @@
   --font-ui: var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   /* The titles' own instance of Bricolage: narrower (wdth 92) and cut for
      large sizes (opsz 96). */
-  --font-display: "Bricolage Display", "Bricolage Display Fallback", var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage-display), var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-code: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
   --radius: 0.75rem;
   --r-sm: 12px;
@@ -1433,20 +1412,6 @@ input:disabled {
     animation: kit-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   }
 
-  /* Below-the-fold bands: the browser skips their style, layout and paint
-     until they come near the viewport, so the first frame (and the LCP) is
-     not held back by laying out the whole page. The intrinsic size is only a
-     placeholder for the scrollbar; once rendered, the real size is kept
-     (`auto`). Never on anything that can be on screen at load. */
-  .defer-render {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 900px;
-    /* content-visibility clips painting to the box: room for the pieces'
-       drop shadows below, given back so the layout does not move. */
-    padding-bottom: 56px;
-    margin-bottom: -56px;
-  }
-
   /* Scroll entrance, set by Reveal / useReveal (src/components/kit/Reveal).
      Only "pending" hides, and only the script sets it, for a real visitor
      whose element starts below the fold: the server HTML, reduced motion and
@@ -1803,8 +1768,6 @@ input:disabled {
   .footer {
     position: relative;
     margin-top: 56px;
-    /* It defers its render too (.defer-render) but needs no shadow room. */
-    margin-bottom: 0;
     padding: 104px 0 28px;
     clip-path: polygon(0 0, calc(50% - 74px) 0, 50% 48px, calc(50% + 74px) 0, 100% 0, 100% 100%, 0 100%);
   }

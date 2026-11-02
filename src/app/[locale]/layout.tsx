@@ -19,16 +19,23 @@ import "../globals.css";
 //
 // Bricolage is self-hosted as two instances of the Google variable font, built
 // by scripts/fonts/build-bricolage.py, because the full latin file (wght, opsz
-// and wdth axes, ~130 KB) weighed on the mobile LCP. Latin only: no page text
-// uses a latin-ext glyph.
-// - text (here, preloaded on every page): wdth 100, opsz fixed at 16, weights
-//   300-800, ~39 KB;
-// - display (titles: wdth 92 and opsz 96 fixed, weights 600-700, ~34 KB):
-//   declared in globals.css and preloaded page by page, see src/lib/fonts.ts.
+// and wdth axes, ~130 KB) weighed on the mobile LCP. Together they are ~74 KB,
+// both preloaded so the swap never shifts the hero:
+// - display (titles): wdth 92 and opsz 96 fixed, weights 600-700, ~34 KB;
+// - text: wdth 100, opsz fixed at 16, weights 300-800, ~39 KB.
+// Latin only: no page text uses a latin-ext glyph.
 const bricolage = localFont({
   src: "../fonts/bricolage-text-latin.woff2",
   variable: "--font-bricolage",
   weight: "300 800",
+  display: "swap",
+});
+
+const bricolageDisplay = localFont({
+  src: "../fonts/bricolage-display-latin.woff2",
+  variable: "--font-bricolage-display",
+  weight: "600 700",
+  declarations: [{ prop: "font-stretch", value: "92%" }],
   display: "swap",
 });
 
@@ -41,15 +48,10 @@ const geistSans = Geist({
   preload: false,
 });
 
-// Not preloaded either: the mono only sets short one-line labels (kickers,
-// chips, metadata), so the swap from its metric-matched fallback moves
-// nothing, and its preload competed with the text cut and the CSS for the
-// first frame (Lighthouse mobile, project pages: LCP 3.3 -> 2.6 s without it).
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
-  preload: false,
 });
 
 export function generateStaticParams() {
@@ -97,7 +99,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       data-scroll-behavior="smooth"
-      className={`${bricolage.variable} ${geistSans.variable} ${geistMono.variable}`}
+      className={`${bricolage.variable} ${bricolageDisplay.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
       <head>
         <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />

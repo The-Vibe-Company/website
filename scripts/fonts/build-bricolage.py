@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Build the two self-hosted Bricolage Grotesque instances.
+"""Build the two self-hosted Bricolage Grotesque instances in src/app/fonts/.
 
 The Google Fonts file (latin subset, wght + opsz + wdth axes) weighs ~130 KB:
 too heavy for the mobile LCP path. The site only uses two corners of it:
 
 - display titles (`.display`, article headings): wdth 92, opsz 96,
-  weights 600-700  -> public/fonts/bricolage-display-latin-v1.woff2 (~34 KB)
+  weights 600-700  -> bricolage-display-latin.woff2 (~34 KB)
 - running text: wdth 100, weights 300-800, opsz pinned at 16, the size most
-  of the text is set at                         -> src/app/fonts/bricolage-text-latin.woff2 (~39 KB)
+  of the text is set at                         -> bricolage-text-latin.woff2 (~39 KB)
 
 Bricolage Grotesque is under the SIL Open Font License 1.1 (no reserved
 font name), which allows these derived instances.
@@ -28,15 +28,11 @@ CSS_URL = (
     "opsz,wdth,wght@12..96,75..100,200..800&display=swap"
 )
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0 Safari/537.36"
-ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
+OUT = os.path.join(os.path.dirname(__file__), "..", "..", "src", "app", "fonts")
 
-# The text cut goes through next/font (src/app/fonts), preloaded on every page.
-# The display cut is served from public/fonts and declared in globals.css, so
-# each page decides whether to preload it (DISPLAY_FONT_URL in src/lib/fonts.ts);
-# bump its version suffix there and here when the file changes.
 INSTANCES = {
-    "public/fonts/bricolage-display-latin-v1.woff2": {"wdth": 92, "opsz": 96, "wght": (600, 700)},
-    "src/app/fonts/bricolage-text-latin.woff2": {"wdth": 100, "opsz": 16, "wght": (300, 800)},
+    "bricolage-display-latin.woff2": {"wdth": 92, "opsz": 96, "wght": (600, 700)},
+    "bricolage-text-latin.woff2": {"wdth": 100, "opsz": 16, "wght": (300, 800)},
 }
 
 
@@ -57,11 +53,11 @@ def latin_source() -> bytes:
 
 def main() -> None:
     source = latin_source()
+    os.makedirs(OUT, exist_ok=True)
     for name, limits in INSTANCES.items():
         font = instancer.instantiateVariableFont(TTFont(io.BytesIO(source)), limits)
         font.flavor = "woff2"
-        path = os.path.join(ROOT, name)
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+        path = os.path.join(OUT, name)
         font.save(path)
         print(f"{name}: {os.path.getsize(path) / 1024:.1f} KB {limits}")
 
