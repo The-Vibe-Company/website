@@ -5,9 +5,11 @@ import Image from "next/image";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { preload } from "react-dom";
 import { ContactMenu } from "@/components/ContactMenu";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { cn, createTransition } from "@/lib/design-system";
+import { DISPLAY_FONT_URL } from "@/lib/fonts";
 import { captureEvent } from "@/lib/posthog";
 
 const navItems = [
@@ -40,8 +42,16 @@ function SearchIcon() {
  * would keep a static page from server-rendering past a Suspense boundary and
  * push the page down when the client takes over. The search query is read
  * from the URL at the moment the panel opens.
+ *
+ * Every page has this header, so it also preloads the titles' display cut of
+ * Bricolage, unless the page says its first screen has no multi-line display
+ * title (`preloadDisplayFont={false}`, the project pages): there the swap
+ * cannot shift anything, and the preload only competes with the first frame.
  */
-export function TopNav() {
+export function TopNav({ preloadDisplayFont = true }: { preloadDisplayFont?: boolean } = {}) {
+  if (preloadDisplayFont) {
+    preload(DISPLAY_FONT_URL, { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
+  }
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("nav");

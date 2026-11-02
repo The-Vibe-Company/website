@@ -116,7 +116,8 @@ export default async function PortfolioProjectPage({
     >
       <JsonLd data={breadcrumb} />
       <JsonLd data={faq} />
-      <TopNav />
+      {/* One-word title above the fold: the display cut need not be preloaded. */}
+      <TopNav preloadDisplayFont={false} />
       <main id="main-content" tabIndex={-1} className="flex-1">
         {/* Identity: the page's one main piece. */}
         <section className="pt-3 md:pt-5">

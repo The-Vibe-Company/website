@@ -3,6 +3,27 @@
 @source not "../../.agents";
 @source not "../../.claude";
 
+/* The display cut of Bricolage (src/lib/fonts.ts): declared here rather than
+   through next/font so each page decides whether to preload it. The fallback
+   face is next/font's metric match for this cut, so a late swap keeps the
+   title's box. */
+@font-face {
+  font-family: "Bricolage Display";
+  src: url("/fonts/bricolage-display-latin-v1.woff2") format("woff2");
+  font-weight: 600 700;
+  font-stretch: 92%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bricolage Display Fallback";
+  src: local("Arial");
+  ascent-override: 101.96%;
+  descent-override: 29.6%;
+  line-gap-override: 0%;
+  size-adjust: 91.21%;
+}
+
 /* =============================================================================
    PORCELAINE: the one kit every page takes
 
@@ -158,7 +179,7 @@
   --font-ui: var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   /* The titles' own instance of Bricolage: narrower (wdth 92) and cut for
      large sizes (opsz 96). */
-  --font-display: var(--font-bricolage-display), var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Display", "Bricolage Display Fallback", var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-code: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
   --radius: 0.75rem;
   --r-sm: 12px;

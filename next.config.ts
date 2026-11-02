@@ -130,6 +130,11 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: [{ key: "Link", value: AGENT_LINK_HEADER }],
       },
+      {
+        // Versioned file names (src/lib/fonts.ts): safe to cache for good.
+        source: "/fonts/:file*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
       ...["/", "/:locale(fr|en)", "/:locale(fr|en)/resources/articles/:slug"].map((source) => ({
         source,
         headers: [{ key: "Vary", value: "Accept" }],
