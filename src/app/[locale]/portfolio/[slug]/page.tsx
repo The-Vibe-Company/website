@@ -7,7 +7,7 @@ import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { JsonLd } from "@/components/JsonLd";
-import { QuivrFeedMock } from "@/components/quivr/QuivrFeedMock";
+import { QuivrStage } from "@/components/quivr/QuivrStage";
 import { QuivrSections } from "@/components/quivr/QuivrSections";
 import { PROJECT_SLUGS, getProject, type ContentLocale } from "@/lib/projects";
 import { QUIVR_FAQ_KEYS, QUIVR_OG_IMAGE, QUIVR_SLUG } from "@/lib/quivr";
@@ -71,8 +71,9 @@ export default async function PortfolioProjectPage({
   const project = getProject(slug, locale as ContentLocale);
   if (!project) notFound();
   // Quivr is an engine with an API, so on top of the shared template its
-  // product is drawn in code (QuivrFeedMock) and explained further down
-  // (QuivrSections).
+  // product is drawn in code (QuivrStage) and explained further down
+  // (QuivrSections). Its repository link lives in that feature grid, so the
+  // page keeps a single call to action: booking a call.
   const isQuivr = slug === QUIVR_SLUG;
   const tFooter = await getTranslations({ locale, namespace: "footer" });
   const tNav = await getTranslations({ locale, namespace: "nav" });
@@ -171,7 +172,7 @@ export default async function PortfolioProjectPage({
             }
           >
             {isQuivr ? (
-              <QuivrFeedMock locale={locale} accent={project.accent} />
+              <QuivrStage locale={locale} accent={project.accent} />
             ) : project.cover ? (
               <div className="self-start overflow-hidden border border-foreground">
                 <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
@@ -198,6 +199,7 @@ export default async function PortfolioProjectPage({
             )}
           </div>
 
+          {isQuivr ? null : (
           <a
             href={project.url}
             target="_blank"
@@ -209,6 +211,7 @@ export default async function PortfolioProjectPage({
               &#8599;
             </span>
           </a>
+          )}
         </section>
 
         {project.story ? (

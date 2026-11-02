@@ -4,16 +4,17 @@ import { bookingLocation } from "@/lib/booking";
 import {
   QUIVR_BOOKING_URL,
   QUIVR_FAQ_KEYS,
+  QUIVR_MEDIAGEN_SOURCE,
   QUIVR_SERVICE_KEYS,
   QUIVR_SERVICES_ID,
 } from "@/lib/quivr";
 
-import { FlowDiagram } from "./QuivrDiagrams";
+import { QuivrBento } from "./QuivrBento";
 
 /**
  * What the Quivr project page adds under the shared project template: how the
- * engine works (one animated diagram), what The Vibe Company does around it,
- * and the FAQ. Same rail and `//` kickers as the template above it. Every
+ * engine works (a feature grid, QuivrBento), what The Vibe Company does
+ * around it, and the FAQ. Same rail and `//` kickers as the template above it. Every
  * fact comes from the Quivr README or docs.quivr.thevibecompany.co.
  */
 
@@ -30,15 +31,27 @@ export async function QuivrSections({ locale }: { locale: string }) {
       <section className="border-t border-border">
         <div className={`${RAIL} py-16 md:py-20`}>
           <span className={`${KICKER} text-muted-foreground`}>
-            {`// ${t("diagrams.flow.kicker")}`}
+            {`// ${t("features.kicker")}`}
           </span>
-          <h2 className={`${H2} text-foreground`}>{t("diagrams.flow.title")}</h2>
+          <h2 className={`${H2} text-foreground`}>{t("features.title")}</h2>
           <p className="m-0 mt-4 max-w-[560px] text-base leading-[1.6] text-muted-foreground">
-            {t("diagrams.flow.caption")}
+            {t("features.caption")}
           </p>
           <div className="mt-10 md:mt-14">
-            <FlowDiagram />
+            <QuivrBento locale={locale} />
           </div>
+          {/* The one line naming MediaGen and AFP, with its source. */}
+          <p className="m-0 mt-6 max-w-[720px] text-[15px] leading-[1.6] text-muted-foreground">
+            {t("features.mediagen.text")}{" "}
+            <a
+              href={QUIVR_MEDIAGEN_SOURCE[locale === "en" ? "en" : "fr"]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whitespace-nowrap text-foreground underline decoration-1 underline-offset-4 hover:decoration-2"
+            >
+              {t("features.mediagen.link")}
+            </a>
+          </p>
         </div>
       </section>
 

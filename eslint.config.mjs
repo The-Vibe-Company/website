@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Agent skills (Stageshow ships its own React/Vite kit): reference
+    // material for agents, never part of the site build.
+    ".agents/**",
+    ".claude/**",
   ]),
 ]);
 

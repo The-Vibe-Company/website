@@ -471,7 +471,7 @@ const PROJECTS_RAW: RawProject[] = [
   },
   {
     // The open-source engine the company grew out of, rebuilt as V2. No
-    // cover: its page draws the web app in code (QuivrFeedMock) and adds
+    // cover: its page draws the web app in code (QuivrStage) and adds
     // QuivrSections under the shared template.
     slug: "quivr",
     name: "Quivr",
