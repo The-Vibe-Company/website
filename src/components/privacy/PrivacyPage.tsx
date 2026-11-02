@@ -163,10 +163,10 @@ export async function PrivacyPage({ locale }: { locale: string }) {
         </section>
 
         <div
-          className={`${SECTION} grid grid-cols-1 gap-10 border-t border-border pb-20 pt-12 md:grid-cols-[220px_minmax(0,1fr)] md:gap-16 md:pt-16`}
+          className={`${SECTION} grid grid-cols-1 gap-10 border-t border-border pb-20 pt-12 md:pt-16 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16`}
         >
           {/* Table of contents: a plain list of anchors, pinned on desktop. */}
-          <nav aria-label={t("tocLabel")} className="md:sticky md:top-24 md:self-start">
+          <nav aria-label={t("tocLabel")} className="lg:sticky lg:top-24 lg:self-start">
             <span className={`block ${MONO}`}>{t("tocLabel")}</span>
             <ol className="m-0 mt-4 flex list-none flex-col gap-2 border-l-2 border-foreground p-0 pl-4">
               {PRIVACY_SECTION_KEYS.map((key, i) => (

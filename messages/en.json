@@ -1741,9 +1741,9 @@
           {
             "title": "Audience measurement with PostHog",
             "paragraphs": [
-              "On the production site only, the PostHog library records page views (the page address, query string included, for instance the text of a search in the resources), page leaves, the clicks and interactions it captures automatically, and JavaScript errors. On top of that come the events we named ourselves: clicks on our booking, contact and navigation buttons, opening the mobile menu, a search in the resources (query length only), expanding or copying a skill prompt, games of the homepage mini-game and their score.",
-              "PostHog adds technical details: browser, operating system, screen size, referring page and campaign parameters (utm_*).",
-              "The data goes through /ingest, a relay on our own domain, then on to PostHog, in its United States region. The site never calls PostHog’s identify function and creates no person profile: your visits are not tied to your name or email, only to a random identifier specific to your browser.",
+              "On the production site only, the PostHog library records page views (the page address, query string included, for instance the text of a search in the resources), page leaves, the clicks and interactions it captures automatically, and JavaScript errors. On top of that come the events we named ourselves: clicks on our booking, contact and navigation buttons, opening the mobile menu, a search in the resources (query length and word count only), expanding or copying a skill prompt, games of the homepage mini-game, with their score and, when a record falls, the previous record.",
+              "PostHog adds technical details: browser, operating system, screen size, referring page, campaign parameters (utm_*) and ad click identifiers found in the address (gclid, fbclid, msclkid, li_fat_id, ttclid…).",
+              "The data goes through /ingest, a relay on our own domain, then on to PostHog, in its United States region. Whether PostHog keeps the IP address: TO BE CONFIRMED. The site never calls PostHog’s identify function and creates no person profile: your visits are not tied to your name or email, only to a random identifier specific to your browser.",
               "Session recording, surveys and IP-based geolocation: the site’s code does not turn them off, so whether they run depends on the PostHog project settings. TO BE CONFIRMED."
             ]
           },
@@ -1774,7 +1774,7 @@
       "cookies": {
         "title": "Cookies and local storage",
         "paragraphs": [
-          "The site does not show a consent banner today. Here is everything it stores in your browser."
+          "The site does not show a consent banner today. Here is what it stores in your browser."
         ],
         "table": {
           "caption": "Cookies and local storage used by the site",
@@ -1788,13 +1788,13 @@
             [
               "NEXT_LOCALE",
               "Site cookie",
-              "Remembers the language you picked, French or English.",
+              "Remembers the language of the pages you visit, French or English.",
               "Until the browser is closed"
             ],
             [
               "ph_<project key>_posthog",
-              "Cookie and localStorage, PostHog (production)",
-              "Random identifier for the browser and the current visit, for audience measurement.",
+              "Cookie, localStorage and sessionStorage, PostHog (production)",
+              "Random identifier for the browser and the current visit, referring page and campaign parameters, for audience measurement.",
               "Cookie: 365 days, PostHog’s default setting"
             ],
             [
@@ -1806,7 +1806,7 @@
             [
               "tvc-runner-best, tvc-runner-muted",
               "Site localStorage",
-              "Best score and muted sound of the homepage mini-game. These values never leave your browser.",
+              "Best score and muted sound of the homepage mini-game, kept in your browser. Scores are also sent to PostHog with the game events (see above).",
               "Until you clear them"
             ],
             [
