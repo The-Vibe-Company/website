@@ -178,16 +178,17 @@ jobs:
             let previous;
             try { previous = JSON.parse(Buffer.from(sticky?.body?.match(/<!-- tvc-perf-state:([A-Za-z0-9+/=]+) -->/)?.[1] || '', 'base64').toString()); } catch {}
             const complete = report && pages.length === 4 && pages.every(p => p.prod.length >= 3 && p.preview.length >= 3);
+            const hasMedians = pages.some(p => p.prod.length >= 3 || p.preview.length >= 3);
             let table = report?.table || 'Measurements unavailable.';
             if (!complete && previous?.sha === sha) {
-              if (previous.complete || !pages.some(p => p.prod.length >= 3 || p.preview.length >= 3)) table = previous.table;
+              if (previous.complete || (previous.measured && !hasMedians)) table = previous.table;
               findings.push(...previous.findings.filter(f => ['cls','lcp','tbt','head-preloads'].includes(f.check)));
               findings.push({level:'warning', check:'previous-measurement', message:'Preserved measurements and performance verdict from an earlier run on this same SHA.'});
             }
             if (!report?.staticComplete && previous?.sha === sha) findings.push(...previous.findings.filter(f => ['asset-size','asset-format','image-priority','leftovers'].includes(f.check)));
             findings.splice(0, findings.length, ...new Map(findings.map(f => [`${f.level}:${f.check}:${f.message}`, f])).values());
             findings.sort((a,b) => Number(b.level === 'blocking') - Number(a.level === 'blocking'));
-            const state = {sha, complete:complete || (previous?.sha === sha && previous?.complete) || false, table,
+            const state = {sha, measured:hasMedians || (previous?.sha === sha && previous?.measured) || false, complete:complete || (previous?.sha === sha && previous?.complete) || false, table,
               staticComplete:report?.staticComplete || (previous?.sha === sha && previous?.staticComplete) || false,
               findings:findings.filter(f => ['cls','lcp','tbt','head-preloads','asset-size','asset-format','image-priority'].includes(f.check) || (f.check === 'leftovers' && !/^PR (title|body|labels) contains/.test(f.message))).slice(0,80).map(f => ({...f, message:clean(f.message)}))};
             const encodedState = Buffer.from(JSON.stringify(state)).toString('base64');

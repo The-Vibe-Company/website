@@ -112,3 +112,12 @@ test('warning-heavy reports persist blockers before bounded warning state', asyn
   const retry = await publish({comments:[{id:2,user:{login:'github-actions[bot]'},body:first.created[0]}]});
   expect(retry.conclusions).toEqual(['failure']);
 });
+
+test('publisher always shows the per-page table when an earlier run had no report', async () => {
+  const first = await publish();
+  const emptyPages = pages.map(p => ({...p, prod:[], preview:[]}));
+  const current = {...report, pages:emptyPages, findings:[], table:renderTable(emptyPages)};
+  const next = await publish({report:current, comments:[{id:2,user:{login:'github-actions[bot]'},body:first.created[0]}]});
+  expect(next.updated[0]).toContain('| /fr | 0/0 |');
+  expect(next.updated[0]).not.toContain('Measurements unavailable.');
+});
