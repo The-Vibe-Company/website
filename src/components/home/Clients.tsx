@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { clientLogoSize } from "@/lib/client-logos";
 import { Kicker } from "@/components/kit";
 
 interface Client {
@@ -13,21 +14,19 @@ interface Client {
    */
   className: string;
   /** Intrinsic size of the asset: reserves the logo's room before it loads. */
-  width: number;
-  height: number;
   /** Height of the logo on the shelf, in px: on phones, then from 768px. */
   phone: number;
   shelf: number;
 }
 
 export const CLIENTS: Client[] = [
-  { name: "Agence France-Presse", src: "/images/clients/afp.svg", url: "https://www.afp.com", className: "h-8 md:h-9", width: 299, height: 95, phone: 22, shelf: 32 },
-  { name: "Coup de Pates", src: "/images/clients/coup-de-pates.svg", url: "https://www.coupdepates.fr", className: "h-9 md:h-11", width: 583, height: 118, phone: 24, shelf: 36 },
-  { name: "Monka", src: "/images/clients/monka.webp", url: "https://www.monka.care", className: "h-10 md:h-12", width: 600, height: 210, phone: 30, shelf: 44 },
-  { name: "Trusk", src: "/images/clients/trusk.svg", url: "https://www.trusk.com", className: "h-6 md:h-7", width: 147, height: 44, phone: 18, shelf: 26 },
-  { name: "LocService", src: "/images/clients/locservice.png", url: "https://www.locservice.fr", className: "h-6 md:h-7", width: 256, height: 43, phone: 18, shelf: 26 },
-  { name: "Zapa", src: "/images/clients/zapa.svg", url: "https://www.zapa.fr", className: "h-6 md:h-7", width: 71, height: 20, phone: 18, shelf: 26 },
-  { name: "Theodo", src: "/images/clients/theodo.svg", url: "https://www.theodo.com", className: "h-6 md:h-7", width: 111, height: 24, phone: 18, shelf: 26 },
+  { name: "Agence France-Presse", src: "/images/clients/afp.svg", url: "https://www.afp.com", className: "h-8 md:h-9", phone: 22, shelf: 32 },
+  { name: "Coup de Pates", src: "/images/clients/coup-de-pates.svg", url: "https://www.coupdepates.fr", className: "h-9 md:h-11", phone: 24, shelf: 36 },
+  { name: "Monka", src: "/images/clients/monka.webp", url: "https://www.monka.care", className: "h-10 md:h-12", phone: 30, shelf: 44 },
+  { name: "Trusk", src: "/images/clients/trusk.svg", url: "https://www.trusk.com", className: "h-6 md:h-7", phone: 18, shelf: 26 },
+  { name: "LocService", src: "/images/clients/locservice.png", url: "https://www.locservice.fr", className: "h-6 md:h-7", phone: 18, shelf: 26 },
+  { name: "Zapa", src: "/images/clients/zapa.svg", url: "https://www.zapa.fr", className: "h-6 md:h-7", phone: 18, shelf: 26 },
+  { name: "Theodo", src: "/images/clients/theodo.svg", url: "https://www.theodo.com", className: "h-6 md:h-7", phone: 18, shelf: 26 },
 ];
 
 /**
@@ -63,8 +62,7 @@ export function Clients() {
             <img
               src={client.src}
               alt={copy ? "" : client.name}
-              width={client.width}
-              height={client.height}
+              {...clientLogoSize(client.src)}
               style={{ "--phone": `${client.phone}px`, "--shelf": `${client.shelf}px` } as React.CSSProperties}
               className="h-[var(--phone)] w-auto object-contain brightness-0 md:h-[var(--shelf)]"
               loading="eager"

@@ -95,7 +95,7 @@ export async function QuivrStage({ locale, accent }: { locale: string; accent: s
         data-quivr-mock
         role="img"
         aria-label={t("stageAlt")}
-        className={`${s.stage} select-none border border-foreground`}
+        className={`${s.stage} select-none rounded-[14px] border border-foreground md:rounded-[16px]`}
       >
         <div className={`${s.window} flex flex-col border border-foreground bg-background shadow-[8px_8px_0_0_var(--border)]`}>
           <div className="h-[3px] w-full shrink-0" style={{ backgroundColor: accent }} />
