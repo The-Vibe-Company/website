@@ -41,12 +41,17 @@ export function Clients() {
             aria-label={client.name}
             className="mx-8 flex h-12 shrink-0 items-center transition-opacity duration-200 hover:opacity-50 md:mx-12"
           >
+            {/* Eager, or the copies clipped by the track would pop in as they
+                scroll into view; low priority, which also keeps React from
+                preloading them in <head> on phones, where this band is
+                display:none, ahead of the hero's fonts and CSS. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={client.src}
               alt={client.name}
               className={`${client.className} w-auto object-contain brightness-0`}
               loading="eager"
+              fetchPriority="low"
               decoding="async"
             />
           </a>

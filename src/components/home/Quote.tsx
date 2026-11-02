@@ -22,7 +22,7 @@ export function Quote() {
         </blockquote>
         <figcaption className="mt-6 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-background/60">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/clients/monka.webp" alt="" aria-hidden="true" className="h-[22px] w-auto brightness-0 invert" />
+          <img src="/images/clients/monka.webp" alt="" aria-hidden="true" className="h-[22px] w-auto brightness-0 invert" loading="lazy" decoding="async" />
           {t("author")}
         </figcaption>
       </figure>
