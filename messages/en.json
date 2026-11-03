@@ -238,6 +238,7 @@
     "next": "Next",
     "subtitle": "AI products, agents and automations running in production for our clients: healthcare, news, property rentals, food, and engineering teams at scale. Each case covers the starting point, what we built and how we worked.",
     "relatedArticle": "To go further, read our guide <link>{title}</link>.",
+    "faqTitle": "Frequently asked questions",
     "about": {
       "kicker": "// HOW WE WORK",
       "title": "From the first call to production.",
