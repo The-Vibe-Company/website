@@ -4,7 +4,7 @@ seoTitle: "AI and health data in France: HDS rules"
 slug: ai-health-data-hds-france
 language: en
 translationKey: hds-health-data
-summary: "HDS hosting for an AI health project in France: 2024 activities, model/log flows, GDPR/CNIL, what to verify before production."
+summary: "AI and health data in France: who needs certification, the 6 HDS activities, the 2024 framework, GDPR and the CNIL. What to check before production."
 seoDescription: "AI on French health data: the 6 HDS activities, a certified host, models and logs, GDPR/CNIL. A practical guide before production."
 publishedAt: 2026-10-12
 complexity: intermediate

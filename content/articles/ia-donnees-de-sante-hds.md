@@ -4,8 +4,8 @@ seoTitle: "IA et données de santé : règles HDS en France"
 slug: ia-donnees-de-sante-hds
 language: fr
 translationKey: hds-health-data
-summary: "Hébergement HDS pour un projet IA santé : 6 activités, référentiel 2024, flux modèles/logs, RGPD/CNIL. Ce qu'il faut vérifier avant la prod."
-seoDescription: "Hébergement HDS et IA en santé : choisir un hébergeur certifié, couvrir modèles et logs, RGPD/CNIL. Guide pratique avant la mise en production."
+summary: "IA et données de santé en France : qui doit être certifié, les 6 activités HDS, le référentiel 2024, le RGPD et la CNIL. Ce qu'il faut vérifier avant la prod."
+seoDescription: "IA et données de santé : qui doit être certifié, ce qu'impose le référentiel HDS 2024, où vont modèles et logs, RGPD et CNIL. Le cadre avant la mise en prod."
 publishedAt: 2026-10-12
 complexity: intermediate
 topics: AI Agents, Health Data, Security
