@@ -1,4 +1,4 @@
-import type { CaptureOptions, PostHog } from "posthog-js";
+import type { CaptureOptions, PostHog, PostHogConfig } from "posthog-js";
 
 /**
  * PostHog only runs on the production deployment. `NEXT_PUBLIC_VERCEL_ENV` is
@@ -181,19 +181,35 @@ export function createPostHogQueue({
 // instead.
 let bundledChunkFailed = false;
 
+/**
+ * Cookieless audience measurement, no consent banner: with
+ * `cookieless_mode: "always"` (supported by the installed posthog-js 1.351.3)
+ * PostHog stores nothing in cookies, localStorage or sessionStorage and counts
+ * visitors with a daily-salted hash computed on PostHog's servers. See
+ * https://posthog.com/docs/privacy/data-collection#cookieless-tracking and
+ * https://posthog.com/tutorials/cookieless-tracking.
+ *
+ * The PostHog project must have "Enable cookieless tracking" turned on
+ * (Settings > Project > Web analytics); otherwise PostHog discards these
+ * events at ingestion. `person_profiles: "never"` makes any `identify()` a
+ * no-op, as the cookieless docs recommend: the site never identifies anyone.
+ */
+export const POSTHOG_INIT_CONFIG = {
+  api_host: "/ingest",
+  ui_host: "https://us.posthog.com",
+  defaults: "2026-01-30",
+  cookieless_mode: "always",
+  capture_pageview: false,
+  capture_pageleave: true,
+  person_profiles: "never",
+  capture_exceptions: true,
+  debug: process.env.NODE_ENV === "development",
+} as const satisfies Partial<PostHogConfig>;
+
 const queue = createPostHogQueue({
   importPostHog: () => (bundledChunkFailed ? loadPostHogScript() : importBundledPostHog()),
   initPostHog: (posthog) => {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-      api_host: "/ingest",
-      ui_host: "https://us.posthog.com",
-      defaults: "2026-01-30",
-      capture_pageview: false,
-      capture_pageleave: true,
-      person_profiles: "identified_only",
-      capture_exceptions: true,
-      debug: process.env.NODE_ENV === "development",
-    });
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, POSTHOG_INIT_CONFIG);
   },
 });
 

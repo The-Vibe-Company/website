@@ -1625,7 +1625,7 @@
   },
   "contact": {
     "metaTitle": "Contact The Vibe Company, AI agency (YC W24)",
-    "metaDescription": "How to reach The Vibe Company: co-founders Stan Girard and Antoine Dewez, offices in Paris. Email stan@thevibecompany.co or book a 30-minute call online.",
+    "metaDescription": "How to reach The Vibe Company: co-founders Stan Girard and Antoine Dewez, offices in Paris. Email founders@thevibecompany.co or book a 30-minute call online.",
     "breadcrumb": "Contact",
     "kicker": "Contact",
     "title": "Contact The Vibe Company",
@@ -1678,8 +1678,8 @@
     "breadcrumb": "Privacy",
     "kicker": "Privacy",
     "title": "Privacy policy",
-    "updated": "Updated November 2, 2026",
-    "lede": "This site has no account to create, no contact form and no ads. It measures its audience with PostHog, links to cal.com for booking a call, and is hosted on Vercel. This page goes through each tool: what is collected, why, and how to exercise your rights.",
+    "updated": "Updated November 3, 2026",
+    "lede": "This site has no account to create, no contact form and no ads. It measures its audience with PostHog, without cookies, links to cal.com for booking a call, and is hosted on Vercel. This page goes through each tool: what is collected, why, and how to exercise your rights.",
     "tbcMarker": "TO BE CONFIRMED",
     "tbcNote": "“TO BE CONFIRMED” marks a fact we haven’t checked yet. It will be filled in on this page.",
     "tocLabel": "Contents",
@@ -1688,7 +1688,7 @@
         "title": "Who is responsible for your data",
         "paragraphs": [
           "thevibecompany.co is published by Quivr SAS, operating under the brand The Vibe Company, the AI agency founded by Stan Girard and Antoine Dewez. Quivr SAS is the controller of the processing described on this page.",
-          "For any question about your data, write to stan@thevibecompany.co."
+          "For any question about your data, write to founders@thevibecompany.co."
         ],
         "table": {
           "caption": "Legal information about the site publisher",
@@ -1727,7 +1727,7 @@
             ],
             [
               "Publication director",
-              "TO BE CONFIRMED"
+              "Stan Girard"
             ],
             [
               "Data protection officer (DPO)",
@@ -1735,7 +1735,7 @@
             ],
             [
               "Personal data contact",
-              "stan@thevibecompany.co"
+              "founders@thevibecompany.co"
             ],
             [
               "Host",
@@ -1755,7 +1755,7 @@
             "paragraphs": [
               "On the production site only, the PostHog library records page views (the page address, query string included, for instance the text of a search in the resources), page leaves, the clicks and interactions it captures automatically, click and scroll positions for heatmaps, page performance measurements (Web Vitals) and JavaScript errors. On top of that come the events we named ourselves: clicks on our booking, contact and navigation buttons, opening the mobile menu, a search in the resources (query length and word count only), expanding or copying a skill prompt, games of the homepage mini-game, with their score and, when a record falls, the previous record.",
               "PostHog adds technical details: browser, operating system, screen size, referring page, campaign parameters (utm_*) and ad click identifiers found in the address (gclid, fbclid, msclkid, li_fat_id, ttclid…).",
-              "The data goes through /ingest, a relay on our own domain, then on to PostHog, in its United States region. The PostHog project setting that anonymizes IP addresses isn’t turned on, so the IP address sent with events isn’t masked. By default, PostHog derives an approximate location from it (country, city) and adds it to the events. The site never calls PostHog’s identify function and creates no person profile. Your visits aren’t tied to your name or email, only to a random identifier specific to your browser.",
+              "The data goes through /ingest, a relay on our own domain, then on to PostHog, in its United States region. Measurement is cookieless: PostHog stores nothing in your browser, no cookie, no localStorage, no sessionStorage. To count visitors, PostHog computes a hash on its servers from the IP address, the browser and the site, with a random salt renewed every day: from one day to the next, the same person is not recognized. In this mode, PostHog strips the IP address before enriching events and adds no location to them. Whether this mode is enabled in the PostHog project: TO BE CONFIRMED. The site never calls PostHog’s identify function and creates no person profile. Your visits aren’t tied to your name or email.",
               "Session recording (replay) is turned off in the PostHog project, and surveys are not enabled."
             ]
           },
@@ -1786,7 +1786,7 @@
       "cookies": {
         "title": "Cookies and local storage",
         "paragraphs": [
-          "The site does not show a consent banner today. Here is what it stores in your browser."
+          "The site does not show a consent banner: audience measurement is cookieless. Here is everything the site stores in your browser."
         ],
         "table": {
           "caption": "Cookies and local storage used by the site",
@@ -1804,16 +1804,10 @@
               "Until the browser is closed"
             ],
             [
-              "ph_<project key>_posthog",
-              "Cookie, localStorage and sessionStorage, PostHog (production)",
-              "Random identifier for the browser and the current visit, referring page and campaign parameters, for audience measurement.",
-              "Cookie: 365 days, PostHog’s default setting"
-            ],
-            [
-              "ph_<project key>_window_id, ph_<project key>_primary_window_exists",
-              "sessionStorage, PostHog (production)",
-              "Tells apart the tabs open on the site.",
-              "Until the tab is closed"
+              "PostHog",
+              "None",
+              "Audience measurement stores no cookie and nothing in browser storage.",
+              "—"
             ],
             [
               "tvc-runner-best, tvc-runner-muted",
@@ -1830,7 +1824,8 @@
           ]
         },
         "after": [
-          "You can delete or block these cookies and this storage in your browser settings: the site keeps working. Legal basis for the PostHog trackers and whether prior consent is required: TO BE CONFIRMED."
+          "You can delete or block these cookies and this storage in your browser settings: the site keeps working.",
+          "Audience measurement is designed to fall under the consent exemption the CNIL (the French data protection authority) provides for audience measurement tools: no cookie, no identifier stored in the browser, no tracking from one site to another. Whether all the conditions for this exemption are met is being checked: TO BE CONFIRMED."
         ]
       },
       "purposes": {
@@ -1848,8 +1843,8 @@
           "rows": [
             [
               "Measure the audience and improve the site",
-              "PostHog events, random identifier",
-              "Legitimate interest or consent: TO BE CONFIRMED"
+              "PostHog events, daily hash computed by PostHog",
+              "Legitimate interest (cookieless, no banner): TO BE CONFIRMED"
             ],
             [
               "Prepare and follow up on a meeting",
@@ -1930,8 +1925,8 @@
               "TO BE CONFIRMED"
             ],
             [
-              "PostHog cookie",
-              "365 days, PostHog’s default setting"
+              "PostHog counting hash",
+              "Salt renewed every day, deleted once that day’s events are processed (as PostHog describes it)"
             ],
             [
               "NEXT_LOCALE cookie",
@@ -1956,14 +1951,14 @@
         "title": "Your rights",
         "paragraphs": [
           "The GDPR and the French Data Protection Act give you several rights over your data. You can access it, have it corrected or erased, object to its processing or ask for it to be restricted. You can also receive the data you gave us in a reusable format (portability). Finally, you can withdraw a consent at any time and set instructions for what happens to your data after your death.",
-          "To exercise these rights, write to stan@thevibecompany.co. The GDPR gives us one month to answer.",
+          "To exercise these rights, write to founders@thevibecompany.co. The GDPR gives us one month to answer.",
           "If you believe your rights are not respected, you can lodge a complaint with the CNIL, the French data protection authority, at www.cnil.fr."
         ]
       },
       "changes": {
         "title": "Changes to this page",
         "paragraphs": [
-          "This page follows the site: when a tool is added or removed, it is updated and its date changes. Last updated: November 2, 2026."
+          "This page follows the site: when a tool is added or removed, it is updated and its date changes. Last updated: November 3, 2026."
         ]
       }
     }

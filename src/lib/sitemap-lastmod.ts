@@ -24,19 +24,18 @@ export const CASE_STUDIES_INDEX_LASTMOD = "2026-10-15";
 /**
  * Keyed by `INDEXABLE_SPLIT_PATH_ROUTES.paths.fr`.
  *
- * About (`/a-propos` + `/about`) renders the `services` and `agencyParis`
- * message namespaces, both reworked on 2026-10-24 — the About lastmod is
- * floored to that date even though the dedicated `about` namespace is older.
+ * About (`/a-propos` + `/about`): its key facts label ("Bureaux" / "Offices")
+ * and the French team role ("Cofondateur") changed on 2026-11-03.
  */
 export const SPLIT_PATH_LASTMOD: Record<string, string> = {
-  "/a-propos": "2026-10-24",
+  "/a-propos": "2026-11-03",
   "/agence-ia-paris": "2026-10-24",
   "/agents-ia-securite-produit": "2026-10-24",
   "/agents-ia-production": "2026-10-24",
   "/ia-sante-hds": "2026-10-24",
   "/ia-medias": "2026-10-24",
-  "/contact": "2026-11-02",
-  "/confidentialite": "2026-11-02",
+  "/contact": "2026-11-03",
+  "/confidentialite": "2026-11-03",
 };
 
 /** Keyed by `PROJECT_SLUGS` entry. */

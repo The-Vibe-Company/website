@@ -56,7 +56,7 @@ describe("contact and privacy copy", () => {
       expect(messages.contact.lede).toContain("Montreuil");
       expect(messages.contact.metaDescription).toContain(CONTACT_EMAIL);
     }
-    expect(CONTACT_EMAIL).toBe("stan@thevibecompany.co");
+    expect(CONTACT_EMAIL).toBe("founders@thevibecompany.co");
     expect(BOOKING_URL).toBe("https://cal.com/stangirard/thevibecompany");
   });
 
@@ -79,5 +79,17 @@ describe("contact and privacy copy", () => {
     expect(contact).toContain("SIREN 981 841 109");
     // No registry city is published for the RCS: never name one.
     expect(privacy).not.toMatch(/RCS (de |of )?[A-Z]/);
+  });
+
+  test.each(["fr", "en"] as const)("%s exposes founders@ only, names the publication director, and lists no PostHog storage", (locale) => {
+    const copy = strings([MESSAGES[locale].contact, MESSAGES[locale].privacy]).join("\n");
+    expect(copy).toContain("founders@thevibecompany.co");
+    expect(copy).not.toContain("stan@");
+    const director = MESSAGES[locale].privacy.sections.controller.table.rows.find(([label]) =>
+      ["Directeur de la publication", "Publication director"].includes(label),
+    );
+    expect(director?.[1]).toBe("Stan Girard");
+    const storage = MESSAGES[locale].privacy.sections.cookies.table.rows.map(([name]) => name);
+    expect(storage.some((name) => name.startsWith("ph_"))).toBe(false);
   });
 });

@@ -1,7 +1,12 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import type { PostHog } from "posthog-js";
 
-import { createPostHogQueue, type EventProperties, type PostHogQueueOptions } from "./posthog";
+import {
+  createPostHogQueue,
+  POSTHOG_INIT_CONFIG,
+  type EventProperties,
+  type PostHogQueueOptions,
+} from "./posthog";
 
 type Sent = {
   event: string;
@@ -311,5 +316,15 @@ describe("loading PostHog", () => {
     expect(first).toBe(posthog);
     expect(second).toBe(posthog);
     expect(calls).toBe(1);
+  });
+});
+
+describe("PostHog configuration", () => {
+  test("measures the audience without cookies or browser storage, and never identifies", () => {
+    expect(POSTHOG_INIT_CONFIG.cookieless_mode).toBe("always");
+    expect(POSTHOG_INIT_CONFIG.person_profiles).toBe("never");
+    // Nothing may switch storage back on behind cookieless mode's back.
+    expect(POSTHOG_INIT_CONFIG).not.toHaveProperty("persistence");
+    expect(POSTHOG_INIT_CONFIG.api_host).toBe("/ingest");
   });
 });
