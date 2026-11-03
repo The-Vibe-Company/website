@@ -79,10 +79,13 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               room it leaves, and wrap word by word (never inside "IA-First")
               when there is less of it. */}
           {/* The page's one h1 carries both lines, the name and what we do,
-              each set in its own size. */}
+              each set in its own size. The name is the poster's text, the
+              words main's h1 has always carried ("Agence IA-First.", "We build
+              your product,"). */}
           <h1 className="m-0">
             <span className="display d-xl block mt-5 max-w-[760px] md:mt-[34px] md:max-w-[min(760px,calc(100%-var(--bead)-24px))]">
-              {t("titleLine1")
+              {(t.raw("poster") as string[])
+                .join(" ")
                 .split(" ")
                 .map((word, i) => (
                   <Fragment key={i}>
