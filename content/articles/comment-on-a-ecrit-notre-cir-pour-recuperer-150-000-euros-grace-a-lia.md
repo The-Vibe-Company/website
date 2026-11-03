@@ -1,8 +1,10 @@
 ---
 title: "Comment on a écrit notre CIR pour récupérer 150 000 euros grâce à l'IA"
+seoTitle: "CIR avec l'IA : 150 000 € récupérés | The Vibe Company"
 slug: comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia
 language: fr
 summary: "Comment on a transformé Linear, GitHub, Notion, Google Drive et nos exports internes en dossier CIR/CII de 100 pages. Pas avec un prompt magique, mais avec une vraie chaîne de preuve."
+seoDescription: "Comment on a transformé Linear, GitHub, Notion, Drive et nos exports en dossier CIR/CII de 100 pages, avec une vraie chaîne de preuve."
 publishedAt: 2026-04-22
 complexity: advanced
 topics: AI Operations, Research Tax Credit, Agent Workflows
@@ -151,7 +153,7 @@ Si on devait refaire ça demain pour une autre boîte, on suivrait exactement ce
 5. Qualifier humainement CIR, CII ou hors scope.
 6. Rédiger seulement à la fin, avec les sources sous les yeux.
 
-La version opératoire, avec les prompts et la structure de repo, est ici : [le playbook CIR/CII pour compiler vos preuves avec l'IA](/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer).
+La version opératoire, avec les prompts et la structure de repo, est ici : [le playbook CIR/CII pour compiler vos preuves avec l'IA](/fr/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer).
 
 Le point important, c'est l'ordre. Si on rédige d'abord, on fait du storytelling. Si on extrait d'abord, on construit un dossier.
 

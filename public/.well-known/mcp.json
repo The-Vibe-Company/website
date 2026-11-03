@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json",
+  "name": "co.thevibecompany/public-content",
+  "version": "1.0.0",
+  "description": "Read public TVC articles and get the booking link. No authentication or writes.",
+  "title": "The Vibe Company",
+  "websiteUrl": "https://www.thevibecompany.co",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://www.thevibecompany.co/mcp",
+      "supportedProtocolVersions": [
+        "2025-06-18"
+      ]
+    }
+  ]
+}

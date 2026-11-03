@@ -1,8 +1,10 @@
 ---
 title: "Le vrai risque des agents IA, c'est l'autorité"
+seoTitle: "Le vrai risque des agents IA : l'autorité | The Vibe Company"
 slug: agents-ia-formation-autorite
 language: fr
 summary: "La sécurité des agents IA ne se décide pas seulement par marque d'outil. Elle dépend surtout du niveau d'autorité accordé : lire, proposer, préparer ou exécuter."
+seoDescription: "La sécurité des agents IA dépend moins de l'outil que du niveau d'autorité qu'on leur donne : lire, proposer, préparer ou exécuter."
 publishedAt: 2026-04-29
 complexity: intermediate
 topics: AI Agents, AI Adoption, Security
@@ -108,7 +110,7 @@ Limiter les outils autorisés est utile. Cela évite les comptes personnels, les
 
 La politique IA définit les outils, les données et les règles. La formation rend cette politique applicable dans le travail quotidien. Elle apprend aux équipes à reconnaître les changements de niveau d'autorité : quand un assistant devient un acteur, quand une suggestion devient une action préparée, quand une automatisation confortable dépasse son mandat.
 
-C'est exactement le sujet des [surfaces MCP](/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done) : donner accès à un outil ne suffit pas. Il faut aussi transmettre la méthode, les limites, les étapes de revue et le goût opérationnel de l'entreprise.
+C'est exactement le sujet des [surfaces MCP](/en/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done) : donner accès à un outil ne suffit pas. Il faut aussi transmettre la méthode, les limites, les étapes de revue et le goût opérationnel de l'entreprise.
 
 La formation doit donc aller plus loin que « voici comment écrire un prompt ». Elle doit apprendre aux équipes à construire des usages sûrs.
 

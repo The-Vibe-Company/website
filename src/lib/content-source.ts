@@ -39,6 +39,15 @@ export interface ContentEntry {
   id: string
   slug: string
   title: string
+  /**
+   * Optional, SEO-only HTML <title> for the detail page. When present it is
+   * used as an absolute title so the layout's `%s | The Vibe Company` template
+   * does not append the brand a second time; H1 and social titles stay on
+   * `title`.
+   */
+  seoTitle?: string
+  /** Optional plain-text description for metadata; the visible summary stays unchanged. */
+  seoDescription?: string
   summary: string
   body: string
   type: string
@@ -68,6 +77,16 @@ export interface ContentEntry {
     alt?: string
   } | null
   skill?: SkillMeta
+}
+
+/** Plain text for metadata: unwrap inline Markdown, then decode punctuation escapes. */
+export function toPlainText(value: string): string {
+  return value
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\[([^\]]+)\]\((?:[^()\s]|\([^()]*\))*\)/g, '$1')
+    .replace(/\*\*(.+?)\*\*|__(.+?)__/g, '$1$2')
+    .replace(/\*([^*]+)\*|_([^_]+)_/g, '$1$2')
+    .replace(/\\([!"#$%&'()*+,\-./:;<=>?@[\]\\^_`{|}~])/g, '$1')
 }
 
 const CONTENT_ROOT = path.join(process.cwd(), 'content')
@@ -105,6 +124,8 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         id: `${type.slug}:${slug}`,
         slug,
         title,
+        seoTitle: data.seoTitle?.trim() || undefined,
+        seoDescription: data.seoDescription?.trim() || undefined,
         summary,
         body,
         type: type.slug,
@@ -291,6 +312,21 @@ export const getContentForLanguage = cache(
     const item = getContentItem(type, slug)
     if (!item || item.language === language) return null
     return getContentTranslations(type, slug).find((v) => v.language === language) ?? null
+  },
+)
+
+/**
+ * The version `/{language}/resources/{type}/{slug}` should be served as: the
+ * one written in that language when the article has it, otherwise the only
+ * version that was published, in its own language. When the result is not
+ * the requested entry under the requested language, the URL is a duplicate
+ * and must redirect there. Returns null when the slug does not exist.
+ */
+export const getCanonicalContentForLanguage = cache(
+  (type: string, slug: string, language: ContentLanguage): ContentEntry | null => {
+    const item = getContentItem(type, slug)
+    if (!item) return null
+    return getContentForLanguage(type, slug, language) ?? item
   },
 )
 

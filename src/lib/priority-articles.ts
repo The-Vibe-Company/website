@@ -4,10 +4,12 @@ export const PRIORITY_ARTICLES = {
     { key: 'chooseAgency', slug: 'choisir-agence-ia-esn-freelance' },
     { key: 'healthData', slug: 'ia-donnees-de-sante-hds' },
     { key: 'aiNative', slug: 'agence-ia-native' },
+    { key: 'blackOctober', slug: 'black-october-securite-agents-ia' },
   ],
   en: [
     { key: 'chooseAgency', slug: 'how-to-choose-an-ai-agency' },
     { key: 'healthData', slug: 'ai-health-data-hds-france' },
     { key: 'aiNative', slug: 'ai-native-agency' },
+    { key: 'blackOctober', slug: 'black-october-ai-agent-security' },
   ],
 } as const;

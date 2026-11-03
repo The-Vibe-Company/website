@@ -5,8 +5,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { JsonLd } from "@/components/JsonLd";
 import { getProjects, type ContentLocale } from "@/lib/projects";
-import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
+import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
+import { breadcrumbList } from "@/lib/structured-data";
 
 export async function generateMetadata({
   params,
@@ -39,12 +41,20 @@ export default async function PortfolioPage({
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "portfolio" });
   const projects = getProjects(locale as ContentLocale);
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const tNav = await getTranslations({ locale, namespace: "nav" });
 
   return (
     <div
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
+      <JsonLd
+        data={breadcrumbList([
+          { name: tFooter("home"), url: localizedUrl(locale) },
+          { name: tNav("portfolio"), url: localizedUrl(locale, "/portfolio") },
+        ])}
+      />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="mx-auto max-w-[100rem] px-6 pb-16 pt-12 md:px-12 md:pb-20 md:pt-16">
@@ -112,6 +122,24 @@ export default async function PortfolioPage({
                 </div>
               </Link>
             ))}
+          </div>
+        </section>
+
+        <section className="border-t border-border">
+          <div className="mx-auto grid max-w-[100rem] grid-cols-1 gap-8 px-6 py-16 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16 md:px-12 md:py-24">
+            <div>
+              <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                {t("about.kicker")}
+              </span>
+              <h2 className="m-0 max-w-[16ch] text-[34px] font-bold leading-[1.02] tracking-[-0.035em] text-foreground md:text-[48px]">
+                {t("about.title")}
+              </h2>
+            </div>
+            <div className="flex max-w-[720px] flex-col gap-6 text-lg leading-[1.6] text-foreground">
+              <p className="m-0">{t("about.p1")}</p>
+              <p className="m-0">{t("about.p2")}</p>
+              <p className="m-0">{t("about.p3")}</p>
+            </div>
           </div>
         </section>
 

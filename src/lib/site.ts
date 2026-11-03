@@ -49,6 +49,45 @@ export type SplitPaths = { fr: string; en: string };
 
 export const ABOUT_PATHS: SplitPaths = { fr: "/a-propos", en: "/about" };
 
+/** The service landing on hardening a product and its stack with AI agents. */
+export const HARDENING_PATHS: SplitPaths = {
+  fr: "/agents-ia-securite-produit",
+  en: "/ai-agents-product-hardening",
+};
+
+/** The service landing on taking a company's AI agents from POC to production. */
+export const AGENTS_PRODUCTION_PATHS: SplitPaths = {
+  fr: "/agents-ia-production",
+  en: "/ai-agents-in-production",
+};
+
+/** The commercial "AI agency in Paris" landing page. */
+export const AGENCY_PARIS_PATHS: SplitPaths = {
+  fr: "/agence-ia-paris",
+  en: "/ai-agency-paris",
+};
+
+/** The healthcare AI landing: AI products built to GDPR and HDS requirements. */
+export const HEALTHCARE_AI_PATHS: SplitPaths = {
+  fr: "/ia-sante-hds",
+  en: "/healthcare-ai-hds",
+};
+
+/** The media AI landing: newsroom tools, with the AFP / MediaGen proof. */
+export const MEDIA_AI_PATHS: SplitPaths = {
+  fr: "/ia-medias",
+  en: "/ai-for-media",
+};
+
+/**
+ * The contact page. Same segment in both languages, declared as split paths so
+ * it sits with the other key pages in the sitemap, llms.txt and the footer.
+ */
+export const CONTACT_PATHS: SplitPaths = { fr: "/contact", en: "/contact" };
+
+/** The privacy policy. Translated segment, like the About page. */
+export const PRIVACY_PATHS: SplitPaths = { fr: "/confidentialite", en: "/privacy" };
+
 export type SplitPathRoute = Omit<SiteRoute, "path"> & { paths: SplitPaths };
 
 export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
@@ -60,10 +99,79 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
     changeFrequency: "monthly",
     priority: 0.7,
   },
+  {
+    paths: AGENCY_PARIS_PATHS,
+    title: "AI agency in Paris",
+    description:
+      "The Vibe Company, an AI agency in Paris (YC W24): AI products, agents and training shipped to production, with the Monka, AFP and LocService cases.",
+    changeFrequency: "monthly",
+    priority: 0.9,
+  },
+  {
+    paths: HARDENING_PATHS,
+    title: "AI agents to harden your product & stack",
+    description:
+      "The Vibe Company deploys AI agents that harden a product and its infrastructure: secrets, dependencies, IAM, configs and security PR review, with a human signing off on critical changes.",
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
+    paths: AGENTS_PRODUCTION_PATHS,
+    title: "AI agents in production",
+    description:
+      "The Vibe Company takes a company's AI agents from POC to daily production: workflow scoping, skills wired into existing tools, authority and guardrails, measurement and handoff.",
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
+    paths: HEALTHCARE_AI_PATHS,
+    title: "Healthcare AI & HDS",
+    description:
+      "The Vibe Company builds AI products and agents on French health data, to GDPR and HDS requirements, inside the client's HDS environment. The Monka case: in production in two months.",
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
+    paths: MEDIA_AI_PATHS,
+    title: "AI for media",
+    description:
+      "The Vibe Company builds generative AI tools for newsrooms and media organizations, all the way to production, under journalist control: monitoring, multimodal archive search, production assist. Proof: MediaGen, AFP's France 2030 project.",
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
+    paths: CONTACT_PATHS,
+    title: "Contact",
+    description:
+      "How to reach The Vibe Company: the two founders, Stan Girard and Antoine Dewez, an email address, and a 30-minute call to book online. Offices in Paris, registered office in Montreuil.",
+    changeFrequency: "yearly",
+    priority: 0.6,
+  },
+  {
+    paths: PRIVACY_PATHS,
+    title: "Privacy policy",
+    description:
+      "What thevibecompany.co collects and why: PostHog audience measurement, the cal.com booking link, Vercel hosting, cookies and local storage, and your GDPR rights.",
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
 ];
 
 export function splitPath(paths: SplitPaths, locale: string): string {
   return locale === "en" ? paths.en : paths.fr;
+}
+
+/**
+ * The current language's version of a prefix-less path, when the path is a
+ * page whose segment is translated: `/privacy` in French is `/confidentialite`.
+ * Any other path comes back unchanged. Lets the middleware send `/about` or
+ * `/privacy` to the right page in one hop.
+ */
+export function translatedSplitPath(path: string, locale: string): string {
+  const route = INDEXABLE_SPLIT_PATH_ROUTES.find(
+    ({ paths }) => paths.fr === path || paths.en === path,
+  );
+  return route ? splitPath(route.paths, locale) : path;
 }
 
 export function absoluteUrl(path: string): string {
@@ -79,30 +187,28 @@ export function localizedUrl(locale: string, path = "/"): string {
   return absoluteUrl(localizedPath(locale, path));
 }
 
-export function localizedAlternates(
-  locale: string,
-  path = "/",
-  { xDefault = false }: { xDefault?: boolean } = {},
-) {
+export function localizedAlternates(locale: string, path = "/") {
   return {
     canonical: localizedUrl(locale, path),
-    languages: localizedLanguages(path, { xDefault }),
+    languages: localizedLanguages(path),
   };
 }
 
 /**
  * The self-inclusive hreflang set of a page served at the same path in both
- * languages. With `xDefault`, the French URL (the site's default language,
- * keep in sync with `routing.defaultLocale`) doubles as `x-default`.
+ * languages. The French URL (the site's default language, keep in sync with
+ * `routing.defaultLocale`) doubles as `x-default`.
  */
-export function localizedLanguages(
-  path = "/",
-  { xDefault = false }: { xDefault?: boolean } = {},
-): Record<string, string> {
+export function localizedLanguages(path = "/"): Record<string, string> {
+  return splitPathLanguages({ fr: path, en: path });
+}
+
+/** The hreflang set of a page whose path differs per language. */
+export function splitPathLanguages(paths: SplitPaths): Record<string, string> {
   return {
-    fr: localizedUrl("fr", path),
-    en: localizedUrl("en", path),
-    ...(xDefault ? { "x-default": localizedUrl("fr", path) } : {}),
+    fr: localizedUrl("fr", paths.fr),
+    en: localizedUrl("en", paths.en),
+    "x-default": localizedUrl("fr", paths.fr),
   };
 }
 
@@ -113,10 +219,7 @@ export function localizedLanguages(
 export function splitPathAlternates(locale: string, paths: SplitPaths) {
   return {
     canonical: localizedUrl(locale, splitPath(paths, locale)),
-    languages: {
-      fr: localizedUrl("fr", paths.fr),
-      en: localizedUrl("en", paths.en),
-    },
+    languages: splitPathLanguages(paths),
   };
 }
 
@@ -152,6 +255,10 @@ export function contentAlternates(
   };
 }
 
+/**
+ * Content published in a single language: it declares itself, and doubles as
+ * `x-default` since there is no other version to send anyone to.
+ */
 export function monolingualAlternates(language: string, path: string) {
   const canonical = localizedUrl(language, path);
 
@@ -159,12 +266,85 @@ export function monolingualAlternates(language: string, path: string) {
     canonical,
     languages: {
       [language]: canonical,
+      "x-default": canonical,
     },
   };
 }
 
-/** A social card image, as a site path, with its size and alt text. */
-export type SocialImage = { path: string; width: number; height: number; alt: string };
+export function openGraphLocale(locale: string): string {
+  return locale === "fr" ? "fr_FR" : "en_US";
+}
+
+/**
+ * A social card image, as a site path, with its alt text and, when known, its
+ * size and MIME type.
+ */
+export type SocialImage = { path: string; width?: number; height?: number; type?: string; alt: string };
+
+/**
+ * The site's square logo (`public/icon.png`, generated from `favicon.svg` by
+ * `bun run favicons:generate`), declared as the logo in the Organization
+ * structured data. Not a social card: networks crop a square into their 1.91:1
+ * frame.
+ */
+export const SITE_LOGO = { path: "/icon.png", width: 512, height: 512 } as const;
+
+/**
+ * Every favicon, declared in <head> by the locale layout. The rasters are
+ * generated from `favicon.svg` by `bun run favicons:generate`; Google's
+ * search-result favicon needs a square raster whose side is a multiple of 48.
+ */
+export const SITE_ICONS = {
+  icon: [
+    { url: "/favicon.ico", sizes: "16x16 32x32 48x48", type: "image/x-icon" },
+    { url: "/favicon.svg", type: "image/svg+xml" },
+    { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+    { url: "/favicon-96.png", sizes: "96x96", type: "image/png" },
+    { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
+  ],
+  apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+} satisfies NonNullable<Metadata["icons"]>;
+
+/**
+ * The social card of any page that has no image of its own. A 1.91:1 JPEG
+ * (not WebP, which LinkedIn does not render in link previews).
+ */
+export const DEFAULT_OG_IMAGE = {
+  path: "/og/default.jpg",
+  width: 1200,
+  height: 630,
+  type: "image/jpeg",
+  alt: SITE_NAME,
+} as const satisfies SocialImage;
+
+/** A social image as the `openGraph.images` entry Next.js expects. */
+export function openGraphImage(image: SocialImage) {
+  return {
+    url: absoluteUrl(image.path),
+    ...(image.width && image.height ? { width: image.width, height: image.height } : {}),
+    ...(image.type ? { type: image.type } : {}),
+    alt: image.alt,
+  };
+}
+
+/**
+ * Site-wide defaults for the layout, so a page that declares no social
+ * metadata of its own still shares the default card.
+ */
+export function defaultSocialMetadata(locale: string): Pick<Metadata, "openGraph" | "twitter"> {
+  return {
+    openGraph: {
+      type: "website",
+      locale: openGraphLocale(locale),
+      siteName: SITE_NAME,
+      images: [openGraphImage(DEFAULT_OG_IMAGE)],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: [absoluteUrl(DEFAULT_OG_IMAGE.path)],
+    },
+  };
+}
 
 export function localizedSocialMetadata({
   locale,
@@ -177,27 +357,26 @@ export function localizedSocialMetadata({
   path?: string;
   title: string;
   description: string;
-  /** With an image, Twitter/X shows the large card, like articles do. */
+  /** The page's own card. Without one, the page shares the default card. */
   image?: SocialImage;
 }): Pick<Metadata, "openGraph" | "twitter"> {
-  const imageUrl = image ? absoluteUrl(image.path) : undefined;
+  const card = image ?? DEFAULT_OG_IMAGE;
+  const imageUrl = absoluteUrl(card.path);
   return {
     openGraph: {
       type: "website",
-      locale: locale === "fr" ? "fr_FR" : "en_US",
+      locale: openGraphLocale(locale),
       url: localizedUrl(locale, path),
       siteName: SITE_NAME,
       title,
       description,
-      ...(image && imageUrl
-        ? { images: [{ url: imageUrl, width: image.width, height: image.height, alt: image.alt }] }
-        : {}),
+      images: [openGraphImage(card)],
     },
     twitter: {
-      card: imageUrl ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title,
       description,
-      ...(imageUrl ? { images: [imageUrl] } : {}),
+      images: [imageUrl],
     },
   };
 }

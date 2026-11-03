@@ -3,10 +3,13 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { WebMcp } from "@/components/WebMcp";
 import { ClientProviders } from "@/components/ClientProviders";
+import { JsonLd } from "@/components/JsonLd";
 import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOverlay";
 import { routing } from "@/i18n/routing";
-import { localizedAlternates, SITE_NAME, SITE_URL } from "@/lib/site";
+import { defaultSocialMetadata, localizedAlternates, SITE_ICONS, SITE_NAME, SITE_URL } from "@/lib/site";
+import { siteGraph } from "@/lib/structured-data";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -40,10 +43,10 @@ export async function generateMetadata({
       template: `%s | ${SITE_NAME}`,
     },
     description,
-    icons: {
-      icon: "/favicon.svg",
-    },
+    icons: SITE_ICONS,
+    manifest: "/manifest.webmanifest",
     alternates: localizedAlternates(locale),
+    ...defaultSocialMetadata(locale),
   };
 }
 
@@ -62,11 +65,16 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} data-scroll-behavior="smooth">
+      <head>
+        <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <JsonLd data={siteGraph(locale)} />
         <NextIntlClientProvider>
           <ClientProviders />
+          <WebMcp />
           <ConditionalGridOverlay />
           {children}
         </NextIntlClientProvider>

@@ -1,5 +1,6 @@
 ---
 title: "I tried to make music with AI. An artist showed me what the machine could not hear."
+seoTitle: "AI music with an artist: limits of AI | The Vibe Company"
 slug: ai-music-with-an-artist
 language: en
 summary: "A founder who uses AI every day spent a session making music with an artist. The tools generated fast. The hard part was knowing what was worth keeping."
@@ -287,7 +288,7 @@ Not because YAML makes art. It does not.
 
 But memory matters when taste is fragile.
 
-I have written before that [agents need company memory](/resources/articles/agents-dont-lack-tools-they-lack-company-memory), because AI work falls apart when context disappears between iterations. This session made that idea feel more physical.
+I have written before that [agents need company memory](/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory), because AI work falls apart when context disappears between iterations. This session made that idea feel more physical.
 
 Memory helps you preserve decisions.
 

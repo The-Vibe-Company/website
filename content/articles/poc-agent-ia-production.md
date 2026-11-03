@@ -1,9 +1,10 @@
 ---
 title: "Du POC à la production : la checklist d'un agent IA qui tient"
+seoTitle: "Agent IA : du POC à la production | The Vibe Company"
 slug: poc-agent-ia-production
 translationKey: ai-agent-poc-to-production
 language: fr
-summary: "Un POC d'agent IA qui impressionne en démo ne survit pas toujours en production. Voici la checklist concrète pour passer du pilote à un agent utilisé au quotidien, avec les cas Monka et LocService."
+summary: "Du POC d'agent IA à la production : checklist concrète, avec les cas Monka et LocService."
 publishedAt: 2026-10-14
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering
@@ -85,6 +86,8 @@ Ce que ça prouve mieux qu'une démo :
 
 Pour la vue d'ensemble (outils, mémoire, autorité, mesure), lisez notre [guide de l'agent IA en entreprise](https://www.thevibecompany.co/fr/resources/articles/agent-ia-entreprise).
 
+Une fois le prestataire choisi, voici [comment se déroule un projet avec un prestataire IA, du premier appel à la production](https://www.thevibecompany.co/fr/resources/articles/travailler-prestataire-ia).
+
 ## FAQ
 
 **Combien de temps faut-il pour passer d'un POC à la production ?**
@@ -102,5 +105,7 @@ Décidez-le avant. Soit votre équipe reprend (docs, runbook, formation), soit u
 ## Passez du POC à un agent qui tient
 
 Vous avez un pilote qui marche en démo. Vous voulez savoir s'il est prêt pour la production — ou comment le construire pour qu'il le soit. Venez avec votre cas d'usage, vos contraintes, et ce que « succès » veut dire pour vous.
+
+Cette checklist, on l'applique avec vous : c'est notre offre [Agents IA en production](/fr/agents-ia-production), du pilote instrumenté au run quotidien.
 
 [Réservez 30 minutes avec Stan](https://cal.com/stangirard/thevibecompany).

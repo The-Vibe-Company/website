@@ -6,11 +6,11 @@ set -euo pipefail
 #
 # Usage: ./scripts/capture-quivr-og.sh
 #
-# Captures the Quivr V2 web app drawn by QuivrFeedMock on /fr and
+# Captures the Quivr V2 web app drawn by QuivrStage on /fr and
 # /en/portfolio/quivr, at 2x, and writes the 1200x630 Open Graph / Twitter
 # cards public/projects/quivr-og-{fr,en}.jpg. Needs the dev server
-# (./scripts/dev-start.sh) and agent-browser. Re-run whenever the mock or its
-# copy changes, then commit the two images.
+# (./scripts/dev-start.sh) and agent-browser. Re-run only when you mean to
+# change the social cards (see CLAUDE.md), then commit the two images.
 # =============================================================================
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -32,9 +32,10 @@ agent-browser set viewport 1440 1000 >/dev/null
 for locale in fr en; do
   agent-browser open "http://localhost:$DEV_PORT/$locale/portfolio/quivr" >/dev/null
   agent-browser wait "[data-quivr-mock]" >/dev/null
-  # Below the sticky header, then wait for the pulse dot and fonts to settle.
+  # Below the sticky header, then wait for the stage's one-shot animation
+  # (about 3s once in view) and the fonts to settle.
   agent-browser eval "window.scrollTo(0, document.querySelector('[data-quivr-mock]').getBoundingClientRect().top + window.scrollY - 100)" >/dev/null
-  agent-browser wait 1500 >/dev/null
+  agent-browser wait 4000 >/dev/null
   box="$(agent-browser eval "(() => { const r = document.querySelector('[data-quivr-mock]').getBoundingClientRect(); return [r.left, r.top, r.width, r.height, window.devicePixelRatio].join(','); })()" | tr -d '"')"
   agent-browser screenshot "$TMP_DIR/$locale.png" >/dev/null
 

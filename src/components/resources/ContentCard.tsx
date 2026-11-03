@@ -49,7 +49,12 @@ export function ContentCard({
   const image = getImageUrl(featuredImage);
 
   return (
-    <Link href={`/resources/${getUrlSlugForDbType(typeSlug)}/${slug}`} className="group block h-full">
+    // An entry lives under its own language's prefix only, so link straight there.
+    <Link
+      href={`/resources/${getUrlSlugForDbType(typeSlug)}/${slug}`}
+      locale={language}
+      className="group block h-full"
+    >
       <article className={`h-full flex flex-col lg:flex-row overflow-hidden ${resourcesTheme.card.base} ${resourcesTheme.card.hover}`}>
         {image && (
           <div className="shrink-0 relative overflow-hidden w-full aspect-[4/3] lg:w-72 lg:aspect-[4/3]">

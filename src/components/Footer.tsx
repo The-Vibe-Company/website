@@ -3,8 +3,9 @@
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
+import { FOOTER_OFFERINGS } from "@/lib/footer-offerings";
 import { PRIORITY_ARTICLES } from "@/lib/priority-articles";
-import { ABOUT_PATHS, splitPath } from "@/lib/site";
+import { ABOUT_PATHS, CONTACT_PATHS, PRIVACY_PATHS, splitPath } from "@/lib/site";
 
 interface NavLink {
   label: string;
@@ -61,11 +62,12 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
 
   // Same sections as the top nav, so both cover every key page. "Case studies"
   // reuses the nav label (no extra footer translation key).
-  // "About" is the one page whose URL segment is translated (/en/about,
-  // /fr/a-propos), so its href is picked per language.
+  // "About" and "Privacy" have a translated URL segment (/en/about,
+  // /fr/a-propos), so their href is picked per language.
   const siteLinks: NavLink[] = [
     { label: t("home"), href: "/" },
     { label: t("about"), href: splitPath(ABOUT_PATHS, locale) },
+    { label: t("contact"), href: splitPath(CONTACT_PATHS, locale) },
     { label: t("portfolio"), href: "/portfolio" },
     { label: tNav("caseStudies"), href: "/case-studies" },
     { label: t("resources"), href: "/resources" },
@@ -77,12 +79,17 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
       : []),
   ];
 
+  const offeringLinks: NavLink[] = FOOTER_OFFERINGS.map(({ key, paths }) => ({
+    label: t(`offerings.${key}`),
+    href: splitPath(paths, locale),
+  }));
+
   return (
     <footer className="border-t-2 border-foreground bg-foreground text-background">
       <div className="mx-auto max-w-[120rem] px-6 pb-6 pt-12 md:px-12 md:pt-20">
-        {/* On a phone the two link lists sit side by side under the wordmark:
+        {/* On a phone the link lists sit two by two under the wordmark:
             stacked, the footer alone ran past a full screen. */}
-        <div className="mb-12 grid grid-cols-2 gap-x-6 gap-y-10 md:mb-16 md:grid-cols-[2fr_1fr_1fr] md:gap-12">
+        <div className="mb-12 grid grid-cols-2 gap-x-6 gap-y-10 md:mb-16 md:grid-cols-[2fr_1fr_1fr_1fr] md:gap-12">
           <div className="col-span-2 flex flex-col md:col-span-1">
             <h2 className="m-0 mb-4 text-5xl font-bold leading-[0.9] tracking-[-0.04em] md:text-[56px]">
               The Vibe Co.
@@ -113,6 +120,19 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
 
           <div>
             <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
+              {t("offeringsHeading")}
+            </div>
+            <ul className="m-0 flex list-none flex-col gap-0.5 p-0 md:gap-2">
+              {offeringLinks.map((link) => (
+                <li key={link.href}>
+                  <FooterLink link={link} />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-background/60">
               {t("elsewhereHeading")}
             </div>
             <ul className="m-0 flex list-none flex-col gap-0.5 p-0 md:gap-2">
@@ -127,6 +147,12 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
 
         <div className="flex flex-wrap justify-between gap-3 border-t border-background/15 pt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-background/50">
           <span>© {buildYear} THE VIBE COMPANY</span>
+          <Link
+            href={splitPath(PRIVACY_PATHS, locale)}
+            className="underline decoration-1 underline-offset-4 transition-opacity hover:opacity-70"
+          >
+            {t("privacy")}
+          </Link>
           <span>YC W24 · {t("madeInFrance")}</span>
           <span>{t("builtWithAi")} · {t("openToProjects")}</span>
         </div>

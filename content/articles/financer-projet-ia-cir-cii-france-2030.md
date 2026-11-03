@@ -1,9 +1,10 @@
 ---
 title: "Financer un projet IA : CIR, CII, Diag Data IA, France 2030"
+seoTitle: "Financer un projet IA : CIR, CII, aides | The Vibe Company"
 slug: financer-projet-ia-cir-cii-france-2030
 translationKey: fund-ai-project-france
 language: fr
-summary: "CIR, CII, Diag Data IA, plan Osez l'IA : panorama concret des dispositifs pour financer un projet IA (agents, automatisation, produit), avec les taux officiels et le cas MediaGen / AFP (France 2030)."
+summary: "CIR, CII, Diag Data IA, Osez l'IA : financer un projet IA (agents, automatisation, produit), avec le cas MediaGen / AFP."
 publishedAt: 2026-10-16
 complexity: intermediate
 topics: AI Adoption, Strategy
@@ -113,5 +114,7 @@ On construit les projets et on documente le travail technique. Le montage et le 
 ## Parlons de votre projet (et de son financement)
 
 Vous avez un cas d'usage IA en tête et vous voulez savoir ce qui se finance vraiment — build, Diag, CIR/CII, ou un appel type France 2030 ? Venez avec le périmètre, la taille de l'entreprise et le calendrier. On vous dit ce qu'on peut construire, ce qui relève plutôt d'un diagnostic Bpifrance, et ce qu'il faut poser à votre expert-comptable.
+
+[Un outil IA pour votre rédaction ?](/fr/ia-medias) Notre page IA médias détaille ce qu'on construit pour les rédactions, avec la preuve MediaGen.
 
 [Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).

@@ -10,8 +10,25 @@ import { BackLink } from "@/components/BackLink";
 import { CaseStudyBackLink } from "@/components/CaseStudyBackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { CaseStudyKeepReading } from "@/components/CaseStudyKeepReading";
+import { JsonLd } from "@/components/JsonLd";
 import { CUSTOMER_SLUGS, getCustomer, getCustomers, type ContentLocale } from "@/lib/customers";
-import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
+import { Link } from "@/i18n/navigation";
+import {
+  AGENCY_PARIS_PATHS,
+  HEALTHCARE_AI_PATHS,
+  MEDIA_AI_PATHS,
+  localizedAlternates,
+  localizedSocialMetadata,
+  localizedUrl,
+  splitPath,
+} from "@/lib/site";
+import {
+  breadcrumbList,
+  faqPageSchema,
+  isPublishableInCaseStudyFaq,
+  webPageNode,
+} from "@/lib/structured-data";
+import { clientLogoSize } from "@/lib/client-logos";
 
 export function generateStaticParams() {
   return CUSTOMER_SLUGS.map((slug) => ({ slug }));
@@ -27,8 +44,8 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "caseStudiesPage" });
   const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) return { title: t("back") };
-  const title = `${customer.client} · ${t("back")}`;
-  const description = customer.summary;
+  const title = customer.metaTitle ?? `${customer.client} · ${t("back")}`;
+  const description = customer.metaDescription;
   return {
     title,
     description,
@@ -50,8 +67,33 @@ export default async function CaseStudyPage({
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "caseStudiesPage" });
+  const tAgency = await getTranslations({ locale, namespace: "agencyParis" });
+  const tHealthcare = await getTranslations({ locale, namespace: "healthcareAi" });
+  const tMedia = await getTranslations({ locale, namespace: "mediaAi" });
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const tNav = await getTranslations({ locale, namespace: "nav" });
   const customer = getCustomer(slug, locale as ContentLocale);
   if (!customer) notFound();
+
+  const pageUrl = localizedUrl(locale, `/case-studies/${slug}`);
+  const pageName = `${customer.client} · ${t("back")}`;
+  const faq = customer.faq?.length
+    ? faqPageSchema(customer.faq, isPublishableInCaseStudyFaq)
+    : null;
+  const jsonLd = [
+    webPageNode({
+      url: pageUrl,
+      name: pageName,
+      description: customer.summary,
+      language: locale,
+    }),
+    breadcrumbList([
+      { name: tFooter("home"), url: localizedUrl(locale) },
+      { name: tNav("caseStudies"), url: localizedUrl(locale, "/case-studies") },
+      { name: customer.client, url: pageUrl },
+    ]),
+    ...(faq ? [faq] : []),
+  ];
 
   const asideVisual = customer.visuals.find(
     (visual) => visual.placement === "aside",
@@ -65,12 +107,16 @@ export default async function CaseStudyPage({
   const all = getCustomers(locale as ContentLocale);
   const index = all.findIndex((c) => c.slug === slug);
   const related = [...all.slice(index + 1), ...all.slice(0, index)].slice(0, 3);
+  const guide = customer.related;
 
   return (
     <div
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
+      {jsonLd.map((node, i) => (
+        <JsonLd key={i} data={node} />
+      ))}
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
@@ -84,6 +130,7 @@ export default async function CaseStudyPage({
             <img
               src={customer.logo}
               alt={customer.client}
+              {...clientLogoSize(customer.logo)}
               className="h-9 w-auto object-contain md:h-11"
             />
             <span className="border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground">
@@ -242,19 +289,26 @@ export default async function CaseStudyPage({
               <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
                 {t("whatWeDid")}
               </h2>
-              <ul className="m-0 flex list-none flex-col gap-5 p-0">
-                {customer.points.map((point) => (
-                  <li
-                    key={point}
-                    className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
-                  >
-                    <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
-                      →
-                    </span>
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
+              <div>
+                {customer.approach && (
+                  <p className="m-0 mb-8 max-w-[720px] text-xl leading-[1.5] text-foreground">
+                    {customer.approach}
+                  </p>
+                )}
+                <ul className="m-0 flex list-none flex-col gap-5 p-0">
+                  {customer.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
+                    >
+                      <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
+                        →
+                      </span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </section>
         )}
@@ -300,6 +354,90 @@ export default async function CaseStudyPage({
         )}
 
         <CaseStudyKeepReading items={related} />
+
+        <section className="mx-auto max-w-[80rem] px-6 pb-16 md:px-12 md:pb-20">
+          {/* The healthcare case also points at the healthcare landing. */}
+          {slug === "monka" ? (
+            <p className="m-0 mb-4 max-w-[680px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
+              {tHealthcare.rich("caseLink", {
+                link: (chunks) => (
+                  <Link
+                    href={splitPath(HEALTHCARE_AI_PATHS, locale)}
+                    className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </p>
+          ) : null}
+          {/* The newsroom case also points at the media AI landing. */}
+          {slug === "afp" ? (
+            <p className="m-0 mb-4 max-w-[680px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
+              {tMedia.rich("caseLink", {
+                link: (chunks) => (
+                  <Link
+                    href={splitPath(MEDIA_AI_PATHS, locale)}
+                    className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </p>
+          ) : null}
+          {/* A case told in more depth in a guide points at it. */}
+          {guide ? (
+            <p className="m-0 mb-4 max-w-[680px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
+              {t.rich("relatedArticle", {
+                title: guide.title,
+                link: (chunks) => (
+                  <Link
+                    href={guide.href}
+                    className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </p>
+          ) : null}
+          <p className="m-0 max-w-[680px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
+            {tAgency.rich("caseLink", {
+              link: (chunks) => (
+                <Link
+                  href={splitPath(AGENCY_PARIS_PATHS, locale)}
+                  className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
+                >
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </p>
+        </section>
+
+        {customer.faq && customer.faq.length > 0 ? (
+          <section className="mx-auto max-w-[80rem] border-t border-border px-6 py-14 md:px-12 md:py-20">
+            <h2 className="m-0 text-[28px] font-bold tracking-[-0.03em] md:text-[36px]">
+              {t("faqTitle")}
+            </h2>
+            <div className="mt-10 border-t-2 border-foreground md:mt-12">
+              {customer.faq.map((item) => (
+                <article
+                  key={item.question}
+                  className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-8"
+                >
+                  <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] md:text-[24px]">
+                    {item.question}
+                  </h3>
+                  <p className="m-0 max-w-[70ch] text-[16px] leading-[1.65] text-muted-foreground md:text-[17px]">
+                    {item.answer}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <FinalCTA rail="narrow" />
       </main>

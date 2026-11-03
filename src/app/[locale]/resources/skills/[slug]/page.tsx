@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { Link } from "@/i18n/navigation";
+import { Link, permanentRedirect } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+import { JsonLd } from '@/components/JsonLd';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { SkillAIInstaller } from '@/components/resources/SkillAIInstaller';
@@ -14,7 +15,17 @@ import { getContentByType, getContentItem, getRelatedContent } from '@/lib/conte
 import { normalizeMarkdownBody } from '@/lib/markdown';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { localizedUrl, monolingualAlternates, SITE_NAME, SITE_URL } from '@/lib/site';
+import {
+  absoluteUrl,
+  DEFAULT_OG_IMAGE,
+  localizedUrl,
+  monolingualAlternates,
+  openGraphImage,
+  openGraphLocale,
+  SITE_NAME,
+  SITE_URL,
+} from '@/lib/site';
+import { breadcrumbList } from '@/lib/structured-data';
 import { getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
@@ -51,15 +62,16 @@ export async function generateMetadata({
     title: `${item.title} | Skills`,
     description: item.summary,
     alternates: monolingualAlternates(item.language, canonicalPath),
-    robots: locale === item.language ? undefined : { index: false, follow: true },
     openGraph: {
       type: 'article',
+      locale: openGraphLocale(item.language),
       url: canonicalUrl,
       siteName: SITE_NAME,
       title: item.title,
       description: item.summary,
       publishedTime: item.publishedAt,
       tags: item.topics,
+      // A skill without a cover shares the default card, like the other pages.
       images: socialImageUrl
         ? [
             {
@@ -68,13 +80,13 @@ export async function generateMetadata({
               alt: socialImage?.alt ?? item.title,
             },
           ]
-        : undefined,
+        : [openGraphImage(DEFAULT_OG_IMAGE)],
     },
     twitter: {
       card: 'summary_large_image',
       title: item.title,
       description: item.summary,
-      images: socialImageUrl ? [socialImageUrl] : undefined,
+      images: [socialImageUrl ?? absoluteUrl(DEFAULT_OG_IMAGE.path)],
     },
   };
 }
@@ -89,12 +101,24 @@ export default async function SkillDetailPage({
   const item = await getSkill(slug);
   if (!item) notFound();
 
+  // A skill is published in one language, under that language's prefix only:
+  // the other prefix redirects there instead of serving a duplicate.
+  if (item.language !== locale) {
+    permanentRedirect({ href: `/resources/skills/${item.slug}`, locale: item.language });
+  }
+
   const t = await getTranslations('resources');
   const skill = item.skill ?? { kind: 'native' as const };
   const body = normalizeMarkdownBody(item.body);
   const related = await getRelated(slug);
 
   const canonicalUrl = localizedUrl(item.language, `/resources/skills/${item.slug}`);
+  const tFooter = await getTranslations({ locale: item.language, namespace: 'footer' });
+  const breadcrumb = breadcrumbList([
+    { name: tFooter('home'), url: localizedUrl(item.language) },
+    { name: tFooter('resources'), url: localizedUrl(item.language, '/resources') },
+    { name: item.title, url: canonicalUrl },
+  ]);
 
   const installContext = {
     slug: item.slug,
@@ -115,12 +139,13 @@ export default async function SkillDetailPage({
 
   return (
     <>
+      <JsonLd data={breadcrumb} />
       <ReadingProgress />
       <main id="main-content" tabIndex={-1} className="pt-6 md:pt-8 pb-20 min-h-screen bg-res-bg">
         <div className={`${resourcesTheme.section.padding} pb-12 md:pb-16`}>
           <div className="mx-auto max-w-6xl">
             <Link
-              href="/resources/skills"
+              href="/resources"
               className="mb-6 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
             >
               <ArrowLeft size={14} strokeWidth={1.8} className="group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
@@ -192,7 +217,7 @@ export default async function SkillDetailPage({
                 {t('relatedSkills')}
               </span>
               <Link
-                href="/resources/skills"
+                href="/resources"
                 className="text-[11px] font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
               >
                 {t('viewAll')} &rarr;

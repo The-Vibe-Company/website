@@ -3,6 +3,7 @@ title: "Je m'appelle Victor"
 slug: je-mappelle-victor
 language: fr
 summary: ""
+seoDescription: "Je m'appelle Victor, je ne viens pas du monde de la tech, et pour lancer cette série, autant commencer par me présenter."
 publishedAt: 2026-06-22
 series: victor-story
 seriesDay: 0

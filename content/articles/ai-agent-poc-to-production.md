@@ -1,9 +1,10 @@
 ---
 title: "From AI agent POC to production: the checklist that holds up"
+seoTitle: "AI agent POC to production checklist | The Vibe Company"
 slug: ai-agent-poc-to-production
 translationKey: ai-agent-poc-to-production
 language: en
-summary: "An AI agent POC that shines in a demo often dies in production. Here is a concrete checklist to move from pilot to an agent your teams actually use — with Monka and LocService as proof."
+summary: "From AI agent POC to production: a concrete checklist, with Monka and LocService as proof."
 publishedAt: 2026-10-14
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering
@@ -85,6 +86,8 @@ What that proves better than a demo:
 
 For the big picture (tools, memory, authority, measurement), read our [practical guide to AI agents for business](https://www.thevibecompany.co/en/resources/articles/ai-agents-for-business).
 
+Once you've picked a partner, here's [how a project with an AI development agency runs, from first call to production](https://www.thevibecompany.co/en/resources/articles/working-with-an-ai-development-agency).
+
 ## FAQ
 
 **How long does it take to go from POC to production?**
@@ -102,5 +105,7 @@ Decide before you ship. Either your team takes over (docs, runbook, training), o
 ## Move from POC to an agent that holds up
 
 You have a pilot that works in a demo. You want to know whether it is ready for production — or how to build it so that it will be. Bring your use case, your constraints, and what “success” means for you.
+
+We apply this checklist with you: that is our [AI agents in production](/en/ai-agents-in-production) offer, from the instrumented pilot to the daily run.
 
 [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).

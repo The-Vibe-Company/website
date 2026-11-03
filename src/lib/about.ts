@@ -55,9 +55,14 @@ export const ABOUT_SOCIALS = [
 /** The open-source engine the company grew out of. */
 export { QUIVR_REPO_URL } from "@/lib/quivr";
 
-/** The announcement that turned Quivr into The Vibe Company. */
+/**
+ * The announcement that turned Quivr into The Vibe Company. Published in
+ * English only, so it is linked under /en from both languages: the /fr URL
+ * only redirects there.
+ */
 export const ABOUT_ORIGIN_ARTICLE_PATH =
   "/resources/articles/quivr-to-the-vibe-company";
+export const ABOUT_ORIGIN_ARTICLE_LOCALE = "en";
 
 /** Rows of the "key facts" table, in reading order. */
 export const ABOUT_FACT_KEYS = [

@@ -1,0 +1,57 @@
+{
+  "protocolVersion": "0.3.0",
+  "name": "The Vibe Company public content",
+  "description": "Read public TVC articles and retrieve the public booking link. No private data or writes.",
+  "url": "https://www.thevibecompany.co/a2a",
+  "preferredTransport": "JSONRPC",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "The Vibe Company",
+    "url": "https://www.thevibecompany.co"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "defaultInputModes": [
+    "text/plain",
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "text/plain"
+  ],
+  "security": [],
+  "skills": [
+    {
+      "id": "read-public-articles",
+      "name": "Read public articles",
+      "description": "List or read public TVC articles via list_articles or read_article in a data part.",
+      "tags": [
+        "articles",
+        "markdown",
+        "read-only"
+      ],
+      "examples": [
+        "List TVC articles"
+      ]
+    },
+    {
+      "id": "get-booking-link",
+      "name": "Get the booking link",
+      "description": "Return the public Cal.com URL without creating a booking.",
+      "tags": [
+        "booking-link",
+        "read-only"
+      ]
+    }
+  ],
+  "supportsAuthenticatedExtendedCard": false,
+  "supportedInterfaces": [
+    {
+      "url": "https://www.thevibecompany.co/a2a",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "0.3.0"
+    }
+  ]
+}

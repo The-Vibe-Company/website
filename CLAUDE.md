@@ -29,6 +29,8 @@ Always add the link to the issue in the PR description.
 
 Always use frontend-design skill and ui-ux-pro-max skill for designing pages and components or when the user asks you to design something.
 
+For faux product UI (product shots, feature bento grids, demo animations), use the Stageshow skill in `.agents/skills/stageshow` (linked from `.claude/skills/stageshow`, pinned in `skills-lock.json`). It is reference material only: never install its `package.json` or run its scripts, and copy only the few tokens or patterns a page needs into `src/` (the folder is excluded from `tsconfig.json`, ESLint and Tailwind's source scan).
+
 ## Layout Architecture (CRITICAL)
 
 **NEVER create `src/app/layout.tsx`** (root layout). The frontend route group already owns its own `<html>`:
@@ -85,6 +87,14 @@ The expected result is 0 errors and 0 avoidable warnings.
 
 When planning, always create a graph of tasks and dependencies between them.
 
+`bun run agents:check` uses curl to verify public agent endpoints, Markdown/HTML negotiation, MCP and discovery digests against a running local server.
+
+`bun run indexnow:submit-all --dry-run` runs `scripts/indexnow.ts` to inspect production sitemap URLs and IndexNow payloads without submitting (see `docs/indexnow.md`).
+
+## SEO changes
+
+Before any SEO PR or SEO fix, run `bun run seo:check` (fast smoke check of locale redirects, sitemap, cards, titles, plus the content gates) and do not open the PR if it fails. Details in `AGENTS.md`.
+
 ## Vercel
 
 never deploy to vercel manually, let the CI/CD do it.
@@ -133,7 +143,7 @@ The key is language-neutral kebab-case and never appears on screen. With it, `/r
 
 One article means one URL per language, so reaching a translated article under the other language's prefix (`/en/resources/articles/ia-donnees-de-sante-hds`) **308-redirects** to that language's own version (`/en/resources/articles/ai-health-data-hds-france`). That is what makes the global FR/EN switch in the header work on an article: it only swaps the prefix, and the redirect carries it the rest of the way.
 
-An article with no translation simply omits `translationKey`, and behaves exactly as before: it stays readable under either prefix, canonical on its own language's URL and `noindex` on the other. Validation (`bun run content:translations-check`) rejects a key that is not shared by a second article, two versions in the same language, a key without an explicit `language`, a mis-cased `translationKey`, and a pair whose `series` values disagree.
+An article with no translation simply omits `translationKey`. It lives under its own language's prefix only: the other prefix **308-redirects** there (`/en/resources/articles/je-mappelle-victor` → `/fr/resources/articles/je-mappelle-victor`) instead of serving a `noindex` duplicate, and listing cards link straight to that URL whatever language the list is browsed in. Skills follow the same rule. Every article must therefore declare an explicit `language: fr` or `language: en` — without it the article would default to `en`. Validation (`bun run content:translations-check`) rejects an article or skill without an explicit `language`, a key that is not shared by a second article, two versions in the same language, a mis-cased `translationKey`, and a pair whose `series` values disagree.
 
 ### Generating the cover
 
@@ -197,7 +207,9 @@ The image optimization system must stay lossless, source-preserving, and idempot
 
 The optimizer memoizes encoder results in `src/generated/image-optimize-cache.json`. The cache is committed, but must never be imported by app code because it contains source and target hashes that are only useful to the script. Cache keys use `${kind}:${sourceUrl}`. A cache entry with `targetUrl: null` means the generated variant was not smaller than the source, so the manifest should not point to a variant. If Sharp encoding settings change, bump `ENCODER_VERSION` in `scripts/optimize-images.ts` to invalidate old cache entries. Deleting the cache is safe; it only forces a full re-encode that should converge back to the same generated variants.
 
-The Quivr project page draws its web app in code (`src/components/quivr/QuivrFeedMock.tsx`, sample articles only). Its 1200x630 OG cards `public/projects/quivr-og-{fr,en}.jpg` are captures of that mock: re-run `./scripts/capture-quivr-og.sh` (needs the dev server) whenever the mock or its copy changes, and commit both images.
+Favicons: `bun run favicons:generate` regenerates `public/favicon.ico`, `favicon-{48,96,192}.png`, `apple-touch-icon.png` and `icon.png` (512, also the Organization logo) from `public/favicon.svg`; they are declared through `SITE_ICONS` in `src/lib/site.ts` and `src/app/manifest.ts`.
+
+The Quivr project page draws its web app in code (`src/components/quivr/QuivrStage.tsx` for the product shot, `QuivrBento.tsx` for the feature grid, sample articles only). Its 1200x630 OG cards `public/projects/quivr-og-{fr,en}.jpg` are captures of the earlier full-feed mock, kept as they were on purpose when the page was redrawn (THE-2187 left every SEO surface unchanged). `./scripts/capture-quivr-og.sh` (needs the dev server) now captures the stage: re-run it only when you mean to change the social cards, and commit both images.
 
 To verify image budgets without rewriting files, run:
 

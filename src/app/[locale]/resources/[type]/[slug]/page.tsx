@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Link, permanentRedirect } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { JsonLd } from '@/components/JsonLd';
 import { KeepReading } from '@/components/resources/KeepReading';
 import { TranslationSwitch } from '@/components/resources/TranslationSwitch';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
@@ -10,8 +12,9 @@ import { ReadingProgress } from '@/components/resources/ReadingProgress';
 import { CONTENT_TYPES, getContentTypeByUrlSlug, getUrlSlugForDbType } from '@/lib/content-types';
 import {
   contentPath,
+  toPlainText,
+  getCanonicalContentForLanguage,
   getContentByType,
-  getContentForLanguage,
   getContentItem,
   getContentTranslations,
   getRelatedContent,
@@ -21,8 +24,9 @@ import { extractCoverImage, normalizeMarkdownBody } from '@/lib/markdown';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
-import { contentAlternates, localizedUrl, SITE_NAME, SITE_URL } from '@/lib/site';
-import { getOgImageDimensions } from '@/lib/og-image-dimensions';
+import { contentAlternates, localizedUrl, openGraphLocale, SITE_NAME, SITE_URL } from '@/lib/site';
+import { articleFaqPageSchema, articleSchema, breadcrumbList } from '@/lib/structured-data';
+import { getCoverImageDimensions, getOgImageDimensions } from '@/lib/og-image-dimensions';
 
 export async function generateStaticParams() {
   return getAllStaticParams();
@@ -62,6 +66,11 @@ const getTranslationLinks = cache(async (typeSlug: string, slug: string) => {
 
 export const dynamicParams = true;
 
+function socialImageUrl(item: { ogImage?: { url: string } | null; featuredImage?: { url: string } | null }) {
+  const image = item.ogImage ?? item.featuredImage;
+  return image?.url ? new URL(image.url, SITE_URL).toString() : undefined;
+}
+
 function formatDate(dateString: string, locale: string): string {
   return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
     weekday: 'long',
@@ -88,29 +97,35 @@ export async function generateMetadata({
   const canonicalUrl = localizedUrl(item.language, canonicalPath);
   const versions = await getTranslationLinks(contentType.slug, slug);
   const socialImage = item.ogImage ?? item.featuredImage;
-  const socialImageUrl = socialImage?.url ? new URL(socialImage.url, SITE_URL).toString() : undefined;
+  const imageUrl = socialImageUrl(item);
   const socialImageSourceUrl = item.ogImage?.sourceUrl;
   const socialImageDimensions = getOgImageDimensions(socialImageSourceUrl);
   const socialTitle = item.title;
-  const socialDescription = item.summary;
+  const socialDescription = item.seoDescription ?? toPlainText(item.summary);
+
+  // When an article declares its own SEO title, use it as an absolute <title>
+  // so the layout's `%s | The Vibe Company` template does not append the brand
+  // a second time (the SEO title already includes it). H1 and social titles
+  // keep using `item.title`.
+  const htmlTitle = item.seoTitle ? { absolute: item.seoTitle } : item.title;
 
   return {
-    title: item.title,
-    description: item.summary,
+    title: htmlTitle,
+    description: socialDescription,
     alternates: contentAlternates(item.language, canonicalPath, versions),
-    robots: locale === item.language ? undefined : { index: false, follow: true },
     openGraph: {
       type: 'article',
+      locale: openGraphLocale(item.language),
       url: canonicalUrl,
       siteName: SITE_NAME,
       title: socialTitle,
       description: socialDescription,
       publishedTime: item.publishedAt,
       tags: item.topics,
-      images: socialImageUrl
+      images: imageUrl
         ? [
             {
-              url: socialImageUrl,
+              url: imageUrl,
               ...(socialImageDimensions ?? {}),
               alt: socialImage?.alt ?? socialTitle,
             },
@@ -121,7 +136,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: socialTitle,
       description: socialDescription,
-      images: socialImageUrl ? [socialImageUrl] : undefined,
+      images: imageUrl ? [imageUrl] : undefined,
     },
   };
 }
@@ -139,14 +154,15 @@ export default async function ContentDetailPage({
   const item = await getContent(contentType.slug, slug);
   if (!item) notFound();
 
-  // One article, one URL per language. Reaching a translated article under the
-  // other language's prefix (what the global FR/EN switch does, since it only
-  // swaps the prefix) lands here, so send the reader on to the version they
-  // actually asked for. An article with no translation is served as-is.
+  // One article, one URL per language. Reaching an article under the other
+  // language's prefix (what the global FR/EN switch does, since it only swaps
+  // the prefix) lands here. A translated article sends the reader on to the
+  // version they asked for; an article published in one language only sends
+  // them to its own URL, so the other prefix never serves a duplicate.
   const language: ContentLanguage = locale === 'en' ? 'en' : 'fr';
-  const translated = getContentForLanguage(contentType.slug, slug, language);
-  if (translated) {
-    permanentRedirect({ href: contentPath(translated), locale });
+  const target = getCanonicalContentForLanguage(contentType.slug, slug, language) ?? item;
+  if (target.slug !== item.slug || target.language !== locale) {
+    permanentRedirect({ href: contentPath(target), locale: target.language });
   }
 
   const related = await getRelated(contentType.slug, slug);
@@ -162,6 +178,7 @@ export default async function ContentDetailPage({
   };
 
   const cover = item.featuredImage;
+  const coverDimensions = getCoverImageDimensions(cover?.sourceUrl);
   const { body: bodyWithoutCover, caption: coverCaption } = cover?.sourceUrl
     ? extractCoverImage(item.body, cover.sourceUrl)
     : { body: item.body, caption: undefined };
@@ -172,8 +189,30 @@ export default async function ContentDetailPage({
   const isTool = item.tool === true;
   const categoryLabel = isVictorStory ? "Victor's Story" : 'Article';
 
+  // Structured data describes the canonical version, in its own language.
+  const canonicalUrl = localizedUrl(item.language, contentPath(item));
+  const tFooter = await getTranslations({ locale: item.language, namespace: 'footer' });
+  const breadcrumb = breadcrumbList([
+    { name: tFooter('home'), url: localizedUrl(item.language) },
+    { name: tFooter('resources'), url: localizedUrl(item.language, '/resources') },
+    { name: item.title, url: canonicalUrl },
+  ]);
+  const article = articleSchema({
+    url: canonicalUrl,
+    title: item.title,
+    summary: item.seoDescription ?? toPlainText(item.summary),
+    publishedAt: item.publishedAt,
+    language: item.language,
+    imageUrl: socialImageUrl(item),
+    series: item.series,
+  });
+  const faq = articleFaqPageSchema(item.body);
+
   return (
     <>
+      <JsonLd data={article} />
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={faq} />
       <ReadingProgress />
       <main id="main-content" tabIndex={-1} className="pt-12 pb-24 min-h-screen bg-res-bg">
         <div className={`${resourcesTheme.section.padding} pb-24`}>
@@ -351,12 +390,20 @@ export default async function ContentDetailPage({
 
               {cover?.url && (
                 <figure className="mb-8 md:mb-12">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  {/* The cover is the LCP element on mobile: served through the
+                      Next image optimizer (AVIF/WebP at the rendered width),
+                      preloaded with high priority, never lazy. `sizes` follows
+                      the article column: full width minus the section padding,
+                      then 7 of 12 columns (gap-12) from lg. */}
+                  <Image
                     src={cover.url}
                     alt={cover.alt ?? item.title}
+                    width={coverDimensions.width}
+                    height={coverDimensions.height}
+                    sizes="(min-width: 1024px) calc(58.33vw - 132px), (min-width: 768px) calc(100vw - 96px), calc(100vw - 48px)"
+                    preload
+                    fetchPriority="high"
                     className="w-full h-auto rounded-lg border border-res-border"
-                    decoding="async"
                   />
                   {coverCaption ? (
                     <figcaption className="mt-3 text-xs font-mono text-res-text-muted">

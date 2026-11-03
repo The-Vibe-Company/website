@@ -1,8 +1,10 @@
 ---
 title: "How I finally started my game using Scenario"
+seoTitle: "How I started my game using Scenario | The Vibe Company"
 slug: how-i-finally-started-my-game-using-scenario
 language: en
 summary: "I’ve wanted to build my game for a while. But I needed a solid visual identity to finally start coding. Generic AIs were too inconsistent for a real project. The fix was **Scenario.com**. By training a custom model on 25 specific images (refined with **Claude** to hit a \"Zelda meets Clash Royale\" vibe), I finally got a unified look. AI didn't do the creative work for me; it just removed the technical wall. **Bestiary is now officially in development.**"
+seoDescription: "I needed a consistent visual identity to start my game. A custom Scenario.com model trained on 25 images, refined with Claude, finally got me there."
 publishedAt: 2026-02-17
 complexity: beginner
 topics: Design

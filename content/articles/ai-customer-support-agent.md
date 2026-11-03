@@ -1,9 +1,10 @@
 ---
 title: "AI agents for customer support: automate without hurting service"
+seoTitle: "AI agents for customer support: a guide | The Vibe Company"
 slug: ai-customer-support-agent
 translationKey: ai-customer-support-agent
 language: en
-summary: "Autonomous chatbot or AI drafts reviewed by your team? How to automate customer support with AI without losing quality, with the LocService case (87% of tickets) and lessons from Klarna and Air Canada."
+summary: "Automate customer support with AI without losing quality: LocService (87% of tickets), plus Klarna and Air Canada lessons."
 publishedAt: 2026-10-15
 complexity: intermediate
 topics: AI Agents, AI Adoption, AI Operations
@@ -83,6 +84,8 @@ The Vibe Company was founded in 2024 by Stan Girard and Antoine Dewez (ex-Theodo
 How we work: start from your real data, ship something your team actually uses, quickly, and measure usage rather than the demo.
 
 For the big picture (tools, memory, authority, measurement), read our [practical guide to AI agents for business](https://www.thevibecompany.co/en/resources/articles/ai-agents-for-business).
+
+For the document side of this (retrieval, cited sources, access rights), see [Enterprise RAG: connect generative AI to your documents](/en/resources/articles/enterprise-rag).
 
 ## FAQ
 

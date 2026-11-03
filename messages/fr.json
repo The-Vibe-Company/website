@@ -32,7 +32,7 @@
     "externalGitHubSource": "Source GitHub externe"
   },
   "meta": {
-    "homeTitle": "Agence IA à Paris : produits, agents et formation | The Vibe Company",
+    "homeTitle": "Agence IA à Paris : agents et formation | The Vibe Company",
     "description": "Une agence IA-first qui conçoit des produits, déploie des automatisations agentiques et forme les équipes, de l'audit à la production sécurisée."
   },
   "hero": {
@@ -113,8 +113,9 @@
         "bullets": [
           "Cadrage produit et technique",
           "Architecture et développement par cycles courts",
-          "Production sécurisée : RGPD et HDS",
-          "Observabilité, documentation et passation à vos équipes"
+          "Agents qui durcissent produit et SI : secrets, dépendances, IAM, configs, review sécurité des PR",
+          "Mise en prod avec observabilité, runbooks et contrôles d’accès dès le premier sprint",
+          "Exigences RGPD et HDS prises en compte quand le métier l’impose (santé)"
         ]
       },
       "operate": {
@@ -196,10 +197,12 @@
     "priorityArticles": {
       "chooseAgency": "Comment choisir une agence IA",
       "healthData": "IA et données de santé (HDS)",
-      "aiNative": "Qu’est-ce qu’une agence IA native"
+      "aiNative": "Qu’est-ce qu’une agence IA native",
+      "blackOctober": "Black October : sécuriser ses agents IA"
     },
     "tagline": "Une agence née avec l'IA. Paris.",
     "siteHeading": "SITE",
+    "offeringsHeading": "OFFRES",
     "elsewhereHeading": "RÉSEAUX",
     "madeInFrance": "Fabriqué en France",
     "home": "Accueil",
@@ -208,9 +211,19 @@
     "mission": "Mission",
     "builtWithAi": "Construit avec l'IA",
     "openToProjects": "Ouvert aux projets",
-    "about": "À propos"
+    "about": "À propos",
+    "offerings": {
+      "agencyParis": "Agence IA Paris",
+      "hardening": "Agents IA sécurité produit",
+      "healthcareAi": "IA santé / HDS",
+      "agentsProduction": "Agents IA en production",
+      "mediaAi": "IA médias"
+    },
+    "contact": "Contact",
+    "privacy": "Confidentialité"
   },
   "caseStudiesPage": {
+    "metaTitle": "Cas clients IA : projets en production",
     "kicker": "// PROJETS CLIENTS",
     "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",
@@ -224,10 +237,21 @@
     "visit": "Visiter",
     "visitClient": "Visiter {name}",
     "keepReading": "À lire ensuite",
-    "next": "Suivant"
+    "next": "Suivant",
+    "subtitle": "Des produits, des agents et des automatisations IA en production chez nos clients : santé, presse, location immobilière, agroalimentaire, et des équipes tech à grande échelle. Chaque cas raconte le point de départ, ce qu’on a construit et comment on a travaillé.",
+    "relatedArticle": "Pour aller plus loin, lisez notre guide <link>{title}</link>.",
+    "faqTitle": "Questions fréquentes",
+    "about": {
+      "kicker": "// COMMENT ON TRAVAILLE",
+      "title": "Du premier appel à la production.",
+      "p1": "Chaque projet commence par un appel de 30 minutes : vous expliquez le problème, on explique comment on le construirait. Si ça colle, on envoie une proposition à périmètre fixe, puis un prototype cliquable avant la moindre ligne de code de production.",
+      "p2": "Pendant le build, vous voyez du logiciel qui marche tôt et souvent, et on mesure le résultat à l’usage réel plutôt qu’à la démo. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique sont passés en production en deux mois, avec depuis une nouvelle version tous les deux jours environ. Chez LocService, les brouillons de l’assistant sont utilisés sur 87 % des tickets.",
+      "p3": "Ensuite, deux options : on confie le code à votre équipe avec la documentation et les runbooks, ou on continue de le faire tourner. Avec Theodo, la formation des équipes fait partie du travail, pour qu’elles adoptent elles-mêmes ces pratiques et avancent plus vite."
+    }
   },
   "resources": {
     "kicker": "Ressources",
+    "metaTitle": "Ressources IA : nos articles et guides",
     "title": "Articles & essais.",
     "subtitle": "Ce qu’on apprend et construit avec l’IA chez The Vibe Company, ainsi que la Victor’s Story au passage.",
     "searchPlaceholder": "Chercher un article, un sujet…",
@@ -297,8 +321,18 @@
     "theProduct": "// Le produit",
     "visit": "Visiter",
     "visitProject": "Visiter {name}",
-    "metaTitle": "Projets",
-    "metaDescription": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie."
+    "metaTitle": "Projets IA : réalisations de notre agence",
+    "metaDescription": "Une sélection de produits qu’on a conçus et mis en ligne, avec leurs captures et leurs dates de sortie.",
+    "storyWhy": "// Pourquoi on l’a construit",
+    "storyHow": "// Comment ça marche",
+    "storyAudience": "// Pour qui",
+    "about": {
+      "kicker": "// POURQUOI NOS PROPRES PRODUITS",
+      "title": "Nos premiers clients, c’est nous.",
+      "p1": "The Vibe Company est une agence IA, et une bonne partie de ce qu’on sait faire, on l’a d’abord construit pour nous. Chacun de ces produits part d’une friction qu’on vivait au quotidien : partager le rapport qu’un agent vient de produire, ranger les skills de l’équipe, donner une mémoire à nos agents, coordonner plusieurs agents de code sur un même projet, ou ne plus perdre une idée lancée en réunion.",
+      "p2": "Plusieurs d’entre eux font tourner l’agence tous les jours : Bruno pour la to-do de l’entreprise, Skillpack pour nos skills, Granite pour la mémoire de nos agents. C’est comme ça qu’on apprend ce qui tient en production et ce qui casse, avant d’en parler à un client. Si notre propre entreprise ne tourne pas mieux avec nos outils, on n’a aucune légitimité à les vendre.",
+      "p3": "La plupart sont open source et publiés sur GitHub, souvent sous licence MIT : vous pouvez lire le code, les installer chez vous ou vous en inspirer. Quivr, le moteur open source dont l’entreprise est née, fait aussi partie de la liste. Chaque fiche explique pourquoi on a construit le produit, comment il marche et à qui il sert."
+    }
   },
   "agency": {
     "kicker": "Agence",
@@ -378,7 +412,7 @@
       "title": "L’équipe",
       "intro": "The Vibe Company est née de Quivr. Les deux fondateurs sont passés par Theodo et Stockly avant de lancer Quivr en 2023, puis de l’arrêter pour construire The Vibe Company.",
       "originLink": "Lire « We are stopping Quivr. We are building The Vibe Company. »",
-      "role": "Co-fondateur",
+      "role": "Cofondateur",
       "members": {
         "stan": {
           "bio": "Stan a créé Quivr en 2023, un moteur RAG open source devenu l’un des projets les plus suivis de GitHub, numéro 1 des tendances en juillet 2023. Il l’a construit avec Antoine Dewez, est passé par Y Combinator (W24), et dirige aujourd’hui The Vibe Company avec lui."
@@ -408,7 +442,7 @@
         "type": "Type",
         "founded": "Création",
         "founders": "Fondateurs",
-        "hq": "Siège",
+        "hq": "Bureaux",
         "site": "Site",
         "offer": "Offre principale",
         "funding": "Financement",
@@ -451,27 +485,200 @@
       }
     }
   },
+  "hardening": {
+    "kicker": "// AGENTS · HARDEN PRODUIT & SI",
+    "metaTitle": "Agents IA pour durcir produit et SI | The Vibe Company",
+    "metaDescription": "Déployez une flotte d'agents IA pour durcir produit et SI : secrets, deps, IAM, configs, review PR. Exigences RGPD et HDS. Agence à Paris.",
+    "title": "Utiliser des agents IA pour durcir votre produit et votre SI",
+    "lede": "Chez The Vibe Company, on déploie des agents qui scrutent secrets, dépendances, IAM, configs et pull requests — en continu, dans votre CI/CD et votre SI — pour réduire la surface d’attaque avant la prod.",
+    "hero": {
+      "label": "Ce que vous obtenez",
+      "items": {
+        "fleet": "Une flotte d’agents et des skills versionnés, pas un audit one-shot livré en PDF.",
+        "stack": "Branchée sur votre stack (CI, repos, cloud, SaaS) avec le moindre privilège.",
+        "compliance": "Livrée selon les exigences RGPD et HDS quand le contexte l’exige.",
+        "team": "La même équipe YC W24 qui met des produits IA en production (Monka, LocService, AFP…)."
+      }
+    },
+    "breadcrumb": "Agents IA sécurité produit",
+    "service": {
+      "name": "Agents IA pour durcir produit et SI",
+      "description": "Une flotte d’agents IA et de skills versionnés qui durcit le produit et le SI en continu : secrets, dépendances, IAM et permissions SaaS, configs et infra as code, review sécurité des pull requests. Les décisions critiques restent humaines."
+    },
+    "problem": {
+      "title": "Les outils sécu classiques ne suffisent plus seuls",
+      "p1": "La surface à protéger a changé : des dizaines de SaaS branchés sur vos données, des agents de code qui ouvrent des pull requests, des années de configs et de droits accumulés. Chaque outil voit son morceau, personne ne voit l’ensemble.",
+      "p2": "Un audit ponctuel ou un scan trimestriel photographie un état qui dérive dès le lendemain : un rôle élargi « temporairement », une dépendance mise à jour, un bucket ouvert pour un test. Les CTO, RSSI et leads platform ont besoin d’une boucle continue, pas d’un rapport de plus.",
+      "p3": "Les incidents récents le rappellent : secrets exposés et runtimes legacy restent des portes d’entrée. On les a décortiqués dans <link>Black October : ce que ça change pour vos agents IA</link>."
+    },
+    "offer": {
+      "title": "Ce que la flotte d’agents couvre",
+      "intro": "Six chantiers, branchés sur vos outils existants. Chaque agent a un périmètre clair, des droits minimaux et des skills versionnés comme du code.",
+      "items": {
+        "secrets": {
+          "tag": "Repos · CI",
+          "title": "Secrets & credentials",
+          "desc": "Détection des clés et tokens dans les repos, la CI, les tickets et les logs. Les agents alertent et préparent la rotation ; un humain la valide."
+        },
+        "dependencies": {
+          "tag": "Supply chain",
+          "title": "Dépendances & supply chain",
+          "desc": "Suivi des CVE, des lockfiles et des paquets à risque, avec des politiques de merge appliquées directement dans la CI."
+        },
+        "iam": {
+          "tag": "Cloud · SaaS",
+          "title": "IAM & permissions SaaS",
+          "desc": "Dérive des rôles, comptes dormants, scopes OAuth trop larges : les agents repèrent l’écart et proposent le retour au moindre privilège."
+        },
+        "configs": {
+          "tag": "IaC",
+          "title": "Configs & infra as code",
+          "desc": "Drift des security groups, des buckets et des policies entre ce que déclare votre code et ce qui tourne vraiment."
+        },
+        "review": {
+          "tag": "Pull requests",
+          "title": "Review PR sécu",
+          "desc": "Des skills de revue dédiés aux diffs sensibles (authentification, crypto, validation des entrées), qui commentent la pull request avant le merge."
+        },
+        "agents": {
+          "tag": "Agents · MCP",
+          "title": "Périmètre agents & MCP",
+          "desc": "Avant de brancher des agents sur votre SI : allowlist d’outils, secrets injectés côté serveur, exécution en sandbox.",
+          "link": "Serveur MCP en entreprise"
+        }
+      },
+      "guardrails": "Les agents proposent et automatisent sous garde-fous. Les décisions critiques (rotation d’un secret en prod, changement de droits, merge sensible) restent humaines."
+    },
+    "method": {
+      "title": "Comment on déploie ça chez vous",
+      "intro": "Pas un scanner qu’on branche et qu’on oublie : une flotte d’agents qui tourne chez vous, avec vos outils et vos équipes.",
+      "stepsLabel": "Six étapes",
+      "steps": {
+        "map": {
+          "label": "Cartographie",
+          "title": "Cartographier la surface",
+          "desc": "Repos, CI, cloud, SaaS critiques et agents déjà en place : on part de ce qui existe vraiment chez vous."
+        },
+        "prioritize": {
+          "label": "Priorisation",
+          "title": "Prioriser par risque et par effort",
+          "desc": "On commence par ce qui expose le plus pour le moins d’effort. Pas de scanner infini, pas de backlog de mille alertes."
+        },
+        "deploy": {
+          "label": "Déploiement",
+          "title": "Déployer skills et agents dans votre environnement",
+          "desc": "Les agents tournent chez vous, avec des droits minimaux et des skills versionnés comme le reste de votre code."
+        },
+        "integrate": {
+          "label": "Intégration",
+          "title": "Brancher la CI/CD et vos canaux d’alerte",
+          "desc": "Les résultats arrivent dans les pull requests, les tickets et les canaux que vos équipes utilisent déjà."
+        },
+        "measure": {
+          "label": "Mesure",
+          "title": "Mesurer le signal utile",
+          "desc": "On suit les vrais positifs traités, pas des tableaux de bord de vanité."
+        },
+        "handover": {
+          "label": "Passation",
+          "title": "Passer la main, ou opérer avec vous",
+          "desc": "Documentation, runbooks et formation de vos équipes. Ou on continue à faire tourner la flotte avec vous."
+        }
+      }
+    },
+    "proof": {
+      "title": "Pourquoi The Vibe Company",
+      "points": {
+        "production": "On met déjà des agents et des produits en production, chez des clients qui ont de vraies contraintes : les cas ci-dessous en donnent le détail.",
+        "public": "On écrit sur le sujet en public : <black>Black October</black>, <authority>l’autorité des agents IA</authority>, et une série d’articles à venir sur le durcissement produit et SI.",
+        "agency": "Agence IA à Paris, YC W24. On travaille selon les exigences RGPD et HDS."
+      },
+      "casesLabel": "Cas clients",
+      "cases": {
+        "theodo": "Expert technique intégré aux équipes de Theodo : des Software Factories pour des centaines de développeurs, avec des outils, des agents et des skills standardisés.",
+        "monka": "Mise en production en deux mois dans l’environnement HDS existant de Monka, en reprenant l’API et le CRM en place.",
+        "locservice": "Un agent rédige le brouillon de réponse à chaque ticket, connecté aux API internes ; l’humain relit et décide. Brouillons utilisés sur 87 % des tickets."
+      },
+      "readCase": "Lire le cas"
+    },
+    "not": {
+      "title": "Ce que ce n’est pas",
+      "items": {
+        "ciso": {
+          "title": "Pas un remplacement de votre RSSI ni d’un pentest",
+          "desc": "Les agents outillent votre équipe sécurité, ils ne la remplacent pas. Un test d’intrusion mené par un prestataire qualifié reste un exercice à part."
+        },
+        "compliance": {
+          "title": "Pas une promesse de conformité",
+          "desc": "On ne vend ni label ni certification. On travaille selon les exigences RGPD et HDS de votre contexte, et on documente ce qui est fait."
+        },
+        "prompt": {
+          "title": "Pas seulement « sécuriser le prompt »",
+          "desc": "La sécurité des agents eux-mêmes compte, mais ici le durcissement porte sur votre produit et votre SI."
+        }
+      }
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "scanners": {
+          "q": "Quelle différence entre des agents et un scanner SAST/DAST classique ?",
+          "a": "Ils sont complémentaires. Les scanners restent utiles dans la CI. Les agents, eux, enchaînent le contexte de plusieurs outils (code, tickets, configs, droits), relient les signaux entre eux et préparent la correction."
+        },
+        "production": {
+          "q": "Est-ce que vous touchez à la prod ?",
+          "a": "Avec des droits minimaux. Tout changement sensible est une proposition qu’un humain de votre équipe valide avant qu’elle soit appliquée."
+        },
+        "data": {
+          "q": "Et les données, notamment de santé (HDS) ?",
+          "a": "On travaille selon les exigences RGPD et HDS. Quand des données de santé sont en jeu, les agents tournent dans l’environnement couvert du client. On ne revendique aucune certification que nous n’avons pas."
+        },
+        "agentSecurity": {
+          "q": "Quel lien avec la sécurité des agents eux-mêmes ?",
+          "a": "Les deux se renforcent. Pour sécuriser un agent (autorité, secrets, exécution), lisez notre article Black October et notre article sur l’autorité des agents. Pour des agents qui durcissent votre produit et votre SI, c’est cette page."
+        },
+        "start": {
+          "q": "Par où commencer ?",
+          "a": "Par un appel de 30 minutes : votre surface actuelle, votre CI et vos SaaS critiques. On vous dit franchement si une flotte d’agents a du sens chez vous."
+        }
+      }
+    },
+    "further": {
+      "title": "Pour aller plus loin",
+      "readingLabel": "À lire",
+      "reading": {
+        "blackOctober": "Black October : failles PHP, secrets volés, ce que ça change pour vos agents IA",
+        "authority": "Le vrai risque des agents IA, c’est l’autorité",
+        "mcp": "Serveur MCP en entreprise : brancher vos agents sans perdre le contrôle",
+        "hds": "IA et données de santé : ce que l’HDS impose vraiment"
+      },
+      "alsoLabel": "Aussi chez The Vibe Company",
+      "agency": {
+        "title": "Agence IA à Paris",
+        "desc": "Produits IA, agents et formation, du cadrage à la mise en production."
+      },
+      "about": {
+        "title": "Qui sommes-nous",
+        "desc": "L’équipe, les fondateurs et les faits clés sur l’agence."
+      },
+      "agentsProduction": {
+        "title": "Agents IA en production",
+        "desc": "Des agents métier branchés sur vos outils, du POC au run quotidien."
+      }
+    }
+  },
   "quivr": {
     "metaTitle": "Quivr : recherche et veille open source sur l’actualité",
-    "metaDescription": "Quivr par The Vibe Company (YC W24) : un moteur open source qui suit articles, e-mails et posts au fil de l’eau, les indexe pour la recherche et vous alerte sur vos sujets.",
+    "metaDescription": "Quivr (YC W24) : moteur open source qui suit articles, e-mails et posts, les indexe et vous alerte sur vos sujets.",
     "product": {
       "alt": "Interface de Quivr V2 : un fil d’articles en direct avec ses filtres, deux articles signalés par une alerte sur la grève portuaire, et les sujets du moment.",
-      "caption": "Illustration de l’app web de Quivr V2, avec des articles d’exemple : le fil en direct, ses filtres, une alerte et les sujets du moment.",
+      "stageAlt": "Interface de Quivr V2 : un nouvel article sur la grève portuaire arrive dans le fil en direct et déclenche une alerte, envoyée à votre application avec la règle qui l’a déclenchée.",
+      "caption": "Illustration de l’app web de Quivr V2, avec des articles d’exemple : un nouvel article arrive et déclenche une alerte sur un sujet que vous suivez.",
       "mock": {
         "title": "Fil",
         "live": "En direct",
-        "search": "Rechercher un mot, un lieu, une personne…",
-        "filters": {
-          "all": "Tout",
-          "unread": "Non lus",
-          "date": "Date",
-          "alerts": "Alertes",
-          "sources": "Sources"
-        },
-        "markRead": "Tout marquer comme lu",
-        "group": "Dernière heure",
+        "alerts": "Alertes",
         "alertTag": "Alerte",
-        "correctedTag": "Corrigé",
         "items": [
           {
             "title": "La [grève portuaire] bloque le premier [ferry] du matin",
@@ -482,102 +689,97 @@
             "title": "Les dockers du [port] reconduisent la [grève portuaire] jusqu’à vendredi",
             "source": "Boîte mail · Revue de presse",
             "time": "il y a 6 min"
-          },
-          {
-            "title": "Fret : les transporteurs réorganisent leurs tournées",
-            "source": "Liste X · Logistique",
-            "time": "il y a 9 min"
-          },
-          {
-            "title": "Le prix du gazole recule pour la troisième semaine",
-            "source": "Flux d’actu · Économie",
-            "time": "il y a 14 min"
-          },
-          {
-            "title": "Un entrepôt automatisé ouvre près de la gare de triage",
-            "source": "Votre app · Notes terrain",
-            "time": "il y a 21 min"
-          },
-          {
-            "title": "Météo marine : coup de vent attendu en fin de journée",
-            "source": "Flux d’actu · Météo",
-            "time": "il y a 27 min"
-          },
-          {
-            "title": "Le terminal à conteneurs teste un portique électrique",
-            "source": "Liste X · Logistique",
-            "time": "il y a 34 min"
-          },
-          {
-            "title": "Les ventes de vélos cargo progressent chez les artisans",
-            "source": "Flux d’actu · Économie",
-            "time": "il y a 41 min"
           }
         ],
-        "trending": {
-          "title": "Sujets du moment",
-          "period": "7 derniers jours",
-          "topics": [
-            "Grève portuaire",
-            "Ferry",
-            "Dockers",
-            "Fret",
-            "Gazole",
-            "Météo marine",
-            "Conteneurs",
-            "Entrepôts"
-          ]
-        },
-        "week": {
-          "title": "7 derniers jours",
-          "total": "{count} articles",
-          "days": [
-            "ven.",
-            "sam.",
-            "dim.",
-            "lun.",
-            "mar.",
-            "hier",
-            "auj."
-          ]
+        "alert": {
+          "kicker": "Alerte",
+          "topic": "Grève portuaire",
+          "count": "2 nouveaux articles correspondent",
+          "rule": "\"grève portuaire\" AND (ferry OR port)",
+          "sent": "Envoyée à votre app par webhook signé"
         }
       }
     },
-    "diagrams": {
-      "flow": {
-        "kicker": "Comment ça marche",
-        "title": "Tout entre. Rien ne se perd.",
-        "caption": "Chaque version est gardée, indexée pour être retrouvée en quelques secondes, puis comparée à vos sujets.",
-        "label": "Schéma animé : les sources arrivent dans Quivr, qui renvoie des résultats de recherche, des alertes, des webhooks et des réponses aux agents IA.",
-        "sources": [
+    "features": {
+      "kicker": "Comment ça marche",
+      "title": "Tout entre. Rien ne se perd.",
+      "caption": "Chaque version est gardée, indexée pour être retrouvée en quelques secondes, puis comparée à vos sujets.",
+      "search": {
+        "title": "Cherchez par le sens.",
+        "body": "Pas seulement par mot-clé. Quivr vous montre le passage exact.",
+        "query": "ports à l’arrêt",
+        "mode": "Mot-clé + sens",
+        "result": {
+          "title": "Les navettes vers l’île restent à quai",
+          "source": "Flux d’actu · Transports",
+          "passage": "« Aucun départ n’est prévu avant la levée du piquet de grève », précise la compagnie."
+        }
+      },
+      "license": {
+        "title": "Open source.",
+        "body": "Lisez le code, modifiez-le, hébergez-le.",
+        "value": "MIT",
+        "label": "Licence"
+      },
+      "versions": {
+        "title": "Rien n’est écrasé.",
+        "body": "Quand un article est corrigé, Quivr garde la version d’avant.",
+        "before": "Le prix du gazole recule pour la [deuxième] semaine",
+        "after": "Le prix du gazole recule pour la [troisième] semaine",
+        "corrected": "Corrigé"
+      },
+      "sources": {
+        "title": "Branchez vos sources.",
+        "body": "Articles, e-mails et posts arrivent au fil de l’eau.",
+        "items": [
           "Flux d’actu",
           "Boîtes mail",
           "Listes X",
           "Vos apps"
-        ],
-        "core": [
-          "Garde chaque version",
-          "Indexe pour la recherche",
-          "Surveille vos sujets"
-        ],
-        "outputs": [
+        ]
+      },
+      "outputs": {
+        "title": "Branché sur votre app.",
+        "body": "Vos agents IA peuvent aussi l’interroger.",
+        "items": [
           {
-            "label": "Recherche",
-            "note": "mot-clé + sens"
-          },
-          {
-            "label": "Alertes",
-            "note": "sur vos sujets"
+            "label": "API HTTP",
+            "note": "v0"
           },
           {
             "label": "Webhooks",
             "note": "signés"
           },
           {
-            "label": "Agents IA",
-            "note": "via MCP"
+            "label": "Flux de changements",
+            "note": "polling ou SSE"
+          },
+          {
+            "label": "MCP",
+            "note": "agents IA"
           }
         ]
+      },
+      "yc": {
+        "title": "Passé par Y Combinator.",
+        "body": "C’est avec Quivr que ses fondateurs sont entrés chez YC."
+      },
+      "selfHost": {
+        "title": "Sur vos serveurs.",
+        "body": "Par défaut, Quivr n’envoie lui-même le texte de vos documents nulle part ailleurs.",
+        "servers": "Vos serveurs",
+        "command": "docker compose up",
+        "core": "Moteur en Go",
+        "stack": [
+          "PostgreSQL",
+          "Stockage S3",
+          "Temporal",
+          "Weaviate"
+        ]
+      },
+      "mediagen": {
+        "text": "Quivr fait partie du consortium de MediaGen, un projet d’IA générative pour les médias porté par l’AFP et sélectionné dans le cadre de France 2030.",
+        "link": "Communiqué de l’AFP ↗"
       }
     },
     "services": {
@@ -631,6 +833,1136 @@
           "q": "Où trouver de l’aide ?",
           "a": "Pour les questions et les bugs, utilisez les issues et les discussions du dépôt GitHub. Pour des plugins métier, préparer un passage en production ou un hébergement selon les exigences HDS pour les données de santé, The Vibe Company peut vous accompagner en prestation : prenez rendez-vous."
         }
+      }
+    }
+  },
+  "agencyParis": {
+    "metaTitle": "Agence IA à Paris — produits & agents | The Vibe Company",
+    "metaDescription": "Agence IA à Paris (YC W24) : produits IA, agents et formation jusqu'en production. Cas Monka, AFP, LocService. RDV sous 24 h.",
+    "breadcrumb": "Agence IA à Paris",
+    "serviceName": "Agence IA à Paris",
+    "kicker": "// AGENCE IA · PARIS",
+    "title": "Agence IA à Paris : on construit vos produits et agents IA jusqu'en production",
+    "lede": "The Vibe Company est une agence IA-first basée à Paris. On conçoit des produits IA, on déploie des agents dans vos outils et on forme vos équipes — pour les entreprises de taille moyenne à grande.",
+    "factsLabel": "En bref",
+    "facts": [
+      "Passés par Y Combinator (W24) avec Quivr, devenue The Vibe Company.",
+      "France 2030 avec l’AFP sur MediaGen.",
+      "Habitués aux données sensibles : on travaille selon les exigences RGPD et HDS."
+    ],
+    "bookCall": "Prendre 30 minutes",
+    "response": "Réponse sous 24 h",
+    "backedBy": "Soutenus par",
+    "clientsLabel": "Ils nous confient leurs produits",
+    "offers": {
+      "title": "Trois façons de travailler ensemble",
+      "intro": "Un produit complet, des agents sur vos workflows, ou la stratégie et la formation pour que vos équipes s’en servent vraiment.",
+      "items": {
+        "build": {
+          "label": "Construire",
+          "title": "Produits IA",
+          "desc": "Des produits et des outils internes, de bout en bout : cadrage, architecture, cycles courts, frontend, DevOps, observabilité, documentation et passation à vos équipes."
+        },
+        "operate": {
+          "label": "Piloter",
+          "title": "Agents & automatisation",
+          "desc": "Audit de vos workflows, création des skills, connexion à vos outils (CRM, support, docs, API), déploiement sécurisé des agents et mesure du temps gagné.",
+          "link": "Agents IA en production"
+        },
+        "advise": {
+          "label": "Conseiller",
+          "title": "Stratégie & formation",
+          "desc": "Priorisation des usages, choix entre développer et acheter, feuille de route d’adoption, et formations pratiques sur vos propres cas."
+        }
+      }
+    },
+    "audience": {
+      "title": "Pour qui on travaille",
+      "intro": "Des entreprises de taille moyenne à grande, avec un problème concret et un besoin de résultat en production, pas d’une démo.",
+      "signalsLabel": "Les signaux qui reviennent",
+      "signals": [
+        "Des tâches répétitives qui prennent le temps de vos équipes.",
+        "Un produit à sortir vite.",
+        "Des données sensibles : santé, données personnelles.",
+        "Le besoin que vos équipes adoptent vraiment l’IA."
+      ],
+      "sectorsLabel": "Secteurs déjà livrés",
+      "sectors": {
+        "monka": "Santé",
+        "afp": "Presse",
+        "locservice": "Location",
+        "coup-de-pates": "Agroalimentaire",
+        "theodo": "Tech · Software Factories"
+      }
+    },
+    "method": {
+      "title": "Comment ça se passe",
+      "intro": "Pas de délai générique : le calendrier dépend du périmètre, qu’on fixe ensemble au cadrage.",
+      "stepsLabel": "De l’appel à la production",
+      "steps": {
+        "call": {
+          "label": "APPEL",
+          "title": "Un appel de 30 minutes",
+          "desc": "Votre problème, vos outils, vos contraintes. On vous dit franchement si l’IA est la bonne réponse. Réponse sous 24 h."
+        },
+        "scope": {
+          "label": "CADRAGE",
+          "title": "Comment le travail se fait vraiment",
+          "desc": "On regarde le travail tel qu’il se fait, et pour une automatisation, on mesure le temps passé. Si ça matche, on envoie une proposition à périmètre fixe."
+        },
+        "cycles": {
+          "label": "CYCLES COURTS",
+          "title": "Des versions testables tôt et souvent",
+          "desc": "Vous voyez du logiciel qui marche tôt et régulièrement. Chez Monka, on livre une nouvelle version tous les deux jours environ."
+        },
+        "production": {
+          "label": "PRODUCTION",
+          "title": "Une production sécurisée",
+          "desc": "Droits d’accès, observabilité et documentation, selon les exigences RGPD et HDS quand le contexte l’exige. Chez Monka, l’environnement HDS était déjà en place : l’app, le CRM et le moteur clinique sont partis en production en deux mois sans en sortir."
+        },
+        "handover": {
+          "label": "PASSATION",
+          "title": "Mesure et passation",
+          "desc": "On mesure les gains, on écrit les runbooks et on forme votre équipe pour qu’elle reprenne le produit. Ou on continue de le faire tourner."
+        }
+      }
+    },
+    "proof": {
+      "title": "Ce qu’on a livré",
+      "intro": "Des projets publics, avec les chiffres déjà publiés dans nos cas clients.",
+      "readCase": "Lire le cas {name}",
+      "cases": {
+        "monka": {
+          "sector": "Santé",
+          "figure": "2 mois",
+          "figureLabel": "pour passer en production",
+          "points": [
+            "Un bilan aidant de 165 questions qui débouche sur un plan d’action.",
+            "Lifeline, le CRM des infirmières de coordination.",
+            "Un moteur clinique versionné : 12 versions du référentiel, sans casser l’app.",
+            "Une API partenaire avec webhooks signés, pour les assureurs.",
+            "Des données de santé chiffrées et conformes au RGPD, dans l’environnement HDS du client."
+          ]
+        },
+        "afp": {
+          "sector": "Presse · France 2030",
+          "figure": "4 M€",
+          "figureLabel": "MediaGen, projet France 2030 soutenu par Bpifrance",
+          "points": [
+            "Trois outils pour les rédactions : veille augmentée, recherche multimodale, aide à la production.",
+            "Dans le consortium technique, aux côtés de Kairntech et Dawex."
+          ]
+        },
+        "locservice": {
+          "sector": "Location · Support client",
+          "figure": "87 %",
+          "figureLabel": "des tickets traités grâce à nos brouillons IA",
+          "points": [
+            "Des centaines de tickets support par jour.",
+            "Connecté à leurs API internes pour récupérer le vrai contexte client."
+          ]
+        },
+        "coup-de-pates": {
+          "sector": "Agroalimentaire · RSE et qualité",
+          "figure": "2 projets",
+          "figureLabel": "une app RSE et des skills de contrôle qualité",
+          "points": [
+            "Ensemble, l’app iOS et Android qui fait vivre l’engagement RSE auprès des équipes.",
+            "Des skills IA qui contrôlent les documents produit et relèvent chaque écart."
+          ]
+        },
+        "theodo": {
+          "sector": "Tech · Software Factories",
+          "figure": "Des centaines",
+          "figureLabel": "de développeurs outillés par des Software Factories",
+          "points": [
+            "Expert technique intégré aux équipes de Theodo sur des projets critiques pour leurs clients."
+          ]
+        }
+      }
+    },
+    "security": {
+      "title": "Sécurité, RGPD et HDS",
+      "intro": "Nos clients en santé nous confient des données sensibles. La sécurité fait partie du livrable, pas d’une étape à part.",
+      "items": {
+        "compliance": {
+          "title": "Selon les exigences RGPD et HDS",
+          "desc": "On travaille selon les exigences RGPD et HDS, une spécialité qu’on pratique en santé. Chez Monka, les données de santé sont chiffrées et conformes au RGPD, et tout le développement est resté dans l’environnement HDS du client."
+        },
+        "privilege": {
+          "title": "Des agents au moindre privilège",
+          "desc": "Un agent n’accède qu’à ce dont sa tâche a besoin, avec des droits limités, visibles et révocables."
+        },
+        "human": {
+          "title": "Un humain sur ce qui part",
+          "desc": "Ce qui sort vers vos clients passe par une personne. Chez LocService, l’agent rédige des brouillons et l’équipe support garde la main sur la réponse."
+        }
+      },
+      "readLabel": "À lire",
+      "articles": {
+        "hds": "IA et données de santé : ce que l’HDS impose vraiment à votre projet",
+        "authority": "Le vrai risque des agents IA, c’est l’autorité",
+        "blackOctober": "Black October : ce que ça change pour vos agents IA"
+      }
+    },
+    "team": {
+      "title": "Qui est derrière",
+      "desc": "The Vibe Company a été fondée à Paris en 2024 par Stan Girard et Antoine Dewez, tous deux passés par Theodo et Stockly. Avant, ils ont construit Quivr, un moteur RAG open source qui a dépassé 39 500 étoiles sur GitHub, sont passés par Y Combinator (W24) et ont levé 1,7 M$. Quivr est devenue The Vibe Company.",
+      "notToConfuse": "Aucun lien avec thevibe.company, VIBE Company (Zurich) ni Vibe.co.",
+      "aboutLink": "Qui sommes-nous",
+      "originLink": "Lire « We are stopping Quivr. We are building The Vibe Company. »"
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "cost": {
+          "q": "Combien coûte un projet ?",
+          "a": "Ça dépend du périmètre : un agent sur un seul workflow n’a rien à voir avec un produit complet. On donne un chiffre précis après l’appel et le cadrage, dans une proposition écrite à périmètre fixe."
+        },
+        "timeline": {
+          "q": "En combien de temps quelque chose est en production ?",
+          "a": "On avance par cycles courts, avec des versions testables tôt et régulièrement, et le délai dépend du périmètre fixé au cadrage. Exemple réel : chez un client santé, l’app des aidants, le CRM des infirmières et le moteur clinique sont partis en production en deux mois, dans l’environnement HDS déjà en place."
+        },
+        "start": {
+          "q": "Par où commencer sans projet précis ?",
+          "a": "Par l’appel de 30 minutes. On regarde où votre équipe perd du temps et on vous dit ce qui vaut la peine d’être automatisé ou construit. Si le besoin est surtout de prioriser, notre offre stratégie et formation est faite pour ça."
+        },
+        "data": {
+          "q": "Travaillez-vous sur des données sensibles (santé, données personnelles) ?",
+          "a": "Oui, c’est une exigence courante chez nos clients en santé. On livre selon les exigences RGPD et HDS : données chiffrées, accès limités au strict nécessaire, et un développement qui reste dans votre environnement HDS quand il existe déjà."
+        },
+        "code": {
+          "q": "À qui appartient le code ?",
+          "a": "On documente et on forme votre équipe pour qu’elle puisse reprendre le produit. La propriété intellectuelle et la maintenance sont détaillées dans la proposition écrite."
+        },
+        "paris": {
+          "q": "Vous êtes à Paris ?",
+          "a": "Oui, l’agence est basée à Paris depuis 2024. Le premier échange se fait en visio pour aller vite, et on travaille aussi avec des équipes hors Île-de-France, en français comme en anglais."
+        }
+      }
+    },
+    "homeLink": "Voir notre page Agence IA à Paris",
+    "caseLink": "The Vibe Company est une <link>agence IA à Paris</link> : produits IA, agents et formation, jusqu’en production.",
+    "aboutLink": "Notre page Agence IA à Paris"
+  },
+  "healthcareAi": {
+    "kicker": "// IA SANTÉ · EXIGENCES HDS",
+    "metaTitle": "IA santé et HDS : projets en production | The Vibe Company",
+    "metaDescription": "Projets IA sur données de santé, livrés selon les exigences RGPD et HDS. Cas Monka (prod en 2 mois). Agence IA Paris, YC W24. RDV sous 24 h.",
+    "title": "IA santé et HDS : on construit vos produits jusqu'en production",
+    "lede": "The Vibe Company construit des produits et agents IA pour la santé : app, CRM, moteurs cliniques, API partenaires, dans l’environnement HDS et le cadre RGPD de nos clients. On n’est pas un hébergeur certifié HDS. On livre vite et proprement là où vos données de santé doivent rester.",
+    "bookCall": "Prendre 30 minutes",
+    "response": "Réponse sous 24 h",
+    "breadcrumb": "IA santé & HDS",
+    "hero": {
+      "label": "Les faits",
+      "items": {
+        "monka": "Cas public Monka : app aidants, Lifeline et moteur clinique, en production en 2 mois, dans l’environnement HDS déjà en place chez le client.",
+        "cadence": "Des cycles courts : chez Monka, une nouvelle version de l’app tous les deux jours environ.",
+        "agency": "Agence IA à Paris, YC W24 (Quivr est devenu The Vibe Company).",
+        "framework": "On travaille selon les exigences RGPD et HDS, sans revendiquer de certification qu’on n’a pas."
+      },
+      "caseLabel": "Cas client santé",
+      "caseLink": "Lire le cas Monka"
+    },
+    "service": {
+      "name": "Projets IA santé selon exigences HDS",
+      "description": "Conception et développement de produits et d’agents IA sur données de santé (apps, CRM de coordination, moteurs cliniques versionnés, API partenaires), selon les exigences RGPD et HDS, dans l’environnement du client."
+    },
+    "audience": {
+      "title": "Pour qui cette page",
+      "intro": "Pour les équipes qui ont, ou vont avoir, un hébergeur HDS et un besoin produit IA concret.",
+      "typesLabel": "Qui",
+      "types": {
+        "startups": "Startups santé",
+        "publishers": "Éditeurs e-santé",
+        "insurers": "Assureurs et mutuelles",
+        "coordination": "Structures de coordination des soins",
+        "scaleups": "Scale-ups qui grandissent sur des données de santé"
+      },
+      "signalsLabel": "Les signaux",
+      "signals": [
+        "Un bilan ou un questionnaire clinique à transformer en parcours",
+        "Un CRM pour des soignants ou des infirmières de coordination",
+        "Des API à ouvrir à des partenaires, assureurs ou mutuelles",
+        "Un LLM à brancher sur des données de santé",
+        "La peur de « sortir » du périmètre HDS en allant vite"
+      ]
+    },
+    "offer": {
+      "title": "Ce qu’on livre dans un projet IA santé",
+      "intro": "Cinq briques, du produit que vos utilisateurs ouvrent chaque jour au cadre qui le fait tenir en production.",
+      "items": {
+        "products": {
+          "tag": "Produit",
+          "title": "Produits métier",
+          "desc": "Apps pour patients, aidants ou soignants, CRM de coordination, plans d’action générés à partir d’un bilan."
+        },
+        "engines": {
+          "tag": "Clinique",
+          "title": "Moteurs et référentiels versionnés",
+          "desc": "Un référentiel clinique qu’on fait évoluer sans casser l’app : 12 versions chez Monka à ce jour."
+        },
+        "integrations": {
+          "tag": "API",
+          "title": "Intégrations",
+          "desc": "API partenaires, webhooks signés et branchements sur les outils internes déjà en place."
+        },
+        "agents": {
+          "tag": "Agents",
+          "title": "Agents sous contrôle",
+          "desc": "Brouillons, suggestions et tâches répétitives. Ce qui part vers un patient ou un partenaire passe par un humain."
+        },
+        "production": {
+          "tag": "Prod",
+          "title": "Cadre de production",
+          "desc": "Droits d’accès, observabilité, logs et tests dans votre environnement, puis documentation et passation."
+        }
+      }
+    },
+    "hds": {
+      "title": "HDS : qui est certifié, et où on intervient",
+      "intro": "Le sujet est souvent mal posé. Voici la répartition, telle qu’on la pratique.",
+      "scope": {
+        "label": "Votre périmètre",
+        "host": {
+          "label": "Hébergeur HDS",
+          "desc": "Cloud ou infogéreur certifié sur les activités du référentiel qu’il réalise."
+        },
+        "us": {
+          "label": "The Vibe Company",
+          "desc": "Prestataire de développement : on construit à l’intérieur, sans en faire sortir les données."
+        }
+      },
+      "items": {
+        "host": {
+          "title": "La certification vise l’hébergeur",
+          "desc": "La certification HDS porte sur l’hébergeur et les activités du référentiel de l’Agence du Numérique en Santé qu’il réalise. Elle ne couvre pas automatiquement l’éditeur, ni l’agence qui développe."
+        },
+        "environment": {
+          "title": "On construit dans votre environnement",
+          "desc": "Votre hébergeur HDS est souvent déjà choisi. On développe à l’intérieur, avec les accès que vous ouvrez, et le code, les logs et les environnements de test y restent."
+        },
+        "ai": {
+          "title": "Les points de vigilance IA, traités en conception",
+          "desc": "Appels au modèle, logs, environnements de test, transferts hors EEE : c’est là qu’un projet IA sort du périmètre sans le savoir. On les règle avant d’écrire la première ligne."
+        },
+        "gdpr": {
+          "title": "L’HDS ne remplace pas le RGPD",
+          "desc": "L’HDS couvre l’hébergement. Le RGPD couvre tout le traitement : finalité, minimisation, durée de conservation, droits des personnes."
+        }
+      },
+      "articleLink": "Détail : ce que l’HDS impose vraiment"
+    },
+    "proof": {
+      "title": "Ce qu’on a livré chez Monka",
+      "intro": "Monka accompagne les personnes qui prennent soin d’un proche, avec des infirmières de coordination et des assureurs partenaires. On a repris leur API et leur CRM existants, et on a construit dans leur environnement HDS.",
+      "points": [
+        "Une app pour les aidants : un bilan de 165 questions qui débouche sur un plan d’action, le cercle des proches, un chat avec l’infirmière et la prise de rendez-vous.",
+        "Lifeline, le CRM des infirmières de coordination.",
+        "Un moteur clinique versionné : 12 versions du référentiel, sans casser l’app.",
+        "Une API partenaire avec webhooks signés, pour que les assureurs suivent leurs bénéficiaires.",
+        "En production en deux mois, puis 90 versions de l’app en six mois : une tous les deux jours environ.",
+        "Des données de santé chiffrées et conformes au RGPD, dans l’environnement HDS déjà en place chez Monka. On n’en est pas sortis."
+      ],
+      "readCase": "Cas Monka",
+      "otherLabel": "LocService",
+      "other": "Aussi, hors santé, pour la cadence de shipping : chez LocService, nos brouillons IA sont utilisés sur 87 % des tickets support.",
+      "otherLink": "Cas LocService",
+      "quoteAttribution": "— {author}"
+    },
+    "method": {
+      "title": "Comment on démarre un projet IA santé",
+      "intro": "Quatre étapes, et la question des données posée dès la première.",
+      "stepsLabel": "Quatre étapes",
+      "steps": {
+        "call": {
+          "label": "Appel",
+          "title": "Un appel de 30 minutes",
+          "desc": "Vos données, votre hébergeur, qui administre quoi, et l’objectif produit."
+        },
+        "scope": {
+          "label": "Cadrage",
+          "title": "Cadrer les flux et le périmètre",
+          "desc": "On cartographie les flux de données et le périmètre HDS et RGPD, puis on vous remet une proposition à périmètre fixe."
+        },
+        "cycles": {
+          "label": "Cycles courts",
+          "title": "Livrer par cycles courts, chez vous",
+          "desc": "Des versions testables tôt et souvent, construites dans votre environnement."
+        },
+        "production": {
+          "label": "Production",
+          "title": "Mettre en prod, mesurer, passer la main",
+          "desc": "Mise en production, mesure de ce qui compte, puis runbooks et formation de vos équipes."
+        }
+      }
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "certified": {
+          "q": "The Vibe Company est-elle certifiée HDS ?",
+          "a": "Non. On n’est pas un hébergeur de données de santé. On développe selon les exigences RGPD et HDS, en général dans l’environnement HDS déjà en place chez le client, comme dans le cas présenté sur cette page."
+        },
+        "needCertification": {
+          "q": "Faut-il être certifié HDS pour lancer un produit IA santé ?",
+          "a": "Souvent, c’est l’hébergeur (et parfois l’éditeur, selon qui a les accès) qui est dans le périmètre. On clarifie la répartition des activités dès le cadrage. Le détail est dans <hds>notre article sur l’HDS</hds>."
+        },
+        "timeline": {
+          "q": "Combien de temps jusqu’en production ?",
+          "a": "Ça dépend du socle. Exemple réel : chez un client santé dont l’environnement HDS était déjà en place, l’app, le CRM et le moteur clinique sont partis en production en deux mois. On ne donne pas de délai générique."
+        },
+        "llm": {
+          "q": "Vous appelez des LLM sur des dossiers patients ?",
+          "a": "On conçoit pour que les données de santé ne sortent pas du cadre décidé : modèle dans le périmètre, pseudonymisation avant l’appel, ou pas d’appel externe du tout. Pas de promesse magique."
+        },
+        "cost": {
+          "q": "Combien coûte un projet ?",
+          "a": "On fixe le périmètre après l’appel et le cadrage, dans une proposition écrite. Il n’y a pas de grille publique."
+        },
+        "otherPages": {
+          "q": "Quel lien avec vos pages agence IA à Paris et agents de durcissement ?",
+          "a": "<agency>La page agence IA à Paris</agency> présente l’offre générale. <hardening>La page sur les agents de durcissement</hardening> parle d’agents qui durcissent un produit et un SI. Cette page porte sur le secteur santé et le cadre HDS."
+        }
+      }
+    },
+    "further": {
+      "title": "Pour aller plus loin",
+      "readingLabel": "À lire",
+      "reading": {
+        "hds": "Ce que l’HDS impose vraiment à un projet IA",
+        "monka": "Cas Monka : app aidants, Lifeline et moteur clinique"
+      },
+      "alsoLabel": "Aussi chez The Vibe Company",
+      "agency": {
+        "title": "Agence IA à Paris",
+        "desc": "L’offre générale : produits IA, agents et formation, jusqu’en production."
+      },
+      "about": {
+        "title": "Qui est The Vibe Company",
+        "desc": "L’équipe, les fondateurs et les faits clés sur l’agence."
+      },
+      "hardening": {
+        "title": "Agents IA pour durcir produit et SI",
+        "desc": "Aussi : harden. Des agents qui scrutent secrets, dépendances, IAM et configs, en continu."
+      }
+    },
+    "caseLink": "Un projet sur données de santé ? Voir notre page <link>IA santé & HDS</link>.",
+    "finalCta": {
+      "kicker": "IA SANTÉ",
+      "titleLine1": "Un projet IA santé",
+      "titleLine2": "à cadrer ?",
+      "bookCall": "Prendre 30 minutes",
+      "responseLabel": "RÉPONSE",
+      "responseValue": "SOUS 24 H",
+      "emailLabel": "EMAIL"
+    }
+  },
+  "agentsProduction": {
+    "kicker": "// AGENTS · POC → PRODUCTION",
+    "metaTitle": "Agents IA en production : du POC au run | The Vibe Company",
+    "metaDescription": "Déployez des agents IA en entreprise jusqu'en production : outils, garde-fous, mesure, passation. Cas LocService (87 % des tickets). Agence Paris, YC W24.",
+    "title": "Agents IA en entreprise : on les mène jusqu'en production",
+    "lede": "Beaucoup d’agents IA restent au stade de la démo. Chez The Vibe Company, on les branche sur vos outils, on pose les garde-fous (autorité, droits, humain dans la boucle) et on les amène jusqu’au run quotidien, avec une mesure claire du temps gagné.",
+    "hero": {
+      "label": "Ce qu’on met en place",
+      "items": {
+        "tools": "Audit de vos workflows, puis des skills branchés sur vos outils : CRM, support, docs, API.",
+        "guardrails": "Des garde-fous : moindre privilège, et un humain sur tout ce qui part (chez LocService, l’agent rédige des brouillons).",
+        "measure": "Une mesure avant/après, puis la documentation et la passation. Ou on continue d’opérer avec vous.",
+        "team": "La même équipe YC W24 qui met des produits IA en production (LocService, Monka, Coup de Pates…)."
+      }
+    },
+    "bookCall": "Prendre 30 minutes",
+    "response": "Réponse sous 24 h",
+    "breadcrumb": "Agents IA en production",
+    "service": {
+      "name": "Déploiement d'agents IA en production",
+      "description": "Le déploiement d’agents IA métier dans l’entreprise, du POC au run quotidien : cadrage du premier workflow, skills connectés aux outils existants, autorité et garde-fous, mémoire et contexte, observabilité, run et passation. Les actions sensibles restent validées par un humain."
+    },
+    "problem": {
+      "title": "Le POC ne meurt pas faute de modèle. Il meurt faute de prod",
+      "p1": "La démo marche. Puis viennent les vraies questions : quels droits donner à l’agent, sur quels outils (dont les API changent ou tombent), qui en est propriétaire quand il se trompe, et quelle métrique dit qu’il est utile. Faute de réponse, personne n’ose le laisser agir, et le pilote reste un pilote.",
+      "p2": "Les COO, les responsables support et les CTO produit n’attendent pas un slide de plus. Ils veulent un premier agent utile en conditions réelles, branché sur leurs systèmes, que leurs équipes utilisent chaque jour.",
+      "p3": "Vous découvrez le sujet ? Commencez par notre <link>guide de l’agent IA en entreprise</link>. Cette page décrit comment on le déploie avec vous."
+    },
+    "offer": {
+      "title": "Ce qu’inclut un déploiement d’agents chez vous",
+      "intro": "Six briques, du premier workflow au run.",
+      "items": {
+        "scope": {
+          "tag": "Cadrage",
+          "title": "Cadrage du premier workflow",
+          "desc": "On cherche où le temps part vraiment, avec une grille simple : volume × répétitivité × risque. On retient un workflow, pas dix."
+        },
+        "skills": {
+          "tag": "Skills · Outils",
+          "title": "Skills et outils",
+          "desc": "Des skills versionnés et des connexions à vos systèmes existants : CRM, outil de support, base documentaire, API internes."
+        },
+        "authority": {
+          "tag": "Autorité",
+          "title": "Autorité et garde-fous",
+          "desc": "Ce que l’agent peut lire, proposer et faire, écrit noir sur blanc. Les actions sensibles passent par une validation humaine."
+        },
+        "memory": {
+          "tag": "Contexte",
+          "title": "Mémoire et contexte",
+          "desc": "Tickets, documentation, historique client : l’agent s’appuie sur votre contexte réel, dans le périmètre décidé ensemble, et pas au-delà."
+        },
+        "observability": {
+          "tag": "Observabilité",
+          "title": "Observabilité",
+          "desc": "Logs de chaque action, taux d’acceptation des propositions, escalades vers l’humain : on voit ce que l’agent fait et ce qu’il rapporte."
+        },
+        "run": {
+          "tag": "Run",
+          "title": "Run et passation",
+          "desc": "Runbooks, formation de vos équipes ou co-exploitation : l’agent a un propriétaire le jour où il passe en production."
+        }
+      },
+      "complement": "Complémentaire de nos <hardening>agents pour durcir produit et SI</hardening>, et de notre article sur <authority>l’autorité des agents IA</authority>."
+    },
+    "method": {
+      "title": "De la démo au run quotidien",
+      "stepsLabel": "Six étapes",
+      "steps": {
+        "call": {
+          "label": "Appel",
+          "title": "Un appel de 30 minutes",
+          "desc": "Processus candidat, outils en place, niveau de risque."
+        },
+        "scope": {
+          "label": "Cadrage",
+          "title": "Un cadrage à périmètre fixe",
+          "desc": "Un workflow, des critères de succès mesurables, une proposition écrite."
+        },
+        "pilot": {
+          "label": "Pilote",
+          "title": "Un pilote instrumenté",
+          "desc": "L’agent en conditions proches du réel, souvent en brouillon d’abord."
+        },
+        "scale": {
+          "label": "Montée en charge",
+          "title": "Élargir quand les chiffres tiennent",
+          "desc": "On n’élargit le périmètre que quand l’acceptation humaine et les métriques tiennent."
+        },
+        "production": {
+          "label": "Production",
+          "title": "Une production sécurisée",
+          "desc": "Droits revus, documentation à jour, et les exigences RGPD et HDS respectées quand le contexte l’exige."
+        },
+        "handover": {
+          "label": "Passation",
+          "title": "Passation ou run conjoint",
+          "desc": "Runbooks, formation, ou on continue d’opérer avec vous."
+        }
+      },
+      "checklist": "Checklist : du POC agent IA à la production"
+    },
+    "proof": {
+      "title": "Agents déjà en conditions réelles",
+      "cases": {
+        "locservice": "Un agent rédige le brouillon de réponse à chaque ticket, connecté aux API internes, sur des centaines de tickets par jour. L’humain relit et décide : les brouillons sont utilisés sur 87 % des tickets.",
+        "coup-de-pates": "Skills de contrôle qualité sur les documents produit, et une app RSE pour les collaborateurs.",
+        "theodo": "Software Factories / usines logicielles pour accélérer des équipes de développement."
+      },
+      "readCase": "Lire le cas {client}"
+    },
+    "not": {
+      "title": "Ce que ce n’est pas",
+      "items": {
+        "chatbot": {
+          "title": "Pas un chatbot générique sans outils"
+        },
+        "replace": {
+          "title": "Pas « on remplace votre équipe support »"
+        },
+        "hardening": {
+          "title": "Pas notre <hardening>offre de durcissement</hardening> (agents pour durcir secrets, IAM, CI)"
+        },
+        "promise": {
+          "title": "Pas une promesse de conformité ni de zéro erreur"
+        }
+      }
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "start": {
+          "q": "Par quel processus commencer ?",
+          "a": "Ceux à fort volume, avec des règles relativement stables, et un risque maîtrisé si l’agent se trompe. Souvent, on commence en brouillon plutôt qu’en envoi direct. Plus de détail dans l’article sur <automation>l’automatisation IA en entreprise</automation>."
+        },
+        "timeline": {
+          "q": "Combien de temps jusqu’à un agent utile ?",
+          "a": "Des cycles courts. Pas de délai générique. Exemple publié : chez LocService, les brouillons IA sont utilisés sur 87 % des tickets, sur des centaines de tickets par jour."
+        },
+        "existing": {
+          "q": "Et si on a déjà un POC en interne ?",
+          "a": "On part de l’existant : outils, prompts, dette d’autorité. On industrialise plutôt que de tout réécrire."
+        },
+        "data": {
+          "q": "Et les données sensibles ?",
+          "a": "On travaille selon les exigences RGPD et HDS. Pour le secteur santé, voir la page <health>IA santé et HDS</health> et <hds>l’article HDS</hds>."
+        },
+        "article": {
+          "q": "Quelle différence avec l’article « Agent IA en entreprise » ?",
+          "a": "L’article <guide>explique</guide>. Cette page est l’offre pour qu’on déploie chez vous jusqu’en production."
+        },
+        "hardening": {
+          "q": "Et le lien avec vos agents pour durcir produit et SI ?",
+          "a": "Le <hardening>durcissement</hardening> = une flotte d’agents qui durcit produit et SI. Ici = des agents métier en production. Les deux se cumulent souvent."
+        }
+      }
+    },
+    "further": {
+      "title": "Pour aller plus loin",
+      "readingLabel": "À lire",
+      "reading": {
+        "guide": "Agent IA en entreprise : le guide pour bien démarrer",
+        "checklist": "Du POC à la production : la checklist d’un agent IA qui tient",
+        "automation": "Automatisation IA en entreprise : quels processus automatiser en premier",
+        "authority": "Le vrai risque des agents IA, c’est l’autorité",
+        "hds": "IA et données de santé : ce que l’HDS impose vraiment"
+      },
+      "alsoLabel": "Aussi chez The Vibe Company",
+      "agency": {
+        "title": "Agence IA à Paris",
+        "desc": "Produits IA, agents et formation, du cadrage à la mise en production."
+      },
+      "hardening": {
+        "title": "Agents IA pour durcir produit et SI",
+        "desc": "Une flotte d’agents qui surveille secrets, dépendances, IAM, configs et pull requests."
+      },
+      "health": {
+        "title": "IA et données de santé",
+        "desc": "Des produits et des agents IA sur données de santé, selon les exigences RGPD et HDS."
+      }
+    },
+    "finalCta": {
+      "kicker": "EMBARQUEMENT",
+      "titleLine1": "Un premier agent",
+      "titleLine2": "à mener jusqu’au run ?",
+      "bookCall": "Prendre 30 minutes",
+      "responseLabel": "RÉPONSE",
+      "responseValue": "SOUS 24 H",
+      "emailLabel": "EMAIL"
+    }
+  },
+  "mediaAi": {
+    "kicker": "// IA MÉDIAS · RÉDACTIONS",
+    "metaTitle": "IA médias : outils pour les rédactions | The Vibe Company",
+    "metaDescription": "Outils IA pour rédactions et médias, jusqu'en production. Preuve AFP / MediaGen (France 2030). Agence IA Paris, YC W24. RDV sous 24 h.",
+    "title": "IA pour les médias : on construit les outils des rédactions jusqu'en production",
+    "lede": "The Vibe Company construit des outils d'IA générative pour les rédactions et les organisations médias : veille, archives, aide à la production, sous le contrôle des journalistes. Preuve publique : MediaGen, le projet France 2030 d'IA générative de l'AFP, où on est membre du consortium technique.",
+    "bookCall": "Prendre 30 minutes",
+    "response": "Réponse sous 24 h",
+    "breadcrumb": "IA médias",
+    "hero": {
+      "label": "Les faits",
+      "items": {
+        "mediagen": "MediaGen (AFP) : 3 outils pour les rédactions, veille augmentée, recherche multimodale, aide à la production.",
+        "france2030": "Projet France 2030, 4 M€, soutenu par Bpifrance. Consortium Quivr/The Vibe Company, Kairntech, Dawex. Horizon 24 mois.",
+        "openSource": "Une partie des composants prévue en licence libre.",
+        "agency": "Agence IA à Paris, YC W24 (Quivr est devenu The Vibe Company)."
+      }
+    },
+    "service": {
+      "name": "Projets IA pour médias et rédactions",
+      "description": "Conception et développement d'outils d'IA générative pour les rédactions et les organisations médias (veille, recherche multimodale dans les archives, aide à la production), sous le contrôle des journalistes, jusqu'en production."
+    },
+    "audience": {
+      "title": "Pour qui cette page",
+      "intro": "Pour les groupes de presse, rédactions, agences d'info, médias audiovisuels, pure players et orgs de contenu ou de documentation qui veulent des outils IA en conditions réelles, pas une démo ChatGPT.",
+      "typesLabel": "Qui",
+      "types": {
+        "press": "Groupes de presse et rédactions",
+        "agencies": "Agences d'information",
+        "broadcast": "Médias audiovisuels",
+        "pureplayers": "Pure players et orgs de contenu / documentation"
+      },
+      "signalsLabel": "Les signaux",
+      "signals": [
+        "Un flux de veille saturé",
+        "Des archives texte, photo ou vidéo sous-exploitées",
+        "Des déclinaisons multi-formats trop coûteuses",
+        "La peur des hallucinations ou des biais sur l'info publiée",
+        "Le besoin de garder le journaliste dans la boucle"
+      ]
+    },
+    "offer": {
+      "title": "Ce qu'on livre pour un projet IA médias",
+      "intro": "Cinq briques, de la veille au cadre qui tient en production.",
+      "items": {
+        "monitoring": {
+          "title": "Veille et monitoring",
+          "desc": "Centraliser et analyser médias, réseaux et communiqués. Angle MediaGen : veille augmentée."
+        },
+        "archives": {
+          "title": "Archives et recherche multimodale",
+          "desc": "Explorer et valoriser un fonds texte, photo et vidéo."
+        },
+        "production": {
+          "title": "Aide à la production",
+          "desc": "Décliner une information en plusieurs formats. Aides au repérage de biais ou de risques qualité. C'est l'humain qui publie."
+        },
+        "agents": {
+          "title": "Agents sous contrôle éditorial",
+          "desc": "Brouillons, suggestions et tâches répétitives. Pas d'envoi ni de publication sans validation."
+        },
+        "framework": {
+          "title": "Cadre de production",
+          "desc": "Droits d'accès, observabilité, logs et tests, puis documentation et passation. Ou co-exploitation."
+        }
+      }
+    },
+    "proof": {
+      "title": "MediaGen : ce que ça prouve (et ce que ça ne prouve pas)",
+      "intro": "MediaGen est l'un des rares projets France 2030 consacrés aux médias. Porté par l'AFP, soutenu par Bpifrance.",
+      "items": {
+        "member": "The Vibe Company (via Quivr / The Vibe Company) est membre du consortium technique. On construit les outils. On n'est pas l'AFP.",
+        "ships": "Ça prouve qu'on sait shipper de l'IA générative sous contraintes médias : fiabilité, contrôle éditorial, open source partiel.",
+        "notDossier": "Ce que ça ne veut pas dire : on ne monte pas votre dossier France 2030 ou Bpifrance."
+      },
+      "funding": "Pour le panorama des aides (CIR, CII, Diag…) : <link>Financer un projet IA : CIR, CII, France 2030</link>",
+      "case": "Preuve détaillée : <link>Cas AFP / MediaGen</link>"
+    },
+    "afp": {
+      "title": "Ce qu'on construit avec l'AFP dans MediaGen",
+      "intro": "Avec l'AFP, on construit MediaGen : des outils d'IA générative pour les rédactions, toujours sous le contrôle des journalistes.",
+      "stats": {
+        "budget": {
+          "label": "Budget projet",
+          "value": "4 M€"
+        },
+        "frame": {
+          "label": "Cadre",
+          "value": "France 2030, soutenu par Bpifrance"
+        },
+        "horizon": {
+          "label": "Horizon",
+          "value": "24 mois"
+        },
+        "tools": {
+          "label": "Outils",
+          "value": "3"
+        }
+      },
+      "points": [
+        "Veille augmentée : centraliser et analyser en temps réel les médias, les réseaux sociaux et les communiqués.",
+        "Recherche multimodale : explorer et valoriser les archives texte, photo et vidéo.",
+        "Aide à la production : décliner une même information en plusieurs formats, et repérer les biais qui nuiraient à sa qualité.",
+        "Consortium : Quivr/The Vibe Company, Kairntech, Dawex.",
+        "Une partie des composants sera publiée en licence libre.",
+        "Information fiable, sous le contrôle des journalistes."
+      ],
+      "readCase": "Lire le cas AFP"
+    },
+    "method": {
+      "title": "Comment on démarre un projet IA médias",
+      "steps": {
+        "call": {
+          "title": "Un appel de 30 minutes",
+          "desc": "Flux rédactionnels, sources, archives, risque éditorial, qui publie."
+        },
+        "scope": {
+          "title": "Cadrer un premier outil",
+          "desc": "Un workflow à périmètre fixe, avec des critères de succès : temps, volume, taux d'acceptation humaine."
+        },
+        "cycles": {
+          "title": "Cycles courts",
+          "desc": "Souvent en brouillon ou suggestion d'abord. Jamais de publication auto sans garde-fou."
+        },
+        "production": {
+          "title": "Mettre en prod, mesurer, passer la main",
+          "desc": "Runbooks, formation, ou run conjoint."
+        }
+      }
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "replace": {
+          "q": "Vous remplacez les journalistes ?",
+          "a": "Non. On construit des outils sous contrôle éditorial : brouillons, veille, recherche, déclinaisons. La décision de publier reste humaine."
+        },
+        "mediagen": {
+          "q": "C'est quoi MediaGen ?",
+          "a": "Le projet France 2030 d'IA générative de l'AFP. On est dans le consortium technique avec Kairntech et Dawex. Détail : <case>cas AFP</case>."
+        },
+        "funding": {
+          "q": "Vous pouvez faire financer notre projet via France 2030 ?",
+          "a": "Non. MediaGen prouve qu'on shippe dans ce cadre. Ce n'est pas une offre de montage de dossier Bpifrance. Voir <funding>article CIR, CII, France 2030</funding> pour le panorama des aides."
+        },
+        "timeline": {
+          "q": "Combien de temps jusqu'en production ?",
+          "a": "Ça dépend du socle (CMS, DAM, APIs, droits). MediaGen : construction sur 24 mois côté projet France 2030. Ce n'est pas un délai générique pour tout client."
+        },
+        "hallucinations": {
+          "q": "Et les hallucinations / biais ?",
+          "a": "On conçoit pour limiter le risque : garde-fous, validation humaine, traçabilité. Pas de promesse « zéro erreur »."
+        },
+        "otherPages": {
+          "q": "Quelle différence avec la page agence Paris / agents en prod ?",
+          "a": "<agency>La page agence IA à Paris</agency> présente l'offre générale. <agents>Agents en production</agents> = déploiement d'agents métier transverses. Cette page = secteur médias / rédactions, avec la preuve AFP."
+        },
+        "cost": {
+          "q": "Combien coûte un projet ?",
+          "a": "On fixe le périmètre après l'appel et le cadrage, dans une proposition écrite. Il n'y a pas de grille publique."
+        }
+      }
+    },
+    "about": "Qui est The Vibe Company : <link>À propos</link>",
+    "caseLink": "Un outil IA pour une rédaction ? Voir notre page <link>IA médias</link>.",
+    "finalCta": {
+      "kicker": "IA MÉDIAS",
+      "titleLine1": "Un outil IA pour",
+      "titleLine2": "votre rédaction ?",
+      "bookCall": "Prendre 30 minutes",
+      "responseLabel": "RÉPONSE",
+      "responseValue": "SOUS 24 H",
+      "emailLabel": "EMAIL"
+    }
+  },
+  "contact": {
+    "metaTitle": "Contact : The Vibe Company, agence IA (YC W24)",
+    "metaDescription": "Contacter The Vibe Company : Stan Girard et Antoine Dewez, cofondateurs, bureaux à Paris. Écrivez à founders@thevibecompany.co ou réservez 30 minutes en ligne.",
+    "breadcrumb": "Contact",
+    "kicker": "Contact",
+    "title": "Contacter The Vibe Company",
+    "lede": "Deux personnes sont derrière ce site : Stan Girard et Antoine Dewez, les cofondateurs de The Vibe Company, une agence IA qui a ses bureaux à Paris et son siège social à Montreuil. Par e-mail ou en appel, c’est un fondateur qui vous répond.",
+    "bookCall": "Prendre 30 minutes",
+    "response": "Appel de 30 minutes, réservé sur cal.com",
+    "email": {
+      "title": "Par e-mail",
+      "body": "Quelques lignes suffisent : ce que vous voulez construire ou automatiser, où vous en êtes, et votre calendrier si vous en avez un. Pas besoin de cahier des charges pour un premier échange."
+    },
+    "team": {
+      "title": "Qui vous répond",
+      "role": "Cofondateur",
+      "members": {
+        "stan": "A créé Quivr en 2023, un moteur RAG open source, et l’a mené jusqu’à Y Combinator (W24). Dirige aujourd’hui The Vibe Company avec Antoine.",
+        "antoine": "A lancé Quivr avec Stan en 2023. Co-dirige The Vibe Company, où il suit de près les produits livrés aux clients."
+      }
+    },
+    "details": {
+      "title": "Coordonnées",
+      "caption": "Coordonnées de The Vibe Company",
+      "rows": {
+        "company": "Société",
+        "founders": "Fondateurs",
+        "offices": "Bureaux",
+        "headquarters": "Siège social",
+        "email": "E-mail"
+      },
+      "values": {
+        "company": "Quivr SAS (SIREN 981 841 109), qui exploite la marque The Vibe Company",
+        "founders": "Stan Girard, Antoine Dewez",
+        "offices": "10 rue La Vacquerie, 75011 Paris, France",
+        "headquarters": "44 boulevard Paul Vaillant-Couturier, 93100 Montreuil, France"
+      }
+    },
+    "what": {
+      "title": "Ce qu’on fait",
+      "body": "The Vibe Company est une agence IA (YC W24). On conçoit des produits IA, on met des agents au travail dans les outils de nos clients et on forme leurs équipes, jusqu’à la mise en production.",
+      "link": "En savoir plus sur l’agence"
+    },
+    "data": {
+      "title": "Vos données",
+      "body": "Ce que vous nous envoyez sert à vous répondre. Ce que le site collecte, et pourquoi, est expliqué dans notre politique de confidentialité.",
+      "link": "Lire la politique de confidentialité"
+    }
+  },
+  "privacy": {
+    "metaTitle": "Politique de confidentialité | The Vibe Company",
+    "metaDescription": "Ce que thevibecompany.co collecte et pourquoi : mesure d’audience PostHog, lien de rendez-vous cal.com, hébergement Vercel, cookies, et vos droits RGPD.",
+    "breadcrumb": "Confidentialité",
+    "kicker": "Confidentialité",
+    "title": "Politique de confidentialité",
+    "updated": "Mise à jour le 3 novembre 2026",
+    "lede": "Ce site n’a ni compte à créer, ni formulaire de contact, ni publicité. Il mesure son audience avec PostHog, sans cookie, renvoie vers cal.com pour prendre rendez-vous et est hébergé chez Vercel. Cette page détaille, outil par outil, ce qui est collecté, pourquoi, et comment exercer vos droits.",
+    "tocLabel": "Sommaire",
+    "sections": {
+      "controller": {
+        "title": "Qui est responsable de vos données",
+        "paragraphs": [
+          "Le site thevibecompany.co est édité par Quivr SAS, qui exploite la marque The Vibe Company, l’agence IA fondée par Stan Girard et Antoine Dewez. Quivr SAS est responsable des traitements décrits sur cette page.",
+          "Pour toute question sur vos données, écrivez à founders@thevibecompany.co."
+        ],
+        "table": {
+          "caption": "Informations légales sur l’éditeur du site",
+          "columns": [
+            "Information",
+            "Valeur"
+          ],
+          "rows": [
+            [
+              "Éditeur",
+              "Quivr SAS (dénomination QUIVR), qui exploite la marque The Vibe Company"
+            ],
+            [
+              "Forme juridique et capital",
+              "SAS à associé unique, capital social de 100,00 €"
+            ],
+            [
+              "Immatriculation",
+              "RCS Bobigny 981 841 109"
+            ],
+            [
+              "SIRET du siège",
+              "981 841 109 00011"
+            ],
+            [
+              "TVA intracommunautaire",
+              "FR96 981 841 109"
+            ],
+            [
+              "Siège social",
+              "44 boulevard Paul Vaillant-Couturier, 93100 Montreuil, France"
+            ],
+            [
+              "Bureaux",
+              "10 rue La Vacquerie, 75011 Paris, France"
+            ],
+            [
+              "Président",
+              "Stan Girard"
+            ],
+            [
+              "Directeur de la publication",
+              "Stan Girard"
+            ],
+            [
+              "Responsable / contact données personnelles",
+              "Stan Girard, founders@thevibecompany.co"
+            ],
+            [
+              "Hébergeur",
+              "Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis"
+            ]
+          ]
+        }
+      },
+      "collected": {
+        "title": "Ce que le site collecte",
+        "paragraphs": [
+          "Cette liste a été établie à partir du code du site. Elle couvre quatre sources : la mesure d’audience, la prise de rendez-vous, l’e-mail et l’hébergement."
+        ],
+        "items": [
+          {
+            "title": "Mesure d’audience avec PostHog",
+            "paragraphs": [
+              "Sur le site en production uniquement, la bibliothèque PostHog enregistre les pages vues (adresse de la page, paramètres compris, par exemple le texte d’une recherche dans les ressources), les départs de page, les clics et interactions qu’elle capte automatiquement, la position des clics et du défilement pour les cartes de chaleur (heatmaps), les mesures de performance des pages (Web Vitals) et les erreurs JavaScript. S’y ajoutent les événements que nous avons nommés : clics sur nos boutons de rendez-vous, de contact et de navigation, ouverture du menu mobile, recherche dans les ressources (longueur et nombre de mots de la requête seulement), dépliage ou copie d’un prompt de skill, parties du mini-jeu de la page d’accueil, avec leur score et, quand un record tombe, le record précédent.",
+              "PostHog y joint des informations techniques : navigateur, système d’exploitation, taille d’écran, page de provenance, paramètres de campagne (utm_*) et identifiants de clic publicitaire présents dans l’adresse (gclid, fbclid, msclkid, li_fat_id, ttclid…).",
+              "Les données passent par /ingest, un relais sur notre propre domaine, puis partent chez PostHog, dans sa région États-Unis. La mesure se fait sans cookie : PostHog ne dépose rien dans votre navigateur, ni cookie, ni localStorage, ni sessionStorage. Chaque visite est mesurée sans identifiant persistant : PostHog tire un identifiant aléatoire qui ne vit qu’en mémoire, le temps de votre navigation dans l’onglet, et disparaît dès que vous rechargez ou fermez la page. D’une visite à l’autre, la même personne n’est donc pas reconnue. L’option du projet PostHog qui anonymise les adresses IP n’est pas activée : l’adresse IP transmise avec les événements n’est pas masquée par ce réglage, et PostHog en déduit par défaut une localisation approximative (pays, région, ville, coordonnées approximatives, fuseau horaire) qu’il ajoute aux événements. Le site n’appelle jamais la fonction d’identification de PostHog et ne crée pas de profil de personne. Vos visites ne sont reliées ni à votre nom ni à votre e-mail.",
+              "L’enregistrement des sessions (replay) est désactivé dans le projet PostHog, et les sondages ne sont pas activés."
+            ]
+          },
+          {
+            "title": "Prise de rendez-vous avec cal.com",
+            "paragraphs": [
+              "Les boutons de rendez-vous sont de simples liens vers cal.com. Le site n’intègre aucun module cal.com et ne charge rien depuis cal.com tant que vous ne cliquez pas. Le clic lui-même est compté dans PostHog.",
+              "Sur cal.com, vous saisissez votre nom, votre e-mail et les informations du rendez-vous. Cal.com les traite selon sa propre politique de confidentialité, et nous les recevons pour préparer l’appel.",
+              "Quand un rendez-vous est pris, cal.com prévient notre serveur. Nous enregistrons alors un seul événement dans PostHog, « booking_completed », avec l’identifiant de la réservation (à défaut, une empreinte salée de l’e-mail, jamais l’e-mail lui-même), l’heure de début, la durée et d’éventuels paramètres de campagne. Ni votre nom, ni votre e-mail, ni le contenu de la réservation ne sont envoyés à PostHog."
+            ]
+          },
+          {
+            "title": "Échanges par e-mail",
+            "paragraphs": [
+              "Si vous nous écrivez, nous recevons votre adresse e-mail, votre nom s’il apparaît et le contenu de votre message. Ils servent à vous répondre et à suivre la conversation."
+            ]
+          },
+          {
+            "title": "Hébergement chez Vercel",
+            "paragraphs": [
+              "Le site est hébergé par Vercel. Comme tout hébergeur, Vercel traite les données techniques de chaque requête (adresse IP, navigateur, page demandée, date et heure) pour servir les pages et protéger le service. Les échanges avec le site sont chiffrés en HTTPS. Les pages sont servies depuis le réseau de Vercel, au plus près du visiteur. Les fonctions serveur du site, comme la réception des notifications de cal.com, s’exécutent à Washington D.C., aux États-Unis (région iad1).",
+              "Quand vous ouvrez une adresse sans indication de langue, par exemple /contact, le site lit le pays que Vercel déduit de votre adresse IP pour choisir entre le français et l’anglais. Le site n’enregistre pas ce pays.",
+              "Vercel Web Analytics et Speed Insights ne sont pas installés. Les polices de caractères sont servies depuis notre domaine : aucune requête n’est envoyée à Google Fonts."
+            ]
+          }
+        ]
+      },
+      "cookies": {
+        "title": "Cookies et stockage local",
+        "paragraphs": [
+          "Le site n’affiche pas de bandeau de consentement : la mesure d’audience se fait sans cookie. Voici tout ce que le site dépose dans votre navigateur."
+        ],
+        "table": {
+          "caption": "Cookies et stockage local utilisés par le site",
+          "columns": [
+            "Nom",
+            "Type",
+            "Rôle",
+            "Durée"
+          ],
+          "rows": [
+            [
+              "NEXT_LOCALE",
+              "Cookie du site",
+              "Retient la langue des pages consultées, français ou anglais.",
+              "Jusqu’à la fermeture du navigateur"
+            ],
+            [
+              "PostHog",
+              "Aucun",
+              "La mesure d’audience ne dépose ni cookie ni donnée dans le stockage du navigateur : son identifiant de visite ne vit qu’en mémoire, le temps de votre navigation dans l’onglet, jusqu’au rechargement ou à la fermeture.",
+              "—"
+            ],
+            [
+              "tvc-runner-best, tvc-runner-muted",
+              "localStorage du site",
+              "Meilleur score et son coupé du mini-jeu de la page d’accueil, gardés dans votre navigateur. Les scores sont aussi envoyés à PostHog avec les événements du jeu (voir plus haut).",
+              "Jusqu’à ce que vous les effaciez"
+            ],
+            [
+              "vibeco_runner_best",
+              "localStorage du site",
+              "Meilleur score du jeu de la page d’aperçu /v2. Cette valeur ne quitte pas votre navigateur.",
+              "Jusqu’à ce que vous l’effaciez"
+            ]
+          ]
+        },
+        "after": [
+          "Vous pouvez supprimer ou bloquer ces cookies et ce stockage dans les réglages de votre navigateur : le site continue de fonctionner.",
+          "La mesure d’audience relève de l’exemption de consentement que la CNIL prévoit pour les outils de mesure d’audience : aucun cookie, aucun identifiant stocké dans le navigateur, aucun suivi d’un site à l’autre."
+        ]
+      },
+      "purposes": {
+        "title": "Pourquoi, et sur quelle base légale",
+        "paragraphs": [
+          "Chaque traitement a une finalité précise et une base légale."
+        ],
+        "table": {
+          "caption": "Finalités et bases légales des traitements",
+          "columns": [
+            "Finalité",
+            "Données",
+            "Base légale"
+          ],
+          "rows": [
+            [
+              "Mesurer l’audience et améliorer le site",
+              "Événements PostHog, identifiant de visite aléatoire non persistant",
+              "Intérêt légitime, dans le cadre de l’exemption de consentement prévue par la CNIL pour la mesure d’audience"
+            ],
+            [
+              "Préparer et suivre un rendez-vous",
+              "Données saisies sur cal.com, événement booking_completed",
+              "Mesures précontractuelles prises à votre demande"
+            ],
+            [
+              "Répondre à vos messages",
+              "Adresse e-mail, nom, contenu du message",
+              "Intérêt légitime"
+            ],
+            [
+              "Servir et sécuriser le site",
+              "Données techniques des requêtes, chez Vercel",
+              "Intérêt légitime"
+            ],
+            [
+              "Retenir votre langue",
+              "Cookie NEXT_LOCALE",
+              "Cookie strictement nécessaire, exempté de consentement"
+            ]
+          ]
+        },
+        "after": [
+          "Le site n’utilise aucun traceur publicitaire et ne prend aucune décision automatisée à votre sujet."
+        ]
+      },
+      "recipients": {
+        "title": "Qui reçoit ces données",
+        "paragraphs": [
+          "Outre Quivr SAS, ces prestataires techniques traitent une partie des données, chacun pour son rôle."
+        ],
+        "table": {
+          "caption": "Prestataires qui traitent des données du site",
+          "columns": [
+            "Prestataire",
+            "Rôle",
+            "Localisation et garanties"
+          ],
+          "rows": [
+            [
+              "PostHog, Inc.",
+              "Mesure d’audience",
+              "États-Unis (région US de PostHog). Adhère au Data Privacy Framework UE-États-Unis ; clauses contractuelles types dans son accord de traitement des données."
+            ],
+            [
+              "Vercel Inc.",
+              "Hébergement du site",
+              "États-Unis (fonctions serveur en région iad1, Washington D.C.). Adhère au Data Privacy Framework UE-États-Unis ; clauses contractuelles types."
+            ],
+            [
+              "Cal.com, Inc.",
+              "Prise de rendez-vous",
+              "États-Unis. Adhère au Data Privacy Framework UE-États-Unis ; clauses contractuelles types de 2021 pour les autres cas."
+            ]
+          ]
+        },
+        "after": [
+          "Ces données sont donc transférées hors de l’Union européenne. PostHog, Vercel et Cal.com déclarent adhérer au Data Privacy Framework UE-États-Unis, reconnu par la Commission européenne, et prévoient des clauses contractuelles types pour les cas qu’il ne couvre pas."
+        ]
+      },
+      "retention": {
+        "title": "Combien de temps nous les gardons",
+        "table": {
+          "caption": "Durées de conservation",
+          "columns": [
+            "Données",
+            "Durée"
+          ],
+          "rows": [
+            [
+              "Événements PostHog",
+              "25 mois maximum"
+            ],
+            [
+              "Identifiant de visite dans votre navigateur",
+              "En mémoire seulement, effacé au rechargement ou à la fermeture de la page"
+            ],
+            [
+              "Identifiant de visite dans les événements PostHog",
+              "Même durée que les événements PostHog : 25 mois maximum"
+            ],
+            [
+              "Traceurs de mesure d’audience",
+              "13 mois maximum ; la mesure sans cookie n’en dépose aucun"
+            ],
+            [
+              "Cookie NEXT_LOCALE",
+              "Jusqu’à la fermeture du navigateur"
+            ],
+            [
+              "E-mails",
+              "3 ans après le dernier contact"
+            ],
+            [
+              "Données de rendez-vous sur cal.com",
+              "3 ans après le dernier contact"
+            ],
+            [
+              "Journaux d’hébergement et de sécurité chez Vercel",
+              "12 mois"
+            ]
+          ]
+        }
+      },
+      "rights": {
+        "title": "Vos droits",
+        "paragraphs": [
+          "Le RGPD et la loi Informatique et Libertés vous donnent plusieurs droits sur vos données. Vous pouvez y accéder, les faire rectifier ou effacer, vous opposer à leur traitement ou en demander la limitation. Vous pouvez aussi recevoir celles que vous nous avez fournies dans un format réutilisable (portabilité). Enfin, vous pouvez retirer à tout moment un consentement donné et définir des directives sur le sort de vos données après votre décès.",
+          "Pour exercer ces droits, écrivez à Stan Girard, à founders@thevibecompany.co. Le RGPD nous laisse un mois pour vous répondre.",
+          "Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL, sur www.cnil.fr."
+        ]
+      },
+      "changes": {
+        "title": "Évolutions de cette page",
+        "paragraphs": [
+          "Cette page suit le site : quand un outil est ajouté ou retiré, elle est mise à jour et sa date change. Dernière mise à jour : 3 novembre 2026."
+        ]
       }
     }
   }

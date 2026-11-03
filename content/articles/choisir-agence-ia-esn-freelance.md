@@ -1,9 +1,10 @@
 ---
 title: "Agence IA, ESN, freelance ou équipe interne : comment choisir"
+seoTitle: "Agence IA, ESN ou freelance : choisir | The Vibe Company"
 slug: choisir-agence-ia-esn-freelance
 language: fr
 translationKey: choose-ai-agency
-summary: "Agence IA, ESN, freelance ou équipe interne : critères de décision, forfait ou régie, ce que doit contenir une proposition, comment juger un POC et des références. Le guide concret avant de signer."
+summary: "Agence IA, ESN, freelance ou interne : critères, forfait ou régie, juger un POC et une proposition avant de signer."
 publishedAt: 2026-10-13
 complexity: beginner
 topics: AI Adoption, AI Agents, Strategy
@@ -144,6 +145,10 @@ Là où on est utiles : un produit ou un agent IA qui doit arriver en production
 - **Monka (santé)** : en production en deux mois dans l'environnement HDS existant du client, 165 questions, 12 versions du référentiel clinique. [Lire le cas](/fr/case-studies/monka)
 - **LocService (location)** : plusieurs centaines de tickets support par jour. Un assistant lit les anciens tickets et la documentation, puis rédige la réponse selon le profil du client. Les brouillons sont utilisés sur 87 % des tickets ; l'équipe reste maître de ce qui part. [Lire le cas](/fr/case-studies/locservice)
 - **AFP (presse)** : des outils d'IA générative pour les rédactions dans MediaGen, projet France 2030 de 4 M€ soutenu par Bpifrance, avec Kairntech et Dawex, toujours sous le contrôle des journalistes. [Lire le cas](/fr/case-studies/afp)
+
+Une fois le prestataire choisi, voici [comment se déroule un projet avec un prestataire IA, du premier appel à la production](/fr/resources/articles/travailler-prestataire-ia).
+
+Si vous cherchez surtout à comparer les trois options sur les coûts et les délais, on a détaillé [agence IA, freelance ou ESN : que choisir selon le projet](/fr/resources/articles/agence-ia-vs-freelance-esn), avec les TJM sourcés et le coût complet.
 
 ## FAQ
 

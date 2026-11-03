@@ -1,9 +1,10 @@
 ---
 title: "How to fund an AI project in France: CIR, CII, Diag Data IA, France 2030"
+seoTitle: "Fund AI in France: CIR, CII, France 2030 | The Vibe Company"
 slug: fund-ai-project-france-cir-cii
 translationKey: fund-ai-project-france
 language: en
-summary: "CIR, CII, Diag Data IA, Osez l'IA: a practical map of French public schemes to fund an AI project (agents, automation, product), with official rates and the MediaGen / AFP France 2030 case."
+summary: "CIR, CII, Diag Data IA, Osez l'IA: fund an AI project in France, with official rates and the MediaGen / AFP case."
 publishedAt: 2026-10-16
 complexity: intermediate
 topics: AI Adoption, Strategy
@@ -113,5 +114,7 @@ We build the projects and document the technical work. Tax filing sits with your
 ## Let’s talk about your project (and how to fund it)
 
 You have an AI use case in mind and want to know what actually gets funded — build, Diag, CIR/CII, or a France 2030-style call? Bring the scope, company size and timeline. We will say what we can build, what fits a Bpifrance diagnostic, and what to ask your accountant.
+
+[Building AI for a newsroom?](/en/ai-for-media) Our AI for Media page covers what we build for newsrooms, with the MediaGen proof.
 
 [Book 30 minutes with Stan](https://cal.com/stangirard/30min).

@@ -1,8 +1,10 @@
 ---
 title: "Comment j'ai automatisé notre compta mensuelle (pour de vrai)"
+seoTitle: "Automatiser la compta mensuelle avec l'IA | The Vibe Company"
 slug: focus-skill-compta-qonto
 language: fr
 summary: "Quand je suis arrivé chez The Vibe Company, la compta a été l'un des premiers sujets que j'ai récupérés pour décharger Antoine. Son système pliait déjà le mois en cinq minutes. Je l'ai poussé plus loin : tableau vivant, flags de relecture, et un script qui range l'onglet du mois tout seul dans notre Google Sheets de suivi."
+seoDescription: "Automatiser la compta mensuelle avec l'IA : le système Qonto poussé plus loin, avec tableau vivant, flags de relecture et rangement auto dans Sheets."
 publishedAt: 2026-07-13
 series: victor-story
 seriesDay: 11

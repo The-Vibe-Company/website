@@ -12,9 +12,16 @@ import { FitText } from "./FitText";
  * be hard-coded to 1400px, which matched neither — so its kicker never lined
  * up with the page around it. Each caller states its own rail now.
  */
-export function FinalCTA({ rail = "wide" }: { rail?: "wide" | "narrow" }) {
+export function FinalCTA({
+  rail = "wide",
+  namespace = "finalCta",
+}: {
+  rail?: "wide" | "narrow";
+  /** A landing can bring its own closing line; same keys as `finalCta`. */
+  namespace?: string;
+}) {
   const reduceMotion = useReducedMotion() ?? false;
-  const t = useTranslations("finalCta");
+  const t = useTranslations(namespace);
 
   return (
     <section

@@ -6,6 +6,7 @@ import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { CLIENTS } from "./Clients";
 import { FitText } from "./FitText";
+import { clientLogoSize } from "@/lib/client-logos";
 
 const MONO = "font-mono text-[11px] uppercase tracking-[0.18em]";
 
@@ -112,12 +113,18 @@ export function HeroMobile() {
                 aria-label={client.name}
                 className="flex h-[76px] items-center justify-center"
               >
+                {/* Lazy: React preloads every eager <img> in <head>, where
+                    these seven logos competed with the poster's fonts and CSS.
+                    Plain <img> rather than next/image: they are SVG or small
+                    WebP/PNG already, and a srcset per logo would weigh more in
+                    the HTML than it saves. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={client.src}
                   alt={client.name}
+                  {...clientLogoSize(client.src)}
                   className="max-h-[26px] w-auto max-w-[72%] object-contain brightness-0"
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                 />
               </a>

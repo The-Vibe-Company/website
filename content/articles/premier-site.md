@@ -1,8 +1,10 @@
 ---
 title: "J'ai fait mon premier site sans savoir coder"
+seoTitle: "Mon premier site sans savoir coder | The Vibe Company"
 slug: premier-site
 language: fr
 summary: "Mon premier projet chez The Vibe Company : créer un site, sans savoir coder. Comment j'ai découvert les outils (GitHub, Supabase, Vercel) et compris la logique d'un projet web, étape par étape."
+seoDescription: "Mon premier projet chez The Vibe Company : créer un site sans savoir coder, en découvrant GitHub, Supabase et Vercel étape par étape."
 publishedAt: 2026-06-23
 series: victor-story
 seriesDay: 1

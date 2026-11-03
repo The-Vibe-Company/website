@@ -12,11 +12,17 @@
     "content:focus-check": "bun scripts/validate-focus-articles.ts",
     "content:translations-check": "bun scripts/validate-article-translations.ts",
     "content:covers-check": "bun scripts/validate-unique-covers.ts",
+    "seo:check": "bun scripts/seo-smoke-check.ts",
+    "indexnow:submit-all": "bun scripts/indexnow.ts --all",
+    "agents:check": "bun scripts/check-agent-access.ts",
     "prebuild": "bun scripts/validate-victor-story.ts && bun scripts/validate-focus-articles.ts && bun scripts/validate-article-translations.ts && bun scripts/validate-unique-covers.ts && bun scripts/validate-content-images.ts && bun scripts/optimize-images.ts --check",
     "cover:generate": "bun scripts/generate-cover.ts",
+    "favicons:generate": "bun scripts/generate-favicons.ts",
     "images:optimize": "bun scripts/optimize-images.ts",
     "images:check": "bun scripts/optimize-images.ts --check",
-    "test": "bun test"
+    "test": "bun test",
+    "perf:test": "bun test scripts/perf",
+    "perf:typecheck": "tsc -p scripts/perf/tsconfig.json"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.73.0",
@@ -39,9 +45,15 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "chrome-launcher": "1.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
+    "lighthouse": "13.0.3",
+    "puppeteer-core": "24.37.2",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "patchedDependencies": {
+    "next@16.1.1": "patches/next@16.1.1.patch"
   }
 }

@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 
 import type { Customer } from "@/lib/customers";
+import { clientLogoSize } from "@/lib/client-logos";
 
 /**
  * "Keep reading" block for case studies — same editorial format as the
@@ -31,6 +32,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
             <img
               src={featured.logo}
               alt={featured.client}
+              {...clientLogoSize(featured.logo)}
               className="h-10 w-auto max-w-[70%] object-contain transition-transform duration-300 group-hover:scale-105 md:h-12"
               loading="lazy"
               decoding="async"
@@ -72,6 +74,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
                 <img
                   src={c.logo}
                   alt={c.client}
+                  {...clientLogoSize(c.logo)}
                   className="max-h-full max-w-full object-contain"
                   loading="lazy"
                   decoding="async"

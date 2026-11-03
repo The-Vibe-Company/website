@@ -1,9 +1,10 @@
 ---
 title: "Agent IA pour le support client : automatiser sans dégrader le service"
+seoTitle: "Agent IA support client : automatiser | The Vibe Company"
 slug: agent-ia-support-client
 translationKey: ai-customer-support-agent
 language: fr
-summary: "Chatbot autonome ou brouillons validés par vos agents ? Comment automatiser le support client avec l'IA sans perdre la qualité, avec le cas LocService (87 % des tickets) et les leçons de Klarna et Air Canada."
+summary: "Automatiser le support client avec l'IA sans perdre la qualité : cas LocService (87 % des tickets), Klarna et Air Canada."
 publishedAt: 2026-10-15
 complexity: intermediate
 topics: AI Agents, AI Adoption, AI Operations
@@ -83,6 +84,8 @@ The Vibe Company a été fondée en 2024 par Stan Girard et Antoine Dewez (ex-Th
 Notre façon de faire : partir de vos données réelles, livrer vite quelque chose que vos équipes utilisent, et mesurer l'usage plutôt que la démo.
 
 Pour la vue d'ensemble (outils, mémoire, autorité, mesure), lisez notre [guide de l'agent IA en entreprise](https://www.thevibecompany.co/fr/resources/articles/agent-ia-entreprise).
+
+Pour aller plus loin sur la partie documents (recherche, sources citées, droits d'accès), voir [RAG en entreprise : connecter l'IA à vos documents](/fr/resources/articles/rag-entreprise).
 
 ## FAQ
 

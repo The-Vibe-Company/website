@@ -6,6 +6,16 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp": {
+      "sourceHash": "719b2e21fd85427d978f4f336dd066cac7b67023fb23da49fb962fac07f3a00d",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/agent-harness-entreprise/cover-mascotte.webp": {
+      "sourceHash": "b06286a00057a518a07b65f95be18c3c2d86c27375f7fff19e8eef6b3afa729a",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/agent-ia-entreprise/cover-mascotte.webp": {
       "sourceHash": "f6a969f676d8008cb45e6731cedfd0e509dcdf054bef861f5564ae1b8a76c845",
       "targetUrl": null,
@@ -31,6 +41,11 @@
       "targetUrl": "/images/_optimized/resources/agents-dont-lack-tools-they-lack-company-memory/generated/company-memory-surface-compare.webp",
       "targetHash": "1c14cb89cc1ebfe2f9c0d61c6d3855f4b9b70e6dcd53b1fcb35d23e7b9f4a9ec"
     },
+    "content:/images/resources/agents-ia-durcir-saas/cover-mascotte.webp": {
+      "sourceHash": "d5ffd4747e658ced3540f4d4964f4b4cfb9894df0935c730fa99171f765921b6",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/agents-ia-formation-autorite/cover-mascotte.webp": {
       "sourceHash": "6effd0efc718d658224b24c2a664e66d8e65ab2ac8cfa2db0237462fc67ec80a",
       "targetUrl": null,
@@ -48,6 +63,16 @@
     },
     "content:/images/resources/automatisation-ia-entreprise/cover-mascotte.webp": {
       "sourceHash": "f62cc1a50de1de3b1dcba623070c52f1ec52c95116f45d4db2cd43d2977147cb",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/black-october-securite-agents-ia/cover-mascotte.webp": {
+      "sourceHash": "d14bdeb2461eb44b19359dd12d38f9b611494e82f44c10230890c3a1cf3f039a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/chatgpt-entreprise/cover-mascotte.webp": {
+      "sourceHash": "21ae0f378c16906e1fbb5c0c78650609935e61f3df4434d0531e5cd6cfa64009",
       "targetUrl": null,
       "targetHash": null
     },
@@ -78,6 +103,11 @@
     },
     "content:/images/resources/deployer-claude-code-entreprise/cover-mascotte-v3.webp": {
       "sourceHash": "e5a4c2b263f576bc8bf3e6e9bc6a8976a98edba0f5430652a6443c53fc514dbd",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp": {
+      "sourceHash": "1da35bba40796bc1509c379cba6ad8478e8be0322546b216f806e11305ab328e",
       "targetUrl": null,
       "targetHash": null
     },
@@ -131,6 +161,11 @@
       "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/stack-logo.webp",
       "targetHash": "909dd86c07cecf2a32a4af2823aaf14f519cfe980966bceb636f5dea89f43a41"
     },
+    "content:/images/resources/hebergement-hds-ia/cover-mascotte.webp": {
+      "sourceHash": "45996223f4c39e669e2fa8f6d0f3dc552b8d3b84715d4a643d2cad0563c0edf6",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/how-i-finally-started-my-game-using-scenario/bucherons.png": {
       "sourceHash": "4be0ed577a8a080e6aae2caf58bf2495a3af936ab2549e8b4dc772477b321807",
       "targetUrl": "/images/_optimized/resources/how-i-finally-started-my-game-using-scenario/bucherons.webp",
@@ -178,6 +213,11 @@
     },
     "content:/images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp": {
       "sourceHash": "1169a15480a31405ef50fdc380e4b0e542c1fc7ccc0416c77b448e137face26d",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/ia-generative-medias/cover-mascotte.webp": {
+      "sourceHash": "4bf67b7f180c2e12d3958066b205de2f3ad39cc09414910929097cefb26c010b",
       "targetUrl": null,
       "targetHash": null
     },
@@ -271,6 +311,16 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/rag-entreprise/cover-mascotte.webp": {
+      "sourceHash": "c6c63b98b73f4346632975d282f9dfa1c5758a485bc3f818ad629749d639def2",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/serveur-mcp-entreprise/cover-mascotte.webp": {
+      "sourceHash": "b80605b14d5c90c58e200f49dc078d41b4b2f00bafd0627aa14f6a36f5e29893",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/site-devient-produit/cover.png": {
       "sourceHash": "ff8f389b1a1b95411a5a18f63e0daad30265fb2e7836e9d74dd3f06dd89f6aef",
       "targetUrl": "/images/_optimized/resources/site-devient-produit/cover.webp",
@@ -280,6 +330,11 @@
       "sourceHash": "f4b22a0eeb810b1b019881d554d9e4d18e1d7f4f896a13314e444d316ed2a80b",
       "targetUrl": "/images/_optimized/resources/site-devient-produit/decouverte.webp",
       "targetHash": "d714a024379982de0807f70bae3543678c31d7e1b9ccbb10d18c8476509fc3fb"
+    },
+    "content:/images/resources/travailler-prestataire-ia/cover-mascotte.webp": {
+      "sourceHash": "affa34bd0b7e0a01a440bde1297e4d257c5b7618819dce271c03e4a08f0c6c5a",
+      "targetUrl": null,
+      "targetHash": null
     },
     "content:/images/resources/veille-ia-automatique/cover.png": {
       "sourceHash": "7d124c15b66d7e6f3ca3b0223abbde550c44416889545c37b2a192461b427d8e",
@@ -311,6 +366,16 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "og:/images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp": {
+      "sourceHash": "719b2e21fd85427d978f4f336dd066cac7b67023fb23da49fb962fac07f3a00d",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/agent-harness-entreprise/cover-mascotte.webp": {
+      "sourceHash": "b06286a00057a518a07b65f95be18c3c2d86c27375f7fff19e8eef6b3afa729a",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "og:/images/resources/agent-ia-entreprise/cover-mascotte.webp": {
       "sourceHash": "f6a969f676d8008cb45e6731cedfd0e509dcdf054bef861f5564ae1b8a76c845",
       "targetUrl": null,
@@ -326,6 +391,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "og:/images/resources/agents-ia-durcir-saas/cover-mascotte.webp": {
+      "sourceHash": "d5ffd4747e658ced3540f4d4964f4b4cfb9894df0935c730fa99171f765921b6",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "og:/images/resources/agents-ia-formation-autorite/cover-mascotte.webp": {
       "sourceHash": "6effd0efc718d658224b24c2a664e66d8e65ab2ac8cfa2db0237462fc67ec80a",
       "targetUrl": null,
@@ -338,6 +408,16 @@
     },
     "og:/images/resources/automatisation-ia-entreprise/cover-mascotte.webp": {
       "sourceHash": "f62cc1a50de1de3b1dcba623070c52f1ec52c95116f45d4db2cd43d2977147cb",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/black-october-securite-agents-ia/cover-mascotte.webp": {
+      "sourceHash": "d14bdeb2461eb44b19359dd12d38f9b611494e82f44c10230890c3a1cf3f039a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/chatgpt-entreprise/cover-mascotte.webp": {
+      "sourceHash": "21ae0f378c16906e1fbb5c0c78650609935e61f3df4434d0531e5cd6cfa64009",
       "targetUrl": null,
       "targetHash": null
     },
@@ -361,6 +441,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "og:/images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp": {
+      "sourceHash": "1da35bba40796bc1509c379cba6ad8478e8be0322546b216f806e11305ab328e",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "og:/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp": {
       "sourceHash": "92950414024f1db24bd16f7ee4b8c99f58e6a62d29bdf0301eee6eb687fa2f07",
       "targetUrl": null,
@@ -381,6 +466,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "og:/images/resources/hebergement-hds-ia/cover-mascotte.webp": {
+      "sourceHash": "45996223f4c39e669e2fa8f6d0f3dc552b8d3b84715d4a643d2cad0563c0edf6",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "og:/images/resources/how-i-finally-started-my-game-using-scenario/cover-mascotte.webp": {
       "sourceHash": "22e79213f03d48c834f072d38ca670f8129552eb78da5a2e890d194d3ec28c49",
       "targetUrl": null,
@@ -393,6 +483,11 @@
     },
     "og:/images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp": {
       "sourceHash": "1169a15480a31405ef50fdc380e4b0e542c1fc7ccc0416c77b448e137face26d",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/ia-generative-medias/cover-mascotte.webp": {
+      "sourceHash": "4bf67b7f180c2e12d3958066b205de2f3ad39cc09414910929097cefb26c010b",
       "targetUrl": null,
       "targetHash": null
     },
@@ -456,8 +551,23 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "og:/images/resources/rag-entreprise/cover-mascotte.webp": {
+      "sourceHash": "c6c63b98b73f4346632975d282f9dfa1c5758a485bc3f818ad629749d639def2",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/serveur-mcp-entreprise/cover-mascotte.webp": {
+      "sourceHash": "b80605b14d5c90c58e200f49dc078d41b4b2f00bafd0627aa14f6a36f5e29893",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "og:/images/resources/site-devient-produit/cover.png": {
       "sourceHash": "ff8f389b1a1b95411a5a18f63e0daad30265fb2e7836e9d74dd3f06dd89f6aef",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/travailler-prestataire-ia/cover-mascotte.webp": {
+      "sourceHash": "affa34bd0b7e0a01a440bde1297e4d257c5b7618819dce271c03e4a08f0c6c5a",
       "targetUrl": null,
       "targetHash": null
     },

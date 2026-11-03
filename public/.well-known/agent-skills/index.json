@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "book-a-call-with-the-vibe-company",
+      "type": "skill-md",
+      "description": "Assess a project against The Vibe Company's public services and client cases, then share the link to book a discovery call.",
+      "url": "/.well-known/agent-skills/book-a-call-with-the-vibe-company/SKILL.md",
+      "digest": "sha256:f4612fb72e40da874370a7923ad7b9927bf225856f61246d9021842ac314cff4"
+    },
+    {
+      "name": "read-tvc-articles",
+      "type": "skill-md",
+      "description": "Discover, read, and cite The Vibe Company's public articles using llms.txt, the sitemap, and Markdown content negotiation.",
+      "url": "/.well-known/agent-skills/read-tvc-articles/SKILL.md",
+      "digest": "sha256:3d8007002401b21c8acdfc802ebea5518eb7c532f48a3019e8dc64bce0b9ab0c"
+    }
+  ]
+}

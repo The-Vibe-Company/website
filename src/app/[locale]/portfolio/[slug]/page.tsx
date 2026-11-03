@@ -6,11 +6,13 @@ import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { BackLink } from "@/components/BackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
-import { QuivrFeedMock } from "@/components/quivr/QuivrFeedMock";
+import { JsonLd } from "@/components/JsonLd";
+import { QuivrStage } from "@/components/quivr/QuivrStage";
 import { QuivrSections } from "@/components/quivr/QuivrSections";
 import { PROJECT_SLUGS, getProject, type ContentLocale } from "@/lib/projects";
-import { QUIVR_OG_IMAGE, QUIVR_SLUG } from "@/lib/quivr";
-import { localizedAlternates, localizedSocialMetadata } from "@/lib/site";
+import { QUIVR_FAQ_KEYS, QUIVR_OG_IMAGE, QUIVR_SLUG } from "@/lib/quivr";
+import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
+import { breadcrumbList, faqPageSchema } from "@/lib/structured-data";
 
 export function generateStaticParams() {
   return PROJECT_SLUGS.map((slug) => ({ slug }));
@@ -34,13 +36,11 @@ export async function generateMetadata({
       ? await getTranslations({ locale, namespace: "quivr" })
       : null;
   const title = tQuivr ? tQuivr("metaTitle") : `${project.name} · ${t("back")}`;
-  const description = tQuivr ? tQuivr("metaDescription") : project.description;
+  const description = tQuivr ? tQuivr("metaDescription") : project.metaDescription;
   return {
     title: tQuivr ? { absolute: title } : title,
     description,
-    alternates: localizedAlternates(locale, `/portfolio/${slug}`, {
-      xDefault: true,
-    }),
+    alternates: localizedAlternates(locale, `/portfolio/${slug}`),
     ...localizedSocialMetadata({
       locale,
       path: `/portfolio/${slug}`,
@@ -53,7 +53,9 @@ export async function generateMetadata({
             height: QUIVR_OG_IMAGE.height,
             alt: tQuivr("product.alt"),
           }
-        : undefined,
+        : project.cover
+          ? { path: project.cover, alt: `${project.name} homepage` }
+          : undefined,
     }),
   };
 }
@@ -69,9 +71,27 @@ export default async function PortfolioProjectPage({
   const project = getProject(slug, locale as ContentLocale);
   if (!project) notFound();
   // Quivr is an engine with an API, so on top of the shared template its
-  // product is drawn in code (QuivrFeedMock) and explained further down
-  // (QuivrSections).
+  // product is drawn in code (QuivrStage) and explained further down
+  // (QuivrSections). Its repository link lives in that feature grid, so the
+  // page keeps a single call to action: booking a call.
   const isQuivr = slug === QUIVR_SLUG;
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const tNav = await getTranslations({ locale, namespace: "nav" });
+  const breadcrumb = breadcrumbList([
+    { name: tFooter("home"), url: localizedUrl(locale) },
+    { name: tNav("portfolio"), url: localizedUrl(locale, "/portfolio") },
+    { name: project.name, url: localizedUrl(locale, `/portfolio/${slug}`) },
+  ]);
+  // The Quivr page shows a FAQ (QuivrSections); its markup repeats it.
+  const tQuivr = isQuivr ? await getTranslations({ locale, namespace: "quivr" }) : null;
+  const faq = tQuivr
+    ? faqPageSchema(
+        QUIVR_FAQ_KEYS.map((key) => ({
+          question: tQuivr(`faq.items.${key}.q`),
+          answer: tQuivr(`faq.items.${key}.a`),
+        })),
+      )
+    : null;
 
   const meta = [
     { value: project.status, label: t("statusLabel") },
@@ -84,6 +104,8 @@ export default async function PortfolioProjectPage({
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={faq} />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
@@ -150,7 +172,7 @@ export default async function PortfolioProjectPage({
             }
           >
             {isQuivr ? (
-              <QuivrFeedMock locale={locale} accent={project.accent} />
+              <QuivrStage locale={locale} accent={project.accent} />
             ) : project.cover ? (
               <div className="self-start overflow-hidden border border-foreground">
                 <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
@@ -177,6 +199,7 @@ export default async function PortfolioProjectPage({
             )}
           </div>
 
+          {isQuivr ? null : (
           <a
             href={project.url}
             target="_blank"
@@ -188,7 +211,49 @@ export default async function PortfolioProjectPage({
               &#8599;
             </span>
           </a>
+          )}
         </section>
+
+        {project.story ? (
+          <section className="border-t border-border">
+            <div className="mx-auto flex max-w-[80rem] flex-col gap-14 px-6 py-16 md:gap-16 md:px-12 md:py-20">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
+                <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {t("storyWhy")}
+                </h2>
+                <p className="m-0 max-w-[720px] text-xl leading-[1.5] text-foreground">
+                  {project.story.why}
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
+                <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {t("storyHow")}
+                </h2>
+                <ul className="m-0 flex max-w-[720px] list-none flex-col gap-5 p-0">
+                  {project.story.how.map((step) => (
+                    <li
+                      key={step}
+                      className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
+                    >
+                      <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
+                        →
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
+                <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {t("storyAudience")}
+                </h2>
+                <p className="m-0 max-w-[720px] text-lg leading-[1.6] text-foreground">
+                  {project.story.audience}
+                </p>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         {isQuivr ? <QuivrSections locale={locale} /> : null}
 

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
 import { TopNav } from "@/components/TopNav";
 import { CLIENTS } from "@/components/home/Clients";
 import { FinalCTA } from "@/components/home/FinalCTA";
@@ -11,6 +11,7 @@ import {
   ABOUT_EDGE_KEYS,
   ABOUT_FACT_KEYS,
   ABOUT_FAQ_KEYS,
+  ABOUT_ORIGIN_ARTICLE_LOCALE,
   ABOUT_ORIGIN_ARTICLE_PATH,
   ABOUT_PROCESS_STEPS,
   ABOUT_SERVICE_KEYS,
@@ -21,12 +22,17 @@ import {
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import {
   ABOUT_PATHS,
+  AGENCY_PARIS_PATHS,
   localizedSocialMetadata,
+  localizedUrl,
   SITE_URL,
   splitPath,
   splitPathAlternates,
 } from "@/lib/site";
+import { breadcrumbList, faqPageSchema } from "@/lib/structured-data";
+import { AboutBackers } from "./AboutBackers";
 import { AboutBookingCta } from "./AboutBookingCta";
+import { clientLogoSize } from "@/lib/client-logos";
 
 /**
  * The About page, served at /fr/a-propos and /en/about. Both routes render
@@ -63,11 +69,25 @@ export async function AboutPage({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "about" });
   const tServices = await getTranslations({ locale, namespace: "services" });
   const tProcess = await getTranslations({ locale, namespace: "process" });
+  const tFooter = await getTranslations({ locale, namespace: "footer" });
+  const tAgency = await getTranslations({ locale, namespace: "agencyParis" });
+  const breadcrumb = breadcrumbList([
+    { name: tFooter("home"), url: localizedUrl(locale) },
+    { name: tFooter("about"), url: localizedUrl(locale, splitPath(ABOUT_PATHS, locale)) },
+  ]);
+  const faq = faqPageSchema(
+    ABOUT_FAQ_KEYS.map((key) => ({
+      question: t(`faq.items.${key}.q`),
+      answer: t(`faq.items.${key}.a`),
+    })),
+  );
   return (
     <div
       data-variant="hybrid"
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={faq} />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         {/* 1 — The one H1 on the page, the value sentence, and the call. */}
@@ -90,31 +110,7 @@ export async function AboutPage({ locale }: { locale: string }) {
           <AboutBookingCta />
 
           {/* The same two backers as the homepage hero. */}
-          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-border pt-7 md:mt-12">
-            <span className={MONO}>{t("backedBy")}</span>
-            <a
-              href="https://www.ycombinator.com/companies/quivr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex transition-opacity hover:opacity-70"
-            >
-              <Image
-                src="/images/partners/y-combinator.svg"
-                alt="Y Combinator W24"
-                width={154}
-                height={38}
-                className="h-8 w-auto"
-              />
-            </a>
-            <span aria-hidden="true" className="h-8 w-px bg-border" />
-            <Image
-              src="/images/partners/france-2030.svg"
-              alt="France 2030"
-              width={52}
-              height={52}
-              className="h-10 w-auto"
-            />
-          </div>
+          <AboutBackers label={t("backedBy")} />
         </section>
 
         {/* 2 — What the company does: the three homepage services. */}
@@ -143,6 +139,14 @@ export async function AboutPage({ locale }: { locale: string }) {
               </article>
             ))}
           </div>
+
+          <Link
+            href={splitPath(AGENCY_PARIS_PATHS, locale)}
+            className="mt-8 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
+          >
+            {tAgency("aboutLink")}
+            <span aria-hidden="true">→</span>
+          </Link>
         </section>
 
         {/* 3 — What sets us apart, each claim carrying a figure we can source. */}
@@ -209,6 +213,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                   <img
                     src={client.src}
                     alt={t("clients.logoAlt", { name: client.name })}
+                    {...clientLogoSize(client.src)}
                     className={`${client.className} w-auto object-contain brightness-0`}
                     loading="lazy"
                     decoding="async"
@@ -233,6 +238,7 @@ export async function AboutPage({ locale }: { locale: string }) {
           <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("team.intro")}</p>
           <Link
             href={ABOUT_ORIGIN_ARTICLE_PATH}
+            locale={ABOUT_ORIGIN_ARTICLE_LOCALE}
             className="mt-4 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
           >
             {t("team.originLink")}
@@ -417,7 +423,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                         </span>
                       ) : key === "site" ? (
                         <a
-                          href={SITE_URL}
+                          href={localizedUrl(locale)}
                           className="underline decoration-1 underline-offset-4 hover:text-muted-foreground"
                         >
                           {SITE_URL}
@@ -447,7 +453,8 @@ export async function AboutPage({ locale }: { locale: string }) {
           </div>
         </section>
 
-        {/* 8 — Frequently asked questions, plain HTML, no JSON-LD. */}
+        {/* 8 — Frequently asked questions, mirrored word for word in the
+            FAQPage JSON-LD above (minus the answers that name a client). */}
         <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
           <h2 className={H2}>{t("faq.title")}</h2>
 

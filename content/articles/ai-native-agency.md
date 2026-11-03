@@ -1,5 +1,6 @@
 ---
 title: "AI-native agency: an agency that looks like a software company"
+seoTitle: "AI-native agency vs classic agency | The Vibe Company"
 slug: ai-native-agency
 translationKey: ai-native-agency
 language: en

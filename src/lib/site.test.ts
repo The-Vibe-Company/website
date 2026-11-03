@@ -1,12 +1,38 @@
 import { describe, expect, test } from "bun:test";
 
-import { localizedSocialMetadata } from "./site";
+import {
+  contentAlternates,
+  defaultSocialMetadata,
+  localizedAlternates,
+  localizedSocialMetadata,
+  monolingualAlternates,
+  PRIVACY_PATHS,
+  splitPathAlternates,
+  translatedSplitPath,
+} from "./site";
+
+const SITE = "https://www.thevibecompany.co";
 
 describe("localizedSocialMetadata", () => {
-  test("keeps the small card without an image", () => {
+  test("falls back to the default 1200x630 JPEG on the large card without an image", () => {
     const meta = localizedSocialMetadata({ locale: "en", path: "/about", title: "T", description: "D" });
-    expect(meta.twitter).toMatchObject({ card: "summary" });
-    expect(meta.openGraph).not.toHaveProperty("images");
+    const url = `${SITE}/og/default.jpg`;
+    expect(meta.twitter).toMatchObject({ card: "summary_large_image", images: [url] });
+    expect(meta.openGraph).toMatchObject({
+      locale: "en_US",
+      url: `${SITE}/en/about`,
+      images: [{ url, width: 1200, height: 630, type: "image/jpeg", alt: "The Vibe Company" }],
+    });
+  });
+
+  test("layout defaults share the default card", () => {
+    const meta = defaultSocialMetadata("fr");
+    const url = `${SITE}/og/default.jpg`;
+    expect(meta.twitter).toMatchObject({ card: "summary_large_image", images: [url] });
+    expect(meta.openGraph).toMatchObject({
+      locale: "fr_FR",
+      images: [{ url, width: 1200, height: 630, type: "image/jpeg", alt: "The Vibe Company" }],
+    });
   });
 
   test("declares an absolute OG image and the large Twitter card", () => {
@@ -22,5 +48,66 @@ describe("localizedSocialMetadata", () => {
       images: [{ url, width: 1200, height: 630, alt: "Alt" }],
     });
     expect(meta.twitter).toMatchObject({ card: "summary_large_image", images: [url] });
+  });
+});
+
+describe("alternates", () => {
+  test("pages served in both languages declare fr, en and the French x-default", () => {
+    expect(localizedAlternates("en", "/portfolio")).toEqual({
+      canonical: `${SITE}/en/portfolio`,
+      languages: {
+        fr: `${SITE}/fr/portfolio`,
+        en: `${SITE}/en/portfolio`,
+        "x-default": `${SITE}/fr/portfolio`,
+      },
+    });
+  });
+
+  test("translated paths keep x-default on the French URL", () => {
+    expect(splitPathAlternates("en", { fr: "/a-propos", en: "/about" })).toEqual({
+      canonical: `${SITE}/en/about`,
+      languages: {
+        fr: `${SITE}/fr/a-propos`,
+        en: `${SITE}/en/about`,
+        "x-default": `${SITE}/fr/a-propos`,
+      },
+    });
+  });
+
+  test("single-language content declares itself as x-default", () => {
+    const path = "/resources/articles/premier-site";
+    expect(monolingualAlternates("fr", path)).toEqual({
+      canonical: `${SITE}/fr${path}`,
+      languages: { fr: `${SITE}/fr${path}`, "x-default": `${SITE}/fr${path}` },
+    });
+    expect(contentAlternates("fr", path, [{ language: "fr", path }])).toEqual(
+      monolingualAlternates("fr", path),
+    );
+  });
+});
+
+describe("translatedSplitPath", () => {
+  test("sends a prefix-less translated segment to the requested language's version", () => {
+    expect(translatedSplitPath("/privacy", "fr")).toBe("/confidentialite");
+    expect(translatedSplitPath("/confidentialite", "en")).toBe("/privacy");
+    expect(translatedSplitPath("/privacy", "en")).toBe("/privacy");
+    expect(translatedSplitPath("/about", "fr")).toBe("/a-propos");
+    expect(translatedSplitPath("/contact", "en")).toBe("/contact");
+  });
+
+  test("leaves every other path alone", () => {
+    expect(translatedSplitPath("/portfolio", "fr")).toBe("/portfolio");
+    expect(translatedSplitPath("/privacy/extra", "fr")).toBe("/privacy/extra");
+  });
+
+  test("the privacy policy declares both languages, x-default on the French URL", () => {
+    expect(splitPathAlternates("fr", PRIVACY_PATHS)).toEqual({
+      canonical: `${SITE}/fr/confidentialite`,
+      languages: {
+        fr: `${SITE}/fr/confidentialite`,
+        en: `${SITE}/en/privacy`,
+        "x-default": `${SITE}/fr/confidentialite`,
+      },
+    });
   });
 });

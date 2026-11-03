@@ -21,6 +21,7 @@ export function SkillCard({
   title,
   summary,
   slug,
+  language,
   skill,
 }: SkillCardProps) {
   const t = useTranslations('resources');
@@ -28,7 +29,8 @@ export function SkillCard({
   const detailHref = `/resources/skills/${slug}`;
 
   return (
-    <Link href={detailHref} className="group block h-full">
+    // A skill lives under its own language's prefix only, so link straight there.
+    <Link href={detailHref} locale={language} className="group block h-full">
       <article className="flex h-full min-h-[260px] flex-col border border-res-border bg-res-surface p-5 transition-colors hover:border-res-text/35">
         <p className="mb-4 text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
           {t('skillBadge')}

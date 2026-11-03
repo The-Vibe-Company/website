@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { AGENT_LINK_HEADER } from "./src/lib/agent-discovery";
+import { INDEXNOW_KEY_PATH } from "./src/lib/indexnow";
 
 const nextConfig: NextConfig = {
   env: {
@@ -41,6 +43,40 @@ const nextConfig: NextConfig = {
       {
         source: "/quivr",
         destination: "/portfolio/quivr",
+        permanent: true,
+      },
+      // /agency was removed; old URLs still 404 in Search Console.
+      // The agency now lives on the home page, preserving the visitor's locale.
+      {
+        source: "/:locale(fr|en)/agency",
+        destination: "/:locale",
+        permanent: true,
+      },
+      {
+        source: "/agency",
+        destination: "/",
+        permanent: true,
+      },
+      // These content types were removed; old URLs still 404 in Search Console.
+      // Land on /resources directly to avoid the /resources/articles redirect.
+      {
+        source: "/:locale(fr|en)/resources/:type(tools|tutorials|concepts|focus)",
+        destination: "/:locale/resources",
+        permanent: true,
+      },
+      {
+        source: "/:locale(fr|en)/resources/:type(tools|tutorials|concepts|focus)/:path*",
+        destination: "/:locale/resources",
+        permanent: true,
+      },
+      {
+        source: "/resources/:type(tools|tutorials|concepts|focus)",
+        destination: "/resources",
+        permanent: true,
+      },
+      {
+        source: "/resources/:type(tools|tutorials|concepts|focus)/:path*",
+        destination: "/resources",
         permanent: true,
       },
       // /resources/learnings was removed; old URLs still 404 in Search Console.
@@ -86,6 +122,37 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      {
+        source: INDEXNOW_KEY_PATH,
+        headers: [{ key: "Content-Type", value: "text/plain; charset=utf-8" }],
+      },
+      {
+        source: "/:path*",
+        headers: [{ key: "Link", value: AGENT_LINK_HEADER }],
+      },
+      ...["/", "/:locale(fr|en)", "/:locale(fr|en)/resources/articles/:slug"].map((source) => ({
+        source,
+        headers: [{ key: "Vary", value: "Accept" }],
+      })),
+      {
+        source: "/.well-known/agent-skills/:name/SKILL.md",
+        headers: [{ key: "Content-Type", value: "text/markdown; charset=utf-8" }],
+      },
+      {
+        source: "/auth.md",
+        headers: [{ key: "Content-Type", value: "text/markdown; charset=utf-8" }],
+      },
+      {
+        source: "/mcp/server-card",
+        headers: [{ key: "Content-Type", value: "application/mcp-server-card+json" }],
+      },
+      {
+        source: "/.well-known/ai-catalog.json",
+        headers: [
+          { key: "Content-Type", value: "application/json" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+        ],
+      },
       {
         // Brand assets live here only so email signatures have a stable
         // absolute URL. They are reachable by link, never surfaced by the

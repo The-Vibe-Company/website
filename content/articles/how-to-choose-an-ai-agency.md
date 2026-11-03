@@ -1,9 +1,10 @@
 ---
 title: "How to choose an AI agency: 10 questions before you sign"
+seoTitle: "How to choose an AI agency: 10 questions | The Vibe Company"
 slug: how-to-choose-an-ai-agency
 language: en
 translationKey: choose-ai-agency
-summary: "AI agency, IT services firm, freelancer or in-house team? Decision criteria, fixed price vs time and materials, what a proposal should contain, and how to judge a POC and references."
+summary: "AI agency, IT firm, freelancer or in-house: criteria, pricing model, and how to judge a POC and proposal before you sign."
 publishedAt: 2026-10-13
 complexity: beginner
 topics: AI Adoption, AI Agents, Strategy
@@ -144,6 +145,10 @@ Where we help: an AI product or agent that must reach production fast, in a mid-
 - **Monka (healthcare)**: in production in two months inside the client's existing HDS environment, 165 questions, 12 versions of the clinical reference. [Read the case](/en/case-studies/monka)
 - **LocService (property rental)**: several hundred support tickets a day. An assistant reads past tickets and documentation, then drafts each reply based on the customer's profile. Drafts are used on 87% of tickets; the team decides what gets sent. [Read the case](/en/case-studies/locservice)
 - **AFP (news media)**: generative AI tools for newsrooms within MediaGen, a €4M France 2030 project backed by Bpifrance, alongside Kairntech and Dawex, always under journalists' control. [Read the case](/en/case-studies/afp)
+
+Once you've picked a partner, here's [how a project with an AI development agency runs, from first call to production](/en/resources/articles/working-with-an-ai-development-agency).
+
+If what you mainly need is to compare the three options on cost and timeline, we broke down [AI agency vs freelancer vs IT services firm](/en/resources/articles/ai-agency-vs-freelancer-vs-it-services), with sourced day rates and the total cost.
 
 ## FAQ
 

@@ -2,6 +2,8 @@ import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
 import { ENSEMBLE_PATH } from "@/lib/coup-de-pates-ensemble";
+import { hasMarkdownRepresentation, prefersMarkdown } from "@/lib/agent-discovery";
+import { translatedSplitPath } from "@/lib/site";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -26,6 +28,21 @@ function withoutLocalePrefix(pathname: string): string {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Separate route/cache entry for Markdown. Leave HTML, RSC navigation and
+  // Server Actions on their existing next-intl/SSG paths.
+  if (
+    (request.method === "GET" || request.method === "HEAD") &&
+    !request.headers.has("rsc") &&
+    hasMarkdownRepresentation(pathname) &&
+    prefersMarkdown(request.headers.get("accept"))
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/md${pathname === "/" ? "" : pathname}`;
+    const response = NextResponse.rewrite(url);
+    response.headers.set("Vary", "Accept");
+    return response;
+  }
 
   // French-only pages: one hop to the French URL, and no locale cookie written,
   // so the visitor's language choice for the rest of the site is left alone.
@@ -52,19 +69,39 @@ export function middleware(request: NextRequest) {
       locale = country && country !== "FR" ? "en" : "fr";
     }
 
+    if (pathname === "/") {
+      const url = request.nextUrl.clone();
+      url.pathname = `/${locale}`;
+      return NextResponse.redirect(url);
+    }
+
+    // Any other page: a permanent redirect, so crawlers carry the bare URL
+    // (/contact, /privacy) over to the page. A translated segment goes
+    // straight to that language's version (/privacy -> /fr/confidentialite),
+    // not through a second redirect. The target still depends on the cookie
+    // and the country, so nobody may store it: browsers cache a 308 for good
+    // unless told otherwise.
     const url = request.nextUrl.clone();
-    url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-    return NextResponse.redirect(url);
+    url.pathname = `/${locale}${translatedSplitPath(pathname, locale)}`;
+    const response = NextResponse.redirect(url, 308);
+    response.headers.set("Cache-Control", "private, no-store");
+    response.headers.set("Vary", "Cookie");
+    return response;
   }
 
   // Prefixed URL: let next-intl handle routing and remember the locale in a
   // cookie. Canonical and alternate links are declared through Next Metadata.
-  return intlMiddleware(request);
+  const response = intlMiddleware(request);
+  if (hasMarkdownRepresentation(pathname)) {
+    const vary = response.headers.get("Vary");
+    response.headers.set("Vary", vary ? `${vary}, Accept` : "Accept");
+  }
+  return response;
 }
 
 export const config = {
   // Page routes only, not API, assets, PostHog proxy, or files with an extension.
   // The trailing `.*\.` exclusion is what keeps /brand/*.png out of the locale
   // redirect: those URLs are pasted in email signatures and must never 308.
-  matcher: ["/((?!api|_next|ingest|.*\\.).*)"],
+  matcher: ["/((?!api|_next|ingest|mcp(?:/|$)|a2a(?:/|$)|md(?:/|$)|.*\\.).*)"],
 };

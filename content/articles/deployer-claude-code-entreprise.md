@@ -1,9 +1,10 @@
 ---
 title: "Déployer Claude Code en entreprise : sécurité, réglages et méthode"
+seoTitle: "Déployer Claude Code en entreprise | The Vibe Company"
 slug: deployer-claude-code-entreprise
 translationKey: claude-code-enterprise
 language: fr
-summary: "Comment déployer Claude Code dans une entreprise de taille moyenne ou grande : réglages managés, permissions, données, pilote et mesure. Le guide concret, sources officielles à l'appui."
+summary: "Déployer Claude Code en entreprise : réglages managés, permissions, données, pilote et mesure. Guide concret."
 publishedAt: 2026-10-13
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering
@@ -78,6 +79,8 @@ Beaucoup d'entreprises testent aussi [Codex d'OpenAI](https://developers.openai.
 The Vibe Company est une agence IA à Paris, fondée en 2024 par Stan Girard et Antoine Dewez (ex-Theodo, ex-Stockly), passée par Y Combinator (W24). On a mené des dizaines de projets, avec trois spécialités : HDS et sécurité, frontend, DevOps.
 
 On utilise ces agents de code tous les jours pour livrer. Sur un déploiement, on s'occupe de la configuration des réglages managés et des permissions, l'écriture des `CLAUDE.md` avec vos équipes, et la formation pendant le pilote. Précision utile pour vos achats : on ne revendique aucune certification de sécurité.
+
+Une fois l'outil cadré, des agents peuvent aussi durcir votre produit dans la CI : voir [Agents IA et sécurité : durcir un SaaS, ses secrets et sa CI](/fr/resources/articles/agents-ia-durcir-saas).
 
 ## FAQ
 

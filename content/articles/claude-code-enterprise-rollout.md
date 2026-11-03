@@ -1,9 +1,10 @@
 ---
 title: "Rolling Out Claude Code in the Enterprise: Security, Settings and Method"
+seoTitle: "Claude Code enterprise rollout guide | The Vibe Company"
 slug: claude-code-enterprise-rollout
 translationKey: claude-code-enterprise
 language: en
-summary: "How to roll out Claude Code across a mid-size or large company: managed settings, permissions, data, pilot and measurement. A practical guide backed by official docs."
+summary: "Roll out Claude Code in a mid-size or large company: managed settings, permissions, data, pilot and measurement."
 publishedAt: 2026-10-13
 complexity: intermediate
 topics: AI Adoption, AI Agents, Engineering
@@ -78,6 +79,8 @@ Many companies also trial [OpenAI's Codex](https://developers.openai.com/codex),
 The Vibe Company is an AI agency in Paris, founded in 2024 by Stan Girard and Antoine Dewez (ex-Theodo, ex-Stockly), backed by Y Combinator (W24). We've run dozens of projects, with three specialties: HDS and security, frontend, DevOps.
 
 We use these coding agents every day to ship. On a rollout, we set up managed settings and permissions, write `CLAUDE.md` files with your teams and train people during the pilot. Useful for procurement: we don't claim any security certification.
+
+Once the tool is framed, agents can also harden your product inside CI: see [AI security agents to harden a SaaS: secrets, deps and CI](/en/resources/articles/ai-security-agents-harden-saas).
 
 ## FAQ
 
