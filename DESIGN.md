@@ -650,7 +650,7 @@ The palette is three materials and one light. Grey studio, white clay and black 
 - **Rim text (#9C4308):** The only orange allowed as text on a light surface (AA on clay and studio). The bright rim colours are used as text only on lacquer.
 - **Error (#B42318):** Errors only: a field's ring and message, the kicker of an error state.
 
-Orange is restrained to light and signal: the rim line on the header pill, the main piece, the closing call, lacquer buttons and the current tab; the warm bounce under the main piece; the underline of mono links and article links; tiny status dots (open to projects, a product that is live, the next case); short mono text on lacquer (a day number, the steps of the process band, a new best score); the footer's V; and the YC mark itself. It never fills a surface larger than a dot.
+Orange is restrained to light and signal: the rim line on the header pill, the main piece, the closing call, lacquer buttons and the current tab; the warm bounce under the main piece; the underline of mono links and article links; tiny status dots (open to projects, a product that is live, the Victor's Story chip on its own articles, the next case); short mono text on lacquer (a day number, the steps of the process band, a new best score); the footer's V; and the YC mark itself. It never fills a surface larger than a dot.
 
 Client and product identities keep their own colours only inside their own marks: logos, app icons, the underline of a product's name on its own page, and the product's own capture or mock. They never tint the pieces around them; on the homepage shelf and the product cards, the marks and dots are ink.
 
