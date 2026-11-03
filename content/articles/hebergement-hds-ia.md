@@ -104,7 +104,7 @@ Ce qui compte côté architecture : on n'a pas « ajouté HDS après la démo »
 9. Peut-on héberger un **modèle** (self-hosted ou endpoint privé) sans faire sortir les prompts ?
 10. Comment se passe un **export / réversibilité** en fin de contrat, sans casser la chaîne de responsabilité ?
 
-Gardez les réponses écrites. Elles serviront à l'[AIPD](https://www.cnil.fr/fr/realiser-une-analyse-dimpact-si-necessaire) et aux formalités CNIL décrites dans les [fiches IA et santé](https://www.cnil.fr/fr/ia-et-sante-developper-et-evaluer-des-systemes-dia-conformes).
+Gardez les réponses écrites. Elles serviront à l'[AIPD](https://www.cnil.fr/fr/realiser-une-analyse-dimpact-si-necessaire) et aux formalités CNIL décrites dans les [fiches IA et santé](https://www.cnil.fr/fr/ia-et-sante-developper-et-evaluer-des-systemes-ia-conformes).
 
 ## Par où commencer
 

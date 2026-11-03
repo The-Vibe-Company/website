@@ -104,7 +104,7 @@ What matters for architecture: we didn't "add HDS after the demo". We built insi
 9. Can we host a **model** (self-hosted or private endpoint) without sending prompts out?
 10. How does **export / exit** work at contract end without breaking the chain of responsibility?
 
-Keep the answers in writing. They feed the [DPIA](https://www.cnil.fr/fr/realiser-une-analyse-dimpact-si-necessaire) and the CNIL formalities in the [AI and health sheets](https://www.cnil.fr/fr/ia-et-sante-developper-et-evaluer-des-systemes-dia-conformes).
+Keep the answers in writing. They feed the [DPIA](https://www.cnil.fr/fr/realiser-une-analyse-dimpact-si-necessaire) and the CNIL formalities in the [AI and health sheets](https://www.cnil.fr/fr/ia-et-sante-developper-et-evaluer-des-systemes-ia-conformes).
 
 ## Where to start
 
