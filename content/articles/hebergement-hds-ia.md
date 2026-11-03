@@ -13,9 +13,9 @@ coverAlt: "La mascotte branche un câble turquoise d'une sphère IA vers une bai
 ogImage: /images/resources/hebergement-hds-ia/cover-mascotte.webp
 ---
 
-**La réponse courte.** Pour traiter des données de santé avec de l'IA en France, il faut un **hébergement HDS** adapté au workload, pas seulement un badge « HDS » sur une page marketing. En pratique : lire le certificat (activités 1 à 6 + version du référentiel), vérifier la souveraineté du référentiel 2024 (stockage dans l'EEE, transparence des accès hors EEE), cartographier chaque flux IA (app, modèle, logs, index, sauvegardes, staging), et signer un contrat qui couvre ce que vous confiez vraiment. Sans ça, le modèle peut être excellent et le projet reste bloqué.
+**La réponse courte.** Pour traiter des données de santé avec de l'IA en France, il vous faut un **hébergement HDS** adapté à votre workload. Un badge « HDS » sur une page marketing ne suffit pas. En pratique : lire le certificat (activités 1 à 6 + version du référentiel), vérifier la souveraineté du référentiel 2024 (stockage dans l'EEE, transparence des accès hors EEE), cartographier chaque flux IA (app, modèle, logs, index, sauvegardes, staging), et signer un contrat qui couvre ce que vous confiez vraiment. Sans ça, même un excellent modèle ne partira pas en production.
 
-Ce guide répond à une question d'achat et d'architecture : **quel hébergement HDS choisir, et comment le configurer pour faire tourner de l'IA**. Pour le cadre juridique du projet (qui doit être certifié, RGPD, CNIL), voir notre article [IA et données de santé : ce que l'HDS impose](/fr/resources/articles/ia-donnees-de-sante-hds). Ici, on reste côté infra.
+Ce guide traite d'achat et d'architecture : **quel hébergement HDS choisir, et comment le configurer pour faire tourner de l'IA**. Pour le cadre juridique du projet (qui doit être certifié, RGPD, CNIL), voir notre article [IA et données de santé : ce que l'HDS impose](/fr/resources/articles/ia-donnees-de-sante-hds). Ici, on reste côté infra.
 
 > Ce texte n'est pas un avis juridique. Pour votre cas, voyez votre DPO ou un juriste spécialisé.
 
@@ -38,11 +38,11 @@ Le référentiel découpe l'hébergement en **six activités** (article R.1111-9
 5. Administration et exploitation du système d'information contenant les données de santé.
 6. Sauvegarde des données de santé (les sauvegardes **externalisées** ; celles intrinsèques aux activités 1 à 5 restent dans ces activités).
 
-Ce ne sont pas des « niveaux » empilés. Un hébergeur choisit les activités sur lesquelles il se fait certifier. La [liste officielle ANS](https://esante.gouv.fr/offres-services/hds/liste-des-hebergeurs-certifies) affiche pour chacun les activités et la version du référentiel.
+Les activités ne s'empilent pas comme des « niveaux ». Chaque hébergeur choisit celles sur lesquelles il se fait certifier. La [liste officielle ANS](https://esante.gouv.fr/offres-services/hds/liste-des-hebergeurs-certifies) affiche pour chacun les activités et la version du référentiel.
 
 **Ce que ça change pour un projet IA :**
 
-- Si vous prenez seulement un cloud certifié sur 1 à 4, et que **vous** (ou votre prestataire) administrez bases, modèles et accès, l'activité 5 n'est pas magiquement couverte.
+- Si vous prenez seulement un cloud certifié sur 1 à 4, et que **vous** (ou votre prestataire) administrez bases, modèles et accès, l'activité 5 n'est pas couverte pour autant.
 - Si les sauvegardes partent chez un tiers distinct, regardez l'activité 6 de ce tiers.
 - Le mot « HDS » sur la home page ne dit pas quelles activités sont dans le certificat, ni sur quelle version.
 
@@ -56,11 +56,11 @@ La version révisée du référentiel a été publiée au Journal officiel le 16
 
 L'ANS le dit clairement : la localisation dans l'EEE renforce la protection, **sans garantir l'immunité extraterritoriale**. Le référentiel HDS n'est pas aligné, à date, sur les exigences d'immunité du SecNumCloud sur ce point (réévaluation au plus tard en 2027).
 
-En novembre 2026, un certificat encore affiché en v1.1 n'est plus le signal à accepter. Demandez le certificat à jour, les activités, la version, et la cartographie des transferts.
+En novembre 2026, un certificat encore affiché en v1.1 ne doit plus vous suffire. Demandez le certificat à jour, les activités, la version, et la cartographie des transferts.
 
 ## Cartographier la stack IA avant de signer
 
-Une app classique a déjà des flux. Une stack IA en ajoute. Avant le devis, dessinez :
+Une app classique a déjà ses flux, et une stack IA en ajoute. Avant de demander un devis, dessinez :
 
 | Composant | Question HDS |
 |---|---|
@@ -83,13 +83,13 @@ Si un seul de ces chemins sort du cadre, le certificat de la baie de prod ne suf
 6. **Environnements de test** remplis avec un extrait de prod « pour aller plus vite ».
 7. **Sous-traitants en chaîne** (infogéreur, éditeur de plateforme ML, support offshore) non listés dans le contrat et la cartographie des transferts.
 
-Ces points bloquent plus souvent les projets que le choix du modèle.
+Ce sont eux qui bloquent les projets, plus souvent que le choix du modèle.
 
 ## Comment on a configuré ça avec Monka
 
 Chez [Monka](/fr/case-studies/monka), l'environnement HDS était déjà en place. En deux mois, on a mis en production l'app des aidants (bilan de 165 questions qui devient un plan d'action), Lifeline pour les infirmières de coordination, et le moteur clinique versionné. Depuis, le rythme est d'environ une version tous les deux jours ; 90 versions de l'app en six mois, 12 versions du référentiel clinique.
 
-Le point d'architecture utile ici : on n'a pas « ajouté HDS après la démo ». On a construit dans le cadre d'hébergement déjà décidé, avec des données de santé chiffrées et un passage en prod calé sur ce socle. C'est le même ordre qu'on recommande dans [Du POC à la production](/fr/resources/articles/poc-agent-ia-production) : le périmètre d'hébergement avant le polish du prompt.
+Ce qui compte côté architecture : on n'a pas « ajouté HDS après la démo ». On a construit dans le cadre d'hébergement déjà choisi, avec des données de santé chiffrées et un passage en prod calé sur ce socle. C'est le même ordre qu'on recommande dans [Du POC à la production](/fr/resources/articles/poc-agent-ia-production) : le périmètre d'hébergement avant le polish du prompt.
 
 ## Checklist de sélection (à envoyer au fournisseur)
 
@@ -110,14 +110,14 @@ Gardez les réponses écrites. Elles serviront à l'[AIPD](https://www.cnil.fr/f
 
 1. Dessiner les flux (tableau ci-dessus) avec le DPO et le responsable technique.
 2. Filtrer la [liste ANS](https://esante.gouv.fr/offres-services/hds/liste-des-hebergeurs-certifies) sur les activités dont vous avez besoin, en v2.
-3. Envoyer la checklist, comparer deux ou trois réponses, pas dix slides.
+3. Envoyer la checklist et comparer deux ou trois réponses plutôt que dix slides.
 4. Verrouiller le contrat et le plan d'architecture **avant** le POC « réaliste » sur données de santé.
 5. Construire ensuite le produit IA dans ce cadre (voir aussi [Agence IA à Paris](/fr/agence-ia-paris) si vous externalisez le build).
 
 ## FAQ
 
 **Faut-il un hébergeur HDS pour toute IA en santé ?**  
-Dès que des données de santé à caractère personnel sont hébergées chez un tiers dans le cadre de L.1111-8, oui. Si vous n'hébergez que des données anonymisées au sens strict, le sujet change : faites valider l'anonymisation avec votre DPO, ce n'est pas un raccourci marketing.
+Dès que des données de santé à caractère personnel sont hébergées chez un tiers dans le cadre de L.1111-8, oui. Si vous n'hébergez que des données anonymisées au sens strict, le sujet change : faites valider l'anonymisation par votre DPO. Ce n'est pas un raccourci marketing.
 
 **Un cloud « certifié HDS » couvre-t-il automatiquement mon agent IA ?**  
 Non. Il couvre les activités listées sur son certificat, pour les services inclus dans le périmètre. L'agent, ses outils, ses logs et ses appels modèle restent à cartographier.
@@ -126,13 +126,13 @@ Non. Il couvre les activités listées sur son certificat, pour les services inc
 Exigez la v2, le stockage dans l'EEE, la transparence des accès hors EEE et la cartographie publique des transferts. Un devis sans ces pièces est incomplet.
 
 **Peut-on appeler un LLM américain depuis une base HDS en France ?**  
-Techniquement souvent oui. Pour des données de santé en clair, c'est en général hors du cadre que vous cherchez à respecter. Pseudonymisez avant, hébergez le modèle dans le périmètre, ou ne sortez pas les données.
+Techniquement, c'est souvent possible. Avec des données de santé en clair, vous sortez en général du cadre que vous cherchez à respecter. Pseudonymisez avant, hébergez le modèle dans le périmètre, ou ne sortez pas les données.
 
 **Qui doit être certifié : l'éditeur, l'hôpital, l'agence ?**  
 Celui qui assure les activités d'hébergement pour le compte d'autrui. Une agence de développement n'est pas un hébergeur par défaut. Tout dépend de qui a les accès en production. Détail dans [l'article obligations HDS](/fr/resources/articles/ia-donnees-de-sante-hds).
 
 **Combien de temps pour mettre un produit IA en prod sur un socle HDS déjà prêt ?**  
-Ça dépend du socle. Exemple réel : chez Monka, avec l'environnement HDS déjà en place, app + CRM + moteur clinique sont partis en production en deux mois. On ne donne pas de délai générique.
+Ça dépend du socle. Chez Monka, avec l'environnement HDS déjà en place, app + CRM + moteur clinique sont partis en production en deux mois. On ne donne pas de délai générique.
 
 **The Vibe Company est-elle un hébergeur HDS ?**  
 Non. On n'est pas un hébergeur de données de santé. On développe selon les exigences du cadre HDS/RGPD, en général dans l'environnement déjà certifié chez le client.
