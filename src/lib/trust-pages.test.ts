@@ -109,6 +109,8 @@ describe("contact and privacy copy", () => {
         "E-mails": "3 ans après le dernier contact",
         "Données de rendez-vous sur cal.com": "3 ans après le dernier contact",
         "Journaux d’hébergement et de sécurité chez Vercel": "12 mois",
+        "Identifiant de visite dans votre navigateur": "En mémoire seulement, effacé au rechargement ou à la fermeture de la page",
+        "Identifiant de visite dans les événements PostHog": "Même durée que les événements PostHog : 25 mois maximum",
       },
       president: "Président",
     },
@@ -126,6 +128,8 @@ describe("contact and privacy copy", () => {
         Emails: "3 years after the last contact",
         "Booking data on cal.com": "3 years after the last contact",
         "Hosting and security logs at Vercel": "12 months",
+        "Visit identifier in your browser": "In memory only, cleared when the page is reloaded or closed",
+        "Visit identifier in PostHog events": "Same as PostHog events: 25 months maximum",
       },
       president: "President",
     },
@@ -148,7 +152,15 @@ describe("contact and privacy copy", () => {
     // In-memory persistence keeps a session ID, so Web Vitals are collected.
     expect(posthog).toContain("Web Vitals");
     // No cookieless-mode wording: the site does not use that mode.
-    expect(strings(privacy).join("\n")).not.toMatch(/sel aléatoire|random salt|\$posthog_cookieless/);
+    expect(strings(privacy).join("\n")).not.toMatch(
+      /random salt|daily salt|daily hash|counting hash|sel aléatoire|sel quotidien|empreinte quotidienne|empreinte de comptage|\$posthog_cookieless/i,
+    );
+    // Default GeoIP enrichment applies (project IP anonymization is off): say what it adds.
+    expect(posthog).toMatch(
+      locale === "fr"
+        ? /localisation approximative \(pays, région, ville, coordonnées approximatives, fuseau horaire\)/
+        : /approximate location from it \(country, region, city, approximate coordinates, time zone\)/,
+    );
     // The visit identifier lives in memory only.
     expect(posthog).toMatch(locale === "fr" ? /ne vit qu’en mémoire/ : /lives in memory only/);
   });

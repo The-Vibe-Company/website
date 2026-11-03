@@ -331,7 +331,7 @@ describe("PostHog configuration", () => {
   });
 });
 
-describe("clearing PostHog storage left from before cookieless mode", () => {
+describe("clearing PostHog storage left by earlier visits", () => {
   function fakeStorage(entries: Record<string, string>) {
     const data = new Map(Object.entries(entries));
     return {

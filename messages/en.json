@@ -1753,7 +1753,7 @@
             "paragraphs": [
               "On the production site only, the PostHog library records page views (the page address, query string included, for instance the text of a search in the resources), page leaves, the clicks and interactions it captures automatically, click and scroll positions for heatmaps, page performance measurements (Web Vitals) and JavaScript errors. On top of that come the events we named ourselves: clicks on our booking, contact and navigation buttons, opening the mobile menu, a search in the resources (query length and word count only), expanding or copying a skill prompt, games of the homepage mini-game, with their score and, when a record falls, the previous record.",
               "PostHog adds technical details: browser, operating system, screen size, referring page, campaign parameters (utm_*) and ad click identifiers found in the address (gclid, fbclid, msclkid, li_fat_id, ttclid…).",
-              "The data goes through /ingest, a relay on our own domain, then on to PostHog, in its United States region. Measurement is cookieless: PostHog stores nothing in your browser, no cookie, no localStorage, no sessionStorage. Each visit is measured without a persistent identifier: PostHog draws a random identifier that lives in memory only, for as long as the page or tab is open, and is gone as soon as you reload or close the page. From one visit to the next, the same person is not recognized. The PostHog project setting that anonymizes IP addresses isn’t turned on, so the IP address sent with events isn’t masked by that setting, and by default PostHog derives an approximate location from it (country, city) and adds it to the events. The site never calls PostHog’s identify function and creates no person profile. Your visits aren’t tied to your name or email.",
+              "The data goes through /ingest, a relay on our own domain, then on to PostHog, in its United States region. Measurement is cookieless: PostHog stores nothing in your browser, no cookie, no localStorage, no sessionStorage. Each visit is measured without a persistent identifier: PostHog draws a random identifier that lives in memory only, for as long as you browse the site in that tab, and is gone as soon as you reload or close the page. From one visit to the next, the same person is not recognized. The PostHog project setting that anonymizes IP addresses isn’t turned on, so the IP address sent with events isn’t masked by that setting, and by default PostHog derives an approximate location from it (country, region, city, approximate coordinates, time zone) and adds it to the events. The site never calls PostHog’s identify function and creates no person profile. Your visits aren’t tied to your name or email.",
               "Session recording (replay) is turned off in the PostHog project, and surveys are not enabled."
             ]
           },
@@ -1804,7 +1804,7 @@
             [
               "PostHog",
               "None",
-              "Audience measurement stores no cookie and nothing in browser storage: its visit identifier lives in memory only, for as long as the page is open.",
+              "Audience measurement stores no cookie and nothing in browser storage: its visit identifier lives in memory only, for as long as the tab stays on the site, until a reload or close.",
               "—"
             ],
             [
