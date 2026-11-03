@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
 import { ENSEMBLE_PATH } from "@/lib/coup-de-pates-ensemble";
 import { hasMarkdownRepresentation, prefersMarkdown } from "@/lib/agent-discovery";
+import { translatedSplitPath } from "@/lib/site";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -68,9 +69,24 @@ export function middleware(request: NextRequest) {
       locale = country && country !== "FR" ? "en" : "fr";
     }
 
+    if (pathname === "/") {
+      const url = request.nextUrl.clone();
+      url.pathname = `/${locale}`;
+      return NextResponse.redirect(url);
+    }
+
+    // Any other page: a permanent redirect, so crawlers carry the bare URL
+    // (/contact, /privacy) over to the page. A translated segment goes
+    // straight to that language's version (/privacy -> /fr/confidentialite),
+    // not through a second redirect. The target still depends on the cookie
+    // and the country, so nobody may store it: browsers cache a 308 for good
+    // unless told otherwise.
     const url = request.nextUrl.clone();
-    url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-    return NextResponse.redirect(url);
+    url.pathname = `/${locale}${translatedSplitPath(pathname, locale)}`;
+    const response = NextResponse.redirect(url, 308);
+    response.headers.set("Cache-Control", "private, no-store");
+    response.headers.set("Vary", "Cookie");
+    return response;
   }
 
   // Prefixed URL: let next-intl handle routing and remember the locale in a

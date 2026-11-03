@@ -1,7 +1,13 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import type { PostHog } from "posthog-js";
 
-import { createPostHogQueue, type EventProperties, type PostHogQueueOptions } from "./posthog";
+import {
+  createPostHogQueue,
+  clearLegacyPostHogStorage,
+  POSTHOG_INIT_CONFIG,
+  type EventProperties,
+  type PostHogQueueOptions,
+} from "./posthog";
 
 type Sent = {
   event: string;
@@ -311,5 +317,61 @@ describe("loading PostHog", () => {
     expect(first).toBe(posthog);
     expect(second).toBe(posthog);
     expect(calls).toBe(1);
+  });
+});
+
+describe("PostHog configuration", () => {
+  test("measures the audience without cookies or browser storage, and never identifies", () => {
+    // In memory only: no cookie, no localStorage, no sessionStorage.
+    expect(POSTHOG_INIT_CONFIG.persistence).toBe("memory");
+    // Cookieless mode needs a PostHog project setting; the site does not use it.
+    expect(POSTHOG_INIT_CONFIG).not.toHaveProperty("cookieless_mode");
+    expect(POSTHOG_INIT_CONFIG.person_profiles).toBe("never");
+    expect(POSTHOG_INIT_CONFIG.api_host).toBe("/ingest");
+  });
+});
+
+describe("clearing PostHog storage left by earlier visits", () => {
+  function fakeStorage(entries: Record<string, string>) {
+    const data = new Map(Object.entries(entries));
+    return {
+      data,
+      get length() {
+        return data.size;
+      },
+      key: (i: number) => [...data.keys()][i] ?? null,
+      removeItem: (name: string) => void data.delete(name),
+    };
+  }
+
+  test("removes this project's ID from both storages and expires its cookie on every domain", () => {
+    const local = fakeStorage({ ph_phc_test_posthog: "{}", ph_debug: "true", "tvc-runner-best": "12" });
+    const session = fakeStorage({ ph_phc_test_window_id: "w", ph_phc_test_primary_window_exists: "1" });
+    const writes: string[] = [];
+    clearLegacyPostHogStorage("phc_test", {
+      hostname: "www.thevibecompany.co",
+      readCookies: () => "NEXT_LOCALE=fr; ph_phc_test_posthog=%7B%7D",
+      writeCookie: (assignment) => void writes.push(assignment),
+      storages: [local, session],
+    });
+
+    expect([...local.data.keys()]).toEqual(["ph_debug", "tvc-runner-best"]);
+    expect([...session.data.keys()]).toEqual([]);
+    expect(writes).toEqual([
+      "ph_phc_test_posthog=; Max-Age=0; Path=/",
+      "ph_phc_test_posthog=; Max-Age=0; Path=/; Domain=.www.thevibecompany.co",
+      "ph_phc_test_posthog=; Max-Age=0; Path=/; Domain=.thevibecompany.co",
+    ]);
+  });
+
+  test("leaves the site's own cookie alone", () => {
+    const writes: string[] = [];
+    clearLegacyPostHogStorage("phc_test", {
+      hostname: "localhost",
+      readCookies: () => "NEXT_LOCALE=en",
+      writeCookie: (assignment) => void writes.push(assignment),
+      storages: [],
+    });
+    expect(writes).toEqual([]);
   });
 });

@@ -21,7 +21,28 @@ const RENDERED = {
   "en /resources": en.resources.metaTitle + BRAND_SUFFIX,
 } as const;
 
+// Contact and privacy titles are absolute and carry the brand themselves.
+const TRUST_PAGES = {
+  "fr /contact": fr.contact.metaTitle,
+  "en /contact": en.contact.metaTitle,
+  "fr /confidentialite": fr.privacy.metaTitle,
+  "en /privacy": en.privacy.metaTitle,
+} as const;
+
 describe("SEO page titles", () => {
+  test.each(Object.entries(TRUST_PAGES))("%s fits in 60 characters and names the brand", (_, title) => {
+    expect([...title].length).toBeLessThanOrEqual(60);
+    expect(title).toContain(SITE_NAME);
+  });
+
+  test("trust page descriptions fit in 160 characters", () => {
+    for (const messages of [fr, en]) {
+      for (const description of [messages.contact.metaDescription, messages.privacy.metaDescription]) {
+        expect([...description].length).toBeLessThanOrEqual(160);
+      }
+    }
+  });
+
   test.each(Object.entries(RENDERED))("%s fits in 60 characters", (_, title) => {
     expect([...title].length).toBeLessThanOrEqual(60);
   });

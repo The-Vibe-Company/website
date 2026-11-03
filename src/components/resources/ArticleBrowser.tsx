@@ -32,9 +32,9 @@ export interface ArticleCardItem {
 
 type Filter = 'all' | 'victor' | 'articles';
 
-/** How many entries each column shows in the combined view before linking to the full list. */
+/** How many entries each section shows in the combined view before linking to the full list. */
 const ARTICLES_PREVIEW_LIMIT = 6;
-const VICTOR_PREVIEW_LIMIT = 6;
+const VICTOR_PREVIEW_LIMIT = 3;
 
 function formatDate(dateString: string | undefined, locale: string): string {
   if (!dateString) return '';
@@ -50,9 +50,18 @@ function formatDate(dateString: string | undefined, locale: string): string {
  * to stay its own link. So the entry is a plain container and the title link
  * spans it through an overlay pseudo-element, which keeps the markup free of
  * nested anchors; the switch sits above that overlay. The cover is decorative:
- * the title next to it names the link.
+ * the title next to it names the link. The compact entry (smaller cover, no
+ * summary) is the one the secondary Victor's Story preview uses.
  */
-function ArticleEntry({ item, hidden = false }: { item: ArticleCardItem; hidden?: boolean }) {
+function ArticleEntry({
+  item,
+  hidden = false,
+  compact = false,
+}: {
+  item: ArticleCardItem;
+  hidden?: boolean;
+  compact?: boolean;
+}) {
   const t = useTranslations('resources');
   const locale = useLocale();
   return (
@@ -60,13 +69,20 @@ function ArticleEntry({ item, hidden = false }: { item: ArticleCardItem; hidden?
       hidden={hidden}
       className={cn(
         'entry clay-quiet lift group relative',
+        compact && 'entry-compact',
         hidden && 'hidden',
         'has-[h3_a:focus-visible]:outline-2 has-[h3_a:focus-visible]:outline-offset-3 has-[h3_a:focus-visible]:outline-ink',
       )}
     >
       <span className="thumb rim">
         {item.image ? (
-          <Image src={item.image.url} alt={item.image.alt} fill sizes="128px" className="object-cover" />
+          <Image
+            src={item.image.url}
+            alt={item.image.alt}
+            fill
+            sizes={compact ? '64px' : '128px'}
+            className="object-cover"
+          />
         ) : (
           <span className="block h-full w-full bg-well" aria-hidden="true" />
         )}
@@ -83,7 +99,7 @@ function ArticleEntry({ item, hidden = false }: { item: ArticleCardItem; hidden?
             {item.title}
           </Link>
         </h3>
-        {item.summary ? (
+        {!compact && item.summary ? (
           <p dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }} />
         ) : null}
         <div className="meta flex-wrap gap-y-1.5 max-md:gap-x-1.5 max-md:[&_.chip]:px-2">
@@ -109,35 +125,42 @@ function ArticleEntry({ item, hidden = false }: { item: ArticleCardItem; hidden?
   );
 }
 
-interface ColumnProps {
+interface SectionProps {
   name: string;
   count: number;
-  accent: 'victor' | 'articles';
-  layout?: 'list' | 'grid';
+  /** A secondary section gets a quieter header and a denser grid of compact entries. */
+  secondary?: boolean;
   children: ReactNode;
   footer?: ReactNode;
 }
 
-function Column({ name, count, accent, layout = 'list', children, footer }: ColumnProps) {
-  const lit = accent === 'victor';
-
+function Section({ name, count, secondary = false, children, footer }: SectionProps) {
   return (
     <div>
-      <div className="flex items-center gap-3 px-1 pb-4">
-        <span className={cn('dot', lit && 'dot-rim')} aria-hidden="true" />
-        <h2 className="display d-xs m-0">{name}</h2>
-        <span className="chip ml-auto">{count}</span>
+      {secondary ? (
+        <>
+          <div className="flex items-center gap-3 px-1 pb-3">
+            <h2 className="m-0 text-[17px] font-semibold tracking-[-0.01em] text-muted">{name}</h2>
+            <span className="chip ml-auto">{count}</span>
+          </div>
+          <span aria-hidden="true" className="groove mb-[18px]" />
+        </>
+      ) : (
+        <>
+          <div className="flex items-center gap-3 px-1 pb-4">
+            <span className="dot" aria-hidden="true" />
+            <h2 className="display d-xs m-0">{name}</h2>
+            <span className="chip ml-auto">{count}</span>
+          </div>
+          <div
+            aria-hidden="true"
+            className="mb-[18px] h-0.5 rounded-sm bg-[linear-gradient(90deg,var(--ink),#3a3a3c)]"
+          />
+        </>
+      )}
+      <div className={cn('entries', secondary ? 'md:grid-cols-2 lg:grid-cols-3' : 'lg:grid-cols-2')}>
+        {children}
       </div>
-      <div
-        aria-hidden="true"
-        className={cn(
-          'mb-[18px] h-0.5 rounded-sm',
-          lit
-            ? 'bg-[linear-gradient(90deg,var(--ink)_0_30%,var(--rim)_80%,var(--rim-hot))]'
-            : 'bg-[linear-gradient(90deg,var(--ink),#3a3a3c)]',
-        )}
-      />
-      <div className={cn('entries', layout === 'grid' && 'lg:grid-cols-2')}>{children}</div>
       {footer}
     </div>
   );
@@ -162,10 +185,10 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
 
   const hiddenOthers = filter === 'all' ? Math.max(0, others.length - ARTICLES_PREVIEW_LIMIT) : 0;
 
-  const tabs: { key: Filter; label: string; dot?: boolean }[] = [
+  const tabs: { key: Filter; label: string }[] = [
     { key: 'all', label: t('all') },
     { key: 'articles', label: t('articles') },
-    { key: 'victor', label: t('victorStory'), dot: true },
+    { key: 'victor', label: t('victorStory') },
   ];
 
   return (
@@ -181,7 +204,6 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
               onClick={() => setFilter(tab.key)}
               className="max-md:flex-1 max-md:gap-1.5 max-md:px-3"
             >
-              {tab.dot && <span className="dot dot-rim" aria-hidden="true" />}
               {tab.label}
             </button>
           ))}
@@ -196,13 +218,13 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
           </button>
         )}
 
-        <div className={single ? '' : 'grid grid-cols-1 items-start gap-[52px] md:grid-cols-2 md:gap-9'}>
+        {/* Articles lead at full width; Victor's Story follows as a quieter
+            section of compact entries. */}
+        <div className="flex flex-col gap-[52px] md:gap-16">
           {showOthers && (
-            <Column
+            <Section
               name={t('articles')}
               count={others.length}
-              accent="articles"
-              layout={single ? 'grid' : 'list'}
               footer={
                 hiddenOthers > 0 ? (
                   <button
@@ -223,15 +245,14 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
                   hidden={filter === 'all' && index >= ARTICLES_PREVIEW_LIMIT}
                 />
               ))}
-            </Column>
+            </Section>
           )}
 
           {showVictor && (
-            <Column
+            <Section
               name={t('victorStory')}
               count={victorStory.length}
-              accent="victor"
-              layout={single ? 'grid' : 'list'}
+              secondary={!single}
               footer={
                 hiddenVictor > 0 ? (
                   <button
@@ -249,10 +270,11 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
                 <ArticleEntry
                   key={item.id}
                   item={item}
+                  compact={!single}
                   hidden={filter === 'all' && index >= VICTOR_PREVIEW_LIMIT}
                 />
               ))}
-            </Column>
+            </Section>
           )}
         </div>
       </div>

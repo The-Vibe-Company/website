@@ -172,8 +172,8 @@ describe("sitemap", () => {
     // The /resources listing itself carries `latestContentDate` (sitemap.ts),
     // so it inherits that same exemption and the match must not require a
     // trailing slash.
-    setSystemTime(new Date("2026-10-29T00:00:00.000Z"));
-    const today = new Date("2026-10-29T23:59:59.999Z");
+    setSystemTime(new Date("2026-11-03T00:00:00.000Z"));
+    const today = new Date("2026-11-03T23:59:59.999Z");
     const futures = sitemap().filter(
       (entry) =>
         !/\/resources(\/|$)/.test(entry.url) &&
@@ -184,9 +184,9 @@ describe("sitemap", () => {
     expect(futures).toEqual([]);
   });
 
-  test("the sitemap keeps its 112 URLs and every entry still declares x-default", () => {
+  test("the sitemap keeps its 118 URLs and every entry still declares x-default", () => {
     const entries = sitemap();
-    expect(entries).toHaveLength(112);
+    expect(entries).toHaveLength(118);
     for (const entry of entries) {
       const keys = Object.keys(entry.alternates!.languages!);
       expect(keys).toContain("x-default");
@@ -231,10 +231,34 @@ describe("sitemap", () => {
       "/agents-ia-production",
       "/ia-sante-hds",
       "/ia-medias",
+      "/contact",
+      "/confidentialite",
     ];
     for (const path of landings) {
       expect(SPLIT_PATH_LASTMOD[path]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     }
+  });
+
+  test("lists the contact page and the privacy policy in both languages, with x-default", () => {
+    const urls = sitemap().map((entry) => entry.url);
+    for (const url of ["/fr/contact", "/en/contact", "/fr/confidentialite", "/en/privacy"]) {
+      expect(urls).toContain(`${SITE}${url}`);
+    }
+    expect(urls).not.toContain(`${SITE}/fr/privacy`);
+    expect(urls).not.toContain(`${SITE}/en/confidentialite`);
+
+    const privacy = sitemap().find((entry) => entry.url === `${SITE}/en/privacy`);
+    expect(privacy?.alternates?.languages).toEqual({
+      fr: `${SITE}/fr/confidentialite`,
+      en: `${SITE}/en/privacy`,
+      "x-default": `${SITE}/fr/confidentialite`,
+    });
+    const contact = sitemap().find((entry) => entry.url === `${SITE}/fr/contact`);
+    expect(contact?.alternates?.languages).toEqual({
+      fr: `${SITE}/fr/contact`,
+      en: `${SITE}/en/contact`,
+      "x-default": `${SITE}/fr/contact`,
+    });
   });
 
   test("lists the media AI landing on its translated paths, with x-default", () => {

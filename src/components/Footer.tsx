@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { FOOTER_OFFERINGS } from "@/lib/footer-offerings";
 import { PRIORITY_ARTICLES } from "@/lib/priority-articles";
-import { ABOUT_PATHS, splitPath } from "@/lib/site";
+import { ABOUT_PATHS, CONTACT_PATHS, PRIVACY_PATHS, splitPath } from "@/lib/site";
 
 interface NavLink {
   label: string;
@@ -51,11 +51,12 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
 
   // Same sections as the top nav, so both cover every key page. "Case studies"
   // reuses the nav label (no extra footer translation key).
-  // "About" is the one page whose URL segment is translated (/en/about,
-  // /fr/a-propos), so its href is picked per language.
+  // "About" and "Privacy" have a translated URL segment (/en/about,
+  // /fr/a-propos), so their href is picked per language.
   const siteLinks: NavLink[] = [
     { label: t("home"), href: "/" },
     { label: t("about"), href: splitPath(ABOUT_PATHS, locale) },
+    { label: t("contact"), href: splitPath(CONTACT_PATHS, locale) },
     { label: t("portfolio"), href: "/portfolio" },
     { label: tNav("caseStudies"), href: "/case-studies" },
     { label: t("resources"), href: "/resources" },
@@ -138,6 +139,12 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
 
         <div className="foot-base">
           <span>© {buildYear} THE VIBE COMPANY</span>
+          <Link
+            href={splitPath(PRIVACY_PATHS, locale)}
+            className="underline decoration-1 underline-offset-4 transition-opacity hover:opacity-70"
+          >
+            {t("privacy")}
+          </Link>
           <span>YC W24 · {t("madeInFrance")}</span>
           <span>{t("builtWithAi")}</span>
           <span>{t("openToProjects")}</span>

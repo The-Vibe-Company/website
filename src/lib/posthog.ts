@@ -1,4 +1,4 @@
-import type { CaptureOptions, PostHog } from "posthog-js";
+import type { CaptureOptions, PostHog, PostHogConfig } from "posthog-js";
 
 /**
  * PostHog only runs on the production deployment. `NEXT_PUBLIC_VERCEL_ENV` is
@@ -181,19 +181,86 @@ export function createPostHogQueue({
 // instead.
 let bundledChunkFailed = false;
 
+/**
+ * Audience measurement without cookies or browser storage, no consent banner:
+ * `persistence: "memory"` keeps PostHog's visitor and session IDs in memory
+ * only, so nothing lands in cookies, localStorage or sessionStorage, and a
+ * reload or a new tab starts a new anonymous visit. Unlike `cookieless_mode`,
+ * this needs no PostHog project setting. See
+ * https://posthog.com/docs/libraries/js/persistence.
+ *
+ * `person_profiles: "never"` makes any `identify()` a no-op: the site never
+ * identifies anyone.
+ */
+export const POSTHOG_INIT_CONFIG = {
+  api_host: "/ingest",
+  ui_host: "https://us.posthog.com",
+  defaults: "2026-01-30",
+  persistence: "memory",
+  capture_pageview: false,
+  capture_pageleave: true,
+  person_profiles: "never",
+  capture_exceptions: true,
+  debug: process.env.NODE_ENV === "development",
+} as const satisfies Partial<PostHogConfig>;
+
+export type LegacyStorageEnv = {
+  hostname: string;
+  /** Reads `document.cookie`. */
+  readCookies: () => string;
+  /** Writes one `document.cookie` assignment. */
+  writeCookie: (assignment: string) => void;
+  storages: Pick<Storage, "length" | "key" | "removeItem">[];
+};
+
+/**
+ * PostHog used to keep a random visitor ID in a `ph_<key>_posthog` cookie
+ * (set on the parent domain) and in browser storage. Now that it runs in
+ * memory only, clear what earlier visits left behind, before `init`, so no old
+ * identifier stays in the browser.
+ */
+export function clearLegacyPostHogStorage(key: string, env: LegacyStorageEnv) {
+  const isLegacy = (name: string) =>
+    name.startsWith(`ph_${key}_`) || name.startsWith(`__ph_opt_in_out_${key}`);
+
+  for (const storage of env.storages) {
+    const names: string[] = [];
+    for (let i = 0; i < storage.length; i++) {
+      const name = storage.key(i);
+      if (name && isLegacy(name)) names.push(name);
+    }
+    for (const name of names) storage.removeItem(name);
+  }
+
+  // A cookie is only removed with the domain it was set on: try the host
+  // itself and every parent domain (www.thevibecompany.co, thevibecompany.co).
+  const labels = env.hostname.split(".");
+  const domains = [""];
+  for (let i = 0; i < labels.length - 1; i++) domains.push(`; Domain=.${labels.slice(i).join(".")}`);
+  for (const part of env.readCookies().split(";")) {
+    const name = part.split("=")[0]?.trim();
+    if (!name || !isLegacy(name)) continue;
+    for (const domain of domains) env.writeCookie(`${name}=; Max-Age=0; Path=/${domain}`);
+  }
+}
+
 const queue = createPostHogQueue({
   importPostHog: () => (bundledChunkFailed ? loadPostHogScript() : importBundledPostHog()),
   initPostHog: (posthog) => {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-      api_host: "/ingest",
-      ui_host: "https://us.posthog.com",
-      defaults: "2026-01-30",
-      capture_pageview: false,
-      capture_pageleave: true,
-      person_profiles: "identified_only",
-      capture_exceptions: true,
-      debug: process.env.NODE_ENV === "development",
-    });
+    const key = process.env.NEXT_PUBLIC_POSTHOG_KEY!;
+    try {
+      clearLegacyPostHogStorage(key, {
+        hostname: location.hostname,
+        readCookies: () => document.cookie,
+        writeCookie: (assignment) => {
+          document.cookie = assignment;
+        },
+        storages: [localStorage, sessionStorage],
+      });
+    } catch {
+      // Storage can be blocked (privacy modes); there is then nothing to clear.
+    }
+    posthog.init(key, POSTHOG_INIT_CONFIG);
   },
 });
 

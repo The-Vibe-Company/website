@@ -23,7 +23,12 @@ import {
   localizedUrl,
   splitPath,
 } from "@/lib/site";
-import { breadcrumbList, webPageNode } from "@/lib/structured-data";
+import {
+  breadcrumbList,
+  faqPageSchema,
+  isPublishableInCaseStudyFaq,
+  webPageNode,
+} from "@/lib/structured-data";
 import { clientLogoSize } from "@/lib/client-logos";
 
 export function generateStaticParams() {
@@ -99,6 +104,9 @@ export default async function CaseStudyPage({
 
   const pageUrl = localizedUrl(locale, `/case-studies/${slug}`);
   const pageName = `${customer.client} · ${t("back")}`;
+  const faq = customer.faq?.length
+    ? faqPageSchema(customer.faq, isPublishableInCaseStudyFaq)
+    : null;
   const jsonLd = [
     webPageNode({
       url: pageUrl,
@@ -111,6 +119,7 @@ export default async function CaseStudyPage({
       { name: tNav("caseStudies"), url: localizedUrl(locale, "/case-studies") },
       { name: customer.client, url: pageUrl },
     ]),
+    ...(faq ? [faq] : []),
   ];
 
   const asideVisual = customer.visuals.find(
@@ -423,6 +432,29 @@ export default async function CaseStudyPage({
             </p>
           </div>
         </section>
+
+        {customer.faq && customer.faq.length > 0 ? (
+          <section className="mx-auto max-w-[80rem] border-t border-border px-6 py-14 md:px-12 md:py-20">
+            <h2 className="m-0 text-[28px] font-bold tracking-[-0.03em] md:text-[36px]">
+              {t("faqTitle")}
+            </h2>
+            <div className="mt-10 border-t-2 border-foreground md:mt-12">
+              {customer.faq.map((item) => (
+                <article
+                  key={item.question}
+                  className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-8"
+                >
+                  <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] md:text-[24px]">
+                    {item.question}
+                  </h3>
+                  <p className="m-0 max-w-[70ch] text-[16px] leading-[1.65] text-muted-foreground md:text-[17px]">
+                    {item.answer}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <FinalCTA rail="narrow" />
       </main>

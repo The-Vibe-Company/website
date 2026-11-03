@@ -1401,6 +1401,35 @@ input:disabled {
     color: var(--muted);
   }
 
+  /* The compact entry of a secondary section (Victor's Story under the
+     articles): a smaller cover, the title and the meta line, no summary. */
+  .entry.entry-compact {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 12px;
+    padding: 10px 14px 10px 10px;
+    min-height: 0;
+  }
+
+  .entry-compact .thumb {
+    height: 64px;
+    border-radius: 12px;
+  }
+
+  .entry-compact h3 {
+    font-size: 15px;
+  }
+
+  .entry-compact .meta {
+    margin-top: auto;
+    padding-top: 6px;
+  }
+
+  @media (min-width: 768px) {
+    .entry-compact .meta {
+      min-height: 0;
+    }
+  }
+
   a.entry:hover h3 {
     text-decoration: underline;
     text-decoration-color: var(--rim);

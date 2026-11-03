@@ -78,3 +78,36 @@ describe("published agent skills", () => {
     expect(getAllContent().filter((item) => item.type === "article").length).toBeGreaterThan(0);
   });
 });
+
+describe("prefix-less page redirects", () => {
+  function bare(path: string, init: { country?: string; locale?: string } = {}) {
+    const headers = new Headers({ accept: "text/html" });
+    if (init.country) headers.set("x-vercel-ip-country", init.country);
+    if (init.locale) headers.set("cookie", `NEXT_LOCALE=${init.locale}`);
+    return middleware(new NextRequest(`https://www.thevibecompany.co${path}`, { headers }));
+  }
+
+  test.each([
+    ["/privacy", { country: "FR" }, "/fr/confidentialite"],
+    ["/privacy", { country: "US" }, "/en/privacy"],
+    ["/privacy", { country: "FR", locale: "en" }, "/en/privacy"],
+    ["/confidentialite", { country: "US" }, "/en/privacy"],
+    ["/about", { country: "FR" }, "/fr/a-propos"],
+    ["/about", { country: "US" }, "/en/about"],
+    ["/contact", {}, "/fr/contact"],
+    ["/contact", { country: "US" }, "/en/contact"],
+    ["/portfolio", { locale: "en" }, "/en/portfolio"],
+  ] as const)("%s %o -> %s in one permanent, uncached hop", (path, init, target) => {
+    const response = bare(path, init);
+    expect(response.status).toBe(308);
+    expect(response.headers.get("location")).toBe(`https://www.thevibecompany.co${target}`);
+    expect(response.headers.get("cache-control")).toBe("private, no-store");
+    expect(response.headers.get("vary")).toBe("Cookie");
+  });
+
+  test("the bare homepage keeps its temporary language redirect", () => {
+    const response = bare("/", { country: "US" });
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toBe("https://www.thevibecompany.co/en");
+  });
+});
