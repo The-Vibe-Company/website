@@ -6,7 +6,6 @@ import { BOOKING_URL, CONTACT_EMAIL } from "./booking";
 import { PRIVACY_SECTION_KEYS } from "./privacy";
 
 const MESSAGES = { fr, en } as const;
-const TBC = { fr: "À CONFIRMER", en: "TO BE CONFIRMED" } as const;
 
 /** Every string under a messages subtree, flattened. */
 function strings(value: unknown): string[] {
@@ -42,11 +41,13 @@ describe("contact and privacy copy", () => {
     }
   });
 
-  test.each(["fr", "en"] as const)("%s marks missing facts with its own language's marker only", (locale) => {
-    const other = locale === "fr" ? TBC.en : TBC.fr;
+  test.each(["fr", "en"] as const)("%s states every fact: no pending marker, no Google provider, no strike-off", (locale) => {
     const copy = strings([MESSAGES[locale].contact, MESSAGES[locale].privacy]).join("\n");
-    expect(copy).toContain(TBC[locale]);
-    expect(copy).not.toContain(other);
+    expect(copy).not.toMatch(/À CONFIRMER|TO BE CONFIRMED|à valider|to be validated/i);
+    expect(copy).not.toMatch(/Google Workspace|Gmail/);
+    // Google Fonts is a technical fact (no request goes there), not a provider.
+    expect(copy.replaceAll("Google Fonts", "")).not.toContain("Google");
+    expect(copy).not.toMatch(/radiation|radiée|struck off/i);
   });
 
   test("the contact page names the founders, the town and the address to write to", () => {
@@ -69,7 +70,7 @@ describe("contact and privacy copy", () => {
       "44 boulevard Paul Vaillant-Couturier, 93100 Montreuil",
       "10 rue La Vacquerie, 75011 Paris",
       "440 N Barranca Avenue #4133, Covina, CA 91723",
-      "Google Workspace",
+      "RCS Bobigny 981 841 109",
       "Quivr SAS",
     ]) {
       expect(privacy).toContain(fact);
@@ -77,8 +78,8 @@ describe("contact and privacy copy", () => {
     expect(contact).toContain("44 boulevard Paul Vaillant-Couturier, 93100 Montreuil");
     expect(contact).toContain("10 rue La Vacquerie, 75011 Paris");
     expect(contact).toContain("SIREN 981 841 109");
-    // No registry city is published for the RCS: never name one.
-    expect(privacy).not.toMatch(/RCS (de |of )?[A-Z]/);
+    // From the Kbis: the RCS registration only. Nothing personal from it.
+    expect(privacy).not.toMatch(/naissance|birth|nationalit|code de vérification|verification code|numéro de gestion/i);
   });
 
   test.each(["fr", "en"] as const)("%s exposes founders@ only, names the publication director, and lists no PostHog storage", (locale) => {
@@ -93,15 +94,19 @@ describe("contact and privacy copy", () => {
     expect(storage.some((name) => name.startsWith("ph_"))).toBe(false);
   });
 
-  test.each(["fr", "en"] as const)("%s keeps the marker on every claim that depends on a pending decision", (locale) => {
+  test.each(["fr", "en"] as const)("%s gives the decided legal bases and retention periods, and keeps the IP facts exact", (locale) => {
     const privacy = MESSAGES[locale].privacy.sections;
-    const marker = TBC[locale];
-    // The CNIL exemption is a goal, not a granted status.
-    expect(privacy.cookies.after[1]).toContain(marker);
-    // The audience legal basis.
-    expect(privacy.purposes.table.rows[0][2]).toContain(marker);
-    // Cookieless counting only works once the PostHog project setting is on.
-    expect(privacy.collected.items[0].paragraphs[2]).toContain(marker);
+    const bases = privacy.purposes.table.rows.map((row) => row[2]);
+    expect(bases[0]).toMatch(locale === "fr" ? /^Intérêt légitime.*CNIL/ : /^Legitimate interest.*CNIL/);
+    expect(bases[4]).toMatch(locale === "fr" ? /strictement nécessaire/ : /Strictly necessary/);
+    const retention = strings(privacy.retention).join("\n");
+    for (const period of locale === "fr" ? ["25 mois", "13 mois", "3 ans après le dernier contact", "12 mois"] : ["25 months", "13 months", "3 years after the last contact", "12 months"]) {
+      expect(retention).toContain(period);
+    }
+    // The project does not anonymize IPs: never claim it does.
+    const posthog = privacy.collected.items[0].paragraphs.join("\n");
+    expect(posthog).toMatch(locale === "fr" ? /anonymise les adresses IP n’est pas activée/ : /anonymizes IP addresses isn’t turned on/);
+    expect(posthog).not.toMatch(/retire l’adresse IP|strips the IP/);
     // Web Vitals need a session ID, which cookieless mode never creates.
     expect(strings(privacy).join("\n")).not.toContain("Web Vitals");
   });
@@ -112,8 +117,12 @@ describe("contact and privacy copy", () => {
       ["Responsable / contact données personnelles", "Personal data lead / contact"].includes(label),
     );
     expect(lead?.[1]).toBe("Stan Girard, founders@thevibecompany.co");
-    // No DPO has been officially designated: never name one.
-    expect(strings(privacy).join("\n")).not.toContain("DPO");
+    // No DPO has been officially designated: never name one, in any wording.
+    const copy = strings([MESSAGES[locale].contact, MESSAGES[locale].privacy]).join("\n");
+    expect(copy).not.toMatch(/\bDPO\b|délégué à la protection|data protection officer/i);
+    // One contact row only, merged with the lead.
+    const withEmail = privacy.controller.table.rows.filter(([, value]) => value.includes(CONTACT_EMAIL));
+    expect(withEmail).toHaveLength(1);
     expect(privacy.rights.paragraphs[1]).toContain("Stan Girard");
   });
 });

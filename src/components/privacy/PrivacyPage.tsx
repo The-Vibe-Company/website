@@ -19,8 +19,8 @@ import { MarkedText } from "./MarkedText";
  * The privacy policy, served at /fr/confidentialite and /en/privacy. Every
  * statement about what the site collects comes from its code (PostHog setup
  * in src/lib/posthog.ts, the cal.com webhook, the locale middleware, the
- * runner games' localStorage); anything the code cannot tell is written
- * "À CONFIRMER" / "TO BE CONFIRMED" in the copy and rendered as a marker.
+ * runner games' localStorage); the legal facts come from the company's
+ * registration and the founders' decisions.
  */
 
 export async function privacyMetadata(locale: string): Promise<Metadata> {
@@ -161,9 +161,6 @@ export async function PrivacyPage({ locale }: { locale: string }) {
           </h1>
           <p className="m-0 mt-8 max-w-[680px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
             {t("lede")}
-          </p>
-          <p className="m-0 mt-8 max-w-[680px] border border-dashed border-foreground px-5 py-4 text-sm leading-[1.55] text-foreground">
-            <MarkedText text={t.raw("tbcNote") as string} />
           </p>
         </section>
 
