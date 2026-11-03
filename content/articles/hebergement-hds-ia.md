@@ -52,7 +52,7 @@ La version révisée du référentiel a été publiée au Journal officiel le 16
 
 - nouveaux candidats évalués sur la v2 depuis le **16 novembre 2024** ;
 - hébergeurs déjà certifiés : transition au plus tard le **16 mai 2026** ;
-- quatre exigences de souveraineté ([exigences n° 28 à 31, chapitre 7 du référentiel](https://esante.gouv.fr/sites/default/files/media_entity/documents/referentiel_certification_hds---fr--v2.pdf#page=16)), dont : stockage physique des données de santé dans l'**Espace économique européen** ; information contractuelle en cas d'accès distant depuis un pays tiers ou de soumission à une législation extra-européenne sans niveau de protection adéquat au sens du RGPD ; cartographie **publique** des transferts hors EEE.
+- quatre exigences de souveraineté ([exigences n° 28 à 31, chapitre 7 du référentiel](https://esante.gouv.fr/sites/default/files/media_entity/documents/referentiel_certification_hds---fr--v2.pdf#page=16)), dont : stockage physique des données de santé dans l'**Espace économique européen** ; accès distant depuis un pays hors EEE fondé sur une décision d'adéquation ou, à défaut, sur des garanties appropriées (articles 45 et 46 du RGPD) dont le client est informé ; mention au contrat de toute soumission de l'hébergeur ou d'un sous-traitant à la législation d'un pays tiers sans niveau de protection adéquat ; cartographie **publique** des transferts hors EEE.
 
 L'ANS le dit clairement : la localisation dans l'EEE renforce la protection, **sans garantir l'immunité extraterritoriale**. Le référentiel HDS n'est pas aligné, à date, sur les exigences d'immunité du SecNumCloud sur ce point (réévaluation au plus tard en 2027).
 

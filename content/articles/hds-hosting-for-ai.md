@@ -29,7 +29,7 @@ The Vibe Company isn't an HDS host. On health projects, we usually build inside 
 
 ## Read the certificate: six activities, not the slogan
 
-The référentiel splits hosting into **six activities** (article R.1111-9 of the public health code, as set out in the [HDS v2 référentiel](https://esante.gouv.fr/sites/default/files/media_entity/documents/referentiel_certification_hds---fr--v2.pdf)):
+The référentiel splits hosting into **six activities** (article R.1111-9 of the public health code, as set out in the [HDS v2 référentiel](https://esante.gouv.fr/sites/default/files/media_entity/documents/referentiel_certification_hds---en--v2.pdf)):
 
 1. Physical sites (facilities that house the infrastructure).
 2. Hardware infrastructure (servers, equipment).
@@ -52,7 +52,7 @@ The revised référentiel was published in the Official Journal on May 16, 2024 
 
 - new candidates assessed on v2 since **November 16, 2024**;
 - already-certified hosts: transition by **May 16, 2026** at the latest;
-- four sovereignty requirements ([requirements 28 to 31, chapter 7 of the référentiel](https://esante.gouv.fr/sites/default/files/media_entity/documents/referentiel_certification_hds---en--v2.pdf#page=16)), including: physical storage of health data in the **European Economic Area**; contractual transparency if there is remote access from a third country or if the host/subcontractor is subject to a non-adequate extra-European law under GDPR; a **public** map of transfers outside the EEA.
+- four sovereignty requirements ([requirements 28 to 31, chapter 7 of the référentiel](https://esante.gouv.fr/sites/default/files/media_entity/documents/referentiel_certification_hds---en--v2.pdf#page=16)), including: physical storage of health data in the **European Economic Area**; remote access from outside the EEA only on a GDPR adequacy decision or, failing that, Article 46 safeguards the client is told about; disclosure in the contract of any exposure of the host or a subcontractor to the law of a third country without adequate protection; a **public** map of transfers outside the EEA.
 
 ANS is explicit: EEA location strengthens protection, **without guaranteeing extraterritorial immunity**. HDS is not aligned, for now, with SecNumCloud immunity requirements on that point (to be reassessed by 2027 at the latest).
 
