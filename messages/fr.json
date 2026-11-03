@@ -238,6 +238,7 @@
     "next": "Suivant",
     "subtitle": "Des produits, des agents et des automatisations IA en production chez nos clients : santé, presse, location immobilière, agroalimentaire, et des équipes tech à grande échelle. Chaque cas raconte le point de départ, ce qu’on a construit et comment on a travaillé.",
     "relatedArticle": "Pour aller plus loin, lisez notre guide <link>{title}</link>.",
+    "faqTitle": "Questions fréquentes",
     "about": {
       "kicker": "// COMMENT ON TRAVAILLE",
       "title": "Du premier appel à la production.",

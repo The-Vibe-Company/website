@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 
 import { getContentByType } from "./content-source";
+import { getCustomers } from "./customers";
 import { normalizeMarkdownBody, renderMarkdown } from "./markdown";
 import {
   articleFaqPageSchema,
@@ -10,6 +11,7 @@ import {
   faqPageSchema,
   isPublishable,
   isPublishableInArticleFaq,
+  isPublishableInCaseStudyFaq,
   siteGraph,
   webPageNode,
 } from "./structured-data";
@@ -320,5 +322,65 @@ describe("articles", () => {
   test("an article without a FAQ section gets no FAQPage", () => {
     expect(extractMarkdownFaq("## Intro\n\nText.\n\n## Next\n\n**Not a question**\nBody.")).toEqual([]);
     expect(faqPageSchema([])).toBeNull();
+  });
+});
+
+describe("case-study FAQs", () => {
+  test("isPublishableInCaseStudyFaq allows client names and MediaGen but blocks certifications", () => {
+    expect(isPublishableInCaseStudyFaq("MediaGen")).toBe(true);
+    expect(isPublishableInCaseStudyFaq("Monka’s coordinating nurses")).toBe(true);
+    expect(isPublishableInCaseStudyFaq("At LocService.")).toBe(true);
+    expect(isPublishableInCaseStudyFaq("SOC 2")).toBe(false);
+    expect(isPublishableInCaseStudyFaq("SOC2 compliant")).toBe(false);
+    expect(isPublishableInCaseStudyFaq("ISO 27001")).toBe(false);
+  });
+
+  for (const locale of ["fr", "en"] as const) {
+    const customers = getCustomers(locale);
+    for (const customer of customers) {
+      if (!customer.faq) continue;
+      test(`${customer.slug} (${locale}): FAQPage mainEntity matches faq length`, () => {
+        const schema = faqPageSchema(customer.faq!, isPublishableInCaseStudyFaq) as
+          | { mainEntity: unknown[] }
+          | null;
+        expect(schema).not.toBeNull();
+        expect(schema!.mainEntity.length).toBe(customer.faq!.length);
+      });
+    }
+  }
+
+  test("Monka FR FAQ mentions the two-month go-live", () => {
+    const monka = getCustomers("fr").find((c) => c.slug === "monka")!;
+    const schema = faqPageSchema(monka.faq!, isPublishableInCaseStudyFaq) as {
+      mainEntity: { name: string; acceptedAnswer: { text: string } }[];
+    };
+    const combined = schema.mainEntity.map((q) => `${q.name} ${q.acceptedAnswer.text}`).join("\n");
+    expect(combined).toContain("deux mois");
+  });
+
+  test("LocService FAQ includes 87%", () => {
+    for (const locale of ["fr", "en"] as const) {
+      const locservice = getCustomers(locale).find((c) => c.slug === "locservice")!;
+      const schema = faqPageSchema(locservice.faq!, isPublishableInCaseStudyFaq) as {
+        mainEntity: { name: string; acceptedAnswer: { text: string } }[];
+      };
+      const combined = schema.mainEntity.map((q) => `${q.name} ${q.acceptedAnswer.text}`).join("\n");
+      expect(combined).toContain("87");
+    }
+  });
+
+  test("no case-study FAQ string names SOC 2 or ISO", () => {
+    for (const locale of ["fr", "en"] as const) {
+      for (const customer of getCustomers(locale)) {
+        if (!customer.faq) continue;
+        for (const item of customer.faq) {
+          expect(item.question).not.toMatch(/\bSOC\s?2\b/i);
+          expect(item.question).not.toMatch(/\bISO\b/i);
+          expect(item.answer).not.toMatch(/\bSOC\s?2\b/i);
+          expect(item.answer).not.toMatch(/\bISO\b/i);
+          expect(item.answer).not.toMatch(/certifi[ée]e? HDS/i);
+        }
+      }
+    }
   });
 });
