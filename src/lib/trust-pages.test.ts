@@ -94,15 +94,53 @@ describe("contact and privacy copy", () => {
     expect(storage.some((name) => name.startsWith("ph_"))).toBe(false);
   });
 
+  const DECIDED = {
+    fr: {
+      bases: [
+        "Intérêt légitime, dans le cadre de l’exemption de consentement prévue par la CNIL pour la mesure d’audience",
+        "Mesures précontractuelles prises à votre demande",
+        "Intérêt légitime",
+        "Intérêt légitime",
+        "Cookie strictement nécessaire, exempté de consentement",
+      ],
+      retention: {
+        "Événements PostHog": "25 mois maximum",
+        "Traceurs de mesure d’audience": "13 mois maximum ; la mesure sans cookie n’en dépose aucun",
+        "E-mails": "3 ans après le dernier contact",
+        "Données de rendez-vous sur cal.com": "3 ans après le dernier contact",
+        "Journaux d’hébergement et de sécurité chez Vercel": "12 mois",
+      },
+      president: "Président",
+    },
+    en: {
+      bases: [
+        "Legitimate interest, under the CNIL consent exemption for audience measurement",
+        "Pre-contractual steps taken at your request",
+        "Legitimate interest",
+        "Legitimate interest",
+        "Strictly necessary cookie, exempt from consent",
+      ],
+      retention: {
+        "PostHog events": "25 months maximum",
+        "Audience measurement trackers": "13 months maximum; cookieless measurement stores none",
+        Emails: "3 years after the last contact",
+        "Booking data on cal.com": "3 years after the last contact",
+        "Hosting and security logs at Vercel": "12 months",
+      },
+      president: "President",
+    },
+  } as const;
+
   test.each(["fr", "en"] as const)("%s gives the decided legal bases and retention periods, and keeps the IP facts exact", (locale) => {
     const privacy = MESSAGES[locale].privacy.sections;
-    const bases = privacy.purposes.table.rows.map((row) => row[2]);
-    expect(bases[0]).toMatch(locale === "fr" ? /^Intérêt légitime.*CNIL/ : /^Legitimate interest.*CNIL/);
-    expect(bases[4]).toMatch(locale === "fr" ? /strictement nécessaire/ : /Strictly necessary/);
-    const retention = strings(privacy.retention).join("\n");
-    for (const period of locale === "fr" ? ["25 mois", "13 mois", "3 ans après le dernier contact", "12 mois"] : ["25 months", "13 months", "3 years after the last contact", "12 months"]) {
-      expect(retention).toContain(period);
+    const decided = DECIDED[locale];
+    expect(privacy.purposes.table.rows.map((row) => row[2])).toEqual([...decided.bases]);
+    const retention = new Map(privacy.retention.table.rows.map(([label, value]) => [label, value]));
+    for (const [label, value] of Object.entries(decided.retention)) {
+      expect(retention.get(label)).toBe(value);
     }
+    const president = privacy.controller.table.rows.find(([label]) => label === decided.president);
+    expect(president?.[1]).toBe("Stan Girard");
     // The project does not anonymize IPs: never claim it does.
     const posthog = privacy.collected.items[0].paragraphs.join("\n");
     expect(posthog).toMatch(locale === "fr" ? /anonymise les adresses IP n’est pas activée/ : /anonymizes IP addresses isn’t turned on/);
