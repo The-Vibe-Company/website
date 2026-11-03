@@ -79,6 +79,15 @@ export const MEDIA_AI_PATHS: SplitPaths = {
   en: "/ai-for-media",
 };
 
+/**
+ * The contact page. Same segment in both languages, declared as split paths so
+ * it sits with the other key pages in the sitemap, llms.txt and the footer.
+ */
+export const CONTACT_PATHS: SplitPaths = { fr: "/contact", en: "/contact" };
+
+/** The privacy policy. Translated segment, like the About page. */
+export const PRIVACY_PATHS: SplitPaths = { fr: "/confidentialite", en: "/privacy" };
+
 export type SplitPathRoute = Omit<SiteRoute, "path"> & { paths: SplitPaths };
 
 export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
@@ -130,10 +139,39 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
     changeFrequency: "monthly",
     priority: 0.8,
   },
+  {
+    paths: CONTACT_PATHS,
+    title: "Contact",
+    description:
+      "How to reach The Vibe Company: the two founders, Stan Girard and Antoine Dewez, an email address, and a 30-minute call to book online. Offices in Paris, registered office in Montreuil.",
+    changeFrequency: "yearly",
+    priority: 0.6,
+  },
+  {
+    paths: PRIVACY_PATHS,
+    title: "Privacy policy",
+    description:
+      "What thevibecompany.co collects and why: PostHog audience measurement, the cal.com booking link, Vercel hosting, cookies and local storage, and your GDPR rights.",
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
 ];
 
 export function splitPath(paths: SplitPaths, locale: string): string {
   return locale === "en" ? paths.en : paths.fr;
+}
+
+/**
+ * The current language's version of a prefix-less path, when the path is a
+ * page whose segment is translated: `/privacy` in French is `/confidentialite`.
+ * Any other path comes back unchanged. Lets the middleware send `/about` or
+ * `/privacy` to the right page in one hop.
+ */
+export function translatedSplitPath(path: string, locale: string): string {
+  const route = INDEXABLE_SPLIT_PATH_ROUTES.find(
+    ({ paths }) => paths.fr === path || paths.en === path,
+  );
+  return route ? splitPath(route.paths, locale) : path;
 }
 
 export function absoluteUrl(path: string): string {

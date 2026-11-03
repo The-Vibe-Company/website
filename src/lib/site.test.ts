@@ -6,7 +6,9 @@ import {
   localizedAlternates,
   localizedSocialMetadata,
   monolingualAlternates,
+  PRIVACY_PATHS,
   splitPathAlternates,
+  translatedSplitPath,
 } from "./site";
 
 const SITE = "https://www.thevibecompany.co";
@@ -81,5 +83,31 @@ describe("alternates", () => {
     expect(contentAlternates("fr", path, [{ language: "fr", path }])).toEqual(
       monolingualAlternates("fr", path),
     );
+  });
+});
+
+describe("translatedSplitPath", () => {
+  test("sends a prefix-less translated segment to the requested language's version", () => {
+    expect(translatedSplitPath("/privacy", "fr")).toBe("/confidentialite");
+    expect(translatedSplitPath("/confidentialite", "en")).toBe("/privacy");
+    expect(translatedSplitPath("/privacy", "en")).toBe("/privacy");
+    expect(translatedSplitPath("/about", "fr")).toBe("/a-propos");
+    expect(translatedSplitPath("/contact", "en")).toBe("/contact");
+  });
+
+  test("leaves every other path alone", () => {
+    expect(translatedSplitPath("/portfolio", "fr")).toBe("/portfolio");
+    expect(translatedSplitPath("/privacy/extra", "fr")).toBe("/privacy/extra");
+  });
+
+  test("the privacy policy declares both languages, x-default on the French URL", () => {
+    expect(splitPathAlternates("fr", PRIVACY_PATHS)).toEqual({
+      canonical: `${SITE}/fr/confidentialite`,
+      languages: {
+        fr: `${SITE}/fr/confidentialite`,
+        en: `${SITE}/en/privacy`,
+        "x-default": `${SITE}/fr/confidentialite`,
+      },
+    });
   });
 });

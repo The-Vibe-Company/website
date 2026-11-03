@@ -22,6 +22,8 @@ describe("llms.txt localized discovery", () => {
       ["/agents-ia-production", fr.agentsProduction.metaTitle, fr.agentsProduction.metaDescription],
       ["/ia-sante-hds", fr.healthcareAi.metaTitle, fr.healthcareAi.metaDescription],
       ["/ia-medias", fr.mediaAi.metaTitle, fr.mediaAi.metaDescription],
+      ["/contact", fr.contact.metaTitle, fr.contact.metaDescription],
+      ["/confidentialite", fr.privacy.metaTitle, fr.privacy.metaDescription],
     ];
     for (const [path, title, description] of expected) {
       expect(french).toContain(`[${title}](${localizedUrl("fr", path)}): ${description}`);
