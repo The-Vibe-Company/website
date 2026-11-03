@@ -48,11 +48,11 @@ These aren't stacked "levels". Each host picks the activities it gets certified 
 
 ## Sovereignty: what the 2024 référentiel actually requires
 
-The revised référentiel was published in the Official Journal on 16 May 2024 ([ANS release](https://esante.gouv.fr/espace-presse/publication-au-journal-officiel-du-referentiel-de-certification-hds-souverainete-des-donnees-et-ameliorations-du-referentiel)):
+The revised référentiel was published in the Official Journal on May 16, 2024 ([ANS release](https://esante.gouv.fr/espace-presse/publication-au-journal-officiel-du-referentiel-de-certification-hds-souverainete-des-donnees-et-ameliorations-du-referentiel)):
 
-- new candidates assessed on v2 since **16 November 2024**;
-- already-certified hosts: transition by **16 May 2026** at the latest;
-- four sovereignty requirements (28 to 31), including: physical storage of health data in the **European Economic Area**; contractual transparency if there is remote access from a third country or if the host/subcontractor is subject to a non-adequate extra-European law under GDPR; a **public** map of transfers outside the EEA.
+- new candidates assessed on v2 since **November 16, 2024**;
+- already-certified hosts: transition by **May 16, 2026** at the latest;
+- four sovereignty requirements ([requirements 28 to 31, chapter 7 of the référentiel](https://esante.gouv.fr/sites/default/files/media_entity/documents/referentiel_certification_hds---en--v2.pdf#page=16)), including: physical storage of health data in the **European Economic Area**; contractual transparency if there is remote access from a third country or if the host/subcontractor is subject to a non-adequate extra-European law under GDPR; a **public** map of transfers outside the EEA.
 
 ANS is explicit: EEA location strengthens protection, **without guaranteeing extraterritorial immunity**. HDS is not aligned, for now, with SecNumCloud immunity requirements on that point (to be reassessed by 2027 at the latest).
 
