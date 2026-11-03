@@ -1,10 +1,11 @@
 ---
 title: "AI and health data in France: what HDS really means for your project"
-seoTitle: "AI projects on health data: HDS guide | The Vibe Company"
+seoTitle: "HDS hosting for AI health data | The Vibe Company"
 slug: ai-health-data-hds-france
 language: en
 translationKey: hds-health-data
-summary: "HDS certification, the 6 hosting activities, the 2024 framework and GDPR: what to check before putting an AI project on French health data into production."
+summary: "HDS hosting for an AI health project in France: 2024 activities, model/log flows, GDPR/CNIL, what to verify before production."
+seoDescription: "HDS hosting for AI on French health data: pick a certified host, cover models and logs, handle GDPR/CNIL. A practical guide before production."
 publishedAt: 2026-10-12
 complexity: intermediate
 topics: AI Agents, Health Data, Security
@@ -15,7 +16,7 @@ ogImage: /images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp
 
 AI projects in healthcare rarely stall on the model. They stall the day someone asks: "So where does the data live?"
 
-**The short answer.** Running an AI project on health data in France takes five things. Map the data flows (app, model, logs, backups). Pick a host with an HDS certificate under the 2024 framework, covering the activities you need. Keep model calls, logs and indexes inside that scope, or pseudonymize first. Sort out GDPR with your DPO: legal basis, impact assessment, CNIL formalities. And test without real data. The rest of this guide covers each point.
+**The short answer.** Running an AI project on health data in France takes five things. Map the data flows (app, model, logs, backups). Pick a host with an HDS certificate under the 2024 framework, covering the activities you need. Keep model calls, logs and indexes inside that scope, or pseudonymize first. Sort out GDPR with your DPO: legal basis, impact assessment, CNIL formalities. And test without real data. The rest of this guide covers the framework. For the concrete hosting choice (activities, cloud, model calls), see also [HDS hosting for AI](/en/resources/articles/hds-hosting-for-ai).
 
 At that point the notebook demo isn't enough. You need to know who hosts, who administers, who backs up, and where the data goes when the app calls a model. In France, most of those answers come down to three letters: HDS.
 
@@ -107,6 +108,10 @@ In March 2026, the CNIL published a guidance sheet on AI in healthcare ([cnil.fr
 
 For the next step, from prototype to production, see our [AI agent POC to production checklist](/en/resources/articles/ai-agent-poc-to-production).
 
+## Concrete hosting: where to go next
+
+This guide covers the framework: who needs certification, what the 2024 framework and the CNIL require, and the checklist before you start. The concrete hosting choice (certified cloud, activities to cover, where model calls, logs and backups live) is detailed in [HDS hosting for AI](/en/resources/articles/hds-hosting-for-ai). The two articles complement each other: this one for the regulatory "why", the other for the infrastructure "how".
+
 ## What we learned at Monka
 
 Monka supports family caregivers with coordination nurses. When we arrived, Monka was already HDS-hosted and compliant. Our job was to build fast inside that environment. In two months we shipped the caregiver app, Lifeline (the nurses' CRM) and the clinical engine that turns a 165-question assessment into an action plan. The clinical reference went through 12 versions.
@@ -119,7 +124,7 @@ The lesson: when the HDS foundation already exists, an AI project can move very 
 
 ### Does a startup using an HDS-certified cloud need its own certification?
 
-Not necessarily. If the certified host covers all hosting and operations activities, the vendor can rely on it. If the vendor administers the information system holding the data itself, it may fall under activity 5.
+Not necessarily. If the certified host covers all hosting and operations activities, the vendor can rely on it. If the vendor administers the information system holding the data itself, it may fall under activity 5. Also check that the certificate covers the activities you actually hand over: the word "HDS" on a marketing page is not enough.
 
 ### Can we use ChatGPT, Claude or Mistral with health data?
 
@@ -144,6 +149,10 @@ Yes. Embeddings, indexes and source text taken from patient records contain heal
 ### Are HDS and GDPR the same thing?
 
 No. HDS is about hosting health data. GDPR covers the whole processing.
+
+### How do you choose an HDS host for an AI project?
+
+Start with the certificate activities (2024 framework), the map of transfers outside the EEA, and the path of model calls, logs and backups. A cloud certified on activities 1 to 4 does not cover administration of your application if you run it yourself. The practical detail (what to ask the provider, where AI projects usually break) is in [HDS hosting for AI](/en/resources/articles/hds-hosting-for-ai).
 
 ### How long does it take to ship an AI project in healthcare?
 

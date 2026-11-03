@@ -1,10 +1,11 @@
 ---
 title: "IA et données de santé : ce que l'HDS impose vraiment à votre projet"
-seoTitle: "Projet IA et données de santé : guide HDS | The Vibe Company"
+seoTitle: "Hébergement HDS et IA : guide projet | The Vibe Company"
 slug: ia-donnees-de-sante-hds
 language: fr
 translationKey: hds-health-data
-summary: "Certification HDS, 6 activités, référentiel 2024, RGPD : ce qu'il faut vérifier avant de mettre un projet IA en production sur des données de santé."
+summary: "Hébergement HDS pour un projet IA santé : 6 activités, référentiel 2024, flux modèles/logs, RGPD/CNIL. Ce qu'il faut vérifier avant la prod."
+seoDescription: "Hébergement HDS et IA en santé : choisir un hébergeur certifié, couvrir modèles et logs, RGPD/CNIL. Guide pratique avant la mise en production."
 publishedAt: 2026-10-12
 complexity: intermediate
 topics: AI Agents, Health Data, Security
@@ -15,7 +16,7 @@ ogImage: /images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp
 
 Un projet IA en santé bloque rarement sur le modèle. Il bloque le jour où quelqu'un demande : « Et les données, elles sont où ? »
 
-**La réponse courte.** Pour mener un projet IA sur des données de santé en France, il faut cinq choses. Cartographier les flux (application, modèle, logs, sauvegardes). Choisir un hébergeur certifié HDS selon le référentiel 2024, sur les activités dont vous avez besoin. Garder les appels au modèle, les logs et les index dans ce périmètre, ou pseudonymiser avant. Régler le RGPD avec le DPO : base légale, analyse d'impact, formalités CNIL. Et tester sans données réelles. La suite détaille chaque point.
+**La réponse courte.** Pour mener un projet IA sur des données de santé en France, il faut cinq choses. Cartographier les flux (application, modèle, logs, sauvegardes). Choisir un hébergeur certifié HDS selon le référentiel 2024, sur les activités dont vous avez besoin. Garder les appels au modèle, les logs et les index dans ce périmètre, ou pseudonymiser avant. Régler le RGPD avec le DPO : base légale, analyse d'impact, formalités CNIL. Et tester sans données réelles. La suite détaille le cadre. Pour le choix concret de l'hébergement (activités, cloud, appels au modèle), voir aussi [Hébergement HDS et IA](/fr/resources/articles/hebergement-hds-ia).
 
 À ce moment-là, la démo sur notebook ne suffit plus. Il faut savoir qui héberge, qui administre, qui sauvegarde, et par où passent les données quand l'application appelle un modèle. En France, la plupart des réponses tiennent en trois lettres : HDS.
 
@@ -117,6 +118,10 @@ En mars 2026, la CNIL a publié une fiche dédiée à l'IA en santé ([cnil.fr](
 
 Pour la suite, du prototype à la production, voyez notre [check-list POC → prod pour un agent IA](/fr/resources/articles/poc-agent-ia-production).
 
+## Hébergement concret : où aller ensuite
+
+Ce guide pose le cadre : qui doit être certifié, ce que disent le référentiel 2024 et la CNIL, et la check-list avant de lancer. Le choix concret de l'hébergement (cloud certifié, activités à couvrir, où vivent les appels au modèle, les logs et les sauvegardes) est détaillé dans [Hébergement HDS et IA](/fr/resources/articles/hebergement-hds-ia). Les deux articles se complètent : celui-ci pour le « pourquoi » réglementaire, l'autre pour le « comment » côté infra.
+
 ## Ce qu'on a appris chez Monka
 
 Monka accompagne les aidants avec des infirmières de coordination. Quand on est arrivés, Monka était déjà hébergée en HDS et en conformité. Notre job : développer très vite à l'intérieur de cet environnement. En deux mois, on a mis en production l'app des aidants, Lifeline (le CRM des infirmières) et le moteur clinique qui transforme un bilan de 165 questions en plan d'action. Le référentiel clinique est passé par 12 versions.
@@ -129,7 +134,7 @@ La leçon : quand le socle HDS existe déjà, un projet IA peut aller très vite
 
 ### Une startup qui utilise un cloud certifié HDS doit-elle être certifiée ?
 
-Pas forcément. Si l'hébergeur certifié couvre toutes les activités d'hébergement et d'exploitation, l'éditeur peut s'appuyer sur lui. Si l'éditeur administre lui-même le système d'information qui contient les données, il peut relever de l'activité 5. Le contrat et la répartition des accès font la différence.
+Pas forcément. Si l'hébergeur certifié couvre toutes les activités d'hébergement et d'exploitation, l'éditeur peut s'appuyer sur lui. Si l'éditeur administre lui-même le système d'information qui contient les données, il peut relever de l'activité 5. Le contrat et la répartition des accès font la différence. Vérifiez aussi que le certificat couvre bien les activités que vous lui confiez : le mot « HDS » sur une page marketing ne suffit pas.
 
 ### Peut-on utiliser ChatGPT, Claude ou Mistral avec des données de santé ?
 
@@ -154,6 +159,10 @@ Oui. Les embeddings, les index et les textes sources issus de dossiers patients 
 ### HDS et RGPD, c'est la même chose ?
 
 Non. L'HDS porte sur l'hébergement des données de santé. Le RGPD porte sur tout le traitement : finalité, base légale, minimisation, durée de conservation, droits des personnes.
+
+### Comment choisir un hébergeur HDS pour un projet IA ?
+
+Commencez par les activités du certificat (référentiel 2024), la cartographie des transferts hors EEE, et le parcours des appels au modèle, des logs et des sauvegardes. Un cloud certifié sur les activités 1 à 4 ne couvre pas l'administration de votre application si c'est vous qui la faites. Le détail pratique (quoi demander au fournisseur, où collent souvent les projets IA) est dans [Hébergement HDS et IA](/fr/resources/articles/hebergement-hds-ia).
 
 ### Combien de temps faut-il pour mettre en production un projet IA en santé ?
 
