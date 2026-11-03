@@ -105,4 +105,15 @@ describe("contact and privacy copy", () => {
     // Web Vitals need a session ID, which cookieless mode never creates.
     expect(strings(privacy).join("\n")).not.toContain("Web Vitals");
   });
+
+  test.each(["fr", "en"] as const)("%s names Stan Girard as the personal data lead, without claiming a DPO", (locale) => {
+    const privacy = MESSAGES[locale].privacy.sections;
+    const lead = privacy.controller.table.rows.find(([label]) =>
+      ["Responsable / contact données personnelles", "Personal data lead / contact"].includes(label),
+    );
+    expect(lead?.[1]).toBe("Stan Girard, founders@thevibecompany.co");
+    // No DPO has been officially designated: never name one.
+    expect(strings(privacy).join("\n")).not.toContain("DPO");
+    expect(privacy.rights.paragraphs[1]).toContain("Stan Girard");
+  });
 });
