@@ -161,6 +161,11 @@
       "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/stack-logo.webp",
       "targetHash": "909dd86c07cecf2a32a4af2823aaf14f519cfe980966bceb636f5dea89f43a41"
     },
+    "content:/images/resources/hebergement-hds-ia/cover-mascotte.webp": {
+      "sourceHash": "45996223f4c39e669e2fa8f6d0f3dc552b8d3b84715d4a643d2cad0563c0edf6",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/how-i-finally-started-my-game-using-scenario/bucherons.png": {
       "sourceHash": "4be0ed577a8a080e6aae2caf58bf2495a3af936ab2549e8b4dc772477b321807",
       "targetUrl": "/images/_optimized/resources/how-i-finally-started-my-game-using-scenario/bucherons.webp",
@@ -458,6 +463,11 @@
     },
     "og:/images/resources/focus-skill-logo-svg/cover.png": {
       "sourceHash": "b1694317fee204d685d06b90d6510fcaf1e9546093262e6e77830df3a71a0154",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/hebergement-hds-ia/cover-mascotte.webp": {
+      "sourceHash": "45996223f4c39e669e2fa8f6d0f3dc552b8d3b84715d4a643d2cad0563c0edf6",
       "targetUrl": null,
       "targetHash": null
     },
