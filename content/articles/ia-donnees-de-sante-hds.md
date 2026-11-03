@@ -5,7 +5,7 @@ slug: ia-donnees-de-sante-hds
 language: fr
 translationKey: hds-health-data
 summary: "IA et données de santé en France : qui doit être certifié, les 6 activités HDS, le référentiel 2024, le RGPD et la CNIL. Ce qu'il faut vérifier avant la prod."
-seoDescription: "IA et données de santé : qui doit être certifié, ce qu'impose le référentiel HDS 2024, où vont modèles et logs, RGPD et CNIL. Le cadre avant la mise en prod."
+seoDescription: "IA et données de santé : qui doit être certifié, ce qu'impose le référentiel HDS 2024, l'AIPD et les formalités CNIL. Le cadre avant la mise en prod."
 publishedAt: 2026-10-12
 complexity: intermediate
 topics: AI Agents, Health Data, Security
