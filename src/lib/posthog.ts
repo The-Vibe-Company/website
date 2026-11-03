@@ -206,10 +206,64 @@ export const POSTHOG_INIT_CONFIG = {
   debug: process.env.NODE_ENV === "development",
 } as const satisfies Partial<PostHogConfig>;
 
+export type LegacyStorageEnv = {
+  hostname: string;
+  /** Reads `document.cookie`. */
+  readCookies: () => string;
+  /** Writes one `document.cookie` assignment. */
+  writeCookie: (assignment: string) => void;
+  storages: Pick<Storage, "length" | "key" | "removeItem">[];
+};
+
+/**
+ * Before cookieless mode, PostHog kept a random visitor ID in a
+ * `ph_<key>_posthog` cookie (set on the parent domain) and in browser storage.
+ * posthog-js reads that into memory before cookieless mode turns storage off,
+ * so a returning visitor's first page would still carry the old ID. Clear it
+ * all before `init`.
+ */
+export function clearLegacyPostHogStorage(key: string, env: LegacyStorageEnv) {
+  const isLegacy = (name: string) =>
+    name.startsWith(`ph_${key}_`) || name.startsWith(`__ph_opt_in_out_${key}`);
+
+  for (const storage of env.storages) {
+    const names: string[] = [];
+    for (let i = 0; i < storage.length; i++) {
+      const name = storage.key(i);
+      if (name && isLegacy(name)) names.push(name);
+    }
+    for (const name of names) storage.removeItem(name);
+  }
+
+  // A cookie is only removed with the domain it was set on: try the host
+  // itself and every parent domain (www.thevibecompany.co, thevibecompany.co).
+  const labels = env.hostname.split(".");
+  const domains = [""];
+  for (let i = 0; i < labels.length - 1; i++) domains.push(`; Domain=.${labels.slice(i).join(".")}`);
+  for (const part of env.readCookies().split(";")) {
+    const name = part.split("=")[0]?.trim();
+    if (!name || !isLegacy(name)) continue;
+    for (const domain of domains) env.writeCookie(`${name}=; Max-Age=0; Path=/${domain}`);
+  }
+}
+
 const queue = createPostHogQueue({
   importPostHog: () => (bundledChunkFailed ? loadPostHogScript() : importBundledPostHog()),
   initPostHog: (posthog) => {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, POSTHOG_INIT_CONFIG);
+    const key = process.env.NEXT_PUBLIC_POSTHOG_KEY!;
+    try {
+      clearLegacyPostHogStorage(key, {
+        hostname: location.hostname,
+        readCookies: () => document.cookie,
+        writeCookie: (assignment) => {
+          document.cookie = assignment;
+        },
+        storages: [localStorage, sessionStorage],
+      });
+    } catch {
+      // Storage can be blocked (privacy modes); there is then nothing to clear.
+    }
+    posthog.init(key, POSTHOG_INIT_CONFIG);
   },
 });
 

@@ -92,4 +92,17 @@ describe("contact and privacy copy", () => {
     const storage = MESSAGES[locale].privacy.sections.cookies.table.rows.map(([name]) => name);
     expect(storage.some((name) => name.startsWith("ph_"))).toBe(false);
   });
+
+  test.each(["fr", "en"] as const)("%s keeps the marker on every claim that depends on a pending decision", (locale) => {
+    const privacy = MESSAGES[locale].privacy.sections;
+    const marker = TBC[locale];
+    // The CNIL exemption is a goal, not a granted status.
+    expect(privacy.cookies.after[1]).toContain(marker);
+    // The audience legal basis.
+    expect(privacy.purposes.table.rows[0][2]).toContain(marker);
+    // Cookieless counting only works once the PostHog project setting is on.
+    expect(privacy.collected.items[0].paragraphs[2]).toContain(marker);
+    // Web Vitals need a session ID, which cookieless mode never creates.
+    expect(strings(privacy).join("\n")).not.toContain("Web Vitals");
+  });
 });

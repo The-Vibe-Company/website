@@ -3,6 +3,7 @@ import type { PostHog } from "posthog-js";
 
 import {
   createPostHogQueue,
+  clearLegacyPostHogStorage,
   POSTHOG_INIT_CONFIG,
   type EventProperties,
   type PostHogQueueOptions,
@@ -326,5 +327,50 @@ describe("PostHog configuration", () => {
     // Nothing may switch storage back on behind cookieless mode's back.
     expect(POSTHOG_INIT_CONFIG).not.toHaveProperty("persistence");
     expect(POSTHOG_INIT_CONFIG.api_host).toBe("/ingest");
+  });
+});
+
+describe("clearing PostHog storage left from before cookieless mode", () => {
+  function fakeStorage(entries: Record<string, string>) {
+    const data = new Map(Object.entries(entries));
+    return {
+      data,
+      get length() {
+        return data.size;
+      },
+      key: (i: number) => [...data.keys()][i] ?? null,
+      removeItem: (name: string) => void data.delete(name),
+    };
+  }
+
+  test("removes this project's ID from both storages and expires its cookie on every domain", () => {
+    const local = fakeStorage({ ph_phc_test_posthog: "{}", ph_debug: "true", "tvc-runner-best": "12" });
+    const session = fakeStorage({ ph_phc_test_window_id: "w", ph_phc_test_primary_window_exists: "1" });
+    const writes: string[] = [];
+    clearLegacyPostHogStorage("phc_test", {
+      hostname: "www.thevibecompany.co",
+      readCookies: () => "NEXT_LOCALE=fr; ph_phc_test_posthog=%7B%7D",
+      writeCookie: (assignment) => void writes.push(assignment),
+      storages: [local, session],
+    });
+
+    expect([...local.data.keys()]).toEqual(["ph_debug", "tvc-runner-best"]);
+    expect([...session.data.keys()]).toEqual([]);
+    expect(writes).toEqual([
+      "ph_phc_test_posthog=; Max-Age=0; Path=/",
+      "ph_phc_test_posthog=; Max-Age=0; Path=/; Domain=.www.thevibecompany.co",
+      "ph_phc_test_posthog=; Max-Age=0; Path=/; Domain=.thevibecompany.co",
+    ]);
+  });
+
+  test("leaves the site's own cookie alone", () => {
+    const writes: string[] = [];
+    clearLegacyPostHogStorage("phc_test", {
+      hostname: "localhost",
+      readCookies: () => "NEXT_LOCALE=en",
+      writeCookie: (assignment) => void writes.push(assignment),
+      storages: [],
+    });
+    expect(writes).toEqual([]);
   });
 });

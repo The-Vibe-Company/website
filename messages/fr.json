@@ -1754,7 +1754,7 @@
           {
             "title": "Mesure d’audience avec PostHog",
             "paragraphs": [
-              "Sur le site en production uniquement, la bibliothèque PostHog enregistre les pages vues (adresse de la page, paramètres compris, par exemple le texte d’une recherche dans les ressources), les départs de page, les clics et interactions qu’elle capte automatiquement, la position des clics et du défilement pour les cartes de chaleur (heatmaps), les mesures de performance des pages (Web Vitals) et les erreurs JavaScript. S’y ajoutent les événements que nous avons nommés : clics sur nos boutons de rendez-vous, de contact et de navigation, ouverture du menu mobile, recherche dans les ressources (longueur et nombre de mots de la requête seulement), dépliage ou copie d’un prompt de skill, parties du mini-jeu de la page d’accueil, avec leur score et, quand un record tombe, le record précédent.",
+              "Sur le site en production uniquement, la bibliothèque PostHog enregistre les pages vues (adresse de la page, paramètres compris, par exemple le texte d’une recherche dans les ressources), les départs de page, les clics et interactions qu’elle capte automatiquement, la position des clics et du défilement pour les cartes de chaleur (heatmaps) et les erreurs JavaScript. S’y ajoutent les événements que nous avons nommés : clics sur nos boutons de rendez-vous, de contact et de navigation, ouverture du menu mobile, recherche dans les ressources (longueur et nombre de mots de la requête seulement), dépliage ou copie d’un prompt de skill, parties du mini-jeu de la page d’accueil, avec leur score et, quand un record tombe, le record précédent.",
               "PostHog y joint des informations techniques : navigateur, système d’exploitation, taille d’écran, page de provenance, paramètres de campagne (utm_*) et identifiants de clic publicitaire présents dans l’adresse (gclid, fbclid, msclkid, li_fat_id, ttclid…).",
               "Les données passent par /ingest, un relais sur notre propre domaine, puis partent chez PostHog, dans sa région États-Unis. La mesure se fait sans cookie : PostHog ne dépose rien dans votre navigateur, ni cookie, ni localStorage, ni sessionStorage. Pour compter les visiteurs, PostHog calcule sur ses serveurs une empreinte à partir de l’adresse IP, du navigateur et du site, avec un sel aléatoire renouvelé chaque jour : d’un jour à l’autre, la même personne n’est donc pas reconnue. Dans ce mode, PostHog retire l’adresse IP avant d’enrichir les événements et n’y ajoute pas de localisation. Activation de ce mode dans le projet PostHog : À CONFIRMER. Le site n’appelle jamais la fonction d’identification de PostHog et ne crée pas de profil de personne. Vos visites ne sont reliées ni à votre nom ni à votre e-mail.",
               "L’enregistrement des sessions (replay) est désactivé dans le projet PostHog, et les sondages ne sont pas activés."
@@ -1926,8 +1926,12 @@
               "À CONFIRMER"
             ],
             [
-              "Empreinte de comptage PostHog",
-              "Sel renouvelé chaque jour, supprimé une fois les événements du jour traités (fonctionnement décrit par PostHog)"
+              "Sel quotidien de l’empreinte de comptage",
+              "Renouvelé chaque jour, supprimé une fois les événements du jour traités (fonctionnement décrit par PostHog)"
+            ],
+            [
+              "Empreinte de comptage (identifiant des visiteurs dans les événements)",
+              "Même durée que les événements PostHog : À CONFIRMER"
             ],
             [
               "Cookie NEXT_LOCALE",
