@@ -287,6 +287,11 @@ export function isPublishableInArticleFaq(text: string): boolean {
   return !CERTIFICATION_PATTERNS.some((pattern) => pattern.test(text));
 }
 
+/** Case-study FAQs may name the client and MediaGen (subject of the page). Still block certifications. */
+export function isPublishableInCaseStudyFaq(text: string): boolean {
+  return ![/\bSOC\s?2\b/i, /\bISO\b/i].some((p) => p.test(text));
+}
+
 const FAQ_HEADING = /^##\s+(faq|questions fréquentes|frequently asked questions)\s*$/i;
 
 /**

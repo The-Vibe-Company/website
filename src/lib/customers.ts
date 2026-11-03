@@ -52,6 +52,8 @@ interface RawCustomer {
   /** When set, the case page tells each project in turn instead of one list. */
   projects?: RawProject[];
   quote?: { text: L; author: L };
+  /** Optional: structured FAQ shown on the case page and emitted as FAQPage markup. */
+  faq?: { question: L; answer: L }[];
 }
 
 export interface CustomerStat {
@@ -93,6 +95,7 @@ export interface Customer {
   results: CustomerStat[];
   projects?: CustomerProject[];
   quote?: { text: string; author: string };
+  faq?: { question: string; answer: string }[];
 }
 
 const CUSTOMERS_RAW: RawCustomer[] = [
@@ -179,6 +182,48 @@ const CUSTOMERS_RAW: RawCustomer[] = [
         fr: "Étienne, CEO et cofondateur de Monka",
       },
     },
+    faq: [
+      {
+        question: {
+          fr: "Qu’avez-vous livré pour Monka ?",
+          en: "What did you ship for Monka?",
+        },
+        answer: {
+          fr: "En deux mois : l’app des aidants, Lifeline (le CRM des infirmières de coordination), le moteur clinique qui transforme chaque bilan en plan d’action, et l’API qui relie le tout, avec des données de santé chiffrées et conformes RGPD. Depuis, on livre une nouvelle version tous les deux jours environ.",
+          en: "In two months: the caregiver app, Lifeline (the CRM for coordinating nurses), the clinical engine that turns each assessment into an action plan, and the API that ties them together, with encrypted, GDPR-compliant health data. Since then, we ship a new version roughly every two days.",
+        },
+      },
+      {
+        question: {
+          fr: "Combien de temps a pris la mise en production ?",
+          en: "How long did it take to go live?",
+        },
+        answer: {
+          fr: "Deux mois pour aller en production, puis environ 90 versions de l’app livrées en six mois, et 12 versions du référentiel clinique.",
+          en: "Two months to go live, then about 90 app releases in six months, and 12 versions of the clinical framework.",
+        },
+      },
+      {
+        question: {
+          fr: "Que contient le bilan aidant ?",
+          en: "What does the caregiver assessment include?",
+        },
+        answer: {
+          fr: "Un bilan de 165 questions qui débouche sur un plan d’action personnalisé, le cercle des proches, un chat avec l’infirmière et la prise de rendez-vous.",
+          en: "A 165-question assessment that leads to a personal action plan, the circle of close ones, a chat with the nurse, and appointment booking.",
+        },
+      },
+      {
+        question: {
+          fr: "Qui utilise Lifeline ?",
+          en: "Who uses Lifeline?",
+        },
+        answer: {
+          fr: "Les infirmières de coordination Monka : suivi des aidants, agenda, discussions, questionnaires et comptes rendus.",
+          en: "Monka’s coordinating nurses: caregiver follow-up, agenda, conversations, questionnaires, and reports.",
+        },
+      },
+    ],
   },
   {
     slug: "afp",
@@ -227,6 +272,48 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       { value: { en: "24 months", fr: "24 mois" }, label: { en: "To deliver three tools to newsrooms", fr: "Pour livrer trois outils aux rédactions" } },
       { value: { en: "90M", fr: "90M" }, label: { en: "Archive documents made searchable", fr: "Documents d’archives rendus explorables" } },
       { value: { en: "Open source", fr: "Open source" }, label: { en: "Some components released under an open license", fr: "Une partie des composants en licence libre" } },
+    ],
+    faq: [
+      {
+        question: {
+          fr: "Qu’est-ce que MediaGen ?",
+          en: "What is MediaGen?",
+        },
+        answer: {
+          fr: "MediaGen est un projet France 2030 de 4 M€ soutenu par Bpifrance, porté par l’AFP : des outils d’IA générative de confiance pour les rédactions, toujours sous le contrôle des journalistes. Une partie des composants sera publiée en licence libre.",
+          en: "MediaGen is a €4M France 2030 project backed by Bpifrance and led by AFP: trustworthy generative AI tools for newsrooms, always under journalists’ control. Some components will be released under an open license.",
+        },
+      },
+      {
+        question: {
+          fr: "Quel est le rôle de The Vibe Company ?",
+          en: "What is The Vibe Company’s role?",
+        },
+        answer: {
+          fr: "On fait partie du consortium technique aux côtés de Kairntech et Dawex (Quivr/The Vibe Company), pour construire en 24 mois trois outils destinés aux rédactions.",
+          en: "We’re part of the technical consortium alongside Kairntech and Dawex (Quivr/The Vibe Company), building three newsroom tools over 24 months.",
+        },
+      },
+      {
+        question: {
+          fr: "Quels outils sont construits ?",
+          en: "Which tools are being built?",
+        },
+        answer: {
+          fr: "Une veille augmentée (médias, réseaux sociaux, communiqués), une recherche multimodale sur les archives texte, photo et vidéo, et une aide à la production pour décliner une information en plusieurs formats et repérer les biais.",
+          en: "Augmented news monitoring (media, social networks, press releases), multimodal search over text, photo and video archives, and production help to turn one story into several formats and spot biases.",
+        },
+      },
+      {
+        question: {
+          fr: "Quelle est l’échelle des archives ?",
+          en: "What is the archive scale?",
+        },
+        answer: {
+          fr: "90 millions de documents d’archives rendus explorables.",
+          en: "90 million archive documents made searchable.",
+        },
+      },
     ],
   },
   {
@@ -284,6 +371,48 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     results: [
       { value: { en: "87%", fr: "87%" }, label: { en: "Of tickets answered with our AI drafts", fr: "Des tickets traités grâce à nos brouillons IA" } },
       { value: { en: "Hundreds", fr: "Des centaines" }, label: { en: "Of tickets handled per day", fr: "De tickets traités par jour" } },
+    ],
+    faq: [
+      {
+        question: {
+          fr: "Quel problème résolvez-vous chez LocService ?",
+          en: "What problem did you solve at LocService?",
+        },
+        answer: {
+          fr: "LocService traite plusieurs centaines de tickets support par jour sur sa plateforme de location entre particuliers. On a construit un assistant qui prépare la réponse à chaque nouveau ticket.",
+          en: "LocService handles several hundred support tickets a day on its peer-to-peer rental platform. We built an assistant that drafts the answer for each new ticket.",
+        },
+      },
+      {
+        question: {
+          fr: "Comment fonctionne l’assistant ?",
+          en: "How does the assistant work?",
+        },
+        answer: {
+          fr: "Il lit les anciens tickets et la documentation interne, se connecte aux API internes pour récupérer le vrai contexte client, applique des règles de classification, puis rédige un brouillon adapté au profil et à l’historique.",
+          en: "It reads past tickets and internal docs, connects to internal APIs for real customer context, applies classification rules, then drafts a reply tailored to the customer’s profile and history.",
+        },
+      },
+      {
+        question: {
+          fr: "Qui envoie la réponse au client ?",
+          en: "Who sends the reply to the customer?",
+        },
+        answer: {
+          fr: "Un humain. Un agent du support relit le brouillon, le corrige si besoin, puis l’envoie. L’IA prépare, l’équipe garde la décision.",
+          en: "A person. A support agent reviews the draft, fixes it if needed, then sends it. The AI prepares; the team keeps the decision.",
+        },
+      },
+      {
+        question: {
+          fr: "Quel résultat avez-vous obtenu ?",
+          en: "What result did you get?",
+        },
+        answer: {
+          fr: "87 % des tickets sont traités grâce à nos brouillons IA. La mesure suivie au quotidien : le brouillon est-il utilisé ?",
+          en: "87% of tickets are answered with our AI drafts. The day-to-day measure: is the draft used?",
+        },
+      },
     ],
   },
   {
@@ -387,6 +516,48 @@ const CUSTOMERS_RAW: RawCustomer[] = [
         ],
       },
     ],
+    faq: [
+      {
+        question: {
+          fr: "Quels projets avez-vous menés pour Coup de Pates ?",
+          en: "Which projects did you run for Coup de Pates?",
+        },
+        answer: {
+          fr: "Deux sujets : Ensemble, l’app qui rassemble les collaborateurs autour d’événements internes (dont un challenge de pas), et une bibliothèque de skills IA pour le contrôle des documents produit.",
+          en: "Two engagements: Ensemble, the app that brings employees together around internal events (including a step challenge), and a library of AI skills that checks product documents.",
+        },
+      },
+      {
+        question: {
+          fr: "C’est quoi Ensemble ?",
+          en: "What is Ensemble?",
+        },
+        answer: {
+          fr: "Une app iOS et Android réservée aux collaborateurs, pour animer la vie interne et faire vivre l’engagement RSE au quotidien. Premier événement : un challenge inter-équipes de comptage de pas.",
+          en: "An iOS and Android app reserved for employees, to run internal life and make the CSR commitment part of everyday work. First event: an inter-team step-counting challenge.",
+        },
+      },
+      {
+        question: {
+          fr: "Que font les skills IA de contrôle documentaire ?",
+          en: "What do the document-control AI skills do?",
+        },
+        answer: {
+          fr: "Ils vérifient qu’une étiquette ou un cahier des charges corrigé respecte les annotations (même dans PowerPoint), relèvent chaque écart — 72 modifications sur un seul document — et contrôlent que fiche de développement, cahier des charges, étiquette et fiche technique disent la même chose.",
+          en: "They check that a corrected label or specification follows every annotation (even boxes drawn in PowerPoint), flag each gap — 72 changes on a single document — and make sure the development sheet, specification, label, and technical sheet all say the same thing.",
+        },
+      },
+      {
+        question: {
+          fr: "Combien de skills IA avez-vous livrés ?",
+          en: "How many AI skills did you deliver?",
+        },
+        answer: {
+          fr: "Trois skills pour comparer, vérifier et recouper les documents produit, avec un lecteur avant/après, un rapport et un export PDF.",
+          en: "Three skills to compare, check, and cross-check product documents, with a before/after viewer, a report, and a PDF export.",
+        },
+      },
+    ],
   },
   {
     // Confidential engagement: no figure, result, or quote, only what Theodo
@@ -439,6 +610,38 @@ const CUSTOMERS_RAW: RawCustomer[] = [
       fr: "Une Software Factory, c’est la base commune sur laquelle travaillent toutes les équipes de développement : les mêmes outils, les mêmes agents, les mêmes skills, et les règles qui vont avec. Sans elle, chaque équipe bricole son propre usage de l’IA, et les bonnes pratiques restent coincées dans un seul dépôt. La sécurité est un des domaines où cette base commune paie le plus vite, parce qu’une règle oubliée dans un seul dépôt suffit à ouvrir une porte. Les deux fondateurs de The Vibe Company sont eux-mêmes passés par Theodo.",
     },
     results: [],
+    faq: [
+      {
+        question: {
+          fr: "Quel est le rôle de The Vibe Company chez Theodo ?",
+          en: "What is The Vibe Company’s role at Theodo?",
+        },
+        answer: {
+          fr: "Expert technique intégré aux équipes Theodo, sur des projets critiques pour leurs clients — notamment des Software Factories pour des centaines de développeurs.",
+          en: "A technical expert embedded in Theodo’s teams, on critical projects for their clients — including Software Factories for hundreds of developers.",
+        },
+      },
+      {
+        question: {
+          fr: "Qu’est-ce qu’une Software Factory IA ?",
+          en: "What is an AI Software Factory?",
+        },
+        answer: {
+          fr: "La base commune sur laquelle travaillent les équipes de développement : les mêmes outils, agents et skills, et les règles qui vont avec, pour industrialiser le développement assisté par IA à grande échelle.",
+          en: "The common base every development team works from: the same tools, agents, and skills, plus the rules that come with them, to industrialize AI-assisted development at scale.",
+        },
+      },
+      {
+        question: {
+          fr: "Pourquoi une base commune ?",
+          en: "Why a shared foundation?",
+        },
+        answer: {
+          fr: "Sans elle, chaque équipe bricole son propre usage de l’IA, et les bonnes pratiques restent coincées dans un seul dépôt. La sécurité est un des domaines où cette base paie le plus vite.",
+          en: "Without it, each team cobbles together its own way of using AI, and good practices stay stuck in a single repository. Security is one of the areas where that shared base pays off fastest.",
+        },
+      },
+    ],
   },
 ];
 
@@ -481,6 +684,10 @@ function localize(raw: RawCustomer, locale: ContentLocale): Customer {
     quote: raw.quote
       ? { text: pick(raw.quote.text, locale), author: pick(raw.quote.author, locale) }
       : undefined,
+    faq: raw.faq?.map((item) => ({
+      question: pick(item.question, locale),
+      answer: pick(item.answer, locale),
+    })),
   };
 }
 
