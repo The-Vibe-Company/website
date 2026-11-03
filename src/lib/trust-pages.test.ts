@@ -145,8 +145,12 @@ describe("contact and privacy copy", () => {
     const posthog = privacy.collected.items[0].paragraphs.join("\n");
     expect(posthog).toMatch(locale === "fr" ? /anonymise les adresses IP n’est pas activée/ : /anonymizes IP addresses isn’t turned on/);
     expect(posthog).not.toMatch(/retire l’adresse IP|strips the IP/);
-    // Web Vitals need a session ID, which cookieless mode never creates.
-    expect(strings(privacy).join("\n")).not.toContain("Web Vitals");
+    // In-memory persistence keeps a session ID, so Web Vitals are collected.
+    expect(posthog).toContain("Web Vitals");
+    // No cookieless-mode wording: the site does not use that mode.
+    expect(strings(privacy).join("\n")).not.toMatch(/sel aléatoire|random salt|\$posthog_cookieless/);
+    // The visit identifier lives in memory only.
+    expect(posthog).toMatch(locale === "fr" ? /ne vit qu’en mémoire/ : /lives in memory only/);
   });
 
   test.each(["fr", "en"] as const)("%s names Stan Girard as the personal data lead, without claiming a DPO", (locale) => {

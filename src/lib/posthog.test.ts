@@ -322,10 +322,11 @@ describe("loading PostHog", () => {
 
 describe("PostHog configuration", () => {
   test("measures the audience without cookies or browser storage, and never identifies", () => {
-    expect(POSTHOG_INIT_CONFIG.cookieless_mode).toBe("always");
+    // In memory only: no cookie, no localStorage, no sessionStorage.
+    expect(POSTHOG_INIT_CONFIG.persistence).toBe("memory");
+    // Cookieless mode needs a PostHog project setting; the site does not use it.
+    expect(POSTHOG_INIT_CONFIG).not.toHaveProperty("cookieless_mode");
     expect(POSTHOG_INIT_CONFIG.person_profiles).toBe("never");
-    // Nothing may switch storage back on behind cookieless mode's back.
-    expect(POSTHOG_INIT_CONFIG).not.toHaveProperty("persistence");
     expect(POSTHOG_INIT_CONFIG.api_host).toBe("/ingest");
   });
 });

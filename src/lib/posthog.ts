@@ -182,23 +182,21 @@ export function createPostHogQueue({
 let bundledChunkFailed = false;
 
 /**
- * Cookieless audience measurement, no consent banner: with
- * `cookieless_mode: "always"` (supported by the installed posthog-js 1.351.3)
- * PostHog stores nothing in cookies, localStorage or sessionStorage and counts
- * visitors with a daily-salted hash computed on PostHog's servers. See
- * https://posthog.com/docs/privacy/data-collection#cookieless-tracking and
- * https://posthog.com/tutorials/cookieless-tracking.
+ * Audience measurement without cookies or browser storage, no consent banner:
+ * `persistence: "memory"` keeps PostHog's visitor and session IDs in memory
+ * only, so nothing lands in cookies, localStorage or sessionStorage, and a
+ * reload or a new tab starts a new anonymous visit. Unlike `cookieless_mode`,
+ * this needs no PostHog project setting. See
+ * https://posthog.com/docs/libraries/js/persistence.
  *
- * The PostHog project must have "Enable cookieless tracking" turned on
- * (Settings > Project > Web analytics); otherwise PostHog discards these
- * events at ingestion. `person_profiles: "never"` makes any `identify()` a
- * no-op, as the cookieless docs recommend: the site never identifies anyone.
+ * `person_profiles: "never"` makes any `identify()` a no-op: the site never
+ * identifies anyone.
  */
 export const POSTHOG_INIT_CONFIG = {
   api_host: "/ingest",
   ui_host: "https://us.posthog.com",
   defaults: "2026-01-30",
-  cookieless_mode: "always",
+  persistence: "memory",
   capture_pageview: false,
   capture_pageleave: true,
   person_profiles: "never",
@@ -216,11 +214,10 @@ export type LegacyStorageEnv = {
 };
 
 /**
- * Before cookieless mode, PostHog kept a random visitor ID in a
- * `ph_<key>_posthog` cookie (set on the parent domain) and in browser storage.
- * posthog-js reads that into memory before cookieless mode turns storage off,
- * so a returning visitor's first page would still carry the old ID. Clear it
- * all before `init`.
+ * PostHog used to keep a random visitor ID in a `ph_<key>_posthog` cookie
+ * (set on the parent domain) and in browser storage. Now that it runs in
+ * memory only, clear what earlier visits left behind, before `init`, so no old
+ * identifier stays in the browser.
  */
 export function clearLegacyPostHogStorage(key: string, env: LegacyStorageEnv) {
   const isLegacy = (name: string) =>
