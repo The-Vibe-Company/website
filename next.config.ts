@@ -103,7 +103,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       // The legal notice lives on the privacy page. Its conventional URLs
-      // never had a page of their own, so they land there with a plain 301.
+      // never had a page of their own, so they land there with a plain 301,
+      // whichever language prefix they arrive with.
       {
         source: "/fr/mentions-legales",
         destination: "/fr/confidentialite",
@@ -111,6 +112,28 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/en/legal-notice",
+        destination: "/en/privacy",
+        statusCode: 301,
+      },
+      {
+        source: "/en/mentions-legales",
+        destination: "/en/privacy",
+        statusCode: 301,
+      },
+      {
+        source: "/fr/legal-notice",
+        destination: "/fr/confidentialite",
+        statusCode: 301,
+      },
+      // Without a prefix the slug's own language decides, in one hop: these
+      // rules run before the middleware's locale redirect.
+      {
+        source: "/mentions-legales",
+        destination: "/fr/confidentialite",
+        statusCode: 301,
+      },
+      {
+        source: "/legal-notice",
         destination: "/en/privacy",
         statusCode: 301,
       },
