@@ -3,7 +3,7 @@ title: "My personal OS lives in a folder. My agents run my company from it."
 seoTitle: "My personal OS lives in a folder | The Vibe Company"
 slug: my-personal-os-lives-in-a-folder
 language: en
-summary: "I built Quivr. The system I actually use every day to run my company does the opposite. 188 markdown files, an MCP server that teaches agents a methodology, no semantic search, no embeddings. Here's why this is where personal software is going — and how I wrote this article with it."
+summary: "I built Quivr. The system I actually use every day to run my company does the opposite. 188 markdown files, an MCP server that teaches agents a methodology, no semantic search, no embeddings. Here's why this is where personal software is going, and how I wrote this article with it."
 seoDescription: "I built Quivr, but I run my company on 188 markdown files and an MCP server, with no embeddings. Here is why personal software is heading there."
 publishedAt: 2026-04-15
 complexity: advanced
@@ -21,13 +21,13 @@ No web search. No embeddings. The agent walked a graph of 188 markdown files. Th
 
 This post is about the system that made that possible. It is also an apology to anyone who watched me spend three years building the wrong layer.
 
-I started [Quivr](https://github.com/QuivrHQ/quivr) in 2023 with Antoine Dewez, and a team built it with us over two years — open-source RAG, Y Combinator W24, #1 trending on GitHub in July 2023. For two years, Quivr was our thesis on how LLMs and private knowledge should meet. I don't believe that thesis anymore. The system I use now does the opposite. 188 markdown files, an MCP server, a SQLite index. That is the whole stack.
+I started [Quivr](https://github.com/QuivrHQ/quivr) in 2023 with Antoine Dewez, and a team built it with us over two years: open-source RAG, Y Combinator W24, #1 trending on GitHub in July 2023. For two years, Quivr was our thesis on how LLMs and private knowledge should meet. I don't believe that thesis anymore. The system I use now does the opposite. 188 markdown files, an MCP server, a SQLite index. That is the whole stack.
 
 The company-level version of that transition is here: [We are stopping Quivr. We are building The Vibe Company.](/en/resources/articles/quivr-to-the-vibe-company)
 
 The broader company-level argument is here: [Agents don't lack tools. They lack company memory.](/en/resources/articles/agents-dont-lack-tools-they-lack-company-memory)
 
-![Granite knowledge constellation — 188 interlinked markdown notes forming a settled graph](/images/resources/my-personal-os-lives-in-a-folder/granite-constellation.png "188 notes, 1819 links — the company, the clients, the methodology, one graph.")
+![Granite knowledge constellation: 188 interlinked markdown notes forming a settled graph](/images/resources/my-personal-os-lives-in-a-folder/granite-constellation.png "188 notes, 1819 links: the company, the clients, the methodology, one graph.")
 
 ## Karpathy tweeted my thesis in April
 
@@ -51,7 +51,7 @@ No ChromaDB. No embeddings. No vector store. No reranker. None of it.
 
 The index is SQLite FTS5. Navigation is wikilinks. When the agent searches, it finds one good node and follows the links. At 188 notes that is faster than a vector query. At 500 it still is. At 5000 I'll reconsider. Not before.
 
-At the start of every Claude or Codex session, a tool called `granite_wakeup` loads a compressed snapshot of the whole vault — clusters, hubs, people, recent notes — in 350 tokens. I took the format from [MemPalace](https://github.com/milla-jovovich/mempalace), an open-source memory system that calls it AAAK: a 30× compression any LLM reads without a decoder. I kept AAAK. I dropped their ChromaDB, their emotion codes, their temporal validity. At my scale, overkill.
+At the start of every Claude or Codex session, a tool called `granite_wakeup` loads a compressed snapshot of the whole vault in 350 tokens: clusters, hubs, people, recent notes. I took the format from [MemPalace](https://github.com/milla-jovovich/mempalace), an open-source memory system that calls it AAAK: a 30× compression any LLM reads without a decoder. I kept AAAK. I dropped their ChromaDB, their emotion codes, their temporal validity. At my scale, overkill.
 
 The guy who started Quivr does not use embeddings for his own knowledge system. Do with that what you want.
 
@@ -66,7 +66,7 @@ I rewrote it with one rule: the MCP teaches a methodology. The `instructions` fi
 - when to use each tool, not just what it does
 - what good looks like ("Read before writing. Link aggressively. Act on recommendations.")
 
-Tool descriptions went from "Create a note." to "Use this when you have a clear title and know the type. Search first. Returns recommendations — act on them."
+Tool descriptions went from "Create a note." to "Use this when you have a clear title and know the type. Search first. Returns recommendations: act on them."
 
 This generalizes. A deployment MCP should teach CI/CD discipline. A CRM MCP should teach pipeline hygiene. The tools are the verbs. The instructions are the grammar.
 

@@ -13,7 +13,7 @@ coverAlt: "La mascotte lit une carte au trésor dont le chemin en 4 étapes mèn
 ogImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp
 ---
 
-Un projet IA coûte cher avant de rapporter : salaires, cloud, intégration, temps métier. En France, plusieurs dispositifs publics peuvent en absorber une partie — crédit d'impôt, diagnostic subventionné, appels à projets France 2030. Ils ne se valent pas, et ils ne se cumulent pas n'importe comment.
+Un projet IA coûte cher avant de rapporter : salaires, cloud, intégration, temps métier. En France, plusieurs dispositifs publics peuvent en absorber une partie : crédit d'impôt, diagnostic subventionné, appels à projets France 2030. Ils ne se valent pas, et ils ne se cumulent pas n'importe comment.
 
 Voici un panorama concret pour une entreprise moyenne à grande qui veut financer un agent, une automatisation ou un produit IA. Les montants et taux cités viennent de sources officielles (Service-Public Entreprendre, Bpifrance, France Num). Vérifiez toujours votre cas avec votre expert-comptable ou votre conseil fiscal : ce n'est pas un avis juridique.
 
@@ -25,16 +25,16 @@ Chez [The Vibe Company](https://www.thevibecompany.co/fr), agence IA fondée à 
 | --- | --- | --- | --- |
 | [CIR](https://entreprendre.service-public.gouv.fr/vosdroits/F23533) | Crédit d'impôt sur la R&D | Entreprises qui engagent des travaux de recherche | Une part des dépenses de R&D éligibles (pas le « simple » déploiement d'un outil du marché) |
 | [CII](https://entreprendre.service-public.gouv.fr/vosdroits/F35494) | Crédit d'impôt innovation | PME (définition européenne) | Conception de prototypes / installations pilotes d'un **produit nouveau**, jusqu'au 31/12/2027 |
-| [Diag Data IA](https://www.bpifrance.fr/catalogue-offres/diag-data-ia) (Bpifrance) | Diagnostic data / IA subventionné | PME et ETI (souvent 10 à 2 000 salariés selon Bpifrance) | 8 jours d'expert pour cadrer des cas d'usage — **pas** le développement |
+| [Diag Data IA](https://www.bpifrance.fr/catalogue-offres/diag-data-ia) (Bpifrance) | Diagnostic data / IA subventionné | PME et ETI (souvent 10 à 2 000 salariés selon Bpifrance) | 8 jours d'expert pour cadrer des cas d'usage, **pas** le développement |
 | France 2030 / [Osez l'IA](https://www.bpifrance.fr/catalogue-offres/osez-lia-france-2030) | Plan national d'adoption et d'innovation IA | PME, ETI, parfois consortia (selon l'appel) | Diagnostics, accélérateurs, appels à projets sélectifs (ex. MediaGen) |
 
-L'ordre pratique qu'on voit le plus souvent : d'abord clarifier le problème métier (Diag ou audit interne), puis construire un premier livrable utile, puis structurer le CIR / CII sur ce qui est vraiment de la R&D ou de l'innovation produit — pas l'inverse.
+L'ordre pratique qu'on voit le plus souvent : d'abord clarifier le problème métier (Diag ou audit interne), puis construire un premier livrable utile, puis structurer le CIR / CII sur ce qui est vraiment de la R&D ou de l'innovation produit, pas l'inverse.
 
 ## CIR : le levier le plus connu, le plus mal compris
 
 Le [crédit d'impôt recherche](https://entreprendre.service-public.gouv.fr/vosdroits/F23533) vise les activités de recherche et développement. Selon Service-Public Entreprendre, en métropole le taux est de **30 %** sur la partie des dépenses inférieure ou égale à 100 M€, et de **5 %** au-delà. En outre-mer, le taux de première tranche est de **50 %**.
 
-Ce n'est pas un chèque pour « faire de l'IA ». Un déploiement standard d'un SaaS, une formation ChatGPT, ou une intégration sans incertitude technique relevent rarement du CIR. En revanche, un travail qui crée de la connaissance scientifique ou technique nouvelle — modèles, pipelines d'évaluation, architectures, preuves de faisabilité documentées — peut entrer dans le cadre, sous conditions.
+Ce n'est pas un chèque pour « faire de l'IA ». Un déploiement standard d'un SaaS, une formation ChatGPT, ou une intégration sans incertitude technique relevent rarement du CIR. En revanche, un travail qui crée de la connaissance scientifique ou technique nouvelle peut entrer dans le cadre, sous conditions : modèles, pipelines d'évaluation, architectures, preuves de faisabilité documentées.
 
 On a écrit notre propre dossier CIR avec l'IA, pour récupérer 150 000 euros, et détaillé ce qui a marché (et ce qu'il ne faut pas laisser inventer à un modèle) dans deux articles :
 
@@ -51,7 +51,7 @@ Taux en métropole, d'après Service-Public : **20 %**. Le montant des dépenses
 
 Le CII ne couvre pas la phase de production du prototype. Ce n'est pas non plus un filet pour toute automatisation interne : le dispositif vise un **produit nouveau** destiné à être commercialisé plus tard, pas un outil purement interne sans nouveauté.
 
-Pour une PME qui construit un agent ou un produit IA à vendre (ou un module différenciant), le CII peut compléter le CIR — sous réserve de ne pas double-compter les mêmes dépenses. Votre fiscaliste tranche.
+Pour une PME qui construit un agent ou un produit IA à vendre (ou un module différenciant), le CII peut compléter le CIR, sous réserve de ne pas double-compter les mêmes dépenses. Votre fiscaliste tranche.
 
 ## Diag Data IA : cadrer avant de dépenser
 
@@ -64,13 +64,13 @@ Le [Diag Data IA](https://www.bpifrance.fr/catalogue-offres/diag-data-ia) de Bpi
 
 [France Num](https://www.francenum.gouv.fr/guides-et-conseils/intelligence-artificielle/comprendre-et-adopter-lia/diag-data-ia-beneficiez-dun) indique que 2 000 accompagnements sont cofinancés sur 2026–2027, dans la limite des places. L'éligibilité courante citée : PME / ETI (souvent à partir de 10 salariés). La demande passe par la plateforme Bpifrance.
 
-Ce que le Diag ne fait pas : coder votre agent, brancher vos API, ou garantir un ROI. Il sert à éviter de lancer le mauvais projet. Ensuite, il faut encore construire — en interne, avec une agence, ou les deux.
+Ce que le Diag ne fait pas : coder votre agent, brancher vos API, ou garantir un ROI. Il sert à éviter de lancer le mauvais projet. Ensuite, il faut encore construire : en interne, avec une agence, ou les deux.
 
 ## France 2030 : du diagnostic aux appels à projets
 
-Le plan [Osez l'IA – France 2030](https://www.bpifrance.fr/catalogue-offres/osez-lia-france-2030) (Bpifrance, DGE, SGPI) regroupe plusieurs briques pour les PME et ETI : autodiag, plateforme de cas d'usage, Diag Data IA, accélérateurs IA, etc. Ce n'est pas un guichet unique avec un chèque unique : chaque offre a ses critères.
+Le plan [Osez l'IA](https://www.bpifrance.fr/catalogue-offres/osez-lia-france-2030) de France 2030 (Bpifrance, DGE, SGPI) regroupe plusieurs briques pour les PME et ETI : autodiag, plateforme de cas d'usage, Diag Data IA, accélérateurs IA, etc. Ce n'est pas un guichet unique avec un chèque unique : chaque offre a ses critères.
 
-À côté, des **appels à projets** France 2030 financent des consortiums ou des R&D plus lourdes. On en a un exemple public : [MediaGen](https://www.thevibecompany.co/fr/case-studies/afp), porté par l'AFP avec Quivr / The Vibe Company, Kairntech et Dawex — projet France 2030 d'IA générative pour les rédactions, soutenu par Bpifrance, annoncé à **4 M€** sur le site. Objectif : veille augmentée, recherche multimodale dans les archives, aide à la production sous contrôle journalistique, avec une partie des composants en open source.
+À côté, des **appels à projets** France 2030 financent des consortiums ou des R&D plus lourdes. On en a un exemple public : [MediaGen](https://www.thevibecompany.co/fr/case-studies/afp), porté par l'AFP avec Quivr / The Vibe Company, Kairntech et Dawex : projet France 2030 d'IA générative pour les rédactions, soutenu par Bpifrance, annoncé à **4 M€** sur le site. Objectif : veille augmentée, recherche multimodale dans les archives, aide à la production sous contrôle journalistique, avec une partie des composants en open source.
 
 Ce type d'appel n'est pas le parcours standard d'une ETI qui veut un agent support en six semaines. C'est un parcours sélectif, long, souvent en consortium. Utile à connaître si votre projet IA a une dimension de rupture ou d'intérêt général (santé, médias, industrie…). Pour un déploiement métier classique, regardez d'abord Diag + build + CIR/CII.
 
@@ -80,7 +80,7 @@ Ce type d'appel n'est pas le parcours standard d'une ETI qui veut un agent suppo
 
 **Vous avez un cas clair (support, ops, produit) et besoin d'un livrable qui tourne.** Financez surtout le build et le run. Le CIR / CII ne remplace pas un budget produit ; ils peuvent en réduire le coût net *si* le travail est éligible et bien documenté. Voir aussi notre [checklist du POC à la production](https://www.thevibecompany.co/fr/resources/articles/poc-agent-ia-production).
 
-**Vous êtes une PME qui construit un produit IA nouveau.** Regardez CII + CIR avec votre conseil. Le plafond CII (400 000 € de dépenses) et le taux à 20 % en métropole donnent un ordre de grandeur officiel — pas une promesse de récupération.
+**Vous êtes une PME qui construit un produit IA nouveau.** Regardez CII + CIR avec votre conseil. Le plafond CII (400 000 € de dépenses) et le taux à 20 % en métropole donnent un ordre de grandeur officiel, pas une promesse de récupération.
 
 **Vous visez un financement structurant type France 2030.** Attendez-vous à un calendrier d'appel à projets, à des partenaires, et à une charge administrative réelle. MediaGen / AFP montre que c'est possible ; ce n'est pas le chemin le plus court vers un premier agent en production.
 
@@ -113,7 +113,7 @@ On construit les projets et on documente le travail technique. Le montage et le 
 
 ## Parlons de votre projet (et de son financement)
 
-Vous avez un cas d'usage IA en tête et vous voulez savoir ce qui se finance vraiment — build, Diag, CIR/CII, ou un appel type France 2030 ? Venez avec le périmètre, la taille de l'entreprise et le calendrier. On vous dit ce qu'on peut construire, ce qui relève plutôt d'un diagnostic Bpifrance, et ce qu'il faut poser à votre expert-comptable.
+Vous avez un cas d'usage IA en tête et vous voulez savoir ce qui se finance vraiment : build, Diag, CIR/CII, ou un appel type France 2030 ? Venez avec le périmètre, la taille de l'entreprise et le calendrier. On vous dit ce qu'on peut construire, ce qui relève plutôt d'un diagnostic Bpifrance, et ce qu'il faut poser à votre expert-comptable.
 
 [Un outil IA pour votre rédaction ?](/fr/ia-medias) Notre page IA médias détaille ce qu'on construit pour les rédactions, avec la preuve MediaGen.
 

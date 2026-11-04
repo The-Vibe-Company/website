@@ -61,7 +61,7 @@ Using AI didn't replace my ideas; it just got rid of the technical barrier that 
 
 ### 💡 A quick tip if you try this
 
-Don't rush the training. If your 25 base images are inconsistent, your model will be a mess. Take the time to get your initial set right—it’s the difference between a professional-looking game and an "AI slop" project.
+Don't rush the training. If your 25 base images are inconsistent, your model will be a mess. Take the time to get your initial set right: it’s the difference between a professional-looking game and an "AI slop" project.
 
 **Bestiary is under way, and I'll be sharing more of this world soon.**
 
