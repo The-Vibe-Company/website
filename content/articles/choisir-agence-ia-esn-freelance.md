@@ -150,7 +150,7 @@ Une fois le prestataire choisi, voici [comment se déroule un projet avec un pre
 
 Si vous cherchez surtout à comparer les trois options sur les coûts et les délais, on a détaillé [agence IA, freelance ou ESN : que choisir selon le projet](/fr/resources/articles/agence-ia-vs-freelance-esn), avec les TJM sourcés et le coût complet.
 
-Et si vous voulez des noms, on a comparé les acteurs un par un, nous compris : [quelle agence IA choisir, notre comparatif honnête](/fr/resources/articles/meilleure-agence-ia-comparatif).
+Et si vous voulez des noms, on a comparé les acteurs un par un, nous compris : [meilleure agence IA en 2026, quelle agence pour quel projet](/fr/resources/articles/meilleure-agence-ia-comparatif).
 
 ## FAQ
 

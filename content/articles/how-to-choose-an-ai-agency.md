@@ -150,7 +150,7 @@ Once you've picked a partner, here's [how a project with an AI development agenc
 
 If what you mainly need is to compare the three options on cost and timeline, we broke down [AI agency vs freelancer vs IT services firm](/en/resources/articles/ai-agency-vs-freelancer-vs-it-services), with sourced day rates and the total cost.
 
-And if you want names, we compared the firms one by one, ourselves included: [the best AI consulting firms in France, an honest guide](/en/resources/articles/best-ai-consulting-firms-france).
+And if you want names, we compared the firms one by one, ourselves included: [the best AI agency in 2026, which agency for which project](/en/resources/articles/best-ai-consulting-firms-france).
 
 ## FAQ
 
