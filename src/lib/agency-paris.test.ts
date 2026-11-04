@@ -41,6 +41,12 @@ describe("AI agency in Paris landing", () => {
     expect(BOOKING_URL).toBe("https://cal.com/stangirard/thevibecompany");
   });
 
+  test("uses no em dash or spaced en dash in its copy", () => {
+    for (const copy of Object.values(LOCALES)) {
+      expect(JSON.stringify(copy)).not.toMatch(/—| – /);
+    }
+  });
+
   test("puts all six FAQ entries in the FAQPage markup", () => {
     for (const copy of Object.values(LOCALES)) {
       const items = AGENCY_PARIS_FAQ_KEYS.map((key) => ({
