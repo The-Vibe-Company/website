@@ -5,7 +5,7 @@ import { absoluteUrl, SITE_LOGO, SITE_NAME, SITE_URL } from "@/lib/site";
 /**
  * Schema.org JSON-LD for the site. The Organization and WebSite nodes are
  * emitted on every page by the locale layout; pages add their own
- * BreadcrumbList, Article and FAQPage nodes.
+ * BreadcrumbList, Article, FAQPage and CollectionPage/ItemList nodes.
  *
  * Structured data only restates what the pages already say. Free text that
  * comes from page copy (article summaries, company-page FAQ answers) goes
@@ -160,6 +160,49 @@ export function webPageNode({
     inLanguage: language,
     isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": ORGANIZATION_ID },
+  };
+}
+
+/**
+ * A listing page: the hub's own WebPage (CollectionPage) with its ordered
+ * ItemList of entries, kept in sync with what the reader sees. The names
+ * stay verbatim (same policy as Article.headline); the description is only
+ * added when it clears `isPublishable`.
+ */
+export function collectionPageSchema({
+  url,
+  name,
+  description,
+  language,
+  items,
+}: {
+  url: string;
+  name: string;
+  description?: string;
+  language: string;
+  items: { name: string; url: string }[];
+}): JsonLdNode {
+  return {
+    "@context": SCHEMA_CONTEXT,
+    "@type": "CollectionPage",
+    "@id": url,
+    url,
+    name,
+    ...(description && isPublishable(description) ? { description } : {}),
+    inLanguage: language,
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": ORGANIZATION_ID },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListOrder: "https://schema.org/ItemListOrderDescending",
+      numberOfItems: items.length,
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: item.url,
+        name: item.name,
+      })),
+    },
   };
 }
 
