@@ -244,9 +244,9 @@
     "about": {
       "kicker": "// HOW WE WORK",
       "title": "From the first call to production.",
-      "p1": "Every project starts with a 30-minute call: you explain the problem, we explain how we would build it. If it fits, we send a fixed-scope proposal, then a clickable prototype before a single line of production code.",
-      "p2": "During the build, you see working software early and often, and we measure the result by real usage rather than by the demo. At Monka, the caregiver app, the nurses' CRM and the clinical engine went live in two months, and a new version has shipped roughly every two days since. At LocService, the assistant's drafts are used on 87% of tickets.",
-      "p3": "Then there are two options: we hand the code over to your team with the documentation and runbooks, or we keep running it. With Theodo, training the teams is part of the job, so they adopt these practices themselves and move faster."
+      "p1": "It starts with a call. You tell us the problem, we tell you how we'd go about it. Sometimes the answer is that AI isn't the right tool. If we work together, we write down what we ship and by when. When it makes sense, we build a clickable prototype first to test the idea before writing code.",
+      "p2": "At Monka, we started on March 9 and the caregiver app went live on May 10, with the nurses' CRM next to it. One thing we learned: we were moving too fast for them. We had to slow down so their team had time to work through the business side. At LocService, the support team keeps the draft suggested by Quivr's autodraft on 87% of tickets.",
+      "p3": "After that, either your team takes over the code or we keep looking after it. With Theodo, a big part of the job is showing teams how we work with agents, so they can move forward without us."
     }
   },
   "resources": {
