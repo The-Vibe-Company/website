@@ -44,7 +44,7 @@ Transparence : on travaille aussi en renfort de Theodo sur des projets clients, 
 
 ## Artefact : la stratégie data et IA d'un groupe international
 
-Artefact indique s'adresser [principalement à des entreprises du Fortune 500](https://www.artefact.com/fr/). Le groupe annonce 2 500 collaborateurs dans 27 pays et plus de 1 000 clients, et a racheté The Nunatak Group en septembre 2026. Son terrain : la stratégie, la gouvernance des données et les « AI Factory » à l'échelle d'un groupe.
+Artefact se présente comme un [cabinet de conseil en data et IA](https://www.artefact.com/fr/). Le groupe annonce 2 500 collaborateurs dans 27 pays et plus de 1 000 clients, et a [racheté The Nunatak Group en septembre 2026](https://www.artefact.com/news/nunatak-joins-artefact-robert-jacobi-becomes-ceo-in-germany/). Son terrain : la stratégie, la gouvernance des données et les « AI Factory » à l'échelle d'un groupe.
 
 **Allez chez Artefact si** votre sujet est d'abord stratégique et organisationnel, sur plusieurs pays, avant d'être un outil à livrer.
 

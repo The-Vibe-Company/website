@@ -44,7 +44,7 @@ Disclosure: we also work as reinforcement for Theodo on client projects when sha
 
 ## Artefact: data and AI strategy for international groups
 
-Artefact says it [mainly serves Fortune 500 companies](https://www.artefact.com/). The group reports 2,500 employees in 27 countries and more than 1,000 clients, and acquired The Nunatak Group in September 2026. Its ground: strategy, data governance and "AI Factory" setups at group scale.
+Artefact describes itself as a [data and AI consulting firm](https://www.artefact.com/). The group reports 2,500 employees in 27 countries and more than 1,000 clients, and [acquired The Nunatak Group in September 2026](https://www.artefact.com/news/nunatak-joins-artefact-robert-jacobi-becomes-ceo-in-germany/). Its ground: strategy, data governance and "AI Factory" setups at group scale.
 
 **Go to Artefact if** your challenge is strategic and organizational across several countries before it's a tool to ship.
 
