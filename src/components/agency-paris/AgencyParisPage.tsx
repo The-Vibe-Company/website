@@ -23,6 +23,7 @@ import {
   ABOUT_PATHS,
   AGENCY_PARIS_PATHS,
   AGENTS_PRODUCTION_PATHS,
+  CUSTOM_AI_APP_PATHS,
   localizedSocialMetadata,
   localizedUrl,
   splitPath,
@@ -69,6 +70,8 @@ const MONO =
 const PROSE = "m-0 text-[15px] leading-[1.6] text-muted-foreground md:text-base";
 const TEXT_LINK =
   "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
+// List marker drawn as a short rule rather than a dash character.
+const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
 const CARD_HOVER =
   "transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]";
 
@@ -150,9 +153,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                     key={fact}
                     className="flex gap-3 border-b border-border py-3 text-[15px] leading-[1.5] text-foreground first:border-t"
                   >
-                    <span aria-hidden="true" className="font-mono text-muted-foreground">
-                      —
-                    </span>
+                    <span aria-hidden="true" className={DASH} />
                     <span>{fact}</span>
                   </li>
                 ))}
@@ -236,9 +237,15 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                   </span>
                 </h3>
                 <p className={PROSE}>{t(`offers.items.${key}.desc`)}</p>
-                {key === "operate" ? (
-                  <Link href={splitPath(AGENTS_PRODUCTION_PATHS, locale)} className={`${TEXT_LINK} mt-5`}>
-                    {t("offers.items.operate.link")}
+                {key === "build" || key === "operate" ? (
+                  <Link
+                    href={splitPath(
+                      key === "build" ? CUSTOM_AI_APP_PATHS : AGENTS_PRODUCTION_PATHS,
+                      locale,
+                    )}
+                    className={`${TEXT_LINK} mt-5`}
+                  >
+                    {t(`offers.items.${key}.link`)}
                     <span aria-hidden="true">→</span>
                   </Link>
                 ) : null}
@@ -261,9 +268,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                     key={signal}
                     className="flex gap-3 border-b border-border py-4 text-[17px] leading-[1.45] text-foreground"
                   >
-                    <span aria-hidden="true" className="font-mono text-muted-foreground">
-                      —
-                    </span>
+                    <span aria-hidden="true" className={DASH} />
                     <span>{signal}</span>
                   </li>
                 ))}

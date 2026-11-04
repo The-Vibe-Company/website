@@ -1,6 +1,7 @@
 import {
   AGENCY_PARIS_PATHS,
   AGENTS_PRODUCTION_PATHS,
+  CUSTOM_AI_APP_PATHS,
   HARDENING_PATHS,
   HEALTHCARE_AI_PATHS,
   MEDIA_AI_PATHS,
@@ -18,4 +19,5 @@ export const FOOTER_OFFERINGS: ReadonlyArray<{ key: string; paths: SplitPaths }>
   { key: "healthcareAi", paths: HEALTHCARE_AI_PATHS },
   { key: "agentsProduction", paths: AGENTS_PRODUCTION_PATHS },
   { key: "mediaAi", paths: MEDIA_AI_PATHS },
+  { key: "customAiApp", paths: CUSTOM_AI_APP_PATHS },
 ];

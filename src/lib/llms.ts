@@ -42,6 +42,7 @@ const frenchCoreMetadata: Record<string, { title: string; description: string }>
   "/agents-ia-production": { title: fr.agentsProduction.metaTitle, description: fr.agentsProduction.metaDescription },
   "/ia-sante-hds": { title: fr.healthcareAi.metaTitle, description: fr.healthcareAi.metaDescription },
   "/ia-medias": { title: fr.mediaAi.metaTitle, description: fr.mediaAi.metaDescription },
+  "/developpement-application-ia-sur-mesure": { title: fr.customAiApp.metaTitle, description: fr.customAiApp.metaDescription },
   "/contact": { title: fr.contact.metaTitle, description: fr.contact.metaDescription },
   "/confidentialite": { title: fr.privacy.metaTitle, description: fr.privacy.metaDescription },
 };

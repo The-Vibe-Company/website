@@ -22,6 +22,7 @@ describe("llms.txt localized discovery", () => {
       ["/agents-ia-production", fr.agentsProduction.metaTitle, fr.agentsProduction.metaDescription],
       ["/ia-sante-hds", fr.healthcareAi.metaTitle, fr.healthcareAi.metaDescription],
       ["/ia-medias", fr.mediaAi.metaTitle, fr.mediaAi.metaDescription],
+      ["/developpement-application-ia-sur-mesure", fr.customAiApp.metaTitle, fr.customAiApp.metaDescription],
       ["/contact", fr.contact.metaTitle, fr.contact.metaDescription],
       ["/confidentialite", fr.privacy.metaTitle, fr.privacy.metaDescription],
     ];

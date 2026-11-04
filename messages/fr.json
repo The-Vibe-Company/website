@@ -218,7 +218,8 @@
       "hardening": "Agents IA sécurité produit",
       "healthcareAi": "IA santé / HDS",
       "agentsProduction": "Agents IA en production",
-      "mediaAi": "IA médias"
+      "mediaAi": "IA médias",
+      "customAiApp": "Application IA sur mesure"
     },
     "contact": "Contact",
     "privacy": "Confidentialité"
@@ -838,13 +839,13 @@
     }
   },
   "agencyParis": {
-    "metaTitle": "Agence IA à Paris — produits & agents | The Vibe Company",
+    "metaTitle": "Agence IA à Paris : produits & agents | The Vibe Company",
     "metaDescription": "Agence IA à Paris (YC W24) : produits IA, agents et formation jusqu'en production. Cas Monka, AFP, LocService. RDV sous 24 h.",
     "breadcrumb": "Agence IA à Paris",
     "serviceName": "Agence IA à Paris",
     "kicker": "// AGENCE IA · PARIS",
     "title": "Agence IA à Paris : on construit vos produits et agents IA jusqu'en production",
-    "lede": "The Vibe Company est une agence IA-first basée à Paris. On conçoit des produits IA, on déploie des agents dans vos outils et on forme vos équipes — pour les entreprises de taille moyenne à grande.",
+    "lede": "The Vibe Company est une agence IA-first basée à Paris. On conçoit des produits IA, on déploie des agents dans vos outils et on forme vos équipes, pour les entreprises de taille moyenne à grande.",
     "factsLabel": "En bref",
     "facts": [
       "Passés par Y Combinator (W24) avec Quivr, devenue The Vibe Company.",
@@ -862,7 +863,8 @@
         "build": {
           "label": "Construire",
           "title": "Produits IA",
-          "desc": "Des produits et des outils internes, de bout en bout : cadrage, architecture, cycles courts, frontend, DevOps, observabilité, documentation et passation à vos équipes."
+          "desc": "Des produits et des outils internes, de bout en bout : cadrage, architecture, cycles courts, frontend, DevOps, observabilité, documentation et passation à vos équipes.",
+          "link": "Développement d'application IA sur mesure"
         },
         "operate": {
           "label": "Piloter",
@@ -1965,6 +1967,225 @@
           "Cette page suit le site : quand un outil est ajouté ou retiré, elle est mise à jour et sa date change. Dernière mise à jour : 3 novembre 2026."
         ]
       }
+    }
+  },
+  "customAiApp": {
+    "metaTitle": "Développement d'application IA sur mesure | The Vibe Company",
+    "metaDescription": "Applications IA et SaaS sur mesure, de l'idée à la production : RAG, agents, RGPD et intégrations métier. Cas Monka, LocService et AFP. YC W24.",
+    "breadcrumb": "Application IA sur mesure",
+    "kicker": "// APPLICATION IA · SUR MESURE",
+    "title": "Développez une application IA sur mesure, de l'idée à la production",
+    "lede": "On conçoit, on construit et on met en production votre application IA : le produit, l’architecture RAG et les agents, la sécurité et les intégrations avec vos outils. Puis on passe la main à votre équipe, ou on continue de la faire tourner.",
+    "hero": {
+      "label": "Ce que vous obtenez",
+      "items": {
+        "product": "Un produit complet : interface, backend, IA, déploiement et observabilité.",
+        "data": "Des données cadrées : exigences RGPD, accès au strict nécessaire, un humain sur ce qui part.",
+        "handover": "Du code documenté et une équipe formée pour reprendre le produit.",
+        "cases": "Des cas publiés : Monka et LocService en production, AFP / MediaGen en construction."
+      }
+    },
+    "bookCall": "Prendre 30 minutes",
+    "response": "Réponse sous 24 h",
+    "apps": {
+      "title": "Applications IA et SaaS",
+      "intro": "Une application IA, c’est d’abord une application : des écrans, des comptes, des données, une API. L’IA vient là où elle fait gagner du temps, pas en vitrine.",
+      "items": {
+        "internal": {
+          "title": "Outils internes",
+          "desc": "L’application que votre équipe ouvre tous les jours : traiter un dossier, préparer une réponse, retrouver une information dans vos documents."
+        },
+        "saas": {
+          "title": "SaaS B2B",
+          "desc": "Un produit vendu à vos clients, avec l’IA au cœur du parcours : comptes, rôles, droits et suivi d’usage compris."
+        },
+        "customer": {
+          "title": "Apps web et mobiles",
+          "desc": "Une app pour vos utilisateurs finaux, comme l’app des aidants qu’on a mise en production chez Monka."
+        },
+        "backoffice": {
+          "title": "Back-offices et CRM",
+          "desc": "Les écrans de ceux qui font tourner le service, comme Lifeline, le CRM des infirmières de coordination de Monka, et l’API qui relie le tout."
+        }
+      }
+    },
+    "rag": {
+      "title": "Architecture RAG et agents",
+      "intro": "Le modèle compte moins que le contexte qu’on lui donne. On branche l’IA sur vos documents et vos systèmes, et on mesure si ce qu’elle produit sert vraiment.",
+      "items": {
+        "rag": {
+          "title": "RAG sur vos documents",
+          "desc": "Vos documents, tickets et bases indexés, une recherche adaptée à leur forme, et des réponses construites sur ce que l’utilisateur a le droit de voir."
+        },
+        "agents": {
+          "title": "Des agents outillés",
+          "desc": "Des agents qui appellent vos API, lisent le contexte client et préparent le travail, avec des droits limités, visibles et révocables."
+        },
+        "measure": {
+          "title": "Une mesure simple",
+          "desc": "Une mesure utile, suivie au quotidien. Chez LocService : le brouillon est-il utilisé ? Pas un score sur un jeu de test choisi d’avance."
+        },
+        "models": {
+          "title": "Le bon modèle pour la tâche",
+          "desc": "On choisit le modèle selon la tâche, le coût d’usage et la sensibilité des données, avec une architecture qui permet d’en changer."
+        }
+      },
+      "article": "À lire : <link>RAG en entreprise, connecter l’IA à vos documents</link>",
+      "agents": "Des agents sur vos workflows existants : <link>Agents IA en production</link>"
+    },
+    "security": {
+      "title": "Sécurité, RGPD et intégrations métier",
+      "intro": "La sécurité fait partie du livrable, pas d’une étape à part. Et une application IA vaut ce que valent les outils auxquels elle se connecte.",
+      "items": {
+        "gdpr": {
+          "title": "Selon les exigences RGPD",
+          "desc": "Données chiffrées, accès limités au strict nécessaire. Chez Monka, les données de santé sont chiffrées et conformes au RGPD."
+        },
+        "privilege": {
+          "title": "Des agents au moindre privilège",
+          "desc": "Un agent n’accède qu’à ce dont sa tâche a besoin, avec des droits limités, visibles et révocables."
+        },
+        "human": {
+          "title": "Un humain sur ce qui part",
+          "desc": "Ce qui sort vers vos clients passe par une personne. L’IA prépare, l’humain envoie."
+        },
+        "integrations": {
+          "title": "Branchée sur vos outils",
+          "desc": "CRM, support, documentation, API internes : l’application lit et écrit là où votre équipe travaille déjà."
+        }
+      }
+    },
+    "cases": {
+      "label": "Cas client",
+      "monka": {
+        "title": "Monka : du démarrage à la production",
+        "intro": "Monka accompagne les personnes qui prennent soin d’un proche, avec des infirmières de coordination. On a repris leur API et leur CRM existants, puis mis en production les applications du service.",
+        "stats": {
+          "start": {
+            "label": "Démarrage",
+            "value": "9 mars"
+          },
+          "production": {
+            "label": "En production",
+            "value": "10 mai"
+          }
+        },
+        "points": [
+          "L’app des aidants.",
+          "Lifeline, le CRM des infirmières de coordination.",
+          "Le moteur clinique qui transforme chaque bilan en plan d’action.",
+          "Des données de santé chiffrées et conformes au RGPD."
+        ],
+        "readCase": "Lire le cas Monka"
+      },
+      "locservice": {
+        "title": "LocService : l’équipe support garde le brouillon",
+        "intro": "LocService est une plateforme de location immobilière entre particuliers. L’autodraft de Quivr lit les anciens tickets et la documentation interne, puis rédige la réponse à chaque nouveau ticket, adaptée au profil et à l’historique du client.",
+        "stats": {
+          "drafts": {
+            "label": "Brouillons gardés",
+            "value": "87 %"
+          }
+        },
+        "statNote": "L’équipe support garde le brouillon de l’autodraft Quivr sur 87 % des tickets.",
+        "points": [
+          "Un humain envoie chaque réponse : l’agent support relit le brouillon, le corrige si besoin, puis l’envoie.",
+          "Le contexte client vient des API internes, avec des règles qui reconnaissent le cas avant de rédiger.",
+          "Une seule mesure, suivie au quotidien : le brouillon est-il utilisé ?"
+        ],
+        "readCase": "Lire le cas LocService"
+      },
+      "afp": {
+        "title": "AFP / MediaGen : des outils IA pour les rédactions",
+        "intro": "MediaGen est un projet France 2030 porté par l’AFP et soutenu par Bpifrance. On fait partie du consortium technique, aux côtés de Kairntech et Dawex, pour construire des outils d’IA générative de confiance, toujours sous le contrôle des journalistes.",
+        "stats": {
+          "frame": {
+            "label": "Cadre",
+            "value": "France 2030"
+          },
+          "tools": {
+            "label": "Outils",
+            "value": "3"
+          },
+          "horizon": {
+            "label": "Horizon",
+            "value": "24 mois"
+          }
+        },
+        "points": [
+          "Veille augmentée : centraliser et analyser en temps réel les médias, les réseaux sociaux et les communiqués.",
+          "Recherche multimodale : explorer et valoriser les archives texte, photo et vidéo.",
+          "Aide à la production : décliner une même information en plusieurs formats et repérer les biais qui nuiraient à sa qualité.",
+          "Une partie des composants sera publiée en licence libre."
+        ],
+        "readCase": "Lire le cas AFP"
+      }
+    },
+    "method": {
+      "title": "Méthode et process",
+      "intro": "Pas de délai générique : le calendrier dépend du périmètre, qu’on fixe ensemble au cadrage.",
+      "steps": {
+        "call": {
+          "title": "Un appel de 30 minutes",
+          "desc": "Votre idée, vos utilisateurs, vos données, vos contraintes. On vous dit franchement si l’IA est la bonne réponse."
+        },
+        "scope": {
+          "title": "Le cadrage",
+          "desc": "On regarde le travail tel qu’il se fait et les données disponibles. Si ça matche, on envoie une proposition écrite à périmètre fixe."
+        },
+        "cycles": {
+          "title": "Des versions testables tôt et souvent",
+          "desc": "Vous utilisez du logiciel qui marche dès les premiers cycles, et vos retours orientent le suivant."
+        },
+        "production": {
+          "title": "Une production sécurisée",
+          "desc": "Droits d’accès, observabilité, documentation et exigences RGPD, intégrés au produit plutôt qu’ajoutés à la fin."
+        },
+        "handover": {
+          "title": "Mesure et passation",
+          "desc": "On mesure les gains, on écrit les runbooks et on forme votre équipe pour qu’elle reprenne le produit. Ou on continue de le faire tourner."
+        }
+      }
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "cost": {
+          "q": "Combien coûte une application IA sur mesure ?",
+          "a": "Ça dépend du périmètre : un outil interne branché sur vos documents n’a rien à voir avec un SaaS complet. On donne un chiffre précis après l’appel et le cadrage, dans une proposition écrite à périmètre fixe."
+        },
+        "timeline": {
+          "q": "En combien de temps l’application est-elle en production ?",
+          "a": "Le délai dépend du périmètre fixé au cadrage, et on livre par cycles courts. Exemple réel : chez Monka, le projet a démarré le 9 mars et était en production le 10 mai. <case>Lire le cas Monka</case>."
+        },
+        "rag": {
+          "q": "Faut-il forcément du RAG ou des agents ?",
+          "a": "Non. On part du problème : parfois une bonne recherche dans vos documents suffit, parfois il faut un agent qui agit dans vos outils, parfois l’IA n’est pas la bonne réponse, et on vous le dit. <rag>Notre article sur le RAG en entreprise</rag> détaille ces choix."
+        },
+        "data": {
+          "q": "Travaillez-vous sur des données sensibles ?",
+          "a": "Oui. On livre selon les exigences RGPD : données chiffrées, accès limités au strict nécessaire, et un humain sur ce qui part vers vos clients."
+        },
+        "code": {
+          "q": "À qui appartient le code ?",
+          "a": "On documente et on forme votre équipe pour qu’elle puisse reprendre le produit. La propriété intellectuelle et la maintenance sont détaillées dans la proposition écrite."
+        },
+        "otherPages": {
+          "q": "Quelle différence avec vos autres pages ?",
+          "a": "Cette page parle de construire une application. Pour une vue d’ensemble de ce qu’on fait, voir <agency>notre agence IA à Paris</agency>. Pour des agents sur vos workflows existants, voir <agents>Agents IA en production</agents>."
+        }
+      }
+    },
+    "seeAlso": {
+      "title": "Pour aller plus loin",
+      "agency": "Agence IA à Paris : produits et agents IA jusqu’en production",
+      "agents": "Agents IA en production",
+      "rag": "RAG en entreprise : connecter l’IA à vos documents"
+    },
+    "about": "Qui est The Vibe Company : <link>À propos</link>",
+    "service": {
+      "name": "Développement d'application IA sur mesure",
+      "description": "Conception, développement et mise en production d'applications IA et de SaaS sur mesure : architecture RAG, agents, sécurité, exigences RGPD et intégrations aux outils métier."
     }
   }
 }
