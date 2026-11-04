@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { getAllContent, getContentTranslations } from "@/lib/content-source";
 import { buildLlmsTxt } from "@/lib/llms";
+import { directivesToPlainMarkdown } from "@/lib/markdown";
 import { GET } from "./route";
 
 const get = (path?: string[]) => GET(new Request("https://www.thevibecompany.co/md"), {
@@ -23,7 +24,16 @@ describe("Markdown representations", () => {
       const response = await get([item.language, "resources", "articles", item.slug]);
       expect(response.status).toBe(200);
       expect(response.headers.get("content-location")).toEndWith(`/${item.language}/resources/articles/${item.slug}`);
-      expect(await response.text()).toContain(item.body);
+      // Component directives (:::name{...}) are flattened to plain Markdown;
+      // a body without directives is returned exactly as written.
+      expect(await response.text()).toContain(directivesToPlainMarkdown(item.body));
+    }
+  });
+
+  test("component directives never reach the Markdown representation", async () => {
+    for (const item of getAllContent().filter((entry) => entry.type === "article" && entry.body.includes("\n:::"))) {
+      const response = await get([item.language, "resources", "articles", item.slug]);
+      expect(await response.text()).not.toMatch(/^:::/m);
     }
   });
 

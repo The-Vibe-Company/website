@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { getContentByType, getContentTranslations } from "@/lib/content-source";
 import { GET, OPTIONS, POST } from "./route";
+import { directivesToPlainMarkdown } from "@/lib/markdown";
 
 const rpc = (body: unknown, headers: Record<string, string> = {}) => POST(new Request("https://www.thevibecompany.co/mcp", {
   method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json, text/event-stream", ...headers },
@@ -33,7 +34,7 @@ describe("public read-only MCP", () => {
     const item = getContentByType("article").find((item) => item.slug === list.articles[0].slug)!;
     const read = (await (await call("read_article", { slug: item.slug })).json()).result;
     expect(read.isError).toBe(false);
-    expect(read.structuredContent.markdown).toContain(item.body);
+    expect(read.structuredContent.markdown).toContain(directivesToPlainMarkdown(item.body));
     expect((await (await call("get_booking_link")).json()).result.structuredContent.url).toBe("https://cal.com/stangirard/thevibecompany");
   });
 
@@ -47,7 +48,7 @@ describe("public read-only MCP", () => {
       expect(result.isError).toBe(false);
       expect(result.structuredContent.slug).toBe(target.slug);
       expect(result.structuredContent.language).toBe(target.language);
-      expect(result.structuredContent.markdown).toContain(target.body);
+      expect(result.structuredContent.markdown).toContain(directivesToPlainMarkdown(target.body));
     }
     expect((await (await call("read_article", { slug: "je-mappelle-victor", locale: "de" })).json()).result.isError).toBe(true);
   });

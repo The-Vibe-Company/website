@@ -1,5 +1,6 @@
 import { contentPath, getCanonicalContentForLanguage, getContentItem, getContentByType } from "@/lib/content-source";
 import { localizedUrl } from "@/lib/site";
+import { directivesToPlainMarkdown } from "@/lib/markdown";
 
 export const AGENT_SERVER_INFO = { name: "co.thevibecompany/public-content", version: "1.0.0" };
 export const MCP_PROTOCOL_VERSIONS = ["2025-06-18"];
@@ -73,7 +74,7 @@ export function callPublicTool(name: string, value: unknown = {}) {
     return {
       slug: item.slug, title: item.title, language: item.language,
       url: localizedUrl(item.language, contentPath(item)),
-      markdown: `# ${item.title}\n\n${item.summary}\n\n${item.body}\n`,
+      markdown: `# ${item.title}\n\n${item.summary}\n\n${directivesToPlainMarkdown(item.body)}\n`,
     };
   }
   throw new Error("Unknown tool");
