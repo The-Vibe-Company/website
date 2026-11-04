@@ -47,13 +47,13 @@ We only use facts the companies published themselves, with links. Self-reported 
 ## The comparison at a glance
 
 :::compare{caption="Comparison of the six firms" yes="Featured offer" no="Not featured" legend="How to read it: we tick what each firm features on the pages cited in its profile. An empty circle does not mean the firm doesn't do it."}
-| Firm | Reported size | Data and AI strategy | Building and shipping to production | Model training and alignment | Marketing measurement |
+| Firm | Reported size | Data and AI strategy | Shipping to production | Model training and alignment | Marketing measurement |
 |---|---|---|---|---|---|
 | [Theodo](#theodo) | 800+ Theodoers, 6 offices | [x] | [x] | [ ] | [ ] |
 | [Artefact](#artefact) | 2,500+ employees, 27 countries | [x] | [x] | [ ] | [ ] |
 | [Mistral AI](#mistral-ai) | Not disclosed | [ ] | [x] | [x] | [ ] |
 | [Galadrim](#galadrim) | 40 AI engineers | [ ] | [x] | [ ] | [ ] |
-| [Ekimetrics](#ekimetrics) | Not disclosed | [ ] | [x] | [ ] | [x] |
+| [Ekimetrics](#ekimetrics) | Not disclosed | [ ] | [ ] | [ ] | [x] |
 | [The Vibe Company](#the-vibe-company) | Small team | [ ] | [x] | [ ] | [ ] |
 :::
 
@@ -66,7 +66,7 @@ We only use facts the companies published themselves, with links. Self-reported 
 - **Pricing**: Not public.
 - **Sources**: [theodo.com](https://www.theodo.com/), [Theodo Data & AI](https://www.theodo.com/expertise/intelligence-artificielle)
 - **Choose if**: You run a multi-team AI program with strong regulatory constraints and need a partner who carries it from scoping to monitoring.
-- **Limits: skip if**: You only need a first tool, fast, on an SME budget. The organization is built for large programs.
+- **Limits: skip if**: You only need a first tool, fast, on an SME budget.
 :::
 
 :::callout{title="Disclosure"}

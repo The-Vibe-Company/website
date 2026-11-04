@@ -47,13 +47,13 @@ On ne reprend que des faits publiés par les acteurs eux-mêmes, avec le lien. L
 ## Le comparatif en un coup d'œil
 
 :::compare{caption="Comparatif des six acteurs" yes="Offre mise en avant" no="Non mise en avant" legend="Lecture : on coche ce que chaque acteur met en avant sur les pages citées dans sa fiche. Un rond vide ne veut pas dire que l'acteur ne le fait pas."}
-| Acteur | Taille annoncée | Stratégie data et IA | Construction et mise en production | Entraînement et alignement de modèles | Mesure marketing |
+| Acteur | Taille annoncée | Stratégie data et IA | Mise en production | Entraîner et aligner des modèles | Mesure marketing |
 |---|---|---|---|---|---|
 | [Theodo](#theodo) | 800+ Theodoers, 6 bureaux | [x] | [x] | [ ] | [ ] |
 | [Artefact](#artefact) | 2 500+ collaborateurs, 27 pays | [x] | [x] | [ ] | [ ] |
 | [Mistral AI](#mistral-ai) | Non communiquée | [ ] | [x] | [x] | [ ] |
 | [Galadrim](#galadrim) | 40 ingénieurs IA | [ ] | [x] | [ ] | [ ] |
-| [Ekimetrics](#ekimetrics) | Non communiquée | [ ] | [x] | [ ] | [x] |
+| [Ekimetrics](#ekimetrics) | Non communiquée | [ ] | [ ] | [ ] | [x] |
 | [The Vibe Company](#the-vibe-company) | Petite équipe | [ ] | [x] | [ ] | [ ] |
 :::
 
@@ -66,7 +66,7 @@ On ne reprend que des faits publiés par les acteurs eux-mêmes, avec le lien. L
 - **Tarifs** : Non publics.
 - **Sources** : [theodo.com](https://www.theodo.com/), [Theodo Data & AI](https://www.theodo.com/expertise/intelligence-artificielle)
 - **Choisir si** : Vous avez un programme IA de plusieurs équipes, des contraintes réglementaires fortes et besoin d'un partenaire qui porte le projet du cadrage jusqu'au monitoring.
-- **Limites : ne pas choisir si** : Vous cherchez seulement un premier outil, vite, avec un budget de PME. L'organisation est pensée pour des programmes d'envergure.
+- **Limites : ne pas choisir si** : Vous cherchez seulement un premier outil, vite, avec un budget de PME.
 :::
 
 :::callout{title="Transparence"}
