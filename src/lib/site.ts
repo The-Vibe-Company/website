@@ -149,7 +149,7 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
   },
   {
     paths: PRIVACY_PATHS,
-    title: "Privacy policy",
+    title: "Legal notice and privacy",
     description:
       "What thevibecompany.co collects and why: PostHog audience measurement, the cal.com booking link, Vercel hosting, cookies and local storage, and your GDPR rights.",
     changeFrequency: "yearly",
