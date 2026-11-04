@@ -1,0 +1,33 @@
+src/components/home/Hero.tsx
+  s_d609f60a7832c2::t_6db36442c600b6 3,5,9-18,21-23,25-27,30-34,39-41,44-50,52-65,67-71,73-76,78-99,101-123,126-127,133-149,151-154,157-170
+src/components/home/CaseStudy.tsx
+  s_d609f60a7832c2::t_600bdb87fa19e6 1-2,4,6-13,16-22,24-25,33,35-45,49-78
+src/components/home/Quote.tsx
+  s_d609f60a7832c2::t_f92bebd1ff0290 5-8,14,16-17,20
+src/components/HomeLaunchpad.tsx
+  s_d609f60a7832c2::t_72c18a54f4e81d 25-32,35-39,41-42
+src/components/home/AgencyParisLink.tsx
+  s_d609f60a7832c2::t_838fceb2b39bb4 3,7,9-11,18-23
+src/components/home/HeroRunner.tsx
+  s_d609f60a7832c2::t_078185adb3266b 15-18,419,568-569,575-580,594-595,669,743,758-762,772,782-784,788-789,798,808,818,828-830,836,840,844,1300-1306,1309,1313,1452,1459,1462,1465,1487,1534-1536,1541-1542,1556-1557
+src/components/home/MobileBookingBar.tsx
+  s_d609f60a7832c2::t_9fc92079534c1b 45,47,51-54
+src/components/home/RunnerBand.tsx
+  s_d609f60a7832c2::t_872166205e728c 5-6,34-39,41-42,53-54,59,62-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fd720e566fa504af7507389398cb18abd43cde57",
+  "prompts": {},
+  "sessions": {
+    "s_d609f60a7832c2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3553cfd5-ed5a-4dfb-8d5a-2eafd5dc2be4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
