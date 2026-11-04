@@ -73,6 +73,7 @@
       "project": "Project",
       "badge": "Backed by"
     },
+    "kicker": "{kind}: {detail}",
     "start": "Press space to play",
     "over": "Game over",
     "restart": "Space to replay",
@@ -146,7 +147,7 @@
     "indexCount": "3 ways"
   },
   "process": {
-    "kicker": "// 02 — HOW WE WORK",
+    "kicker": "// 02. HOW WE WORK",
     "titleLine1": "From brief",
     "titleLine2": "to production.",
     "steps": {
@@ -490,7 +491,7 @@
     "metaTitle": "AI Agents to Harden Your Product & Stack | The Vibe Company",
     "metaDescription": "Deploy AI agents to harden product and infrastructure: secrets, deps, IAM, configs, PR review. Built to GDPR and HDS requirements. Paris agency.",
     "title": "Use AI agents to harden your product and your infrastructure",
-    "lede": "At The Vibe Company, we deploy agents that watch secrets, dependencies, IAM, configs and pull requests — continuously, inside your CI/CD and your infrastructure — to shrink the attack surface before anything reaches production.",
+    "lede": "At The Vibe Company, we deploy agents that watch secrets, dependencies, IAM, configs and pull requests, continuously, inside your CI/CD and your infrastructure, to shrink the attack surface before anything reaches production.",
     "hero": {
       "label": "What you get",
       "items": {
@@ -1049,7 +1050,7 @@
     "metaTitle": "Healthcare AI & HDS: ship to production | The Vibe Company",
     "metaDescription": "AI projects on French health data, built to GDPR and HDS requirements. Monka case (2 months to prod). Paris AI agency, YC W24. Reply within 24h.",
     "title": "Healthcare AI and HDS: we build your products all the way to production",
-    "lede": "The Vibe Company builds AI products and agents for healthcare: apps, CRMs, clinical engines, partner APIs — inside our clients' HDS environment and GDPR framework. We are not an HDS-certified host: we ship fast and cleanly where your health data has to stay.",
+    "lede": "The Vibe Company builds AI products and agents for healthcare: apps, CRMs, clinical engines, partner APIs, inside our clients' HDS environment and GDPR framework. We are not an HDS-certified host: we ship fast and cleanly where your health data has to stay.",
     "bookCall": "Book 30 minutes",
     "response": "Reply within 24h",
     "breadcrumb": "Healthcare AI & HDS",
@@ -1254,13 +1255,13 @@
     "metaTitle": "AI Agents in Production: from POC to run | The Vibe Company",
     "metaDescription": "Deploy AI agents in your company to production: tools, guardrails, measurement, handoff. LocService case (87% of tickets). Paris agency, YC W24.",
     "title": "AI agents at work: we take them all the way to production",
-    "lede": "Many AI agents never get past the demo. At The Vibe Company, we wire them into your tools, put the guardrails in place (authority, permissions, a human in the loop) and take them all the way to the daily run — with a clear measure of the time saved.",
+    "lede": "Many AI agents never get past the demo. At The Vibe Company, we wire them into your tools, put the guardrails in place (authority, permissions, a human in the loop) and take them all the way to the daily run, with a clear measure of the time saved.",
     "hero": {
       "label": "What we put in place",
       "items": {
         "tools": "An audit of your workflows, then skills wired into your tools: CRM, support, docs, APIs.",
         "guardrails": "Guardrails: least privilege, and a human on everything that goes out (at LocService, the agent writes drafts).",
-        "measure": "A before/after measurement, then documentation and handoff — or we keep operating it with you.",
+        "measure": "A before/after measurement, then documentation and handoff. Or we keep operating it with you.",
         "team": "The same YC W24 team that ships AI products to production (LocService, Monka, Coup de Pates…)."
       }
     },
@@ -1272,7 +1273,7 @@
       "description": "Deploying business AI agents inside a company, from POC to the daily run: scoping the first workflow, skills connected to existing tools, authority and guardrails, memory and context, observability, run and handoff. Sensitive actions stay approved by a human."
     },
     "problem": {
-      "title": "A POC doesn't die for lack of a model — it dies for lack of production",
+      "title": "A POC doesn't die for lack of a model. It dies for lack of production",
       "p1": "The demo works. Then the real questions arrive: which permissions the agent gets, on which tools (whose APIs change or go down), who owns it when it gets things wrong, and which metric says it is useful. With no answers, nobody dares let it act, and the pilot stays a pilot.",
       "p2": "COOs, heads of support and product CTOs are not waiting for one more slide. They want a first agent that is useful in real conditions, wired into their systems, that their teams use every day.",
       "p3": "New to the topic? Start with our <link>guide to AI agents for business</link>. This page is about deploying one with you."
@@ -1454,14 +1455,14 @@
     "metaTitle": "AI for Media: tools for newsrooms | The Vibe Company",
     "metaDescription": "AI tools for newsrooms and media orgs, shipped to production. AFP / MediaGen proof (France 2030). Paris AI agency, YC W24. Reply within 24h.",
     "title": "AI for media: we build newsroom tools all the way to production",
-    "lede": "The Vibe Company builds generative AI tools for newsrooms and media organizations: monitoring, archives, production assist — under journalist control. Public proof: MediaGen, AFP's France 2030 generative AI project, where we are a technical consortium member.",
+    "lede": "The Vibe Company builds generative AI tools for newsrooms and media organizations: monitoring, archives, production assist, under journalist control. Public proof: MediaGen, AFP's France 2030 generative AI project, where we are a technical consortium member.",
     "bookCall": "Book 30 minutes",
     "response": "Reply within 24h",
     "breadcrumb": "AI for Media",
     "hero": {
       "label": "The facts",
       "items": {
-        "mediagen": "MediaGen (AFP): 3 newsroom tools — augmented monitoring, multimodal search, production assist.",
+        "mediagen": "MediaGen (AFP): 3 newsroom tools: augmented monitoring, multimodal search, production assist.",
         "france2030": "France 2030 project, €4M, supported by Bpifrance. Consortium Quivr/The Vibe Company, Kairntech, Dawex. 24-month horizon.",
         "openSource": "Some components planned as open source.",
         "agency": "Paris AI agency, YC W24 (Quivr became The Vibe Company)."
@@ -1806,7 +1807,7 @@
               "PostHog",
               "None",
               "Audience measurement stores no cookie and nothing in browser storage: its visit identifier lives in memory only, for as long as the tab stays on the site, until a reload or close.",
-              "—"
+              "Not applicable"
             ],
             [
               "tvc-runner-best, tvc-runner-muted",

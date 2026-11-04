@@ -73,6 +73,7 @@
       "project": "Projet",
       "badge": "Label"
     },
+    "kicker": "{kind} : {detail}",
     "start": "Appuyez sur espace pour jouer",
     "over": "Perdu",
     "restart": "Espace pour rejouer",
@@ -146,7 +147,7 @@
     "indexCount": "3 façons"
   },
   "process": {
-    "kicker": "// 02 — COMMENT ON TRAVAILLE",
+    "kicker": "// 02. COMMENT ON TRAVAILLE",
     "titleLine1": "Du brief",
     "titleLine2": "à la production.",
     "steps": {
@@ -490,7 +491,7 @@
     "metaTitle": "Agents IA pour durcir produit et SI | The Vibe Company",
     "metaDescription": "Déployez une flotte d'agents IA pour durcir produit et SI : secrets, deps, IAM, configs, review PR. Exigences RGPD et HDS. Agence à Paris.",
     "title": "Utiliser des agents IA pour durcir votre produit et votre SI",
-    "lede": "Chez The Vibe Company, on déploie des agents qui scrutent secrets, dépendances, IAM, configs et pull requests — en continu, dans votre CI/CD et votre SI — pour réduire la surface d’attaque avant la prod.",
+    "lede": "Chez The Vibe Company, on déploie des agents qui scrutent secrets, dépendances, IAM, configs et pull requests, en continu, dans votre CI/CD et votre SI, pour réduire la surface d’attaque avant la prod.",
     "hero": {
       "label": "Ce que vous obtenez",
       "items": {
@@ -1169,7 +1170,7 @@
       "otherLabel": "LocService",
       "other": "Aussi, hors santé, pour la cadence de shipping : chez LocService, nos brouillons IA sont utilisés sur 87 % des tickets support.",
       "otherLink": "Cas LocService",
-      "quoteAttribution": "— {author}"
+      "quoteAttribution": "{author}"
     },
     "method": {
       "title": "Comment on démarre un projet IA santé",
@@ -1807,7 +1808,7 @@
               "PostHog",
               "Aucun",
               "La mesure d’audience ne dépose ni cookie ni donnée dans le stockage du navigateur : son identifiant de visite ne vit qu’en mémoire, le temps de votre navigation dans l’onglet, jusqu’au rechargement ou à la fermeture.",
-              "—"
+              "Sans objet"
             ],
             [
               "tvc-runner-best, tvc-runner-muted",

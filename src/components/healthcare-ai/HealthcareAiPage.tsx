@@ -40,6 +40,9 @@ import {
 } from "@/lib/structured-data";
 import { clientLogoSize } from "@/lib/client-logos";
 
+// List marker drawn as a short rule rather than a dash character.
+const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
+
 /**
  * The healthcare AI landing, served at /fr/ia-sante-hds and
  * /en/healthcare-ai-hds. Both routes render this component; each declares the
@@ -247,9 +250,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                     key={signal}
                     className="flex gap-3 border-b border-border py-4 text-[17px] leading-[1.45] text-foreground"
                   >
-                    <span aria-hidden="true" className="font-mono text-muted-foreground">
-                      —
-                    </span>
+                    <span aria-hidden="true" className={DASH} />
                     <span>{signal}</span>
                   </li>
                 ))}

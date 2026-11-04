@@ -220,8 +220,8 @@ const PROJECTS_RAW: RawProject[] = [
     date: { en: "Apr 2026", fr: "avr. 2026" },
     status: { en: "Open source", fr: "Open source" },
     metaDescription: {
-      en: "Granite: the personal OS your agent runs on — markdown notes, SQLite index, typed contracts for navigable memory.",
-      fr: "Granite : l'OS personnel de votre agent — notes markdown, index SQLite et contrats typés pour une mémoire navigable.",
+      en: "Granite: the personal OS your agent runs on: markdown notes, SQLite index, typed contracts for navigable memory.",
+      fr: "Granite : l'OS personnel de votre agent : notes markdown, index SQLite et contrats typés pour une mémoire navigable.",
     },
     description: {
       en: "Granite is the personal OS your agent runs on: markdown notes, a SQLite index, and a typed contract system that turns local files into a navigable company memory.",
@@ -272,7 +272,7 @@ const PROJECTS_RAW: RawProject[] = [
     date: { en: "Jul 2026", fr: "juil. 2026" },
     status: { en: "Open source", fr: "Open source" },
     metaDescription: {
-      en: "VibeDeck: a dashboard of sites, feeds and media panels. Everything stays on your machine — no account, no tracking.",
+      en: "VibeDeck: a dashboard of sites, feeds and media panels. Everything stays on your machine, no account, no tracking.",
       fr: "VibeDeck : dashboard de sites, flux et médias en panneaux. Tout reste sur votre machine, sans compte ni tracking.",
     },
     description: {

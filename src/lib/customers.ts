@@ -543,8 +543,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
           en: "What do the document-control AI skills do?",
         },
         answer: {
-          fr: "Ils vérifient qu’une étiquette ou un cahier des charges corrigé respecte les annotations (même dans PowerPoint), relèvent chaque écart — 72 modifications sur un seul document — et contrôlent que fiche de développement, cahier des charges, étiquette et fiche technique disent la même chose.",
-          en: "They check that a corrected label or specification follows every annotation (even boxes drawn in PowerPoint), flag each gap — 72 changes on a single document — and make sure the development sheet, specification, label, and technical sheet all say the same thing.",
+          fr: "Ils vérifient qu’une étiquette ou un cahier des charges corrigé respecte les annotations (même dans PowerPoint), relèvent chaque écart (72 modifications sur un seul document) et contrôlent que fiche de développement, cahier des charges, étiquette et fiche technique disent la même chose.",
+          en: "They check that a corrected label or specification follows every annotation (even boxes drawn in PowerPoint), flag each gap (72 changes on a single document) and make sure the development sheet, specification, label, and technical sheet all say the same thing.",
         },
       },
       {
@@ -617,8 +617,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
           en: "What is The Vibe Company’s role at Theodo?",
         },
         answer: {
-          fr: "Expert technique intégré aux équipes Theodo, sur des projets critiques pour leurs clients — notamment des Software Factories pour des centaines de développeurs.",
-          en: "A technical expert embedded in Theodo’s teams, on critical projects for their clients — including Software Factories for hundreds of developers.",
+          fr: "Expert technique intégré aux équipes Theodo, sur des projets critiques pour leurs clients, notamment des Software Factories pour des centaines de développeurs.",
+          en: "A technical expert embedded in Theodo’s teams, on critical projects for their clients, including Software Factories for hundreds of developers.",
         },
       },
       {
