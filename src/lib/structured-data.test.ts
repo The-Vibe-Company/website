@@ -1,12 +1,14 @@
 import { describe, expect, test } from "bun:test";
 
-import { getContentByType } from "./content-source";
+import { contentPath, getContentByType, getContentByTypeForLanguage } from "./content-source";
 import { getCustomers } from "./customers";
 import { normalizeMarkdownBody, renderMarkdown } from "./markdown";
+import { localizedUrl } from "./site";
 import {
   articleFaqPageSchema,
   articleSchema,
   breadcrumbList,
+  collectionPageSchema,
   extractMarkdownFaq,
   faqPageSchema,
   isPublishable,
@@ -176,6 +178,125 @@ describe("webPageNode", () => {
       language: "en",
     });
     expect(node).not.toHaveProperty("description");
+  });
+});
+
+describe("collectionPageSchema", () => {
+  const hubUrl = `${SITE}/en/resources`;
+  const sampleItems = [
+    { name: "First article", url: `${SITE}/en/resources/articles/first` },
+    { name: "Second article", url: `${SITE}/en/resources/articles/second` },
+    { name: "Third article", url: `${SITE}/en/resources/articles/third` },
+  ];
+
+  test("renders a CollectionPage with an ItemList numbered from 1", () => {
+    const node = collectionPageSchema({
+      url: hubUrl,
+      name: "AI Resources: articles & hands-on guides",
+      description: "A short publishable description.",
+      language: "en",
+      items: sampleItems,
+    });
+
+    expect(node).toMatchObject({
+      "@type": "CollectionPage",
+      "@id": hubUrl,
+      url: hubUrl,
+      name: "AI Resources: articles & hands-on guides",
+      description: "A short publishable description.",
+      inLanguage: "en",
+      isPartOf: { "@id": `${SITE}/#website` },
+      about: { "@id": `${SITE}/#organization` },
+      mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: 3,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, url: sampleItems[0].url, name: "First article" },
+          { "@type": "ListItem", position: 2, url: sampleItems[1].url, name: "Second article" },
+          { "@type": "ListItem", position: 3, url: sampleItems[2].url, name: "Third article" },
+        ],
+      },
+    });
+  });
+
+  test("drops a description that mentions a certification", () => {
+    const node = collectionPageSchema({
+      url: hubUrl,
+      name: "AI Resources: articles & hands-on guides",
+      description: "The Vibe Company is SOC 2 ready.",
+      language: "en",
+      items: sampleItems,
+    });
+    expect(node).not.toHaveProperty("description");
+  });
+
+  test("keeps a publishable description", () => {
+    const node = collectionPageSchema({
+      url: hubUrl,
+      name: "AI Resources: articles & hands-on guides",
+      description:
+        "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod — plus Victor's Story.",
+      language: "en",
+      items: sampleItems,
+    });
+    expect(node).toHaveProperty(
+      "description",
+      "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod — plus Victor's Story.",
+    );
+  });
+
+  test("smoke: fr resources hub ItemList caps at 15 newest articles", () => {
+    const articles = getContentByTypeForLanguage("article", "fr").slice(0, 15);
+    const items = articles.map((article) => ({
+      name: article.title,
+      url: localizedUrl("fr", contentPath(article)),
+    }));
+    const node = collectionPageSchema({
+      url: localizedUrl("fr", "/resources"),
+      name: "Ressources IA : nos articles et guides",
+      description:
+        "Articles et guides IA de The Vibe Company : agents, automatisation, mise en production — et la Victor’s Story.",
+      language: "fr",
+      items,
+    }) as { mainEntity: { itemListElement: { position: number; url: string }[]; numberOfItems: number } };
+
+    expect(node.mainEntity.numberOfItems).toBe(items.length);
+    expect(node.mainEntity.itemListElement.length).toBeLessThanOrEqual(15);
+    expect(node.mainEntity.itemListElement[0].position).toBe(1);
+    for (const entry of node.mainEntity.itemListElement) {
+      expect(entry.url.startsWith(`${SITE}/fr/resources/`)).toBe(true);
+    }
+  });
+
+  test("markup never adds restricted terms beyond the item names", () => {
+    const node = collectionPageSchema({
+      url: hubUrl,
+      name: "AI Resources: articles & hands-on guides",
+      description:
+        "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod — plus Victor's Story.",
+      language: "en",
+      items: sampleItems,
+    }) as Record<string, unknown> & { mainEntity: { itemListElement: Record<string, unknown>[] } };
+
+    const rest = {
+      ...node,
+      name: undefined,
+      url: undefined,
+      "@id": undefined,
+      mainEntity: {
+        ...node.mainEntity,
+        itemListElement: node.mainEntity.itemListElement.map((entry) => ({
+          ...entry,
+          name: undefined,
+          url: undefined,
+        })),
+      },
+    };
+    expect(isPublishable(JSON.stringify(rest))).toBe(true);
+    const json = JSON.stringify(node);
+    for (const key of ["priceRange", "aggregateRating", "SOC 2", "ISO 27001"]) {
+      expect(json).not.toContain(key);
+    }
   });
 });
 
