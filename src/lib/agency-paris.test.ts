@@ -11,7 +11,7 @@ const LOCALES = { fr: fr.agencyParis, en: en.agencyParis };
 
 describe("AI agency in Paris landing", () => {
   test("keeps the title, description and H1 of the SEO brief", () => {
-    expect(fr.agencyParis.metaTitle).toBe("Agence IA à Paris — produits & agents | The Vibe Company");
+    expect(fr.agencyParis.metaTitle).toBe("Agence IA à Paris : produits & agents | The Vibe Company");
     expect(fr.agencyParis.metaDescription).toBe(
       "Agence IA à Paris (YC W24) : produits IA, agents et formation jusqu'en production. Cas Monka, AFP, LocService. RDV sous 24 h.",
     );
