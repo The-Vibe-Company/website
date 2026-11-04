@@ -235,13 +235,13 @@ describe("collectionPageSchema", () => {
       url: hubUrl,
       name: "AI Resources: articles & hands-on guides",
       description:
-        "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod — plus Victor's Story.",
+        "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod, plus Victor's Story.",
       language: "en",
       items: sampleItems,
     });
     expect(node).toHaveProperty(
       "description",
-      "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod — plus Victor's Story.",
+      "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod, plus Victor's Story.",
     );
   });
 
@@ -255,7 +255,7 @@ describe("collectionPageSchema", () => {
       url: localizedUrl("fr", "/resources"),
       name: "Ressources IA : nos articles et guides",
       description:
-        "Articles et guides IA de The Vibe Company : agents, automatisation, mise en production — et la Victor’s Story.",
+        "Articles et guides IA de The Vibe Company : agents, automatisation, mise en production, et la Victor’s Story.",
       language: "fr",
       items,
     }) as { mainEntity: { itemListElement: { position: number; url: string }[]; numberOfItems: number } };
@@ -273,7 +273,7 @@ describe("collectionPageSchema", () => {
       url: hubUrl,
       name: "AI Resources: articles & hands-on guides",
       description:
-        "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod — plus Victor's Story.",
+        "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod, plus Victor's Story.",
       language: "en",
       items: sampleItems,
     }) as Record<string, unknown> & { mainEntity: { itemListElement: Record<string, unknown>[] } };
