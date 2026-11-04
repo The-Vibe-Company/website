@@ -1,0 +1,19 @@
+src/app/[locale]/case-studies/page.tsx
+  s_08f8c61571be3c::t_e24e743acbd7d3 8,77-78,80-85,91,143-146,167,169-172
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "04aeb9279e017b5e8e0f8a0f31bda30801c55ecd",
+  "prompts": {},
+  "sessions": {
+    "s_08f8c61571be3c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ee1cbe80-46d4-49ac-afb9-733bc83bbe2f",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
