@@ -126,6 +126,14 @@ describe("custom AI app landing", () => {
     expect(MESSAGES.en.cases.locservice.statNote).toContain("87% of tickets");
   });
 
+  test("never presents MediaGen as shipped: the published AFP case says it is being built", () => {
+    expect(MESSAGES.fr.hero.items.cases).toContain("AFP / MediaGen en construction");
+    expect(MESSAGES.en.hero.items.cases).toContain("AFP / MediaGen being built");
+    for (const messages of Object.values(MESSAGES)) {
+      expect(messages.hero.items.cases).not.toMatch(/(MediaGen|AFP)[^.]*(en production|in production)/);
+    }
+  });
+
   test("the AFP facts come from the published AFP case study", () => {
     for (const locale of ["fr", "en"] as const) {
       const afp = getCustomer("afp", locale)!;

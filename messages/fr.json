@@ -1981,7 +1981,7 @@
         "product": "Un produit complet : interface, backend, IA, déploiement et observabilité.",
         "data": "Des données cadrées : exigences RGPD, accès au strict nécessaire, un humain sur ce qui part.",
         "handover": "Du code documenté et une équipe formée pour reprendre le produit.",
-        "cases": "Des cas en production : Monka, LocService, AFP / MediaGen."
+        "cases": "Des cas publiés : Monka et LocService en production, AFP / MediaGen en construction."
       }
     },
     "bookCall": "Prendre 30 minutes",

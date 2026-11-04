@@ -1980,7 +1980,7 @@
         "product": "A complete product: interface, backend, AI, deployment and observability.",
         "data": "Data kept in bounds: GDPR requirements, least-privilege access, a person on what goes out.",
         "handover": "Documented code and a trained team that can take the product over.",
-        "cases": "Cases in production: Monka, LocService, AFP / MediaGen."
+        "cases": "Published cases: Monka and LocService in production, AFP / MediaGen being built."
       }
     },
     "bookCall": "Book 30 minutes",
