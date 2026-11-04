@@ -1462,7 +1462,7 @@
     "hero": {
       "label": "The facts",
       "items": {
-        "mediagen": "MediaGen (AFP): 3 newsroom tools: augmented monitoring, multimodal search, production assist.",
+        "mediagen": "MediaGen (AFP): 3 newsroom tools, augmented monitoring, multimodal search, production assist.",
         "france2030": "France 2030 project, €4M, supported by Bpifrance. Consortium Quivr/The Vibe Company, Kairntech, Dawex. 24-month horizon.",
         "openSource": "Some components planned as open source.",
         "agency": "Paris AI agency, YC W24 (Quivr became The Vibe Company)."
