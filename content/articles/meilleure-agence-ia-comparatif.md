@@ -28,8 +28,8 @@ Six acteurs, six profils. Chacun est le meilleur choix pour un cas précis, et a
 :::picker{title="Quelle agence selon votre cas"}
 - Grand groupe qui veut une équipe produit et IA intégrée → [Theodo](#theodo)
 - Stratégie data et IA à l'échelle internationale → [Artefact](#artefact)
-- Projet centré sur le modèle, ou souverain → [Mistral AI](#mistral-ai)
-- Grande équipe de développement web, mobile et IA → [Galadrim](#galadrim)
+- Projet 100 % IA → [Mistral AI](#mistral-ai)
+- Équipe sur mesure pour un produit web, mobile ou IA ([180+ collaborateurs annoncés](https://www.galadrim.fr/)) → [Galadrim](#galadrim)
 - Mesure et optimisation de la performance marketing → [Ekimetrics](#ekimetrics)
 - PME ou ETI qui veut un outil IA en production vite, ou renfort technique senior → [The Vibe Company](#the-vibe-company)
 :::

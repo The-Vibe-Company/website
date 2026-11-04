@@ -28,8 +28,8 @@ Six firms, six profiles. Each one is the best choice for a specific case, and no
 :::picker{title="Which agency for your case"}
 - Large group that wants an embedded product and AI team → [Theodo](#theodo)
 - Data and AI strategy at international scale → [Artefact](#artefact)
-- Model-centric or sovereign project → [Mistral AI](#mistral-ai)
-- Large web, mobile and AI development team → [Galadrim](#galadrim)
+- 100% AI project → [Mistral AI](#mistral-ai)
+- Custom team for a web, mobile or AI product ([reports 180+ expert staff](https://www.galadrim.fr/)) → [Galadrim](#galadrim)
 - Measuring and optimizing marketing performance → [Ekimetrics](#ekimetrics)
 - SME or mid-sized company that wants an AI tool in production fast, or senior technical reinforcement → [The Vibe Company](#the-vibe-company)
 :::

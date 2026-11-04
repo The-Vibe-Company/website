@@ -140,6 +140,17 @@
   line-height: 1.5;
 }
 
+/* A source link inside a case reads as paper on ink, not as a blue body link. */
+.prose-vibe .prose-vibe-picker__case a {
+  color: inherit;
+  text-decoration-color: rgb(253 251 247 / 0.5);
+}
+
+.prose-vibe .prose-vibe-picker__case a:hover {
+  opacity: 1;
+  text-decoration-color: currentColor;
+}
+
 .prose-vibe-picker__arrow {
   display: inline-flex;
   color: rgb(253 251 247 / 0.5);
