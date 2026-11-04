@@ -217,7 +217,8 @@
       "hardening": "AI agents product hardening",
       "healthcareAi": "Healthcare AI / HDS",
       "agentsProduction": "AI agents in production",
-      "mediaAi": "AI for media"
+      "mediaAi": "AI for media",
+      "customAiApp": "Custom AI apps"
     },
     "contact": "Contact",
     "privacy": "Privacy"
@@ -861,7 +862,8 @@
         "build": {
           "label": "Build",
           "title": "AI products",
-          "desc": "Products and internal tools, end to end: scoping, architecture, short cycles, frontend, DevOps, observability, documentation and handover to your teams."
+          "desc": "Products and internal tools, end to end: scoping, architecture, short cycles, frontend, DevOps, observability, documentation and handover to your teams.",
+          "link": "Custom AI app development"
         },
         "operate": {
           "label": "Operate",
@@ -1963,6 +1965,225 @@
           "This page follows the site: when a tool is added or removed, it is updated and its date changes. Last updated: November 3, 2026."
         ]
       }
+    }
+  },
+  "customAiApp": {
+    "metaTitle": "Custom AI App Development | The Vibe Company",
+    "metaDescription": "Custom AI applications and SaaS, from idea to production: RAG, agents, GDPR and business integrations. Monka, LocService and AFP cases. YC W24.",
+    "breadcrumb": "Custom AI app development",
+    "kicker": "// AI APPLICATION · CUSTOM BUILT",
+    "title": "Build a custom AI application, from idea to production",
+    "lede": "We design, build and ship your AI application to production: the product, the RAG architecture and the agents, the security and the integrations with your tools. Then we hand it over to your team, or we keep running it.",
+    "hero": {
+      "label": "What you get",
+      "items": {
+        "product": "A complete product: interface, backend, AI, deployment and observability.",
+        "data": "Data kept in bounds: GDPR requirements, least-privilege access, a person on what goes out.",
+        "handover": "Documented code and a trained team that can take the product over.",
+        "cases": "Published cases: Monka and LocService in production, AFP / MediaGen being built."
+      }
+    },
+    "bookCall": "Book 30 minutes",
+    "response": "Reply within 24h",
+    "apps": {
+      "title": "AI applications and SaaS",
+      "intro": "An AI application is an application first: screens, accounts, data, an API. AI goes where it saves time, not in the shop window.",
+      "items": {
+        "internal": {
+          "title": "Internal tools",
+          "desc": "The app your team opens every day: process a file, prepare a reply, find information in your documents."
+        },
+        "saas": {
+          "title": "B2B SaaS",
+          "desc": "A product sold to your customers, with AI at the heart of the journey: accounts, roles, permissions and usage tracking included."
+        },
+        "customer": {
+          "title": "Web and mobile apps",
+          "desc": "An app for your end users, like the caregiver app we put into production at Monka."
+        },
+        "backoffice": {
+          "title": "Back offices and CRMs",
+          "desc": "The screens of the people who run the service, like Lifeline, the CRM for Monka's coordinating nurses, and the API that ties it all together."
+        }
+      }
+    },
+    "rag": {
+      "title": "RAG architecture and agents",
+      "intro": "The model matters less than the context you give it. We connect AI to your documents and systems, and we measure whether what it produces is actually used.",
+      "items": {
+        "rag": {
+          "title": "RAG on your documents",
+          "desc": "Your documents, tickets and databases indexed, search suited to their shape, and answers built on what the user is allowed to see."
+        },
+        "agents": {
+          "title": "Agents with real tools",
+          "desc": "Agents that call your APIs, read the customer context and prepare the work, with limited, visible and revocable permissions."
+        },
+        "measure": {
+          "title": "One simple measure",
+          "desc": "A useful measure, checked day to day. At LocService: is the draft used? Not a score on a test set chosen in advance."
+        },
+        "models": {
+          "title": "The right model for the task",
+          "desc": "We pick the model for the task, the running cost and the sensitivity of the data, with an architecture that lets you switch."
+        }
+      },
+      "article": "Read: <link>Enterprise RAG, connect generative AI to your documents</link>",
+      "agents": "Agents on your existing workflows: <link>AI agents in production</link>"
+    },
+    "security": {
+      "title": "Security, GDPR and business integrations",
+      "intro": "Security is part of the deliverable, not a separate step. And an AI application is only as useful as the tools it connects to.",
+      "items": {
+        "gdpr": {
+          "title": "To GDPR requirements",
+          "desc": "Encrypted data, access limited to what is strictly needed. At Monka, health data is encrypted and GDPR-compliant."
+        },
+        "privilege": {
+          "title": "Least-privilege agents",
+          "desc": "An agent only reaches what its task needs, with limited, visible and revocable permissions."
+        },
+        "human": {
+          "title": "A person on what goes out",
+          "desc": "What goes out to your customers goes through a person. The AI prepares, a person sends."
+        },
+        "integrations": {
+          "title": "Wired into your tools",
+          "desc": "CRM, support desk, documentation, internal APIs: the application reads and writes where your team already works."
+        }
+      }
+    },
+    "cases": {
+      "label": "Customer case",
+      "monka": {
+        "title": "Monka: from kickoff to production",
+        "intro": "Monka supports people who care for a loved one, with coordinating nurses. We took over their existing API and CRM, then put the service's applications into production.",
+        "stats": {
+          "start": {
+            "label": "Kickoff",
+            "value": "March 9"
+          },
+          "production": {
+            "label": "In production",
+            "value": "May 10"
+          }
+        },
+        "points": [
+          "The caregiver app.",
+          "Lifeline, the CRM for the coordinating nurses.",
+          "The clinical engine that turns each assessment into an action plan.",
+          "Encrypted, GDPR-compliant health data."
+        ],
+        "readCase": "Read the Monka case"
+      },
+      "locservice": {
+        "title": "LocService: the support team keeps the draft",
+        "intro": "LocService is a peer-to-peer property rental platform. Quivr's autodraft reads past tickets and internal documentation, then drafts the answer to each new ticket, tailored to the customer's profile and history.",
+        "stats": {
+          "drafts": {
+            "label": "Drafts kept",
+            "value": "87%"
+          }
+        },
+        "statNote": "The support team keeps the Quivr autodraft's draft on 87% of tickets.",
+        "points": [
+          "A person sends every reply: a support agent reviews the draft, fixes it if needed, then sends it.",
+          "Customer context comes from internal APIs, with rules that recognize the case before drafting.",
+          "One measure, checked day to day: is the draft used?"
+        ],
+        "readCase": "Read the LocService case"
+      },
+      "afp": {
+        "title": "AFP / MediaGen: AI tools for newsrooms",
+        "intro": "MediaGen is a France 2030 project led by AFP and backed by Bpifrance. We are part of the technical consortium, alongside Kairntech and Dawex, building trustworthy generative AI tools, always under journalists' control.",
+        "stats": {
+          "frame": {
+            "label": "Frame",
+            "value": "France 2030"
+          },
+          "tools": {
+            "label": "Tools",
+            "value": "3"
+          },
+          "horizon": {
+            "label": "Horizon",
+            "value": "24 months"
+          }
+        },
+        "points": [
+          "Augmented news monitoring: gather and analyze media, social networks and press releases in real time.",
+          "Multimodal search: explore and make the most of text, photo and video archives.",
+          "Content production help: turn one story into several formats and spot biases that could hurt its quality.",
+          "Some components will be released under an open license."
+        ],
+        "readCase": "Read the AFP case"
+      }
+    },
+    "method": {
+      "title": "Method and process",
+      "intro": "No generic timeline: the schedule depends on the scope, which we set together during scoping.",
+      "steps": {
+        "call": {
+          "title": "A 30-minute call",
+          "desc": "Your idea, your users, your data, your constraints. We tell you honestly whether AI is the right answer."
+        },
+        "scope": {
+          "title": "Scoping",
+          "desc": "We look at the work as it is actually done and at the data available. If it's a fit, we send a written, fixed-scope proposal."
+        },
+        "cycles": {
+          "title": "Testable versions, early and often",
+          "desc": "You use working software from the first cycles, and your feedback shapes the next one."
+        },
+        "production": {
+          "title": "Secure production",
+          "desc": "Access rights, observability, documentation and GDPR requirements, built into the product rather than added at the end."
+        },
+        "handover": {
+          "title": "Measure and hand over",
+          "desc": "We measure the gains, write the runbooks and train your team to take the product over. Or we keep running it."
+        }
+      }
+    },
+    "faq": {
+      "title": "FAQ",
+      "items": {
+        "cost": {
+          "q": "How much does a custom AI application cost?",
+          "a": "It depends on the scope: an internal tool connected to your documents is nothing like a full SaaS product. We give a precise figure after the call and the scoping, in a written, fixed-scope proposal."
+        },
+        "timeline": {
+          "q": "How long until the application is in production?",
+          "a": "The timeline depends on the scope set during scoping, and we ship in short cycles. A real example: at Monka, the project kicked off on March 9 and was in production on May 10. <case>Read the Monka case</case>."
+        },
+        "rag": {
+          "q": "Do I need RAG or agents?",
+          "a": "Not necessarily. We start from the problem: sometimes good search over your documents is enough, sometimes you need an agent that acts in your tools, and sometimes AI is not the right answer, and we tell you so. <rag>Our enterprise RAG article</rag> walks through these choices."
+        },
+        "data": {
+          "q": "Do you work with sensitive data?",
+          "a": "Yes. We deliver to GDPR requirements: encrypted data, access limited to what is strictly needed, and a person on what goes out to your customers."
+        },
+        "code": {
+          "q": "Who owns the code?",
+          "a": "We document and train your team so it can take the product over. Intellectual property and maintenance are set out in the written proposal."
+        },
+        "otherPages": {
+          "q": "How is this different from your other pages?",
+          "a": "This page is about building an application. For an overview of what we do, see <agency>our AI agency in Paris</agency>. For agents on your existing workflows, see <agents>AI agents in production</agents>."
+        }
+      }
+    },
+    "seeAlso": {
+      "title": "Keep reading",
+      "agency": "AI agency in Paris: AI products and agents shipped to production",
+      "agents": "AI agents in production",
+      "rag": "Enterprise RAG: connect generative AI to your documents"
+    },
+    "about": "Who The Vibe Company is: <link>About</link>",
+    "service": {
+      "name": "Custom AI application development",
+      "description": "Design, development and production rollout of custom AI applications and SaaS: RAG architecture, agents, security, GDPR requirements and integrations with business tools."
     }
   }
 }

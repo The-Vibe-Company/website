@@ -23,6 +23,7 @@ import {
   ABOUT_PATHS,
   AGENCY_PARIS_PATHS,
   AGENTS_PRODUCTION_PATHS,
+  CUSTOM_AI_APP_PATHS,
   localizedSocialMetadata,
   localizedUrl,
   splitPath,
@@ -236,9 +237,15 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                   </span>
                 </h3>
                 <p className={PROSE}>{t(`offers.items.${key}.desc`)}</p>
-                {key === "operate" ? (
-                  <Link href={splitPath(AGENTS_PRODUCTION_PATHS, locale)} className={`${TEXT_LINK} mt-5`}>
-                    {t("offers.items.operate.link")}
+                {key === "build" || key === "operate" ? (
+                  <Link
+                    href={splitPath(
+                      key === "build" ? CUSTOM_AI_APP_PATHS : AGENTS_PRODUCTION_PATHS,
+                      locale,
+                    )}
+                    className={`${TEXT_LINK} mt-5`}
+                  >
+                    {t(`offers.items.${key}.link`)}
                     <span aria-hidden="true">→</span>
                   </Link>
                 ) : null}

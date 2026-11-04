@@ -172,8 +172,8 @@ describe("sitemap", () => {
     // The /resources listing itself carries `latestContentDate` (sitemap.ts),
     // so it inherits that same exemption and the match must not require a
     // trailing slash.
-    setSystemTime(new Date("2026-11-03T00:00:00.000Z"));
-    const today = new Date("2026-11-03T23:59:59.999Z");
+    setSystemTime(new Date("2026-11-04T00:00:00.000Z"));
+    const today = new Date("2026-11-04T23:59:59.999Z");
     const futures = sitemap().filter(
       (entry) =>
         !/\/resources(\/|$)/.test(entry.url) &&
@@ -184,9 +184,9 @@ describe("sitemap", () => {
     expect(futures).toEqual([]);
   });
 
-  test("the sitemap keeps its 120 URLs and every entry still declares x-default", () => {
+  test("the sitemap keeps its 122 URLs and every entry still declares x-default", () => {
     const entries = sitemap();
-    expect(entries).toHaveLength(120);
+    expect(entries).toHaveLength(122);
     for (const entry of entries) {
       const keys = Object.keys(entry.alternates!.languages!);
       expect(keys).toContain("x-default");
@@ -231,6 +231,7 @@ describe("sitemap", () => {
       "/agents-ia-production",
       "/ia-sante-hds",
       "/ia-medias",
+      "/developpement-application-ia-sur-mesure",
       "/contact",
       "/confidentialite",
     ];
@@ -278,6 +279,25 @@ describe("sitemap", () => {
       });
     }
   });
+
+  test("lists the custom AI app landing on its translated paths, with x-default", () => {
+    const entries = sitemap().filter((entry) =>
+      /\/(fr\/developpement-application-ia-sur-mesure|en\/custom-ai-app-development)$/.test(entry.url),
+    );
+
+    expect(entries.map((entry) => entry.url).sort()).toEqual([
+      `${SITE}/en/custom-ai-app-development`,
+      `${SITE}/fr/developpement-application-ia-sur-mesure`,
+    ]);
+    for (const entry of entries) {
+      expect(entry.alternates?.languages).toEqual({
+        fr: `${SITE}/fr/developpement-application-ia-sur-mesure`,
+        en: `${SITE}/en/custom-ai-app-development`,
+        "x-default": `${SITE}/fr/developpement-application-ia-sur-mesure`,
+      });
+    }
+  });
+
   test("lists every article and skill once, under its own language's prefix only", () => {
     const content = getAllContent();
     const expected = content.map((item) => `${SITE}/${item.language}${contentPath(item)}`);
