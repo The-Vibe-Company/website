@@ -79,6 +79,12 @@ export const MEDIA_AI_PATHS: SplitPaths = {
   en: "/ai-for-media",
 };
 
+/** The custom AI application development landing: AI apps, RAG, agents, integrations. */
+export const CUSTOM_AI_APP_PATHS: SplitPaths = {
+  fr: "/developpement-application-ia-sur-mesure",
+  en: "/custom-ai-app-development",
+};
+
 /**
  * The contact page. Same segment in both languages, declared as split paths so
  * it sits with the other key pages in the sitemap, llms.txt and the footer.
@@ -136,6 +142,14 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
     title: "AI for media",
     description:
       "The Vibe Company builds generative AI tools for newsrooms and media organizations, all the way to production, under journalist control: monitoring, multimodal archive search, production assist. Proof: MediaGen, AFP's France 2030 project.",
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
+    paths: CUSTOM_AI_APP_PATHS,
+    title: "Custom AI app development",
+    description:
+      "The Vibe Company builds custom AI applications and SaaS, from idea to production: RAG architecture, agents, security, GDPR and business integrations, with the Monka, LocService and AFP cases.",
     changeFrequency: "monthly",
     priority: 0.8,
   },
