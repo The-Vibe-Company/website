@@ -2,6 +2,7 @@ import { buildLlmsTxt } from "@/lib/llms";
 import { contentPath, getCanonicalContentForLanguage, getContentItem } from "@/lib/content-source";
 import { localizedUrl } from "@/lib/site";
 import { AGENT_LINK_HEADER } from "@/lib/agent-discovery";
+import { directivesToPlainMarkdown } from "@/lib/markdown";
 
 // Markdown has its own cache entry; HTML pages retain their existing SSG/ISR.
 export const revalidate = 86400;
@@ -37,6 +38,6 @@ export async function GET(
     });
   }
   const canonical = localizedUrl(item.language, contentPath(item));
-  const body = `# ${item.title}\n\n${item.summary}\n\nSource: ${canonical}\nLanguage: ${item.language}\nPublished: ${item.publishedAt}\n\n${item.body}\n`;
+  const body = `# ${item.title}\n\n${item.summary}\n\nSource: ${canonical}\nLanguage: ${item.language}\nPublished: ${item.publishedAt}\n\n${directivesToPlainMarkdown(item.body)}\n`;
   return new Response(body, { headers: { ...headers, "Content-Location": canonical } });
 }
