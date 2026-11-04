@@ -221,7 +221,7 @@
       "customAiApp": "Custom AI apps"
     },
     "contact": "Contact",
-    "privacy": "Privacy"
+    "privacy": "Legal notice & privacy"
   },
   "caseStudiesPage": {
     "metaTitle": "AI case studies: projects in production",
@@ -1676,11 +1676,11 @@
     }
   },
   "privacy": {
-    "metaTitle": "Privacy policy | The Vibe Company",
+    "metaTitle": "Legal notice and privacy | The Vibe Company",
     "metaDescription": "What thevibecompany.co collects and why: PostHog audience measurement, the cal.com booking link, Vercel hosting, cookies and local storage, your GDPR rights.",
     "breadcrumb": "Privacy",
     "kicker": "Privacy",
-    "title": "Privacy policy",
+    "title": "Legal notice and privacy",
     "updated": "Updated November 3, 2026",
     "lede": "This site has no account to create, no contact form and no ads. It measures its audience with PostHog, without cookies, links to cal.com for booking a call, and is hosted on Vercel. This page goes through each tool: what is collected, why, and how to exercise your rights.",
     "tocLabel": "Contents",

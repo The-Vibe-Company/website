@@ -221,7 +221,7 @@
       "customAiApp": "Application IA sur mesure"
     },
     "contact": "Contact",
-    "privacy": "Confidentialité"
+    "privacy": "Mentions légales et confidentialité"
   },
   "caseStudiesPage": {
     "metaTitle": "Cas clients IA : projets en production",
@@ -1677,11 +1677,11 @@
     }
   },
   "privacy": {
-    "metaTitle": "Politique de confidentialité | The Vibe Company",
+    "metaTitle": "Mentions légales et confidentialité | The Vibe Company",
     "metaDescription": "Ce que thevibecompany.co collecte et pourquoi : mesure d’audience PostHog, lien de rendez-vous cal.com, hébergement Vercel, cookies, et vos droits RGPD.",
     "breadcrumb": "Confidentialité",
     "kicker": "Confidentialité",
-    "title": "Politique de confidentialité",
+    "title": "Mentions légales et confidentialité",
     "updated": "Mise à jour le 3 novembre 2026",
     "lede": "Ce site n’a ni compte à créer, ni formulaire de contact, ni publicité. Il mesure son audience avec PostHog, sans cookie, renvoie vers cal.com pour prendre rendez-vous et est hébergé chez Vercel. Cette page détaille, outil par outil, ce qui est collecté, pourquoi, et comment exercer vos droits.",
     "tocLabel": "Sommaire",
