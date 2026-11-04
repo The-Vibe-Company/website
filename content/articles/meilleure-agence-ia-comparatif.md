@@ -1,6 +1,6 @@
 ---
-title: "Quelle agence IA choisir ? Notre comparatif honnête, y compris quand ce n'est pas nous"
-seoTitle: "Meilleure agence IA en 2026 : le comparatif honnête"
+title: "Meilleure agence IA en 2026 : quelle agence pour quel projet ?"
+seoTitle: "Meilleure agence IA en 2026 : quelle agence pour quel projet ?"
 slug: meilleure-agence-ia-comparatif
 translationKey: best-ai-agency-comparison
 language: fr

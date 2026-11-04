@@ -1,6 +1,6 @@
 ---
-title: "Best AI Consulting Firms in France (2026): An Honest Guide to Who Fits Which Project"
-seoTitle: "Best AI Consulting Firms in France (2026): Honest Guide"
+title: "Best AI Agency in 2026: Which Agency for Which Project?"
+seoTitle: "Best AI Agency in 2026: Which Agency for Which Project?"
 slug: best-ai-consulting-firms-france
 translationKey: best-ai-agency-comparison
 language: en
