@@ -34,7 +34,7 @@ The sequence we see most often: clarify the business problem first (Diag or inte
 
 France’s [research tax credit (CIR)](https://entreprendre.service-public.gouv.fr/vosdroits/F23533) supports research and development. Per Service-Public Entreprendre, in mainland France the rate is **30%** on eligible spend up to €100m, and **5%** above that. In overseas territories, the first-tier rate is **50%**.
 
-It is not a cheque for “doing AI”. A standard SaaS rollout, a ChatGPT training course, or an integration with no technical uncertainty rarely qualifies. Work that creates new scientific or technical knowledge may qualify, under conditions: models, evaluation pipelines, architectures, documented feasibility.
+It is not a cheque for “doing AI”. A standard SaaS rollout, a ChatGPT training course, or an integration with no technical uncertainty rarely qualifies. Work may qualify, under conditions, if it creates new scientific or technical knowledge: models, evaluation pipelines, architectures, documented feasibility.
 
 We wrote our own CIR file with AI help, recovered €150,000, and published what worked (and what you must not let a model invent) in two articles (French):
 

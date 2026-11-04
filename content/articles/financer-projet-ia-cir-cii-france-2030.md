@@ -34,7 +34,7 @@ L'ordre pratique qu'on voit le plus souvent : d'abord clarifier le problème mé
 
 Le [crédit d'impôt recherche](https://entreprendre.service-public.gouv.fr/vosdroits/F23533) vise les activités de recherche et développement. Selon Service-Public Entreprendre, en métropole le taux est de **30 %** sur la partie des dépenses inférieure ou égale à 100 M€, et de **5 %** au-delà. En outre-mer, le taux de première tranche est de **50 %**.
 
-Ce n'est pas un chèque pour « faire de l'IA ». Un déploiement standard d'un SaaS, une formation ChatGPT, ou une intégration sans incertitude technique relevent rarement du CIR. En revanche, un travail qui crée de la connaissance scientifique ou technique nouvelle peut entrer dans le cadre, sous conditions : modèles, pipelines d'évaluation, architectures, preuves de faisabilité documentées.
+Ce n'est pas un chèque pour « faire de l'IA ». Un déploiement standard d'un SaaS, une formation ChatGPT, ou une intégration sans incertitude technique relevent rarement du CIR. En revanche, peut entrer dans le cadre, sous conditions, un travail qui crée de la connaissance scientifique ou technique nouvelle : modèles, pipelines d'évaluation, architectures, preuves de faisabilité documentées.
 
 On a écrit notre propre dossier CIR avec l'IA, pour récupérer 150 000 euros, et détaillé ce qui a marché (et ce qu'il ne faut pas laisser inventer à un modèle) dans deux articles :
 
