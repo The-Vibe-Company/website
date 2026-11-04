@@ -946,6 +946,9 @@
 /* Comparison table */
 .prose-vibe-compare {
   margin: 2em 0;
+  /* The table switches to its own horizontal scroll from its own width, not the
+     viewport's: the article column is narrower on laptops than on phones' landscape. */
+  container-type: inline-size;
 }
 
 .prose-vibe-compare__scroll {
@@ -975,7 +978,7 @@
   z-index: 2;
   vertical-align: bottom;
   font-size: 0.62rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   line-height: 1.35;
   border-bottom: 1px solid var(--res-text, var(--foreground));
   background: var(--res-bg-secondary, var(--accent));
@@ -987,7 +990,13 @@
 
 .prose-vibe .prose-vibe-compare .prose-vibe-compare__mark-col {
   width: 5.25rem;
+  padding-inline: 0.3rem;
   text-align: center;
+}
+
+.prose-vibe-compare__scroll:focus-visible {
+  outline: 2px solid var(--res-text, var(--foreground));
+  outline-offset: -2px;
 }
 
 .prose-vibe .prose-vibe-compare tbody th {
@@ -1091,7 +1100,7 @@
 
 /* Below this width the table keeps its own horizontal scroll (never the page),
    with the agency column pinned on the left. */
-@media (max-width: 719px) {
+@container (max-width: 37.9rem) {
   /* The right edge fades out to hint that the table scrolls sideways. */
   .prose-vibe-compare__scroll {
     overflow-x: auto;
@@ -1118,6 +1127,12 @@
 
   .prose-vibe .prose-vibe-compare thead .prose-vibe-compare__lead {
     z-index: 3;
+  }
+
+  /* Keep the keyboard focus ring whole: no fade while the frame is focused. */
+  .prose-vibe-compare__scroll:focus-visible {
+    mask-image: none;
+    -webkit-mask-image: none;
   }
 }
 

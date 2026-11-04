@@ -704,9 +704,17 @@ function renderDirective(name: string, attrs: Record<string, string>, lines: str
   }
 }
 
-/** Index of the closing `:::` for a directive opened at `start`, or -1. */
+const CODE_FENCE = /^```/
+
+/** Index of the closing `:::` for a directive opened at `start`, or -1. Fenced code is skipped. */
 function findDirectiveEnd(lines: string[], start: number): number {
+  let inCode = false
   for (let index = start + 1; index < lines.length; index += 1) {
+    if (CODE_FENCE.test(lines[index])) {
+      inCode = !inCode
+      continue
+    }
+    if (inCode) continue
     if (DIRECTIVE_CLOSE.test(lines[index])) return index
     if (DIRECTIVE_OPEN.test(lines[index])) return -1
   }
@@ -727,9 +735,11 @@ export function directivesToPlainMarkdown(markdown: string): string {
   const lines = markdown.replace(/\r\n?/g, '\n').split('\n')
   const output: string[] = []
   let index = 0
+  let inCode = false
 
   while (index < lines.length) {
-    if (!isDirectiveStart(lines, index)) {
+    if (CODE_FENCE.test(lines[index])) inCode = !inCode
+    if (inCode || !isDirectiveStart(lines, index)) {
       output.push(lines[index])
       index += 1
       continue

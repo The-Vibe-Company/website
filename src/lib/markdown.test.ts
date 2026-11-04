@@ -88,6 +88,14 @@ describe('renderMarkdown container directives', () => {
     expect(renderMarkdown(':::unknown\nTexte\n:::')).toContain('<p>:::unknown<br />Texte<br />:::</p>')
   })
 
+  test('a fenced code block inside a directive does not close it', () => {
+    const html = renderMarkdown([':::callout{title="Syntaxe"}', '```', ':::', '```', 'Fin.', ':::'].join('\n'))
+
+    expect(html).toContain('<aside class="prose-vibe-callout" aria-label="Syntaxe">')
+    expect(html).toContain('<pre><code>:::</code></pre>')
+    expect(html).toContain('<p>Fin.</p>')
+  })
+
   test('articles without directives render exactly as before', () => {
     expect(renderMarkdown('Paragraphe.\n\n| A | B |\n|---|---|\n| 1 | 2 |')).toBe(
       '<p>Paragraphe.</p>\n<div class="prose-vibe-table-wrap"><table><thead><tr><th scope="col">A</th><th scope="col">B</th></tr></thead><tbody><tr><td>1</td><td>2</td></tr></tbody></table></div>',
@@ -118,6 +126,11 @@ describe('directivesToPlainMarkdown', () => {
     expect(plain).toContain('| Galadrim | Non |')
     expect(plain).toContain('Lecture.')
     expect(plain).not.toContain(':::')
+  })
+
+  test('leaves directive syntax shown inside a code block untouched', () => {
+    const markdown = ['```md', ':::callout{title="T"}', 'Texte', ':::', '```'].join('\n')
+    expect(directivesToPlainMarkdown(markdown)).toBe(markdown)
   })
 
   test('leaves Markdown without directives untouched', () => {
