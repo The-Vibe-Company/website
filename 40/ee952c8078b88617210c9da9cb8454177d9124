@@ -1,0 +1,23 @@
+src/app/[locale]/portfolio/[slug]/page.tsx
+  s_d609f60a7832c2::t_76116e589dfa5d 155,283
+src/components/quivr/QuivrBento.tsx
+  s_d609f60a7832c2::t_2bbf61bff5638f 18,61,192
+src/components/quivr/quivr.module.css
+  s_d609f60a7832c2::t_54db07fbf94214 184-188,915-916,931,945-951,953-954,967-969,982-992,1000-1008,1011-1018
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "40ee952c8078b88617210c9da9cb8454177d9124",
+  "prompts": {},
+  "sessions": {
+    "s_d609f60a7832c2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3553cfd5-ed5a-4dfb-8d5a-2eafd5dc2be4",
+        "model": "unknown"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
