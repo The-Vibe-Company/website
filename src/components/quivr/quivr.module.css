@@ -19,14 +19,19 @@
 
 /* ---------------------------------------------------------------- Stage -- */
 
+/* On the porcelaine page the stage is a pressed well ruled with a faint ink
+   grid, and everything drawn on it (window, satellite) is clay: the page's
+   `--background` is the studio grey, darker than a piece, so it is re-pointed
+   at clay inside the drawing. */
 .stage {
+  --background: var(--clay);
   position: relative;
   height: 640px;
   overflow: hidden;
-  background-color: #f6f2ea;
+  background-color: var(--well);
   background-image:
-    linear-gradient(to right, rgba(220, 215, 206, 0.6) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(220, 215, 206, 0.6) 1px, transparent 1px);
+    linear-gradient(to right, rgba(11, 11, 12, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 11, 12, 0.06) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
@@ -106,7 +111,9 @@
 
 /* ----------------------------------------------------------------- Bento -- */
 
+/* The bento's tiles are clay too, not the studio grey behind the page. */
 .grid {
+  --background: var(--clay);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas: "search" "license" "versions" "sources" "outputs" "yc" "selfhost";

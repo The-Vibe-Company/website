@@ -165,7 +165,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
             ))}
           </ul>
 
-          <AboutBookingCta page={hardeningPageId(locale)} location="cta_hardening" />
+          <AboutBookingCta className="mt-9 md:mt-10" page={hardeningPageId(locale)} location="cta_hardening" />
           <AboutBackers label={tAbout("backedBy")} />
         </section>
 

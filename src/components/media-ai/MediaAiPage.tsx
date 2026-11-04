@@ -183,7 +183,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
             ))}
           </ul>
 
-          <AboutBookingCta page={page} location="cta_media_ai_hero" namespace="mediaAi" />
+          <AboutBookingCta className="mt-9 md:mt-10" page={page} location="cta_media_ai_hero" namespace="mediaAi" />
           <AboutBackers label={tAbout("backedBy")} />
         </section>
 
@@ -387,7 +387,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
               ))}
             </ol>
 
-            <AboutBookingCta
+            <AboutBookingCta className="mt-9 md:mt-10"
               page={page}
               location="cta_media_ai_method"
               namespace="mediaAi"
