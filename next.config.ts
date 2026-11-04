@@ -102,6 +102,18 @@ const nextConfig: NextConfig = {
         destination: "/resources",
         permanent: true,
       },
+      // The legal notice lives on the privacy page. Its conventional URLs
+      // never had a page of their own, so they land there with a plain 301.
+      {
+        source: "/fr/mentions-legales",
+        destination: "/fr/confidentialite",
+        statusCode: 301,
+      },
+      {
+        source: "/en/legal-notice",
+        destination: "/en/privacy",
+        statusCode: 301,
+      },
     ];
   },
   async rewrites() {
