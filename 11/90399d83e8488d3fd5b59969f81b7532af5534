@@ -1,0 +1,27 @@
+src/app/[locale]/resources/skills/[slug]/page.tsx
+  s_d609f60a7832c2::t_8261eb75ef963f 8,139-155,158-164,170,172-179,181,183-194,196-205,207-231,233-252,255-273,278-291,295-296,300-303,305-311,314,338,346-350,353-366,368-373
+src/components/resources/CopyButton.tsx
+  s_d609f60a7832c2::t_21efd7a31b9c67 83-87,94,97
+src/components/resources/SkillAIInstaller.tsx
+  s_d609f60a7832c2::t_bc8c335cc1ba49 4,7,33-36,39,42-46,54,58-59,68-71
+src/components/resources/SkillCard.tsx
+  s_d609f60a7832c2::t_ac207da4b661b8 34-41,43,48,53-55,59-64
+src/components/resources/SkillPromptBlock.tsx
+  s_d609f60a7832c2::t_e2bebef6cfd686 3,15-19,22,30-32,36,41,46,48,66-84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1190399d83e8488d3fd5b59969f81b7532af5534",
+  "prompts": {},
+  "sessions": {
+    "s_d609f60a7832c2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3553cfd5-ed5a-4dfb-8d5a-2eafd5dc2be4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
