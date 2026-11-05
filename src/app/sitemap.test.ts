@@ -184,9 +184,9 @@ describe("sitemap", () => {
     expect(futures).toEqual([]);
   });
 
-  test("the sitemap keeps its 122 URLs and every entry still declares x-default", () => {
+  test("the sitemap keeps its 124 URLs and every entry still declares x-default", () => {
     const entries = sitemap();
-    expect(entries).toHaveLength(122);
+    expect(entries).toHaveLength(124);
     for (const entry of entries) {
       const keys = Object.keys(entry.alternates!.languages!);
       expect(keys).toContain("x-default");
@@ -208,6 +208,25 @@ describe("sitemap", () => {
         "fr",
         "x-default",
       ]);
+    }
+  });
+
+  test("lists both CI security agent translations with reciprocal hreflang", () => {
+    const languages = {
+      fr: `${SITE}/fr/resources/articles/agent-securite-ci`,
+      en: `${SITE}/en/resources/articles/ci-security-agent`,
+      "x-default": `${SITE}/fr/resources/articles/agent-securite-ci`,
+    };
+    const entries = sitemap().filter((entry) =>
+      /\/resources\/articles\/(agent-securite-ci|ci-security-agent)$/.test(entry.url),
+    );
+
+    expect(entries.map((entry) => entry.url).sort()).toEqual([
+      languages.en,
+      languages.fr,
+    ]);
+    for (const entry of entries) {
+      expect(entry.alternates?.languages).toEqual(languages);
     }
   });
 
