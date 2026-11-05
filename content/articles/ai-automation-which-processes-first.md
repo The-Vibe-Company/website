@@ -19,6 +19,8 @@ Start with a single process: high volume, accessible data, mistakes you can catc
 
 To set it up, the business team can handle it with a no-code tool as long as the flow stays simple. An AI agency makes sense when the AI has to be wired into your APIs and databases, taken to production, and measured before and after.
 
+For an agent that needs to hold up in daily operations, see [AI agents in production](/en/ai-agents-in-production).
+
 ## Why the first choice matters
 
 Almost every large company already uses AI somewhere. According to [Eurostat](https://ec.europa.eu/eurostat/web/products-eurostat-news/w/ddn-20251211-2), 20% of EU enterprises with 10 or more employees used AI in 2025. In France, [Insee](https://www.insee.fr/fr/statistiques/9025878) puts the figure at 18% overall and 58% for companies with 250 employees or more.
@@ -64,6 +66,8 @@ These are the kinds of processes that most often land at the top of the grid, wi
 **Customer support replies.** High volume, a rich ticket history, and a human agent who already reviews every reply. At [LocService](https://www.thevibecompany.co/en/case-studies/locservice), a peer-to-peer rental platform handling several hundred support tickets a day, we built an assistant that reads past tickets and internal documentation to draft the reply to every new ticket. It's wired into their internal APIs to get the real customer context. Result: the AI drafts are used on 87% of tickets. The method is detailed in our article on [AI agents for customer support](https://www.thevibecompany.co/en/resources/articles/ai-customer-support-agent).
 
 **Classifying documents and line items.** Invoices, statements, attachments, incoming requests. Our own bookkeeping is a good example: every month, the bank export goes into Claude Code with an instruction file, and a categorized spreadsheet comes out in a few minutes. The rule that makes it reliable fits in one line: when the AI doesn't recognize a line, it files it under "Other" instead of guessing, and a human decides. We wrote it up in [this piece on our Qonto bookkeeping](https://www.thevibecompany.co/fr/resources/articles/focus-skill-compta-qonto) (in French).
+
+To connect AI to a document base with citable sources, we explain the approach in [enterprise RAG](/en/resources/articles/enterprise-rag).
 
 **Checking documents for compliance.** Making sure a product sheet, a contract or a file contains what it should. For [Coup de Pates](https://www.thevibecompany.co/en/case-studies/coup-de-pates), we built a library of AI skills that checks their product documents. The AI flags the gaps, the quality team keeps the decision.
 

@@ -155,6 +155,8 @@ Quatre leçons pour un harness d'entreprise :
 
 Pour passer d'un prototype à ce niveau, voir aussi [du POC à la production pour un agent IA](/fr/resources/articles/poc-agent-ia-production) et notre guide des [agents IA en entreprise](/fr/resources/articles/agent-ia-entreprise).
 
+Et la page service [Agents IA en production](/fr/agents-ia-production) pour le parcours du POC au run.
+
 ## FAQ
 
 ### Qu'est-ce qu'un agent harness ?

@@ -10,11 +10,12 @@ import {
   AUTOMATION_GUIDE_PATHS,
   plainText,
   POC_CHECKLIST_PATHS,
+  RAG_GUIDE_PATHS,
 } from "./agents-production";
 import { BOOKING_URL } from "./booking";
 import { getContentItem } from "./content-source";
 import { getCustomer } from "./customers";
-import { AGENTS_PRODUCTION_PATHS, HEALTHCARE_AI_PATHS, splitPathAlternates } from "./site";
+import { AGENTS_PRODUCTION_PATHS, HEALTHCARE_AI_PATHS, MEDIA_AI_PATHS, splitPathAlternates } from "./site";
 import { faqPageSchema, serviceNode } from "./structured-data";
 
 const SITE = "https://www.thevibecompany.co";
@@ -72,7 +73,7 @@ describe("agents in production landing", () => {
 
   test("links only to articles and case studies that exist in the linked language", () => {
     for (const locale of ["fr", "en"] as const) {
-      for (const paths of [AGENTS_GUIDE_PATHS, POC_CHECKLIST_PATHS, AUTOMATION_GUIDE_PATHS]) {
+      for (const paths of [AGENTS_GUIDE_PATHS, POC_CHECKLIST_PATHS, AUTOMATION_GUIDE_PATHS, RAG_GUIDE_PATHS]) {
         const slug = paths[locale].split("/").pop()!;
         expect(getContentItem("article", slug)?.language).toBe(locale);
       }
@@ -83,7 +84,7 @@ describe("agents in production landing", () => {
   });
 
   test("links to sibling landings that exist on both segments", () => {
-    for (const path of Object.values(HEALTHCARE_AI_PATHS)) {
+    for (const path of [...Object.values(HEALTHCARE_AI_PATHS), ...Object.values(MEDIA_AI_PATHS)]) {
       expect(existsSync(`src/app/[locale]${path}/page.tsx`)).toBe(true);
     }
   });

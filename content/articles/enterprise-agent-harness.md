@@ -155,6 +155,8 @@ Four lessons for an enterprise harness:
 
 To get from a prototype to this level, see also [from POC to production for an AI agent](/en/resources/articles/ai-agent-poc-to-production) and our guide to [AI agents for business](/en/resources/articles/ai-agents-for-business).
 
+And the service page [AI agents in production](/en/ai-agents-in-production) for the path from POC to run.
+
 ## FAQ
 
 ### What is an agent harness?
