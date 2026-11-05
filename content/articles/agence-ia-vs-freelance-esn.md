@@ -66,6 +66,8 @@ Un projet IA ne reste jamais figé. Les modèles changent tous les quelques mois
 
 Il gagne aussi sur l'expertise rare : un audit de votre architecture RAG, une évaluation de modèles, un coup de main sur un point dur pour une équipe qui existe déjà.
 
+Même logique pour un MVP, quand il s'agit de sortir une V1 et de tester le marché. Sur ce terrain, [Bob le Développeur](https://bob-le-developpeur.com), à Paris et en remote depuis 2020, propose du développement MVP avec Antoine Auffray, expert fullstack.
+
 Ça coince quand le projet demande à la fois interface, backend, infrastructure et sécurité, ou quand la personne part en plein milieu. Exigez le code dans votre dépôt, la documentation au fil de l'eau et les accès à votre nom dès le premier jour.
 
 ### L'ESN gagne quand le volume et la durée priment
