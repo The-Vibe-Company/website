@@ -40,6 +40,9 @@ import {
 } from "@/lib/structured-data";
 import { clientLogoSize } from "@/lib/client-logos";
 
+// List marker drawn as a short rule rather than a dash character.
+const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
+
 /**
  * The media AI landing, served at /fr/ia-medias and /en/ai-for-media. Both
  * routes render this component; each declares the other through hreflang.
@@ -217,9 +220,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
                     key={signal}
                     className="flex gap-3 border-b border-border py-4 text-[17px] leading-[1.45] text-foreground"
                   >
-                    <span aria-hidden="true" className="font-mono text-muted-foreground">
-                      —
-                    </span>
+                    <span aria-hidden="true" className={DASH} />
                     <span>{signal}</span>
                   </li>
                 ))}

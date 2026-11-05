@@ -579,9 +579,9 @@ export const SCENE_KEYS = SCENES.map((scene) => scene.key);
 
 /** Who the world being crossed is about. */
 export interface WorldCard {
-  kind: string;
+  /** What they are and what they do, already joined for the locale. */
+  kicker: string;
   name: string;
-  detail: string;
 }
 
 /**
@@ -652,10 +652,7 @@ function drawWorldName(
   ctx.fillStyle = scene.tint;
   ctx.letterSpacing = "4px";
   ctx.font = `600 10px ui-monospace, "SF Mono", Menlo, monospace`;
-  const kicker = card.detail
-    ? `${card.kind.toUpperCase()} — ${card.detail.toUpperCase()}`
-    : card.kind.toUpperCase();
-  ctx.fillText(kicker, x, 26 - drift);
+  ctx.fillText(card.kicker.toUpperCase(), x, 26 - drift);
 
   // Fit the word to the panel: short names get the full 68px, long ones shrink
   // rather than run off the edge. Measured once per name and width, not per
@@ -1079,10 +1076,10 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     needsPaintRef.current = true;
     cardsRef.current = Array.from({ length: count }, (_, index) => {
       const item = shuffled[index % shuffled.length];
+      const kind = item ? t(`kinds.${item.kind}`) : "";
       return {
-        kind: item ? t(`kinds.${item.kind}`) : "",
+        kicker: item?.detail ? t("kicker", { kind, detail: item.detail }) : kind,
         name: item?.name ?? "",
-        detail: item?.detail ?? "",
       };
     });
   }, [items, t]);
