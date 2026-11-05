@@ -199,7 +199,8 @@
       "chooseAgency": "How to choose an AI agency",
       "healthData": "AI and health data (HDS) in France",
       "aiNative": "What is an AI-native agency",
-      "blackOctober": "Black October: securing AI agents"
+      "blackOctober": "Black October: securing AI agents",
+      "ragEntreprise": "Enterprise RAG: connect AI to your documents"
     },
     "tagline": "An AI native agency. Paris.",
     "siteHeading": "SITE",
@@ -1435,7 +1436,8 @@
         "checklist": "From AI agent POC to production: the checklist that holds up",
         "automation": "AI automation for companies: which processes to automate first",
         "authority": "The real risk of AI agents is authority (in French)",
-        "hds": "AI and health data in France: what HDS really means"
+        "hds": "AI and health data in France: what HDS really means",
+        "rag": "Enterprise RAG: connect generative AI to your documents"
       },
       "alsoLabel": "Also at The Vibe Company",
       "agency": {
@@ -1449,6 +1451,10 @@
       "health": {
         "title": "Healthcare AI",
         "desc": "AI products and agents on health data, built to GDPR and HDS requirements."
+      },
+      "media": {
+        "title": "AI for media",
+        "desc": "AI tools for newsrooms and media groups, from scoping to production."
       }
     }
   },

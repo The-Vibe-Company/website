@@ -15,6 +15,8 @@ ogImage: /images/resources/chatgpt-entreprise/cover-mascotte.webp
 
 Vos équipes utilisent déjà ChatGPT. Souvent avec des comptes personnels, parfois en collant des documents internes dans la fenêtre. La vraie question n'est donc pas « faut-il ChatGPT en entreprise ? », mais « quelle offre, pour qui, avec quelles règles ».
 
+Quand il faut brancher l’IA sur votre base documentaire avec sources et droits d’accès, voir aussi [RAG en entreprise](/fr/resources/articles/rag-entreprise).
+
 On compare ici les offres d'OpenAI pour les entreprises : ce qu'elles couvrent, ce qu'elles ne couvrent pas, et comment les déployer.
 
 ## Les deux offres entreprise, en clair

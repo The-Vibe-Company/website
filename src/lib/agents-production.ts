@@ -77,6 +77,12 @@ export const AUTOMATION_GUIDE_PATHS: LocalizedPath = {
   en: "/resources/articles/ai-automation-which-processes-first",
 };
 
+/** Connecting AI to enterprise documents. */
+export const RAG_GUIDE_PATHS: LocalizedPath = {
+  fr: "/resources/articles/rag-entreprise",
+  en: "/resources/articles/enterprise-rag",
+};
+
 /**
  * A message's text with its rich-text tags (`<guide>…</guide>`) removed, for
  * the FAQPage markup, which restates the visible answer as plain text.

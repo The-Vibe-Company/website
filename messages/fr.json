@@ -199,7 +199,8 @@
       "chooseAgency": "Comment choisir une agence IA",
       "healthData": "IA et données de santé (HDS)",
       "aiNative": "Qu’est-ce qu’une agence IA native",
-      "blackOctober": "Black October : sécuriser ses agents IA"
+      "blackOctober": "Black October : sécuriser ses agents IA",
+      "ragEntreprise": "RAG en entreprise : connecter l’IA aux documents"
     },
     "tagline": "Une agence née avec l'IA. Paris.",
     "siteHeading": "SITE",
@@ -1427,7 +1428,8 @@
         "checklist": "Du POC à la production : la checklist d’un agent IA qui tient",
         "automation": "Automatisation IA en entreprise : quels processus automatiser en premier",
         "authority": "Le vrai risque des agents IA, c’est l’autorité",
-        "hds": "IA et données de santé : ce que l’HDS impose vraiment"
+        "hds": "IA et données de santé : ce que l’HDS impose vraiment",
+        "rag": "RAG en entreprise : connecter l’IA à vos documents"
       },
       "alsoLabel": "Aussi chez The Vibe Company",
       "agency": {
@@ -1441,6 +1443,10 @@
       "health": {
         "title": "IA et données de santé",
         "desc": "Des produits et des agents IA sur données de santé, selon les exigences RGPD et HDS."
+      },
+      "media": {
+        "title": "IA médias",
+        "desc": "Outils IA pour rédactions et groupes de presse, du cadrage à la prod."
       }
     },
     "finalCta": {

@@ -13,7 +13,7 @@ export default function ResourcesLayout({
       {/* The site footer, on the homepage tokens it is drawn with, so every
           resource page links to Contact and Privacy like the rest of the site. */}
       <div data-variant="hybrid">
-        <Footer />
+        <Footer showPriorityArticles />
       </div>
     </div>
   );

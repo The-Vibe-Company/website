@@ -19,6 +19,8 @@ Commencez par un seul processus : beaucoup de volume, des données accessibles, 
 
 Pour le mettre en place, l'équipe métier peut s'en charger avec un outil no-code tant que le flux reste simple. Une agence IA se justifie quand il faut brancher l'IA sur vos API et vos bases, l'amener en production et mesurer le gain avant / après.
 
+Pour un agent qui doit tenir en run, voir [Agents IA en production](/fr/agents-ia-production).
+
 ## Pourquoi le premier choix compte
 
 Les grandes entreprises ont presque toutes déjà de l'IA quelque part. Selon [Eurostat](https://ec.europa.eu/eurostat/web/products-eurostat-news/w/ddn-20251211-2), 20 % des entreprises de l'UE de 10 salariés ou plus utilisaient l'IA en 2025. En France, d'après l'[Insee](https://www.insee.fr/fr/statistiques/9025878), 18 % des entreprises de 10 salariés ou plus utilisaient au moins une technologie d'IA en 2025, et 58 % de celles de 250 salariés ou plus.
@@ -64,6 +66,8 @@ Voici les types de processus qui sortent le plus souvent en tête de la grille, 
 **Les réponses au support client.** Beaucoup de volume, un historique de tickets riche, et un agent humain qui relit déjà chaque réponse. Chez [LocService](https://www.thevibecompany.co/fr/case-studies/locservice), une plateforme de location entre particuliers qui reçoit plusieurs centaines de tickets par jour, on a construit un assistant qui lit les anciens tickets et la documentation interne pour rédiger la réponse à chaque nouveau ticket. Il est branché sur leurs API internes pour avoir le vrai contexte client. Résultat : les brouillons IA sont utilisés sur 87 % des tickets. Le détail de la méthode est dans notre article sur [l'agent IA pour le support client](https://www.thevibecompany.co/fr/resources/articles/agent-ia-support-client).
 
 **Le classement de documents et de lignes.** Factures, relevés, pièces jointes, demandes entrantes. Notre propre compta en est un bon exemple : chaque mois, l'export bancaire part dans Claude Code avec un fichier de consignes, et un tableau classé sort en quelques minutes. La règle qui rend l'automatisation fiable tient en une ligne : quand l'IA ne reconnaît pas une ligne, elle la range dans « Autre » au lieu de deviner, et un humain tranche. On l'a raconté dans [ce focus sur la compta Qonto](https://www.thevibecompany.co/fr/resources/articles/focus-skill-compta-qonto).
+
+Pour brancher l’IA sur un fonds documentaire avec sources citables, on détaille l’approche dans [RAG en entreprise](/fr/resources/articles/rag-entreprise).
 
 **Le contrôle de conformité de documents.** Vérifier qu'une fiche produit, un contrat ou un dossier contient bien ce qu'il doit contenir. Pour [Coup de Pates](https://www.thevibecompany.co/fr/case-studies/coup-de-pates), on a construit une bibliothèque de skills IA qui vérifie leurs documents produit. L'IA pointe les écarts, l'équipe qualité garde la décision.
 

@@ -21,6 +21,7 @@ import {
   AUTOMATION_GUIDE_PATHS,
   plainText,
   POC_CHECKLIST_PATHS,
+  RAG_GUIDE_PATHS,
 } from "@/lib/agents-production";
 import { getCustomer, type ContentLocale } from "@/lib/customers";
 import { AGENT_AUTHORITY_PATH, HDS_GUIDE_PATHS, localizedArticle } from "@/lib/hardening";
@@ -29,6 +30,7 @@ import {
   AGENTS_PRODUCTION_PATHS,
   HARDENING_PATHS,
   HEALTHCARE_AI_PATHS,
+  MEDIA_AI_PATHS,
   localizedSocialMetadata,
   localizedUrl,
   splitPath,
@@ -99,6 +101,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
   const guide = localizedArticle(AGENTS_GUIDE_PATHS, locale);
   const checklist = localizedArticle(POC_CHECKLIST_PATHS, locale);
   const automation = localizedArticle(AUTOMATION_GUIDE_PATHS, locale);
+  const rag = localizedArticle(RAG_GUIDE_PATHS, locale);
   const hdsGuide = localizedArticle(HDS_GUIDE_PATHS, locale);
   const hardening = splitPath(HARDENING_PATHS, locale);
 
@@ -190,11 +193,13 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
     { key: "automation", href: automation, locale: pageLocale },
     { key: "authority", href: AGENT_AUTHORITY_PATH, locale: "fr" },
     { key: "hds", href: hdsGuide, locale: pageLocale },
+    { key: "rag", href: rag, locale: pageLocale },
   ];
   const siblings = [
     { key: "hardening", href: hardening },
     { key: "agency", href: splitPath(AGENCY_PARIS_PATHS, locale) },
     { key: "health", href: splitPath(HEALTHCARE_AI_PATHS, locale) },
+    { key: "media", href: splitPath(MEDIA_AI_PATHS, locale) },
   ] as const;
 
   return (
