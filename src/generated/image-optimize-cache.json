@@ -11,6 +11,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/agence-intelligence-artificielle/cover-mascotte.webp": {
+      "sourceHash": "db1ff2cd0a3a0350673d9a55aca136de635bbfd8d12899f20175dd5bc6e2dfcd",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/agent-harness-entreprise/cover-mascotte.webp": {
       "sourceHash": "b06286a00057a518a07b65f95be18c3c2d86c27375f7fff19e8eef6b3afa729a",
       "targetUrl": null,
@@ -378,6 +383,11 @@
     },
     "og:/images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp": {
       "sourceHash": "719b2e21fd85427d978f4f336dd066cac7b67023fb23da49fb962fac07f3a00d",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/agence-intelligence-artificielle/cover-mascotte.webp": {
+      "sourceHash": "db1ff2cd0a3a0350673d9a55aca136de635bbfd8d12899f20175dd5bc6e2dfcd",
       "targetUrl": null,
       "targetHash": null
     },
