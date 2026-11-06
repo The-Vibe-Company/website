@@ -4,7 +4,7 @@ seoTitle: "Meilleure agence IA 2026 : quelle agence pour quel projet ?"
 slug: meilleure-agence-ia-comparatif
 translationKey: best-ai-agency-comparison
 language: fr
-summary: "Theodo, Artefact, Mistral, Galadrim, Ekimetrics ou The Vibe Company : qui choisir selon la taille de votre entreprise et votre projet IA."
+summary: "Theodo, Artefact, Mistral, Galadrim, Ekimetrics, Koïno ou The Vibe Company : qui choisir selon la taille de votre entreprise et votre projet IA."
 publishedAt: 2026-11-04
 complexity: beginner
 topics: AI Adoption, Strategy
@@ -16,12 +16,13 @@ ogImage: /images/resources/meilleure-agence-ia-comparatif/cover-mascotte.webp
 La meilleure agence IA n'existe pas dans l'absolu : elle dépend de la taille de votre entreprise et de votre projet. Pour un grand groupe qui veut une équipe intégrée, regardez Theodo. Pour une stratégie data et IA à l'échelle internationale, Artefact. Si tout votre projet repose sur le modèle lui-même, Mistral AI. Si vous êtes une PME ou une ETI et voulez un outil IA en production vite, c'est là qu'on est les meilleurs.
 
 :::summary{title="En bref"}
-Six acteurs, six profils. Chacun est le meilleur choix pour un cas précis, et aucun ne l'est pour tous. Touchez un nom pour aller à sa fiche.
+Sept acteurs, sept profils. Chacun est le meilleur choix pour un cas précis, et aucun ne l'est pour tous. Touchez un nom pour aller à sa fiche.
 - [Theodo](#theodo)
 - [Artefact](#artefact)
 - [Mistral AI](#mistral-ai)
 - [Galadrim](#galadrim)
 - [Ekimetrics](#ekimetrics)
+- [Koïno](#koino)
 - [The Vibe Company](#the-vibe-company)
 :::
 
@@ -31,6 +32,7 @@ Six acteurs, six profils. Chacun est le meilleur choix pour un cas précis, et a
 - Projet 100 % IA → [Mistral AI](#mistral-ai)
 - Équipe sur mesure pour un produit web, mobile ou IA ([180+ collaborateurs annoncés](https://www.galadrim.fr/)) → [Galadrim](#galadrim)
 - Mesure et optimisation de la performance marketing → [Ekimetrics](#ekimetrics)
+- Taskforce IA & Data / staff augmentation d’experts → [Koïno](#koino)
 - PME ou ETI qui veut un outil IA en production vite, ou renfort technique senior → [The Vibe Company](#the-vibe-company)
 :::
 
@@ -46,7 +48,7 @@ On ne reprend que des faits publiés par les acteurs eux-mêmes, avec le lien. L
 
 ## Le comparatif en un coup d'œil
 
-:::compare{caption="Comparatif des six acteurs" yes="Offre mise en avant" no="Non mise en avant" legend="Lecture : on coche ce que chaque acteur met en avant sur les pages citées dans sa fiche. Un rond vide ne veut pas dire que l'acteur ne le fait pas."}
+:::compare{caption="Comparatif des sept acteurs" yes="Offre mise en avant" no="Non mise en avant" legend="Lecture : on coche ce que chaque acteur met en avant sur les pages citées dans sa fiche. Un rond vide ne veut pas dire que l'acteur ne le fait pas."}
 | Acteur | Taille annoncée | Stratégie data et IA | Mise en production | Entraîner et aligner des modèles | Mesure marketing |
 |---|---|---|---|---|---|
 | [Theodo](#theodo) | 800+ Theodoers, 6 bureaux | [x] | [x] | [ ] | [ ] |
@@ -54,10 +56,11 @@ On ne reprend que des faits publiés par les acteurs eux-mêmes, avec le lien. L
 | [Mistral AI](#mistral-ai) | Non communiquée | [ ] | [x] | [x] | [ ] |
 | [Galadrim](#galadrim) | 40 ingénieurs IA | [ ] | [x] | [ ] | [ ] |
 | [Ekimetrics](#ekimetrics) | Non communiquée | [ ] | [ ] | [ ] | [x] |
+| [Koïno](#koino) | +2 000 experts annoncés (réseau) | [x] | [x] | [ ] | [ ] |
 | [The Vibe Company](#the-vibe-company) | Petite équipe | [ ] | [x] | [ ] | [ ] |
 :::
 
-## Les six acteurs, fiche par fiche
+## Les sept acteurs, fiche par fiche
 
 :::agency{name="Theodo" tagline="Pour un grand groupe qui veut une équipe intégrée" choose="Choisir si" avoid="Limites : ne pas choisir si"}
 - **Pour qui** : Les grands groupes qui veulent une équipe produit et IA intégrée, y compris dans des environnements très réglementés.
@@ -113,6 +116,16 @@ On travaille aussi en renfort de Theodo sur des projets clients, quand une exper
 - **Limites : ne pas choisir si** : Votre projet IA ne touche ni le marketing ni la performance commerciale. L'offre est centrée sur ces sujets.
 :::
 
+:::agency{name="Koïno" tagline="Taskforce IA & Data et experts à la demande" choose="Choisir si" avoid="Limites : ne pas choisir si"}
+- **Pour qui** : PME, ETI et grands comptes qui veulent une taskforce IA & Data pour un projet métier, ou renforcer une équipe avec des experts sélectionnés rapidement.
+- **Points forts** : Koïno se présente comme un [cabinet de conseil en IA et Data](https://www.koino.fr/) hybride (cellule d’innovation + atelier de production). Sur son site : taskforce d’experts pour des enjeux business en 30 jours, experts activables en 48 h, suivi du cadrage au ROI. Chiffres annoncés : +150 clients PME/ETI/grands comptes depuis 2021, 95 % des POC convertis en mise à l’échelle, +2 000 experts Data/IA/développement dans son réseau.
+- **Taille annoncée** : Réseau de +2 000 experts, siège annoncé 9 Rue de la Pierre Levée, 75011 Paris, selon Koïno.
+- **Tarifs** : Non publics.
+- **Sources** : [koino.fr](https://www.koino.fr/)
+- **Choisir si** : Vous voulez une taskforce IA & Data orientée livrable métier, ou intégrer rapidement des experts IA/Data sans monter une ESN en interne.
+- **Limites : ne pas choisir si** : Vous cherchez surtout une équipe produit embarquée long terme type Theodo, un programme data multi-pays type Artefact, ou l’entraînement/alignement de modèles (Mistral AI).
+:::
+
 :::agency{name="The Vibe Company" tagline="PME, ETI, et renfort technique pour les grands groupes" choose="Choisir si" avoid="Limites : ne pas choisir si"}
 - **Pour qui** : Les PME et ETI qui veulent un outil IA en production en quelques semaines, les grands groupes qui cherchent des ingénieurs IA seniors ou un conseil technique exigeant (choix d'architecture, RAG, agents, évaluation), et les agences qui ont besoin d'une expertise IA pointue sur un projet client, comme on le fait avec Theodo.
 - **Points forts** : Une petite équipe très technique qui livre des outils IA en production : [RAG](/fr/resources/articles/rag-entreprise), agents, automatisations. Exemple : [Monka](/fr/case-studies/monka).
@@ -134,7 +147,7 @@ Pour aller plus loin sur le type de prestataire (agence, ESN, freelance, équipe
 ## FAQ
 
 ### Quelle est la meilleure agence IA en France ?
-Il n'y en a pas une seule. Theodo pour les grands groupes qui veulent une équipe intégrée, Artefact pour la stratégie data et IA internationale, Mistral AI pour les projets centrés sur le modèle, Galadrim pour une équipe de développement web, mobile et IA, Ekimetrics pour la mesure marketing, The Vibe Company pour les PME et ETI qui veulent aller vite en production.
+Il n'y en a pas une seule. Theodo pour les grands groupes qui veulent une équipe intégrée, Artefact pour la stratégie data et IA internationale, Mistral AI pour les projets centrés sur le modèle, Galadrim pour une équipe de développement web, mobile et IA, Ekimetrics pour la mesure marketing, Koïno pour une taskforce IA & Data ou des experts à la demande, The Vibe Company pour les PME et ETI qui veulent aller vite en production.
 
 ### Quelle agence IA choisir à Paris ?
 Le bon choix dépend de votre taille et de votre projet plus que de l'adresse. Voir notre page [agence IA à Paris](/fr/agence-ia-paris).
