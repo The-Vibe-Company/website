@@ -1,18 +1,22 @@
 import { describe, expect, test } from "bun:test";
 
-import { getContentByType } from "./content-source";
+import { contentPath, getContentByType, getContentByTypeForLanguage } from "./content-source";
 import { getCustomers } from "./customers";
 import { normalizeMarkdownBody, renderMarkdown } from "./markdown";
+import { localizedUrl } from "./site";
+import { PORTFOLIO_CATEGORY_MAP, PROJECT_SLUGS } from "./projects";
 import {
   articleFaqPageSchema,
   articleSchema,
   breadcrumbList,
+  collectionPageSchema,
   extractMarkdownFaq,
   faqPageSchema,
   isPublishable,
   isPublishableInArticleFaq,
   isPublishableInCaseStudyFaq,
   siteGraph,
+  softwareApplicationSchema,
   webPageNode,
 } from "./structured-data";
 
@@ -144,6 +148,74 @@ describe("breadcrumbList", () => {
   });
 });
 
+describe("softwareApplicationSchema", () => {
+  const base = {
+    name: "VibeDrift",
+    description: "VibeDrift tracks real developer activity and turns it into useful metrics.",
+    url: `${SITE}/en/portfolio/vibedrift`,
+    applicationCategory: "DeveloperApplication",
+  };
+
+  test("returns a SoftwareApplication with required fields", () => {
+    const schema = softwareApplicationSchema(base);
+    expect(schema).toMatchObject({
+      "@type": "SoftwareApplication",
+      name: "VibeDrift",
+      url: base.url,
+      applicationCategory: "DeveloperApplication",
+      author: { "@id": `${SITE}/#organization` },
+      provider: { "@id": `${SITE}/#organization` },
+    });
+  });
+
+  test("includes description when publishable", () => {
+    const schema = softwareApplicationSchema(base);
+    expect(schema).toHaveProperty("description", base.description);
+  });
+
+  test("omits description when isPublishable fails (e.g. contains 'SOC 2')", () => {
+    const schema = softwareApplicationSchema({ ...base, description: "SOC 2 compliant tool." });
+    expect(schema).not.toHaveProperty("description");
+  });
+
+  test("omits aggregateRating and offers", () => {
+    const json = JSON.stringify(softwareApplicationSchema(base));
+    expect(json).not.toContain("aggregateRating");
+    expect(json).not.toContain("offers");
+  });
+
+  test("includes optional fields when provided", () => {
+    const schema = softwareApplicationSchema({
+      ...base,
+      applicationSubCategory: "Dev analytics",
+      imageUrl: `${SITE}/projects/vibedrift-home.png`,
+      sameAs: ["https://www.vibedrift.dev"],
+      operatingSystem: "Web",
+    });
+    expect(schema).toMatchObject({
+      applicationSubCategory: "Dev analytics",
+      image: `${SITE}/projects/vibedrift-home.png`,
+      sameAs: ["https://www.vibedrift.dev"],
+      operatingSystem: "Web",
+    });
+  });
+
+  test("omits optional fields when not provided", () => {
+    const schema = softwareApplicationSchema(base);
+    expect(schema).not.toHaveProperty("applicationSubCategory");
+    expect(schema).not.toHaveProperty("image");
+    expect(schema).not.toHaveProperty("sameAs");
+    expect(schema).not.toHaveProperty("operatingSystem");
+  });
+
+  test("PORTFOLIO_CATEGORY_MAP covers every PROJECT_SLUGS entry", () => {
+    for (const slug of PROJECT_SLUGS) {
+      expect(PORTFOLIO_CATEGORY_MAP).toHaveProperty(slug);
+      expect(typeof PORTFOLIO_CATEGORY_MAP[slug].applicationCategory).toBe("string");
+    }
+  });
+});
+
 describe("webPageNode", () => {
   test("attaches the case study page to the site WebSite and Organization", () => {
     const url = `${SITE}/en/case-studies/theodo`;
@@ -176,6 +248,125 @@ describe("webPageNode", () => {
       language: "en",
     });
     expect(node).not.toHaveProperty("description");
+  });
+});
+
+describe("collectionPageSchema", () => {
+  const hubUrl = `${SITE}/en/resources`;
+  const sampleItems = [
+    { name: "First article", url: `${SITE}/en/resources/articles/first` },
+    { name: "Second article", url: `${SITE}/en/resources/articles/second` },
+    { name: "Third article", url: `${SITE}/en/resources/articles/third` },
+  ];
+
+  test("renders a CollectionPage with an ItemList numbered from 1", () => {
+    const node = collectionPageSchema({
+      url: hubUrl,
+      name: "AI Resources: articles & hands-on guides",
+      description: "A short publishable description.",
+      language: "en",
+      items: sampleItems,
+    });
+
+    expect(node).toMatchObject({
+      "@type": "CollectionPage",
+      "@id": hubUrl,
+      url: hubUrl,
+      name: "AI Resources: articles & hands-on guides",
+      description: "A short publishable description.",
+      inLanguage: "en",
+      isPartOf: { "@id": `${SITE}/#website` },
+      about: { "@id": `${SITE}/#organization` },
+      mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: 3,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, url: sampleItems[0].url, name: "First article" },
+          { "@type": "ListItem", position: 2, url: sampleItems[1].url, name: "Second article" },
+          { "@type": "ListItem", position: 3, url: sampleItems[2].url, name: "Third article" },
+        ],
+      },
+    });
+  });
+
+  test("drops a description that mentions a certification", () => {
+    const node = collectionPageSchema({
+      url: hubUrl,
+      name: "AI Resources: articles & hands-on guides",
+      description: "The Vibe Company is SOC 2 ready.",
+      language: "en",
+      items: sampleItems,
+    });
+    expect(node).not.toHaveProperty("description");
+  });
+
+  test("keeps a publishable description", () => {
+    const node = collectionPageSchema({
+      url: hubUrl,
+      name: "AI Resources: articles & hands-on guides",
+      description:
+        "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod, plus Victor's Story.",
+      language: "en",
+      items: sampleItems,
+    });
+    expect(node).toHaveProperty(
+      "description",
+      "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod, plus Victor's Story.",
+    );
+  });
+
+  test("smoke: fr resources hub ItemList caps at 15 newest articles", () => {
+    const articles = getContentByTypeForLanguage("article", "fr").slice(0, 15);
+    const items = articles.map((article) => ({
+      name: article.title,
+      url: localizedUrl("fr", contentPath(article)),
+    }));
+    const node = collectionPageSchema({
+      url: localizedUrl("fr", "/resources"),
+      name: "Ressources IA : nos articles et guides",
+      description:
+        "Articles et guides IA de The Vibe Company : agents, automatisation, mise en production, et la Victor’s Story.",
+      language: "fr",
+      items,
+    }) as { mainEntity: { itemListElement: { position: number; url: string }[]; numberOfItems: number } };
+
+    expect(node.mainEntity.numberOfItems).toBe(items.length);
+    expect(node.mainEntity.itemListElement.length).toBeLessThanOrEqual(15);
+    expect(node.mainEntity.itemListElement[0].position).toBe(1);
+    for (const entry of node.mainEntity.itemListElement) {
+      expect(entry.url.startsWith(`${SITE}/fr/resources/`)).toBe(true);
+    }
+  });
+
+  test("markup never adds restricted terms beyond the item names", () => {
+    const node = collectionPageSchema({
+      url: hubUrl,
+      name: "AI Resources: articles & hands-on guides",
+      description:
+        "AI articles and hands-on guides from The Vibe Company: agents, automation, shipping to prod, plus Victor's Story.",
+      language: "en",
+      items: sampleItems,
+    }) as Record<string, unknown> & { mainEntity: { itemListElement: Record<string, unknown>[] } };
+
+    const rest = {
+      ...node,
+      name: undefined,
+      url: undefined,
+      "@id": undefined,
+      mainEntity: {
+        ...node.mainEntity,
+        itemListElement: node.mainEntity.itemListElement.map((entry) => ({
+          ...entry,
+          name: undefined,
+          url: undefined,
+        })),
+      },
+    };
+    expect(isPublishable(JSON.stringify(rest))).toBe(true);
+    const json = JSON.stringify(node);
+    for (const key of ["priceRange", "aggregateRating", "SOC 2", "ISO 27001"]) {
+      expect(json).not.toContain(key);
+    }
   });
 });
 

@@ -45,7 +45,7 @@ export function WhatWeDo() {
                   "text-muted-foreground mb-8"
                 )}
               >
-                01 — The Output
+                01. The Output
               </h2>
               <h3 className={cn(typography.display.section, "mb-8")}>
                 WE
@@ -106,7 +106,7 @@ export function WhatWeDo() {
                   "text-muted-foreground mb-8"
                 )}
               >
-                02 — The Transfer
+                02. The Transfer
               </h2>
               <h3 className={cn(typography.display.section, "mb-8")}>
                 WE

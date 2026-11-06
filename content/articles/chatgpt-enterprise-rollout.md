@@ -15,6 +15,8 @@ ogImage: /images/resources/chatgpt-entreprise/cover-mascotte.webp
 
 Your teams already use ChatGPT. Often on personal accounts, sometimes pasting internal documents into the chat box. So the real question isn't "should we use ChatGPT at work?" It's "which plan, for whom, under which rules."
 
+When you need AI wired into your document base with sources and access rights, see also [enterprise RAG](/en/resources/articles/enterprise-rag).
+
 Here we compare OpenAI's business plans: what they cover, what they don't, and how to roll them out.
 
 ## The two business plans, plainly

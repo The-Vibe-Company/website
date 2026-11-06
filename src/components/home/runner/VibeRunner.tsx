@@ -1303,7 +1303,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
               <a href="mailto:founders@thevibecompany.co" style={{ display: "inline-flex", alignItems: "center", gap: 12, border: "2px solid var(--foreground)", background: "var(--foreground)", color: "var(--background)", padding: "14px 24px", fontSize: 15, fontWeight: 600, textDecoration: "none" }}>
                 Book a discovery call <span aria-hidden="true">→</span>
               </a>
-              <span style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--foreground)", opacity: 0.55 }}>↑ Space — discover our worlds</span>
+              <span style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--foreground)", opacity: 0.55 }}>↑ Space: discover our worlds</span>
             </div>
           </div>
         </div>
@@ -1365,7 +1365,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
         {/* Controls hint while playing */}
         {!isIdle && !isDead && (
           <div style={{ position: "absolute", right: "clamp(20px,6vw,80px)", bottom: "clamp(20px,4vh,40px)", zIndex: 4, pointerEvents: "none", fontFamily: MONO, fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.1em", color: world ? world.ink : "var(--foreground)", opacity: 0.5 }}>
-            {"Space / tap — jump   ·   ↓ / hold-low — duck"}
+            {"Space / tap: jump   ·   ↓ / hold-low: duck"}
           </div>
         )}
 
@@ -1373,7 +1373,7 @@ export class VibeRunner extends React.Component<VibeRunnerProps, VibeRunnerState
         {isIdle && (
           <div style={{ position: "absolute", left: 0, right: 0, bottom: "clamp(20px,5vh,52px)", zIndex: 4, display: "flex", justifyContent: "center", pointerEvents: "none" }}>
             <div data-ui="prompt" style={{ fontFamily: MONO, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--foreground)", opacity: 0.6, animation: "vc-bob 1.7s ease-in-out infinite" }}>
-              {"↑  Space — discover our worlds  ↑"}
+              {"↑  Space: discover our worlds  ↑"}
             </div>
           </div>
         )}

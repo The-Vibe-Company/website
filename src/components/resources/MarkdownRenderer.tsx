@@ -1,6 +1,7 @@
 import { renderMarkdown } from '@/lib/markdown'
 import { bookingLocation } from '@/lib/booking'
 import { LazyAudioLoader } from './LazyAudioLoader'
+import './prose-components.css'
 
 interface MarkdownRendererProps {
   content: string

@@ -15,9 +15,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: "AI-native agency — run through our worlds",
+    title: "AI-native agency: run through our worlds",
     description:
-      "An AI-native agency from the team behind Quivr. Press space and run through our worlds — products, services, and the work.",
+      "An AI-native agency from the team behind Quivr. Press space and run through our worlds: products, services, and the work.",
     alternates: localizedAlternates(locale, "/v2"),
     robots: {
       index: false,

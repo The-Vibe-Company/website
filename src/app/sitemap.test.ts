@@ -172,8 +172,8 @@ describe("sitemap", () => {
     // The /resources listing itself carries `latestContentDate` (sitemap.ts),
     // so it inherits that same exemption and the match must not require a
     // trailing slash.
-    setSystemTime(new Date("2026-11-03T00:00:00.000Z"));
-    const today = new Date("2026-11-03T23:59:59.999Z");
+    setSystemTime(new Date("2026-11-04T00:00:00.000Z"));
+    const today = new Date("2026-11-04T23:59:59.999Z");
     const futures = sitemap().filter(
       (entry) =>
         !/\/resources(\/|$)/.test(entry.url) &&
@@ -184,9 +184,9 @@ describe("sitemap", () => {
     expect(futures).toEqual([]);
   });
 
-  test("the sitemap keeps its 118 URLs and every entry still declares x-default", () => {
+  test("the sitemap keeps its 124 URLs and every entry still declares x-default", () => {
     const entries = sitemap();
-    expect(entries).toHaveLength(118);
+    expect(entries).toHaveLength(124);
     for (const entry of entries) {
       const keys = Object.keys(entry.alternates!.languages!);
       expect(keys).toContain("x-default");
@@ -211,6 +211,25 @@ describe("sitemap", () => {
     }
   });
 
+  test("lists both CI security agent translations with reciprocal hreflang", () => {
+    const languages = {
+      fr: `${SITE}/fr/resources/articles/agent-securite-ci`,
+      en: `${SITE}/en/resources/articles/ci-security-agent`,
+      "x-default": `${SITE}/fr/resources/articles/agent-securite-ci`,
+    };
+    const entries = sitemap().filter((entry) =>
+      /\/resources\/articles\/(agent-securite-ci|ci-security-agent)$/.test(entry.url),
+    );
+
+    expect(entries.map((entry) => entry.url).sort()).toEqual([
+      languages.en,
+      languages.fr,
+    ]);
+    for (const entry of entries) {
+      expect(entry.alternates?.languages).toEqual(languages);
+    }
+  });
+
   test("every PROJECT_SLUGS entry has a lastmod date", () => {
     for (const slug of PROJECT_SLUGS) {
       expect(PROJECT_LASTMOD[slug]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
@@ -231,6 +250,7 @@ describe("sitemap", () => {
       "/agents-ia-production",
       "/ia-sante-hds",
       "/ia-medias",
+      "/developpement-application-ia-sur-mesure",
       "/contact",
       "/confidentialite",
     ];
@@ -278,6 +298,25 @@ describe("sitemap", () => {
       });
     }
   });
+
+  test("lists the custom AI app landing on its translated paths, with x-default", () => {
+    const entries = sitemap().filter((entry) =>
+      /\/(fr\/developpement-application-ia-sur-mesure|en\/custom-ai-app-development)$/.test(entry.url),
+    );
+
+    expect(entries.map((entry) => entry.url).sort()).toEqual([
+      `${SITE}/en/custom-ai-app-development`,
+      `${SITE}/fr/developpement-application-ia-sur-mesure`,
+    ]);
+    for (const entry of entries) {
+      expect(entry.alternates?.languages).toEqual({
+        fr: `${SITE}/fr/developpement-application-ia-sur-mesure`,
+        en: `${SITE}/en/custom-ai-app-development`,
+        "x-default": `${SITE}/fr/developpement-application-ia-sur-mesure`,
+      });
+    }
+  });
+
   test("lists every article and skill once, under its own language's prefix only", () => {
     const content = getAllContent();
     const expected = content.map((item) => `${SITE}/${item.language}${contentPath(item)}`);

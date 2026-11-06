@@ -53,7 +53,7 @@ Trois principes reviennent sur tous les projets sérieux.
 
 1. **Évaluer sur de vrais cas**, pas sur des exemples choisis pour la démo.
 2. **Observer les tool calls** : ce que l'agent lit, appelle et propose doit être auditable.
-3. **Garder l'humain dans la boucle** tant que le risque le justifie — et parfois longtemps après.
+3. **Garder l'humain dans la boucle** tant que le risque le justifie, et parfois longtemps après.
 
 ## Comment on le fait chez The Vibe Company
 
@@ -63,7 +63,7 @@ The Vibe Company a été fondée en 2024 à Paris par Stan Girard et Antoine Dew
 
 [Monka](https://www.thevibecompany.co/fr/case-studies/monka) accompagne les aidants, avec des infirmières coordinatrices et des assureurs partenaires. Leur environnement était déjà HDS. Le défi n'était pas d'obtenir une certification. C'était de construire vite *dedans*, sans sortir du cadre.
 
-En deux mois, on a mis en production l'app aidants, Lifeline (le CRM des infirmières) et le moteur clinique qui transforme chaque bilan en plan d'action. Le bilan compte 165 questions. Le référentiel clinique a connu 12 versions. Depuis, on livre une nouvelle version de l'app environ tous les deux jours — environ 90 versions en six mois. Les données de santé sont chiffrées et traitées dans le respect du RGPD.
+En deux mois, on a mis en production l'app aidants, Lifeline (le CRM des infirmières) et le moteur clinique qui transforme chaque bilan en plan d'action. Le bilan compte 165 questions. Le référentiel clinique a connu 12 versions. Depuis, on livre une nouvelle version de l'app environ tous les deux jours, environ 90 versions en six mois. Les données de santé sont chiffrées et traitées dans le respect du RGPD.
 
 Ce que ça dit sur le passage en production :
 
@@ -104,7 +104,7 @@ Décidez-le avant. Soit votre équipe reprend (docs, runbook, formation), soit u
 
 ## Passez du POC à un agent qui tient
 
-Vous avez un pilote qui marche en démo. Vous voulez savoir s'il est prêt pour la production — ou comment le construire pour qu'il le soit. Venez avec votre cas d'usage, vos contraintes, et ce que « succès » veut dire pour vous.
+Vous avez un pilote qui marche en démo. Vous voulez savoir s'il est prêt pour la production, ou comment le construire pour qu'il le soit. Venez avec votre cas d'usage, vos contraintes, et ce que « succès » veut dire pour vous.
 
 Cette checklist, on l'applique avec vous : c'est notre offre [Agents IA en production](/fr/agents-ia-production), du pilote instrumenté au run quotidien.
 

@@ -68,6 +68,8 @@ Il gagne aussi sur l'expertise rare : un audit de votre architecture RAG, une é
 
 Ça coince quand le projet demande à la fois interface, backend, infrastructure et sécurité, ou quand la personne part en plein milieu. Exigez le code dans votre dépôt, la documentation au fil de l'eau et les accès à votre nom dès le premier jour.
 
+Pour un MVP, quand vous devez sortir une V1 et tester le marché, une petite équipe tech peut suffire. [Bob le Développeur](https://bob-le-developpeur.com), agence tech fondée en 2020 qui travaille à Paris et à distance, propose ce développement MVP avec Antoine Auffray, associé et expert fullstack.
+
 ### L'ESN gagne quand le volume et la durée priment
 
 Vous avez une équipe produit, une roadmap, et il vous manque des bras pendant dix-huit mois ? Une ESN sait fournir plusieurs profils, les remplacer, et passer vos achats et vos questionnaires de sécurité. C'est son métier.

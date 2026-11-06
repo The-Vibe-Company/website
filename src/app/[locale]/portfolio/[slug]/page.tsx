@@ -9,10 +9,10 @@ import { FinalCTA } from "@/components/home/FinalCTA";
 import { JsonLd } from "@/components/JsonLd";
 import { QuivrStage } from "@/components/quivr/QuivrStage";
 import { QuivrSections } from "@/components/quivr/QuivrSections";
-import { PROJECT_SLUGS, getProject, type ContentLocale } from "@/lib/projects";
+import { PORTFOLIO_CATEGORY_MAP, PROJECT_SLUGS, getProject, type ContentLocale } from "@/lib/projects";
 import { QUIVR_FAQ_KEYS, QUIVR_OG_IMAGE, QUIVR_SLUG } from "@/lib/quivr";
-import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
-import { breadcrumbList, faqPageSchema } from "@/lib/structured-data";
+import { absoluteUrl, localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
+import { breadcrumbList, faqPageSchema, softwareApplicationSchema } from "@/lib/structured-data";
 
 export function generateStaticParams() {
   return PROJECT_SLUGS.map((slug) => ({ slug }));
@@ -82,6 +82,19 @@ export default async function PortfolioProjectPage({
     { name: tNav("portfolio"), url: localizedUrl(locale, "/portfolio") },
     { name: project.name, url: localizedUrl(locale, `/portfolio/${slug}`) },
   ]);
+  const categoryConfig = PORTFOLIO_CATEGORY_MAP[slug];
+  const software = categoryConfig
+    ? softwareApplicationSchema({
+        name: project.name,
+        description: project.metaDescription || project.description,
+        url: localizedUrl(locale, `/portfolio/${slug}`),
+        applicationCategory: categoryConfig.applicationCategory,
+        applicationSubCategory: project.tag,
+        imageUrl: project.cover ? absoluteUrl(project.cover) : undefined,
+        sameAs: [project.url, project.repositoryUrl].filter(Boolean),
+        operatingSystem: categoryConfig.operatingSystem,
+      })
+    : null;
   // The Quivr page shows a FAQ (QuivrSections); its markup repeats it.
   const tQuivr = isQuivr ? await getTranslations({ locale, namespace: "quivr" }) : null;
   const faq = tQuivr
@@ -105,6 +118,7 @@ export default async function PortfolioProjectPage({
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
       <JsonLd data={breadcrumb} />
+      <JsonLd data={software} />
       <JsonLd data={faq} />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">

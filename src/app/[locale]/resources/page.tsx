@@ -12,7 +12,9 @@ import {
 import type { ContentEntry, ContentLanguage } from '@/lib/content-source';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { localizedAlternates, localizedSocialMetadata, localizedUrl } from '@/lib/site';
-import { breadcrumbList } from '@/lib/structured-data';
+import { breadcrumbList, collectionPageSchema } from '@/lib/structured-data';
+
+const RESOURCES_ITEM_LIST_CAP = 15;
 
 export async function generateMetadata({
   params,
@@ -84,13 +86,27 @@ export default async function ResourcesPage({
   const others = articles.filter((a) => a.series !== VICTOR_SERIES).map(toCard);
   const articleCount = articles.length;
   const tFooter = await getTranslations({ locale, namespace: 'footer' });
+  const hubUrl = localizedUrl(locale, '/resources');
+  const collectionItems = articles.slice(0, RESOURCES_ITEM_LIST_CAP).map((article) => ({
+    name: article.title,
+    url: localizedUrl(locale, contentPath(article)),
+  }));
 
   return (
     <main id="main-content" tabIndex={-1} className="pb-20 bg-res-bg">
       <JsonLd
+        data={collectionPageSchema({
+          url: hubUrl,
+          name: t('metaTitle'),
+          description: t('subtitle'),
+          language,
+          items: collectionItems,
+        })}
+      />
+      <JsonLd
         data={breadcrumbList([
           { name: tFooter('home'), url: localizedUrl(locale) },
-          { name: tFooter('resources'), url: localizedUrl(locale, '/resources') },
+          { name: tFooter('resources'), url: hubUrl },
         ])}
       />
       <section

@@ -35,11 +35,11 @@ Many generic checklists stop at “pick a model” and “secure the data.” Fo
 
 ## Checklist before you call it production
 
-Before you label an agent “in prod,” clear every row. If a cell is empty, you still have an extended POC — not production.
+Before you label an agent “in prod,” clear every row. If a cell is empty, you still have an extended POC, not production.
 
 | Criterion | Decision to make | Ready when |
 | --- | --- | --- |
-| Bounded use case | Which exact task does the agent do — and which does it refuse? | Scope written down; out-of-scope cases listed |
+| Bounded use case | Which exact task does the agent do, and which does it refuse? | Scope written down; out-of-scope cases listed |
 | Real data | Has the agent been tested on real tickets / files / messages (anonymized if needed)? | Eval set drawn from production, not only from the demo |
 | Measurable success | Which metric decides Go / No-Go? | Usage rate, time saved, or quality signed off by a business owner |
 | Business owner | Who decides whether an answer is acceptable? | A named person, not a committee |
@@ -52,8 +52,8 @@ Before you label an agent “in prod,” clear every row. If a cell is empty, yo
 Three principles show up on every serious project.
 
 1. **Evaluate on real cases**, not on cherry-picked demo examples.
-2. **Observe tool calls** — what the agent reads, calls, and proposes must be auditable.
-3. **Keep a human in the loop** as long as the risk warrants it — and often long after go-live.
+2. **Observe tool calls**: what the agent reads, calls, and proposes must be auditable.
+3. **Keep a human in the loop** as long as the risk warrants it, and often long after go-live.
 
 ## How we do it at The Vibe Company
 
@@ -63,11 +63,11 @@ The Vibe Company was founded in 2024 in Paris by Stan Girard and Antoine Dewez (
 
 [Monka](https://www.thevibecompany.co/en/case-studies/monka) supports caregivers, with coordinating nurses and partner insurers. Their environment was already HDS-certified. The challenge was not to obtain a certification. It was to build fast *inside* that frame, without stepping outside it.
 
-In two months, we put into production the caregiver app, Lifeline (the nurses’ CRM), and the clinical engine that turns each assessment into an action plan. The assessment has 165 questions. The clinical framework has gone through 12 versions. Since then, we ship a new app version roughly every two days — about 90 versions in six months. Health data is encrypted and handled under GDPR.
+In two months, we put into production the caregiver app, Lifeline (the nurses’ CRM), and the clinical engine that turns each assessment into an action plan. The assessment has 165 questions. The clinical framework has gone through 12 versions. Since then, we ship a new app version roughly every two days, about 90 versions in six months. Health data is encrypted and handled under GDPR.
 
 What that says about production readiness:
 
-- “Go” is not a big bang — it is a first usable version, then short iterations;
+- “Go” is not a big bang: it is a first usable version, then short iterations;
 - the domain (clinical framework) evolves with the product, versioned, without breaking the app;
 - the regulatory constraint (HDS, health data) is the playing field, not a surprise after the demo.
 
@@ -79,7 +79,7 @@ AI drafts are used on **87%** of tickets. A human still decides what goes out. T
 
 What that proves better than a demo:
 
-- a bounded use case (draft ticket replies — not “automate support”);
+- a bounded use case (draft ticket replies, not “automate support”);
 - real data (internal APIs, customer history);
 - a measurable usage metric (87% of drafts used);
 - natural escalation (human validation before send).
@@ -104,7 +104,7 @@ Decide before you ship. Either your team takes over (docs, runbook, training), o
 
 ## Move from POC to an agent that holds up
 
-You have a pilot that works in a demo. You want to know whether it is ready for production — or how to build it so that it will be. Bring your use case, your constraints, and what “success” means for you.
+You have a pilot that works in a demo. You want to know whether it is ready for production, or how to build it so that it will be. Bring your use case, your constraints, and what “success” means for you.
 
 We apply this checklist with you: that is our [AI agents in production](/en/ai-agents-in-production) offer, from the instrumented pilot to the daily run.
 

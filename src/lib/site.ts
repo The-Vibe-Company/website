@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const SITE_NAME = "The Vibe Company";
 export const SITE_URL = "https://www.thevibecompany.co";
 export const SITE_DESCRIPTION =
-  "An AI-native agency. Everything 10 to 20× faster with AI — products, ops, training. Our agency runs on AI too.";
+  "An AI-native agency. Everything 10 to 20× faster with AI: products, ops, training. Our agency runs on AI too.";
 
 export type SiteRoute = {
   path: string;
@@ -18,7 +18,7 @@ export const INDEXABLE_STATIC_ROUTES: SiteRoute[] = [
     path: "/",
     title: SITE_NAME,
     description:
-      "The Vibe Company is an AI-native agency. We make every part of your business 10 to 20× faster with AI — products, agent ops, training.",
+      "The Vibe Company is an AI-native agency. We make every part of your business 10 to 20× faster with AI: products, agent ops, training.",
     changeFrequency: "weekly",
     priority: 1,
   },
@@ -77,6 +77,12 @@ export const HEALTHCARE_AI_PATHS: SplitPaths = {
 export const MEDIA_AI_PATHS: SplitPaths = {
   fr: "/ia-medias",
   en: "/ai-for-media",
+};
+
+/** The custom AI application development landing: AI apps, RAG, agents, integrations. */
+export const CUSTOM_AI_APP_PATHS: SplitPaths = {
+  fr: "/developpement-application-ia-sur-mesure",
+  en: "/custom-ai-app-development",
 };
 
 /**
@@ -140,6 +146,14 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
     priority: 0.8,
   },
   {
+    paths: CUSTOM_AI_APP_PATHS,
+    title: "Custom AI app development",
+    description:
+      "The Vibe Company builds custom AI applications and SaaS, from idea to production: RAG architecture, agents, security, GDPR and business integrations, with the Monka, LocService and AFP cases.",
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
     paths: CONTACT_PATHS,
     title: "Contact",
     description:
@@ -149,7 +163,7 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
   },
   {
     paths: PRIVACY_PATHS,
-    title: "Privacy policy",
+    title: "Legal notice and privacy",
     description:
       "What thevibecompany.co collects and why: PostHog audience measurement, the cal.com booking link, Vercel hosting, cookies and local storage, and your GDPR rights.",
     changeFrequency: "yearly",

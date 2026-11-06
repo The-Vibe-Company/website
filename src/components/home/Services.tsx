@@ -2,6 +2,9 @@
 
 import { useTranslations } from "next-intl";
 
+// List marker drawn as a short rule rather than a dash character.
+const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
+
 const SERVICES = [
   { n: "01", key: "build" },
   { n: "02", key: "operate" },
@@ -91,9 +94,7 @@ export function Services() {
                   key={b}
                   className="flex gap-2.5 text-sm leading-[1.4] text-foreground"
                 >
-                  <span aria-hidden="true" className="font-mono text-muted-foreground">
-                    —
-                  </span>
+                  <span aria-hidden="true" className={DASH} />
                   <span>{b}</span>
                 </li>
               ))}

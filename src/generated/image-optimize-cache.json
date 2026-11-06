@@ -26,6 +26,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/agent-securite-ci/cover-mascotte.webp": {
+      "sourceHash": "04a58218a8c988400f63d4c3518501df8750ce636b2d51c64902c1f9e7073a6c",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
       "sourceHash": "f148fe053ae1e59135bbc63e8408eb56b1c8daaf4f342d4e18c4f5054c1a4e7c",
       "targetUrl": null,
@@ -266,6 +271,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/meilleure-agence-ia-comparatif/cover-mascotte.webp": {
+      "sourceHash": "829df307f03898b6b82c786e554e5ea6efa9bfb2e9a6200992fc92f0ebde08fd",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/mon-travail-se-documente-tout-seul/cover.png": {
       "sourceHash": "0903e3056028db19e6f1db1f27bd7a990680fd959da5df5e8bd3b973f2188eb4",
       "targetUrl": "/images/_optimized/resources/mon-travail-se-documente-tout-seul/cover.webp",
@@ -383,6 +393,11 @@
     },
     "og:/images/resources/agent-ia-support-client/cover-mascotte-v3.webp": {
       "sourceHash": "cf1f3963f444f101f7528f267d6ec30e8cd3ab5ebdf24893865628f0b4431061",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/agent-securite-ci/cover-mascotte.webp": {
+      "sourceHash": "04a58218a8c988400f63d4c3518501df8750ce636b2d51c64902c1f9e7073a6c",
       "targetUrl": null,
       "targetHash": null
     },
@@ -518,6 +533,11 @@
     },
     "og:/images/resources/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done/cover-mascotte.webp": {
       "sourceHash": "74dff6fbfd414bbe4e44ffcebed756f59f7e149eeb57435adbc54c23789b5384",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/meilleure-agence-ia-comparatif/cover-mascotte.webp": {
+      "sourceHash": "829df307f03898b6b82c786e554e5ea6efa9bfb2e9a6200992fc92f0ebde08fd",
       "targetUrl": null,
       "targetHash": null
     },
