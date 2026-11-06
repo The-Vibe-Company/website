@@ -516,6 +516,19 @@ function localize(raw: RawProject, locale: ContentLocale): Project {
 
 export const PROJECT_SLUGS = PROJECTS_RAW.map((p) => p.slug);
 
+/** Schema.org applicationCategory and optional operatingSystem per portfolio slug. */
+export const PORTFOLIO_CATEGORY_MAP: Record<string, { applicationCategory: string; operatingSystem?: string }> = {
+  vanish: { applicationCategory: "UtilitiesApplication", operatingSystem: "Web" },
+  skillpack: { applicationCategory: "DeveloperApplication", operatingSystem: "Web" },
+  vibedrift: { applicationCategory: "DeveloperApplication", operatingSystem: "Web" },
+  granite: { applicationCategory: "DeveloperApplication", operatingSystem: "Web" },
+  vibedeck: { applicationCategory: "DesktopEnhancementApplication", operatingSystem: "Web" },
+  bruno: { applicationCategory: "BusinessApplication", operatingSystem: "Web, iOS" },
+  armada: { applicationCategory: "DeveloperApplication", operatingSystem: "Web" },
+  aeom: { applicationCategory: "DesignApplication", operatingSystem: "Web" },
+  quivr: { applicationCategory: "BusinessApplication", operatingSystem: "Web" },
+};
+
 export function getProjects(locale: ContentLocale): Project[] {
   return PROJECTS_RAW.map((p) => localize(p, locale));
 }
