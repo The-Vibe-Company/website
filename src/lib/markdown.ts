@@ -477,10 +477,49 @@ function safeAnchor(value: string | undefined): string | null {
   return /^[a-z0-9][a-z0-9-]*$/.test(anchor) ? anchor : null
 }
 
-function avatar(label: string, size?: 'sm'): string {
-  const initial = escapeHtml(label.trim().charAt(0).toUpperCase())
+/** A logo path for `:::agency{logo="..."}`: a site-relative image file, never a remote URL. */
+function safeLogoUrl(value: string | undefined): string | null {
+  const url = value?.trim()
+  if (!url) return null
+  return /^\/(?![/\\])[^\s"'<>\\]+\.(?:svg|png|webp|avif|jpe?g)$/i.test(url) ? url : null
+}
+
+/**
+ * The square mark before a name: the company logo when one is known, else its
+ * initial on an ink tile. `alt` names the logo where it stands for the company
+ * (agency card); repeated small marks next to the visible name stay decorative.
+ */
+function avatar(label: string, size?: 'sm', logo?: string | null, alt?: string): string {
   const modifier = size ? ` prose-vibe-avatar--${size}` : ''
+  if (logo) {
+    const pixels = size === 'sm' ? 22 : 44
+    const hidden = alt ? '' : ' aria-hidden="true"'
+    return (
+      `<span class="prose-vibe-avatar prose-vibe-avatar--logo${modifier}"${hidden}>` +
+      `<img src="${escapeAttribute(logo)}" alt="${escapeAttribute(alt ?? '')}" width="${pixels}" height="${pixels}" loading="lazy" decoding="async" />` +
+      `</span>`
+    )
+  }
+  const initial = escapeHtml(label.trim().charAt(0).toUpperCase())
   return `<span class="prose-vibe-avatar${modifier}" aria-hidden="true">${initial}</span>`
+}
+
+/** Anchor → logo for every `:::agency` block of a document, so chips can reuse the card logos. */
+type AgencyLogos = Map<string, string>
+
+function collectAgencyLogos(lines: string[]): AgencyLogos {
+  const logos: AgencyLogos = new Map()
+  let inCode = false
+  for (const line of lines) {
+    if (CODE_FENCE.test(line)) inCode = !inCode
+    const match = inCode ? null : line.match(DIRECTIVE_OPEN)
+    if (match?.[1] !== 'agency') continue
+    const attrs = parseDirectiveAttributes(match[2] ?? '')
+    const name = attrs.name?.trim()
+    const logo = safeLogoUrl(attrs.logo)
+    if (name && logo) logos.set(safeAnchor(attrs.id) ?? slugifyAnchor(name), logo)
+  }
+  return logos
 }
 
 function kicker(title: string | undefined, iconName: keyof typeof ICON_PATHS): string {
@@ -504,14 +543,14 @@ function nonListMarkdown(lines: string[]): string {
   return lines.filter((line) => !/^[-*]\s+/.test(line)).join('\n')
 }
 
-function renderSummaryDirective(attrs: Record<string, string>, lines: string[]): string {
+function renderSummaryDirective(attrs: Record<string, string>, lines: string[], logos: AgencyLogos): string {
   const chips = listItems(lines)
     .map((item) => {
       const link = parseAnchorLink(item)
       if (!link) return `<li><span class="prose-vibe-chip">${renderInlineMarkdown(item)}</span></li>`
       return (
         `<li><a class="prose-vibe-chip" href="#${link.anchor}">` +
-        `${avatar(link.label, 'sm')}<span>${renderInlineMarkdown(link.label)}</span></a></li>`
+        `${avatar(link.label, 'sm', logos.get(link.anchor))}<span>${renderInlineMarkdown(link.label)}</span></a></li>`
       )
     })
     .join('')
@@ -526,13 +565,13 @@ function renderSummaryDirective(attrs: Record<string, string>, lines: string[]):
   )
 }
 
-function renderPickerDirective(attrs: Record<string, string>, lines: string[]): string {
+function renderPickerDirective(attrs: Record<string, string>, lines: string[], logos: AgencyLogos): string {
   const rows = listItems(lines)
     .map((item) => {
       const [situation, target] = item.split(/\s+→\s+/)
       const link = target ? parseAnchorLink(target) : null
       const pick = link
-        ? `<a class="prose-vibe-picker__pick" href="#${link.anchor}">${avatar(link.label, 'sm')}<span>${renderInlineMarkdown(link.label)}</span></a>`
+        ? `<a class="prose-vibe-picker__pick" href="#${link.anchor}">${avatar(link.label, 'sm', logos.get(link.anchor))}<span>${renderInlineMarkdown(link.label)}</span></a>`
         : target
           ? `<span class="prose-vibe-picker__pick">${renderInlineMarkdown(target)}</span>`
           : ''
@@ -570,7 +609,7 @@ function renderCompareCell(cell: string, attrs: Record<string, string>): string 
   return renderInlineMarkdown(value)
 }
 
-function renderCompareDirective(attrs: Record<string, string>, lines: string[]): string {
+function renderCompareDirective(attrs: Record<string, string>, lines: string[], logos: AgencyLogos): string {
   const start = lines.findIndex((_line, index) => isMarkdownTableStart(lines, index))
   if (start === -1) return renderMarkdown(lines.join('\n'))
 
@@ -605,7 +644,7 @@ function renderCompareDirective(attrs: Record<string, string>, lines: string[]):
             const name = link
               ? `<a href="#${link.anchor}">${renderInlineMarkdown(label)}</a>`
               : renderInlineMarkdown(label)
-            return `<th scope="row" class="prose-vibe-compare__lead"><span class="prose-vibe-compare__name">${avatar(label, 'sm')}${name}</span></th>`
+            return `<th scope="row" class="prose-vibe-compare__lead"><span class="prose-vibe-compare__name">${avatar(label, 'sm', link ? logos.get(link.anchor) : null)}${name}</span></th>`
           }
           const kind = isMarkColumn[column] ? ' class="prose-vibe-compare__mark-col"' : ''
           return `<td${kind}>${renderCompareCell(cell, attrs)}</td>`
@@ -670,7 +709,7 @@ function renderAgencyDirective(attrs: Record<string, string>, lines: string[]): 
 
   return (
     `<article class="prose-vibe-agency" id="${anchor}" aria-labelledby="${anchor}-name">` +
-    `<header class="prose-vibe-agency__head">${avatar(name)}` +
+    `<header class="prose-vibe-agency__head">${avatar(name, undefined, safeLogoUrl(attrs.logo), name)}` +
     `<div><h3 id="${anchor}-name">${escapeHtml(name)}</h3>${tagline}</div></header>` +
     (facts.length ? `<dl class="prose-vibe-agency__facts">${facts.join('')}</dl>` : '') +
     (extra ? `<div class="prose-vibe-agency__body">${renderMarkdown(extra)}</div>` : '') +
@@ -689,14 +728,19 @@ function renderCalloutDirective(attrs: Record<string, string>, lines: string[]):
   )
 }
 
-function renderDirective(name: string, attrs: Record<string, string>, lines: string[]): string {
+function renderDirective(
+  name: string,
+  attrs: Record<string, string>,
+  lines: string[],
+  logos: AgencyLogos,
+): string {
   switch (name) {
     case 'summary':
-      return renderSummaryDirective(attrs, lines)
+      return renderSummaryDirective(attrs, lines, logos)
     case 'picker':
-      return renderPickerDirective(attrs, lines)
+      return renderPickerDirective(attrs, lines, logos)
     case 'compare':
-      return renderCompareDirective(attrs, lines)
+      return renderCompareDirective(attrs, lines, logos)
     case 'agency':
       return renderAgencyDirective(attrs, lines)
     default:
@@ -784,6 +828,7 @@ export function renderMarkdown(markdown: string): string {
   const lines = source.split('\n')
   const blocks: string[] = []
   let index = 0
+  let agencyLogos: AgencyLogos | undefined
 
   while (index < lines.length) {
     const line = lines[index]
@@ -796,7 +841,8 @@ export function renderMarkdown(markdown: string): string {
     if (isDirectiveStart(lines, index)) {
       const [, name, rawAttrs = ''] = line.match(DIRECTIVE_OPEN) ?? []
       const end = findDirectiveEnd(lines, index)
-      blocks.push(renderDirective(name, parseDirectiveAttributes(rawAttrs), lines.slice(index + 1, end)))
+      agencyLogos ??= collectAgencyLogos(lines)
+      blocks.push(renderDirective(name, parseDirectiveAttributes(rawAttrs), lines.slice(index + 1, end), agencyLogos))
       index = end + 1
       continue
     }

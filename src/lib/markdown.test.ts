@@ -69,6 +69,52 @@ describe('renderMarkdown container directives', () => {
     expect(html).not.toContain('<dt>Choisir si</dt>')
   })
 
+  test('agency logo replaces the letter avatar and is reused by chips, picker and compare', () => {
+    const logo = '/images/resources/x/logos/theodo.webp'
+    const html = renderMarkdown(
+      [
+        ':::summary{title="En bref"}',
+        '- [Theodo](#theodo)',
+        '- [Galadrim](#galadrim)',
+        ':::',
+        ':::picker{title="Cas"}',
+        '- Grand groupe → [Theodo](#theodo)',
+        ':::',
+        ':::compare{caption="Comparatif"}',
+        '| Acteur | Taille |',
+        '|---|---|',
+        '| [Theodo](#theodo) | 800+ |',
+        ':::',
+        `:::agency{name="Theodo" logo="${logo}"}`,
+        '- **Pour qui** : Les grands groupes.',
+        ':::',
+        ':::agency{name="Galadrim"}',
+        '- **Pour qui** : Les produits web.',
+        ':::',
+      ].join('\n'),
+    )
+
+    // Card: the logo stands for the company, so its alt is the company name.
+    expect(html).toContain(
+      `<header class="prose-vibe-agency__head"><span class="prose-vibe-avatar prose-vibe-avatar--logo"><img src="${logo}" alt="Theodo" width="44" height="44" loading="lazy" decoding="async" /></span>`,
+    )
+    // Chip, picker and compare row: the same file, decorative next to the visible name.
+    const smallLogo = `<span class="prose-vibe-avatar prose-vibe-avatar--logo prose-vibe-avatar--sm" aria-hidden="true"><img src="${logo}" alt="" width="22" height="22"`
+    expect(html.split(smallLogo).length - 1).toBe(3)
+    // No logo attribute: the letter avatar stays, in the card and in its chip.
+    expect(html).toContain('<header class="prose-vibe-agency__head"><span class="prose-vibe-avatar" aria-hidden="true">G</span>')
+    expect(html).toContain('<span class="prose-vibe-avatar prose-vibe-avatar--sm" aria-hidden="true">G</span>')
+    expect(html).not.toContain('aria-hidden="true">T</span>')
+  })
+
+  test('agency logo only accepts a site-relative image path', () => {
+    for (const logo of ['https://evil.example/x.png', '//evil.example/x.png', '/\\evil.example/x.png', 'javascript:alert(1)', '/images/x.html']) {
+      const html = renderMarkdown([`:::agency{name="Theodo" logo="${logo}"}`, '- **A** : B', ':::'].join('\n'))
+      expect(html).not.toContain('<img')
+      expect(html).toContain('<span class="prose-vibe-avatar" aria-hidden="true">T</span>')
+    }
+  })
+
   test('directive attributes are escaped', () => {
     const html = renderMarkdown([':::agency{name="<img src=x onerror=alert(1)>"}', '- **A** : B', ':::'].join('\n'))
 
