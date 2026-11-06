@@ -1,10 +1,10 @@
 ---
-title: "How to choose an AI agency: 10 questions before you sign"
-seoTitle: "How to choose an AI agency: 10 questions | The Vibe Company"
+title: "How to choose an AI agency: checklist before you sign"
+seoTitle: "How to choose an AI agency: checklist & 10 questions"
 slug: how-to-choose-an-ai-agency
 language: en
 translationKey: choose-ai-agency
-summary: "AI agency, IT firm, freelancer or in-house: criteria, pricing model, and how to judge a POC and proposal before you sign."
+summary: "How to choose an AI agency: four options, fixed price vs time and materials, POC checklist, 10 questions before you sign."
 publishedAt: 2026-10-13
 complexity: beginner
 topics: AI Adoption, AI Agents, Strategy
@@ -13,11 +13,13 @@ coverAlt: "Four paths lead from one AI project: in-house team, freelancer, IT se
 ogImage: /images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp
 ---
 
+**How to choose an AI agency:** compare four options (in-house, freelancer, IT firm, AI agency), demand a short fixed-price scoping phase then short batches, judge the POC on real data, and ask the 10 questions below before you sign.
+
 Anyone can build an AI demo. A tool your teams still use six months later is much rarer.
 
 In August 2025, [Fortune covered an MIT report](https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/) (*The GenAI Divide*, Project NANDA): 95% of the generative AI pilots studied delivered no measurable P&L return. The methodology has been debated. But the authors' diagnosis holds up: the projects that work are built into a specific business process. Generic tools sitting on the side aren't.
 
-So choosing a partner really means choosing who can get your project there. Here are the criteria, the questions and the documents to ask for. We're an AI agency, so we're not neutral. We'll also tell you when an agency is the wrong choice.
+So choosing a partner really means choosing who can get your project there. Here are the criteria, the questions and the documents to ask for. We're an AI agency, so we're not neutral. We'll also tell you when an agency is the wrong choice. If you're not sure what an AI agency actually does, [this overview covers the full picture](/en/resources/articles/what-an-ai-agency-does).
 
 ## Three questions before comparing partners
 
@@ -138,7 +140,7 @@ If a partner highlights certifications, ask for the certificate, its scope and i
 
 ## Our position, honestly
 
-We're not the right choice for everything. For a small isolated connector, a freelancer will do just as well. For a hundred contractors, go with an IT services firm. That's what they're built for.
+We're not the right choice for everything. For a small isolated connector, a freelancer will do just as well. For a hundred contractors, go with an IT services firm. That's what they're built for. For a fuller picture of what an AI agency actually does on a project, see [what an AI agency does, end to end](/en/resources/articles/what-an-ai-agency-does).
 
 Where we help: an AI product or agent that must reach production fast, in a mid-size or large company, with security requirements. Before the agency, Stan Girard and Antoine Dewez built Quivr, an open-source AI project (over 39,000 GitHub stars) that went through Y Combinator (W24), with a team that grew to 9 people. Since 2024, The Vibe Company has delivered dozens of projects. Three examples:
 
@@ -153,6 +155,10 @@ If what you mainly need is to compare the three options on cost and timeline, we
 And if you want names, we compared the firms one by one, ourselves included: [the best AI agency in 2026, which agency for which project](/en/resources/articles/best-ai-consulting-firms-france).
 
 ## FAQ
+
+### What does an AI agency actually do?
+
+An AI agency takes a product or agent from idea to production: use-case scoping, data work, model integration, testing and deployment. Unlike an IT services firm, the team is small and specialized; unlike a freelancer, it covers the full stack. [Read the full breakdown of what an AI agency does](/en/resources/articles/what-an-ai-agency-does).
 
 ### AI agency or IT services firm: what's the difference?
 
