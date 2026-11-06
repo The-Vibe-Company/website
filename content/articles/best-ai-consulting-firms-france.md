@@ -4,7 +4,7 @@ seoTitle: "Best AI Agency in 2026: Which Agency for Which Project?"
 slug: best-ai-consulting-firms-france
 translationKey: best-ai-agency-comparison
 language: en
-summary: "Theodo, Artefact, Mistral, Galadrim, Ekimetrics, Koïno or The Vibe Company: who to pick based on your company size and your AI project."
+summary: "Theodo, Artefact, Mistral, Galadrim, Ekimetrics, Koïno, Juwa or The Vibe Company: who to pick based on your company size and your AI project."
 publishedAt: 2026-11-04
 complexity: beginner
 topics: AI Adoption, Strategy
@@ -16,13 +16,14 @@ ogImage: /images/resources/meilleure-agence-ia-comparatif/cover-mascotte.webp
 There's no single best AI consulting firm: it depends on your company size and your project. For a large group that wants an embedded team, look at Theodo. For data and AI strategy at international scale, Artefact. If your whole project is about the model itself, Mistral AI. If you're an SME or mid-sized company and want an AI tool in production fast, that's where we're the best fit.
 
 :::summary{title="In short"}
-Seven firms, seven profiles. Each one is the best choice for a specific case, and none is the best for every case. Tap a name to jump to its profile.
+Eight firms, eight profiles. Each one is the best choice for a specific case, and none is the best for every case. Tap a name to jump to its profile.
 - [Theodo](#theodo)
 - [Artefact](#artefact)
 - [Mistral AI](#mistral-ai)
 - [Galadrim](#galadrim)
 - [Ekimetrics](#ekimetrics)
 - [Koïno](#koino)
+- [Juwa](#juwa)
 - [The Vibe Company](#the-vibe-company)
 :::
 
@@ -33,6 +34,7 @@ Seven firms, seven profiles. Each one is the best choice for a specific case, an
 - Custom team for a web, mobile or AI product ([reports 180+ expert staff](https://www.galadrim.fr/)) → [Galadrim](#galadrim)
 - Measuring and optimizing marketing performance → [Ekimetrics](#ekimetrics)
 - AI & Data taskforce / on-demand experts → [Koïno](#koino)
+- AI agency + consulting for SMEs/mid-market without an in-house tech team → [Juwa](#juwa)
 - SME or mid-sized company that wants an AI tool in production fast, or senior technical reinforcement → [The Vibe Company](#the-vibe-company)
 :::
 
@@ -48,7 +50,7 @@ We only use facts the companies published themselves, with links. Self-reported 
 
 ## The comparison at a glance
 
-:::compare{caption="Comparison of the seven firms" yes="Featured offer" no="Not featured" legend="How to read it: we tick what each firm features on the pages cited in its profile. An empty circle does not mean the firm doesn't do it."}
+:::compare{caption="Comparison of the eight firms" yes="Featured offer" no="Not featured" legend="How to read it: we tick what each firm features on the pages cited in its profile. An empty circle does not mean the firm doesn't do it."}
 | Firm | Reported size | Data and AI strategy | Shipping to production | Model training and alignment | Marketing measurement |
 |---|---|---|---|---|---|
 | [Theodo](#theodo) | 800+ Theodoers, 6 offices | [x] | [x] | [ ] | [ ] |
@@ -57,10 +59,11 @@ We only use facts the companies published themselves, with links. Self-reported 
 | [Galadrim](#galadrim) | 40 AI engineers | [ ] | [x] | [ ] | [ ] |
 | [Ekimetrics](#ekimetrics) | Not disclosed | [ ] | [ ] | [ ] | [x] |
 | [Koïno](#koino) | 2,000+ experts reported (network) | [x] | [x] | [ ] | [ ] |
+| [Juwa](#juwa) | Small team (founded 2023) | [x] | [x] | [ ] | [ ] |
 | [The Vibe Company](#the-vibe-company) | Small team | [ ] | [x] | [ ] | [ ] |
 :::
 
-## The seven firms, one by one
+## The eight firms, one by one
 
 :::agency{name="Theodo" tagline="For a large group that wants an embedded team" choose="Choose if" avoid="Limits: skip if"}
 - **Who it's for**: Large groups that want an embedded product and AI team, including in highly regulated environments.
@@ -126,6 +129,16 @@ We also work as reinforcement for Theodo on client projects when sharp AI expert
 - **Limits: skip if**: You mainly need a long-term embedded product team (Theodo), a multi-country data program (Artefact), or model training/alignment (Mistral AI).
 :::
 
+:::agency{name="Juwa" tagline="AI agency and consulting firm for SMEs and mid-market" choose="Choose if" avoid="Limits: skip if"}
+- **Who it's for**: SMEs and mid-sized companies that want one partner from diagnosis to production, without an in-house tech team to run.
+- **Strengths**: Juwa presents itself as an [AI consulting firm and agency](https://juwa.co/) that owns the full chain (scoping, build, hardening, run). Per its site: 100+ companies supported, delivery in weeks, EU hosting by default, Anthropic partner, CII-approved, Bpifrance Diag Data & IA listed. They also publish a [ranking of AI agencies in France](https://juwa.co/blog/partenaires-ecosysteme-ia/classement-agences-ia-france/) (SIREN 980561112, founded 2023, Paris).
+- **Reported size**: Small firm founded in October 2023, coverage claimed across France, per Juwa.
+- **Pricing**: Not public (fixed fee after scoping, per their site).
+- **Sources**: [juwa.co](https://juwa.co/), [AI agencies ranking France](https://juwa.co/blog/partenaires-ecosysteme-ia/classement-agences-ia-france/)
+- **Choose if**: You want one partner from diagnosis to production for automations, agents or RAG, and you don't have an in-house tech team.
+- **Limits: skip if**: You're running a multi-country or multi-team program (Theodo / Artefact), or you need to train / align a model (Mistral AI).
+:::
+
 :::agency{name="The Vibe Company" tagline="SMEs, mid-sized companies, and technical reinforcement for large groups" choose="Choose if" avoid="Limits: skip if"}
 - **Who it's for**: SMEs and mid-sized companies that want an AI tool in production within weeks, large groups looking for senior AI engineers or demanding technical advice (architecture choices, RAG, agents, evaluation), and agencies that need sharp AI expertise on a client project, as we do with Theodo.
 - **Strengths**: A small, highly technical team that ships AI tools to production: [RAG](/en/resources/articles/enterprise-rag), agents, automations. Example: [Monka](/en/case-studies/monka).
@@ -147,7 +160,7 @@ To compare provider types (agency, IT services firm, freelancer, in-house team),
 ## FAQ
 
 ### What is the best AI consulting firm in France?
-There isn't just one. Theodo for large groups that want an embedded team, Artefact for international data and AI strategy, Mistral AI for model-centric projects, Galadrim for a web, mobile and AI development team, Ekimetrics for marketing measurement, Koïno for an AI & Data taskforce or on-demand experts, The Vibe Company for SMEs and mid-sized companies that want to reach production fast.
+There isn't just one. Theodo for large groups that want an embedded team, Artefact for international data and AI strategy, Mistral AI for model-centric projects, Galadrim for a web, mobile and AI development team, Ekimetrics for marketing measurement, Koïno for an AI & Data taskforce or on-demand experts, Juwa for one partner from diagnosis to production when you have no in-house tech team, The Vibe Company for SMEs and mid-sized companies that want to reach production fast.
 
 ### Which AI agency should I pick in Paris?
 The right choice depends on your size and project more than the address. See our [AI agency in Paris](/en/ai-agency-paris) page.
