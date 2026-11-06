@@ -481,7 +481,7 @@ function safeAnchor(value: string | undefined): string | null {
 function safeLogoUrl(value: string | undefined): string | null {
   const url = value?.trim()
   if (!url) return null
-  return /^\/(?!\/)[^\s"'<>]+\.(?:svg|png|webp|avif|jpe?g)$/i.test(url) ? url : null
+  return /^\/(?![/\\])[^\s"'<>\\]+\.(?:svg|png|webp|avif|jpe?g)$/i.test(url) ? url : null
 }
 
 /**

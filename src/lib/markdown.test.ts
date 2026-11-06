@@ -108,7 +108,7 @@ describe('renderMarkdown container directives', () => {
   })
 
   test('agency logo only accepts a site-relative image path', () => {
-    for (const logo of ['https://evil.example/x.png', '//evil.example/x.png', 'javascript:alert(1)', '/images/x.html']) {
+    for (const logo of ['https://evil.example/x.png', '//evil.example/x.png', '/\\evil.example/x.png', 'javascript:alert(1)', '/images/x.html']) {
       const html = renderMarkdown([`:::agency{name="Theodo" logo="${logo}"}`, '- **A** : B', ':::'].join('\n'))
       expect(html).not.toContain('<img')
       expect(html).toContain('<span class="prose-vibe-avatar" aria-hidden="true">T</span>')
