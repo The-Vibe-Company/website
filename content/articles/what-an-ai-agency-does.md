@@ -4,7 +4,7 @@ seoTitle: "What an AI agency actually does: audit to production"
 slug: what-an-ai-agency-does
 translationKey: what-an-ai-agency-does
 language: en
-summary: "An AI agency designs, builds and ships AI tools: audit, prototype, SI integration, evals. Real engagement flow, roles, deliverables, Monka lesson."
+summary: "An AI agency designs, builds and ships AI tools: audit, prototype, systems integration, evals. Real engagement flow, roles, deliverables, Monka lesson."
 publishedAt: 2026-11-06
 complexity: beginner
 topics: AI Adoption, Strategy, AI Agents
