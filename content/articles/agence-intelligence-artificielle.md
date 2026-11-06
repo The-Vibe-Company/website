@@ -42,7 +42,7 @@ Avant de coder, on clarifie le problème. Questions typiques :
 4. L'IA doit-elle lire, proposer, préparer, ou exécuter ?
 5. Quel critère de succès mesurable après le premier lot ?
 
-**Livrable typique** : cas d'usage priorisés, périmètre / hors périmètre, esquisse d'architecture, estimation, critères de succès. Chez [Galadrim](https://galadrim.fr/blog/meilleures-agences-ia-paris-2026/), le cadrage annoncé dure 2 à 4 semaines, avec une démo à chaque sprint hebdomadaire ensuite. D'autres parcours publics (audit, priorisation, prototype, développement) suivent la même logique, par exemple [celui résumé par Jayd](https://www.jayd.ai/meilleures-agences-ia-france-2026).
+**Livrable typique** : cas d'usage priorisés, périmètre / hors périmètre, esquisse d'architecture, estimation, critères de succès. Les parcours publics suivent souvent la même logique (audit, priorisation, prototype, développement), par exemple [celui résumé par Jayd](https://www.jayd.ai/meilleures-agences-ia-france-2026).
 
 Si le cadrage ne produit rien de testable, vous payez de la procrastination.
 
@@ -93,7 +93,7 @@ Exigez ces livrables noir sur blanc :
 4. **La documentation** (architecture, runbook, qui fait quoi) ;
 5. **Les accès** (hébergement, clés, logs) et la **réversibilité**.
 
-Galadrim, par exemple, écrit publiquement que code, prompts et jeux d'évaluation appartiennent au client ([méthode détaillée sur leur blog](https://galadrim.fr/blog/meilleures-agences-ia-paris-2026/)). C'est le bon standard, quelle que soit l'agence. Si on vous répond « on garde les prompts », cherchez ailleurs : c'est un verrou.
+Le bon standard, quelle que soit l'agence : code, prompts et jeux d'évaluation appartiennent au client. Si on vous répond « on garde les prompts », cherchez ailleurs : c'est un verrou.
 
 ## Retour d'expérience : Monka, quand aller trop vite oblige à ralentir
 
@@ -126,7 +126,7 @@ Rarement. En 2026, la plupart intègrent des LLM existants (RAG, agents, outils)
 
 ### Combien de temps dure le cadrage ?
 
-Ça dépend du besoin. Une référence publique : [Galadrim](https://galadrim.fr/blog/meilleures-agences-ia-paris-2026/) annonce 2 à 4 semaines de cadrage. L'important n'est pas le nombre de semaines, c'est un livrable testable à la fin.
+Ça dépend du besoin. L'important n'est pas le nombre de semaines, c'est un livrable testable à la fin.
 
 ### Quelle différence avec une agence d'automatisation no-code ?
 

@@ -42,7 +42,7 @@ Before code, we pin the problem down. Typical questions:
 4. Should the AI read, propose, prepare, or execute?
 5. What measurable success criterion after the first batch?
 
-**Typical deliverable**: prioritized use cases, in / out of scope, architecture sketch, estimate, success criteria. [Galadrim](https://galadrim.fr/blog/meilleures-agences-ia-paris-2026/) publicly describes a 2 to 4 week scoping phase, then weekly sprint demos. Other published paths (audit, prioritization, prototype, build) follow the same logic, for example [Jayd's summary](https://www.jayd.ai/meilleures-agences-ia-france-2026).
+**Typical deliverable**: prioritized use cases, in / out of scope, architecture sketch, estimate, success criteria. Published paths often follow the same logic (audit, prioritization, prototype, build), for example [Jayd's summary](https://www.jayd.ai/meilleures-agences-ia-france-2026).
 
 If scoping produces nothing you can test, you're paying for delay.
 
@@ -93,7 +93,7 @@ Write these deliverables into the contract:
 4. **Documentation** (architecture, runbook, who does what);
 5. **Access** (hosting, keys, logs) and **exit / reversibility**.
 
-Galadrim, for example, states publicly that code, prompts and evaluation sets belong to the client ([method on their blog](https://galadrim.fr/blog/meilleures-agences-ia-paris-2026/)). That's the right standard for any agency. If the answer is "we keep the prompts", that's lock-in, not a partnership.
+The right standard for any agency: code, prompts and evaluation sets belong to the client. If the answer is "we keep the prompts", that's lock-in, not a partnership.
 
 ## Case note: Monka, when going too fast forces a slowdown
 
@@ -126,7 +126,7 @@ Rarely. In 2026 most agencies integrate existing LLMs (RAG, agents, tools). Heav
 
 ### How long does scoping take?
 
-It depends on the need. A public reference: [Galadrim](https://galadrim.fr/blog/meilleures-agences-ia-paris-2026/) describes 2 to 4 weeks of scoping. What matters is a testable deliverable at the end, not the week count.
+It depends on the need. What matters is a testable deliverable at the end, not the week count.
 
 ### How is this different from a no-code automation agency?
 
