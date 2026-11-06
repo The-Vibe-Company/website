@@ -409,3 +409,43 @@ const RESTRICTED_PATTERNS: RegExp[] = [
 export function isPublishable(text: string): boolean {
   return !RESTRICTED_PATTERNS.some((pattern) => pattern.test(text));
 }
+
+/**
+ * SoftwareApplication markup for a portfolio product fiche. Only restates
+ * facts already on the page — no aggregateRating, no offers, no invented
+ * download counts.
+ */
+export function softwareApplicationSchema({
+  name,
+  description,
+  url,
+  applicationCategory,
+  applicationSubCategory,
+  imageUrl,
+  sameAs,
+  operatingSystem,
+}: {
+  name: string;
+  description?: string;
+  url: string;
+  applicationCategory: string;
+  applicationSubCategory?: string;
+  imageUrl?: string;
+  sameAs?: string[];
+  operatingSystem?: string;
+}): JsonLdNode {
+  return {
+    "@context": SCHEMA_CONTEXT,
+    "@type": "SoftwareApplication",
+    name,
+    ...(description && isPublishable(description) ? { description } : {}),
+    url,
+    applicationCategory,
+    ...(applicationSubCategory ? { applicationSubCategory } : {}),
+    ...(imageUrl ? { image: imageUrl } : {}),
+    ...(sameAs && sameAs.length > 0 ? { sameAs } : {}),
+    ...(operatingSystem ? { operatingSystem } : {}),
+    author: { "@id": ORGANIZATION_ID },
+    provider: { "@id": ORGANIZATION_ID },
+  };
+}

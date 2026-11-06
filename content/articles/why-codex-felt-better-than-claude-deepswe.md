@@ -1,10 +1,10 @@
 ---
-title: "The benchmark that finally explains why Codex felt better than Claude"
-seoTitle: "Codex vs Claude: what DeepSWE explains | The Vibe Company"
+title: "Why Codex felt better than Claude: DeepSWE"
+seoTitle: "Why Codex felt better than Claude | The Vibe Company"
 slug: why-codex-felt-better-than-claude-deepswe
 language: en
-summary: "DeepSWE gives a measurable reason why Codex with GPT-5.5 has felt stronger than Claude Opus 4.7 for long, multi-file vibe coding tasks: it tests the ability to close the loop."
-seoDescription: "DeepSWE gives a measurable reason why Codex with GPT-5.5 felt stronger than Claude Opus 4.7 on long, multi-file coding tasks: closing the loop."
+summary: "DeepSWE finally measures why Codex with GPT-5.5 felt stronger than Claude Opus on long multi-file tasks: closing the loop."
+seoDescription: "Why did Codex feel better than Claude? DeepSWE shows GPT-5.5 leads Opus 4.7 on long multi-file tasks by closing the loop."
 publishedAt: 2026-05-28
 complexity: advanced
 topics: Agent Design, AI Infrastructure, Evaluation, Vibe Coding
@@ -12,6 +12,8 @@ coverImage: /images/resources/why-codex-felt-better-than-claude-deepswe/cover-ma
 coverAlt: "A premium operating table showing coding-agent workstreams, benchmark signals, code review cards, and a verified software task"
 ogImage: /images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp
 ---
+
+DeepSWE finally gives a measurable answer: Codex with GPT-5.5 outperforms Claude Opus 4.7 on long, multi-file software engineering tasks because it closes the loop—explore, edit, verify, recover—without dropping constraints.
 
 For the past few months, I had a very clear feeling in my day-to-day work: when I needed to actually move code forward, Codex with GPT-5.5 felt more reliable than Claude Opus 4.7.
 
@@ -81,6 +83,7 @@ On that terrain, my feeling from the past few months just received a pretty soli
 
 ## Further reading
 
+- [Claude Code enterprise rollout](/en/resources/articles/claude-code-enterprise-rollout)
 - [DeepSWE benchmark](https://deepswe.datacurve.ai/)
 - [DeepSWE on GitHub](https://github.com/datacurve-ai/deep-swe)
 - [DeepSWE methodology](https://deepswe.datacurve.ai/blog)
