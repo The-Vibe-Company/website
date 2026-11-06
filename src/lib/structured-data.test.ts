@@ -4,6 +4,7 @@ import { contentPath, getContentByType, getContentByTypeForLanguage } from "./co
 import { getCustomers } from "./customers";
 import { normalizeMarkdownBody, renderMarkdown } from "./markdown";
 import { localizedUrl } from "./site";
+import { PORTFOLIO_CATEGORY_MAP, PROJECT_SLUGS } from "./projects";
 import {
   articleFaqPageSchema,
   articleSchema,
@@ -15,6 +16,7 @@ import {
   isPublishableInArticleFaq,
   isPublishableInCaseStudyFaq,
   siteGraph,
+  softwareApplicationSchema,
   webPageNode,
 } from "./structured-data";
 
@@ -143,6 +145,74 @@ describe("breadcrumbList", () => {
         { position: 3, name: "Theodo", item: url },
       ],
     });
+  });
+});
+
+describe("softwareApplicationSchema", () => {
+  const base = {
+    name: "VibeDrift",
+    description: "VibeDrift tracks real developer activity and turns it into useful metrics.",
+    url: `${SITE}/en/portfolio/vibedrift`,
+    applicationCategory: "DeveloperApplication",
+  };
+
+  test("returns a SoftwareApplication with required fields", () => {
+    const schema = softwareApplicationSchema(base);
+    expect(schema).toMatchObject({
+      "@type": "SoftwareApplication",
+      name: "VibeDrift",
+      url: base.url,
+      applicationCategory: "DeveloperApplication",
+      author: { "@id": `${SITE}/#organization` },
+      provider: { "@id": `${SITE}/#organization` },
+    });
+  });
+
+  test("includes description when publishable", () => {
+    const schema = softwareApplicationSchema(base);
+    expect(schema).toHaveProperty("description", base.description);
+  });
+
+  test("omits description when isPublishable fails (e.g. contains 'SOC 2')", () => {
+    const schema = softwareApplicationSchema({ ...base, description: "SOC 2 compliant tool." });
+    expect(schema).not.toHaveProperty("description");
+  });
+
+  test("omits aggregateRating and offers", () => {
+    const json = JSON.stringify(softwareApplicationSchema(base));
+    expect(json).not.toContain("aggregateRating");
+    expect(json).not.toContain("offers");
+  });
+
+  test("includes optional fields when provided", () => {
+    const schema = softwareApplicationSchema({
+      ...base,
+      applicationSubCategory: "Dev analytics",
+      imageUrl: `${SITE}/projects/vibedrift-home.png`,
+      sameAs: ["https://www.vibedrift.dev"],
+      operatingSystem: "Web",
+    });
+    expect(schema).toMatchObject({
+      applicationSubCategory: "Dev analytics",
+      image: `${SITE}/projects/vibedrift-home.png`,
+      sameAs: ["https://www.vibedrift.dev"],
+      operatingSystem: "Web",
+    });
+  });
+
+  test("omits optional fields when not provided", () => {
+    const schema = softwareApplicationSchema(base);
+    expect(schema).not.toHaveProperty("applicationSubCategory");
+    expect(schema).not.toHaveProperty("image");
+    expect(schema).not.toHaveProperty("sameAs");
+    expect(schema).not.toHaveProperty("operatingSystem");
+  });
+
+  test("PORTFOLIO_CATEGORY_MAP covers every PROJECT_SLUGS entry", () => {
+    for (const slug of PROJECT_SLUGS) {
+      expect(PORTFOLIO_CATEGORY_MAP).toHaveProperty(slug);
+      expect(typeof PORTFOLIO_CATEGORY_MAP[slug].applicationCategory).toBe("string");
+    }
   });
 });
 
