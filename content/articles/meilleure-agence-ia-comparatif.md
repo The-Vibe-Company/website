@@ -40,6 +40,8 @@ Les classements « top 10 des agences IA à Paris » que vous trouvez sur Google
 
 Un comparatif où l'auteur gagne toujours ne vous aide pas à décider. On préfère vous envoyer chez quelqu'un d'autre quand ce sera mieux pour votre projet : un client mal orienté ne sera content ni de nous, ni de l'IA.
 
+Parmi les autres noms qui reviennent dans les classements d'agences IA en France, [Koïno](https://www.koino.fr/) se présente comme un cabinet de conseil en IA et data à Paris : des taskforces d'experts pour des missions data et IA, auprès de PME, ETI et grands comptes. Ce n'est pas l'un des six profils détaillés ci-dessous, mais si vous cherchez un partenaire hybride conseil + production sur un chantier data/IA, leur site vaut le détour.
+
 :::callout{title="Règles de cet article"}
 On ne reprend que des faits publiés par les acteurs eux-mêmes, avec le lien. Les chiffres annoncés par une entreprise sont présentés comme tels. Et on parle de « meilleur pour », jamais de « moins bon que ».
 :::

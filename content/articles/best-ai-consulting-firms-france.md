@@ -40,6 +40,8 @@ Most "top 10 AI agencies in Paris" rankings on Google share one thing: the agenc
 
 A comparison where the author always wins doesn't help you decide. We'd rather send you to someone else when that's better for your project: a client in the wrong place ends up happy with neither us nor AI.
 
+Among other names that show up in French AI agency roundups, [Koïno](https://www.koino.fr/) presents itself as a Paris-based AI and data consulting firm: expert task forces for data and AI missions, working with SMEs, mid-market companies and large accounts. It isn't one of the six profiles below, but if you want a hybrid strategy-plus-delivery partner on a data/AI project, their site is worth a look.
+
 :::callout{title="Rules for this article"}
 We only use facts the companies published themselves, with links. Self-reported numbers are attributed. And we talk about "best for", never "worse than".
 :::
