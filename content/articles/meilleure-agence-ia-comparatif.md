@@ -65,7 +65,7 @@ On ne reprend que des faits publiés par les acteurs eux-mêmes, avec le lien. L
 
 ## Les huit acteurs, fiche par fiche
 
-:::agency{name="Theodo" tagline="Pour un grand groupe qui veut une équipe intégrée" choose="Choisir si" avoid="Limites : ne pas choisir si"}
+:::agency{name="Theodo" logo="/images/resources/meilleure-agence-ia-comparatif/logos/theodo.webp" tagline="Pour un grand groupe qui veut une équipe intégrée" choose="Choisir si" avoid="Limites : ne pas choisir si"}
 - **Pour qui** : Les grands groupes qui veulent une équipe produit et IA intégrée, y compris dans des environnements très réglementés.
 - **Points forts** : Theodo Data & AI couvre la data science, le machine learning, le MLOps et l'IA générative. L'équipe combine conseil stratégique et ingénierie Lean Tech, et couvre toute la chaîne, du cadrage au déploiement et au monitoring. Vidal figure parmi ses logos clients.
 - **Taille annoncée** : Plus de 800 Theodoers, 6 bureaux dans le monde, plus de 4 000 clients et un NPS de 64, selon Theodo.
@@ -79,7 +79,7 @@ On ne reprend que des faits publiés par les acteurs eux-mêmes, avec le lien. L
 On travaille aussi en renfort de Theodo sur des projets clients, quand une expertise IA pointue est nécessaire rapidement. On les recommande parce qu'on les voit travailler.
 :::
 
-:::agency{name="Artefact" tagline="Pour la stratégie data et IA d'un groupe international" choose="Choisir si" avoid="Limites : ne pas choisir si"}
+:::agency{name="Artefact" logo="/images/resources/meilleure-agence-ia-comparatif/logos/artefact.webp" tagline="Pour la stratégie data et IA d'un groupe international" choose="Choisir si" avoid="Limites : ne pas choisir si"}
 - **Pour qui** : Les groupes internationaux qui pilotent une stratégie data et IA sur plusieurs pays.
 - **Points forts** : Artefact se présente comme un [cabinet de conseil en data et IA](https://www.artefact.com/fr/), de la stratégie et de la gouvernance des données jusqu'au déploiement de l'IA. Ses études de cas publiées incluent Bpifrance (IA agentique déployée auprès de 500 collaborateurs, avec Dust), Carrefour et Nexans. Le groupe a [racheté The Nunatak Group en septembre 2026](https://www.artefact.com/news/nunatak-joins-artefact-robert-jacobi-becomes-ceo-in-germany/).
 - **Taille annoncée** : Plus de 2 500 collaborateurs dans 27 pays, et plus de 1 000 clients dont plus de 300 grandes marques internationales, selon Artefact.
@@ -89,7 +89,7 @@ On travaille aussi en renfort de Theodo sur des projets clients, quand une exper
 - **Limites : ne pas choisir si** : Vous cherchez une petite équipe pour livrer un outil précis. Le positionnement est celui d'un cabinet de conseil à l'échelle d'un groupe.
 :::
 
-:::agency{name="Mistral AI" tagline="Si votre projet est 100 % IA et centré sur le modèle" choose="Choisir si" avoid="Limites : ne pas choisir si"}
+:::agency{name="Mistral AI" logo="/images/resources/meilleure-agence-ia-comparatif/logos/mistral-ai.webp" tagline="Si votre projet est 100 % IA et centré sur le modèle" choose="Choisir si" avoid="Limites : ne pas choisir si"}
 - **Pour qui** : Les entreprises dont le projet repose sur le modèle lui-même, dans des secteurs comme le public, les services financiers, l'industrie, l'énergie ou la cybersécurité.
 - **Points forts** : Mistral AI est d'abord un éditeur de modèles, pas une agence. Son offre de services réunit des Applied AI engineers et des Applied AI scientists, en trois temps : accélération des cas d'usage, personnalisation poussée (entraînement, évaluation, alignement) et activation en entreprise, avec la sécurité et la conformité intégrées dès la conception.
 - **Taille annoncée** : Non communiquée sur la page services.
@@ -99,7 +99,7 @@ On travaille aussi en renfort de Theodo sur des projets clients, quand une exper
 - **Limites : ne pas choisir si** : Votre projet est petit, ou n'a pas besoin d'un modèle à vous. L'offre de services est pensée pour l'entreprise, pas pour les petits projets.
 :::
 
-:::agency{name="Galadrim" tagline="Une équipe de développement web, mobile et IA" choose="Choisir si" avoid="Limites : ne pas choisir si"}
+:::agency{name="Galadrim" logo="/images/resources/meilleure-agence-ia-comparatif/logos/galadrim.webp" tagline="Une équipe de développement web, mobile et IA" choose="Choisir si" avoid="Limites : ne pas choisir si"}
 - **Pour qui** : Entrepreneurs, PME, ETI, grands groupes et acteurs publics. Galadrim annonce en avoir accompagné plus de 800 depuis 2017.
 - **Points forts** : Des produits web, mobile et IA. Galadrim annonce 40 ingénieurs IA issus de Polytechnique, Centrale et l'ENS, et plus de 150 solutions IA déployées. Paladin et Showroomprivé figurent parmi ses témoignages clients.
 - **Taille annoncée** : 40 ingénieurs IA, plus de 800 organisations accompagnées depuis 2017, selon Galadrim.
@@ -109,7 +109,7 @@ On travaille aussi en renfort de Theodo sur des projets clients, quand une exper
 - **Limites : ne pas choisir si** : Votre besoin est d'abord une stratégie data à l'échelle d'un groupe, ou l'entraînement d'un modèle.
 :::
 
-:::agency{name="Ekimetrics" tagline="L'IA appliquée au marketing et à la performance commerciale" choose="Choisir si" avoid="Limites : ne pas choisir si"}
+:::agency{name="Ekimetrics" logo="/images/resources/meilleure-agence-ia-comparatif/logos/ekimetrics.webp" tagline="L'IA appliquée au marketing et à la performance commerciale" choose="Choisir si" avoid="Limites : ne pas choisir si"}
 - **Pour qui** : Les directions marketing et commerciales qui veulent mesurer et optimiser leur performance avec l'IA.
 - **Points forts** : Ekimetrics se positionne sur les « AI Business Solutions », avec sa plateforme Eki.Decisions et des solutions de Marketing Effectiveness, Campaign Optimization, Revenue Growth Management, Customer Value Orchestration, Commercial Excellence et Sustainability. Ses contenus citent des travaux de Marketing Mix Modeling pour Coty, Nestlé et Pierre & Vacances-Center Parcs.
 - **Taille annoncée** : Non communiquée.
@@ -119,7 +119,7 @@ On travaille aussi en renfort de Theodo sur des projets clients, quand une exper
 - **Limites : ne pas choisir si** : Votre projet IA ne touche ni le marketing ni la performance commerciale. L'offre est centrée sur ces sujets.
 :::
 
-:::agency{name="Koïno" tagline="Taskforce IA & Data et experts à la demande" choose="Choisir si" avoid="Limites : ne pas choisir si"}
+:::agency{name="Koïno" logo="/images/resources/meilleure-agence-ia-comparatif/logos/koino.webp" tagline="Taskforce IA & Data et experts à la demande" choose="Choisir si" avoid="Limites : ne pas choisir si"}
 - **Pour qui** : PME, ETI et grands comptes qui veulent une taskforce IA & Data pour un projet métier, ou renforcer une équipe avec des experts sélectionnés rapidement.
 - **Points forts** : Koïno se présente comme un [cabinet de conseil en IA et Data](https://www.koino.fr/) hybride (cellule d’innovation + atelier de production). Sur son site : taskforce d’experts pour des enjeux business en 30 jours, experts activables en 48 h, suivi du cadrage au ROI. Chiffres annoncés : +150 clients PME/ETI/grands comptes depuis 2021, 95 % des POC convertis en mise à l’échelle, +2 000 experts Data/IA/développement dans son réseau.
 - **Taille annoncée** : Réseau de +2 000 experts, siège annoncé 9 Rue de la Pierre Levée, 75011 Paris, selon Koïno.
@@ -129,7 +129,7 @@ On travaille aussi en renfort de Theodo sur des projets clients, quand une exper
 - **Limites : ne pas choisir si** : Vous cherchez surtout une équipe produit embarquée long terme type Theodo, un programme data multi-pays type Artefact, ou l’entraînement/alignement de modèles (Mistral AI).
 :::
 
-:::agency{name="Juwa" tagline="Agence IA et cabinet de conseil pour PME et ETI" choose="Choisir si" avoid="Limites : ne pas choisir si"}
+:::agency{name="Juwa" logo="/images/resources/meilleure-agence-ia-comparatif/logos/juwa.webp" tagline="Agence IA et cabinet de conseil pour PME et ETI" choose="Choisir si" avoid="Limites : ne pas choisir si"}
 - **Pour qui** : Les PME et ETI qui veulent un partenaire unique du diagnostic à la mise en production, sans équipe technique interne à piloter.
 - **Points forts** : Juwa se présente comme un [cabinet de conseil et agence IA](https://juwa.co/) qui porte la chaîne complète (cadrage, build, industrialisation, TMA). Sur son site : +100 entreprises accompagnées, livraison en semaines, hébergement UE par défaut, partenaire Anthropic, agréé CII, référencé Bpifrance Diag Data & IA. Ils publient aussi un [classement des agences IA en France](https://juwa.co/blog/partenaires-ecosysteme-ia/classement-agences-ia-france/) (SIREN 980561112, créée en 2023, Paris).
 - **Taille annoncée** : Petite structure créée en octobre 2023, intervention annoncée dans toute la France, selon Juwa.
@@ -139,7 +139,7 @@ On travaille aussi en renfort de Theodo sur des projets clients, quand une exper
 - **Limites : ne pas choisir si** : Vous lancez un programme multi-pays ou multi-équipes (Theodo / Artefact), ou vous devez entraîner / aligner un modèle (Mistral AI).
 :::
 
-:::agency{name="The Vibe Company" tagline="PME, ETI, et renfort technique pour les grands groupes" choose="Choisir si" avoid="Limites : ne pas choisir si"}
+:::agency{name="The Vibe Company" logo="/images/resources/meilleure-agence-ia-comparatif/logos/the-vibe-company.webp" tagline="PME, ETI, et renfort technique pour les grands groupes" choose="Choisir si" avoid="Limites : ne pas choisir si"}
 - **Pour qui** : Les PME et ETI qui veulent un outil IA en production en quelques semaines, les grands groupes qui cherchent des ingénieurs IA seniors ou un conseil technique exigeant (choix d'architecture, RAG, agents, évaluation), et les agences qui ont besoin d'une expertise IA pointue sur un projet client, comme on le fait avec Theodo.
 - **Points forts** : Une petite équipe très technique qui livre des outils IA en production : [RAG](/fr/resources/articles/rag-entreprise), agents, automatisations. Exemple : [Monka](/fr/case-studies/monka).
 - **Taille annoncée** : Petite équipe basée à Montreuil, fondée en 2024 par Stan Girard et Antoine Dewez. Les fondateurs viennent de Quivr, une startup passée par Y Combinator.
