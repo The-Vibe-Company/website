@@ -1,9 +1,17 @@
 {
+  "/images/resources/agence-application-mobile-comparatif/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
   "/images/resources/agence-ia-native/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },
   "/images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp": {
+    "width": 1536,
+    "height": 1024
+  },
+  "/images/resources/agence-intelligence-artificielle/cover-mascotte.webp": {
     "width": 1536,
     "height": 1024
   },

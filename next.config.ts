@@ -52,11 +52,13 @@ const nextConfig: NextConfig = {
         destination: "/:locale",
         permanent: true,
       },
+      // Replaces the 307 from the [type] page redirect; article slugs stay intact.
       {
-        source: "/agency",
-        destination: "/",
+        source: "/:locale(fr|en)/resources/articles",
+        destination: "/:locale/resources",
         permanent: true,
       },
+      // Bare legacy URLs are resolved by middleware in one localized 308.
       // These content types were removed; old URLs still 404 in Search Console.
       // Land on /resources directly to avoid the /resources/articles redirect.
       {
@@ -69,19 +71,8 @@ const nextConfig: NextConfig = {
         destination: "/:locale/resources",
         permanent: true,
       },
-      {
-        source: "/resources/:type(tools|tutorials|concepts|focus)",
-        destination: "/resources",
-        permanent: true,
-      },
-      {
-        source: "/resources/:type(tools|tutorials|concepts|focus)/:path*",
-        destination: "/resources",
-        permanent: true,
-      },
       // /resources/learnings was removed; old URLs still 404 in Search Console.
-      // They land on the /resources index directly: /resources/articles itself
-      // redirects there (temporarily), which would chain a 308 into a 307.
+      // They land on the /resources index directly.
       {
         source: "/:locale(fr|en)/resources/learnings",
         destination: "/:locale/resources",
@@ -90,16 +81,6 @@ const nextConfig: NextConfig = {
       {
         source: "/:locale(fr|en)/resources/learnings/:path*",
         destination: "/:locale/resources",
-        permanent: true,
-      },
-      {
-        source: "/resources/learnings",
-        destination: "/resources",
-        permanent: true,
-      },
-      {
-        source: "/resources/learnings/:path*",
-        destination: "/resources",
         permanent: true,
       },
       // The legal notice lives on the privacy page. Its conventional URLs

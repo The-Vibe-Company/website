@@ -1,10 +1,10 @@
 ---
-title: "Agence IA, ESN, freelance ou équipe interne : comment choisir"
-seoTitle: "Agence IA, ESN ou freelance : choisir | The Vibe Company"
+title: "Agence IA, ESN, freelance ou interne : checklist pour choisir"
+seoTitle: "Choisir une agence IA : checklist et 10 questions"
 slug: choisir-agence-ia-esn-freelance
 language: fr
 translationKey: choose-ai-agency
-summary: "Agence IA, ESN, freelance ou interne : critères, forfait ou régie, juger un POC et une proposition avant de signer."
+summary: "Choisir une agence IA : quatre options, forfait ou régie, checklist POC, 10 questions avant de signer."
 publishedAt: 2026-10-13
 complexity: beginner
 topics: AI Adoption, AI Agents, Strategy
@@ -13,11 +13,13 @@ coverAlt: "Quatre chemins partent d'un même projet IA : équipe interne, freela
 ogImage: /images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp
 ---
 
+**Comment choisir une agence IA :** comparez quatre options (interne, freelance, ESN, agence IA), exigez un cadrage court au forfait puis des lots courts, jugez le POC sur de vraies données, et posez les 10 questions ci-dessous avant de signer.
+
 Une démo d'IA, tout le monde sait la faire. Un outil que vos équipes utilisent encore six mois plus tard, c'est plus rare.
 
 En août 2025, [Fortune a relayé un rapport du MIT](https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/) (*The GenAI Divide*, projet NANDA) : 95 % des pilotes d'IA générative étudiés ne produisaient pas de retour mesurable sur le compte de résultat. La méthodologie a été discutée. Mais le diagnostic des auteurs tient : les projets qui marchent s'intègrent à un processus métier précis. Les outils génériques posés à côté, non.
 
-Choisir un prestataire, c'est donc choisir qui saura amener le projet jusque-là. Ici, vous avez les critères, les questions et les documents à demander. On est une agence IA, donc juge et partie : on dit aussi quand une agence n'est pas le bon choix.
+Choisir un prestataire, c'est donc choisir qui saura amener le projet jusque-là. Ici, vous avez les critères, les questions et les documents à demander. On est une agence IA, donc juge et partie : on dit aussi quand une agence n'est pas le bon choix. Si vous ne savez pas encore ce que fait concrètement une agence IA, [cette vue d'ensemble couvre l'essentiel](/fr/resources/articles/agence-intelligence-artificielle).
 
 ## Trois questions avant de comparer des prestataires
 
@@ -138,7 +140,7 @@ Si un prestataire met en avant des certifications, demandez le certificat, son p
 
 ## Notre position, honnêtement
 
-On n'est pas le bon choix pour tout. Pour un petit connecteur isolé, un freelance ira aussi bien. Pour cent développeurs en régie, prenez une ESN, c'est son métier.
+On n'est pas le bon choix pour tout. Pour un petit connecteur isolé, un freelance ira aussi bien. Pour cent développeurs en régie, prenez une ESN, c'est son métier. Pour une vue complète de ce que fait concrètement une agence IA sur un projet, lisez [ce que fait une agence IA, de bout en bout](/fr/resources/articles/agence-intelligence-artificielle).
 
 Là où on est utiles : un produit ou un agent IA qui doit arriver en production vite, dans une entreprise de taille moyenne ou grande, avec des exigences de sécurité. Avant l'agence, Stan Girard et Antoine Dewez ont construit Quivr, un projet open source d'IA (plus de 39 000 étoiles sur GitHub), passé par Y Combinator (W24), avec une équipe montée jusqu'à 9 personnes. Depuis 2024, The Vibe Company a livré plusieurs dizaines de projets. Trois exemples :
 
@@ -153,6 +155,10 @@ Si vous cherchez surtout à comparer les trois options sur les coûts et les dé
 Et si vous voulez des noms, on a comparé les acteurs un par un, nous compris : [meilleure agence IA en 2026, quelle agence pour quel projet](/fr/resources/articles/meilleure-agence-ia-comparatif).
 
 ## FAQ
+
+### C'est quoi une agence IA, concrètement ?
+
+Une agence IA prend en charge un produit ou un agent de l'idée à la production : cadrage du cas d'usage, travail sur les données, intégration de modèles, tests et déploiement. Contrairement à une ESN, l'équipe est petite et spécialisée ; contrairement à un freelance, elle couvre la pile complète. [Lire ce que fait concrètement une agence IA](/fr/resources/articles/agence-intelligence-artificielle).
 
 ### Agence IA ou ESN : quelle différence ?
 

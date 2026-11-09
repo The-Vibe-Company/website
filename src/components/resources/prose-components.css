@@ -2,8 +2,9 @@
    so pages without article Markdown keep their single stylesheet. */
 /* -----------------------------------------------------------------------------
    Article directive components (src/lib/markdown.ts: summary, picker, compare,
-   agency, callout). Server-rendered HTML, fixed-size marks and avatars, no
-   images or client JS, so they add no layout shift.
+   agency, callout). Server-rendered HTML, fixed-size marks and avatars (logo
+   images carry width/height inside a fixed tile), no client JS, so they add
+   no layout shift.
    ----------------------------------------------------------------------------- */
 .prose-vibe-sr {
   position: absolute;
@@ -55,6 +56,26 @@
   width: 1.375rem;
   height: 1.375rem;
   font-size: 0.68rem;
+}
+
+/* Company logo in place of the initial: a white tile with a hairline so marks
+   with a white background still read as a square, same footprint as the
+   initial so chips, picker and table rows keep their size. */
+.prose-vibe-avatar--logo {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--res-border, var(--border));
+}
+
+.prose-vibe .prose-vibe-avatar--logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: contain;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* En bref */
@@ -183,6 +204,11 @@
 .prose-vibe-picker .prose-vibe-avatar {
   background: var(--res-text, var(--card-foreground));
   color: var(--res-bg, var(--card));
+}
+
+.prose-vibe-picker .prose-vibe-avatar--logo {
+  background: #ffffff;
+  border-color: transparent;
 }
 
 @media (max-width: 560px) {

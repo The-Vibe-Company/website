@@ -671,8 +671,8 @@
     }
   },
   "quivr": {
-    "metaTitle": "Quivr : recherche et veille open source sur l’actualité",
-    "metaDescription": "Quivr (YC W24) : moteur open source qui suit articles, e-mails et posts, les indexe et vous alerte sur vos sujets.",
+    "metaTitle": "Quivr IA : moteur RAG et recherche sémantique open source",
+    "metaDescription": "Quivr, le moteur RAG open source aux 39 500+ étoiles GitHub passé par Y Combinator. La V2 cherche par le sens dans articles, e-mails et posts et vous alerte.",
     "product": {
       "alt": "Interface de Quivr V2 : un fil d’articles en direct avec ses filtres, deux articles signalés par une alerte sur la grève portuaire, et les sujets du moment.",
       "stageAlt": "Interface de Quivr V2 : un nouvel article sur la grève portuaire arrive dans le fil en direct et déclenche une alerte, envoyée à votre application avec la règle qui l’a déclenchée.",
