@@ -1,0 +1,31 @@
+src/components/quivr/QuivrBento.tsx
+  s_cf3b1a16e9f092::t_e91df8ed5ee964 16,23-25,32-34,42,49-50,55,58,61,153-156,159,168,187,291
+src/components/quivr/quivr.module.css
+  s_cf3b1a16e9f092::t_e91df8ed5ee964 26-28,30-31
+src/app/[locale]/portfolio/page.tsx
+  s_cf3b1a16e9f092::t_3e3a28fac1a70c 69-72,74,76-80,171,208
+  s_cf3b1a16e9f092::t_2dd3dfce73a664 73,75
+  s_cf3b1a16e9f092::t_1e54f283d7fce3 9,36-68,90-93,110-115,117-118,120-124,126-134,137-170,172-200,202-207,209-218,220-234,236-237
+src/components/quivr/QuivrStage.tsx
+  s_cf3b1a16e9f092::t_e91df8ed5ee964 8-10,102,192
+src/app/[locale]/portfolio/[slug]/page.tsx
+  s_cf3b1a16e9f092::t_4edc3bf483aee1 64-70,133-146,148-170,173-195,200-227,229-239,241-242,244-255,257,259-265,269-272,275,277-284,290-292,296-298,302
+src/components/quivr/QuivrSections.tsx
+  s_cf3b1a16e9f092::t_53c19424e0c39f 17-21,24-26,28-32,39-44,46-48,58,63-64,66-83,85,87-89,92,95,105,117-143
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b28848f819fde329de0884e2f097256b600b3f39",
+  "prompts": {},
+  "sessions": {
+    "s_cf3b1a16e9f092": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b66a8829-4166-43f8-aecb-a06f164d4edd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
