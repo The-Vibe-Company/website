@@ -91,11 +91,12 @@ Look at two of these at the size yours will be shown. They are the bar for calm 
 
 | Picture | Shape | What to notice |
 |---|---|---|
-| `signature_hub.png` | convergence (signature) | claim with highlighter, two lines of stations merging into a yellow hero on the right third, one hand note |
-| `signature_path.png` | sequence (signature) | numbered step cards, the answer as the hero, a bracket naming three steps, takeaway with highlighter |
-| `signature_split.png` | before / after (signature) | twin columns at identical positions, ghosts for what is gone, the payoff as a huge hero |
-| `signature_social.png` | loop, 4:5 for a phone (signature) | 30 px+ text, the closing moment as the hero on top, the loop as a track under it |
-| `signature_zoom.png` | architecture with one part that matters (signature) | overview small and grey, dashed ring, the inset as the hero, colour only on the failure path |
+| `signature_hub.png` | convergence (signature, coral) | claim with highlighter, two lines of stations merging into a coral hero on the right third, one hand note |
+| `signature_path.png` | sequence (signature, lavender) | numbered step cards, the answer as the hero, a bracket naming three steps, takeaway with highlighter |
+| `signature_split.png` | before / after (signature, mint) | twin columns at identical positions, ghosts for what is gone, the payoff as a huge hero |
+| `signature_social.png` | loop, 4:5 for a phone (signature, sun) | 30 px+ text, the closing moment as the hero on top, the loop as a track under it |
+| `signature_zoom.png` | architecture with one part that matters (signature, sky) |
+| `signature_moods.png` | the six moods on one diagram | same composition in sun, coral, mint, sky, lavender, red-pen: only the hero, highlighter and voice colours change | overview small and grey, dashed ring, the inset as the hero, colour only on the failure path |
 | `agent_system-whiteboard.png` | system of actors | pastel per role, fan-out, queue mock-up, curves over and under the row |
 | `ring-loop-whiteboard.png` | loop that closes on the same actor | numbered markers on a circle, the closing arc in the accent |
 | `permissions-map-corporate.png` | centre with parts and a boundary | read on the left, write on the right, the forbidden zone as a dashed band |

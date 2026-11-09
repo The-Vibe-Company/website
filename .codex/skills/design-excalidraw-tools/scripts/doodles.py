@@ -22,6 +22,8 @@ from excalikit import Palette as P, PAD
 
 HIGHLIGHT = "#ffd43b"   # marker-pen yellow for highlighted lines
 CHEEK = "#ffa8a8"
+MARKER = None           # the diagram's highlighter colour, set by signature.setup (follows the signature mood)
+ON_DARK = False         # set by signature.hero while drawing inside an ink hero: free-standing lines turn light
 
 
 def set_mood(mood):
@@ -32,7 +34,12 @@ def set_mood(mood):
     elif _lum(P.CANVAS) < 0.2:                       # dark palettes: markers must not outshine the accent
         HIGHLIGHT, CHEEK = P.ACCENT_SOFT, P.STONE
     else:
-        HIGHLIGHT, CHEEK = "#ffd43b", "#ffa8a8"
+        HIGHLIGHT, CHEEK = MARKER or "#ffd43b", "#ffa8a8"
+
+
+def _free_ink():
+    """Colour of a line drawn straight on the background (not on a white shape): ink, or a light line on ink."""
+    return P.ON_DARK if ON_DARK else P.INK
 
 
 def _lum(c):
@@ -158,7 +165,7 @@ def page_stack(S, x, y, w, h, n=3, lines=4, fill=None):
 def magnifier(S, x, y, w, h, lens=None):
     """Magnifying glass; lens = tint of the glass (default cat1 soft)."""
     f = _Frame(x, y, w, h, 90, 90)
-    _poly(S, f, [(52, 52), (86, 86)], P.INK, max(3, f.s(7)))
+    _poly(S, f, [(52, 52), (86, 86)], _free_ink(), max(3, f.s(7)))
     e = _ell(S, f, 0, 0, 62, 62, lens or getattr(P, "BLUE_SOFT", P.WHITE), P.INK, 3)
     e["fillStyle"] = "hachure"
 
@@ -182,7 +189,7 @@ def cross(S, x, y, size, color=None, sw=3):
 def robot(S, x, y, w, h, antenna=None):
     """Friendly robot head: the 'AI' / 'model' / 'bot'."""
     f = _Frame(x, y, w, h, 110, 110)
-    _poly(S, f, [(55, 30), (55, 12)], P.INK, 2)
+    _poly(S, f, [(55, 30), (55, 12)], _free_ink(), 2)
     _ell(S, f, 48, 0, 14, 14, antenna or P.ACCENT)
     _rect(S, f, 10, 30, 90, 76, rounded=True, radius=16)
     _ell(S, f, 32, 52, 14, 14, P.INK)
@@ -219,7 +226,7 @@ def bulb(S, x, y, w, h, glass=None):
     f = _Frame(x, y, w, h, 110, 120)
     for a, b in (((55, 2), (55, 12)), ((14, 18), (22, 26)), ((96, 18), (88, 26)), ((2, 54), (12, 54)),
                  ((108, 54), (98, 54))):
-        _poly(S, f, [a, b], P.INK, 2)
+        _poly(S, f, [a, b], _free_ink(), 2)
     _rect(S, f, 40, 86, 30, 26, P.PAPER, rounded=True, radius=6)
     _ell(S, f, 22, 22, 66, 70, glass or HIGHLIGHT)
 
@@ -260,7 +267,7 @@ def cloud(S, x, y, w, h, fill=None):
 def bars(S, x, y, w, h, values=(0.45, 0.7, 0.55, 0.95), color=None):
     """Tiny bar chart pictogram (not a data chart): a report, a dashboard, results."""
     f = _Frame(x, y, w, h, 110, 90)
-    _poly(S, f, [(4, 2), (4, 86), (108, 86)], P.INK, 2)
+    _poly(S, f, [(4, 2), (4, 86), (108, 86)], _free_ink(), 2)
     bw = 18
     for i, v in enumerate(values[:4]):
         bh = 76 * v
