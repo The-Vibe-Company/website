@@ -37,6 +37,7 @@ import {
   serviceNode,
   webPageNode,
 } from "@/lib/structured-data";
+import { BrandSquare } from "@/components/BrandSquare";
 
 /**
  * The custom AI application landing, served at
@@ -65,7 +66,7 @@ export async function customAiAppMetadata(locale: string): Promise<Metadata> {
   };
 }
 
-const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 const H2 =
   "m-0 font-bold text-foreground text-[clamp(32px,5vw,64px)] leading-[0.95] tracking-[-0.04em]";
 const MONO =
@@ -76,7 +77,7 @@ const TEXT_LINK =
 const MONO_LINK =
   "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
 const CARD_HOVER =
-  "transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]";
+  "transition-colors duration-300 hover:border-border-strong hover:bg-card";
 
 /** The FAQ answers' link tags, kept as plain text for the JSON-LD. */
 const FAQ_PLAIN_TAGS = {
@@ -107,7 +108,7 @@ function CardSection({
         {cards.map((card, i) => (
           <article
             key={card.key}
-            className={`flex flex-col border border-foreground bg-background p-7 ${CARD_HOVER}`}
+            className={`flex flex-col border border-border bg-background p-7 ${CARD_HOVER}`}
           >
             <span className="mb-7 font-mono text-xs tracking-[0.2em] text-muted-foreground">
               {String(i + 1).padStart(2, "0")}
@@ -197,7 +198,7 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
       <main id="main-content" tabIndex={-1} className="flex-1">
         {/* Hero: the one H1, the promise, and the page's only booking call. */}
         <section className={`${SECTION} pb-14 pt-12 md:pb-20 md:pt-16`}>
-          <span className={`mb-6 block ${MONO}`}>{t("kicker")}</span>
+          <span className={`mb-6 block ${MONO}`}><BrandSquare />{t("kicker")}</span>
           <h1
             className="m-0 max-w-[24ch] font-bold text-foreground"
             style={{
@@ -208,7 +209,7 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
           >
             {t("title")}
           </h1>
-          <p className="m-0 mt-8 max-w-[760px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+          <p className="m-0 mt-8 max-w-[760px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
             {t("lede")}
           </p>
 
@@ -274,9 +275,9 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
               <p className={`${PROSE} mt-5 max-w-[720px]`}>{t(`cases.${key}.intro`)}</p>
 
               <article
-                className={`mt-10 grid grid-cols-1 border border-foreground bg-background md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${CARD_HOVER}`}
+                className={`mt-10 grid grid-cols-1 border border-border bg-background md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${CARD_HOVER}`}
               >
-                <div className="flex flex-col border-b border-foreground p-7 md:p-9 lg:border-b-0 lg:border-r">
+                <div className="flex flex-col border-b border-border p-7 md:p-9 lg:border-b-0 lg:border-r">
                   {customer ? (
                     <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
                       <h3 className="m-0">
@@ -286,18 +287,18 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
                           src={customer.logo}
                           alt={customer.client}
                           {...clientLogoSize(customer.logo)}
-                          className="h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
+                          className="h-8 w-auto max-w-[180px] object-contain brightness-0 invert object-left md:h-9"
                           loading="lazy"
                           decoding="async"
                         />
                       </h3>
-                      <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+                      <span className="border border-border-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-soft-foreground">
                         {customer.sector}
                       </span>
                     </div>
                   ) : null}
 
-                  <dl className="m-0 mt-8 border-t-2 border-foreground">
+                  <dl className="m-0 mt-8 border-t border-border">
                     {stats.map((stat) => (
                       <div
                         key={stat}
@@ -321,7 +322,7 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
                         key={point}
                         className="flex gap-3 border-b border-border py-3 text-[15px] leading-[1.5] text-foreground last:border-b-0"
                       >
-                        <span aria-hidden="true" className="font-mono text-orange-500">
+                        <span aria-hidden="true" className="font-mono text-brand">
                           →
                         </span>
                         <span>{point}</span>
@@ -342,7 +343,7 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
             No booking call here: the page keeps a single one, in the hero. */}
         <section
           data-surface="inverse"
-          className="border-y-2 border-foreground bg-foreground text-background"
+          className="border-y border-border bg-foreground text-background"
         >
           <div className={`${SECTION} py-16 md:py-24`}>
             <h2
@@ -387,7 +388,7 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
         <section className={`${SECTION} py-14 md:py-20`}>
           <h2 className={H2}>{t("faq.title")}</h2>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-12">
+          <div className="mt-10 border-t border-border md:mt-12">
             {CUSTOM_AI_APP_FAQ_KEYS.map((key) => (
               <article
                 key={key}
@@ -405,7 +406,7 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
             <span id="custom-ai-app-see-also" className={MONO}>
               {t("seeAlso.title")}
             </span>
-            <ul className="m-0 mt-4 flex list-none flex-col border-t-2 border-foreground p-0">
+            <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
               {[
                 { key: "agency", href: agencyPath },
                 { key: "agents", href: agentsPath },
@@ -421,7 +422,7 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
             </ul>
           </nav>
 
-          <p className={`${PROSE} mt-10 border-l-2 border-foreground pl-5`}>
+          <p className={`${PROSE} mt-10 border-l border-border-strong pl-5`}>
             {t.rich("about", { link: link(splitPath(ABOUT_PATHS, locale)) })}
           </p>
         </section>

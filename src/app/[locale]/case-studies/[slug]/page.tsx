@@ -29,6 +29,7 @@ import {
   webPageNode,
 } from "@/lib/structured-data";
 import { clientLogoSize } from "@/lib/client-logos";
+import { BrandSquare } from "@/components/BrandSquare";
 
 export function generateStaticParams() {
   return CUSTOMER_SLUGS.map((slug) => ({ slug }));
@@ -119,7 +120,7 @@ export default async function CaseStudyPage({
       ))}
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
+        <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-10 lg:px-16 md:pb-20 md:pt-12">
           <h1 className="sr-only">{customer.client} · {t("back")}</h1>
           <Suspense fallback={<BackLink href="/case-studies" label={t("back")} />}>
             <CaseStudyBackLink />
@@ -131,14 +132,14 @@ export default async function CaseStudyPage({
               src={customer.logo}
               alt={customer.client}
               {...clientLogoSize(customer.logo)}
-              className="h-9 w-auto object-contain md:h-11"
+              className="h-9 w-auto object-contain brightness-0 invert md:h-11"
             />
-            <span className="border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground">
+            <span className="border border-border-strong px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-soft-foreground">
               {customer.sector}
             </span>
           </div>
 
-          <div className="mt-10 border-t-2 border-foreground pt-8">
+          <div className="mt-10 border-t border-border pt-8">
             {customer.metric && (
               <>
                 <div className="text-[56px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[80px]">
@@ -160,7 +161,7 @@ export default async function CaseStudyPage({
               </p>
 
               {customer.quote && (
-                <figure className="mt-10 max-w-[760px] border-l-2 border-orange-500 pl-6">
+                <figure className="mt-10 max-w-[760px] border-l-2 border-brand pl-6">
                   <blockquote className="m-0 text-lg font-medium leading-[1.5] text-foreground md:text-xl">
                     &ldquo;{customer.quote.text}&rdquo;
                   </blockquote>
@@ -172,7 +173,7 @@ export default async function CaseStudyPage({
             </div>
 
             {asideVisual && (
-              <div className="mx-auto w-full max-w-[360px] overflow-hidden border border-foreground">
+              <div className="mx-auto w-full max-w-[360px] overflow-hidden border border-border">
                 <Image
                   src={asideVisual.src}
                   alt={asideVisual.alt}
@@ -239,12 +240,12 @@ export default async function CaseStudyPage({
           customer.projects.map((project, index) => (
             <section
               key={project.name}
-              className={`mx-auto max-w-[80rem] px-6 py-16 md:px-12 md:py-20 ${index > 0 ? "border-t border-border" : ""}`}
+              className={`mx-auto max-w-[80rem] px-6 py-16 md:px-10 lg:px-16 md:py-20 ${index > 0 ? "border-t border-border" : ""}`}
             >
               <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_1fr] md:gap-16">
                 <div>
                   <span className="block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                    {t("projectLabel", { n: index + 1 })}
+                    <BrandSquare />{t("projectLabel", { n: index + 1 })}
                   </span>
                   <h2 className="m-0 mt-4 text-[28px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground">
                     {project.name}
@@ -260,7 +261,7 @@ export default async function CaseStudyPage({
                         key={point}
                         className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
                       >
-                        <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
+                        <span aria-hidden="true" className="pt-1 font-mono text-brand">
                           →
                         </span>
                         <span>{point}</span>
@@ -270,7 +271,7 @@ export default async function CaseStudyPage({
                 </div>
               </div>
               {project.visual && (
-                <div className="mt-12 overflow-hidden border border-foreground">
+                <div className="mt-12 overflow-hidden border border-border">
                   <Image
                     src={project.visual.src}
                     alt={project.visual.alt}
@@ -284,10 +285,10 @@ export default async function CaseStudyPage({
             </section>
           ))
         ) : (
-          <section className="mx-auto max-w-[80rem] px-6 py-16 md:px-12 md:py-20">
+          <section className="mx-auto max-w-[80rem] px-6 py-16 md:px-10 lg:px-16 md:py-20">
             <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_1fr] md:gap-16">
               <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                {t("whatWeDid")}
+                <BrandSquare />{t("whatWeDid")}
               </h2>
               <div>
                 {customer.approach && (
@@ -301,7 +302,7 @@ export default async function CaseStudyPage({
                       key={point}
                       className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
                     >
-                      <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
+                      <span aria-hidden="true" className="pt-1 font-mono text-brand">
                         →
                       </span>
                       <span>{point}</span>
@@ -314,15 +315,15 @@ export default async function CaseStudyPage({
         )}
 
         {(wideVisuals.length > 0 || customer.url) && (
-          <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-12 md:pb-24">
+          <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-10 lg:px-16 md:pb-24">
             {wideVisuals.length > 0 && (
               <>
                 <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {t("theProduct")}
+                  <BrandSquare />{t("theProduct")}
                 </span>
                 <div className="flex flex-col gap-5">
                   {wideVisuals.map((visual) => (
-                    <div key={visual.src} className="overflow-hidden border border-foreground">
+                    <div key={visual.src} className="overflow-hidden border border-border">
                       <Image
                         src={visual.src}
                         alt={visual.alt}
@@ -342,7 +343,7 @@ export default async function CaseStudyPage({
                 href={customer.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-3 border-2 border-foreground bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)] ${wideVisuals.length > 0 ? "mt-8" : ""}`}
+                className={`inline-flex items-center gap-3 rounded-[2px] border border-border-strong bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:border-foreground ${wideVisuals.length > 0 ? "mt-8" : ""}`}
               >
                 {t("visitClient", { name: customer.client })}
                 <span aria-hidden="true" className="text-lg">
@@ -355,10 +356,10 @@ export default async function CaseStudyPage({
 
         <CaseStudyKeepReading items={related} />
 
-        <section className="mx-auto max-w-[80rem] px-6 pb-16 md:px-12 md:pb-20">
+        <section className="mx-auto max-w-[80rem] px-6 pb-16 md:px-10 lg:px-16 md:pb-20">
           {/* The healthcare case also points at the healthcare landing. */}
           {slug === "monka" ? (
-            <p className="m-0 mb-4 max-w-[680px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
+            <p className="m-0 mb-4 max-w-[680px] border-l border-border-strong pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
               {tHealthcare.rich("caseLink", {
                 link: (chunks) => (
                   <Link
@@ -373,7 +374,7 @@ export default async function CaseStudyPage({
           ) : null}
           {/* The newsroom case also points at the media AI landing. */}
           {slug === "afp" ? (
-            <p className="m-0 mb-4 max-w-[680px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
+            <p className="m-0 mb-4 max-w-[680px] border-l border-border-strong pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
               {tMedia.rich("caseLink", {
                 link: (chunks) => (
                   <Link
@@ -388,7 +389,7 @@ export default async function CaseStudyPage({
           ) : null}
           {/* A case told in more depth in a guide points at it. */}
           {guide ? (
-            <p className="m-0 mb-4 max-w-[680px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
+            <p className="m-0 mb-4 max-w-[680px] border-l border-border-strong pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
               {t.rich("relatedArticle", {
                 title: guide.title,
                 link: (chunks) => (
@@ -402,7 +403,7 @@ export default async function CaseStudyPage({
               })}
             </p>
           ) : null}
-          <p className="m-0 max-w-[680px] border-l-2 border-foreground pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
+          <p className="m-0 max-w-[680px] border-l border-border-strong pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
             {tAgency.rich("caseLink", {
               link: (chunks) => (
                 <Link
@@ -417,11 +418,11 @@ export default async function CaseStudyPage({
         </section>
 
         {customer.faq && customer.faq.length > 0 ? (
-          <section className="mx-auto max-w-[80rem] border-t border-border px-6 py-14 md:px-12 md:py-20">
+          <section className="mx-auto max-w-[80rem] border-t border-border px-6 py-14 md:px-10 lg:px-16 md:py-20">
             <h2 className="m-0 text-[28px] font-bold tracking-[-0.03em] md:text-[36px]">
               {t("faqTitle")}
             </h2>
-            <div className="mt-10 border-t-2 border-foreground md:mt-12">
+            <div className="mt-10 border-t border-border md:mt-12">
               {customer.faq.map((item) => (
                 <article
                   key={item.question}

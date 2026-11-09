@@ -36,7 +36,7 @@
     "description": "Une agence IA-first qui conçoit des produits, déploie des automatisations agentiques et forme les équipes, de l'audit à la production sécurisée."
   },
   "hero": {
-    "titleLine1": "Agence IA-First",
+    "titleLine1": "Agence IA-First.",
     "titleLine2": "Audit, automatisation, production sécurisée.",
     "subtitle": "On construit vos produits, on déploie des agents chez vous, on forme vos équipes.",
     "bookCall": "Prendre 30 minutes",
@@ -86,7 +86,7 @@
     "trustedBy": "On travaille pour eux"
   },
   "caseStudy": {
-    "kicker": "// PROJETS CLIENTS",
+    "kicker": "PROJETS CLIENTS",
     "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",
     "readCase": "Lire le cas",
@@ -103,7 +103,7 @@
     "author": "Étienne, CEO de Monka"
   },
   "services": {
-    "kicker": "// CE QU'ON FAIT",
+    "kicker": "CE QU'ON FAIT",
     "titleLine1": "Trois façons",
     "titleLine2": "de travailler ensemble.",
     "items": {
@@ -147,7 +147,7 @@
     "indexCount": "3 façons"
   },
   "process": {
-    "kicker": "// 02. COMMENT ON TRAVAILLE",
+    "kicker": "02. COMMENT ON TRAVAILLE",
     "titleLine1": "Du brief",
     "titleLine2": "à la production.",
     "steps": {
@@ -174,7 +174,7 @@
     }
   },
   "proof": {
-    "kicker": "// NOS PROPRES PRODUITS",
+    "kicker": "NOS PROPRES PRODUITS",
     "titleLine1": "Ah, on fait aussi",
     "titleLine2": "nos produits.",
     "intro": "On crée des produits pour rendre notre équipe et nos clients plus efficaces avec l’IA. C’est aussi comme ça qu’on reste affûtés.",
@@ -227,16 +227,16 @@
   },
   "caseStudiesPage": {
     "metaTitle": "Cas clients IA : projets en production",
-    "kicker": "// PROJETS CLIENTS",
+    "kicker": "PROJETS CLIENTS",
     "titleLine1": "Conçu pour nos clients,",
     "titleLine2": "en production.",
     "metaDescription": "Découvrez des produits et automatisations IA conçus et mis en production pour nos clients.",
     "readCase": "Lire le cas",
     "back": "Cas clients",
     "backHome": "Accueil",
-    "whatWeDid": "// Ce qu’on a fait",
-    "projectLabel": "// Projet {n}",
-    "theProduct": "// Le produit",
+    "whatWeDid": "Ce qu’on a fait",
+    "projectLabel": "Projet {n}",
+    "theProduct": "Le produit",
     "visit": "Visiter",
     "visitClient": "Visiter {name}",
     "keepReading": "À lire ensuite",
@@ -245,7 +245,7 @@
     "relatedArticle": "Pour aller plus loin, lisez notre guide <link>{title}</link>.",
     "faqTitle": "Questions fréquentes",
     "about": {
-      "kicker": "// COMMENT ON TRAVAILLE",
+      "kicker": "COMMENT ON TRAVAILLE",
       "title": "Du premier appel à la production.",
       "p1": "Chaque projet commence par un appel de 30 minutes : vous expliquez le problème, on explique comment on le construirait. Si ça colle, on envoie une proposition à périmètre fixe, puis un prototype cliquable avant la moindre ligne de code de production.",
       "p2": "Pendant le build, vous voyez du logiciel qui marche tôt et souvent, et on mesure le résultat à l’usage réel plutôt qu’à la démo. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique sont passés en production en deux mois, avec depuis une nouvelle version tous les deux jours environ. Chez LocService, les brouillons de l’assistant sont utilisés sur 87 % des tickets.",
@@ -313,7 +313,7 @@
     "previewPrompt": "Prévisualiser le prompt"
   },
   "portfolio": {
-    "kicker": "// NOS PRODUITS",
+    "kicker": "NOS PRODUITS",
     "titleLine1": "Nos propres produits,",
     "titleLine2": "en ligne.",
     "subtitle": "Des produits qu’on a conçus et mis en ligne pour nous d’abord : Quivr (recherche et veille), Vanish (liens de fichiers qui expirent), Skillpack (skills d’équipe), VibeDrift (analytics développeur), Granite (mémoire d’agents), plus VibeDeck, Bruno, Armada et AEOM. Chaque carte ouvre la fiche produit.",
@@ -321,16 +321,16 @@
     "back": "Nos projets",
     "statusLabel": "Statut",
     "typeLabel": "Type",
-    "theProduct": "// Le produit",
+    "theProduct": "Le produit",
     "visit": "Visiter",
     "visitProject": "Visiter {name}",
     "metaTitle": "Produits IA : ce qu’on a conçu et livré",
     "metaDescription": "Quivr, Vanish, Skillpack, VibeDrift, Granite et d’autres : des produits IA qu’on a conçus pour nous, open source ou en ligne, avec leurs dates.",
-    "storyWhy": "// Pourquoi on l’a construit",
-    "storyHow": "// Comment ça marche",
-    "storyAudience": "// Pour qui",
+    "storyWhy": "Pourquoi on l’a construit",
+    "storyHow": "Comment ça marche",
+    "storyAudience": "Pour qui",
     "about": {
-      "kicker": "// POURQUOI NOS PROPRES PRODUITS",
+      "kicker": "POURQUOI NOS PROPRES PRODUITS",
       "title": "Nos premiers clients, c’est nous.",
       "p1": "The Vibe Company est une agence IA, et une bonne partie de ce qu’on sait faire, on l’a d’abord construit pour nous. Chacun de ces produits part d’une friction qu’on vivait au quotidien : partager le rapport qu’un agent vient de produire, ranger les skills de l’équipe, donner une mémoire à nos agents, coordonner plusieurs agents de code sur un même projet, ou ne plus perdre une idée lancée en réunion.",
       "p2": "Plusieurs d’entre eux font tourner l’agence tous les jours : Bruno pour la to-do de l’entreprise, Skillpack pour nos skills, Granite pour la mémoire de nos agents. C’est comme ça qu’on apprend ce qui tient en production et ce qui casse, avant d’en parler à un client. Si notre propre entreprise ne tourne pas mieux avec nos outils, on n’a aucune légitimité à les vendre.",
@@ -345,7 +345,7 @@
     "bodyIronic": "Ironique ? Complètement."
   },
   "about": {
-    "kicker": "// À PROPOS",
+    "kicker": "À PROPOS",
     "metaTitle": "À propos de The Vibe Company : agence IA à Paris (YC W24)",
     "metaDescription": "The Vibe Company, agence IA à Paris fondée en 2024 par Stan Girard et Antoine Dewez (YC W24). Produits IA, agents, HDS et sécurité, jusqu’en production.",
     "title": "À propos de The Vibe Company",
@@ -489,7 +489,7 @@
     }
   },
   "hardening": {
-    "kicker": "// AGENTS · HARDEN PRODUIT & SI",
+    "kicker": "AGENTS · HARDEN PRODUIT & SI",
     "metaTitle": "Agents IA pour durcir produit et SI | The Vibe Company",
     "metaDescription": "Déployez une flotte d'agents IA pour durcir produit et SI : secrets, deps, IAM, configs, review PR. Exigences RGPD et HDS. Agence à Paris.",
     "title": "Utiliser des agents IA pour durcir votre produit et votre SI",
@@ -844,7 +844,7 @@
     "metaDescription": "Agence IA à Paris (YC W24) : produits IA, agents et formation jusqu'en production. Cas Monka, AFP, LocService. RDV sous 24 h.",
     "breadcrumb": "Agence IA à Paris",
     "serviceName": "Agence IA à Paris",
-    "kicker": "// AGENCE IA · PARIS",
+    "kicker": "AGENCE IA · PARIS",
     "title": "Agence IA à Paris : on construit vos produits et agents IA jusqu'en production",
     "lede": "The Vibe Company est une agence IA-first basée à Paris. On conçoit des produits IA, on déploie des agents dans vos outils et on forme vos équipes, pour les entreprises de taille moyenne à grande.",
     "factsLabel": "En bref",
@@ -1050,7 +1050,7 @@
     "aboutLink": "Notre page Agence IA à Paris"
   },
   "healthcareAi": {
-    "kicker": "// IA SANTÉ · EXIGENCES HDS",
+    "kicker": "IA SANTÉ · EXIGENCES HDS",
     "metaTitle": "IA santé et HDS : projets en production | The Vibe Company",
     "metaDescription": "Projets IA sur données de santé, livrés selon les exigences RGPD et HDS. Cas Monka (prod en 2 mois). Agence IA Paris, YC W24. RDV sous 24 h.",
     "title": "IA santé et HDS : on construit vos produits jusqu'en production",
@@ -1264,7 +1264,7 @@
     }
   },
   "agentsProduction": {
-    "kicker": "// AGENTS · POC → PRODUCTION",
+    "kicker": "AGENTS · POC → PRODUCTION",
     "metaTitle": "Agents IA en production : du POC au run | The Vibe Company",
     "metaDescription": "Déployez des agents IA en entreprise jusqu'en production : outils, garde-fous, mesure, passation. Cas LocService (87 % des tickets). Agence Paris, YC W24.",
     "title": "Agents IA en entreprise : on les mène jusqu'en production",
@@ -1460,7 +1460,7 @@
     }
   },
   "mediaAi": {
-    "kicker": "// IA MÉDIAS · RÉDACTIONS",
+    "kicker": "IA MÉDIAS · RÉDACTIONS",
     "metaTitle": "IA médias : outils pour les rédactions | The Vibe Company",
     "metaDescription": "Outils IA pour rédactions et médias, jusqu'en production. Preuve AFP / MediaGen (France 2030). Agence IA Paris, YC W24. RDV sous 24 h.",
     "title": "IA pour les médias : on construit les outils des rédactions jusqu'en production",
@@ -1979,7 +1979,7 @@
     "metaTitle": "Développement d'application IA sur mesure | The Vibe Company",
     "metaDescription": "Applications IA et SaaS sur mesure, de l'idée à la production : RAG, agents, RGPD et intégrations métier. Cas Monka, LocService et AFP. YC W24.",
     "breadcrumb": "Application IA sur mesure",
-    "kicker": "// APPLICATION IA · SUR MESURE",
+    "kicker": "APPLICATION IA · SUR MESURE",
     "title": "Développez une application IA sur mesure, de l'idée à la production",
     "lede": "On conçoit, on construit et on met en production votre application IA : le produit, l’architecture RAG et les agents, la sécurité et les intégrations avec vos outils. Puis on passe la main à votre équipe, ou on continue de la faire tourner.",
     "hero": {

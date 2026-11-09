@@ -7,6 +7,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { getCustomers, type ContentLocale, type Customer } from "@/lib/customers";
 import { LOOP_ARROW_CLASS, LOOP_COPIES, useLoopCarousel } from "./useLoopCarousel";
 import { clientLogoSize } from "@/lib/client-logos";
+import { BrandSquare } from "@/components/BrandSquare";
 
 // Two cards fit flush, no overflow.
 const CARD_WIDTH = "w-[86%] shrink-0 sm:w-[70%] md:w-[calc(50%-10px)]";
@@ -18,7 +19,7 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
     <Link
       href={`/case-studies/${c.slug}?from=home`}
       tabIndex={clone ? -1 : undefined}
-      className="group flex h-full flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
+      className="group flex h-full flex-col border border-border bg-background p-7 no-underline transition-all duration-300 hover:border-border-strong hover:bg-card md:p-8"
     >
       <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -26,11 +27,11 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
           src={c.logo}
           alt={c.client}
           {...clientLogoSize(c.logo)}
-          className="h-7 w-auto object-contain md:h-8"
+          className="h-7 w-auto object-contain brightness-0 invert md:h-8"
           loading="lazy"
           decoding="async"
         />
-        <span className="max-w-full border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground md:shrink-0">
+        <span className="max-w-full border border-border-strong px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-soft-foreground md:shrink-0">
           {c.sector}
         </span>
       </div>
@@ -51,7 +52,7 @@ function CaseStudyCard({ c, t, clone = false }: { c: Customer; t: T; clone?: boo
       <ul className="m-0 mt-6 flex list-none flex-col gap-2.5 p-0">
         {c.points.map((point) => (
           <li key={point} className="flex gap-3 text-sm leading-[1.5] text-muted-foreground">
-            <span aria-hidden="true" className="pt-0.5 font-mono text-orange-500">
+            <span aria-hidden="true" className="pt-0.5 font-mono text-brand">
               →
             </span>
             <span>{point}</span>
@@ -97,10 +98,10 @@ function CaseSlide({ c, t }: { c: Customer; t: T }) {
   return (
     <Link
       href={`/case-studies/${c.slug}?from=home`}
-      className="group flex h-full flex-col border-2 border-foreground bg-background p-5 no-underline"
+      className="group flex h-full flex-col border border-border bg-background p-5 no-underline"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={c.logo} alt={c.client} {...clientLogoSize(c.logo)} className="h-[26px] w-auto self-start object-contain" loading="lazy" decoding="async" />
+      <img src={c.logo} alt={c.client} {...clientLogoSize(c.logo)} className="h-[26px] w-auto self-start object-contain brightness-0 invert" loading="lazy" decoding="async" />
       {/* Two lines reserved whatever the sector's length, so every card's
           number sits at the same height as you swipe. */}
       <span className={`mt-5 line-clamp-2 min-h-[3em] text-muted-foreground ${MONO}`}>{c.sector}</span>
@@ -124,7 +125,7 @@ function CaseSlide({ c, t }: { c: Customer; t: T }) {
         {t("readCase")}
         <span
           aria-hidden="true"
-          className="grid h-11 w-11 place-items-center border-2 border-foreground text-lg transition-colors group-active:bg-foreground group-active:text-background"
+          className="grid h-11 w-11 place-items-center border border-border text-lg transition-colors group-active:bg-foreground group-active:text-background"
         >
           →
         </span>
@@ -269,7 +270,7 @@ function CaseCarousel({ customers }: { customers: Customer[] }) {
 
   return (
     <div className="pb-2 pt-14 md:hidden">
-      <h2 className="m-0 mx-6 border-b-2 border-foreground pb-3.5 text-[15px] font-bold tracking-[-0.01em] text-foreground">
+      <h2 className="m-0 mx-6 border-b border-border pb-3.5 text-[15px] font-bold tracking-[-0.01em] text-foreground">
         {t("indexTitle")}
       </h2>
 
@@ -331,7 +332,7 @@ function CaseCarousel({ customers }: { customers: Customer[] }) {
       </ol>
       <Link
         href="/case-studies"
-        className="mx-6 mt-2 flex min-h-14 items-center justify-between font-mono text-xs uppercase tracking-[0.16em] text-orange-500 no-underline"
+        className="mx-6 mt-2 flex min-h-14 items-center justify-between font-mono text-xs uppercase tracking-[0.16em] text-brand no-underline"
       >
         {t("seeAll")}
         <span aria-hidden="true" className="text-base">
@@ -346,7 +347,7 @@ function SectionHeader({ t }: { t: T }) {
   return (
     <div className="mb-12 md:mb-14">
       <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-        {t("kicker")}
+        <BrandSquare />{t("kicker")}
       </span>
       <h2
         className="m-0 font-bold text-foreground"
@@ -376,7 +377,7 @@ export function CaseStudy() {
     <section id="cases" className="border-b border-border bg-background">
       <CaseCarousel customers={customers} />
 
-      <div className="mx-auto hidden max-w-[100rem] px-6 py-24 md:block md:px-12 md:py-28">
+      <div className="mx-auto hidden max-w-[90rem] px-6 py-24 md:block md:px-10 lg:px-16 md:py-28">
         <SectionHeader t={t} />
 
         <div className="flex items-stretch gap-3 md:gap-4">
@@ -420,7 +421,7 @@ export function CaseStudy() {
         <div className="mt-8 flex justify-center md:mt-10">
           <Link
             href="/case-studies"
-            className="group inline-flex items-center gap-2.5 font-mono text-[13px] uppercase tracking-[0.2em] text-orange-500 no-underline transition-colors hover:text-orange-600 md:text-sm"
+            className="group inline-flex items-center gap-2.5 font-mono text-[13px] uppercase tracking-[0.2em] text-brand no-underline transition-colors hover:text-brand md:text-sm"
           >
             {t("seeAll")}
             <span aria-hidden="true" className="text-base transition-transform duration-300 group-hover:translate-x-1">

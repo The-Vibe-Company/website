@@ -41,6 +41,7 @@ import {
   serviceNode,
   webPageNode,
 } from "@/lib/structured-data";
+import { BrandSquare } from "@/components/BrandSquare";
 
 /**
  * The service landing on hardening a product and its stack with a fleet of AI
@@ -67,7 +68,7 @@ export async function hardeningMetadata(locale: string): Promise<Metadata> {
   };
 }
 
-const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 const H2 =
   "m-0 font-bold text-foreground text-[clamp(32px,5vw,64px)] leading-[0.95] tracking-[-0.04em]";
 const MONO =
@@ -134,7 +135,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
       <main id="main-content" tabIndex={-1} className="flex-1">
         {/* 1 — The one H1 on the page, the promise, and the call. */}
         <section className={`${SECTION} pb-14 pt-12 md:pb-20 md:pt-16`}>
-          <span className={`mb-6 block ${MONO}`}>{t("kicker")}</span>
+          <span className={`mb-6 block ${MONO}`}><BrandSquare />{t("kicker")}</span>
           <h1
             className="m-0 max-w-[22ch] font-bold text-foreground"
             style={{
@@ -145,7 +146,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
           >
             {t("title")}
           </h1>
-          <p className="m-0 mt-8 max-w-[720px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+          <p className="m-0 mt-8 max-w-[720px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
             {t("lede")}
           </p>
 
@@ -198,13 +199,13 @@ export async function HardeningPage({ locale }: { locale: string }) {
             {HARDENING_OFFER_KEYS.map((key, i) => (
               <article
                 key={key}
-                className="flex flex-col border border-foreground bg-background p-7 transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
+                className="flex flex-col border border-border bg-background p-7 transition-colors duration-300 hover:border-border-strong hover:bg-card"
               >
                 <div className="mb-7 flex items-start justify-between gap-3">
                   <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+                  <span className="border border-border-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-soft-foreground">
                     {t(`offer.items.${key}.tag`)}
                   </span>
                 </div>
@@ -225,7 +226,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
             ))}
           </div>
 
-          <p className="m-0 mt-10 max-w-[760px] border-l-2 border-orange-500 pl-5 text-[15px] leading-[1.6] text-foreground md:pl-6 md:text-base">
+          <p className="m-0 mt-10 max-w-[760px] border-l-2 border-brand pl-5 text-[15px] leading-[1.6] text-foreground md:pl-6 md:text-base">
             {t("offer.guardrails")}
           </p>
         </section>
@@ -234,7 +235,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
             process section. */}
         <section
           data-surface="inverse"
-          className="border-y-2 border-foreground bg-foreground text-background"
+          className="border-y border-border bg-foreground text-background"
         >
           <div className={`${SECTION} py-16 md:py-24`}>
             <h2
@@ -264,7 +265,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
                     <span className="text-4xl font-bold leading-none tracking-[-0.05em] text-background md:text-[56px]">
                       {step.n}
                     </span>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
                       {t(`method.steps.${step.key}.label`)}
                     </span>
                   </div>
@@ -286,7 +287,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
         <section className={`${SECTION} py-14 md:py-20`}>
           <h2 className={H2}>{t("proof.title")}</h2>
 
-          <ul className="m-0 mt-10 flex max-w-[860px] list-none flex-col border-t-2 border-foreground p-0 md:mt-12">
+          <ul className="m-0 mt-10 flex max-w-[860px] list-none flex-col border-t border-border p-0 md:mt-12">
             <li className={`${PROSE} border-b border-border py-5 text-foreground`}>
               {t("proof.points.production")}
             </li>
@@ -315,7 +316,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
               customer ? (
                 <article
                   key={slug}
-                  className="flex flex-col border border-foreground bg-background p-7"
+                  className="flex flex-col border border-border bg-background p-7"
                 >
                   <span className={MONO}>{customer.sector}</span>
                   <h3 className="m-0 mt-3 text-[26px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[32px]">
@@ -357,7 +358,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
         <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
           <h2 className={H2}>{t("faq.title")}</h2>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-12">
+          <div className="mt-10 border-t border-border md:mt-12">
             {HARDENING_FAQ_KEYS.map((key) => (
               <article
                 key={key}
@@ -410,7 +411,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
                   <Link
                     key={item.key}
                     href={item.href}
-                    className="group block border border-foreground p-6 transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
+                    className="group block border border-border p-6 transition-colors duration-300 hover:border-border-strong hover:bg-card"
                   >
                     <span className="flex items-baseline justify-between gap-4 text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground">
                       {t(`further.${item.key}.title`)}

@@ -34,7 +34,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
     <div
       role="group"
       className={cn(
-        "inline-flex items-center gap-0.5 font-mono text-[11px] uppercase tracking-wider transition-opacity duration-200",
+        "inline-flex items-center font-mono text-[12px] uppercase tracking-[0.14em] transition-opacity duration-200",
         isPending && "opacity-60",
         className
       )}
@@ -43,7 +43,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
     >
       {LOCALES.map((l, i) => (
         <span key={l.code} className="inline-flex items-center">
-          {i > 0 && <span className="mx-1 text-border" aria-hidden="true">/</span>}
+          {i > 0 && <span className="mx-3 h-3.5 w-px bg-border-strong" aria-hidden="true" />}
           <button
             type="button"
             onClick={() => setLocale(l.code)}

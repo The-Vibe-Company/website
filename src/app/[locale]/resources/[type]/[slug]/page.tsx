@@ -233,12 +233,12 @@ export default async function ContentDetailPage({
                   <span
                     className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
                       isVictorStory
-                        ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
+                        ? 'border-brand/40 bg-brand/10 text-brand'
                         : 'border-res-border text-res-text-muted'
                     }`}
                   >
                     <span
-                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
+                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-brand' : 'bg-res-text-muted'}`}
                       aria-hidden="true"
                     />
                     {categoryLabel}
@@ -332,12 +332,12 @@ export default async function ContentDetailPage({
                   <span
                     className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
                       isVictorStory
-                        ? 'border-orange-500/40 bg-orange-500/10 text-orange-600'
+                        ? 'border-brand/40 bg-brand/10 text-brand'
                         : 'border-res-border text-res-text-muted'
                     }`}
                   >
                     <span
-                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-orange-500' : 'bg-res-text-muted'}`}
+                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-brand' : 'bg-res-text-muted'}`}
                       aria-hidden="true"
                     />
                     {categoryLabel}

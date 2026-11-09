@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 import { Footer } from "@/components/Footer";
@@ -36,6 +35,8 @@ import {
   webPageNode,
 } from "@/lib/structured-data";
 import { clientLogoSize } from "@/lib/client-logos";
+import { BrandSquare } from "@/components/BrandSquare";
+import { Backers } from "@/components/home/Backers";
 
 /**
  * The commercial "AI agency in Paris" landing page, served at
@@ -62,7 +63,7 @@ export async function agencyParisMetadata(locale: string): Promise<Metadata> {
   };
 }
 
-const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 const H2 =
   "m-0 font-bold text-foreground text-[clamp(32px,5vw,64px)] leading-[0.95] tracking-[-0.04em]";
 const MONO =
@@ -73,7 +74,7 @@ const TEXT_LINK =
 // List marker drawn as a short rule rather than a dash character.
 const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
 const CARD_HOVER =
-  "transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]";
+  "transition-colors duration-300 hover:border-border-strong hover:bg-card";
 
 export async function AgencyParisPage({ locale }: { locale: string }) {
   const contentLocale: ContentLocale = locale === "en" ? "en" : "fr";
@@ -129,7 +130,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
         {/* 1 — The one H1 on the page, the pitch, three sourced facts and
             the call. */}
         <section className={`${SECTION} pb-14 pt-12 md:pb-20 md:pt-16`}>
-          <span className={`mb-6 block ${MONO}`}>{t("kicker")}</span>
+          <span className={`mb-6 block ${MONO}`}><BrandSquare />{t("kicker")}</span>
           <h1
             className="m-0 max-w-[24ch] font-bold text-foreground"
             style={{
@@ -142,7 +143,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
           </h1>
 
           <div className="mt-8 grid grid-cols-1 gap-8 md:mt-10 lg:grid-cols-[minmax(0,680px)_minmax(0,1fr)] lg:gap-16">
-            <p className="m-0 self-start border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+            <p className="m-0 self-start border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
               {t("lede")}
             </p>
             <div>
@@ -164,30 +165,9 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
           <AboutBookingCta page={page} location="cta_agency_paris_hero" namespace="agencyParis" />
 
           {/* The same two backers as the About page. */}
-          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-border pt-7 md:mt-12">
+          <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-border pt-7 md:mt-12">
             <span className={MONO}>{t("backedBy")}</span>
-            <a
-              href="https://www.ycombinator.com/companies/quivr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex transition-opacity hover:opacity-70"
-            >
-              <Image
-                src="/images/partners/y-combinator.svg"
-                alt="Y Combinator W24"
-                width={154}
-                height={38}
-                className="h-8 w-auto"
-              />
-            </a>
-            <span aria-hidden="true" className="h-8 w-px bg-border" />
-            <Image
-              src="/images/partners/france-2030.svg"
-              alt="France 2030"
-              width={52}
-              height={52}
-              className="h-10 w-auto"
-            />
+            <Backers />
           </div>
 
           {/* The client logos already on the homepage, nothing more. */}
@@ -201,7 +181,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                     src={client.src}
                     alt={client.name}
                     {...clientLogoSize(client.src)}
-                    className={`${client.className} w-auto object-contain brightness-0`}
+                    className={`${client.className} w-auto object-contain brightness-0 invert`}
                     loading="lazy"
                     decoding="async"
                   />
@@ -220,13 +200,13 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
             {AGENCY_PARIS_OFFER_KEYS.map((key, i) => (
               <article
                 key={key}
-                className={`flex flex-col border border-foreground bg-background p-7 ${CARD_HOVER}`}
+                className={`flex flex-col border border-border bg-background p-7 ${CARD_HOVER}`}
               >
                 <div className="mb-7 flex items-start justify-between gap-3">
                   <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+                  <span className="border border-border-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-soft-foreground">
                     {tServices(`items.${key}.tag`)}
                   </span>
                 </div>
@@ -262,7 +242,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
           <div className="mt-10 grid grid-cols-1 gap-10 md:mt-14 md:grid-cols-2 md:gap-12">
             <div>
               <span className={MONO}>{t("audience.signalsLabel")}</span>
-              <ul className="m-0 mt-4 flex list-none flex-col border-t-2 border-foreground p-0">
+              <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
                 {t.raw("audience.signals").map((signal: string) => (
                   <li
                     key={signal}
@@ -276,7 +256,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
             </div>
             <div>
               <span className={MONO}>{t("audience.sectorsLabel")}</span>
-              <ul className="m-0 mt-4 flex list-none flex-col border-t-2 border-foreground p-0">
+              <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
                 {cases.map((customer) => (
                   <li key={customer.slug} className="border-b border-border">
                     <Link
@@ -301,7 +281,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
         {/* 4 — How it goes, on the same ink slab as the About page. */}
         <section
           data-surface="inverse"
-          className="border-y-2 border-foreground bg-foreground text-background"
+          className="border-y border-border bg-foreground text-background"
         >
           <div className={`${SECTION} py-16 md:py-24`}>
             <h2
@@ -331,7 +311,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                     <span className="text-4xl font-bold leading-none tracking-[-0.05em] text-background md:text-[56px]">
                       {step.n}
                     </span>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
                       {t(`method.steps.${step.key}.label`)}
                     </span>
                   </div>
@@ -363,9 +343,9 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
 
           {featured ? (
             <article
-              className={`mt-10 grid grid-cols-1 border border-foreground bg-background md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${CARD_HOVER}`}
+              className={`mt-10 grid grid-cols-1 border border-border bg-background md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${CARD_HOVER}`}
             >
-              <div className="flex flex-col border-b border-foreground p-7 md:p-9 lg:border-b-0 lg:border-r">
+              <div className="flex flex-col border-b border-border p-7 md:p-9 lg:border-b-0 lg:border-r">
                 <CaseHeader
                   logo={featured.logo}
                   client={featured.client}
@@ -378,7 +358,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                   {t(`proof.cases.${featured.slug}.figureLabel`)}
                 </div>
                 {featured.quote ? (
-                  <figure className="m-0 mt-8 border-l-2 border-foreground pl-5 lg:mt-auto lg:pt-8">
+                  <figure className="m-0 mt-8 border-l border-border-strong pl-5 lg:mt-auto lg:pt-8">
                     <blockquote className="m-0 text-[15px] leading-[1.6] text-foreground">
                       {locale === "fr" ? `« ${featured.quote.text} »` : `“${featured.quote.text}”`}
                     </blockquote>
@@ -397,7 +377,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
             {others.map((customer) => (
               <article
                 key={customer.slug}
-                className={`flex flex-col border border-foreground bg-background p-7 md:p-8 ${CARD_HOVER}`}
+                className={`flex flex-col border border-border bg-background p-7 md:p-8 ${CARD_HOVER}`}
               >
                 <CaseHeader
                   logo={customer.logo}
@@ -428,7 +408,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
           <h2 className={H2}>{t("security.title")}</h2>
           <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("security.intro")}</p>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-14">
+          <div className="mt-10 border-t border-border md:mt-14">
             {AGENCY_PARIS_SECURITY_KEYS.map((key, i) => (
               <article
                 key={key}
@@ -495,7 +475,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
         <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
           <h2 className={H2}>{t("faq.title")}</h2>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-12">
+          <div className="mt-10 border-t border-border md:mt-12">
             {AGENCY_PARIS_FAQ_KEYS.map((key) => (
               <article
                 key={key}
@@ -527,12 +507,12 @@ function CaseHeader({ logo, client, sector }: { logo: string; client: string; se
           src={logo}
           alt={client}
           {...clientLogoSize(logo)}
-          className="h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
+          className="h-8 w-auto max-w-[180px] object-contain brightness-0 invert object-left md:h-9"
           loading="lazy"
           decoding="async"
         />
       </h3>
-      <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+      <span className="border border-border-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-soft-foreground">
         {sector}
       </span>
     </div>
@@ -547,7 +527,7 @@ function CasePoints({ points }: { points: string[] }) {
           key={point}
           className="flex gap-3 border-b border-border py-3 text-[15px] leading-[1.5] text-foreground last:border-b-0"
         >
-          <span aria-hidden="true" className="font-mono text-orange-500">
+          <span aria-hidden="true" className="font-mono text-brand">
             →
           </span>
           <span>{point}</span>

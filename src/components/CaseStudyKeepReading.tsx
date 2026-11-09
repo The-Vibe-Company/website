@@ -18,7 +18,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
   const secondary = rest.slice(0, 2);
 
   return (
-    <section className="mx-auto max-w-[80rem] border-t border-border px-6 py-24 md:px-12">
+    <section className="mx-auto max-w-[80rem] border-t border-border px-6 py-24 md:px-10 lg:px-16">
       <div className="mb-10">
         <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
           {t("keepReading")}
@@ -26,21 +26,21 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
       </div>
 
       <Link href={`/case-studies/${featured.slug}`} className="group block no-underline">
-        <article className="flex flex-col overflow-hidden rounded-lg border border-border bg-background transition-colors hover:border-foreground/35 md:flex-row">
+        <article className="flex flex-col overflow-hidden rounded-lg border border-border bg-background transition-colors hover:border-border-strong md:flex-row">
           <div className="flex aspect-[16/10] shrink-0 items-center justify-center border-b border-border p-10 md:aspect-auto md:w-[44%] md:border-b-0 md:border-r">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={featured.logo}
               alt={featured.client}
               {...clientLogoSize(featured.logo)}
-              className="h-10 w-auto max-w-[70%] object-contain transition-transform duration-300 group-hover:scale-105 md:h-12"
+              className="h-10 w-auto max-w-[70%] object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-105 md:h-12"
               loading="lazy"
               decoding="async"
             />
           </div>
           <div className="flex flex-1 flex-col justify-center p-7 md:p-9">
             <div className="mb-3 flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center rounded-full border border-orange-500/40 bg-orange-500/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-orange-600">
+              <span className="inline-flex items-center rounded-full border border-brand/40 bg-brand/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-brand">
                 {t("next")}
               </span>
               <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -67,7 +67,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
             <Link
               key={c.slug}
               href={`/case-studies/${c.slug}`}
-              className="group flex gap-4 rounded-lg border border-border bg-background p-4 no-underline transition-colors hover:border-foreground/35"
+              className="group flex gap-4 rounded-lg border border-border bg-background p-4 no-underline transition-colors hover:border-border-strong"
             >
               <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border p-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -75,7 +75,7 @@ export async function CaseStudyKeepReading({ items }: { items: Customer[] }) {
                   src={c.logo}
                   alt={c.client}
                   {...clientLogoSize(c.logo)}
-                  className="max-h-full max-w-full object-contain"
+                  className="max-h-full max-w-full object-contain brightness-0 invert"
                   loading="lazy"
                   decoding="async"
                 />

@@ -8,6 +8,8 @@ import { captureEvent } from "@/lib/posthog";
 import dynamic from "next/dynamic";
 import { useSyncExternalStore } from "react";
 import type { RunnerItem } from "@/lib/runner-worlds";
+import { Backers } from "./Backers";
+import { FitText } from "./FitText";
 
 /**
  * The game is a desktop-only extra, so it is not part of the hero's bundle.
@@ -33,11 +35,10 @@ function subscribeRunnerMedia(onChange: () => void): () => void {
   return () => query.removeEventListener("change", onChange);
 }
 
-const QUICK_ITEMS = [
-  { n: "01", key: "build" },
-  { n: "02", key: "operate" },
-  { n: "03", key: "advise" },
-] as const;
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+/** The headline's tracking, in em: tight enough to read as one slab. */
+const HEADLINE_TRACKING = -0.055;
 
 export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   // Server-side this is false, so the chunk is never even requested on a phone.
@@ -50,197 +51,130 @@ export function Hero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   const t = useTranslations("hero");
   const tFooter = useTranslations("footer");
 
+  const rise = (delay: number, y = 16) => ({
+    initial: { opacity: 0, y },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : delay, ease: EASE },
+  });
+
   return (
-    // Phones get HeroMobile, a poster layout, in its place.
-    <section
-      id="hero"
-      className="relative hidden overflow-hidden border-b-2 border-foreground bg-background md:block"
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-50"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%)",
-        }}
-      />
-
-      <div className="relative mx-auto max-w-[100rem] px-6 pb-14 pt-12 md:px-12 md:pb-16 md:pt-16">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-6 inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:mb-8"
-        >
-          <span aria-hidden="true" className="relative flex h-2 w-2">
-            {!reduceMotion && (
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-500 opacity-60" />
-            )}
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500" />
-          </span>
-          {tFooter("openToProjects")}
-        </motion.div>
-
-        {/* An h2: HeroMobile, first in the DOM, carries the page's one h1.
-            Preflight resets both tags alike, so the look is unchanged. HeroMobile
-            is display:none from md up, so this heading stays level 1 for
-            assistive technology on desktop. */}
-        <motion.h2
-          role="heading"
-          aria-level={1}
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.7,
-            delay: reduceMotion ? 0 : 0.05,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="m-0 flex max-w-[18ch] flex-col font-bold text-foreground"
+    <>
+      {/* Phones get HeroMobile, a poster layout, in its place. */}
+      <section id="hero" className="relative hidden overflow-hidden bg-background md:block">
+        {/* The mascot's warmth: a low orange bloom in the corner it stands in. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-64 -right-40 h-[760px] w-[980px]"
           style={{
-            fontSize: "clamp(48px, 7.4vw, 124px)",
-            lineHeight: 0.92,
-            letterSpacing: "-0.045em",
+            background:
+              "radial-gradient(closest-side, rgb(242 115 19 / 0.16), rgb(242 115 19 / 0.05) 55%, transparent)",
           }}
-        >
-          <span className="block">
-            {t("titleLine1")}
-          </span>
-          <span
-            className="mt-4 block max-w-[30ch] md:mt-6 md:max-w-[40ch]"
-            style={{
-              fontSize: "clamp(1.25rem, 2.4vw, 2.25rem)",
-              fontWeight: 600,
-              lineHeight: 1.3,
-              letterSpacing: "-0.025em",
-            }}
+        />
+
+        <div className="relative mx-auto max-w-[90rem] px-10 lg:px-16">
+          {/* The floor the mascot is cut at: a hairline between the gutters,
+              so the crop reads as staging rather than an accident. */}
+          <div aria-hidden="true" className="absolute inset-x-10 bottom-0 z-10 h-px bg-border lg:inset-x-16" />
+          <motion.p
+            {...rise(0, 10)}
+            className="m-0 inline-flex items-center gap-3 pt-14 font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground lg:pt-[80px]"
           >
-            {/* A low orange highlighter stroke under the words, cloned on each
-                wrapped line so it reads the same whatever the copy. */}
-            <span
-              className="[box-decoration-break:clone] [-webkit-box-decoration-break:clone]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(to top, rgb(249 115 22 / 0.28) 0.32em, transparent 0.32em)",
-                padding: "0 0.08em",
-              }}
+            <span aria-hidden="true" className="h-2 w-2 bg-brand" />
+            {tFooter("openToProjects")}
+          </motion.p>
+
+          {/* An h2: HeroMobile, first in the DOM, carries the page's one h1.
+              Preflight resets both tags alike, so the look is unchanged. HeroMobile
+              is display:none from md up, so this heading stays level 1 for
+              assistive technology on desktop. */}
+          <h2 role="heading" aria-level={1} className="m-0 font-bold text-foreground">
+            <motion.span
+              {...rise(0.05, 28)}
+              className="mt-9 block leading-[0.86] [container-type:inline-size] lg:mt-10"
+            >
+              <FitText trackingEm={HEADLINE_TRACKING} className="-ml-[0.04em]">
+                {t("titleLine1")}
+              </FitText>
+            </motion.span>
+
+            <motion.span
+              {...rise(0.18)}
+              className="mt-14 block max-w-[17ch] text-[clamp(1.75rem,2.5vw,2.25rem)] font-medium leading-[1.12] tracking-[-0.03em] lg:mt-[58px]"
             >
               {t("titleLine2")}
-            </span>
-          </span>
-        </motion.h2>
+            </motion.span>
+          </h2>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.6,
-            delay: reduceMotion ? 0 : 0.2,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="mt-10 grid grid-cols-1 items-center gap-10 md:mt-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16"
-        >
-          <div>
-            <p className="m-0 max-w-[620px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
-              {t("subtitle")}
-            </p>
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)]">
+            <motion.div {...rise(0.26)} className="pb-20 lg:pb-[72px]">
+              <p className="m-0 mt-7 max-w-[33rem] text-[19px] leading-[1.6] text-muted-foreground">
+                {t("subtitle")}
+              </p>
 
-          <div className="flex flex-col items-start gap-3 lg:items-end">
-            <div className="flex flex-wrap items-center gap-x-10 gap-y-6 lg:justify-end">
-              <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
+              <div className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <a
-                  href="https://www.ycombinator.com/companies/quivr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex transition-opacity hover:opacity-70"
+                  href={BOOKING_URL}
+                  {...bookingLocation("hero")}
+                  onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
+                  className="group inline-flex h-[52px] items-center gap-3 rounded-[2px] bg-foreground px-6 text-[15px] font-medium text-background transition-colors hover:bg-soft-foreground"
                 >
-                  <Image
-                    src="/images/partners/y-combinator.svg"
-                    alt="Y Combinator W24"
-                    width={154}
-                    height={38}
-                    className="h-9 w-auto"
-                  />
+                  {t("bookCall")}
+                  <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
                 </a>
-                <Image
-                  src="/images/partners/france-2030.svg"
-                  alt="France 2030"
-                  width={52}
-                  height={52}
-                  className="h-12 w-auto"
-                />
+                <a
+                  href="#services"
+                  onClick={() => captureEvent("see_what_we_do_clicked")}
+                  className="text-[15px] font-medium text-foreground underline decoration-1 underline-offset-[7px] transition-colors hover:text-brand"
+                >
+                  {t("seeWhatWeDo")}
+                </a>
               </div>
-            <a
-              href={BOOKING_URL}
-              {...bookingLocation("hero")}
-              onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
-              className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-6 py-4 text-[15px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
+
+              <div className="mt-14 flex flex-wrap items-center justify-between gap-x-10 gap-y-5 border-t border-border pt-7">
+                <Backers />
+                <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-muted-foreground">
+                  {t("response")}
+                </span>
+              </div>
+            </motion.div>
+
+            {/* The mascot stands in the right column and runs out of the
+                section, which crops it at the chest. Its black backdrop is
+                lightened away into the ink, so the orange bloom shows through. */}
+            <motion.div
+              aria-hidden="true"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduceMotion ? 0 : 1.1, delay: reduceMotion ? 0 : 0.3, ease: EASE }}
+              className="relative hidden lg:block"
             >
-              {t("bookCall")}
-              <span aria-hidden="true" className="text-lg">
-                →
-              </span>
-            </a>
-            </div>
+              <Image
+                src="/images/home/mascot-glow.webp"
+                alt=""
+                width={516}
+                height={716}
+                loading="eager"
+                sizes="(min-width: 1024px) 500px, 0px"
+                className="absolute -top-24 left-1/2 w-[min(476px,38vw)] max-w-none -translate-x-[30%] mix-blend-lighten xl:-top-[124px]"
+              />
+            </motion.div>
           </div>
-        </motion.div>
-
-        <div className="mt-4 flex lg:justify-end">
-          <a
-            href="#services"
-            onClick={() => captureEvent("see_what_we_do_clicked")}
-            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-4 hover:text-foreground"
-          >
-            {t("seeWhatWeDo")}
-          </a>
         </div>
+      </section>
 
-        {canRun ? (
+      {canRun ? (
+        <div className="mx-auto hidden max-w-[90rem] px-10 pb-24 lg:block lg:px-16">
           <HeroRunner items={runnerItems} />
-        ) : (
-          /* Holds the panel's place from the server HTML so the game drops into
-             a gap that already exists. Mounting it client-side only, with no
-             placeholder, pushed the rest of the hero down after hydration. */
-          <div aria-hidden="true" className="mt-8 hidden lg:block lg:mt-10 lg:h-[254px]" />
-        )}
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.6,
-            delay: reduceMotion ? 0 : 0.1,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="mt-8 grid grid-cols-1 border-t border-border md:mt-10 md:grid-cols-3"
-        >
-          {QUICK_ITEMS.map((item) => (
-            <div
-              key={item.n}
-              className="flex items-start gap-4 border-b border-border py-5 pr-6 last:border-b-0 md:border-b-0"
-            >
-              <span className="pt-1 font-mono text-[11px] tracking-[0.2em] text-orange-500">
-                {item.n}
-              </span>
-              <div>
-                <div className="text-[22px] font-bold tracking-[-0.02em] text-foreground">
-                  {t(`items.${item.key}.label`)}
-                </div>
-                <div className="mt-0.5 text-sm text-muted-foreground">
-                  {t(`items.${item.key}.desc`)}
-                </div>
-              </div>
-            </div>
-          ))}
-        </motion.div>
-      </div>
-
-    </section>
+        </div>
+      ) : (
+        /* Holds the panel's place from the server HTML so the game drops into
+           a gap that already exists. Mounting it client-side only, with no
+           placeholder, pushed the rest of the page down after hydration. Same
+           media query as the game, so a touch screen at 1024px keeps no gap. */
+        <div aria-hidden="true" className="hidden h-[352px] [@media(min-width:1024px)_and_(hover:hover)]:block" />
+      )}
+    </>
   );
 }

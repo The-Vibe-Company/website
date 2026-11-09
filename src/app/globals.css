@@ -12,110 +12,59 @@
    ============================================================================= */
 
 /* -----------------------------------------------------------------------------
-   Color Tokens (Light Mode)
+   Color Tokens — "ink" identity
+   One dark identity for the whole site: near-black ink background, warm paper
+   text, hairline rules and a single orange signal. It never flips with the
+   system theme, so the tokens live on :root and color-scheme is pinned dark.
+   [data-variant="hybrid"] (homepage, portfolio, case studies, landings) and
+   .resources-theme only re-declare them so a wrapper can never pick up another
+   palette.
    ----------------------------------------------------------------------------- */
-:root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --card: #f9f9f9;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --muted: #737373;
-  --muted-foreground: #525252;
-  --accent: #f5f5f5;
-  --accent-foreground: #171717;
-  --border: #e5e5e5;
-  --input: #e5e5e5;
+:root,
+[data-variant="hybrid"],
+.resources-theme {
+  color-scheme: dark;
+  --background: #0c0c0d;
+  --foreground: #f4f3ef;
+  --card: #141415;
+  --card-foreground: #f4f3ef;
+  --popover: #161617;
+  --popover-foreground: #f4f3ef;
+  --muted: #807e7a;
+  --muted-foreground: #9c9a94;
+  /* Between the two: nav links, mono metadata that must stay readable. */
+  --soft-foreground: #c9c7c1;
+  --accent: #1a1a1b;
+  --accent-foreground: #e9e7e1;
+  --border: #2c2c2d;
+  /* The rule a card or an outline control draws: a step above the hairline. */
+  --border-strong: #4a4946;
+  --input: #2c2c2d;
+  /* The one accent: status squares, the YC badge, highlights. */
+  --brand: #f27313;
   --radius: 0.5rem;
 }
 
 /* -----------------------------------------------------------------------------
-   Hybrid "Warm Paper" Variant — opt-in via [data-variant="hybrid"].
-   Used by the homepage to soften the brutalist white into a paper tone that
-   reads as more pro/clear without abandoning the brand's monochrome DNA.
-   This variant is light-only by design (the new home is always served light,
-   like the Resources theme), so we pin the full light palette here and let
-   it win over the dark-mode media query via specificity. Applied on the home
-   wrapper div (not body) so the variant is set server-side and avoids a flash
-   of incorrect theme before hydration.
-   ----------------------------------------------------------------------------- */
-[data-variant="hybrid"] {
-  color-scheme: light;
-  --background: #fdfbf7;
-  --foreground: #0a0a0a;
-  --card: #ffffff;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --muted: #737373;
-  --muted-foreground: #525252;
-  --accent: #f3f0ea;
-  --accent-foreground: #171717;
-  --border: #dcd7ce;
-  --input: #dcd7ce;
-}
-
-/* -----------------------------------------------------------------------------
-   Color Tokens (Dark Mode)
-   ----------------------------------------------------------------------------- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #030303;
-    --foreground: #ededed;
-    --card: #0a0a0a;
-    --card-foreground: #ededed;
-    --popover: #0a0a0a;
-    --popover-foreground: #ededed;
-    --muted: #a3a3a3;
-    --muted-foreground: #d4d4d4;
-    --accent: #262626;
-    --accent-foreground: #ededed;
-    --border: #262626;
-    --input: #262626;
-  }
-}
-
-/* -----------------------------------------------------------------------------
-   Resources Theme (scoped to .resources-theme)
-   Aligned with the homepage hybrid variant: light-only, warm-paper background,
-   same neutral text tokens. Pinned to color-scheme: light so it never flips to
-   dark on systems set to dark mode (matching the homepage behavior).
+   Resources layer (scoped to .resources-theme)
+   Same ink tokens under --res-* names, plus the domain accents used to
+   categorise content, lifted to stay legible on ink.
    ----------------------------------------------------------------------------- */
 .resources-theme {
-  color-scheme: light;
-
-  /* Shared tokens: the TopNav and other site-wide components read these, so
-     they must match [data-variant="hybrid"] or the bar turns white (or dark on
-     a dark-mode system) on /resources only. */
-  --background: #fdfbf7;
-  --foreground: #0a0a0a;
-  --card: #ffffff;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --muted: #737373;
-  --muted-foreground: #525252;
-  --accent: #f3f0ea;
-  --accent-foreground: #171717;
-  --border: #dcd7ce;
-  --input: #dcd7ce;
-
-  /* Surface tokens — match [data-variant="hybrid"] exactly */
-  --res-bg: #fdfbf7;
-  --res-bg-secondary: #f3f0ea;
-  --res-surface: #ffffff;
-  --res-border: #dcd7ce;
-  --res-text: #0a0a0a;
-  --res-text-muted: #525252;
+  --res-bg: #0c0c0d;
+  --res-bg-secondary: #141415;
+  --res-surface: #111112;
+  --res-border: #2c2c2d;
+  --res-text: #f4f3ef;
+  --res-text-muted: #9c9a94;
 
   /* Domain accent colors — kept for content categorization */
-  --domain-dev: #2563eb;
-  --domain-design: #db2777;
-  --domain-ops: #059669;
-  --domain-business: #d97706;
-  --domain-ai: #7c3aed;
-  --domain-marketing: #e11d48;
+  --domain-dev: #6ea8fe;
+  --domain-design: #f472b6;
+  --domain-ops: #34d399;
+  --domain-business: #fbbf24;
+  --domain-ai: #a78bfa;
+  --domain-marketing: #fb7185;
 
   /* Cross-platform emoji stack for language flags */
   --font-flag: 'Apple Color Emoji', 'Twemoji Mozilla', 'Noto Color Emoji', 'Segoe UI Emoji', sans-serif;
@@ -134,26 +83,29 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-soft-foreground: var(--soft-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-input: var(--input);
+  --color-brand: var(--brand);
 
   /* Resources theme tokens */
-  --color-res-bg: var(--res-bg, #faf9f7);
-  --color-res-bg-secondary: var(--res-bg-secondary, #f5f3ef);
-  --color-res-surface: var(--res-surface, #ffffff);
-  --color-res-border: var(--res-border, #e8e5e0);
-  --color-res-text: var(--res-text, #1a1a1a);
-  --color-res-text-muted: var(--res-text-muted, #6b6560);
+  --color-res-bg: var(--res-bg, #0c0c0d);
+  --color-res-bg-secondary: var(--res-bg-secondary, #141415);
+  --color-res-surface: var(--res-surface, #111112);
+  --color-res-border: var(--res-border, #2c2c2d);
+  --color-res-text: var(--res-text, #f4f3ef);
+  --color-res-text-muted: var(--res-text-muted, #9c9a94);
 
   /* Domain accent colors */
-  --color-domain-dev: var(--domain-dev, #4f46e5);
-  --color-domain-design: var(--domain-design, #7c3aed);
-  --color-domain-ops: var(--domain-ops, #0891b2);
-  --color-domain-business: var(--domain-business, #d97706);
-  --color-domain-ai: var(--domain-ai, #059669);
-  --color-domain-marketing: var(--domain-marketing, #e11d48);
+  --color-domain-dev: var(--domain-dev, #6ea8fe);
+  --color-domain-design: var(--domain-design, #f472b6);
+  --color-domain-ops: var(--domain-ops, #34d399);
+  --color-domain-business: var(--domain-business, #fbbf24);
+  --color-domain-ai: var(--domain-ai, #a78bfa);
+  --color-domain-marketing: var(--domain-marketing, #fb7185);
 
   /* Typography */
   --font-sans: var(--font-geist-sans);
@@ -219,7 +171,7 @@
 
   /* Selection style */
   ::selection {
-    @apply bg-foreground text-background;
+    @apply bg-brand text-background;
   }
 }
 
@@ -232,7 +184,17 @@
   outline-offset: 2px;
 }
 
-/* Ink surfaces flip the ring to paper. The ring above is drawn in the page's
+/* Inverse surfaces. Under the warm-paper identity these were ink bands; on the
+   ink page an inverse band is a raised ink panel instead of a paper slab.
+   Swapping the two tokens keeps every bg-foreground / text-background inside
+   one working unchanged, and the runner canvas, which reads both, draws paper
+   strokes on the raised surface. */
+[data-surface="inverse"] {
+  --foreground: var(--card);
+  --background: var(--card-foreground);
+}
+
+/* Inverse surfaces flip the ring to paper. The ring above is drawn in the page's
    foreground, which on an inverted panel is the panel's own background — the
    focus ring would be there and invisible. */
 [data-surface="inverse"] :focus-visible:not(.prose-vibe-audio__wave) {
@@ -517,7 +479,7 @@
   border: 0;
   border-radius: 999px;
   color: #fff;
-  background: #f26f23;
+  background: var(--brand);
   cursor: pointer;
   transition:
     opacity 0.2s,
@@ -599,7 +561,7 @@
   top: 0.1rem;
   bottom: 0.1rem;
   width: 1px;
-  background: color-mix(in oklab, #f26f23 88%, var(--res-text, var(--foreground)));
+  background: color-mix(in oklab, var(--brand) 88%, var(--res-text, var(--foreground)));
   opacity: 0;
   transform: translateX(-50%);
   transition: opacity 0.15s;
@@ -612,7 +574,7 @@
 }
 
 .prose-vibe-audio__wave:focus-visible {
-  box-shadow: 0 0 0 2px color-mix(in oklab, #f26f23 42%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--brand) 42%, transparent);
 }
 
 .prose-vibe-audio__wave-bars,
@@ -631,7 +593,7 @@
 .prose-vibe-audio__wave-progress {
   clip-path: inset(0 calc(100% - var(--audio-progress)) 0 0);
   overflow: hidden;
-  color: #f26f23;
+  color: var(--brand);
   pointer-events: none;
 }
 
@@ -664,7 +626,7 @@
 }
 
 .prose-vibe-audio__current {
-  color: #f26f23;
+  color: var(--brand);
 }
 
 .prose-vibe-audio__rewind {

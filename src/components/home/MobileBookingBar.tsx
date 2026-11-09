@@ -40,7 +40,7 @@ export function MobileBookingBar() {
       aria-hidden={!show || undefined}
       inert={!show || undefined}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-4 border-t border-foreground bg-background/90 px-6 pb-[calc(8px+env(safe-area-inset-bottom))] pt-2 backdrop-blur-md transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none md:hidden",
+        "fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-4 border-t border-border bg-background/90 px-6 pb-[calc(8px+env(safe-area-inset-bottom))] pt-2 backdrop-blur-md transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none md:hidden",
         show ? "translate-y-0" : "translate-y-[110%]"
       )}
     >

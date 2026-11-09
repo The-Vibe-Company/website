@@ -13,6 +13,7 @@ import { PORTFOLIO_CATEGORY_MAP, PROJECT_SLUGS, getProject, type ContentLocale }
 import { QUIVR_FAQ_KEYS, QUIVR_OG_IMAGE, QUIVR_SLUG } from "@/lib/quivr";
 import { absoluteUrl, localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
 import { breadcrumbList, faqPageSchema, softwareApplicationSchema } from "@/lib/structured-data";
+import { BrandSquare } from "@/components/BrandSquare";
 
 export function generateStaticParams() {
   return PROJECT_SLUGS.map((slug) => ({ slug }));
@@ -122,10 +123,10 @@ export default async function PortfolioProjectPage({
       <JsonLd data={faq} />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
+        <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-10 lg:px-16 md:pb-20 md:pt-12">
           <BackLink href="/portfolio" label={t("back")} />
 
-          <div className="mt-10 border-t-2 border-foreground pt-8">
+          <div className="mt-10 border-t border-border pt-8">
             <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between md:gap-6">
               <div className="flex min-w-0 items-center gap-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -141,7 +142,7 @@ export default async function PortfolioProjectPage({
                   {project.name}
                 </h1>
               </div>
-              <span className="shrink-0 self-start border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground md:self-auto">
+              <span className="shrink-0 self-start border border-border-strong px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-soft-foreground md:self-auto">
                 {project.tag}
               </span>
             </div>
@@ -172,9 +173,9 @@ export default async function PortfolioProjectPage({
           </div>
         </section>
 
-        <section className="mx-auto max-w-[80rem] px-6 py-16 md:px-12 md:py-20">
+        <section className="mx-auto max-w-[80rem] px-6 py-16 md:px-10 lg:px-16 md:py-20">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {t("theProduct")}
+            <BrandSquare />{t("theProduct")}
           </span>
           <div
             // Columns sized by image aspect (16:10 web, ~9:19.5 phone); the phone frame then stretches
@@ -188,7 +189,7 @@ export default async function PortfolioProjectPage({
             {isQuivr ? (
               <QuivrStage locale={locale} accent={project.accent} />
             ) : project.cover ? (
-              <div className="self-start overflow-hidden border border-foreground">
+              <div className="self-start overflow-hidden border border-border">
                 <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -200,7 +201,7 @@ export default async function PortfolioProjectPage({
               </div>
             ) : null}
             {project.mobileCover && (
-              <div className="mx-auto w-full max-w-[15rem] overflow-hidden border border-foreground md:flex md:max-w-none md:flex-col">
+              <div className="mx-auto w-full max-w-[15rem] overflow-hidden border border-border md:flex md:max-w-none md:flex-col">
                 <div className="h-[3px] w-full" style={{ backgroundColor: project.accent }} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -218,7 +219,7 @@ export default async function PortfolioProjectPage({
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-3 border-2 border-foreground bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
+            className="mt-8 inline-flex items-center gap-3 rounded-[2px] border border-border-strong bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:border-foreground"
           >
             {t("visitProject", { name: project.name })}
             <span aria-hidden="true" className="text-lg">
@@ -230,10 +231,10 @@ export default async function PortfolioProjectPage({
 
         {project.story ? (
           <section className="border-t border-border">
-            <div className="mx-auto flex max-w-[80rem] flex-col gap-14 px-6 py-16 md:gap-16 md:px-12 md:py-20">
+            <div className="mx-auto flex max-w-[80rem] flex-col gap-14 px-6 py-16 md:gap-16 md:px-10 lg:px-16 md:py-20">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
                 <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {t("storyWhy")}
+                  <BrandSquare />{t("storyWhy")}
                 </h2>
                 <p className="m-0 max-w-[720px] text-xl leading-[1.5] text-foreground">
                   {project.story.why}
@@ -241,7 +242,7 @@ export default async function PortfolioProjectPage({
               </div>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
                 <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {t("storyHow")}
+                  <BrandSquare />{t("storyHow")}
                 </h2>
                 <ul className="m-0 flex max-w-[720px] list-none flex-col gap-5 p-0">
                   {project.story.how.map((step) => (
@@ -249,7 +250,7 @@ export default async function PortfolioProjectPage({
                       key={step}
                       className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
                     >
-                      <span aria-hidden="true" className="pt-1 font-mono text-orange-500">
+                      <span aria-hidden="true" className="pt-1 font-mono text-brand">
                         →
                       </span>
                       <span>{step}</span>
@@ -259,7 +260,7 @@ export default async function PortfolioProjectPage({
               </div>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] md:gap-16">
                 <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {t("storyAudience")}
+                  <BrandSquare />{t("storyAudience")}
                 </h2>
                 <p className="m-0 max-w-[720px] text-lg leading-[1.6] text-foreground">
                   {project.story.audience}

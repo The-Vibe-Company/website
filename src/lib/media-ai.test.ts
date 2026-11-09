@@ -50,8 +50,8 @@ describe("media AI landing", () => {
       "AI tools for newsrooms and media orgs, shipped to production. AFP / MediaGen proof (France 2030). Paris AI agency, YC W24. Reply within 24h.",
     );
     expect(MESSAGES.en.title).toBe("AI for media: we build newsroom tools all the way to production");
-    expect(MESSAGES.fr.kicker).toBe("// IA MÉDIAS · RÉDACTIONS");
-    expect(MESSAGES.en.kicker).toBe("// AI FOR MEDIA · NEWSROOMS");
+    expect(MESSAGES.fr.kicker).toBe("IA MÉDIAS · RÉDACTIONS");
+    expect(MESSAGES.en.kicker).toBe("AI FOR MEDIA · NEWSROOMS");
     expect(MESSAGES.fr.bookCall).toBe("Prendre 30 minutes");
     expect(MESSAGES.fr.response).toBe("Réponse sous 24 h");
     expect(MESSAGES.en.bookCall).toBe("Book 30 minutes");

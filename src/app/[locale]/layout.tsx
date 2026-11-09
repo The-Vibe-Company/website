@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -23,6 +23,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
 });
+
+/** The ink identity is the only one: browser chrome and form controls follow it. */
+export const viewport: Viewport = {
+  themeColor: "#0c0c0d",
+  colorScheme: "dark",
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

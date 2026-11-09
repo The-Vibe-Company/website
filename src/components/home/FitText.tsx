@@ -22,7 +22,7 @@ const ADVANCE: Record<string, number> = {
 /** Kerning tightens a heavy line by about 1.8% against the sum of its advances. */
 const KERNING = 0.982;
 
-/** Both callers set `tracking-[-1px]`, applied after every glyph. */
+/** The poster callers set `tracking-[-1px]`, applied after every glyph. */
 const TRACKING_PX = -1;
 
 /** Width of `text` set at 1em, in em: what the server sizes the line from. */
@@ -44,12 +44,18 @@ export function emWidth(text: string): number {
 export function FitText({
   children,
   max,
+  trackingEm,
   className,
   style,
 }: {
   children: string;
   /** Cap in px, for short lines that would otherwise fill the page. */
   max?: number;
+  /**
+   * Letter-spacing in em, for a line tracked in em rather than the posters'
+   * -1px. It is applied here so the server estimate accounts for it.
+   */
+  trackingEm?: number;
   className?: string;
   style?: CSSProperties;
 }) {
@@ -97,13 +103,20 @@ export function FitText({
   // 72px (it fits at 91), and hydration had to re-set the whole poster.
   // Summing the real advances lands within about 1%.
   const glyphs = [...children].length;
-  const estimate = `calc((100cqw + ${-TRACKING_PX * glyphs}px) / ${emWidth(children).toFixed(4)})`;
+  const estimate =
+    trackingEm === undefined
+      ? `calc((100cqw + ${-TRACKING_PX * glyphs}px) / ${emWidth(children).toFixed(4)})`
+      : `calc(100cqw / ${(emWidth(children) + trackingEm * glyphs).toFixed(4)})`;
 
   return (
     <span
       ref={ref}
       className={cn("block w-max whitespace-nowrap", className)}
-      style={{ fontSize: max ? `min(${max}px, ${estimate})` : estimate, ...style }}
+      style={{
+        fontSize: max ? `min(${max}px, ${estimate})` : estimate,
+        ...(trackingEm === undefined ? null : { letterSpacing: `${trackingEm}em` }),
+        ...style,
+      }}
     >
       {children}
     </span>

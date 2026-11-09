@@ -23,10 +23,10 @@
   position: relative;
   height: 640px;
   overflow: hidden;
-  background-color: #f6f2ea;
+  background-color: #101011;
   background-image:
-    linear-gradient(to right, rgba(220, 215, 206, 0.6) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(220, 215, 206, 0.6) 1px, transparent 1px);
+    linear-gradient(to right, rgba(44, 44, 45, 0.9) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(44, 44, 45, 0.9) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
@@ -100,7 +100,7 @@
   right: 0;
   bottom: -2px;
   height: 2px;
-  background: #f97316;
+  background: var(--brand);
   transform-origin: left;
 }
 
@@ -202,7 +202,7 @@
 
 /* The passage that matched, highlighted behind its words, line by line. */
 .passage {
-  background-image: linear-gradient(rgba(249, 115, 22, 0.16), rgba(249, 115, 22, 0.16));
+  background-image: linear-gradient(rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.18));
   background-repeat: no-repeat;
   background-size: 100% 100%;
   -webkit-box-decoration-break: clone;

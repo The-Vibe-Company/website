@@ -13,7 +13,7 @@ export function AgencyParisLink() {
   const locale = useLocale();
 
   return (
-    <div className="mx-auto max-w-[100rem] px-6 pb-12 md:px-12 md:pb-16 md:-mt-12">
+    <div className="mx-auto max-w-[90rem] px-6 pb-12 md:px-10 lg:px-16 md:pb-16 md:-mt-12">
       <Link
         href={splitPath(AGENCY_PARIS_PATHS, locale)}
         className="flex items-center justify-between gap-4 border-y border-border py-4 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground transition-colors hover:text-muted-foreground"

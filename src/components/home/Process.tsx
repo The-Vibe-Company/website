@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { BrandSquare } from "@/components/BrandSquare";
 
 const STEPS = [
   { n: "01", key: "brief" },
@@ -17,12 +18,13 @@ export function Process() {
   return (
     <section
       id="process"
-      className="border-y-2 border-foreground bg-foreground text-background"
+      data-surface="inverse"
+      className="border-y border-border bg-foreground text-background"
     >
-      <div className="mx-auto max-w-[100rem] px-6 py-24 md:px-12 md:py-28">
+      <div className="mx-auto max-w-[90rem] px-6 py-24 md:px-10 lg:px-16 md:py-28">
         <div className="mb-14 border-b border-white/15 pb-8 md:mb-20">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-white/55">
-            {t("kicker")}
+            <BrandSquare />{t("kicker")}
           </span>
           <h2
             className="m-0 font-bold text-background"
@@ -56,7 +58,7 @@ export function Process() {
                 <span className="text-5xl font-bold leading-none tracking-[-0.05em] text-background md:text-[64px]">
                   {step.n}
                 </span>
-                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
+                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
                   {t(`steps.${step.key}.label`)}
                 </span>
               </div>

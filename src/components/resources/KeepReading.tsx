@@ -60,7 +60,7 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
           )}
           <div className="flex flex-1 flex-col justify-center p-7 md:p-9">
             <div className="mb-3 flex items-center gap-3">
-              <span className="inline-flex items-center rounded-full border border-orange-500/40 bg-orange-500/10 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-widest text-orange-600">
+              <span className="inline-flex items-center rounded-full border border-brand/40 bg-brand/10 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-widest text-brand">
                 {t('next')}
               </span>
               <LanguageFlag language={featured.language} variant="inline" />

@@ -88,7 +88,7 @@ export async function QuivrBento({ locale }: { locale: string }) {
   const sourcePill = (i: number) => (
     <span
       key={`s-${i}`}
-      className="inline-flex h-11 shrink-0 items-center gap-2.5 border border-foreground bg-background pl-2 pr-4 text-[14px] font-semibold"
+      className="inline-flex h-11 shrink-0 items-center gap-2.5 border border-border bg-background pl-2 pr-4 text-[14px] font-semibold"
     >
       <SourceIcon kind={SOURCES[i] ?? "feed"} />
       {sources[i]}
@@ -102,12 +102,12 @@ export async function QuivrBento({ locale }: { locale: string }) {
   );
 
   return (
-    <div className={`${s.grid} gap-px border border-foreground bg-border`}>
+    <div className={`${s.grid} gap-px border border-border bg-border`}>
       {/* Search: the hero. A query in the field, the passage that matched. */}
       <Tile area={s.search} index={0} title={t("search.title")} body={t("search.body")}>
         <div aria-hidden="true" className={`${s.picture} ${s.fadeFoot}`}>
           <div className="absolute inset-x-6 top-6 md:inset-x-7">
-            <div className="flex h-12 items-center gap-3 border-2 border-foreground bg-background px-3.5">
+            <div className="flex h-12 items-center gap-3 border border-border bg-background px-3.5">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" className="shrink-0">
                 <circle cx="7" cy="7" r="4.5" />
                 <path d="m10.5 10.5 3.5 3.5" />
@@ -120,7 +120,7 @@ export async function QuivrBento({ locale }: { locale: string }) {
                 {t("search.mode")}
               </span>
             </div>
-            <div className={`mt-3 border border-foreground bg-background p-4 ${s.result}`}>
+            <div className={`mt-3 border border-border bg-background p-4 ${s.result}`}>
               <div className="flex items-start gap-3">
                 <SourceIcon kind="feed" />
                 <div className="min-w-0">
@@ -128,7 +128,7 @@ export async function QuivrBento({ locale }: { locale: string }) {
                   <div className="mt-0.5 text-[12px] text-muted-foreground">{t("search.result.source")}</div>
                 </div>
               </div>
-              <p className="m-0 mt-3 border-l-2 border-orange-500 pl-3 text-[14px] leading-[1.55] text-foreground">
+              <p className="m-0 mt-3 border-l-2 border-brand pl-3 text-[14px] leading-[1.55] text-foreground">
                 <span className={s.passage}>{t("search.result.passage")}</span>
               </p>
             </div>
@@ -179,7 +179,7 @@ export async function QuivrBento({ locale }: { locale: string }) {
                 <Headline text={t("versions.before")} markClassName={s.strike} />
               </p>
             </div>
-            <div className={`mt-3 border-2 border-foreground bg-background px-4 py-3 shadow-[6px_6px_0_0_var(--border)] ${s.later}`}>
+            <div className={`mt-3 border border-border bg-background px-4 py-3 shadow-[6px_6px_0_0_var(--border)] ${s.later}`}>
               <div className="flex items-center gap-2">
                 <span className={`text-foreground ${MONO}`}>v2</span>
                 <span className={`border border-border px-1.5 leading-4 text-muted-foreground ${MONO}`}>
@@ -187,7 +187,7 @@ export async function QuivrBento({ locale }: { locale: string }) {
                 </span>
               </div>
               <p className="m-0 mt-1.5 text-[15px] font-semibold leading-[1.4] text-foreground">
-                <Headline text={t("versions.after")} markClassName="bg-orange-500/15 px-0.5" />
+                <Headline text={t("versions.after")} markClassName="bg-brand/15 px-0.5" />
               </p>
               <div className="mt-3 flex flex-col gap-2">
                 {["92%", "78%", "85%", "64%", "88%", "72%"].map((w) => (
@@ -230,12 +230,12 @@ export async function QuivrBento({ locale }: { locale: string }) {
       {/* Outputs: what your app and your agents connect to. */}
       <Tile area={s.outputs} index={2} title={t("outputs.title")} body={t("outputs.body")}>
         <div aria-hidden="true" className="px-6 pb-6 pt-6 md:px-7 md:pb-7">
-          <div className="border border-foreground bg-background">
+          <div className="border border-border bg-background">
             {outputs.map((output, j) => (
               <div key={output.label} className="flex items-center gap-3 border-b border-border px-4 py-3 last:border-b-0">
                 <span className="relative flex h-2.5 w-2.5 shrink-0 items-center justify-center rounded-full border border-border">
                   <span
-                    className={`absolute -inset-px rounded-full bg-orange-500 ${s.light}`}
+                    className={`absolute -inset-px rounded-full bg-brand ${s.light}`}
                     style={{ "--j": j } as CSSProperties}
                   />
                 </span>
@@ -273,7 +273,7 @@ export async function QuivrBento({ locale }: { locale: string }) {
       {/* Self-host: the engine on your servers, and what it runs on. */}
       <Tile area={s.selfhost} index={1} title={t("selfHost.title")} body={t("selfHost.body")}>
         <div aria-hidden="true" className="px-6 pb-6 pt-6 md:px-7 md:pb-7">
-          <div className="border border-dashed border-foreground/40 px-4 pb-5 pt-3">
+          <div className="border border-dashed border-border px-4 pb-5 pt-3">
             <div className="flex items-center justify-between gap-3">
               <span className={`text-muted-foreground ${MONO}`}>{t("selfHost.servers")}</span>
               <code className="truncate font-mono text-[11px] text-foreground">$ {t("selfHost.command")}</code>
@@ -296,7 +296,7 @@ export async function QuivrBento({ locale }: { locale: string }) {
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {stack.map((name, j) => (
-                <div key={name} className="relative border border-foreground bg-background px-2 py-2.5 text-center text-[13px] font-semibold text-foreground">
+                <div key={name} className="relative border border-border bg-background px-2 py-2.5 text-center text-[13px] font-semibold text-foreground">
                   <span
                     className={`absolute -top-4 left-[calc(50%-0.5px)] h-4 w-px bg-foreground ${s.wireY} ${s.wire} ${j > 1 ? "hidden sm:block" : ""}`}
                     style={{ "--j": 2 + j } as CSSProperties}

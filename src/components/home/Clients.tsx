@@ -51,7 +51,7 @@ export function Clients() {
               src={client.src}
               alt={client.name}
               {...clientLogoSize(client.src)}
-              className={`${client.className} w-auto object-contain brightness-0`}
+              className={`${client.className} w-auto object-contain brightness-0 invert`}
               loading="eager"
               fetchPriority="low"
               decoding="async"

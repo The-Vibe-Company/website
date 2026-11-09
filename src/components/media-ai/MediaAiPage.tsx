@@ -39,6 +39,7 @@ import {
   webPageNode,
 } from "@/lib/structured-data";
 import { clientLogoSize } from "@/lib/client-logos";
+import { BrandSquare } from "@/components/BrandSquare";
 
 // List marker drawn as a short rule rather than a dash character.
 const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
@@ -68,7 +69,7 @@ export async function mediaAiMetadata(locale: string): Promise<Metadata> {
   };
 }
 
-const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 const H2 =
   "m-0 font-bold text-foreground text-[clamp(32px,5vw,64px)] leading-[0.95] tracking-[-0.04em]";
 const MONO =
@@ -79,7 +80,7 @@ const TEXT_LINK =
 const MONO_LINK =
   "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
 const CARD_HOVER =
-  "transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]";
+  "transition-colors duration-300 hover:border-border-strong hover:bg-card";
 
 /** The FAQ answers' link tags, kept as plain text for the JSON-LD. */
 const FAQ_PLAIN_TAGS = {
@@ -155,7 +156,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
       <main id="main-content" tabIndex={-1} className="flex-1">
         {/* 1 — The one H1 on the page, the promise, the facts and the call. */}
         <section className={`${SECTION} pb-14 pt-12 md:pb-20 md:pt-16`}>
-          <span className={`mb-6 block ${MONO}`}>{t("kicker")}</span>
+          <span className={`mb-6 block ${MONO}`}><BrandSquare />{t("kicker")}</span>
           <h1
             className="m-0 max-w-[24ch] font-bold text-foreground"
             style={{
@@ -166,7 +167,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
           >
             {t("title")}
           </h1>
-          <p className="m-0 mt-8 max-w-[760px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+          <p className="m-0 mt-8 max-w-[760px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
             {t("lede")}
           </p>
 
@@ -198,7 +199,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
           <div className="mt-10 grid grid-cols-1 gap-10 md:mt-14 md:grid-cols-2 md:gap-12">
             <div>
               <span className={MONO}>{t("audience.typesLabel")}</span>
-              <ul className="m-0 mt-4 flex list-none flex-col border-t-2 border-foreground p-0">
+              <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
                 {MEDIA_AUDIENCE_KEYS.map((key, i) => (
                   <li
                     key={key}
@@ -214,7 +215,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
             </div>
             <div>
               <span className={MONO}>{t("audience.signalsLabel")}</span>
-              <ul className="m-0 mt-4 flex list-none flex-col border-t-2 border-foreground p-0">
+              <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
                 {(t.raw("audience.signals") as string[]).map((signal) => (
                   <li
                     key={signal}
@@ -239,7 +240,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
             {MEDIA_OFFER_KEYS.map((key, i) => (
               <article
                 key={key}
-                className={`flex flex-col border border-foreground bg-background p-7 ${CARD_HOVER} ${
+                className={`flex flex-col border border-border bg-background p-7 ${CARD_HOVER} ${
                   i === 0 ? "md:col-span-2" : ""
                 }`}
               >
@@ -261,7 +262,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
           <h2 className={`${H2} max-w-[22ch]`}>{t("proof.title")}</h2>
           <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("proof.intro")}</p>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-14">
+          <div className="mt-10 border-t border-border md:mt-14">
             {MEDIA_PROOF_KEYS.map((key, i) => (
               <article
                 key={key}
@@ -290,9 +291,9 @@ export async function MediaAiPage({ locale }: { locale: string }) {
           <p className={`${PROSE} mt-5 max-w-[720px]`}>{t("afp.intro")}</p>
 
           <article
-            className={`mt-10 grid grid-cols-1 border border-foreground bg-background md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${CARD_HOVER}`}
+            className={`mt-10 grid grid-cols-1 border border-border bg-background md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${CARD_HOVER}`}
           >
-            <div className="flex flex-col border-b border-foreground p-7 md:p-9 lg:border-b-0 lg:border-r">
+            <div className="flex flex-col border-b border-border p-7 md:p-9 lg:border-b-0 lg:border-r">
               {afp ? (
                 <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
                   <h3 className="m-0">
@@ -302,18 +303,18 @@ export async function MediaAiPage({ locale }: { locale: string }) {
                       src={afp.logo}
                       alt={afp.client}
                       {...clientLogoSize(afp.logo)}
-                      className="h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
+                      className="h-8 w-auto max-w-[180px] object-contain brightness-0 invert object-left md:h-9"
                       loading="lazy"
                       decoding="async"
                     />
                   </h3>
-                  <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+                  <span className="border border-border-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-soft-foreground">
                     {afp.sector}
                   </span>
                 </div>
               ) : null}
 
-              <dl className="m-0 mt-8 border-t-2 border-foreground">
+              <dl className="m-0 mt-8 border-t border-border">
                 {MEDIA_STAT_KEYS.map((key) => (
                   <div
                     key={key}
@@ -334,7 +335,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
                     key={point}
                     className="flex gap-3 border-b border-border py-3 text-[15px] leading-[1.5] text-foreground last:border-b-0"
                   >
-                    <span aria-hidden="true" className="font-mono text-orange-500">
+                    <span aria-hidden="true" className="font-mono text-brand">
                       →
                     </span>
                     <span>{point}</span>
@@ -353,7 +354,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
             process section, with the mid-page call. */}
         <section
           data-surface="inverse"
-          className="border-y-2 border-foreground bg-foreground text-background"
+          className="border-y border-border bg-foreground text-background"
         >
           <div className={`${SECTION} py-16 md:py-24`}>
             <h2
@@ -402,7 +403,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
         <section className={`${SECTION} py-14 md:py-20`}>
           <h2 className={H2}>{t("faq.title")}</h2>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-12">
+          <div className="mt-10 border-t border-border md:mt-12">
             {MEDIA_FAQ_KEYS.map((key) => (
               <article
                 key={key}
@@ -416,7 +417,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
             ))}
           </div>
 
-          <p className={`${PROSE} mt-10 border-l-2 border-foreground pl-5`}>
+          <p className={`${PROSE} mt-10 border-l border-border-strong pl-5`}>
             {t.rich("about", { link: link(splitPath(ABOUT_PATHS, locale)) })}
           </p>
         </section>

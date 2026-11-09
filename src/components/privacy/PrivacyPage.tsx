@@ -14,6 +14,7 @@ import {
 import { PRIVACY_SECTION_KEYS } from "@/lib/privacy";
 import { breadcrumbList } from "@/lib/structured-data";
 import { MarkedText } from "./MarkedText";
+import { BrandSquare } from "@/components/BrandSquare";
 
 /**
  * The privacy policy, served at /fr/confidentialite and /en/privacy. Every
@@ -47,7 +48,7 @@ type Section = {
   after?: string[];
 };
 
-const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 const MONO =
   "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
 const PROSE = "m-0 max-w-[72ch] text-[15px] leading-[1.65] text-muted-foreground md:text-base";
@@ -77,11 +78,11 @@ function Paragraphs({ paragraphs }: { paragraphs?: string[] }) {
  */
 function DataTable({ table }: { table: Table }) {
   return (
-    <div className="mt-8 border border-foreground">
+    <div className="mt-8 border border-border">
       <table className="w-full border-collapse text-left md:table-fixed">
         <caption className="sr-only">{table.caption}</caption>
         <thead className="hidden md:table-header-group">
-          <tr className="border-b-2 border-foreground">
+          <tr className="border-b border-border">
             {table.columns.map((column) => (
               <th
                 key={column}
@@ -145,7 +146,7 @@ export async function PrivacyPage({ locale }: { locale: string }) {
       <main id="main-content" tabIndex={-1} className="flex-1">
         <section className={`${SECTION} pb-12 pt-12 md:pb-16 md:pt-16`}>
           <div className={`mb-6 flex flex-wrap gap-x-4 gap-y-1 ${MONO}`}>
-            <span>{t("kicker")}</span>
+            <span><BrandSquare />{t("kicker")}</span>
             <span aria-hidden="true">·</span>
             <span>{t("updated")}</span>
           </div>
@@ -159,7 +160,7 @@ export async function PrivacyPage({ locale }: { locale: string }) {
           >
             {t("title")}
           </h1>
-          <p className="m-0 mt-8 max-w-[680px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+          <p className="m-0 mt-8 max-w-[680px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
             {t("lede")}
           </p>
         </section>
@@ -170,7 +171,7 @@ export async function PrivacyPage({ locale }: { locale: string }) {
           {/* Table of contents: a plain list of anchors, pinned on desktop. */}
           <nav aria-label={t("tocLabel")} className="lg:sticky lg:top-24 lg:self-start">
             <span className={`block ${MONO}`}>{t("tocLabel")}</span>
-            <ol className="m-0 mt-4 flex list-none flex-col gap-2 border-l-2 border-foreground p-0 pl-4">
+            <ol className="m-0 mt-4 flex list-none flex-col gap-2 border-l border-border p-0 pl-4">
               {PRIVACY_SECTION_KEYS.map((key, i) => (
                 <li key={key}>
                   <a
@@ -211,7 +212,7 @@ export async function PrivacyPage({ locale }: { locale: string }) {
                       {section.items.map((item) => (
                         <article
                           key={item.title}
-                          className="border border-foreground bg-background p-6 md:p-8"
+                          className="border border-border bg-background p-6 md:p-8"
                         >
                           <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
                             {item.title}

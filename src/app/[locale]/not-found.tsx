@@ -28,9 +28,9 @@ export default async function NotFound() {
       className="flex min-h-screen flex-col bg-background text-foreground"
     >
       <TopNav />
-      <main id="main-content" tabIndex={-1} className="flex flex-1 items-center justify-center px-6 py-24 md:px-12">
+      <main id="main-content" tabIndex={-1} className="flex flex-1 items-center justify-center px-6 py-24 md:px-10 lg:px-16">
         <div className="w-full max-w-lg text-center">
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-orange-500">
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-brand">
             404
           </span>
           <h1 className="mt-4 text-4xl font-bold tracking-tighter text-foreground md:text-5xl">
@@ -39,7 +39,7 @@ export default async function NotFound() {
           <p className="mx-auto mt-4 max-w-md text-muted-foreground">{t.body}</p>
           <Link
             href="/"
-            className="mt-8 inline-flex items-center gap-2 border-2 border-foreground bg-background px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
+            className="mt-8 inline-flex items-center gap-2 rounded-[2px] border border-border-strong bg-background px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:border-foreground"
           >
             {t.cta}
             <span aria-hidden="true">&rarr;</span>

@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getProjects, type ContentLocale } from "@/lib/projects";
 import { LOOP_ARROW_CLASS, LOOP_COPIES, useLoopCarousel } from "./useLoopCarousel";
+import { BrandSquare } from "@/components/BrandSquare";
 
 const ORG_URL = "https://github.com/The-Vibe-Company";
 
@@ -23,10 +24,10 @@ export function Proof() {
       id="proof"
       className="border-b border-border bg-background"
     >
-      <div className="mx-auto max-w-[100rem] px-6 pb-12 pt-14 md:px-12 md:py-28">
+      <div className="mx-auto max-w-[90rem] px-6 pb-12 pt-14 md:px-10 lg:px-16 md:py-28">
         {/* Phones: one ruled row per product instead of a carousel, so all
             six are in view without a swipe. */}
-        <div className="flex items-baseline justify-between border-b-2 border-foreground pb-3.5 md:hidden">
+        <div className="flex items-baseline justify-between border-b border-border pb-3.5 md:hidden">
           <h2 className="m-0 text-[15px] font-bold tracking-[-0.01em] text-foreground">{t("indexTitle")}</h2>
           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{t("indexTag")}</span>
         </div>
@@ -53,7 +54,7 @@ export function Proof() {
 
         <div className="mb-12 hidden md:mb-14 md:block">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {t("kicker")}
+            <BrandSquare />{t("kicker")}
           </span>
           <h2
             className="m-0 font-bold text-foreground"
@@ -113,7 +114,7 @@ export function Proof() {
                     // Each card borrows its project's accent (the same one its
                     // portfolio page uses) for the top rule, arrow and hover shadow.
                     style={{ "--card-accent": p.accent } as React.CSSProperties}
-                    className="group relative flex h-full flex-col overflow-hidden border border-foreground bg-background no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--card-accent)]"
+                    className="group relative flex h-full flex-col overflow-hidden border border-border bg-background no-underline transition-colors duration-300 hover:border-[var(--card-accent)] hover:bg-card"
                   >
                     <div className="h-[3px] w-full bg-[var(--card-accent)]" aria-hidden="true" />
                     <div className="flex flex-1 flex-col gap-3 p-6">

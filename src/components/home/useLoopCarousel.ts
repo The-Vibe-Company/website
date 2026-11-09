@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 // Loop arrows: grey frame, orange Lucide arrow (centers cleanly), fills orange
 // on hover — a cue that there are more cards to scroll to left and right.
 export const LOOP_ARROW_CLASS =
-  "hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center self-center border-2 border-border text-orange-500 transition-colors hover:border-orange-500 hover:bg-orange-500 hover:text-background sm:flex";
+  "hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center self-center border-2 border-border text-brand transition-colors hover:border-brand hover:bg-brand hover:text-background sm:flex";
 
 /**
  * Copies of the card set rendered in the track. Only the middle one is in the

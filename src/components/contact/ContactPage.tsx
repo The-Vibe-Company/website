@@ -19,6 +19,7 @@ import {
   splitPathAlternates,
 } from "@/lib/site";
 import { breadcrumbList } from "@/lib/structured-data";
+import { BrandSquare } from "@/components/BrandSquare";
 
 /**
  * The contact page, served at /fr/contact and /en/contact. Server-rendered
@@ -41,7 +42,7 @@ export async function contactMetadata(locale: string): Promise<Metadata> {
   };
 }
 
-const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 const H2 =
   "m-0 font-bold text-foreground text-[clamp(28px,4vw,48px)] leading-[0.95] tracking-[-0.04em]";
 const MONO =
@@ -70,7 +71,7 @@ export async function ContactPage({ locale }: { locale: string }) {
       <main id="main-content" tabIndex={-1} className="flex-1">
         {/* 1 — Who is behind the site, and the one call to action. */}
         <section className={`${SECTION} pb-14 pt-12 md:pb-20 md:pt-16`}>
-          <span className={`mb-6 block ${MONO}`}>{t("kicker")}</span>
+          <span className={`mb-6 block ${MONO}`}><BrandSquare />{t("kicker")}</span>
           <h1
             className="m-0 max-w-[18ch] font-bold text-foreground"
             style={{
@@ -81,7 +82,7 @@ export async function ContactPage({ locale }: { locale: string }) {
           >
             {t("title")}
           </h1>
-          <p className="m-0 mt-8 max-w-[680px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+          <p className="m-0 mt-8 max-w-[680px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
             {t("lede")}
           </p>
 
@@ -106,7 +107,7 @@ export async function ContactPage({ locale }: { locale: string }) {
               <h2 className={H2}>{t("details.title")}</h2>
               <dl
                 aria-label={t("details.caption")}
-                className="m-0 mt-6 border-t-2 border-foreground"
+                className="m-0 mt-6 border-t border-border"
               >
                 {DETAIL_KEYS.map((key) => (
                   <div
@@ -137,7 +138,7 @@ export async function ContactPage({ locale }: { locale: string }) {
             {ABOUT_TEAM.map((member) => (
               <article
                 key={member.key}
-                className="flex flex-col border border-foreground bg-background p-7 md:p-8"
+                className="flex flex-col border border-border bg-background p-7 md:p-8"
               >
                 <span className={MONO}>{t("team.role")}</span>
                 <h3 className="m-0 mt-3 text-[26px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[32px]">

@@ -5,10 +5,11 @@ import { useTranslations } from "next-intl";
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { FitText } from "./FitText";
+import { BrandSquare } from "@/components/BrandSquare";
 
 /**
  * Rendered on six routes that do not share a rail: the homepage and the two
- * index pages run on 100rem, the two detail pages on 80rem. The width used to
+ * index pages run on 90rem, the two detail pages on 80rem. The width used to
  * be hard-coded to 1400px, which matched neither — so its kicker never lined
  * up with the page around it. Each caller states its own rail now.
  */
@@ -26,12 +27,12 @@ export function FinalCTA({
   return (
     <section
       id="contact"
-      className="relative overflow-hidden border-b-2 border-foreground bg-background"
+      className="relative overflow-hidden border-b border-border bg-background"
     >
       {/* Phones: the closing poster, on ink so it runs straight into the
           footer as one dark slab, with the call to action inverted to paper. */}
       <div data-surface="inverse" className="bg-foreground px-6 pb-10 pt-14 text-background md:hidden">
-        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-background/60">{`// ${t("kicker")}`}</span>
+        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-background/60"><BrandSquare />{t("kicker")}</span>
         {/* Looser than the hero's poster: this pair carries accents ("à",
             "è") that would otherwise cut into the line above. */}
         <h2 className="m-0 mt-5 font-extrabold leading-[0.92] tracking-[-1px] [container-type:inline-size]">
@@ -42,7 +43,7 @@ export function FinalCTA({
           href={BOOKING_URL}
           {...bookingLocation("cta_final")}
           onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
-          className="mt-9 inline-flex items-center gap-3 bg-background px-6 py-4 text-[15px] font-semibold text-foreground"
+          className="mt-9 inline-flex items-center gap-3 rounded-[2px] bg-background px-6 py-4 text-[15px] font-medium text-foreground"
         >
           {t("bookCall")}
           <span aria-hidden="true" className="text-lg leading-none">
@@ -64,22 +65,19 @@ export function FinalCTA({
       </div>
 
       <div className="hidden md:block">
+        {/* The hero's orange bloom, mirrored: the page closes in the same
+            light it opened with. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-50"
+          className="pointer-events-none absolute -bottom-72 -left-48 h-[720px] w-[960px]"
           style={{
-            backgroundImage:
-              "linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-            maskImage:
-              "linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%)",
+            background:
+              "radial-gradient(closest-side, rgb(242 115 19 / 0.13), rgb(242 115 19 / 0.04) 55%, transparent)",
           }}
         />
 
-        <div className={`relative mx-auto px-6 py-28 md:px-12 md:py-32 ${
-            rail === "narrow" ? "max-w-[80rem]" : "max-w-[100rem]"
+        <div className={`relative mx-auto px-6 py-28 md:px-10 lg:px-16 md:py-32 ${
+            rail === "narrow" ? "max-w-[80rem]" : "max-w-[90rem]"
           }`}>
           <motion.span
             initial={{ opacity: 0, y: 12 }}
@@ -91,7 +89,7 @@ export function FinalCTA({
             }}
             className="mb-8 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground"
           >
-            {`// ${t("kicker")}`}
+            <BrandSquare />{t("kicker")}
           </motion.span>
 
           <motion.h2
@@ -136,10 +134,10 @@ export function FinalCTA({
               href={BOOKING_URL}
               {...bookingLocation("cta_final")}
               onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
-              className="inline-flex items-center border-2 border-foreground bg-foreground px-7 py-5 text-[17px] font-semibold text-background transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
+              className="group inline-flex h-[60px] items-center rounded-[2px] bg-foreground px-7 text-[17px] font-medium text-background transition-colors duration-300 hover:bg-soft-foreground"
             >
               {t("bookCall")}
-              <span aria-hidden="true" className="ml-3">
+              <span aria-hidden="true" className="ml-3 transition-transform duration-300 group-hover:translate-x-1">
                 →
               </span>
             </a>

@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
+import { Backers } from "./Backers";
 import { CLIENTS } from "./Clients";
 import { FitText } from "./FitText";
 import { clientLogoSize } from "@/lib/client-logos";
@@ -24,14 +24,11 @@ export function HeroMobile() {
   return (
     <section
       id="hero-mobile"
-      className="border-b-2 border-foreground bg-background px-6 pt-5 md:hidden"
+      className="border-b border-border bg-background px-6 pt-5 md:hidden"
     >
       <div className={`flex items-center justify-between gap-3 whitespace-nowrap text-muted-foreground ${MONO}`}>
-        <span className="inline-flex items-center gap-2 text-foreground">
-          <span aria-hidden="true" className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-500 opacity-60 motion-reduce:hidden" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500" />
-          </span>
+        <span className="inline-flex items-center gap-2.5 text-soft-foreground">
+          <span aria-hidden="true" className="h-2 w-2 bg-brand" />
           {tFooter("openToProjects")}
         </span>
         <span>Paris</span>
@@ -41,19 +38,12 @@ export function HeroMobile() {
           heading's own 16px, not the fitted lines, and that -1px is the
           approved look. */}
       <h1 className="m-0 mt-7 font-extrabold leading-[0.84] tracking-[-1px] text-foreground [container-type:inline-size]">
+        {/* Both lines solid paper, as the desktop slab: the poster is one
+            block of type, not a headline and its echo. */}
         <FitText>{poster[0]}</FitText>
-        {/* The second line is drawn in outline, so the pair reads as one
-            poster rather than two stacked headlines. */}
-        <FitText className="text-transparent [-webkit-text-stroke:2px_var(--foreground)]">{poster[1]}</FitText>
-        <span className="mt-6 block max-w-[20ch] text-[21px] font-semibold leading-[1.25] tracking-[-0.02em]">
-          <span
-            className="[box-decoration-break:clone] [-webkit-box-decoration-break:clone]"
-            style={{
-              backgroundImage: "linear-gradient(to top, rgb(249 115 22 / 0.3) 0.35em, transparent 0.35em)",
-            }}
-          >
-            {t("titleLine2")}
-          </span>
+        <FitText>{poster[1]}</FitText>
+        <span className="mt-7 block max-w-[20ch] text-[22px] font-medium leading-[1.2] tracking-[-0.025em]">
+          {t("titleLine2")}
         </span>
       </h1>
 
@@ -68,7 +58,7 @@ export function HeroMobile() {
           href={BOOKING_URL}
           {...bookingLocation("hero")}
           onClick={() => captureEvent("discovery_call_clicked", { location: "hero" })}
-          className="inline-flex items-center gap-3 bg-foreground px-6 py-4 text-[15px] font-semibold text-background"
+          className="inline-flex items-center gap-3 rounded-[2px] bg-foreground px-6 py-4 text-[15px] font-medium text-background"
         >
           {t("bookCall")}
           <span aria-hidden="true" className="text-lg leading-none">
@@ -79,23 +69,12 @@ export function HeroMobile() {
       </div>
 
       {/* The backers, as on desktop. */}
-      <div className="mt-8 flex items-center gap-6">
-        <a
-          href="https://www.ycombinator.com/companies/quivr"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex"
-        >
-          <Image src="/images/partners/y-combinator.svg" alt="Y Combinator W24" width={154} height={38} className="h-9 w-auto" />
-        </a>
-        <span aria-hidden="true" className="h-8 w-px bg-border" />
-        <Image src="/images/partners/france-2030.svg" alt="France 2030" width={52} height={52} className="h-11 w-auto" />
-      </div>
+      <Backers className="mt-8 flex-wrap gap-x-8" />
 
       {/* A fixed gap, not pinned to the foot of the screen: pinned, it opened
           a hole of several hundred pixels on any phone taller than the
           content. */}
-      <div className="-mx-6 mt-10 border-t-2 border-foreground">
+      <div className="-mx-6 mt-10 border-t border-border">
         <p className={`m-0 flex justify-between border-b border-border px-6 py-3 text-muted-foreground ${MONO}`}>
           <span>{tClients("trustedBy")}</span>
           <span aria-hidden="true">{String(CLIENTS.length).padStart(2, "0")}</span>
@@ -123,7 +102,7 @@ export function HeroMobile() {
                   src={client.src}
                   alt={client.name}
                   {...clientLogoSize(client.src)}
-                  className="max-h-[26px] w-auto max-w-[72%] object-contain brightness-0"
+                  className="max-h-[26px] w-auto max-w-[72%] object-contain brightness-0 invert"
                   loading="lazy"
                   decoding="async"
                 />

@@ -1,21 +1,15 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { BrandGlyph } from "@/components/BrandGlyph";
 import { ContactMenu } from "@/components/ContactMenu";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import {
-  components,
-  typography,
-  animations,
-  cn,
-  createTransition,
-} from "@/lib/design-system";
-import { BOOKING_URL, bookingLocation } from "@/lib/booking";
+import { typography, cn, createTransition } from "@/lib/design-system";
+import { BOOKING_URL, CONTACT_EMAIL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { resourcesTheme } from "@/lib/resources-theme";
 
@@ -79,7 +73,6 @@ function TopNavInner({
     pathname === href || pathname.startsWith(`${href}/`);
   // /resources has its own large search box, so the bar does not repeat it.
   const showSearch = showResourcesSearch && pathname !== "/resources";
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileMenuClosing, setMobileMenuClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -214,7 +207,7 @@ function TopNavInner({
         aria-label={tA11y("mainNavigation")}
         aria-hidden={mobileMenuActive || undefined}
         inert={mobileMenuActive || undefined}
-        className="sticky top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 lg:px-24 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50"
+        className="sticky top-0 left-0 right-0 z-[60] bg-background/85 px-6 backdrop-blur-xl md:px-10 lg:px-16"
         initial={hasPlayedEntrance ? false : { opacity: 0, y: -20 }}
         onAnimationComplete={() => {
           hasPlayedEntrance = true;
@@ -222,21 +215,15 @@ function TopNavInner({
         animate={{ opacity: 1, y: 0 }}
         transition={createTransition(0.6, 0.3)}
       >
+        {/* The rule stops at the page gutters, like every other rule on the
+            site, instead of running edge to edge under the blur. */}
+        <div className="mx-auto flex h-16 max-w-[90rem] items-center justify-between border-b border-border lg:h-[84px]">
         {/* Wordmark */}
         <Link
           href="/"
-          className={cn(
-            typography.label.mono,
-            "inline-flex shrink-0 items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
-          )}
+          className="inline-flex shrink-0 items-center gap-3 font-mono text-[13px] uppercase tracking-[0.2em] text-foreground transition-colors hover:text-soft-foreground"
         >
-          <Image
-            src="/favicon.svg"
-            alt="The Vibe Co. logo"
-            width={20}
-            height={20}
-            className="h-5 w-5"
-          />
+          <BrandGlyph className="h-4 w-auto" />
           <span>THE VIBE CO.</span>
         </Link>
 
@@ -289,15 +276,13 @@ function TopNavInner({
           )}
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-2">
-            <ul className="flex items-center gap-2 list-none m-0 p-0">
-              {navItems.map((item, index) => (
+          <div className="hidden items-center lg:flex">
+            <ul className="m-0 flex list-none items-center gap-9 p-0">
+              {navItems.map((item) => (
                 <li key={item.key}>
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
                     onClick={() =>
                       captureEvent("nav_link_clicked", {
                         label: item.key,
@@ -306,34 +291,40 @@ function TopNavInner({
                       })
                     }
                     className={cn(
-                      components.nav.link,
-                      "relative",
+                      "text-[14px] text-soft-foreground transition-colors hover:text-foreground",
                       isActive(item.href) &&
-                        "text-foreground underline decoration-1 underline-offset-[6px]"
+                        "text-foreground underline decoration-brand decoration-1 underline-offset-[8px]"
                     )}
                   >
-                    {hoveredIndex === index && (
-                      <motion.div
-                        layoutId="nav-hover"
-                        className="absolute inset-0 bg-muted/20 rounded-full -z-10"
-                        transition={animations.easing.bounce}
-                      />
-                    )}
                     {t(item.key)}
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
-            <LanguageSwitcher />
-            <div className={cn(components.divider.vertical, "mx-2")} aria-hidden="true" />
-            <ContactMenu
-              location="nav"
-              // The fixed search panel (below xl) would cover the menu.
-              onOpen={() => setSearchOpen(false)}
-              triggerClassName={cn(components.button.primary, "min-w-[150px] rounded-none text-center")}
-              menuClassName="absolute right-0 top-full mt-2 w-max"
-            />
+            <LanguageSwitcher className="ml-[52px]" />
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              onClick={() => captureEvent("contact_email_clicked", { location: "nav" })}
+              aria-label={t("contactEmail")}
+              title={CONTACT_EMAIL}
+              className="ml-8 inline-flex h-11 w-11 items-center justify-center text-foreground transition-colors hover:text-brand"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="1.5" />
+                <path d="m3.5 6 8.5 7 8.5-7" />
+              </svg>
+            </a>
+            <a
+              href={BOOKING_URL}
+              {...bookingLocation("header")}
+              onClick={() => {
+                setSearchOpen(false);
+                captureEvent("discovery_call_clicked", { location: "nav" });
+              }}
+              className="ml-5 inline-flex h-11 items-center rounded-[2px] bg-foreground px-[18px] text-[14px] font-medium text-background transition-colors hover:bg-soft-foreground"
+            >
+              {t("bookCall")}
+            </a>
           </div>
 
           {/* Mobile hamburger */}
@@ -376,6 +367,7 @@ function TopNavInner({
               )}
             </svg>
           </button>
+        </div>
         </div>
       </motion.nav>
 
@@ -424,17 +416,14 @@ function TopNavInner({
             <Link
               href="/"
               onClick={closeMobileMenu}
-              className={cn(
-                typography.label.mono,
-                "absolute left-6 top-4 inline-flex h-10 items-center gap-2 text-foreground"
-              )}
+              className="absolute left-6 top-3 inline-flex h-10 items-center gap-3 font-mono text-[13px] uppercase tracking-[0.24em] text-foreground"
             >
-              <Image src="/favicon.svg" alt="" aria-hidden="true" width={20} height={20} className="h-5 w-5" />
+              <BrandGlyph className="h-[15px] w-auto" />
               <span>THE VIBE CO.</span>
             </Link>
             <button
               ref={menuCloseRef}
-              className="absolute top-4 right-6 p-2"
+              className="absolute top-3 right-6 p-2"
               onClick={closeMobileMenu}
               aria-label={tA11y("closeMenu")}
             >
@@ -494,7 +483,7 @@ function TopNavInner({
                   captureEvent("discovery_call_clicked", { location: "mobile_menu" });
                   closeMobileMenu();
                 }}
-                className="inline-flex items-center gap-3 border-2 border-foreground bg-foreground px-7 py-4 text-[15px] font-semibold text-background"
+                className="inline-flex items-center gap-3 rounded-[2px] bg-foreground px-7 py-4 text-[15px] font-semibold text-background"
               >
                 {t("bookCall")}
                 <span aria-hidden="true" className="text-lg">

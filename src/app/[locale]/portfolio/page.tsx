@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { getProjects, type ContentLocale } from "@/lib/projects";
 import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
 import { breadcrumbList } from "@/lib/structured-data";
+import { BrandSquare } from "@/components/BrandSquare";
 
 export async function generateMetadata({
   params,
@@ -57,9 +58,9 @@ export default async function PortfolioPage({
       />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section className="mx-auto max-w-[100rem] px-6 pb-16 pt-12 md:px-12 md:pb-20 md:pt-16">
+        <section className="mx-auto max-w-[90rem] px-6 pb-16 pt-12 md:px-10 lg:px-16 md:pb-20 md:pt-16">
           <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {t("kicker")}
+            <BrandSquare />{t("kicker")}
           </span>
           <h1
             className="m-0 max-w-[18ch] font-bold text-foreground"
@@ -85,13 +86,13 @@ export default async function PortfolioPage({
           </p>
         </section>
 
-        <section className="mx-auto max-w-[100rem] px-6 pb-20 md:px-12 md:pb-28">
+        <section className="mx-auto max-w-[90rem] px-6 pb-20 md:px-10 lg:px-16 md:pb-28">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {projects.map((p) => (
               <Link
                 key={p.slug}
                 href={`/portfolio/${p.slug}`}
-                className="group flex flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
+                className="group flex flex-col border border-border bg-background p-7 no-underline transition-all duration-300 hover:border-border-strong hover:bg-card md:p-8"
               >
                 <div className="flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between md:gap-4">
                   <div className="flex min-w-0 items-center gap-3">
@@ -107,7 +108,7 @@ export default async function PortfolioPage({
                       {p.name}
                     </span>
                   </div>
-                  <span className="shrink-0 border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground">
+                  <span className="shrink-0 border border-border-strong px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-soft-foreground">
                     {p.tag}
                   </span>
                 </div>
@@ -126,10 +127,10 @@ export default async function PortfolioPage({
         </section>
 
         <section className="border-t border-border">
-          <div className="mx-auto grid max-w-[100rem] grid-cols-1 gap-8 px-6 py-16 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16 md:px-12 md:py-24">
+          <div className="mx-auto grid max-w-[90rem] grid-cols-1 gap-8 px-6 py-16 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16 md:px-10 lg:px-16 md:py-24">
             <div>
               <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                {t("about.kicker")}
+                <BrandSquare />{t("about.kicker")}
               </span>
               <h2 className="m-0 max-w-[16ch] text-[34px] font-bold leading-[1.02] tracking-[-0.035em] text-foreground md:text-[48px]">
                 {t("about.title")}

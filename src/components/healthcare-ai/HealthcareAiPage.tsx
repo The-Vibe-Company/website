@@ -39,6 +39,7 @@ import {
   webPageNode,
 } from "@/lib/structured-data";
 import { clientLogoSize } from "@/lib/client-logos";
+import { BrandSquare } from "@/components/BrandSquare";
 
 // List marker drawn as a short rule rather than a dash character.
 const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
@@ -68,7 +69,7 @@ export async function healthcareAiMetadata(locale: string): Promise<Metadata> {
   };
 }
 
-const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 const H2 =
   "m-0 font-bold text-foreground text-[clamp(32px,5vw,64px)] leading-[0.95] tracking-[-0.04em]";
 const MONO =
@@ -79,7 +80,7 @@ const TEXT_LINK =
 const MONO_LINK =
   "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
 const CARD_HOVER =
-  "transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]";
+  "transition-colors duration-300 hover:border-border-strong hover:bg-card";
 
 /** The FAQ answers' link tags, kept as plain text for the JSON-LD. */
 const FAQ_PLAIN_TAGS = {
@@ -156,7 +157,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
       <main id="main-content" tabIndex={-1} className="flex-1">
         {/* 1 — The one H1 on the page, the promise, the facts and the call. */}
         <section className={`${SECTION} pb-14 pt-12 md:pb-20 md:pt-16`}>
-          <span className={`mb-6 block ${MONO}`}>{t("kicker")}</span>
+          <span className={`mb-6 block ${MONO}`}><BrandSquare />{t("kicker")}</span>
           <h1
             className="m-0 max-w-[22ch] font-bold text-foreground"
             style={{
@@ -167,7 +168,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
           >
             {t("title")}
           </h1>
-          <p className="m-0 mt-8 max-w-[760px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+          <p className="m-0 mt-8 max-w-[760px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
             {t("lede")}
           </p>
 
@@ -207,7 +208,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                   src={monka.logo}
                   alt={monka.client}
                   {...clientLogoSize(monka.logo)}
-                  className="h-8 w-auto max-w-[160px] object-contain"
+                  className="h-8 w-auto max-w-[160px] object-contain brightness-0 invert"
                   loading="lazy"
                   decoding="async"
                 />
@@ -228,7 +229,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
           <div className="mt-10 grid grid-cols-1 gap-10 md:mt-14 md:grid-cols-2 md:gap-12">
             <div>
               <span className={MONO}>{t("audience.typesLabel")}</span>
-              <ul className="m-0 mt-4 flex list-none flex-col border-t-2 border-foreground p-0">
+              <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
                 {HEALTHCARE_AUDIENCE_KEYS.map((key, i) => (
                   <li
                     key={key}
@@ -244,7 +245,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
             </div>
             <div>
               <span className={MONO}>{t("audience.signalsLabel")}</span>
-              <ul className="m-0 mt-4 flex list-none flex-col border-t-2 border-foreground p-0">
+              <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
                 {(t.raw("audience.signals") as string[]).map((signal) => (
                   <li
                     key={signal}
@@ -269,7 +270,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
             {HEALTHCARE_OFFER_KEYS.map((key, i) => (
               <article
                 key={key}
-                className={`flex flex-col border border-foreground bg-background p-7 ${CARD_HOVER} ${
+                className={`flex flex-col border border-border bg-background p-7 ${CARD_HOVER} ${
                   i === 0 ? "md:col-span-2" : ""
                 }`}
               >
@@ -277,7 +278,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                   <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+                  <span className="border border-border-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-soft-foreground">
                     {t(`offer.items.${key}.tag`)}
                   </span>
                 </div>
@@ -297,7 +298,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
           <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("hds.intro")}</p>
 
           <div className="mt-10 grid grid-cols-1 gap-10 md:mt-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
-            <figure className="m-0 self-start border border-dashed border-foreground p-5 md:p-7">
+            <figure className="m-0 self-start border border-dashed border-border p-5 md:p-7">
               <figcaption className={MONO}>{t("hds.scope.label")}</figcaption>
               <div
                 data-surface="inverse"
@@ -313,7 +314,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                   {t("hds.scope.host.desc")}
                 </p>
               </div>
-              <div className="mt-4 border border-foreground bg-background p-6">
+              <div className="mt-4 border border-border bg-background p-6">
                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                   02
                 </span>
@@ -325,7 +326,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
             </figure>
 
             <div>
-              <div className="border-t-2 border-foreground">
+              <div className="border-t border-border">
                 {HEALTHCARE_HDS_KEYS.map((key, i) => (
                   <article
                     key={key}
@@ -363,9 +364,9 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
 
           {monka ? (
             <article
-              className={`mt-10 grid grid-cols-1 border border-foreground bg-background md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${CARD_HOVER}`}
+              className={`mt-10 grid grid-cols-1 border border-border bg-background md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${CARD_HOVER}`}
             >
-              <div className="flex flex-col border-b border-foreground p-7 md:p-9 lg:border-b-0 lg:border-r">
+              <div className="flex flex-col border-b border-border p-7 md:p-9 lg:border-b-0 lg:border-r">
                 <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
                   <h3 className="m-0">
                     {/* The logo is the card's title: its alt carries the client name. */}
@@ -374,12 +375,12 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                       src={monka.logo}
                       alt={monka.client}
                       {...clientLogoSize(monka.logo)}
-                      className="h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
+                      className="h-8 w-auto max-w-[180px] object-contain brightness-0 invert object-left md:h-9"
                       loading="lazy"
                       decoding="async"
                     />
                   </h3>
-                  <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+                  <span className="border border-border-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-soft-foreground">
                     {monka.sector}
                   </span>
                 </div>
@@ -401,7 +402,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                 </dl>
 
                 {monka.quote ? (
-                  <figure className="m-0 mt-8 border-l-2 border-foreground pl-5">
+                  <figure className="m-0 mt-8 border-l border-border-strong pl-5">
                     <blockquote className="m-0 text-[15px] leading-[1.6] text-foreground">
                       {locale === "fr" ? `« ${monka.quote.text} »` : `“${monka.quote.text}”`}
                     </blockquote>
@@ -419,7 +420,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                       key={point}
                       className="flex gap-3 border-b border-border py-3 text-[15px] leading-[1.5] text-foreground last:border-b-0"
                     >
-                      <span aria-hidden="true" className="font-mono text-orange-500">
+                      <span aria-hidden="true" className="font-mono text-brand">
                         →
                       </span>
                       <span>{point}</span>
@@ -453,7 +454,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
             process section, with the mid-page call. */}
         <section
           data-surface="inverse"
-          className="border-y-2 border-foreground bg-foreground text-background"
+          className="border-y border-border bg-foreground text-background"
         >
           <div className={`${SECTION} py-16 md:py-24`}>
             <h2
@@ -483,7 +484,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                     <span className="text-4xl font-bold leading-none tracking-[-0.05em] text-background md:text-[56px]">
                       {step.n}
                     </span>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
                       {t(`method.steps.${step.key}.label`)}
                     </span>
                   </div>
@@ -512,7 +513,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
         <section className={`${SECTION} py-14 md:py-20`}>
           <h2 className={H2}>{t("faq.title")}</h2>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-12">
+          <div className="mt-10 border-t border-border md:mt-12">
             {HEALTHCARE_FAQ_KEYS.map((key) => (
               <article
                 key={key}
@@ -569,7 +570,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                   <Link
                     key={item.key}
                     href={item.href}
-                    className="group block border border-foreground p-6 transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--foreground)]"
+                    className="group block border border-border p-6 transition-colors duration-300 hover:border-border-strong hover:bg-card"
                   >
                     <span className="flex items-baseline justify-between gap-4 text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground">
                       {t(`further.${item.key}.title`)}

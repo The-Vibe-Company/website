@@ -33,6 +33,7 @@ import { breadcrumbList, faqPageSchema } from "@/lib/structured-data";
 import { AboutBackers } from "./AboutBackers";
 import { AboutBookingCta } from "./AboutBookingCta";
 import { clientLogoSize } from "@/lib/client-logos";
+import { BrandSquare } from "@/components/BrandSquare";
 
 /**
  * The About page, served at /fr/a-propos and /en/about. Both routes render
@@ -58,7 +59,7 @@ export async function aboutMetadata(locale: string): Promise<Metadata> {
   };
 }
 
-const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 const H2 =
   "m-0 font-bold text-foreground text-[clamp(32px,5vw,64px)] leading-[0.95] tracking-[-0.04em]";
 const MONO =
@@ -92,7 +93,7 @@ export async function AboutPage({ locale }: { locale: string }) {
       <main id="main-content" tabIndex={-1} className="flex-1">
         {/* 1 — The one H1 on the page, the value sentence, and the call. */}
         <section className={`${SECTION} pb-14 pt-12 md:pb-20 md:pt-16`}>
-          <span className={`mb-6 block ${MONO}`}>{t("kicker")}</span>
+          <span className={`mb-6 block ${MONO}`}><BrandSquare />{t("kicker")}</span>
           <h1
             className="m-0 max-w-[22ch] font-bold text-foreground"
             style={{
@@ -103,7 +104,7 @@ export async function AboutPage({ locale }: { locale: string }) {
           >
             {t("title")}
           </h1>
-          <p className="m-0 mt-8 max-w-[680px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+          <p className="m-0 mt-8 max-w-[680px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
             {t("lede", { audience: t("audience") })}
           </p>
 
@@ -122,13 +123,13 @@ export async function AboutPage({ locale }: { locale: string }) {
             {ABOUT_SERVICE_KEYS.map((key, i) => (
               <article
                 key={key}
-                className="flex flex-col border border-foreground bg-background p-7 transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
+                className="flex flex-col border border-border bg-background p-7 transition-colors duration-300 hover:border-border-strong hover:bg-card"
               >
                 <div className="mb-7 flex items-start justify-between gap-3">
                   <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+                  <span className="border border-border-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-soft-foreground">
                     {tServices(`items.${key}.tag`)}
                   </span>
                 </div>
@@ -154,7 +155,7 @@ export async function AboutPage({ locale }: { locale: string }) {
           <h2 className={H2}>{t("edge.title")}</h2>
           <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("edge.intro")}</p>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-14">
+          <div className="mt-10 border-t border-border md:mt-14">
             {ABOUT_EDGE_KEYS.map((key) => (
               <article
                 key={key}
@@ -214,7 +215,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                     src={client.src}
                     alt={t("clients.logoAlt", { name: client.name })}
                     {...clientLogoSize(client.src)}
-                    className={`${client.className} w-auto object-contain brightness-0`}
+                    className={`${client.className} w-auto object-contain brightness-0 invert`}
                     loading="lazy"
                     decoding="async"
                   />
@@ -249,7 +250,7 @@ export async function AboutPage({ locale }: { locale: string }) {
             {ABOUT_TEAM.map((member) => (
               <article
                 key={member.key}
-                className="flex flex-col border border-foreground bg-background p-7 md:p-8"
+                className="flex flex-col border border-border bg-background p-7 md:p-8"
               >
                 <span className={MONO}>{t("team.role")}</span>
                 <h3 className="m-0 mt-3 text-[26px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[32px]">
@@ -278,7 +279,7 @@ export async function AboutPage({ locale }: { locale: string }) {
             homepage process section. */}
         <section
           data-surface="inverse"
-          className="border-y-2 border-foreground bg-foreground text-background"
+          className="border-y border-border bg-foreground text-background"
         >
           <div className={`${SECTION} py-16 md:py-24`}>
             <h2
@@ -308,7 +309,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                     <span className="text-4xl font-bold leading-none tracking-[-0.05em] text-background md:text-[56px]">
                       {step.n}
                     </span>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
                       {tProcess(`steps.${step.key}.label`)}
                     </span>
                   </div>
@@ -373,14 +374,14 @@ export async function AboutPage({ locale }: { locale: string }) {
         <section className={`${SECTION} py-14 md:py-20`}>
           <h2 className={H2}>{t("facts.title")}</h2>
 
-          <div className="mt-10 border border-foreground md:mt-12">
+          <div className="mt-10 border border-border md:mt-12">
             {/* `table-fixed`: on a phone, an auto-layout table refuses to
                 shrink below the widest unbreakable word (the site URL), and
                 pushes the page sideways. */}
             <table className="w-full table-fixed border-collapse text-left">
               <caption className="sr-only">{t("facts.caption")}</caption>
               <thead>
-                <tr className="border-b-2 border-foreground">
+                <tr className="border-b border-border">
                   <th
                     scope="col"
                     className="w-[42%] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:w-[38%] md:px-6"
@@ -458,7 +459,7 @@ export async function AboutPage({ locale }: { locale: string }) {
         <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
           <h2 className={H2}>{t("faq.title")}</h2>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-12">
+          <div className="mt-10 border-t border-border md:mt-12">
             {ABOUT_FAQ_KEYS.map((key) => (
               <article
                 key={key}

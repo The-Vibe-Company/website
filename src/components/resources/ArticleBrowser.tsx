@@ -99,7 +99,7 @@ function ArticleCard({
         ) : null}
         <div className={`mt-auto flex items-center gap-2 ${compact ? 'flex-wrap gap-y-1' : ''} text-[10px] font-mono uppercase tracking-widest text-res-text-muted`}>
           {item.seriesDay != null && (
-            <span className="inline-flex items-center rounded border border-orange-500/40 bg-orange-500/10 px-1.5 py-0.5 text-orange-600 tracking-wider">
+            <span className="inline-flex items-center rounded border border-brand/40 bg-brand/10 px-1.5 py-0.5 text-brand tracking-wider">
               D{item.seriesDay}
             </span>
           )}

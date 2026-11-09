@@ -8,7 +8,7 @@
 export const resourcesTheme = {
   card: {
     base: 'bg-res-surface border border-res-border hover:border-res-text/35 transition-all duration-200',
-    hover: 'hover:shadow-[0_14px_45px_rgba(17,17,16,0.08)]',
+    hover: 'hover:shadow-[0_18px_50px_-12px_rgba(0,0,0,0.6)]',
     featured:
       'bg-res-surface border border-res-border overflow-hidden transition-all duration-300 hover:border-res-text-muted/50',
   },
@@ -30,7 +30,7 @@ export const resourcesTheme = {
   nav: {
     container:
       'fixed top-0 left-0 right-0 z-50 bg-res-bg/80 backdrop-blur-md border-b border-res-border',
-    inner: 'flex items-center justify-between h-14 px-6 md:px-12 lg:px-24',
+    inner: 'flex items-center justify-between h-14 px-6 md:px-10 lg:px-16',
     breadcrumb: 'text-xs font-mono uppercase tracking-widest text-res-text-muted',
     brandLink: 'text-xs font-mono uppercase tracking-widest text-res-text hover:text-res-text-muted transition-colors',
   },
@@ -49,7 +49,7 @@ export const resourcesTheme = {
   },
 
   section: {
-    padding: 'px-6 md:px-12 lg:px-24',
+    padding: 'px-6 md:px-10 lg:px-16',
     header:
       'text-xs font-mono uppercase tracking-widest text-res-text flex items-center gap-3 mb-8 pb-4 border-b border-res-border w-full',
     headerIndicator: 'w-2 h-2 bg-res-text',
@@ -89,7 +89,7 @@ export const resourcesTheme = {
     installCommand:
       'flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-3 font-mono text-[13px] text-res-text overflow-x-auto',
     generatorWrap:
-      'border border-res-text/25 bg-res-bg-secondary p-4 sm:p-5 space-y-5 shadow-[0_18px_60px_rgba(17,17,16,0.08)]',
+      'border border-res-text/25 bg-res-bg-secondary p-4 sm:p-5 space-y-5 shadow-[0_18px_60px_-12px_rgba(0,0,0,0.6)]',
     generatorTargetGroup: 'grid grid-cols-2 sm:flex sm:items-center gap-px bg-res-border p-px overflow-hidden',
     generatorTarget:
       'min-h-11 px-3 py-2 text-[11px] font-mono uppercase tracking-wider whitespace-nowrap shrink-0 transition-colors',

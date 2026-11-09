@@ -106,16 +106,17 @@
   background: var(--res-surface, var(--card));
 }
 
-/* Quelle agence selon votre cas: ink slab */
+/* Quelle agence selon votre cas: a raised ink panel, paper type on it */
 .prose-vibe-picker {
   margin: 2em 0;
   padding: 1.35rem 1.5rem 0.6rem;
-  background: var(--res-text, var(--foreground));
-  color: var(--res-bg, var(--background));
+  border: 1px solid var(--res-border, var(--border));
+  background: var(--res-bg-secondary, var(--card));
+  color: var(--res-text, var(--card-foreground));
 }
 
 .prose-vibe .prose-vibe-picker .prose-vibe-kicker {
-  color: rgb(253 251 247 / 0.68);
+  color: rgb(244 243 239 / 0.68);
   margin-bottom: 0.5rem;
 }
 
@@ -132,7 +133,7 @@
   margin: 0;
   padding: 0.8rem 0;
   list-style: none;
-  border-top: 1px solid rgb(253 251 247 / 0.16);
+  border-top: 1px solid rgb(244 243 239 / 0.16);
 }
 
 .prose-vibe-picker__case {
@@ -143,7 +144,7 @@
 /* A source link inside a case reads as paper on ink, not as a blue body link. */
 .prose-vibe .prose-vibe-picker__case a {
   color: inherit;
-  text-decoration-color: rgb(253 251 247 / 0.5);
+  text-decoration-color: rgb(244 243 239 / 0.5);
 }
 
 .prose-vibe .prose-vibe-picker__case a:hover {
@@ -153,7 +154,7 @@
 
 .prose-vibe-picker__arrow {
   display: inline-flex;
-  color: rgb(253 251 247 / 0.5);
+  color: rgb(244 243 239 / 0.5);
 }
 
 .prose-vibe .prose-vibe-picker__pick {
@@ -162,8 +163,8 @@
   gap: 0.5rem;
   min-height: 2.25rem;
   padding: 0.3rem 0.75rem 0.3rem 0.35rem;
-  border: 1px solid rgb(253 251 247 / 0.28);
-  color: var(--res-bg, var(--background));
+  border: 1px solid rgb(244 243 239 / 0.28);
+  color: var(--res-text, var(--card-foreground));
   font-size: 0.86rem;
   font-weight: 600;
   line-height: 1.2;
@@ -175,13 +176,13 @@
 
 .prose-vibe a.prose-vibe-picker__pick:hover {
   opacity: 1;
-  border-color: var(--res-bg, var(--background));
-  background: rgb(253 251 247 / 0.08);
+  border-color: var(--res-text, var(--card-foreground));
+  background: rgb(244 243 239 / 0.08);
 }
 
 .prose-vibe-picker .prose-vibe-avatar {
-  background: var(--res-bg, var(--background));
-  color: var(--res-text, var(--foreground));
+  background: var(--res-text, var(--card-foreground));
+  color: var(--res-bg, var(--card));
 }
 
 @media (max-width: 560px) {

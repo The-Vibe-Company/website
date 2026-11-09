@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { BrandSquare } from "@/components/BrandSquare";
 
 // List marker drawn as a short rule rather than a dash character.
 const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
@@ -17,11 +18,11 @@ export function Services() {
   return (
     <section
       id="services"
-      className="mx-auto max-w-[100rem] scroll-mt-24 px-6 pb-2 pt-14 md:px-12 md:pb-28 md:pt-14"
+      className="mx-auto max-w-[90rem] scroll-mt-24 px-6 pb-2 pt-14 md:px-10 lg:px-16 md:pb-28 md:pt-14"
     >
       {/* Phones: a compact ruled header and numbered rows, pitch only. The
           bullet lists stay on the wider cards. */}
-      <div className="flex items-baseline justify-between border-b-2 border-foreground pb-3.5 md:hidden">
+      <div className="flex items-baseline justify-between border-b border-border pb-3.5 md:hidden">
         <h2 className="m-0 text-[15px] font-bold tracking-[-0.01em] text-foreground">{t("indexTitle")}</h2>
         <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{t("indexCount")}</span>
       </div>
@@ -46,7 +47,7 @@ export function Services() {
 
       <div className="mb-12 hidden border-b border-border pb-8 md:mb-16 md:block">
         <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          {t("kicker")}
+          <BrandSquare />{t("kicker")}
         </span>
         <h2
           className="m-0 font-bold text-foreground"
@@ -68,14 +69,14 @@ export function Services() {
           // separate, lighter layer, which flashed pale boxes behind each line.
           <article
             key={service.n}
-            className="group flex flex-col border border-foreground bg-background p-7 transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]"
+            className="group flex flex-col border border-border bg-background p-7 transition-colors duration-300 hover:border-border-strong hover:bg-card"
           >
             <div className="mb-8 flex items-start justify-between gap-3">
               <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
                 {service.n}
               </span>
               <div className="flex flex-col items-end gap-1">
-                <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+                <span className="border border-border-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-soft-foreground">
                   {t(`items.${service.key}.tag`)}
                 </span>
               </div>

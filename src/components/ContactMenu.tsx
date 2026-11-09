@@ -174,7 +174,7 @@ export function ContactMenu({
         hidden={!open}
         onKeyDown={onMenuKeyDown}
         className={cn(
-          "z-[80] min-w-full border-2 border-foreground bg-background shadow-[4px_4px_0px_0px_var(--foreground)]",
+          "z-[80] min-w-full border border-border-strong bg-popover shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)]",
           menuClassName
         )}
       >
