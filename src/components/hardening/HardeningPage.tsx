@@ -42,6 +42,7 @@ import {
   webPageNode,
 } from "@/lib/structured-data";
 import { BrandSquare } from "@/components/BrandSquare";
+import { keepPunctuationAttached } from "@/lib/french-spacing";
 
 /**
  * The service landing on hardening a product and its stack with a fleet of AI
@@ -49,8 +50,10 @@ import { BrandSquare } from "@/components/BrandSquare";
  * /en/ai-agents-product-hardening. Both routes render this component; each
  * declares the other through hreflang.
  *
- * Built from the About page's pieces (mono kicker, clamp H1, bordered cards,
- * ink slab, FAQ rows, FinalCTA), with no new visual language.
+ * Dressed like the homepage landing and the About page: the hero on the ink
+ * in its orange bloom, warm paper for the problem and the offer (each area
+ * under its lamp), the method as an ink band in the orange light, paper again
+ * for proof, limits, FAQ and further reading, and the FinalCTA.
  */
 
 export async function hardeningMetadata(locale: string): Promise<Metadata> {
@@ -69,15 +72,31 @@ export async function hardeningMetadata(locale: string): Promise<Metadata> {
 }
 
 const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
+const BAND = `${SECTION} py-20 md:py-28 lg:py-32`;
 const H2 =
-  "m-0 font-bold text-foreground text-[clamp(32px,5vw,64px)] leading-[0.95] tracking-[-0.04em]";
+  "m-0 font-bold text-foreground text-[clamp(2.5rem,5.6vw,5.25rem)] leading-[0.92] tracking-[-0.045em]";
+/** A heading that shares its row with the text, sized like the homepage's
+    products heading so it holds in half the width. */
+const H2_SPLIT =
+  "m-0 max-w-[16ch] font-bold text-foreground text-[clamp(2.25rem,4.4vw,4rem)] leading-[0.95] tracking-[-0.04em]";
+const PROOF_POINT =
+  "m-0 border-b border-border py-5 text-[15px] leading-[1.6] text-foreground md:text-[17px] md:leading-[1.5]";
 const MONO =
   "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
 const PROSE = "m-0 text-[15px] leading-[1.6] text-muted-foreground md:text-base";
 const TEXT_LINK =
-  "text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
+  "text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
 const MONO_LINK =
-  "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
+  "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
+/** The short orange bar a lamp card hangs from, with its glow. */
+const LAMP =
+  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
+/** The hero's orange bloom, as on the About page. */
+const HERO_BLOOM =
+  "radial-gradient(closest-side, rgb(242 115 19 / 0.2), rgb(242 115 19 / 0.06) 55%, transparent)";
+/** The light an ink band sits in, as on the homepage's client quote. */
+const INK_GLOW =
+  "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
 
 export async function HardeningPage({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "hardening" });
@@ -133,136 +152,137 @@ export async function HardeningPage({ locale }: { locale: string }) {
       <JsonLd data={faq} />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        {/* 1 — The one H1 on the page, the promise, and the call. */}
-        <section className={`${SECTION} pb-14 pt-12 md:pb-20 md:pt-16`}>
-          <span className={`mb-6 block ${MONO}`}><BrandSquare />{t("kicker")}</span>
-          <h1
-            className="m-0 max-w-[22ch] font-bold text-foreground"
-            style={{
-              fontSize: "clamp(40px, 6vw, 88px)",
-              lineHeight: 0.92,
-              letterSpacing: "-0.045em",
-            }}
-          >
-            {t("title")}
-          </h1>
-          <p className="m-0 mt-8 max-w-[720px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
-            {t("lede")}
-          </p>
-
-          <span className={`mt-10 block ${MONO}`}>{t("hero.label")}</span>
-          <ul className="m-0 mt-4 grid max-w-[1100px] list-none grid-cols-1 gap-x-10 border-t border-border p-0 md:grid-cols-2">
-            {HARDENING_HERO_KEYS.map((key) => (
-              <li
-                key={key}
-                className="flex gap-4 border-b border-border py-4 text-[15px] leading-[1.5] text-foreground md:text-base"
-              >
-                <span
-                  aria-hidden="true"
-                  className="mt-[0.55em] h-2 w-2 shrink-0 bg-foreground"
-                />
-                {t(`hero.items.${key}`)}
-              </li>
-            ))}
-          </ul>
-
-          <AboutBookingCta page={hardeningPageId(locale)} location="cta_hardening" />
-          <AboutBackers label={tAbout("backedBy")} />
-        </section>
-
-        {/* 2 — Why point-in-time tools miss the drift. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:gap-16">
-            <h2 className={`${H2} max-w-[16ch]`}>{t("problem.title")}</h2>
-            <div className="flex max-w-[68ch] flex-col gap-5">
-              <p className={PROSE}>{t("problem.p1")}</p>
-              <p className={PROSE}>{t("problem.p2")}</p>
-              <p className={PROSE}>
-                {t.rich("problem.p3", {
-                  link: (chunks: ReactNode) => (
-                    <Link href={blackOctober} className={TEXT_LINK}>
-                      {chunks}
-                    </Link>
-                  ),
-                })}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* 3 — The offer: six areas the fleet covers. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={H2}>{t("offer.title")}</h2>
-          <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("offer.intro")}</p>
-
-          <div className="mt-10 grid grid-cols-1 gap-5 md:mt-14 md:grid-cols-2 lg:grid-cols-3">
-            {HARDENING_OFFER_KEYS.map((key, i) => (
-              <article
-                key={key}
-                className="flex flex-col border border-border bg-background p-7 transition-colors duration-300 hover:border-border-strong hover:bg-card"
-              >
-                <div className="mb-7 flex items-start justify-between gap-3">
-                  <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="border border-border-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-soft-foreground">
-                    {t(`offer.items.${key}.tag`)}
-                  </span>
-                </div>
-                <h3 className="m-0 mb-4 text-[24px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[clamp(22px,2.2vw,28px)]">
-                  {t(`offer.items.${key}.title`)}
-                </h3>
-                <p className={PROSE}>{t(`offer.items.${key}.desc`)}</p>
-                {key === "agents" ? (
-                  <Link
-                    href={localizedArticle(MCP_GUIDE_PATHS, locale)}
-                    className={`${MONO_LINK} mt-5`}
-                  >
-                    {t("offer.items.agents.link")}
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                ) : null}
-              </article>
-            ))}
-          </div>
-
-          <p className="m-0 mt-10 max-w-[760px] border-l-2 border-brand pl-5 text-[15px] leading-[1.6] text-foreground md:pl-6 md:text-base">
-            {t("offer.guardrails")}
-          </p>
-        </section>
-
-        {/* 4 — How it is rolled out, on the same ink slab as the About
-            process section. */}
-        <section
-          data-surface="inverse"
-          className="border-y border-border bg-foreground text-background"
-        >
-          <div className={`${SECTION} py-16 md:py-24`}>
-            <h2
-              className="m-0 font-bold text-background"
-              style={{
-                fontSize: "clamp(32px, 5vw, 64px)",
-                lineHeight: 0.95,
-                letterSpacing: "-0.04em",
-              }}
-            >
-              {t("method.title")}
-            </h2>
-            <p className="m-0 mt-5 max-w-[680px] text-[15px] leading-[1.6] text-white/70 md:text-base">
-              {t("method.intro")}
+        {/* 1 — On the ink, in the hero's orange light: the one H1, the
+            promise, and the call. */}
+        <section className="relative overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-72 -right-48 h-[900px] w-[1100px]"
+            style={{ background: HERO_BLOOM }}
+          />
+          <div className={`relative ${SECTION} pb-20 pt-12 md:pb-28 lg:pt-[80px]`}>
+            <span className="block font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground">
+              <BrandSquare />
+              {t("kicker")}
+            </span>
+            <h1 className="m-0 mt-8 max-w-[20ch] text-[clamp(2.5rem,6.4vw,6.75rem)] font-bold leading-[0.92] tracking-[-0.05em] text-foreground lg:mt-10">
+              {keepPunctuationAttached(t("title"))}
+            </h1>
+            <p className="m-0 mt-10 max-w-[720px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+              {t("lede")}
             </p>
 
-            <span className="mt-12 block border-b border-white/15 pb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-white/55 md:mt-16">
+            <span className={`mt-12 block ${MONO}`}>{t("hero.label")}</span>
+            <ul className="m-0 mt-4 grid max-w-[1100px] list-none grid-cols-1 gap-x-10 border-t border-border p-0 md:grid-cols-2">
+              {HARDENING_HERO_KEYS.map((key) => (
+                <li
+                  key={key}
+                  className="flex gap-4 border-b border-border py-4 text-[15px] leading-[1.5] text-foreground md:text-base"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mt-[0.6em] h-1.5 w-1.5 shrink-0 bg-brand"
+                  />
+                  {t(`hero.items.${key}`)}
+                </li>
+              ))}
+            </ul>
+
+            <AboutBookingCta page={hardeningPageId(locale)} location="cta_hardening" />
+            <AboutBackers label={tAbout("backedBy")} />
+          </div>
+        </section>
+
+        <div data-surface="paper">
+          {/* 2 — Why point-in-time tools miss the drift. */}
+          <section className={BAND}>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:gap-16">
+              <h2 className={H2_SPLIT}>{t("problem.title")}</h2>
+              <div className="flex max-w-[68ch] flex-col gap-5 md:pt-3">
+                <p className={PROSE}>{t("problem.p1")}</p>
+                <p className={PROSE}>{t("problem.p2")}</p>
+                <p className={PROSE}>
+                  {t.rich("problem.p3", {
+                    link: (chunks: ReactNode) => (
+                      <Link href={blackOctober} className={TEXT_LINK}>
+                        {chunks}
+                      </Link>
+                    ),
+                  })}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* 3 — The offer: six areas the fleet covers, each under its
+              lamp. */}
+          <section className={`${BAND} border-t border-border`}>
+            <h2 className={H2}>{t("offer.title")}</h2>
+            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("offer.intro")}</p>
+
+            <div className="mt-12 grid grid-cols-1 gap-4 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
+              {HARDENING_OFFER_KEYS.map((key, i) => (
+                <article
+                  key={key}
+                  className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
+                >
+                  <span aria-hidden="true" className={LAMP} />
+                  <div className="relative mb-10 flex items-baseline justify-between gap-3">
+                    <span className="text-lit text-[56px] font-bold leading-none tracking-[-0.05em]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                      {t(`offer.items.${key}.tag`)}
+                    </span>
+                  </div>
+                  <h3 className="relative m-0 mb-4 text-[clamp(1.5rem,2vw,1.9rem)] font-bold leading-[1.05] tracking-[-0.03em] text-foreground">
+                    {t(`offer.items.${key}.title`)}
+                  </h3>
+                  <p className={`relative ${PROSE} text-soft-foreground`}>
+                    {t(`offer.items.${key}.desc`)}
+                  </p>
+                  {key === "agents" ? (
+                    <Link
+                      href={localizedArticle(MCP_GUIDE_PATHS, locale)}
+                      className={`relative ${MONO_LINK} mt-6 self-start`}
+                    >
+                      {t("offer.items.agents.link")}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  ) : null}
+                </article>
+              ))}
+            </div>
+
+            <p className="m-0 mt-12 max-w-[760px] border-l-2 border-brand pl-5 text-[15px] leading-[1.6] text-foreground md:pl-6 md:text-base">
+              {t("offer.guardrails")}
+            </p>
+          </section>
+        </div>
+
+        {/* 4 — How it is rolled out: an ink band in the orange light, like
+            the homepage's client quote. */}
+        <section className="relative overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{ background: INK_GLOW }}
+          />
+          <div className={`relative ${BAND}`}>
+            <h2 className={H2}>{t("method.title")}</h2>
+            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("method.intro")}</p>
+
+            <span className={`mt-14 block border-b border-border pb-4 md:mt-16 ${MONO}`}>
               {t("method.stepsLabel")}
             </span>
             <ol className="m-0 flex list-none flex-col p-0">
               {HARDENING_METHOD_STEPS.map((step) => (
                 <li
                   key={step.n}
-                  className="grid grid-cols-1 gap-4 border-b border-white/15 py-7 md:grid-cols-[200px_1fr] md:gap-12 md:py-8"
+                  className="grid grid-cols-1 gap-4 border-b border-border py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
-                    <span className="text-4xl font-bold leading-none tracking-[-0.05em] text-background md:text-[56px]">
+                    <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
                       {step.n}
                     </span>
                     <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
@@ -270,10 +290,10 @@ export async function HardeningPage({ locale }: { locale: string }) {
                     </span>
                   </div>
                   <div className="flex flex-col gap-3">
-                    <h3 className="m-0 max-w-[560px] text-[22px] font-bold leading-[1.05] tracking-[-0.03em] text-background md:text-[28px]">
+                    <h3 className="m-0 max-w-[560px] text-[22px] font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-[30px]">
                       {t(`method.steps.${step.key}.title`)}
                     </h3>
-                    <p className="m-0 max-w-[560px] text-[15px] leading-[1.55] text-white/70 md:text-base">
+                    <p className={`${PROSE} max-w-[560px]`}>
                       {t(`method.steps.${step.key}.desc`)}
                     </p>
                   </div>
@@ -283,151 +303,159 @@ export async function HardeningPage({ locale }: { locale: string }) {
           </div>
         </section>
 
-        {/* 5 — Proof: what we already run in production, and the cases. */}
-        <section className={`${SECTION} py-14 md:py-20`}>
-          <h2 className={H2}>{t("proof.title")}</h2>
+        <div data-surface="paper">
+          {/* 5 — Proof: what we already run in production, and the cases,
+              each under its lamp. */}
+          <section className={BAND}>
+            <h2 className={H2}>{t("proof.title")}</h2>
 
-          <ul className="m-0 mt-10 flex max-w-[860px] list-none flex-col border-t border-border p-0 md:mt-12">
-            <li className={`${PROSE} border-b border-border py-5 text-foreground`}>
-              {t("proof.points.production")}
-            </li>
-            <li className={`${PROSE} border-b border-border py-5 text-foreground`}>
-              {t.rich("proof.points.public", {
-                black: (chunks: ReactNode) => (
-                  <Link href={blackOctober} className={TEXT_LINK}>
-                    {chunks}
-                  </Link>
-                ),
-                authority: (chunks: ReactNode) => (
-                  <Link href={AGENT_AUTHORITY_PATH} locale="fr" className={TEXT_LINK}>
-                    {chunks}
-                  </Link>
-                ),
-              })}
-            </li>
-            <li className={`${PROSE} border-b border-border py-5 text-foreground`}>
-              {t("proof.points.agency")}
-            </li>
-          </ul>
+            <ul className="m-0 mt-12 flex max-w-[860px] list-none flex-col border-t border-border p-0 md:mt-16">
+              <li className={PROOF_POINT}>
+                {t("proof.points.production")}
+              </li>
+              <li className={PROOF_POINT}>
+                {t.rich("proof.points.public", {
+                  black: (chunks: ReactNode) => (
+                    <Link href={blackOctober} className={TEXT_LINK}>
+                      {chunks}
+                    </Link>
+                  ),
+                  authority: (chunks: ReactNode) => (
+                    <Link href={AGENT_AUTHORITY_PATH} locale="fr" className={TEXT_LINK}>
+                      {chunks}
+                    </Link>
+                  ),
+                })}
+              </li>
+              <li className={PROOF_POINT}>
+                {t("proof.points.agency")}
+              </li>
+            </ul>
 
-          <span className={`mt-12 block ${MONO} md:mt-16`}>{t("proof.casesLabel")}</span>
-          <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-3">
-            {cases.map(({ slug, customer }) =>
-              customer ? (
-                <article
-                  key={slug}
-                  className="flex flex-col border border-border bg-background p-7"
-                >
-                  <span className={MONO}>{customer.sector}</span>
-                  <h3 className="m-0 mt-3 text-[26px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[32px]">
-                    {customer.client}
-                  </h3>
-                  <p className={`${PROSE} mt-4 flex-1`}>{t(`proof.cases.${slug}`)}</p>
-                  <Link
-                    href={`/case-studies/${slug}`}
-                    className={`${MONO_LINK} mt-6 border-t border-border pt-5`}
+            <span className={`mt-14 block ${MONO} md:mt-16`}>{t("proof.casesLabel")}</span>
+            <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
+              {cases.map(({ slug, customer }) =>
+                customer ? (
+                  <article
+                    key={slug}
+                    className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
                   >
-                    {t("proof.readCase")}
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                </article>
-              ) : null,
-            )}
-          </div>
-        </section>
-
-        {/* 6 — What this is not, to set expectations. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={H2}>{t("not.title")}</h2>
-          <div className="mt-10 grid grid-cols-1 border-l border-t border-border md:mt-12 md:grid-cols-3">
-            {HARDENING_NOT_KEYS.map((key, i) => (
-              <article key={key} className="border-b border-r border-border p-7">
-                <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="m-0 mt-4 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[22px]">
-                  {t(`not.items.${key}.title`)}
-                </h3>
-                <p className={`${PROSE} mt-3`}>{t(`not.items.${key}.desc`)}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* 7 — FAQ, mirrored word for word in the FAQPage JSON-LD above. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={H2}>{t("faq.title")}</h2>
-
-          <div className="mt-10 border-t border-border md:mt-12">
-            {HARDENING_FAQ_KEYS.map((key) => (
-              <article
-                key={key}
-                className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-8"
-              >
-                <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
-                  {t(`faq.items.${key}.q`)}
-                </h3>
-                <p className={`${PROSE} max-w-[70ch]`}>{t(`faq.items.${key}.a`)}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* 8 — Further reading and the sibling pages. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={H2}>{t("further.title")}</h2>
-          <div className="mt-10 grid grid-cols-1 gap-10 md:mt-12 md:grid-cols-2 md:gap-16">
-            <div>
-              <span className={MONO}>{t("further.readingLabel")}</span>
-              <ul className="m-0 mt-4 list-none border-t border-border p-0">
-                {reading.map((item) => (
-                  <li key={item.key} className="border-b border-border">
+                    <span aria-hidden="true" className={LAMP} />
+                    <span className="relative font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-muted-foreground">
+                      {customer.sector}
+                    </span>
+                    <h3 className="relative m-0 mt-4 text-[clamp(1.75rem,2.6vw,2.25rem)] font-bold leading-[1.05] tracking-[-0.035em] text-foreground">
+                      {customer.client}
+                    </h3>
+                    <p className={`relative ${PROSE} mt-4 flex-1 text-soft-foreground`}>
+                      {t(`proof.cases.${slug}`)}
+                    </p>
                     <Link
-                      href={item.href}
-                      locale={item.locale}
-                      className="group flex items-baseline justify-between gap-4 py-4 text-[15px] leading-[1.45] text-foreground md:text-base"
+                      href={`/case-studies/${slug}`}
+                      className={`relative ${MONO_LINK} mt-6 self-start`}
                     >
-                      <span className="underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground">
-                        {t(`further.reading.${item.key}`)}
+                      {t("proof.readCase")}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </article>
+                ) : null,
+              )}
+            </div>
+          </section>
+
+          {/* 6 — What this is not, to set expectations. */}
+          <section className={`${BAND} border-t border-border`}>
+            <h2 className={H2}>{t("not.title")}</h2>
+            <div className="mt-12 grid grid-cols-1 border-l border-t border-border md:mt-16 md:grid-cols-3">
+              {HARDENING_NOT_KEYS.map((key, i) => (
+                <article key={key} className="border-b border-r border-border bg-card p-7 md:p-8">
+                  <span className="text-lit text-[40px] font-bold leading-none tracking-[-0.05em]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="m-0 mt-6 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[22px]">
+                    {t(`not.items.${key}.title`)}
+                  </h3>
+                  <p className={`${PROSE} mt-3`}>{t(`not.items.${key}.desc`)}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 7 — FAQ, mirrored word for word in the FAQPage JSON-LD above. */}
+          <section className={`${BAND} border-t border-border`}>
+            <h2 className={H2}>{t("faq.title")}</h2>
+
+            <div className="mt-12 border-t border-border md:mt-16">
+              {HARDENING_FAQ_KEYS.map((key) => (
+                <article
+                  key={key}
+                  className="grid grid-cols-1 gap-3 border-b border-border py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                >
+                  <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
+                    {t(`faq.items.${key}.q`)}
+                  </h3>
+                  <p className={`${PROSE} max-w-[70ch]`}>{t(`faq.items.${key}.a`)}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 8 — Further reading and the sibling pages. */}
+          <section className={`${BAND} border-t border-border`}>
+            <h2 className={H2}>{t("further.title")}</h2>
+            <div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-2 md:gap-16">
+              <div>
+                <span className={MONO}>{t("further.readingLabel")}</span>
+                <ul className="m-0 mt-4 list-none border-t border-border p-0">
+                  {reading.map((item) => (
+                    <li key={item.key} className="border-b border-border">
+                      <Link
+                        href={item.href}
+                        locale={item.locale}
+                        className="group flex items-baseline justify-between gap-4 py-4 text-[15px] leading-[1.45] text-foreground md:text-base"
+                      >
+                        <span className="underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground">
+                          {t(`further.reading.${item.key}`)}
+                        </span>
+                        <span aria-hidden="true" className="shrink-0 transition-colors group-hover:text-brand">
+                          →
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <span className={MONO}>{t("further.alsoLabel")}</span>
+                <div className="mt-4 grid grid-cols-1 gap-4">
+                  {(
+                    [
+                      { key: "agentsProduction", href: splitPath(AGENTS_PRODUCTION_PATHS, locale) },
+                      { key: "agency", href: splitPath(AGENCY_PARIS_PATHS, locale) },
+                      { key: "about", href: splitPath(ABOUT_PATHS, locale) },
+                    ] as const
+                  ).map((item) => (
+                    <Link
+                      key={item.key}
+                      href={item.href}
+                      className="group block border border-border bg-card p-6 transition-colors duration-300 hover:border-border-strong"
+                    >
+                      <span className="flex items-baseline justify-between gap-4 text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground">
+                        {t(`further.${item.key}.title`)}
+                        <span aria-hidden="true" className="text-lg transition-colors group-hover:text-brand">
+                          →
+                        </span>
                       </span>
-                      <span aria-hidden="true" className="shrink-0">
-                        →
+                      <span className={`${PROSE} mt-2 block`}>
+                        {t(`further.${item.key}.desc`)}
                       </span>
                     </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <span className={MONO}>{t("further.alsoLabel")}</span>
-              <div className="mt-4 grid grid-cols-1 gap-5">
-                {(
-                  [
-                    { key: "agentsProduction", href: splitPath(AGENTS_PRODUCTION_PATHS, locale) },
-                    { key: "agency", href: splitPath(AGENCY_PARIS_PATHS, locale) },
-                    { key: "about", href: splitPath(ABOUT_PATHS, locale) },
-                  ] as const
-                ).map((item) => (
-                  <Link
-                    key={item.key}
-                    href={item.href}
-                    className="group block border border-border p-6 transition-colors duration-300 hover:border-border-strong hover:bg-card"
-                  >
-                    <span className="flex items-baseline justify-between gap-4 text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground">
-                      {t(`further.${item.key}.title`)}
-                      <span aria-hidden="true" className="text-lg">
-                        →
-                      </span>
-                    </span>
-                    <span className={`${PROSE} mt-2 block`}>
-                      {t(`further.${item.key}.desc`)}
-                    </span>
-                  </Link>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
 
         <FinalCTA />
       </main>

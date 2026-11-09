@@ -43,15 +43,18 @@ import {
   webPageNode,
 } from "@/lib/structured-data";
 import { BrandSquare } from "@/components/BrandSquare";
+import { keepPunctuationAttached } from "@/lib/french-spacing";
 
 /**
  * The service landing on taking a company's AI agents from POC to production,
  * served at /fr/agents-ia-production and /en/ai-agents-in-production. Both
  * routes render this component; each declares the other through hreflang.
  *
- * Built from the About page's pieces (mono kicker, clamp H1, bordered cards,
- * ink slab, FAQ rows, FinalCTA), like the hardening and Paris landings, with
- * no new visual language.
+ * Dressed like the homepage landing and the About page, like the hardening
+ * and Paris landings: the hero on the ink in its orange bloom, warm paper for
+ * the problem and the offer (each part under its lamp), the method as an ink
+ * band in the orange light, paper again for proof, limits, FAQ and further
+ * reading, and the FinalCTA.
  */
 
 export async function agentsProductionMetadata(locale: string): Promise<Metadata> {
@@ -75,18 +78,30 @@ export function agentsProductionPageId(locale: string): string {
 }
 
 const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
+const BAND = `${SECTION} py-20 md:py-28 lg:py-32`;
 const H2 =
-  "m-0 font-bold text-foreground text-[clamp(32px,5vw,64px)] leading-[0.95] tracking-[-0.04em]";
+  "m-0 font-bold text-foreground text-[clamp(2.5rem,5.6vw,5.25rem)] leading-[0.92] tracking-[-0.045em]";
+/** A heading that shares its row with the text, sized like the homepage's
+    products heading so it holds in half the width. */
+const H2_SPLIT =
+  "m-0 max-w-[16ch] font-bold text-foreground text-[clamp(2.25rem,4.4vw,4rem)] leading-[0.95] tracking-[-0.04em]";
 const MONO =
   "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
 const PROSE = "m-0 text-[15px] leading-[1.6] text-muted-foreground md:text-base";
 const PROSE_INK = "m-0 text-[15px] leading-[1.6] text-foreground md:text-base";
 const TEXT_LINK =
-  "text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
+  "text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
 const MONO_LINK =
-  "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
-const CARD_HOVER =
-  "transition-colors duration-300 hover:border-border-strong hover:bg-card";
+  "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
+/** The short orange bar a lamp card hangs from, with its glow. */
+const LAMP =
+  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
+/** The hero's orange bloom, as on the About page. */
+const HERO_BLOOM =
+  "radial-gradient(closest-side, rgb(242 115 19 / 0.2), rgb(242 115 19 / 0.06) 55%, transparent)";
+/** The light an ink band sits in, as on the homepage's client quote. */
+const INK_GLOW =
+  "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
 
 type PageLink = { label: string; href: string; locale: Locale };
 
@@ -214,153 +229,158 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
       <JsonLd data={faq} />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        {/* 1 — The one H1 on the page, the promise, and the call. */}
-        <section className={`${SECTION} pb-14 pt-12 md:pb-20 md:pt-16`}>
-          <span className={`mb-6 block ${MONO}`}><BrandSquare />{t("kicker")}</span>
-          <h1
-            className="m-0 max-w-[22ch] font-bold text-foreground"
-            style={{
-              fontSize: "clamp(40px, 6vw, 88px)",
-              lineHeight: 0.92,
-              letterSpacing: "-0.045em",
-            }}
-          >
-            {t("title")}
-          </h1>
-          <p className="m-0 mt-8 max-w-[720px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
-            {t("lede")}
-          </p>
-
-          <span className={`mt-10 block ${MONO}`}>{t("hero.label")}</span>
-          <ul className="m-0 mt-4 grid max-w-[1100px] list-none grid-cols-1 gap-x-10 border-t border-border p-0 md:grid-cols-2">
-            {AGENTS_PRODUCTION_HERO_KEYS.map((key) => (
-              <li
-                key={key}
-                className="flex gap-4 border-b border-border py-4 text-[15px] leading-[1.5] text-foreground md:text-base"
-              >
-                <span
-                  aria-hidden="true"
-                  className="mt-[0.55em] h-2 w-2 shrink-0 bg-foreground"
-                />
-                {t(`hero.items.${key}`)}
-              </li>
-            ))}
-          </ul>
-
-          <AboutBookingCta
-            page={page}
-            location="cta_agents_production_hero"
-            namespace="agentsProduction"
+        {/* 1 — On the ink, in the hero's orange light: the one H1, the
+            promise, and the call. */}
+        <section className="relative overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-72 -right-48 h-[900px] w-[1100px]"
+            style={{ background: HERO_BLOOM }}
           />
-          <AboutBackers label={tAbout("backedBy")} />
-        </section>
+          <div className={`relative ${SECTION} pb-20 pt-12 md:pb-28 lg:pt-[80px]`}>
+            <span className="block font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground">
+              <BrandSquare />
+              {t("kicker")}
+            </span>
+            <h1 className="m-0 mt-8 max-w-[20ch] text-[clamp(2.5rem,6.4vw,6.75rem)] font-bold leading-[0.92] tracking-[-0.05em] text-foreground lg:mt-10">
+              {keepPunctuationAttached(t("title"))}
+            </h1>
+            <p className="m-0 mt-10 max-w-[720px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+              {t("lede")}
+            </p>
 
-        {/* 2 — Why pilots stall: production, not the model. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:gap-16">
-            <h2 className={`${H2} max-w-[16ch]`}>{t("problem.title")}</h2>
-            <div className="flex max-w-[68ch] flex-col gap-5">
-              <p className={PROSE}>{t("problem.p1")}</p>
-              <p className={PROSE_INK}>{t("problem.p2")}</p>
-              <p className={PROSE}>
-                {t.rich("problem.p3", {
-                  link: (chunks: ReactNode) => (
-                    <Link href={guide} className={TEXT_LINK}>
-                      {chunks}
-                    </Link>
-                  ),
-                })}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* 3 — The offer: what a deployment includes. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={`${H2} max-w-[20ch]`}>{t("offer.title")}</h2>
-          <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("offer.intro")}</p>
-
-          <div className="mt-10 grid grid-cols-1 gap-5 md:mt-14 md:grid-cols-2 lg:grid-cols-3">
-            {AGENTS_PRODUCTION_OFFER_KEYS.map((key, i) => {
-              const link = offerLinks[key];
-              return (
-                <article
+            <span className={`mt-12 block ${MONO}`}>{t("hero.label")}</span>
+            <ul className="m-0 mt-4 grid max-w-[1100px] list-none grid-cols-1 gap-x-10 border-t border-border p-0 md:grid-cols-2">
+              {AGENTS_PRODUCTION_HERO_KEYS.map((key) => (
+                <li
                   key={key}
-                  className={`flex flex-col border border-border bg-background p-7 ${CARD_HOVER}`}
+                  className="flex gap-4 border-b border-border py-4 text-[15px] leading-[1.5] text-foreground md:text-base"
                 >
-                  <div className="mb-7 flex items-start justify-between gap-3">
-                    <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="border border-border-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-soft-foreground">
-                      {t(`offer.items.${key}.tag`)}
-                    </span>
-                  </div>
-                  <h3 className="m-0 mb-4 text-[24px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[clamp(22px,2.2vw,28px)]">
-                    {t(`offer.items.${key}.title`)}
-                  </h3>
-                  <p className={PROSE}>{t(`offer.items.${key}.desc`)}</p>
-                  {link ? (
-                    <Link href={link.href} locale={link.locale} className={`${MONO_LINK} mt-5`}>
-                      {link.label}
-                      <span aria-hidden="true">→</span>
-                    </Link>
-                  ) : null}
-                </article>
-              );
-            })}
-          </div>
+                  <span
+                    aria-hidden="true"
+                    className="mt-[0.6em] h-1.5 w-1.5 shrink-0 bg-brand"
+                  />
+                  {t(`hero.items.${key}`)}
+                </li>
+              ))}
+            </ul>
 
-          <p className="m-0 mt-10 max-w-[760px] border-l-2 border-brand pl-5 text-[15px] leading-[1.6] text-foreground md:pl-6 md:text-base">
-            {t.rich("offer.complement", {
-              hardening: (chunks: ReactNode) => (
-                <Link href={hardening} className={TEXT_LINK}>
-                  {chunks}
-                </Link>
-              ),
-              authority: (chunks: ReactNode) => (
-                <Link href={AGENT_AUTHORITY_PATH} locale="fr" className={TEXT_LINK}>
-                  {chunks}
-                </Link>
-              ),
-            })}
-          </p>
+            <AboutBookingCta
+              page={page}
+              location="cta_agents_production_hero"
+              namespace="agentsProduction"
+            />
+            <AboutBackers label={tAbout("backedBy")} />
+          </div>
         </section>
 
-        {/* 4 — From POC to production, on the same ink slab as the About
-            process section, with the mid-page call. */}
-        <section
-          data-surface="inverse"
-          className="border-y border-border bg-foreground text-background"
-        >
-          <div className={`${SECTION} py-16 md:py-24`}>
-            <h2
-              className="m-0 font-bold text-background"
-              style={{
-                fontSize: "clamp(32px, 5vw, 64px)",
-                lineHeight: 0.95,
-                letterSpacing: "-0.04em",
-              }}
-            >
-              {t("method.title")}
-            </h2>
+        <div data-surface="paper">
+          {/* 2 — Why pilots stall: production, not the model. */}
+          <section className={BAND}>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:gap-16">
+              <h2 className={H2_SPLIT}>{t("problem.title")}</h2>
+              <div className="flex max-w-[68ch] flex-col gap-5 md:pt-3">
+                <p className={PROSE}>{t("problem.p1")}</p>
+                <p className={PROSE_INK}>{t("problem.p2")}</p>
+                <p className={PROSE}>
+                  {t.rich("problem.p3", {
+                    link: (chunks: ReactNode) => (
+                      <Link href={guide} className={TEXT_LINK}>
+                        {chunks}
+                      </Link>
+                    ),
+                  })}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* 3 — The offer: what a deployment includes, each part under its
+              lamp. */}
+          <section className={`${BAND} border-t border-border`}>
+            <h2 className={`${H2} max-w-[20ch]`}>{t("offer.title")}</h2>
+            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("offer.intro")}</p>
+
+            <div className="mt-12 grid grid-cols-1 gap-4 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
+              {AGENTS_PRODUCTION_OFFER_KEYS.map((key, i) => {
+                const link = offerLinks[key];
+                return (
+                  <article
+                    key={key}
+                    className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
+                  >
+                    <span aria-hidden="true" className={LAMP} />
+                    <div className="relative mb-10 flex items-baseline justify-between gap-3">
+                      <span className="text-lit text-[56px] font-bold leading-none tracking-[-0.05em]">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                        {t(`offer.items.${key}.tag`)}
+                      </span>
+                    </div>
+                    <h3 className="relative m-0 mb-4 text-[clamp(1.5rem,2vw,1.9rem)] font-bold leading-[1.05] tracking-[-0.03em] text-foreground">
+                      {t(`offer.items.${key}.title`)}
+                    </h3>
+                    <p className={`relative ${PROSE} text-soft-foreground`}>
+                      {t(`offer.items.${key}.desc`)}
+                    </p>
+                    {link ? (
+                      <Link
+                        href={link.href}
+                        locale={link.locale}
+                        className={`relative ${MONO_LINK} mt-6 self-start`}
+                      >
+                        {link.label}
+                        <span aria-hidden="true">→</span>
+                      </Link>
+                    ) : null}
+                  </article>
+                );
+              })}
+            </div>
+
+            <p className="m-0 mt-12 max-w-[760px] border-l-2 border-brand pl-5 text-[15px] leading-[1.6] text-foreground md:pl-6 md:text-base">
+              {t.rich("offer.complement", {
+                hardening: (chunks: ReactNode) => (
+                  <Link href={hardening} className={TEXT_LINK}>
+                    {chunks}
+                  </Link>
+                ),
+                authority: (chunks: ReactNode) => (
+                  <Link href={AGENT_AUTHORITY_PATH} locale="fr" className={TEXT_LINK}>
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </p>
+          </section>
+        </div>
+
+        {/* 4 — From POC to production: an ink band in the orange light,
+            like the homepage's client quote, with the mid-page call. */}
+        <section className="relative overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{ background: INK_GLOW }}
+          />
+          <div className={`relative ${BAND}`}>
+            <h2 className={H2}>{t("method.title")}</h2>
             {t.has("method.intro") ? (
-              <p className="m-0 mt-5 max-w-[680px] text-[15px] leading-[1.6] text-white/70 md:text-base">
-                {t("method.intro")}
-              </p>
+              <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("method.intro")}</p>
             ) : null}
 
-            <span className="mt-12 block border-b border-white/15 pb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-white/55 md:mt-16">
+            <span className={`mt-14 block border-b border-border pb-4 md:mt-16 ${MONO}`}>
               {t("method.stepsLabel")}
             </span>
             <ol className="m-0 flex list-none flex-col p-0">
               {AGENTS_PRODUCTION_METHOD_STEPS.map((step) => (
                 <li
                   key={step.n}
-                  className="grid grid-cols-1 gap-4 border-b border-white/15 py-7 md:grid-cols-[200px_1fr] md:gap-12 md:py-8"
+                  className="grid grid-cols-1 gap-4 border-b border-border py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
-                    <span className="text-4xl font-bold leading-none tracking-[-0.05em] text-background md:text-[56px]">
+                    <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
                       {step.n}
                     </span>
                     <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
@@ -368,10 +388,10 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                     </span>
                   </div>
                   <div className="flex flex-col gap-3">
-                    <h3 className="m-0 max-w-[560px] text-[22px] font-bold leading-[1.05] tracking-[-0.03em] text-background md:text-[28px]">
+                    <h3 className="m-0 max-w-[560px] text-[22px] font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-[30px]">
                       {t(`method.steps.${step.key}.title`)}
                     </h3>
-                    <p className="m-0 max-w-[560px] text-[15px] leading-[1.55] text-white/70 md:text-base">
+                    <p className={`${PROSE} max-w-[560px]`}>
                       {t(`method.steps.${step.key}.desc`)}
                     </p>
                   </div>
@@ -379,11 +399,11 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
               ))}
             </ol>
 
-            <div className="mt-12 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-[200px_1fr] md:gap-12">
+            <div className="mt-12 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-[220px_1fr] md:gap-12">
               <span aria-hidden="true" className="hidden md:block" />
               <div>
                 {t.has("method.ctaTitle") ? (
-                  <p className="m-0 max-w-[620px] text-lg leading-[1.45] text-background md:text-[21px]">
+                  <p className="m-0 max-w-[620px] text-lg leading-[1.45] text-foreground md:text-[21px]">
                     {t("method.ctaTitle")}
                   </p>
                 ) : null}
@@ -391,12 +411,8 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                   page={page}
                   location="cta_agents_production_method"
                   namespace="agentsProduction"
-                  inverse
                 />
-                <Link
-                  href={checklist}
-                  className="mt-8 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-background underline decoration-1 underline-offset-4 hover:text-white/70"
-                >
+                <Link href={checklist} className={`mt-8 ${MONO_LINK}`}>
                   {t("method.checklist")}
                   <span aria-hidden="true">→</span>
                 </Link>
@@ -405,185 +421,194 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
           </div>
         </section>
 
-        {/* 5 — Proof: agents already running, published cases only. */}
-        <section className={`${SECTION} py-14 md:py-20`}>
-          <h2 className={H2}>{t("proof.title")}</h2>
-          {t.has("proof.intro") ? (
-            <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("proof.intro")}</p>
-          ) : null}
+        <div data-surface="paper">
+          {/* 5 — Proof: agents already running, published cases only, each
+              under its lamp with its figure lit. */}
+          <section className={BAND}>
+            <h2 className={H2}>{t("proof.title")}</h2>
+            {t.has("proof.intro") ? (
+              <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("proof.intro")}</p>
+            ) : null}
 
-          {featured ? (
-            <article className="mt-10 grid grid-cols-1 border border-border bg-background md:mt-14 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-              <div className="flex flex-col justify-between gap-6 border-b border-border p-7 md:border-b-0 md:border-r md:p-10">
-                <span className={MONO}>{featured.sector}</span>
-                <div>
-                  <span
-                    className="block font-bold text-foreground"
-                    style={{
-                      fontSize: "clamp(72px, 11vw, 160px)",
-                      lineHeight: 0.85,
-                      letterSpacing: "-0.06em",
-                    }}
-                  >
-                    {featured.metric}
+            {featured ? (
+              <article className="lamp-card mt-12 grid grid-cols-1 overflow-hidden border border-border md:mt-16 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+                <span aria-hidden="true" className={LAMP} />
+                {/* One bench under one lamp: no rule between the halves on
+                    a wide screen, so the light falls on the whole card. */}
+                <div className="relative flex flex-col justify-between gap-6 border-b border-border p-7 md:border-b-0 md:p-10 md:pr-6">
+                  <span className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-muted-foreground">
+                    {featured.sector}
                   </span>
-                  <span className="mt-4 block max-w-[30ch] text-[15px] leading-[1.45] text-foreground md:text-base">
-                    {featured.metricLabel}
-                  </span>
+                  <div>
+                    <span className="text-lit block pb-2 text-[clamp(4.5rem,11vw,10rem)] font-bold leading-none tracking-[-0.06em]">
+                      {featured.metric}
+                    </span>
+                    <span className="mt-3 block max-w-[30ch] text-[15px] leading-[1.45] text-foreground md:text-base">
+                      {featured.metricLabel}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col p-7 md:p-10">
-                <h3 className="m-0 text-[30px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[40px]">
-                  {featured.client}
-                </h3>
-                <p className={`${PROSE_INK} mt-4 max-w-[60ch] flex-1`}>
-                  {t(`proof.cases.${featured.slug}`)}
-                </p>
-                <Link
-                  href={`/case-studies/${featured.slug}`}
-                  className={`${MONO_LINK} mt-8 self-start`}
-                >
-                  {t("proof.readCase", { client: featured.client })}
-                  <span aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </article>
-          ) : null}
-
-          <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-            {others.map((customer) => (
-              <article
-                key={customer.slug}
-                className="flex flex-col border border-border bg-background p-7"
-              >
-                <span className={MONO}>{customer.sector}</span>
-                <h3 className="m-0 mt-3 text-[26px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[32px]">
-                  {customer.client}
-                </h3>
-                <p className={`${PROSE} mt-4 flex-1`}>{t(`proof.cases.${customer.slug}`)}</p>
-                <Link
-                  href={`/case-studies/${customer.slug}`}
-                  className={`${MONO_LINK} mt-6 border-t border-border pt-5`}
-                >
-                  {t("proof.readCase", { client: customer.client })}
-                  <span aria-hidden="true">→</span>
-                </Link>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* 6 — What this is not, to set expectations. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={H2}>{t("not.title")}</h2>
-          <div className="mt-10 grid grid-cols-1 border-l border-t border-border md:mt-12 md:grid-cols-2 lg:grid-cols-4">
-            {AGENTS_PRODUCTION_NOT_KEYS.map((key, i) => (
-              <article key={key} className="flex flex-col border-b border-r border-border p-7">
-                <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="m-0 mt-4 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[22px]">
-                  {t.rich(`not.items.${key}.title`, { hardening: inlineLink(hardening) })}
-                </h3>
-                {t.has(`not.items.${key}.desc`) ? (
-                  <p className={`${PROSE} mt-3`}>{t(`not.items.${key}.desc`)}</p>
-                ) : null}
-                {t.has(`not.items.${key}.link`) ? (
-                  <Link href={hardening} className={`${MONO_LINK} mt-5`}>
-                    {t("not.items.hardening.link")}
+                <div className="relative flex flex-col p-7 md:p-10 md:pl-6">
+                  <h3 className="m-0 text-[clamp(1.9rem,3vw,2.6rem)] font-bold leading-[1.05] tracking-[-0.035em] text-foreground">
+                    {featured.client}
+                  </h3>
+                  <p className={`${PROSE_INK} mt-4 max-w-[60ch] flex-1`}>
+                    {t(`proof.cases.${featured.slug}`)}
+                  </p>
+                  <Link
+                    href={`/case-studies/${featured.slug}`}
+                    className={`${MONO_LINK} mt-8 self-start`}
+                  >
+                    {t("proof.readCase", { client: featured.client })}
                     <span aria-hidden="true">→</span>
                   </Link>
-                ) : null}
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* 7 — FAQ, restated as plain text in the FAQPage JSON-LD above. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={H2}>{t("faq.title")}</h2>
-
-          <div className="mt-10 border-t border-border md:mt-12">
-            {AGENTS_PRODUCTION_FAQ_KEYS.map((key) => (
-              <article
-                key={key}
-                className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-8"
-              >
-                <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
-                  {t(`faq.items.${key}.q`)}
-                </h3>
-                <div className="flex max-w-[70ch] flex-col gap-4">
-                  <p className={PROSE}>{t.rich(`faq.items.${key}.a`, faqTags)}</p>
-                  {faqLinks[key] ? (
-                    <div className="flex flex-wrap gap-x-6 gap-y-3">
-                      {faqLinks[key].map((link) => (
-                        <Link
-                          key={link.href}
-                          href={link.href}
-                          locale={link.locale}
-                          className={MONO_LINK}
-                        >
-                          {link.label}
-                          <span aria-hidden="true">→</span>
-                        </Link>
-                      ))}
-                    </div>
-                  ) : null}
                 </div>
               </article>
-            ))}
-          </div>
-        </section>
+            ) : null}
 
-        {/* 8 — Further reading and the sibling landings. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={H2}>{t("further.title")}</h2>
-          <div className="mt-10 grid grid-cols-1 gap-10 md:mt-12 md:grid-cols-2 md:gap-16">
-            <div>
-              <span className={MONO}>{t("further.readingLabel")}</span>
-              <ul className="m-0 mt-4 list-none border-t border-border p-0">
-                {reading.map((item) => (
-                  <li key={item.key} className="border-b border-border">
+            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+              {others.map((customer) => (
+                <article
+                  key={customer.slug}
+                  className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
+                >
+                  <span aria-hidden="true" className={LAMP} />
+                  <span className="relative font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-muted-foreground">
+                    {customer.sector}
+                  </span>
+                  <h3 className="relative m-0 mt-4 text-[clamp(1.75rem,2.6vw,2.25rem)] font-bold leading-[1.05] tracking-[-0.035em] text-foreground">
+                    {customer.client}
+                  </h3>
+                  <p className={`relative ${PROSE} mt-4 flex-1 text-soft-foreground`}>
+                    {t(`proof.cases.${customer.slug}`)}
+                  </p>
+                  <Link
+                    href={`/case-studies/${customer.slug}`}
+                    className={`relative ${MONO_LINK} mt-6 self-start`}
+                  >
+                    {t("proof.readCase", { client: customer.client })}
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 6 — What this is not, to set expectations. */}
+          <section className={`${BAND} border-t border-border`}>
+            <h2 className={H2}>{t("not.title")}</h2>
+            <div className="mt-12 grid grid-cols-1 border-l border-t border-border md:mt-16 md:grid-cols-2 lg:grid-cols-4">
+              {AGENTS_PRODUCTION_NOT_KEYS.map((key, i) => (
+                <article
+                  key={key}
+                  className="flex flex-col border-b border-r border-border bg-card p-7 md:p-8"
+                >
+                  <span className="text-lit text-[40px] font-bold leading-none tracking-[-0.05em]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="m-0 mt-6 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[22px]">
+                    {t.rich(`not.items.${key}.title`, { hardening: inlineLink(hardening) })}
+                  </h3>
+                  {t.has(`not.items.${key}.desc`) ? (
+                    <p className={`${PROSE} mt-3`}>{t(`not.items.${key}.desc`)}</p>
+                  ) : null}
+                  {t.has(`not.items.${key}.link`) ? (
+                    <Link href={hardening} className={`${MONO_LINK} mt-5 self-start`}>
+                      {t("not.items.hardening.link")}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  ) : null}
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 7 — FAQ, restated as plain text in the FAQPage JSON-LD above. */}
+          <section className={`${BAND} border-t border-border`}>
+            <h2 className={H2}>{t("faq.title")}</h2>
+
+            <div className="mt-12 border-t border-border md:mt-16">
+              {AGENTS_PRODUCTION_FAQ_KEYS.map((key) => (
+                <article
+                  key={key}
+                  className="grid grid-cols-1 gap-3 border-b border-border py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                >
+                  <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
+                    {t(`faq.items.${key}.q`)}
+                  </h3>
+                  <div className="flex max-w-[70ch] flex-col gap-4">
+                    <p className={PROSE}>{t.rich(`faq.items.${key}.a`, faqTags)}</p>
+                    {faqLinks[key] ? (
+                      <div className="flex flex-wrap gap-x-6 gap-y-3">
+                        {faqLinks[key].map((link) => (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            locale={link.locale}
+                            className={MONO_LINK}
+                          >
+                            {link.label}
+                            <span aria-hidden="true">→</span>
+                          </Link>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 8 — Further reading and the sibling landings. */}
+          <section className={`${BAND} border-t border-border`}>
+            <h2 className={H2}>{t("further.title")}</h2>
+            <div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-2 md:gap-16">
+              <div>
+                <span className={MONO}>{t("further.readingLabel")}</span>
+                <ul className="m-0 mt-4 list-none border-t border-border p-0">
+                  {reading.map((item) => (
+                    <li key={item.key} className="border-b border-border">
+                      <Link
+                        href={item.href}
+                        locale={item.locale}
+                        className="group flex items-baseline justify-between gap-4 py-4 text-[15px] leading-[1.45] text-foreground md:text-base"
+                      >
+                        <span className="underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground">
+                          {t(`further.reading.${item.key}`)}
+                        </span>
+                        <span aria-hidden="true" className="shrink-0 transition-colors group-hover:text-brand">
+                          →
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <span className={MONO}>{t("further.alsoLabel")}</span>
+                <div className="mt-4 grid grid-cols-1 gap-4">
+                  {siblings.map((item) => (
                     <Link
+                      key={item.key}
                       href={item.href}
-                      locale={item.locale}
-                      className="group flex items-baseline justify-between gap-4 py-4 text-[15px] leading-[1.45] text-foreground md:text-base"
+                      className="group block border border-border bg-card p-6 transition-colors duration-300 hover:border-border-strong"
                     >
-                      <span className="underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground">
-                        {t(`further.reading.${item.key}`)}
+                      <span className="flex items-baseline justify-between gap-4 text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground">
+                        {t(`further.${item.key}.title`)}
+                        <span aria-hidden="true" className="text-lg transition-colors group-hover:text-brand">
+                          →
+                        </span>
                       </span>
-                      <span aria-hidden="true" className="shrink-0">
-                        →
+                      <span className={`${PROSE} mt-2 block`}>
+                        {t(`further.${item.key}.desc`)}
                       </span>
                     </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <span className={MONO}>{t("further.alsoLabel")}</span>
-              <div className="mt-4 grid grid-cols-1 gap-5">
-                {siblings.map((item) => (
-                  <Link
-                    key={item.key}
-                    href={item.href}
-                    className="group block border border-border p-6 transition-colors duration-300 hover:border-border-strong hover:bg-card"
-                  >
-                    <span className="flex items-baseline justify-between gap-4 text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground">
-                      {t(`further.${item.key}.title`)}
-                      <span aria-hidden="true" className="text-lg">
-                        →
-                      </span>
-                    </span>
-                    <span className={`${PROSE} mt-2 block`}>
-                      {t(`further.${item.key}.desc`)}
-                    </span>
-                  </Link>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
 
         {/* The French copy closes on its own question; English keeps the
             shared one. */}
