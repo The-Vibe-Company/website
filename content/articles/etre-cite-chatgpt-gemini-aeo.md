@@ -1,10 +1,10 @@
 ---
-title: "Être cité par ChatGPT : guide pratique AEO"
-seoTitle: "Être cité par ChatGPT : guide AEO | The Vibe Company"
+title: "Être cité par ChatGPT : 6 mythes AEO vérifiés aux sources"
+seoTitle: "Être cité par ChatGPT : 6 mythes AEO et leurs preuves"
 slug: etre-cite-chatgpt-gemini-aeo
 translationKey: aeo-chatgpt-citations
 language: fr
-summary: "Comment être cité par ChatGPT et Gemini : rendre votre site crawlable, publier des pages citables, prouver votre expertise et mesurer chaque mois."
+summary: "Être cité par ChatGPT et Gemini : 6 idées reçues sur l'AEO tranchées avec la documentation d'OpenAI et de Google et l'étude SE Ranking."
 publishedAt: 2026-10-28
 complexity: intermediate
 topics: Answer Engines, AI Search, Content Marketing
@@ -13,170 +13,155 @@ coverAlt: "La mascotte pointe une bulle de réponse IA qui cite une page web, re
 ogImage: /images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp
 ---
 
-Vos clients et prospects posent déjà leurs questions dans ChatGPT, Gemini et les AI Overviews de Google. « Quel outil pour… », « Qui fait… », « Comment choisir… ». Si votre site n'est pas une source claire et crawlable, la réponse cite quelqu'un d'autre. L'[Answer Engine Optimization](https://www.semrush.com/blog/answer-engine-optimization/) (AEO) regroupe les pratiques qui augmentent vos chances d'y apparaître.
+Pour être cité par ChatGPT, une page doit d'abord être éligible. OpenAI demande d'autoriser OAI-SearchBot et le trafic venu des IP publiées dans [searchbot.json](https://openai.com/searchbot.json), sans garantir de placement. Côté Google, les AI Overviews et AI Mode n'ajoutent aucune exigence technique au SEO. L'[Answer Engine Optimization](https://www.semrush.com/blog/answer-engine-optimization/) (AEO) regroupe ces pratiques.
 
-Ce guide s'adresse aux fondateurs, marketeurs et responsables contenu qui veulent rendre leur marque **éligible et pertinente** pour les citations IA. Pas de jargon magique : crawler les bots, publier des pages answer-first, dater ses preuves, gagner des mentions hors site, et mesurer chaque mois avec un protocole simple.
+Vos acheteurs posent déjà leurs questions dans ChatGPT, Gemini et les AI Overviews de Google. « Quel outil pour… », « Qui fait… », « Comment choisir… ». Le modèle réécrit la requête, cherche sur le web, puis cite un sous-ensemble de pages. Si votre site n'est pas une source claire et crawlable, la réponse cite quelqu'un d'autre. Et l'aperçu IA de Google sur « être cité par ChatGPT » range encore les 3 bots d'OpenAI dans un seul geste.
 
-## Pourquoi viser les citations (et pas seulement le SEO)
+:::summary{title="En bref"}
+- ChatGPT Search dépend d'OAI-SearchBot, un seul des 3 agents décrits par OpenAI.
+- Bing Webmaster Tools est absent de la page d'éligibilité d'OpenAI.
+- Google-Extended n'a aucun effet sur l'inclusion dans Google Search, ce qui laisse penser qu'il ne touche pas les AI Overviews.
+- Le gain de 40 % du papier GEO est un résultat de labo, obtenu sur GEO-bench.
+- Le ratio de 3,5 publié par SE Ranking est une corrélation observée dans son corpus.
+:::
 
-Le SEO classique reste utile. Il ne répond plus seul à la question « qui ChatGPT recommande-t-il sur mon sujet ? ». Les acheteurs formulent des prompts conversationnels. Les modèles réécrivent la requête, cherchent sur le web (ou via des partenaires), puis citent un sous-ensemble de pages.
+**Comment on sait.** Chaque verdict renvoie à une page officielle d'OpenAI ou de Google, au papier GEO ou à l'étude SE Ranking, toutes relues le 9 novembre 2026. Cet article ne contient aucune mesure de citations faite par The Vibe Company. En fin d'article, The Vibe Company propose de cartographier vos pages citables : l'auteur a donc un intérêt dans le sujet.
 
-Google le dit sans détour dans [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features) : pas d'exigences techniques supplémentaires pour les AI Overviews ou AI Mode au-delà d'être indexé et éligible aux extraits. Le reste, c'est du SEO solide, plus des citations, des mentions et du contenu qui répond d'abord, développe ensuite.
+## Être cité par ChatGPT : 6 idées reçues tranchées par les sources
 
-L'objectif reste terre à terre. Pour les questions que posent vraiment vos acheteurs, il vous faut une page claire, à jour, prouvable, que les bots peuvent crawler.
+Chaque idée reçue de ce tableau se confronte à une source primaire, avec un verdict en une ligne. Le compte de 6 est un choix de l'article, qui retient les idées reçues de la version publiée et des résultats Google du 9 novembre 2026.
 
-## AEO, GEO, SEO : vocabulaire clair
+| Ce qu'on entend | Verdict | Preuve |
+|---|---|---|
+| « Autoriser ChatGPT-User dans robots.txt = être cité » | Faux : ChatGPT Search dépend d'OAI-SearchBot | OpenAI, Overview of OpenAI Crawlers |
+| « Faut-il Bing Webmaster pour être cité par ChatGPT ? » | Non écrit par OpenAI | OpenAI Help, Searching the web with ChatGPT |
+| « llms.txt garantit d'être cité » | Faux : impact négligeable mesuré | llmstxt.org, SE Ranking (23 janvier 2026) |
+| « Bloquer Google-Extended sort des AI Overviews » | Faux par déduction : autre levier | Google, Search generative AI control |
+| « Le SEO est mort / AEO le remplace » | Faux : mêmes fondamentaux | Google, AI features and your website |
+| « GEO garantit +40 % » et « il faut 32 k backlinks » | Faux : labo sur GEO-bench, corrélation SE Ranking | Papier GEO, étude SE Ranking |
 
-| Terme | Idée | Ancre utile |
-| --- | --- | --- |
-| SEO | Être trouvé et classé dans les résultats classiques | Indexation, crawl, liens, contenu |
-| AEO | Visibilité dans les *réponses* générées (ChatGPT, AI Mode, etc.) | Définition Semrush (avr. 2026) |
-| GEO | Optimisation pour les moteurs génératifs | Papier [GEO, KDD 2024](https://arxiv.org/abs/2311.09735) |
+## OAI-SearchBot est le seul des 3 bots OpenAI qui pilote ChatGPT Search
 
-En pratique, AEO et GEO visent souvent le même résultat : être cité ou mentionné dans une réponse IA. Le jargon change selon les cabinets. Sur X comme dans les guides, la distinction est surtout marketing. Ce qui compte : pages citables + crawl bots + preuves + mentions hors site.
+![Trois bots OpenAI : seul OAI-SearchBot pilote ChatGPT Search. Détaillé ci-dessous.](/images/resources/etre-cite-chatgpt-gemini-aeo/3-bots-openai-chatgpt-search.png)
 
-Le papier GEO d'Aggarwal et al. montre jusqu'à 40 % de gain de visibilité **dans leurs expériences de labo** (GEO-bench). À lire comme un signal de labo, pas comme une promesse client. Citations, citations de sources et statistiques sourcées aident.
+OAI-SearchBot est, parmi les 3 agents d'OpenAI, celui qui décide de l'apparition dans ChatGPT Search, selon la page [Overview of OpenAI Crawlers](https://developers.openai.com/api/docs/bots) relue le 9 novembre 2026. Il sert la recherche. Il est « used to surface websites in search results in ChatGPT’s search features ». Un site qui le refuse « will not be shown in ChatGPT search answers, though can still appear as navigational links ».
 
-## Comment ChatGPT et Google choisissent (vraiment) leurs sources
+GPTBot collecte du contenu pour l'entraînement des modèles de fondation. OpenAI précise que « Each setting is independent of the others ». Un site peut donc autoriser OAI-SearchBot et refuser GPTBot.
 
-### Côté Google (AI Overviews / AI Mode)
+ChatGPT-User suit une autre logique. Il visite une page quand un utilisateur, ou une Action, le déclenche. OpenAI l'écrit en toutes lettres. « ChatGPT-User is not used for crawling the web in an automatic fashion. Because these actions are initiated by a user, robots.txt rules may not apply. ChatGPT-User is not used to determine whether content may appear in Search. » Une ligne ChatGPT-User dans robots.txt ne rend donc aucun site visible dans ChatGPT Search.
 
-Google rappelle qu'il n'y a pas de markup « AI-only » secret. Les bonnes pratiques restent celles du SEO : crawl, liens internes, texte visible, données structurées alignées sur le texte. Les AI Overviews peuvent aussi faire du **query fan-out** : plusieurs recherches liées sur des sous-thèmes. Une citation n'implique donc pas forcément d'être n°1 sur la requête initiale.
+**À la place.** Autorisez OAI-SearchBot dans robots.txt, puis vérifiez que votre CDN ou votre WAF laisse passer les IP de [searchbot.json](https://openai.com/searchbot.json). Réglez GPTBot à part, selon votre choix sur l'entraînement. Surveillez ensuite vos logs. Des bots IA absents des logs signalent un problème d'infrastructure.
 
-Dans Search Console, le [contrôle Search generative AI](https://support.google.com/webmasters/answer/16908024) (rollout mondial noté fin août 2026) laisse Inclure ou Exclure AI Overviews, AI Mode et Discover génératif. Par défaut : include. Ce contrôle n'est pas le même levier que `Google-Extended` (entraînement des modèles). Les confondre dans un article ou un robots.txt, c'est une erreur classique.
+## Bing Webmaster Tools ne figure pas dans les critères d'éligibilité d'OpenAI
 
-### Côté ChatGPT (recherche web)
+Beaucoup de guides français font de Bing Webmaster Tools une étape obligatoire pour être cité par ChatGPT. Le mythe circule jusque dans l'aperçu IA de Google, qui affirme que « ChatGPT Search s'appuie en grande partie sur l'index de Bing ». Pour OpenAI, la condition est ailleurs. La preuve tient dans les critères d'éligibilité de sa page d'aide [Searching the web with ChatGPT](https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt), relue le 9 novembre 2026, à la partie « Make your website available in search results ». « To make a website eligible for inclusion, allow OAI-Searchbot to crawl the site and confirm that the website host or content delivery network allows traffic from OpenAI’s published searchbot IP addresses. »
 
-OpenAI documente dans [Searching the web with ChatGPT](https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt) que les citations **peuvent être incomplètes, datées ou incorrectes**. Il faut vérifier la source. Pour être *éligible*, le site doit autoriser **OAI-Searchbot** et le trafic depuis les IP publiées dans [searchbot.json](https://openai.com/searchbot.json). Aucune plateforme ne garantit une citation.
+Bing n'y figure pas. La même page prévient aussi que « Placement is not guaranteed ». On en déduit que Bing peut rester utile pour l'index de Microsoft, sans être un critère d'éligibilité chez OpenAI.
 
-## Checklist technique : être crawlable par les bots IA
+**À la place.** Vérifiez d'abord la règle OAI-SearchBot et l'accès des IP OpenAI chez votre hébergeur. Gardez Bing Webmaster Tools comme hygiène d'index, sans en attendre de citation.
 
-1. **Autoriser OAI-Searchbot** (et vérifier que CDN / WAF ne bloquent pas les IP OpenAI search).
-2. **Laisser le contrôle Search generative AI sur Include**, sauf raison métier forte d'exclure.
-3. **Ne pas confondre** `Google-Extended` (training) et le contrôle Search generative AI (apparition dans les réponses Search).
-4. **Éviter les `noindex` accidentels** sur les pages que vous voulez voir citées (définitions, guides, FAQ, cas).
-5. **Texte visible dans le HTML** : une réponse clé ne doit pas vivre uniquement dans une image ou un PDF scanné.
-6. **Sitemap et liens internes** vers les pages « answer-first » (voir section contenu).
-7. **Surveiller les logs** : bots IA absents = problème d'infra, pas seulement de contenu.
+## llms.txt est une proposition, et SE Ranking lui trouve un impact négligeable
 
-Un fichier `llms.txt` ou un schema inventé ne remplace pas ces bases. OpenAI documente le crawl OAI-Searchbot + la pertinence, pas une garantie de placement.
+Un fichier llms.txt ne garantit aucune citation, et OpenAI ne le documente pas comme une exigence pour apparaître dans ChatGPT Search. Le fichier [llms.txt](https://llmstxt.org/) est une proposition publique, que son site présente ainsi (« This is v2 of the proposal »). Elle se distingue de robots.txt, puisque « robots.txt and llms.txt have different purposes ». Ses auteurs le destinent surtout à l'inférence des modèles.
 
-## Checklist contenu : quelles pages rendre citables
+L'étude [SE Ranking](https://seranking.com/fr/blog/comment-se-referencer-sur-chatgpt/) du 23 janvier 2026 porte sur 129 000 domaines, 216 524 pages dans 20 niches et 100 000 invites. Avec un modèle prédictif, elle conclut que « L'inclusion de LLMs.txt a eu un impact négligeable sur la probabilité de citation par ChatGPT ». C'est une corrélation. On en déduit qu'elle ne prouve ni que le fichier aide, ni qu'il nuit.
 
-Une page citable répond en quelques phrases, puis développe. Elle date ses faits. Elle cite des sources primaires. Elle se rafraîchit (les analyses relayées par Semrush lient souvent fraîcheur et citations ; traitez ça comme une hypothèse opérationnelle, pas une loi).
+**À la place.** Traitez llms.txt comme un bonus de découverte, une fois réglés le crawl et les preuves. Un schema inventé ne remplace pas non plus ces bases.
 
-Structure type :
+## Google-Extended règle l'entraînement, le contrôle Search generative AI règle les AI Overviews
 
-1. Réponse courte en tête (définition ou critères).
-2. Tableau ou liste scannable.
-3. Preuves datées (cas, chiffres sourcés, liens officiels).
-4. FAQ en questions réelles de vos acheteurs.
-5. Date de mise à jour visible.
+![Deux leviers Google : Search generative AI pour les AI Overviews, Google-Extended pour l'entraînement. Détaillé ci-dessous.](/images/resources/etre-cite-chatgpt-gemini-aeo/2-leviers-google-ai-overviews.png)
 
-### Types de pages à prioriser
+Le [contrôle Search generative AI](https://support.google.com/webmasters/answer/16908024) de Search Console gère l'apparition dans AI Overviews, AI Mode et Discover génératif. Son déploiement mondial a été noté fin août 2026. Le choix s'affiche « Include » ou « Exclude », avec « Include » par défaut. Après un changement, le contenu est exclu « within 1-2 days after the control goes live ». La page ajoute que « This control doesn't affect AI training ».
 
-Pas besoin d'inventer un « site AEO ». Travaillez d'abord les formats que les modèles aiment citer :
+Google-Extended est le token robots.txt de l'entraînement Gemini et Vertex, et du grounding dans Gemini Apps. Sa [documentation des crawlers Google](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers#google-extended), relue le 9 novembre 2026, est nette : « Google-Extended does not impact a site's inclusion in Google Search nor is it used as a ranking signal in Google Search. » Le [billet du 30 octobre 2026](https://developers.google.com/search/blog/2026/10/ai-training-control) apporte une nuance. « Websites that specifically allow Google-Extended are eligible to appear in responses and receive clicks via grounding in Gemini Apps. »
 
-**Pages catégorie / offre.** Ce que vous vendez, pour qui, avec quels critères de choix. Une landing claire bat une homepage fourre-tout.
+On en déduit que bloquer Google-Extended ne retire pas un site des AI Overviews, qui se règlent dans Search Console. Cela laisse penser que le bloquer peut aussi toucher Gemini Apps.
 
-**Guides how-to.** « Comment faire X », critères, étapes, pièges. Exemple de forme : un article comme [comment choisir une agence IA](/fr/resources/articles/choisir-agence-ia-esn-freelance) répond d'abord, puis détaille.
+**À la place.** Laissez le contrôle Search generative AI sur « Include », sauf raison métier forte d'exclure. Décidez de Google-Extended séparément, en sachant qu'il compte pour Gemini Apps.
 
-**Définitions et concepts.** Une page qui explique clairement un terme technique (ex. [RAG en entreprise](/fr/resources/articles/rag-entreprise) ou [agents IA en entreprise](/fr/resources/articles/agent-ia-entreprise)) devient une source naturelle quand quelqu'un demande « c'est quoi… ».
+## AI Overviews et AI Mode reposent sur les exigences techniques du SEO
 
-**FAQ acheteur.** Les vraies questions de vente, pas les FAQ légales. Une question = une réponse courte + un développement.
+L'AEO ne remplace pas le SEO côté Google, selon la page [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features). Pour servir de lien dans les AI Overviews ou AI Mode, une page doit être indexée et éligible à un extrait. Google conclut que « There are no additional technical requirements ». Il n'existe donc pas de markup « AI-only » secret.
 
-**Études de cas.** Résultats nommés, contexte, contraintes. Un cas comme [LocService](/fr/case-studies/locservice) ou [Monka](/fr/case-studies/monka) montre ce qui a été livré, pas seulement ce qui est promis.
+Ces surfaces peuvent aussi faire un « query fan-out », en « issuing multiple related searches across subtopics and data sources ». Une page peut ainsi être citée sans être n°1 sur la requête initiale.
 
-**Pages « cadre / conformité ».** Si votre marché a des règles (santé, données, sécurité), expliquez le *cadre* avec des sources officielles. Ne vous inventez pas de badge. Pour la santé en France, le détail du cadre HDS est dans [IA et données de santé](/fr/resources/articles/ia-donnees-de-sante-hds).
+**À la place.** Gardez les bases du SEO. Le crawl, les liens internes, le sitemap et les données structurées alignées sur le texte restent la règle. Évitez les `noindex` accidentels sur les pages à faire citer. Une réponse clé doit vivre dans le texte visible du HTML, hors d'une image ou d'un PDF scanné.
 
-## Checklist preuves et entité (E-E-A-T marque)
+Inutile d'inventer un « site AEO ». Une page citable répond en quelques phrases, puis développe. Elle date ses faits, cite des sources primaires et affiche sa date de mise à jour. Travaillez d'abord les formats que les modèles aiment citer :
 
-Les moteurs de réponse aiment les entités claires. Pour une marque ou un produit :
+1. Pages catégorie ou offre : ce que vous vendez, pour qui, avec quels critères de choix.
+2. Guides how-to, comme [comment choisir une agence IA](/fr/resources/articles/choisir-agence-ia-esn-freelance), qui répond d'abord puis détaille.
+3. Définitions, comme [RAG en entreprise](/fr/resources/articles/rag-entreprise) ou [agents IA en entreprise](/fr/resources/articles/agent-ia-entreprise).
+4. FAQ acheteur, avec les vraies questions de vente.
+5. Études de cas avec résultats nommés, comme [LocService](/fr/case-studies/locservice).
+6. Pages de cadre réglementaire, sourcées, comme le cadre HDS pour la santé en France dans [IA et données de santé](/fr/resources/articles/ia-donnees-de-sante-hds).
 
-- **Cas clients ou preuves nommées** avec résultats vérifiables.
-- **Signaux institutionnels réels** (levées, programmes publics, partenariats) : seulement ce qui est vrai et sourçable.
-- **Auteurs nommés** sur les guides techniques (pas seulement « L'équipe »).
-- **Stats toujours sourcées** ; si la source est secondaire, caveat ou omission.
-- **Pages À propos / équipe / méthodes** cohérentes avec les articles.
+## Chiffres AEO : +40 % en labo sur GEO-bench, ×3,5 en corrélation chez SE Ranking
 
-Évitez les certifications inventées et toute auto-attribution de labels que vous n'avez pas. Le cadre réglementaire et l'expérience projet suffisent, et ils sont plus crédibles.
+Le +40 % mesuré en labo sur GEO-bench et le ×3,5 de la corrélation SE Ranking valent chacun dans leur propre périmètre. Le [papier GEO (KDD 2024)](https://arxiv.org/abs/2311.09735) d'Aggarwal et al. rapporte jusqu'à 40 % de gain de visibilité dans les réponses des moteurs génératifs, dans ses expériences de labo sur le benchmark GEO-bench. Ce résultat ne promet rien à un client. Dans ces expériences, citations, citations de sources et statistiques sourcées aident.
 
-## Checklist off-site : devenir mentionnable
+L'étude SE Ranking du 23 janvier 2026 observe, par corrélation dans son corpus de 129 000 domaines et 100 000 invites, que « Les sites comptant plus de 32 000 domaines référents ont 3,5 fois plus de chances d’être cités par ChatGPT que ceux comptant jusqu’à 200 domaines référents ». La cause n'est pas établie.
 
-Le contenu seul ne suffit pas toujours. Les playbooks practitioners (Hoffman, workflows type treg) insistent sur :
+**À la place.** Visez des mentions authentiques dans les « core sources » de votre secteur. Forums, podcasts, médias sectoriels, GitHub et newsletters tech en font partie, avec YouTube ou les conférences quand le sujet s'y prête. Cherchez aussi des sites qui vous nomment comme source. Revérifiez ces mentions toutes les 3 à 4 semaines. Dans vos pages, sourcez chaque statistique. Si la source est secondaire, ajoutez un caveat ou retirez le chiffre.
 
-1. Cartographier les questions que posent vos acheteurs.
-2. Publier des pages answer-first.
-3. Obtenir des mentions authentiques (forums, podcasts, médias sectoriels, GitHub, newsletters tech).
-4. Visibilité YouTube / conférences quand le sujet s'y prête.
-5. Citations de qualité (autres sites qui vous nomment comme source).
-6. Re-check des mentions toutes les 3 à 4 semaines.
+## Mesurer ses citations : le protocole recommandé rejoue 5 à 10 questions acheteur chaque mois
 
-Visez les « core sources » de *votre* secteur (presse spécialisée, blogs experts, docs open source), sans inventer de pourcentages viraux non audités.
+Ce guide recommande un protocole mensuel de 5 à 10 vraies questions d'acheteurs, un choix pratique sans étude derrière. Sans mesure, l'AEO reste du folklore. Le protocole se fait soi-même.
 
-## Protocole de mesure : 5 à 10 questions acheteur, chaque mois
+1. Listez les questions conversationnelles que vos acheteurs posent vraiment.
+2. Rejouez-les sur ChatGPT avec recherche web et sur Gemini, en option sur Perplexity ou AI Mode.
+3. Pour chaque essai, notez la citation (URL), la mention sans lien, l'absence, le ton et le concurrent cité.
+4. Gardez la date, le modèle ou le mode, et une capture.
+5. Comparez mois après mois.
 
-Sans mesure, l'AEO reste du folklore. Protocole simple, à faire vous-même :
+OpenAI prévient que « Search results and citations can be incomplete, outdated, or incorrect ». Ouvrez donc chaque source citée avant de la noter. Semrush AI Visibility, Mentions.so ou un toolkit OSS comme treg restent des options. Vous mesurez ainsi votre éligibilité et votre présence.
 
-1. Lister **5 à 10 questions** que posent vraiment vos acheteurs (pas des keywords Ads, des phrases conversationnelles).
-2. Les rejouer sur **ChatGPT** (avec recherche web) et **Gemini**. Option : Perplexity, AI Mode Google.
-3. Pour chaque run, noter : citation (URL), mention (nom sans lien), absence, ton (positif / neutre / négatif), concurrent cité.
-4. Garder date, modèle / mode, et capture.
-5. Comparer mois après mois. Tools type Semrush AI Visibility, Mentions.so ou toolkits OSS (treg) = options, pas obligation.
+## Checklist AEO : les gestes qui restent valables pour ChatGPT et Gemini
 
-Vous mesurez votre éligibilité et votre présence. Aucune plateforme ne vend un slot garanti dans une réponse modèle.
+Cette checklist reprend la rubrique À la place de chaque mythe, dans l'ordre où les vérifier.
 
-## Mythes AEO à éviter
-
-1. **« Le SEO est mort / AEO le remplace »** : Google s'appuie sur les mêmes fondamentaux pour AI Overviews.
-2. **« llms.txt garantit d'être cité »** : non documenté comme garantie par OpenAI.
-3. **« Ranker n°1 Google = cité par ChatGPT »** : overlap partiel seulement ; fan-out et sélection modèle changent la donne.
-4. **« AEO et GEO sont opposés »** : souvent le même objectif, vocabulaire différent.
-5. **« Bloquer Google-Extended sort des AI Overviews »** : non, training ≠ contrôle Search generative AI.
-6. **« Les citations ChatGPT sont toujours justes »** : OpenAI dit le contraire.
-7. **Chiffres viraux non audités** (études blog reprises sans méthodo) : skip ou caveat fort. Ici on les omet.
-
-## Checklist récap (à imprimer)
-
-1. OAI-Searchbot autorisé + IP search OK.
-2. Search generative AI = Include (sauf exclusion volontaire).
-3. Pas de confusion Google-Extended / contrôle Search.
-4. Pages answer-first sur vos questions acheteur, texte visible, FAQ réelle.
-5. Preuves datées + auteurs nommés.
-6. Cas ou preuves nommées là où c'est vrai.
-7. Cadre réglementaire expliqué sans faux badges.
-8. Liens internes vers offres, guides et cas.
-9. Mentions off-site authentiques.
-10. 5 à 10 prompts rejoués chaque mois (ChatGPT + Gemini).
-11. Refresh des pages stratégiques dans l'année.
-12. Aucune promesse « on vous fait citer ».
-13. Sources primaires dans vos pages (docs officielles, papers, données).
-14. CTA après la valeur, pas avant.
+1. OAI-SearchBot autorisé, IP de searchbot.json acceptées par le CDN et le WAF.
+2. GPTBot et Google-Extended réglés séparément, selon votre choix sur l'entraînement.
+3. AI Overviews, AI Mode et Discover génératif inclus dans Search Console, sauf exclusion volontaire.
+4. Pages à citer indexables, sans `noindex` posé par erreur.
+5. Pages answer-first sur vos questions acheteur, texte visible, FAQ réelle.
+6. Preuves datées, auteurs nommés et sources primaires, pour un E-E-A-T de marque lisible.
+7. Signaux institutionnels réels et sourçables : levées, programmes publics, partenariats.
+8. Cadre réglementaire expliqué sans faux badges ni certification inventée.
+9. Liens internes vers offres, guides et cas.
+10. Mentions hors site authentiques.
+11. Questions acheteur rejouées chaque mois sur ChatGPT et Gemini.
+12. Pages stratégiques rafraîchies dans l'année.
+13. Aucune promesse « on vous fait citer ».
+14. CTA placé après la valeur.
 
 ## FAQ
 
 ### Quelle différence entre AEO et GEO ?
 
-AEO (Answer Engine Optimization) désigne les pratiques pour apparaître dans les réponses IA. GEO (Generative Engine Optimization) vient surtout du papier KDD 2024 et du même objectif côté moteurs génératifs. Traitez-les comme un même chantier : pages citables + crawl + mentions.
+L'AEO (Answer Engine Optimization) regroupe les pratiques qui augmentent la visibilité d'une marque dans les réponses générées, comme AI Mode ou ChatGPT, selon la définition de Semrush d'avril 2026. Le GEO (Generative Engine Optimization) vient surtout du papier KDD 2024. AEO et GEO visent souvent le même résultat, être cité ou mentionné. Traitez-les comme un seul chantier.
 
 ### Faut-il un fichier llms.txt ?
 
-OpenAI ne le documente pas comme une exigence pour être cité. Priorité : OAI-Searchbot, contenu clair, preuves. Un llms.txt peut être un bonus de découverte, jamais une garantie.
+Non. OpenAI ne documente pas llms.txt comme une exigence pour être cité. L'étude SE Ranking de janvier 2026 lui trouve un impact négligeable sur la probabilité de citation. La priorité reste OAI-SearchBot, un contenu clair et des preuves datées. Un llms.txt peut servir de bonus de découverte, sans aucune garantie.
 
 ### ChatGPT peut-il citer mon site sans clic Google ?
 
-Oui, via sa recherche web et ses partenaires, si vous êtes crawlable et jugé pertinent. Le classement n'est pas celui du top 10 Google classique.
+Oui. ChatGPT cherche sur le web, seul ou via ses partenaires, et peut citer un site crawlable qu'il juge pertinent. Son classement diffère du top 10 Google classique. Pour être éligible, autorisez OAI-SearchBot et les IP publiées par OpenAI. La page d'aide d'OpenAI ne pose aucune condition liée à Bing ni à Google.
 
 ### AI Overviews, c'est la même chose que ChatGPT ?
 
-Non. AI Overviews / AI Mode sont des surfaces Google Search. ChatGPT est un produit OpenAI avec sa propre recherche. Les leviers se croisent (bon SEO, pages claires) mais les contrôles et bots diffèrent.
+Ce sont des produits distincts. AI Overviews et AI Mode sont des surfaces de Google Search, réglées par le contrôle Search generative AI de Search Console. ChatGPT est un produit OpenAI, avec sa propre recherche et son bot OAI-SearchBot. Les leviers se croisent, avec un bon SEO et des pages claires. Les contrôles et les bots diffèrent.
 
 ### Peut-on garantir d'être cité ?
 
-Non. On peut viser l'éligibilité et la pertinence. Aucune plateforme ne vend un placement garanti dans une réponse modèle.
+Personne ne le peut. OpenAI écrit lui-même « Placement is not guaranteed ». On peut viser l'éligibilité et la pertinence, avec OAI-SearchBot, l'indexation Google et des pages claires. Aucune plateforme ne vend un placement garanti dans une réponse de modèle. Méfiez-vous des offres qui promettent de vous faire citer.
 
 ## Cartographier vos pages citables
 
-The Vibe Company est une [agence IA à Paris](/fr/agence-ia-paris) (YC W24). On construit des produits, des agents et des software factories qui tournent en production. Si vous voulez cartographier les pages à rendre citables et votre crawl bots IA, on peut le faire ensemble.
+The Vibe Company est une [agence IA à Paris](/fr/agence-ia-paris) (YC W24). Elle construit des produits, des agents et des software factories qui tournent en production. Si vous voulez cartographier les pages à rendre citables et le crawl de vos bots IA, The Vibe Company peut faire cette cartographie avec votre équipe.
 
 [Réserver un échange sur votre visibilité IA →](https://cal.com/stangirard/thevibecompany)
+
+*Passée par Y Combinator (W24).*
