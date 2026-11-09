@@ -184,3 +184,47 @@ describe('directivesToPlainMarkdown', () => {
     expect(directivesToPlainMarkdown(markdown)).toBe(markdown)
   })
 })
+
+describe('renderMarkdown image variants', () => {
+  const src = '/images/resources/example/schema.png'
+
+  test('a plain image keeps the default figure class', () => {
+    const html = renderMarkdown(`![A schema](${src})`)
+
+    expect(html).toContain('<figure class="prose-vibe-image">')
+    expect(html).not.toContain('prose-vibe-image--diagram')
+  })
+
+  test('{.diagram} opts the figure into the capped, centred diagram variant', () => {
+    const html = renderMarkdown(`![A schema](${src}){.diagram}`)
+
+    expect(html).toContain('<figure class="prose-vibe-image prose-vibe-image--diagram">')
+    expect(html).toContain('alt="A schema"')
+    expect(html).not.toContain('{.diagram}')
+  })
+
+  test('a diagram keeps its title as the figcaption', () => {
+    const html = renderMarkdown(`![A schema](${src} "Three steps"){.diagram}`)
+
+    expect(html).toContain('<figure class="prose-vibe-image prose-vibe-image--diagram">')
+    expect(html).toContain('<figcaption>Three steps</figcaption>')
+  })
+
+  test('an unknown variant is not rendered as a figure', () => {
+    expect(renderMarkdown(`![A schema](${src}){.huge}`)).not.toContain('<figure')
+  })
+})
+
+describe('directivesToPlainMarkdown image variants', () => {
+  test('strips the {.diagram} suffix so agents get standard Markdown', () => {
+    const markdown = '![A schema](/images/x.png "Caption"){.diagram}'
+
+    expect(directivesToPlainMarkdown(markdown)).toBe('![A schema](/images/x.png "Caption")')
+  })
+
+  test('leaves fenced code untouched', () => {
+    const markdown = ['```md', '![A](/images/x.png){.diagram}', '```'].join('\n')
+
+    expect(directivesToPlainMarkdown(markdown)).toBe(markdown)
+  })
+})
