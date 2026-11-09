@@ -5,7 +5,9 @@ import s from "./quivr.module.css";
 
 /**
  * The Quivr V2 web app as a product shot, drawn in HTML/CSS in place of a
- * screenshot (after the Stageshow skill, .agents/skills/stageshow). One story:
+ * screenshot (after the Stageshow skill, .agents/skills/stageshow), written
+ * against the site's tokens so it takes the band it sits on (the project
+ * page's paper); the purple bar keeps the product's own colour. One story:
  * a new article lands at the top of the live feed, the words that matched a
  * saved alert are underlined, and the alert arrives with the rule that
  * matched and the webhook sent to your app. The alert is the docs' own
@@ -97,7 +99,7 @@ export async function QuivrStage({ locale, accent }: { locale: string; accent: s
         aria-label={t("stageAlt")}
         className={`${s.stage} select-none border border-border`}
       >
-        <div className={`${s.window} flex flex-col border border-border bg-background shadow-[8px_8px_0_0_var(--border)]`}>
+        <div className={`${s.window} flex flex-col border border-border bg-card shadow-[8px_8px_0_0_var(--border)]`}>
           <div className="h-[3px] w-full shrink-0" style={{ backgroundColor: accent }} />
           <div className="flex min-h-0 flex-1">
             {/* Sidebar: the app's mark, then its sections (the feed is open). */}
@@ -187,7 +189,7 @@ export async function QuivrStage({ locale, accent }: { locale: string; accent: s
         </div>
 
         {/* The alert: what the new article set off, and where it went. */}
-        <div className={`${s.satellite} border border-border bg-background p-4 shadow-[6px_6px_0_0_var(--border-strong)]`}>
+        <div className={`${s.satellite} border border-border-strong bg-card p-4 shadow-[0_24px_60px_-24px_rgb(12_12_13_/_0.45)]`}>
           <span className={`inline-flex items-center gap-1.5 text-brand ${MONO}`}>
             <span className="h-1.5 w-1.5 rounded-full bg-brand" />
             {t("mock.alert.kicker")}

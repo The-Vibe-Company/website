@@ -13,21 +13,25 @@ import s from "./quivr.module.css";
  *
  *   Tile        Span   Kind        The one thing                     Moves
  *   Search      2 × 1  Hero UI     a query, the passage that matched  typed, then the result rises
- *   License     1 × 1  Statement   "MIT", on the one ink tile         holds still
+ *   License     1 × 1  Statement   "MIT", on the one lit tile         holds still
  *   Versions    1 × 1  Component   an article and its correction      the old word is struck
  *   Sources     1 × 1  Collection  the four kinds of source           the pills drift in
  *   Outputs     1 × 1  Component   API, webhooks, change feed, MCP    the status dots light up
  *   YC          1 × 1  Statement   the Y Combinator W24 mark          holds still
  *   Self-host   2 × 1  Diagram     the engine and what it runs on     the wires draw in
  *
- * A ruled grid in the house style (one ink frame, hairlines between cells),
- * copy at the top of every tile, each picture pinned to its tile's foot.
+ * A ruled grid in the house style (one frame, hairlines between cells), drawn
+ * in the band's tokens (paper on the project page), the license under the
+ * one lamp, copy at the top of every tile, each picture pinned to its foot.
  * Each tile plays its one beat once as it scrolls in, 110ms after the tile
  * before it in its row (--i). Every fact comes from the Quivr README
  * or docs.quivr.thevibecompany.co; the articles are samples.
  */
 
 const MONO = "font-mono text-[10px] uppercase tracking-[0.16em]";
+/** The short orange bar a lamp card hangs from, with its glow. */
+const LAMP =
+  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 const SOURCES: SourceKind[] = ["feed", "mail", "x", "app"];
 
 function Tile({
@@ -35,25 +39,26 @@ function Tile({
   index,
   title,
   body,
-  dark = false,
+  lit = false,
   children,
 }: {
   area: string;
   index: number;
   title: string;
   body: string;
-  dark?: boolean;
+  /** Under the lamp: the one tile the grid wants read first. */
+  lit?: boolean;
   children: ReactNode;
 }) {
   return (
     <PlayOnView
-      className={`${s.tile} ${area} ${dark ? "bg-foreground text-background" : "bg-background text-foreground"}`}
-      data-surface={dark ? "inverse" : undefined}
+      className={`${s.tile} ${area} ${lit ? "lamp-card" : "bg-card"} text-foreground`}
       style={{ "--i": index } as CSSProperties}
     >
+      {lit ? <span aria-hidden="true" className={LAMP} /> : null}
       <div className="relative z-[1] max-w-[440px] px-6 pt-6 text-[19px] leading-[1.35] tracking-[-0.015em] md:px-7 md:pt-7 md:text-[20px]">
         <h3 className="m-0 inline text-[length:inherit] font-semibold">{title}</h3>{" "}
-        <p className={`m-0 inline ${dark ? "text-white/65" : "text-muted-foreground"}`}>{body}</p>
+        <p className="m-0 inline text-muted-foreground">{body}</p>
       </div>
       {children}
     </PlayOnView>
@@ -145,13 +150,13 @@ export async function QuivrBento({ locale }: { locale: string }) {
         </div>
       </Tile>
 
-      {/* License: the one ink tile, the statement in large type. */}
-      <Tile area={s.license} index={1} title={t("license.title")} body={t("license.body")} dark>
-        <div className="mt-auto flex flex-col items-start px-6 pb-6 pt-8 md:px-7 md:pb-7">
-          <span className={`text-white/55 ${MONO}`}>{t("license.label")}</span>
+      {/* License: the one lit tile, the statement in large type. */}
+      <Tile area={s.license} index={1} title={t("license.title")} body={t("license.body")} lit>
+        <div className="relative mt-auto flex flex-col items-start px-6 pb-6 pt-8 md:px-7 md:pb-7">
+          <span className={`text-muted-foreground ${MONO}`}>{t("license.label")}</span>
           {/* Sized to the tile (cqi), so it never runs past the gutter. */}
           <span
-            className="mt-1 font-bold leading-[0.85] tracking-[-0.05em]"
+            className="text-lit mt-1 font-bold leading-[0.85] tracking-[-0.05em]"
             style={{ fontSize: "min(168px, calc((100cqi - 64px) / 1.7))" }}
           >
             {t("license.value")}
@@ -160,7 +165,7 @@ export async function QuivrBento({ locale }: { locale: string }) {
             href={QUIVR_REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex min-h-11 items-center gap-2 font-mono text-[13px] text-background underline decoration-1 underline-offset-4 hover:decoration-2"
+            className="mt-6 inline-flex min-h-11 items-center gap-2 font-mono text-[13px] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand"
           >
             <GitHubMark />
             {QUIVR_REPO}
@@ -179,7 +184,7 @@ export async function QuivrBento({ locale }: { locale: string }) {
                 <Headline text={t("versions.before")} markClassName={s.strike} />
               </p>
             </div>
-            <div className={`mt-3 border border-border bg-background px-4 py-3 shadow-[6px_6px_0_0_var(--border)] ${s.later}`}>
+            <div className={`mt-3 border border-border-strong bg-card px-4 py-3 shadow-[0_18px_44px_-22px_rgb(12_12_13_/_0.4)] ${s.later}`}>
               <div className="flex items-center gap-2">
                 <span className={`text-foreground ${MONO}`}>v2</span>
                 <span className={`border border-border px-1.5 leading-4 text-muted-foreground ${MONO}`}>
@@ -283,7 +288,7 @@ export async function QuivrBento({ locale }: { locale: string }) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/projects/quivr-favicon.svg" alt="" width={24} height={24} loading="lazy" className="h-6 w-6" />
                 <span className="text-[16px] font-bold tracking-[-0.02em]">Quivr</span>
-                <span className={`text-white/60 ${MONO}`}>{t("selfHost.core")}</span>
+                <span className={`text-background/60 ${MONO}`}>{t("selfHost.core")}</span>
               </div>
             </div>
             {/* The wires: one down from the engine, a bus, one stub per service. */}

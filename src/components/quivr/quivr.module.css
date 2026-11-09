@@ -23,10 +23,12 @@
   position: relative;
   height: 640px;
   overflow: hidden;
-  background-color: #101011;
+  /* The band's own ground under a hairline grid, so the shot reads on the
+     paper (or the ink) it is placed on. */
+  background-color: var(--background);
   background-image:
-    linear-gradient(to right, rgba(44, 44, 45, 0.9) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(44, 44, 45, 0.9) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--border) 70%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--border) 70%, transparent) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
