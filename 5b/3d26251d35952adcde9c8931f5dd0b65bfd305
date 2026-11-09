@@ -1,0 +1,341 @@
+src/components/home/directions/eclipse/Afterglow.tsx
+  s_cf3b1a16e9f092::t_16a8f257aacf17 3-34
+  s_cf3b1a16e9f092::t_69457d77c9bbfd 1-2,35-40
+src/components/home/directions/atelier/index.tsx
+  s_cf3b1a16e9f092::t_43948b317d7f0d 9,12,46
+  s_cf3b1a16e9f092::t_5a6d2ca1402d0b 31
+  s_cf3b1a16e9f092::t_91d8fe943c45bd 2-8,10-11,13-29,35,37-39,50-53
+  s_cf3b1a16e9f092::t_69b3dc6cc796ea 1,36
+  s_cf3b1a16e9f092::t_0c24531a8dfe88 30,41-45,47-49
+  s_cf3b1a16e9f092::t_b3d9da4fbda1e1 32-34,40
+src/components/home/directions/editorial/ServicesIndex.tsx
+  s_cf3b1a16e9f092::t_28235ec29dc94a 1-105
+src/components/home/directions/live/LiveCTA.tsx
+  s_cf3b1a16e9f092::t_255dd3769e7a42 1-113
+src/components/home/directions/cinetique/Products.tsx
+  s_cf3b1a16e9f092::t_ad56557fa0f950 31,111,118,128
+  s_cf3b1a16e9f092::t_5615a9e933fec7 1-30,32-110,112-117,119-127,129-140
+src/components/home/directions/profondeur/ProductsField.tsx
+  s_cf3b1a16e9f092::t_b542be98f6d25e 31,51,54
+  s_cf3b1a16e9f092::t_b17a3a046ed548 1-30,32-50,52-53,55-64,66-109
+  s_cf3b1a16e9f092::t_3490b931415702 65
+src/components/home/directions/editorial/PullQuote.tsx
+  s_cf3b1a16e9f092::t_6f405840254f3e 47-48
+  s_cf3b1a16e9f092::t_28235ec29dc94a 1-46,49-96
+src/components/home/directions/editorial/ProductsIndex.tsx
+  s_cf3b1a16e9f092::t_f23e3a0fc6d005 1-39,41-86
+  s_cf3b1a16e9f092::t_cf4e9f466561be 40
+src/components/home/directions/live/ProductsLive.tsx
+  s_cf3b1a16e9f092::t_5871fb9a791640 177
+  s_cf3b1a16e9f092::t_035d647d6ce7d2 1-31,33-176,178-197
+  s_cf3b1a16e9f092::t_98bc54772e6377 32
+src/components/home/directions/editorial/ClientsLedger.tsx
+  s_cf3b1a16e9f092::t_6f405840254f3e 15-17
+  s_cf3b1a16e9f092::t_f23e3a0fc6d005 1-14,18-47
+src/components/home/directions/live/LiveHero.tsx
+  s_cf3b1a16e9f092::t_e41e2575162cfc 1-134
+src/components/home/directions/eclipse/index.tsx
+  s_cf3b1a16e9f092::t_9de34770699e3a 1-34
+src/components/home/directions/profondeur/extrude.ts
+  s_cf3b1a16e9f092::t_f06dd186f6bda7 1-25
+src/components/home/directions/lanterne/NightQuote.tsx
+  s_cf3b1a16e9f092::t_bbf6f534bc6ade 69
+  s_cf3b1a16e9f092::t_6c7adab0f9e1d9 1-34,36-42,46-68,70-94
+  s_cf3b1a16e9f092::t_d4e79824e7158c 35,43-45
+src/components/home/directions/eclipse/Dawn.tsx
+  s_cf3b1a16e9f092::t_16a8f257aacf17 3,24-25,37,44
+  s_cf3b1a16e9f092::t_bd07a8a8a56db1 17-18,31
+  s_cf3b1a16e9f092::t_9c84af3b3e7494 1-2,4-16,19-23,26-30,32-36,38-43,45-49,51-95
+  s_cf3b1a16e9f092::t_69180afdebfda0 50
+src/components/home/directions/eclipse/shared.tsx
+  s_cf3b1a16e9f092::t_6864374079e3d2 1-42
+src/components/home/directions/eclipse/font.ts
+  s_cf3b1a16e9f092::t_7a9a91d6590232 1-15
+src/components/home/directions/eclipse/EclipseSky.tsx
+  s_cf3b1a16e9f092::t_eea95ed4a7e94c 1-66,71-76,81-93,96-129,131-132,134-135,138-139,141-196,206-220,222-273,276-285
+  s_cf3b1a16e9f092::t_499d1675ffa766 130,133,136-137,140,197-205,221,274-275
+  s_cf3b1a16e9f092::t_d645444a4bd47d 67-70,80,94-95
+  s_cf3b1a16e9f092::t_99dce25526d684 77-79
+src/components/home/directions/lanterne/Windows.tsx
+  s_cf3b1a16e9f092::t_35a5041556ce25 38
+  s_cf3b1a16e9f092::t_6702ee00ad1b92 1-37,39-104
+src/components/home/directions/eclipse/Cases.tsx
+  s_cf3b1a16e9f092::t_2fc24f6cd90913 1-116
+src/components/home/directions/profondeur/ClientsDepth.tsx
+  s_cf3b1a16e9f092::t_278f924ab3c966 1-105
+src/components/home/directions/cinetique/Quote.tsx
+  s_cf3b1a16e9f092::t_7f00ea5f7fbdfa 3,24,33,65-67
+  s_cf3b1a16e9f092::t_16562d03eac4b0 1-2,4-23,25-32,34-64,68-86
+src/components/home/directions/cinetique/Bands.tsx
+  s_cf3b1a16e9f092::t_fe0e295ffc12ca 1-50
+src/components/home/directions/eclipse/EclipseHero.tsx
+  s_cf3b1a16e9f092::t_69180afdebfda0 12,24-31,50-57,124
+  s_cf3b1a16e9f092::t_dbe725aeb3e123 1-8,10-11,13-23,32-45,48-49,58-81,83-84,86-123,125,128-175,178-185,187-191,196-208,210-213,220-251
+  s_cf3b1a16e9f092::t_499d1675ffa766 9,46-47,82,85,126-127,177,186,192-195,209,214-219
+  s_cf3b1a16e9f092::t_91e30fa0aba9db 176
+src/components/home/directions/eclipse/FitLine.tsx
+  s_cf3b1a16e9f092::t_0793f3cd0a4dfe 1-80
+src/components/home/directions/live/primitives.tsx
+  s_cf3b1a16e9f092::t_98bc54772e6377 17
+  s_cf3b1a16e9f092::t_d72c5b075279ff 1-16,18-132
+src/components/home/directions/cinetique/Hero.tsx
+  s_cf3b1a16e9f092::t_71efde442ccde4 131-134,147
+  s_cf3b1a16e9f092::t_7f00ea5f7fbdfa 45,47,69-70,137-138
+  s_cf3b1a16e9f092::t_2dac5d1194c4c0 72-74
+  s_cf3b1a16e9f092::t_014bbf3a1c14bb 1-44,46,48-68,71,75-130,135-136,139-146,148-155
+src/components/home/directions/editorial/index.tsx
+  s_cf3b1a16e9f092::t_cf4e9f466561be 3-14,16-27,29-54,56-59
+  s_cf3b1a16e9f092::t_98a79be9cba50d 1-2,15,28,61-62
+  s_cf3b1a16e9f092::t_ad60dabb695840 55,60
+src/components/home/directions/cinetique/Figures.tsx
+  s_cf3b1a16e9f092::t_f85a485124ae69 1-2,4-23,25-50,53-92
+  s_cf3b1a16e9f092::t_d8eed67c504414 24
+  s_cf3b1a16e9f092::t_7f00ea5f7fbdfa 3,51-52
+src/components/home/directions/lanterne/dust.ts
+  s_cf3b1a16e9f092::t_6e0a0cf90754ac 1-83
+src/components/home/directions/live/fonts.ts
+  s_cf3b1a16e9f092::t_395655b34073d5 1-13
+src/components/home/directions/eclipse/eclipse.module.css
+  s_cf3b1a16e9f092::t_a9d56374984dd0 26-27
+  s_cf3b1a16e9f092::t_58a06cde001085 1-25,28-36
+src/components/home/directions/cinetique/Services.tsx
+  s_cf3b1a16e9f092::t_d8eed67c504414 63
+  s_cf3b1a16e9f092::t_f22b8ebc3b533e 1-62,64-114
+src/components/home/directions/atelier/LitQuote.tsx
+  s_cf3b1a16e9f092::t_43948b317d7f0d 6-7,11-16
+  s_cf3b1a16e9f092::t_027c897b847e6a 1-5,8-10,17-30
+src/components/home/directions/cinetique/font.ts
+  s_cf3b1a16e9f092::t_319518809ca5d1 1-16
+src/components/home/directions/profondeur/Horizon.tsx
+  s_cf3b1a16e9f092::t_fcf71b6e350a46 47
+  s_cf3b1a16e9f092::t_18932a28f677b7 1-46,48-76
+src/components/home/directions/lanterne/CaseGallery.tsx
+  s_cf3b1a16e9f092::t_19d8c9b561b5aa 30
+  s_cf3b1a16e9f092::t_35a5041556ce25 70,72,74-81
+  s_cf3b1a16e9f092::t_b542be98f6d25e 20-21,71,73
+  s_cf3b1a16e9f092::t_98fcf932e1c478 1-19,22-29,31-69,82-148
+src/components/home/directions/profondeur/Dust.tsx
+  s_cf3b1a16e9f092::t_7bbb5aec926979 1-133
+src/components/home/directions/editorial/MaskLines.tsx
+  s_cf3b1a16e9f092::t_84de174c8feade 1-43
+src/components/home/directions/cinetique/Cases.tsx
+  s_cf3b1a16e9f092::t_fe0e295ffc12ca 44
+  s_cf3b1a16e9f092::t_7f00ea5f7fbdfa 3,46-47,52-53,78-79
+  s_cf3b1a16e9f092::t_112a2c13c90434 141
+  s_cf3b1a16e9f092::t_90dbffc3458979 36-41,77,82
+  s_cf3b1a16e9f092::t_d8c0b51ad64bc9 1-2,4-35,42-43,45,48-51,54-76,80-81,83-140,142-159
+src/components/home/directions/editorial/Closing.tsx
+  s_cf3b1a16e9f092::t_f23e3a0fc6d005 1-17,19-26,29-69,71-75
+  s_cf3b1a16e9f092::t_6f405840254f3e 18,27-28,70
+src/components/home/directions/eclipse/Constellation.tsx
+  s_cf3b1a16e9f092::t_9e9b05a244429e 1-60,62,64,76-77,80-155
+  s_cf3b1a16e9f092::t_58a06cde001085 61,63,65-75,78-79
+src/components/home/directions/live/live.module.css
+  s_cf3b1a16e9f092::t_6f4716d4fbb1b8 212-213,215,218-231,296-300
+  s_cf3b1a16e9f092::t_7e04c14844d606 204
+  s_cf3b1a16e9f092::t_395655b34073d5 1-203,205-211,214,216-217,232-295,301-306
+src/components/home/directions/live/index.tsx
+  s_cf3b1a16e9f092::t_98a79be9cba50d 2,87-90,99-101
+  s_cf3b1a16e9f092::t_98bc54772e6377 50-55
+  s_cf3b1a16e9f092::t_82b475be7662f7 1,3-49,56-86,91-98
+src/components/home/directions/lanterne/index.tsx
+  s_cf3b1a16e9f092::t_6592b53e467773 3-4,6-11,13-16
+  s_cf3b1a16e9f092::t_9de34770699e3a 1-2,5,12,17-18
+  s_cf3b1a16e9f092::t_1cd76ab76fbe2a 19-21
+  s_5b9273cb819412::t_300d0b6dcd63c3 22-36
+src/components/home/directions/lanterne/LanternClosing.tsx
+  s_cf3b1a16e9f092::t_117f26197eeea0 30,101-102
+  s_cf3b1a16e9f092::t_46e449442502aa 1-29,31-100,103-115
+src/components/home/directions/profondeur/pointer.ts
+  s_cf3b1a16e9f092::t_cd72dd235bcaa4 1-61
+src/components/home/directions/atelier/Offers.tsx
+  s_cf3b1a16e9f092::t_ad01af1cb4611e 1-84
+src/components/home/directions/atelier/Clientele.tsx
+  s_cf3b1a16e9f092::t_6a23989f15c48b 6,9-14,19-49,51
+  s_cf3b1a16e9f092::t_0c24531a8dfe88 7,18
+  s_cf3b1a16e9f092::t_bb6149408cec01 1-5,8,15-17,50,52-55
+src/components/home/directions/lanterne/lantern.module.css
+  s_cf3b1a16e9f092::t_c86f4121be1e7a 1-36,38-193,197,199,201-205,207-211,213-216,222-223,232-567,580-597,603-610
+  s_cf3b1a16e9f092::t_117f26197eeea0 598-602
+  s_cf3b1a16e9f092::t_6835652c0e9ad8 194-196,198,200,206,212,217-221,224-231,568-579
+  s_cf3b1a16e9f092::t_b542be98f6d25e 37
+src/components/home/directions/editorial/fonts.ts
+  s_cf3b1a16e9f092::t_958eb7a7a7b9d6 17-18
+  s_cf3b1a16e9f092::t_84de174c8feade 1,3-9,13
+  s_cf3b1a16e9f092::t_ad60dabb695840 2,10-12,14-16
+src/components/home/directions/cinetique/Closing.tsx
+  s_cf3b1a16e9f092::t_d8eed67c504414 22
+  s_cf3b1a16e9f092::t_def3bcc01a68c6 1-21,23-58,61-67,69-79,81-82,85-88,91-102,104-130
+  s_cf3b1a16e9f092::t_fe0e295ffc12ca 80
+  s_cf3b1a16e9f092::t_71efde442ccde4 68
+  s_cf3b1a16e9f092::t_7f00ea5f7fbdfa 59-60,83-84,89-90,103
+src/components/home/directions/atelier/AtelierHero.tsx
+  s_cf3b1a16e9f092::t_2a448da00af6ac 5-6,9-10,14,18-32,38-40,42,45,49-50,52,54,59-75,77,79-96,203-204,216-217,219-240,245-246,248-261
+  s_cf3b1a16e9f092::t_e482557e98b898 211
+  s_cf3b1a16e9f092::t_b3d9da4fbda1e1 48,51,53,55-58,76,78,218
+  s_cf3b1a16e9f092::t_be40be18aae35c 1-4,7-8,11-13,15-17,33,41,43-44,46-47,97-108,110,112-115,117-122,125,128-129,131,135-136,146-147,149-152,159-160,201,215,241,244,247,262-263
+  s_cf3b1a16e9f092::t_5a6d2ca1402d0b 36-37
+  s_cf3b1a16e9f092::t_abe1f1f4aa19db 34-35,109,111,116,123-124,126-127,130,132-134,137-145,148,153-158,161-200,202,205-210,212-214,242-243
+src/components/home/directions/atelier/SecretLevel.tsx
+  s_cf3b1a16e9f092::t_49f716cc98db60 77-85,94-98,103,112-119
+  s_cf3b1a16e9f092::t_4c1d0b11dccca9 120-121
+  s_cf3b1a16e9f092::t_ce1c736fec8f0e 122
+  s_cf3b1a16e9f092::t_03062185ca5f15 1-76,86-93,99-102,104-111,123-129
+src/components/home/directions/profondeur/ServicesFloat.tsx
+  s_cf3b1a16e9f092::t_81807ae7c99c83 1-48,50-55,57-92
+  s_cf3b1a16e9f092::t_19d8c9b561b5aa 49
+  s_cf3b1a16e9f092::t_612371c22d4a4e 56
+src/components/home/directions/live/LiveQuote.tsx
+  s_cf3b1a16e9f092::t_255dd3769e7a42 1-43
+src/components/home/directions/editorial/CaseIndex.tsx
+  s_cf3b1a16e9f092::t_a7745064e14bec 4,23,33,36,41,178
+  s_cf3b1a16e9f092::t_02bfccd6e617f5 1-3,5-22,24-32,34-35,37-40,42-94,97-177,179-197
+  s_cf3b1a16e9f092::t_5df5456b766fc1 95-96
+src/components/home/directions/atelier/scenes.ts
+  s_cf3b1a16e9f092::t_7dc6a5b9fbe502 1,5-12,14-23
+  s_cf3b1a16e9f092::t_c04fb8050da4c5 2-4,13
+src/components/home/directions/editorial/EditorialHeroMobile.tsx
+  s_cf3b1a16e9f092::t_958eb7a7a7b9d6 1-117
+src/components/home/directions/lanterne/light.tsx
+  s_cf3b1a16e9f092::t_117f26197eeea0 15-17,31
+  s_cf3b1a16e9f092::t_855c3709fcd995 1-14,18-29,33-132,134-139,143,146-177
+  s_cf3b1a16e9f092::t_d4e79824e7158c 30,32
+  s_cf3b1a16e9f092::t_b542be98f6d25e 133,140-142,144-145
+src/components/home/directions/eclipse/Quote.tsx
+  s_cf3b1a16e9f092::t_d55774ee21ca20 1-57
+src/components/home/directions/profondeur/AbyssBackdrop.tsx
+  s_cf3b1a16e9f092::t_e7d142b09933a3 1-59
+src/components/home/directions/editorial/FitHeadline.tsx
+  s_cf3b1a16e9f092::t_6f405840254f3e 12
+  s_cf3b1a16e9f092::t_66c22b6a202f3f 1-11,14-70
+  s_cf3b1a16e9f092::t_c218a6aaf195b6 13
+src/app/[locale]/directions/[direction]/page.tsx
+  s_cf3b1a16e9f092::t_9de34770699e3a 10,12,14,19-25,27
+  s_cf3b1a16e9f092::t_9d5878be6e5726 8,26
+  s_cf3b1a16e9f092::t_98a79be9cba50d 1-7,9,11,13,15-18,28-68
+src/components/home/directions/live/ServicesPanels.tsx
+  s_cf3b1a16e9f092::t_98bc54772e6377 33-48
+  s_cf3b1a16e9f092::t_5871fb9a791640 15-16
+  s_cf3b1a16e9f092::t_e3861ddea589e6 1-14,17-32,49-205
+src/components/home/directions/live/Ticker.tsx
+  s_cf3b1a16e9f092::t_e41e2575162cfc 1-90
+src/components/home/directions/profondeur/profondeur.module.css
+  s_cf3b1a16e9f092::t_19d8c9b561b5aa 162-190,205-206,234-235
+  s_cf3b1a16e9f092::t_a15a716256fce1 1-27,31-39,44-45,47,50-126,130-161,191-204,207-232,236-238
+  s_cf3b1a16e9f092::t_612371c22d4a4e 127-129
+  s_cf3b1a16e9f092::t_fcf71b6e350a46 28-30,40-43,49
+  s_cf3b1a16e9f092::t_1ebe407253dff7 46,48
+  s_cf3b1a16e9f092::t_7a8dbac0774dab 233
+src/components/home/directions/live/OpsBoard.tsx
+  s_cf3b1a16e9f092::t_98bc54772e6377 25-28,48,50,53-56,59-73,259
+  s_cf3b1a16e9f092::t_38065122a9bb5a 1-24,29-47,49,51-52,57-58,74-142,144-203,207-228,232-258,260-345,347-373,377-419
+  s_cf3b1a16e9f092::t_e3861ddea589e6 143
+  s_cf3b1a16e9f092::t_5871fb9a791640 374-376
+  s_cf3b1a16e9f092::t_e1f63e63bf4e74 204-206,229-231,346
+src/components/home/directions/lanterne/LanternHero.tsx
+  s_cf3b1a16e9f092::t_d4e79824e7158c 231,243-244,248-249,256,262
+  s_cf3b1a16e9f092::t_abbab6e7f8947e 76,241-242,245,247,254-255,257-259,261,307,329
+  s_cf3b1a16e9f092::t_f8a87cf0f6fe2f 1-4,6-38,40-75,77-222,224-230,232-233,235-240,246,250-253,260,263-301,331-333
+  s_cf3b1a16e9f092::t_a1417cc1dfe894 5,39,223,234,302-306,308-328,330
+src/components/home/directions/eclipse/Services.tsx
+  s_cf3b1a16e9f092::t_63da8b6aef8dfb 12-13,19,55,59,76
+  s_cf3b1a16e9f092::t_6a8564d99ccd1b 1-11,15-18,20-50,53-54,56-58,60-75,77-99
+  s_cf3b1a16e9f092::t_5f37874390265d 14,51-52
+src/components/home/directions/editorial/EditorialHero.tsx
+  s_cf3b1a16e9f092::t_66c22b6a202f3f 1-179
+src/components/home/directions/registry.ts
+  s_cf3b1a16e9f092::t_9de34770699e3a 11-13
+  s_cf3b1a16e9f092::t_9d5878be6e5726 14
+  s_cf3b1a16e9f092::t_98a79be9cba50d 1-10,15-21
+src/components/home/directions/eclipse/Embers.tsx
+  s_cf3b1a16e9f092::t_0fa9ccc20b27d8 1-127
+src/components/home/directions/lanterne/Lamps.tsx
+  s_cf3b1a16e9f092::t_b838fbcb404b85 1-52,54-116
+  s_cf3b1a16e9f092::t_6835652c0e9ad8 53
+src/components/home/directions/DirectionSwitcher.tsx
+  s_cf3b1a16e9f092::t_9de34770699e3a 13
+  s_cf3b1a16e9f092::t_98a79be9cba50d 1-12,14-33
+src/components/home/directions/profondeur/ClosingHorizon.tsx
+  s_cf3b1a16e9f092::t_711061c35ee9b8 1-37,39-91,93-101
+  s_cf3b1a16e9f092::t_b542be98f6d25e 38,92
+src/components/home/directions/cinetique/VelocityBand.tsx
+  s_cf3b1a16e9f092::t_d68d4804b279bf 1-104,106-107,109-116
+  s_cf3b1a16e9f092::t_7f00ea5f7fbdfa 105,108
+src/components/home/directions/atelier/atelier.module.css
+  s_cf3b1a16e9f092::t_0c24531a8dfe88 65-90,111-119
+  s_cf3b1a16e9f092::t_7dc6a5b9fbe502 1-2,7-8,11-64,149,155-157
+  s_cf3b1a16e9f092::t_43948b317d7f0d 3-6,9-10,150
+  s_cf3b1a16e9f092::t_2fe620dd14eba6 91-110,151
+  s_cf3b1a16e9f092::t_b3d9da4fbda1e1 120-148,152-154
+src/components/home/directions/profondeur/CaseCorridor.tsx
+  s_cf3b1a16e9f092::t_612371c22d4a4e 215
+  s_cf3b1a16e9f092::t_7838d6297172b4 1-105,107-114,116-151,153-157,164-180,182-210,213-214,216-229
+  s_cf3b1a16e9f092::t_3490b931415702 106,115,152,158-163,181,212
+  s_cf3b1a16e9f092::t_557093da7f45f5 211
+src/components/home/directions/lanterne/ClientsShelf.tsx
+  s_cf3b1a16e9f092::t_d400f0793f423e 1-4,6-64,66-90,99-103,106-111
+  s_cf3b1a16e9f092::t_17a863854f0a59 5,65
+  s_cf3b1a16e9f092::t_d4e79824e7158c 91-98,104-105
+src/components/home/directions/atelier/Workbench.tsx
+  s_cf3b1a16e9f092::t_0c24531a8dfe88 74
+  s_cf3b1a16e9f092::t_2fe620dd14eba6 10,83-88
+  s_cf3b1a16e9f092::t_027c897b847e6a 1-9,11-73,75-82,89-103
+src/components/home/directions/editorial/Chapter.tsx
+  s_cf3b1a16e9f092::t_395655b34073d5 7,68-72,74-79
+  s_cf3b1a16e9f092::t_84de174c8feade 1-6,8-34,38-43,45-67,80
+  s_cf3b1a16e9f092::t_958eb7a7a7b9d6 44,73
+  s_cf3b1a16e9f092::t_6f405840254f3e 35-37
+src/components/home/directions/profondeur/QuoteFog.tsx
+  s_cf3b1a16e9f092::t_a1d4577e3a7c59 1-54
+src/components/home/directions/profondeur/DeepHero.tsx
+  s_cf3b1a16e9f092::t_73fa245a13b8f3 1-65,69-82,84-89,91-92,97-122,124-148,150-221
+  s_cf3b1a16e9f092::t_d4e79824e7158c 123
+  s_cf3b1a16e9f092::t_3b24c3ff387603 93-96
+  s_cf3b1a16e9f092::t_fcf71b6e350a46 66-68,83,90,149
+src/components/home/directions/atelier/Closing.tsx
+  s_cf3b1a16e9f092::t_9d5878be6e5726 1-32,34,36-38,42-45,47-50,52-79
+  s_cf3b1a16e9f092::t_763510b5583541 46
+  s_cf3b1a16e9f092::t_be58e9721d3610 35,39-41,51
+  s_cf3b1a16e9f092::t_5a6d2ca1402d0b 33
+src/components/home/directions/profondeur/index.tsx
+  s_cf3b1a16e9f092::t_9de34770699e3a 4,13,42-43,54-56
+  s_cf3b1a16e9f092::t_e12b54118f9e63 1-3,5-12,14-41,45-53
+  s_cf3b1a16e9f092::t_793df1270c2473 44
+src/components/home/directions/cinetique/index.tsx
+  s_cf3b1a16e9f092::t_98a79be9cba50d 2-3,13,23,35-36
+  s_cf3b1a16e9f092::t_319518809ca5d1 24,34
+  s_cf3b1a16e9f092::t_fe0e295ffc12ca 1,4-12,14-22,25-33
+src/components/home/directions/atelier/Tools.tsx
+  s_cf3b1a16e9f092::t_9d5878be6e5726 1-62
+src/components/home/directions/eclipse/Horizon.tsx
+  s_cf3b1a16e9f092::t_bd1f9964487065 1-56
+src/components/home/directions/cinetique/KineticLine.tsx
+  s_cf3b1a16e9f092::t_2d80dcf2952d39 87-92,101
+  s_cf3b1a16e9f092::t_d53eded7a37e8a 148-151
+  s_cf3b1a16e9f092::t_951aa41a3792e2 1-81,83-86,93-100,102-147,152-166
+  s_cf3b1a16e9f092::t_359bb4e0ddf65a 82
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5b3d26251d35952adcde9c8931f5dd0b65bfd305",
+  "prompts": {},
+  "sessions": {
+    "s_5b9273cb819412": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a562276fe5a4fea76",
+        "model": "unknown"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    },
+    "s_cf3b1a16e9f092": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b66a8829-4166-43f8-aecb-a06f164d4edd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
