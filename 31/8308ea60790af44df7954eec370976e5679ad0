@@ -1,0 +1,230 @@
+src/components/ContactMenu.tsx
+  s_cf3b1a16e9f092::t_2806f8593ab2b8 177
+messages/fr.json
+  s_cf3b1a16e9f092::t_96269582f47b21 89,106,150,177,230,237-239,248,316,324,329-330
+  s_cf3b1a16e9f092::t_62d3714ce8934e 39
+  s_cf3b1a16e9f092::t_67c3f8aa9a0748 331,333,348,492,847,1053,1267,1463,1982
+src/app/manifest.ts
+  s_cf3b1a16e9f092::t_a6a4c8e18f8025 13-14
+src/components/home/Services.tsx
+  s_cf3b1a16e9f092::t_60304785d55209 21
+  s_cf3b1a16e9f092::t_f851b29f1a352a 25,72,79
+  s_cf3b1a16e9f092::t_96269582f47b21 4,50
+src/components/about/AboutBookingCta.tsx
+  s_cf3b1a16e9f092::t_2806f8593ab2b8 37-38
+  s_cf3b1a16e9f092::t_939d7d8491b5b8 35
+src/components/WhatWeDo.tsx
+  s_cf3b1a16e9f092::t_f851b29f1a352a 78,100
+src/components/home/FinalCTA.tsx
+  s_cf3b1a16e9f092::t_4570c2094b8b22 35,46,68-69,72,74-75,92,137,140
+  s_cf3b1a16e9f092::t_a4c74713823987 80
+  s_cf3b1a16e9f092::t_96269582f47b21 8
+  s_cf3b1a16e9f092::t_0ea3a3f3780a56 12
+  s_cf3b1a16e9f092::t_f851b29f1a352a 30
+  s_cf3b1a16e9f092::t_60304785d55209 79
+src/app/[locale]/layout.tsx
+  s_cf3b1a16e9f092::t_3aa16a911d0c36 1,27-31
+  s_cf3b1a16e9f092::t_fa657330fe4846 32
+src/app/[locale]/case-studies/[slug]/page.tsx
+  s_cf3b1a16e9f092::t_60304785d55209 123,243,288,318,359,421
+  s_cf3b1a16e9f092::t_4e89948b60328b 135
+  s_cf3b1a16e9f092::t_96269582f47b21 32,248,291,322
+  s_cf3b1a16e9f092::t_939d7d8491b5b8 346
+  s_cf3b1a16e9f092::t_f851b29f1a352a 137,142,164,176,264,274,305,326,362,377,392,406,425
+src/components/agency-paris/AgencyParisPage.tsx
+  s_cf3b1a16e9f092::t_96269582f47b21 38,133
+  s_cf3b1a16e9f092::t_5ead6ef38087a1 284
+  s_cf3b1a16e9f092::t_f851b29f1a352a 77,146,203,209,245,259,314,346,348,361,380,411,478,515,530
+  s_cf3b1a16e9f092::t_4e89948b60328b 510
+  s_cf3b1a16e9f092::t_2806f8593ab2b8 184
+  s_cf3b1a16e9f092::t_60304785d55209 66
+  s_cf3b1a16e9f092::t_5afd58666b4282 39,168,170
+src/components/TopNav.tsx
+  s_cf3b1a16e9f092::t_2e6b82825733aa 419
+  s_cf3b1a16e9f092::t_133d7a6d7afa60 224,226,304,310
+  s_cf3b1a16e9f092::t_8cabf4fd1d6dee 426
+  s_cf3b1a16e9f092::t_7c0c364efabc6f 8,11-12,210,218-220,279-281,294,296,305-309,311-327,421,486
+  s_cf3b1a16e9f092::t_2ad6303e67ce46 371
+src/components/quivr/quivr.module.css
+  s_cf3b1a16e9f092::t_8b9d6623fafff4 26,28-29,103,205
+src/components/agents-production/AgentsProductionPage.tsx
+  s_cf3b1a16e9f092::t_96269582f47b21 45,219
+  s_cf3b1a16e9f092::t_5ead6ef38087a1 334
+  s_cf3b1a16e9f092::t_60304785d55209 77
+  s_cf3b1a16e9f092::t_f851b29f1a352a 89,230,289,295,314,366,416-417,457,506,570
+src/components/hardening/HardeningPage.tsx
+  s_cf3b1a16e9f092::t_96269582f47b21 44,138
+  s_cf3b1a16e9f092::t_60304785d55209 71
+  s_cf3b1a16e9f092::t_5ead6ef38087a1 238
+  s_cf3b1a16e9f092::t_f851b29f1a352a 149,202,208,229,268,290,319,361,414
+src/components/resources/ArticleBrowser.tsx
+  s_cf3b1a16e9f092::t_f851b29f1a352a 102
+scripts/screenshot-pages.sh
+  s_cf3b1a16e9f092::t_b730f9c288127e 1-37
+src/components/BrandGlyph.tsx
+  s_cf3b1a16e9f092::t_171ab4f13375da 1-20
+src/components/Footer.tsx
+  s_cf3b1a16e9f092::t_60304785d55209 89
+  s_cf3b1a16e9f092::t_5ead6ef38087a1 88
+src/components/home/MobileBookingBar.tsx
+  s_cf3b1a16e9f092::t_f851b29f1a352a 43
+src/components/home/Quote.tsx
+  s_cf3b1a16e9f092::t_f851b29f1a352a 16,22
+src/components/home/Process.tsx
+  s_cf3b1a16e9f092::t_5ead6ef38087a1 21-22
+  s_cf3b1a16e9f092::t_60304785d55209 24
+  s_cf3b1a16e9f092::t_f851b29f1a352a 61
+  s_cf3b1a16e9f092::t_96269582f47b21 5,27
+src/lib/design-system.ts
+  s_cf3b1a16e9f092::t_60304785d55209 106,113-114
+  s_cf3b1a16e9f092::t_2806f8593ab2b8 211,267
+  s_cf3b1a16e9f092::t_f851b29f1a352a 266,279,281,286-288,309,315-316,320
+CLAUDE.md
+  s_cf3b1a16e9f092::t_a6bab88a59a73a 42,44,46,48-52,56,58-60,62,67,79,88,96
+  s_cf3b1a16e9f092::t_6cf71619a3db64 97
+src/components/home/HeroMobile.tsx
+  s_cf3b1a16e9f092::t_2d50d68ee3fc3b 6,30-31,72
+  s_cf3b1a16e9f092::t_2806f8593ab2b8 105
+  s_cf3b1a16e9f092::t_f851b29f1a352a 27,77
+  s_cf3b1a16e9f092::t_86569c609d4ddf 41-42,44-46
+  s_cf3b1a16e9f092::t_939d7d8491b5b8 61
+src/components/privacy/PrivacyPage.tsx
+  s_cf3b1a16e9f092::t_96269582f47b21 17,149
+  s_cf3b1a16e9f092::t_f851b29f1a352a 81,85,163,174,215
+  s_cf3b1a16e9f092::t_60304785d55209 51
+src/components/resources/KeepReading.tsx
+  s_cf3b1a16e9f092::t_f851b29f1a352a 63
+src/components/healthcare-ai/HealthcareAiPage.tsx
+  s_cf3b1a16e9f092::t_96269582f47b21 42,160
+  s_cf3b1a16e9f092::t_5ead6ef38087a1 457
+  s_cf3b1a16e9f092::t_f851b29f1a352a 83,171,232,248,273,281,301,317,329,367,369,383,405,423,487,516,573
+  s_cf3b1a16e9f092::t_4e89948b60328b 211,378
+  s_cf3b1a16e9f092::t_60304785d55209 72
+src/components/contact/ContactPage.tsx
+  s_cf3b1a16e9f092::t_96269582f47b21 22,74
+  s_cf3b1a16e9f092::t_60304785d55209 45
+  s_cf3b1a16e9f092::t_f851b29f1a352a 85,110,141
+src/components/CaseStudyKeepReading.tsx
+  s_cf3b1a16e9f092::t_60304785d55209 21
+  s_cf3b1a16e9f092::t_f851b29f1a352a 43
+  s_cf3b1a16e9f092::t_4e89948b60328b 29,36,70,78
+src/components/LanguageSwitcher.tsx
+  s_cf3b1a16e9f092::t_2e6b82825733aa 37,46
+src/components/quivr/QuivrSections.tsx
+  s_cf3b1a16e9f092::t_60304785d55209 22
+  s_cf3b1a16e9f092::t_f851b29f1a352a 74,105,112
+  s_cf3b1a16e9f092::t_96269582f47b21 13,35,65
+  s_cf3b1a16e9f092::t_939d7d8491b5b8 90
+  s_cf3b1a16e9f092::t_8b9d6623fafff4 103
+src/components/home/CaseStudy.tsx
+  s_cf3b1a16e9f092::t_96269582f47b21 10,350
+  s_cf3b1a16e9f092::t_f851b29f1a352a 22,34,55,101,128,273,335,424
+  s_cf3b1a16e9f092::t_60304785d55209 380
+  s_cf3b1a16e9f092::t_4e89948b60328b 30,104
+src/components/quivr/QuivrStage.tsx
+  s_cf3b1a16e9f092::t_2806f8593ab2b8 190
+  s_cf3b1a16e9f092::t_f851b29f1a352a 64,98,100,124,141,152,156,160,166,191-192
+  s_cf3b1a16e9f092::t_a6a4c8e18f8025 199
+src/components/home/Clients.tsx
+  s_cf3b1a16e9f092::t_2806f8593ab2b8 54
+src/components/home/FitText.tsx
+  s_cf3b1a16e9f092::t_54b01fbc197555 25,47,54-58,106-109,115-119
+src/lib/agents-production.test.ts
+  s_cf3b1a16e9f092::t_38ccfd81cae77a 50
+src/app/[locale]/case-studies/page.tsx
+  s_cf3b1a16e9f092::t_4e89948b60328b 115
+  s_cf3b1a16e9f092::t_f851b29f1a352a 107,119
+  s_cf3b1a16e9f092::t_96269582f47b21 13,75,158
+  s_cf3b1a16e9f092::t_60304785d55209 73,101,155
+src/components/home/Hero.tsx
+  s_cf3b1a16e9f092::t_4570c2094b8b22 75-77
+  s_cf3b1a16e9f092::t_09205ad6060692 11-12,38-41,54-59,61-67,69-70,72-74,78-79,82-92,95-99,106,108-109,111-114,116-119,121-124,126-139,141-151,153-159,161-162,165,167-168,170-173,177-178
+  s_cf3b1a16e9f092::t_fc608d60911c46 100-101,105
+  s_cf3b1a16e9f092::t_133d7a6d7afa60 80,93,102,110,160
+  s_cf3b1a16e9f092::t_3f8e04740eca5a 174-176
+  s_cf3b1a16e9f092::t_1e1425f13aa08c 94
+src/app/[locale]/portfolio/[slug]/page.tsx
+  s_cf3b1a16e9f092::t_f851b29f1a352a 129,145,192,204,253
+  s_cf3b1a16e9f092::t_939d7d8491b5b8 222
+  s_cf3b1a16e9f092::t_96269582f47b21 16,178,237,245,263
+  s_cf3b1a16e9f092::t_60304785d55209 126,176,234
+src/components/about/AboutPage.tsx
+  s_cf3b1a16e9f092::t_f851b29f1a352a 107,126,132,158,253,312,377,384,462
+  s_cf3b1a16e9f092::t_60304785d55209 62
+  s_cf3b1a16e9f092::t_96269582f47b21 36,96
+  s_cf3b1a16e9f092::t_2806f8593ab2b8 218
+  s_cf3b1a16e9f092::t_5ead6ef38087a1 282
+DESIGN.md
+  s_cf3b1a16e9f092::t_b8afe6bd3bc559 18
+  s_cf3b1a16e9f092::t_f730bfe8c407de 4,6-17,19-28,32-37,41,43-44,47,49-50,63-68,79,90-100,103-104,121,123-125,137,140-143,146-152,155-157,160-161,171,174,176-194,196-197,202-203,205,225,227,231-242,258-260,263,265-266,268,272-273,275,277-292,296,299-304,311-316,327,329-330,345,351,357,363,369,375,381,387,393
+  s_cf3b1a16e9f092::t_69b78d3fc688f1 401,403,405,407,411,413-420,422,426,428,430,432,436,438,440,442-444,448-450,452,454,456,460,462,464,468,470,472,474,476,478,484,486,488,490,492,494,496,498,500,504-507,509-513,515,517
+src/app/[locale]/not-found.tsx
+  s_cf3b1a16e9f092::t_60304785d55209 31
+  s_cf3b1a16e9f092::t_f851b29f1a352a 33
+  s_cf3b1a16e9f092::t_939d7d8491b5b8 42
+src/components/home/Backers.tsx
+  s_cf3b1a16e9f092::t_4c3dd7f5de17c2 1-45
+src/app/globals.css
+  s_cf3b1a16e9f092::t_5ead6ef38087a1 187-197
+  s_cf3b1a16e9f092::t_d9b12eb469cedd 15-21,23-32,34-44,49-51,54-59,62-67,86,90,92,95-100,103-108,174,482,564,577,596,629
+  s_cf3b1a16e9f092::t_b8afe6bd3bc559 33
+src/components/about/AboutBackers.tsx
+  s_cf3b1a16e9f092::t_5afd58666b4282 1,9,13
+src/components/custom-ai-app/CustomAiAppPage.tsx
+  s_cf3b1a16e9f092::t_96269582f47b21 40,201
+  s_cf3b1a16e9f092::t_60304785d55209 69
+  s_cf3b1a16e9f092::t_4e89948b60328b 290
+  s_cf3b1a16e9f092::t_5ead6ef38087a1 346
+  s_cf3b1a16e9f092::t_f851b29f1a352a 80,111,212,278,280,295,301,325,391,409,425
+src/components/home/AgencyParisLink.tsx
+  s_cf3b1a16e9f092::t_60304785d55209 16
+src/components/home/Proof.tsx
+  s_cf3b1a16e9f092::t_2806f8593ab2b8 117
+  s_cf3b1a16e9f092::t_96269582f47b21 8,57
+  s_cf3b1a16e9f092::t_60304785d55209 27
+  s_cf3b1a16e9f092::t_f851b29f1a352a 30
+src/lib/media-ai.test.ts
+  s_cf3b1a16e9f092::t_38ccfd81cae77a 53-54
+src/components/media-ai/MediaAiPage.tsx
+  s_cf3b1a16e9f092::t_4e89948b60328b 306
+  s_cf3b1a16e9f092::t_5ead6ef38087a1 357
+  s_cf3b1a16e9f092::t_96269582f47b21 42,159
+  s_cf3b1a16e9f092::t_60304785d55209 72
+  s_cf3b1a16e9f092::t_f851b29f1a352a 83,170,202,218,243,265,294,296,311,317,338,406,420
+src/components/resources/prose-components.css
+  s_cf3b1a16e9f092::t_695ae8255ee3d7 109,113-115,119,136,147,157,166-167,179-180,184-185
+messages/en.json
+  s_cf3b1a16e9f092::t_96269582f47b21 89,106,150,177,230,237-239,248,316,324,329-330
+  s_cf3b1a16e9f092::t_0c26e86fd71b2d 331,333,348,492,847,1052,1257,1462,1981
+src/components/BrandSquare.tsx
+  s_cf3b1a16e9f092::t_96269582f47b21 1-8
+src/app/[locale]/resources/[type]/[slug]/page.tsx
+  s_cf3b1a16e9f092::t_f851b29f1a352a 236,241,335,340
+src/components/quivr/QuivrBento.tsx
+  s_cf3b1a16e9f092::t_f851b29f1a352a 91,105,110,123,131,182,190,233,238,276,299
+src/app/[locale]/portfolio/page.tsx
+  s_cf3b1a16e9f092::t_f851b29f1a352a 95,111
+  s_cf3b1a16e9f092::t_60304785d55209 61,89,130
+  s_cf3b1a16e9f092::t_96269582f47b21 12,63,133
+src/components/home/useLoopCarousel.ts
+  s_cf3b1a16e9f092::t_f851b29f1a352a 8
+src/lib/resources-theme.ts
+  s_cf3b1a16e9f092::t_2806f8593ab2b8 11,92
+  s_cf3b1a16e9f092::t_60304785d55209 33,52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "318308ea60790af44df7954eec370976e5679ad0",
+  "prompts": {},
+  "sessions": {
+    "s_cf3b1a16e9f092": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b66a8829-4166-43f8-aecb-a06f164d4edd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
