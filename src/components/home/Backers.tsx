@@ -27,7 +27,9 @@ export function Backers({ className }: { className?: string }) {
         </span>
       </a>
       <span className="inline-flex items-center gap-3">
-        {/* Plain <img>: an SVG gains nothing from the image optimizer. */}
+        {/* Plain <img>: an SVG gains nothing from the image optimizer. Low
+            priority, so React does not preload this small mark in <head>
+            ahead of the hero's fonts, CSS and mascot. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/partners/france-2030.svg"
@@ -37,6 +39,7 @@ export function Backers({ className }: { className?: string }) {
           height={34}
           className="h-[34px] w-[34px] brightness-0 invert"
           decoding="async"
+          fetchPriority="low"
         />
         <span className="text-[14px] font-semibold tracking-[-0.01em] text-foreground">France 2030</span>
       </span>
