@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, type CSSProperties } from "react";
+import { createContext, useContext, useLayoutEffect, useMemo, useRef, type CSSProperties, type ReactNode } from "react";
 import { cn } from "@/lib/design-system";
 
 /**
@@ -35,6 +35,44 @@ export function emWidth(text: string): number {
 }
 
 /**
+ * Lines that must read as a set (the figures of a row of cards) share one
+ * size: the largest at which every one of them still fits its own box on one
+ * line. Each line measures its own fit; the group applies the smallest.
+ */
+interface FitGroup {
+  /** The member that sets the server estimate: the widest text. */
+  longest: string;
+  report: (el: HTMLElement, size: number) => void;
+  leave: (el: HTMLElement) => void;
+}
+
+const FitGroupContext = createContext<FitGroup | null>(null);
+
+export function FitTextGroup({ texts, children }: { texts: string[]; children: ReactNode }) {
+  const key = texts.join("\n");
+  const group = useMemo<FitGroup>(() => {
+    const sizes = new Map<HTMLElement, number>();
+    const apply = () => {
+      if (!sizes.size) return;
+      const size = Math.min(...sizes.values());
+      for (const el of sizes.keys()) el.style.fontSize = `${size}px`;
+    };
+    return {
+      longest: key.split("\n").reduce((a, b) => (emWidth(b) > emWidth(a) ? b : a), ""),
+      report(el, size) {
+        sizes.set(el, size);
+        apply();
+      },
+      leave(el) {
+        sizes.delete(el);
+        apply();
+      },
+    };
+  }, [key]);
+  return <FitGroupContext.Provider value={group}>{children}</FitGroupContext.Provider>;
+}
+
+/**
  * One line of display type sized to fill its container's width exactly, the
  * way a poster sets its headline. The parent must be a padding-free block with
  * `container-type: inline-size`: the server renders an estimate in container
@@ -60,6 +98,7 @@ export function FitText({
   style?: CSSProperties;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
+  const group = useContext(FitGroupContext);
 
   useLayoutEffect(() => {
     const el = ref.current;
@@ -76,8 +115,10 @@ export function FitText({
       el.style.fontSize = "100px";
       const natural = el.getBoundingClientRect().width;
       if (!natural) return;
-      const size = (100 * target) / natural;
-      el.style.fontSize = `${max ? Math.min(max, size) : size}px`;
+      const fitted = (100 * target) / natural;
+      const size = max ? Math.min(max, fitted) : fitted;
+      if (group) group.report(el, size);
+      else el.style.fontSize = `${size}px`;
     };
 
     fit(true);
@@ -94,19 +135,22 @@ export function FitText({
     return () => {
       observer.disconnect();
       cancelAnimationFrame(frame);
+      group?.leave(el);
     };
-  }, [children, max]);
+  }, [children, max, group]);
 
   // A flat 0.56em per glyph used to be the estimate. It held for "We build"
   // but not for French: on a 412px phone it set "Agence" at 108px (it fits at
   // 97, so it ran off the screen) and the narrow glyphs of "IA-First." at
   // 72px (it fits at 91), and hydration had to re-set the whole poster.
   // Summing the real advances lands within about 1%.
-  const glyphs = [...children].length;
+  // In a group, every line arrives at the size of the widest one.
+  const sized = group?.longest || children;
+  const glyphs = [...sized].length;
   const estimate =
     trackingEm === undefined
-      ? `calc((100cqw + ${-TRACKING_PX * glyphs}px) / ${emWidth(children).toFixed(4)})`
-      : `calc(100cqw / ${(emWidth(children) + trackingEm * glyphs).toFixed(4)})`;
+      ? `calc((100cqw + ${-TRACKING_PX * glyphs}px) / ${emWidth(sized).toFixed(4)})`
+      : `calc(100cqw / ${(emWidth(sized) + trackingEm * glyphs).toFixed(4)})`;
 
   return (
     <span
