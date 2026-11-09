@@ -1,6 +1,46 @@
 {
   "version": 1,
   "entries": {
+    "content:/images/resources/agence-application-mobile-comparatif/cover-mascotte.webp": {
+      "sourceHash": "025f2bac44a9fead12179ada62f077e5824ed856ae4050163e228f00570c1a8a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/agence-application-mobile-comparatif/logos/adveris.webp": {
+      "sourceHash": "cde92903cd6fe202aae97b7db689166a7a3a2b8c074bd5a4c16cb56cab888221",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/agence-application-mobile-comparatif/logos/openium.webp": {
+      "sourceHash": "238131df32e2199c6eabb73ff294229c572263e9aa6375b4b1c8c069289a775e",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/agence-application-mobile-comparatif/logos/scroll.webp": {
+      "sourceHash": "d8c87814985fa29087e8b6d6eb598aa3d27f07a9e98291e9ce2e034445fe5eed",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/agence-application-mobile-comparatif/logos/the-vibe-company.webp": {
+      "sourceHash": "ad62af9a96b8e0615244fc02950c3ae1d962592968e662590732f0028866522c",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/agence-application-mobile-comparatif/logos/theodo.webp": {
+      "sourceHash": "4e24f0299a93db2aeba28ee02d1a8d5af5a05b4d8cebeb564812748766452633",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/agence-application-mobile-comparatif/logos/thetribe.webp": {
+      "sourceHash": "68dea93563513b807ed0686849c1da5cc86988c428407f29ddb3008f48217b0c",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/agence-application-mobile-comparatif/logos/yield-studio.webp": {
+      "sourceHash": "3807e6ed30cea77628201f684d9fd9f3d3489ae163ed7207dff23a6e602eb1bd",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/agence-ia-native/cover-mascotte.webp": {
       "sourceHash": "897c6a1baf12d3dab4ae5630c97f74fa013765f1cf8705d36c5e8a0ada1eb776",
       "targetUrl": null,
@@ -415,6 +455,11 @@
       "sourceHash": "e9e89047e6ea8c5f57a66166c03fbe731c04a90461225d225f8c02cdc4ca3dc7",
       "targetUrl": "/images/_optimized/resources/why-i-replaced-prompts-with-skills/generated/prompts-to-skills-cover.webp",
       "targetHash": "120debfea03a98f449f8cacafd672ae40c0a5ae0be5f138c39583d7c70328e6f"
+    },
+    "og:/images/resources/agence-application-mobile-comparatif/cover-mascotte.webp": {
+      "sourceHash": "025f2bac44a9fead12179ada62f077e5824ed856ae4050163e228f00570c1a8a",
+      "targetUrl": null,
+      "targetHash": null
     },
     "og:/images/resources/agence-ia-native/cover-mascotte.webp": {
       "sourceHash": "897c6a1baf12d3dab4ae5630c97f74fa013765f1cf8705d36c5e8a0ada1eb776",

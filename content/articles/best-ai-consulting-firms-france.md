@@ -155,7 +155,7 @@ We also work as reinforcement for Theodo on client projects when sharp AI expert
 4. **What is your budget?** Large firms are built for long programs. A small senior team costs less for a first tool.
 5. **How fast must you ship?** If the answer is "this quarter", pick a tight team that gets to production fast.
 
-To compare provider types (agency, IT services firm, freelancer, in-house team), read [How to choose an AI agency](/en/resources/articles/how-to-choose-an-ai-agency), and on going live, [from AI agent POC to production](/en/resources/articles/ai-agent-poc-to-production).
+To compare provider types (agency, IT services firm, freelancer, in-house team), read [How to choose an AI agency](/en/resources/articles/how-to-choose-an-ai-agency), and on going live, [from AI agent POC to production](/en/resources/articles/ai-agent-poc-to-production). For a mobile project, see our [mobile app development company comparison](/en/resources/articles/best-mobile-app-development-company).
 
 ## FAQ
 

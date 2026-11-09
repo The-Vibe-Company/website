@@ -155,7 +155,7 @@ On travaille aussi en renfort de Theodo sur des projets clients, quand une exper
 4. **Quel est votre budget ?** Les grands cabinets sont pensés pour des programmes longs. Une petite équipe senior coûte moins cher pour un premier outil.
 5. **En combien de temps devez-vous livrer ?** Si la réponse est « ce trimestre », privilégiez une équipe resserrée qui met en production vite.
 
-Pour aller plus loin sur le type de prestataire (agence, ESN, freelance, équipe interne), lisez notre guide [Agence IA, ESN, freelance ou équipe interne : comment choisir](/fr/resources/articles/choisir-agence-ia-esn-freelance), et sur la mise en production, [du POC à la production](/fr/resources/articles/poc-agent-ia-production).
+Pour aller plus loin sur le type de prestataire (agence, ESN, freelance, équipe interne), lisez notre guide [Agence IA, ESN, freelance ou équipe interne : comment choisir](/fr/resources/articles/choisir-agence-ia-esn-freelance), et sur la mise en production, [du POC à la production](/fr/resources/articles/poc-agent-ia-production). Pour un projet mobile, consultez aussi notre [comparatif des agences d'application mobile](/fr/resources/articles/agence-application-mobile-comparatif).
 
 ## FAQ
 
