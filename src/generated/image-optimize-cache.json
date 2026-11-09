@@ -162,14 +162,14 @@
       "targetHash": null
     },
     "content:/images/resources/etre-cite-chatgpt-gemini-aeo/2-leviers-google-ai-overviews.png": {
-      "sourceHash": "41972e68617326275e66b480ab5a697c0798b312ac35fc14d1a236878521c9c1",
+      "sourceHash": "3ba193fde830fc107adf6932c3ff5170b95c8166fc2d6fe7db57ac65cb5ab747",
       "targetUrl": "/images/_optimized/resources/etre-cite-chatgpt-gemini-aeo/2-leviers-google-ai-overviews.webp",
-      "targetHash": "9a17f152d319810012f46fab749319b0645504458ab49ced99657bc042b6a4be"
+      "targetHash": "a84159dd41e611c2e61a6be7bc9d46e647a4995f8b8b712b143e6080667da5ff"
     },
     "content:/images/resources/etre-cite-chatgpt-gemini-aeo/3-bots-openai-chatgpt-search.png": {
-      "sourceHash": "a5dd16904f787160f7ad8d27be601340786c35eb43cb1ef5820f748bf5e1f970",
+      "sourceHash": "c840e2e56d02fc3b9b3a89cc7790c2a3fc3fe1450f8e3a961fde930dfa59c915",
       "targetUrl": "/images/_optimized/resources/etre-cite-chatgpt-gemini-aeo/3-bots-openai-chatgpt-search.webp",
-      "targetHash": "0b01d5f35d16a4091864ef40cb34c7a04956caa98506c2f06f86fd525cac7e8b"
+      "targetHash": "065865f7301d8331965fa98862200cfabce69625ab8564257a2c7075a1dafc55"
     },
     "content:/images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp": {
       "sourceHash": "1da35bba40796bc1509c379cba6ad8478e8be0322546b216f806e11305ab328e",
@@ -227,14 +227,14 @@
       "targetHash": "909dd86c07cecf2a32a4af2823aaf14f519cfe980966bceb636f5dea89f43a41"
     },
     "content:/images/resources/get-cited-chatgpt-gemini-aeo/2-google-levers-ai-overviews.png": {
-      "sourceHash": "a0ffbe91de2ab91976aa642e318fc9537076dbd1fe43295b9b6f13278c9aeab8",
+      "sourceHash": "33c9ec7ddf6e428a951a7218565c521b0f0b544c48ebdcd09c64d6fe32193096",
       "targetUrl": "/images/_optimized/resources/get-cited-chatgpt-gemini-aeo/2-google-levers-ai-overviews.webp",
-      "targetHash": "46e174747756022b12fc58422be2b2c5ac76eb1a86ef4ccbcae6969367ed45fb"
+      "targetHash": "bbc850a87bc2e56abfc61b867a8c4d9c0ccf3ea04bcc0f53603c7cabcef0047d"
     },
     "content:/images/resources/get-cited-chatgpt-gemini-aeo/3-openai-bots-chatgpt-search.png": {
-      "sourceHash": "b69d3bfbadb39209767ffd50f6065f7447e207d63be7e3e8d41fa988280e18e1",
+      "sourceHash": "55fb936a7d7f97442257123ecfcc3df5dc511be7a9791c6bab52ba234d4881f8",
       "targetUrl": "/images/_optimized/resources/get-cited-chatgpt-gemini-aeo/3-openai-bots-chatgpt-search.webp",
-      "targetHash": "c7aad9da26c804b8ce4ef5b8a5689ebe6db749707aa685afc9c6899ba5eba360"
+      "targetHash": "f3b0148ca961fcbea0e1a0559af950b8b1ea0da19e2385a1adb985977a7c41ee"
     },
     "content:/images/resources/hebergement-hds-ia/cover-mascotte.webp": {
       "sourceHash": "45996223f4c39e669e2fa8f6d0f3dc552b8d3b84715d4a643d2cad0563c0edf6",
