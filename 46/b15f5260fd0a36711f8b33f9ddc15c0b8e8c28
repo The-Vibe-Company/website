@@ -1,0 +1,21 @@
+src/components/home/Clients.tsx
+  s_cf3b1a16e9f092::t_11ab96e6b9777f 1-4
+src/components/home/Backers.tsx
+  s_cf3b1a16e9f092::t_5e9d1c7e1dd9b1 30-32,42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "46b15f5260fd0a36711f8b33f9ddc15c0b8e8c28",
+  "prompts": {},
+  "sessions": {
+    "s_cf3b1a16e9f092": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b66a8829-4166-43f8-aecb-a06f164d4edd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
