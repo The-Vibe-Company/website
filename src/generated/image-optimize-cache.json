@@ -57,9 +57,9 @@
       "targetHash": null
     },
     "content:/images/resources/agence-intelligence-artificielle/mission-agence-ia-3-etapes.png": {
-      "sourceHash": "c10a385f4e40f23c06184b9b932f4555b2525443224146416862720f112d1050",
+      "sourceHash": "887c37a065867120810f37187f10b5748a069d7a0696bcab6e8bea078b5603c2",
       "targetUrl": "/images/_optimized/resources/agence-intelligence-artificielle/mission-agence-ia-3-etapes.webp",
-      "targetHash": "e0a62479099ebb237910c5494df49b64822770e29844bd797f32a2c8bb59f52a"
+      "targetHash": "6246a03e096ebb69bdad7832742e098e26e7af9e4f9f43585d0eb9ceb74b0377"
     },
     "content:/images/resources/agent-harness-entreprise/cover-mascotte.webp": {
       "sourceHash": "b06286a00057a518a07b65f95be18c3c2d86c27375f7fff19e8eef6b3afa729a",
@@ -442,9 +442,9 @@
       "targetHash": "97c2c5904d42549115d977b5648112249e26869cff74513346fb5c0464bfad1f"
     },
     "content:/images/resources/what-an-ai-agency-does/ai-agency-mission-3-steps.png": {
-      "sourceHash": "127c3783404afb5e7b1e29b7a6ea5ec5c28995731fc5c34c8681ec0bd5c5b043",
+      "sourceHash": "90dd503ae2e687bceac2e06577bb5782eaeeb59d4c2e0f996d27bb257c3b15f9",
       "targetUrl": "/images/_optimized/resources/what-an-ai-agency-does/ai-agency-mission-3-steps.webp",
-      "targetHash": "04bacff8d7d61ac94519769e086e95cee26ed58c632606661bea673dd54755d9"
+      "targetHash": "f01e8a6a6d56e14dff25bfb4699f1a54c84f5db9b3ae55b89a121987beb9ccec"
     },
     "content:/images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp": {
       "sourceHash": "93f7aaf00b1f5dc88e65c5d6de704ffd537af8b0ce9f5c17344394bfaa4d7e6c",
