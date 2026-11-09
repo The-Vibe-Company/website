@@ -7,7 +7,7 @@ Brief
   Voice     one hand note on the vanished checklist: it did not disappear, it became code
   Format    slide 16:9 · plan split (twins on the left two thirds, hero on the right)
   Depths    3 s: title + hero · 30 s: compare the two panels row by row · 3 min: subs, the note
-  Colour    yellow = the payoff; accent = what changed; grey = unchanged context; dashed grey = gone
+  Colour    mood mint: mint = the payoff; fir green = what changed; grey = unchanged context; dashed grey = gone
 
     python example_signature_split.py --out split.excalidraw [--style signature|corporate|night|mono|...]
 """
@@ -25,9 +25,10 @@ from excalikit import Palette as P
 ap = argparse.ArgumentParser(description=__doc__)
 ap.add_argument("--out", default="signature_split.excalidraw")
 ap.add_argument("--style", default="signature")
+ap.add_argument("--mood", default="mint", help="signature colour mood (sun, coral, mint, sky, lavender, red-pen)")
 args = ap.parse_args()
 
-S, F, pal = G.setup("slide", style=args.style)
+S, F, pal = G.setup("slide", style=args.style, mood=args.mood if args.style == "signature" else None)
 Z = G.plan(F, "split")
 G.claim_title(S, F, "A release no longer waits on four people", mark="four people",
               sub="The same release, row by row. Dashed rows are gone; highlighted rows changed.")

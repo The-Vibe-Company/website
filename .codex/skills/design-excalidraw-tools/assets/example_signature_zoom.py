@@ -7,7 +7,7 @@ Brief
   Voice     one hand note under the inset, on the replay path out of the dead-letter queue
   Format    slide 16:9 · plan zoom
   Depths    3 s: title + inset · 30 s: retry, then dead-letter queue · 3 min: the map on the left, the note
-  Colour    greys for the context, ink for the zoom; accent = the failure path (3rd failure, replay); red dots = failed jobs
+  Colour    mood sky: greys for the context, ink for the zoom; accent = the failure path (3rd failure, replay); red dots = failed jobs
 
     python example_signature_zoom.py --out zoom.excalidraw [--style signature|corporate|night|mono|...]
 """
@@ -24,9 +24,10 @@ from excalikit import Palette as P
 ap = argparse.ArgumentParser(description=__doc__)
 ap.add_argument("--out", default="signature_zoom.excalidraw")
 ap.add_argument("--style", default="signature")
+ap.add_argument("--mood", default="sky", help="signature colour mood (sun, coral, mint, sky, lavender, red-pen)")
 args = ap.parse_args()
 
-S, F, pal = G.setup("slide", style=args.style)
+S, F, pal = G.setup("slide", style=args.style, mood=args.mood if args.style == "signature" else None)
 under = G.claim_title(S, F, "Failed jobs never disappear:\nthey wait in the dead-letter queue", mark="never disappear")
 Z = G.plan(F, "zoom", title_h=under - F.y0 + 30)       # the zones start under the claim, whatever its style size
 g = G.ARROW_GAP
