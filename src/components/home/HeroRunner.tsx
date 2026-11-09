@@ -7,13 +7,14 @@ import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { RunnerAudio } from "@/lib/runner-audio";
 import type { RunnerItem } from "@/lib/runner-worlds";
+import { drawMascot } from "./runnerMascot";
 
 /**
  * The hero's runner band: the site's own take on the Chrome offline dino.
  *
  * It is an inverted ink panel inside the warm-paper hero, so it reads as a
  * screen cut into the page rather than a widget floating on it. The player is
- * a small paper bird whose wing beats while it runs.
+ * a small paper bird whose wing beats while it runs, or the mascot in profile.
  *
  * Space / ArrowUp jumps, ArrowDown ducks, tap plays on touch. One canvas, one
  * fixed 60Hz timestep, so the difficulty curve is identical on every display.
@@ -206,9 +207,18 @@ type World = {
   jumps: number;
   /** Little burst of paper dots marking where the second jump fired. */
   puff: { x: number; y: number; life: number } | null;
+  /** The mascot's run cycle, in radians; turns faster as the run speeds up. */
+  stride: number;
+  /** After a crash, how far the mascot has fallen over: 0 to 1. */
+  fall: number;
   obstacles: Obstacle[];
   nextSpawn: number;
 };
+
+/** Steps quicken with the speed: about seven a second at the start. */
+function strideRate(speed: number): number {
+  return 13 + speed / 50;
+}
 
 function speedScale(width: number): number {
   return Math.max(0.68, Math.min(1, width / 900));
@@ -228,6 +238,8 @@ function createWorld(scale = 1): World {
     grounded: true,
     jumps: 0,
     puff: null,
+    stride: 0,
+    fall: 0,
     obstacles: [],
     // A beat before the first slab, so the run does not open mid-obstacle.
     nextSpawn: WORLD.startSpeed * scale * 1.9,
@@ -359,6 +371,7 @@ function step(world: World, dt: number, width: number): boolean {
   );
   world.distance += world.speed * dt;
   world.score = Math.floor(world.distance / 24);
+  world.stride += strideRate(world.speed) * dt;
 
   // Ducking mid-air drops you faster — but only on the way down. Applied to
   // the climb as well, a held duck key starved the jump: its own repeat events
@@ -977,6 +990,7 @@ function draw(
   width: number,
   palette: Palette,
   cards: WorldCard[],
+  mascot: boolean,
 ): void {
   ctx.clearRect(0, 0, width, WORLD.height);
 
@@ -1009,7 +1023,7 @@ function draw(
     ctx.restore();
   }
 
-  drawBird(ctx, world, playerBox(world), palette, world.phase === "over");
+  if (!mascot) drawBird(ctx, world, playerBox(world), palette, world.phase === "over");
 
   // Foreground: the name goes over the obstacles, never under them.
   drawWorldNameLayer(ctx, world, width, palette, cards);
@@ -1024,13 +1038,48 @@ function draw(
     ctx.fillRect(0, 0, width, WORLD.height);
     ctx.restore();
   }
+
+  // The mascot stays in front of the veil, so it can still be seen lying
+  // where it fell.
+  if (mascot) {
+    const box = playerBox(world);
+    const crashed = world.phase === "over";
+    // Knocked out in the air, it drops to the line as it tips over.
+    const drop = crashed ? Math.min(1, world.fall / 0.5) ** 2 : 0;
+    drawMascot(ctx, box.x + box.width / 2, box.y + box.height + (WORLD.groundY - world.playerY) * drop, {
+      stride: world.stride,
+      strideRate: strideRate(world.speed),
+      speed: world.speed,
+      running: world.phase === "running",
+      grounded: world.grounded,
+      ducking: world.ducking && world.grounded,
+      vy: world.playerVY,
+      flip: world.jumps === 2 && world.puff && !world.grounded ? 1 - world.puff.life : null,
+      crashed,
+      fall: world.fall,
+    });
+  }
 }
+
+/** How long the knocked-out mascot takes to fall flat, in seconds. */
+const FALL_SECONDS = 0.7;
 
 function pad(score: number): string {
   return String(Math.min(score, 99999)).padStart(4, "0");
 }
 
-export function HeroRunner({ items }: { items: RunnerItem[] }) {
+export function HeroRunner({
+  items,
+  autoStart,
+  player = "bird",
+}: {
+  items: RunnerItem[];
+  /** Start a run on its own this many milliseconds after mounting, instead
+   *  of waiting for the first key. */
+  autoStart?: number;
+  /** Who runs: the paper bird, or the mascot in profile. */
+  player?: "bird" | "mascot";
+}) {
   const t = useTranslations("runner");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -1046,6 +1095,8 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
   const audioRef = useRef<RunnerAudio | null>(null);
 
   const cardsRef = useRef<WorldCard[]>([]);
+  // Read by the render loop, which is set up once.
+  const mascotRef = useRef(player === "mascot");
 
   const [phase, setPhase] = useState<Phase>("idle");
   const [score, setScore] = useState(0);
@@ -1097,6 +1148,15 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     sound.startMusic();
     captureEvent("hero_runner_started");
   }, [audio]);
+
+  useEffect(() => {
+    if (autoStart === undefined) return;
+    const id = window.setTimeout(() => {
+      // A key pressed during the wait has already started the run.
+      if (worldRef.current.phase === "idle") start();
+    }, autoStart);
+    return () => window.clearTimeout(id);
+  }, [autoStart, start]);
 
   const jump = useCallback(() => {
     const world = worldRef.current;
@@ -1251,7 +1311,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       // the page's background is what gets drawn on it.
       ink: styles.getPropertyValue("--foreground").trim() || "#0a0a0a",
       paper: styles.getPropertyValue("--background").trim() || "#fdfbf7",
-      accent: "#f97316",
+      accent: styles.getPropertyValue("--brand").trim() || "#f27313",
       // Yellow with black stripes: the universal "watch your head". Its
       // position tells it apart from the orange barriers — this hangs or
       // flies, orange always stands on the ground.
@@ -1355,16 +1415,20 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
             });
           }
         }
-        draw(ctx, world, widthRef.current, palette, cardsRef.current);
+        draw(ctx, world, widthRef.current, palette, cardsRef.current, mascotRef.current);
         return;
       }
 
       // Idle or over: the world is not moving, so the canvas only has to be
-      // painted when something actually changed.
+      // painted when something actually changed, or while the mascot falls.
+      if (world.phase === "over" && mascotRef.current && world.fall < 1) {
+        world.fall = Math.min(1, world.fall + accumulator / FALL_SECONDS);
+        needsPaintRef.current = true;
+      }
       accumulator = 0;
       if (needsPaintRef.current) {
         needsPaintRef.current = false;
-        draw(ctx, world, widthRef.current, palette, cardsRef.current);
+        draw(ctx, world, widthRef.current, palette, cardsRef.current, mascotRef.current);
       }
     };
 
@@ -1397,7 +1461,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
     <section
       aria-labelledby="runner-heading"
       data-surface="inverse"
-      className="relative mt-8 hidden bg-foreground text-background lg:mt-10 lg:block"
+      className="relative hidden border border-border bg-foreground text-background lg:block"
     >
       <h2 id="runner-heading" className="sr-only">
         {t("heading")}
@@ -1407,7 +1471,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
       <div className="flex items-baseline justify-between gap-3 px-5 pb-1 pt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-background/55 md:gap-4 md:px-7 md:text-[11px] md:tracking-[0.2em]">
         <p className="m-0">{t("hint")}</p>
         <p className="m-0 ml-auto flex shrink-0 items-center gap-2 tabular-nums md:gap-4">
-          <span className={isNewBest ? "text-orange-500" : "text-background"}>
+          <span className={isNewBest ? "text-brand" : "text-background"}>
             {t("score")} {pad(score)}
           </span>
           <span aria-hidden="true" className="text-background/25">
@@ -1477,14 +1541,14 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
           style={{ height: WORLD.height }}
         />
 
-        {phase !== "running" && (
+        {phase !== "running" && !(phase === "idle" && autoStart !== undefined) && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <p className="m-0 border border-background/30 bg-foreground px-4 py-2 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-background md:text-xs">
               {phase === "idle" ? (
                 t("start")
               ) : (
                 <>
-                  <span className="text-orange-500">{t("over")}</span>{" "}
+                  <span className="text-brand">{t("over")}</span>{" "}
                   <span aria-hidden="true">·</span> {t("restart")}
                 </>
               )}
@@ -1499,7 +1563,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
           tab stop and its own focus ring. */}
       {wonAudit && (
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-background/20 px-5 py-3 md:gap-4 md:px-7 md:py-4">
-          <p className="m-0 font-mono text-[11px] uppercase tracking-[0.2em] text-orange-500 md:text-xs">
+          <p className="m-0 font-mono text-[11px] uppercase tracking-[0.2em] text-brand md:text-xs">
             {t("audit")}
           </p>
           <a
@@ -1508,7 +1572,7 @@ export function HeroRunner({ items }: { items: RunnerItem[] }) {
             onClick={() =>
               captureEvent("discovery_call_clicked", { location: "hero_runner_audit", score })
             }
-            className="inline-flex items-center gap-2 border-2 border-background bg-background px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-foreground transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--background)] md:text-xs"
+            className="inline-flex items-center gap-2 border-2 border-background bg-background px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-foreground transition-colors duration-300 hover:bg-transparent hover:text-background md:text-xs"
           >
             {t("auditCta")}
             <span aria-hidden="true">→</span>
