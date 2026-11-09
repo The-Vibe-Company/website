@@ -1,0 +1,25 @@
+src/components/home/FitText.tsx
+  s_cf3b1a16e9f092::t_6f972b7e29f678 3,37-74,101,118-121,138,140,147-149,152-153
+src/components/CaseCards.tsx
+  s_cf3b1a16e9f092::t_af35ceefbbd97e 1-97
+src/app/[locale]/case-studies/page.tsx
+  s_cf3b1a16e9f092::t_d6e362cafb829a 12,109
+src/components/home/landing/Workbench.tsx
+  s_cf3b1a16e9f092::t_d6e362cafb829a 7,11,44-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c5e58d3cfe832717d22c828b03ebf094b6e025e2",
+  "prompts": {},
+  "sessions": {
+    "s_cf3b1a16e9f092": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b66a8829-4166-43f8-aecb-a06f164d4edd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
