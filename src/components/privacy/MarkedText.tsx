@@ -22,7 +22,7 @@ export function MarkedText({ text }: { text: string }) {
             <a
               key={i}
               href={`mailto:${CONTACT_EMAIL}`}
-              className="text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
+              className="text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand"
             >
               {part}
             </a>
@@ -35,7 +35,7 @@ export function MarkedText({ text }: { text: string }) {
               href={`https://${CNIL}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
+              className="text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand"
             >
               {part}
             </a>

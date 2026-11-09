@@ -31,6 +31,22 @@ import {
 import { clientLogoSize } from "@/lib/client-logos";
 import { BrandSquare } from "@/components/BrandSquare";
 
+/** The case pages keep their narrower reading rail. */
+const SECTION = "mx-auto max-w-[80rem] px-6 md:px-10 lg:px-16";
+const BAND = `${SECTION} py-20 md:py-28 lg:py-32`;
+const H2 =
+  "m-0 font-bold text-foreground text-[clamp(2.25rem,4.6vw,4.25rem)] leading-[0.95] tracking-[-0.045em]";
+const MONO =
+  "block font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
+const LEAD = "m-0 max-w-[720px] text-lg leading-[1.5] text-foreground md:text-xl lg:text-[22px]";
+const POINTS = "m-0 flex list-none flex-col border-t border-border p-0";
+const POINT =
+  "flex gap-4 border-b border-border py-5 text-[17px] leading-[1.55] text-soft-foreground md:text-lg";
+const ASIDE =
+  "m-0 max-w-[680px] border-l border-border-strong pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base";
+const INLINE_LINK =
+  "font-semibold text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
+
 export function generateStaticParams() {
   return CUSTOMER_SLUGS.map((slug) => ({ slug }));
 }
@@ -110,6 +126,192 @@ export default async function CaseStudyPage({
   const related = [...all.slice(index + 1), ...all.slice(0, index)].slice(0, 3);
   const guide = customer.related;
 
+  const story = (
+    <>
+      {customer.projects ? (
+        customer.projects.map((project, index) => (
+          <section
+            key={project.name}
+            className={`${BAND} ${index > 0 ? "border-t border-border" : ""}`}
+          >
+            <span className={MONO}>
+              <BrandSquare />
+              {t("projectLabel", { n: index + 1 })}
+            </span>
+            <h2 className={`${H2} mt-6 max-w-[20ch]`}>{project.name}</h2>
+            <div className="mt-10 grid grid-cols-1 gap-10 md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16">
+              <p className={LEAD}>{project.summary}</p>
+              <ul className={POINTS}>
+                {project.points.map((point) => (
+                  <li key={point} className={POINT}>
+                    <span aria-hidden="true" className="pt-1 font-mono text-brand">
+                      →
+                    </span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {project.visual && (
+              <div className="mt-14 overflow-hidden border border-border bg-card">
+                <Image
+                  src={project.visual.src}
+                  alt={project.visual.alt}
+                  width={project.visual.width}
+                  height={project.visual.height}
+                  sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) calc(100vw - 6rem), 1184px"
+                  className="h-auto w-full"
+                />
+              </div>
+            )}
+          </section>
+        ))
+      ) : (
+        <section className={BAND}>
+          <h2 className={H2}>
+            {t("whatWeDid")}
+          </h2>
+          <div
+            className={`mt-10 grid grid-cols-1 gap-10 md:mt-14 ${customer.approach ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16" : "max-w-[880px]"}`}
+          >
+            {customer.approach && <p className={LEAD}>{customer.approach}</p>}
+            <ul className={POINTS}>
+              {customer.points.map((point) => (
+                <li key={point} className={POINT}>
+                  <span aria-hidden="true" className="pt-1 font-mono text-brand">
+                    →
+                  </span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {(wideVisuals.length > 0 || customer.url) && (
+        <section
+          className={`${SECTION} pb-20 md:pb-28 lg:pb-32 ${wideVisuals.length > 0 ? "border-t border-border pt-20 md:pt-28 lg:pt-32" : "-mt-6 md:-mt-10 lg:-mt-12"}`}
+        >
+          {wideVisuals.length > 0 && (
+            <>
+              <span className={`mb-8 ${MONO}`}>
+                <BrandSquare />
+                {t("theProduct")}
+              </span>
+              <div className="flex flex-col gap-5">
+                {wideVisuals.map((visual) => (
+                  <div key={visual.src} className="overflow-hidden border border-border bg-card">
+                    <Image
+                      src={visual.src}
+                      alt={visual.alt}
+                      width={visual.width}
+                      height={visual.height}
+                      sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) calc(100vw - 6rem), 1184px"
+                      className="h-auto w-full"
+                    />
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {customer.url && (
+            <a
+              href={customer.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-3 rounded-[2px] border border-foreground bg-foreground px-6 py-4 text-[15px] font-semibold text-background transition-colors duration-300 hover:border-soft-foreground hover:bg-soft-foreground md:px-7 ${wideVisuals.length > 0 ? "mt-10" : ""}`}
+            >
+              {t("visitClient", { name: customer.client })}
+              <span aria-hidden="true" className="text-lg leading-none">
+                &#8599;
+              </span>
+            </a>
+          )}
+        </section>
+      )}
+    </>
+  );
+
+  // `divided`: the reading list opens with a hairline when it follows the
+  // story on the same paper band.
+  const more = (divided: boolean) => (
+    <>
+      <CaseStudyKeepReading items={related} divided={divided} />
+
+      <section className={`${SECTION} pb-20 md:pb-28 lg:pb-32`}>
+        {/* The healthcare case also points at the healthcare landing. */}
+        {slug === "monka" ? (
+          <p className={`mb-4 ${ASIDE}`}>
+            {tHealthcare.rich("caseLink", {
+              link: (chunks) => (
+                <Link href={splitPath(HEALTHCARE_AI_PATHS, locale)} className={INLINE_LINK}>
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </p>
+        ) : null}
+        {/* The newsroom case also points at the media AI landing. */}
+        {slug === "afp" ? (
+          <p className={`mb-4 ${ASIDE}`}>
+            {tMedia.rich("caseLink", {
+              link: (chunks) => (
+                <Link href={splitPath(MEDIA_AI_PATHS, locale)} className={INLINE_LINK}>
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </p>
+        ) : null}
+        {/* A case told in more depth in a guide points at it. */}
+        {guide ? (
+          <p className={`mb-4 ${ASIDE}`}>
+            {t.rich("relatedArticle", {
+              title: guide.title,
+              link: (chunks) => (
+                <Link href={guide.href} className={INLINE_LINK}>
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </p>
+        ) : null}
+        <p className={ASIDE}>
+          {tAgency.rich("caseLink", {
+            link: (chunks) => (
+              <Link href={splitPath(AGENCY_PARIS_PATHS, locale)} className={INLINE_LINK}>
+                {chunks}
+              </Link>
+            ),
+          })}
+        </p>
+      </section>
+
+      {customer.faq && customer.faq.length > 0 ? (
+        <section className={`${BAND} border-t border-border`}>
+          <h2 className={H2}>{t("faqTitle")}</h2>
+          <div className="mt-12 border-t border-border md:mt-16">
+            {customer.faq.map((item) => (
+              <article
+                key={item.question}
+                className="grid grid-cols-1 gap-3 border-b border-border py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+              >
+                <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
+                  {item.question}
+                </h3>
+                <p className="m-0 max-w-[70ch] text-[16px] leading-[1.65] text-muted-foreground md:text-[17px]">
+                  {item.answer}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+    </>
+  );
+
   return (
     <div
       data-variant="hybrid"
@@ -120,325 +322,167 @@ export default async function CaseStudyPage({
       ))}
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section className="mx-auto max-w-[80rem] px-6 pb-16 pt-10 md:px-10 lg:px-16 md:pb-20 md:pt-12">
-          <h1 className="sr-only">{customer.client} · {t("back")}</h1>
-          <Suspense fallback={<BackLink href="/case-studies" label={t("back")} />}>
-            <CaseStudyBackLink />
-          </Suspense>
-
-          <div className="mt-10 flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={customer.logo}
-              alt={customer.client}
-              {...clientLogoSize(customer.logo)}
-              className="h-9 w-auto object-contain brightness-0 invert md:h-11"
-            />
-            <span className="border border-border-strong px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-soft-foreground">
-              {customer.sector}
-            </span>
-          </div>
-
-          <div className="mt-10 border-t border-border pt-8">
-            {customer.metric && (
-              <>
-                <div className="text-[56px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[80px]">
-                  {customer.metric}
-                </div>
-                <div className="mt-3 text-lg text-muted-foreground">
-                  {customer.metricLabel}
-                </div>
-              </>
-            )}
-          </div>
-
+        {/* 1 — On the ink, in the hero's orange light: the client, the
+            headline figure lit, the story in a paragraph, and the results. */}
+        <section className="relative overflow-hidden">
           <div
-            className={`${customer.metric ? "mt-10" : "mt-2"} grid gap-10 ${asideVisual ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:items-start lg:gap-14" : ""}`}
-          >
-            <div>
-              <p className="m-0 max-w-[720px] text-xl leading-[1.5] text-foreground md:text-2xl">
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-48 -top-40 h-[900px] w-[1100px]"
+            style={{
+              background:
+                "radial-gradient(closest-side, rgb(242 115 19 / 0.2), rgb(242 115 19 / 0.06) 55%, transparent)",
+            }}
+          />
+          <div className={`relative ${SECTION} pb-20 pt-10 md:pb-28 md:pt-12`}>
+            <h1 className="sr-only">{customer.client} · {t("back")}</h1>
+            <Suspense fallback={<BackLink href="/case-studies" label={t("back")} />}>
+              <CaseStudyBackLink />
+            </Suspense>
+
+            <div className="mt-12 flex flex-col items-start gap-5 md:mt-16 md:flex-row md:items-center md:justify-between">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={customer.logo}
+                alt={customer.client}
+                {...clientLogoSize(customer.logo)}
+                className="logo-tone h-10 w-auto object-contain md:h-12"
+              />
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-soft-foreground">
+                <BrandSquare />
+                {customer.sector}
+              </span>
+            </div>
+
+            {customer.metric && (
+              <div className="mt-12 border-t border-border pt-10 md:mt-14">
+                <p className="m-0 max-w-[14ch] text-[clamp(3.25rem,8.4vw,8rem)] font-bold leading-[0.92] tracking-[-0.05em]">
+                  <span className="text-lit box-decoration-clone">{customer.metric}</span>
+                </p>
+                <p className="m-0 mt-5 max-w-[640px] text-lg leading-[1.45] text-soft-foreground md:text-xl">
+                  {customer.metricLabel}
+                </p>
+              </div>
+            )}
+
+            <div
+              className={`${customer.metric ? "mt-14 md:mt-16" : "mt-12 border-t border-border pt-10 md:mt-14"} grid gap-12 ${asideVisual ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:items-start lg:gap-16" : ""}`}
+            >
+              <p className="m-0 max-w-[720px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-2xl">
                 {customer.overview}
               </p>
 
-              {customer.quote && (
-                <figure className="mt-10 max-w-[760px] border-l-2 border-brand pl-6">
-                  <blockquote className="m-0 text-lg font-medium leading-[1.5] text-foreground md:text-xl">
-                    &ldquo;{customer.quote.text}&rdquo;
-                  </blockquote>
-                  <figcaption className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                    {customer.quote.author}
-                  </figcaption>
-                </figure>
-              )}
-            </div>
-
-            {asideVisual && (
-              <div className="mx-auto w-full max-w-[360px] overflow-hidden border border-border">
-                <Image
-                  src={asideVisual.src}
-                  alt={asideVisual.alt}
-                  width={asideVisual.width}
-                  height={asideVisual.height}
-                  sizes="(max-width: 407px) calc(100vw - 3rem), 360px"
-                  className="h-auto w-full"
-                />
-              </div>
-            )}
-          </div>
-        </section>
-
-        {customer.results.length > 0 && (
-          <section className="border-y border-border bg-background">
-            {/* Every stat cell keeps the same width (the 4-up rhythm of the
-                80rem container) whatever the count: the strip narrows and stays
-                centered instead of stretching, so a study with 2 numbers reads
-                like one with 4. Separators are real cell borders (left between
-                columns, top between mobile rows) — sturdier than a gap-px
-                hairline, which can vanish with browser zoom rounding. */}
-            <div
-              className={`mx-auto grid grid-cols-2 px-0 ${
-                customer.results.length === 1
-                  ? "max-w-[20rem] md:grid-cols-1"
-                  : customer.results.length === 2
-                    ? "max-w-[40rem] md:grid-cols-2"
-                    : customer.results.length === 3
-                      ? "max-w-[60rem] md:grid-cols-3"
-                      : "max-w-[80rem] md:grid-cols-4"
-              }`}
-            >
-              {customer.results.map((stat, index) => {
-                const isLast = index === customer.results.length - 1;
-                const fullWidthOnMobile =
-                  customer.results.length % 2 === 1 && isLast;
-                return (
-                <div
-                  key={stat.value}
-                  className={`flex flex-col gap-1 bg-background p-6 md:p-8 ${
-                    fullWidthOnMobile ? "col-span-2 md:col-span-1" : ""
-                  } ${
-                    index === 0
-                      ? ""
-                      : index % 2 === 1 && !fullWidthOnMobile
-                        ? "border-l border-border"
-                        : "md:border-l md:border-border"
-                  } ${index >= 2 ? "border-t border-border md:border-t-0" : ""}`}
-                >
-                  <div className="text-[30px] font-bold leading-none tracking-[-0.03em] text-foreground md:text-[36px]">
-                    {stat.value}
-                  </div>
-                  <div className="mt-1 text-sm leading-snug text-muted-foreground">
-                    {stat.label}
-                  </div>
-                </div>
-                );
-              })}
-            </div>
-          </section>
-        )}
-
-        {customer.projects ? (
-          customer.projects.map((project, index) => (
-            <section
-              key={project.name}
-              className={`mx-auto max-w-[80rem] px-6 py-16 md:px-10 lg:px-16 md:py-20 ${index > 0 ? "border-t border-border" : ""}`}
-            >
-              <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_1fr] md:gap-16">
-                <div>
-                  <span className="block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                    <BrandSquare />{t("projectLabel", { n: index + 1 })}
-                  </span>
-                  <h2 className="m-0 mt-4 text-[28px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground">
-                    {project.name}
-                  </h2>
-                </div>
-                <div>
-                  <p className="m-0 mb-8 max-w-[720px] text-xl leading-[1.5] text-foreground">
-                    {project.summary}
-                  </p>
-                  <ul className="m-0 flex list-none flex-col gap-5 p-0">
-                    {project.points.map((point) => (
-                      <li
-                        key={point}
-                        className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
-                      >
-                        <span aria-hidden="true" className="pt-1 font-mono text-brand">
-                          →
-                        </span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              {project.visual && (
-                <div className="mt-12 overflow-hidden border border-border">
+              {asideVisual && (
+                <div className="mx-auto w-full max-w-[360px] overflow-hidden border border-border">
                   <Image
-                    src={project.visual.src}
-                    alt={project.visual.alt}
-                    width={project.visual.width}
-                    height={project.visual.height}
-                    sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) calc(100vw - 6rem), 1184px"
+                    src={asideVisual.src}
+                    alt={asideVisual.alt}
+                    width={asideVisual.width}
+                    height={asideVisual.height}
+                    sizes="(max-width: 407px) calc(100vw - 3rem), 360px"
                     className="h-auto w-full"
                   />
                 </div>
               )}
-            </section>
-          ))
-        ) : (
-          <section className="mx-auto max-w-[80rem] px-6 py-16 md:px-10 lg:px-16 md:py-20">
-            <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_1fr] md:gap-16">
-              <h2 className="m-0 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                <BrandSquare />{t("whatWeDid")}
-              </h2>
-              <div>
-                {customer.approach && (
-                  <p className="m-0 mb-8 max-w-[720px] text-xl leading-[1.5] text-foreground">
-                    {customer.approach}
-                  </p>
-                )}
-                <ul className="m-0 flex list-none flex-col gap-5 p-0">
-                  {customer.points.map((point) => (
-                    <li
-                      key={point}
-                      className="flex gap-4 border-b border-border pb-5 text-lg leading-[1.5] text-foreground last:border-b-0"
-                    >
-                      <span aria-hidden="true" className="pt-1 font-mono text-brand">
-                        →
-                      </span>
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
-          </section>
-        )}
 
-        {(wideVisuals.length > 0 || customer.url) && (
-          <section className="mx-auto max-w-[80rem] px-6 pb-20 md:px-10 lg:px-16 md:pb-24">
-            {wideVisuals.length > 0 && (
-              <>
-                <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  <BrandSquare />{t("theProduct")}
-                </span>
-                <div className="flex flex-col gap-5">
-                  {wideVisuals.map((visual) => (
-                    <div key={visual.src} className="overflow-hidden border border-border">
-                      <Image
-                        src={visual.src}
-                        alt={visual.alt}
-                        width={visual.width}
-                        height={visual.height}
-                        sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) calc(100vw - 6rem), 1184px"
-                        className="h-auto w-full"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {customer.url && (
-              <a
-                href={customer.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-3 rounded-[2px] border border-border-strong bg-background px-6 py-4 text-[15px] font-semibold text-foreground transition-all duration-300 hover:border-foreground ${wideVisuals.length > 0 ? "mt-8" : ""}`}
+            {customer.results.length > 0 && (
+              /* Every stat cell keeps the same width (the 4-up rhythm of the
+                 80rem rail) whatever the count: the strip narrows instead of
+                 stretching, so a study with 2 numbers reads like one with 4.
+                 Separators are real cell borders (left between columns, top
+                 between mobile rows) — sturdier than a gap-px hairline,
+                 which can vanish with browser zoom rounding. */
+              <div
+                className={`mt-16 grid grid-cols-2 border-y border-border md:mt-20 ${
+                  customer.results.length === 1
+                    ? "max-w-[20rem] md:grid-cols-1"
+                    : customer.results.length === 2
+                      ? "max-w-[40rem] md:grid-cols-2"
+                      : customer.results.length === 3
+                        ? "max-w-[60rem] md:grid-cols-3"
+                        : "md:grid-cols-4"
+                }`}
               >
-                {t("visitClient", { name: customer.client })}
-                <span aria-hidden="true" className="text-lg">
-                  &#8599;
-                </span>
-              </a>
+                {customer.results.map((stat, index) => {
+                  const isLast = index === customer.results.length - 1;
+                  const fullWidthOnMobile =
+                    customer.results.length % 2 === 1 && isLast;
+                  return (
+                    <div
+                      key={stat.value}
+                      className={`flex flex-col gap-1 py-6 pr-5 md:py-8 md:pr-8 ${
+                        fullWidthOnMobile ? "col-span-2 md:col-span-1" : ""
+                      } ${
+                        index === 0
+                          ? ""
+                          : index % 2 === 1 && !fullWidthOnMobile
+                            ? "border-l border-border pl-5 md:pl-8"
+                            : "md:border-l md:border-border md:pl-8"
+                      } ${index >= 2 ? "border-t border-border md:border-t-0" : ""}`}
+                    >
+                      <div className="text-lit text-[40px] font-bold leading-none tracking-[-0.045em] md:text-[52px]">
+                        {stat.value}
+                      </div>
+                      <div className="mt-2 text-sm leading-snug text-muted-foreground">
+                        {stat.label}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             )}
-          </section>
-        )}
-
-        <CaseStudyKeepReading items={related} />
-
-        <section className="mx-auto max-w-[80rem] px-6 pb-16 md:px-10 lg:px-16 md:pb-20">
-          {/* The healthcare case also points at the healthcare landing. */}
-          {slug === "monka" ? (
-            <p className="m-0 mb-4 max-w-[680px] border-l border-border-strong pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
-              {tHealthcare.rich("caseLink", {
-                link: (chunks) => (
-                  <Link
-                    href={splitPath(HEALTHCARE_AI_PATHS, locale)}
-                    className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
-                  >
-                    {chunks}
-                  </Link>
-                ),
-              })}
-            </p>
-          ) : null}
-          {/* The newsroom case also points at the media AI landing. */}
-          {slug === "afp" ? (
-            <p className="m-0 mb-4 max-w-[680px] border-l border-border-strong pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
-              {tMedia.rich("caseLink", {
-                link: (chunks) => (
-                  <Link
-                    href={splitPath(MEDIA_AI_PATHS, locale)}
-                    className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
-                  >
-                    {chunks}
-                  </Link>
-                ),
-              })}
-            </p>
-          ) : null}
-          {/* A case told in more depth in a guide points at it. */}
-          {guide ? (
-            <p className="m-0 mb-4 max-w-[680px] border-l border-border-strong pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
-              {t.rich("relatedArticle", {
-                title: guide.title,
-                link: (chunks) => (
-                  <Link
-                    href={guide.href}
-                    className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
-                  >
-                    {chunks}
-                  </Link>
-                ),
-              })}
-            </p>
-          ) : null}
-          <p className="m-0 max-w-[680px] border-l border-border-strong pl-5 text-[15px] leading-[1.6] text-muted-foreground md:text-base">
-            {tAgency.rich("caseLink", {
-              link: (chunks) => (
-                <Link
-                  href={splitPath(AGENCY_PARIS_PATHS, locale)}
-                  className="font-semibold text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
-                >
-                  {chunks}
-                </Link>
-              ),
-            })}
-          </p>
+          </div>
         </section>
 
-        {customer.faq && customer.faq.length > 0 ? (
-          <section className="mx-auto max-w-[80rem] border-t border-border px-6 py-14 md:px-10 lg:px-16 md:py-20">
-            <h2 className="m-0 text-[28px] font-bold tracking-[-0.03em] md:text-[36px]">
-              {t("faqTitle")}
-            </h2>
-            <div className="mt-10 border-t border-border md:mt-12">
-              {customer.faq.map((item) => (
-                <article
-                  key={item.question}
-                  className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-8"
+        {customer.quote ? (
+          <>
+            <div data-surface="paper">{story}</div>
+
+            {/* The client's words, an ink band in a pool of warm light like
+                the homepage's quote. */}
+            <section className="relative overflow-hidden">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(55% 75% at 22% 60%, rgb(242 115 19 / 0.16), rgb(242 115 19 / 0.04) 55%, transparent 80%)",
+                }}
+              />
+              <figure className={`relative m-0 ${SECTION} py-24 md:py-32 lg:py-36`}>
+                <span
+                  aria-hidden="true"
+                  className="block text-[6rem] font-bold leading-none text-brand lg:text-[8rem]"
                 >
-                  <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] md:text-[24px]">
-                    {item.question}
-                  </h3>
-                  <p className="m-0 max-w-[70ch] text-[16px] leading-[1.65] text-muted-foreground md:text-[17px]">
-                    {item.answer}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </section>
-        ) : null}
+                  &ldquo;
+                </span>
+                <blockquote className="m-0 -mt-8 max-w-[30ch] text-[clamp(1.6rem,3vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.03em] text-foreground lg:-mt-12">
+                  {customer.quote.text}
+                </blockquote>
+                <figcaption className="mt-10 flex flex-wrap items-center gap-4 font-mono text-[11px] uppercase tracking-[0.2em] text-soft-foreground">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={customer.logo}
+                    alt=""
+                    aria-hidden="true"
+                    {...clientLogoSize(customer.logo)}
+                    className="logo-tone h-6 w-auto"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  {customer.quote.author}
+                </figcaption>
+              </figure>
+            </section>
+
+            <div data-surface="paper">{more(false)}</div>
+          </>
+        ) : (
+          <div data-surface="paper">
+            {story}
+            {more(true)}
+          </div>
+        )}
 
         <FinalCTA rail="narrow" />
       </main>
