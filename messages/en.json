@@ -671,8 +671,8 @@
     }
   },
   "quivr": {
-    "metaTitle": "Quivr: open-source news search and monitoring",
-    "metaDescription": "Quivr (YC W24): open-source engine that follows news, emails and posts, makes them searchable and alerts you.",
+    "metaTitle": "Quivr AI: open-source RAG and semantic search engine (YC)",
+    "metaDescription": "Quivr, the open-source RAG engine with 39,500+ GitHub stars that took its founders to Y Combinator. V2 searches news, emails and posts by meaning, with alerts.",
     "product": {
       "alt": "The Quivr V2 interface: a live feed of articles with its filters, two articles flagged by a harbour strike alert, and trending topics.",
       "stageAlt": "The Quivr V2 interface: a new article about the harbour strike lands in the live feed and triggers an alert, sent to your app with the rule that matched.",

@@ -17,6 +17,17 @@ describe("quivr messages", () => {
     expect(leaves(fr.quivr).sort()).toEqual(leaves(en.quivr).sort());
   });
 
+  test("search metadata identifies RAG within snippet limits", () => {
+    for (const { metaTitle, metaDescription } of [en.quivr, fr.quivr]) {
+      expect(metaTitle.length).toBeLessThanOrEqual(60);
+      expect(metaDescription.length).toBeLessThanOrEqual(160);
+      expect(metaTitle).toContain("RAG");
+      for (const field of [metaTitle, metaDescription]) {
+        expect(field).not.toMatch(/W24|—/);
+      }
+    }
+  });
+
   test("never claim a certification", () => {
     for (const messages of [en.quivr, fr.quivr]) {
       const text = JSON.stringify(messages);
