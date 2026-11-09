@@ -48,8 +48,8 @@ export function ResourcesHomeSearch() {
   );
 
   return (
-    <form onSubmit={handleSubmit} role="search" className="relative w-full sm:flex-1 max-w-xl">
-      <span aria-hidden="true" className="absolute left-4 top-1/2 -translate-y-1/2 text-res-text-muted">
+    <form onSubmit={handleSubmit} role="search" className="relative w-full">
+      <span aria-hidden="true" className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.3-4.3" />
@@ -60,7 +60,7 @@ export function ResourcesHomeSearch() {
         placeholder={t('searchPlaceholder')}
         value={value}
         onChange={(event) => handleChange(event.target.value)}
-        className="w-full bg-res-surface border border-res-border pl-12 pr-4 py-3.5 text-base font-mono text-res-text placeholder:text-res-text-muted/60 focus:outline-none focus:border-res-text rounded-md transition-colors"
+        className="w-full rounded-[2px] border border-border bg-card py-3.5 pl-12 pr-4 font-mono text-base text-foreground transition-colors placeholder:text-muted-foreground focus:border-foreground focus:outline-none"
         aria-label={tA11y('searchResources')}
       />
     </form>

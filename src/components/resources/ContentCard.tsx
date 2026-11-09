@@ -55,43 +55,43 @@ export function ContentCard({
       locale={language}
       className="group block h-full"
     >
-      <article className={`h-full flex flex-col lg:flex-row overflow-hidden ${resourcesTheme.card.base} ${resourcesTheme.card.hover}`}>
+      <article className={`h-full flex flex-col lg:flex-row overflow-hidden ${resourcesTheme.card.base}`}>
         {image && (
-          <div className="shrink-0 relative overflow-hidden w-full aspect-[4/3] lg:w-72 lg:aspect-[4/3]">
+          <div className="shrink-0 relative overflow-hidden w-full aspect-[4/3] border-b border-border lg:w-72 lg:border-b-0 lg:border-r">
             <Image
               src={image.url}
               alt={image.alt}
               fill
               sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 280px"
-              className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+              className="object-cover object-center"
             />
           </div>
         )}
 
-        <div className="flex flex-col flex-1 min-w-0 p-6">
-          <div className="flex items-center justify-between gap-2 mb-6 border-b border-res-border/50 pb-4">
-            <span className={resourcesTheme.badge.type}>
+        <div className="flex flex-col flex-1 min-w-0 p-6 md:p-7">
+          <div className="flex items-center justify-between gap-2 mb-5 border-b border-border pb-4">
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               {typeLabel || typeSlug}
             </span>
             {language && <LanguageFlag language={language} variant="card" />}
           </div>
 
-          <h3 className="text-xl font-bold tracking-tighter mb-3 text-res-text leading-[1.1] group-hover:underline decoration-1 underline-offset-4">
+          <h3 className="m-0 mb-3 text-[22px] font-bold tracking-[-0.03em] text-foreground leading-[1.1] group-hover:underline decoration-1 underline-offset-4 md:text-2xl">
             {title}
           </h3>
 
           <p
-            className="text-sm text-res-text-muted leading-relaxed line-clamp-3 mb-6 flex-1"
+            className="m-0 text-[15px] text-muted-foreground leading-[1.6] line-clamp-3 mb-6 flex-1"
             dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(summary ?? '') }}
           />
 
-          <div className="flex items-center justify-between mt-auto pt-4 border-t border-res-border/50">
+          <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
             {publishedAt && (
-              <span className="text-[10px] font-mono text-res-text-muted uppercase tracking-widest">
+              <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-[0.2em]">
                 {formatDate(publishedAt, locale)}
               </span>
             )}
-            <span className="text-res-text-muted group-hover:translate-x-1 transition-transform duration-300">
+            <span aria-hidden="true" className="text-brand">
               &rarr;
             </span>
           </div>

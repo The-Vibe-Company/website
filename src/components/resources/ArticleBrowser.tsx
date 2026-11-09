@@ -7,6 +7,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { resourcesTheme } from '@/lib/resources-theme';
 import { getUrlSlugForDbType } from '@/lib/content-types';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
+import { BrandSquare } from '@/components/BrandSquare';
 import {
   TranslationSwitch,
   type TranslationLink,
@@ -64,55 +65,53 @@ function ArticleCard({
   return (
     <article
       hidden={hidden}
-      className={`group relative ${hidden ? 'hidden' : 'flex'} ${compact ? 'min-h-[84px]' : 'h-[132px]'} gap-3 p-3 rounded-md ${resourcesTheme.card.base}`}
+      className={`group relative ${hidden ? 'hidden' : 'flex'} ${compact ? 'min-h-[96px] gap-4 p-4' : 'min-h-[152px] gap-4 p-4 md:gap-5 md:p-5'} ${resourcesTheme.card.base}`}
     >
-      <div className={`relative ${compact ? 'w-12 h-12' : 'w-16 h-16'} shrink-0 overflow-hidden rounded`}>
+      <div
+        className={`relative ${compact ? 'h-14 w-14' : 'h-20 w-20 md:h-24 md:w-24'} shrink-0 overflow-hidden border border-border bg-background`}
+      >
         {item.image ? (
           <Image
             src={item.image.url}
             alt={item.image.alt}
             fill
-            sizes={compact ? '48px' : '64px'}
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            sizes={compact ? '56px' : '(min-width: 768px) 96px, 80px'}
+            className="object-cover"
           />
-        ) : (
-          <div className="w-full h-full bg-res-bg-secondary border border-res-border" />
-        )}
+        ) : null}
       </div>
-      <div className="flex-1 min-w-0 flex flex-col">
-        <h3 className="text-sm font-bold tracking-tight text-res-text leading-tight mb-1 line-clamp-2">
+      <div className="flex min-w-0 flex-1 flex-col">
+        <h3
+          className={`m-0 font-bold leading-[1.15] tracking-[-0.02em] text-foreground line-clamp-2 ${
+            compact ? 'text-[15px]' : 'text-[16px] md:text-[18px]'
+          }`}
+        >
           {/* An article lives under its own language's prefix only, whatever
               the listing is browsed in, so the card links straight there. */}
           <Link
             href={`/resources/${getUrlSlugForDbType(item.type)}/${item.slug}`}
             locale={item.language}
-            className="after:absolute after:inset-0 after:content-[''] group-hover:underline decoration-1 underline-offset-2"
+            className="after:absolute after:inset-0 after:content-[''] group-hover:underline decoration-1 underline-offset-[3px]"
           >
             {item.title}
           </Link>
         </h3>
         {!compact && item.summary ? (
           <p
-            className="text-xs text-res-text-muted leading-snug line-clamp-2"
+            className="m-0 mt-2 text-[13px] leading-[1.5] text-muted-foreground line-clamp-2 md:text-sm"
             dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
           />
         ) : null}
-        <div className={`mt-auto flex items-center gap-2 ${compact ? 'flex-wrap gap-y-1' : ''} text-[10px] font-mono uppercase tracking-widest text-res-text-muted`}>
+        <div
+          className={`mt-auto flex flex-wrap items-center gap-x-3 gap-y-1.5 ${compact ? 'pt-2.5' : 'pt-3'} font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground`}
+        >
           {item.seriesDay != null && (
-            <span className="inline-flex items-center rounded border border-brand/40 bg-brand/10 px-1.5 py-0.5 text-brand tracking-wider">
-              D{item.seriesDay}
+            <span className="inline-flex items-center font-semibold text-foreground">
+              <BrandSquare />D{item.seriesDay}
             </span>
           )}
-          {item.focus && (
-            <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
-              {t('focus')}
-            </span>
-          )}
-          {item.tool && (
-            <span className="inline-flex items-center rounded border border-res-text/30 bg-res-text/5 px-1.5 py-0.5 text-res-text tracking-wider">
-              {t('tools')}
-            </span>
-          )}
+          {item.focus && <span className={TAG}>{t('focus')}</span>}
+          {item.tool && <span className={TAG}>{t('tools')}</span>}
           {item.language && (
             <TranslationSwitch
               language={item.language}
@@ -128,45 +127,70 @@ function ArticleCard({
   );
 }
 
+/** Focus / Tools markers on a card: a hairline tag in the band's ink. */
+const TAG =
+  'inline-flex items-center border border-border-strong px-1.5 py-0.5 leading-none tracking-[0.14em] text-foreground';
+
+/** "See all N …": a full-width hairline row, the arrow in the accent. */
+const SEE_ALL =
+  'col-span-full flex w-full cursor-pointer items-center justify-center gap-2 border border-border px-3 py-3.5 font-mono text-[11px] uppercase tracking-[0.2em] text-soft-foreground transition-colors hover:border-border-strong hover:bg-card hover:text-foreground';
+
 interface SectionProps {
   name: string;
   count: number;
   /** Secondary sections get a quieter header and a denser grid of compact cards. */
   secondary?: boolean;
+  /** The series hangs under a lamp, like the landing's highlighted cards. */
+  lamp?: boolean;
   children: ReactNode;
   footer?: ReactNode;
 }
 
-function Section({ name, count, secondary = false, children, footer }: SectionProps) {
+function Section({ name, count, secondary = false, lamp = false, children, footer }: SectionProps) {
   const cardsClass = secondary
     ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3'
-    : 'grid grid-cols-1 lg:grid-cols-2 gap-3';
+    : 'grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4';
+
+  const header = (
+    <div
+      className={`relative flex items-end justify-between gap-4 border-b border-border ${
+        secondary ? 'mb-5 pb-4' : 'mb-6 pb-5 md:mb-8'
+      }`}
+    >
+      <h2
+        className={
+          secondary
+            ? 'm-0 text-[clamp(1.5rem,2.6vw,2.25rem)] font-bold leading-[1] tracking-[-0.035em] text-foreground'
+            : resourcesTheme.page.h2
+        }
+      >
+        {name}
+      </h2>
+      <span className={`${resourcesTheme.page.mono} shrink-0 pb-1`}>{count}</span>
+    </div>
+  );
+
+  const cards = (
+    <div className={`relative ${cardsClass}`}>
+      {children}
+      {footer}
+    </div>
+  );
+
+  if (lamp) {
+    return (
+      <div className="lamp-card relative overflow-hidden border border-border p-4 pt-8 md:p-8 md:pt-10">
+        <span aria-hidden="true" className={resourcesTheme.page.lamp} />
+        {header}
+        {cards}
+      </div>
+    );
+  }
 
   return (
     <div>
-      <div
-        className={`flex items-center justify-between mb-4 ${
-          secondary ? 'pb-2 border-b border-res-border' : 'pb-2.5 border-b-2 border-res-text'
-        }`}
-      >
-        <div className="flex items-center gap-2.5">
-          {!secondary && <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />}
-          <h2
-            className={
-              secondary
-                ? 'text-sm font-semibold tracking-tight text-res-text-muted'
-                : 'text-lg md:text-xl font-bold tracking-tight text-res-text'
-            }
-          >
-            {name}
-          </h2>
-        </div>
-        <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">{count}</span>
-      </div>
-      <div className={cardsClass}>
-        {children}
-        {footer}
-      </div>
+      {header}
+      {cards}
     </div>
   );
 }
@@ -198,10 +222,14 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
 
   return (
     <div>
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-10">
-        {searchSlot}
+      <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:mb-16">
+        {/* The slot is created by the server page and arrives here as a
+            lazy Flight element. Rendered as one of several siblings, React
+            treats it as an un-keyed list item and warns; as the only child of
+            its own wrapper it is a single child and needs no key. */}
+        {searchSlot ? <div className="w-full sm:max-w-xl sm:flex-1">{searchSlot}</div> : null}
         <div
-          className="flex gap-1 self-start rounded-md border border-res-border bg-res-bg-secondary p-1"
+          className="flex gap-1 self-start border border-border bg-card p-1 sm:self-auto"
           role="tablist"
           aria-label={tA11y('filterArticles')}
         >
@@ -214,8 +242,8 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
                 role="tab"
                 aria-selected={active}
                 onClick={() => setFilter(tab.key)}
-                className={`inline-flex cursor-pointer items-center gap-1.5 rounded px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition-colors ${
-                  active ? 'bg-res-text text-res-surface' : 'text-res-text-muted hover:text-res-text'
+                className={`inline-flex min-h-9 cursor-pointer items-center rounded-[2px] px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
+                  active ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {tab.label}
@@ -229,27 +257,24 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
         <button
           type="button"
           onClick={() => setFilter('all')}
-          className="group mb-6 inline-flex cursor-pointer items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
+          className="mb-8 inline-flex cursor-pointer items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
         >
-          <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
+          <span aria-hidden="true">&larr;</span>
           {t('back')}
         </button>
       )}
 
-      {/* Articles lead; Victor's Story follows as a quieter, compact section. */}
-      <div className="flex flex-col gap-12 md:gap-16">
+      {/* Articles lead; Victor's Story follows under its lamp, compact. */}
+      <div className="flex flex-col gap-16 md:gap-24">
         {showOthers && (
           <Section
             name={t('articles')}
             count={others.length}
             footer={
               hiddenOthers > 0 ? (
-                <button
-                  type="button"
-                  onClick={() => setFilter('articles')}
-                  className="col-span-full flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
-                >
-                  {t('viewAllArticles', { count: others.length })} &rarr;
+                <button type="button" onClick={() => setFilter('articles')} className={SEE_ALL}>
+                  {t('viewAllArticles', { count: others.length })}{' '}
+                  <span aria-hidden="true" className="text-brand">&rarr;</span>
                 </button>
               ) : null
             }
@@ -265,14 +290,12 @@ export function ArticleBrowser({ victorStory, others, searchSlot }: ArticleBrows
             name={t('victorStory')}
             count={victorStory.length}
             secondary={!single}
+            lamp
             footer={
               hiddenVictor > 0 ? (
-                <button
-                  type="button"
-                  onClick={() => setFilter('victor')}
-                  className="col-span-full flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-res-border px-3 py-3 text-[10px] font-mono uppercase tracking-widest text-res-text-muted transition-colors hover:border-res-text-muted hover:text-res-text"
-                >
-                  {t('viewAllVictor', { count: victorStory.length })} &rarr;
+                <button type="button" onClick={() => setFilter('victor')} className={SEE_ALL}>
+                  {t('viewAllVictor', { count: victorStory.length })}{' '}
+                  <span aria-hidden="true" className="text-brand">&rarr;</span>
                 </button>
               ) : null
             }

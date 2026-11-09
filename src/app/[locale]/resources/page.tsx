@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+import { BrandSquare } from '@/components/BrandSquare';
 import { JsonLd } from '@/components/JsonLd';
 import { ArticleBrowser, type ArticleCardItem } from '@/components/resources/ArticleBrowser';
 import { ResourcesHomeSearch } from '@/components/resources/ResourcesHomeSearch';
@@ -15,6 +16,7 @@ import { localizedAlternates, localizedSocialMetadata, localizedUrl } from '@/li
 import { breadcrumbList, collectionPageSchema } from '@/lib/structured-data';
 
 const RESOURCES_ITEM_LIST_CAP = 15;
+const page = resourcesTheme.page;
 
 export async function generateMetadata({
   params,
@@ -93,7 +95,7 @@ export default async function ResourcesPage({
   }));
 
   return (
-    <main id="main-content" tabIndex={-1} className="pb-20 bg-res-bg">
+    <main id="main-content" tabIndex={-1} className="bg-res-bg">
       <JsonLd
         data={collectionPageSchema({
           url: hubUrl,
@@ -109,29 +111,36 @@ export default async function ResourcesPage({
           { name: tFooter('resources'), url: hubUrl },
         ])}
       />
-      <section
-        className={`${resourcesTheme.section.padding} pt-10 md:pt-16 pb-10 md:pb-12 border-b border-res-border`}
-      >
-        <div className="max-w-4xl">
-          <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-res-text-muted block mb-4">
+      {/* 1 — On the ink, like the About page: the one H1 and its sentence,
+          in the orange light. */}
+      <section className="relative overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-80 -right-48 h-[900px] w-[1100px]"
+          style={{ background: page.bloom }}
+        />
+        <div className={`relative ${page.container} pb-16 pt-12 md:pb-24 lg:pt-[80px]`}>
+          <span className={page.heroKicker}>
+            <BrandSquare />
             {t('kicker')} / {articleCount} {articleCount === 1 ? 'article' : 'articles'}
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter leading-[0.92] text-res-text mb-5">
+          <h1 className="m-0 mt-8 max-w-[14ch] text-[clamp(3rem,8vw,8.5rem)] font-bold leading-[0.9] tracking-[-0.05em] text-foreground lg:mt-10">
             {t('title')}
           </h1>
-          <p className="text-base md:text-lg text-res-text-muted leading-relaxed max-w-2xl">
-            {t('subtitle')}
-          </p>
+          <p className={`${page.heroLede} mt-10`}>{t('subtitle')}</p>
         </div>
       </section>
 
-      <section className={`${resourcesTheme.section.padding} pt-10`}>
-        <ArticleBrowser
-          victorStory={victorStory}
-          others={others}
-          searchSlot={<ResourcesHomeSearch />}
-        />
-      </section>
+      {/* 2 — The reading list on warm paper. */}
+      <div data-surface="paper">
+        <section className={`${page.container} pb-24 pt-14 md:pb-32 md:pt-20`}>
+          <ArticleBrowser
+            victorStory={victorStory}
+            others={others}
+            searchSlot={<ResourcesHomeSearch />}
+          />
+        </section>
+      </div>
     </main>
   );
 }

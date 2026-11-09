@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+import { BrandSquare } from '@/components/BrandSquare';
 import { JsonLd } from '@/components/JsonLd';
 import { MarkdownRenderer } from '@/components/resources/MarkdownRenderer';
 import { ReadingProgress } from '@/components/resources/ReadingProgress';
@@ -41,6 +42,8 @@ const getRelated = cache(async (slug: string) => {
 });
 
 export const dynamicParams = true;
+
+const page = resourcesTheme.page;
 
 export async function generateMetadata({
   params,
@@ -141,37 +144,48 @@ export default async function SkillDetailPage({
     <>
       <JsonLd data={breadcrumb} />
       <ReadingProgress />
-      <main id="main-content" tabIndex={-1} className="pt-6 md:pt-8 pb-20 min-h-screen bg-res-bg">
-        <div className={`${resourcesTheme.section.padding} pb-12 md:pb-16`}>
-          <div className="mx-auto max-w-6xl">
-            <Link
-              href="/resources"
-              className="mb-6 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
-            >
-              <ArrowLeft size={14} strokeWidth={1.8} className="group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
-              {t('skillsSection')}
-            </Link>
+      <main id="main-content" tabIndex={-1} className="bg-res-bg">
+        <article lang={item.language}>
+          {/* 1 — On the ink: the skill's name and what it does, in the
+              orange light. */}
+          <div className="relative overflow-hidden">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-96 -right-48 h-[900px] w-[1100px]"
+              style={{ background: page.bloom }}
+            />
+            <div className={`relative ${page.container} pb-14 pt-10 md:pb-20 lg:pt-14`}>
+              <Link href="/resources" className={page.link}>
+                <ArrowLeft size={14} strokeWidth={1.8} aria-hidden="true" />
+                {t('skillsSection')}
+              </Link>
 
-            <article lang={item.language}>
-              <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] xl:grid-cols-[minmax(0,1fr)_400px] lg:items-start">
-                <div className="min-w-0">
-                  <header className="flex flex-col gap-4">
-                    <span className="self-start px-2 py-1 border border-res-text/30 bg-res-text/5 text-[10px] font-mono uppercase tracking-widest text-res-text">
-                      {t('skillBadge')}
-                    </span>
+              <header className="mt-10 flex flex-col lg:mt-14">
+                <span className={page.heroKicker}>
+                  <BrandSquare />
+                  {t('skillBadge')}
+                </span>
 
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-tighter leading-[0.95] text-res-text">
-                      {item.title}
-                    </h1>
+                <h1 className="m-0 mt-6 max-w-[16ch] text-[clamp(2.75rem,7vw,6.5rem)] font-bold leading-[0.92] tracking-[-0.05em] text-foreground lg:mt-8">
+                  {item.title}
+                </h1>
 
-                    {item.summary && (
-                      <p
-                        className="text-base md:text-lg text-res-text-muted leading-relaxed max-w-3xl"
-                        dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
-                      />
-                    )}
-                  </header>
+                {item.summary && (
+                  <p
+                    className={`${page.heroLede} mt-8 md:mt-10`}
+                    dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
+                  />
+                )}
+              </header>
+            </div>
+          </div>
 
+          {/* 2 — On warm paper: why it exists, the AI install under its lamp,
+              then the prompt itself. */}
+          <div data-surface="paper">
+            <div className={`${page.container} py-14 md:py-20`}>
+              <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-12 xl:grid-cols-[minmax(0,1fr)_400px] lg:items-start">
+                <div className="min-w-0 empty:hidden">
                   {creatorNote && (
                     <CreatorNote note={creatorNote} label={t('creatorNote')} />
                   )}
@@ -187,7 +201,7 @@ export default async function SkillDetailPage({
 
                 <div className="min-w-0 lg:col-start-1">
                   {showPromptBlock && (
-                    <section className="mt-2 lg:mt-0">
+                    <section className="mt-2 lg:mt-4">
                       <SectionHeader
                         title={t('prompt')}
                         hint={t('promptHint')}
@@ -206,40 +220,42 @@ export default async function SkillDetailPage({
                   )}
                 </div>
               </div>
-            </article>
+            </div>
           </div>
-        </div>
+        </article>
 
         {related.length > 0 && (
-          <section className={`${resourcesTheme.section.padding} py-20 border-t border-res-border`}>
-            <div className="flex items-center justify-between gap-4 mb-10">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-                {t('relatedSkills')}
-              </span>
-              <Link
-                href="/resources"
-                className="text-[11px] font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors"
-              >
-                {t('viewAll')} &rarr;
-              </Link>
-            </div>
+          <div data-surface="paper">
+            <section className={page.container}>
+              <div className="border-t border-border py-20 md:py-24">
+                <div className="mb-10 flex items-center justify-between gap-4">
+                  <span className={page.mono}>
+                    <BrandSquare />
+                    {t('relatedSkills')}
+                  </span>
+                  <Link href="/resources" className={page.link}>
+                    {t('viewAll')} &rarr;
+                  </Link>
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {related.map((r) => (
-                <SkillCard
-                  key={r.id}
-                  title={r.title}
-                  summary={r.summary}
-                  slug={r.slug}
-                  publishedAt={r.publishedAt ?? undefined}
-                  language={r.language}
-                  topics={r.topics}
-                  complexity={r.complexity}
-                  skill={r.skill}
-                />
-              ))}
-            </div>
-          </section>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {related.map((r) => (
+                    <SkillCard
+                      key={r.id}
+                      title={r.title}
+                      summary={r.summary}
+                      slug={r.slug}
+                      publishedAt={r.publishedAt ?? undefined}
+                      language={r.language}
+                      topics={r.topics}
+                      complexity={r.complexity}
+                      skill={r.skill}
+                    />
+                  ))}
+                </div>
+              </div>
+            </section>
+          </div>
         )}
       </main>
     </>
@@ -248,13 +264,13 @@ export default async function SkillDetailPage({
 
 function CreatorNote({ note, label }: { note: string; label: string }) {
   return (
-    <aside className="mt-5 max-w-3xl border border-res-border bg-res-bg-secondary/60 px-4 py-4 md:px-5">
-      <div className="grid gap-2 md:grid-cols-[8.5rem_minmax(0,1fr)] md:gap-5">
-        <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
+    <aside className="max-w-3xl border border-border bg-card px-5 py-5 md:px-7 md:py-6">
+      <div className="grid gap-2 md:grid-cols-[8.5rem_minmax(0,1fr)] md:gap-6">
+        <p className="m-0 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
           {label}
         </p>
         <p
-          className="text-sm md:text-[15px] leading-relaxed text-res-text"
+          className="m-0 text-[15px] leading-[1.65] text-foreground md:text-base"
           dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(note) }}
         />
       </div>
@@ -264,20 +280,23 @@ function CreatorNote({ note, label }: { note: string; label: string }) {
 
 function SkillSnapshot({ trigger, label }: { trigger: string; label: string }) {
   return (
-    <section className="mt-6 max-w-3xl border border-res-border bg-res-bg-secondary p-4">
-      <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.2em] text-res-text-muted">
+    <section className="mt-4 max-w-3xl border-l border-border-strong py-1 pl-5 md:pl-7 first:mt-0">
+      <p className="m-0 mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
         {label}
       </p>
-      <p className="text-sm text-res-text leading-relaxed">{trigger}</p>
+      <p className="m-0 text-[15px] leading-[1.6] text-foreground">{trigger}</p>
     </section>
   );
 }
 
 function SectionHeader({ title, hint }: { title: string; hint?: string }) {
   return (
-    <header className="mb-4 flex flex-col gap-1">
-      <h2 className="text-xs font-mono uppercase tracking-[0.2em] text-res-text">{title}</h2>
-      {hint && <p className="text-sm text-res-text-muted leading-relaxed">{hint}</p>}
+    <header className="mb-5 flex flex-col gap-2">
+      <h2 className="m-0 font-mono text-[12px] font-normal uppercase tracking-[0.2em] text-foreground">
+        <BrandSquare />
+        {title}
+      </h2>
+      {hint && <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">{hint}</p>}
     </header>
   );
 }

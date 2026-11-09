@@ -5,6 +5,11 @@
    agency, callout). Server-rendered HTML, fixed-size marks and avatars (logo
    images carry width/height inside a fixed tile), no client JS, so they add
    no layout shift.
+
+   Article bodies read ink on warm paper (data-surface="paper"), so every
+   colour here comes from the tokens that band turns over: raised panels are
+   the card with a hairline, marks are drawn in the band's ink, and company
+   logos stay white tiles in a hairline.
    ----------------------------------------------------------------------------- */
 .prose-vibe-sr {
   position: absolute;
@@ -81,9 +86,9 @@
 /* En bref */
 .prose-vibe-brief {
   margin: 2em 0;
-  padding: 1.25rem 1.25rem 1.1rem;
+  padding: 1.35rem 1.5rem 1.25rem;
   border: 1px solid var(--res-border, var(--border));
-  background: var(--res-surface, var(--card));
+  background: var(--card);
 }
 
 .prose-vibe-brief p:not(.prose-vibe-kicker) {
@@ -112,7 +117,7 @@
   min-height: 2.25rem;
   padding: 0.3rem 0.75rem 0.3rem 0.35rem;
   border: 1px solid var(--res-border, var(--border));
-  background: var(--res-bg, var(--background));
+  background: var(--card);
   color: var(--res-text, var(--foreground));
   font-size: 0.86rem;
   font-weight: 500;
@@ -124,20 +129,23 @@
 .prose-vibe a.prose-vibe-chip:hover {
   opacity: 1;
   border-color: var(--res-text, var(--foreground));
-  background: var(--res-surface, var(--card));
+  background: var(--background);
 }
 
-/* Quelle agence selon votre cas: a raised ink panel, paper type on it */
+/* Quelle agence selon votre cas: a raised panel, the card with a hairline.
+   The markup flags it data-surface="inverse", which swaps --foreground and
+   --background inside it, so it is drawn with the card and --res-* tokens
+   only, which that swap leaves alone. */
 .prose-vibe-picker {
   margin: 2em 0;
   padding: 1.35rem 1.5rem 0.6rem;
   border: 1px solid var(--res-border, var(--border));
-  background: var(--res-bg-secondary, var(--card));
-  color: var(--res-text, var(--card-foreground));
+  background: var(--card);
+  color: var(--card-foreground);
 }
 
 .prose-vibe .prose-vibe-picker .prose-vibe-kicker {
-  color: rgb(244 243 239 / 0.68);
+  color: var(--res-text-muted, var(--muted-foreground));
   margin-bottom: 0.5rem;
 }
 
@@ -154,7 +162,7 @@
   margin: 0;
   padding: 0.8rem 0;
   list-style: none;
-  border-top: 1px solid rgb(244 243 239 / 0.16);
+  border-top: 1px solid var(--res-border, var(--border));
 }
 
 .prose-vibe-picker__case {
@@ -162,10 +170,10 @@
   line-height: 1.5;
 }
 
-/* A source link inside a case reads as paper on ink, not as a blue body link. */
+/* A source link inside a case reads in the panel's ink, not as a blue body link. */
 .prose-vibe .prose-vibe-picker__case a {
   color: inherit;
-  text-decoration-color: rgb(244 243 239 / 0.5);
+  text-decoration-color: color-mix(in oklab, currentColor 45%, transparent);
 }
 
 .prose-vibe .prose-vibe-picker__case a:hover {
@@ -175,7 +183,7 @@
 
 .prose-vibe-picker__arrow {
   display: inline-flex;
-  color: rgb(244 243 239 / 0.5);
+  color: var(--res-text-muted, var(--muted-foreground));
 }
 
 .prose-vibe .prose-vibe-picker__pick {
@@ -184,8 +192,8 @@
   gap: 0.5rem;
   min-height: 2.25rem;
   padding: 0.3rem 0.75rem 0.3rem 0.35rem;
-  border: 1px solid rgb(244 243 239 / 0.28);
-  color: var(--res-text, var(--card-foreground));
+  border: 1px solid var(--res-border, var(--border));
+  color: var(--card-foreground);
   font-size: 0.86rem;
   font-weight: 600;
   line-height: 1.2;
@@ -197,18 +205,18 @@
 
 .prose-vibe a.prose-vibe-picker__pick:hover {
   opacity: 1;
-  border-color: var(--res-text, var(--card-foreground));
-  background: rgb(244 243 239 / 0.08);
+  border-color: var(--card-foreground);
+  background: var(--res-bg, var(--card));
 }
 
 .prose-vibe-picker .prose-vibe-avatar {
-  background: var(--res-text, var(--card-foreground));
-  color: var(--res-bg, var(--card));
+  background: var(--card-foreground);
+  color: var(--card);
 }
 
 .prose-vibe-picker .prose-vibe-avatar--logo {
   background: #ffffff;
-  border-color: transparent;
+  border-color: var(--res-border, var(--border));
 }
 
 @media (max-width: 560px) {
@@ -238,7 +246,7 @@
 .prose-vibe-compare__scroll {
   position: relative;
   border: 1px solid var(--res-border, var(--border));
-  background: var(--res-surface, var(--card));
+  background: var(--card);
 }
 
 .prose-vibe .prose-vibe-compare table {
@@ -265,7 +273,14 @@
   letter-spacing: 0.04em;
   line-height: 1.35;
   border-bottom: 1px solid var(--res-text, var(--foreground));
-  background: var(--res-bg-secondary, var(--accent));
+  background: var(--card);
+}
+
+/* The header row sticks just under the nav, which is taller from lg up. */
+@media (min-width: 1024px) {
+  .prose-vibe .prose-vibe-compare thead th {
+    top: 5.25rem;
+  }
 }
 
 .prose-vibe .prose-vibe-compare .prose-vibe-compare__lead {
@@ -290,16 +305,21 @@
   letter-spacing: 0;
   text-transform: none;
   color: var(--res-text, var(--foreground));
-  background: var(--res-surface, var(--card));
+  background: var(--card);
 }
 
 .prose-vibe .prose-vibe-compare tbody td {
-  background: var(--res-surface, var(--card));
+  background: var(--card);
 }
 
 .prose-vibe .prose-vibe-compare tbody tr:nth-child(even) th,
 .prose-vibe .prose-vibe-compare tbody tr:nth-child(even) td {
-  background: var(--res-bg, var(--background));
+  background: var(--background);
+}
+
+.prose-vibe .prose-vibe-compare tbody th,
+.prose-vibe .prose-vibe-compare tbody td {
+  border-bottom-color: var(--res-border, var(--border));
 }
 
 .prose-vibe .prose-vibe-compare tbody tr:last-child th {
@@ -424,7 +444,7 @@
 .prose-vibe-agency {
   margin: 1.5rem 0;
   border: 1px solid var(--res-border, var(--border));
-  background: var(--res-surface, var(--card));
+  background: var(--card);
   scroll-margin-top: 5.5rem;
 }
 
@@ -498,7 +518,7 @@
 }
 
 .prose-vibe-agency__choose {
-  background: var(--res-bg-secondary, var(--accent));
+  background: var(--accent);
 }
 
 .prose-vibe-agency__avoid {
@@ -554,7 +574,7 @@
   padding: 1rem 1.25rem 1.1rem;
   border: 1px solid var(--res-border, var(--border));
   border-left: 3px solid var(--res-text, var(--foreground));
-  background: var(--res-bg-secondary, var(--accent));
+  background: var(--card);
 }
 
 .prose-vibe-callout p:not(.prose-vibe-kicker) {
@@ -564,4 +584,94 @@
 
 .prose-vibe-callout > p:last-child {
   margin-bottom: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   The body itself on warm paper. The prose base lives in globals.css and was
+   drawn for ink; these resources-only rules settle it on the paper band.
+   ----------------------------------------------------------------------------- */
+
+/* The domain accents are lifted for ink; on paper they take their darker
+   shade so body links stay legible (the warm prose links in --domain-dev). */
+.resources-theme [data-surface="paper"] {
+  --domain-dev: #1f58b8;
+  --domain-design: #a8226a;
+  --domain-ops: #0a6f49;
+  --domain-business: #7f5200;
+  --domain-ai: #6338c4;
+  --domain-marketing: #b31c3b;
+}
+
+.prose-vibe.prose-vibe-warm h2 {
+  font-size: 1.9em;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.prose-vibe.prose-vibe-warm h3 {
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.prose-vibe.prose-vibe-warm a {
+  text-decoration-thickness: 1px;
+}
+
+.prose-vibe.prose-vibe-warm blockquote {
+  border-left-color: var(--border-strong);
+}
+
+.prose-vibe-warm :not(pre) > code {
+  background: var(--card);
+  border: 1px solid var(--res-border, var(--border));
+  border-radius: 2px;
+}
+
+/* Raised panels are the card, not the sunken --res-surface paper tone. */
+.prose-vibe-warm .prose-vibe-table-wrap,
+.prose-vibe-warm .prose-vibe-image img {
+  background: var(--card);
+}
+
+.prose-vibe-warm .prose-vibe-table-wrap th {
+  background: var(--card);
+  border-bottom-color: var(--res-text, var(--foreground));
+}
+
+/* The elapsed time is small mono type: the accent deepened toward the ink
+   so it still reads on paper. */
+[data-surface="paper"] .prose-vibe-audio__current {
+  color: color-mix(in oklab, var(--brand) 72%, var(--res-text, var(--foreground)));
+}
+
+/* The player's grid, pinned. The base rules (globals.css) leave the title's
+   row to auto-placement, and since the rewind button already holds rows 1-2
+   of the last column, the title fell to a third row under a lone play button.
+   Title on row 1, waveform on row 2, the play and rewind buttons spanning
+   both. */
+.prose-vibe-audio .prose-vibe-audio__load {
+  grid-column: 1;
+}
+
+.prose-vibe-audio .prose-vibe-audio__title {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.prose-vibe-audio .prose-vibe-audio__timeline {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+@media (max-width: 640px) {
+  /* Two columns on a phone: the rewind sits at the end of the title row. */
+  .prose-vibe-audio .prose-vibe-audio__title {
+    padding-right: 2.25rem;
+  }
+
+  .prose-vibe-audio .prose-vibe-audio__rewind {
+    grid-row: 1;
+    align-self: end;
+    margin-top: 0;
+  }
 }

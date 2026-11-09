@@ -4,6 +4,7 @@ import { Link, permanentRedirect } from "@/i18n/navigation";
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { BrandSquare } from '@/components/BrandSquare';
 import { JsonLd } from '@/components/JsonLd';
 import { KeepReading } from '@/components/resources/KeepReading';
 import { TranslationSwitch } from '@/components/resources/TranslationSwitch';
@@ -65,6 +66,8 @@ const getTranslationLinks = cache(async (typeSlug: string, slug: string) => {
 });
 
 export const dynamicParams = true;
+
+const page = resourcesTheme.page;
 
 function socialImageUrl(item: { ogImage?: { url: string } | null; featuredImage?: { url: string } | null }) {
   const image = item.ogImage ?? item.featuredImage;
@@ -208,234 +211,191 @@ export default async function ContentDetailPage({
   });
   const faq = articleFaqPageSchema(item.body);
 
+  // Category, then the Focus / Tools markers: the kicker over the title.
+  const kicker = (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+      <span className={page.heroKicker}>
+        <BrandSquare />
+        {categoryLabel}
+      </span>
+      {isFocus && <span className={page.tag}>{t('focus')}</span>}
+      {isTool && <span className={page.tag}>{t('tools')}</span>}
+    </div>
+  );
+  const metaLabel = 'font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground';
+  const metaValue = 'text-sm font-mono text-foreground';
+
   return (
     <>
       <JsonLd data={article} />
       <JsonLd data={breadcrumb} />
       <JsonLd data={faq} />
       <ReadingProgress />
-      <main id="main-content" tabIndex={-1} className="pt-12 pb-24 min-h-screen bg-res-bg">
-        <div className={`${resourcesTheme.section.padding} pb-24`}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 relative">
+      <main id="main-content" tabIndex={-1} className="bg-res-bg">
+        <article lang={item.language}>
+          {/* 1 — On the ink: the title and its summary, in the orange light. */}
+          <header className="relative overflow-hidden">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-96 -right-48 h-[900px] w-[1100px]"
+              style={{ background: page.bloom }}
+            />
+            <div className={`relative ${page.container} pb-14 pt-10 md:pb-20 lg:pb-24 lg:pt-14`}>
+              <Link href="/resources" className={page.link}>
+                <span aria-hidden="true">&larr;</span>
+                {t('back')}
+              </Link>
 
-            {/* Left Sidebar: Metadata */}
-            <aside className="lg:col-span-3 hidden lg:block">
-              <div className="sticky top-32 flex flex-col gap-8">
-                <Link
-                  href="/resources"
-                  className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted hover:text-res-text transition-colors group"
-                >
-                  <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
-                  {t('back')}
-                </Link>
+              <div className="mt-10 lg:mt-14">{kicker}</div>
 
-                <div className="flex flex-col items-start gap-2 self-start">
-                  <span
-                    className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
-                      isVictorStory
-                        ? 'border-brand/40 bg-brand/10 text-brand'
-                        : 'border-res-border text-res-text-muted'
-                    }`}
-                  >
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-brand' : 'bg-res-text-muted'}`}
-                      aria-hidden="true"
-                    />
-                    {categoryLabel}
+              <h1 className="m-0 mt-6 max-w-[20ch] text-[clamp(2.25rem,5.4vw,5.25rem)] font-bold leading-[0.95] tracking-[-0.045em] text-foreground text-balance lg:mt-8">
+                {item.title}
+              </h1>
+              {item.summary ? (
+                <p
+                  className={`${page.heroLede} mt-8 md:mt-10`}
+                  dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
+                />
+              ) : null}
+
+              {/* Phones: the essentials in one line (the sidebar holds them
+                  on wide screens). */}
+              <div className="mt-8 flex flex-wrap items-center gap-3 lg:hidden">
+                {item.publishedAt && (
+                  <span className="text-xs font-mono text-soft-foreground">
+                    {formatDate(item.publishedAt, locale)}
                   </span>
-                  {isFocus && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
-                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      {t('focus')}
-                    </span>
-                  )}
-                  {isTool && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
-                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      {t('tools')}
-                    </span>
-                  )}
-                </div>
-
-                <div className="w-8 h-px bg-res-border" />
-
-                <div className="flex flex-col gap-4">
-                  {item.publishedAt && (
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('published')}</span>
-                      <span className="text-sm font-mono text-res-text-muted">
-                        {formatDate(item.publishedAt, locale)}
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('language')}</span>
-                    <TranslationSwitch
-                      language={item.language}
-                      translations={translations}
-                      variant="sidebar"
-                    />
-                  </div>
-
-                  {item.complexity && !isVictorStory && (
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('complexity')}</span>
-                      <span className="text-sm font-mono text-res-text-muted">
-                        {complexityLabels[item.complexity] || item.complexity}
-                      </span>
-                    </div>
-                  )}
-
-                  {readingTime > 0 && (
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">{t('readTime')}</span>
-                      <span className="text-sm font-mono text-res-text-muted">{readingTime} min</span>
-                    </div>
-                  )}
-                </div>
-
-                {item.topics?.length ? (
-                  <>
-                    <div className="w-8 h-px bg-res-border" />
-                    <div className="flex flex-col gap-2">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted/50">
-                        {t('topics')}
-                      </span>
-                      <div className="flex flex-wrap gap-2">
-                        {item.topics.map((topic) => (
-                          <span
-                            key={topic}
-                            className="px-1.5 py-0.5 border border-res-border text-[10px] font-mono uppercase tracking-widest text-res-text-muted"
-                          >
-                            {topic}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </>
-                ) : null}
-              </div>
-            </aside>
-
-            {/* Main Content */}
-            <article lang={item.language} className="lg:col-span-7 lg:col-start-5">
-              {/* Mobile Header elements */}
-              <div className="lg:hidden mb-8 flex flex-col gap-4">
-                <Link
-                  href="/resources"
-                  className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-res-text-muted"
-                >
-                  &larr; {t('back')}
-                </Link>
-                <div className="flex flex-col items-start gap-2 self-start">
-                  <span
-                    className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest ${
-                      isVictorStory
-                        ? 'border-brand/40 bg-brand/10 text-brand'
-                        : 'border-res-border text-res-text-muted'
-                    }`}
-                  >
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full ${isVictorStory ? 'bg-brand' : 'bg-res-text-muted'}`}
-                      aria-hidden="true"
-                    />
-                    {categoryLabel}
-                  </span>
-                  {isFocus && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
-                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      {t('focus')}
-                    </span>
-                  )}
-                  {isTool && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-res-text/30 bg-res-text/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-res-text">
-                      <span className="w-1.5 h-1.5 rounded-full bg-res-text" aria-hidden="true" />
-                      {t('tools')}
-                    </span>
-                  )}
-                </div>
-                <div className="flex flex-wrap items-center gap-3">
-                  {item.publishedAt && (
-                    <span className="text-xs font-mono text-res-text-muted">
-                      {formatDate(item.publishedAt, locale)}
-                    </span>
-                  )}
-                  <span className="text-res-text-muted/30">&bull;</span>
-                  {readingTime > 0 && (
-                    <span className="text-xs font-mono text-res-text-muted">{readingTime} min</span>
-                  )}
-                  <span className="text-res-text-muted/30">&bull;</span>
-                  <TranslationSwitch
-                    language={item.language}
-                    translations={translations}
-                    variant="inline"
-                  />
-                </div>
-              </div>
-
-              <header className="mb-8 md:mb-12">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter mb-4 leading-[0.95] text-res-text">
-                  {item.title}
-                </h1>
-                {item.summary ? (
-                  <p
-                    className="text-base md:text-xl text-res-text-muted leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(item.summary) }}
-                  />
-                ) : null}
-              </header>
-
-              <div className="w-full h-px bg-res-border mb-8 md:mb-12" />
-
-              {cover?.url && (
-                <figure className="mb-8 md:mb-12">
-                  {/* The cover is the LCP element on mobile: served through the
-                      Next image optimizer (AVIF/WebP at the rendered width),
-                      preloaded with high priority, never lazy. `sizes` follows
-                      the article column: full width minus the section padding,
-                      then 7 of 12 columns (gap-12) from lg. */}
-                  <Image
-                    src={cover.url}
-                    alt={cover.alt ?? item.title}
-                    width={coverDimensions.width}
-                    height={coverDimensions.height}
-                    sizes="(min-width: 1024px) calc(58.33vw - 132px), (min-width: 768px) calc(100vw - 96px), calc(100vw - 48px)"
-                    preload
-                    fetchPriority="high"
-                    className="w-full h-auto rounded-lg border border-res-border"
-                  />
-                  {coverCaption ? (
-                    <figcaption className="mt-3 text-xs font-mono text-res-text-muted">
-                      {coverCaption}
-                    </figcaption>
-                  ) : null}
-                </figure>
-              )}
-
-              <div className="prose-vibe prose-vibe-warm max-w-none">
-                {body.trim().length > 0 ? (
-                  <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" trackingLocation="article_body" />
-                ) : (
-                  <div className="py-16 text-center border border-dashed border-res-border rounded-lg">
-                    <p className="text-[10px] font-mono uppercase tracking-widest text-res-text-muted">
-                      {t('contentComingSoon')}
-                    </p>
-                  </div>
                 )}
+                <span className="text-muted-foreground" aria-hidden="true">&bull;</span>
+                {readingTime > 0 && (
+                  <span className="text-xs font-mono text-soft-foreground">{readingTime} min</span>
+                )}
+                <span className="text-muted-foreground" aria-hidden="true">&bull;</span>
+                <TranslationSwitch
+                  language={item.language}
+                  translations={translations}
+                  variant="inline"
+                />
               </div>
-            </article>
-
-            {/* Right Sidebar: ToC Placeholder / Empty for now to create whitespace */}
-            <div className="hidden lg:block lg:col-span-2">
-              {/* Future: Table of Contents */}
             </div>
+          </header>
 
+          {/* 2 — The reading, ink on warm paper, in a comfortable measure. */}
+          <div data-surface="paper">
+            <div className={`${page.container} pb-16 pt-12 md:pb-20 md:pt-16`}>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 relative">
+
+                {/* Left Sidebar: Metadata */}
+                <aside className="lg:col-span-3 hidden lg:block">
+                  <div className="sticky top-32 flex flex-col gap-6 border-t border-border pt-6">
+                    {item.publishedAt && (
+                      <div className="flex flex-col gap-1.5">
+                        <span className={metaLabel}>{t('published')}</span>
+                        <span className={metaValue}>
+                          {formatDate(item.publishedAt, locale)}
+                        </span>
+                      </div>
+                    )}
+
+                    <div className="flex flex-col gap-1.5">
+                      <span className={metaLabel}>{t('language')}</span>
+                      <TranslationSwitch
+                        language={item.language}
+                        translations={translations}
+                        variant="sidebar"
+                      />
+                    </div>
+
+                    {item.complexity && !isVictorStory && (
+                      <div className="flex flex-col gap-1.5">
+                        <span className={metaLabel}>{t('complexity')}</span>
+                        <span className={metaValue}>
+                          {complexityLabels[item.complexity] || item.complexity}
+                        </span>
+                      </div>
+                    )}
+
+                    {readingTime > 0 && (
+                      <div className="flex flex-col gap-1.5">
+                        <span className={metaLabel}>{t('readTime')}</span>
+                        <span className={metaValue}>{readingTime} min</span>
+                      </div>
+                    )}
+
+                    {item.topics?.length ? (
+                      <div className="flex flex-col gap-2.5 border-t border-border pt-6">
+                        <span className={metaLabel}>
+                          {t('topics')}
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {item.topics.map((topic) => (
+                            <span
+                              key={topic}
+                              className="border border-border bg-card px-2 py-1 font-mono text-[10px] uppercase leading-none tracking-[0.14em] text-soft-foreground"
+                            >
+                              {topic}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                </aside>
+
+                {/* Main Content */}
+                <div className="min-w-0 lg:col-span-7 lg:col-start-5">
+                  {cover?.url && (
+                    <figure className="m-0 mb-10 md:mb-14">
+                      {/* The cover is the LCP element on mobile: served through the
+                          Next image optimizer (AVIF/WebP at the rendered width),
+                          preloaded with high priority, never lazy. `sizes` follows
+                          the article column: full width minus the section padding,
+                          then 7 of 12 columns (gap-12) from lg. */}
+                      <Image
+                        src={cover.url}
+                        alt={cover.alt ?? item.title}
+                        width={coverDimensions.width}
+                        height={coverDimensions.height}
+                        sizes="(min-width: 1024px) calc(58.33vw - 132px), (min-width: 768px) calc(100vw - 96px), calc(100vw - 48px)"
+                        preload
+                        fetchPriority="high"
+                        className="w-full h-auto border border-border"
+                      />
+                      {coverCaption ? (
+                        <figcaption className="mt-3 text-xs font-mono text-muted-foreground">
+                          {coverCaption}
+                        </figcaption>
+                      ) : null}
+                    </figure>
+                  )}
+
+                  <div className="prose-vibe prose-vibe-warm max-w-none">
+                    {body.trim().length > 0 ? (
+                      <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" trackingLocation="article_body" />
+                    ) : (
+                      <div className="py-16 text-center border border-border bg-card">
+                        <p className={page.mono}>
+                          {t('contentComingSoon')}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Right Sidebar: ToC Placeholder / Empty for now to create whitespace */}
+                <div className="hidden lg:block lg:col-span-2">
+                  {/* Future: Table of Contents */}
+                </div>
+
+              </div>
+            </div>
           </div>
-        </div>
+        </article>
 
-        {/* Related content */}
-        <KeepReading items={related} />
+        {/* Related content, still on paper. */}
+        <div data-surface="paper">
+          <KeepReading items={related} />
+        </div>
       </main>
     </>
   );
