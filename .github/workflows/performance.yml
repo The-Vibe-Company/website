@@ -33,7 +33,13 @@ jobs:
         with:
           ref: ${{ github.event_name == 'deployment_status' && github.event.repository.default_branch || github.sha }}
           persist-credentials: false
+      # During bootstrap, trusted default-branch tooling may predate the local action.
+      - uses: oven-sh/setup-bun@v2
+        if: hashFiles('.github/actions/setup-bun-resilient/action.yml') == ''
+        with:
+          bun-version: latest
       - uses: ./.github/actions/setup-bun-resilient
+        if: hashFiles('.github/actions/setup-bun-resilient/action.yml') != ''
       - run: mkdir -p .context
       - name: Guardrail tooling availability
         if: hashFiles('scripts/perf/resolve.ts') == ''
@@ -70,7 +76,13 @@ jobs:
           ref: ${{ github.event_name == 'deployment_status' && github.event.repository.default_branch || github.sha }}
           fetch-depth: 0
           persist-credentials: false
+      # During bootstrap, trusted default-branch tooling may predate the local action.
+      - uses: oven-sh/setup-bun@v2
+        if: hashFiles('.github/actions/setup-bun-resilient/action.yml') == ''
+        with:
+          bun-version: latest
       - uses: ./.github/actions/setup-bun-resilient
+        if: hashFiles('.github/actions/setup-bun-resilient/action.yml') != ''
       - uses: actions/setup-node@v4
         with:
           node-version: '22.19.0'

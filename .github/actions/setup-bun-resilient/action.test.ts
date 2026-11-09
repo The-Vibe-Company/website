@@ -82,7 +82,7 @@ test("every workflow uses the shared setup after checkout", async () => {
   const root = join(import.meta.dir, "../../workflows");
   for await (const file of new Bun.Glob("*.yml").scan(root)) {
     const source = readFileSync(join(root, file), "utf8");
-    expect(source).not.toContain("oven-sh/setup-bun@v2");
+    if (file !== "performance.yml") expect(source).not.toContain("oven-sh/setup-bun@v2");
     const workflow = Bun.YAML.parse(source) as { jobs: Record<string, { steps?: Array<{ uses?: string }> }> };
     for (const job of Object.values(workflow.jobs)) {
       const setupIndex = job.steps?.findIndex(step => step.uses === "./.github/actions/setup-bun-resilient") ?? -1;
@@ -92,4 +92,29 @@ test("every workflow uses the shared setup after checkout", async () => {
     }
   }
   expect(callers).toBe(6);
+});
+
+
+test("performance bootstrap keeps trusted checkout and sets up Bun without a local action", () => {
+  const source = readFileSync(join(import.meta.dir, "../../workflows/performance.yml"), "utf8");
+  const workflow = Bun.YAML.parse(source) as { jobs: Record<string, { steps: Array<{ uses?: string; if?: string; with?: Record<string, unknown> }> }> };
+  for (const jobName of ["resolve", "measure"]) {
+    const steps = workflow.jobs[jobName].steps;
+    const checkout = steps.find(s => s.uses === "actions/checkout@v4")!;
+    expect(checkout.with?.ref).toBe("${{ github.event_name == 'deployment_status' && github.event.repository.default_branch || github.sha }}");
+    expect(checkout.with?.["persist-credentials"]).toBe(false);
+    const bootstrap = steps.find(s => s.uses === "oven-sh/setup-bun@v2")!;
+    const resilient = steps.find(s => s.uses === "./.github/actions/setup-bun-resilient")!;
+    expect(bootstrap.if).toBe("hashFiles('.github/actions/setup-bun-resilient/action.yml') == ''");
+    expect(bootstrap.with?.["bun-version"]).toBe("latest");
+    expect(resilient.if).toBe("hashFiles('.github/actions/setup-bun-resilient/action.yml') != ''");
+    expect(steps.indexOf(checkout)).toBeLessThan(steps.indexOf(bootstrap));
+    expect(steps.indexOf(checkout)).toBeLessThan(steps.indexOf(resilient));
+  }
+});
+
+
+test("CI explicitly runs the action tests excluded from default discovery", () => {
+  const workflow = Bun.YAML.parse(readFileSync(join(import.meta.dir, "../../workflows/ci.yml"), "utf8")) as { jobs: { build: { steps: Array<{ run?: string }> } } };
+  expect(workflow.jobs.build.steps.some(step => step.run === "bun test ./.github/actions/setup-bun-resilient/action.test.ts")).toBe(true);
 });

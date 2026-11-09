@@ -47,6 +47,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('bun.lock') }}-
 
+      # Bun default discovery excludes the hidden .github directory.
+      - name: Test resilient Bun setup
+        run: bun test ./.github/actions/setup-bun-resilient/action.test.ts
+
       - name: Unit tests
         run: bun run test
 
