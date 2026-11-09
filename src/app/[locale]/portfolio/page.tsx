@@ -42,11 +42,11 @@ const LAMP =
   "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 
 /**
- * The products the subtitle names with what they do, in its order: each gets
- * a lamp card, the first two on the wide benches. The others follow as plain
- * cards, a row of four.
+ * The products put forward, in this order: Quivr and Skillpack on the wide
+ * benches, then Armada, AEOM and Granite, each under its lamp. The others
+ * follow as plain cards, a row of four.
  */
-const FEATURED = ["quivr", "vanish", "skillpack", "vibedrift", "granite"];
+const FEATURED = ["quivr", "skillpack", "armada", "aeom", "granite"];
 const FEATURED_SPANS = [
   "md:col-span-2 lg:col-span-6",
   "lg:col-span-6",
@@ -159,19 +159,23 @@ export default async function PortfolioPage({
                         {p.tag}
                       </span>
                     </div>
-                    <div className="relative mt-auto pt-12">
+                    {/* The name sits at the same height on every card of a
+                        row; only the status line is pinned to the foot. */}
+                    <div className="relative mt-12 flex flex-1 flex-col">
                       <span className="block text-[clamp(2.25rem,3.4vw,3.5rem)] font-bold leading-[0.95] tracking-[-0.045em] text-foreground">
                         {p.name}
                       </span>
                       <p className="m-0 mt-4 max-w-[34rem] text-[15px] leading-[1.55] text-soft-foreground">
                         {p.description}
                       </p>
-                      <div className="mt-7 flex items-center gap-3 border-t border-border pt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-                        <AccentDot accent={p.accent} />
-                        <StatusLine status={p.status} built={t("built")} date={p.date} />
-                        <span aria-hidden="true" className="text-brand">
-                          →
-                        </span>
+                      <div className="mt-auto pt-7">
+                        <div className="flex items-center gap-3 border-t border-border pt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                          <AccentDot accent={p.accent} />
+                          <StatusLine status={p.status} built={t("built")} date={p.date} />
+                          <span aria-hidden="true" className="text-brand">
+                            →
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </Link>
