@@ -56,6 +56,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/agence-intelligence-artificielle/mission-agence-ia-3-etapes.png": {
+      "sourceHash": "c10a385f4e40f23c06184b9b932f4555b2525443224146416862720f112d1050",
+      "targetUrl": "/images/_optimized/resources/agence-intelligence-artificielle/mission-agence-ia-3-etapes.webp",
+      "targetHash": "e0a62479099ebb237910c5494df49b64822770e29844bd797f32a2c8bb59f52a"
+    },
     "content:/images/resources/agent-harness-entreprise/cover-mascotte.webp": {
       "sourceHash": "b06286a00057a518a07b65f95be18c3c2d86c27375f7fff19e8eef6b3afa729a",
       "targetUrl": null,
