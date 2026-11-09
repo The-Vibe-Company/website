@@ -8,14 +8,12 @@ ALWAYS USE THE BROWSER AUTOMATION TO TEST THE LOCALHOST WEBSITE.
 
 ## PR Creation
 
-When creating a PR, always upload a screenshot of all the things that you did in the PR description.
+When creating a PR, always show screenshots of all the things that you did in the PR description.
 
-The Screenshot should be in the folder `screenshots/pr-<pr-number>/<screenshot-name>.png`
-
-**Image URLs in PR descriptions**: Use the raw GitHub URL format, not relative paths:
+Never leave screenshots under `screenshots/` in the PR's diff: the performance guardrails CI blocks them (see AGENTS.md). Commit them under `screenshots/pr-<pr-number>/` (force-add, the folder is gitignored), push, then remove them in the next commit, and link them from the description through that first commit's SHA so they keep resolving:
 
 ```
-https://raw.githubusercontent.com/The-Vibe-Company/vibe-tuto/<branch-name>/screenshots/pr-<number>/<image>.png
+https://raw.githubusercontent.com/The-Vibe-Company/website/<commit-sha>/screenshots/pr-<number>/<image>.png
 ```
 
 Always add the link to the issue in the PR description.
@@ -39,27 +37,37 @@ For faux product UI (product shots, feature bento grids, demo animations), use t
 
 A root layout at `src/app/layout.tsx` would wrap the route group, creating duplicate `<html>` elements that cause React hydration error #418 (blank page).
 
-## Design Architecture: unified ink identity
+## Design Architecture: ink and warm paper
 
-The site shares **one visual identity** across Homepage, Portfolio, and Resources: near-black ink background (`#0c0c0d`), warm-paper text (`#f4f3ef`), hairline rules (`#2c2c2d`), paper slab CTAs with 2px corners, mono kickers opened by a small orange square. Everything is pinned to `color-scheme: dark` and never flips with the system theme.
+The site shares **one visual identity** across every page, set by the homepage (the landing the founders validated): each page **opens on near-black ink** (`#0c0c0d`, warm-paper text `#f4f3ef`), shows the work on **warm paper bands** (`#f4f2ec`, ink text), comes back to ink for emphasis, and **ends on the closing scene**. Hairline rules, paper slab CTAs with 2px corners, mono kickers opened by a small orange square. Clean cuts between bands, never fades. Nothing flips with the system theme.
 
-One accent, `--brand` (`#f27313`, Tailwind `text-brand` / `bg-brand`): status squares, the active nav underline, carousel arrows, process numerals, and the two orange blooms (behind the hero mascot and the closing CTA). Use sparingly. Never use Tailwind's `orange-*` palette.
+- **Paper bands**: wrap sections in `<div data-surface="paper">`. `globals.css` turns every token over to paper inside it (and the resources `--res-*` ones), so contents keep using `bg-background`, `bg-card`, `text-foreground`, `text-muted-foreground`, `border-border`… unchanged.
+- **Ink bands of emphasis** (a quote, a process): plain ink sections with a soft orange radial glow (see `src/components/home/landing/LitQuote.tsx`, the About page's process). **Inverse bands** (`data-surface="inverse"` on a `bg-foreground text-background` element) still swap `--foreground`/`--background` into raised ink panels; never nest one inside a paper band (it renders as a white panel).
+- **Lamp cards**: `lamp-card relative overflow-hidden border border-border p-7 md:p-9` plus the lamp bar `<span aria-hidden="true" className="absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]" />`; card content gets `relative`. Secondary cards: `border border-border bg-card`.
+- **Lit text**: `text-lit` (paper→orange on ink, ink→orange on paper) for a headline's second line, an offer or step numeral, a case figure. Sparingly.
+- **Logos**: `logo-tone` draws client logos in the band's ink (paper on ink, ink on paper); product icons keep their colours.
+- **Closing scene**: `<FinalCTA />` (`src/components/home/FinalCTA.tsx`) is the full-width scene of the mascot pointing at the road ahead, with the call to action over the landscape; every page that ends on a call to action ends on it.
 
-Kickers render the square with `<BrandSquare />` (`src/components/BrandSquare.tsx`); never type a `//` prefix into copy. The wing glyph is `<BrandGlyph />` (paper arcs in `currentColor`); the YC + France 2030 credentials are `<Backers />` (`src/components/home/Backers.tsx`). Client logos are drawn in paper with `brightness-0 invert`.
+One accent, `--brand` (`#f27313`, Tailwind `text-brand` / `bg-brand`): status squares, the active nav underline, the lamp bar, the blooms and glows, and the end of the lit gradient. Never use Tailwind's `orange-*` palette.
 
-Cards hover by stepping the border to `border-border-strong` and the surface to `bg-card`. No offset "brutal" shadows, no hover translations. **Inverse bands** (`data-surface="inverse"` on a `bg-foreground text-background` element) are raised ink panels, not paper slabs: `globals.css` swaps `--foreground`/`--background` inside them, so their contents need no special classes.
+Kickers render the square with `<BrandSquare />` (`src/components/BrandSquare.tsx`); never type a `//` prefix into copy. The wing glyph is `<BrandGlyph />` (paper arcs in `currentColor`); the YC + France 2030 credentials are `<Backers />` (`src/components/home/Backers.tsx`).
 
-An **experimental homepage preview** lives at `/v2` — the existing homepage (same `TopNav`, `Services`/`Process`/`Proof`/`FinalCTA`, `Footer`, `[data-variant="hybrid"]`) with the static `home/Hero` swapped for a playable canvas runner (`src/components/home/runner/VibeRunner.tsx`). Inside the canvas each "world" (a product, service, or the YC backing) has its own art direction (paper/ink/accent/player colour) and a persistent presentation panel; difficulty mirrors the Chrome/Firefox dino algorithm. It is a preview, not yet the canonical `/` homepage; when it replaces `/`, swap `Hero` for `VibeRunner` in `HomeLaunchpad` and promote the DESIGN.md prose.
+Cards hover by stepping the border to `border-border-strong`; lamp cards brighten their light. No offset "brutal" shadows, no hover translations.
+
+The **homepage** is `src/components/home/landing/` (rendered by `HomeLaunchpad`): `LandingHero` (the mascot alone on ink), `Clientele` (logo loop), `Offers`, `Workbench` (cases, one-line figures via `FitText`), `LitQuote`, `Tools` (products), then `FinalCTA`. Its runner game is an **easter egg**: on a desktop with a hovering pointer, space or a click on the mascot opens `SecretLevel`, a full-screen overlay where `HeroRunner` runs with `player="mascot"` (drawn in `src/components/home/runnerMascot.ts`) and `autoStart`. `HeroRunner` without those props keeps the paper bird.
+
+An older **experimental preview** lives at `/v2` (`src/components/home/runner/VibeRunner.tsx`, per-world art direction inside the canvas). It is superseded by the homepage's secret level.
 
 ### Token surfaces
 
 | Surface                           | Tokens                            |
 | --------------------------------- | --------------------------------------- |
-| **Everywhere** (`:root`, `[data-variant="hybrid"]`, `.resources-theme`) | `--background: #0c0c0d`, `--foreground: #f4f3ef`, `--card: #141415`, `--border: #2c2c2d`, `--border-strong: #4a4946`, `--muted-foreground: #9c9a94`, `--soft-foreground: #c9c7c1`, `--brand: #f27313` |
+| **Ink, everywhere by default** (`:root`, `[data-variant="hybrid"]`, `.resources-theme`) | `--background: #0c0c0d`, `--foreground: #f4f3ef`, `--card: #141415`, `--border: #2c2c2d`, `--border-strong: #4a4946`, `--muted-foreground: #9c9a94`, `--soft-foreground: #c9c7c1`, `--brand: #f27313` |
+| **Paper bands** (`[data-surface="paper"]`) | `--background: #f4f2ec`, `--foreground: #0c0c0d`, `--card: #fbfaf7`, `--border: #dcd7cc`, `--border-strong: #b8b1a4`, `--muted-foreground: #5d5a54`, `--soft-foreground: #34322e`, and the `--res-*` names to match |
 | **Resources / Portfolio** (`.resources-theme`) | `--res-bg: #0c0c0d`, `--res-bg-secondary: #141415`, `--res-text: #f4f3ef`, `--res-border: #2c2c2d`, `--res-text-muted: #9c9a94` (mirrors the shared tokens) |
-| **Runner preview** (`/v2`) | Reuses the shared tokens; per-world palettes are scoped to the game canvas only |
+| **Game canvases** | Reuse the shared tokens; per-world palettes are scoped to the canvas only |
 
-All of it lives in `src/app/globals.css`. Containers are `max-w-[90rem]` with `px-6 md:px-10 lg:px-16` gutters, so nav, hero, sections and footer align.
+All of it lives in `src/app/globals.css`. Containers are `max-w-[90rem]` with `px-6 md:px-10 lg:px-16` gutters, so nav, hero, sections and footer align; bands use `py-20 md:py-28 lg:py-32`.
 
 ### Resources-specific layer
 
