@@ -3,7 +3,8 @@ import { createHash } from "node:crypto";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { NextRequest } from "next/server";
-import { middleware } from "@/middleware";
+import { config, middleware } from "@/middleware";
+import { unstable_doesMiddlewareMatch } from "next/experimental/testing/server";
 import { parseFrontmatter } from "@/lib/parse-frontmatter";
 import { getAllContent } from "@/lib/content-source";
 import { hasMarkdownRepresentation, prefersMarkdown } from "./agent-discovery";
@@ -88,6 +89,13 @@ describe("prefix-less page redirects", () => {
   }
 
   test.each([
+    ["/agency", { country: "FR" }, "/fr"],
+    ["/agency", { country: "US" }, "/en"],
+    ["/agency", { country: "FR", locale: "en" }, "/en"],
+    ["/resources/articles", {}, "/fr/resources"],
+    ["/resources/tools", { country: "US" }, "/en/resources"],
+    ["/resources/tools/example.html", {}, "/fr/resources"],
+    ["/resources/learnings/x?source=gsc", { locale: "fr" }, "/fr/resources?source=gsc"],
     ["/privacy", { country: "FR" }, "/fr/confidentialite"],
     ["/privacy", { country: "US" }, "/en/privacy"],
     ["/privacy", { country: "FR", locale: "en" }, "/en/privacy"],
@@ -103,6 +111,13 @@ describe("prefix-less page redirects", () => {
     expect(response.headers.get("location")).toBe(`https://www.thevibecompany.co${target}`);
     expect(response.headers.get("cache-control")).toBe("private, no-store");
     expect(response.headers.get("vary")).toBe("Cookie");
+  });
+
+  test("legacy removed-type paths with extensions reach middleware, while assets stay excluded", () => {
+    expect(unstable_doesMiddlewareMatch({ config, url: "/resources/tools/example.html" })).toBe(true);
+    expect(unstable_doesMiddlewareMatch({ config, url: "/resources/learnings/old.pdf" })).toBe(true);
+    expect(unstable_doesMiddlewareMatch({ config, url: "/brand/logo.png" })).toBe(false);
+    expect(unstable_doesMiddlewareMatch({ config, url: "/_next/static/chunk.js" })).toBe(false);
   });
 
   test("the bare homepage keeps its temporary language redirect", () => {
