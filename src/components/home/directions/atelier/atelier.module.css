@@ -1,0 +1,157 @@
+/* G · Atelier: the mascot's rendered scenes carry the light and the depth. */
+
+/* The mascot breathes: a slow float of a few pixels. */
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -10px, 0); }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Film grain over the whole direction: a tiny SVG noise tile, nudged a few
+   pixels per frame so it reads as film rather than a texture. */
+@keyframes grain {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-3%, 2%, 0); }
+  50% { transform: translate3d(2%, -3%, 0); }
+  75% { transform: translate3d(-2%, -2%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.grain {
+  position: fixed;
+  inset: -10%;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain 0.9s steps(4) infinite;
+}
+
+/* Warm light that a card's lamp throws down on it; brighter on hover/focus. */
+.lamp {
+  background:
+    radial-gradient(60% 55% at 50% 0%, rgb(242 115 19 / 0.22), rgb(242 115 19 / 0.06) 45%, transparent 75%),
+    var(--card);
+  transition: background-color 0.4s ease;
+}
+
+.lamp::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(70% 65% at 50% 0%, rgb(242 115 19 / 0.28), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.lamp:hover::before,
+.lamp:focus-within::before {
+  opacity: 1;
+}
+
+/* Orange-to-paper light on a word, as if lit from below. */
+.lit {
+  background: linear-gradient(180deg, #f4f3ef 10%, #ffc488 62%, #f27313 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* A paper band: the ink tokens turned over to warm paper, so every section
+   inside it (written against the tokens) reads ink on paper unchanged. */
+.paper {
+  color-scheme: light;
+  --background: #f4f2ec;
+  --foreground: #0c0c0d;
+  --card: #fbfaf7;
+  --card-foreground: #0c0c0d;
+  --muted: #6e6b65;
+  --muted-foreground: #5d5a54;
+  --soft-foreground: #34322e;
+  --accent: #ebe7de;
+  --border: #dcd7cc;
+  --border-strong: #b8b1a4;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* On paper the lit words run from ink down into the orange. */
+.paper .lit {
+  background: linear-gradient(180deg, #0c0c0d 15%, #8a3a06 72%, #f27313 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* The client logos' loop: two identical rows, so half a turn is seamless. */
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee {
+  animation: marquee 45s linear infinite;
+}
+
+.edges:hover .marquee {
+  animation-play-state: paused;
+}
+
+/* The logos come in and go out of the paper rather than off a hard edge. */
+.edges {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+}
+
+/* Client logos: paper on ink, ink on paper. */
+.logo {
+  filter: brightness(0) invert(1);
+}
+
+.paper .logo {
+  filter: brightness(0);
+}
+
+/* The easter egg: the mascot crouches and leaps out of the hero, stays away
+   while the secret level is open, and drops back in once it has closed. */
+@keyframes leap {
+  0% { transform: translate3d(0, 0, 0) scale(1, 1); }
+  30% { transform: translate3d(0, 5%, 0) scale(1.06, 0.9); }
+  100% { transform: translate3d(0, -60%, 0) scale(0.7, 1.1); opacity: 0; }
+}
+
+@keyframes land {
+  0% { transform: translate3d(0, -45%, 0); opacity: 0; }
+  65% { transform: translate3d(0, 3%, 0) scale(1.05, 0.93); opacity: 1; }
+  100% { transform: translate3d(0, 0, 0) scale(1, 1); opacity: 1; }
+}
+
+.leap {
+  transform-origin: 50% 100%;
+  animation: leap 0.42s cubic-bezier(0.5, 0, 0.75, 0) forwards;
+}
+
+.away {
+  opacity: 0;
+}
+
+/* Waits for the level to finish closing back into it. */
+.land {
+  transform-origin: 50% 100%;
+  animation: land 0.6s cubic-bezier(0.2, 0.8, 0.3, 1) 0.55s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float,
+  .marquee,
+  .grain,
+  .leap,
+  .land {
+    animation: none;
+  }
+}

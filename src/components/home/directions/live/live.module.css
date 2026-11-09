@@ -1,0 +1,306 @@
+/* Direction B · Live. Everything that moves on the page lives here, so one
+   media query can stop all of it for reduced motion, and one attribute
+   (data-run="false" on an ancestor) can pause what is scrolled out of view. */
+
+.dot {
+  font-family: var(--font-doto), var(--font-geist-mono), monospace;
+  font-variation-settings: "ROND" 100;
+  font-feature-settings: "tnum";
+}
+
+/* ---------------------------------------------------------------- live dot */
+
+.pulse {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--brand);
+  flex: none;
+}
+
+.pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--brand);
+  animation: pulse 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  70%, 100% { transform: scale(3); opacity: 0; }
+}
+
+/* -------------------------------------------------------------- spotlight */
+
+/* A card that follows the pointer: a soft orange light under the content and
+   a 1px ring that lights up where the pointer is. --x/--y are set in px by
+   the pointer handler; before the first move they sit off the card. */
+.spot {
+  --x: -999px;
+  --y: -999px;
+  position: relative;
+  isolation: isolate;
+}
+
+.spot::before,
+.spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.spot::before {
+  z-index: 0;
+  background: radial-gradient(420px circle at var(--x) var(--y), rgb(242 115 19 / 0.12), transparent 60%);
+}
+
+.spot::after {
+  z-index: 2;
+  padding: 1px;
+  background: radial-gradient(240px circle at var(--x) var(--y), rgb(242 115 19 / 0.95), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+
+.spot > * {
+  position: relative;
+  z-index: 1;
+}
+
+.spot:hover::before,
+.spot:hover::after,
+.spot:focus-visible::before,
+.spot:focus-visible::after {
+  opacity: 1;
+}
+
+/* ----------------------------------------------------------------- ticker */
+
+.tickerTrack {
+  display: flex;
+  width: max-content;
+  animation: ticker 90s linear infinite;
+}
+
+.ticker[data-paused="true"] .tickerTrack,
+.tickerViewport:hover .tickerTrack {
+  animation-play-state: paused;
+}
+
+@keyframes ticker {
+  to { transform: translateX(-50%); }
+}
+
+/* ------------------------------------------------------------ progress bar */
+
+.fill {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-seen="true"] .fill {
+  transform: scaleX(var(--to, 1));
+}
+
+/* Release strip: one tick per release, lit one after the other. */
+.tick {
+  opacity: 0.18;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  transition-delay: calc(var(--i) * 14ms);
+}
+
+[data-seen="true"] .tick {
+  opacity: 1;
+}
+
+/* Developers grid: a few cells blink, out of step. */
+.cell {
+  animation: cell 5s steps(1) infinite;
+  animation-delay: calc(var(--i) * -0.37s);
+}
+
+@keyframes cell {
+  0%, 86% { background: var(--border); }
+  88%, 96% { background: var(--soft-foreground); }
+}
+
+.cellHot {
+  animation-name: cellHot;
+}
+
+@keyframes cellHot {
+  0%, 80% { background: var(--border); }
+  82%, 94% { background: var(--brand); }
+}
+
+/* Diff lines on the Coup de Pates card, scanned top to bottom. */
+.scan {
+  animation: scan 3.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(560%); opacity: 0; }
+}
+
+/* ---------------------------------------------------------------- diagrams */
+
+/* A node lights up when the sequence reaches it. Each node gets --i; the
+   cycle is --steps x 1s long. */
+.node {
+  animation: node calc(var(--steps) * 1s) linear infinite;
+  animation-delay: calc(var(--i) * 1s);
+}
+
+@keyframes node {
+  0%, 100% { border-color: var(--border-strong); color: var(--muted-foreground); background-color: transparent; }
+  2%, 18% { border-color: var(--brand); color: var(--foreground); background-color: rgb(242 115 19 / 0.12); }
+  26% { border-color: var(--border-strong); color: var(--muted-foreground); background-color: transparent; }
+}
+
+/* The packet that carries the build from stage to stage. */
+.packet {
+  animation: packet 4s linear infinite;
+}
+
+@keyframes packet {
+  from { left: 0%; }
+  to { left: 100%; }
+}
+
+/* Data flowing along the agent's wires. */
+.flow {
+  stroke-dasharray: 3 7;
+  animation: flow 1.2s linear infinite;
+}
+
+@keyframes flow {
+  to { stroke-dashoffset: -20; }
+}
+
+.svgNode {
+  animation: svgNode calc(var(--steps) * 1s) linear infinite;
+  animation-delay: calc(var(--i) * 1s);
+}
+
+@keyframes svgNode {
+  0%, 100% { stroke: var(--border-strong); fill: var(--background); }
+  2%, 18% { stroke: var(--brand); fill: rgb(242 115 19 / 0.14); }
+  26% { stroke: var(--border-strong); fill: var(--background); }
+}
+
+/* The roadmap: a bar that fills, milestones that turn on as it passes. */
+.road {
+  transform-origin: left center;
+  animation: road 7s linear infinite;
+}
+
+@keyframes road {
+  0% { transform: scaleX(0); }
+  80%, 100% { transform: scaleX(1); }
+}
+
+/* One keyframe per milestone: each turns on when the bar reaches it (the bar
+   is full at 80% of the cycle) and all of them reset together. */
+.milestone {
+  animation: 7s linear infinite;
+}
+
+.m0 { animation-name: m0; }
+.m1 { animation-name: m1; }
+.m2 { animation-name: m2; }
+.m3 { animation-name: m3; }
+.m4 { animation-name: m4; }
+
+@keyframes m0 { 0%, 96% { background: var(--brand); border-color: var(--brand); } 100% { background: var(--background); border-color: var(--border-strong); } }
+@keyframes m1 { 0%, 17% { background: var(--background); border-color: var(--border-strong); } 18%, 96% { background: var(--brand); border-color: var(--brand); } 100% { background: var(--background); border-color: var(--border-strong); } }
+@keyframes m2 { 0%, 33% { background: var(--background); border-color: var(--border-strong); } 34%, 96% { background: var(--brand); border-color: var(--brand); } 100% { background: var(--background); border-color: var(--border-strong); } }
+@keyframes m3 { 0%, 51% { background: var(--background); border-color: var(--border-strong); } 52%, 96% { background: var(--brand); border-color: var(--brand); } 100% { background: var(--background); border-color: var(--border-strong); } }
+@keyframes m4 { 0%, 79% { background: var(--background); border-color: var(--border-strong); } 80%, 96% { background: var(--brand); border-color: var(--brand); } 100% { background: var(--background); border-color: var(--border-strong); } }
+
+.road {
+  animation-duration: 7s;
+}
+
+/* ---------------------------------------------------------------- terminal */
+
+.caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--brand);
+  animation: caret 1.05s steps(1) infinite;
+}
+
+@keyframes caret {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ------------------------------------------------------------ pause & calm */
+
+[data-run="false"] .pulse::after,
+[data-run="false"] .cell,
+[data-run="false"] .scan,
+[data-run="false"] .node,
+[data-run="false"] .packet,
+[data-run="false"] .flow,
+[data-run="false"] .svgNode,
+[data-run="false"] .road,
+[data-run="false"] .milestone,
+[data-run="false"] .caret {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse::after,
+  .tickerTrack,
+  .cell,
+  .scan,
+  .node,
+  .packet,
+  .flow,
+  .svgNode,
+  .road,
+  .milestone,
+  .caret {
+    animation: none !important;
+  }
+
+  .fill,
+  .tick {
+    transition: none !important;
+  }
+
+  .fill {
+    transform: scaleX(var(--to, 1));
+  }
+
+  .tick {
+    opacity: 1;
+  }
+
+  .road {
+    transform: scaleX(1);
+  }
+
+  .milestone {
+    background: var(--brand);
+    border-color: var(--brand);
+  }
+
+  .scan {
+    display: none;
+  }
+}
