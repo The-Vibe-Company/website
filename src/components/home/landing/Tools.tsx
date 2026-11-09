@@ -12,14 +12,14 @@ export function Tools() {
   const projects = getProjects(locale);
 
   return (
-    <section aria-labelledby="atelier-tools-title" className="border-t border-border bg-background">
+    <section aria-labelledby="produits-title" className="border-t border-border bg-background">
       <div className="mx-auto grid max-w-[90rem] grid-cols-1 gap-12 px-6 py-24 md:px-10 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:gap-20 lg:px-16 lg:py-32">
         <div>
           <span className="font-mono text-[12px] uppercase tracking-[0.2em] text-muted-foreground">
             <BrandSquare />
             {t("kicker")}
           </span>
-          <h2 id="atelier-tools-title" className="m-0 mt-6 text-[clamp(2.25rem,4.4vw,4rem)] font-bold leading-[0.95] tracking-[-0.04em] text-foreground">
+          <h2 id="produits-title" className="m-0 mt-6 text-[clamp(2.25rem,4.4vw,4rem)] font-bold leading-[0.95] tracking-[-0.04em] text-foreground">
             {t("titleLine1")}
             <br />
             <span className="text-soft-foreground">{t("titleLine2")}</span>

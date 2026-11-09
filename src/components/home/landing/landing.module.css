@@ -1,4 +1,4 @@
-/* G · Atelier: the mascot's rendered scenes carry the light and the depth. */
+/* The homepage: ink hero, warm paper bands, and the mascot's light. */
 
 /* The mascot breathes: a slow float of a few pixels. */
 @keyframes float {
@@ -10,7 +10,7 @@
   animation: float 6s ease-in-out infinite;
 }
 
-/* Film grain over the whole direction: a tiny SVG noise tile, nudged a few
+/* Film grain over the whole page: a tiny SVG noise tile, nudged a few
    pixels per frame so it reads as film rather than a texture. */
 @keyframes grain {
   0% { transform: translate3d(0, 0, 0); }
@@ -31,63 +31,6 @@
   animation: grain 0.9s steps(4) infinite;
 }
 
-/* Warm light that a card's lamp throws down on it; brighter on hover/focus. */
-.lamp {
-  background:
-    radial-gradient(60% 55% at 50% 0%, rgb(242 115 19 / 0.22), rgb(242 115 19 / 0.06) 45%, transparent 75%),
-    var(--card);
-  transition: background-color 0.4s ease;
-}
-
-.lamp::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(70% 65% at 50% 0%, rgb(242 115 19 / 0.28), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.lamp:hover::before,
-.lamp:focus-within::before {
-  opacity: 1;
-}
-
-/* Orange-to-paper light on a word, as if lit from below. */
-.lit {
-  background: linear-gradient(180deg, #f4f3ef 10%, #ffc488 62%, #f27313 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* A paper band: the ink tokens turned over to warm paper, so every section
-   inside it (written against the tokens) reads ink on paper unchanged. */
-.paper {
-  color-scheme: light;
-  --background: #f4f2ec;
-  --foreground: #0c0c0d;
-  --card: #fbfaf7;
-  --card-foreground: #0c0c0d;
-  --muted: #6e6b65;
-  --muted-foreground: #5d5a54;
-  --soft-foreground: #34322e;
-  --accent: #ebe7de;
-  --border: #dcd7cc;
-  --border-strong: #b8b1a4;
-  background-color: var(--background);
-  color: var(--foreground);
-}
-
-/* On paper the lit words run from ink down into the orange. */
-.paper .lit {
-  background: linear-gradient(180deg, #0c0c0d 15%, #8a3a06 72%, #f27313 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
 /* The client logos' loop: two identical rows, so half a turn is seamless. */
 @keyframes marquee {
   from { transform: translate3d(0, 0, 0); }
@@ -106,15 +49,6 @@
 .edges {
   -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
   mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
-}
-
-/* Client logos: paper on ink, ink on paper. */
-.logo {
-  filter: brightness(0) invert(1);
-}
-
-.paper .logo {
-  filter: brightness(0);
 }
 
 /* The easter egg: the mascot crouches and leaps out of the hero, stays away

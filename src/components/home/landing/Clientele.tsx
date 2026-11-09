@@ -1,10 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { CLIENTS } from "../../Clients";
+import { CLIENTS } from "../Clients";
 import { clientLogoSize } from "@/lib/client-logos";
 import { cn } from "@/lib/design-system";
-import styles from "./atelier.module.css";
+import styles from "./landing.module.css";
 
 /**
  * The client logos running in a loop along the top edge of the paper, with
@@ -39,7 +39,7 @@ export function Clientele() {
                       src={client.src}
                       alt={copy === 1 ? "" : client.name}
                       {...clientLogoSize(client.src)}
-                      className={cn(client.className, "w-auto object-contain", styles.logo)}
+                      className={cn(client.className, "w-auto object-contain logo-tone")}
                       loading="lazy"
                       decoding="async"
                     />

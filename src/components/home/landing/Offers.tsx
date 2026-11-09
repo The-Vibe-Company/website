@@ -5,7 +5,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { BrandSquare } from "@/components/BrandSquare";
 import { AGENCY_PARIS_PATHS, splitPath } from "@/lib/site";
-import styles from "./atelier.module.css";
 
 const KEYS = ["build", "operate", "advise"] as const;
 
@@ -20,19 +19,19 @@ export function Offers() {
   const reduceMotion = useReducedMotion() ?? false;
 
   return (
-    <section id="atelier-offres" aria-labelledby="atelier-offres-title" className="bg-background">
+    <section id="offres" aria-labelledby="offres-title" className="bg-background">
       <div className="mx-auto max-w-[90rem] px-6 py-24 md:px-10 lg:px-16 lg:py-32">
         <span className="font-mono text-[12px] uppercase tracking-[0.2em] text-muted-foreground">
           <BrandSquare />
           {t("kicker")}
         </span>
         <h2
-          id="atelier-offres-title"
+          id="offres-title"
           className="m-0 mt-6 text-[clamp(2.75rem,6.4vw,6rem)] font-bold leading-[0.92] tracking-[-0.045em] text-foreground"
         >
           {t("titleLine1")}
           <br />
-          <span className={styles.lit}>{t("titleLine2")}</span>
+          <span className="text-lit">{t("titleLine2")}</span>
         </h2>
 
         <ol className="m-0 mt-14 grid list-none grid-cols-1 gap-4 p-0 lg:grid-cols-3">
@@ -45,11 +44,11 @@ export function Offers() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className={`relative flex flex-col overflow-hidden border border-border p-7 md:p-9 ${styles.lamp}`}
+                className="relative flex flex-col overflow-hidden border border-border p-7 md:p-9 lamp-card"
               >
                 <span aria-hidden="true" className="absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]" />
                 <div className="relative flex items-baseline justify-between gap-4">
-                  <span className={`text-[56px] font-bold leading-none tracking-[-0.05em] ${styles.lit}`}>0{i + 1}</span>
+                  <span className="text-[56px] font-bold leading-none tracking-[-0.05em] text-lit">0{i + 1}</span>
                   <span className="text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                     {t(`items.${k}.tag`)}
                   </span>

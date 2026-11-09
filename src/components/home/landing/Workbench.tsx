@@ -7,8 +7,7 @@ import { BrandSquare } from "@/components/BrandSquare";
 import { clientLogoSize } from "@/lib/client-logos";
 import { getCustomers } from "@/lib/customers";
 import { cn } from "@/lib/design-system";
-import { FitText } from "../../FitText";
-import styles from "./atelier.module.css";
+import { FitText } from "../FitText";
 
 /** Grid placement: the two biggest stories get the wide benches. */
 const SPANS = ["lg:col-span-3", "lg:col-span-3", "lg:col-span-2", "lg:col-span-2", "lg:col-span-2"];
@@ -24,7 +23,7 @@ export function Workbench() {
   const cases = getCustomers(locale).slice(0, 5);
 
   return (
-    <section aria-labelledby="atelier-cases-title" className="bg-background">
+    <section aria-labelledby="cas-clients-title" className="bg-background">
       <div className="mx-auto max-w-[90rem] px-6 py-24 md:px-10 lg:px-16 lg:py-32">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -33,12 +32,12 @@ export function Workbench() {
               {t("kicker")}
             </span>
             <h2
-              id="atelier-cases-title"
+              id="cas-clients-title"
               className="m-0 mt-6 text-[clamp(2.75rem,6.4vw,6rem)] font-bold leading-[0.92] tracking-[-0.045em] text-foreground"
             >
               {t("titleLine1")}
               <br />
-              <span className={styles.lit}>{t("titleLine2")}</span>
+              <span className="text-lit">{t("titleLine2")}</span>
             </h2>
           </div>
           <Link
@@ -61,7 +60,7 @@ export function Workbench() {
             >
               <Link
                 href={`/case-studies/${c.slug}?from=home`}
-                className={cn("group relative flex h-full min-h-[22rem] flex-col overflow-hidden border border-border p-7 no-underline transition-colors hover:border-brand/50 md:p-9", styles.lamp)}
+                className={cn("group relative flex h-full min-h-[22rem] flex-col overflow-hidden border border-border p-7 no-underline transition-colors hover:border-brand/50 md:p-9 lamp-card")}
               >
                 {/* The lamp itself, a small warm bulb at the top edge. */}
                 <span aria-hidden="true" className="absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]" />
@@ -71,7 +70,7 @@ export function Workbench() {
                     src={c.logo}
                     alt={c.client}
                     {...clientLogoSize(c.logo)}
-                    className={`h-7 w-auto object-contain md:h-8 ${styles.logo}`}
+                    className={`h-7 w-auto object-contain md:h-8 logo-tone`}
                     loading="lazy"
                     decoding="async"
                   />

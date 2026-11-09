@@ -8,7 +8,7 @@ import { BrandSquare } from "@/components/BrandSquare";
 import type { RunnerItem } from "@/lib/runner-worlds";
 
 /** The game and its audio stay out of the page's bundle until it is found. */
-const HeroRunner = dynamic(() => import("../../HeroRunner").then((m) => m.HeroRunner), { ssr: false });
+const HeroRunner = dynamic(() => import("../HeroRunner").then((m) => m.HeroRunner), { ssr: false });
 
 /** Where the level opens from, in viewport pixels, and how far it has to
  *  grow to cover the screen from there. */

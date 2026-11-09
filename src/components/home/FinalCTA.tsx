@@ -1,162 +1,96 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { BOOKING_URL, bookingLocation } from "@/lib/booking";
-import { captureEvent } from "@/lib/posthog";
-import { FitText } from "./FitText";
+import { useRef } from "react";
+import { BOOKING_URL, CONTACT_EMAIL, bookingLocation } from "@/lib/booking";
 import { BrandSquare } from "@/components/BrandSquare";
+import { captureEvent } from "@/lib/posthog";
 
 /**
- * Rendered on six routes that do not share a rail: the homepage and the two
- * index pages run on 90rem, the two detail pages on 80rem. The width used to
- * be hard-coded to 1400px, which matched neither — so its kicker never lined
- * up with the page around it. Each caller states its own rail now.
+ * The closing scene every page ends on: the mascot at the start of the road,
+ * map in hand, pointing at where it leads (the cover of the article on
+ * funding an AI project). It stands on the left, so the copy and the call to
+ * action sit over the landscape on the right.
  */
+const SCENE = {
+  src: "/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp",
+  /** object-position, so a narrow screen keeps the mascot in frame. */
+  focus: "28% 55%",
+};
+
 export function FinalCTA({
   rail = "wide",
   namespace = "finalCta",
 }: {
+  /** The page's own content width, so the copy lines up with it. */
   rail?: "wide" | "narrow";
   /** A landing can bring its own closing line; same keys as `finalCta`. */
   namespace?: string;
 }) {
-  const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations(namespace);
+  const reduceMotion = useReducedMotion() ?? false;
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
+  const scale = useTransform(scrollYProgress, [0, 1], reduceMotion ? [1.04, 1.04] : [1.18, 1.02]);
 
   return (
-    <section
-      id="contact"
-      className="relative overflow-hidden border-b border-border bg-background"
-    >
-      {/* Phones: the closing poster, on ink so it runs straight into the
-          footer as one dark slab, with the call to action inverted to paper. */}
-      <div data-surface="inverse" className="bg-foreground px-6 pb-10 pt-14 text-background md:hidden">
-        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-background/60"><BrandSquare />{t("kicker")}</span>
-        {/* Looser than the hero's poster: this pair carries accents ("à",
-            "è") that would otherwise cut into the line above. */}
-        <h2 className="m-0 mt-5 font-extrabold leading-[0.92] tracking-[-1px] [container-type:inline-size]">
-          <FitText>{t("titleLine1")}</FitText>
-          <FitText className="text-transparent [-webkit-text-stroke:2px_var(--background)]">{t("titleLine2")}</FitText>
+    <section ref={ref} id="contact" className="relative min-h-[92svh] overflow-hidden bg-background">
+      <motion.div aria-hidden="true" style={{ scale }} className="absolute inset-0 origin-[60%_60%]">
+        <Image src={SCENE.src} alt="" fill sizes="100vw" className="object-cover" style={{ objectPosition: SCENE.focus }} />
+      </motion.div>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background: [
+            "linear-gradient(180deg, rgb(12 12 13 / 0.45) 0%, rgb(12 12 13 / 0) 18%)",
+            "linear-gradient(0deg, rgb(12 12 13 / 0.96) 0%, rgb(12 12 13 / 0.55) 30%, rgb(12 12 13 / 0) 58%)",
+            "linear-gradient(270deg, rgb(12 12 13 / 0.9) 0%, rgb(12 12 13 / 0.35) 40%, rgb(12 12 13 / 0) 62%)",
+          ].join(", "),
+        }}
+      />
+      <div
+        className={`relative mx-auto flex min-h-[92svh] flex-col justify-end px-6 pb-16 md:px-10 lg:items-end lg:px-16 lg:pb-20 lg:text-right ${
+          rail === "narrow" ? "max-w-[80rem]" : "max-w-[90rem]"
+        }`}
+      >
+        <span className="font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground">
+          <BrandSquare />
+          {t("kicker")}
+        </span>
+        <h2 className="m-0 mt-6 text-[clamp(3.25rem,7.4vw,7.5rem)] font-bold leading-[0.88] tracking-[-0.05em] text-foreground drop-shadow-[0_8px_40px_rgba(0,0,0,0.6)]">
+          {t("titleLine1")}
+          <br />
+          {t("titleLine2")}
         </h2>
-        <a
-          href={BOOKING_URL}
-          {...bookingLocation("cta_final")}
-          onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
-          className="mt-9 inline-flex items-center gap-3 rounded-[2px] bg-background px-6 py-4 text-[15px] font-medium text-foreground"
-        >
-          {t("bookCall")}
-          <span aria-hidden="true" className="text-lg leading-none">
-            →
-          </span>
-        </a>
-        <div className="mt-2 flex items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.18em] text-background/60">
-          <span>
-            {t("responseLabel")} {t("responseValue")}
-          </span>
+        <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5 lg:flex-row-reverse">
           <a
-            href="mailto:founders@thevibecompany.co"
-            onClick={() => captureEvent("get_in_touch_clicked", { location: "final_cta" })}
-            className="inline-flex min-h-11 items-center normal-case tracking-[0.04em] text-background underline decoration-1 underline-offset-4"
+            href={BOOKING_URL}
+            {...bookingLocation("cta_final")}
+            onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
+            className="group inline-flex h-[60px] items-center gap-3 rounded-[2px] bg-foreground px-7 text-[17px] font-medium text-background shadow-[0_18px_70px_-14px_rgba(242,115,19,0.75)] transition-colors hover:bg-soft-foreground"
           >
-            founders@thevibecompany.co
-          </a>
-        </div>
-      </div>
-
-      <div className="hidden md:block">
-        {/* The hero's orange bloom, mirrored: the page closes in the same
-            light it opened with. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -bottom-72 -left-48 h-[720px] w-[960px]"
-          style={{
-            background:
-              "radial-gradient(closest-side, rgb(242 115 19 / 0.13), rgb(242 115 19 / 0.04) 55%, transparent)",
-          }}
-        />
-
-        <div className={`relative mx-auto px-6 py-28 md:px-10 lg:px-16 md:py-32 ${
-            rail === "narrow" ? "max-w-[80rem]" : "max-w-[90rem]"
-          }`}>
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{
-              duration: reduceMotion ? 0 : 0.5,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="mb-8 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground"
-          >
-            <BrandSquare />{t("kicker")}
-          </motion.span>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{
-              duration: reduceMotion ? 0 : 0.7,
-              delay: reduceMotion ? 0 : 0.05,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="m-0 mb-8 flex flex-col font-bold text-foreground"
-            style={{
-              fontSize: "clamp(56px, 9vw, 144px)",
-              lineHeight: 0.88,
-              letterSpacing: "-0.05em",
-            }}
-          >
-            <span>{t("titleLine1")}</span>
-            <span
-              style={{
-                WebkitTextStroke: "2px var(--foreground)",
-                color: "transparent",
-              }}
-            >
-              {t("titleLine2")}
+            {t("bookCall")}
+            <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+              →
             </span>
-          </motion.h2>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{
-              duration: reduceMotion ? 0 : 0.6,
-              delay: reduceMotion ? 0 : 0.2,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="flex flex-col items-start justify-between gap-8 border-t border-border pt-8 md:flex-row md:items-end"
-          >
-            <a
-              href={BOOKING_URL}
-              {...bookingLocation("cta_final")}
-              onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
-              className="group inline-flex h-[60px] items-center rounded-[2px] bg-foreground px-7 text-[17px] font-medium text-background transition-colors duration-300 hover:bg-soft-foreground"
-            >
-              {t("bookCall")}
-              <span aria-hidden="true" className="ml-3 transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </a>
-
-            <dl className="grid w-full grid-cols-[auto_1fr] items-baseline gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground md:w-auto md:justify-end md:text-right">
-              <dt className="text-muted-foreground md:text-right">{t("responseLabel")}</dt>
-              <dd className="m-0 md:text-left">{t("responseValue")}</dd>
-              <dt className="text-muted-foreground md:text-right">{t("emailLabel")}</dt>
-              <dd className="m-0 md:text-left">
-                <a
-                  href="mailto:founders@thevibecompany.co"
-                  onClick={() => captureEvent("get_in_touch_clicked", { location: "final_cta" })}
-                  className="normal-case tracking-[0.05em] underline decoration-1 underline-offset-4 hover:text-muted-foreground"
-                >
-                  founders@thevibecompany.co
-                </a>
-              </dd>
-            </dl>
-          </motion.div>
+          </a>
+          <dl className="m-0 grid grid-cols-[auto_1fr] gap-x-5 gap-y-1.5 font-mono text-[11px] uppercase tracking-[0.2em]">
+            <dt className="text-muted-foreground">{t("responseLabel")}</dt>
+            <dd className="m-0 text-foreground">{t("responseValue")}</dd>
+            <dt className="text-muted-foreground">{t("emailLabel")}</dt>
+            <dd className="m-0">
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                onClick={() => captureEvent("get_in_touch_clicked", { location: "final_cta" })}
+                className="normal-case tracking-[0.05em] text-foreground underline decoration-1 underline-offset-4 hover:text-brand"
+              >
+                {CONTACT_EMAIL}
+              </a>
+            </dd>
+          </dl>
         </div>
       </div>
     </section>

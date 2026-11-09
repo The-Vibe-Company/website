@@ -201,6 +201,36 @@
   outline-color: var(--background);
 }
 
+/* Paper bands: the warm light sections between the ink ones. Any element with
+   data-surface="paper" turns the ink tokens over to paper (and the resources
+   pages' --res-* names with them), so everything inside it, written against
+   the tokens, reads ink on paper with no special classes. */
+[data-surface="paper"] {
+  color-scheme: light;
+  --background: #f4f2ec;
+  --foreground: #0c0c0d;
+  --card: #fbfaf7;
+  --card-foreground: #0c0c0d;
+  --popover: #fbfaf7;
+  --popover-foreground: #0c0c0d;
+  --muted: #6e6b65;
+  --muted-foreground: #5d5a54;
+  --soft-foreground: #34322e;
+  --accent: #ebe7de;
+  --accent-foreground: #1d1c1a;
+  --border: #dcd7cc;
+  --border-strong: #b8b1a4;
+  --input: #dcd7cc;
+  --res-bg: #f4f2ec;
+  --res-bg-secondary: #fbfaf7;
+  --res-surface: #efece5;
+  --res-border: #dcd7cc;
+  --res-text: #0c0c0d;
+  --res-text-muted: #5d5a54;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
 /* Menu items (header contact menu) invert to ink when focused; the ring sits
    inside them in paper so it stays visible and never spills past the panel. */
 [role="menuitem"]:focus-visible {
@@ -237,6 +267,53 @@
   /* Stroke text utility for outlined text effect */
   .stroke-text {
     -webkit-text-stroke: 1px var(--foreground);
+  }
+
+  /* A word lit from below: paper running into the orange on ink, ink running
+     into it on a paper band. For the second line of a headline, a numeral. */
+  .text-lit {
+    background-image: linear-gradient(180deg, #f4f3ef 10%, #ffc488 62%, #f27313 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  [data-surface="paper"] .text-lit {
+    background-image: linear-gradient(180deg, #0c0c0d 15%, #8a3a06 72%, #f27313 100%);
+  }
+
+  /* A card under a lamp: warm light thrown down from its top edge, brighter
+     on hover or focus. Pair it with a short orange bar at the top centre. */
+  .lamp-card {
+    position: relative;
+    background:
+      radial-gradient(60% 55% at 50% 0%, rgb(242 115 19 / 0.22), rgb(242 115 19 / 0.06) 45%, transparent 75%),
+      var(--card);
+  }
+
+  .lamp-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(70% 65% at 50% 0%, rgb(242 115 19 / 0.28), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .lamp-card:hover::before,
+  .lamp-card:focus-within::before {
+    opacity: 1;
+  }
+
+  /* Client and partner logos drawn in the page's own ink: paper on ink,
+     ink on a paper band. */
+  .logo-tone {
+    filter: brightness(0) invert(1);
+  }
+
+  [data-surface="paper"] .logo-tone {
+    filter: brightness(0);
   }
 }
 

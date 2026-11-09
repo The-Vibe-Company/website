@@ -8,9 +8,9 @@ import { BOOKING_URL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import type { RunnerItem } from "@/lib/runner-worlds";
 import { cn } from "@/lib/design-system";
-import { Backers } from "../../Backers";
-import { FitText } from "../../FitText";
-import styles from "./atelier.module.css";
+import { Backers } from "../Backers";
+import { FitText } from "../FitText";
+import styles from "./landing.module.css";
 import { SecretLevel, type Origin } from "./SecretLevel";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -39,7 +39,7 @@ const LEAP_MS = 420;
  * The easter egg: on a desktop, the space bar (or a click on the mascot) makes
  * it jump, and the runner game opens out of it as a secret level.
  */
-export function AtelierHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
+export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   const t = useTranslations("hero");
   const tFooter = useTranslations("footer");
   const en = useLocale() === "en";
@@ -174,7 +174,7 @@ export function AtelierHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
                 </span>
               </a>
               <a
-                href="#atelier-offres"
+                href="#offres"
                 onClick={() => captureEvent("see_what_we_do_clicked")}
                 className="text-[15px] font-medium text-foreground underline decoration-1 underline-offset-[7px] transition-colors hover:text-brand"
               >
