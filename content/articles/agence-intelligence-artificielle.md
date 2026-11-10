@@ -44,7 +44,7 @@ Pour Paris et le positionnement local, voir aussi [Agence IA à Paris](/fr/agenc
 
 Une mission d'agence IA se déroule en trois étapes. Il faut aussi savoir quand ralentir.
 
-![Mission d'agence IA en 3 étapes : audit et cadrage, prototype, mise en production, et quand ralentir. Détaillé ci-dessous.](/images/resources/agence-intelligence-artificielle/mission-agence-ia-3-etapes.png)
+![Mission d'agence IA en 3 étapes : audit et cadrage, prototype, mise en production, et quand ralentir. Détaillé ci-dessous.](/images/resources/agence-intelligence-artificielle/mission-agence-ia-3-etapes.png){.diagram}
 
 1. Audit et cadrage : cas d'usage priorisés, critères de succès.
 2. Prototype : testé avec le métier, sur vos vraies données. Si le métier n'est pas prêt, on ralentit (cas Monka).

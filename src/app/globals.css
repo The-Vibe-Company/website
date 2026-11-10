@@ -500,6 +500,14 @@
   margin: 0;
 }
 
+/* Opt-in via `![alt](src){.diagram}`: tall schemas with baked-in text are capped
+   and centred instead of filling the column; on narrow screens the cap never bites. */
+.prose-vibe-image--diagram {
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .prose-vibe-image figcaption {
   margin-top: 0.75rem;
   font-size: 0.75rem;

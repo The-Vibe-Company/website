@@ -41,10 +41,20 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/agence-ia-native/agence-classique-vs-ia-native.png": {
+      "sourceHash": "d8b99662c1355edf34d35078392ae34669d3f9fd06547336a48968f9bc3ac525",
+      "targetUrl": "/images/_optimized/resources/agence-ia-native/agence-classique-vs-ia-native.webp",
+      "targetHash": "812a6c7843042ccdb70434663e2c19b0d3e40de6982a5670c3f2feba225cc237"
+    },
     "content:/images/resources/agence-ia-native/cover-mascotte.webp": {
       "sourceHash": "897c6a1baf12d3dab4ae5630c97f74fa013765f1cf8705d36c5e8a0ada1eb776",
       "targetUrl": null,
       "targetHash": null
+    },
+    "content:/images/resources/agence-ia-native/grille-4-tests-agence-ia-native.png": {
+      "sourceHash": "62ae201de10b9ce022f8c6f5566ae81cbc71278ed8bda50b00a458b3bcb265b3",
+      "targetUrl": "/images/_optimized/resources/agence-ia-native/grille-4-tests-agence-ia-native.webp",
+      "targetHash": "dfde1145ae0f8a0d65935f7a517b4481af8b48b09896b59a3c8841c8e2ec6159"
     },
     "content:/images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp": {
       "sourceHash": "719b2e21fd85427d978f4f336dd066cac7b67023fb23da49fb962fac07f3a00d",
@@ -57,9 +67,9 @@
       "targetHash": null
     },
     "content:/images/resources/agence-intelligence-artificielle/mission-agence-ia-3-etapes.png": {
-      "sourceHash": "c10a385f4e40f23c06184b9b932f4555b2525443224146416862720f112d1050",
+      "sourceHash": "887c37a065867120810f37187f10b5748a069d7a0696bcab6e8bea078b5603c2",
       "targetUrl": "/images/_optimized/resources/agence-intelligence-artificielle/mission-agence-ia-3-etapes.webp",
-      "targetHash": "e0a62479099ebb237910c5494df49b64822770e29844bd797f32a2c8bb59f52a"
+      "targetHash": "6246a03e096ebb69bdad7832742e098e26e7af9e4f9f43585d0eb9ceb74b0377"
     },
     "content:/images/resources/agent-harness-entreprise/cover-mascotte.webp": {
       "sourceHash": "b06286a00057a518a07b65f95be18c3c2d86c27375f7fff19e8eef6b3afa729a",
@@ -116,6 +126,16 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/ai-native-agency/4-tests-ai-native-agency.png": {
+      "sourceHash": "940ba9bdb00f9220057dee0919b40b0ce1c69a79098cecd55bb2c8f6569a1956",
+      "targetUrl": "/images/_optimized/resources/ai-native-agency/4-tests-ai-native-agency.webp",
+      "targetHash": "c562807579e176a80c51b586bfd7fed2050c832b7edec2dc6f8ba6e1c01950e6"
+    },
+    "content:/images/resources/ai-native-agency/classic-vs-ai-native-agency.png": {
+      "sourceHash": "ea54399fd08a08def308d0c4f5f3f5c4243d312f21ab8115a795eec40dddb11d",
+      "targetUrl": "/images/_optimized/resources/ai-native-agency/classic-vs-ai-native-agency.webp",
+      "targetHash": "18e3f42961bbf940c0e5d292d405f759f73f98244c1dc013188ff2591c95202f"
+    },
     "content:/images/resources/automatisation-ia-entreprise/cover-mascotte.webp": {
       "sourceHash": "f62cc1a50de1de3b1dcba623070c52f1ec52c95116f45d4db2cd43d2977147cb",
       "targetUrl": null,
@@ -160,6 +180,16 @@
       "sourceHash": "e5a4c2b263f576bc8bf3e6e9bc6a8976a98edba0f5430652a6443c53fc514dbd",
       "targetUrl": null,
       "targetHash": null
+    },
+    "content:/images/resources/etre-cite-chatgpt-gemini-aeo/2-leviers-google-ai-overviews.png": {
+      "sourceHash": "436e765e9fc252e87a512c3fb9deb20d6fca103ebcce4c76addb043044ce2cc2",
+      "targetUrl": "/images/_optimized/resources/etre-cite-chatgpt-gemini-aeo/2-leviers-google-ai-overviews.webp",
+      "targetHash": "0da88120a66406ab230623f21b92dc05360d33295481bd4fb8e6a19108f6678b"
+    },
+    "content:/images/resources/etre-cite-chatgpt-gemini-aeo/3-bots-openai-chatgpt-search.png": {
+      "sourceHash": "7e3af0c4523504442b8c65b7a241ad726fcd1211df6711eb7ba8b4732033083c",
+      "targetUrl": "/images/_optimized/resources/etre-cite-chatgpt-gemini-aeo/3-bots-openai-chatgpt-search.webp",
+      "targetHash": "59b483eba3141475098e02d7c3fc98564c3b58e5b5c36c9b9753351a0ea9250f"
     },
     "content:/images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp": {
       "sourceHash": "1da35bba40796bc1509c379cba6ad8478e8be0322546b216f806e11305ab328e",
@@ -215,6 +245,16 @@
       "sourceHash": "5809540d1defac024144c7489d5aeb692f377bd336baf119806a12d70deb231f",
       "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/stack-logo.webp",
       "targetHash": "909dd86c07cecf2a32a4af2823aaf14f519cfe980966bceb636f5dea89f43a41"
+    },
+    "content:/images/resources/get-cited-chatgpt-gemini-aeo/2-google-levers-ai-overviews.png": {
+      "sourceHash": "f688a3517d30a791b9cfdeef26495b29e4686e2b11dd32c5d2c7b7b5692fc28d",
+      "targetUrl": "/images/_optimized/resources/get-cited-chatgpt-gemini-aeo/2-google-levers-ai-overviews.webp",
+      "targetHash": "74d2b7a7dce9431d291e5fdd2c6821005dfa30ec17e3c0d1c6a9c1608a179c5f"
+    },
+    "content:/images/resources/get-cited-chatgpt-gemini-aeo/3-openai-bots-chatgpt-search.png": {
+      "sourceHash": "b5b695a6ee8a7c81b875082d4931d8fba992c25952fc0bb15873a74e0e5f6a22",
+      "targetUrl": "/images/_optimized/resources/get-cited-chatgpt-gemini-aeo/3-openai-bots-chatgpt-search.webp",
+      "targetHash": "7d3d971accf684d992b50811577e94313bec80112f176b0e858c7049b0e0d15a"
     },
     "content:/images/resources/hebergement-hds-ia/cover-mascotte.webp": {
       "sourceHash": "45996223f4c39e669e2fa8f6d0f3dc552b8d3b84715d4a643d2cad0563c0edf6",
@@ -457,9 +497,9 @@
       "targetHash": "97c2c5904d42549115d977b5648112249e26869cff74513346fb5c0464bfad1f"
     },
     "content:/images/resources/what-an-ai-agency-does/ai-agency-mission-3-steps.png": {
-      "sourceHash": "127c3783404afb5e7b1e29b7a6ea5ec5c28995731fc5c34c8681ec0bd5c5b043",
+      "sourceHash": "90dd503ae2e687bceac2e06577bb5782eaeeb59d4c2e0f996d27bb257c3b15f9",
       "targetUrl": "/images/_optimized/resources/what-an-ai-agency-does/ai-agency-mission-3-steps.webp",
-      "targetHash": "04bacff8d7d61ac94519769e086e95cee26ed58c632606661bea673dd54755d9"
+      "targetHash": "f01e8a6a6d56e14dff25bfb4699f1a54c84f5db9b3ae55b89a121987beb9ccec"
     },
     "content:/images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp": {
       "sourceHash": "93f7aaf00b1f5dc88e65c5d6de704ffd537af8b0ce9f5c17344394bfaa4d7e6c",

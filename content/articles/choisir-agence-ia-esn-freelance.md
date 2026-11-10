@@ -1,19 +1,20 @@
 ---
-title: "Agence IA, ESN, freelance ou interne : checklist pour choisir"
+title: "Agence IA, freelance, interne ou ESN : checklist pour choisir"
 seoTitle: "Choisir une agence IA : checklist et 10 questions"
 slug: choisir-agence-ia-esn-freelance
 language: fr
 translationKey: choose-ai-agency
 summary: "Choisir une agence IA : quatre options, forfait ou régie, checklist POC, 10 questions avant de signer."
 publishedAt: 2026-10-13
+dateModified: 2026-11-10
 complexity: beginner
 topics: AI Adoption, AI Agents, Strategy
 coverImage: /images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp
-coverAlt: "Quatre chemins partent d'un même projet IA : équipe interne, freelance, ESN et agence IA"
+coverAlt: "Quatre chemins partent d'un même projet IA : agence IA, freelance, équipe interne et ESN"
 ogImage: /images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp
 ---
 
-**Comment choisir une agence IA :** comparez quatre options (interne, freelance, ESN, agence IA), exigez un cadrage court au forfait puis des lots courts, jugez le POC sur de vraies données, et posez les 10 questions ci-dessous avant de signer.
+**Comment choisir une agence IA :** comparez quatre options (agence IA, freelance, interne, ESN), exigez un cadrage court au forfait puis des lots courts, jugez le POC sur de vraies données, et posez les 10 questions ci-dessous avant de signer.
 
 Une démo d'IA, tout le monde sait la faire. Un outil que vos équipes utilisent encore six mois plus tard, c'est plus rare.
 
@@ -29,22 +30,22 @@ Choisir un prestataire, c'est donc choisir qui saura amener le projet jusque-là
 
 ## Les quatre options en un tableau
 
-| | Équipe interne | Freelance | ESN | Agence IA |
+| | Agence IA | Freelance | Équipe interne | ESN |
 |---|---|---|---|---|
-| Démarrage | lent (recrutement) | rapide | moyen | rapide |
-| Spécialisation IA | dépend des recrues | forte sur un sujet | variable selon les profils | cœur de métier |
-| Produit complet (front, back, infra) | si l'équipe est complète | rarement seul | oui | oui, si l'équipe est pluridisciplinaire |
-| Capacité à monter en charge | lente | limitée | forte | moyenne |
-| Connaissance de votre métier | la meilleure | à construire | à construire | à construire |
-| Mode de contrat habituel | salariat | régie (TJM) | régie, parfois forfait | forfait ou régie |
-| Risque principal | délai, rétention | dépendance à une personne | profils interchangeables | dépendance si rien n'est transmis |
+| Démarrage | rapide | rapide | lent (recrutement) | moyen |
+| Spécialisation IA | cœur de métier | forte sur un sujet | dépend des recrues | variable selon les profils |
+| Produit complet (front, back, infra) | oui, si l'équipe est pluridisciplinaire | rarement seul | si l'équipe est complète | oui |
+| Capacité à monter en charge | moyenne | limitée | lente | forte |
+| Connaissance de votre métier | à construire | à construire | la meilleure | à construire |
+| Mode de contrat habituel | forfait ou régie | régie (TJM) | salariat | régie, parfois forfait |
+| Risque principal | dépendance si rien n'est transmis | dépendance à une personne | délai, rétention | profils interchangeables |
 
 En résumé :
 
-- **Équipe interne** : la cible si l'IA est votre avantage concurrentiel. Piège : recruter avant d'avoir validé un premier cas d'usage.
-- **Freelance** : imbattable sur une tâche précise (un connecteur, une automatisation, un audit). Ça coince quand il faut à la fois interface, backend, infrastructure et sécurité, ou une continuité si la personne part.
-- **ESN** : fournit des profils en nombre et passe facilement vos achats et votre sécurité. Bon choix pour renforcer une équipe sur un périmètre connu.
 - **Agence IA** : une petite équipe qui couvre tout le chemin, de l'idée à la production. Bon choix pour livrer vite ou valider un cas d'usage avant d'internaliser.
+- **Freelance** : imbattable sur une tâche précise (un connecteur, une automatisation, un audit). Ça coince quand il faut à la fois interface, backend, infrastructure et sécurité, ou une continuité si la personne part.
+- **Équipe interne** : la cible si l'IA est votre avantage concurrentiel. Piège : recruter avant d'avoir validé un premier cas d'usage.
+- **ESN** : fournit des profils en nombre et passe facilement vos achats et votre sécurité. Bon choix pour renforcer une équipe sur un périmètre connu.
 
 On peut aussi combiner : une agence qui construit et forme pendant que vous recrutez, un freelance qui reprend la maintenance d'un système livré par une agence.
 

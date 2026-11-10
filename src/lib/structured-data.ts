@@ -254,6 +254,7 @@ export function articleSchema({
   title,
   summary,
   publishedAt,
+  dateModified,
   language,
   imageUrl,
   series,
@@ -262,13 +263,12 @@ export function articleSchema({
   title: string;
   summary?: string;
   publishedAt: string;
+  dateModified?: string;
   language: string;
   imageUrl?: string;
   /** Victor's Story articles are Victor's; every other article is Stan's. */
   series?: string;
 }): JsonLdNode {
-  // The content has no separate update date, so the publication date stands
-  // for both.
   return {
     "@context": SCHEMA_CONTEXT,
     "@type": "Article",
@@ -277,7 +277,7 @@ export function articleSchema({
     headline: title,
     ...(summary && isPublishable(summary) ? { description: summary } : {}),
     datePublished: publishedAt,
-    dateModified: publishedAt,
+    dateModified: dateModified ?? publishedAt,
     ...(imageUrl ? { image: [imageUrl] } : {}),
     inLanguage: language,
     author: series === VICTOR_STORY_SERIES ? VICTOR_NIVAULT : STAN_GIRARD,
