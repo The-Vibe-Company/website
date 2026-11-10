@@ -41,10 +41,20 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/agence-ia-native/agence-classique-vs-ia-native.png": {
+      "sourceHash": "d8b99662c1355edf34d35078392ae34669d3f9fd06547336a48968f9bc3ac525",
+      "targetUrl": "/images/_optimized/resources/agence-ia-native/agence-classique-vs-ia-native.webp",
+      "targetHash": "812a6c7843042ccdb70434663e2c19b0d3e40de6982a5670c3f2feba225cc237"
+    },
     "content:/images/resources/agence-ia-native/cover-mascotte.webp": {
       "sourceHash": "897c6a1baf12d3dab4ae5630c97f74fa013765f1cf8705d36c5e8a0ada1eb776",
       "targetUrl": null,
       "targetHash": null
+    },
+    "content:/images/resources/agence-ia-native/grille-4-tests-agence-ia-native.png": {
+      "sourceHash": "62ae201de10b9ce022f8c6f5566ae81cbc71278ed8bda50b00a458b3bcb265b3",
+      "targetUrl": "/images/_optimized/resources/agence-ia-native/grille-4-tests-agence-ia-native.webp",
+      "targetHash": "dfde1145ae0f8a0d65935f7a517b4481af8b48b09896b59a3c8841c8e2ec6159"
     },
     "content:/images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp": {
       "sourceHash": "719b2e21fd85427d978f4f336dd066cac7b67023fb23da49fb962fac07f3a00d",
@@ -115,6 +125,16 @@
       "sourceHash": "529a7edb933a92bc72e3fe2755d0744fbf978891d5a4842f6af66c3233dd90fc",
       "targetUrl": null,
       "targetHash": null
+    },
+    "content:/images/resources/ai-native-agency/4-tests-ai-native-agency.png": {
+      "sourceHash": "940ba9bdb00f9220057dee0919b40b0ce1c69a79098cecd55bb2c8f6569a1956",
+      "targetUrl": "/images/_optimized/resources/ai-native-agency/4-tests-ai-native-agency.webp",
+      "targetHash": "c562807579e176a80c51b586bfd7fed2050c832b7edec2dc6f8ba6e1c01950e6"
+    },
+    "content:/images/resources/ai-native-agency/classic-vs-ai-native-agency.png": {
+      "sourceHash": "ea54399fd08a08def308d0c4f5f3f5c4243d312f21ab8115a795eec40dddb11d",
+      "targetUrl": "/images/_optimized/resources/ai-native-agency/classic-vs-ai-native-agency.webp",
+      "targetHash": "18e3f42961bbf940c0e5d292d405f759f73f98244c1dc013188ff2591c95202f"
     },
     "content:/images/resources/automatisation-ia-entreprise/cover-mascotte.webp": {
       "sourceHash": "f62cc1a50de1de3b1dcba623070c52f1ec52c95116f45d4db2cd43d2977147cb",
