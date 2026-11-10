@@ -194,6 +194,7 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               alt=""
               width={488}
               height={672}
+              priority
               sizes="280px"
               className={`absolute left-1/2 top-0 w-[280px] max-w-none -translate-x-1/2 ${styles.float}`}
             />
