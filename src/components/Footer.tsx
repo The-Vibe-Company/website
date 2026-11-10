@@ -15,15 +15,9 @@ interface NavLink {
 
 
 const ELSEWHERE_LINKS: NavLink[] = [
-  { label: "X", href: "https://x.com/thevibecompany", external: true },
   {
     label: "GitHub",
     href: "https://github.com/The-Vibe-Company",
-    external: true,
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/company/thevibeco",
     external: true,
   },
 ];
