@@ -1,20 +1,30 @@
+import { getImageProps } from "next/image";
 import { preload } from "react-dom";
 
-const SOURCE = "/images/home/mascot-cutout.webp";
-
-/** The image optimizer's URL for one width, exactly as next/image builds it. */
-const optimized = (width: number) => `/_next/image?url=${encodeURIComponent(SOURCE)}&w=${width}&q=75`;
-
 /**
- * The widths the optimizer can return as distinct images. The source is 488px
- * wide and is never enlarged, so 640w and every larger width are the same
- * 488px file: next/image listed them all (up to 3840w). Stopping at 640w keeps
- * the bytes every screen downloads, and so its pixels, and drops the duplicate
- * candidates from the HTML and the preload.
+ * The image optimizer's candidates for the mascot, as next/image builds them
+ * (so they follow the `images` config: widths, qualities, loader), cut at 640w.
+ * The source is 488px wide and is never enlarged, so 640w and every larger
+ * width are the same 488px file: next/image listed them all (up to 3840w).
+ * Stopping at 640w keeps the bytes every screen downloads, and so its pixels,
+ * and drops the duplicate candidates from the HTML and the preload.
  */
-const WIDTHS = [32, 48, 64, 96, 128, 256, 384, 640];
-const SRC_SET = WIDTHS.map((width) => `${optimized(width)} ${width}w`).join(", ");
-const SRC = optimized(640);
+const MAX_WIDTH = 640;
+const CANDIDATES = (getImageProps({
+  src: "/images/home/mascot-cutout.webp",
+  alt: "",
+  width: 488,
+  height: 672,
+  sizes: "280px",
+}).props.srcSet ?? "")
+  .split(", ")
+  .map((candidate) => {
+    const [url, descriptor] = candidate.split(" ");
+    return { url, width: Number.parseInt(descriptor, 10) };
+  })
+  .filter((candidate) => candidate.width <= MAX_WIDTH);
+const SRC_SET = CANDIDATES.map(({ url, width }) => `${url} ${width}w`).join(", ");
+const SRC = CANDIDATES[CANDIDATES.length - 1].url;
 
 /** The `lg` breakpoint, as Tailwind writes it, and its exact complement. */
 const DESKTOP = "(min-width: 64rem)";
