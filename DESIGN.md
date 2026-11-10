@@ -135,6 +135,10 @@ motion:
   normal: "0.6s"
   slow: "0.8s"
   smooth-ease: "cubic-bezier(0.16, 1, 0.3, 1)"
+  exit-ease: "cubic-bezier(0.4, 0, 1, 1)"
+  page-exit: "0.18s"
+  page-enter: "0.42s"
+  page-enter-delay: "0.08s"
   marquee: "20s linear infinite"
 components:
   page-background:
@@ -376,6 +380,8 @@ Use the brutal offset shadow only for interactive lift on important cards and pr
 
 Navigation and overlays may use translucent surfaces with backdrop blur, but they should remain crisp. Avoid frosted-glass aesthetics, colored glows, floating blobs, and ambient shadows.
 
+Moving between pages is the one place depth moves. The page being left lifts off by 12px and fades out in 0.18s on a sharp ease-in; a beat later (0.08s) the next page rises 24px into place and fades in over 0.42s on the smooth ease-out, like a fresh sheet laid on the stack. The nav bar never takes part: it stays exactly where it is, already showing the new active link, so only the paper under it changes. While the two sheets trade places the background between them is warm paper, never white or black. A change inside a page (a search query, a filter) does not animate, the browser's back button swaps pages instantly, and with reduced motion requested the sheets simply cross-fade in a fraction of that time without moving.
+
 Dark sections should feel like solid matte slabs. Separate content inside them with low-opacity rules and muted inverse text. Keyboard focus rings invert with the surface they land on: the page draws a two-pixel ink ring, and every inverted surface flips it to paper, so focus never disappears into the slab it is sitting on.
 
 ## Shapes
@@ -430,6 +436,7 @@ Rules and dividers are part of the visual language. Use thin warm-gray rules for
 - Do reserve Geist Mono for metadata and operational UI, not long-form prose.
 - Do use square corners for content surfaces and slab CTAs.
 - Do preserve partner-logo and product-screenshot aspect ratios at every breakpoint.
+- Do keep page changes short and vertical: the old sheet lifts away, the new one rises, the nav stays put.
 - Don't introduce marketing-style gradients, decorative orbs, soft bokeh, or colorful background washes.
 - Don't turn pages into nested card layouts. Use full-width bands and unframed layouts first.
 - Don't over-round cards, inputs, or buttons. Pills are for nav and status.

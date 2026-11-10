@@ -214,7 +214,8 @@ function TopNavInner({
         aria-label={tA11y("mainNavigation")}
         aria-hidden={mobileMenuActive || undefined}
         inert={mobileMenuActive || undefined}
-        className="sticky top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 lg:px-24 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50"
+        // site-nav: held still while the page under it changes (globals.css).
+        className="site-nav sticky top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 lg:px-24 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50"
         initial={hasPlayedEntrance ? false : { opacity: 0, y: -20 }}
         onAnimationComplete={() => {
           hasPlayedEntrance = true;
