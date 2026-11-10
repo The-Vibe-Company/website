@@ -1,0 +1,11 @@
+Line,Formula,Source,Your number
+A. Time saved,(time before − time after) × volume × hourly cost,Metric 1 and baseline,to fill in
+B. Errors avoided,drop in error rate × volume × cost of one error,Metric 3 and baseline,to fill in
+C. Business outcome,"priced gain on the main outcome, if measurable",Metric 5,to fill in
+D. Running cost,full cost per case × volume,Metric 4,to fill in
+E. Upfront investment,"scoping, development, integration",Project budget,to fill in
+Measured gains,A + B + C,Lines A to C,to fill in
+Full cost,D + E spread over the period,Lines D and E,to fill in
+ROI,(measured gains − full cost) / full cost,Lines above,to fill in
+Net monthly gain,(A + B + C − D) brought down to one month,Lines A to D,to fill in
+Payback period (months),E / net monthly gain,Lines A to E,to fill in
