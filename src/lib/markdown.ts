@@ -43,12 +43,30 @@ function parseDirectiveAttributes(value: string): Record<string, string> {
   return attrs
 }
 
-function parseMarkdownImage(line: string): { alt: string; src: string; title?: string } | null {
-  const match = line.match(/^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]+)")?\)\s*$/)
+/**
+ * Opt-in presentation variants for a standalone image, written as a class suffix:
+ * `![alt](src){.diagram}`. A diagram is capped and centred instead of filling the
+ * column, so tall schemas with text baked in stay readable at a sane size.
+ */
+const MARKDOWN_IMAGE_VARIANTS = ['diagram'] as const
+type MarkdownImageVariant = (typeof MARKDOWN_IMAGE_VARIANTS)[number]
+
+const MARKDOWN_IMAGE_VARIANT_SUFFIX = new RegExp(
+  `(!\\[[^\\]]*\\]\\([^)\\s]+(?:\\s+"[^"]+")?\\))\\{\\.(?:${MARKDOWN_IMAGE_VARIANTS.join('|')})\\}`,
+  'g',
+)
+
+function parseMarkdownImage(
+  line: string,
+): { alt: string; src: string; title?: string; variant?: MarkdownImageVariant } | null {
+  const match = line.match(/^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]+)")?\)(?:\{\.([\w-]+)\})?\s*$/)
   if (!match) return null
 
-  const [, alt, src, title] = match
-  return { alt, src, title }
+  const [, alt, src, title, rawVariant] = match
+  if (rawVariant && !(MARKDOWN_IMAGE_VARIANTS as readonly string[]).includes(rawVariant)) return null
+
+  const variant = rawVariant as MarkdownImageVariant | undefined
+  return { alt, src, title, variant }
 }
 
 /**
@@ -92,7 +110,7 @@ function renderMarkdownImage(line: string): string | null {
   const caption = image.title ? `<figcaption>${escapeHtml(image.title)}</figcaption>` : ''
 
   return (
-    `<figure class="prose-vibe-image">` +
+    `<figure class="${image.variant ? `prose-vibe-image prose-vibe-image--${image.variant}` : 'prose-vibe-image'}">` +
     `<img src="${src}" alt="${alt}" loading="lazy" decoding="async" />` +
     `${caption}</figure>`
   )
@@ -784,7 +802,7 @@ export function directivesToPlainMarkdown(markdown: string): string {
   while (index < lines.length) {
     if (CODE_FENCE.test(lines[index])) inCode = !inCode
     if (inCode || !isDirectiveStart(lines, index)) {
-      output.push(lines[index])
+      output.push(inCode ? lines[index] : lines[index].replace(MARKDOWN_IMAGE_VARIANT_SUFFIX, '$1'))
       index += 1
       continue
     }
@@ -809,7 +827,7 @@ export function directivesToPlainMarkdown(markdown: string): string {
             .replace(/\|\s*\[ \]\s*(?=\|)/g, `| ${attrs.no || 'No'} `),
         )
       } else {
-        output.push(line)
+        output.push(line.replace(MARKDOWN_IMAGE_VARIANT_SUFFIX, '$1'))
       }
     }
     if (name === 'compare' && attrs.legend) output.push('', attrs.legend)

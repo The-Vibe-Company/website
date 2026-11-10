@@ -44,7 +44,7 @@ For Paris and the local angle, see also [AI agency in Paris](/en/ai-agency-paris
 
 An AI agency engagement runs in three steps. Knowing when to slow down matters too.
 
-![AI agency engagement in 3 steps: audit and scoping, prototype, production, and when to slow down. Detailed below.](/images/resources/what-an-ai-agency-does/ai-agency-mission-3-steps.png)
+![AI agency engagement in 3 steps: audit and scoping, prototype, production, and when to slow down. Detailed below.](/images/resources/what-an-ai-agency-does/ai-agency-mission-3-steps.png){.diagram}
 
 1. Audit and scoping: prioritized use cases, success criteria.
 2. Prototype: tested with the business, on your real data. If the business is not ready, slow down (Monka case).
