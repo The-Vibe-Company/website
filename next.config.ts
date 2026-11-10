@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ['framer-motion'],
+    // Page-to-page transitions use React's <ViewTransition> (PageTransition).
+    viewTransition: true,
   },
   async redirects() {
     // "The Companion" was renamed Skillpack in Sep 2026. Links to the old

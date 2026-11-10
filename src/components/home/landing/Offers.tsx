@@ -44,7 +44,10 @@ export function Offers() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="relative flex flex-col overflow-hidden border border-border p-7 md:p-9 lamp-card"
+                // Side by side, the cards share the row tracks (header, title,
+                // intro, list), so a longer intro no longer pushes one card's
+                // rule and list below its neighbours'.
+                className="relative flex flex-col overflow-hidden border border-border p-7 md:p-9 lg:row-span-4 lg:grid lg:grid-rows-subgrid lg:gap-y-0 lamp-card"
               >
                 <span aria-hidden="true" className="absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]" />
                 <div className="relative flex items-baseline justify-between gap-4">
