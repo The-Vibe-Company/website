@@ -7,7 +7,7 @@ Brief
   Voice     one hand note inside the loop, on the arrow from "We ship" back into the hero
   Format    social 4:5 (1080 x 1350, seen ~400 px wide on a phone: every text >= 30 px) · plan stack
   Depths    3 s: title + hero · 30 s: the numbered loop · 3 min: the note, the hero's line
-  Colour    yellow = the moment that matters; accent = the loop and its numbers; everything else grey and white
+  Colour    mood sun: yellow = the moment that matters; accent = the loop and its numbers; everything else grey and white
 
     python example_signature_social.py --out social.excalidraw [--style signature|corporate|night|mono|...]
 """
@@ -26,9 +26,10 @@ from excalikit import Palette as P
 ap = argparse.ArgumentParser(description=__doc__)
 ap.add_argument("--out", default="signature_social.excalidraw")
 ap.add_argument("--style", default="signature")
+ap.add_argument("--mood", default="sun", help="signature colour mood (sun, coral, mint, sky, lavender, red-pen)")
 args = ap.parse_args()
 
-S, F, pal = G.setup("social", style=args.style)
+S, F, pal = G.setup("social", style=args.style, mood=args.mood if args.style == "signature" else None)
 Z = G.plan(F, "stack")
 T = F.min_text                                          # 30 px: the floor for every text but the whisper
 
@@ -107,7 +108,7 @@ key = S.arrow(LOOP_R, boxes[4][1] - g, LOOP_R, hy + hh + g, P.ACCENT, 5)        
 # the voice ---------------------------------------------------------------------------------------------------------
 # inside the loop, under the hero: the curve leaves the top of the note and lands on the 5 -> 6 arrow, passing
 # above the "We ship" stop (margin_note would leave from the side of the text, straight through that stop)
-note = G.hand(S, (LOOP_L + LOOP_R) / 2, boxes[0][1] + 8, "most teams\nstop at\n\u201cshipped\u201d", T + 2,
+note = G.hand(S, (LOOP_L + LOOP_R) / 2, boxes[0][1] + 8, "\u201cshipped\u201d\nis not\nthe end", T + 2,
               P.ACCENT, align="center")
 sx, sy = note["x"] + note["width"] * 0.7, note["y"] - 10
 tx, ty = LOOP_R - 12, hy + hh + 34
@@ -120,5 +121,5 @@ G.finish(S, F, args.out,
    where they asked.
 2. Below it, a loop of five numbered steps: 1 Users report, 2 Support triages, 3 Product ranks, 4 Devs fix,
    5 We ship, then back up into step 6, and from 6 down to 1 again.
-3. Note inside the loop, on the arrow from We ship to the hero: most teams stop at "shipped".""")
+3. Note inside the loop, on the arrow from We ship to the hero: "shipped" is not the end.""")
 print(args.out, len(S.els), "elements")

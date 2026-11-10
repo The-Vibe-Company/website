@@ -7,7 +7,7 @@ Brief
   Voice     one hand note on the most surprising support
   Format    slide 16:9 · plan hero-right
   Depths    3 s: title + hero · 30 s: the two lines · 3 min: subs under each station, the note
-  Colour    yellow = the goal; magenta / blue = the two families (labelled on the lines, no legend)
+  Colour    mood coral: coral = the goal; teal / raspberry = the two families (labelled on the lines, no legend)
 
     python example_signature_hub.py --out hub.excalidraw [--style signature|corporate|night|mono|...] [--format slide]
 """
@@ -25,9 +25,10 @@ from excalikit import Palette as P
 ap = argparse.ArgumentParser(description=__doc__)
 ap.add_argument("--out", default="signature_hub.excalidraw")
 ap.add_argument("--style", default="signature")
+ap.add_argument("--mood", default="coral", help="signature colour mood (sun, coral, mint, sky, lavender, red-pen)")
 args = ap.parse_args()
 
-S, F, pal = G.setup("slide", style=args.style)
+S, F, pal = G.setup("slide", style=args.style, mood=args.mood if args.style == "signature" else None)
 Z = G.plan(F, "hero-right")
 G.claim_title(S, F, "A new hire ships in week two, never alone", mark="week two",
               sub="Two lines of support carry them there: the people around them and the knowledge they need.")

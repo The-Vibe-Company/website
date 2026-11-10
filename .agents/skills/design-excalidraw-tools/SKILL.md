@@ -5,20 +5,21 @@ description: Design beautiful, art-directed Excalidraw diagrams that explain
   posters, illustrated explainers, agent and system maps, flashcards, LinkedIn
   or slide visuals — with taste by default (a claim title with a highlighter,
   one hero, grey context, hand margin notes, fixed formats like 16:9 or 4:5) in
-  eight styles (signature house look by default, corporate, editorial, sketch,
-  playful, whiteboard, dark, mono), from a Python script, linted for layout and
-  taste, rendered, judged and delivered with alt text. Use it whenever someone
-  asks for an Excalidraw diagram, a schéma, a whiteboard drawing, a visual
-  explanation or a visual for a post or slide, or wants a diagram prettier or
-  more striking, even without saying "Excalidraw". Prefer it over hand-writing
-  Excalidraw JSON. Not for slide decks, Mermaid, numeric charts or UI mockups.
+  eight styles (signature house look in six colour moods by default, corporate,
+  editorial, sketch, playful, whiteboard, dark, mono), from a Python script,
+  linted for layout and taste, rendered, judged and delivered with alt text. Use
+  it whenever someone asks for an Excalidraw diagram, a schéma, a whiteboard
+  drawing, a visual explanation or a visual for a post or slide, or wants a
+  diagram prettier or more striking, even without saying "Excalidraw". Prefer it
+  over hand-writing Excalidraw JSON. Not for slide decks, Mermaid, numeric
+  charts or UI mockups.
 metadata: {}
 ---
 
 <!-- skillpack:usage:start -->
 ## Skillpack runtime
 
-Usage is observed locally by skillpack-runtime when installed through Skillpack. Package: f1567982-638a-46c1-9ab1-4379fa8eed44@0.7.0, origin: https://skillpack.app.
+Usage is observed locally by skillpack-runtime when installed through Skillpack. Package: f1567982-638a-46c1-9ab1-4379fa8eed44@0.8.0, origin: https://skillpack.app.
 Do not send activation reports, run tracking commands, or install hooks during this skill's execution. Setup and updates belong to Skillpack. Continue the task when collection is unavailable. SKILLPACK_TELEMETRY=0 disables collection for this session.
 <!-- skillpack:usage:end -->
 
@@ -52,7 +53,9 @@ You have freedom here. The plans are starting grids, the examples and `assets/ga
 
 ## 3. Keep the house look unless asked otherwise
 
-The default is the **signature** style: warm paper, a hand-lettered claim with a yellow highlighter, sans body text, grey context, one yellow hero, a burnt-orange voice for notes and the reading path. It is the skill's taste; use it whenever the request names no style and gives no strong signal.
+The default is the **signature** style: paper, a hand-lettered claim with a highlighter, sans body text, grey context, one hero in colour, a hand-lettered voice for notes and the reading path. It is the skill's taste; use it whenever the request names no style and gives no strong signal.
+
+Signature comes in six **moods** (pairs of hero and voice colours, all contrast-checked): `sun` (yellow / burnt orange), `coral` (coral / navy), `mint` (mint / fir green), `sky` (pale blue / cobalt), `lavender` (lavender / violet), `red-pen` (ink block / red pen). Pick the mood from the content (`references/styles.md`, "Signature moods"); when nothing points to one, use `G.mood_for(claim)` so that diagrams do not all come out yellow. Keep one mood across a deck or a series.
 
 Switch only on a signal (`references/styles.md`): **corporate** for a client or management deck that must look formal, **editorial** for posters and reports, **sketch** for workshops and informal internal drawings, **playful** for a general audience with a warm tone, **whiteboard** for agent and system maps in the classic Excalidraw look, **night** for dark slides, **mono** for print or "no colour". A named style always wins. Brand colours recolour the style's roles (`excalikit.set_palette`). The signature blocks work in every style, so changing style never means losing the composition.
 
@@ -60,7 +63,7 @@ Switch only on a signal (`references/styles.md`): **corporate** for a client or 
 
 ```python
 import signature as G                       # scripts/signature.py (put scripts/ and assets/ on sys.path)
-S, F, pal = G.setup("slide")                 # style="signature" by default; any style works
+S, F, pal = G.setup("slide", mood="sky")    # style="signature" by default (any style works); mood: see step 3
 Z = G.plan(F, "hero-right")                  # zones: title, main, hero, notes, footer
 G.claim_title(S, F, "A new hire ships in week two, never alone", mark="week two", sub="...")
 G.hero(S, *Z["hero"], "Week 2", kicker="the goal", body="a first real change", drawing=...)

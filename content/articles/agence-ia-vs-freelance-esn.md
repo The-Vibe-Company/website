@@ -6,6 +6,7 @@ translationKey: ai-agency-vs-freelancer-vs-it-services
 language: fr
 summary: "Agence IA ou freelance, ou ESN : le guide de décision par type de projet, avec les TJM sourcés, le coût complet, les risques et les cas où chacun gagne."
 publishedAt: 2026-10-30
+dateModified: 2026-11-10
 complexity: beginner
 topics: AI Adoption, Strategy
 coverImage: /images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp
@@ -13,22 +14,22 @@ coverAlt: "La mascotte tient une carte devant un panneau à trois flèches : un 
 ogImage: /images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp
 ---
 
-**La réponse courte.** Agence IA, freelance ou ESN : tout dépend du projet. Prenez un freelance pour une tâche IA précise que votre équipe saura reprendre : un connecteur, un pipeline d'extraction, un audit. Prenez une ESN pour ajouter des profils à une équipe qui sait déjà ce qu'elle construit, sur la durée. Prenez une agence IA quand il faut livrer un produit ou un agent complet en production, vite, sans avoir l'équipe en interne. Le bon choix dépend moins du tarif journalier que de trois questions : qui porte le résultat, qui pilote au quotidien, et qui reprend le système dans un an.
+**La réponse courte.** Agence IA, freelance ou ESN : tout dépend du projet. Prenez une agence IA quand il faut livrer un produit ou un agent complet en production, vite, sans avoir l'équipe en interne. Prenez un freelance pour une tâche IA précise que votre équipe saura reprendre : un connecteur, un pipeline d'extraction, un audit. Prenez une ESN pour ajouter des profils à une équipe qui sait déjà ce qu'elle construit, sur la durée. Le bon choix dépend moins du tarif journalier que de trois questions : qui porte le résultat, qui pilote au quotidien, et qui reprend le système dans un an.
 
 La plupart des comparatifs s'arrêtent au TJM. Pourtant, c'est le chiffre qui vous dit le moins de choses. Un freelance à 700 € par jour qui livre seul en six semaines peut coûter moins cher qu'une équipe à 1 000 € par jour. L'inverse arrive aussi, quand il faut piloter, recoller l'interface, la sécurité et l'infrastructure derrière lui. Ici, on part de votre projet, et le prestataire vient après.
 
 ## Le comparatif en un tableau
 
-| Critère | Freelance IA | ESN | Agence IA |
+| Critère | Agence IA | Freelance IA | ESN |
 |---|---|---|---|
-| Ce que vous achetez | du temps d'un expert | des profils, souvent en régie | un résultat livré par une équipe |
-| Qui pilote au quotidien | vous | vous, ou un chef de projet ESN | l'agence, avec un référent chez vous |
-| Démarrage | rapide si la personne est libre | quelques semaines (sourcing) | rapide |
-| Périmètre couvert | un sujet, en profondeur | large, selon les profils staffés | produit complet : front, back, IA, infra |
-| Montée en charge | limitée à une personne | forte | moyenne |
-| Mode de prix habituel | TJM | TJM, parfois forfait | forfait par lot ou régie plafonnée |
-| Risque principal | dépendance à une personne | profils interchangeables, pilotage lourd | dépendance si rien n'est transmis |
-| Gagne quand | le besoin tient en une phrase | le volume et la durée priment | il faut aller en production vite |
+| Ce que vous achetez | un résultat livré par une équipe | du temps d'un expert | des profils, souvent en régie |
+| Qui pilote au quotidien | l'agence, avec un référent chez vous | vous | vous, ou un chef de projet ESN |
+| Démarrage | rapide | rapide si la personne est libre | quelques semaines (sourcing) |
+| Périmètre couvert | produit complet : front, back, IA, infra | un sujet, en profondeur | large, selon les profils staffés |
+| Montée en charge | moyenne | limitée à une personne | forte |
+| Mode de prix habituel | forfait par lot ou régie plafonnée | TJM | TJM, parfois forfait |
+| Risque principal | dépendance si rien n'est transmis | dépendance à une personne | profils interchangeables, pilotage lourd |
+| Gagne quand | il faut aller en production vite | le besoin tient en une phrase | le volume et la durée priment |
 
 Ces cases décrivent des tendances. Ce ne sont pas des lois. Il existe des ESN très pointues en IA et des freelances qui travaillent en collectif. Regardez les projets livrés plutôt que l'étiquette.
 
@@ -60,6 +61,12 @@ Un projet IA ne reste jamais figé. Les modèles changent tous les quelques mois
 
 ## Quand chaque option gagne
 
+### L'agence IA gagne quand il faut aller en production vite
+
+Le cas typique : un produit ou un agent IA qui doit tourner dans vos outils, avec de vraies données, des droits d'accès et une mesure d'usage, en quelques semaines. Personne en interne n'a le temps ou l'ensemble des compétences. L'agence prend le résultat en charge avec une petite équipe qui couvre tout le chemin.
+
+Le risque : finir dépendant d'un système que personne chez vous ne comprend. Fixez dès le contrat la propriété du code, des prompts et des jeux de tests, et une transmission avec documentation et runbooks.
+
 ### Le freelance gagne quand le besoin tient en une phrase
 
 « Extraire les montants et les dates de nos contrats PDF vers notre ERP, avec un taux d'erreur mesuré sur 200 documents. » Ça, c'est un bon mandat de freelance. Le périmètre est clair, le critère de succès aussi, et quelqu'un chez vous saura faire tourner le résultat.
@@ -75,12 +82,6 @@ Pour un MVP, quand vous devez sortir une V1 et tester le marché, une petite éq
 Vous avez une équipe produit, une roadmap, et il vous manque des bras pendant dix-huit mois ? Une ESN sait fournir plusieurs profils, les remplacer, et passer vos achats et vos questionnaires de sécurité. C'est son métier.
 
 Le revers : en régie, vous pilotez. Si le besoin IA est encore flou, vous payez des jours pour le découvrir. Et la régie a un cadre légal : le code du travail interdit [toute opération à but lucratif ayant pour objet exclusif le prêt de main-d'œuvre](https://code.travail.gouv.fr/code-du-travail/l8241-1). Une prestation saine repose sur un vrai savoir-faire et un encadrement par le prestataire. Des consultants dirigés au quotidien comme des salariés, c'est autre chose. Votre service juridique et vos achats connaissent le sujet. Posez-leur la question avant de signer.
-
-### L'agence IA gagne quand il faut aller en production vite
-
-Le cas typique : un produit ou un agent IA qui doit tourner dans vos outils, avec de vraies données, des droits d'accès et une mesure d'usage, en quelques semaines. Personne en interne n'a le temps ou l'ensemble des compétences. L'agence prend le résultat en charge avec une petite équipe qui couvre tout le chemin.
-
-Le risque : finir dépendant d'un système que personne chez vous ne comprend. Fixez dès le contrat la propriété du code, des prompts et des jeux de tests, et une transmission avec documentation et runbooks.
 
 ## Huit situations, une recommandation
 

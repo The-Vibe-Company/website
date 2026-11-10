@@ -40,12 +40,36 @@ FORMATS = {
 
 # hero fill / stroke / text and highlighter colour per palette (the hero is the one big warm block)
 HERO = {"signature": ("#ffe066", None, None), "warm": ("#ffe8a3", None, None), "playful": ("#ffe066", None, None),
-        "whiteboard": ("#dbe4ff", None, None), "clean": (None, None, None), "ink": (None, None, None),
-        "night": (None, None, None), "mono": (None, None, None)}
+        "whiteboard": ("#dbe4ff", None, None), "notebook": ("#dcf5ae", None, None),
+        "clean": (None, None, None), "ink": (None, None, None), "night": (None, None, None),
+        "mono": (None, None, None)}
 MARK = {"signature": "#ffd43b", "warm": "#ffd43b", "playful": "#ffd43b", "whiteboard": "#ffe066",
-        "clean": "#d0bfff", "ink": "#b3c5f5", "night": "#0b7285", "mono": "#dcdcdc"}
+        "notebook": "#c0eb75", "clean": "#d0bfff", "ink": "#b3c5f5", "night": "#0b7285", "mono": "#dcdcdc"}
 
-_state = {"palette": "signature", "frame": None}
+# Colour moods of the signature style: (palette, hero fill or None for an ink block, highlighter). The grammar does
+# not change, only the pair of colours. Pick one from the content (references/styles.md, "Signature moods"); with no
+# signal, mood_for(claim) picks one so that two diagrams in a row do not wear the same colours.
+MOODS = {
+    "sun": ("signature", "#ffe066", "#ffd43b"),               # yellow hero, burnt-orange voice: the original
+    "coral": ("signature-coral", "#ffc4b8", "#ff9f8f"),       # coral hero, navy voice: people, warm, human topics
+    "mint": ("signature-mint", "#b8ecc8", "#8ce0a4"),         # mint hero, fir-green voice: growth, health, calm
+    "sky": ("signature-sky", "#cfe6ff", "#9fd0ff"),           # sky hero, cobalt voice: tech, systems, data
+    "lavender": ("signature-lavender", "#e4d7ff", "#cbb4ff"),  # lavender hero, violet voice: ideas, AI, product
+    "red-pen": ("signature-red-pen", None, "#ffc9c9"),        # ink hero, red-pen voice: reviews, rules, corrections
+}
+for _name, (_pal, _hero, _mark) in MOODS.items():
+    HERO.setdefault(_pal, (_hero, None, None))
+    MARK.setdefault(_pal, _mark)
+
+_state = {"palette": "signature", "frame": None, "mood": "sun"}
+
+
+def mood_for(text):
+    """A mood picked from a text (the claim): stable for the same diagram, different across diagrams. Use it when
+    the content gives no colour signal, instead of always falling back on sun."""
+    h = sum((i + 1) * ord(c) for i, c in enumerate(text or ""))
+    names = list(MOODS)
+    return names[h % len(names)]
 
 
 class Frame:
@@ -68,12 +92,23 @@ class Frame:
         return self.W * i / 3, self.H * j / 3
 
 
-def setup(fmt="slide", style="signature", palette=None):
+def setup(fmt="slide", style="signature", palette=None, mood=None):
     """House look on a fixed frame. Returns (Scene, Frame, palette dict). Any style works; signature is the
-    default."""
+    default. `mood` (signature only): sun, coral, mint, sky, lavender, red-pen; see MOODS and mood_for()."""
     import palettes
+    import doodles
+    if mood:
+        if mood not in MOODS:
+            raise ValueError(f"unknown mood {mood!r}; pick one of {', '.join(MOODS)}")
+        if style != "signature":
+            print(f"mood {mood!r} ignored: moods belong to the signature style, not {style}", file=sys.stderr)
+        elif not palette:
+            palette = MOODS[mood][0]
     S, pal = palettes.setup(style=style, palette=palette)
     _state["palette"] = pal["_style"]["palette"]
+    _state["mood"] = mood if (mood and style == "signature") else None
+    doodles.MARKER = MARK.get(_state["palette"])        # drawings highlight with the diagram's highlighter
+    doodles.HIGHLIGHT = doodles.MARKER or doodles.HIGHLIGHT
     F = Frame(fmt)
     _state["frame"] = F
     if F.min_text >= 28:                                # phone formats: big body text stays in the body font
@@ -234,7 +269,12 @@ def hero(S, x, y, w, h, word, kicker=None, body=None, fill=None, drawing=None, w
         S.text(tx, cy, body, 20, txt, align=align)
         cy += S.text_size(body, 20)[1]
     if drawing:
-        drawing(S, x, y, w, h)
+        import doodles
+        doodles.ON_DARK = doodles._lum(fill) < 0.2      # free-standing strokes switch to a light line on an ink hero
+        try:
+            drawing(S, x, y, w, h)
+        finally:
+            doodles.ON_DARK = False
     return (x, y, w, h)
 
 
