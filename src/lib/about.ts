@@ -45,12 +45,8 @@ export const ABOUT_TEAM: AboutTeamMember[] = [
   },
 ];
 
-/** Company accounts, the same three the footer already links to. */
-export const ABOUT_SOCIALS = [
-  { label: "LinkedIn", url: "https://linkedin.com/company/thevibeco" },
-  { label: "X", url: "https://x.com/thevibecompany" },
-  { label: "GitHub", url: "https://github.com/The-Vibe-Company" },
-];
+/** Company accounts, the same one the footer links to. */
+export const ABOUT_SOCIALS = [{ label: "GitHub", url: "https://github.com/The-Vibe-Company" }];
 
 /** The open-source engine the company grew out of. */
 export { QUIVR_REPO_URL } from "@/lib/quivr";

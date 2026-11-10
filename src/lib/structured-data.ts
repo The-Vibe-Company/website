@@ -105,10 +105,8 @@ export function organizationNode(locale: string): JsonLdNode {
       "Model Context Protocol",
     ],
     sameAs: [
-      "https://www.linkedin.com/company/thevibeco",
       "https://www.ycombinator.com/companies/the-vibe-company",
       "https://github.com/The-Vibe-Company",
-      "https://x.com/thevibecompany",
       // Quivr pivoted into The Vibe Company.
       "https://github.com/QuivrHQ",
       "https://www.linkedin.com/company/getquivr",

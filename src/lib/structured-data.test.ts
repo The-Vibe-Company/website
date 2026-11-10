@@ -61,10 +61,8 @@ describe("site graph", () => {
         "Model Context Protocol",
       ],
       sameAs: [
-        "https://www.linkedin.com/company/thevibeco",
         "https://www.ycombinator.com/companies/the-vibe-company",
         "https://github.com/The-Vibe-Company",
-        "https://x.com/thevibecompany",
         "https://github.com/QuivrHQ",
         "https://www.linkedin.com/company/getquivr",
       ],
