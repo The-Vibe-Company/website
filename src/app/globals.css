@@ -754,6 +754,25 @@
   }
 }
 
+/* Article body images are capped at 30rem (480px) and centred so they stop
+   filling the reading column; below 480px they keep 100% of the column. Scoped
+   to the article page wrapper, so the cover (outside the prose) and skill pages
+   are untouched. `width` rather than `max-width` keeps any narrower opt-in cap
+   (e.g. a diagram modifier's `max-width`) in charge. Placed after the gallery
+   rules: grid figures still fill their track, which is already under 480px on
+   desktop. */
+.prose-vibe-article .prose-vibe-image {
+  width: min(100%, 30rem);
+  margin-inline: auto;
+}
+
+/* Bare images not wrapped in a figure (avatar logos live in a span). */
+.prose-vibe-article .prose-vibe img:not(figure img, span img) {
+  display: block;
+  max-width: min(100%, 30rem);
+  margin-inline: auto;
+}
+
 /* Warm variant for resources pages */
 .prose-vibe-warm {
   color: var(--res-text);
