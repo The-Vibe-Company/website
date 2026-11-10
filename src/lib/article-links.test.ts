@@ -1,4 +1,6 @@
 import { expect, test } from 'bun:test'
+import { existsSync } from 'node:fs'
+import path from 'node:path'
 import { getContentByType, getContentItem } from './content-source'
 import { ABOUT_ORIGIN_ARTICLE_LOCALE, ABOUT_ORIGIN_ARTICLE_PATH } from './about'
 
@@ -13,6 +15,13 @@ test('article body links use a locale and the target article canonical URL', () 
     ]
     for (const [, href] of links) {
       if (href.startsWith('//')) continue
+      // Downloadable templates are public assets shared across locale routes.
+      if (/^\/downloads\/[a-z0-9-]+\.(?:csv|xlsx)$/.test(href)) {
+        if (!existsSync(path.join(process.cwd(), 'public', href.slice(1)))) {
+          invalid.push(`${article.slug}: ${href} is missing`)
+        }
+        continue
+      }
       if (!/^\/(fr|en)(\/|[?#]|$)/.test(href)) {
         invalid.push(`${article.slug}: ${href} lacks locale`)
         continue

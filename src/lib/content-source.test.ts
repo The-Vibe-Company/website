@@ -1,4 +1,5 @@
-import { describe, expect, test } from "bun:test";
+import fs from "fs";
+import { describe, expect, spyOn, test } from "bun:test";
 
 import {
   getCanonicalContentForLanguage,
@@ -79,5 +80,40 @@ describe("plain-text article metadata", () => {
     const untouched = getContentByType('article').find((entry) => entry.slug === 'enterprise-rag');
     expect(untouched?.seoDescription).toBeUndefined();
     expect(toPlainText(untouched!.summary)).toBe(untouched!.summary);
+  });
+});
+
+describe("frontmatter modification dates", () => {
+  test("preserves an explicit modification date through the loader", () => {
+    const read = fs.readFileSync.bind(fs);
+    const spy = spyOn(fs, "readFileSync").mockImplementation(((...args: Parameters<typeof fs.readFileSync>) => {
+      const result = read(...args);
+      if (String(args[0]).endsWith("/meilleure-agence-ia-comparatif.md") && typeof result === "string") {
+        return result.replace(/^dateModified:.*\n/gm, "").replace(/^---/, "---\ndateModified: 2026-11-10");
+      }
+      return result;
+    }) as typeof fs.readFileSync);
+    try {
+      const article = getContentByType("article").find((item) => item.slug === "meilleure-agence-ia-comparatif");
+      expect(article?.dateModified).toBe("2026-11-10");
+      expect(article?.publishedAt).toBe("2026-11-04");
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  test("leaves the modification date optional when absent", () => {
+    const read = fs.readFileSync.bind(fs);
+    const spy = spyOn(fs, "readFileSync").mockImplementation(((...args: Parameters<typeof fs.readFileSync>) => {
+      const result = read(...args);
+      return typeof result === "string" ? result.replace(/^dateModified:.*\n/gm, "") : result;
+    }) as typeof fs.readFileSync);
+    try {
+      const article = getContentByType("article").find((item) => item.slug === "meilleure-agence-ia-comparatif");
+      expect(article).toBeDefined();
+      expect(article?.dateModified).toBeUndefined();
+    } finally {
+      spy.mockRestore();
+    }
   });
 });
