@@ -1,0 +1,41 @@
+src/app/[locale]/template.tsx
+  s_28596ae7352f69::t_5acea62f378601 1-5
+src/app/[locale]/portfolio/template.tsx
+  s_28596ae7352f69::t_5acea62f378601 1-5
+src/app/[locale]/resources/[type]/template.tsx
+  s_28596ae7352f69::t_5acea62f378601 1-5
+src/components/PageTransition.tsx
+  s_28596ae7352f69::t_818caea3a285a5 1-16
+next.config.ts
+  s_28596ae7352f69::t_c29c3c66ddf4f1 18-19
+src/app/[locale]/case-studies/template.tsx
+  s_28596ae7352f69::t_5acea62f378601 1-5
+DESIGN.md
+  s_28596ae7352f69::t_040d619b995737 173-176,519
+src/app/[locale]/resources/skills/template.tsx
+  s_28596ae7352f69::t_5acea62f378601 1-5
+src/app/[locale]/resources/template.tsx
+  s_28596ae7352f69::t_5acea62f378601 1-5
+src/components/TopNav.tsx
+  s_28596ae7352f69::t_aeab2988485b2d 210
+src/app/globals.css
+  s_28596ae7352f69::t_0fed708548d258 835-837,840-860,863-867,879-895,897-902,911-926
+  s_28596ae7352f69::t_26517fd1c1aca9 896,903-910
+  s_28596ae7352f69::t_712d5638eff9a6 861-862,868-878
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2dea856805e89cd251134a410b574b4929fd72ea",
+  "prompts": {},
+  "sessions": {
+    "s_28596ae7352f69": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "50db2a54-6f06-4033-9d0a-517ddeea355a",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
