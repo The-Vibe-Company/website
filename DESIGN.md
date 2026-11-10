@@ -170,6 +170,10 @@ motion:
   normal: "0.7s"
   slow: "1.1s"
   smooth-ease: "cubic-bezier(0.16, 1, 0.3, 1)"
+  exit-ease: "cubic-bezier(0.4, 0, 1, 1)"
+  page-exit: "0.18s"
+  page-enter: "0.42s"
+  page-enter-delay: "0.08s"
   marquee: "20s linear infinite"
 components:
   page-background:
@@ -513,6 +517,8 @@ Navigation and overlays use translucent ink with backdrop blur and stay crisp. P
 
 Inverse bands are raised ink panels (#141415) set between hairlines. In code they swap the page's two main tokens, so everything inside written as "ink on paper" draws as paper on raised ink. Keyboard focus rings follow the surface: two pixels of paper on the page, and paper again inside an inverse band, so focus never disappears.
 
+Moving between pages is the one place depth moves. The page being left lifts off by 12px and fades out in 0.18s on a sharp ease-in; a beat later (0.08s) the next page rises 24px into place and fades in over 0.42s on the smooth ease-out. The nav bar never takes part: it stays exactly where it is, already showing the new active link, so only the page under it changes, over the ink background. A change inside a page (a search query, a filter) does not animate, the browser's back button swaps pages instantly, and with reduced motion requested the pages simply cross-fade in a fraction of that time without moving.
+
 ## Shapes
 
 The shape language is sharp. Containers, cards, inputs, labels, and tags use square corners. Slab calls to action round their corners by just 2px, enough to read as a pressable object without softening the system.
@@ -576,6 +582,7 @@ Rules and dividers are part of the visual language. Use the hairline for routine
 - Do keep orange small and meaningful: the status square, an active underline, the lamp bar, the blooms, and the lit gradient on a few chosen words and figures.
 - Do reserve Geist Mono for metadata and operational UI, not long-form prose.
 - Do use square corners for content surfaces and 2px corners for slab CTAs.
+- Do keep page changes short and vertical: the old page lifts away, the new one rises, the nav stays put.
 - Do draw client logos in the band's own ink (paper on ink, ink on paper), and preserve partner-logo and product-screenshot aspect ratios at every breakpoint.
 - Don't turn an inverse band into a paper slab; inverse means raised ink. Don't nest a raised-ink panel inside a paper band: emphasis on paper is a lamp card, and emphasis between paper bands is an ink band.
 - Don't bring back offset "brutal" hover shadows or hover translations on cards and buttons.

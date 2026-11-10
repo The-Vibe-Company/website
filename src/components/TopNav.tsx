@@ -207,7 +207,8 @@ function TopNavInner({
         aria-label={tA11y("mainNavigation")}
         aria-hidden={mobileMenuActive || undefined}
         inert={mobileMenuActive || undefined}
-        className="sticky top-0 left-0 right-0 z-[60] bg-background/85 px-6 backdrop-blur-xl md:px-10 lg:px-16"
+        // site-nav: held still while the page under it changes (globals.css).
+        className="site-nav sticky top-0 left-0 right-0 z-[60] bg-background/85 px-6 backdrop-blur-xl md:px-10 lg:px-16"
         initial={hasPlayedEntrance ? false : { opacity: 0, y: -20 }}
         onAnimationComplete={() => {
           hasPlayedEntrance = true;

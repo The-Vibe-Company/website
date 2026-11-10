@@ -832,6 +832,98 @@
   }
 }
 
+/* -----------------------------------------------------------------------------
+   Page transitions (React <ViewTransition>, see PageTransition.tsx)
+   The page being left lifts off and fades; the next one rises into place a
+   beat later. The nav bar is captured on its own and held still, so only the
+   content under it moves, over the ink of the body.
+   ----------------------------------------------------------------------------- */
+.site-nav {
+  view-transition-name: site-nav;
+}
+
+::view-transition-group(site-nav) {
+  z-index: 1;
+  animation: none;
+}
+
+/* Same bar on both pages: show the new one straight away (its active link
+   included) instead of cross-fading two copies of it. */
+::view-transition-old(site-nav) {
+  animation: none;
+  opacity: 0;
+}
+
+::view-transition-new(site-nav) {
+  animation: none;
+}
+
+/* Kept as separate rules: a browser that rejects one of these selectors
+   drops the whole list it sits in. */
+::view-transition-old(.page-exit) {
+  animation: page-exit 180ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+::view-transition-new(.page-enter) {
+  animation: page-enter 420ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+}
+
+/* A page without the bar (the Ensemble landing): the bar leaves or arrives
+   with the page. */
+::view-transition-old(site-nav):only-child {
+  opacity: 1;
+  animation: page-exit 180ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+::view-transition-new(site-nav):only-child {
+  animation: page-enter 420ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+}
+
+@keyframes page-exit {
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+/* Reduced motion: the pages still trade places, by a short fade alone. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(.page-exit) {
+    animation: page-fade-out 120ms linear both;
+  }
+
+  ::view-transition-new(.page-enter) {
+    animation: page-fade-in 160ms linear both;
+  }
+
+  ::view-transition-old(site-nav):only-child {
+    animation: page-fade-out 120ms linear both;
+  }
+
+  ::view-transition-new(site-nav):only-child {
+    animation: page-fade-in 160ms linear both;
+  }
+}
+
+@keyframes page-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
 /* Global scrollbar styling - browser-specific, not possible with Tailwind */
 ::-webkit-scrollbar {
   width: 8px;
