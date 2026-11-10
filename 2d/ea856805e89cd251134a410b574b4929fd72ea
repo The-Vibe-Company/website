@@ -12,16 +12,20 @@ src/app/[locale]/case-studies/template.tsx
   s_28596ae7352f69::t_5acea62f378601 1-5
 DESIGN.md
   s_28596ae7352f69::t_040d619b995737 173-176,519
+  s_28596ae7352f69::t_b35dff0565017e 521
+  s_28596ae7352f69::t_17f046e5b6b26c 520,585
 src/app/[locale]/resources/skills/template.tsx
   s_28596ae7352f69::t_5acea62f378601 1-5
 src/app/[locale]/resources/template.tsx
   s_28596ae7352f69::t_5acea62f378601 1-5
 src/components/TopNav.tsx
   s_28596ae7352f69::t_aeab2988485b2d 210
+  s_28596ae7352f69::t_e9b46a84c7adab 211
 src/app/globals.css
   s_28596ae7352f69::t_0fed708548d258 835-837,840-860,863-867,879-895,897-902,911-926
   s_28596ae7352f69::t_26517fd1c1aca9 896,903-910
   s_28596ae7352f69::t_712d5638eff9a6 861-862,868-878
+  s_28596ae7352f69::t_b35dff0565017e 838-839
 ---
 {
   "schema_version": "authorship/3.0.0",
