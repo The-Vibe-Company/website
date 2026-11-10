@@ -6,14 +6,15 @@ language: en
 translationKey: choose-ai-agency
 summary: "How to choose an AI agency: four options, fixed price vs time and materials, POC checklist, 10 questions before you sign."
 publishedAt: 2026-10-13
+dateModified: 2026-11-10
 complexity: beginner
 topics: AI Adoption, AI Agents, Strategy
 coverImage: /images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp
-coverAlt: "Four paths lead from one AI project: in-house team, freelancer, IT services firm and AI agency"
+coverAlt: "Four paths lead from one AI project: AI agency, freelancer, in-house team and IT services firm"
 ogImage: /images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp
 ---
 
-**How to choose an AI agency:** compare four options (in-house, freelancer, IT firm, AI agency), demand a short fixed-price scoping phase then short batches, judge the POC on real data, and ask the 10 questions below before you sign.
+**How to choose an AI agency:** compare four options (AI agency, freelancer, in-house, IT firm), demand a short fixed-price scoping phase then short batches, judge the POC on real data, and ask the 10 questions below before you sign.
 
 Anyone can build an AI demo. A tool your teams still use six months later is much rarer.
 
@@ -29,22 +30,22 @@ So choosing a partner really means choosing who can get your project there. Here
 
 ## The four options at a glance
 
-| | In-house team | Freelancer | IT services firm | AI agency |
+| | AI agency | Freelancer | In-house team | IT services firm |
 |---|---|---|---|---|
-| Time to start | slow (hiring) | fast | medium | fast |
-| AI specialization | depends on hires | strong on one topic | varies by profile | core business |
-| Full product (front, back, infra) | if the team is complete | rarely alone | yes | yes, if the team is cross-functional |
-| Scaling headcount | slow | limited | strong | medium |
-| Knowledge of your business | best | to build | to build | to build |
-| Usual contract | employment | time and materials (day rate) | time and materials, sometimes fixed price | fixed price or time and materials |
-| Main risk | delays, retention | single-person dependency | interchangeable profiles | dependency if nothing is handed over |
+| Time to start | fast | fast | slow (hiring) | medium |
+| AI specialization | core business | strong on one topic | depends on hires | varies by profile |
+| Full product (front, back, infra) | yes, if the team is cross-functional | rarely alone | if the team is complete | yes |
+| Scaling headcount | medium | limited | slow | strong |
+| Knowledge of your business | to build | to build | best | to build |
+| Usual contract | fixed price or time and materials | time and materials (day rate) | employment | time and materials, sometimes fixed price |
+| Main risk | dependency if nothing is handed over | single-person dependency | delays, retention | interchangeable profiles |
 
 In short:
 
-- **In-house team**: the goal if AI is your competitive edge. Trap: hiring before validating a first use case.
-- **Freelancer**: unbeatable on a precise task (a connector, an automation, an audit). Struggles when you need interface, backend, infrastructure and security at once, or continuity if that person leaves.
-- **IT services firm**: staffs people at scale and passes procurement and security easily. Good to reinforce a team on a known scope.
 - **AI agency**: a small team covering the whole path from idea to production. Good to ship fast or validate a use case before bringing it in-house.
+- **Freelancer**: unbeatable on a precise task (a connector, an automation, an audit). Struggles when you need interface, backend, infrastructure and security at once, or continuity if that person leaves.
+- **In-house team**: the goal if AI is your competitive edge. Trap: hiring before validating a first use case.
+- **IT services firm**: staffs people at scale and passes procurement and security easily. Good to reinforce a team on a known scope.
 
 You can also mix: an agency that builds and trains while you hire, a freelancer who takes over maintenance of a system an agency delivered.
 
