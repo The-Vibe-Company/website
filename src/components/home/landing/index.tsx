@@ -1,6 +1,5 @@
 import type { RunnerItem } from "@/lib/runner-worlds";
 import { FinalCTA } from "../FinalCTA";
-import styles from "./landing.module.css";
 import { Clientele } from "./Clientele";
 import { LandingHero } from "./LandingHero";
 import { LitQuote } from "./LitQuote";
@@ -17,7 +16,7 @@ import { Workbench } from "./Workbench";
 export function Landing({ runnerItems }: { runnerItems: RunnerItem[] }) {
   return (
     <>
-      <div aria-hidden="true" className={styles.grain} />
+      <div aria-hidden="true" className="landing-grain" />
       <LandingHero runnerItems={runnerItems} />
       <div data-surface="paper">
         <Clientele />

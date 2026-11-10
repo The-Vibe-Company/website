@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 import { BrandSquare } from "@/components/BrandSquare";
 import { Backers } from "@/components/home/Backers";
 import { FitText } from "@/components/home/FitText";
-import styles from "@/components/home/landing/landing.module.css";
 import { keepPunctuationAttached } from "@/lib/french-spacing";
 
 const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
@@ -15,8 +14,9 @@ const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
  * on the left, and the mascot standing on the right in its orange light,
  * cut at the chest by the paper band that follows.
  *
- * The h1 holds both lines; the short headline is hidden from assistive
- * technology, so the page's name is read once, as its full title.
+ * The short headline sits just before the h1, outside it and hidden from
+ * assistive technology; the h1 holds only the page's full title, so the
+ * heading search engines and screen readers see is that title alone.
  */
 export function ServiceHero({
   kicker,
@@ -55,12 +55,15 @@ export function ServiceHero({
           {kicker}
         </p>
 
+        <p
+          aria-hidden="true"
+          className="mt-8 block font-bold leading-[0.86] text-foreground [container-type:inline-size] lg:mt-10"
+        >
+          <FitText trackingEm={-0.055} className="-ml-[0.04em] transition-none">
+            {display}
+          </FitText>
+        </p>
         <h1 className="m-0 font-bold text-foreground">
-          <span aria-hidden="true" className="mt-8 block leading-[0.86] [container-type:inline-size] lg:mt-10">
-            <FitText trackingEm={-0.055} className="-ml-[0.04em] transition-none">
-              {display}
-            </FitText>
-          </span>
           <span className="relative z-20 mt-10 block max-w-[24ch] text-[clamp(1.6rem,2.5vw,2.25rem)] font-medium leading-[1.12] tracking-[-0.03em] lg:mt-[58px]">
             {keepPunctuationAttached(title)}
           </span>
@@ -85,8 +88,10 @@ export function ServiceHero({
               alt=""
               width={488}
               height={672}
-              sizes="280px"
-              className={`absolute left-1/2 top-0 w-[280px] max-w-none -translate-x-1/2 ${styles.float}`}
+              priority
+              fetchPriority="high"
+              sizes="(min-width: 1024px) 0px, 280px"
+              className="absolute left-1/2 top-0 w-[280px] max-w-none -translate-x-1/2 landing-float"
             />
           </div>
 
@@ -101,7 +106,7 @@ export function ServiceHero({
                 height={672}
                 priority
                 sizes="(min-width: 1024px) 470px, 0px"
-                className={`h-auto w-full ${styles.float}`}
+                className="h-auto w-full landing-float"
               />
             </div>
           </div>

@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import { CLIENTS } from "../Clients";
 import { clientLogoSize } from "@/lib/client-logos";
 import { cn } from "@/lib/design-system";
-import styles from "./landing.module.css";
 
 /**
  * The client logos running in a loop along the top edge of the paper, with
@@ -16,8 +15,8 @@ export function Clientele() {
   const t = useTranslations("clients");
   return (
     <section aria-label={t("trustedBy")} className="border-b border-border bg-background">
-      <div className={cn("group relative overflow-hidden py-10 md:py-12", styles.edges)}>
-        <div className={cn("flex w-max", styles.marquee)}>
+      <div className={cn("group relative overflow-hidden py-10 md:py-12", "landing-edges")}>
+        <div className={cn("flex w-max", "landing-marquee")}>
           {[0, 1].map((copy) => (
             <ul
               key={copy}
