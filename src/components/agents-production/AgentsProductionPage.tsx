@@ -365,7 +365,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
               {AGENTS_PRODUCTION_METHOD_STEPS.map((step) => (
                 <li
                   key={step.n}
-                  className="grid grid-cols-1 gap-4 border-b border-border py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
                     <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
@@ -515,11 +515,11 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
           <section className={`${BAND} border-t border-border`}>
             <h2 className={H2}>{t("faq.title")}</h2>
 
-            <div className="mt-12 border-t border-border md:mt-16">
+            <div className="mt-12 md:mt-16">
               {AGENTS_PRODUCTION_FAQ_KEYS.map((key) => (
                 <article
                   key={key}
-                  className="grid grid-cols-1 gap-3 border-b border-border py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
                 >
                   <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
                     {t(`faq.items.${key}.q`)}
@@ -553,7 +553,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
             <div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-2 md:gap-16">
               <div>
                 <span className={MONO}>{t("further.readingLabel")}</span>
-                <ul className="m-0 mt-4 list-none border-t border-border p-0">
+                <ul className="m-0 mt-4 list-none p-0">
                   {reading.map((item) => (
                     <li key={item.key} className="border-b border-border">
                       <Link

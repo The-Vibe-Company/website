@@ -268,11 +268,11 @@ export default async function PortfolioProjectPage({
               </div>
               <div className={`${STORY_ROW} mt-14 border-t border-border pt-14 md:mt-20 md:pt-20`}>
                 <h2 className={STORY_H2}>{t("storyHow")}</h2>
-                <ul className="m-0 flex max-w-[760px] list-none flex-col border-t border-border p-0">
+                <ul className="m-0 flex max-w-[760px] list-none flex-col p-0">
                   {project.story.how.map((step, i) => (
                     <li
                       key={step}
-                      className="grid grid-cols-[2.75rem_1fr] gap-4 border-b border-border py-6 md:grid-cols-[3.5rem_1fr] md:gap-6"
+                      className="grid grid-cols-[2.75rem_1fr] gap-4 py-6 md:grid-cols-[3.5rem_1fr] md:gap-6"
                     >
                       <span
                         aria-hidden="true"

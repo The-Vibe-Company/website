@@ -222,11 +222,11 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
             <div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-2 md:gap-16">
               <div>
                 <span className={MONO}>{t("audience.signalsLabel")}</span>
-                <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
+                <ul className="m-0 mt-4 flex list-none flex-col p-0">
                   {t.raw("audience.signals").map((signal: string) => (
                     <li
                       key={signal}
-                      className="flex gap-3 border-b border-border py-4 text-[17px] leading-[1.45] text-foreground"
+                      className="flex gap-3 py-4 text-[17px] leading-[1.45] text-foreground"
                     >
                       <span aria-hidden="true" className={DASH} />
                       <span>{signal}</span>
@@ -236,7 +236,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
               </div>
               <div>
                 <span className={MONO}>{t("audience.sectorsLabel")}</span>
-                <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
+                <ul className="m-0 mt-4 flex list-none flex-col p-0">
                   {cases.map((customer) => (
                     <li key={customer.slug} className="border-b border-border">
                       <Link
@@ -278,7 +278,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
               {AGENCY_PARIS_STEPS.map((step) => (
                 <li
                   key={step.n}
-                  className="grid grid-cols-1 gap-4 border-b border-border py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
                     <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
@@ -386,11 +386,11 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
             <h2 className={H2}>{t("security.title")}</h2>
             <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("security.intro")}</p>
 
-            <div className="mt-12 border-t border-border md:mt-16">
+            <div className="mt-12 md:mt-16">
               {AGENCY_PARIS_SECURITY_KEYS.map((key, i) => (
                 <article
                   key={key}
-                  className="grid grid-cols-1 gap-3 border-b border-border py-8 md:grid-cols-[96px_minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[96px_minmax(0,420px)_1fr] md:gap-12 md:py-10"
                 >
                   <span className="text-lit text-[40px] font-bold leading-none tracking-[-0.05em]">
                     {String(i + 1).padStart(2, "0")}
@@ -453,11 +453,11 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
           <section className={`${BAND} border-t border-border`}>
             <h2 className={H2}>{t("faq.title")}</h2>
 
-            <div className="mt-12 border-t border-border md:mt-16">
+            <div className="mt-12 md:mt-16">
               {AGENCY_PARIS_FAQ_KEYS.map((key) => (
                 <article
                   key={key}
-                  className="grid grid-cols-1 gap-3 border-b border-border py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
                 >
                   <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
                     {t(`faq.items.${key}.q`)}
@@ -504,7 +504,7 @@ function CasePoints({ points }: { points: string[] }) {
       {points.map((point) => (
         <li
           key={point}
-          className="flex gap-3 border-b border-border py-3 text-[15px] leading-[1.5] text-foreground last:border-b-0"
+          className="flex gap-3 py-3 text-[15px] leading-[1.5] text-foreground"
         >
           <span aria-hidden="true" className="font-mono text-brand">
             →

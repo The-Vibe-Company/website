@@ -169,11 +169,11 @@ export async function AboutPage({ locale }: { locale: string }) {
             <h2 className={H2}>{t("edge.title")}</h2>
             <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("edge.intro")}</p>
 
-            <div className="mt-12 border-t border-border md:mt-16">
+            <div className="mt-12 md:mt-16">
               {ABOUT_EDGE_KEYS.map((key) => (
                 <article
                   key={key}
-                  className="grid grid-cols-1 gap-5 border-b border-border py-9 md:grid-cols-[minmax(0,380px)_1fr] md:gap-12 md:py-12"
+                  className="grid grid-cols-1 gap-5 py-9 md:grid-cols-[minmax(0,380px)_1fr] md:gap-12 md:py-12"
                 >
                   <div>
                     <div className="text-lit text-[clamp(2.75rem,5vw,4.5rem)] font-bold leading-[0.95] tracking-[-0.05em]">
@@ -313,7 +313,7 @@ export async function AboutPage({ locale }: { locale: string }) {
               {ABOUT_PROCESS_STEPS.map((step) => (
                 <li
                   key={step.n}
-                  className="grid grid-cols-1 gap-4 border-b border-border py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
                     <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
@@ -468,11 +468,11 @@ export async function AboutPage({ locale }: { locale: string }) {
           <section className={`${BAND} border-t border-border`}>
             <h2 className={H2}>{t("faq.title")}</h2>
 
-            <div className="mt-12 border-t border-border md:mt-16">
+            <div className="mt-12 md:mt-16">
               {ABOUT_FAQ_KEYS.map((key) => (
                 <article
                   key={key}
-                  className="grid grid-cols-1 gap-3 border-b border-border py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
                 >
                   <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
                     {t(`faq.items.${key}.q`)}

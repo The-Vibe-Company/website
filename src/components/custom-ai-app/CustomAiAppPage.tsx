@@ -329,7 +329,7 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
                       {(t.raw(`cases.${key}.points`) as string[]).map((point) => (
                         <li
                           key={point}
-                          className="flex gap-3 border-b border-border py-4 text-[15px] leading-[1.55] text-foreground last:border-b-0 md:text-base"
+                          className="flex gap-3 py-4 text-[15px] leading-[1.55] text-foreground md:text-base"
                         >
                           <span aria-hidden="true" className="font-mono text-brand">
                             →
@@ -362,11 +362,11 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
             <h2 className={H2}>{t("method.title")}</h2>
             <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("method.intro")}</p>
 
-            <ol className="m-0 mt-14 flex list-none flex-col border-t border-border p-0 md:mt-16">
+            <ol className="m-0 mt-14 flex list-none flex-col p-0 md:mt-16">
               {CUSTOM_AI_APP_METHOD_STEPS.map((step) => (
                 <li
                   key={step.n}
-                  className="grid grid-cols-1 gap-4 border-b border-border py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <span className="text-lit self-start text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
                     {step.n}
@@ -391,11 +391,11 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
           <section className={BAND}>
             <h2 className={H2}>{t("faq.title")}</h2>
 
-            <div className="mt-12 border-t border-border md:mt-16">
+            <div className="mt-12 md:mt-16">
               {CUSTOM_AI_APP_FAQ_KEYS.map((key) => (
                 <article
                   key={key}
-                  className="grid grid-cols-1 gap-3 border-b border-border py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
                 >
                   <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
                     {t(`faq.items.${key}.q`)}

@@ -495,7 +495,7 @@ Pages are a sequence of full-width bands that alternate ink and warm paper, with
 
 Rules stop at the gutters. The hairline under the nav and the hero's floor run between the page margins rather than edge to edge, so the page reads as a framed sheet. Full-bleed rules are kept for bands that are themselves full-bleed, such as the client logo marquee.
 
-Sections use large vertical spacing, typically 80px on phones and 112-128px on desktop; sections inside one band are separated by a hairline rather than by a change of colour. Layouts should feel roomy at the band level but dense inside components. Cards and rows use strong alignment, hairline dividers, and predictable columns.
+Sections use large vertical spacing, typically 80px on phones and 112-128px on desktop; sections inside one band are separated by a hairline rather than by a change of colour. Layouts should feel roomy at the band level but dense inside components. Cards and rows use strong alignment and predictable columns. Lists (questions and answers, steps, bullet points) separate their rows with space, not rules: a hairline closes a band or a section, frames a card, or rules a real table (key facts, contact details), and never sits under every row of a list.
 
 A faint 40px technical grid may sit behind reading-light pages as a fixed overlay, drawn in the hairline colour at low opacity; it is never placed behind the hero.
 

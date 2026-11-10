@@ -204,11 +204,11 @@ export async function MediaAiPage({ locale }: { locale: string }) {
             <div className="mt-12 grid grid-cols-1 gap-10 md:mt-16 md:grid-cols-2 md:gap-12">
               <div>
                 <span className={MONO}>{t("audience.typesLabel")}</span>
-                <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
+                <ul className="m-0 mt-4 flex list-none flex-col p-0">
                   {MEDIA_AUDIENCE_KEYS.map((key, i) => (
                     <li
                       key={key}
-                      className="flex items-baseline gap-4 border-b border-border py-4 text-[17px] leading-[1.45] text-foreground"
+                      className="flex items-baseline gap-4 py-4 text-[17px] leading-[1.45] text-foreground"
                     >
                       <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
                         {String(i + 1).padStart(2, "0")}
@@ -220,11 +220,11 @@ export async function MediaAiPage({ locale }: { locale: string }) {
               </div>
               <div>
                 <span className={MONO}>{t("audience.signalsLabel")}</span>
-                <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
+                <ul className="m-0 mt-4 flex list-none flex-col p-0">
                   {(t.raw("audience.signals") as string[]).map((signal) => (
                     <li
                       key={signal}
-                      className="flex gap-3 border-b border-border py-4 text-[17px] leading-[1.45] text-foreground"
+                      className="flex gap-3 py-4 text-[17px] leading-[1.45] text-foreground"
                     >
                       <span aria-hidden="true" className={DASH} />
                       <span>{signal}</span>
@@ -270,11 +270,11 @@ export async function MediaAiPage({ locale }: { locale: string }) {
             <h2 className={`${H2} max-w-[20ch]`}>{t("proof.title")}</h2>
             <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("proof.intro")}</p>
 
-            <div className="mt-12 border-t border-border md:mt-16">
+            <div className="mt-12 md:mt-16">
               {MEDIA_PROOF_KEYS.map((key, i) => (
                 <article
                   key={key}
-                  className="grid grid-cols-1 gap-4 border-b border-border py-8 md:grid-cols-[160px_minmax(0,1fr)] md:items-baseline md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[160px_minmax(0,1fr)] md:items-baseline md:gap-12 md:py-10"
                 >
                   <span className="text-lit self-start text-5xl font-bold leading-none tracking-[-0.05em] md:text-[64px]">
                     {String(i + 1).padStart(2, "0")}
@@ -341,7 +341,7 @@ export async function MediaAiPage({ locale }: { locale: string }) {
                   {(t.raw("afp.points") as string[]).map((point) => (
                     <li
                       key={point}
-                      className="flex gap-3 border-b border-border py-4 text-[15px] leading-[1.55] text-foreground last:border-b-0 md:text-base"
+                      className="flex gap-3 py-4 text-[15px] leading-[1.55] text-foreground md:text-base"
                     >
                       <span aria-hidden="true" className="font-mono text-brand">
                         →
@@ -370,11 +370,11 @@ export async function MediaAiPage({ locale }: { locale: string }) {
           <div className={`relative ${BAND}`}>
             <h2 className={H2}>{t("method.title")}</h2>
 
-            <ol className="m-0 mt-14 flex list-none flex-col border-t border-border p-0 md:mt-16">
+            <ol className="m-0 mt-14 flex list-none flex-col p-0 md:mt-16">
               {MEDIA_METHOD_STEPS.map((step) => (
                 <li
                   key={step.n}
-                  className="grid grid-cols-1 gap-4 border-b border-border py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <span className="text-lit self-start text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
                     {step.n}
@@ -401,11 +401,11 @@ export async function MediaAiPage({ locale }: { locale: string }) {
           <section className={BAND}>
             <h2 className={H2}>{t("faq.title")}</h2>
 
-            <div className="mt-12 border-t border-border md:mt-16">
+            <div className="mt-12 md:mt-16">
               {MEDIA_FAQ_KEYS.map((key) => (
                 <article
                   key={key}
-                  className="grid grid-cols-1 gap-3 border-b border-border py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
                 >
                   <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
                     {t(`faq.items.${key}.q`)}

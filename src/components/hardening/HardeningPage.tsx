@@ -80,7 +80,7 @@ const H2 =
 const H2_SPLIT =
   "m-0 max-w-[16ch] font-bold text-foreground text-[clamp(2.25rem,4.4vw,4rem)] leading-[0.95] tracking-[-0.04em]";
 const PROOF_POINT =
-  "m-0 border-b border-border py-5 text-[15px] leading-[1.6] text-foreground md:text-[17px] md:leading-[1.5]";
+  "m-0 py-5 text-[15px] leading-[1.6] text-foreground md:text-[17px] md:leading-[1.5]";
 const MONO =
   "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
 const PROSE = "m-0 text-[15px] leading-[1.6] text-muted-foreground md:text-base";
@@ -271,7 +271,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
               {HARDENING_METHOD_STEPS.map((step) => (
                 <li
                   key={step.n}
-                  className="grid grid-cols-1 gap-4 border-b border-border py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
                     <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
@@ -301,7 +301,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
           <section className={BAND}>
             <h2 className={H2}>{t("proof.title")}</h2>
 
-            <ul className="m-0 mt-12 flex max-w-[860px] list-none flex-col border-t border-border p-0 md:mt-16">
+            <ul className="m-0 mt-12 flex max-w-[860px] list-none flex-col p-0 md:mt-16">
               <li className={PROOF_POINT}>
                 {t("proof.points.production")}
               </li>
@@ -377,11 +377,11 @@ export async function HardeningPage({ locale }: { locale: string }) {
           <section className={`${BAND} border-t border-border`}>
             <h2 className={H2}>{t("faq.title")}</h2>
 
-            <div className="mt-12 border-t border-border md:mt-16">
+            <div className="mt-12 md:mt-16">
               {HARDENING_FAQ_KEYS.map((key) => (
                 <article
                   key={key}
-                  className="grid grid-cols-1 gap-3 border-b border-border py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
                 >
                   <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
                     {t(`faq.items.${key}.q`)}
@@ -398,7 +398,7 @@ export async function HardeningPage({ locale }: { locale: string }) {
             <div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-2 md:gap-16">
               <div>
                 <span className={MONO}>{t("further.readingLabel")}</span>
-                <ul className="m-0 mt-4 list-none border-t border-border p-0">
+                <ul className="m-0 mt-4 list-none p-0">
                   {reading.map((item) => (
                     <li key={item.key} className="border-b border-border">
                       <Link

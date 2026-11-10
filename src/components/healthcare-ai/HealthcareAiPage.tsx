@@ -225,11 +225,11 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
             <div className="mt-12 grid grid-cols-1 gap-10 md:mt-16 md:grid-cols-2 md:gap-12">
               <div>
                 <span className={MONO}>{t("audience.typesLabel")}</span>
-                <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
+                <ul className="m-0 mt-4 flex list-none flex-col p-0">
                   {HEALTHCARE_AUDIENCE_KEYS.map((key, i) => (
                     <li
                       key={key}
-                      className="flex items-baseline gap-4 border-b border-border py-4 text-[17px] leading-[1.45] text-foreground"
+                      className="flex items-baseline gap-4 py-4 text-[17px] leading-[1.45] text-foreground"
                     >
                       <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
                         {String(i + 1).padStart(2, "0")}
@@ -241,11 +241,11 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
               </div>
               <div>
                 <span className={MONO}>{t("audience.signalsLabel")}</span>
-                <ul className="m-0 mt-4 flex list-none flex-col border-t border-border p-0">
+                <ul className="m-0 mt-4 flex list-none flex-col p-0">
                   {(t.raw("audience.signals") as string[]).map((signal) => (
                     <li
                       key={signal}
-                      className="flex gap-3 border-b border-border py-4 text-[17px] leading-[1.45] text-foreground"
+                      className="flex gap-3 py-4 text-[17px] leading-[1.45] text-foreground"
                     >
                       <span aria-hidden="true" className={DASH} />
                       <span>{signal}</span>
@@ -324,11 +324,11 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
               </figure>
 
               <div>
-                <div className="border-t border-border">
+                <div>
                   {HEALTHCARE_HDS_KEYS.map((key, i) => (
                     <article
                       key={key}
-                      className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[80px_minmax(0,1fr)] md:gap-6 md:py-8"
+                      className="grid grid-cols-1 gap-3 py-7 md:grid-cols-[80px_minmax(0,1fr)] md:gap-6 md:py-8"
                     >
                       <span className="text-lit self-start text-[36px] font-bold leading-none tracking-[-0.05em] md:text-[44px]">
                         {String(i + 1).padStart(2, "0")}
@@ -415,7 +415,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                     {(t.raw("proof.points") as string[]).map((point) => (
                       <li
                         key={point}
-                        className="flex gap-3 border-b border-border py-4 text-[15px] leading-[1.55] text-foreground last:border-b-0 md:text-base"
+                        className="flex gap-3 py-4 text-[15px] leading-[1.55] text-foreground md:text-base"
                       >
                         <span aria-hidden="true" className="font-mono text-brand">
                           →
@@ -467,7 +467,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
               {HEALTHCARE_METHOD_STEPS.map((step) => (
                 <li
                   key={step.n}
-                  className="grid grid-cols-1 gap-4 border-b border-border py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
                     <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
@@ -502,11 +502,11 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
           <section className={BAND}>
             <h2 className={H2}>{t("faq.title")}</h2>
 
-            <div className="mt-12 border-t border-border md:mt-16">
+            <div className="mt-12 md:mt-16">
               {HEALTHCARE_FAQ_KEYS.map((key) => (
                 <article
                   key={key}
-                  className="grid grid-cols-1 gap-3 border-b border-border py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
                 >
                   <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
                     {t(`faq.items.${key}.q`)}
@@ -523,7 +523,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
             <div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-2 md:gap-16">
               <div>
                 <span className={MONO}>{t("further.readingLabel")}</span>
-                <ul className="m-0 mt-4 list-none border-t border-border p-0">
+                <ul className="m-0 mt-4 list-none p-0">
                   {(
                     [
                       { key: "hds", href: hdsArticle },
