@@ -1,18 +1,19 @@
-"use client";
-
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useRef } from "react";
 import { BOOKING_URL, CONTACT_EMAIL, bookingLocation } from "@/lib/booking";
 import { BrandSquare } from "@/components/BrandSquare";
-import { captureEvent } from "@/lib/posthog";
+import { CaptureLink } from "@/components/CaptureLink";
+import { ScrollScale } from "./ScrollScale";
 
 /**
  * The closing scene every page ends on: the mascot at the start of the road,
  * map in hand, pointing at where it leads (the cover of the article on
  * funding an AI project). It stands on the left, so the copy and the call to
  * action sit over the landscape on the right.
+ *
+ * A server component: the copy is read on the server (so a landing's own
+ * namespace never travels to the client), and only the scroll-linked scale
+ * of the landscape and the two tracked links are hydrated.
  */
 const SCENE = {
   src: "/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp",
@@ -30,16 +31,12 @@ export function FinalCTA({
   namespace?: string;
 }) {
   const t = useTranslations(namespace);
-  const reduceMotion = useReducedMotion() ?? false;
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
-  const scale = useTransform(scrollYProgress, [0, 1], reduceMotion ? [1.04, 1.04] : [1.18, 1.02]);
 
   return (
-    <section ref={ref} id="contact" className="relative min-h-[92svh] overflow-hidden bg-background">
-      <motion.div aria-hidden="true" style={{ scale }} className="absolute inset-0 origin-[60%_60%]">
+    <section id="contact" className="relative min-h-[92svh] overflow-hidden bg-background">
+      <ScrollScale from={1.18} to={1.02} still={1.04} className="absolute inset-0 origin-[60%_60%]">
         <Image src={SCENE.src} alt="" fill sizes="100vw" className="object-cover" style={{ objectPosition: SCENE.focus }} />
-      </motion.div>
+      </ScrollScale>
       <div
         aria-hidden="true"
         className="absolute inset-0"
@@ -66,29 +63,31 @@ export function FinalCTA({
           {t("titleLine2")}
         </h2>
         <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5 lg:flex-row-reverse">
-          <a
+          <CaptureLink
             href={BOOKING_URL}
             {...bookingLocation("cta_final")}
-            onClick={() => captureEvent("contact_cta_clicked", { location: "final_cta" })}
+            event="contact_cta_clicked"
+            properties={{ location: "final_cta" }}
             className="group inline-flex h-[60px] items-center gap-3 rounded-[2px] bg-foreground px-7 text-[17px] font-medium text-background shadow-[0_18px_70px_-14px_rgba(242,115,19,0.75)] transition-colors hover:bg-soft-foreground"
           >
             {t("bookCall")}
             <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
-          </a>
+          </CaptureLink>
           <dl className="m-0 grid grid-cols-[auto_1fr] gap-x-5 gap-y-1.5 font-mono text-[11px] uppercase tracking-[0.2em]">
             <dt className="text-muted-foreground">{t("responseLabel")}</dt>
             <dd className="m-0 text-foreground">{t("responseValue")}</dd>
             <dt className="text-muted-foreground">{t("emailLabel")}</dt>
             <dd className="m-0">
-              <a
+              <CaptureLink
                 href={`mailto:${CONTACT_EMAIL}`}
-                onClick={() => captureEvent("get_in_touch_clicked", { location: "final_cta" })}
+                event="get_in_touch_clicked"
+                properties={{ location: "final_cta" }}
                 className="normal-case tracking-[0.05em] text-foreground underline decoration-1 underline-offset-4 hover:text-brand"
               >
                 {CONTACT_EMAIL}
-              </a>
+              </CaptureLink>
             </dd>
           </dl>
         </div>

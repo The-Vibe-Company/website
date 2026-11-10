@@ -1,9 +1,7 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { BrandSquare } from "@/components/BrandSquare";
+import { RevealItem } from "../RevealItem";
 import { AGENCY_PARIS_PATHS, splitPath } from "@/lib/site";
 
 const KEYS = ["build", "operate", "advise"] as const;
@@ -16,7 +14,6 @@ export function Offers() {
   const t = useTranslations("services");
   const tParis = useTranslations("agencyParis");
   const locale = useLocale();
-  const reduceMotion = useReducedMotion() ?? false;
 
   return (
     <section id="offres" aria-labelledby="offres-title" className="bg-background">
@@ -38,12 +35,9 @@ export function Offers() {
           {KEYS.map((k, i) => {
             const bullets = t.raw(`items.${k}.bullets`) as string[];
             return (
-              <motion.li
+              <RevealItem
                 key={k}
-                initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                delay={i * 0.08}
                 // Side by side, the cards share the row tracks (header, title,
                 // intro, list), so a longer intro no longer pushes one card's
                 // rule and list below its neighbours'.
@@ -68,7 +62,7 @@ export function Offers() {
                     </li>
                   ))}
                 </ul>
-              </motion.li>
+              </RevealItem>
             );
           })}
         </ol>
