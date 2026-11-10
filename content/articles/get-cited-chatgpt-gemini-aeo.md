@@ -6,6 +6,7 @@ translationKey: aeo-chatgpt-citations
 language: en
 summary: "Get cited by ChatGPT and Gemini: 6 common AEO beliefs settled with OpenAI and Google documentation and the SE Ranking study."
 publishedAt: 2026-10-28
+dateModified: 2026-11-10
 complexity: intermediate
 topics: Answer Engines, AI Search, Content Marketing
 coverImage: /images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp

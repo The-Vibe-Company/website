@@ -6,6 +6,7 @@ translationKey: ai-native-agency
 language: en
 summary: "AI-native agency: what Y Combinator (Aaron Epstein, 2026) and Sequoia say, how it differs from an AI-native company, and 4 buyer tests."
 publishedAt: 2026-10-13
+dateModified: 2026-11-10
 complexity: beginner
 topics: AI Adoption, AI Agents, Engineering
 coverImage: /images/resources/agence-ia-native/cover-mascotte.webp

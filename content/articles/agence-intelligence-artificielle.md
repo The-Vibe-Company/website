@@ -6,6 +6,7 @@ translationKey: what-an-ai-agency-does
 language: fr
 summary: "Agence IA : audit, prototype, mise en production. Rôles, livrables (code, prompts, évals) et cas Monka quand il faut ralentir."
 publishedAt: 2026-11-06
+dateModified: 2026-11-10
 complexity: beginner
 topics: AI Adoption, Strategy, AI Agents
 coverImage: /images/resources/agence-intelligence-artificielle/cover-mascotte.webp
