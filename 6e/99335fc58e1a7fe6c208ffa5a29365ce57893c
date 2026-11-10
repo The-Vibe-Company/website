@@ -1,0 +1,19 @@
+src/components/home/landing/Offers.tsx
+  s_28596ae7352f69::t_61a0eb64d3cbc8 47-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6e99335fc58e1a7fe6c208ffa5a29365ce57893c",
+  "prompts": {},
+  "sessions": {
+    "s_28596ae7352f69": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "50db2a54-6f06-4033-9d0a-517ddeea355a",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
