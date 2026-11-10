@@ -42,7 +42,7 @@ Chaque idée reçue de ce tableau se confronte à une source primaire, avec un v
 
 ## OAI-SearchBot est le seul des 3 bots OpenAI qui pilote ChatGPT Search
 
-![Trois bots OpenAI : seul OAI-SearchBot pilote ChatGPT Search. Détaillé ci-dessous.](/images/resources/etre-cite-chatgpt-gemini-aeo/3-bots-openai-chatgpt-search.png)
+![Trois bots OpenAI : seul OAI-SearchBot pilote ChatGPT Search. Détaillé ci-dessous.](/images/resources/etre-cite-chatgpt-gemini-aeo/3-bots-openai-chatgpt-search.png){.diagram}
 
 OAI-SearchBot est, parmi les 3 agents d'OpenAI, celui qui décide de l'apparition dans ChatGPT Search, selon la page [Overview of OpenAI Crawlers](https://developers.openai.com/api/docs/bots) relue le 9 novembre 2026. Il sert la recherche. Il est « used to surface websites in search results in ChatGPT’s search features ». Un site qui le refuse « will not be shown in ChatGPT search answers, though can still appear as navigational links ».
 
@@ -70,7 +70,7 @@ L'étude [SE Ranking](https://seranking.com/fr/blog/comment-se-referencer-sur-ch
 
 ## Google-Extended règle l'entraînement, le contrôle Search generative AI règle les AI Overviews
 
-![Deux leviers Google : Search generative AI pour les AI Overviews, Google-Extended pour l'entraînement. Détaillé ci-dessous.](/images/resources/etre-cite-chatgpt-gemini-aeo/2-leviers-google-ai-overviews.png)
+![Deux leviers Google : Search generative AI pour les AI Overviews, Google-Extended pour l'entraînement. Détaillé ci-dessous.](/images/resources/etre-cite-chatgpt-gemini-aeo/2-leviers-google-ai-overviews.png){.diagram}
 
 Le [contrôle Search generative AI](https://support.google.com/webmasters/answer/16908024) de Search Console gère l'apparition dans AI Overviews, AI Mode et Discover génératif. Son déploiement mondial a été noté fin août 2026. Le choix s'affiche « Include » ou « Exclude », avec « Include » par défaut. Après un changement, le contenu est exclu « within 1-2 days after the control goes live ». La page ajoute que « This control doesn't affect AI training ».
 

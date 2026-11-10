@@ -42,7 +42,7 @@ Each belief in this table is checked against a primary source, with a one-line v
 
 ## OAI-SearchBot is the only one of the 3 OpenAI bots that drives ChatGPT Search
 
-![Three OpenAI bots: only OAI-SearchBot drives ChatGPT Search. Detailed below.](/images/resources/get-cited-chatgpt-gemini-aeo/3-openai-bots-chatgpt-search.png)
+![Three OpenAI bots: only OAI-SearchBot drives ChatGPT Search. Detailed below.](/images/resources/get-cited-chatgpt-gemini-aeo/3-openai-bots-chatgpt-search.png){.diagram}
 
 OAI-SearchBot is, among OpenAI's 3 agents, the one that decides appearance in ChatGPT Search, according to the [Overview of OpenAI Crawlers](https://developers.openai.com/api/docs/bots) page reread on November 9, 2026. It serves search. It is “used to surface websites in search results in ChatGPT’s search features”. A site that refuses it “will not be shown in ChatGPT search answers, though can still appear as navigational links”.
 
@@ -70,7 +70,7 @@ The [SE Ranking](https://seranking.com/blog/how-to-optimize-for-chatgpt/) study 
 
 ## Google-Extended governs training, the Search generative AI control governs AI Overviews
 
-![Two Google levers: Search generative AI for AI Overviews, Google-Extended for training. Detailed below.](/images/resources/get-cited-chatgpt-gemini-aeo/2-google-levers-ai-overviews.png)
+![Two Google levers: Search generative AI for AI Overviews, Google-Extended for training. Detailed below.](/images/resources/get-cited-chatgpt-gemini-aeo/2-google-levers-ai-overviews.png){.diagram}
 
 The [Search generative AI control](https://support.google.com/webmasters/answer/16908024) in Search Console manages appearance in AI Overviews, AI Mode, and generative Discover. Its global rollout was noted in late August 2026. The choice is shown as “Include” or “Exclude”, with “Include” by default. After a change, content is excluded “within 1-2 days after the control goes live”. The page adds that “This control doesn't affect AI training”.
 
