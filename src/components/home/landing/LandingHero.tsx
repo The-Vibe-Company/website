@@ -10,10 +10,7 @@ import type { RunnerItem } from "@/lib/runner-worlds";
 import { cn } from "@/lib/design-system";
 import { Backers } from "../Backers";
 import { FitText } from "../FitText";
-import styles from "./landing.module.css";
 import { SecretLevel, type Origin } from "./SecretLevel";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
 
 /** The game needs a keyboard: a wide screen with a hovering pointer. */
 const PLAY_MEDIA = "(min-width: 1024px) and (hover: hover)";
@@ -110,10 +107,10 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   const lift = useTransform(scrollYProgress, [0, 1], ["0%", reduceMotion ? "0%" : "-12%"]);
 
-  // The text rises in with a CSS animation (styles.rise) rather than
-  // framer-motion, so the server HTML paints it on its own instead of waiting
-  // for the JavaScript to hydrate the hero. This sets each element's offset
-  // and delay.
+  // The text rises in with a CSS animation (landing-rise, globals.css) rather
+  // than framer-motion, so the server HTML paints it on its own instead of
+  // waiting for the JavaScript to hydrate the hero. This sets each element's
+  // offset and delay.
   const rise = (delay: number, y = 18) => ({ "--rise-y": `${y}px`, animationDelay: `${delay}s` }) as CSSProperties;
 
   return (
@@ -138,28 +135,28 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
       <div className="relative mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16">
         <p
           style={rise(0, 8)}
-          className={`m-0 inline-flex items-center gap-3 pt-12 font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground lg:pt-[80px] ${styles.rise}`}
+          className="m-0 inline-flex items-center gap-3 pt-12 font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground lg:pt-[80px] landing-rise"
         >
           <span aria-hidden="true" className="h-2 w-2 bg-brand" />
           {tFooter("openToProjects")}
         </p>
 
         <h1 className="m-0 font-bold text-foreground">
-          <span style={rise(0.06, 28)} className={`mt-8 block leading-[0.86] [container-type:inline-size] lg:mt-10 ${styles.rise}`}>
+          <span style={rise(0.06, 28)} className="mt-8 block leading-[0.86] [container-type:inline-size] lg:mt-10 landing-rise">
             <FitText trackingEm={-0.055} className="-ml-[0.04em] transition-none">
               {t("titleLine1")}
             </FitText>
           </span>
           <span
             style={rise(0.16)}
-            className={`relative z-20 mt-10 block max-w-[17ch] text-[clamp(1.6rem,2.5vw,2.25rem)] font-medium leading-[1.12] tracking-[-0.03em] lg:mt-[58px] ${styles.rise}`}
+            className="relative z-20 mt-10 block max-w-[17ch] text-[clamp(1.6rem,2.5vw,2.25rem)] font-medium leading-[1.12] tracking-[-0.03em] lg:mt-[58px] landing-rise"
           >
             {t("titleLine2")}
           </span>
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)]">
-          <div style={rise(0.26)} className={`relative z-20 pb-10 lg:pb-[72px] ${styles.rise}`}>
+          <div style={rise(0.26)} className="relative z-20 pb-10 lg:pb-[72px] landing-rise">
             <p className="m-0 mt-6 max-w-[33rem] text-[17px] leading-[1.6] text-muted-foreground md:text-[19px]">{t("subtitle")}</p>
             <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
               <a
@@ -197,20 +194,17 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               priority
               fetchPriority="high"
               sizes="(min-width: 1024px) 0px, 280px"
-              className={`absolute left-1/2 top-0 w-[280px] max-w-none -translate-x-1/2 ${styles.float}`}
+              className="absolute left-1/2 top-0 w-[280px] max-w-none -translate-x-1/2 landing-float"
             />
           </div>
 
           {/* Desktop: the mascot stands in the right column and runs out of
               the section, cut at the chest by the floor. It is also the way
               into the secret level. */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 1.1, delay: reduceMotion ? 0 : 0.3, ease: EASE }}
-            style={{ y: lift }}
-            className="relative hidden lg:block"
-          >
+          {/* Its entrance is CSS (landing-mascot-enter, on `translate`), so it
+              is drawn from the server HTML; framer-motion only drives the
+              scroll lift, on `transform`. */}
+          <motion.div style={{ y: lift }} className="landing-mascot-enter relative hidden lg:block">
             <div
               className="absolute -top-28 left-1/2 w-[min(470px,36vw)] transition-transform duration-700 ease-out xl:-top-[132px]"
               style={{ transform: "translate3d(calc(-24% + var(--px) * -18px), calc(var(--py) * -12px), 0) rotate(calc(var(--px) * 2deg))" }}
@@ -223,7 +217,7 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
                   aria-label={en ? "Play the hidden game" : "Jouer au jeu caché"}
                   className={cn(
                     "group/mascot relative block w-full cursor-pointer focus-visible:outline-none",
-                    mascot !== "rest" && styles[mascot],
+                    mascot !== "rest" && `landing-${mascot}`,
                   )}
                   onAnimationEnd={() => {
                     if (mascotStateRef.current === "land") setMascot("rest");
@@ -259,7 +253,7 @@ function MascotImage() {
       height={672}
       priority
       sizes="(min-width: 1024px) 470px, 0px"
-      className={`h-auto w-full ${styles.float}`}
+      className="h-auto w-full landing-float"
     />
   );
 }

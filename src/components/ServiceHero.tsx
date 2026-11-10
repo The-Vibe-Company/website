@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 import { BrandSquare } from "@/components/BrandSquare";
 import { Backers } from "@/components/home/Backers";
 import { FitText } from "@/components/home/FitText";
-import styles from "@/components/home/landing/landing.module.css";
 import { keepPunctuationAttached } from "@/lib/french-spacing";
 
 const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
@@ -92,7 +91,7 @@ export function ServiceHero({
               priority
               fetchPriority="high"
               sizes="(min-width: 1024px) 0px, 280px"
-              className={`absolute left-1/2 top-0 w-[280px] max-w-none -translate-x-1/2 ${styles.float}`}
+              className="absolute left-1/2 top-0 w-[280px] max-w-none -translate-x-1/2 landing-float"
             />
           </div>
 
@@ -107,7 +106,7 @@ export function ServiceHero({
                 height={672}
                 priority
                 sizes="(min-width: 1024px) 470px, 0px"
-                className={`h-auto w-full ${styles.float}`}
+                className="h-auto w-full landing-float"
               />
             </div>
           </div>
