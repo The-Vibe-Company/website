@@ -195,7 +195,8 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               width={488}
               height={672}
               priority
-              sizes="280px"
+              fetchPriority="high"
+              sizes="(min-width: 1024px) 0px, 280px"
               className={`absolute left-1/2 top-0 w-[280px] max-w-none -translate-x-1/2 ${styles.float}`}
             />
           </div>
