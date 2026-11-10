@@ -1,8 +1,8 @@
-import Image from "next/image";
 import type { ReactNode } from "react";
 import { BrandSquare } from "@/components/BrandSquare";
 import { Backers } from "@/components/home/Backers";
 import { FitText } from "@/components/home/FitText";
+import { MascotCutout } from "@/components/home/MascotCutout";
 import { keepPunctuationAttached } from "@/lib/french-spacing";
 
 const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
@@ -83,31 +83,14 @@ export function ServiceHero({
 
           {/* Phones: the mascot under the pitch, cut by the paper. */}
           <div aria-hidden="true" className="relative h-[300px] lg:hidden">
-            <Image
-              src="/images/home/mascot-cutout.webp"
-              alt=""
-              width={488}
-              height={672}
-              priority
-              fetchPriority="high"
-              sizes="(min-width: 1024px) 0px, 280px"
-              className="absolute left-1/2 top-0 w-[280px] max-w-none -translate-x-1/2 landing-float"
-            />
+            <MascotCutout variant="phone" />
           </div>
 
           {/* Desktop: the mascot in the right column, running out of the
               section, cut at the chest by the paper. */}
           <div aria-hidden="true" className="relative hidden lg:block">
             <div className="absolute -top-28 left-1/2 w-[min(470px,36vw)] -translate-x-[24%] xl:-top-[132px]">
-              <Image
-                src="/images/home/mascot-cutout.webp"
-                alt=""
-                width={488}
-                height={672}
-                priority
-                sizes="(min-width: 1024px) 470px, 0px"
-                className="h-auto w-full landing-float"
-              />
+              <MascotCutout variant="desktop" />
             </div>
           </div>
         </div>

@@ -981,14 +981,17 @@
    priority while the page was still loading.
    ----------------------------------------------------------------------------- */
 
-/* The mascot breathes: a slow float of a few pixels. */
+/* The mascot breathes: a slow float of a few pixels. It starts 1.5s in: until
+   then the picture stands exactly where the float starts, without an animation
+   that would lift it onto its own layer, so it is painted with the page's
+   first frame (it is the LCP element on phones). */
 @keyframes landing-float {
   0%, 100% { transform: translate3d(0, 0, 0); }
   50% { transform: translate3d(0, -10px, 0); }
 }
 
 .landing-float {
-  animation: landing-float 6s ease-in-out infinite;
+  animation: landing-float 6s ease-in-out 1.5s infinite;
 }
 
 /* The hero's text rises in. A CSS animation rather than framer-motion, so the

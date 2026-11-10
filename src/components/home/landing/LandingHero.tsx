@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
@@ -10,6 +9,7 @@ import type { RunnerItem } from "@/lib/runner-worlds";
 import { cn } from "@/lib/design-system";
 import { Backers } from "../Backers";
 import { FitText } from "../FitText";
+import { MascotCutout } from "../MascotCutout";
 import type { Origin } from "./SecretLevel";
 
 /** The secret level (and framer-motion with it) only loads where it can be
@@ -230,16 +230,7 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
 
           {/* Phones: the mascot under the pitch, cut by the floor. */}
           <div aria-hidden="true" className="relative h-[300px] lg:hidden">
-            <Image
-              src="/images/home/mascot-cutout.webp"
-              alt=""
-              width={488}
-              height={672}
-              priority
-              fetchPriority="high"
-              sizes="(min-width: 1024px) 0px, 280px"
-              className="absolute left-1/2 top-0 w-[280px] max-w-none -translate-x-1/2 landing-float"
-            />
+            <MascotCutout variant="phone" />
           </div>
 
           {/* Desktop: the mascot stands in the right column and runs out of
@@ -267,7 +258,7 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
                     if (mascotStateRef.current === "land") setMascot("rest");
                   }}
                 >
-                  <MascotImage />
+                  <MascotCutout variant="desktop" />
                   <span
                     aria-hidden="true"
                     className="pointer-events-none absolute right-full top-[30%] whitespace-nowrap pr-2 font-mono text-[11px] uppercase tracking-[0.2em] text-soft-foreground opacity-0 transition-opacity duration-300 group-hover/mascot:opacity-100 group-focus-visible/mascot:opacity-100"
@@ -276,7 +267,7 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
                   </span>
                 </button>
               ) : (
-                <MascotImage />
+                <MascotCutout variant="desktop" />
               )}
             </div>
           </div>
@@ -285,19 +276,5 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
 
       {canPlay && <SecretLevel open={mascot === "away"} origin={origin} items={runnerItems} onClose={closeLevel} />}
     </section>
-  );
-}
-
-function MascotImage() {
-  return (
-    <Image
-      src="/images/home/mascot-cutout.webp"
-      alt=""
-      width={488}
-      height={672}
-      priority
-      sizes="(min-width: 1024px) 470px, 0px"
-      className="h-auto w-full landing-float"
-    />
   );
 }
