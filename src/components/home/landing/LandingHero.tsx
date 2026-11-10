@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { BOOKING_URL, bookingLocation } from "@/lib/booking";
@@ -10,13 +9,26 @@ import type { RunnerItem } from "@/lib/runner-worlds";
 import { cn } from "@/lib/design-system";
 import { Backers } from "../Backers";
 import { FitText } from "../FitText";
-import { SecretLevel, type Origin } from "./SecretLevel";
+import { MascotCutout } from "../MascotCutout";
+import type { Origin } from "./SecretLevel";
+
+/** The secret level (and framer-motion with it) only loads where it can be
+ *  played: on a desktop, once the hero has hydrated. Phones never fetch it. */
+const SecretLevel = dynamic(() => import("./SecretLevel").then((m) => m.SecretLevel), { ssr: false });
 
 /** The game needs a keyboard: a wide screen with a hovering pointer. */
 const PLAY_MEDIA = "(min-width: 1024px) and (hover: hover)";
 
 function subscribePlay(onChange: () => void): () => void {
   const query = window.matchMedia(PLAY_MEDIA);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+const REDUCED_MEDIA = "(prefers-reduced-motion: reduce)";
+
+function subscribeReduced(onChange: () => void): () => void {
+  const query = window.matchMedia(REDUCED_MEDIA);
   query.addEventListener("change", onChange);
   return () => query.removeEventListener("change", onChange);
 }
@@ -40,8 +52,9 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   const t = useTranslations("hero");
   const tFooter = useTranslations("footer");
   const en = useLocale() === "en";
-  const reduceMotion = useReducedMotion() ?? false;
+  const reduceMotion = useSyncExternalStore(subscribeReduced, () => window.matchMedia(REDUCED_MEDIA).matches, () => false);
   const sectionRef = useRef<HTMLElement>(null);
+  const liftRef = useRef<HTMLDivElement>(null);
   const mascotRef = useRef<HTMLButtonElement>(null);
 
   const canPlay = useSyncExternalStore(subscribePlay, () => window.matchMedia(PLAY_MEDIA).matches, () => false);
@@ -103,9 +116,40 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
     el.style.setProperty("--py", ((event.clientY - rect.top) / rect.height - 0.5).toFixed(3));
   };
 
-  // Scrolling away lifts the mascot a touch slower than the page.
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
-  const lift = useTransform(scrollYProgress, [0, 1], ["0%", reduceMotion ? "0%" : "-12%"]);
+  // Scrolling away lifts the desktop mascot a touch slower than the page:
+  // up to 12% of its height by the time the hero has left the screen. Written
+  // straight to the element (no framer-motion, no re-render).
+  useEffect(() => {
+    const section = sectionRef.current;
+    const el = liftRef.current;
+    if (!section || !el) return;
+    let frame = 0;
+    // Starts as the server rendered it. Only a changed value is written, so a
+    // resting mascot is never restyled (and never re-rastered).
+    let current = el.style.transform;
+    const update = () => {
+      frame = 0;
+      const rect = section.getBoundingClientRect();
+      const progress = rect.height > 0 ? Math.min(1, Math.max(0, -rect.top / rect.height)) : 0;
+      const lift = reduceMotion ? 0 : -12 * progress;
+      const next = lift === 0 ? "none" : `translateY(${lift}%)`;
+      if (next === current) return;
+      current = next;
+      el.style.transform = next;
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    // First read on the next frame, not during hydration (no forced layout).
+    schedule();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, [reduceMotion]);
 
   // The text rises in with a CSS animation (landing-rise, globals.css) rather
   // than framer-motion, so the server HTML paints it on its own instead of
@@ -186,25 +230,16 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
 
           {/* Phones: the mascot under the pitch, cut by the floor. */}
           <div aria-hidden="true" className="relative h-[300px] lg:hidden">
-            <Image
-              src="/images/home/mascot-cutout.webp"
-              alt=""
-              width={488}
-              height={672}
-              priority
-              fetchPriority="high"
-              sizes="(min-width: 1024px) 0px, 280px"
-              className="absolute left-1/2 top-0 w-[280px] max-w-none -translate-x-1/2 landing-float"
-            />
+            <MascotCutout variant="phone" />
           </div>
 
           {/* Desktop: the mascot stands in the right column and runs out of
               the section, cut at the chest by the floor. It is also the way
               into the secret level. */}
           {/* Its entrance is CSS (landing-mascot-enter, on `translate`), so it
-              is drawn from the server HTML; framer-motion only drives the
-              scroll lift, on `transform`. */}
-          <motion.div style={{ y: lift }} className="landing-mascot-enter relative hidden lg:block">
+              is drawn from the server HTML; the scroll lift is written to
+              `transform` (see the effect above). */}
+          <div ref={liftRef} style={{ transform: "none" }} className="landing-mascot-enter relative hidden lg:block">
             <div
               className="absolute -top-28 left-1/2 w-[min(470px,36vw)] transition-transform duration-700 ease-out xl:-top-[132px]"
               style={{ transform: "translate3d(calc(-24% + var(--px) * -18px), calc(var(--py) * -12px), 0) rotate(calc(var(--px) * 2deg))" }}
@@ -223,7 +258,7 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
                     if (mascotStateRef.current === "land") setMascot("rest");
                   }}
                 >
-                  <MascotImage />
+                  <MascotCutout variant="desktop" />
                   <span
                     aria-hidden="true"
                     className="pointer-events-none absolute right-full top-[30%] whitespace-nowrap pr-2 font-mono text-[11px] uppercase tracking-[0.2em] text-soft-foreground opacity-0 transition-opacity duration-300 group-hover/mascot:opacity-100 group-focus-visible/mascot:opacity-100"
@@ -232,28 +267,14 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
                   </span>
                 </button>
               ) : (
-                <MascotImage />
+                <MascotCutout variant="desktop" />
               )}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {canPlay && <SecretLevel open={mascot === "away"} origin={origin} items={runnerItems} onClose={closeLevel} />}
     </section>
-  );
-}
-
-function MascotImage() {
-  return (
-    <Image
-      src="/images/home/mascot-cutout.webp"
-      alt=""
-      width={488}
-      height={672}
-      priority
-      sizes="(min-width: 1024px) 470px, 0px"
-      className="h-auto w-full landing-float"
-    />
   );
 }
