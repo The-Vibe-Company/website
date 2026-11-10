@@ -5,7 +5,8 @@ import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { TopNav } from "@/components/TopNav";
 import { AboutBookingCta } from "@/components/about/AboutBookingCta";
-import { CLIENTS } from "@/components/home/Clients";
+import { Clientele } from "@/components/home/landing/Clientele";
+import { ServiceHero } from "@/components/ServiceHero";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { Link } from "@/i18n/navigation";
 import { ABOUT_ORIGIN_ARTICLE_LOCALE, ABOUT_ORIGIN_ARTICLE_PATH } from "@/lib/about";
@@ -36,8 +37,6 @@ import {
 } from "@/lib/structured-data";
 import { clientLogoSize } from "@/lib/client-logos";
 import { BrandSquare } from "@/components/BrandSquare";
-import { Backers } from "@/components/home/Backers";
-import { keepPunctuationAttached } from "@/lib/french-spacing";
 
 /**
  * The commercial "AI agency in Paris" landing page, served at
@@ -80,9 +79,6 @@ const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
 /** The short orange bar a lamp card hangs from, with its glow. */
 const LAMP =
   "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
-/** The hero's orange bloom, as on the About page. */
-const HERO_BLOOM =
-  "radial-gradient(closest-side, rgb(242 115 19 / 0.2), rgb(242 115 19 / 0.06) 55%, transparent)";
 /** The light an ink band sits in, as on the homepage's client quote. */
 const INK_GLOW =
   "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
@@ -138,74 +134,38 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
       ))}
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        {/* 1 — On the ink, in the hero's orange light: the one H1, the
-            pitch, three sourced facts and the call. */}
-        <section className="relative overflow-hidden">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-72 -right-48 h-[900px] w-[1100px]"
-            style={{ background: HERO_BLOOM }}
-          />
-          <div className={`relative ${SECTION} pb-20 pt-12 md:pb-28 lg:pt-[80px]`}>
-            <span className="block font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground">
-              <BrandSquare />
-              {t("kicker")}
-            </span>
-            <h1 className="m-0 mt-8 max-w-[22ch] text-[clamp(2.5rem,6vw,6.25rem)] font-bold leading-[0.92] tracking-[-0.05em] text-foreground lg:mt-10">
-              {keepPunctuationAttached(t("title"))}
-            </h1>
-
-            <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,680px)_minmax(0,1fr)] lg:gap-16">
-              <p className="m-0 self-start border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
-                {t("lede")}
-              </p>
-              <div>
-                <span className={MONO}>{t("factsLabel")}</span>
-                <ul className="m-0 mt-4 flex list-none flex-col p-0">
-                  {t.raw("facts").map((fact: string) => (
-                    <li
-                      key={fact}
-                      className="flex gap-3 border-b border-border py-3 text-[15px] leading-[1.5] text-foreground first:border-t"
-                    >
-                      <span aria-hidden="true" className={DASH} />
-                      <span>{fact}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <AboutBookingCta page={page} location="cta_agency_paris_hero" namespace="agencyParis" />
-
-            {/* The same two backers as the About page. */}
-            <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-border pt-7 md:mt-12">
-              <span className={MONO}>{t("backedBy")}</span>
-              <Backers />
-            </div>
-
-            {/* The client logos already on the homepage, nothing more. */}
-            <div className="mt-8 border-t border-border pt-7">
-              <span className={MONO}>{t("clientsLabel")}</span>
-              <ul className="m-0 mt-6 flex list-none flex-wrap items-center gap-x-10 gap-y-6 p-0 md:gap-x-14">
-                {CLIENTS.map((client) => (
-                  <li key={client.name} className="flex items-center opacity-80">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={client.src}
-                      alt={client.name}
-                      {...clientLogoSize(client.src)}
-                      className={`${client.className} logo-tone w-auto object-contain`}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
+        {/* 1 — On the ink, cut like the homepage's hero: the short headline,
+            the full title as the H1's promise, the pitch and the call, the
+            mascot standing in its light. */}
+        <ServiceHero
+          kicker={t("kicker")}
+          display={t("displayTitle")}
+          title={t("title")}
+          lede={t("lede")}
+          cta={<AboutBookingCta page={page} location="cta_agency_paris_hero" namespace="agencyParis" />}
+        />
 
         <div data-surface="paper">
+          {/* The client logos running along the top of the paper, as on the
+              homepage. */}
+          <Clientele />
+
+          {/* Three sourced facts, in short. */}
+          <section className={`${SECTION} border-b border-border py-12 md:py-14`}>
+            <span className={MONO}>
+              <BrandSquare />
+              {t("factsLabel")}
+            </span>
+            <ul className="m-0 mt-6 grid list-none grid-cols-1 gap-6 p-0 md:grid-cols-3 md:gap-10">
+              {t.raw("facts").map((fact: string) => (
+                <li key={fact} className="flex gap-3 text-[16px] leading-[1.5] text-soft-foreground">
+                  <span aria-hidden="true" className="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-brand" />
+                  <span>{fact}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
           {/* 2 — The three offers, the homepage services, each under its
               lamp. */}
           <section className={BAND}>

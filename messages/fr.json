@@ -490,6 +490,7 @@
   },
   "hardening": {
     "kicker": "AGENTS · HARDEN PRODUIT & SI",
+    "displayTitle": "Sécurité par agents.",
     "metaTitle": "Agents IA pour durcir produit et SI | The Vibe Company",
     "metaDescription": "Déployez une flotte d'agents IA pour durcir produit et SI : secrets, deps, IAM, configs, review PR. Exigences RGPD et HDS. Agence à Paris.",
     "title": "Utiliser des agents IA pour durcir votre produit et votre SI",
@@ -845,6 +846,7 @@
     "breadcrumb": "Agence IA à Paris",
     "serviceName": "Agence IA à Paris",
     "kicker": "AGENCE IA · PARIS",
+    "displayTitle": "Agence IA Paris.",
     "title": "Agence IA à Paris : on construit vos produits et agents IA jusqu'en production",
     "lede": "The Vibe Company est une agence IA-first basée à Paris. On conçoit des produits IA, on déploie des agents dans vos outils et on forme vos équipes, pour les entreprises de taille moyenne à grande.",
     "factsLabel": "En bref",
@@ -1051,6 +1053,7 @@
   },
   "healthcareAi": {
     "kicker": "IA SANTÉ · EXIGENCES HDS",
+    "displayTitle": "IA santé & HDS.",
     "metaTitle": "IA santé et HDS : projets en production | The Vibe Company",
     "metaDescription": "Projets IA sur données de santé, livrés selon les exigences RGPD et HDS. Cas Monka (prod en 2 mois). Agence IA Paris, YC W24. RDV sous 24 h.",
     "title": "IA santé et HDS : on construit vos produits jusqu'en production",
@@ -1265,6 +1268,7 @@
   },
   "agentsProduction": {
     "kicker": "AGENTS · POC → PRODUCTION",
+    "displayTitle": "Agents en production.",
     "metaTitle": "Agents IA en production : du POC au run | The Vibe Company",
     "metaDescription": "Déployez des agents IA en entreprise jusqu'en production : outils, garde-fous, mesure, passation. Cas LocService (87 % des tickets). Agence Paris, YC W24.",
     "title": "Agents IA en entreprise : on les mène jusqu'en production",
@@ -1461,6 +1465,7 @@
   },
   "mediaAi": {
     "kicker": "IA MÉDIAS · RÉDACTIONS",
+    "displayTitle": "IA pour les médias.",
     "metaTitle": "IA médias : outils pour les rédactions | The Vibe Company",
     "metaDescription": "Outils IA pour rédactions et médias, jusqu'en production. Preuve AFP / MediaGen (France 2030). Agence IA Paris, YC W24. RDV sous 24 h.",
     "title": "IA pour les médias : on construit les outils des rédactions jusqu'en production",
@@ -1980,6 +1985,7 @@
     "metaDescription": "Applications IA et SaaS sur mesure, de l'idée à la production : RAG, agents, RGPD et intégrations métier. Cas Monka, LocService et AFP. YC W24.",
     "breadcrumb": "Application IA sur mesure",
     "kicker": "APPLICATION IA · SUR MESURE",
+    "displayTitle": "Apps IA sur mesure.",
     "title": "Développez une application IA sur mesure, de l'idée à la production",
     "lede": "On conçoit, on construit et on met en production votre application IA : le produit, l’architecture RAG et les agents, la sécurité et les intégrations avec vos outils. Puis on passe la main à votre équipe, ou on continue de la faire tourner.",
     "hero": {

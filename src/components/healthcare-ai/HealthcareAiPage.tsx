@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import { ServiceHero } from "@/components/ServiceHero";
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { TopNav } from "@/components/TopNav";
-import { AboutBackers } from "@/components/about/AboutBackers";
 import { AboutBookingCta } from "@/components/about/AboutBookingCta";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { Link } from "@/i18n/navigation";
@@ -40,7 +40,6 @@ import {
 } from "@/lib/structured-data";
 import { clientLogoSize } from "@/lib/client-logos";
 import { BrandSquare } from "@/components/BrandSquare";
-import { keepPunctuationAttached } from "@/lib/french-spacing";
 
 // List marker drawn as a short rule rather than a dash character.
 const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
@@ -84,9 +83,6 @@ const TEXT_LINK =
   "text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
 const MONO_LINK =
   "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
-/** The orange bloom behind the hero, as on the About page. */
-const BLOOM =
-  "radial-gradient(closest-side, rgb(242 115 19 / 0.2), rgb(242 115 19 / 0.06) 55%, transparent)";
 /** The soft orange light an emphasis ink band sits in. */
 const GLOW =
   "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
@@ -104,7 +100,6 @@ const FAQ_PLAIN_TAGS = {
 export async function HealthcareAiPage({ locale }: { locale: string }) {
   const contentLocale: ContentLocale = locale === "en" ? "en" : "fr";
   const t = await getTranslations({ locale, namespace: "healthcareAi" });
-  const tAbout = await getTranslations({ locale, namespace: "about" });
   const tFooter = await getTranslations({ locale, namespace: "footer" });
 
   const pageUrl = localizedUrl(locale, splitPath(HEALTHCARE_AI_PATHS, locale));
@@ -167,28 +162,25 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
       ))}
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        {/* 1 — On the ink, in the hero's orange light: the one H1 on the
-            page, the promise, the facts and the call. */}
-        <section className="relative overflow-hidden">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-72 -right-48 h-[900px] w-[1100px]"
-            style={{ background: BLOOM }}
-          />
-          <div className={`relative ${SECTION} pb-20 pt-12 md:pb-28 lg:pt-[80px]`}>
-            <span className="block font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground">
-              <BrandSquare />
-              {t("kicker")}
-            </span>
-            <h1 className="m-0 mt-8 max-w-[19ch] text-balance text-[clamp(2.5rem,6vw,6rem)] font-bold leading-[0.92] tracking-[-0.05em] text-foreground lg:mt-10">
-              {keepPunctuationAttached(t("title"))}
-            </h1>
-            <p className="m-0 mt-10 max-w-[760px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
-              {t("lede")}
-            </p>
+        {/* 1 — On the ink, cut like the homepage's hero: the short headline,
+            the full title as the H1's promise, the pitch and the call, the
+            mascot standing in its light. */}
+        <ServiceHero
+          kicker={t("kicker")}
+          display={t("displayTitle")}
+          title={t("title")}
+          lede={t("lede")}
+          cta={<AboutBookingCta page={page} location="cta_healthcare_ai_hero" namespace="healthcareAi" />}
+        />
 
-            <span className={`mt-12 block ${MONO}`}>{t("hero.label")}</span>
-            <ul className="m-0 mt-4 grid max-w-[1100px] list-none grid-cols-1 gap-x-10 border-t border-border p-0 md:grid-cols-2">
+        <div data-surface="paper">
+          {/* What the hero used to list, in short, at the top of the paper. */}
+          <section className={`${SECTION} border-b border-border py-12 md:py-14`}>
+            <span className={MONO}>
+              <BrandSquare />
+              {t("hero.label")}
+            </span>
+            <ul className="m-0 mt-6 grid max-w-[1100px] list-none grid-cols-1 gap-x-10 border-t border-border p-0 md:grid-cols-2">
               {HEALTHCARE_HERO_KEYS.map((key) => (
                 <li
                   key={key}
@@ -199,14 +191,6 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                 </li>
               ))}
             </ul>
-
-            <AboutBookingCta
-              page={page}
-              location="cta_healthcare_ai_hero"
-              namespace="healthcareAi"
-            />
-            <AboutBackers label={tAbout("backedBy")} />
-
             {/* The healthcare client already on the site, and no other logo. */}
             {monka ? (
               <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-border pt-7">
@@ -231,10 +215,8 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                 </Link>
               </div>
             ) : null}
-          </div>
-        </section>
+          </section>
 
-        <div data-surface="paper">
           {/* 2 — Who it is for: the kinds of teams, then the signals. */}
           <section className={BAND}>
             <h2 className={H2}>{t("audience.title")}</h2>

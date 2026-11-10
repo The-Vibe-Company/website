@@ -490,6 +490,7 @@
   },
   "hardening": {
     "kicker": "AGENTS · HARDEN PRODUCT & STACK",
+    "displayTitle": "Agent-led security.",
     "metaTitle": "AI Agents to Harden Your Product & Stack | The Vibe Company",
     "metaDescription": "Deploy AI agents to harden product and infrastructure: secrets, deps, IAM, configs, PR review. Built to GDPR and HDS requirements. Paris agency.",
     "title": "Use AI agents to harden your product and your infrastructure",
@@ -845,6 +846,7 @@
     "breadcrumb": "AI agency in Paris",
     "serviceName": "AI agency in Paris",
     "kicker": "AI AGENCY · PARIS",
+    "displayTitle": "Paris AI agency.",
     "title": "AI agency in Paris: we build your AI products and agents, all the way to production",
     "lede": "The Vibe Company is an AI-first agency based in Paris. We design AI products, deploy agents inside your tools and train your teams, for mid-size and large companies.",
     "factsLabel": "At a glance",
@@ -1050,6 +1052,7 @@
   },
   "healthcareAi": {
     "kicker": "HEALTHCARE AI · HDS REQUIREMENTS",
+    "displayTitle": "Healthcare AI.",
     "metaTitle": "Healthcare AI & HDS: ship to production | The Vibe Company",
     "metaDescription": "AI projects on French health data, built to GDPR and HDS requirements. Monka case (2 months to prod). Paris AI agency, YC W24. Reply within 24h.",
     "title": "Healthcare AI and HDS: we build your products all the way to production",
@@ -1255,6 +1258,7 @@
   },
   "agentsProduction": {
     "kicker": "AGENTS · POC → PRODUCTION",
+    "displayTitle": "Agents in production.",
     "metaTitle": "AI Agents in Production: from POC to run | The Vibe Company",
     "metaDescription": "Deploy AI agents in your company to production: tools, guardrails, measurement, handoff. LocService case (87% of tickets). Paris agency, YC W24.",
     "title": "AI agents at work: we take them all the way to production",
@@ -1460,6 +1464,7 @@
   },
   "mediaAi": {
     "kicker": "AI FOR MEDIA · NEWSROOMS",
+    "displayTitle": "AI for media.",
     "metaTitle": "AI for Media: tools for newsrooms | The Vibe Company",
     "metaDescription": "AI tools for newsrooms and media orgs, shipped to production. AFP / MediaGen proof (France 2030). Paris AI agency, YC W24. Reply within 24h.",
     "title": "AI for media: we build newsroom tools all the way to production",
@@ -1979,6 +1984,7 @@
     "metaDescription": "Custom AI applications and SaaS, from idea to production: RAG, agents, GDPR and business integrations. Monka, LocService and AFP cases. YC W24.",
     "breadcrumb": "Custom AI app development",
     "kicker": "AI APPLICATION · CUSTOM BUILT",
+    "displayTitle": "Custom AI apps.",
     "title": "Build a custom AI application, from idea to production",
     "lede": "We design, build and ship your AI application to production: the product, the RAG architecture and the agents, the security and the integrations with your tools. Then we hand it over to your team, or we keep running it.",
     "hero": {
