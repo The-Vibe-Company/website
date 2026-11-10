@@ -1,0 +1,281 @@
+.claude/skills/design-excalidraw-tools/references/design-principles.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-195
+.codex/skills/design-excalidraw-tools/assets/example_before_after.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-72
+.claude/skills/design-excalidraw-tools/assets/example_hub.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-51
+.claude/skills/design-excalidraw-tools/references/review-loop.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-43
+src/lib/article-links.test.ts
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 2-3,18-24
+.claude/skills/design-excalidraw-tools/assets/example_poster.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-63
+.codex/skills/design-excalidraw-tools/assets/example_signature_split.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-111
+.codex/skills/design-excalidraw-tools/references/design-principles.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-195
+.agents/skills/design-excalidraw-tools/assets/example_cycle.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-47
+.codex/skills/design-excalidraw-tools/references/excalidraw-plus.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-51
+.codex/skills/design-excalidraw-tools/assets/palettes.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-374
+.claude/skills/design-excalidraw-tools/assets/example_flow_tracks.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-82
+.claude/skills/design-excalidraw-tools/scripts/signature.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-464
+.agents/skills/design-excalidraw-tools/scripts/excalidraw_plus.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-139
+.claude/skills/design-excalidraw-tools/assets/example_signature_split.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-111
+.codex/skills/design-excalidraw-tools/references/styles.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-242
+.claude/skills/design-excalidraw-tools/assets/example_timeline.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-67
+.codex/skills/design-excalidraw-tools/scripts/signature.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-464
+.agents/skills/design-excalidraw-tools/scripts/signature.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-464
+src/generated/image-optimize-cache.json
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 419-433,699-703
+content/articles/measure-ai-project-roi.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-169
+.agents/skills/design-excalidraw-tools/assets/example_signature_hub.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-82
+.claude/skills/design-excalidraw-tools/scripts/icons.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-555
+.codex/skills/design-excalidraw-tools/assets/example_signature_zoom.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-99
+.agents/skills/design-excalidraw-tools/assets/example_signature_zoom.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-99
+.codex/skills/design-excalidraw-tools/assets/example_architecture.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-64
+.codex/skills/design-excalidraw-tools/companion.json
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-138
+.claude/skills/design-excalidraw-tools/scripts/doodles.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-344
+.codex/skills/design-excalidraw-tools/assets/example_signature_hub.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-82
+.codex/skills/design-excalidraw-tools/references/art-direction.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-155
+.codex/skills/design-excalidraw-tools/assets/example_agent_system.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-94
+.codex/skills/design-excalidraw-tools/assets/example_flashcards.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-130
+.claude/skills/design-excalidraw-tools/references/composition.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-109
+.codex/skills/design-excalidraw-tools/scripts/cards.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-250
+.claude/skills/design-excalidraw-tools/assets/example_flashcards.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-130
+.agents/skills/design-excalidraw-tools/assets/example_signature_social.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-125
+.agents/skills/design-excalidraw-tools/companion.json
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-138
+.claude/skills/design-excalidraw-tools/assets/example_signature_path.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-110
+.claude/skills/design-excalidraw-tools/references/excalidraw-plus.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-51
+.claude/skills/design-excalidraw-tools/references/audience-rules.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-69
+.codex/skills/design-excalidraw-tools/assets/example_stack.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-52
+.codex/skills/design-excalidraw-tools/evals/evals.json
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-134
+.codex/skills/design-excalidraw-tools/references/review-loop.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-43
+src/app/globals.css
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 719-737
+.agents/skills/design-excalidraw-tools/references/composition.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-109
+.agents/skills/design-excalidraw-tools/assets/example_process_map.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-305
+.agents/skills/design-excalidraw-tools/references/audience-rules.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-69
+.codex/skills/design-excalidraw-tools/assets/example_signature_path.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-110
+.agents/skills/design-excalidraw-tools/references/recipes.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-276
+.codex/skills/design-excalidraw-tools/LICENSE
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-21
+.agents/skills/design-excalidraw-tools/scripts/lint_scene.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-839
+.claude/skills/design-excalidraw-tools/references/recipes.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-276
+.claude/skills/design-excalidraw-tools/references/validation.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-91
+src/generated/og-image-dimensions.json
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 174-177
+.claude/skills/design-excalidraw-tools/SKILL.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-115
+.agents/skills/design-excalidraw-tools/references/excalidraw-plus.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-51
+.codex/skills/design-excalidraw-tools/scripts/excalikit.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-1283
+.companion/skills.lock.json
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 5,7-40,42-44,46,48,52-55,60-63,67,70-72,74,76,80-83,88-91,95,98-100,102,104,108-111,116-119,123
+.codex/skills/design-excalidraw-tools/assets/example_timeline.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-67
+.claude/skills/design-excalidraw-tools/references/styles.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-242
+.claude/skills/design-excalidraw-tools/scripts/render_scene.mjs
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-263
+.agents/skills/design-excalidraw-tools/references/art-direction.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-155
+.claude/skills/design-excalidraw-tools/assets/example_signature_hub.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-82
+content/articles/ai-agents-for-business.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 2-4,8,17-22,25-49,51,53,55-73,83,85,87,91,93,95,97,103-108,110-112,116,118,122,124,132,134,136,138,140,142,144,146,148,150,152,161-163,177,180,182,185,187,189
+content/articles/roi-ia.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-170
+.codex/skills/design-excalidraw-tools/assets/example_explainer.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-97
+.codex/skills/design-excalidraw-tools/assets/example_process_map.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-305
+.claude/skills/design-excalidraw-tools/assets/example_stack.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-52
+src/generated/image-variants.json
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 32-33
+.claude/skills/design-excalidraw-tools/assets/example_signature_social.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-125
+.agents/skills/design-excalidraw-tools/assets/example_signature_split.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-111
+.codex/skills/design-excalidraw-tools/scripts/lint_scene.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-839
+.agents/skills/design-excalidraw-tools/scripts/excalikit.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-1283
+.claude/skills/design-excalidraw-tools/assets/example_architecture.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-64
+.codex/skills/design-excalidraw-tools/assets/example_signature_social.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-125
+.codex/skills/design-excalidraw-tools/references/composition.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-109
+.agents/skills/design-excalidraw-tools/evals/evals.json
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-134
+.agents/skills/design-excalidraw-tools/assets/example_architecture.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-64
+.claude/skills/design-excalidraw-tools/scripts/lint_scene.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-839
+.agents/skills/design-excalidraw-tools/assets/example_stack.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-52
+.agents/skills/design-excalidraw-tools/assets/example_before_after.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-72
+.claude/skills/design-excalidraw-tools/assets/palettes.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-374
+.claude/skills/design-excalidraw-tools/assets/example_explainer.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-97
+.agents/skills/design-excalidraw-tools/assets/example_flow_tracks.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-82
+.claude/skills/design-excalidraw-tools/evals/evals.json
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-134
+.codex/skills/design-excalidraw-tools/scripts/doodles.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-344
+.codex/skills/design-excalidraw-tools/scripts/excalidraw_plus.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-139
+.claude/skills/design-excalidraw-tools/companion.json
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-138
+.agents/skills/design-excalidraw-tools/scripts/cards.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-250
+.agents/skills/design-excalidraw-tools/assets/palettes.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-374
+src/app/sitemap.test.ts
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 187,189
+.codex/skills/design-excalidraw-tools/assets/example_hub.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-51
+.agents/skills/design-excalidraw-tools/assets/example_signature_path.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-110
+.agents/skills/design-excalidraw-tools/assets/example_hub.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-51
+content/articles/agent-ia-entreprise.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 2,4,8,17,19,21,23,25-73,83,85,87,93,95,97,99,103-108,110-112,116,118,122,124,126,132,134,136,140,142,144,146,148,150,152,161-163,180,182-183,185,187,189
+.agents/skills/design-excalidraw-tools/assets/example_agent_system.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-94
+.claude/skills/design-excalidraw-tools/references/art-direction.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-155
+.agents/skills/design-excalidraw-tools/SKILL.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-115
+.agents/skills/design-excalidraw-tools/scripts/icons.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-555
+.agents/skills/design-excalidraw-tools/scripts/render_scene.mjs
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-263
+.claude/skills/design-excalidraw-tools/assets/example_agent_system.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-94
+.agents/skills/design-excalidraw-tools/references/design-principles.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-195
+.agents/skills/design-excalidraw-tools/references/validation.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-91
+.agents/skills/design-excalidraw-tools/assets/example_poster.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-63
+.agents/skills/design-excalidraw-tools/references/review-loop.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-43
+.claude/skills/design-excalidraw-tools/scripts/excalikit.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-1283
+public/downloads/roi-ia-gabarit.csv
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-11
+.claude/skills/design-excalidraw-tools/scripts/excalidraw_plus.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-139
+.agents/skills/design-excalidraw-tools/assets/example_explainer.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-97
+DESIGN.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 486-487
+.codex/skills/design-excalidraw-tools/assets/example_poster.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-63
+.claude/skills/design-excalidraw-tools/scripts/cards.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-250
+.claude/skills/design-excalidraw-tools/assets/example_before_after.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-72
+.codex/skills/design-excalidraw-tools/assets/example_flow_tracks.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-82
+.codex/skills/design-excalidraw-tools/assets/example_cycle.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-47
+.claude/skills/design-excalidraw-tools/LICENSE
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-21
+.codex/skills/design-excalidraw-tools/references/audience-rules.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-69
+.agents/skills/design-excalidraw-tools/scripts/doodles.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-344
+.codex/skills/design-excalidraw-tools/references/validation.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-91
+src/app/[locale]/resources/[type]/[slug]/page.tsx
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 416
+.agents/skills/design-excalidraw-tools/assets/example_timeline.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-67
+.codex/skills/design-excalidraw-tools/scripts/render_scene.mjs
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-263
+public/downloads/ai-roi-template.csv
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-11
+.codex/skills/design-excalidraw-tools/references/recipes.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-276
+.agents/skills/design-excalidraw-tools/references/styles.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-242
+.claude/skills/design-excalidraw-tools/assets/example_signature_zoom.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-99
+.claude/skills/design-excalidraw-tools/assets/example_cycle.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-47
+.agents/skills/design-excalidraw-tools/LICENSE
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-21
+.codex/skills/design-excalidraw-tools/scripts/icons.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-555
+.codex/skills/design-excalidraw-tools/SKILL.md
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-115
+.claude/skills/design-excalidraw-tools/assets/example_process_map.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-305
+.agents/skills/design-excalidraw-tools/assets/example_flashcards.py
+  s_cf3b1a16e9f092::t_925ac2cf119ae9 1-130
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6825bf30b35e10aa1c21accaa177c89124f042d6",
+  "prompts": {},
+  "sessions": {
+    "s_cf3b1a16e9f092": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b66a8829-4166-43f8-aecb-a06f164d4edd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
