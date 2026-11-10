@@ -1,0 +1,27 @@
+src/components/healthcare-ai/HealthcareAiPage.tsx
+  s_cf3b1a16e9f092::t_988b2c48cac2ce 183,187,196
+src/components/media-ai/MediaAiPage.tsx
+  s_cf3b1a16e9f092::t_988b2c48cac2ce 186,190
+src/components/hardening/HardeningPage.tsx
+  s_cf3b1a16e9f092::t_988b2c48cac2ce 173,177
+src/components/custom-ai-app/CustomAiAppPage.tsx
+  s_cf3b1a16e9f092::t_988b2c48cac2ce 231,235
+src/components/agents-production/AgentsProductionPage.tsx
+  s_cf3b1a16e9f092::t_988b2c48cac2ce 250,254
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0b5ddfa3673f008952346a79294148dcc245bded",
+  "prompts": {},
+  "sessions": {
+    "s_cf3b1a16e9f092": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b66a8829-4166-43f8-aecb-a06f164d4edd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
