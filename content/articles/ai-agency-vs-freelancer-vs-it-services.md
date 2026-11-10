@@ -6,6 +6,7 @@ translationKey: ai-agency-vs-freelancer-vs-it-services
 language: en
 summary: "AI agency, freelancer or IT services firm: a decision guide by project type, with sourced day rates, total cost, the risks and when each option wins."
 publishedAt: 2026-10-30
+dateModified: 2026-11-10
 complexity: beginner
 topics: AI Adoption, Strategy
 coverImage: /images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp
@@ -13,22 +14,22 @@ coverAlt: "The mascot holds a map at a three-way signpost: a light scooter, a co
 ogImage: /images/resources/agence-ia-vs-freelance-esn/cover-mascotte.webp
 ---
 
-**The short answer.** AI agency, freelancer or IT services firm: it depends on the project. Hire a freelancer for a precise AI task your team can take over: a connector, an extraction pipeline, an audit. Hire an IT services firm (what the French call an ESN) to add people to a team that already knows what it's building, over the long run. Hire an AI agency when you need a complete product or agent in production, fast, without the team in-house. The right choice depends less on the day rate than on three questions: who owns the outcome, who manages the work day to day, and who takes the system over in a year.
+**The short answer.** AI agency, freelancer or IT services firm: it depends on the project. Hire an AI agency when you need a complete product or agent in production, fast, without the team in-house. Hire a freelancer for a precise AI task your team can take over: a connector, an extraction pipeline, an audit. Hire an IT services firm (what the French call an ESN) to add people to a team that already knows what it's building, over the long run. The right choice depends less on the day rate than on three questions: who owns the outcome, who manages the work day to day, and who takes the system over in a year.
 
 Most comparisons stop at the day rate. Yet it's the number that tells you the least. A €700-a-day freelancer who ships alone in six weeks can cost less than a team billing €1,000 a day. The opposite happens too, when someone has to manage the work and then add the interface, security and infrastructure around it. So we start from your project and get to the vendor after.
 
 ## The comparison in one table
 
-| Criterion | AI freelancer | IT services firm (ESN) | AI agency |
+| Criterion | AI agency | AI freelancer | IT services firm (ESN) |
 |---|---|---|---|
-| What you buy | an expert's time | people, often on time and materials | an outcome delivered by a team |
-| Who manages day to day | you | you, or the firm's project lead | the agency, with a contact on your side |
-| Start | fast if the person is available | a few weeks (sourcing) | fast |
-| Scope covered | one topic, in depth | broad, depending on who is staffed | full product: front end, back end, AI, infra |
-| Scaling up | limited to one person | strong | medium |
-| Usual pricing | day rate | day rate, sometimes fixed price | fixed price per phase or capped time and materials |
-| Main risk | depending on one person | interchangeable profiles, heavy management | lock-in if nothing is handed over |
-| Wins when | the need fits in one sentence | volume and duration matter most | you need to reach production fast |
+| What you buy | an outcome delivered by a team | an expert's time | people, often on time and materials |
+| Who manages day to day | the agency, with a contact on your side | you | you, or the firm's project lead |
+| Start | fast | fast if the person is available | a few weeks (sourcing) |
+| Scope covered | full product: front end, back end, AI, infra | one topic, in depth | broad, depending on who is staffed |
+| Scaling up | medium | limited to one person | strong |
+| Usual pricing | fixed price per phase or capped time and materials | day rate | day rate, sometimes fixed price |
+| Main risk | lock-in if nothing is handed over | depending on one person | interchangeable profiles, heavy management |
+| Wins when | you need to reach production fast | the need fits in one sentence | volume and duration matter most |
 
 These cells describe tendencies. They aren't rules. Some IT services firms are very strong in AI, and some freelancers work in collectives. Look at shipped projects rather than the label.
 
@@ -60,6 +61,12 @@ An AI project never stays frozen. Models change every few months, and so do your
 
 ## When each option wins
 
+### The AI agency wins when you need production, fast
+
+The typical case: an AI product or agent that has to run inside your tools, with real data, access rights and usage metrics, within a few weeks. Nobody in-house has the time or the full skill set. The agency owns the outcome with a small team that covers the whole path.
+
+The risk: ending up dependent on a system nobody on your side understands. Put it in the contract from the start: ownership of the code, prompts and test sets, and a handover with documentation and runbooks.
+
 ### The freelancer wins when the need fits in one sentence
 
 "Extract amounts and dates from our PDF contracts into our ERP, with an error rate measured on 200 documents." That's a good freelance brief. The scope is clear, so is the success criterion, and someone on your side can run the result.
@@ -73,12 +80,6 @@ It breaks down when the project needs interface, back end, infrastructure and se
 You have a product team and a roadmap, and you're short of hands for eighteen months? An IT services firm can supply several profiles, replace them, and get through your procurement and security questionnaires. That's its job.
 
 The flip side: on time and materials, you manage the work. If the AI need is still fuzzy, you pay for days spent finding out. In France, time and materials also has a legal frame: the labour code bans [any for-profit operation whose sole purpose is lending staff](https://code.travail.gouv.fr/code-du-travail/l8241-1). A sound engagement relies on real expertise and supervision by the vendor. Consultants directed day to day like employees are a different thing. Your legal and procurement teams know the topic. Ask them before you sign.
-
-### The AI agency wins when you need production, fast
-
-The typical case: an AI product or agent that has to run inside your tools, with real data, access rights and usage metrics, within a few weeks. Nobody in-house has the time or the full skill set. The agency owns the outcome with a small team that covers the whole path.
-
-The risk: ending up dependent on a system nobody on your side understands. Put it in the contract from the start: ownership of the code, prompts and test sets, and a handover with documentation and runbooks.
 
 ## Eight situations, one recommendation
 
