@@ -75,7 +75,7 @@ export function WhatWeDo() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div
                   className={cn(
-                    "border border-foreground px-4 py-2 bg-background z-10",
+                    "border border-border px-4 py-2 bg-background z-10",
                     typography.label.mono
                   )}
                 >
@@ -97,7 +97,7 @@ export function WhatWeDo() {
             <div
               className={cn(
                 components.bordered.left,
-                "border-foreground border-l"
+                "border-border border-l"
               )}
             >
               <h2

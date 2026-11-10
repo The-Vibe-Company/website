@@ -15,15 +15,9 @@ interface NavLink {
 
 
 const ELSEWHERE_LINKS: NavLink[] = [
-  { label: "X", href: "https://x.com/thevibecompany", external: true },
   {
     label: "GitHub",
     href: "https://github.com/The-Vibe-Company",
-    external: true,
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/company/thevibeco",
     external: true,
   },
 ];
@@ -85,8 +79,8 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
   }));
 
   return (
-    <footer className="border-t-2 border-foreground bg-foreground text-background">
-      <div className="mx-auto max-w-[120rem] px-6 pb-6 pt-12 md:px-12 md:pt-20">
+    <footer data-surface="inverse" className="border-t border-border bg-foreground text-background">
+      <div className="mx-auto max-w-[90rem] px-6 pb-6 pt-12 md:px-10 lg:px-16 md:pt-20">
         {/* On a phone the link lists sit two by two under the wordmark:
             stacked, the footer alone ran past a full screen. */}
         <div className="mb-12 grid grid-cols-2 gap-x-6 gap-y-10 md:mb-16 md:grid-cols-[2fr_1fr_1fr_1fr] md:gap-12">

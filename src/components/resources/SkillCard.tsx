@@ -31,30 +31,30 @@ export function SkillCard({
   return (
     // A skill lives under its own language's prefix only, so link straight there.
     <Link href={detailHref} locale={language} className="group block h-full">
-      <article className="flex h-full min-h-[260px] flex-col border border-res-border bg-res-surface p-5 transition-colors hover:border-res-text/35">
-        <p className="mb-4 text-[10px] font-mono uppercase tracking-[0.22em] text-res-text-muted">
+      <article className="flex h-full min-h-[260px] flex-col border border-border bg-card p-6 transition-colors hover:border-border-strong md:p-7">
+        <p className="m-0 mb-5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
           {t('skillBadge')}
         </p>
 
-        <h3 className="text-2xl font-bold tracking-tight text-res-text leading-[1.05] group-hover:underline decoration-1 underline-offset-4">
+        <h3 className="m-0 text-[26px] font-bold tracking-[-0.03em] text-foreground leading-[1.05] group-hover:underline decoration-1 underline-offset-4">
           {title}
         </h3>
 
         <p
-          className="mt-3 text-sm text-res-text-muted leading-relaxed line-clamp-3"
+          className="m-0 mt-3 text-[15px] text-muted-foreground leading-[1.6] line-clamp-3"
           dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(summary ?? '') }}
         />
 
         {trigger && (
-          <div className="mt-5 border border-res-border bg-res-bg-secondary px-3 py-2">
-            <p className="mb-1 text-[10px] font-mono uppercase tracking-[0.18em] text-res-text-muted">
+          <div className="mt-5 border-l border-border-strong pl-4">
+            <p className="m-0 mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               {t('goodFor')}
             </p>
-            <p className="text-xs text-res-text leading-relaxed line-clamp-2">{trigger}</p>
+            <p className="m-0 text-[13px] text-foreground leading-relaxed line-clamp-2">{trigger}</p>
           </div>
         )}
 
-        <span className="mt-auto pt-6 text-[11px] font-mono uppercase tracking-wider text-res-text">
+        <span className="mt-auto pt-6 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground">
           {t('openSkill')} -&gt;
         </span>
       </article>

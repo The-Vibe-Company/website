@@ -47,7 +47,7 @@ describe("agents in production landing", () => {
     expect(MESSAGES.en.metaDescription).toBe(
       "Deploy AI agents in your company to production: tools, guardrails, measurement, handoff. LocService case (87% of tickets). Paris agency, YC W24.",
     );
-    expect(MESSAGES.fr.kicker).toBe("// AGENTS · POC → PRODUCTION");
+    expect(MESSAGES.fr.kicker).toBe("AGENTS · POC → PRODUCTION");
     for (const messages of Object.values(MESSAGES)) {
       expect(messages.metaTitle.length).toBeLessThanOrEqual(60);
       expect(messages.metaDescription.length).toBeLessThanOrEqual(160);

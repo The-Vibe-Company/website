@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { TopNav } from "@/components/TopNav";
 import { AboutBookingCta } from "@/components/about/AboutBookingCta";
-import { CLIENTS } from "@/components/home/Clients";
+import { Clientele } from "@/components/home/landing/Clientele";
+import { ServiceHero } from "@/components/ServiceHero";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { Link } from "@/i18n/navigation";
 import { ABOUT_ORIGIN_ARTICLE_LOCALE, ABOUT_ORIGIN_ARTICLE_PATH } from "@/lib/about";
@@ -36,15 +36,18 @@ import {
   webPageNode,
 } from "@/lib/structured-data";
 import { clientLogoSize } from "@/lib/client-logos";
+import { BrandSquare } from "@/components/BrandSquare";
 
 /**
  * The commercial "AI agency in Paris" landing page, served at
  * /fr/agence-ia-paris and /en/ai-agency-paris. Both routes render this
  * component; each declares the other through hreflang.
  *
- * It is built from the About page's blocks (hero, cards, ink slab, FAQ) and
- * the homepage FinalCTA. Every figure comes from a published case study or
- * article — see src/lib/agency-paris.ts.
+ * Dressed like the homepage landing and the About page: the hero on the ink
+ * in its orange bloom, then warm paper (the offers and cases under their
+ * lamps), the method as an ink band in the orange light, paper again for
+ * security, team and FAQ, and the homepage FinalCTA. Every figure comes from
+ * a published case study or article — see src/lib/agency-paris.ts.
  */
 
 export async function agencyParisMetadata(locale: string): Promise<Metadata> {
@@ -62,18 +65,23 @@ export async function agencyParisMetadata(locale: string): Promise<Metadata> {
   };
 }
 
-const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
+const BAND = `${SECTION} py-20 md:py-28 lg:py-32`;
 const H2 =
-  "m-0 font-bold text-foreground text-[clamp(32px,5vw,64px)] leading-[0.95] tracking-[-0.04em]";
+  "m-0 font-bold text-foreground text-[clamp(2.5rem,5.6vw,5.25rem)] leading-[0.92] tracking-[-0.045em]";
 const MONO =
   "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
 const PROSE = "m-0 text-[15px] leading-[1.6] text-muted-foreground md:text-base";
 const TEXT_LINK =
-  "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
+  "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
 // List marker drawn as a short rule rather than a dash character.
 const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
-const CARD_HOVER =
-  "transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]";
+/** The short orange bar a lamp card hangs from, with its glow. */
+const LAMP =
+  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
+/** The light an ink band sits in, as on the homepage's client quote. */
+const INK_GLOW =
+  "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
 
 export async function AgencyParisPage({ locale }: { locale: string }) {
   const contentLocale: ContentLocale = locale === "en" ? "en" : "fr";
@@ -126,220 +134,165 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
       ))}
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        {/* 1 — The one H1 on the page, the pitch, three sourced facts and
-            the call. */}
-        <section className={`${SECTION} pb-14 pt-12 md:pb-20 md:pt-16`}>
-          <span className={`mb-6 block ${MONO}`}>{t("kicker")}</span>
-          <h1
-            className="m-0 max-w-[24ch] font-bold text-foreground"
-            style={{
-              fontSize: "clamp(36px, 5.4vw, 80px)",
-              lineHeight: 0.94,
-              letterSpacing: "-0.045em",
-            }}
-          >
-            {t("title")}
-          </h1>
+        {/* 1 — On the ink, cut like the homepage's hero: the short headline,
+            the full title as the H1's promise, the pitch and the call, the
+            mascot standing in its light. */}
+        <ServiceHero
+          kicker={t("kicker")}
+          display={t("displayTitle")}
+          title={t("title")}
+          lede={t("lede")}
+          cta={<AboutBookingCta page={page} location="cta_agency_paris_hero" namespace="agencyParis" />}
+        />
 
-          <div className="mt-8 grid grid-cols-1 gap-8 md:mt-10 lg:grid-cols-[minmax(0,680px)_minmax(0,1fr)] lg:gap-16">
-            <p className="m-0 self-start border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
-              {t("lede")}
-            </p>
-            <div>
-              <span className={MONO}>{t("factsLabel")}</span>
-              <ul className="m-0 mt-4 flex list-none flex-col p-0">
-                {t.raw("facts").map((fact: string) => (
-                  <li
-                    key={fact}
-                    className="flex gap-3 border-b border-border py-3 text-[15px] leading-[1.5] text-foreground first:border-t"
-                  >
-                    <span aria-hidden="true" className={DASH} />
-                    <span>{fact}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        <div data-surface="paper">
+          {/* The client logos running along the top of the paper, as on the
+              homepage. */}
+          <Clientele />
 
-          <AboutBookingCta page={page} location="cta_agency_paris_hero" namespace="agencyParis" />
-
-          {/* The same two backers as the About page. */}
-          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-border pt-7 md:mt-12">
-            <span className={MONO}>{t("backedBy")}</span>
-            <a
-              href="https://www.ycombinator.com/companies/quivr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex transition-opacity hover:opacity-70"
-            >
-              <Image
-                src="/images/partners/y-combinator.svg"
-                alt="Y Combinator W24"
-                width={154}
-                height={38}
-                className="h-8 w-auto"
-              />
-            </a>
-            <span aria-hidden="true" className="h-8 w-px bg-border" />
-            <Image
-              src="/images/partners/france-2030.svg"
-              alt="France 2030"
-              width={52}
-              height={52}
-              className="h-10 w-auto"
-            />
-          </div>
-
-          {/* The client logos already on the homepage, nothing more. */}
-          <div className="mt-8 border-t border-border pt-7">
-            <span className={MONO}>{t("clientsLabel")}</span>
-            <ul className="m-0 mt-6 flex list-none flex-wrap items-center gap-x-10 gap-y-6 p-0 md:gap-x-14">
-              {CLIENTS.map((client) => (
-                <li key={client.name} className="flex items-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={client.src}
-                    alt={client.name}
-                    {...clientLogoSize(client.src)}
-                    className={`${client.className} w-auto object-contain brightness-0`}
-                    loading="lazy"
-                    decoding="async"
-                  />
+          {/* Three sourced facts, in short. */}
+          <section className={`${SECTION} border-b border-border py-12 md:py-14`}>
+            <span className={MONO}>
+              <BrandSquare />
+              {t("factsLabel")}
+            </span>
+            <ul className="m-0 mt-6 grid list-none grid-cols-1 gap-6 p-0 md:grid-cols-3 md:gap-10">
+              {t.raw("facts").map((fact: string) => (
+                <li key={fact} className="flex gap-3 text-[16px] leading-[1.5] text-soft-foreground">
+                  <span aria-hidden="true" className="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-brand" />
+                  <span>{fact}</span>
                 </li>
               ))}
             </ul>
-          </div>
-        </section>
+          </section>
 
-        {/* 2 — The three offers, the homepage services in card form. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={H2}>{t("offers.title")}</h2>
-          <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("offers.intro")}</p>
+          {/* 2 — The three offers, the homepage services, each under its
+              lamp. */}
+          <section className={BAND}>
+            <h2 className={H2}>{t("offers.title")}</h2>
+            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("offers.intro")}</p>
 
-          <div className="mt-10 grid grid-cols-1 gap-5 md:mt-14 md:grid-cols-3">
-            {AGENCY_PARIS_OFFER_KEYS.map((key, i) => (
-              <article
-                key={key}
-                className={`flex flex-col border border-foreground bg-background p-7 ${CARD_HOVER}`}
-              >
-                <div className="mb-7 flex items-start justify-between gap-3">
-                  <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
-                    {tServices(`items.${key}.tag`)}
-                  </span>
-                </div>
-                <h3 className="m-0 mb-4 text-[26px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[clamp(24px,2.6vw,32px)]">
-                  {t(`offers.items.${key}.label`)}
-                  <span className="block text-muted-foreground">
-                    {t(`offers.items.${key}.title`)}
-                  </span>
-                </h3>
-                <p className={PROSE}>{t(`offers.items.${key}.desc`)}</p>
-                {key === "build" || key === "operate" ? (
-                  <Link
-                    href={splitPath(
-                      key === "build" ? CUSTOM_AI_APP_PATHS : AGENTS_PRODUCTION_PATHS,
-                      locale,
-                    )}
-                    className={`${TEXT_LINK} mt-5`}
-                  >
-                    {t(`offers.items.${key}.link`)}
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                ) : null}
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* 3 — Who it is for: the signals, and the sectors already shipped. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={H2}>{t("audience.title")}</h2>
-          <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("audience.intro")}</p>
-
-          <div className="mt-10 grid grid-cols-1 gap-10 md:mt-14 md:grid-cols-2 md:gap-12">
-            <div>
-              <span className={MONO}>{t("audience.signalsLabel")}</span>
-              <ul className="m-0 mt-4 flex list-none flex-col border-t-2 border-foreground p-0">
-                {t.raw("audience.signals").map((signal: string) => (
-                  <li
-                    key={signal}
-                    className="flex gap-3 border-b border-border py-4 text-[17px] leading-[1.45] text-foreground"
-                  >
-                    <span aria-hidden="true" className={DASH} />
-                    <span>{signal}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <span className={MONO}>{t("audience.sectorsLabel")}</span>
-              <ul className="m-0 mt-4 flex list-none flex-col border-t-2 border-foreground p-0">
-                {cases.map((customer) => (
-                  <li key={customer.slug} className="border-b border-border">
+            <div className="mt-12 grid grid-cols-1 gap-4 md:mt-16 md:grid-cols-3">
+              {AGENCY_PARIS_OFFER_KEYS.map((key, i) => (
+                <article
+                  key={key}
+                  className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
+                >
+                  <span aria-hidden="true" className={LAMP} />
+                  <div className="relative mb-10 flex items-baseline justify-between gap-3">
+                    <span className="text-lit text-[56px] font-bold leading-none tracking-[-0.05em]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                      {tServices(`items.${key}.tag`)}
+                    </span>
+                  </div>
+                  <h3 className="relative m-0 mb-4 text-[clamp(1.6rem,2.2vw,2.1rem)] font-bold leading-[1.05] tracking-[-0.03em] text-foreground">
+                    {t(`offers.items.${key}.label`)}
+                    <span className="block text-muted-foreground">
+                      {t(`offers.items.${key}.title`)}
+                    </span>
+                  </h3>
+                  <p className={`relative ${PROSE} text-soft-foreground`}>
+                    {t(`offers.items.${key}.desc`)}
+                  </p>
+                  {key === "build" || key === "operate" ? (
                     <Link
-                      href={`/case-studies/${customer.slug}`}
-                      className="group flex items-baseline justify-between gap-4 py-4 text-foreground"
+                      href={splitPath(
+                        key === "build" ? CUSTOM_AI_APP_PATHS : AGENTS_PRODUCTION_PATHS,
+                        locale,
+                      )}
+                      className={`relative ${TEXT_LINK} mt-6 self-start`}
                     >
-                      <span className="text-[17px] leading-[1.45]">
-                        {t(`audience.sectors.${customer.slug}`)}
-                      </span>
-                      <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] underline decoration-1 underline-offset-4 group-hover:text-muted-foreground">
-                        {customer.client}
-                        <span aria-hidden="true">→</span>
-                      </span>
+                      {t(`offers.items.${key}.link`)}
+                      <span aria-hidden="true">→</span>
                     </Link>
-                  </li>
-                ))}
-              </ul>
+                  ) : null}
+                </article>
+              ))}
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* 4 — How it goes, on the same ink slab as the About page. */}
-        <section
-          data-surface="inverse"
-          className="border-y-2 border-foreground bg-foreground text-background"
-        >
-          <div className={`${SECTION} py-16 md:py-24`}>
-            <h2
-              className="m-0 font-bold text-background"
-              style={{
-                fontSize: "clamp(32px, 5vw, 64px)",
-                lineHeight: 0.95,
-                letterSpacing: "-0.04em",
-              }}
-            >
-              {t("method.title")}
-            </h2>
-            <p className="m-0 mt-5 max-w-[680px] text-[15px] leading-[1.6] text-white/70 md:text-base">
-              {t("method.intro")}
-            </p>
+          {/* 3 — Who it is for: the signals, and the sectors already
+              shipped. */}
+          <section className={`${BAND} border-t border-border`}>
+            <h2 className={H2}>{t("audience.title")}</h2>
+            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("audience.intro")}</p>
 
-            <span className="mt-12 block border-b border-white/15 pb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-white/55 md:mt-16">
+            <div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-2 md:gap-16">
+              <div>
+                <span className={MONO}>{t("audience.signalsLabel")}</span>
+                <ul className="m-0 mt-4 flex list-none flex-col p-0">
+                  {t.raw("audience.signals").map((signal: string) => (
+                    <li
+                      key={signal}
+                      className="flex gap-3 py-4 text-[17px] leading-[1.45] text-foreground"
+                    >
+                      <span aria-hidden="true" className={DASH} />
+                      <span>{signal}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <span className={MONO}>{t("audience.sectorsLabel")}</span>
+                <ul className="m-0 mt-4 flex list-none flex-col p-0">
+                  {cases.map((customer) => (
+                    <li key={customer.slug} className="border-b border-border">
+                      <Link
+                        href={`/case-studies/${customer.slug}`}
+                        className="group flex items-baseline justify-between gap-4 py-4 text-foreground"
+                      >
+                        <span className="text-[17px] leading-[1.45]">
+                          {t(`audience.sectors.${customer.slug}`)}
+                        </span>
+                        <span className="inline-flex shrink-0 items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] underline decoration-1 underline-offset-4 transition-colors group-hover:text-brand">
+                          {customer.client}
+                          <span aria-hidden="true">→</span>
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        {/* 4 — How it goes: an ink band in the orange light, like the
+            homepage's client quote, with the mid-page call. */}
+        <section className="relative overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{ background: INK_GLOW }}
+          />
+          <div className={`relative ${BAND}`}>
+            <h2 className={H2}>{t("method.title")}</h2>
+            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("method.intro")}</p>
+
+            <span className={`mt-14 block border-b border-border pb-4 md:mt-16 ${MONO}`}>
               {t("method.stepsLabel")}
             </span>
             <ol className="m-0 flex list-none flex-col p-0">
               {AGENCY_PARIS_STEPS.map((step) => (
                 <li
                   key={step.n}
-                  className="grid grid-cols-1 gap-4 border-b border-white/15 py-7 md:grid-cols-[200px_1fr] md:gap-12 md:py-8"
+                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
-                    <span className="text-4xl font-bold leading-none tracking-[-0.05em] text-background md:text-[56px]">
+                    <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
                       {step.n}
                     </span>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
                       {t(`method.steps.${step.key}.label`)}
                     </span>
                   </div>
                   <div className="flex flex-col gap-3">
-                    <h3 className="m-0 max-w-[620px] text-[22px] font-bold leading-[1.05] tracking-[-0.03em] text-background md:text-[28px]">
+                    <h3 className="m-0 max-w-[620px] text-[22px] font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-[30px]">
                       {t(`method.steps.${step.key}.title`)}
                     </h3>
-                    <p className="m-0 max-w-[620px] text-[15px] leading-[1.55] text-white/70 md:text-base">
+                    <p className={`${PROSE} max-w-[620px]`}>
                       {t(`method.steps.${step.key}.desc`)}
                     </p>
                   </div>
@@ -351,164 +304,170 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
               page={page}
               location="cta_agency_paris_method"
               namespace="agencyParis"
-              inverse
             />
           </div>
         </section>
 
-        {/* 5 — Proof: published cases only, each with a figure it can back. */}
-        <section className={`${SECTION} py-14 md:py-20`}>
-          <h2 className={H2}>{t("proof.title")}</h2>
-          <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("proof.intro")}</p>
+        <div data-surface="paper">
+          {/* 5 — Proof: published cases only, each under its lamp with a
+              figure it can back, lit like the homepage's. */}
+          <section className={BAND}>
+            <h2 className={H2}>{t("proof.title")}</h2>
+            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("proof.intro")}</p>
 
-          {featured ? (
-            <article
-              className={`mt-10 grid grid-cols-1 border border-foreground bg-background md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${CARD_HOVER}`}
-            >
-              <div className="flex flex-col border-b border-foreground p-7 md:p-9 lg:border-b-0 lg:border-r">
-                <CaseHeader
-                  logo={featured.logo}
-                  client={featured.client}
-                  sector={t(`proof.cases.${featured.slug}.sector`)}
-                />
-                <div className="mt-8 text-[56px] font-bold leading-none tracking-[-0.05em] text-foreground md:text-[80px]">
-                  {t(`proof.cases.${featured.slug}.figure`)}
-                </div>
-                <div className="mt-3 text-sm leading-[1.5] text-muted-foreground">
-                  {t(`proof.cases.${featured.slug}.figureLabel`)}
-                </div>
-                {featured.quote ? (
-                  <figure className="m-0 mt-8 border-l-2 border-foreground pl-5 lg:mt-auto lg:pt-8">
-                    <blockquote className="m-0 text-[15px] leading-[1.6] text-foreground">
-                      {locale === "fr" ? `« ${featured.quote.text} »` : `“${featured.quote.text}”`}
-                    </blockquote>
-                    <figcaption className={`mt-3 ${MONO}`}>{featured.quote.author}</figcaption>
-                  </figure>
-                ) : null}
-              </div>
-              <div className="flex flex-col p-7 md:p-9">
-                <CasePoints points={t.raw(`proof.cases.${featured.slug}.points`)} />
-                <CaseLink slug={featured.slug} label={t("proof.readCase", { name: featured.client })} />
-              </div>
-            </article>
-          ) : null}
-
-          <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-            {others.map((customer) => (
-              <article
-                key={customer.slug}
-                className={`flex flex-col border border-foreground bg-background p-7 md:p-8 ${CARD_HOVER}`}
-              >
-                <CaseHeader
-                  logo={customer.logo}
-                  client={customer.client}
-                  sector={t(`proof.cases.${customer.slug}.sector`)}
-                />
-                <div className="mt-7 text-[40px] font-bold leading-none tracking-[-0.04em] text-foreground md:text-[52px]">
-                  {t(`proof.cases.${customer.slug}.figure`)}
-                </div>
-                <div className="mt-3 text-sm leading-[1.5] text-muted-foreground">
-                  {t(`proof.cases.${customer.slug}.figureLabel`)}
-                </div>
-                <div className="mt-6 flex flex-1 flex-col">
-                  <CasePoints points={t.raw(`proof.cases.${customer.slug}.points`)} />
-                  <CaseLink
-                    slug={customer.slug}
-                    label={t("proof.readCase", { name: customer.client })}
+            {featured ? (
+              <article className="lamp-card mt-12 grid grid-cols-1 overflow-hidden border border-border md:mt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
+                <span aria-hidden="true" className={LAMP} />
+                {/* One bench under one lamp: no rule between the halves on
+                    a wide screen, so the light falls on the whole card. */}
+                <div className="relative flex flex-col border-b border-border p-7 md:p-9 lg:border-b-0 lg:pr-6">
+                  <CaseHeader
+                    logo={featured.logo}
+                    client={featured.client}
+                    sector={t(`proof.cases.${featured.slug}.sector`)}
                   />
+                  <div className="text-lit mt-10 pb-1 text-[clamp(3.5rem,7vw,6rem)] font-bold leading-none tracking-[-0.05em]">
+                    {t(`proof.cases.${featured.slug}.figure`)}
+                  </div>
+                  <div className="mt-3 text-sm leading-[1.5] text-muted-foreground">
+                    {t(`proof.cases.${featured.slug}.figureLabel`)}
+                  </div>
+                  {featured.quote ? (
+                    <figure className="m-0 mt-8 border-l border-border-strong pl-5 lg:mt-auto lg:pt-8">
+                      <blockquote className="m-0 text-[15px] leading-[1.6] text-foreground">
+                        {locale === "fr" ? `« ${featured.quote.text} »` : `“${featured.quote.text}”`}
+                      </blockquote>
+                      <figcaption className={`mt-3 ${MONO}`}>{featured.quote.author}</figcaption>
+                    </figure>
+                  ) : null}
+                </div>
+                <div className="relative flex flex-col p-7 md:p-9 lg:pl-6">
+                  <CasePoints points={t.raw(`proof.cases.${featured.slug}.points`)} />
+                  <CaseLink slug={featured.slug} label={t("proof.readCase", { name: featured.client })} />
                 </div>
               </article>
-            ))}
-          </div>
-        </section>
+            ) : null}
 
-        {/* 6 — Security and compliance: what we work to, never a
-            certification. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={H2}>{t("security.title")}</h2>
-          <p className={`${PROSE} mt-5 max-w-[680px]`}>{t("security.intro")}</p>
+            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+              {others.map((customer) => (
+                <article
+                  key={customer.slug}
+                  className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
+                >
+                  <span aria-hidden="true" className={LAMP} />
+                  <div className="relative">
+                    <CaseHeader
+                      logo={customer.logo}
+                      client={customer.client}
+                      sector={t(`proof.cases.${customer.slug}.sector`)}
+                    />
+                  </div>
+                  <div className="text-lit relative mt-8 pb-1 text-[clamp(2.75rem,4.6vw,4rem)] font-bold leading-none tracking-[-0.05em]">
+                    {t(`proof.cases.${customer.slug}.figure`)}
+                  </div>
+                  <div className="relative mt-3 text-sm leading-[1.5] text-muted-foreground">
+                    {t(`proof.cases.${customer.slug}.figureLabel`)}
+                  </div>
+                  <div className="relative mt-6 flex flex-1 flex-col">
+                    <CasePoints points={t.raw(`proof.cases.${customer.slug}.points`)} />
+                    <CaseLink
+                      slug={customer.slug}
+                      label={t("proof.readCase", { name: customer.client })}
+                    />
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-14">
-            {AGENCY_PARIS_SECURITY_KEYS.map((key, i) => (
-              <article
-                key={key}
-                className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[80px_minmax(0,420px)_1fr] md:gap-12 md:py-8"
-              >
-                <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
-                  {t(`security.items.${key}.title`)}
-                </h3>
-                <p className={`${PROSE} max-w-[70ch]`}>{t(`security.items.${key}.desc`)}</p>
-              </article>
-            ))}
-          </div>
+          {/* 6 — Security and compliance: what we work to, never a
+              certification. */}
+          <section className={`${BAND} border-t border-border`}>
+            <h2 className={H2}>{t("security.title")}</h2>
+            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("security.intro")}</p>
 
-          <div className="mt-10">
-            <span className={MONO}>{t("security.readLabel")}</span>
-            <ul className="m-0 mt-4 flex list-none flex-col gap-3 p-0">
-              {articles.map((article) => (
-                <li key={article.key}>
-                  <Link
-                    href={article.path}
-                    className="inline-flex items-baseline gap-2 text-[17px] leading-[1.45] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground"
-                  >
-                    {t(`security.articles.${article.key}`)}
+            <div className="mt-12 md:mt-16">
+              {AGENCY_PARIS_SECURITY_KEYS.map((key, i) => (
+                <article
+                  key={key}
+                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[96px_minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                >
+                  <span className="text-lit text-[40px] font-bold leading-none tracking-[-0.05em]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
+                    {t(`security.items.${key}.title`)}
+                  </h3>
+                  <p className={`${PROSE} max-w-[70ch]`}>{t(`security.items.${key}.desc`)}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-12">
+              <span className={MONO}>{t("security.readLabel")}</span>
+              <ul className="m-0 mt-4 flex list-none flex-col gap-3 p-0">
+                {articles.map((article) => (
+                  <li key={article.key}>
+                    <Link
+                      href={article.path}
+                      className="inline-flex items-baseline gap-2 text-[17px] leading-[1.45] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand"
+                    >
+                      {t(`security.articles.${article.key}`)}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* 7 — Who is behind it, in short; the About page has the rest. */}
+          <section className={`${BAND} border-t border-border`}>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16">
+              <h2 className={H2}>{t("team.title")}</h2>
+              <div>
+                <p className="m-0 text-[17px] leading-[1.6] text-foreground md:text-lg">
+                  {t("team.desc")}
+                </p>
+                <p className={`${PROSE} mt-4`}>{t("team.notToConfuse")}</p>
+                <div className="mt-8 flex flex-col items-start gap-3">
+                  <Link href={splitPath(ABOUT_PATHS, locale)} className={TEXT_LINK}>
+                    {t("team.aboutLink")}
                     <span aria-hidden="true">→</span>
                   </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {/* 7 — Who is behind it, in short; the About page has the rest. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16">
-            <h2 className={H2}>{t("team.title")}</h2>
-            <div>
-              <p className="m-0 text-[17px] leading-[1.6] text-foreground md:text-lg">
-                {t("team.desc")}
-              </p>
-              <p className={`${PROSE} mt-4`}>{t("team.notToConfuse")}</p>
-              <div className="mt-6 flex flex-col items-start gap-3">
-                <Link href={splitPath(ABOUT_PATHS, locale)} className={TEXT_LINK}>
-                  {t("team.aboutLink")}
-                  <span aria-hidden="true">→</span>
-                </Link>
-                <Link
-                  href={ABOUT_ORIGIN_ARTICLE_PATH}
-                  locale={ABOUT_ORIGIN_ARTICLE_LOCALE}
-                  className={TEXT_LINK}
-                >
-                  {t("team.originLink")}
-                  <span aria-hidden="true">→</span>
-                </Link>
+                  <Link
+                    href={ABOUT_ORIGIN_ARTICLE_PATH}
+                    locale={ABOUT_ORIGIN_ARTICLE_LOCALE}
+                    className={TEXT_LINK}
+                  >
+                    {t("team.originLink")}
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* 8 — Buyer questions, mirrored word for word in the FAQPage
-            JSON-LD above. */}
-        <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-          <h2 className={H2}>{t("faq.title")}</h2>
+          {/* 8 — Buyer questions, mirrored word for word in the FAQPage
+              JSON-LD above. */}
+          <section className={`${BAND} border-t border-border`}>
+            <h2 className={H2}>{t("faq.title")}</h2>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-12">
-            {AGENCY_PARIS_FAQ_KEYS.map((key) => (
-              <article
-                key={key}
-                className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-8"
-              >
-                <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
-                  {t(`faq.items.${key}.q`)}
-                </h3>
-                <p className={`${PROSE} max-w-[70ch]`}>{t(`faq.items.${key}.a`)}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+            <div className="mt-12 md:mt-16">
+              {AGENCY_PARIS_FAQ_KEYS.map((key) => (
+                <article
+                  key={key}
+                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                >
+                  <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
+                    {t(`faq.items.${key}.q`)}
+                  </h3>
+                  <p className={`${PROSE} max-w-[70ch]`}>{t(`faq.items.${key}.a`)}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        </div>
 
         <FinalCTA />
       </main>
@@ -527,12 +486,12 @@ function CaseHeader({ logo, client, sector }: { logo: string; client: string; se
           src={logo}
           alt={client}
           {...clientLogoSize(logo)}
-          className="h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
+          className="logo-tone h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
           loading="lazy"
           decoding="async"
         />
       </h3>
-      <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+      <span className="max-w-[16rem] text-right font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-muted-foreground">
         {sector}
       </span>
     </div>
@@ -545,9 +504,9 @@ function CasePoints({ points }: { points: string[] }) {
       {points.map((point) => (
         <li
           key={point}
-          className="flex gap-3 border-b border-border py-3 text-[15px] leading-[1.5] text-foreground last:border-b-0"
+          className="flex gap-3 py-3 text-[15px] leading-[1.5] text-foreground"
         >
-          <span aria-hidden="true" className="font-mono text-orange-500">
+          <span aria-hidden="true" className="font-mono text-brand">
             →
           </span>
           <span>{point}</span>

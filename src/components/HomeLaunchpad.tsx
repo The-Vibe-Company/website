@@ -2,16 +2,8 @@ import { getRunnerItems } from "@/lib/runner-worlds";
 import type { ContentLocale } from "@/lib/customers";
 import { TopNav } from "./TopNav";
 import { Footer } from "./Footer";
-import { Hero } from "./home/Hero";
-import { HeroMobile } from "./home/HeroMobile";
+import { Landing } from "./home/landing";
 import { MobileBookingBar } from "./home/MobileBookingBar";
-import { Quote } from "./home/Quote";
-import { Services } from "./home/Services";
-import { AgencyParisLink } from "./home/AgencyParisLink";
-import { CaseStudy } from "./home/CaseStudy";
-import { Proof } from "./home/Proof";
-import { Clients } from "./home/Clients";
-import { FinalCTA } from "./home/FinalCTA";
 
 export function HomeLaunchpad({ locale }: { locale: ContentLocale }) {
   // Built on the server so the case-study and project catalogues never reach
@@ -22,18 +14,7 @@ export function HomeLaunchpad({ locale }: { locale: ContentLocale }) {
     <div data-variant="hybrid" className="flex min-h-screen flex-col bg-background text-foreground">
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        {/* Below 768px the page is laid out as a poster (see DESIGN.md):
-            HeroMobile replaces Hero and the logo marquee, and the client
-            quote and the booking bar exist on phones only. */}
-        <HeroMobile />
-        <Hero runnerItems={runnerItems} />
-        <Clients />
-        <CaseStudy />
-        <Quote />
-        <Services />
-        <AgencyParisLink />
-        <Proof />
-        <FinalCTA />
+        <Landing runnerItems={runnerItems} />
         {/* Inside main, so the mobile menu makes it inert with the rest of
             the page while it is open. */}
         <MobileBookingBar />

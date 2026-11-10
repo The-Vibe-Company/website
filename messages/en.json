@@ -86,7 +86,7 @@
     "trustedBy": "We work for them"
   },
   "caseStudy": {
-    "kicker": "// CLIENT WORK",
+    "kicker": "CLIENT WORK",
     "titleLine1": "Built for clients,",
     "titleLine2": "live in production.",
     "readCase": "Read the case",
@@ -100,10 +100,10 @@
   },
   "quote": {
     "text": "They don’t just execute a brief: they <em>challenge, structure, prototype and build</em> with us.",
-    "author": "Étienne, CEO of Monka"
+    "author": "Étienne Rubi, CEO of Monka"
   },
   "services": {
-    "kicker": "// WHAT WE DO",
+    "kicker": "WHAT WE DO",
     "titleLine1": "Three ways",
     "titleLine2": "to work together.",
     "items": {
@@ -147,7 +147,7 @@
     "indexCount": "3 ways"
   },
   "process": {
-    "kicker": "// 02. HOW WE WORK",
+    "kicker": "02. HOW WE WORK",
     "titleLine1": "From brief",
     "titleLine2": "to production.",
     "steps": {
@@ -174,7 +174,7 @@
     }
   },
   "proof": {
-    "kicker": "// OUR OWN PRODUCTS",
+    "kicker": "OUR OWN PRODUCTS",
     "titleLine1": "We build our own",
     "titleLine2": "products, in the open.",
     "intro": "We don't just build for clients. The same team ships its own open-source tools on GitHub. It's how we stay sharp and push what AI can do.",
@@ -227,16 +227,16 @@
   },
   "caseStudiesPage": {
     "metaTitle": "AI case studies: projects in production",
-    "kicker": "// CLIENT WORK",
+    "kicker": "CLIENT WORK",
     "titleLine1": "Built for clients,",
     "titleLine2": "live in production.",
     "metaDescription": "Real AI products and automations we built and run for companies, fast, because we run on AI ourselves.",
     "readCase": "Read the case",
     "back": "Case studies",
     "backHome": "Home",
-    "whatWeDid": "// What we did",
-    "projectLabel": "// Project {n}",
-    "theProduct": "// The product",
+    "whatWeDid": "What we did",
+    "projectLabel": "Project {n}",
+    "theProduct": "The product",
     "visit": "Visit",
     "visitClient": "Visit {name}",
     "keepReading": "Keep Reading",
@@ -245,7 +245,7 @@
     "relatedArticle": "To go further, read our guide <link>{title}</link>.",
     "faqTitle": "Frequently asked questions",
     "about": {
-      "kicker": "// HOW WE WORK",
+      "kicker": "HOW WE WORK",
       "title": "From the first call to production.",
       "p1": "Every project starts with a 30-minute call: you explain the problem, we explain how we would build it. If it fits, we send a fixed-scope proposal, then a clickable prototype before a single line of production code.",
       "p2": "During the build, you see working software early and often, and we measure the result by real usage rather than by the demo. At Monka, the caregiver app, the nurses' CRM and the clinical engine went live in two months, and a new version has shipped roughly every two days since. At LocService, the assistant's drafts are used on 87% of tickets.",
@@ -313,24 +313,24 @@
     "previewPrompt": "Preview prompt"
   },
   "portfolio": {
-    "kicker": "// OUR OWN PRODUCTS",
+    "kicker": "OUR OWN PRODUCTS",
     "titleLine1": "Our own products,",
     "titleLine2": "shipped.",
-    "subtitle": "Products we designed and shipped for ourselves first: Quivr (search & monitoring), Vanish (expiring file links), Skillpack (shared team skills), VibeDrift (dev analytics), Granite (agent memory), plus VibeDeck, Bruno, Armada and AEOM. Each card opens the product page.",
+    "subtitle": "Products we designed and shipped for ourselves first: Quivr (search & monitoring), Skillpack (shared team skills), Armada (agent fleet), AEOM (frontend design), Granite (agent memory), plus Vanish, VibeDrift, VibeDeck and Bruno. Each card opens the product page.",
     "built": "Built",
     "back": "Portfolio",
     "statusLabel": "Status",
     "typeLabel": "Type",
-    "theProduct": "// The product",
+    "theProduct": "The product",
     "visit": "Visit",
     "visitProject": "Visit {name}",
     "metaTitle": "AI portfolio: tools & products we shipped",
     "metaDescription": "Quivr, Vanish, Skillpack, VibeDrift, Granite and more: AI products we built for ourselves, open source or live, with ship dates.",
-    "storyWhy": "// Why we built it",
-    "storyHow": "// How it works",
-    "storyAudience": "// Who it's for",
+    "storyWhy": "Why we built it",
+    "storyHow": "How it works",
+    "storyAudience": "Who it's for",
     "about": {
-      "kicker": "// WHY WE BUILD OUR OWN PRODUCTS",
+      "kicker": "WHY WE BUILD OUR OWN PRODUCTS",
       "title": "Our first client is us.",
       "p1": "The Vibe Company is an AI agency, and a good part of what we know how to do, we first built for ourselves. Each of these products starts from a friction we lived with every day: sharing the report an agent just produced, organizing the team's skills, giving our agents a memory, coordinating several coding agents on one project, or simply not losing an idea thrown out in a meeting.",
       "p2": "Several of them run the agency every day: Bruno for the company to-do, Skillpack for our skills, Granite for our agents' memory. That is how we learn what holds up in production and what breaks, before we bring it to a client. If our own company does not run better with our tools, we have no legitimacy selling them.",
@@ -345,7 +345,7 @@
     "bodyIronic": "Ironic? Absolutely."
   },
   "about": {
-    "kicker": "// ABOUT",
+    "kicker": "ABOUT",
     "metaTitle": "About The Vibe Company: AI Agency in Paris (YC W24)",
     "metaDescription": "The Vibe Company is an AI agency in Paris founded in 2024 by Stan Girard and Antoine Dewez (YC W24). AI products, agents, HDS and security, for production.",
     "title": "About The Vibe Company",
@@ -489,7 +489,8 @@
     }
   },
   "hardening": {
-    "kicker": "// AGENTS · HARDEN PRODUCT & STACK",
+    "kicker": "AGENTS · HARDEN PRODUCT & STACK",
+    "displayTitle": "Agent-led security.",
     "metaTitle": "AI Agents to Harden Your Product & Stack | The Vibe Company",
     "metaDescription": "Deploy AI agents to harden product and infrastructure: secrets, deps, IAM, configs, PR review. Built to GDPR and HDS requirements. Paris agency.",
     "title": "Use AI agents to harden your product and your infrastructure",
@@ -844,7 +845,8 @@
     "metaDescription": "Paris AI agency (YC W24): AI products, agents and training shipped to production. Monka, AFP, LocService cases. Reply within 24h.",
     "breadcrumb": "AI agency in Paris",
     "serviceName": "AI agency in Paris",
-    "kicker": "// AI AGENCY · PARIS",
+    "kicker": "AI AGENCY · PARIS",
+    "displayTitle": "Paris AI agency.",
     "title": "AI agency in Paris: we build your AI products and agents, all the way to production",
     "lede": "The Vibe Company is an AI-first agency based in Paris. We design AI products, deploy agents inside your tools and train your teams, for mid-size and large companies.",
     "factsLabel": "At a glance",
@@ -1049,7 +1051,8 @@
     "aboutLink": "Our AI agency in Paris page"
   },
   "healthcareAi": {
-    "kicker": "// HEALTHCARE AI · HDS REQUIREMENTS",
+    "kicker": "HEALTHCARE AI · HDS REQUIREMENTS",
+    "displayTitle": "Healthcare AI.",
     "metaTitle": "Healthcare AI & HDS: ship to production | The Vibe Company",
     "metaDescription": "AI projects on French health data, built to GDPR and HDS requirements. Monka case (2 months to prod). Paris AI agency, YC W24. Reply within 24h.",
     "title": "Healthcare AI and HDS: we build your products all the way to production",
@@ -1254,7 +1257,8 @@
     "caseLink": "Working with health data? See our <link>Healthcare AI & HDS</link> page."
   },
   "agentsProduction": {
-    "kicker": "// AGENTS · POC → PRODUCTION",
+    "kicker": "AGENTS · POC → PRODUCTION",
+    "displayTitle": "Agents in production.",
     "metaTitle": "AI Agents in Production: from POC to run | The Vibe Company",
     "metaDescription": "Deploy AI agents in your company to production: tools, guardrails, measurement, handoff. LocService case (87% of tickets). Paris agency, YC W24.",
     "title": "AI agents at work: we take them all the way to production",
@@ -1459,7 +1463,8 @@
     }
   },
   "mediaAi": {
-    "kicker": "// AI FOR MEDIA · NEWSROOMS",
+    "kicker": "AI FOR MEDIA · NEWSROOMS",
+    "displayTitle": "AI for media.",
     "metaTitle": "AI for Media: tools for newsrooms | The Vibe Company",
     "metaDescription": "AI tools for newsrooms and media orgs, shipped to production. AFP / MediaGen proof (France 2030). Paris AI agency, YC W24. Reply within 24h.",
     "title": "AI for media: we build newsroom tools all the way to production",
@@ -1978,7 +1983,8 @@
     "metaTitle": "Custom AI App Development | The Vibe Company",
     "metaDescription": "Custom AI applications and SaaS, from idea to production: RAG, agents, GDPR and business integrations. Monka, LocService and AFP cases. YC W24.",
     "breadcrumb": "Custom AI app development",
-    "kicker": "// AI APPLICATION · CUSTOM BUILT",
+    "kicker": "AI APPLICATION · CUSTOM BUILT",
+    "displayTitle": "Custom AI apps.",
     "title": "Build a custom AI application, from idea to production",
     "lede": "We design, build and ship your AI application to production: the product, the RAG architecture and the agents, the security and the integrations with your tools. Then we hand it over to your team, or we keep running it.",
     "hero": {

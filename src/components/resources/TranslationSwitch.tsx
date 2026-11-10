@@ -62,7 +62,7 @@ export function TranslationSwitch({
       {others.map((translation) => (
         <span key={translation.language} className="inline-flex items-center gap-1">
           <span
-            className={`font-mono text-res-border ${SEPARATOR_SIZE[variant]}`}
+            className={`font-mono text-border-strong ${SEPARATOR_SIZE[variant]}`}
             aria-hidden="true"
           >
             /

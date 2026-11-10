@@ -38,7 +38,7 @@ export function SkillPromptBlock({ body, label }: SkillPromptBlockProps) {
                 if (!expanded) captureEvent("skill_prompt_expanded", { word_count: wordCount });
                 setExpanded((current) => !current);
               }}
-              className="inline-flex min-h-11 items-center gap-1.5 border border-res-border bg-res-surface px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider text-res-text-muted transition-colors hover:text-res-text"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-[2px] border border-border bg-card px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
             >
               <ChevronDown
                 size={13}
@@ -67,7 +67,7 @@ export function SkillPromptBlock({ body, label }: SkillPromptBlockProps) {
         {trimmed}
       </pre>
       {!expanded && canExpand && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-res-bg-secondary to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card to-transparent" />
       )}
     </div>
   );

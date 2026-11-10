@@ -5,7 +5,9 @@ import s from "./quivr.module.css";
 
 /**
  * The Quivr V2 web app as a product shot, drawn in HTML/CSS in place of a
- * screenshot (after the Stageshow skill, .agents/skills/stageshow). One story:
+ * screenshot (after the Stageshow skill, .agents/skills/stageshow), written
+ * against the site's tokens so it takes the band it sits on (the project
+ * page's paper); the purple bar keeps the product's own colour. One story:
  * a new article lands at the top of the live feed, the words that matched a
  * saved alert are underlined, and the alert arrives with the rule that
  * matched and the webhook sent to your app. The alert is the docs' own
@@ -61,7 +63,7 @@ const SOURCE_PATHS: Record<SourceKind, React.ReactNode> = {
 
 export function SourceIcon({ kind }: { kind: SourceKind }) {
   return (
-    <span className="flex h-7 w-7 shrink-0 items-center justify-center border border-foreground text-foreground">
+    <span className="flex h-7 w-7 shrink-0 items-center justify-center border border-border text-foreground">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6">
         {SOURCE_PATHS[kind]}
       </svg>
@@ -95,9 +97,9 @@ export async function QuivrStage({ locale, accent }: { locale: string; accent: s
         data-quivr-mock
         role="img"
         aria-label={t("stageAlt")}
-        className={`${s.stage} select-none border border-foreground`}
+        className={`${s.stage} select-none border border-border`}
       >
-        <div className={`${s.window} flex flex-col border border-foreground bg-background shadow-[8px_8px_0_0_var(--border)]`}>
+        <div className={`${s.window} flex flex-col border border-border bg-card shadow-[8px_8px_0_0_var(--border)]`}>
           <div className="h-[3px] w-full shrink-0" style={{ backgroundColor: accent }} />
           <div className="flex min-h-0 flex-1">
             {/* Sidebar: the app's mark, then its sections (the feed is open). */}
@@ -121,7 +123,7 @@ export async function QuivrStage({ locale, accent }: { locale: string; accent: s
               <div className="flex h-12 items-center gap-4 border-b border-border px-4 md:px-5">
                 <span className="text-[16px] font-bold tracking-[-0.02em] text-foreground">{t("mock.title")}</span>
                 <span className={`inline-flex items-center gap-1.5 text-foreground ${MONO}`}>
-                  <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                   {t("mock.live")}
                 </span>
                 <span className="ml-auto hidden h-8 w-[min(340px,40%)] items-center gap-2 border border-border px-3 text-muted-foreground sm:flex">
@@ -138,7 +140,7 @@ export async function QuivrStage({ locale, accent }: { locale: string; accent: s
                 <span className="h-6 w-12 border border-border" />
                 <span className="h-6 w-16 border border-border" />
                 <span className="inline-flex h-6 items-center gap-1.5 border border-foreground bg-foreground px-2.5 text-[12px] font-medium text-background">
-                  <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                   {t("mock.alerts")}
                 </span>
                 <span className="hidden h-6 w-14 border border-border sm:block" />
@@ -149,21 +151,21 @@ export async function QuivrStage({ locale, accent }: { locale: string; accent: s
                 {items.map((item, i) => (
                   <div
                     key={item.title}
-                    className={`flex items-start gap-3 border-b border-border bg-orange-500/[0.06] px-4 py-3 md:pl-5 md:pr-[88px] ${
+                    className={`flex items-start gap-3 border-b border-border bg-brand/[0.06] px-4 py-3 md:pl-5 md:pr-[88px] ${
                       i === 0 ? s.newRow : ""
                     }`}
                   >
-                    <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
+                    <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
                     <SourceIcon kind={i === 0 ? "feed" : "mail"} />
                     <div className="min-w-0 flex-1">
                       <p className="m-0 text-[14px] font-semibold leading-[1.35] text-foreground md:text-[15px]">
-                        <Headline text={item.title} markClassName={i === 0 ? s.mark : "underline decoration-orange-500 decoration-2 underline-offset-[3px]"} />
+                        <Headline text={item.title} markClassName={i === 0 ? s.mark : "underline decoration-brand decoration-2 underline-offset-[3px]"} />
                       </p>
                       <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-muted-foreground">
                         <span>{item.source}</span>
                         <span aria-hidden="true">·</span>
                         <span>{item.time}</span>
-                        <span className={`border border-orange-500 px-1.5 leading-4 text-orange-700 ${MONO} ${i === 0 ? s.newTag : ""}`}>
+                        <span className={`border border-brand px-1.5 leading-4 text-brand ${MONO} ${i === 0 ? s.newTag : ""}`}>
                           {t("mock.alertTag")}
                         </span>
                       </div>
@@ -187,16 +189,16 @@ export async function QuivrStage({ locale, accent }: { locale: string; accent: s
         </div>
 
         {/* The alert: what the new article set off, and where it went. */}
-        <div className={`${s.satellite} border-2 border-foreground bg-background p-4 shadow-[6px_6px_0_0_var(--foreground)]`}>
-          <span className={`inline-flex items-center gap-1.5 text-orange-700 ${MONO}`}>
-            <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+        <div className={`${s.satellite} border border-border-strong bg-card p-4 shadow-[0_24px_60px_-24px_rgb(12_12_13_/_0.45)]`}>
+          <span className={`inline-flex items-center gap-1.5 text-brand ${MONO}`}>
+            <span className="h-1.5 w-1.5 rounded-full bg-brand" />
             {t("mock.alert.kicker")}
           </span>
           <div className="mt-2 text-[18px] font-bold leading-tight tracking-[-0.02em] text-foreground">
             {t("mock.alert.topic")}
           </div>
           <div className="mt-1 text-[13px] leading-snug text-muted-foreground">{t("mock.alert.count")}</div>
-          <code className="mt-3 block border border-border bg-[#f6f2ea] px-2.5 py-2 font-mono text-[11px] leading-snug text-foreground md:whitespace-nowrap">
+          <code className="mt-3 block border border-border bg-accent px-2.5 py-2 font-mono text-[11px] leading-snug text-foreground md:whitespace-nowrap">
             {t("mock.alert.rule")}
           </code>
           <div className={`mt-3 flex items-center gap-2 text-[12px] leading-snug text-foreground ${s.sent}`}>

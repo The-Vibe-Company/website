@@ -1,7 +1,7 @@
-import { useTranslations } from "next-intl";
-import { Marquee } from "@/components/Marquee";
-import { clientLogoSize } from "@/lib/client-logos";
-
+/**
+ * The clients whose logos the site shows: the homepage's logo loop, the About
+ * page and the agency pages draw them from this list.
+ */
 interface Client {
   name: string;
   src: string;
@@ -23,42 +23,3 @@ export const CLIENTS: Client[] = [
   { name: "Zapa", src: "/images/clients/zapa.svg", url: "https://www.zapa.fr", className: "h-6 md:h-7" },
   { name: "Theodo", src: "/images/clients/theodo.svg", url: "https://www.theodo.com", className: "h-6 md:h-7" },
 ];
-
-export function Clients() {
-  const t = useTranslations("clients");
-  return (
-    // Phones show these logos as a grid at the foot of the hero instead.
-    <section id="clients" className="hidden bg-background py-10 md:block md:py-12">
-      <p className="mb-6 px-6 text-center font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground md:mb-7">
-        {t("trustedBy")}
-      </p>
-      <Marquee>
-        {CLIENTS.map((client) => (
-          <a
-            key={client.name}
-            href={client.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={client.name}
-            className="mx-8 flex h-12 shrink-0 items-center transition-opacity duration-200 hover:opacity-50 md:mx-12"
-          >
-            {/* Eager, or the copies clipped by the track would pop in as they
-                scroll into view; low priority, which also keeps React from
-                preloading them in <head> on phones, where this band is
-                display:none, ahead of the hero's fonts and CSS. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={client.src}
-              alt={client.name}
-              {...clientLogoSize(client.src)}
-              className={`${client.className} w-auto object-contain brightness-0`}
-              loading="eager"
-              fetchPriority="low"
-              decoding="async"
-            />
-          </a>
-        ))}
-      </Marquee>
-    </section>
-  );
-}

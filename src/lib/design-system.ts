@@ -103,15 +103,15 @@ export const typography = {
 export const spacing = {
   // Page padding responsive
   page: {
-    x: 'px-6 md:px-12 lg:px-24',
+    x: 'px-6 md:px-10 lg:px-16',
     y: 'py-24 md:py-32',
     yLarge: 'py-32 md:py-48',
   },
   
   // Section spacing
   section: {
-    padding: 'py-24 md:py-32 px-6 md:px-12 lg:px-24',
-    paddingLarge: 'py-32 md:py-48 px-6 md:px-12 lg:px-24',
+    padding: 'py-24 md:py-32 px-6 md:px-10 lg:px-16',
+    paddingLarge: 'py-32 md:py-48 px-6 md:px-10 lg:px-16',
   },
   
   // Container max widths
@@ -208,7 +208,7 @@ export const effects = {
     none: 'shadow-none',
     default: 'shadow-lg',
     xl: 'shadow-2xl',
-    brutal: 'shadow-[8px_8px_0px_0px_var(--foreground)]',
+    brutal: 'shadow-[8px_8px_0px_0px_var(--border-strong)]',
   },
   
   // Border radius
@@ -263,8 +263,8 @@ export const components = {
   // Card styles
   card: {
     base: 'border border-border bg-background',
-    default: 'border border-foreground bg-background p-8 md:p-12',
-    hover: 'border border-foreground bg-background p-8 md:p-12 transition-all hover:shadow-[8px_8px_0px_0px_var(--foreground)]',
+    default: 'border border-border bg-background p-8 md:p-12',
+    hover: 'border border-border bg-background p-8 md:p-12 transition-colors hover:border-border-strong hover:bg-card',
     glass: 'bg-background/80 backdrop-blur-xl border border-border/50',
   },
   
@@ -276,16 +276,16 @@ export const components = {
   
   // Divider styles
   divider: {
-    horizontal: 'border-t border-foreground',
+    horizontal: 'border-t border-border',
     vertical: 'w-px h-4 bg-border/50',
-    dashed: 'border-t border-dashed border-foreground/30',
+    dashed: 'border-t border-dashed border-border',
   },
   
   // Container with border treatment
   bordered: {
-    left: 'border-l border-foreground/30 pl-8 md:pl-12 py-4',
-    leftSolid: 'border-l-2 border-foreground pl-6',
-    leftDashed: 'border-l border-dashed border-foreground pl-4 py-1',
+    left: 'border-l border-border pl-8 md:pl-12 py-4',
+    leftSolid: 'border-l border-border-strong pl-6',
+    leftDashed: 'border-l border-dashed border-border pl-4 py-1',
   },
   
   // Marquee container
@@ -306,18 +306,18 @@ export const components = {
   
   // Section headers
   sectionHeader: {
-    wrapper: 'flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-foreground pb-6',
+    wrapper: 'flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-border pb-6',
     title: 'text-sm font-medium uppercase tracking-widest flex items-center gap-2',
     indicator: 'w-2 h-2 bg-foreground',
   },
   
   // Tag grid (tech stack, features, etc.)
-  tagGrid: 'grid grid-cols-2 sm:grid-cols-3 gap-0 border-t border-l border-foreground',
-  tagItem: 'px-3 py-4 border-r border-b border-foreground text-xs font-mono uppercase text-center hover:bg-foreground hover:text-background transition-colors cursor-crosshair flex items-center justify-center',
+  tagGrid: 'grid grid-cols-2 sm:grid-cols-3 gap-0 border-t border-l border-border',
+  tagItem: 'px-3 py-4 border-r border-b border-border text-xs font-mono uppercase text-center hover:bg-foreground hover:text-background transition-colors cursor-crosshair flex items-center justify-center',
   
   // Code/Terminal styles
   terminal: {
-    line: 'font-mono text-lg md:text-xl border-l border-dashed border-foreground pl-4 py-1',
+    line: 'font-mono text-lg md:text-xl border-l border-dashed border-border pl-4 py-1',
     cursor: 'animate-pulse bg-foreground text-background px-1',
   },
   

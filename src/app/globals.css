@@ -12,110 +12,59 @@
    ============================================================================= */
 
 /* -----------------------------------------------------------------------------
-   Color Tokens (Light Mode)
+   Color Tokens — "ink" identity
+   One dark identity for the whole site: near-black ink background, warm paper
+   text, hairline rules and a single orange signal. It never flips with the
+   system theme, so the tokens live on :root and color-scheme is pinned dark.
+   [data-variant="hybrid"] (homepage, portfolio, case studies, landings) and
+   .resources-theme only re-declare them so a wrapper can never pick up another
+   palette.
    ----------------------------------------------------------------------------- */
-:root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --card: #f9f9f9;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --muted: #737373;
-  --muted-foreground: #525252;
-  --accent: #f5f5f5;
-  --accent-foreground: #171717;
-  --border: #e5e5e5;
-  --input: #e5e5e5;
+:root,
+[data-variant="hybrid"],
+.resources-theme {
+  color-scheme: dark;
+  --background: #0c0c0d;
+  --foreground: #f4f3ef;
+  --card: #141415;
+  --card-foreground: #f4f3ef;
+  --popover: #161617;
+  --popover-foreground: #f4f3ef;
+  --muted: #807e7a;
+  --muted-foreground: #9c9a94;
+  /* Between the two: nav links, mono metadata that must stay readable. */
+  --soft-foreground: #c9c7c1;
+  --accent: #1a1a1b;
+  --accent-foreground: #e9e7e1;
+  --border: #2c2c2d;
+  /* The rule a card or an outline control draws: a step above the hairline. */
+  --border-strong: #4a4946;
+  --input: #2c2c2d;
+  /* The one accent: status squares, the YC badge, highlights. */
+  --brand: #f27313;
   --radius: 0.5rem;
 }
 
 /* -----------------------------------------------------------------------------
-   Hybrid "Warm Paper" Variant — opt-in via [data-variant="hybrid"].
-   Used by the homepage to soften the brutalist white into a paper tone that
-   reads as more pro/clear without abandoning the brand's monochrome DNA.
-   This variant is light-only by design (the new home is always served light,
-   like the Resources theme), so we pin the full light palette here and let
-   it win over the dark-mode media query via specificity. Applied on the home
-   wrapper div (not body) so the variant is set server-side and avoids a flash
-   of incorrect theme before hydration.
-   ----------------------------------------------------------------------------- */
-[data-variant="hybrid"] {
-  color-scheme: light;
-  --background: #fdfbf7;
-  --foreground: #0a0a0a;
-  --card: #ffffff;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --muted: #737373;
-  --muted-foreground: #525252;
-  --accent: #f3f0ea;
-  --accent-foreground: #171717;
-  --border: #dcd7ce;
-  --input: #dcd7ce;
-}
-
-/* -----------------------------------------------------------------------------
-   Color Tokens (Dark Mode)
-   ----------------------------------------------------------------------------- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #030303;
-    --foreground: #ededed;
-    --card: #0a0a0a;
-    --card-foreground: #ededed;
-    --popover: #0a0a0a;
-    --popover-foreground: #ededed;
-    --muted: #a3a3a3;
-    --muted-foreground: #d4d4d4;
-    --accent: #262626;
-    --accent-foreground: #ededed;
-    --border: #262626;
-    --input: #262626;
-  }
-}
-
-/* -----------------------------------------------------------------------------
-   Resources Theme (scoped to .resources-theme)
-   Aligned with the homepage hybrid variant: light-only, warm-paper background,
-   same neutral text tokens. Pinned to color-scheme: light so it never flips to
-   dark on systems set to dark mode (matching the homepage behavior).
+   Resources layer (scoped to .resources-theme)
+   Same ink tokens under --res-* names, plus the domain accents used to
+   categorise content, lifted to stay legible on ink.
    ----------------------------------------------------------------------------- */
 .resources-theme {
-  color-scheme: light;
-
-  /* Shared tokens: the TopNav and other site-wide components read these, so
-     they must match [data-variant="hybrid"] or the bar turns white (or dark on
-     a dark-mode system) on /resources only. */
-  --background: #fdfbf7;
-  --foreground: #0a0a0a;
-  --card: #ffffff;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --muted: #737373;
-  --muted-foreground: #525252;
-  --accent: #f3f0ea;
-  --accent-foreground: #171717;
-  --border: #dcd7ce;
-  --input: #dcd7ce;
-
-  /* Surface tokens — match [data-variant="hybrid"] exactly */
-  --res-bg: #fdfbf7;
-  --res-bg-secondary: #f3f0ea;
-  --res-surface: #ffffff;
-  --res-border: #dcd7ce;
-  --res-text: #0a0a0a;
-  --res-text-muted: #525252;
+  --res-bg: #0c0c0d;
+  --res-bg-secondary: #141415;
+  --res-surface: #111112;
+  --res-border: #2c2c2d;
+  --res-text: #f4f3ef;
+  --res-text-muted: #9c9a94;
 
   /* Domain accent colors — kept for content categorization */
-  --domain-dev: #2563eb;
-  --domain-design: #db2777;
-  --domain-ops: #059669;
-  --domain-business: #d97706;
-  --domain-ai: #7c3aed;
-  --domain-marketing: #e11d48;
+  --domain-dev: #6ea8fe;
+  --domain-design: #f472b6;
+  --domain-ops: #34d399;
+  --domain-business: #fbbf24;
+  --domain-ai: #a78bfa;
+  --domain-marketing: #fb7185;
 
   /* Cross-platform emoji stack for language flags */
   --font-flag: 'Apple Color Emoji', 'Twemoji Mozilla', 'Noto Color Emoji', 'Segoe UI Emoji', sans-serif;
@@ -134,26 +83,29 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-soft-foreground: var(--soft-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-input: var(--input);
+  --color-brand: var(--brand);
 
   /* Resources theme tokens */
-  --color-res-bg: var(--res-bg, #faf9f7);
-  --color-res-bg-secondary: var(--res-bg-secondary, #f5f3ef);
-  --color-res-surface: var(--res-surface, #ffffff);
-  --color-res-border: var(--res-border, #e8e5e0);
-  --color-res-text: var(--res-text, #1a1a1a);
-  --color-res-text-muted: var(--res-text-muted, #6b6560);
+  --color-res-bg: var(--res-bg, #0c0c0d);
+  --color-res-bg-secondary: var(--res-bg-secondary, #141415);
+  --color-res-surface: var(--res-surface, #111112);
+  --color-res-border: var(--res-border, #2c2c2d);
+  --color-res-text: var(--res-text, #f4f3ef);
+  --color-res-text-muted: var(--res-text-muted, #9c9a94);
 
   /* Domain accent colors */
-  --color-domain-dev: var(--domain-dev, #4f46e5);
-  --color-domain-design: var(--domain-design, #7c3aed);
-  --color-domain-ops: var(--domain-ops, #0891b2);
-  --color-domain-business: var(--domain-business, #d97706);
-  --color-domain-ai: var(--domain-ai, #059669);
-  --color-domain-marketing: var(--domain-marketing, #e11d48);
+  --color-domain-dev: var(--domain-dev, #6ea8fe);
+  --color-domain-design: var(--domain-design, #f472b6);
+  --color-domain-ops: var(--domain-ops, #34d399);
+  --color-domain-business: var(--domain-business, #fbbf24);
+  --color-domain-ai: var(--domain-ai, #a78bfa);
+  --color-domain-marketing: var(--domain-marketing, #fb7185);
 
   /* Typography */
   --font-sans: var(--font-geist-sans);
@@ -219,7 +171,7 @@
 
   /* Selection style */
   ::selection {
-    @apply bg-foreground text-background;
+    @apply bg-brand text-background;
   }
 }
 
@@ -232,11 +184,51 @@
   outline-offset: 2px;
 }
 
-/* Ink surfaces flip the ring to paper. The ring above is drawn in the page's
+/* Inverse surfaces. Under the warm-paper identity these were ink bands; on the
+   ink page an inverse band is a raised ink panel instead of a paper slab.
+   Swapping the two tokens keeps every bg-foreground / text-background inside
+   one working unchanged, and the runner canvas, which reads both, draws paper
+   strokes on the raised surface. */
+[data-surface="inverse"] {
+  --foreground: var(--card);
+  --background: var(--card-foreground);
+}
+
+/* Inverse surfaces flip the ring to paper. The ring above is drawn in the page's
    foreground, which on an inverted panel is the panel's own background — the
    focus ring would be there and invisible. */
 [data-surface="inverse"] :focus-visible:not(.prose-vibe-audio__wave) {
   outline-color: var(--background);
+}
+
+/* Paper bands: the warm light sections between the ink ones. Any element with
+   data-surface="paper" turns the ink tokens over to paper (and the resources
+   pages' --res-* names with them), so everything inside it, written against
+   the tokens, reads ink on paper with no special classes. */
+[data-surface="paper"] {
+  color-scheme: light;
+  --background: #f4f2ec;
+  --foreground: #0c0c0d;
+  --card: #fbfaf7;
+  --card-foreground: #0c0c0d;
+  --popover: #fbfaf7;
+  --popover-foreground: #0c0c0d;
+  --muted: #6e6b65;
+  --muted-foreground: #5d5a54;
+  --soft-foreground: #34322e;
+  --accent: #ebe7de;
+  --accent-foreground: #1d1c1a;
+  --border: #dcd7cc;
+  --border-strong: #b8b1a4;
+  --input: #dcd7cc;
+  --res-bg: #f4f2ec;
+  --res-bg-secondary: #fbfaf7;
+  --res-surface: #efece5;
+  --res-border: #dcd7cc;
+  --res-text: #0c0c0d;
+  --res-text-muted: #5d5a54;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 /* Menu items (header contact menu) invert to ink when focused; the ring sits
@@ -275,6 +267,53 @@
   /* Stroke text utility for outlined text effect */
   .stroke-text {
     -webkit-text-stroke: 1px var(--foreground);
+  }
+
+  /* A word lit from below: paper running into the orange on ink, ink running
+     into it on a paper band. For the second line of a headline, a numeral. */
+  .text-lit {
+    background-image: linear-gradient(180deg, #f4f3ef 10%, #ffc488 62%, #f27313 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  [data-surface="paper"] .text-lit {
+    background-image: linear-gradient(180deg, #0c0c0d 15%, #8a3a06 72%, #f27313 100%);
+  }
+
+  /* A card under a lamp: warm light thrown down from its top edge, brighter
+     on hover or focus. Pair it with a short orange bar at the top centre. */
+  .lamp-card {
+    position: relative;
+    background:
+      radial-gradient(60% 55% at 50% 0%, rgb(242 115 19 / 0.22), rgb(242 115 19 / 0.06) 45%, transparent 75%),
+      var(--card);
+  }
+
+  .lamp-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(70% 65% at 50% 0%, rgb(242 115 19 / 0.28), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .lamp-card:hover::before,
+  .lamp-card:focus-within::before {
+    opacity: 1;
+  }
+
+  /* Client and partner logos drawn in the page's own ink: paper on ink,
+     ink on a paper band. */
+  .logo-tone {
+    filter: brightness(0) invert(1);
+  }
+
+  [data-surface="paper"] .logo-tone {
+    filter: brightness(0);
   }
 }
 
@@ -525,7 +564,7 @@
   border: 0;
   border-radius: 999px;
   color: #fff;
-  background: #f26f23;
+  background: var(--brand);
   cursor: pointer;
   transition:
     opacity 0.2s,
@@ -607,7 +646,7 @@
   top: 0.1rem;
   bottom: 0.1rem;
   width: 1px;
-  background: color-mix(in oklab, #f26f23 88%, var(--res-text, var(--foreground)));
+  background: color-mix(in oklab, var(--brand) 88%, var(--res-text, var(--foreground)));
   opacity: 0;
   transform: translateX(-50%);
   transition: opacity 0.15s;
@@ -620,7 +659,7 @@
 }
 
 .prose-vibe-audio__wave:focus-visible {
-  box-shadow: 0 0 0 2px color-mix(in oklab, #f26f23 42%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--brand) 42%, transparent);
 }
 
 .prose-vibe-audio__wave-bars,
@@ -639,7 +678,7 @@
 .prose-vibe-audio__wave-progress {
   clip-path: inset(0 calc(100% - var(--audio-progress)) 0 0);
   overflow: hidden;
-  color: #f26f23;
+  color: var(--brand);
   pointer-events: none;
 }
 
@@ -672,7 +711,7 @@
 }
 
 .prose-vibe-audio__current {
-  color: #f26f23;
+  color: var(--brand);
 }
 
 .prose-vibe-audio__rewind {
@@ -820,6 +859,98 @@
   }
 }
 
+/* -----------------------------------------------------------------------------
+   Page transitions (React <ViewTransition>, see PageTransition.tsx)
+   The page being left lifts off and fades; the next one rises into place a
+   beat later. The nav bar is captured on its own and held still, so only the
+   content under it moves, over the ink of the body.
+   ----------------------------------------------------------------------------- */
+.site-nav {
+  view-transition-name: site-nav;
+}
+
+::view-transition-group(site-nav) {
+  z-index: 1;
+  animation: none;
+}
+
+/* Same bar on both pages: show the new one straight away (its active link
+   included) instead of cross-fading two copies of it. */
+::view-transition-old(site-nav) {
+  animation: none;
+  opacity: 0;
+}
+
+::view-transition-new(site-nav) {
+  animation: none;
+}
+
+/* Kept as separate rules: a browser that rejects one of these selectors
+   drops the whole list it sits in. */
+::view-transition-old(.page-exit) {
+  animation: page-exit 180ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+::view-transition-new(.page-enter) {
+  animation: page-enter 420ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+}
+
+/* A page without the bar (the Ensemble landing): the bar leaves or arrives
+   with the page. */
+::view-transition-old(site-nav):only-child {
+  opacity: 1;
+  animation: page-exit 180ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+::view-transition-new(site-nav):only-child {
+  animation: page-enter 420ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+}
+
+@keyframes page-exit {
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+/* Reduced motion: the pages still trade places, by a short fade alone. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(.page-exit) {
+    animation: page-fade-out 120ms linear both;
+  }
+
+  ::view-transition-new(.page-enter) {
+    animation: page-fade-in 160ms linear both;
+  }
+
+  ::view-transition-old(site-nav):only-child {
+    animation: page-fade-out 120ms linear both;
+  }
+
+  ::view-transition-new(site-nav):only-child {
+    animation: page-fade-in 160ms linear both;
+  }
+}
+
+@keyframes page-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
 /* Global scrollbar styling - browser-specific, not possible with Tailwind */
 ::-webkit-scrollbar {
   width: 8px;
@@ -839,4 +970,150 @@
    page would land one nav-height down. The margin keeps it at the very top. */
 #main-content {
   scroll-margin-top: 5rem;
+}
+
+/* -----------------------------------------------------------------------------
+   The homepage and service heroes: ink hero, warm paper bands, the mascot's
+   light. Kept in this file rather than a CSS module so it ships in the one
+   stylesheet every page already loads: as a module it was a third
+   render-blocking request on the homepage, and on every other page the
+   prefetch of "/" (the nav's wordmark link) fetched it again at the highest
+   priority while the page was still loading.
+   ----------------------------------------------------------------------------- */
+
+/* The mascot breathes: a slow float of a few pixels. */
+@keyframes landing-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -10px, 0); }
+}
+
+.landing-float {
+  animation: landing-float 6s ease-in-out infinite;
+}
+
+/* The hero's text rises in. A CSS animation rather than framer-motion, so the
+   server HTML paints the text without waiting for the JavaScript. Each element
+   sets its own offset (--rise-y) and animation-delay. Filled backwards only:
+   the end state is the element's own style, so nothing stays applied (no
+   lingering layer or stacking context) once it has played. */
+@keyframes landing-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--rise-y, 18px), 0);
+  }
+}
+
+.landing-rise {
+  animation: landing-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/* Film grain over the whole page: a tiny SVG noise tile, nudged a few
+   pixels per frame so it reads as film rather than a texture. */
+@keyframes landing-grain {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-3%, 2%, 0); }
+  50% { transform: translate3d(2%, -3%, 0); }
+  75% { transform: translate3d(-2%, -2%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.landing-grain {
+  position: fixed;
+  inset: -10%;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: landing-grain 0.9s steps(4) infinite;
+}
+
+/* The client logos' loop: two identical rows, so half a turn is seamless. */
+@keyframes landing-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.landing-marquee {
+  animation: landing-marquee 45s linear infinite;
+}
+
+.landing-edges:hover .landing-marquee {
+  animation-play-state: paused;
+}
+
+/* The logos come in and go out of the paper rather than off a hard edge. */
+.landing-edges {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+}
+
+/* The easter egg: the mascot crouches and leaps out of the hero, stays away
+   while the secret level is open, and drops back in once it has closed. */
+@keyframes landing-leap {
+  0% { transform: translate3d(0, 0, 0) scale(1, 1); }
+  30% { transform: translate3d(0, 5%, 0) scale(1.06, 0.9); }
+  100% { transform: translate3d(0, -60%, 0) scale(0.7, 1.1); opacity: 0; }
+}
+
+@keyframes landing-land {
+  0% { transform: translate3d(0, -45%, 0); opacity: 0; }
+  65% { transform: translate3d(0, 3%, 0) scale(1.05, 0.93); opacity: 1; }
+  100% { transform: translate3d(0, 0, 0) scale(1, 1); opacity: 1; }
+}
+
+.landing-leap {
+  transform-origin: 50% 100%;
+  animation: landing-leap 0.42s cubic-bezier(0.5, 0, 0.75, 0) forwards;
+}
+
+.landing-away {
+  opacity: 0;
+}
+
+/* Waits for the level to finish closing back into it. */
+.landing-land {
+  transform-origin: 50% 100%;
+  animation: landing-land 0.6s cubic-bezier(0.2, 0.8, 0.3, 1) 0.55s both;
+}
+
+/* The desktop mascot rises in after the text. Animated through the individual
+   `translate` property, so it composes with the scroll lift framer-motion
+   writes to `transform` on the same element. */
+@keyframes landing-mascot-enter {
+  from {
+    opacity: 0;
+    translate: 0 40px;
+  }
+}
+
+.landing-mascot-enter {
+  animation: landing-mascot-enter 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+}
+
+/* The nav bar slides down on the first page of a visit (TopNav drops the
+   class once it has played). CSS rather than framer-motion, so the server
+   HTML paints the bar without waiting for the JavaScript. */
+@keyframes nav-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+}
+
+.nav-enter {
+  animation: nav-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-float,
+  .landing-rise,
+  .landing-mascot-enter,
+  .nav-enter,
+  .landing-marquee,
+  .landing-grain,
+  .landing-leap,
+  .landing-land {
+    animation: none;
+  }
 }

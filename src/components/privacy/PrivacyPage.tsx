@@ -14,6 +14,7 @@ import {
 import { PRIVACY_SECTION_KEYS } from "@/lib/privacy";
 import { breadcrumbList } from "@/lib/structured-data";
 import { MarkedText } from "./MarkedText";
+import { BrandSquare } from "@/components/BrandSquare";
 
 /**
  * The privacy policy, served at /fr/confidentialite and /en/privacy. Every
@@ -47,7 +48,7 @@ type Section = {
   after?: string[];
 };
 
-const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 const MONO =
   "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
 const PROSE = "m-0 max-w-[72ch] text-[15px] leading-[1.65] text-muted-foreground md:text-base";
@@ -77,11 +78,11 @@ function Paragraphs({ paragraphs }: { paragraphs?: string[] }) {
  */
 function DataTable({ table }: { table: Table }) {
   return (
-    <div className="mt-8 border border-foreground">
+    <div className="mt-8 border border-border bg-card">
       <table className="w-full border-collapse text-left md:table-fixed">
         <caption className="sr-only">{table.caption}</caption>
         <thead className="hidden md:table-header-group">
-          <tr className="border-b-2 border-foreground">
+          <tr className="border-b border-border">
             {table.columns.map((column) => (
               <th
                 key={column}
@@ -143,90 +144,101 @@ export async function PrivacyPage({ locale }: { locale: string }) {
       <JsonLd data={breadcrumb} />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section className={`${SECTION} pb-12 pt-12 md:pb-16 md:pt-16`}>
-          <div className={`mb-6 flex flex-wrap gap-x-4 gap-y-1 ${MONO}`}>
-            <span>{t("kicker")}</span>
-            <span aria-hidden="true">·</span>
-            <span>{t("updated")}</span>
-          </div>
-          <h1
-            className="m-0 max-w-[16ch] font-bold text-foreground"
+        {/* On the ink, in the hero's orange light: the one H1 and what the
+            page covers. */}
+        <section className="relative overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-72 -right-48 h-[900px] w-[1100px]"
             style={{
-              fontSize: "clamp(40px, 6vw, 88px)",
-              lineHeight: 0.92,
-              letterSpacing: "-0.045em",
+              background:
+                "radial-gradient(closest-side, rgb(242 115 19 / 0.2), rgb(242 115 19 / 0.06) 55%, transparent)",
             }}
-          >
-            {t("title")}
-          </h1>
-          <p className="m-0 mt-8 max-w-[680px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
-            {t("lede")}
-          </p>
+          />
+          <div className={`relative ${SECTION} pb-20 pt-12 md:pb-28 lg:pt-[80px]`}>
+            <div className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground">
+              <span><BrandSquare />{t("kicker")}</span>
+              <span aria-hidden="true">·</span>
+              <span>{t("updated")}</span>
+            </div>
+            <h1 className="m-0 mt-8 max-w-[16ch] text-[clamp(2.75rem,7vw,7rem)] font-bold leading-[0.92] tracking-[-0.05em] text-foreground lg:mt-10">
+              {t("title")}
+            </h1>
+            <p className="m-0 mt-10 max-w-[680px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+              {t("lede")}
+            </p>
+          </div>
         </section>
 
-        <div
-          className={`${SECTION} grid grid-cols-1 gap-10 border-t border-border pb-20 pt-12 md:pt-16 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16`}
-        >
-          {/* Table of contents: a plain list of anchors, pinned on desktop. */}
-          <nav aria-label={t("tocLabel")} className="lg:sticky lg:top-24 lg:self-start">
-            <span className={`block ${MONO}`}>{t("tocLabel")}</span>
-            <ol className="m-0 mt-4 flex list-none flex-col gap-2 border-l-2 border-foreground p-0 pl-4">
-              {PRIVACY_SECTION_KEYS.map((key, i) => (
-                <li key={key}>
-                  <a
-                    href={`#${key}`}
-                    className="flex gap-3 text-sm leading-[1.35] text-foreground hover:text-muted-foreground"
+        {/* The policy itself, read on the paper. */}
+        <div data-surface="paper">
+          <div
+            className={`${SECTION} grid grid-cols-1 gap-10 py-20 md:py-28 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16`}
+          >
+            {/* Table of contents: a plain list of anchors, pinned on desktop. */}
+            <nav aria-label={t("tocLabel")} className="lg:sticky lg:top-24 lg:self-start">
+              <span className={`block ${MONO}`}>
+                <BrandSquare />
+                {t("tocLabel")}
+              </span>
+              <ol className="m-0 mt-4 flex list-none flex-col gap-2 border-l border-border p-0 pl-4">
+                {PRIVACY_SECTION_KEYS.map((key, i) => (
+                  <li key={key}>
+                    <a
+                      href={`#${key}`}
+                      className="flex gap-3 text-sm leading-[1.35] text-foreground transition-colors hover:text-brand"
+                    >
+                      <span className="font-mono text-[11px] leading-[1.6] text-muted-foreground">
+                        {`${sectionNumber(i)}.`}
+                      </span>
+                      <span>{sections[key].title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+
+            <div className="flex min-w-0 flex-col">
+              {PRIVACY_SECTION_KEYS.map((key, i) => {
+                const section = sections[key];
+                return (
+                  <section
+                    key={key}
+                    id={key}
+                    aria-labelledby={`${key}-title`}
+                    className="scroll-mt-24 border-b border-border py-10 first:pt-0 last:border-b-0 last:pb-0 md:py-14"
                   >
-                    <span className="font-mono text-[11px] leading-[1.6] text-muted-foreground">
-                      {`${sectionNumber(i)}.`}
-                    </span>
-                    <span>{sections[key].title}</span>
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
+                    {/* One text node, "01. Title", so the number reads with the heading. */}
+                    <h2
+                      id={`${key}-title`}
+                      className="m-0 font-bold text-foreground text-[clamp(26px,3.4vw,42px)] leading-[1] tracking-[-0.04em]"
+                    >
+                      {`${sectionNumber(i)}. ${section.title}`}
+                    </h2>
+                    <Paragraphs paragraphs={section.paragraphs} />
 
-          <div className="flex min-w-0 flex-col">
-            {PRIVACY_SECTION_KEYS.map((key, i) => {
-              const section = sections[key];
-              return (
-                <section
-                  key={key}
-                  id={key}
-                  aria-labelledby={`${key}-title`}
-                  className="scroll-mt-24 border-b border-border py-10 first:pt-0 last:border-b-0 md:py-14"
-                >
-                  {/* One text node, "01. Title", so the number reads with the heading. */}
-                  <h2
-                    id={`${key}-title`}
-                    className="m-0 font-bold text-foreground text-[clamp(26px,3.4vw,42px)] leading-[1] tracking-[-0.04em]"
-                  >
-                    {`${sectionNumber(i)}. ${section.title}`}
-                  </h2>
-                  <Paragraphs paragraphs={section.paragraphs} />
+                    {section.items ? (
+                      <div className="mt-8 flex flex-col gap-5">
+                        {section.items.map((item) => (
+                          <article
+                            key={item.title}
+                            className="border border-border bg-card p-6 md:p-8"
+                          >
+                            <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
+                              {item.title}
+                            </h3>
+                            <Paragraphs paragraphs={item.paragraphs} />
+                          </article>
+                        ))}
+                      </div>
+                    ) : null}
 
-                  {section.items ? (
-                    <div className="mt-8 flex flex-col gap-5">
-                      {section.items.map((item) => (
-                        <article
-                          key={item.title}
-                          className="border border-foreground bg-background p-6 md:p-8"
-                        >
-                          <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
-                            {item.title}
-                          </h3>
-                          <Paragraphs paragraphs={item.paragraphs} />
-                        </article>
-                      ))}
-                    </div>
-                  ) : null}
-
-                  {section.table ? <DataTable table={section.table} /> : null}
-                  <Paragraphs paragraphs={section.after} />
-                </section>
-              );
-            })}
+                    {section.table ? <DataTable table={section.table} /> : null}
+                    <Paragraphs paragraphs={section.after} />
+                  </section>
+                );
+              })}
+            </div>
           </div>
         </div>
       </main>

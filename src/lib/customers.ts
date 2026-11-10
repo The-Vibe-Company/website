@@ -178,8 +178,8 @@ const CUSTOMERS_RAW: RawCustomer[] = [
         fr: "Travailler avec The Vibe Company est très différent d'une relation classique avec une agence. Ils ne se contentent pas d'exécuter un brief : ils challengent, structurent, prototypent et construisent avec nous. Ils apportent à la fois une vraie vision produit, une forte expertise IA et un pragmatisme rare pour transformer des sujets complexes en solutions concrètes, utiles et rapidement déployées chez Monka.",
       },
       author: {
-        en: "Étienne, CEO and cofounder of Monka",
-        fr: "Étienne, CEO et cofondateur de Monka",
+        en: "Étienne Rubi, CEO and cofounder of Monka",
+        fr: "Étienne Rubi, CEO et cofondateur de Monka",
       },
     },
     faq: [

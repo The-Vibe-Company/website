@@ -6,9 +6,10 @@ import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { JsonLd } from "@/components/JsonLd";
-import { getProjects, type ContentLocale } from "@/lib/projects";
+import { getProjects, type ContentLocale, type Project } from "@/lib/projects";
 import { localizedAlternates, localizedSocialMetadata, localizedUrl } from "@/lib/site";
 import { breadcrumbList } from "@/lib/structured-data";
+import { BrandSquare } from "@/components/BrandSquare";
 
 export async function generateMetadata({
   params,
@@ -32,6 +33,51 @@ export async function generateMetadata({
   };
 }
 
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
+const BAND = `${SECTION} py-20 md:py-28 lg:py-32`;
+const H2 =
+  "m-0 font-bold text-foreground text-[clamp(2.5rem,5.6vw,5.25rem)] leading-[0.92] tracking-[-0.045em]";
+/** The short orange bar a lamp card hangs from, with its glow. */
+const LAMP =
+  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
+
+/**
+ * The products put forward, in this order: Quivr and Skillpack on the wide
+ * benches, then Armada, AEOM and Granite, each under its lamp. The others
+ * follow as plain cards, a row of four.
+ */
+const FEATURED = ["quivr", "skillpack", "armada", "aeom", "granite"];
+const FEATURED_SPANS = [
+  "md:col-span-2 lg:col-span-6",
+  "lg:col-span-6",
+  "lg:col-span-4",
+  "lg:col-span-4",
+  "lg:col-span-4",
+];
+
+/** The product's own colour, as a small lit dot beside its status. */
+function AccentDot({ accent }: { accent: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="h-2 w-2 shrink-0 rounded-full"
+      style={{ background: accent, boxShadow: `0 0 12px 2px ${accent}` }}
+    />
+  );
+}
+
+/** "En ligne · Réalisé févr. 2026", breaking at the dot when the card is narrow. */
+function StatusLine({ status, built, date }: { status: string; built: string; date: string }) {
+  return (
+    <span className="flex min-w-0 flex-1 flex-wrap gap-x-2">
+      <span>{status} ·</span>{" "}
+      <span>
+        {built} {date}
+      </span>
+    </span>
+  );
+}
+
 export default async function PortfolioPage({
   params,
 }: {
@@ -41,6 +87,10 @@ export default async function PortfolioPage({
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "portfolio" });
   const projects = getProjects(locale as ContentLocale);
+  const featured = FEATURED.map((slug) => projects.find((p) => p.slug === slug)).filter(
+    (p): p is Project => Boolean(p),
+  );
+  const others = projects.filter((p) => !FEATURED.includes(p.slug));
   const tFooter = await getTranslations({ locale, namespace: "footer" });
   const tNav = await getTranslations({ locale, namespace: "nav" });
 
@@ -57,91 +107,138 @@ export default async function PortfolioPage({
       />
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section className="mx-auto max-w-[100rem] px-6 pb-16 pt-12 md:px-12 md:pb-20 md:pt-16">
-          <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {t("kicker")}
-          </span>
-          <h1
-            className="m-0 max-w-[18ch] font-bold text-foreground"
+        {/* On the ink, in the hero's orange light: the one H1 and the list
+            of what follows. */}
+        <section className="relative overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-72 -right-48 h-[900px] w-[1100px]"
             style={{
-              fontSize: "clamp(44px, 6.4vw, 96px)",
-              lineHeight: 0.92,
-              letterSpacing: "-0.045em",
+              background:
+                "radial-gradient(closest-side, rgb(242 115 19 / 0.2), rgb(242 115 19 / 0.06) 55%, transparent)",
             }}
-          >
-            {t("titleLine1")}
-            <br />
-            <span
-              style={{
-                WebkitTextStroke: "1.5px var(--foreground)",
-                color: "transparent",
-              }}
-            >
-              {t("titleLine2")}
+          />
+          <div className={`relative ${SECTION} pb-20 pt-12 md:pb-28 lg:pt-[80px]`}>
+            <span className="block font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground">
+              <BrandSquare />
+              {t("kicker")}
             </span>
-          </h1>
-          <p className="m-0 mt-8 max-w-[620px] text-lg leading-[1.5] text-muted-foreground">
-            {t("subtitle")}
-          </p>
+            <h1 className="m-0 mt-8 text-[clamp(3rem,7.4vw,7.75rem)] font-bold leading-[0.9] tracking-[-0.05em] text-foreground lg:mt-10">
+              {t("titleLine1")}
+              <br />
+              <span className="text-lit">{t("titleLine2")}</span>
+            </h1>
+            <p className="m-0 mt-10 max-w-[680px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
+              {t("subtitle")}
+            </p>
+          </div>
         </section>
 
-        <section className="mx-auto max-w-[100rem] px-6 pb-20 md:px-12 md:pb-28">
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {projects.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/portfolio/${p.slug}`}
-                className="group flex flex-col border border-foreground bg-background p-7 no-underline transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)] md:p-8"
-              >
-                <div className="flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between md:gap-4">
-                  <div className="flex min-w-0 items-center gap-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={p.logo}
-                      alt={`${p.name} logo`}
-                      className="h-8 w-8 shrink-0 rounded-sm object-contain"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <span className="truncate text-[26px] font-bold leading-none tracking-[-0.03em] text-foreground md:text-[30px]">
-                      {p.name}
+        <div data-surface="paper">
+          {/* The products, like the homepage's tools on the wall: the five
+              the subtitle names under their lamps, then the rest. */}
+          <section className={BAND}>
+            <ul className="m-0 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-2 lg:grid-cols-12">
+              {featured.map((p, i) => (
+                <li key={p.slug} className={FEATURED_SPANS[i] ?? "lg:col-span-4"}>
+                  <Link
+                    href={`/portfolio/${p.slug}`}
+                    className="lamp-card group flex h-full min-h-[20rem] flex-col overflow-hidden border border-border p-7 no-underline transition-colors hover:border-brand/50 md:p-9"
+                  >
+                    <span aria-hidden="true" className={LAMP} />
+                    <div className="relative flex items-start justify-between gap-4">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={p.logo}
+                        alt={`${p.name} logo`}
+                        className="h-11 w-11 shrink-0 rounded-md object-contain md:h-12 md:w-12"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <span className="max-w-[14rem] text-right font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-muted-foreground">
+                        {p.tag}
+                      </span>
+                    </div>
+                    {/* The name sits at the same height on every card of a
+                        row; only the status line is pinned to the foot. */}
+                    <div className="relative mt-12 flex flex-1 flex-col">
+                      <span className="block text-[clamp(2.25rem,3.4vw,3.5rem)] font-bold leading-[0.95] tracking-[-0.045em] text-foreground">
+                        {p.name}
+                      </span>
+                      <p className="m-0 mt-4 max-w-[34rem] text-[15px] leading-[1.55] text-soft-foreground">
+                        {p.description}
+                      </p>
+                      <div className="mt-auto pt-7">
+                        <div className="flex items-center gap-3 border-t border-border pt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                          <AccentDot accent={p.accent} />
+                          <StatusLine status={p.status} built={t("built")} date={p.date} />
+                          <span aria-hidden="true" className="text-brand">
+                            →
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+              {others.map((p) => (
+                <li key={p.slug} className="lg:col-span-3">
+                  <Link
+                    href={`/portfolio/${p.slug}`}
+                    className="group flex h-full flex-col border border-border bg-card p-6 no-underline transition-colors hover:border-border-strong md:p-7"
+                  >
+                    <div className="flex min-w-0 items-center gap-3">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={p.logo}
+                        alt={`${p.name} logo`}
+                        className="h-9 w-9 shrink-0 rounded-md object-contain"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <span className="truncate text-[24px] font-bold leading-none tracking-[-0.03em] text-foreground">
+                        {p.name}
+                      </span>
+                    </div>
+                    <span className="mt-5 font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-muted-foreground">
+                      {p.tag}
                     </span>
-                  </div>
-                  <span className="shrink-0 border border-foreground px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground">
-                    {p.tag}
-                  </span>
-                </div>
+                    <p className="m-0 mt-3 text-[14px] leading-[1.55] text-soft-foreground">
+                      {p.description}
+                    </p>
+                    <div className="mt-auto pt-6">
+                      <div className="flex items-center gap-3 border-t border-border pt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                        <AccentDot accent={p.accent} />
+                        <StatusLine status={p.status} built={t("built")} date={p.date} />
+                        <span aria-hidden="true" className="text-brand">
+                          →
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-                <div className="mt-6 border-t border-border pt-5">
-                  <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
-                    {p.status} · {t("built")} {p.date}
-                  </div>
-                  <p className="m-0 mt-4 text-[15px] leading-[1.55] text-foreground">
-                    {p.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-t border-border">
-          <div className="mx-auto grid max-w-[100rem] grid-cols-1 gap-8 px-6 py-16 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16 md:px-12 md:py-24">
-            <div>
-              <span className="mb-6 block font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                {t("about.kicker")}
-              </span>
-              <h2 className="m-0 max-w-[16ch] text-[34px] font-bold leading-[1.02] tracking-[-0.035em] text-foreground md:text-[48px]">
-                {t("about.title")}
-              </h2>
+          {/* Why an agency ships its own products. */}
+          <section className={`${BAND} border-t border-border`}>
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-20">
+              <div>
+                <span className="block font-mono text-[12px] uppercase tracking-[0.2em] text-muted-foreground">
+                  <BrandSquare />
+                  {t("about.kicker")}
+                </span>
+                <h2 className={`${H2} mt-6 max-w-[14ch]`}>{t("about.title")}</h2>
+              </div>
+              <div className="flex max-w-[720px] flex-col gap-6 text-[17px] leading-[1.65] text-soft-foreground md:text-lg lg:pt-12">
+                <p className="m-0">{t("about.p1")}</p>
+                <p className="m-0">{t("about.p2")}</p>
+                <p className="m-0">{t("about.p3")}</p>
+              </div>
             </div>
-            <div className="flex max-w-[720px] flex-col gap-6 text-lg leading-[1.6] text-foreground">
-              <p className="m-0">{t("about.p1")}</p>
-              <p className="m-0">{t("about.p2")}</p>
-              <p className="m-0">{t("about.p3")}</p>
-            </div>
-          </div>
-        </section>
+          </section>
+        </div>
 
         <FinalCTA />
       </main>

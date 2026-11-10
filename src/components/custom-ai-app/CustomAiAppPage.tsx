@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { ServiceHero } from "@/components/ServiceHero";
+import { Clientele } from "@/components/home/landing/Clientele";
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { TopNav } from "@/components/TopNav";
-import { AboutBackers } from "@/components/about/AboutBackers";
 import { AboutBookingCta } from "@/components/about/AboutBookingCta";
 import { Link } from "@/i18n/navigation";
 import { clientLogoSize } from "@/lib/client-logos";
@@ -37,6 +38,7 @@ import {
   serviceNode,
   webPageNode,
 } from "@/lib/structured-data";
+import { BrandSquare } from "@/components/BrandSquare";
 
 /**
  * The custom AI application landing, served at
@@ -44,10 +46,11 @@ import {
  * /en/custom-ai-app-development. Both routes render this component; each
  * declares the other through hreflang.
  *
- * Built from the other service landings (mono kicker, clamp H1, bordered
- * cards, case cards, ink slab, FAQ rows), with no new visual language. The
- * page body carries exactly one booking call, in the hero: no mid-page call
- * and no FinalCTA.
+ * Drawn in the landing's theme, like the About page: the hero on the ink in
+ * an orange bloom, then warm paper (lamp cards with lit numerals, the three
+ * cases with lit figures), the method as an ink band in the orange light,
+ * and the FAQ on paper. The page body carries exactly one booking call, in
+ * the hero: no mid-page call and no FinalCTA.
  */
 
 export async function customAiAppMetadata(locale: string): Promise<Metadata> {
@@ -65,18 +68,23 @@ export async function customAiAppMetadata(locale: string): Promise<Metadata> {
   };
 }
 
-const SECTION = "mx-auto max-w-[100rem] px-6 md:px-12";
+const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
+const BAND = `${SECTION} py-20 md:py-28 lg:py-32`;
 const H2 =
-  "m-0 font-bold text-foreground text-[clamp(32px,5vw,64px)] leading-[0.95] tracking-[-0.04em]";
+  "m-0 text-balance font-bold text-foreground text-[clamp(2.5rem,5.6vw,5.25rem)] leading-[0.92] tracking-[-0.045em]";
 const MONO =
   "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
 const PROSE = "m-0 text-[15px] leading-[1.6] text-muted-foreground md:text-base";
 const TEXT_LINK =
-  "text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
+  "text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
 const MONO_LINK =
-  "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 hover:text-muted-foreground";
-const CARD_HOVER =
-  "transition-[transform,box-shadow] duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_var(--foreground)]";
+  "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
+/** The soft orange light an emphasis ink band sits in. */
+const GLOW =
+  "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
+/** The short orange bar a lamp card hangs from, with its glow. */
+const LAMP =
+  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 
 /** The FAQ answers' link tags, kept as plain text for the JSON-LD. */
 const FAQ_PLAIN_TAGS = {
@@ -86,36 +94,40 @@ const FAQ_PLAIN_TAGS = {
   agents: (chunks: string) => chunks,
 };
 
-/** A titled card grid: sections 1 to 3 share the same shape. */
+/** A titled grid of lamp cards: sections 1 to 3 share the same shape. */
 function CardSection({
   title,
   intro,
   cards,
+  first = false,
   children,
 }: {
   title: string;
   intro: string;
   cards: { key: string; title: string; desc: string }[];
+  /** The first section of a paper band carries no top rule. */
+  first?: boolean;
   children?: ReactNode;
 }) {
   return (
-    <section className={`${SECTION} border-t border-border py-14 md:py-20`}>
-      <h2 className={`${H2} max-w-[22ch]`}>{title}</h2>
-      <p className={`${PROSE} mt-5 max-w-[680px]`}>{intro}</p>
+    <section className={first ? BAND : `${BAND} border-t border-border`}>
+      <h2 className={`${H2} max-w-[20ch]`}>{title}</h2>
+      <p className={`${PROSE} mt-6 max-w-[680px]`}>{intro}</p>
 
-      <div className="mt-10 grid grid-cols-1 gap-5 md:mt-14 md:grid-cols-2">
+      <div className="mt-12 grid grid-cols-1 gap-4 md:mt-16 md:grid-cols-2">
         {cards.map((card, i) => (
           <article
             key={card.key}
-            className={`flex flex-col border border-foreground bg-background p-7 ${CARD_HOVER}`}
+            className="lamp-card relative flex flex-col overflow-hidden border border-border p-7 md:p-9"
           >
-            <span className="mb-7 font-mono text-xs tracking-[0.2em] text-muted-foreground">
+            <span aria-hidden="true" className={LAMP} />
+            <span className="text-lit relative mb-10 self-start text-[56px] font-bold leading-none tracking-[-0.05em]">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <h3 className="m-0 mb-4 text-[24px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground md:text-[clamp(22px,2.2vw,28px)]">
+            <h3 className="relative m-0 mb-4 text-[clamp(1.5rem,2.2vw,2rem)] font-bold leading-[1.05] tracking-[-0.03em] text-foreground">
               {card.title}
             </h3>
-            <p className={`${PROSE} max-w-[60ch]`}>{card.desc}</p>
+            <p className={`relative ${PROSE} max-w-[60ch] text-soft-foreground`}>{card.desc}</p>
           </article>
         ))}
       </div>
@@ -128,7 +140,6 @@ function CardSection({
 export async function CustomAiAppPage({ locale }: { locale: string }) {
   const contentLocale: ContentLocale = locale === "en" ? "en" : "fr";
   const t = await getTranslations({ locale, namespace: "customAiApp" });
-  const tAbout = await getTranslations({ locale, namespace: "about" });
   const tFooter = await getTranslations({ locale, namespace: "footer" });
 
   const pageUrl = localizedUrl(locale, splitPath(CUSTOM_AI_APP_PATHS, locale));
@@ -195,184 +206,176 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
       ))}
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        {/* Hero: the one H1, the promise, and the page's only booking call. */}
-        <section className={`${SECTION} pb-14 pt-12 md:pb-20 md:pt-16`}>
-          <span className={`mb-6 block ${MONO}`}>{t("kicker")}</span>
-          <h1
-            className="m-0 max-w-[24ch] font-bold text-foreground"
-            style={{
-              fontSize: "clamp(38px, 5.6vw, 84px)",
-              lineHeight: 0.93,
-              letterSpacing: "-0.045em",
-            }}
-          >
-            {t("title")}
-          </h1>
-          <p className="m-0 mt-8 max-w-[760px] border-l-2 border-foreground pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
-            {t("lede")}
-          </p>
+        {/* 1 — On the ink, cut like the homepage's hero: the short headline,
+            the full title as the H1's promise, the pitch and the call, the
+            mascot standing in its light. */}
+        <ServiceHero
+          kicker={t("kicker")}
+          display={t("displayTitle")}
+          title={t("title")}
+          lede={t("lede")}
+          cta={<AboutBookingCta page={customAiAppPageId(locale)} location="cta_custom_ai_app_hero" namespace="customAiApp" />}
+        />
 
-          <span className={`mt-10 block ${MONO}`}>{t("hero.label")}</span>
-          <ul className="m-0 mt-4 grid max-w-[1100px] list-none grid-cols-1 gap-x-10 border-t border-border p-0 md:grid-cols-2">
-            {CUSTOM_AI_APP_HERO_KEYS.map((key) => (
-              <li
-                key={key}
-                className="flex gap-4 border-b border-border py-4 text-[15px] leading-[1.5] text-foreground md:text-base"
-              >
-                <span
-                  aria-hidden="true"
-                  className="mt-[0.55em] h-2 w-2 shrink-0 bg-foreground"
-                />
-                {t(`hero.items.${key}`)}
-              </li>
-            ))}
-          </ul>
+        <div data-surface="paper">
+          {/* The client logos running along the top of the paper, as on the
+              homepage. */}
+          <Clientele />
 
-          <AboutBookingCta
-            page={customAiAppPageId(locale)}
-            location="cta_custom_ai_app_hero"
-            namespace="customAiApp"
+          {/* What the hero used to list, in short, at the top of the paper. */}
+          <section className={`${SECTION} border-b border-border py-12 md:py-14`}>
+            <span className={MONO}>
+              <BrandSquare />
+              {t("hero.label")}
+            </span>
+            <ul className="m-0 mt-6 grid list-none grid-cols-1 gap-x-10 gap-y-5 p-0 md:grid-cols-2">
+              {CUSTOM_AI_APP_HERO_KEYS.map((key) => (
+                <li
+                  key={key}
+                  className="flex gap-3 text-[16px] leading-[1.5] text-soft-foreground"
+                >
+                  <span aria-hidden="true" className="mt-[0.6em] h-1.5 w-1.5 shrink-0 bg-brand" />
+                  {t(`hero.items.${key}`)}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* 1. AI applications and SaaS. */}
+          <CardSection
+            first
+            title={t("apps.title")}
+            intro={t("apps.intro")}
+            cards={cards("apps", CUSTOM_AI_APP_APPS_KEYS)}
           />
-          <AboutBackers label={tAbout("backedBy")} />
-        </section>
 
-        {/* 1. AI applications and SaaS. */}
-        <CardSection
-          title={t("apps.title")}
-          intro={t("apps.intro")}
-          cards={cards("apps", CUSTOM_AI_APP_APPS_KEYS)}
-        />
+          {/* 2. RAG architecture and agents, with the RAG article and the
+              agents landing. */}
+          <CardSection
+            title={t("rag.title")}
+            intro={t("rag.intro")}
+            cards={cards("rag", CUSTOM_AI_APP_RAG_KEYS)}
+          >
+            <div className="mt-10 flex max-w-[760px] flex-col gap-3">
+              <p className={PROSE}>{t.rich("rag.article", { link: link(ragArticle) })}</p>
+              <p className={PROSE}>{t.rich("rag.agents", { link: link(agentsPath) })}</p>
+            </div>
+          </CardSection>
 
-        {/* 2. RAG architecture and agents, with the RAG article and the
-            agents landing. */}
-        <CardSection
-          title={t("rag.title")}
-          intro={t("rag.intro")}
-          cards={cards("rag", CUSTOM_AI_APP_RAG_KEYS)}
-        >
-          <div className="mt-8 flex flex-col gap-3">
-            <p className={PROSE}>{t.rich("rag.article", { link: link(ragArticle) })}</p>
-            <p className={PROSE}>{t.rich("rag.agents", { link: link(agentsPath) })}</p>
-          </div>
-        </CardSection>
+          {/* 3. Security, GDPR and business integrations. */}
+          <CardSection
+            title={t("security.title")}
+            intro={t("security.intro")}
+            cards={cards("security", CUSTOM_AI_APP_SECURITY_KEYS)}
+          />
 
-        {/* 3. Security, GDPR and business integrations. */}
-        <CardSection
-          title={t("security.title")}
-          intro={t("security.intro")}
-          cards={cards("security", CUSTOM_AI_APP_SECURITY_KEYS)}
-        />
+          {/* 4 to 6. The three cases: Monka, LocService, AFP / MediaGen. Every
+              figure is either given in the brief or published on the case
+              page, and lit like the homepage's. */}
+          {CUSTOM_AI_APP_CASES.map(({ key, slug, stats }) => {
+            const customer = getCustomer(slug, contentLocale);
+            return (
+              <section key={key} className={`${BAND} border-t border-border`}>
+                <span className="block font-mono text-[12px] uppercase tracking-[0.2em] text-muted-foreground">
+                  <BrandSquare />
+                  {t("cases.label")}
+                </span>
+                <h2 className={`${H2} mt-6 max-w-[20ch]`}>{t(`cases.${key}.title`)}</h2>
+                <p className={`${PROSE} mt-6 max-w-[720px]`}>{t(`cases.${key}.intro`)}</p>
 
-        {/* 4 to 6. The three cases: Monka, LocService, AFP / MediaGen. Every
-            figure is either given in the brief or published on the case page. */}
-        {CUSTOM_AI_APP_CASES.map(({ key, slug, stats }) => {
-          const customer = getCustomer(slug, contentLocale);
-          return (
-            <section key={key} className={`${SECTION} border-t border-border py-14 md:py-20`}>
-              <span className={`mb-5 block ${MONO}`}>{t("cases.label")}</span>
-              <h2 className={`${H2} max-w-[22ch]`}>{t(`cases.${key}.title`)}</h2>
-              <p className={`${PROSE} mt-5 max-w-[720px]`}>{t(`cases.${key}.intro`)}</p>
-
-              <article
-                className={`mt-10 grid grid-cols-1 border border-foreground bg-background md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${CARD_HOVER}`}
-              >
-                <div className="flex flex-col border-b border-foreground p-7 md:p-9 lg:border-b-0 lg:border-r">
-                  {customer ? (
-                    <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
-                      <h3 className="m-0">
-                        {/* The logo is the card's title: its alt carries the client name. */}
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={customer.logo}
-                          alt={customer.client}
-                          {...clientLogoSize(customer.logo)}
-                          className="h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </h3>
-                      <span className="border border-foreground px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
-                        {customer.sector}
-                      </span>
-                    </div>
-                  ) : null}
-
-                  <dl className="m-0 mt-8 border-t-2 border-foreground">
-                    {stats.map((stat) => (
-                      <div
-                        key={stat}
-                        className="grid grid-cols-[minmax(0,140px)_minmax(0,1fr)] items-baseline gap-4 border-b border-border py-4"
-                      >
-                        <dt className={MONO}>{t(`cases.${key}.stats.${stat}.label`)}</dt>
-                        <dd className="m-0 text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground md:text-[26px]">
-                          {t(`cases.${key}.stats.${stat}.value`)}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                  {t.has(`cases.${key}.statNote`) ? (
-                    <p className={`${PROSE} mt-4`}>{t(`cases.${key}.statNote`)}</p>
-                  ) : null}
-                </div>
-                <div className="flex flex-col p-7 md:p-9">
-                  <ul className="m-0 flex list-none flex-col p-0">
-                    {(t.raw(`cases.${key}.points`) as string[]).map((point) => (
-                      <li
-                        key={point}
-                        className="flex gap-3 border-b border-border py-3 text-[15px] leading-[1.5] text-foreground last:border-b-0"
-                      >
-                        <span aria-hidden="true" className="font-mono text-orange-500">
-                          →
+                <article className="mt-12 grid grid-cols-1 border border-border bg-card transition-colors duration-300 hover:border-border-strong md:mt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
+                  <div className="flex flex-col border-b border-border p-7 md:p-9 lg:border-b-0 lg:border-r">
+                    {customer ? (
+                      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
+                        <h3 className="m-0">
+                          {/* The logo is the card's title: its alt carries the client name. */}
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={customer.logo}
+                            alt={customer.client}
+                            {...clientLogoSize(customer.logo)}
+                            className="logo-tone h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </h3>
+                        <span className="text-right font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
+                          {customer.sector}
                         </span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href={`/case-studies/${slug}`} className={`${MONO_LINK} mt-auto self-start pt-6`}>
-                    {t(`cases.${key}.readCase`)}
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              </article>
-            </section>
-          );
-        })}
+                      </div>
+                    ) : null}
 
-        {/* 7. Method and process, on the same ink slab as the other landings.
-            No booking call here: the page keeps a single one, in the hero. */}
-        <section
-          data-surface="inverse"
-          className="border-y-2 border-foreground bg-foreground text-background"
-        >
-          <div className={`${SECTION} py-16 md:py-24`}>
-            <h2
-              className="m-0 font-bold text-background"
-              style={{
-                fontSize: "clamp(32px, 5vw, 64px)",
-                lineHeight: 0.95,
-                letterSpacing: "-0.04em",
-              }}
-            >
-              {t("method.title")}
-            </h2>
-            <p className="m-0 mt-5 max-w-[680px] text-[15px] leading-[1.6] text-white/70 md:text-base">
-              {t("method.intro")}
-            </p>
+                    <dl className="m-0 mt-10 border-t border-border">
+                      {stats.map((stat) => (
+                        <div
+                          key={stat}
+                          className="grid grid-cols-[minmax(0,120px)_minmax(0,1fr)] items-baseline gap-4 border-b border-border py-5 md:grid-cols-[minmax(0,140px)_minmax(0,1fr)]"
+                        >
+                          <dt className={MONO}>{t(`cases.${key}.stats.${stat}.label`)}</dt>
+                          <dd className="m-0 text-[30px] font-bold leading-[1.05] tracking-[-0.04em] md:text-[40px]">
+                            <span className="text-lit box-decoration-clone">
+                              {t(`cases.${key}.stats.${stat}.value`)}
+                            </span>
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                    {t.has(`cases.${key}.statNote`) ? (
+                      <p className={`${PROSE} mt-5`}>{t(`cases.${key}.statNote`)}</p>
+                    ) : null}
+                  </div>
+                  <div className="flex flex-col p-7 md:p-9">
+                    <ul className="m-0 flex list-none flex-col p-0">
+                      {(t.raw(`cases.${key}.points`) as string[]).map((point) => (
+                        <li
+                          key={point}
+                          className="flex gap-3 py-4 text-[15px] leading-[1.55] text-foreground md:text-base"
+                        >
+                          <span aria-hidden="true" className="font-mono text-brand">
+                            →
+                          </span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Link href={`/case-studies/${slug}`} className={`${MONO_LINK} mt-auto self-start pt-6`}>
+                      {t(`cases.${key}.readCase`)}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
+                </article>
+              </section>
+            );
+          })}
+        </div>
 
-            <ol className="m-0 mt-12 flex list-none flex-col border-t border-white/15 p-0 md:mt-16">
+        {/* 7. Method and process: an ink band in the orange light, like the
+            About process section. No booking call here: the page keeps a
+            single one, in the hero. */}
+        <section className="relative overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{ background: GLOW }}
+          />
+          <div className={`relative ${BAND}`}>
+            <h2 className={H2}>{t("method.title")}</h2>
+            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("method.intro")}</p>
+
+            <ol className="m-0 mt-14 flex list-none flex-col p-0 md:mt-16">
               {CUSTOM_AI_APP_METHOD_STEPS.map((step) => (
                 <li
                   key={step.n}
-                  className="grid grid-cols-1 gap-4 border-b border-white/15 py-7 md:grid-cols-[200px_1fr] md:gap-12 md:py-8"
+                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
-                  <span className="text-4xl font-bold leading-none tracking-[-0.05em] text-background md:text-[56px]">
+                  <span className="text-lit self-start text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
                     {step.n}
                   </span>
                   <div className="flex flex-col gap-3">
-                    <h3 className="m-0 max-w-[620px] text-[22px] font-bold leading-[1.05] tracking-[-0.03em] text-background md:text-[28px]">
+                    <h3 className="m-0 max-w-[560px] text-[22px] font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-[30px]">
                       {t(`method.steps.${step.key}.title`)}
                     </h3>
-                    <p className="m-0 max-w-[620px] text-[15px] leading-[1.55] text-white/70 md:text-base">
+                    <p className={`${PROSE} max-w-[560px]`}>
                       {t(`method.steps.${step.key}.desc`)}
                     </p>
                   </div>
@@ -382,49 +385,58 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
           </div>
         </section>
 
-        {/* 8. FAQ; the publishable answers are restated in the FAQPage
-            JSON-LD above. Then the cross-links to the sibling landings. */}
-        <section className={`${SECTION} py-14 md:py-20`}>
-          <h2 className={H2}>{t("faq.title")}</h2>
+        <div data-surface="paper">
+          {/* 8. FAQ; the publishable answers are restated in the FAQPage
+              JSON-LD above. Then the cross-links to the sibling landings. */}
+          <section className={BAND}>
+            <h2 className={H2}>{t("faq.title")}</h2>
 
-          <div className="mt-10 border-t-2 border-foreground md:mt-12">
-            {CUSTOM_AI_APP_FAQ_KEYS.map((key) => (
-              <article
-                key={key}
-                className="grid grid-cols-1 gap-3 border-b border-border py-7 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-8"
-              >
-                <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
-                  {t(`faq.items.${key}.q`)}
-                </h3>
-                <p className={`${PROSE} max-w-[70ch]`}>{t.rich(`faq.items.${key}.a`, faqLinks)}</p>
-              </article>
-            ))}
-          </div>
-
-          <nav aria-labelledby="custom-ai-app-see-also" className="mt-12">
-            <span id="custom-ai-app-see-also" className={MONO}>
-              {t("seeAlso.title")}
-            </span>
-            <ul className="m-0 mt-4 flex list-none flex-col border-t-2 border-foreground p-0">
-              {[
-                { key: "agency", href: agencyPath },
-                { key: "agents", href: agentsPath },
-                { key: "rag", href: ragArticle },
-              ].map((item) => (
-                <li key={item.key} className="border-b border-border py-4">
-                  <Link href={item.href} className={`${TEXT_LINK} text-[17px] leading-[1.45]`}>
-                    {t(`seeAlso.${item.key}`)}
-                    <span aria-hidden="true"> →</span>
-                  </Link>
-                </li>
+            <div className="mt-12 md:mt-16">
+              {CUSTOM_AI_APP_FAQ_KEYS.map((key) => (
+                <article
+                  key={key}
+                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
+                >
+                  <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
+                    {t(`faq.items.${key}.q`)}
+                  </h3>
+                  <p className={`${PROSE} max-w-[70ch]`}>{t.rich(`faq.items.${key}.a`, faqLinks)}</p>
+                </article>
               ))}
-            </ul>
-          </nav>
+            </div>
 
-          <p className={`${PROSE} mt-10 border-l-2 border-foreground pl-5`}>
-            {t.rich("about", { link: link(splitPath(ABOUT_PATHS, locale)) })}
-          </p>
-        </section>
+            <nav aria-labelledby="custom-ai-app-see-also" className="mt-16">
+              <span id="custom-ai-app-see-also" className={MONO}>
+                {t("seeAlso.title")}
+              </span>
+              <ul className="m-0 mt-4 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-3">
+                {[
+                  { key: "agency", href: agencyPath },
+                  { key: "agents", href: agentsPath },
+                  { key: "rag", href: ragArticle },
+                ].map((item) => (
+                  <li key={item.key} className="flex">
+                    <Link
+                      href={item.href}
+                      className="group flex w-full items-baseline justify-between gap-4 border border-border bg-card p-6 text-[19px] font-bold leading-[1.2] tracking-[-0.02em] text-foreground transition-colors duration-300 hover:border-border-strong md:p-7 md:text-[21px]"
+                    >
+                      <span className="underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground">
+                        {t(`seeAlso.${item.key}`)}
+                      </span>
+                      <span aria-hidden="true" className="shrink-0 text-brand">
+                        →
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <p className={`${PROSE} mt-12 max-w-[760px] border-l border-border-strong pl-5`}>
+              {t.rich("about", { link: link(splitPath(ABOUT_PATHS, locale)) })}
+            </p>
+          </section>
+        </div>
       </main>
       <Footer />
     </div>

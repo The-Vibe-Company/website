@@ -110,7 +110,7 @@ describe("healthcare AI landing", () => {
     const quote = getCustomer(HEALTHCARE_CASE_SLUG, "fr")!.quote!;
     const rendered = `« ${quote.text} » ${fr.healthcareAi.proof.quoteAttribution.replace("{author}", quote.author)}`;
     expect(rendered).toBe(
-      "« Travailler avec The Vibe Company est très différent d'une relation classique avec une agence. Ils ne se contentent pas d'exécuter un brief : ils challengent, structurent, prototypent et construisent avec nous. Ils apportent à la fois une vraie vision produit, une forte expertise IA et un pragmatisme rare pour transformer des sujets complexes en solutions concrètes, utiles et rapidement déployées chez Monka. » Étienne, CEO et cofondateur de Monka",
+      "« Travailler avec The Vibe Company est très différent d'une relation classique avec une agence. Ils ne se contentent pas d'exécuter un brief : ils challengent, structurent, prototypent et construisent avec nous. Ils apportent à la fois une vraie vision produit, une forte expertise IA et un pragmatisme rare pour transformer des sujets complexes en solutions concrètes, utiles et rapidement déployées chez Monka. » Étienne Rubi, CEO et cofondateur de Monka",
     );
   });
 
