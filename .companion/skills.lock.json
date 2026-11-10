@@ -5,38 +5,38 @@
       "apiUrl": "https://skillpack.app/v1",
       "skills": {
         "design-excalidraw-tools": {
-          "checksum": "sha256:6f420c9b3fb73863e3f42401e3fc68a9b5316e47483f916adbcf4a56ec29a787",
+          "checksum": "sha256:adcb54c5616c5bc3fb080ef8caa25d9e1944e5ccea7138bacf148f3e70039f3a",
           "name": "design-excalidraw-tools",
-          "pinned": "0.7.0",
+          "pinned": "0.8.0",
           "skillId": "f1567982-638a-46c1-9ab1-4379fa8eed44",
           "slug": "design-excalidraw-tools",
           "targets": [
             {
-              "checksum": "sha256:342989e81234ee489dc2124b80a67ae509fc02ea2ebfd9c6fc22d4e641abb9c4",
-              "packageChecksum": "sha256:6f420c9b3fb73863e3f42401e3fc68a9b5316e47483f916adbcf4a56ec29a787",
+              "checksum": "sha256:b7b08186166c4a72309e63c6060ec6bb761df9660e8dbd568668420dac24f45d",
+              "packageChecksum": "sha256:adcb54c5616c5bc3fb080ef8caa25d9e1944e5ccea7138bacf148f3e70039f3a",
               "path": ".agents/skills/design-excalidraw-tools",
               "scope": "project",
               "tool": "shared",
-              "version": "0.7.0"
+              "version": "0.8.0"
             },
             {
-              "checksum": "sha256:342989e81234ee489dc2124b80a67ae509fc02ea2ebfd9c6fc22d4e641abb9c4",
-              "packageChecksum": "sha256:6f420c9b3fb73863e3f42401e3fc68a9b5316e47483f916adbcf4a56ec29a787",
+              "checksum": "sha256:b7b08186166c4a72309e63c6060ec6bb761df9660e8dbd568668420dac24f45d",
+              "packageChecksum": "sha256:adcb54c5616c5bc3fb080ef8caa25d9e1944e5ccea7138bacf148f3e70039f3a",
               "path": ".codex/skills/design-excalidraw-tools",
               "scope": "project",
               "tool": "codex",
-              "version": "0.7.0"
+              "version": "0.8.0"
             },
             {
-              "checksum": "sha256:342989e81234ee489dc2124b80a67ae509fc02ea2ebfd9c6fc22d4e641abb9c4",
-              "packageChecksum": "sha256:6f420c9b3fb73863e3f42401e3fc68a9b5316e47483f916adbcf4a56ec29a787",
+              "checksum": "sha256:b7b08186166c4a72309e63c6060ec6bb761df9660e8dbd568668420dac24f45d",
+              "packageChecksum": "sha256:adcb54c5616c5bc3fb080ef8caa25d9e1944e5ccea7138bacf148f3e70039f3a",
               "path": ".claude/skills/design-excalidraw-tools",
               "scope": "project",
               "tool": "claude-code",
-              "version": "0.7.0"
+              "version": "0.8.0"
             }
           ],
-          "version": "0.7.0"
+          "version": "0.8.0"
         },
         "design-frontend-dev": {
           "addedAt": "2026-07-27T15:27:25.131503Z",

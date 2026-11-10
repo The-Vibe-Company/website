@@ -7,7 +7,7 @@ Brief
   Voice     one hand note on step 3, the step that decides the quality
   Format    slide 16:9 · plan path
   Depths    3 s: title + hero · 30 s: the five numbered steps · 3 min: step bodies, the note, the takeaway
-  Colour    yellow = the payoff; accent = the reading order (badges) and the voice; everything else grey
+  Colour    mood lavender: lavender = the payoff; accent = the reading order (badges) and the voice; everything else grey
 
     python example_signature_path.py --out path.excalidraw [--style signature|corporate|night|mono|...]
 """
@@ -25,9 +25,10 @@ from excalikit import Palette as P, ARROW_GAP
 ap = argparse.ArgumentParser(description=__doc__)
 ap.add_argument("--out", default="signature_path.excalidraw")
 ap.add_argument("--style", default="signature")
+ap.add_argument("--mood", default="lavender", help="signature colour mood (sun, coral, mint, sky, lavender, red-pen)")
 args = ap.parse_args()
 
-S, F, pal = G.setup("slide", style=args.style)
+S, F, pal = G.setup("slide", style=args.style, mood=args.mood if args.style == "signature" else None)
 doodles.set_mood("mono" if args.style == "mono" else "colour")
 Z = G.plan(F, "path")
 G.claim_title(S, F, "It reads your documents before it answers", mark="before",

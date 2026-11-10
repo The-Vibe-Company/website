@@ -5,7 +5,7 @@ decisions taken before any coordinate, then held all the way: what the claim is,
 what is grey, what the voice says, which frame it lives in. This file is those decisions. The layer that applies
 them is `scripts/signature.py`; the house look that comes with it is the **signature** style.
 
-Contents: the brief · ten moves · formats · page plans · three reading depths · accessibility pass · the taste
+Contents: the brief (with the mood) · ten moves · formats · page plans · three reading depths · accessibility pass · the taste
 judge · keep it from becoming a template · when to step back.
 
 ## The brief (write it before any code, in the generator's docstring)
@@ -17,7 +17,8 @@ Device    <the one idea that makes the shape visible: lines merging, a numbered 
 Voice     <the one or two things a person would point at and say out loud>
 Format    <slide | social | square | doc | wide> · plan <hero-right | hero-left | hero-top | path | split | ring | zoom | stack>
 Depths    3 s: <title + hero> · 30 s: <the main path> · 3 min: <subs, notes, numbers, sources>
-Colour    <hero colour = ...>; <each other hue = its meaning>; everything else grey
+Colour    mood <sun | coral | mint | sky | lavender | red-pen> (why) · <hero colour = ...>; <each other hue = its meaning>;
+          everything else grey
 ```
 
 If a line is hard to write, the diagram is not ready: "Hero: everything is equally important" means two diagrams
@@ -28,7 +29,7 @@ support, and keep their terms verbatim.
 
 1. **A claim, not a topic.** "A new hire ships in week two, never alone", not "Onboarding overview". Hand-lettered,
    48-60 px on a slide, top-left, one line; a one-line sans subtitle at 20+ px or none. `claim_title()`.
-2. **The highlighter.** One swipe of yellow behind the 1-3 words that carry the claim, under the text, slightly
+2. **The highlighter.** One swipe of the mood's highlighter (yellow in `sun`) behind the 1-3 words that carry the claim, under the text, slightly
    tilted, overshooting by a few pixels. Once per diagram (title or takeaway). `claim_title(mark=)`, `takeaway()`.
 3. **One hero, 3-4x bigger.** One block carries the message: a number, a word, the goal, the moment that matters,
    set huge (80-110 px) in the hero colour, on a third of the frame, never dead centre. Nothing else comes close in
@@ -130,7 +131,7 @@ the earlier ones every time, and then warned that side by side they all looked a
 
 - **Use the moves the content needs.** No surprise in the content, no voice note. A claim that reads well alone
   needs no highlighter. A hero can be a word, a number, a band, a drawing, a zone or the last step of a path; it
-  does not have to be a yellow card.
+  does not have to be a coloured card.
 - **The voice never adds facts.** A margin note points at what the user's content already says, or asks the
   question the audience will ask ("how is it enforced?"). It never introduces a claim, a statistic or a habit
   ("most teams stop at shipping") the user did not give; if you want one, ask, or phrase it as a question.
@@ -139,10 +140,10 @@ the earlier ones every time, and then warned that side by side they all looked a
   drawing).
 - **Reading order beats drama.** In a loop or a path, number from where the reader starts; the hero can be the
   last step, but the badges still run 1 to n in reading order.
-- **Yellow is spent once or twice.** The highlighter and the hero share it; never a third yellow thing, and a hero
+- **The hero colour is spent once or twice.** The highlighter and the hero share it; never a third thing in it, and a hero
   that is a wide band takes a paler tint so the highlighter still pops.
 - **Secondary text is still text.** Kickers, cell captions and footers keep the format's minimum and 4.5:1
-  contrast on whatever they sit on (grey on yellow is the usual trap).
+  contrast on whatever they sit on (grey on the hero colour is the usual trap).
 
 ## When to step back
 

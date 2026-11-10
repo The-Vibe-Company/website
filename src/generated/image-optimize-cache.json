@@ -416,6 +416,21 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/roi-ia/ai-roi-5-metrics.png": {
+      "sourceHash": "fda29b3a415d144b1bc8a3d8608cd6be0deb1d914936ca56a8f8e30ca331f28d",
+      "targetUrl": "/images/_optimized/resources/roi-ia/ai-roi-5-metrics.webp",
+      "targetHash": "05514e17dfdf3979c8dec875ab5c4d1b1d4ac0a23e36eedbc7e027c366d70688"
+    },
+    "content:/images/resources/roi-ia/cover-mascotte.webp": {
+      "sourceHash": "e69e9a6728e3d0df04785ea02ba4eb686dc5a2cca2a84f8b06620949b2e87adb",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/roi-ia/roi-ia-5-indicateurs.png": {
+      "sourceHash": "e009658df338054ea11e56274afb91a7e7ff9b6fe5a5d84dfae75b32b7303e27",
+      "targetUrl": "/images/_optimized/resources/roi-ia/roi-ia-5-indicateurs.webp",
+      "targetHash": "3fe2e07af8c066fa8d319b932db155997314e4b85622389766deefa377c80832"
+    },
     "content:/images/resources/serveur-mcp-entreprise/cover-mascotte.webp": {
       "sourceHash": "b80605b14d5c90c58e200f49dc078d41b4b2f00bafd0627aa14f6a36f5e29893",
       "targetUrl": null,
@@ -678,6 +693,11 @@
     },
     "og:/images/resources/rag-entreprise/cover-mascotte.webp": {
       "sourceHash": "c6c63b98b73f4346632975d282f9dfa1c5758a485bc3f818ad629749d639def2",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/roi-ia/cover-mascotte.webp": {
+      "sourceHash": "e69e9a6728e3d0df04785ea02ba4eb686dc5a2cca2a84f8b06620949b2e87adb",
       "targetUrl": null,
       "targetHash": null
     },

@@ -7,7 +7,7 @@ is spent (its mood). The eight styles live in `assets/palettes.py` (`STYLES`); e
 and your own generator calls `palettes.setup(style="<name>")` before drawing and `S.header(title, message)` for the
 title block, so the kit applies the grammar everywhere (`excalikit.STYLE`, `font_for`, `Scene._finish`).
 
-Contents: choosing a style · signature · corporate · editorial · sketch · playful · whiteboard · night · mono · colour moods · brand colours ·
+Contents: choosing a style · signature (and its six moods) · corporate · editorial · sketch · playful · whiteboard · night · mono · colour moods · brand colours ·
 make it superb in any style.
 
 Pick the style from the request and the audience, before any coordinate. One style per diagram: never mix fonts,
@@ -43,13 +43,33 @@ neutrals and one accent than with a rainbow, and a user who did not ask for colo
 The house look and the default. Warm paper (`#fbf8f1`), near-black ink, warm greys for everything that is context.
 Titles, the hero word and the voice are hand-lettered (Excalifont); labels and body are Nunito, so it reads like a
 person explaining over a clean document. Crisp lines (roughness 0), radius 14, strokes 2 / 3.
-Signature devices (`scripts/signature.py`, `references/art-direction.md`): the claim title with a yellow
-highlighter swipe on its key words; one yellow hero 3-4x bigger than the rest; families as coloured lines with
-white stations; numbered burnt-orange badges for the path; one or two burnt-orange hand notes with curved arrows;
-a grey whisper footer. Colour: yellow = the hero and the highlighter, burnt orange = the voice and the path, at most
-two meaning colours (cat1 blue, cat2 raspberry) for families, everything else grey.
+Signature devices (`scripts/signature.py`, `references/art-direction.md`): the claim title with a highlighter
+swipe on its key words; one hero 3-4x bigger than the rest; families as coloured lines with white stations;
+numbered badges for the path; one or two hand notes with curved arrows, in the voice colour; a grey whisper footer.
+Colour: the mood's hero colour = the hero and the highlighter, the mood's voice colour = the notes and the path, at
+most two meaning colours (cat1, cat2) for families, everything else grey.
 Use it for: anything without a strong style signal. Avoid it when the user wants something institutional
 (corporate) or printed in black and white (mono).
+
+### Signature moods
+
+The grammar stays; the pair of colours changes. Six moods, each checked for contrast (voice text, badges, greys,
+hero text all 4.5:1 or more): `G.setup(fmt, mood="coral")`.
+
+| Mood | Hero and highlighter | Voice and path | Fits |
+|---|---|---|---|
+| `sun` | yellow | burnt orange | the original; energy, launches, anything upbeat |
+| `coral` | coral | navy | people, teams, onboarding, customers, care |
+| `mint` | mint | fir green | growth, improvement, health, before / after that got better |
+| `sky` | pale blue | cobalt | systems, architecture, data, infrastructure |
+| `lavender` | lavender | deep violet | ideas, AI, product, strategy |
+| `red-pen` | an ink block (no hue) | red pen | reviews, rules, corrections, "what to fix"; not when red would read as danger on a good change |
+
+Pick the mood from the content with this table. When nothing points to one, call `G.mood_for(claim)`: it picks a
+mood from the claim, the same one every time for the same diagram and a different one for the next, so a series of
+diagrams does not all wear yellow. Keep one mood across a series that belongs together (one deck, one post
+carousel) and say which one you used. A colour meaning still has to be stated on the canvas; a mood changes which
+colour, never the rule.
 
 ## corporate
 
@@ -86,12 +106,14 @@ python assets/example_poster.py --style editorial
 
 **When**: workshops, brainstorms, internal explainers, a drawing for the team channel, anything that should feel
 unfinished and open to change.
-**Signature**: Excalifont, `roughness 1`, radius 16, cream paper canvas (`#fdf8f1`), a **pen line** (`mid` brown)
-on every solid box instead of pale grey, **hachure** in tinted zones and lanes, **arched** step-to-step arrows,
-charcoal ink. "Bad" is plum, so it never reads as the terracotta accent.
-**Colour**: mood sober. One terracotta accent (`#bb3f0d`) for the key step, the enforced zone, the hero figure
-and the takeaway; charcoal block for the loud element. Cards stay white; in an explainer only the key card takes the
-accent tint (`tints(..., mood="sober", key=K)`). Category families are soft sage and dusty blue.
+**Signature**: a page from a notebook. Excalifont, `roughness 1`, radius 16, cool off-white paper (`#f5f5f1`),
+a **graphite pen line** (`mid`) on every solid box instead of pale grey, **hachure** in tinted zones and lanes,
+**arched** step-to-step arrows, graphite ink. "Bad" is plum, so it never reads as the accent.
+**Colour**: mood sober. One **blue ballpoint** accent (`#2449a8`) for the key step, the enforced zone, the hero
+figure, the notes and the takeaway; a **lime highlighter** (`#c0eb75`) for the highlighted words and a pale lime
+hero in signature blocks; graphite block for the loud element. Cards stay white; in an explainer only the key card
+takes the accent tint (`tints(..., mood="sober", key=K)`). Category families are teal and raspberry. Its colours are
+deliberately not the signature's: a sketch must not look like the house look with a wobble.
 **Avoid**: pastels on every card (that is playful); hachure behind a block of text (the kit hatches only zones that
 hold boxes); using sketch for a client deliverable because it "looks nicer".
 
