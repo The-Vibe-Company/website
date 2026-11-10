@@ -1,10 +1,11 @@
 ---
-title: "AI agents for business: a practical guide to production"
-seoTitle: "Deploying AI agents in business | The Vibe Company"
+title: "AI agents for business: 7 types that work in production"
+seoTitle: "AI agents for business: 7 types that work (2026)"
+seoDescription: "AI agents for business that work in production: 7 types with real examples (support, documents, triage, code, security) and how to launch the first one."
 slug: ai-agents-for-business
 translationKey: ai-agents-enterprise-guide
 language: en
-summary: "How to deploy an AI agent in production in Europe: the 4 building blocks, GDPR, the AI Act and ANSSI guidance, and five steps from pilot to daily use."
+summary: "The 7 types of AI agents for business that hold up in production, each with a real example, then the 4 building blocks, the European rules and five steps to launch the first one."
 publishedAt: 2026-10-20
 complexity: intermediate
 topics: AI Adoption, AI Agents, Strategy
@@ -15,11 +16,47 @@ ogImage: /images/resources/agent-ia-entreprise/cover-mascotte.webp
 
 An AI agent for business is a program that gets a goal, picks its own steps, and acts in your tools to reach it: it reads a case file, queries the CRM, drafts a reply, opens a ticket. A chatbot answers. An agent does.
 
+The AI agents that work for businesses today fall into seven types: customer support, document checks, monitoring and triage, coding, CI security, document search and back-office. Each one is listed below with a real example, then how to launch yours.
+
 **The short answer.** To deploy an AI agent in production in a European company, start with one high-volume process where a human already reviews the work. Connect the agent to your real tools with a service account that has minimal rights. Write down what it does when in doubt. Sort out GDPR with your DPO before go-live, tell people they're talking to an AI, and keep every critical action under human approval. Then measure every week before you widen its scope.
 
 It's also one of the most oversold topics right now. In June 2025, [Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) predicted that over 40% of agentic AI projects would be canceled by the end of 2027, because of rising costs, unclear business value or weak risk controls. It also estimated that only about 130 of the thousands of vendors calling themselves "agentic" were real.
 
-The point here is to stay out of that 40%. We'll look at when an agent makes sense, what it needs to survive production, and how to launch the first one.
+The point here is to stay out of that 40%. We start with the agents that already hold up, then what they need to survive production, and how to launch the first one.
+
+## 7 types of AI agents for business that work in production
+
+In mid-size and large companies, the first agents that stick tend to share a profile: high volume, accessible data, and a human who already reviews the work. These seven types fit it.
+
+### 1. Customer support agent
+
+The agent reads the ticket, the history and the docs, then drafts the reply. A human sends it. At [LocService](/en/case-studies/locservice), a peer-to-peer rental platform that gets several hundred tickets a day, drafts from Quivr's autodraft are used on 87% of tickets. The building blocks section below explains why context matters so much here.
+
+### 2. Document-check agent
+
+The agent compares, checks and cross-checks documents against your rules. For [Coup de Pates](/en/case-studies/coup-de-pates), three skills do this on product documents. Across two versions of one specification, the AI flagged 72 changes. The quality team decides on each one.
+
+### 3. Monitoring and triage agent
+
+The agent watches a flow of information and sorts it. Our internal AI watch sorts each announcement into one of four buckets, from an instant Slack alert to "nothing". The value is in what nobody has to read anymore.
+
+### 4. Coding agent
+
+Claude Code or Codex in a product team writes, tests and fixes code under review. Rolling it out needs the same blocks as any agent: access, rules, review. See our [Claude Code enterprise rollout](/en/resources/articles/claude-code-enterprise-rollout) guide.
+
+### 5. CI security agent
+
+An agent in the CI pipeline reviews each pull request for security issues before a human merges it. We explain the setup in [a security agent in your CI](/en/resources/articles/ci-security-agent).
+
+### 6. Document search assistant
+
+It answers questions from your documents, with the source. Strictly speaking it is often an assistant rather than an agent, and that is fine: it is usually the cheapest first step. Access rights are the hard part; see our [enterprise RAG](/en/resources/articles/enterprise-rag) guide.
+
+### 7. Back-office agent
+
+Bookkeeping, invoices, file preparation: the agent prepares, a human validates. In our own bookkeeping, a bank line the AI can't recognize goes into "Other", and a human decides.
+
+What to keep for later: irreversible decisions, processes nobody can describe, and data that lives in inboxes and people's heads.
 
 ## Agent, assistant, automation: don't call everything an agent
 
@@ -53,7 +90,7 @@ That's what skills are for: written, versioned instructions the agent loads when
 
 This is where most of the security work happens. An agent that reads data doesn't carry the same risk as one that emails a customer or approves a payment. We think in four levels: read, propose, prepare, execute. Start low, and move up when the numbers justify it.
 
-The most useful rule fits in one sentence: write down what the agent does when it doesn't know. In our own bookkeeping, a bank line the AI can't recognize goes into "Other", and a human decides.
+The most useful rule fits in one sentence: write down what the agent does when it doesn't know. The back-office example above shows it: an unknown case goes to a human.
 
 ### 4. Measurement: prove the agent is worth it
 
@@ -62,17 +99,6 @@ Without numbers, nobody funds the second agent. Before launch, record the baseli
 - **usage rate**: the share of the agent's output actually used (87% at LocService);
 - **correction rate**: the share a human rewrites or rejects;
 - **cost per case**: model calls, infrastructure and review time included.
-
-## Use cases that work first
-
-In mid-size and large companies, the first agents that stick tend to share a profile: high volume, accessible data, and a human who already reviews the work.
-
-- **Customer support**: the agent reads the ticket, history and docs, then drafts the reply. A human sends it.
-- **Document checks**: for [Coup de Pates](/en/case-studies/coup-de-pates), a library of skills checks product documents. The AI flags gaps, the quality team decides.
-- **Monitoring and triage**: our internal AI watch sorts each announcement into one of four buckets, from an instant Slack alert to "nothing".
-- **Coding agents**: rolling out Claude Code or Codex in a product team needs the same blocks (access, rules, review). See our [Claude Code enterprise rollout](/en/resources/articles/claude-code-enterprise-rollout) guide.
-
-What to keep for later: irreversible decisions, processes nobody can describe, and data that lives in inboxes and people's heads.
 
 ## Launch your first agent in five steps
 
@@ -112,6 +138,9 @@ For the layer that makes all this hold in production (the loop, the sandbox, ski
 
 **What is an AI agent for business?**
 A program that gets a goal, picks its steps and acts in your tools (CRM, ticketing, internal databases) to reach it, with defined rights and a human approving sensitive actions.
+
+**What are the best AI agents for business?**
+The ones tied to a high-volume process with a human who reviews the work: customer support, document checks, monitoring and triage, coding, CI security, document search and back-office. Start with the one where you can measure the result.
 
 **What is the difference between a chatbot and an AI agent?**
 A chatbot answers questions. An agent acts: it fetches information, prepares a file, opens a ticket. That's why permissions become the central question.

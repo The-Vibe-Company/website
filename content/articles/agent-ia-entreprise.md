@@ -1,10 +1,11 @@
 ---
 title: "Agent IA en entreprise : le guide pour passer en production"
 seoTitle: "Déployer un agent IA en entreprise | The Vibe Company"
+seoDescription: "Agent IA en entreprise : 7 types qui marchent en production (support, documents, veille, code, sécurité) et les 5 étapes pour lancer le premier."
 slug: agent-ia-entreprise
 translationKey: ai-agents-enterprise-guide
 language: fr
-summary: "Déployer un agent IA en production en France : les 4 briques, le cadre RGPD, AI Act et ANSSI, et cinq étapes pour passer du pilote au quotidien."
+summary: "Les 7 types d'agents IA qui tiennent en production en entreprise, chacun avec un exemple réel, puis les 4 briques, le cadre RGPD, AI Act et ANSSI, et cinq étapes pour lancer le premier."
 publishedAt: 2026-10-20
 complexity: intermediate
 topics: AI Adoption, AI Agents, Strategy
@@ -15,11 +16,47 @@ ogImage: /images/resources/agent-ia-entreprise/cover-mascotte.webp
 
 Un agent IA en entreprise, c'est un programme qui reçoit un objectif, choisit lui-même les étapes, et agit dans vos outils pour l'atteindre : il lit un dossier, interroge le CRM, prépare une réponse, ouvre un ticket. Un chatbot répond. Un agent fait.
 
+Les agents IA qui marchent aujourd'hui en entreprise relèvent de sept types : support client, contrôle de documents, veille et tri, code, sécurité dans la CI, recherche documentaire et back-office. Chacun est présenté plus bas avec un exemple réel, puis la façon de lancer le vôtre.
+
 **La réponse courte.** Pour déployer un agent IA en production dans une entreprise française, partez d'un seul processus à fort volume où un humain valide déjà le travail. Branchez l'agent sur vos vrais outils avec un compte de service aux droits minimaux. Écrivez ce qu'il fait quand il doute. Réglez le RGPD avec votre DPO avant la mise en ligne, prévenez les personnes qu'elles échangent avec une IA, et gardez toute action critique sous validation humaine. Puis mesurez chaque semaine avant d'élargir.
 
 C'est aussi un des sujets les plus survendus du moment. En juin 2025, [Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) prévoyait que plus de 40 % des projets d'IA agentique seraient abandonnés d'ici fin 2027, à cause des coûts, d'une valeur floue ou de contrôles de risque insuffisants. Le cabinet estimait aussi qu'environ 130 éditeurs seulement, sur des milliers qui se disent « agentiques », proposaient de vrais agents.
 
-L'idée ici, c'est de ne pas finir dans ces 40 %. On regarde quand un agent se justifie, ce qu'il lui faut pour tenir en production, et comment lancer le premier.
+L'idée ici, c'est de ne pas finir dans ces 40 %. On commence par les agents qui tiennent déjà, puis ce qu'il leur faut pour tenir en production, et comment lancer le premier.
+
+## 7 types d'agents IA qui marchent en entreprise
+
+Dans les entreprises moyennes et grandes, les premiers agents qui tiennent ont souvent le même profil : beaucoup de volume, des données accessibles, et un humain qui valide déjà le travail. Ces sept types y correspondent.
+
+### 1. L'agent de support client
+
+L'agent lit le ticket, l'historique et la doc, puis prépare la réponse. L'humain envoie. Chez [LocService](/fr/case-studies/locservice), plateforme de location entre particuliers qui reçoit plusieurs centaines de tickets par jour, les brouillons de l'autodraft de Quivr servent sur 87 % des tickets. La section sur les briques, plus bas, explique pourquoi le contexte compte autant ici.
+
+### 2. L'agent de contrôle de documents
+
+L'agent compare, vérifie et recoupe des documents selon vos règles. Pour [Coup de Pates](/fr/case-studies/coup-de-pates), trois skills le font sur les documents produit. Sur deux versions d'un même cahier des charges, l'IA a relevé 72 modifications. L'équipe qualité décide de chacune.
+
+### 3. L'agent de veille et de tri
+
+L'agent surveille un flux d'informations et le trie. Notre [veille IA automatique](/fr/resources/articles/veille-ia-automatique) range chaque annonce dans un de quatre paniers, de l'alerte Slack immédiate à « rien ». La valeur, c'est tout ce que plus personne n'a besoin de lire.
+
+### 4. L'agent de code
+
+Claude Code ou Codex, dans une équipe produit, écrit, teste et corrige du code sous revue. Le déployer demande les mêmes briques que n'importe quel agent : accès, règles, revue. On l'a expliqué dans [Claude Code en entreprise](/fr/resources/articles/deployer-claude-code-entreprise).
+
+### 5. L'agent de sécurité dans la CI
+
+Un agent placé dans la chaîne d'intégration relit chaque pull request sous l'angle sécurité avant qu'un humain ne la fusionne. La mise en place est dans [un agent de sécurité dans votre CI](/fr/resources/articles/agent-securite-ci).
+
+### 6. L'assistant de recherche documentaire
+
+Il répond aux questions à partir de vos documents, avec la source. C'est souvent un assistant plus qu'un agent, et c'est très bien : c'est en général le premier pas le moins cher. Le point dur, ce sont les droits d'accès ; voir notre guide du [RAG en entreprise](/fr/resources/articles/rag-entreprise).
+
+### 7. L'agent de back-office
+
+Comptabilité, factures, préparation de dossiers : l'agent prépare, un humain valide. On l'applique à notre propre comptabilité, avec une règle simple pour les cas que l'IA ne reconnaît pas (détaillée plus bas).
+
+Ce qu'on garde pour plus tard : les décisions irréversibles, les processus que personne ne sait décrire, et les données qui vivent dans des mails et des têtes.
 
 ## Agent, assistant, automatisation : ne pas tout appeler agent
 
@@ -63,17 +100,6 @@ Sans chiffres, personne ne financera le deuxième agent. Avant de lancer, on not
 - **le taux de correction** : la part que l'humain réécrit ou rejette ;
 - **le coût par cas** : appels au modèle, infrastructure et temps de relecture compris.
 
-## Les cas d'usage qui marchent en premier
-
-Dans les entreprises moyennes et grandes, les premiers agents qui tiennent ont souvent le même profil : beaucoup de volume, des données accessibles, et un humain qui valide déjà le travail.
-
-- **Le support client** : l'agent lit le ticket, l'historique et la doc, puis prépare la réponse. L'humain envoie.
-- **Le contrôle de documents** : pour [Coup de Pates](/fr/case-studies/coup-de-pates), une bibliothèque de skills vérifie les documents produit. L'IA pointe les écarts, l'équipe qualité décide.
-- **La veille et le tri** : notre [veille IA automatique](/fr/resources/articles/veille-ia-automatique) range chaque annonce dans un de quatre paniers, de l'alerte Slack immédiate à « rien ».
-- **Les agents de code** : déployer Claude Code ou Codex dans une équipe produit demande les mêmes briques (accès, règles, revue). On l'a expliqué dans [Claude Code en entreprise](/fr/resources/articles/deployer-claude-code-entreprise).
-
-Ce qu'on garde pour plus tard : les décisions irréversibles, les processus que personne ne sait décrire, et les données qui vivent dans des mails et des têtes.
-
 ## Lancer son premier agent en cinq étapes
 
 1. **Choisir un seul processus**, mesurable, avec un humain qui valide. Inutile de partir avec un catalogue de vingt cas d'usage.
@@ -112,6 +138,9 @@ Pour la couche qui fait tenir tout ça en production (la boucle, le sandbox, les
 
 **Qu'est-ce qu'un agent IA en entreprise ?**
 Un programme qui reçoit un objectif, choisit ses étapes et agit dans vos outils (CRM, ticketing, bases internes) pour l'atteindre, avec des droits définis et un humain qui valide les actions sensibles.
+
+**Quels agents IA choisir pour une entreprise ?**
+Ceux qui s'appuient sur un processus à fort volume avec un humain qui valide déjà le travail : support client, contrôle de documents, veille et tri, code, sécurité dans la CI, recherche documentaire et back-office. Commencez par celui dont vous pouvez mesurer le résultat.
 
 **Quelle différence entre un chatbot et un agent IA ?**
 Un chatbot répond à des questions. Un agent agit : il va chercher l'information, prépare un dossier, ouvre un ticket. C'est pour ça que la question des droits devient centrale.
