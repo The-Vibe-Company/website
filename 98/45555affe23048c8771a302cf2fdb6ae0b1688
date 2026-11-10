@@ -1,0 +1,46 @@
+src/components/agents-production/AgentsProductionPage.tsx
+  s_cf3b1a16e9f092::t_19a535d3f4be4e 518,556
+  s_cf3b1a16e9f092::t_1edf4422f35df4 368,522
+src/app/[locale]/portfolio/[slug]/page.tsx
+  s_cf3b1a16e9f092::t_1edf4422f35df4 275
+  s_cf3b1a16e9f092::t_19a535d3f4be4e 271
+src/components/healthcare-ai/HealthcareAiPage.tsx
+  s_cf3b1a16e9f092::t_19a535d3f4be4e 228,244,327,505,526
+  s_cf3b1a16e9f092::t_1edf4422f35df4 232,248,331,418,470,509
+src/components/about/AboutPage.tsx
+  s_cf3b1a16e9f092::t_19a535d3f4be4e 172,471
+  s_cf3b1a16e9f092::t_1edf4422f35df4 176,316,475
+src/components/custom-ai-app/CustomAiAppPage.tsx
+  s_cf3b1a16e9f092::t_19a535d3f4be4e 365,394
+  s_cf3b1a16e9f092::t_1edf4422f35df4 332,369,398
+src/components/hardening/HardeningPage.tsx
+  s_cf3b1a16e9f092::t_1edf4422f35df4 83,274,384
+  s_cf3b1a16e9f092::t_19a535d3f4be4e 304,380,401
+src/components/agency-paris/AgencyParisPage.tsx
+  s_cf3b1a16e9f092::t_19a535d3f4be4e 225,239,389,456
+  s_cf3b1a16e9f092::t_1edf4422f35df4 229,281,393,460,507
+src/components/media-ai/MediaAiPage.tsx
+  s_cf3b1a16e9f092::t_19a535d3f4be4e 207,223,273,373,404
+  s_cf3b1a16e9f092::t_1edf4422f35df4 211,227,277,344,377,408
+src/app/[locale]/case-studies/[slug]/page.tsx
+  s_cf3b1a16e9f092::t_1edf4422f35df4 44,299
+  s_cf3b1a16e9f092::t_19a535d3f4be4e 42,295
+DESIGN.md
+  s_cf3b1a16e9f092::t_3282932669aa0e 498
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9845555affe23048c8771a302cf2fdb6ae0b1688",
+  "prompts": {},
+  "sessions": {
+    "s_cf3b1a16e9f092": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b66a8829-4166-43f8-aecb-a06f164d4edd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
