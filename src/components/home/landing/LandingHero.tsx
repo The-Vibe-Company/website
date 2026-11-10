@@ -110,11 +110,11 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   const lift = useTransform(scrollYProgress, [0, 1], ["0%", reduceMotion ? "0%" : "-12%"]);
 
-  const rise = (delay: number, y = 18) => ({
-    initial: { opacity: 0, y },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: reduceMotion ? 0 : 0.8, delay: reduceMotion ? 0 : delay, ease: EASE },
-  });
+  // The text rises in with a CSS animation (styles.rise) rather than
+  // framer-motion, so the server HTML paints it on its own instead of waiting
+  // for the JavaScript to hydrate the hero. This sets each element's offset
+  // and delay.
+  const rise = (delay: number, y = 18) => ({ "--rise-y": `${y}px`, animationDelay: `${delay}s` }) as CSSProperties;
 
   return (
     <section
@@ -136,30 +136,30 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
       />
 
       <div className="relative mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16">
-        <motion.p
-          {...rise(0, 8)}
-          className="m-0 inline-flex items-center gap-3 pt-12 font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground lg:pt-[80px]"
+        <p
+          style={rise(0, 8)}
+          className={`m-0 inline-flex items-center gap-3 pt-12 font-mono text-[12px] uppercase tracking-[0.2em] text-soft-foreground lg:pt-[80px] ${styles.rise}`}
         >
           <span aria-hidden="true" className="h-2 w-2 bg-brand" />
           {tFooter("openToProjects")}
-        </motion.p>
+        </p>
 
         <h1 className="m-0 font-bold text-foreground">
-          <motion.span {...rise(0.06, 28)} className="mt-8 block leading-[0.86] [container-type:inline-size] lg:mt-10">
+          <span style={rise(0.06, 28)} className={`mt-8 block leading-[0.86] [container-type:inline-size] lg:mt-10 ${styles.rise}`}>
             <FitText trackingEm={-0.055} className="-ml-[0.04em] transition-none">
               {t("titleLine1")}
             </FitText>
-          </motion.span>
-          <motion.span
-            {...rise(0.16)}
-            className="relative z-20 mt-10 block max-w-[17ch] text-[clamp(1.6rem,2.5vw,2.25rem)] font-medium leading-[1.12] tracking-[-0.03em] lg:mt-[58px]"
+          </span>
+          <span
+            style={rise(0.16)}
+            className={`relative z-20 mt-10 block max-w-[17ch] text-[clamp(1.6rem,2.5vw,2.25rem)] font-medium leading-[1.12] tracking-[-0.03em] lg:mt-[58px] ${styles.rise}`}
           >
             {t("titleLine2")}
-          </motion.span>
+          </span>
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)]">
-          <motion.div {...rise(0.26)} className="relative z-20 pb-10 lg:pb-[72px]">
+          <div style={rise(0.26)} className={`relative z-20 pb-10 lg:pb-[72px] ${styles.rise}`}>
             <p className="m-0 mt-6 max-w-[33rem] text-[17px] leading-[1.6] text-muted-foreground md:text-[19px]">{t("subtitle")}</p>
             <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
               <a
@@ -185,7 +185,7 @@ export function LandingHero({ runnerItems }: { runnerItems: RunnerItem[] }) {
               <Backers className="flex-wrap gap-x-10" />
               <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-muted-foreground">{t("response")}</span>
             </div>
-          </motion.div>
+          </div>
 
           {/* Phones: the mascot under the pitch, cut by the floor. */}
           <div aria-hidden="true" className="relative h-[300px] lg:hidden">

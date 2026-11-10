@@ -10,6 +10,22 @@
   animation: float 6s ease-in-out infinite;
 }
 
+/* The hero's text rises in. A CSS animation rather than framer-motion, so the
+   server HTML paints the text without waiting for the JavaScript. Each element
+   sets its own offset (--rise-y) and animation-delay. Filled backwards only:
+   the end state is the element's own style, so nothing stays applied (no
+   lingering layer or stacking context) once it has played. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--rise-y, 18px), 0);
+  }
+}
+
+.rise {
+  animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
 /* Film grain over the whole page: a tiny SVG noise tile, nudged a few
    pixels per frame so it reads as film rather than a texture. */
 @keyframes grain {
@@ -82,6 +98,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .float,
+  .rise,
   .marquee,
   .grain,
   .leap,
