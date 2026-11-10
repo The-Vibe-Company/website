@@ -58,7 +58,7 @@ The easiest entry point, according to Sequoia, is work that is already outsource
 
 ## Classic agency vs AI-native agency: the business model changes
 
-![Classic vs AI-native agency: how it grows, what the client pays, first result. Detailed below.](/images/resources/ai-native-agency/classic-vs-ai-native-agency.png)
+![Classic vs AI-native agency: how it grows, what the client pays, first result. Detailed below.](/images/resources/ai-native-agency/classic-vs-ai-native-agency.png){.diagram}
 
 A classic agency grows by hiring, with low margins. With a [classic agency or an IT services firm](/en/resources/articles/how-to-choose-an-ai-agency) (an ESN, in French), the client pays for time spent, in person-days. The work there stays slow and manual.
 
@@ -66,7 +66,7 @@ For an AI-native agency, producing costs less. It bills for what gets delivered:
 
 ## 4 tests to vet an AI-native agency before you sign
 
-![4 tests to verify an AI-native agency: question, positive signal, weak signal. Detailed below.](/images/resources/ai-native-agency/4-tests-ai-native-agency.png)
+![4 tests to verify an AI-native agency: question, positive signal, weak signal. Detailed below.](/images/resources/ai-native-agency/4-tests-ai-native-agency.png){.diagram}
 
 An agency can be vetted on 4 observable tests, which The Vibe Company derived from the YC thesis. Each one can be raised in a meeting, with a precise question.
 

@@ -58,7 +58,7 @@ Le point d'entrée le plus simple, selon Sequoia, est le travail déjà external
 
 ## Agence classique et agence IA native : le modèle économique change
 
-![Agence classique vs agence IA native : comment elle grandit, ce que le client paie, premier résultat. Détaillé ci-dessous.](/images/resources/agence-ia-native/agence-classique-vs-ia-native.png)
+![Agence classique vs agence IA native : comment elle grandit, ce que le client paie, premier résultat. Détaillé ci-dessous.](/images/resources/agence-ia-native/agence-classique-vs-ia-native.png){.diagram}
 
 Une agence classique grandit en embauchant, avec des marges faibles. Avec une [agence classique ou une ESN](/fr/resources/articles/choisir-agence-ia-esn-freelance), le client paie du temps passé, en jours-homme. Le travail y reste manuel et lent.
 
@@ -66,7 +66,7 @@ Pour une agence IA native, produire coûte moins cher. Elle facture ce qui est l
 
 ## 4 tests pour vérifier une agence IA native avant de signer
 
-![4 tests pour vérifier une agence IA native : question, signal positif, signal faible. Détaillé ci-dessous.](/images/resources/agence-ia-native/grille-4-tests-agence-ia-native.png)
+![4 tests pour vérifier une agence IA native : question, signal positif, signal faible. Détaillé ci-dessous.](/images/resources/agence-ia-native/grille-4-tests-agence-ia-native.png){.diagram}
 
 Une agence se vérifie sur 4 tests observables, que The Vibe Company a déduits de la thèse YC. Chacun se pose en rendez-vous, avec une question précise.
 
