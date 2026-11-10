@@ -181,6 +181,16 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/etre-cite-chatgpt-gemini-aeo/2-leviers-google-ai-overviews.png": {
+      "sourceHash": "436e765e9fc252e87a512c3fb9deb20d6fca103ebcce4c76addb043044ce2cc2",
+      "targetUrl": "/images/_optimized/resources/etre-cite-chatgpt-gemini-aeo/2-leviers-google-ai-overviews.webp",
+      "targetHash": "0da88120a66406ab230623f21b92dc05360d33295481bd4fb8e6a19108f6678b"
+    },
+    "content:/images/resources/etre-cite-chatgpt-gemini-aeo/3-bots-openai-chatgpt-search.png": {
+      "sourceHash": "7e3af0c4523504442b8c65b7a241ad726fcd1211df6711eb7ba8b4732033083c",
+      "targetUrl": "/images/_optimized/resources/etre-cite-chatgpt-gemini-aeo/3-bots-openai-chatgpt-search.webp",
+      "targetHash": "59b483eba3141475098e02d7c3fc98564c3b58e5b5c36c9b9753351a0ea9250f"
+    },
     "content:/images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp": {
       "sourceHash": "1da35bba40796bc1509c379cba6ad8478e8be0322546b216f806e11305ab328e",
       "targetUrl": null,
@@ -235,6 +245,16 @@
       "sourceHash": "5809540d1defac024144c7489d5aeb692f377bd336baf119806a12d70deb231f",
       "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/stack-logo.webp",
       "targetHash": "909dd86c07cecf2a32a4af2823aaf14f519cfe980966bceb636f5dea89f43a41"
+    },
+    "content:/images/resources/get-cited-chatgpt-gemini-aeo/2-google-levers-ai-overviews.png": {
+      "sourceHash": "f688a3517d30a791b9cfdeef26495b29e4686e2b11dd32c5d2c7b7b5692fc28d",
+      "targetUrl": "/images/_optimized/resources/get-cited-chatgpt-gemini-aeo/2-google-levers-ai-overviews.webp",
+      "targetHash": "74d2b7a7dce9431d291e5fdd2c6821005dfa30ec17e3c0d1c6a9c1608a179c5f"
+    },
+    "content:/images/resources/get-cited-chatgpt-gemini-aeo/3-openai-bots-chatgpt-search.png": {
+      "sourceHash": "b5b695a6ee8a7c81b875082d4931d8fba992c25952fc0bb15873a74e0e5f6a22",
+      "targetUrl": "/images/_optimized/resources/get-cited-chatgpt-gemini-aeo/3-openai-bots-chatgpt-search.webp",
+      "targetHash": "7d3d971accf684d992b50811577e94313bec80112f176b0e858c7049b0e0d15a"
     },
     "content:/images/resources/hebergement-hds-ia/cover-mascotte.webp": {
       "sourceHash": "45996223f4c39e669e2fa8f6d0f3dc552b8d3b84715d4a643d2cad0563c0edf6",
