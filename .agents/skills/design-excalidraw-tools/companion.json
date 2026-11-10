@@ -1,0 +1,138 @@
+{
+  "$schema": "https://skillpack.app/schemas/companion-manifest.v2.schema.json",
+  "name": "design-excalidraw-tools",
+  "version": "0.8.0",
+  "title": "Excalidraw Diagram Designer",
+  "description": "Design beautiful, art-directed Excalidraw diagrams with taste by default (claim title, one hero, grey context, hand margin notes, fixed formats) in eight styles (the house look in six colour moods), from a Python generator, then lint for layout and taste, render, judge and deliver with alt text.",
+  "notes": "## What it does\n\nTurns a request for a diagram into a beautiful Excalidraw scene: flows and processes, architectures, timelines and roadmaps, before/after comparisons, concept maps, layered stacks, posters with key figures, swimlanes, illustrated explainers with hand-drawn pictograms and decks of portrait study flashcards (pocket guides, one idea per card, each card exported alone at 1200 x 1500), with an art-directed house look by default (signature, in six colour moods: a hand-lettered claim with a highlighter, one hero three to four times bigger than the rest, grey context, hand margin notes, fixed formats such as 16:9 slides or 4:5 LinkedIn posts) and seven other styles chosen from the request and the audience: corporate, editorial, hand-drawn sketch, playful pastel, whiteboard with line icons, dark night and black-and-white mono. Colour is not the default; sober is. The diagram is generated from a short Python script built on a bundled kit, so it can be regenerated after every round of feedback.\n\n## Quality loop\n\nAn art-direction brief first (claim, hero, device, voice, format and page plan, three reading depths, what each colour means), then compose, generate, lint, render, look, judge, refine. The lint catches overflowing text, overlaps, arrows crossing labels, crowded boxes and colour sprawl, and its taste mode checks the hero's size, the type scale, text too small for the format, margins, dead bands and the hue budget; the render is always checked before delivery. Published pieces are scored by a taste judge (ship at 8/10) and get a cold critique from independent reviewers with distinct personas, and their findings are sorted, not blindly applied.\n\n## Accessibility\n\nEvery diagram ships with alt text and a long description (what leads to what, in reading order); contrast, minimum text size per format and never-colour-alone are checked.\n\n## Rendering and publishing\n\nRenders locally with headless Chromium when available, or through the Excalidraw+ API (EXCALIDRAW_API_KEY, optional). New versions go to new scenes; scenes are never deleted or shared without an explicit request, because share links are public.\n\n## Portability\n\nPython helpers use only the standard library; the local renderer needs Node and Playwright, the publishing helper needs an Excalidraw+ API key. Without either, the skill still produces the .excalidraw file to open on excalidraw.com.",
+  "metadata": {
+    "companionSkillId": "f1567982-638a-46c1-9ab1-4379fa8eed44",
+    "usage": {
+      "schemaVersion": 1,
+      "skillId": "f1567982-638a-46c1-9ab1-4379fa8eed44",
+      "version": "0.8.0",
+      "origin": "https://skillpack.app"
+    },
+    "changelog": [
+      {
+        "version": "0.8.0",
+        "date": "2026-11-09",
+        "changes": [
+          "Signature moods: the house look now comes in six contrast-checked colour pairs (sun, coral, mint, sky, lavender, red-pen) via signature.setup(mood=...); mood_for(claim) picks one when the content gives no signal, so diagrams no longer all come out yellow.",
+          "Sketch gets its own notebook palette (graphite, blue ballpoint, lime highlighter) instead of near-duplicating the signature colours.",
+          "Drawings inside an ink hero switch their free-standing strokes to a light line (robot antenna, magnifier handle, bulb rays, chart axis).",
+          "Doodle highlights follow the diagram's highlighter colour.",
+          "Signature examples each wear a different mood; the social example's margin note no longer invents a claim; gallery gains signature_moods.png.",
+          "Docs: Signature moods table in styles.md, mood line in the art-direction brief, hero-colour wording instead of yellow-only rules."
+        ]
+      },
+      {
+        "version": "0.7.0",
+        "date": "2026-11-09",
+        "changes": [
+          "Taste by default: new signature style (house look, now the default) and scripts/signature.py — fixed formats (slide, social 4:5, square, doc, wide) with margins and minimum text, eight page plans, and composed blocks: claim title with highlighter, hero, lines of stations, merge, numbered step cards, margin notes (the voice), zoom inset, twin panels, takeaway, whisper.",
+          "references/art-direction.md: the art-direction brief, ten moves, formats, page plans, three reading depths, accessibility pass, the taste judge (rubric /10, ship at 8).",
+          "lint_scene --taste: hero ratio, type scale, claim size, text under the format minimum, margins and balance, dead bands, hue budget and fill share, legend vs direct labels; hand voice notes no longer count as mixed fonts.",
+          "Alt text and long description delivered with every diagram (signature.finish).",
+          "Five signature examples (convergence, numbered path, before/after twins, LinkedIn 4:5 loop, zoom inset) and a refreshed gallery; the four weakest gallery pictures retired.",
+          "Blind A/B on the four v0.6 variety prompts: v0.7 preferred 4/4 (wow 5.5 -> 7.75, rubric 6.25 -> 9.0); the judge's warnings became the 'keep it from becoming a template' rules (the voice never adds facts, the hero is full of meaning, reading order beats drama, yellow spent once or twice)."
+        ]
+      },
+      {
+        "version": "0.6.0",
+        "date": "2026-11-09",
+        "changes": [
+          "Free composition: references/composition.md (compose from the content's shape: layouts per shape, devices to borrow, combining, inventing safely) and SKILL.md step 2 rewritten: examples and gallery are references for finish and devices, not templates.",
+          "assets/gallery/: 13 reference pictures across shapes and styles, including three compositions invented by test agents (ring loop, permissions map, 3 x 3 grid).",
+          "Layouts beyond a row: ring(), grid(), cycle(), arc_arrow(), matrix(); new example_cycle.py.",
+          "fan_out() corners are true quarter circles; readability rule for wide canvases."
+        ]
+      },
+      {
+        "version": "0.5.0",
+        "date": "2026-11-09",
+        "changes": [
+          "Agent / system maps: new recipe and example (coordinator fan-out, role cards with icons, helpers list, queue window, the human as the loud card, gate, outcome, idea arc over the row, feedback loop into a learning box).",
+          "scripts/icons.py: 52 line icons sized to sit next to text, crisp in every style; icon_label.",
+          "Kit components: icon_card (row or stack), list_card, window_card, feature_box, icon_list, fan_out, curve.",
+          "Seventh style, whiteboard: hand lettering on crisp lines, line icons, one pastel per role; lint ignores icon and widget colours in the colour count."
+        ]
+      },
+      {
+        "version": "0.4.0",
+        "date": "2026-11-06",
+        "changes": [
+          "Flashcards: a new recipe and example for decks of portrait study cards (cover with numbered contents, then one idea per card: handwritten kicker, poster title with ink shadow, optional handwritten aside, short text or a numbered list with bold lead words, one small diagram, a 'Don't do this!' note, a yellow rule-of-thumb box, footer).",
+          "scripts/cards.py: card page, poster_title (fit to width), title_with_tag, kicker, paragraph and numbered with word wrap, tip anchored on the footer, note, box, toc, cta, check_fit and per-card export commands (1200 x 1500 at scale 2).",
+          "lint_scene accepts the deck's deliberate type roles (texts tagged customData.card) and skips the title shadow (customData.decor).",
+          "Flashcard deck eval."
+        ]
+      },
+      {
+        "version": "0.3.1",
+        "date": "2026-11-06",
+        "changes": [
+          "Style choice reads the audience first, then the tone: a general audience with a warm tone gets playful even when the request says hand-drawn; the soberer tie-break applies only to real ties.",
+          "Sketch hatching applies only to zones holding boxes, never to a card with its own text."
+        ]
+      },
+      {
+        "version": "0.3.0",
+        "date": "2026-11-06",
+        "changes": [
+          "Six named styles chosen from the request: corporate, editorial, sketch, playful, night, mono. Each is a full grammar (fonts for body, titles and labels; header; radius; quiet and key strokes; outlines; hachure zones; arched arrows; the loud element; colour mood), not only a palette.",
+          "Sober is the default; pastel only for playful; mono for print. New night and mono palettes, emphasis roles (loud, badge) so the strong block suits light and dark pages.",
+          "Liberation Sans, Cascadia and Lilita One width tables; style-aware Scene.header(); legend swatches match the drawing.",
+          "Dense process map example and recipe (lifecycle frame, two entrances, two tracks, gate checklist, skill badges, tools per step, loops, who-does-what, open questions), with banner, checklist, badge_legend, chip_stack and return_loop components.",
+          "references/styles.md and style-selection evals."
+        ]
+      },
+      {
+        "version": "0.2.0",
+        "date": "2026-11-06",
+        "changes": [
+          "Illustrated explainer recipe and example: pastel card per step, number badges, arched arrows, hand underline, takeaway in the accent.",
+          "doodles.py: 15 scalable pictograms (bubble, page, page stack, magnifier, check, cross, robot, person, database, bulb, clock, envelope, cloud, bars, answer with sources).",
+          "Playful palette and per-step tints; lint skips layout checks inside pictograms."
+        ]
+      },
+      {
+        "version": "0.1.0",
+        "date": "2026-11-06",
+        "changes": [
+          "Initial package: design principles, recipes per diagram type, audience rules, review loop, Excalidraw+ publishing guide.",
+          "Bundled excalikit builder, lint_scene static checks, Excalidraw+ client and examples for each recipe.",
+          "Validated against baseline runs on three prompts: render-and-critique loop, data honesty (no invented units, illustrative examples marked), flow wrapping and card-height rules."
+        ]
+      }
+    ]
+  },
+  "environment": {
+    "env": {
+      "EXCALIDRAW_API_KEY": {
+        "required": false,
+        "description": "Optional Excalidraw+ API key used by scripts/excalidraw_plus.py to create scenes, push diagrams and take screenshots."
+      }
+    },
+    "secrets": {}
+  },
+  "dependencies": {},
+  "commands": [
+    {
+      "name": "Design a diagram",
+      "desc": "Find the message, pick the diagram type, generate, lint, render and refine a new Excalidraw diagram."
+    },
+    {
+      "name": "Make a diagram prettier",
+      "desc": "Rebuild an existing diagram with the design principles, fewer words and a clean grid, keeping the user's terms."
+    },
+    {
+      "name": "Current and target pair",
+      "desc": "Draw two diagrams on a shared grid so they can be compared side by side."
+    },
+    {
+      "name": "Critique a diagram",
+      "desc": "Render an existing diagram and run cold reviewers, then sort and apply their findings."
+    }
+  ]
+}

@@ -413,7 +413,7 @@ export default async function ContentDetailPage({
                 </figure>
               )}
 
-              <div className="prose-vibe prose-vibe-warm max-w-none">
+              <div className="prose-vibe prose-vibe-warm prose-vibe-article max-w-none">
                 {body.trim().length > 0 ? (
                   <MarkdownRenderer content={body} className="prose-vibe prose-vibe-warm" trackingLocation="article_body" />
                 ) : (
