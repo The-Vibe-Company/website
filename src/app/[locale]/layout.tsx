@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { WebMcp } from "@/components/WebMcp";
 import { ClientProviders } from "@/components/ClientProviders";
 import { JsonLd } from "@/components/JsonLd";
@@ -10,6 +10,7 @@ import { ConditionalGridOverlay } from "@/components/resources/ConditionalGridOv
 import { routing } from "@/i18n/routing";
 import { defaultSocialMetadata, localizedAlternates, SITE_ICONS, SITE_NAME, SITE_URL } from "@/lib/site";
 import { siteGraph } from "@/lib/structured-data";
+import { pickClientMessages } from "@/lib/client-messages";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -68,6 +69,9 @@ export default async function LocaleLayout({
 
   // Enable static rendering for this locale (next-intl).
   setRequestLocale(locale);
+  // Only the namespaces client components read: the provider serializes its
+  // messages into every page's HTML (see src/lib/client-messages.ts).
+  const messages = pickClientMessages(await getMessages());
 
   return (
     <html lang={locale} data-scroll-behavior="smooth">
@@ -78,7 +82,7 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <JsonLd data={siteGraph(locale)} />
-        <NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
           <ClientProviders />
           <WebMcp />
           <ConditionalGridOverlay />
