@@ -10,18 +10,8 @@ import { cn } from "@/lib/design-system";
 import { BOOKING_URL, CONTACT_EMAIL, bookingLocation } from "@/lib/booking";
 import { captureEvent } from "@/lib/posthog";
 import { resourcesTheme } from "@/lib/resources-theme";
+import { MobileMenu } from "./MobileMenu";
 import { navItems } from "./nav-items";
-
-type MobileMenuComponent = typeof import("./MobileMenu").MobileMenu;
-
-/** Shared by every TopNav instance: the menu module is fetched once. Nothing
- *  loads it during the page load, so no late script runs while the page
- *  settles. */
-let mobileMenuModule: Promise<MobileMenuComponent> | null = null;
-function loadMobileMenu(): Promise<MobileMenuComponent> {
-  mobileMenuModule ??= import("./MobileMenu").then((m) => m.MobileMenu);
-  return mobileMenuModule;
-}
 
 // Each page renders its own TopNav, so it remounts on every client-side
 // navigation. The slide-in only plays on the first page of a visit; after
@@ -84,17 +74,6 @@ export function TopNav({ showResourcesSearch = false }: TopNavProps) {
   const menuDialogRef = useRef<HTMLDivElement>(null);
   const menuCloseRef = useRef<HTMLButtonElement>(null);
   const mobileMenuActive = mobileMenuOpen || mobileMenuClosing;
-  const [MobileMenu, setMobileMenu] = useState<MobileMenuComponent | null>(null);
-
-  const showMobileMenu = useCallback(
-    () =>
-      loadMobileMenu().then((menu) => {
-        setMobileMenu(() => menu);
-        return menu;
-      }),
-    []
-  );
-
   const onMenuExitComplete = useCallback(() => setMobileMenuClosing(false), []);
 
   const closeMobileMenu = useCallback(() => {
@@ -346,21 +325,11 @@ export function TopNav({ showResourcesSearch = false }: TopNavProps) {
           <button
             ref={menuTriggerRef}
             className="lg:hidden p-2"
-            // The menu's code is fetched on the first sign of intent (hover,
-            // focus, touch), not while the page loads; the tap then waits for
-            // it if it has not landed yet.
-            onPointerEnter={() => void loadMobileMenu()}
-            onPointerDown={() => void loadMobileMenu()}
-            onFocus={() => void loadMobileMenu()}
             onClick={() => {
               captureEvent("mobile_menu_opened");
               setSearchOpen(false);
-              // Opened in the same render as the menu module lands (at once
-              // when it was prefetched), so its focus handling finds it.
-              void showMobileMenu().then(() => {
-                setMobileMenuClosing(false);
-                setMobileMenuOpen(true);
-              });
+              setMobileMenuClosing(false);
+              setMobileMenuOpen(true);
             }}
             aria-label={tA11y("openMenu")}
             aria-expanded={mobileMenuOpen}
@@ -417,11 +386,10 @@ export function TopNav({ showResourcesSearch = false }: TopNavProps) {
         </div>
       )}
 
-      {/* Mobile menu: its own module, loaded on the hamburger (see
-          loadMobileMenu), so framer-motion stays out of the page load. */}
-      {MobileMenu && (
+      {/* Mobile menu: mounted while open and while it fades out. */}
+      {mobileMenuActive && (
         <MobileMenu
-          open={mobileMenuOpen}
+          closing={!mobileMenuOpen}
           onClose={closeMobileMenu}
           onExitComplete={onMenuExitComplete}
           isActive={isActive}
