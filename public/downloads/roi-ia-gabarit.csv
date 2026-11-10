@@ -1,0 +1,11 @@
+Ligne,Formule,Source,Votre chiffre
+A. Gain de temps,(temps avant − temps après) × volume × coût horaire,Indicateur 1 et ligne de base,à remplir
+B. Erreurs évitées,baisse du taux d'erreur × volume × coût d'une erreur,Indicateur 3 et ligne de base,à remplir
+C. Effet métier,"gain chiffré sur l'effet principal, s'il est mesurable",Indicateur 5,à remplir
+D. Coût de fonctionnement,coût complet par cas × volume,Indicateur 4,à remplir
+E. Investissement de départ,"cadrage, développement, intégration",Budget projet,à remplir
+Gains mesurés,A + B + C,Lignes A à C,à remplir
+Coût complet,D + E amorti sur la période,Lignes D et E,à remplir
+ROI,(gains mesurés − coût complet) / coût complet,Lignes ci-dessus,à remplir
+Gain net mensuel,(A + B + C − D) ramené au mois,Lignes A à D,à remplir
+Délai de retour (mois),E / gain net mensuel,Lignes A à E,à remplir
