@@ -162,7 +162,45 @@ PALETTES = {
         "cat2": "#0b7285", "cat2_bg": "#e3f8f6", "cat2_soft": "#97d9cf",
         "loud": "#e3eeff", "loud_txt": "#2b2f36", "loud_sub": "#4a4f57", "badge": "#2b2f36", "badge_txt": "#ffffff",
     },
+    # Notebook: a page from a squared notebook. Cool off-white paper, graphite pencil, a blue ballpoint for the
+    # voice, a lime highlighter. The sketch style's palette, so sketch never looks like the signature house look.
+    "notebook": {
+        "canvas": "#f5f5f1", "white": "#fdfdfb", "paper": "#ecece6", "lane": "#ebebe5", "line": "#d5d5cd",
+        "stone": "#aeaea5", "grey": "#666870", "mid": "#4b4e54", "ink": "#26282c", "on_dark": "#e4e4de",
+        "accent": "#2449a8", "accent_bg": "#e9eefb", "accent_soft": "#b8c7ef",
+        "bad": "#7d3a6e", "bad_bg": "#f7edf4", "bad_soft": "#dcb8d2",
+        "good": "#3a7535", "good_bg": "#eff6ea", "good_soft": "#bfdcb3",
+        "wait": "#8c6017", "wait_bg": "#faf1dc", "wait_soft": "#e7cf9c",
+        "open": "#c99700", "open_bg": "#fff8db", "open_txt": "#7a5d00",
+        "cat1": "#0c7a6b", "cat1_bg": "#e3f4f0", "cat1_soft": "#a3d9cd",
+        "cat2": "#a61e4d", "cat2_bg": "#fff0f6", "cat2_soft": "#fcc2d7",
+        "loud": "#26282c", "loud_txt": "#fdfdfb", "loud_sub": "#e4e4de", "badge": "#2449a8", "badge_txt": "#ffffff",
+    },
 }
+
+# Colour moods of the signature style: same grammar (claim, hero, grey context, voice), another pair of colours.
+# Each mood overrides a few roles of "signature"; hero fill and highlighter live in scripts/signature.py (MOODS).
+_SIGNATURE_MOODS = {
+    "coral": {"canvas": "#fbf7f4", "accent": "#1e3a6e", "accent_bg": "#eaf0fa", "accent_soft": "#b9cbea",
+              "cat1": "#0c7a6b", "cat1_bg": "#e3f4f0", "cat1_soft": "#a3d9cd"},
+    "mint": {"canvas": "#f7f9f5", "paper": "#eef3ec", "lane": "#ecf1e9", "line": "#d3dccf", "stone": "#a9b5a5",
+             "grey": "#5f6d5c", "mid": "#4c574a", "ink": "#1b231b",
+             "accent": "#0f5c4a", "accent_bg": "#e6f4ef", "accent_soft": "#a9dcc9"},
+    "sky": {"canvas": "#f7f9fc", "paper": "#eef2f8", "lane": "#ecf0f6", "line": "#d3dae6", "stone": "#a7b1c2",
+            "grey": "#5d6676", "mid": "#4a5262", "ink": "#161b26",
+            "accent": "#1d4ed8", "accent_bg": "#e8eefc", "accent_soft": "#b3c6f5",
+            "cat1": "#862e9c", "cat1_bg": "#f8f0fc", "cat1_soft": "#e5c5ef"},
+    "lavender": {"canvas": "#faf8fb", "paper": "#f2eef5", "lane": "#f0ecf3", "line": "#dcd5e2", "stone": "#b2a9bc",
+                 "grey": "#686072", "mid": "#544d5e", "ink": "#1e1a24",
+                 "accent": "#6b2fb3", "accent_bg": "#f2eafc", "accent_soft": "#d3bff2"},
+    "red-pen": {"canvas": "#fbfaf7", "accent": "#c92a2a", "accent_bg": "#fff0f0", "accent_soft": "#ffc0c0",
+                "cat2": "#5f3dc4", "cat2_bg": "#f3f0ff", "cat2_soft": "#d0bfff"},
+}
+for _m, _over in _SIGNATURE_MOODS.items():
+    _p = dict(PALETTES["signature"], **_over)
+    _p["badge"] = _p["accent"]
+    _p["loud"] = _p["ink"]
+    PALETTES["signature-" + _m] = _p
 
 # role -> kit attribute names it drives
 _KIT = {
@@ -243,7 +281,7 @@ STYLES = {
                   "font": 9, "title_font": 9, "label_font": 9, "title": 44, "sub": 22, "align": "left", "rule": True,
                   "sw": 1, "sw_key": 2.5, "outline": "ink", "zone_fill": "solid", "curved": False, "shadow": False,
                   "use": "posters, one-page summaries, reports, articles"},
-    "sketch": {"palette": "warm", "hand": True, "radius": 16, "mood": "sober",
+    "sketch": {"palette": "notebook", "hand": True, "radius": 16, "mood": "sober",
                "font": 5, "title_font": 5, "label_font": 5, "title": 38, "sub": 20, "align": "left", "rule": False,
                "sw": 2, "sw_key": 3, "outline": "mid", "zone_fill": "hachure", "curved": True, "shadow": False,
                "use": "workshops, brainstorms, internal explainers, anything informal"},

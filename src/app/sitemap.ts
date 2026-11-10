@@ -98,7 +98,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return {
       url: publication.canonical,
       alternates: { languages: publication.languages },
-      lastModified: new Date(item.publishedAt),
+      lastModified: new Date(item.dateModified ?? item.publishedAt),
       changeFrequency: "weekly" as const,
       priority: 0.6,
     };
