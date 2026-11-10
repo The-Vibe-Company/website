@@ -6,6 +6,7 @@ translationKey: aeo-chatgpt-citations
 language: fr
 summary: "Être cité par ChatGPT et Gemini : 6 idées reçues sur l'AEO tranchées avec la documentation d'OpenAI et de Google et l'étude SE Ranking."
 publishedAt: 2026-10-28
+dateModified: 2026-11-10
 complexity: intermediate
 topics: Answer Engines, AI Search, Content Marketing
 coverImage: /images/resources/etre-cite-chatgpt-gemini-aeo/cover-mascotte.webp
