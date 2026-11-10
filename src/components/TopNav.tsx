@@ -42,27 +42,25 @@ interface TopNavProps {
   showResourcesSearch?: boolean;
 }
 
-export function TopNav(props: TopNavProps) {
-  // useSearchParams() keeps a static page from server-rendering everything up
-  // to this boundary. The fallback is the same bar without the query, so the
-  // server HTML already holds its height and the page does not shift down
-  // when the client takes over.
-  return (
-    <Suspense fallback={<TopNavInner {...props} />}>
-      <TopNavWithQuery {...props} />
-    </Suspense>
-  );
+/**
+ * Seeds the bar's search field with the ?q= of the page it mounts on, once.
+ * useSearchParams() makes a static page client-render everything up to the
+ * nearest Suspense boundary, so it sits alone in a boundary that renders
+ * nothing: the bar itself stays server-rendered and is hydrated in place,
+ * which is what lets its entrance play from the server HTML.
+ */
+function SearchQuerySeed({ onQuery }: { onQuery: (query: string) => void }) {
+  const query = useSearchParams().get("q");
+  const seeded = useRef(false);
+  useEffect(() => {
+    if (seeded.current) return;
+    seeded.current = true;
+    if (query) onQuery(query);
+  }, [query, onQuery]);
+  return null;
 }
 
-function TopNavWithQuery(props: TopNavProps) {
-  const searchParams = useSearchParams();
-  return <TopNavInner {...props} initialQuery={searchParams.get("q") || ""} />;
-}
-
-function TopNavInner({
-  showResourcesSearch = false,
-  initialQuery = "",
-}: TopNavProps & { initialQuery?: string }) {
+export function TopNav({ showResourcesSearch = false }: TopNavProps) {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("nav");
@@ -76,9 +74,7 @@ function TopNavInner({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileMenuClosing, setMobileMenuClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState(
-    showResourcesSearch ? initialQuery : ""
-  );
+  const [searchValue, setSearchValue] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const menuDialogRef = useRef<HTMLDivElement>(null);
@@ -203,18 +199,20 @@ function TopNavInner({
       >
         {tA11y("skipToContent")}
       </a>
-      <motion.nav
+      <nav
         aria-label={tA11y("mainNavigation")}
         aria-hidden={mobileMenuActive || undefined}
         inert={mobileMenuActive || undefined}
-        // site-nav: held still while the page under it changes (globals.css).
-        className="site-nav sticky top-0 left-0 right-0 z-[60] bg-background/85 px-6 backdrop-blur-xl md:px-10 lg:px-16"
-        initial={hasPlayedEntrance ? false : { opacity: 0, y: -20 }}
-        onAnimationComplete={() => {
-          hasPlayedEntrance = true;
+        // site-nav: held still while the page under it changes. nav-enter: the
+        // slide-in, a CSS animation so it plays from the server HTML
+        // (globals.css).
+        className={cn(
+          "site-nav sticky top-0 left-0 right-0 z-[60] bg-background/85 px-6 backdrop-blur-xl md:px-10 lg:px-16",
+          !hasPlayedEntrance && "nav-enter",
+        )}
+        onAnimationEnd={(event) => {
+          if (event.target === event.currentTarget) hasPlayedEntrance = true;
         }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={createTransition(0.6, 0.3)}
       >
         {/* The rule stops at the page gutters, like every other rule on the
             site, instead of running edge to edge under the blur. */}
@@ -370,7 +368,7 @@ function TopNavInner({
           </button>
         </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {showSearch && (
         <div
@@ -503,6 +501,11 @@ function TopNavInner({
           </motion.div>
         )}
       </AnimatePresence>
+      {showResourcesSearch && (
+        <Suspense fallback={null}>
+          <SearchQuerySeed onQuery={setSearchValue} />
+        </Suspense>
+      )}
     </>
   );
 }
