@@ -1,0 +1,21 @@
+messages/en.json
+  s_cf3b1a16e9f092::t_235265c1c2df2b 319
+messages/fr.json
+  s_cf3b1a16e9f092::t_235265c1c2df2b 319
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "82bbda70a7830d70a0bc7c2346ecf15d38c75126",
+  "prompts": {},
+  "sessions": {
+    "s_cf3b1a16e9f092": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b66a8829-4166-43f8-aecb-a06f164d4edd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
