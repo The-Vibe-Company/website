@@ -247,11 +247,11 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
               <BrandSquare />
               {t("hero.label")}
             </span>
-            <ul className="m-0 mt-6 grid max-w-[1100px] list-none grid-cols-1 gap-x-10 border-t border-border p-0 md:grid-cols-2">
+            <ul className="m-0 mt-6 grid list-none grid-cols-1 gap-x-10 gap-y-5 p-0 md:grid-cols-2">
               {AGENTS_PRODUCTION_HERO_KEYS.map((key) => (
                 <li
                   key={key}
-                  className="flex gap-4 border-b border-border py-4 text-[15px] leading-[1.5] text-foreground md:text-base"
+                  className="flex gap-3 text-[16px] leading-[1.5] text-soft-foreground"
                 >
                   <span
                     aria-hidden="true"
