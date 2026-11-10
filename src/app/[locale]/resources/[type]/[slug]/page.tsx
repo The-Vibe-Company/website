@@ -202,6 +202,7 @@ export default async function ContentDetailPage({
     title: item.title,
     summary: item.seoDescription ?? toPlainText(item.summary),
     publishedAt: item.publishedAt,
+    dateModified: item.dateModified,
     language: item.language,
     imageUrl: socialImageUrl(item),
     series: item.series,
