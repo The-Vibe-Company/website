@@ -52,6 +52,7 @@ export interface ContentEntry {
   body: string
   type: string
   publishedAt: string
+  dateModified?: string
   language: ContentLanguage
   /** Shared identifier linking the language versions of the same article. */
   translationKey?: string
@@ -130,6 +131,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         body,
         type: type.slug,
         publishedAt,
+        dateModified: data.dateModified?.trim() || undefined,
         language,
         translationKey: data.translationKey?.trim() || undefined,
         complexity: data.complexity || undefined,

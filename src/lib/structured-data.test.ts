@@ -391,6 +391,27 @@ describe("isPublishable", () => {
   });
 });
 
+describe("article modification dates", () => {
+  const input = {
+    url: SITE + "/fr/resources/articles/example",
+    title: "Example",
+    publishedAt: "2026-11-04",
+    language: "fr",
+  };
+
+  test("uses the explicit modification date without changing publication", () => {
+    const schema = articleSchema({ ...input, dateModified: "2026-11-10" });
+    expect(schema.datePublished).toBe("2026-11-04");
+    expect(schema.dateModified).toBe("2026-11-10");
+  });
+
+  test("falls back to publication when no modification date is provided", () => {
+    const schema = articleSchema(input);
+    expect(schema.datePublished).toBe("2026-11-04");
+    expect(schema.dateModified).toBe(schema.datePublished);
+  });
+});
+
 describe("articles", () => {
   const articles = getContentByType("article");
 
