@@ -19,7 +19,7 @@ const ALL_CHECKS: CheckId[] = [
   "agent_skills", "oauth_discovery", "oauth_protected_resource", "api_catalog", "x402",
 ];
 
-const copyOf = (messages: typeof fr) => messages.agentReady as unknown as AgentReadyCopy;
+const copyOf = (messages: { agentReady: unknown }) => messages.agentReady as AgentReadyCopy;
 
 function report(failing: CheckId[]): Report {
   return {

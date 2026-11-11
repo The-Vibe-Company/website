@@ -23,7 +23,7 @@ export function robotsTxt(r: Resource | null) {
 }
 // Sitemaps protocol https://www.sitemaps.org/protocol.html
 export async function sitemap(load: Load, robots: Resource | null) {
-  const declared = robots?.body.match(/^\s*Sitemap:\s*(https?:\/\/\S+)/im)?.[1];
+  const declared = robots?.body.match(/^[ \t]*Sitemap:[ \t]*(https?:\/\/\S+)/im)?.[1];
   const r = await load(declared ?? "/sitemap.xml");
   return result("sitemap", "discoverability", 3, r?.status === 200 &&
     /(?:xml)/i.test(r.headers["content-type"] ?? "") && /<(?:\w+:)?(?:urlset|sitemapindex)\b/i.test(r.body), evidence(r));
@@ -95,7 +95,7 @@ export function robotsAiRules(r: Resource | null) {
 }
 // https://contentsignals.org/ https://datatracker.ietf.org/doc/draft-romm-aipref-contentsignals/
 export function contentSignal(r: Resource | null) {
-  return result("content_signal", "ai_bots", 1, !!text(r) && /^\s*Content-Signal:\s*\S+/im.test(r!.body), "Content-Signal directive " + (/^\s*Content-Signal:\s*\S+/im.test(r?.body ?? "") ? "present" : "absent"));
+  return result("content_signal", "ai_bots", 1, !!text(r) && /^[ \t]*Content-Signal:[ \t]*\S+/im.test(r!.body), "Content-Signal directive " + (/^[ \t]*Content-Signal:[ \t]*\S+/im.test(r?.body ?? "") ? "present" : "absent"));
 }
 // Vendor UAs above; HTTP semantics https://www.rfc-editor.org/rfc/rfc9110
 export async function aiBotAccess(load: Load) {

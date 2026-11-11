@@ -104,3 +104,23 @@ test("native Node pinned transport streams a local fixture", async () => {
   `;
   expect(() => execFileSync("node", ["--input-type=module", "-e", script], { timeout: 5000, stdio: "pipe" })).not.toThrow();
 });
+
+describe("robots.txt parsing stays linear on hostile input", () => {
+  const hostile = (body: string): Resource =>
+    ({ status: 200, url: "https://example.com/robots.txt", headers: { "content-type": "text/plain" }, body }) as Resource;
+  test("1 MiB of newlines or one long line parses quickly", async () => {
+    const { contentSignal, robotsAiRules } = await import("./checks");
+    for (const body of ["\n".repeat(1 << 20), `a${" ".repeat(1 << 20)}b`, `User-agent:${" ".repeat(1 << 20)}x`]) {
+      const started = performance.now();
+      parseRobots(body);
+      contentSignal(hostile(body));
+      robotsAiRules(hostile(body));
+      expect(performance.now() - started).toBeLessThan(1000);
+    }
+  });
+  test("keeps parsing keys and values the same way", () => {
+    expect(parseRobots("  User-Agent : GPTBot  # comment\nDisallow:  /private  \nAllow:\n")).toEqual([
+      { agents: ["gptbot"], rules: [{ allow: false, path: "/private" }] },
+    ]);
+  });
+});

@@ -4,9 +4,15 @@ export function parseRobots(text: string): RobotsGroup[] {
   let group: RobotsGroup | undefined;
   let directives = false;
   for (const line of text.split(/\r?\n/)) {
-    const match = line.replace(/#.*$/, "").match(/^\s*([\w-]+)\s*:\s*(.*?)\s*$/);
-    if (!match) continue;
-    const [, rawKey, value] = match;
+    // Split on the first colon instead of one regex with lazy and trailing
+    // whitespace groups, which backtracks quadratically on long hostile lines.
+    const comment = line.indexOf("#");
+    const clean = comment < 0 ? line : line.slice(0, comment);
+    const colon = clean.indexOf(":");
+    if (colon < 0) continue;
+    const rawKey = clean.slice(0, colon).trim();
+    if (!/^[\w-]+$/.test(rawKey)) continue;
+    const value = clean.slice(colon + 1).trim();
     const key = rawKey.toLowerCase();
     if (key === "user-agent" && value) {
       if (!group || directives) { group = { agents: [], rules: [] }; groups.push(group); directives = false; }
