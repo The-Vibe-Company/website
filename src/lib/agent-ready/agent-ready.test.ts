@@ -23,6 +23,14 @@ describe("SSRF guard (offline)", () => {
     "2001:2::1", "3fff::1"]) {
     test("reserved DNS answer " + ip, () => expect(isPublicAddress(ip)).toBe(false));
   }
+  for (const [ip, allowed] of [
+    ["192.2.1.1", true], ["192.0.2.1", false], ["192.0.0.1", false], ["192.1.1.1", true],
+    ["192.0.1.0", true], ["192.0.3.0", true], ["192.88.99.255", false],
+    ["192.88.100.0", true], ["198.19.255.255", false], ["198.20.0.0", true],
+    ["100.63.255.255", true], ["100.128.0.0", true], ["240.0.0.0", false],
+  ] as const) {
+    test("exact IPv4 special range " + ip, () => expect(isPublicAddress(ip)).toBe(allowed));
+  }
   test("mixed DNS results reject entire host", async () => {
     await expect(vetUrl(new URL("https://example.com"), async () => ["8.8.8.8", "10.0.0.1"])).rejects.toThrow("blocked_address");
   });

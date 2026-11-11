@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createRateLimiter } from "@/lib/agent-ready/rate-limit";
 import { scanSite, type Report } from "@/lib/agent-ready";
 import { normalizeUrl, ScanError, vetUrl } from "@/lib/agent-ready/safe-fetch";
 
@@ -6,23 +6,20 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
 const cache = new Map<string, { expires: number; report: Report }>();
-const windows = new Map<string, number[]>();
+const rateLimit = createRateLimiter();
 function reply(body: unknown, status = 200, headers = {}) {
   return Response.json(body, { status, headers: { "Cache-Control": "no-store", ...headers } });
 }
 export async function POST(request: Request) {
   const now = Date.now();
-  for (const [key, times] of windows) if (times.every((t) => now - t >= 60000)) windows.delete(key);
   for (const [key, entry] of cache) if (entry.expires <= now) cache.delete(key);
   // Trusted ingress must overwrite these headers. Untrusted direct deployments
   // need an upstream limiter; this instance-local limiter is not a global quota.
   const ip = (request.headers.get("x-forwarded-for")?.split(",")[0] ??
     request.headers.get("x-real-ip") ?? "unknown").trim();
-  const key = createHash("sha256").update(ip).digest("hex");
-  const times = (windows.get(key) ?? []).filter((t) => now - t < 60000);
-  if (times.length >= 5 || windows.size >= 10000 && !windows.has(key))
-    return reply({ error: "rate_limited" }, 429, { "Retry-After": String(Math.max(1, Math.ceil((60000 - (now - (times[0] ?? now))) / 1000))) });
-  windows.set(key, [...times, now]);
+  const retryAfter = rateLimit(ip, now);
+  if (retryAfter > 0)
+    return reply({ error: "rate_limited" }, 429, { "Retry-After": String(retryAfter) });
   try {
     // Stream-limit even chunked input; do not buffer an unbounded request.
     const reader = request.body?.getReader();

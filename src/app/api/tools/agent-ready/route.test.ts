@@ -1,7 +1,7 @@
 import { test, expect } from "bun:test";
 import { POST, GET } from "./route";
 let sequence = 0;
-function request(body: string, ip = "offline-fixture-" + sequence++) {
+function request(body: string, ip = "198.51.100." + ++sequence) {
   return new Request("https://example.com/api/tools/agent-ready", {
     method: "POST", headers: { "x-real-ip": ip }, body,
   });
@@ -22,8 +22,15 @@ test("API validation stays offline and returns stable errors", async () => {
   expect(GET().headers.get("allow")).toBe("POST");
 });
 test("API sliding window limits even invalid requests", async () => {
-  for (let i = 0; i < 5; i++) expect((await POST(request("{}", "rate-fixture"))).status).toBe(400);
-  const limited = await POST(request("{}", "rate-fixture"));
+  for (let i = 0; i < 5; i++) expect((await POST(request("{}", "203.0.113.1"))).status).toBe(400);
+  const limited = await POST(request("{}", "203.0.113.1"));
   expect(limited.status).toBe(429);
   expect(Number(limited.headers.get("retry-after"))).toBeGreaterThan(0);
+});
+
+test("API rate limit groups IPv6 clients by /64", async () => {
+  for (let i = 1; i <= 5; i++)
+    expect((await POST(request("{}", `2606:4700:abcd:1234::${i}`))).status).toBe(400);
+  expect((await POST(request("{}", "2606:4700:abcd:1234:ffff::1"))).status).toBe(429);
+  expect((await POST(request("{}", "2606:4700:abcd:1235::1"))).status).toBe(400);
 });

@@ -13,20 +13,29 @@ export const resolveAddresses: Resolver = async (host) => {
   return results.flatMap((r) => r.status === "fulfilled" ? r.value : []);
 };
 
+// IPv4 special-purpose networks excluded from public scan targets.
+const IPV4_SPECIAL_CIDRS = [
+  "0.0.0.0/8", "10.0.0.0/8", "100.64.0.0/10", "127.0.0.0/8",
+  "169.254.0.0/16", "172.16.0.0/12", "192.0.0.0/24", "192.0.2.0/24",
+  "192.88.99.0/24", "192.168.0.0/16", "198.18.0.0/15",
+  "198.51.100.0/24", "203.0.113.0/24", "224.0.0.0/4", "240.0.0.0/4",
+].map((cidr) => {
+  const [network, bits] = cidr.split("/");
+  const mask = (0xffffffff << (32 - Number(bits))) >>> 0;
+  return { network: ipv4Number(network), mask };
+});
+function ipv4Number(address: string): number {
+  return address.split(".").reduce((value, octet) => (value * 256) + Number(octet), 0);
+}
+
 // Conservative global-unicast allowlist. Special-purpose IPv6, including all
 // mapped/compatible IPv4 forms, is rejected rather than translated.
 // Registries: https://www.iana.org/assignments/iana-ipv4-special-registry/
 // https://www.iana.org/assignments/iana-ipv6-special-registry/
 export function isPublicAddress(address: string): boolean {
   if (isIP(address) === 4) {
-    const [a, b, c] = address.split(".").map(Number);
-    return !(a === 0 || a === 10 || a === 127 || a >= 224 ||
-      (a === 100 && b >= 64 && b <= 127) ||
-      (a === 169 && b === 254) || (a === 172 && b >= 16 && b <= 31) ||
-      (a === 192 && (b === 168 || b === 0 || (b === 2))) ||
-      (a === 192 && b === 88 && c === 99) ||
-      (a === 198 && (b === 18 || b === 19 || (b === 51 && c === 100))) ||
-      (a === 203 && b === 0 && c === 113));
+    const value = ipv4Number(address);
+    return !IPV4_SPECIAL_CIDRS.some(({ network, mask }) => ((value & mask) >>> 0) === network);
   }
   if (isIP(address) !== 6) return false;
   const first = parseInt(address.split(":")[0], 16);
