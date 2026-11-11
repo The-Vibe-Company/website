@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { FOOTER_OFFERINGS } from "@/lib/footer-offerings";
 import { PRIORITY_ARTICLES } from "@/lib/priority-articles";
-import { ABOUT_PATHS, CONTACT_PATHS, PRIVACY_PATHS, splitPath } from "@/lib/site";
+import { ABOUT_PATHS, CONTACT_PATHS, PRIVACY_PATHS, splitPath, TOOLS_PATHS } from "@/lib/site";
 
 interface NavLink {
   label: string;
@@ -65,6 +65,7 @@ export function Footer({ showPriorityArticles = false }: { showPriorityArticles?
     { label: t("portfolio"), href: "/portfolio" },
     { label: tNav("caseStudies"), href: "/case-studies" },
     { label: t("resources"), href: "/resources" },
+    { label: t("tools"), href: splitPath(TOOLS_PATHS, locale) },
     ...(showPriorityArticles
       ? PRIORITY_ARTICLES[locale === "fr" ? "fr" : "en"].map(({ key, slug }) => ({
           label: t(`priorityArticles.${key}`),

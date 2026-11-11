@@ -2,6 +2,7 @@
   "nav": {
     "portfolio": "Nos projets",
     "caseStudies": "Cas clients",
+    "tools": "Outils",
     "resources": "Ressources",
     "getInTouch": "Nous contacter",
     "searchShort": "Rechercher…",
@@ -223,7 +224,8 @@
       "customAiApp": "Application IA sur mesure"
     },
     "contact": "Contact",
-    "privacy": "Mentions légales et confidentialité"
+    "privacy": "Mentions légales et confidentialité",
+    "tools": "Outils"
   },
   "caseStudiesPage": {
     "metaTitle": "Cas clients IA : projets en production",
@@ -2198,6 +2200,237 @@
     "service": {
       "name": "Développement d'application IA sur mesure",
       "description": "Conception, développement et mise en production d'applications IA et de SaaS sur mesure : architecture RAG, agents, sécurité, exigences RGPD et intégrations aux outils métier."
+    }
+  },
+  "tools": {
+    "metaTitle": "Outils gratuits pour votre site | The Vibe Company",
+    "metaDescription": "Des outils gratuits de The Vibe Company pour préparer votre site aux agents IA : un diagnostic en une minute, un rapport clair et les correctifs à appliquer.",
+    "breadcrumb": "Outils",
+    "kicker": "Outils gratuits",
+    "title": "Des outils pour préparer votre site aux agents IA",
+    "lede": "Les assistants IA lisent déjà le web pour vos clients. Ces outils vous disent, en quelques secondes et sans inscription, ce qu'ils voient de votre site et ce qu'il faut corriger.",
+    "listTitle": "Les outils",
+    "free": "Gratuit, sans inscription",
+    "open": "Ouvrir l'outil",
+    "items": {
+      "agentReady": {
+        "name": "Votre site est-il prêt pour les agents IA ?",
+        "description": "Entrez l'adresse de votre site : 16 vérifications sur la découverte, le contenu, l'accès des robots IA et les protocoles agents, un score sur 100 et les correctifs à appliquer."
+      }
+    },
+    "moreSoon": "D'autres outils arrivent. Une idée d'outil qui vous ferait gagner du temps ? Écrivez-nous."
+  },
+  "agentReady": {
+    "metaTitle": "Votre site est-il prêt pour les agents IA ? Test gratuit",
+    "metaDescription": "Testez gratuitement si votre site est lisible par les agents IA : robots.txt, sitemap, llms.txt, Markdown, accès des robots IA. Score et correctifs en clair.",
+    "appName": "Test agent-ready",
+    "breadcrumb": "Test agent-ready",
+    "kicker": "Outil gratuit",
+    "title": "Votre site est-il prêt pour les agents IA ?",
+    "lede": "ChatGPT, Claude, Perplexity et les agents de code visitent déjà votre site pour le compte de vos clients. Entrez son adresse : en moins de 30 secondes, vous savez ce qu'ils y trouvent et quoi corriger.",
+    "form": {
+      "label": "Adresse de votre site",
+      "placeholder": "votresite.fr",
+      "submit": "Lancer le test",
+      "scanning": "Analyse en cours…",
+      "hint": "Seules les pages publiques sont lues, comme le ferait un visiteur. Pas d'inscription, pas d'e-mail.",
+      "progress": "Analyse de {host} en cours, cela prend jusqu'à 30 secondes."
+    },
+    "errors": {
+      "empty": "Entrez l'adresse de votre site, par exemple votresite.fr.",
+      "invalid_json": "La demande n'a pas pu être lue. Rechargez la page et réessayez.",
+      "invalid_url": "Cette adresse ne semble pas valide. Essayez par exemple votresite.fr ou https://www.votresite.fr.",
+      "blocked_address": "Nous ne testons que des sites publics, accessibles par un nom de domaine. Les adresses IP et les réseaux privés sont exclus.",
+      "blocked_port": "Seuls les sites servis sur les ports web habituels (80 et 443) peuvent être testés.",
+      "dns_failed": "Nous ne trouvons pas ce nom de domaine. Vérifiez l'orthographe et réessayez.",
+      "rate_limited": "Vous avez lancé plusieurs tests en peu de temps. Patientez environ {seconds} secondes puis réessayez.",
+      "scan_failed": "Le test n'a pas pu aboutir, le site a peut-être mis trop de temps à répondre. Réessayez dans un instant.",
+      "method_not_allowed": "Une erreur technique est survenue. Rechargez la page et réessayez.",
+      "network": "Impossible de joindre notre serveur. Vérifiez votre connexion internet et réessayez."
+    },
+    "report": {
+      "heading": "Rapport pour {host}",
+      "ready": "Rapport prêt : {score} sur 100, niveau {level} sur 5.",
+      "scoreLabel": "Score global",
+      "level": "Niveau {level}/5",
+      "categoryScore": "{percentage} % des points",
+      "informative": "Pour information, hors score",
+      "evidence": "Constat technique",
+      "fix": "Correctif :",
+      "spec": "Référence",
+      "copy": "Copier les instructions pour votre agent de code",
+      "copied": "Instructions copiées. Collez-les dans Claude Code, Cursor ou Codex.",
+      "copyFailed": "La copie a échoué. Sélectionnez le texte ci-dessous et copiez-le à la main.",
+      "copyHint": "Une liste prête à coller de chaque point à corriger, avec son correctif et sa référence.",
+      "allGood": "Rien à corriger sur les points notés. Bravo, votre site est bien préparé pour les agents IA.",
+      "ctaTitle": "Envie d'un coup de main pour corriger ?",
+      "ctaBody": "En 30 minutes, on passe votre rapport en revue avec vous et on vous dit par où commencer.",
+      "ctaButton": "Prendre 30 minutes avec nous",
+      "again": "Tester un autre site"
+    },
+    "status": {
+      "pass": "OK",
+      "fail": "À corriger",
+      "na": "Non applicable"
+    },
+    "categories": {
+      "discoverability": {
+        "name": "Découverte",
+        "question": "Les agents trouvent-ils vos pages ?"
+      },
+      "content": {
+        "name": "Contenu",
+        "question": "Peuvent-ils lire votre contenu sans navigateur ?"
+      },
+      "ai_bots": {
+        "name": "Robots IA",
+        "question": "Les laissez-vous entrer, et à quelles conditions ?"
+      },
+      "protocols": {
+        "name": "Protocoles agents",
+        "question": "Proposez-vous des services que les agents savent utiliser ?"
+      },
+      "commerce": {
+        "name": "Commerce",
+        "question": "Un agent peut-il payer chez vous ? Pour information, hors score."
+      }
+    },
+    "checks": {
+      "robots_txt": {
+        "name": "Fichier robots.txt",
+        "explain": "Le fichier robots.txt est le règlement intérieur de votre site pour les robots. Moteurs de recherche et assistants IA le lisent en premier pour savoir où ils peuvent aller.",
+        "fix": "Publiez un fichier texte à l'adresse /robots.txt, servi avec un code 200 et le type text/plain, contenant au moins un groupe User-agent (par exemple « User-agent: * » puis « Allow: / »)."
+      },
+      "sitemap": {
+        "name": "Plan du site (sitemap)",
+        "explain": "Le sitemap liste toutes vos pages. Un agent y trouve en une seule requête ce qu'il mettrait longtemps à découvrir lien par lien, et voit ce qui a changé récemment.",
+        "fix": "Publiez un fichier sitemap.xml servi en XML (la plupart des CMS le génèrent tout seuls) et déclarez son adresse complète dans robots.txt avec une ligne « Sitemap: https://www.votresite.fr/sitemap.xml »."
+      },
+      "link_headers": {
+        "name": "En-têtes Link",
+        "explain": "Un en-tête HTTP Link sur la page d'accueil indique aux agents, avant même de lire la page, où trouver vos ressources utiles : résumé pour l'IA, version Markdown, description de votre API.",
+        "fix": "Ajoutez à la réponse de la page d'accueil un en-tête HTTP Link avec une relation describedby, service-desc, api-catalog ou alternate, par exemple : Link: </llms.txt>; rel=\"describedby\"."
+      },
+      "llms_txt": {
+        "name": "Fichier llms.txt",
+        "explain": "Le fichier llms.txt est un résumé de votre site écrit pour les modèles d'IA : qui vous êtes, vos pages clés et leurs liens. C'est la porte d'entrée la plus simple pour un assistant.",
+        "fix": "Publiez à l'adresse /llms.txt un fichier Markdown servi en text/plain ou text/markdown, qui commence par un titre « # Nom de votre entreprise », suivi d'une phrase de présentation et de la liste de vos pages importantes."
+      },
+      "markdown_negotiation": {
+        "name": "Version Markdown des pages",
+        "explain": "Les agents préfèrent le Markdown au HTML : moins de bruit, moins de coût. Quand ils le demandent, votre site peut leur servir la même page en texte propre.",
+        "fix": "Quand une requête sur la page d'accueil envoie l'en-tête Accept: text/markdown, répondez 200 avec Content-Type: text/markdown et le contenu de la page en Markdown. Ajoutez Vary: Accept pour que les caches gardent les deux versions."
+      },
+      "raw_html_content": {
+        "name": "Contenu lisible sans JavaScript",
+        "explain": "Beaucoup d'agents n'exécutent pas JavaScript. Si votre page d'accueil n'affiche son texte qu'une fois le script lancé, ils voient une page vide.",
+        "fix": "Faites générer la page côté serveur (rendu serveur ou pages statiques) pour que le HTML initial contienne un titre H1 non vide et au moins quelques phrases de texte visible (200 caractères ou plus)."
+      },
+      "robots_ai_rules": {
+        "name": "Règles pour les robots IA",
+        "explain": "Votre robots.txt autorise-t-il les principaux robots IA : GPTBot, OAI-SearchBot, ClaudeBot, Claude-SearchBot, PerplexityBot et Google-Extended ? Un robot bloqué ne cite pas votre site dans ses réponses.",
+        "fix": "Dans robots.txt, autorisez ces robots : soit par un groupe « User-agent: * » sans Disallow sur la racine, soit par un groupe dédié à chacun avec « Allow: / ». Retirez les Disallow qui les visent si vous voulez apparaître dans leurs réponses."
+      },
+      "content_signal": {
+        "name": "Signal d'usage du contenu",
+        "explain": "La directive Content-Signal, placée dans robots.txt, précise comment votre contenu peut être utilisé : recherche, réponses des assistants IA, entraînement des modèles.",
+        "fix": "Ajoutez dans robots.txt une ligne comme « Content-Signal: search=yes, ai-input=yes, ai-train=no », adaptée à vos choix."
+      },
+      "ai_bot_access": {
+        "name": "Accès réel des robots IA",
+        "explain": "Au-delà des règles, nous vérifions qu'un robot IA qui visite votre page d'accueil la reçoit vraiment, sans blocage ni page de vérification « êtes-vous humain ? ».",
+        "fix": "Dans votre pare-feu, votre CDN ou votre protection anti-robots, laissez passer les robots IA que vous voulez accueillir (GPTBot, ClaudeBot, PerplexityBot…) pour qu'ils reçoivent la page avec un code 200, sans défi ni captcha."
+      },
+      "mcp_server_card": {
+        "name": "Carte de serveur MCP",
+        "explain": "MCP est le protocole qui permet aux assistants IA d'utiliser des outils. Une carte publiée sur votre site leur indique qu'un serveur MCP existe et comment s'y connecter. Utile si vous proposez un service ou des données.",
+        "fix": "Si vous avez un serveur MCP, publiez sa description JSON à /.well-known/mcp.json (ou /.well-known/mcp/server-card.json), servie en application/json. Sinon, ce point peut attendre."
+      },
+      "a2a_agent_card": {
+        "name": "Carte d'agent A2A",
+        "explain": "A2A permet à des agents de dialoguer entre eux. Une carte d'agent décrit ce que votre agent sait faire et comment le joindre.",
+        "fix": "Si vous exposez un agent, publiez sa carte JSON à /.well-known/agent-card.json, servie en application/json, selon la spécification A2A. Sinon, ce point peut attendre."
+      },
+      "agent_skills": {
+        "name": "Index de skills pour agents",
+        "explain": "Les skills sont des modes d'emploi réutilisables par les agents. Un index publié sur votre site leur permet de découvrir ceux que vous proposez.",
+        "fix": "Publiez un index JSON de vos skills à /.well-known/agent-skills/index.json, servi en application/json. Sinon, ce point peut attendre."
+      },
+      "oauth_discovery": {
+        "name": "Découverte OAuth",
+        "explain": "Si votre service a des comptes utilisateurs, un agent doit savoir comment obtenir une autorisation. Le document de découverte OAuth ou OpenID lui donne les bonnes adresses.",
+        "fix": "Publiez les métadonnées de votre serveur d'autorisation à /.well-known/oauth-authorization-server ou /.well-known/openid-configuration, en application/json. La plupart des fournisseurs d'identité le font pour vous."
+      },
+      "oauth_protected_resource": {
+        "name": "Ressource protégée OAuth",
+        "explain": "Ce document indique à un agent quel serveur d'autorisation protège votre API, pour qu'il sache où demander un accès.",
+        "fix": "Publiez /.well-known/oauth-protected-resource en application/json, avec au moins le champ resource et la liste authorization_servers (RFC 9728)."
+      },
+      "api_catalog": {
+        "name": "Catalogue d'API",
+        "explain": "Un catalogue d'API liste vos API publiques et leur documentation à une adresse standard, pour qu'un agent les trouve sans chercher.",
+        "fix": "Publiez /.well-known/api-catalog en application/linkset+json, avec un lien vers la description de chaque API (OpenAPI par exemple), selon la RFC 9727."
+      },
+      "x402": {
+        "name": "Paiement par agent (x402)",
+        "explain": "Le protocole x402 permet à un agent de payer un contenu ou un service directement en HTTP. C'est encore émergent : nous le signalons pour information, sans effet sur le score.",
+        "fix": "Rien d'obligatoire. Si vous vendez un accès à l'unité (API, données), x402 permet de répondre 402 avec les conditions de paiement."
+      }
+    },
+    "prompt": {
+      "title": "Rendre {host} prêt pour les agents IA",
+      "intro": "Un test agent-ready de {url} (score {score}/100, niveau {level}/5) a relevé les points ci-dessous. Applique chaque correctif dans ce projet, vérifie-le, puis résume ce que tu as changé.",
+      "category": "Catégorie",
+      "evidence": "Constat du test",
+      "fix": "Correctif",
+      "spec": "Référence",
+      "outro": "Ne modifie rien d'autre que ce qui est nécessaire pour ces points. Si un point ne s'applique pas à ce projet, explique pourquoi au lieu de le forcer."
+    },
+    "how": {
+      "title": "Comment ça marche",
+      "steps": {
+        "address": {
+          "title": "Vous entrez l'adresse",
+          "body": "Celle de votre site, par exemple votresite.fr. Seule la racine du site est testée."
+        },
+        "read": {
+          "title": "Nous lisons le site comme un agent",
+          "body": "16 vérifications sur les pages publiques : page d'accueil, robots.txt, sitemap, llms.txt et les fichiers standards des protocoles agents."
+        },
+        "fix": {
+          "title": "Vous repartez avec les correctifs",
+          "body": "Un score sur 100, un niveau de 0 à 5 par catégorie, une explication en clair et des instructions prêtes à coller dans votre agent de code."
+        }
+      }
+    },
+    "checksSection": {
+      "title": "Ce que nous vérifions",
+      "lede": "Quatre catégories notées, et une cinquième pour information. Les points les plus lourds sont ceux qui comptent pour tout site : être trouvé, être lu, laisser entrer les robots."
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "what": {
+          "q": "Qu'est-ce qu'un site prêt pour les agents IA ?",
+          "a": "C'est un site que les assistants et agents IA trouvent, lisent et comprennent sans effort : un robots.txt clair, un sitemap, un résumé llms.txt, du texte présent dans le HTML et un accès ouvert aux robots IA. Pour les services en ligne, cela inclut aussi des protocoles comme MCP pour qu'un agent puisse agir."
+        },
+        "why": {
+          "q": "Pourquoi est-ce important pour une PME ?",
+          "a": "Vos clients demandent de plus en plus à ChatGPT, Claude ou Perplexity de comparer, résumer ou réserver à leur place. Si ces assistants ne peuvent pas lire votre site, ils citent vos concurrents. Les corrections de base prennent souvent moins d'une journée."
+        },
+        "data": {
+          "q": "Que fait le test sur mon site, et gardez-vous mes données ?",
+          "a": "Le test lit uniquement des pages publiques, comme un visiteur, sans connexion ni formulaire. Le rapport reste quelques minutes en mémoire pour éviter de relancer le même test, puis il est oublié. Pas de compte, pas d'e-mail : nous mesurons seulement le nom de domaine testé et le score, pour améliorer l'outil."
+        },
+        "score": {
+          "q": "Comment le score est-il calculé ?",
+          "a": "Chaque vérification a un poids, plus fort pour l'essentiel : contenu lisible, accès des robots IA, robots.txt et sitemap. Une catégorie obtient la part des points gagnés, et un niveau de 0 à 5. Le score global combine les quatre catégories notées. Les points non applicables et le commerce x402 ne comptent pas."
+        },
+        "fix": {
+          "q": "Je n'ai pas de développeur, comment corriger ?",
+          "a": "Chaque point à corriger vient avec une explication simple et le correctif à appliquer. Le bouton de copie prépare des instructions à coller dans un agent de code comme Claude Code, Cursor ou Codex. Et si vous préférez être accompagné, vous pouvez réserver 30 minutes avec nous depuis le rapport."
+        }
+      }
     }
   }
 }

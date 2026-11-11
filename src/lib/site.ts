@@ -94,6 +94,17 @@ export const CONTACT_PATHS: SplitPaths = { fr: "/contact", en: "/contact" };
 /** The privacy policy. Translated segment, like the About page. */
 export const PRIVACY_PATHS: SplitPaths = { fr: "/confidentialite", en: "/privacy" };
 
+/**
+ * The free tools section and its first tool, the agent-ready scanner. Same
+ * segment in both languages, declared as split paths so they sit with the
+ * other key pages in the sitemap and llms.txt.
+ */
+export const TOOLS_PATHS: SplitPaths = { fr: "/tools", en: "/tools" };
+export const AGENT_READY_PATHS: SplitPaths = {
+  fr: "/tools/agent-ready",
+  en: "/tools/agent-ready",
+};
+
 export type SplitPathRoute = Omit<SiteRoute, "path"> & { paths: SplitPaths };
 
 export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
@@ -160,6 +171,22 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
       "How to reach The Vibe Company: the two founders, Stan Girard and Antoine Dewez, an email address, and a 30-minute call to book online. Offices in Paris, registered office in Montreuil.",
     changeFrequency: "yearly",
     priority: 0.6,
+  },
+  {
+    paths: TOOLS_PATHS,
+    title: "Free AI tools",
+    description:
+      "Free tools from The Vibe Company to check how ready a website is for AI agents, with a plain-language report and the fixes to apply.",
+    changeFrequency: "monthly",
+    priority: 0.6,
+  },
+  {
+    paths: AGENT_READY_PATHS,
+    title: "Is your website ready for AI agents? Free checker",
+    description:
+      "Free scan of a website's readiness for AI agents: robots.txt, sitemap, llms.txt, Markdown, AI crawler access and agent protocols, scored with fixes.",
+    changeFrequency: "monthly",
+    priority: 0.7,
   },
   {
     paths: PRIVACY_PATHS,

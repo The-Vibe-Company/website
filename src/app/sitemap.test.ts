@@ -172,8 +172,8 @@ describe("sitemap", () => {
     // The /resources listing itself carries `latestContentDate` (sitemap.ts),
     // so it inherits that same exemption and the match must not require a
     // trailing slash.
-    setSystemTime(new Date("2026-11-04T00:00:00.000Z"));
-    const today = new Date("2026-11-04T23:59:59.999Z");
+    setSystemTime(new Date("2026-11-11T00:00:00.000Z"));
+    const today = new Date("2026-11-11T23:59:59.999Z");
     const futures = sitemap().filter(
       (entry) =>
         !/\/resources(\/|$)/.test(entry.url) &&
@@ -184,9 +184,9 @@ describe("sitemap", () => {
     expect(futures).toEqual([]);
   });
 
-  test("the sitemap keeps its 130 URLs and every entry still declares x-default", () => {
+  test("the sitemap keeps its 134 URLs and every entry still declares x-default", () => {
     const entries = sitemap();
-    expect(entries).toHaveLength(130);
+    expect(entries).toHaveLength(134);
     for (const entry of entries) {
       const keys = Object.keys(entry.alternates!.languages!);
       expect(keys).toContain("x-default");
@@ -253,6 +253,8 @@ describe("sitemap", () => {
       "/developpement-application-ia-sur-mesure",
       "/contact",
       "/confidentialite",
+      "/tools",
+      "/tools/agent-ready",
     ];
     for (const path of landings) {
       expect(SPLIT_PATH_LASTMOD[path]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
@@ -279,6 +281,20 @@ describe("sitemap", () => {
       en: `${SITE}/en/contact`,
       "x-default": `${SITE}/fr/contact`,
     });
+  });
+
+  test("lists the tools index and the agent-ready scanner in both languages, with x-default", () => {
+    const entries = sitemap();
+    for (const path of ["/tools", "/tools/agent-ready"]) {
+      for (const locale of ["fr", "en"]) {
+        const entry = entries.find((item) => item.url === `${SITE}/${locale}${path}`);
+        expect(entry?.alternates?.languages).toEqual({
+          fr: `${SITE}/fr${path}`,
+          en: `${SITE}/en${path}`,
+          "x-default": `${SITE}/fr${path}`,
+        });
+      }
+    }
   });
 
   test("lists the media AI landing on its translated paths, with x-default", () => {

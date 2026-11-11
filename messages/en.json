@@ -2,6 +2,7 @@
   "nav": {
     "portfolio": "Portfolio",
     "caseStudies": "Case studies",
+    "tools": "Tools",
     "resources": "Resources",
     "getInTouch": "Contact us",
     "searchShort": "Search...",
@@ -223,7 +224,8 @@
       "customAiApp": "Custom AI apps"
     },
     "contact": "Contact",
-    "privacy": "Legal notice & privacy"
+    "privacy": "Legal notice & privacy",
+    "tools": "Tools"
   },
   "caseStudiesPage": {
     "metaTitle": "AI case studies: projects in production",
@@ -2197,6 +2199,237 @@
     "service": {
       "name": "Custom AI application development",
       "description": "Design, development and production rollout of custom AI applications and SaaS: RAG architecture, agents, security, GDPR requirements and integrations with business tools."
+    }
+  },
+  "tools": {
+    "metaTitle": "Free tools for your website | The Vibe Company",
+    "metaDescription": "Free tools from The Vibe Company to get your website ready for AI agents: a one-minute check, a plain-language report and the exact fixes to apply.",
+    "breadcrumb": "Tools",
+    "kicker": "Free tools",
+    "title": "Tools to get your website ready for AI agents",
+    "lede": "AI assistants already read the web on your customers' behalf. These tools tell you, in seconds and without signing up, what they see on your site and what to fix.",
+    "listTitle": "The tools",
+    "free": "Free, no sign-up",
+    "open": "Open the tool",
+    "items": {
+      "agentReady": {
+        "name": "Is your website ready for AI agents?",
+        "description": "Enter your website's address: 16 checks across discoverability, content, AI crawler access and agent protocols, a score out of 100 and the fixes to apply."
+      }
+    },
+    "moreSoon": "More tools are on the way. Got an idea for a tool that would save you time? Write to us."
+  },
+  "agentReady": {
+    "metaTitle": "Is your website ready for AI agents? Free checker",
+    "metaDescription": "Free test of how ready your website is for AI agents: robots.txt, sitemap, llms.txt, Markdown and AI crawler access. A clear score and the fixes to apply.",
+    "appName": "Agent-ready checker",
+    "breadcrumb": "Agent-ready checker",
+    "kicker": "Free tool",
+    "title": "Is your website ready for AI agents?",
+    "lede": "ChatGPT, Claude, Perplexity and coding agents already visit your site on your customers' behalf. Enter its address: in under 30 seconds you know what they find there and what to fix.",
+    "form": {
+      "label": "Your website's address",
+      "placeholder": "yourcompany.com",
+      "submit": "Run the test",
+      "scanning": "Scanning…",
+      "hint": "Only public pages are read, as any visitor would. No sign-up, no email.",
+      "progress": "Scanning {host}, this takes up to 30 seconds."
+    },
+    "errors": {
+      "empty": "Enter your website's address, for example yourcompany.com.",
+      "invalid_json": "The request could not be read. Reload the page and try again.",
+      "invalid_url": "This address does not look valid. Try for example yourcompany.com or https://www.yourcompany.com.",
+      "blocked_address": "We only test public websites reached through a domain name. IP addresses and private networks are excluded.",
+      "blocked_port": "Only websites served on the usual web ports (80 and 443) can be tested.",
+      "dns_failed": "We cannot find this domain name. Check the spelling and try again.",
+      "rate_limited": "You ran several tests in a short time. Wait about {seconds} seconds, then try again.",
+      "scan_failed": "The test could not finish; the site may have taken too long to answer. Try again in a moment.",
+      "method_not_allowed": "A technical error occurred. Reload the page and try again.",
+      "network": "We could not reach our server. Check your internet connection and try again."
+    },
+    "report": {
+      "heading": "Report for {host}",
+      "ready": "Report ready: {score} out of 100, level {level} out of 5.",
+      "scoreLabel": "Overall score",
+      "level": "Level {level}/5",
+      "categoryScore": "{percentage}% of points",
+      "informative": "For information, not scored",
+      "evidence": "Technical finding",
+      "fix": "Fix:",
+      "spec": "Reference",
+      "copy": "Copy instructions for your coding agent",
+      "copied": "Instructions copied. Paste them into Claude Code, Cursor or Codex.",
+      "copyFailed": "Copying failed. Select the text below and copy it by hand.",
+      "copyHint": "A ready-to-paste list of every point to fix, with its fix and reference.",
+      "allGood": "Nothing to fix on the scored checks. Well done, your site is well prepared for AI agents.",
+      "ctaTitle": "Want a hand with the fixes?",
+      "ctaBody": "In 30 minutes we go through your report with you and tell you where to start.",
+      "ctaButton": "Book 30 minutes with us",
+      "again": "Test another site"
+    },
+    "status": {
+      "pass": "OK",
+      "fail": "To fix",
+      "na": "Not applicable"
+    },
+    "categories": {
+      "discoverability": {
+        "name": "Discoverability",
+        "question": "Can agents find your pages?"
+      },
+      "content": {
+        "name": "Content",
+        "question": "Can they read your content without a browser?"
+      },
+      "ai_bots": {
+        "name": "AI crawlers",
+        "question": "Do you let them in, and on what terms?"
+      },
+      "protocols": {
+        "name": "Agent protocols",
+        "question": "Do you offer services agents know how to use?"
+      },
+      "commerce": {
+        "name": "Commerce",
+        "question": "Can an agent pay you? For information, not scored."
+      }
+    },
+    "checks": {
+      "robots_txt": {
+        "name": "robots.txt file",
+        "explain": "robots.txt is your website's house rules for bots. Search engines and AI assistants read it first to learn where they may go.",
+        "fix": "Serve a text file at /robots.txt with status 200 and type text/plain, holding at least one User-agent group (for example \"User-agent: *\" followed by \"Allow: /\")."
+      },
+      "sitemap": {
+        "name": "Sitemap",
+        "explain": "A sitemap lists all your pages. An agent finds in a single request what it would otherwise discover link by link, and sees what changed recently.",
+        "fix": "Publish a sitemap.xml served as XML (most CMSs generate one for you) and declare its full address in robots.txt with a line like \"Sitemap: https://www.yourcompany.com/sitemap.xml\"."
+      },
+      "link_headers": {
+        "name": "Link headers",
+        "explain": "An HTTP Link header on the home page tells agents, before they even read the page, where to find your useful resources: a summary for AI, a Markdown version, your API description.",
+        "fix": "Add an HTTP Link header to the home page response with a describedby, service-desc, api-catalog or alternate relation, for example: Link: </llms.txt>; rel=\"describedby\"."
+      },
+      "llms_txt": {
+        "name": "llms.txt file",
+        "explain": "llms.txt is a summary of your website written for AI models: who you are, your key pages and their links. It is the simplest way in for an assistant.",
+        "fix": "Publish a Markdown file at /llms.txt, served as text/plain or text/markdown, that starts with a \"# Your company name\" heading, followed by a one-sentence introduction and the list of your important pages."
+      },
+      "markdown_negotiation": {
+        "name": "Markdown version of pages",
+        "explain": "Agents prefer Markdown to HTML: less noise, lower cost. When they ask for it, your site can serve them the same page as clean text.",
+        "fix": "When a request for the home page sends Accept: text/markdown, answer 200 with Content-Type: text/markdown and the page content in Markdown. Add Vary: Accept so caches keep both versions."
+      },
+      "raw_html_content": {
+        "name": "Content readable without JavaScript",
+        "explain": "Many agents do not run JavaScript. If your home page only shows its text once a script has run, they see an empty page.",
+        "fix": "Render the page on the server (server rendering or static pages) so the initial HTML holds a non-empty H1 heading and at least a few sentences of visible text (200 characters or more)."
+      },
+      "robots_ai_rules": {
+        "name": "Rules for AI crawlers",
+        "explain": "Does your robots.txt allow the main AI crawlers: GPTBot, OAI-SearchBot, ClaudeBot, Claude-SearchBot, PerplexityBot and Google-Extended? A blocked crawler does not cite your site in its answers.",
+        "fix": "In robots.txt, allow these crawlers: either with a \"User-agent: *\" group that does not disallow the root, or with a dedicated group for each one with \"Allow: /\". Remove the Disallow lines aimed at them if you want to appear in their answers."
+      },
+      "content_signal": {
+        "name": "Content usage signal",
+        "explain": "The Content-Signal directive, placed in robots.txt, states how your content may be used: search, AI assistant answers, model training.",
+        "fix": "Add a line to robots.txt such as \"Content-Signal: search=yes, ai-input=yes, ai-train=no\", adapted to your choices."
+      },
+      "ai_bot_access": {
+        "name": "Real AI crawler access",
+        "explain": "Beyond the rules, we check that an AI crawler visiting your home page actually gets it, with no block and no \"are you human?\" challenge page.",
+        "fix": "In your firewall, CDN or bot protection, let through the AI crawlers you want to welcome (GPTBot, ClaudeBot, PerplexityBot…) so they get the page with status 200, without a challenge or captcha."
+      },
+      "mcp_server_card": {
+        "name": "MCP server card",
+        "explain": "MCP is the protocol that lets AI assistants use tools. A card published on your site tells them an MCP server exists and how to connect to it. Useful if you offer a service or data.",
+        "fix": "If you run an MCP server, publish its JSON description at /.well-known/mcp.json (or /.well-known/mcp/server-card.json), served as application/json. Otherwise, this can wait."
+      },
+      "a2a_agent_card": {
+        "name": "A2A agent card",
+        "explain": "A2A lets agents talk to each other. An agent card describes what your agent can do and how to reach it.",
+        "fix": "If you expose an agent, publish its JSON card at /.well-known/agent-card.json, served as application/json, following the A2A specification. Otherwise, this can wait."
+      },
+      "agent_skills": {
+        "name": "Agent skills index",
+        "explain": "Skills are reusable instructions for agents. An index published on your site lets agents discover the ones you offer.",
+        "fix": "Publish a JSON index of your skills at /.well-known/agent-skills/index.json, served as application/json. Otherwise, this can wait."
+      },
+      "oauth_discovery": {
+        "name": "OAuth discovery",
+        "explain": "If your service has user accounts, an agent needs to know how to get authorization. The OAuth or OpenID discovery document gives it the right addresses.",
+        "fix": "Publish your authorization server metadata at /.well-known/oauth-authorization-server or /.well-known/openid-configuration, as application/json. Most identity providers do this for you."
+      },
+      "oauth_protected_resource": {
+        "name": "OAuth protected resource",
+        "explain": "This document tells an agent which authorization server protects your API, so it knows where to ask for access.",
+        "fix": "Publish /.well-known/oauth-protected-resource as application/json, with at least the resource field and the authorization_servers list (RFC 9728)."
+      },
+      "api_catalog": {
+        "name": "API catalog",
+        "explain": "An API catalog lists your public APIs and their documentation at a standard address, so an agent finds them without searching.",
+        "fix": "Publish /.well-known/api-catalog as application/linkset+json, with a link to each API's description (OpenAPI for example), following RFC 9727."
+      },
+      "x402": {
+        "name": "Agent payments (x402)",
+        "explain": "The x402 protocol lets an agent pay for content or a service directly over HTTP. It is still emerging: we flag it for information, with no effect on the score.",
+        "fix": "Nothing required. If you sell pay-per-use access (API, data), x402 lets you answer 402 with the payment terms."
+      }
+    },
+    "prompt": {
+      "title": "Make {host} ready for AI agents",
+      "intro": "An agent-ready test of {url} (score {score}/100, level {level}/5) found the points below. Apply each fix in this project, verify it, then summarize what you changed.",
+      "category": "Category",
+      "evidence": "Test finding",
+      "fix": "Fix",
+      "spec": "Reference",
+      "outro": "Do not change anything beyond what these points need. If a point does not apply to this project, explain why instead of forcing it."
+    },
+    "how": {
+      "title": "How it works",
+      "steps": {
+        "address": {
+          "title": "You enter the address",
+          "body": "Your website's, for example yourcompany.com. Only the root of the site is tested."
+        },
+        "read": {
+          "title": "We read the site like an agent",
+          "body": "16 checks on public pages: home page, robots.txt, sitemap, llms.txt and the standard files of agent protocols."
+        },
+        "fix": {
+          "title": "You leave with the fixes",
+          "body": "A score out of 100, a level from 0 to 5 per category, a plain-language explanation and instructions ready to paste into your coding agent."
+        }
+      }
+    },
+    "checksSection": {
+      "title": "What we check",
+      "lede": "Four scored categories, and a fifth for information. The heaviest checks are the ones that matter for every website: being found, being read, letting crawlers in."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "what": {
+          "q": "What does an agent-ready website mean?",
+          "a": "It is a website that AI assistants and agents can find, read and understand with no effort: a clear robots.txt, a sitemap, an llms.txt summary, text present in the HTML and open access for AI crawlers. For online services it also covers protocols like MCP, so an agent can take action."
+        },
+        "why": {
+          "q": "Why does it matter for a small business?",
+          "a": "Your customers increasingly ask ChatGPT, Claude or Perplexity to compare, summarize or book for them. If these assistants cannot read your website, they cite your competitors. The basic fixes often take less than a day."
+        },
+        "data": {
+          "q": "What does the test do on my site, and do you keep my data?",
+          "a": "The test only reads public pages, as a visitor would, with no login and no form. The report stays in memory for a few minutes so the same test is not run twice, then it is forgotten. No account, no email: we only measure the tested domain name and the score, to improve the tool."
+        },
+        "score": {
+          "q": "How is the score calculated?",
+          "a": "Each check has a weight, higher for the essentials: readable content, AI crawler access, robots.txt and sitemap. A category gets the share of points earned, and a level from 0 to 5. The overall score combines the four scored categories. Checks that do not apply and x402 commerce do not count."
+        },
+        "fix": {
+          "q": "I have no developer: how do I fix it?",
+          "a": "Every point to fix comes with a simple explanation and the fix to apply. The copy button prepares instructions to paste into a coding agent like Claude Code, Cursor or Codex. And if you would rather have help, you can book 30 minutes with us from the report."
+        }
+      }
     }
   }
 }
