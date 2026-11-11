@@ -1,4 +1,4 @@
-import { createRateLimiter } from "@/lib/agent-ready/rate-limit";
+import { clientIp, createRateLimiter, createScanSlots } from "@/lib/agent-ready/rate-limit";
 import { scanSite, type Report } from "@/lib/agent-ready";
 import { normalizeUrl, ScanError, vetUrl } from "@/lib/agent-ready/safe-fetch";
 
@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 30;
 const cache = new Map<string, { expires: number; report: Report }>();
 const rateLimit = createRateLimiter();
+const acquireScan = createScanSlots();
 function reply(body: unknown, status = 200, headers = {}) {
   return Response.json(body, { status, headers: { "Cache-Control": "no-store", ...headers } });
 }
@@ -15,8 +16,7 @@ export async function POST(request: Request) {
   for (const [key, entry] of cache) if (entry.expires <= now) cache.delete(key);
   // Trusted ingress must overwrite these headers. Untrusted direct deployments
   // need an upstream limiter; this instance-local limiter is not a global quota.
-  const ip = (request.headers.get("x-forwarded-for")?.split(",")[0] ??
-    request.headers.get("x-real-ip") ?? "unknown").trim();
+  const ip = clientIp(request.headers);
   const retryAfter = rateLimit(ip, now);
   if (retryAfter > 0)
     return reply({ error: "rate_limited" }, 429, { "Retry-After": String(retryAfter) });
@@ -47,7 +47,11 @@ export async function POST(request: Request) {
     // Origin separates http/https, avoiding cross-scheme cache poisoning.
     const cached = cache.get(url.origin);
     if (cached && cached.expires > now) return reply(cached.report);
-    const report = await scanSite(url.origin);
+    const release = acquireScan();
+    if (!release) return reply({ error: "rate_limited" }, 429, { "Retry-After": "1" });
+    let report: Report;
+    try { report = await scanSite(url.origin); }
+    finally { release(); }
     if (cache.size >= 500) cache.delete(cache.keys().next().value!);
     cache.set(url.origin, { expires: Date.now() + 300000, report });
     return reply(report);

@@ -85,3 +85,48 @@ teardown. HTML, bot-access and sitemap heuristics can use that prefix. Robots,
 llms.txt and JSON discovery require a complete response and report "response too
 large" otherwise. The native transport requests identity encoding and does not
 decompress responses, so there is no uncapped decompression buffer.
+
+## Vercel deployment-wide protection — owner action required
+
+The local limiter is best-effort, NOT a deployment-wide five/minute guarantee.
+Fluid compute can reuse an instance concurrently, but may also scale to other
+instances with independent Maps; restarts erase counters. IP selection prefers
+validated `x-real-ip`, then `x-vercel-forwarded-for`, then the first
+`x-forwarded-for` address, otherwise a shared unknown bucket. Self-hosted
+ingress must overwrite these headers. No IP/debug data is returned to users.
+See [Vercel headers](https://vercel.com/docs/headers/request-headers) and
+[Fluid compute](https://vercel.com/docs/fluid-compute).
+
+No shared KV/Redis/Upstash/Edge Config/Postgres client is wired in this repo.
+The sample DATABASE_URL in .env.example is not a connected database. No store,
+paid infrastructure, new environment variables or secrets were added.
+Every POST counts before validation and cache lookup (including cache hits).
+At most four uncached scans run concurrently per instance (each has at most
+16 fetches); saturation returns 429 with Retry-After: 1 without queueing.
+Slots release on success and failure; cache hits do not consume scan slots.
+
+**Project owner: configure and enable this rule in Vercel → project → Firewall
+→ Configure → New Rule**, applying it to production and preview traffic:
+
+- Name: `agent-ready-post-per-ip`
+- IF Request Path **equals** `/api/tools/agent-ready`
+- AND Request Method **equals** `POST`
+- THEN **Rate Limit**, strategy **Fixed Window**
+- Time Window: **60 seconds**; Request Limit: **5**
+- Rate-limit key: **IP Address** only (not URL, user agent or forwarded headers)
+- Exceeded action: **Too Many Requests (429)**; enable/save the rule, not Log mode.
+
+This is an owner follow-up, not a rule installed by this code change. Vercel
+supports fixed-window rate limiting on all plans; confirm the project's included
+rule allowance before enabling, without buying infrastructure. Firewall counters
+are per region, not a strict cross-region sliding window: requests spanning
+regions or a window boundary can exceed five in a rolling minute.
+See [WAF rate limiting](https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting).
+Keep the local sliding window as defense in depth.
+
+Diagnosis on 2026-11-11: eight sequential sandbox POSTs to the supplied e5368c9
+preview with skillpack.app returned 200 × 5, then 429 × 3. Thus the reported
+20/20 success was not reproduced; without per-instance logs it cannot be
+attributed conclusively to IP selection versus instance churn. The structural
+instance-local quota limitation is certain; a header preference fix alone
+cannot remove it.

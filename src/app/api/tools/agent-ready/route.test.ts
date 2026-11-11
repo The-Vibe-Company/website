@@ -34,3 +34,20 @@ test("API rate limit groups IPv6 clients by /64", async () => {
   expect((await POST(request("{}", "2606:4700:abcd:1234:ffff::1"))).status).toBe(429);
   expect((await POST(request("{}", "2606:4700:abcd:1235::1"))).status).toBe(400);
 });
+
+test("varying forwarded-for cannot bypass a stable Vercel client IP", async () => {
+  for (let i = 0; i < 6; i++) {
+    const req = request("{}", "203.0.113.90");
+    req.headers.set("x-forwarded-for", "198.51.100." + i);
+    expect((await POST(req)).status).toBe(i < 5 ? 400 : 429);
+  }
+});
+test("Vercel forwarded IP fallback cannot be bypassed with forwarded-for", async () => {
+  for (let i = 0; i < 6; i++) {
+    const req = request("{}");
+    req.headers.delete("x-real-ip");
+    req.headers.set("x-vercel-forwarded-for", "203.0.113.91");
+    req.headers.set("x-forwarded-for", "198.51.100." + i);
+    expect((await POST(req)).status).toBe(i < 5 ? 400 : 429);
+  }
+});

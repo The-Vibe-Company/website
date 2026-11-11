@@ -1,6 +1,30 @@
 import { createHash } from "node:crypto";
 import { isIP } from "node:net";
 
+// Vercel overwrites these ingress headers; direct self-hosting must do likewise.
+// https://vercel.com/docs/headers/request-headers
+export function clientIp(headers: Headers): string {
+  for (const name of ["x-real-ip", "x-vercel-forwarded-for", "x-forwarded-for"]) {
+    const ip = headers.get(name)?.split(",")[0].trim();
+    if (ip && isIP(ip)) return ip;
+  }
+  return "unknown";
+}
+
+// Bound whole scans across all clients on a Fluid compute instance. No queue:
+// excess callers retry instead of occupying function memory while waiting.
+export function createScanSlots(max = 4) {
+  let active = 0;
+  return (): (() => void) | null => {
+    if (active >= max) return null;
+    active++;
+    let released = false;
+    return () => {
+      if (!released) { active--; released = true; }
+    };
+  };
+}
+
 // Canonicalize IPv6 spelling before retaining only its first 64 bits.
 // IPv4 remains per-address; invalid/missing ingress values share one bucket.
 function clientKey(ip: string): string {

@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { createRateLimiter } from "./rate-limit";
+import { clientIp, createRateLimiter, createScanSlots } from "./rate-limit";
 
 test("IPv6 rotations and equivalent spellings share a /64 quota", () => {
   const limit = createRateLimiter();
@@ -43,4 +43,36 @@ test("capacity eviction uses oldest activity, not first insertion", () => {
   expect(limit("8.8.8.8", 2000)).toBe(0);
   expect(limit("9.9.9.9", 3000)).toBe(0);
   expect(limit("1.1.1.1", 3000)).toBe(0);
+});
+
+
+test("Vercel client IP wins over forwarded chains, with validated fallbacks", () => {
+  expect(clientIp(new Headers({
+    "x-real-ip": " 203.0.113.9 ",
+    "x-vercel-forwarded-for": "203.0.113.8",
+    "x-forwarded-for": "198.51.100.1, 198.51.100.2",
+  }))).toBe("203.0.113.9");
+  expect(clientIp(new Headers({
+    "x-real-ip": "invalid", "x-vercel-forwarded-for": "2606:4700::1",
+    "x-forwarded-for": "198.51.100.1",
+  }))).toBe("2606:4700::1");
+  expect(clientIp(new Headers({ "x-forwarded-for": "198.51.100.1, 198.51.100.2" }))).toBe("198.51.100.1");
+  expect(clientIp(new Headers({ "x-real-ip": "", "x-forwarded-for": "bad" }))).toBe("unknown");
+  expect(clientIp(new Headers())).toBe("unknown");
+});
+
+test("whole-scan slots are bounded and releases are idempotent", () => {
+  const acquire = createScanSlots(2);
+  const first = acquire()!;
+  const second = acquire()!;
+  expect(acquire()).toBeNull();
+  first();
+  first();
+  const third = acquire()!;
+  expect(acquire()).toBeNull();
+  second();
+  third();
+  expect(acquire()).not.toBeNull();
+  expect(acquire()).not.toBeNull();
+  expect(acquire()).toBeNull();
 });
