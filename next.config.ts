@@ -14,6 +14,15 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
   experimental: {
+    // The stylesheet ships inside the HTML rather than as a separate
+    // render-blocking request. On a phone-emulated load (Lighthouse), the
+    // `<meta viewport>` makes Chrome fade the old page's overlay scrollbar
+    // about 130ms later; if the new page has not committed its first frame by
+    // then, those fade frames are drawn for a surface the browser no longer
+    // shows, and the compositor stops sending frames to the page for up to a
+    // second per round. The external stylesheet, sharing the connection with
+    // the scripts, fonts and the mascot, regularly arrived after that point.
+    inlineCss: true,
     optimizePackageImports: ['framer-motion'],
     // Page-to-page transitions use React's <ViewTransition> (PageTransition).
     viewTransition: true,
