@@ -247,9 +247,9 @@
     "about": {
       "kicker": "COMMENT ON TRAVAILLE",
       "title": "Du premier appel à la production.",
-      "p1": "Chaque projet commence par un appel de 30 minutes : vous expliquez le problème, on explique comment on le construirait. Si ça colle, on envoie une proposition à périmètre fixe, puis un prototype cliquable avant la moindre ligne de code de production.",
-      "p2": "Pendant le build, vous voyez du logiciel qui marche tôt et souvent, et on mesure le résultat à l’usage réel plutôt qu’à la démo. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique sont passés en production en deux mois, avec depuis une nouvelle version tous les deux jours environ. Chez LocService, les brouillons de l’assistant sont utilisés sur 87 % des tickets.",
-      "p3": "Ensuite, deux options : on confie le code à votre équipe avec la documentation et les runbooks, ou on continue de le faire tourner. Avec Theodo, la formation des équipes fait partie du travail, pour qu’elles adoptent elles-mêmes ces pratiques et avancent plus vite."
+      "p1": "Tout commence par un appel. Vous nous racontez le problème, on vous dit comment on s’y prendrait. Parfois, la réponse, c’est que l’IA n’est pas le bon outil. Si on travaille ensemble, on écrit ce qu’on livre et pour quand. Quand c’est utile, on fait d’abord un prototype cliquable pour tester l’idée avant de coder.",
+      "p2": "Chez Monka, on a démarré le 9 mars et l’app des aidants est partie en production le 10 mai, avec le CRM des infirmières à côté. On a appris un truc : on allait trop vite pour eux. On a dû ralentir pour laisser à leur équipe le temps de travailler le métier. Chez LocService, l’équipe support garde le brouillon proposé par l’autodraft de Quivr sur 87 % des tickets.",
+      "p3": "Ensuite, soit votre équipe reprend le code, soit on continue à s’en occuper. Avec Theodo, une bonne partie du travail consiste à montrer aux équipes comment on bosse avec les agents, pour qu’elles puissent avancer sans nous."
     }
   },
   "resources": {
