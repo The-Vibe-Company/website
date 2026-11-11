@@ -447,3 +447,37 @@ export function softwareApplicationSchema({
     provider: { "@id": ORGANIZATION_ID },
   };
 }
+
+/**
+ * WebApplication markup for a free tool hosted on the site. The offer only
+ * states what the page says (free to use, price 0); no rating, no review.
+ */
+export function webApplicationSchema({
+  name,
+  description,
+  url,
+  language,
+  applicationCategory,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  language: string;
+  applicationCategory: string;
+}): JsonLdNode {
+  return {
+    "@context": SCHEMA_CONTEXT,
+    "@type": "WebApplication",
+    name,
+    description,
+    url,
+    inLanguage: language,
+    applicationCategory,
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+    provider: { "@id": ORGANIZATION_ID },
+    isPartOf: { "@id": WEBSITE_ID },
+  };
+}

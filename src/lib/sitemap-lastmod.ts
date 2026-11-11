@@ -40,6 +40,8 @@ export const SPLIT_PATH_LASTMOD: Record<string, string> = {
   "/developpement-application-ia-sur-mesure": "2026-11-04",
   "/contact": "2026-11-03",
   "/confidentialite": "2026-11-03",
+  "/tools": "2026-11-11",
+  "/tools/agent-ready": "2026-11-11",
 };
 
 /** Keyed by `PROJECT_SLUGS` entry. */

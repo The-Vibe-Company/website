@@ -45,6 +45,8 @@ const frenchCoreMetadata: Record<string, { title: string; description: string }>
   "/developpement-application-ia-sur-mesure": { title: fr.customAiApp.metaTitle, description: fr.customAiApp.metaDescription },
   "/contact": { title: fr.contact.metaTitle, description: fr.contact.metaDescription },
   "/confidentialite": { title: fr.privacy.metaTitle, description: fr.privacy.metaDescription },
+  "/tools": { title: fr.tools.metaTitle, description: fr.tools.metaDescription },
+  "/tools/agent-ready": { title: fr.agentReady.metaTitle, description: fr.agentReady.metaDescription },
 };
 
 export function buildLlmsTxt(): string {
