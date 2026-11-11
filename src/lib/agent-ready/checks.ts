@@ -14,8 +14,8 @@ export const BOTS = {
 // https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers#google-extended
 const result = (id: CheckId, category: CategoryId, weight: number, pass: boolean, details: string): Check =>
   ({ id, category, weight, status: pass ? "pass" : "fail", details: details.slice(0, 1000) });
-const text = (r: Resource | null) => r?.status === 200 && /^text\/(plain|markdown)/i.test(r.headers["content-type"] ?? "");
-const evidence = (r: Resource | null) => r ? `HTTP ${r.status} ${r.url}` : "Unavailable or scan deadline exceeded";
+const text = (r: Resource | null) => !r?.truncated && r?.status === 200 && /^text\/(plain|markdown)/i.test(r.headers["content-type"] ?? "");
+const evidence = (r: Resource | null) => r ? `HTTP ${r.status} ${r.url}${r.truncated ? " — response too large (truncated)" : ""}` : "Unavailable or scan deadline exceeded";
 
 // RFC 9309 https://www.rfc-editor.org/rfc/rfc9309
 export function robotsTxt(r: Resource | null) {
@@ -80,7 +80,7 @@ export function rawHtmlContent(r: Resource | null) {
   const visible = (value: string) => value.replace(/&(?:#\d+|#x[\da-f]+|\w+);/gi, " ").replace(/\s+/g, " ").trim();
   const length = visible(content).length;
   const h1 = heading;
-  return result("raw_html_content", "content", 4, r?.status === 200 && /text\/html/i.test(r.headers["content-type"] ?? "") && !!visible(h1) && length >= 200, `Visible text: ${length} characters; nonempty h1: ${!!visible(h1)}`);
+  return result("raw_html_content", "content", 4, r?.status === 200 && /text\/html/i.test(r.headers["content-type"] ?? "") && !!visible(h1) && length >= 200, `Visible text: ${length} characters; nonempty h1: ${!!visible(h1)}${r?.truncated ? "; partial HTML (truncated)" : ""}`);
 }
 // RFC 9309 https://www.rfc-editor.org/rfc/rfc9309
 // https://platform.openai.com/docs/bots
@@ -91,11 +91,11 @@ export function robotsAiRules(r: Resource | null) {
   const groups = parseRobots(r?.body ?? "");
   const states = Object.keys(BOTS).map((bot) => ({ bot, ...botAllowed(groups, bot) }));
   return result("robots_ai_rules", "ai_bots", 3, !!text(r) && states.every((s) => s.covered && s.allowed),
-    states.map((s) => `${s.bot}: ${!s.covered ? "not addressed" : s.allowed ? "allowed" : "blocked"}`).join("; "));
+    (r?.truncated ? "response too large; " : "") + states.map((s) => `${s.bot}: ${!s.covered ? "not addressed" : s.allowed ? "allowed" : "blocked"}`).join("; "));
 }
 // https://contentsignals.org/ https://datatracker.ietf.org/doc/draft-romm-aipref-contentsignals/
 export function contentSignal(r: Resource | null) {
-  return result("content_signal", "ai_bots", 1, !!text(r) && /^[ \t]*Content-Signal:[ \t]*\S+/im.test(r!.body), "Content-Signal directive " + (/^[ \t]*Content-Signal:[ \t]*\S+/im.test(r?.body ?? "") ? "present" : "absent"));
+  return result("content_signal", "ai_bots", 1, !!text(r) && /^[ \t]*Content-Signal:[ \t]*\S+/im.test(r!.body), (r?.truncated ? "response too large; " : "") + "Content-Signal directive " + (/^[ \t]*Content-Signal:[ \t]*\S+/im.test(r?.body ?? "") ? "present" : "absent"));
 }
 // Vendor UAs above; HTTP semantics https://www.rfc-editor.org/rfc/rfc9110
 export async function aiBotAccess(load: Load) {
@@ -109,7 +109,7 @@ export async function aiBotAccess(load: Load) {
 async function jsonDiscovery(load: Load, id: CheckId, paths: string[], mime = "application/json") {
   const responses = await Promise.all(paths.map((p) => load(p)));
   const valid = responses.find((r) => {
-    if (r?.status !== 200 || !(r.headers["content-type"] ?? "").toLowerCase().split(";")[0].trim().endsWith(mime)) return false;
+    if (r?.truncated || r?.status !== 200 || !(r.headers["content-type"] ?? "").toLowerCase().split(";")[0].trim().endsWith(mime)) return false;
     try { const value: unknown = JSON.parse(r.body); return !!value && typeof value === "object" && !Array.isArray(value); } catch { return false; }
   });
   return result(id, "protocols", 1, !!valid, valid ? evidence(valid) : responses.map(evidence).join("; "));

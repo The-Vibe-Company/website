@@ -78,3 +78,10 @@ checks require 200, matching media type and a JSON object, not full schemas.
 HTML visibility is approximate and does not execute JavaScript or CSS.
 
 Offline tests: `bun test src/lib/agent-ready`.
+
+Responses retain at most a 1 MiB body prefix (the existing safety budget), with
+`truncated: true` when the cap is reached; status and headers survive socket
+teardown. HTML, bot-access and sitemap heuristics can use that prefix. Robots,
+llms.txt and JSON discovery require a complete response and report "response too
+large" otherwise. The native transport requests identity encoding and does not
+decompress responses, so there is no uncapped decompression buffer.

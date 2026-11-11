@@ -70,8 +70,11 @@ export async function vetUrl(url: URL, resolver: Resolver = resolveAddresses) {
   if (addresses.some((a) => !isPublicAddress(a))) throw new ScanError("blocked_address");
   return addresses[0];
 }
-export interface Resource { url: string; status: number; headers: Record<string, string>; body: string }
+export interface Resource { url: string; status: number; headers: Record<string, string>; body: string; truncated?: boolean }
 export type Transport = (url: URL, address: string, headers: Record<string, string>, signal: AbortSignal) => Promise<Resource>;
+
+// Keep a 1 MiB prefix: enough for HTML/discovery heuristics without unbounded buffering.
+export const MAX_BODY_BYTES = 1024 * 1024;
 
 // Native Node transport pins lookup while retaining the original Host, SNI and
 // TLS certificate validation. No proxy environment variables or ambient cookies.
@@ -82,20 +85,31 @@ export const requestPinned: Transport = (url, address, headers, signal) => new P
   }, (response) => {
     const chunks: Buffer[] = [];
     let size = 0;
+    let finished = false;
+    const finish = (truncated: boolean) => {
+      if (finished) return;
+      finished = true;
+      resolve({
+        url: url.href, status: response.statusCode ?? 0,
+        headers: Object.fromEntries(Object.entries(response.headers).map(([k, v]) => [k, Array.isArray(v) ? v.join(", ") : v ?? ""])),
+        body: Buffer.concat(chunks, size).toString("utf8"), truncated,
+      });
+    };
     response.on("data", (chunk: Buffer) => {
-      size += chunk.length;
-      if (size > 1024 * 1024) {
-        request.destroy(new ScanError("body_too_large"));
-        return;
+      if (finished) return;
+      const prefix = chunk.subarray(0, MAX_BODY_BYTES - size);
+      chunks.push(prefix);
+      size += prefix.length;
+      if (size >= MAX_BODY_BYTES) {
+        // Settle before destroying: the resulting aborted/error events must not
+        // turn a useful partial response into a transport failure.
+        finish(true);
+        response.destroy();
+        request.destroy();
       }
-      chunks.push(chunk);
     });
     response.on("error", reject);
-    response.on("end", () => resolve({
-      url: url.href, status: response.statusCode ?? 0,
-      headers: Object.fromEntries(Object.entries(response.headers).map(([k, v]) => [k, Array.isArray(v) ? v.join(", ") : v ?? ""])),
-      body: Buffer.concat(chunks).toString("utf8"),
-    }));
+    response.on("end", () => finish(false));
   });
   request.on("error", reject);
   request.end();
