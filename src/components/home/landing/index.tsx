@@ -1,6 +1,5 @@
 import type { RunnerItem } from "@/lib/runner-worlds";
 import { FinalCTA } from "../FinalCTA";
-import { PaintedFlag } from "../PaintedFlag";
 import { Clientele } from "./Clientele";
 import { LandingHero } from "./LandingHero";
 import { LitQuote } from "./LitQuote";
@@ -17,7 +16,6 @@ import { Workbench } from "./Workbench";
 export function Landing({ runnerItems }: { runnerItems: RunnerItem[] }) {
   return (
     <>
-      <PaintedFlag />
       <div aria-hidden="true" className="landing-grain" />
       <LandingHero runnerItems={runnerItems} />
       <div data-surface="paper">

@@ -3,7 +3,6 @@ import { BrandSquare } from "@/components/BrandSquare";
 import { Backers } from "@/components/home/Backers";
 import { FitText } from "@/components/home/FitText";
 import { MascotCutout } from "@/components/home/MascotCutout";
-import { PaintedFlag } from "@/components/home/PaintedFlag";
 import { keepPunctuationAttached } from "@/lib/french-spacing";
 
 const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
@@ -86,8 +85,6 @@ export function ServiceHero({
           <div aria-hidden="true" className="relative h-[300px] lg:hidden">
             <MascotCutout variant="phone" />
           </div>
-          {/* Starts the mascot's float once the first frame is out. */}
-          <PaintedFlag />
 
           {/* Desktop: the mascot in the right column, running out of the
               section, cut at the chest by the paper. */}
