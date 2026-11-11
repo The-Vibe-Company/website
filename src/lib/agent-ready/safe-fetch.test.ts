@@ -60,7 +60,7 @@ test("truncated HTML and bot responses remain usable, but challenges still fail"
   const r = await collect("<h1>Welcome</h1><main>" + "visible content ".repeat(MAX_BODY_BYTES / 8));
   expect(checks.rawHtmlContent(r).status).toBe("pass");
   expect((await checks.aiBotAccess(async () => r)).status).toBe("pass");
-  expect((await checks.aiBotAccess(async () => ({ ...r, body: "Just a moment" }))).status).toBe("fail");
+  expect((await checks.aiBotAccess(async () => ({ ...r, body: "<title>Just a moment...</title>" }))).status).toBe("fail");
 });
 test("truncated sitemap XML is accepted, HTML is not", async () => {
   const r = await collect('<?xml version="1.0"?><sitemapindex>' + " ".repeat(MAX_BODY_BYTES));

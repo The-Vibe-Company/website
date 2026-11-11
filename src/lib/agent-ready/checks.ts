@@ -45,8 +45,7 @@ export async function markdownNegotiation(load: Load) {
   return result("markdown_negotiation", "content", 2, r?.status === 200 && /^text\/markdown\b/i.test(r.headers["content-type"] ?? ""), evidence(r));
 }
 // HTML semantics https://html.spec.whatwg.org/multipage/sections.html#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements
-export function rawHtmlContent(r: Resource | null) {
-  const html = r?.body ?? "";
+function htmlTextMetrics(html: string) {
   const lower = html.toLowerCase();
   let position = 0;
   let inH1 = false;
@@ -79,8 +78,11 @@ export function rawHtmlContent(r: Resource | null) {
   }
   const visible = (value: string) => value.replace(/&(?:#\d+|#x[\da-f]+|\w+);/gi, " ").replace(/\s+/g, " ").trim();
   const length = visible(content).length;
-  const h1 = heading;
-  return result("raw_html_content", "content", 4, r?.status === 200 && /text\/html/i.test(r.headers["content-type"] ?? "") && !!visible(h1) && length >= 200, `Visible text: ${length} characters; nonempty h1: ${!!visible(h1)}${r?.truncated ? "; partial HTML (truncated)" : ""}`);
+  return { length, hasHeading: !!visible(heading) };
+}
+export function rawHtmlContent(r: Resource | null) {
+  const { length, hasHeading } = htmlTextMetrics(r?.body ?? "");
+  return result("raw_html_content", "content", 4, r?.status === 200 && /text\/html/i.test(r.headers["content-type"] ?? "") && hasHeading && length >= 200, `Visible text: ${length} characters; nonempty h1: ${hasHeading}${r?.truncated ? "; partial HTML (truncated)" : ""}`);
 }
 // RFC 9309 https://www.rfc-editor.org/rfc/rfc9309
 // https://platform.openai.com/docs/bots
@@ -97,11 +99,26 @@ export function robotsAiRules(r: Resource | null) {
 export function contentSignal(r: Resource | null) {
   return result("content_signal", "ai_bots", 1, !!text(r) && /^[ \t]*Content-Signal:[ \t]*\S+/im.test(r!.body), (r?.truncated ? "response too large; " : "") + "Content-Signal directive " + (/^[ \t]*Content-Signal:[ \t]*\S+/im.test(r?.body ?? "") ? "present" : "absent"));
 }
+// Cloudflare documents cf-mitigated: challenge as the reliable response signal:
+// https://developers.cloudflare.com/cloudflare-challenges/challenge-types/challenge-pages/detect-response/
+function isChallenge(r: Resource | null): boolean {
+  if (!r) return false;
+  if (r.headers["cf-mitigated"]?.trim().toLowerCase() === "challenge") return true;
+  const body = r.body;
+  // Interstitial-specific markers, not passive /scripts/jsd/ detection scripts
+  // or marketing copy that merely mentions CAPTCHA.
+  const interstitial = /\b_?cf_chl_opt\b|\/cdn-cgi\/challenge-platform\/h\/|<title\b[^>]*>\s*(?:Just a moment(?:\.\.\.|…)?|Attention Required!\s*\|\s*Cloudflare)\s*<\/title\s*>|\bid\s*=\s*["']challenge-form["']|captcha-delivery\.com|_pxCaptcha\b|\bpx-captcha\b|_Incapsula_Resource|\/akam\/\d+\/\w+\/\w+\/\w+/i.test(body);
+  if (interstitial) return true;
+  const widget = /<(?:div|iframe|form)\b[^>]*\b(?:class|id|src)\s*=\s*["'][^"']*\b(?:cf-turnstile|g-recaptcha|h-captcha)\b/i.test(body);
+  if (widget && htmlTextMetrics(body).length < 500) return true;
+  // Error status plus challenge markup can identify older challenge responses.
+  return [403, 429, 503].includes(r.status) && /\bcf-chl-[\w-]+|<(?:script|iframe)\b[^>]*\/challenge-platform\/h\//i.test(body);
+}
 // Vendor UAs above; HTTP semantics https://www.rfc-editor.org/rfc/rfc9110
 export async function aiBotAccess(load: Load) {
   const states = await Promise.all(Object.entries(BOTS).map(async ([bot, ua]) => {
     const r = await load("/", { "user-agent": ua });
-    const challenge = !!r?.headers["cf-mitigated"] || /just a moment|challenge-platform|attention required|captcha|cf-chl-/i.test(r?.body ?? "");
+    const challenge = isChallenge(r);
     return { bot, pass: r?.status === 200 && !challenge, detail: `${bot}: ${r?.status ?? "unavailable"}${challenge ? " challenge" : ""}` };
   }));
   return result("ai_bot_access", "ai_bots", 4, states.every((s) => s.pass), states.map((s) => s.detail).join("; ") + "; Google-Extended uses Googlebot UA (no dedicated UA)");

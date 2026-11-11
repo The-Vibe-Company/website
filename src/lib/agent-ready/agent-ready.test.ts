@@ -83,7 +83,7 @@ test("HTML fallback is not robots; script text is not content", () => {
   expect(rawHtmlContent(r).status).toBe("fail");
 });
 test("bot challenges fail despite HTTP 200", async () => {
-  const check = await aiBotAccess(async () => ({ url: "", status: 200, headers: {}, body: "Just a moment" }));
+  const check = await aiBotAccess(async () => ({ url: "", status: 200, headers: {}, body: "<title>Just a moment...</title>" }));
   expect(check.status).toBe("fail");
 });
 test("adversarial HTML remains bounded", () => {
@@ -131,4 +131,50 @@ describe("robots.txt parsing stays linear on hostile input", () => {
       { agents: ["gptbot"], rules: [{ allow: false, path: "/private" }] },
     ]);
   });
+});
+
+describe("bot challenge detection", () => {
+  const check = (body: string, status = 200, headers = {}) =>
+    aiBotAccess(async () => ({ url: "https://example.com", status, headers, body }));
+
+  test("Cloudflare marketing copy and passive JSD are accessible", async () => {
+    const r = await check('<h1>Cloudflare</h1><p>Replace CAPTCHA with a better experience. Just a moment to learn more.</p><script src="/cdn-cgi/challenge-platform/scripts/jsd/main.js"></script>');
+    expect(r.status).toBe("pass");
+    expect(r.details).not.toContain("challenge");
+  });
+  test("cf-mitigated header is authoritative", async () => {
+    expect((await check("", 200, { "cf-mitigated": "challenge" })).details).toContain("200 challenge");
+    expect((await check("", 200, { "cf-mitigated": "other" })).status).toBe("pass");
+  });
+  test("403 is a failure, not necessarily a challenge", async () => {
+    const r = await check("Forbidden", 403);
+    expect(r.status).toBe("fail");
+    expect(r.details).not.toContain("challenge");
+  });
+  for (const body of [
+    "<title>Just a moment...</title>",
+    "<title>Attention Required! | Cloudflare</title>",
+    "<script>window._cf_chl_opt = {};</script>",
+    "<script>cf_chl_opt = {};</script>",
+    '<script src="/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1"></script>',
+    '<form id="challenge-form"></form>',
+    '<iframe src="https://geo.captcha-delivery.com/captcha/"></iframe>',
+    '<div id="px-captcha"></div>', "<script>window._pxCaptcha = {};</script>",
+    '<script src="/_Incapsula_Resource?x=1"></script>',
+    '<script src="/akam/13/abc/def/ghi"></script>',
+    ...["cf-turnstile", "g-recaptcha", "h-captcha"].map((name) =>
+      '<div class="' + name + '"></div><script>' + "hidden ".repeat(200) + "</script><p>Verify you are human</p>"),
+  ]) {
+    test("interstitial: " + body.slice(0, 90), async () => {
+      expect((await check(body)).details).toContain("200 challenge");
+    });
+  }
+  test("normal content with an embedded captcha widget is not an interstitial", async () => {
+    expect((await check('<div class="g-recaptcha"></div><p>' + "Content ".repeat(100) + "</p>")).status).toBe("pass");
+  });
+  for (const status of [403, 429, 503]) {
+    test("error with challenge marker " + status, async () => {
+      expect((await check('<div class="cf-chl-container"></div>', status)).details).toContain(status + " challenge");
+    });
+  }
 });
