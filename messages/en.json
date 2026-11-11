@@ -2219,7 +2219,7 @@
     "moreSoon": "More tools are on the way. Got an idea for a tool that would save you time? Write to us."
   },
   "agentReady": {
-    "metaTitle": "Is your website ready for AI agents? Free agent-ready test",
+    "metaTitle": "Is your website ready for AI agents? Free checker",
     "metaDescription": "Free test of how ready your website is for AI agents: robots.txt, sitemap, llms.txt, Markdown and AI crawler access. A clear score and the fixes to apply.",
     "appName": "Agent-ready checker",
     "breadcrumb": "Agent-ready checker",
