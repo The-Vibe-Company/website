@@ -271,7 +271,7 @@ export function TopNav({ showResourcesSearch = false }: TopNavProps) {
 
           {/* Desktop nav */}
           <div className="hidden items-center lg:flex">
-            <ul className="m-0 flex list-none items-center gap-9 p-0">
+            <ul className="m-0 flex list-none items-center gap-6 p-0 xl:gap-9">
               {navItems.map((item) => (
                 <li key={item.key}>
                   <Link
@@ -295,13 +295,13 @@ export function TopNav({ showResourcesSearch = false }: TopNavProps) {
                 </li>
               ))}
             </ul>
-            <LanguageSwitcher className="ml-[52px]" />
+            <LanguageSwitcher className="ml-8 xl:ml-[52px]" />
             <a
               href={`mailto:${CONTACT_EMAIL}`}
               onClick={() => captureEvent("contact_email_clicked", { location: "nav" })}
               aria-label={t("contactEmail")}
               title={CONTACT_EMAIL}
-              className="ml-8 inline-flex h-11 w-11 items-center justify-center text-foreground transition-colors hover:text-brand"
+              className="ml-4 xl:ml-8 inline-flex h-11 w-11 items-center justify-center text-foreground transition-colors hover:text-brand"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <rect x="3" y="5" width="18" height="14" rx="1.5" />
@@ -315,7 +315,7 @@ export function TopNav({ showResourcesSearch = false }: TopNavProps) {
                 setSearchOpen(false);
                 captureEvent("discovery_call_clicked", { location: "nav" });
               }}
-              className="ml-5 inline-flex h-11 items-center rounded-[2px] bg-foreground px-[18px] text-[14px] font-medium text-background transition-colors hover:bg-soft-foreground"
+              className="ml-4 xl:ml-5 inline-flex h-11 items-center rounded-[2px] bg-foreground px-[18px] text-[14px] font-medium text-background transition-colors hover:bg-soft-foreground"
             >
               {t("bookCall")}
             </a>

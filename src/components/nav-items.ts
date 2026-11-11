@@ -1,6 +1,7 @@
-/** The site's three sections, in the bar and in the mobile menu alike. */
+/** The site's sections, in the bar and in the mobile menu alike. */
 export const navItems = [
   { key: "portfolio", href: "/portfolio" },
   { key: "caseStudies", href: "/case-studies" },
+  { key: "tools", href: "/tools" },
   { key: "resources", href: "/resources" },
 ] as const;

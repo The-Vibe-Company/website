@@ -115,7 +115,7 @@ export function MobileMenu({
           </Link>
         </div>
       ))}
-      <div className="mt-4 flex flex-col items-center gap-3 menu-rise" style={rise(0.3)}>
+      <div className="mt-4 flex flex-col items-center gap-3 menu-rise" style={rise(navItems.length * 0.1)}>
         <a
           href={BOOKING_URL}
           {...bookingLocation("header_mobile_menu")}
