@@ -471,6 +471,11 @@
       "targetUrl": "/images/_optimized/resources/roi-ia/roi-ia-5-indicateurs.webp",
       "targetHash": "3fe2e07af8c066fa8d319b932db155997314e4b85622389766deefa377c80832"
     },
+    "content:/images/resources/serveur-mcp-entreprise/4-points-controle-serveur-mcp.png": {
+      "sourceHash": "0eea690873855d75e32ebb9b97a7f2d9564b7aadadaebab94d21ad1511e717b9",
+      "targetUrl": "/images/_optimized/resources/serveur-mcp-entreprise/4-points-controle-serveur-mcp.webp",
+      "targetHash": "027c2079d25b0a5d26ec43eb778416fb1071fc14bd8e56cdb1b0cb3b67d835c5"
+    },
     "content:/images/resources/serveur-mcp-entreprise/cover-mascotte.webp": {
       "sourceHash": "b80605b14d5c90c58e200f49dc078d41b4b2f00bafd0627aa14f6a36f5e29893",
       "targetUrl": null,
@@ -486,6 +491,11 @@
       "targetUrl": "/images/_optimized/resources/site-devient-produit/decouverte.webp",
       "targetHash": "d714a024379982de0807f70bae3543678c31d7e1b9ccbb10d18c8476509fc3fb"
     },
+    "content:/images/resources/travailler-prestataire-ia/5-etapes-4-moments-prestataire-ia.png": {
+      "sourceHash": "2ab3db2b856543865bf11676d9001a5768f36e6b0e5c847af83f778783530c48",
+      "targetUrl": "/images/_optimized/resources/travailler-prestataire-ia/5-etapes-4-moments-prestataire-ia.webp",
+      "targetHash": "7058161df1be39e7478e9773b3e78771e35824e6870d08385915c5090d15853b"
+    },
     "content:/images/resources/travailler-prestataire-ia/cover-mascotte.webp": {
       "sourceHash": "affa34bd0b7e0a01a440bde1297e4d257c5b7618819dce271c03e4a08f0c6c5a",
       "targetUrl": null,
@@ -500,6 +510,11 @@
       "sourceHash": "90dd503ae2e687bceac2e06577bb5782eaeeb59d4c2e0f996d27bb257c3b15f9",
       "targetUrl": "/images/_optimized/resources/what-an-ai-agency-does/ai-agency-mission-3-steps.webp",
       "targetHash": "f01e8a6a6d56e14dff25bfb4699f1a54c84f5db9b3ae55b89a121987beb9ccec"
+    },
+    "content:/images/resources/what-is-an-mcp-server/4-mcp-server-control-points.png": {
+      "sourceHash": "c246f5dfde058092c06c3c674803cf7314336e3e08c383fb61815426ba9ac7b3",
+      "targetUrl": "/images/_optimized/resources/what-is-an-mcp-server/4-mcp-server-control-points.webp",
+      "targetHash": "19dd8249e265c37d24ab0f0f2432341ffd3a4835c2d5bbf418e7f520c0b189b0"
     },
     "content:/images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp": {
       "sourceHash": "93f7aaf00b1f5dc88e65c5d6de704ffd537af8b0ce9f5c17344394bfaa4d7e6c",
@@ -520,6 +535,11 @@
       "sourceHash": "e9e89047e6ea8c5f57a66166c03fbe731c04a90461225d225f8c02cdc4ca3dc7",
       "targetUrl": "/images/_optimized/resources/why-i-replaced-prompts-with-skills/generated/prompts-to-skills-cover.webp",
       "targetHash": "120debfea03a98f449f8cacafd672ae40c0a5ae0be5f138c39583d7c70328e6f"
+    },
+    "content:/images/resources/working-with-an-ai-development-agency/5-stages-4-contract-moments-ai-agency.png": {
+      "sourceHash": "a947f75c35a92f46408a989ab661c6c18a808d05ca7389fd6d734a149c865645",
+      "targetUrl": "/images/_optimized/resources/working-with-an-ai-development-agency/5-stages-4-contract-moments-ai-agency.webp",
+      "targetHash": "73710401fd752a2c75e02e2fabe0026aa98b38f94c603fa60160fb882b6c271d"
     },
     "og:/images/resources/agence-application-mobile-comparatif/cover-mascotte.webp": {
       "sourceHash": "025f2bac44a9fead12179ada62f077e5824ed856ae4050163e228f00570c1a8a",
