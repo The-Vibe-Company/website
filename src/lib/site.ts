@@ -176,7 +176,7 @@ export const INDEXABLE_SPLIT_PATH_ROUTES: SplitPathRoute[] = [
     paths: TOOLS_PATHS,
     title: "Free AI tools",
     description:
-      "Free tools from The Vibe Company to check how ready a website is for AI agents, with a plain-language report and the fixes to apply.",
+      "Small free tools from The Vibe Company to work better with AI day to day, starting with a check of how ready a website is for AI agents.",
     changeFrequency: "monthly",
     priority: 0.6,
   },

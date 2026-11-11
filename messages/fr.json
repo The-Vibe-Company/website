@@ -2203,12 +2203,12 @@
     }
   },
   "tools": {
-    "metaTitle": "Outils gratuits pour votre site | The Vibe Company",
-    "metaDescription": "Des outils gratuits de The Vibe Company pour préparer votre site aux agents IA : un diagnostic en une minute, un rapport clair et les correctifs à appliquer.",
+    "metaTitle": "Outils IA gratuits | The Vibe Company",
+    "metaDescription": "Des petits outils gratuits et sans inscription pour mieux travailler avec l'IA au quotidien. Le premier vérifie si votre site est prêt pour les agents IA.",
     "breadcrumb": "Outils",
     "kicker": "Outils gratuits",
-    "title": "Des outils pour préparer votre site aux agents IA",
-    "lede": "Les assistants IA lisent déjà le web pour vos clients. Ces outils vous disent, en quelques secondes et sans inscription, ce qu'ils voient de votre site et ce qu'il faut corriger.",
+    "title": "Des petits outils gratuits pour mieux travailler avec l'IA",
+    "lede": "Des outils simples, gratuits et sans inscription, que The Vibe Company construit pour vous aider à utiliser l'IA au quotidien. Le premier vérifie si votre site est prêt pour les agents IA. D'autres suivront.",
     "listTitle": "Les outils",
     "free": "Gratuit, sans inscription",
     "open": "Ouvrir l'outil",
@@ -2218,7 +2218,7 @@
         "description": "Entrez l'adresse de votre site : 16 vérifications sur la découverte, le contenu, l'accès des robots IA et les protocoles agents, un score sur 100 et les correctifs à appliquer."
       }
     },
-    "moreSoon": "D'autres outils arrivent. Une idée d'outil qui vous ferait gagner du temps ? Écrivez-nous."
+    "moreSoon": "D'autres outils arrivent. Une idée d'outil qui vous ferait gagner du temps avec l'IA ? Écrivez-nous."
   },
   "agentReady": {
     "metaTitle": "Votre site est-il prêt pour les agents IA ? Test gratuit",
