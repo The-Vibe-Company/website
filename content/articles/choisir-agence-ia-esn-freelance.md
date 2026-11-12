@@ -1,12 +1,12 @@
 ---
-title: "Agence IA, freelance, interne ou ESN : checklist pour choisir"
-seoTitle: "Choisir une agence IA : checklist et 10 questions"
+title: "Choisir une agence IA : 8 vérifications avant de signer"
+seoTitle: "Choisir une agence IA : 8 vérifications avant de signer"
 slug: choisir-agence-ia-esn-freelance
 language: fr
 translationKey: choose-ai-agency
-summary: "Choisir une agence IA : quatre options, forfait ou régie, checklist POC, 10 questions avant de signer."
+summary: "Choisir une agence IA, un freelance ou une ESN : 8 pièces à demander avant de signer, le texte et le registre pour les vérifier, et ce que 27 sites publient."
 publishedAt: 2026-10-13
-dateModified: 2026-11-10
+dateModified: 2026-11-12
 complexity: beginner
 topics: AI Adoption, AI Agents, Strategy
 coverImage: /images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp
@@ -14,171 +14,134 @@ coverAlt: "Quatre chemins partent d'un même projet IA : agence IA, freelance, �
 ogImage: /images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp
 ---
 
-**Comment choisir une agence IA :** comparez quatre options (agence IA, freelance, interne, ESN), exigez un cadrage court au forfait puis des lots courts, jugez le POC sur de vraies données, et posez les 10 questions ci-dessous avant de signer.
+Pour choisir une agence IA, un freelance ou une ESN, demandez à chaque candidat les mêmes 8 pièces, par écrit et dans les mêmes termes, puis vérifiez-les vous-même. Le 12 novembre 2026, la rédaction a relevé 27 sites de prestataires IA, et 2 seulement y écrivent comment ils encadrent leurs sous-traitants. Demandez le reste par écrit. Pour chaque pièce, ce guide donne le texte qui la fonde (Code du travail, RGPD, loi de 1975) et le registre officiel où la contrôler.
 
-Une démo d'IA, tout le monde sait la faire. Un outil que vos équipes utilisent encore six mois plus tard, c'est plus rare.
+## Un logiciel prêt à l'emploi avant tout prestataire IA
 
-En août 2025, [Fortune a relayé un rapport du MIT](https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/) (*The GenAI Divide*, projet NANDA) : 95 % des pilotes d'IA générative étudiés ne produisaient pas de retour mesurable sur le compte de résultat. La méthodologie a été discutée. Mais le diagnostic des auteurs tient : les projets qui marchent s'intègrent à un processus métier précis. Les outils génériques posés à côté, non.
+En France, les entreprises qui utilisent l'IA passent d'abord par un logiciel prêt à l'emploi, d'après [Eurostat](https://ec.europa.eu/eurostat/databrowser/view/isoc_eb_ai/default/table?lang=en). Les chiffres portent sur 2025 et sur les entreprises d'au moins 10 personnes, hors agriculture, mines et secteur financier.
 
-Choisir un prestataire, c'est donc choisir qui saura amener le projet jusque-là. Ici, vous avez les critères, les questions et les documents à demander. On est une agence IA, donc juge et partie : on dit aussi quand une agence n'est pas le bon choix. Si vous ne savez pas encore ce que fait concrètement une agence IA, [cette vue d'ensemble couvre l'essentiel](/fr/resources/articles/agence-intelligence-artificielle).
+| Taille de l'entreprise | Logiciel prêt à l'emploi | Prestataires externes | Propres salariés |
+|---|---|---|---|
+| 10 à 49 personnes | 78 % | 23 % | 19 % |
+| 50 à 249 personnes | 83 % | 31 % | 20 % |
+| 250 personnes et plus | 87 % | 49 % | 38 % |
 
-## Trois questions avant de comparer des prestataires
+Les modes se cumulent, puisque 78 + 23 + 19 dépasse déjà 100 % chez les 10 à 49 personnes : une entreprise peut en combiner plusieurs. Pour une PME qui utilise déjà l'IA, l'option la plus fréquente reste le logiciel prêt à l'emploi. La première question du choix devient alors simple. Un outil existant suffit-il ?
 
-1. **Qu'est-ce qui coûte le plus cher : rater ou attendre ?** Un outil interne de confort peut attendre un recrutement. Un projet qui touche le chiffre d'affaires ou la relation client demande une équipe qui a déjà livré.
-2. **Le besoin est-il défini ou à inventer ?** « Brancher notre CRM à un modèle pour résumer les appels » se chiffre. « Utiliser l'IA dans le support » se cadre d'abord.
-3. **Qui reprendra le système dans un an ?** Un agent IA n'est jamais « fini » : les modèles changent tous les quelques mois, vos données et vos processus aussi. Si personne en interne ne peut le reprendre, prévoyez la maintenance ou la transmission dès le contrat.
+Le rapport du MIT NANDA, *The GenAI Divide*, trouve que dans son échantillon les partenariats externes avec des outils personnalisés capables d'apprendre atteignent le déploiement environ 67 % du temps, contre environ 33 % pour les outils construits en interne, selon le [rapport primaire](https://mlq.ai/media/quarterly_decks/v0.1_State_of_AI_in_Business_2025_Report.pdf). Ces résultats auto-déclarés viennent de 52 organisations, et le rapport précise que la corrélation ne prouve pas la causalité. Le même rapport ne voit des millions de valeur que dans 5 % des pilotes intégrés. La grande majorité reste sans impact mesurable sur le compte de résultat.
 
-## Les quatre options en un tableau
+Trois questions départagent ensuite les options : qu'est-ce qui coûte le plus cher, rater ou attendre ; le besoin est-il défini ou à inventer ; qui reprendra le système dans un an. Pour savoir quelle option convient à quel projet, le comparatif [agence IA, freelance ou ESN](/fr/resources/articles/agence-ia-vs-freelance-esn) détaille chacune et ses coûts.
 
-| | Agence IA | Freelance | Équipe interne | ESN |
-|---|---|---|---|---|
-| Démarrage | rapide | rapide | lent (recrutement) | moyen |
-| Spécialisation IA | cœur de métier | forte sur un sujet | dépend des recrues | variable selon les profils |
-| Produit complet (front, back, infra) | oui, si l'équipe est pluridisciplinaire | rarement seul | si l'équipe est complète | oui |
-| Capacité à monter en charge | moyenne | limitée | lente | forte |
-| Connaissance de votre métier | à construire | à construire | la meilleure | à construire |
-| Mode de contrat habituel | forfait ou régie | régie (TJM) | salariat | régie, parfois forfait |
-| Risque principal | dépendance si rien n'est transmis | dépendance à une personne | délai, rétention | profils interchangeables |
+## Le kit : 8 pièces à demander à chaque prestataire IA
 
-En résumé :
+Le kit tient en 8 pièces, chacune avec le texte ou la règle qui la fonde, l'endroit où la vérifier et le signal qui doit alerter. Ce tableau ne remplace pas un avis juridique, et chaque conséquence de droit est à faire valider par un juriste.
 
-- **Agence IA** : une petite équipe qui couvre tout le chemin, de l'idée à la production. Bon choix pour livrer vite ou valider un cas d'usage avant d'internaliser.
-- **Freelance** : imbattable sur une tâche précise (un connecteur, une automatisation, un audit). Ça coince quand il faut à la fois interface, backend, infrastructure et sécurité, ou une continuité si la personne part.
-- **Équipe interne** : la cible si l'IA est votre avantage concurrentiel. Piège : recruter avant d'avoir validé un premier cas d'usage.
-- **ESN** : fournit des profils en nombre et passe facilement vos achats et votre sécurité. Bon choix pour renforcer une équipe sur un périmètre connu.
+| Pièce à demander | Texte ou règle | Où la vérifier | Signal d'alerte |
+|---|---|---|---|
+| 1. Extrait K ou K bis, extrait RNE ou document avec le numéro d'immatriculation | Code du travail, D8222-5 : le client se fait remettre cette pièce à la signature, puis tous les six mois | Sur le document remis, daté | Aucun numéro d'immatriculation |
+| 2. Attestation de vigilance Urssaf de moins de six mois | L8222-1 et D8222-5 : vérification à la signature, puis tous les six mois ; obligatoire dès 5 000 € HT au total, selon l'Urssaf | Outil de vérification de l'Urssaf, avec le code de sécurité à 15 caractères | L8222-2 rend solidaire le client qui n'a pas vérifié, en cas de travail dissimulé verbalisé |
+| 3. Liste nommée des sous-traitants | Loi 75-1334, art. 3 : l'entrepreneur fait accepter chaque sous-traitant par le maître de l'ouvrage ; Urssaf : mêmes vérifications au second rang | Liste écrite, puis attestation de vigilance de chaque sous-traitant | Aucune liste de sous-traitants |
+| 4. Garanties RGPD et lieu d'hébergement des données | RGPD, art. 28(1) : le client fait appel à des sous-traitants qui « présentent des garanties suffisantes » | Réponses écrites aux questions données et sécurité | Aucune réponse sur l'hébergement ou sur la sortie des données vers les modèles |
+| 5. Certificats revendiqués | Un certificat ISO/IEC 27001, HDS ou SecNumCloud atteste un niveau de sécurité, sans valoir certification RGPD ; l'art. 28(5) du RGPD vise, lui, un mécanisme de certification « approuvé comme le prévoit l'article 42 », qui « peut servir d'élément » pour démontrer ces garanties | IAF CertSearch pour un certificat [ISO/IEC 27001](https://www.iso.org/standard/27001), liste ANS pour un hébergeur HDS, liste ANSSI pour SecNumCloud | Certificat introuvable dans le registre |
+| 6. Références en production | Règle de méthode : durée en production, nombre d'utilisateurs, chiffre d'usage, contact client à appeler | Appel au contact client | Des logos, aucun projet en production |
+| 7. Proposition complète | Règle de méthode : problème et indicateur, périmètre et hors périmètre, données, architecture et coûts récurrents, lots, recette, équipe nommée, sécurité et sous-traitants, propriété, suite | Lecture point par point | Un point manquant, sans réponse quand vous le demandez |
+| 8. POC qui décide | Règle de méthode : une question, de vraies données, des utilisateurs, un critère chiffré fixé avant | Dans votre environnement, sur vos données | Un POC qui ne tourne que sur le poste du prestataire |
 
-On peut aussi combiner : une agence qui construit et forme pendant que vous recrutez, un freelance qui reprend la maintenance d'un système livré par une agence.
+Selon l'Urssaf, l'attestation de vigilance s'impose dès 5 000 € HT sur le montant global de la prestation, même payée en plusieurs factures. La vérification vaut donc aussi pour un freelance dès que le contrat atteint ce montant, ce qui arrive souvent avec un cadrage suivi de lots. Quand le prestataire confie une partie du développement à un freelance ou à une autre société, le client peut demander la liste nommée des sous-traitants avant de signer. L'application exacte de la loi de 1975 à une prestation informatique est à faire valider par un juriste.
 
-## Forfait ou régie : le choix qui change tout
+Un prestataire de développement IA n'héberge en général pas lui-même les données. Demandez-lui quel hébergeur, et quelles activités HDS ou quel service qualifié, couvrent les données du projet, puis cherchez cet hébergeur dans la liste officielle. Pour des données de santé, le guide [IA et données de santé](/fr/resources/articles/ia-donnees-de-sante-hds) détaille ce que l'HDS impose.
 
-La régie (temps passé, au TJM) : vous payez des jours. C'est souple quand le besoin évolue, mais le risque de dérapage est chez vous. Il faut quelqu'un en interne pour piloter.
+Une proposition découpée en lots devrait prévoir un point d'arrêt explicite après le premier lot. Pour juger le POC lui-même, la [grille du POC à la production](/fr/resources/articles/poc-agent-ia-production) donne les critères. Une fois le prestataire choisi, [travailler avec un prestataire IA](/fr/resources/articles/travailler-prestataire-ia) décrit les étapes du projet et les clauses du contrat.
 
-Le forfait : un prix pour un périmètre et un livrable. Le risque de dérapage est chez le prestataire, mais tout changement de périmètre se renégocie.
+### La demande écrite à envoyer à chaque candidat
 
-Sur un projet IA, un forfait pur pour tout le produit est rarement honnête. Personne ne sait à l'avance combien d'itérations il faudra pour atteindre la qualité. Chez Monka, le référentiel clinique est passé par 12 versions en deux mois. Aucun cahier des charges ne l'aurait prévu.
+Copiez ce bloc et envoyez-le dans les mêmes termes à chaque candidat.
 
-Ce qui marche, en pratique :
+```markdown
+Objet : dossier de vérification avant signature
 
-- **un cadrage court au forfait**, avec un livrable précis : cas d'usage, données, critères de succès, architecture, estimation ;
-- **puis des cycles courts** (au forfait par lot ou en régie plafonnée), chacun avec quelque chose d'utilisable à la fin ;
-- **un point d'arrêt explicite** après le premier lot : si les critères ne sont pas atteints, on s'arrête ou on change d'approche.
+Merci de joindre à votre proposition :
+1. Un extrait K ou K bis, un extrait RNE ou un document avec votre numéro d'immatriculation.
+2. Une attestation de vigilance Urssaf de moins de six mois.
+3. La liste nommée de vos sous-traitants sur ce projet.
+4. Le lieu d'hébergement des données et vos garanties RGPD (article 28).
+5. Les certificats que vous revendiquez, avec leur périmètre et leur date.
+6. Des références en production, avec un contact client à appeler.
+7. Une proposition qui couvre : problème et indicateur, périmètre et hors périmètre, données, architecture et coûts récurrents, lots, recette, équipe nommée, sécurité et sous-traitants, propriété, suite.
+8. Le POC proposé : question, données, utilisateurs, critère chiffré fixé avant.
 
-Comparez le coût complet, pas le TJM : prestation, temps de vos équipes pour piloter et tester, coûts de fonctionnement (appels aux modèles, hébergement), maintenance.
-
-## Ce que doit contenir une bonne proposition
-
-Une proposition sérieuse tient en quelques pages et couvre ces points. S'il en manque, demandez-les.
-
-- **Le problème métier** reformulé avec vos mots, et l'indicateur qui dira si ça marche (temps gagné, taux d'utilisation, erreurs évitées).
-- **Le périmètre**, et surtout ce qui est hors périmètre.
-- **Les données** nécessaires, où elles sont, qui y donne accès, et ce qui se passe si elles sont de mauvaise qualité.
-- **L'architecture** en une page : quels modèles, hébergés où, quels outils tiers, quels coûts récurrents estimés.
-- **Le découpage en lots**, avec un premier livrable utilisable en quelques semaines.
-- **Comment la qualité sera mesurée** : jeu de tests, cas réels, seuils de validation (la recette).
-- **L'équipe nommée** : qui fait quoi, et combien de temps chacun.
-- **La sécurité et la conformité** : hébergement, accès, logs, environnements de test, sous-traitants.
-- **La propriété** du code, des prompts, des jeux de tests et de la documentation.
-- **La suite** : maintenance, transmission, réversibilité.
-
-## Comment évaluer un POC
-
-Un POC sert à décider, pas à faire une démo. Avant de le lancer, écrivez :
-
-- **la question** à laquelle il répond (« le modèle classe-t-il correctement nos tickets ? ») ;
-- **les données** : de vraies données, ou un échantillon représentatif, jamais trois exemples choisis ;
-- **les utilisateurs** qui testeront, et pendant combien de temps ;
-- **le critère de succès** chiffré, fixé avant de voir les résultats ;
-- **ce qui sera réutilisé** en production et ce qui sera jeté.
-
-Méfiez-vous d'un POC qui ne tourne que sur le poste du prestataire, sans vos données ni vos utilisateurs. Le bon signe : un POC qui ressemble déjà à un premier lot de production, dans votre environnement.
-
-## Lire les références : les signaux qui comptent
-
-Un logo sur un site ne prouve rien. Ce qui compte :
-
-- **Depuis combien de temps l'outil tourne en production**, et combien de personnes s'en servent.
-- **Un chiffre d'usage**, pas un chiffre de démo. « 87 % des brouillons utilisés » dit plus que « 90 % de précision sur un test ».
-- **Un contact client à appeler.** Demandez-lui ce qui s'est mal passé et comment le prestataire a réagi.
-- **Un cas comparable au vôtre** : même taille d'entreprise, mêmes contraintes (données sensibles, intégration au SI existant).
-- **Des traces publiques de compétence** : code open source, articles techniques, interventions. Elles montrent comment l'équipe travaille.
-
-## Données, sécurité, hébergement : les questions à poser
-
-C'est là que beaucoup de projets bloquent, et tard. Posez ces questions dès le premier rendez-vous :
-
-1. Où seront hébergées les données, et chez qui ?
-2. Les données envoyées aux modèles quittent-elles cet environnement ? Le fournisseur du modèle les conserve-t-il ?
-3. Où vont les logs des prompts et des réponses ?
-4. Les environnements de test utilisent-ils de vraies données ?
-5. Qui a accès à la production, avec quels droits ?
-6. Quels droits aura l'IA : lire, proposer, préparer ou exécuter ?
-
-**Exemple : la santé.** Les données de santé doivent être hébergées chez un hébergeur certifié HDS pour les activités concernées. Chez Monka, l'environnement HDS existait déjà quand on est arrivés. Notre job : développer très vite sans en sortir. Aucune donnée hors de l'environnement, logs et environnements de test à l'intérieur. Résultat : l'app des aidants, le CRM des infirmières et le moteur clinique (un bilan de 165 questions, 12 versions du référentiel) en production en deux mois. Le détail réglementaire est dans notre guide [IA et données de santé : ce que l'HDS impose vraiment](/fr/resources/articles/ia-donnees-de-sante-hds).
-
-Si un prestataire met en avant des certifications, demandez le certificat, son périmètre et sa date.
-
-## Les signaux d'alerte
-
-- Des résultats garantis avant d'avoir vu vos données.
-- Aucun projet en production à montrer, seulement des démos.
-- Un cadrage de plusieurs mois sans rien à tester.
-- Un discours centré sur les outils plutôt que sur votre processus.
-- Des certifications ou labels impossibles à vérifier.
-- Pas de réponse claire sur la propriété du code ni sur la sortie.
-
-## 10 questions à poser avant de signer
-
+Merci de répondre aussi à ces 10 questions :
 1. Quels projets avez-vous mis en production, et depuis combien de temps tournent-ils ?
-2. Qui, nommément, travaillera sur mon projet ?
+2. Qui, nommément, travaillera sur ce projet ?
 3. Quel premier résultat utilisable, et quand ?
 4. Comment mesurez-vous la qualité de l'IA, et qui valide ?
-5. Que deviennent nos données (hébergement, modèles, logs, tests) ?
-6. Quels droits aura l'IA dans nos outils ?
+5. Que deviennent les données du projet (hébergement, modèles, logs, tests) ?
+6. Quels droits aura l'IA dans les outils de l'entreprise ?
 7. Quels coûts récurrents faut-il prévoir ?
 8. À qui appartiennent le code, les prompts, les tests et la documentation ?
 9. Comment se passe la transmission ou la sortie ?
 10. Que se passe-t-il si les critères ne sont pas atteints après le premier lot ?
+```
 
-## Notre position, honnêtement
+### Exemple fictif : une PME compare deux candidats
 
-On n'est pas le bon choix pour tout. Pour un petit connecteur isolé, un freelance ira aussi bien. Pour cent développeurs en régie, prenez une ESN, c'est son métier. Pour une vue complète de ce que fait concrètement une agence IA sur un projet, lisez [ce que fait une agence IA, de bout en bout](/fr/resources/articles/agence-intelligence-artificielle).
+Exemple fictif : une PME fictive compare deux candidats fictifs, A et B, sur les 8 pièces.
 
-Là où on est utiles : un produit ou un agent IA qui doit arriver en production vite, dans une entreprise de taille moyenne ou grande, avec des exigences de sécurité. Avant l'agence, Stan Girard et Antoine Dewez ont construit Quivr, un projet open source d'IA (plus de 39 000 étoiles sur GitHub), passé par Y Combinator (W24), avec une équipe montée jusqu'à 9 personnes. Depuis 2024, The Vibe Company a livré plusieurs dizaines de projets. Trois exemples :
+| Pièce | Candidat A (fictif) | Candidat B (fictif) |
+|---|---|---|
+| 1. Immatriculation | oui | oui |
+| 2. Attestation de vigilance | oui | à demander |
+| 3. Liste des sous-traitants | oui | non |
+| 4. Garanties RGPD et hébergement | oui | à demander |
+| 5. Certificats | à demander | non |
+| 6. Références en production | oui | non |
+| 7. Proposition complète | oui | à demander |
+| 8. POC qui décide | à demander | non |
 
-- **Monka (santé)** : en production en deux mois dans l'environnement HDS existant du client, 165 questions, 12 versions du référentiel clinique. [Lire le cas](/fr/case-studies/monka)
-- **LocService (location)** : plusieurs centaines de tickets support par jour. Un assistant lit les anciens tickets et la documentation, puis rédige la réponse selon le profil du client. Les brouillons sont utilisés sur 87 % des tickets ; l'équipe reste maître de ce qui part. [Lire le cas](/fr/case-studies/locservice)
-- **AFP (presse)** : des outils d'IA générative pour les rédactions dans MediaGen, projet France 2030 de 4 M€ soutenu par Bpifrance, avec Kairntech et Dawex, toujours sous le contrôle des journalistes. [Lire le cas](/fr/case-studies/afp)
+Dans cet exemple fictif, B doit encore fournir 3 pièces et n'en a pas 4 autres. La PME relance B par écrit, avec la même demande, avant de comparer les offres.
 
-Une fois le prestataire choisi, voici [comment se déroule un projet avec un prestataire IA, du premier appel à la production](/fr/resources/articles/travailler-prestataire-ia).
+## Ce que publient 27 sites de prestataires IA
 
-Si vous cherchez surtout à comparer les trois options sur les coûts et les délais, on a détaillé [agence IA, freelance ou ESN : que choisir selon le projet](/fr/resources/articles/agence-ia-vs-freelance-esn), avec les TJM sourcés et le coût complet.
+Le 12 novembre 2026, la rédaction a relevé 30 prestataires IA dans 3 recherches web, 4 pages de résultats Ubersuggest et 2 annuaires (impli.fr, cartelis.com). Elle a analysé 27 sites, car 2 étaient injoignables et elle en a exclu 1 pour conflit d'intérêts. Pour chaque site, la lecture a porté sur la page d'accueil et jusqu'à 15 pages internes.
 
-Et si vous voulez des noms, on a comparé les acteurs un par un, nous compris : [meilleure agence IA en 2026, quelle agence pour quel projet](/fr/resources/articles/meilleure-agence-ia-comparatif).
+| Ce que le site publie | Sites | Part |
+|---|---|---|
+| Au moins un prix de prestation (audit, POC, sprint, journée, formation) | 9 sur 27 | 33 % |
+| Le lieu d'hébergement des données des clients ou du produit | 7 sur 27 | 26 % |
+| Un encadrement de ses sous-traitants (contrat art. 28 ou liste publiée) | 2 sur 27 | 7 % |
+| Au moins un fournisseur ou modèle d'IA nommé (détection automatique) | 23 sur 27 | 85 % |
+
+Ce que l'article 28(1) demande de vérifier, garanties, sous-traitants, hébergement, n'est donc presque jamais en ligne. Il faut le demander par écrit à chaque candidat. L'échantillon, petit et non aléatoire, donne un ordre de grandeur et ne vaut pas statistique du marché. Une seule personne a codé les sites, et les parts restent des bornes basses, car une information publiée ailleurs sur un site a pu échapper à la lecture. La détection des modèles nommés est automatique, sans relecture site par site, et ce relevé ne nomme aucun prestataire. Le baromètre d'agences-ia.fr trouve, lui, 81 % de prix publiés chez 57 agences, avec un autre corpus et une autre définition.
+
+## Les signaux d'alerte avant de signer avec un prestataire IA
+
+- Des résultats garantis avant d'avoir vu vos données.
+- Aucun projet en production à montrer, seulement des démos.
+- Un cadrage de plusieurs mois sans rien à tester.
+- Un discours centré sur les outils.
+- Des certifications ou labels impossibles à vérifier, ou un certificat introuvable dans le registre.
+- Aucune liste de sous-traitants.
+- Pas de réponse claire sur la propriété du code ni sur la sortie.
 
 ## FAQ
 
-### C'est quoi une agence IA, concrètement ?
+**Faut-il demander une attestation de vigilance à un freelance ?**
+Oui, selon l'Urssaf, dès que le contrat atteint 5 000 € HT au total. Le Code du travail vise toute personne qui conclut le contrat, quel que soit le statut du prestataire. Demandez l'attestation à la signature puis tous les six mois, et vérifiez-la avec son code à 15 caractères. Ce point reste à faire valider par un juriste.
 
-Une agence IA prend en charge un produit ou un agent de l'idée à la production : cadrage du cas d'usage, travail sur les données, intégration de modèles, tests et déploiement. Contrairement à une ESN, l'équipe est petite et spécialisée ; contrairement à un freelance, elle couvre la pile complète. [Lire ce que fait concrètement une agence IA](/fr/resources/articles/agence-intelligence-artificielle).
+**Une certification ISO/IEC 27001 suffit-elle pour le RGPD ?**
+Non. Elle atteste un niveau de sécurité, sans valoir certification RGPD. L'article 28(5) vise un mécanisme « approuvé comme le prévoit l'article 42 », qui « peut servir d'élément » pour démontrer les garanties. Vérifiez d'abord le certificat dans IAF CertSearch, qui contrôle sa validité et l'accréditation de l'organisme certificateur. Demandez ensuite les garanties par écrit, avant la signature.
 
-### Agence IA ou ESN : quelle différence ?
+**Comment vérifier qu'un hébergeur figure sur la liste HDS ?**
+Cherchez l'hébergeur dans la liste que l'ANS publie sur esante.gouv.fr. Pour chaque hébergeur, la liste donne les activités HDS couvertes, la version du référentiel et l'organisme certificateur. Demandez aussi au prestataire quel hébergeur et quelles activités HDS couvrent les données du projet, puisqu'il ne les héberge en général pas lui-même.
 
-Une ESN fournit surtout des profils qui renforcent vos équipes, le plus souvent en régie. Une agence IA prend en charge un projet de bout en bout avec sa propre équipe. La frontière est floue : jugez sur les projets livrés, pas sur l'étiquette.
+**L'agence peut-elle sous-traiter à des freelances ?**
+Si elle le fait, la loi de 1975 prévoit, pour un contrat d'entreprise, que l'entrepreneur fasse accepter chaque sous-traitant par le maître de l'ouvrage. Demandez la liste nommée avant de signer, puis l'attestation de vigilance de chaque sous-traitant. L'application de cette loi à une prestation informatique est à faire valider par un juriste.
 
-### Faut-il commencer par un POC ?
+**Agence ou équipe interne ?**
+Vérifiez d'abord qu'un logiciel prêt à l'emploi ne suffit pas, puisque c'est le mode le plus fréquent chez les entreprises françaises qui utilisent l'IA, d'après Eurostat. Dans l'échantillon du MIT NANDA, les partenariats externes atteignent le déploiement environ 67 % du temps, contre 33 % en interne, sans preuve de causalité. Le comparatif cité plus haut détaille le reste.
 
-Oui, s'il répond à une question de décision avec de vraies données, de vrais utilisateurs et un critère de succès fixé à l'avance.
+## Un second regard sur le dossier
 
-### Forfait ou régie pour un projet IA ?
+Vous comparez des candidats pour un projet IA et voulez un second avis sur leurs pièces.
 
-Un cadrage court au forfait, puis des lots courts avec un point d'arrêt explicite. Le forfait pur sur un produit entier suppose qu'on connaît d'avance le nombre d'itérations, ce qui est rarement le cas en IA.
-
-### Peut-on internaliser après un projet avec une agence ?
-
-Oui, c'est un bon chemin. Prévoyez dès le contrat la documentation, la propriété du code et des sessions de transmission.
-
-## Vous hésitez sur la bonne option pour votre projet ?
-
-The Vibe Company est une agence IA à Paris, fondée en 2024 par Stan Girard et Antoine Dewez, anciens de Theodo et de Stockly. En 30 minutes, on regarde votre cas et on vous dit honnêtement si une agence est la bonne option, même si la réponse est non.
-
-[Réservez 30 minutes pour en parler →](https://cal.com/stangirard/thevibecompany)
+[Réserver un échange](https://cal.com/stangirard/thevibecompany)

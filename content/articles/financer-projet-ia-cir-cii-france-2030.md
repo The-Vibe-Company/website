@@ -1,11 +1,12 @@
 ---
-title: "Financer un projet IA : CIR, CII, Diag Data IA, France 2030"
-seoTitle: "Financer un projet IA : CIR, CII, aides | The Vibe Company"
+title: "Financer un projet IA en 2026 : aides, CIR, CII et montants"
+seoTitle: "Financer un projet IA en 2026 : CIR, CII | The Vibe Company"
 slug: financer-projet-ia-cir-cii-france-2030
 translationKey: fund-ai-project-france
 language: fr
-summary: "CIR, CII, Diag Data IA, Osez l'IA : financer un projet IA (agents, automatisation, produit), avec le cas MediaGen / AFP."
+summary: "Financer un projet IA en France en 2026 : Diag Data IA, CIR, CII, JEI et France 2030, avec les textes, montants et la formule du crédit, à jour au 12 novembre."
 publishedAt: 2026-10-16
+dateModified: 2026-11-12
 complexity: intermediate
 topics: AI Adoption, Strategy
 coverImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp
@@ -13,108 +14,131 @@ coverAlt: "La mascotte lit une carte au trésor dont le chemin en 4 étapes mèn
 ogImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp
 ---
 
-Un projet IA coûte cher avant de rapporter : salaires, cloud, intégration, temps métier. En France, plusieurs dispositifs publics peuvent en absorber une partie : crédit d'impôt, diagnostic subventionné, appels à projets France 2030. Ils ne se valent pas, et ils ne se cumulent pas n'importe comment.
+Pour financer un projet IA en France, commencez par un diagnostic subventionné si le cas d'usage reste à choisir, puis visez le CIR pour un verrou technique documenté ou le CII pour le produit nouveau d'une PME. Le CIR rend 30 % des dépenses de recherche, et le CII 20 % des dépenses d'innovation depuis le 1er janvier 2025, sur 400 000 € de dépenses par an au plus. À jour au 12 novembre 2026. Ceci n'est pas un avis fiscal : à faire valider par un expert-comptable.
 
-Voici un panorama concret pour une entreprise moyenne à grande qui veut financer un agent, une automatisation ou un produit IA. Les montants et taux cités viennent de sources officielles (Service-Public Entreprendre, Bpifrance, France Num). Vérifiez toujours votre cas avec votre expert-comptable ou votre conseil fiscal : ce n'est pas un avis juridique.
+## Financer un projet IA en 2026 : cinq constats
 
-Chez [The Vibe Company](https://www.thevibecompany.co/fr), agence IA fondée à Paris en 2024 et passée par Y Combinator (W24), on a vu ces dispositifs du côté entreprise (notre propre [CIR](https://www.thevibecompany.co/fr/resources/articles/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia)) et du côté projet (MediaGen avec l'[AFP](https://www.thevibecompany.co/fr/case-studies/afp) dans le cadre de France 2030). On construit les produits et les agents ; on ne se substitue pas à un cabinet fiscal pour monter un dossier à votre place.
+1. La loi de finances pour 2026 n'a modifié l'article 244 quater B du CGI que par l'ajout d'une référence, « 44 octies B », sans toucher à ses taux, d'après la [version en vigueur sur Légifrance](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000053544409). La comparaison mot à mot des deux versions Légifrance, faite le 12 novembre 2026, ne trouve que cet ajout. Les changements qui comptent datent de la loi de finances 2025, que le [BOFiP](https://bofip.impots.gouv.fr/bofip/14709-PGP.html/ACTU-2025-00105) détaille dans son actualité du 13 août 2025.
+2. Le [guide du CIR 2025](https://www.enseignementsup-recherche.gouv.fr/sites/default/files/2025-10/guide-du-cir-2025-38191.pdf) range l'IA dans l'application innovante de concepts récents, et le seul développement d'un logiciel ne suffit pas.
+3. Une plateforme SaaS peut entrer dans le CII si elle constitue un nouveau produit, selon la [fiche Service-Public](https://entreprendre.service-public.gouv.fr/vosdroits/F35494) vérifiée le 20 février 2026.
+4. Un euro de personnel de recherche ouvre donc 0,42 € de CIR, et un euro de personnel au CII 0,20 €, en métropole, hors subventions et sous 100 M€ de dépenses, à faire valider par un expert-comptable.
+5. Le CII va d'abord aux entreprises de conseil et d'assistance en informatique : en 2023, 83 % de sa créance venait des services, et à l'intérieur des services, 50 % du secteur « Conseil et assistance en informatique », selon [le ministère](https://www.enseignementsup-recherche.gouv.fr/sites/default/files/2025-12/le-cr-dit-d-imp-t-recherche-en-2023---provisoire-38761.pdf).
 
-## Quatre leviers, quatre logiques
+## Les dispositifs pour financer un projet IA, en un tableau
 
-| Dispositif | À quoi ça sert | Qui est ciblé (repères) | Ce que ça finance vraiment |
-| --- | --- | --- | --- |
-| [CIR](https://entreprendre.service-public.gouv.fr/vosdroits/F23533) | Crédit d'impôt sur la R&D | Entreprises qui engagent des travaux de recherche | Une part des dépenses de R&D éligibles (pas le « simple » déploiement d'un outil du marché) |
-| [CII](https://entreprendre.service-public.gouv.fr/vosdroits/F35494) | Crédit d'impôt innovation | PME (définition européenne) | Conception de prototypes / installations pilotes d'un **produit nouveau**, jusqu'au 31/12/2027 |
-| [Diag Data IA](https://www.bpifrance.fr/catalogue-offres/diag-data-ia) (Bpifrance) | Diagnostic data / IA subventionné | PME et ETI (souvent 10 à 2 000 salariés selon Bpifrance) | 8 jours d'expert pour cadrer des cas d'usage, **pas** le développement |
-| France 2030 / [Osez l'IA](https://www.bpifrance.fr/catalogue-offres/osez-lia-france-2030) | Plan national d'adoption et d'innovation IA | PME, ETI, parfois consortia (selon l'appel) | Diagnostics, accélérateurs, appels à projets sélectifs (ex. MediaGen) |
+Le tableau suit l'ordre d'un projet : cadrer, financer la trésorerie, construire et récupérer une partie des dépenses, puis viser les gros projets.
 
-L'ordre pratique qu'on voit le plus souvent : d'abord clarifier le problème métier (Diag ou audit interne), puis construire un premier livrable utile, puis structurer le CIR / CII sur ce qui est vraiment de la R&D ou de l'innovation produit, pas l'inverse.
+| Dispositif | Pour qui | Montant ou taux en vigueur | Ce que ça finance | Texte et version | Source et date de lecture |
+|---|---|---|---|---|---|
+| Diag Data IA | PME ou ETI de 10 à 2 000 ETP, au moins 1 000 000 € de CA, plus d'un an d'existence | Devis de 10 000 € HT au plus, subvention de 40 %, reste à charge de 6 000 € HT | 8 jours d'un expert agréé sur 3 mois : état des lieux, cas d'usage, priorisation, feuille de route | Fiche Diag Data IA de Bpifrance | [Bpifrance](https://www.bpifrance.fr/catalogue-offres/diag-data-ia), lue le 12/11/2026 |
+| Accélérateur IA | PME et ETI au CA de plus de 8 M€, plus de 50 collaborateurs, au moins 3 ans d'existence | 46 % du coût pris en charge par France 2030 | 18 mois : diagnostic 360° de 12 jours et deux modules de 13 jours | Page Osez l'IA de la DGE, mise à jour du 28/09/2026 | [DGE](https://www.entreprises.gouv.fr/priorites-et-actions/transition-numerique/accompagner-les-entreprises-dans-leur-transition/le-plan), lue le 12/11/2026 |
+| Pack IA Île-de-France | PME et ETI franciliennes | Subvention de 50 % de la Région, coût maximum de 18 500 € pour l'entreprise | 3 mois et 37 jours de prestation | Programme Pack IA de la Région Île-de-France | [packia.fr](https://packia.fr/), lu le 12/11/2026 |
+| Prêt Boost IA | Entreprises jusqu'à 49 salariés | Prêt de 5 000 à 100 000 € | Le projet, sous forme de prêt | Fiche Prêt Boost IA de Bpifrance | [Bpifrance](https://flash.bpifrance.fr/financement/pret-boost-intelligence-artificielle), lu le 12/11/2026 |
+| CIR | Entreprises qui mènent des opérations de R&D | 30 % des dépenses de recherche jusqu'à 100 M€, 5 % au-delà | Personnel de recherche, plus un forfait de 40 % de ce personnel, subventions déduites | CGI, art. 244 quater B, I, II et III, version du 1/01/2026 | Légifrance, lu le 12/11/2026 |
+| CII | PME, jusqu'au 31/12/2027 | 20 % en métropole, sur 400 000 € de dépenses par an au plus | Conception de prototypes de produits nouveaux, sans forfait de fonctionnement | CGI, art. 244 quater B, II k, version du 1/01/2026 | Légifrance, lu le 12/11/2026 |
+| JEI | PME de moins de 8 ans, R&D d'au moins 20 % des charges | Exonération de cotisations patronales, plafonnée à 240 300 € par établissement et par année civile | Cotisations patronales d'assurances sociales et d'allocations familiales | Fiche JEI de Service-Public, vérifiée le 01/06/2026 | [Service-Public](https://entreprendre.service-public.gouv.fr/vosdroits/F31188), lue le 12/11/2026 |
+| France 2030 | Projets de R&D importants | i-Démo 5 : plus de 4 M€ de dépenses en collaboratif, plus de 2 M€ en mono-partenaire | Appels à projets, dont i-Démo 5 et l'AAP Culture et IA, clos en 2026 | AAP i-Démo 5, dernière relève du 9/09/2026 | [Bpifrance](https://www.bpifrance.fr/nos-appels-a-projets-concours/appel-a-projets-generique-ndeg5-i-demo-soutien-aux-projets-structurants-de-rdi), lu le 12/11/2026 |
 
-## CIR : le levier le plus connu, le plus mal compris
+## Le calcul du CIR et du CII, sur deux exemples fictifs
 
-Le [crédit d'impôt recherche](https://entreprendre.service-public.gouv.fr/vosdroits/F23533) vise les activités de recherche et développement. Selon Service-Public Entreprendre, en métropole le taux est de **30 %** sur la partie des dépenses inférieure ou égale à 100 M€, et de **5 %** au-delà. En outre-mer, le taux de première tranche est de **50 %**.
+La base du CIR ajoute au personnel de recherche un forfait de fonctionnement égal à 40 % de ce personnel. Le CGI retire ensuite les subventions publiques : elles « sont déduites des bases de calcul de ce crédit, qu'elles soient définitivement acquises par elles ou remboursables ». La base du CII ne contient pas de forfait, et son taux est de 20 % en métropole.
 
-Ce n'est pas un chèque pour « faire de l'IA ». Un déploiement standard d'un SaaS, une formation ChatGPT, ou une intégration sans incertitude technique relevent rarement du CIR. En revanche, peut entrer dans le cadre, sous conditions, un travail qui crée de la connaissance scientifique ou technique nouvelle : modèles, pipelines d'évaluation, architectures, preuves de faisabilité documentées.
+**Exemple fictif 1 (CIR).** Une entreprise expose 150 000 € de dépenses de personnel de recherche en métropole et reçoit 20 000 € de subvention publique pour les mêmes opérations. Sa base vaut alors 150 000 + 40 % × 150 000 − 20 000 = 190 000 €, ce qui donne un CIR de 30 % × 190 000 = 57 000 €. Sans la subvention, le même calcul donne 63 000 €.
 
-On a écrit notre propre dossier CIR avec l'IA, pour récupérer 150 000 euros, et détaillé ce qui a marché (et ce qu'il ne faut pas laisser inventer à un modèle) dans deux articles :
+**Exemple fictif 2 (CII).** Une PME expose 300 000 € de personnel affecté à la conception du prototype d'un produit nouveau, en métropole, et son CII vaut 20 % × 300 000 = 60 000 €. Au-delà de 400 000 € de dépenses, le crédit reste plafonné à 80 000 €.
 
-- [Comment on a écrit notre CIR pour récupérer 150 000 euros grâce à l'IA](https://www.thevibecompany.co/fr/resources/articles/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia)
-- [Laisser l'IA faire votre CIR sans la laisser inventer](https://www.thevibecompany.co/fr/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer)
+Ces deux exemples sont fictifs, avec des montants inventés pour montrer la formule. Ils valent en métropole, sous 100 M€ de dépenses, hors DOM et Corse. Exemples fictifs à faire valider par un expert-comptable.
 
-Le point important pour un projet IA chez vous : documentez au fur et à mesure (hypothèses, échecs, choix techniques, temps passé). Un CIR se construit dans le temps, pas en une nuit avant la clôture fiscale.
+## Ce qui a changé dans les textes depuis 2025
 
-## CII : pour les PME qui conçoivent un produit nouveau
+- 1er janvier 2025 : le taux de droit commun du CII passe de 30 % à 20 % pour les dépenses exposées à partir de cette date (loi de finances 2025, art. 56).
+- 15 février 2025 : le forfait de fonctionnement du CIR passe de 43 % à 40 %, et les brevets et la veille technologique sortent de l'assiette (loi de finances 2025, art. 55).
+- 13 août 2025 : le BOFiP publie ces changements dans son actualité ACTU-2025-00105.
+- 1er janvier 2026 : la version actuelle de l'article 244 quater B entre en vigueur, telle que la loi n° 2026-103 du 19 février 2026, loi de finances pour 2026, l'a modifiée par son article 42.
+- 20 octobre 2026 : Bpifrance clôt l'AAP France 2030 « Transition numérique de la Culture et appropriation de l'IA ».
 
-Le [crédit d'impôt innovation](https://entreprendre.service-public.gouv.fr/vosdroits/F35494) est une extension du CIR réservée aux **PME** (moins de 250 salariés, et CA < 50 M€ ou bilan < 43 M€, selon la définition rappelée sur Service-Public). Il porte sur la conception de **prototypes ou d'installations pilotes d'un produit nouveau**, pour des dépenses exposées jusqu'au **31 décembre 2027**.
+La loi de finances 2025 précise aussi que les subventions à déduire viennent de personnes publiques ou de personnes privées chargées d'une mission de service public.
 
-Taux en métropole, d'après Service-Public : **20 %**. Le montant des dépenses prises en compte est plafonné à **400 000 €** par an. En outre-mer le taux indiqué est de 60 % ; en Corse, 40 % pour les petites entreprises et 35 % pour les moyennes.
+## CIR et projet IA : ce que demande le guide du ministère
 
-Le CII ne couvre pas la phase de production du prototype. Ce n'est pas non plus un filet pour toute automatisation interne : le dispositif vise un **produit nouveau** destiné à être commercialisé plus tard, pas un outil purement interne sans nouveauté.
+Le guide du CIR 2025 part d'un problème pour lequel il n'existe pas de solution évidente et disponible dans l'état de l'art, traité avec une démarche scientifique documentée.
 
-Pour une PME qui construit un agent ou un produit IA à vendre (ou un module différenciant), le CII peut compléter le CIR, sous réserve de ne pas double-compter les mêmes dépenses. Votre fiscaliste tranche.
+| Compte pour le CIR | Ne suffit pas à lui seul |
+|---|---|
+| L'application innovante de concepts récents, comme l'intelligence artificielle, dans un contexte nouveau ou contraint, avec une validation rigoureuse | Le seul développement d'un logiciel, d'une application ou d'une fonctionnalité, sans démarche explicite de recherche |
+| Un prototype qui sert d'outil de validation de concepts de R&D | Un prototype logiciel en lui-même |
+| L'intégration d'une technologie récente qui oblige à résoudre des problèmes scientifiques ou techniques | L'acquisition de compétences sur des outils informatiques |
+| La collecte de données d'entraînement directement utile à une opération éligible, sans source libre équivalente | Les itérations Agile qui corrigent des défauts ou atteignent des spécifications |
 
-## Diag Data IA : cadrer avant de dépenser
+Le guide tranche aussi une idée reçue : « La complexité d'un projet informatique n'est pas un critère d'éligibilité. » Il attend une documentation avec les hypothèses, les étapes de développement, les méthodes d'évaluation, les données collectées, l'analyse des résultats et les conclusions. Brancher un modèle sur une API ne crée donc pas, à lui seul, un verrou au sens du guide : lecture à faire valider par un expert-comptable.
 
-Le [Diag Data IA](https://www.bpifrance.fr/catalogue-offres/diag-data-ia) de Bpifrance est un diagnostic data / IA, pas un budget de build. Selon la fiche Bpifrance et le portail [diag.bpifrance.fr](https://diag.bpifrance.fr/diag-data-ia) :
+## CII : un produit nouveau pour le marché, SaaS compris
 
-- devis maximal de **10 000 € HT** ;
-- subvention de **40 %** (offre financée dans le cadre de France 2030 / plan Osez l'IA) ;
-- **reste à charge de 6 000 € HT** pour les PME et les ETI de moins de 2 000 ETP qui remplissent les conditions ;
-- environ **8 jours** d'expert pour évaluer la maturité data/IA et prioriser des cas d'usage.
+Le CGI définit le nouveau produit comme un bien, corporel ou incorporel, pas encore mis à disposition sur le marché et supérieur aux produits existants sur le plan technique, de l'écoconception, de l'ergonomie ou des fonctionnalités. Service-Public cite une plateforme SaaS comme exemple possible et exclut la seule amélioration d'un service existant. Le prototype sert de modèle et ne va pas sur le marché, et la phase de production du prototype sort du CII. La sous-traitance n'entre dans la base que si l'entreprise la confie à des entreprises ou bureaux d'études et d'ingénierie agréés. Une dépense déjà prise en compte dans le CIR ne compte pas une seconde fois dans le CII. Un outil interne, qui ne vise pas le marché, ne répond donc pas à cette définition : à faire valider par un expert-comptable.
 
-[France Num](https://www.francenum.gouv.fr/guides-et-conseils/intelligence-artificielle/comprendre-et-adopter-lia/diag-data-ia-beneficiez-dun) indique que 2 000 accompagnements sont cofinancés sur 2026–2027, dans la limite des places. L'éligibilité courante citée : PME / ETI (souvent à partir de 10 salariés). La demande passe par la plateforme Bpifrance.
+## Trésorerie et rescrit : quand le CIR arrive
 
-Ce que le Diag ne fait pas : coder votre agent, brancher vos API, ou garantir un ROI. Il sert à éviter de lancer le mauvais projet. Ensuite, il faut encore construire : en interne, avec une agence, ou les deux.
+En règle générale, le CIR s'impute sur l'impôt de l'année et des 3 années suivantes, puis l'entreprise touche le reliquat. Les PME au sens du droit de l'Union, les JEI, les entreprises nouvelles et les entreprises en difficulté peuvent demander un [remboursement immédiat](https://bofip.impots.gouv.fr/bofip/4669-PGP.html). Le BOFiP donne l'exemple d'une PME dont la créance de l'année N devient remboursable en N+1, après liquidation de l'impôt sur les sociétés. La déclaration passe par le formulaire 2069-A-SD, au plus tard le 15 du 4e mois après la clôture de l'exercice pour une société à l'IS. En cas de doute, la demande de [rescrit CIR](https://bofip.impots.gouv.fr/bofip/620-PGP.html) part au moins six mois avant la date limite de cette déclaration. Après ce délai, l'administration la juge irrecevable, et dans le délai, trois mois de silence valent accord tacite.
 
-## France 2030 : du diagnostic aux appels à projets
+## Cadrer un projet IA avant de construire
 
-Le plan [Osez l'IA](https://www.bpifrance.fr/catalogue-offres/osez-lia-france-2030) de France 2030 (Bpifrance, DGE, SGPI) regroupe plusieurs briques pour les PME et ETI : autodiag, plateforme de cas d'usage, Diag Data IA, accélérateurs IA, etc. Ce n'est pas un guichet unique avec un chèque unique : chaque offre a ses critères.
+Méfiez-vous des chiffres anciens sur le Diag Data IA. Le 12 novembre 2026, le premier résultat Google pour « financer un projet ia », une page d'economie.gouv.fr écrite le 24/01/2025, affichait encore 13 000 € HT et 50 %. La fiche Bpifrance et la page de la DGE mise à jour le 28/09/2026 donnent 10 000 € HT et 40 %. Une fois le cas d'usage testé, la [grille du POC à la production](/fr/resources/articles/poc-agent-ia-production) aide à décider de la suite. Si un prestataire construit la suite, le [guide pour choisir une agence IA, une ESN ou un freelance](/fr/resources/articles/choisir-agence-ia-esn-freelance) liste les vérifications à faire avant de signer. Pour mesurer ensuite ce que le projet rapporte, la [méthode du ROI IA en 5 indicateurs](/fr/resources/articles/roi-ia) suit l'usage, la qualité, le coût complet et l'effet métier.
 
-À côté, des **appels à projets** France 2030 financent des consortiums ou des R&D plus lourdes. On en a un exemple public : [MediaGen](https://www.thevibecompany.co/fr/case-studies/afp), porté par l'AFP avec Quivr / The Vibe Company, Kairntech et Dawex : projet France 2030 d'IA générative pour les rédactions, soutenu par Bpifrance, annoncé à **4 M€** sur le site. Objectif : veille augmentée, recherche multimodale dans les archives, aide à la production sous contrôle journalistique, avec une partie des composants en open source.
+## France 2030 : deux appels clos en 2026
 
-Ce type d'appel n'est pas le parcours standard d'une ETI qui veut un agent support en six semaines. C'est un parcours sélectif, long, souvent en consortium. Utile à connaître si votre projet IA a une dimension de rupture ou d'intérêt général (santé, médias, industrie…). Pour un déploiement métier classique, regardez d'abord Diag + build + CIR/CII.
+Bpifrance a clos l'AAP « Transition numérique de la Culture et appropriation de l'IA » au 20 octobre 2026, après épuisement des moyens, et supprimé les relèves du 25/11/2026 et du 16/06/2027, d'après [sa page](https://www.bpifrance.fr/nos-appels-a-projets-concours/appel-a-projets-transition-numerique-de-la-culture-et-appropriation-de-lintelligence-artificielle). Cet appel demandait une assiette minimum de 400 000 € de dépenses éligibles. L'appel i-Démo 5, ouvert aux projets de plus de 4 M€ en collaboratif ou de plus de 2 M€ en mono-partenaire, a eu sa dernière relève le 9 septembre 2026 à midi. Avant de monter un dossier, vérifiez le jour même les appels ouverts sur [la page des appels à projets de Bpifrance](https://www.bpifrance.fr/nos-appels-a-projets-concours) et sur [la page des appels à candidatures de France 2030](https://www.info.gouv.fr/france-2030/appels-a-candidatures).
 
-## Comment choisir selon votre projet
+## Les chiffres officiels du CIR et du CII
 
-**Vous ne savez pas encore où l'IA crée de la valeur.** Commencez par un cadrage (Diag Data IA ou audit interne). Mesurez un cas d'usage sur vos vraies données avant d'acheter une licence ou de lancer un build de six mois.
+En 2023, d'après les données provisoires du ministère publiées en décembre 2025, 29 720 sociétés ont déclaré 27 Md€ de dépenses éligibles au CIR, pour 7,8 Md€ de crédit. Au CII, 11 030 déclarants ont déclaré 1 659 M€ de dépenses, pour 10 688 bénéficiaires et une créance de 500 M€. Le secteur « Conseil et assistance en informatique » pèse 16 % de la créance de CIR-recherche. Par calcul, la créance CII moyenne tourne autour de 46 800 € par bénéficiaire en 2023, au taux de 30 % alors en vigueur. Ce calcul donne un ordre de grandeur passé, à ne pas transposer au taux actuel de 20 %.
 
-**Vous avez un cas clair (support, ops, produit) et besoin d'un livrable qui tourne.** Financez surtout le build et le run. Le CIR / CII ne remplace pas un budget produit ; ils peuvent en réduire le coût net *si* le travail est éligible et bien documenté. Voir aussi notre [checklist du POC à la production](https://www.thevibecompany.co/fr/resources/articles/poc-agent-ia-production).
+## JEI et JEII pour une jeune entreprise d'IA
 
-**Vous êtes une PME qui construit un produit IA nouveau.** Regardez CII + CIR avec votre conseil. Le plafond CII (400 000 € de dépenses) et le taux à 20 % en métropole donnent un ordre de grandeur officiel, pas une promesse de récupération.
+Une PME créée depuis moins de 8 ans, dont la R&D atteint au moins 20 % des charges, peut prendre le statut de JEI, selon Service-Public. Les JEI créées à partir du 1er janvier 2024 n'ont plus d'exonération d'impôt sur les bénéfices. Une JEI créée avant le 31 décembre 2028 bénéficie d'une exonération de cotisations patronales, dans la limite de 8 401,58 € de rémunération mensuelle et de 240 300 € par établissement et par année civile. Le statut de JEII, sous-catégorie de la JEI, vise les PME engagées dans une recherche à forte utilité sociale ou environnementale. Une JEI peut aussi demander le remboursement direct de son CIR.
 
-**Vous visez un financement structurant type France 2030.** Attendez-vous à un calendrier d'appel à projets, à des partenaires, et à une charge administrative réelle. MediaGen / AFP montre que c'est possible ; ce n'est pas le chemin le plus court vers un premier agent en production.
+## Financer un projet IA : l'arbre de décision
 
-Dans tous les cas : ne faites pas monter un CIR « cosmétique » autour d'un projet qui n'est pas de la R&D. Un contrôle coûte plus cher qu'un dossier gonflé.
+![Arbre en 4 questions : Diag Data IA ou Accélérateur IA, CIR, CII, France 2030, sinon Prêt Boost IA. Détaillé ci-dessous.](/images/resources/financer-projet-ia-cir-cii-france-2030/arbre-decision-financer-projet-ia.png){.diagram}
 
-## Ce qu'on fait (et ce qu'on ne fait pas)
+Quatre questions mènent au bon dispositif, dans l'ordre d'un projet.
 
-The Vibe Company a été fondée en 2024 par Stan Girard et Antoine Dewez (ex-Theodo, ex-Stockly), YC W24, 1,7 M$ levés. On a livré des dizaines de projets : [LocService](https://www.thevibecompany.co/fr/case-studies/locservice) (support), [Monka](https://www.thevibecompany.co/fr/case-studies/monka) (santé), MediaGen / [AFP](https://www.thevibecompany.co/fr/case-studies/afp) (France 2030).
+1. Le cas d'usage reste à choisir : Diag Data IA (10 à 2 000 ETP, CA d'au moins 1 M€, plus d'un an), Accélérateur IA (CA de plus de 8 M€, plus de 50 collaborateurs, au moins 3 ans) ou, en Île-de-France, Pack IA.
+2. Un verrou scientifique ou technique documenté face à l'état de l'art existe : CIR, avec un rescrit en cas de doute.
+3. Sinon, une PME conçoit le prototype d'un produit nouveau destiné au marché, SaaS compris : CII.
+4. Le projet de R&D dépasse 2 M€, ou 4 M€ en collaboratif : appels France 2030 comme i-Démo, à vérifier le jour même, puisque i-Démo 5 et l'AAP Culture et IA sont clos.
 
-On aide à **construire** l'agent ou le produit, à le mettre en production, et à documenter le travail technique de façon utilisable. On a expérimenté le CIR sur **notre** activité. On n'est pas un cabinet de financement public : pour le dépôt fiscal, le rescrit ou le montage d'un appel à projets, travaillez avec les professionnels adaptés (expert-comptable, conseil CIR/CII, Bpifrance).
+Sans verrou ni produit nouveau, comme pour un outil interne ou l'intégration d'un outil du marché, aucun crédit d'impôt ne s'applique, et le Prêt Boost IA peut financer la construction jusqu'à 49 salariés. Une jeune PME dont la R&D atteint 20 % des charges regarde aussi la JEI. Cet arbre reste une lecture des textes, à faire valider par un expert-comptable.
 
-Si vous hésitez encore entre agence, ESN ou équipe interne, on a publié un guide pour [choisir une agence IA](https://www.thevibecompany.co/fr/resources/articles/choisir-agence-ia-esn-freelance).
+## Échéances à surveiller dans les textes
+
+- Le CGI prévoit le CII jusqu'au 31 décembre 2027.
+- France Num annonce 2 000 accompagnements Diag Data IA cofinancés pour 2026-2027.
+- L'exonération sociale de la JEI vaut pour les entreprises créées avant le 31 décembre 2028.
+- Le plan Osez l'IA, lancé en juillet 2025, vise pour 2030 l'IA dans 100 % des grandes entreprises, 80 % des PME et ETI et 50 % des TPE.
 
 ## FAQ
 
-**Le CIR finance-t-il n'importe quel projet IA ?**
-Non. Le CIR cible la R&D. Beaucoup de projets d'adoption (connecter un LLM à votre CRM, automatiser des tickets) ne sont pas, ou pas entièrement, de la recherche. Partez du texte officiel Service-Public et de votre conseil fiscal.
+**Un projet d'agent IA est-il éligible au CIR ?**
+Seulement s'il traite un problème sans solution évidente dans l'état de l'art, avec une démarche documentée. Le guide du CIR 2025 range l'IA dans l'application innovante de concepts récents, mais le seul développement d'un logiciel ne suffit pas, et la complexité ne compte pas. Un prototype doit servir à valider des concepts de R&D.
 
-**Diag Data IA et CIR, c'est cumulable ?**
-Ce sont des logiques différentes : le Diag subventionne un diagnostic ; le CIR est un crédit d'impôt sur des dépenses de R&D. Les subventions reçues pour un même projet peuvent réduire l'assiette d'un crédit d'impôt. Faites valider le cumul par votre expert-comptable.
+**Un abonnement ChatGPT entre-t-il dans le CIR ?**
+Pas comme une ligne de plus. La liste des dépenses du CGI ne cite pas les abonnements logiciels, et les autres dépenses de fonctionnement passent par un forfait de 40 % du personnel de recherche. Un abonnement ne s'ajoute donc pas à la base en plus de ce forfait. Cette lecture reste à faire valider par un expert-comptable.
 
-**Combien récupère-t-on avec le CII ?**
-En métropole, Service-Public indique 20 % des dépenses éligibles, dans la limite de 400 000 € de dépenses prises en compte. Au-delà du plafond et hors dépenses éligibles, rien. Le remboursement dépend aussi de votre situation fiscale.
+**Le CII couvre-t-il un outil interne ?**
+En règle générale, non. Le CGI vise un produit pas encore mis sur le marché et supérieur aux produits existants, et Service-Public exclut la seule amélioration d'un service existant. Un SaaS vendu à des clients peut en revanche entrer dans le CII s'il constitue un nouveau produit. Point à faire valider par un expert-comptable.
 
-**Faut-il attendre un appel France 2030 pour démarrer ?**
-Rarement. Si le besoin métier est clair, construisez un premier livrable. Les appels France 2030 sont sélectifs et calendaires ; le Diag Data IA et le CIR/CII sont souvent plus adaptés à un projet d'entreprise « classique ».
+**Une subvention réduit-elle le CIR ?**
+Oui. Le CGI retire des bases de calcul les subventions publiques reçues pour les opérations qui ouvrent droit au crédit, acquises ou remboursables. Dans l'exemple fictif 1, 20 000 € de subvention font passer le CIR de 63 000 € à 57 000 €. Ce montant d'exemple reste à faire valider par un expert-comptable.
 
-**The Vibe Company monte-t-elle les dossiers CIR pour ses clients ?**
-On construit les projets et on documente le travail technique. Le montage et le dépôt du dossier fiscal relèvent de votre équipe finance / de votre conseil. On a publié notre retour d'expérience sur **notre** CIR ; ce n'est pas une offre de représentation fiscale.
+**Quand le crédit est-il versé ?**
+Le CIR vient d'abord en déduction de l'impôt dû, sur l'année et les 3 suivantes, et ce qui reste revient ensuite à l'entreprise. Une PME au sens de l'Union, une JEI ou une entreprise nouvelle peut obtenir un remboursement immédiat, en N+1 pour une créance de l'année N selon l'exemple du BOFiP.
 
-## Parlons de votre projet (et de son financement)
+## Méthode et sources
 
-Vous avez un cas d'usage IA en tête et vous voulez savoir ce qui se finance vraiment : build, Diag, CIR/CII, ou un appel type France 2030 ? Venez avec le périmètre, la taille de l'entreprise et le calendrier. On vous dit ce qu'on peut construire, ce qui relève plutôt d'un diagnostic Bpifrance, et ce qu'il faut poser à votre expert-comptable.
+Textes lus le 12 novembre 2026 : CGI, article 244 quater B, version en vigueur depuis le 1er janvier 2026 ; BOFiP ACTU-2025-00105 du 13 août 2025 ; guide du CIR 2025 du ministère, publié en octobre 2025 ; « Le CIR en 2023 », données provisoires. Les fiches Bpifrance, DGE, France Num et Service-Public servent avec leur date de mise à jour ou de vérification. Service-Public, en appui, affiche une vérification du 20 février 2026 pour la fiche CII et du 21 février 2025 pour la fiche CIR.
 
-[Un outil IA pour votre rédaction ?](/fr/ia-medias) Notre page IA médias détaille ce qu'on construit pour les rédactions, avec la preuve MediaGen.
+## Un projet IA à financer
 
-[Réservez 30 minutes avec Stan](https://cal.com/stangirard/30min).
+Vous avez un projet IA et voulez savoir quelle part peut se financer avant de lancer les travaux.
+
+[Réserver un échange](https://cal.com/stangirard/thevibecompany)
