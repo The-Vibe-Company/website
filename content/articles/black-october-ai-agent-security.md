@@ -1,6 +1,7 @@
 ---
 title: "Black October: PHP flaws, stolen secrets, and what it means for AI agents"
-seoTitle: "Black October: PHP flaws & AI agents | The Vibe Company"
+seoTitle: "AI agent security risks: lessons from Black October"
+seoDescription: "AI agent security risks exposed by Black October (PHP2Shell, Railway): keys in agent context, unpatched runtimes, broad env vars. A 48-hour checklist."
 slug: black-october-ai-agent-security
 translationKey: black-october-ai-agent-security
 language: en

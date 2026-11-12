@@ -1,6 +1,7 @@
 ---
 title: "Black October : failles PHP, secrets volés, ce que ça change pour vos agents IA"
-seoTitle: "Black October : failles PHP, agents IA | The Vibe Company"
+seoTitle: "Risques de sécurité des agents IA : leçons de Black October"
+seoDescription: "Sécurité des agents IA : ce que Black October (PHP2Shell, Railway) révèle sur les clés dans le contexte et les runtimes non patchés. Checklist 48 h."
 slug: black-october-securite-agents-ia
 translationKey: black-october-ai-agent-security
 language: fr
