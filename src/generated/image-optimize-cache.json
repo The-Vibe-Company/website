@@ -211,6 +211,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/financer-projet-ia-cir-cii-france-2030/arbre-decision-financer-projet-ia.png": {
+      "sourceHash": "c2231579e0ad7acd56aeb559ee64aa2512a92f53307c4f4a08da9441c9fbf6de",
+      "targetUrl": "/images/_optimized/resources/financer-projet-ia-cir-cii-france-2030/arbre-decision-financer-projet-ia.webp",
+      "targetHash": "0c860c307eaa73681f5e8cd1ead5b63f4730b01415bfd2e104f19bac63ca6771"
+    },
     "content:/images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp": {
       "sourceHash": "92950414024f1db24bd16f7ee4b8c99f58e6a62d29bdf0301eee6eb687fa2f07",
       "targetUrl": null,
@@ -260,6 +265,11 @@
       "sourceHash": "5809540d1defac024144c7489d5aeb692f377bd336baf119806a12d70deb231f",
       "targetUrl": "/images/_optimized/resources/focus-skill-logo-svg/stack-logo.webp",
       "targetHash": "909dd86c07cecf2a32a4af2823aaf14f519cfe980966bceb636f5dea89f43a41"
+    },
+    "content:/images/resources/fund-ai-project-france-cir-cii/decision-tree-fund-ai-project-france.png": {
+      "sourceHash": "95f83a8cffec98172644e7a3ca6423162cc56801b0e39efd4d9160dcb53c84bf",
+      "targetUrl": "/images/_optimized/resources/fund-ai-project-france-cir-cii/decision-tree-fund-ai-project-france.webp",
+      "targetHash": "9c4c6a6746197a336c5ccfb24763ef7a54c18c767b80d21138d3a78f7f5ef46b"
     },
     "content:/images/resources/get-cited-chatgpt-gemini-aeo/2-google-levers-ai-overviews.png": {
       "sourceHash": "f688a3517d30a791b9cfdeef26495b29e4686e2b11dd32c5d2c7b7b5692fc28d",
