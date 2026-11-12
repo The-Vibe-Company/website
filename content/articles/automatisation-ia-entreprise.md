@@ -121,7 +121,7 @@ Le dernier point compte de plus en plus. Dans la même enquête McKinsey, enviro
 
 ## Comment on s'y prend chez The Vibe Company
 
-[The Vibe Company](https://www.thevibecompany.co/fr) est une agence IA fondée à Paris en 2024 par Stan Girard et Antoine Dewez (ex-Theodo, ex-Stockly), passée par Y Combinator (W24), avec 1,7 M$ levés. On a mené des dizaines de projets, de l'assistant support de LocService aux produits livrés pour [Monka](https://www.thevibecompany.co/fr/case-studies/monka) dans un environnement de données de santé.
+[The Vibe Company](https://www.thevibecompany.co/fr) est une agence IA fondée à Paris en 2024 par Stan Girard et Antoine Dewez (ex-Theodo, ex-Stockly), passée par Y Combinator (W24), avec 1,7 M$ levés. On a mené des dizaines de projets, de l'assistant support de LocService aux produits livrés pour [Monka](https://www.thevibecompany.co/fr/case-studies/monka) dans un environnement de [données de santé](/fr/resources/articles/ia-donnees-de-sante-hds).
 
 Notre façon de faire pour une automatisation :
 

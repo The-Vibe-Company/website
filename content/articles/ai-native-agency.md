@@ -101,7 +101,7 @@ No. At an AI-native agency, AI is at the core of production. Coding agents produ
 The team. Agents produce, but every delivery is reviewed and approved by a senior person who answers for it. Ask who signs off on the delivery and what that person regularly rejects. A named answer, with examples of rejections, is a good sign. "The AI delivers, it ships" is a weak signal.
 
 **Do you work with sensitive data?**
-Yes. HDS (the French health data hosting standard) and security are among the three specialties of The Vibe Company, alongside frontend and DevOps. In these areas, rigor matters as much as speed. Agents speed up production, and the team reviews and approves every delivery before it goes to the client.
+Yes. [HDS](/en/resources/articles/ai-health-data-hds-france) (the French health data hosting standard) and security are among the three specialties of The Vibe Company, alongside frontend and DevOps. In these areas, rigor matters as much as speed. Agents speed up production, and the team reviews and approves every delivery before it goes to the client.
 
 **How do I get started?**
 With a 30-minute call with Stan, to understand your need and see what can be shown to you quickly. Bring a concrete project. You leave with a first idea of how to build it. You then decide based on what you have seen.

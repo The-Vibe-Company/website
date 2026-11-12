@@ -102,7 +102,7 @@ Part of that defence can be handed to agents. A control agent replays a set of b
 
 ## What we're building with AFP in MediaGen
 
-[MediaGen](/en/case-studies/afp) is AFP's generative AI project, selected under France 2030 and backed by Bpifrance, with a total budget of €4M over 24 months. The consortium brings together Quivr/The Vibe Company, Kairntech and Dawex. The project will deliver three tools to newsrooms:
+[MediaGen](/en/case-studies/afp) is AFP's generative AI project, selected under France 2030 and backed by Bpifrance, with a total budget of €4M over 24 months. The consortium brings together [Quivr/The Vibe Company](/en/resources/articles/quivr-to-the-vibe-company), Kairntech and Dawex. The project will deliver three tools to newsrooms:
 
 - **Augmented monitoring**, which pulls together and analyzes media, social networks and press releases in real time.
 - **Multimodal search** across text, photo and video archives, with 90 million documents made searchable.

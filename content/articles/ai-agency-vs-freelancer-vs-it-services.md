@@ -71,7 +71,7 @@ The risk: ending up dependent on a system nobody on your side understands. Put i
 
 "Extract amounts and dates from our PDF contracts into our ERP, with an error rate measured on 200 documents." That's a good freelance brief. The scope is clear, so is the success criterion, and someone on your side can run the result.
 
-Freelancers also win on rare expertise: an audit of your RAG architecture, a model evaluation, help on a hard problem for a team that already exists.
+Freelancers also win on rare expertise: an audit of your [RAG architecture](/en/resources/articles/enterprise-rag), a model evaluation, help on a hard problem for a team that already exists.
 
 It breaks down when the project needs interface, back end, infrastructure and security all at once, or when the person leaves halfway. Require the code in your repository, documentation as you go, and access in your company's name from day one.
 
