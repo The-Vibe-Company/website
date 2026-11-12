@@ -166,6 +166,21 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/claude-vs-chatgpt-entreprise/choisir-claude-chatgpt-copilot.png": {
+      "sourceHash": "17983995f70eb5993671109dcadaf331134feaca683ea9c09319fff3ddca3604",
+      "targetUrl": "/images/_optimized/resources/claude-vs-chatgpt-entreprise/choisir-claude-chatgpt-copilot.webp",
+      "targetHash": "5559a91e8def859f717f937c3d07ff70aa8720736ebbfd9cb7d398a6fe249265"
+    },
+    "content:/images/resources/claude-vs-chatgpt-entreprise/cover-mascotte.webp": {
+      "sourceHash": "656cfb64e9f4ff8214335c32be85c04525fc1ccbe0de6473cd22e1765b48f770",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/claude-vs-chatgpt-for-business/choose-claude-chatgpt-copilot.png": {
+      "sourceHash": "7f7ae9fdd25f5512152d992d7d39d9000f7c8c090de378abf06838966bfd077b",
+      "targetUrl": "/images/_optimized/resources/claude-vs-chatgpt-for-business/choose-claude-chatgpt-copilot.webp",
+      "targetHash": "518e0bfe4e8aaa79a0b058cda34d58ec2af818eddbd22c3c88e589db319db3e3"
+    },
     "content:/images/resources/comment-j-ecris-ces-articles/cover.png": {
       "sourceHash": "f8cf897038259e1aa30f21f147e8b42293bbebfd5f245a28e903e1f9a38dddd7",
       "targetUrl": "/images/_optimized/resources/comment-j-ecris-ces-articles/cover.webp",
@@ -618,6 +633,11 @@
     },
     "og:/images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp": {
       "sourceHash": "4e6943e70dccf101685b31b975bde6d126ae5cd2fb7f5c5a22ed07642c070c3e",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/claude-vs-chatgpt-entreprise/cover-mascotte.webp": {
+      "sourceHash": "656cfb64e9f4ff8214335c32be85c04525fc1ccbe0de6473cd22e1765b48f770",
       "targetUrl": null,
       "targetHash": null
     },
