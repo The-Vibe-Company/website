@@ -1,11 +1,12 @@
 ---
-title: "How to fund an AI project in France: CIR, CII, Diag Data IA, France 2030"
-seoTitle: "Fund AI in France: CIR, CII, France 2030 | The Vibe Company"
+title: "AI funding in France 2026: grants, CIR, CII and amounts"
+seoTitle: "AI funding in France 2026: CIR, CII | The Vibe Company"
 slug: fund-ai-project-france-cir-cii
 translationKey: fund-ai-project-france
 language: en
-summary: "CIR, CII, Diag Data IA, Osez l'IA: fund an AI project in France, with official rates and the MediaGen / AFP case."
+summary: "Fund an AI project in France in 2026: Diag Data IA, CIR, CII, JEI and France 2030, with official texts, amounts and the credit formula, as of 12 November."
 publishedAt: 2026-10-16
+dateModified: 2026-11-12
 complexity: intermediate
 topics: AI Adoption, Strategy
 coverImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp
@@ -13,108 +14,131 @@ coverAlt: "The mascot reads a treasure map showing a four-milestone path to a ca
 ogImage: /images/resources/financer-projet-ia-cir-cii-france-2030/cover-mascotte-v3.webp
 ---
 
-An AI project costs money before it pays off: salaries, cloud, integration, business time. In France, several public schemes can cover part of that: tax credits, a subsidised diagnostic, France 2030 calls. They are not interchangeable, and they do not stack in arbitrary ways.
+To fund an AI project in France, start with a subsidized diagnostic if the use case is still open, then aim for the research tax credit, Crédit d'impôt recherche (CIR), for a documented technical barrier, or the innovation tax credit, Crédit d'impôt innovation (CII), for an SME's new product. CIR returns 30% of research expenses, and CII 20% of innovation expenses since January 1, 2025, on at most €400,000 of expenses per year. Up to date as of November 12, 2026. This is not tax advice: to be validated by a chartered accountant.
 
-Here is a practical map for a mid-sized to large company that wants to fund an agent, an automation, or an AI product. Rates and amounts below come from official sources (Service-Public Entreprendre, Bpifrance, France Num). Always check your case with your accountant or tax adviser: this is not legal advice.
+## Funding an AI project in France in 2026: five findings
 
-At [The Vibe Company](https://www.thevibecompany.co/en), an AI agency founded in Paris in 2024 and backed by Y Combinator (W24), we have seen these schemes from the company side (our own [CIR](https://www.thevibecompany.co/fr/resources/articles/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia)) and from the project side (MediaGen with [AFP](https://www.thevibecompany.co/en/case-studies/afp) under France 2030). We build products and agents; we do not replace a tax firm filing a dossier on your behalf.
+1. The 2026 finance law amended Article 244 quater B of the French tax code (CGI) only by adding a reference, "44 octies B", without touching its rates, according to the [version in force on Légifrance](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000053544409). A word-for-word comparison of the two Légifrance versions, run on November 12, 2026, finds only that addition. The changes that matter date from the 2025 finance law, which the [BOFiP](https://bofip.impots.gouv.fr/bofip/14709-PGP.html/ACTU-2025-00105), the tax administration's official bulletin, details in its update of August 13, 2025.
+2. The [2025 CIR guide](https://www.enseignementsup-recherche.gouv.fr/sites/default/files/2025-10/guide-du-cir-2025-38191.pdf) places AI under the innovative application of recent concepts, and developing software alone does not qualify.
+3. A SaaS platform can qualify for CII if it constitutes a new product, according to the [Service-Public page](https://entreprendre.service-public.gouv.fr/vosdroits/F35494) checked on February 20, 2026.
+4. One euro of research staff therefore opens €0.42 of CIR, and one euro of staff under CII €0.20, in mainland France, excluding subsidies and below €100M of expenses, to be validated by a chartered accountant.
+5. CII goes first to IT consulting and support companies: in 2023, 83% of its claims came from services, and within services, 50% from the "Conseil et assistance en informatique" (IT consulting and support) sector, according to [the ministry](https://www.enseignementsup-recherche.gouv.fr/sites/default/files/2025-12/le-cr-dit-d-imp-t-recherche-en-2023---provisoire-38761.pdf).
 
-## Four levers, four logics
+## The schemes to fund an AI project in France, in one table
 
-| Scheme | What it is for | Who it targets (roughly) | What it actually funds |
-| --- | --- | --- | --- |
-| [CIR](https://entreprendre.service-public.gouv.fr/vosdroits/F23533) | R&D tax credit | Companies running research work | A share of eligible R&D spend (not a plain off-the-shelf tool rollout) |
-| [CII](https://entreprendre.service-public.gouv.fr/vosdroits/F35494) | Innovation tax credit | SMEs (EU definition) | Design of prototypes / pilot plants for a **new product**, for spend until 31 Dec 2027 |
-| [Diag Data IA](https://www.bpifrance.fr/catalogue-offres/diag-data-ia) (Bpifrance) | Subsidised data / AI diagnostic | SMEs and mid-caps (often 10–2,000 employees per Bpifrance) | About 8 expert days to frame use cases, **not** the build |
-| France 2030 / [Osez l'IA](https://www.bpifrance.fr/catalogue-offres/osez-lia-france-2030) | National AI adoption and innovation plan | SMEs, mid-caps, sometimes consortia (depends on the call) | Diagnostics, accelerators, selective project calls (e.g. MediaGen) |
+The table follows the order of a project: scope it, fund cash flow, build and recover part of the expenses, then aim for large projects.
 
-The sequence we see most often: clarify the business problem first (Diag or internal audit), ship something useful, then structure CIR / CII around work that is genuinely R&D or product innovation, not the other way round.
+| Scheme | Who it is for | Amount or rate in force | What it funds | Text and version | Source and date read |
+|---|---|---|---|---|---|
+| Diag Data IA | SMEs or mid-caps with 10 to 2,000 FTEs, at least €1,000,000 in revenue, more than one year in business | Quote of at most €10,000 excl. VAT, 40% subsidy, €6,000 excl. VAT left to pay | 8 days of an accredited expert over 3 months: current state, use cases, prioritization, roadmap | Bpifrance's Diag Data IA page | [Bpifrance](https://www.bpifrance.fr/catalogue-offres/diag-data-ia), read on 11/12/2026 |
+| Accélérateur IA (AI Accelerator) | SMEs and mid-caps with revenue above €8M, more than 50 employees, at least 3 years in business | 46% of the cost covered by France 2030 | 18 months: a 12-day 360° diagnostic and two 13-day modules | DGE's Osez l'IA page, updated on 09/28/2026 | [DGE](https://www.entreprises.gouv.fr/priorites-et-actions/transition-numerique/accompagner-les-entreprises-dans-leur-transition/le-plan), read on 11/12/2026 |
+| Pack IA Île-de-France | SMEs and mid-caps in the Paris region | 50% subsidy from the Region, maximum cost of €18,500 for the company | 3 months and 37 days of services | Île-de-France Region's Pack IA program | [packia.fr](https://packia.fr/), read on 11/12/2026 |
+| Prêt Boost IA | Companies with up to 49 employees | Loan of €5,000 to €100,000 | The project, in the form of a loan | Bpifrance's Prêt Boost IA page | [Bpifrance](https://flash.bpifrance.fr/financement/pret-boost-intelligence-artificielle), read on 11/12/2026 |
+| CIR | Companies running R&D operations | 30% of research expenses up to €100M, 5% above | Research staff, plus a flat rate of 40% of that staff, minus subsidies | CGI, Art. 244 quater B, I, II and III, version of 01/01/2026 | Légifrance, read on 11/12/2026 |
+| CII | SMEs, until 12/31/2027 | 20% in mainland France, on at most €400,000 of expenses per year | Design of prototypes of new products, with no flat operating rate | CGI, Art. 244 quater B, II k, version of 01/01/2026 | Légifrance, read on 11/12/2026 |
+| JEI | SMEs under 8 years old, R&D of at least 20% of costs | Exemption from employer contributions, capped at €240,300 per establishment and per calendar year | Employer social insurance and family allowance contributions | Service-Public's JEI page, checked on 06/01/2026 | [Service-Public](https://entreprendre.service-public.gouv.fr/vosdroits/F31188), read on 11/12/2026 |
+| France 2030 | Large R&D projects | i-Démo 5: more than €4M of expenses for a consortium, more than €2M for a single partner | Calls for projects, including i-Démo 5 and the Culture and AI call, closed in 2026 | i-Démo 5 call, last cut-off on 09/09/2026 | [Bpifrance](https://www.bpifrance.fr/nos-appels-a-projets-concours/appel-a-projets-generique-ndeg5-i-demo-soutien-aux-projets-structurants-de-rdi), read on 11/12/2026 |
 
-## CIR: the best-known lever, and the most misunderstood
+## Calculating CIR and CII, with two fictional examples
 
-France’s [research tax credit (CIR)](https://entreprendre.service-public.gouv.fr/vosdroits/F23533) supports research and development. Per Service-Public Entreprendre, in mainland France the rate is **30%** on eligible spend up to €100m, and **5%** above that. In overseas territories, the first-tier rate is **50%**.
+The CIR base adds to research staff a flat operating rate equal to 40% of that staff. The CGI then removes public subsidies: they "are deducted from the calculation bases of this credit, whether definitively acquired by them or repayable" (translated from the French). The CII base contains no flat rate, and its rate is 20% in mainland France.
 
-It is not a cheque for “doing AI”. A standard SaaS rollout, a ChatGPT training course, or an integration with no technical uncertainty rarely qualifies. Work may qualify, under conditions, if it creates new scientific or technical knowledge: models, evaluation pipelines, architectures, documented feasibility.
+**Fictional example 1 (CIR).** A company incurs €150,000 of research staff expenses in mainland France and receives €20,000 of public subsidy for the same operations. Its base is then 150,000 + 40% × 150,000 − 20,000 = €190,000, which gives a CIR of 30% × 190,000 = €57,000. Without the subsidy, the same calculation gives €63,000.
 
-We wrote our own CIR file with AI help, recovered €150,000, and published what worked (and what you must not let a model invent) in two articles (French):
+**Fictional example 2 (CII).** An SME incurs €300,000 of staff assigned to designing the prototype of a new product, in mainland France, and its CII comes to 20% × 300,000 = €60,000. Above €400,000 of expenses, the credit stays capped at €80,000.
 
-- [How we wrote our CIR to recover €150,000 with AI](https://www.thevibecompany.co/fr/resources/articles/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia)
-- [Let AI help with your CIR without letting it invent](https://www.thevibecompany.co/fr/resources/articles/laisser-lia-faire-votre-cir-sans-la-laisser-inventer)
+Both examples are fictional, with amounts invented to show the formula. They apply in mainland France, below €100M of expenses, excluding the overseas departments and Corsica. Fictional examples to be validated by a chartered accountant.
 
-For an AI project inside your company: document as you go (hypotheses, failures, technical choices, time spent). A CIR is built over time, not the night before the tax closing.
+## Changes in the texts since 2025
 
-## CII: for SMEs designing a new product
+- January 1, 2025: the standard CII rate goes from 30% to 20% for expenses incurred from that date (2025 finance law, Art. 56).
+- February 15, 2025: the CIR flat operating rate goes from 43% to 40%, and patents and technology watch leave the base (2025 finance law, Art. 55).
+- August 13, 2025: the BOFiP publishes these changes in its update ACTU-2025-00105.
+- January 1, 2026: the current version of Article 244 quater B comes into force, as Law 2026-103 of February 19, 2026, the 2026 finance law, amended it through its Article 42.
+- October 20, 2026: Bpifrance closes the France 2030 call "Transition numérique de la Culture et appropriation de l'IA" (digital transition of culture and adoption of AI).
 
-The [innovation tax credit (CII)](https://entreprendre.service-public.gouv.fr/vosdroits/F35494) extends the CIR for **SMEs** only (under 250 employees, and turnover under €50m or balance-sheet under €43m, as recalled on Service-Public). It covers design of **prototypes or pilot plants of a new product**, for expenses incurred until **31 December 2027**.
+The 2025 finance law also specifies that the subsidies to deduct come from public bodies or from private bodies tasked with a public service mission.
 
-Mainland rate per Service-Public: **20%**. Eligible expenses taken into account are capped at **€400,000** per year. Overseas territories: 60% is indicated; in Corsica, 40% for small enterprises and 35% for medium ones.
+## CIR and an AI project: what the ministry's guide asks for
 
-CII does not cover the production phase of the prototype. It is also not a catch-all for any internal automation: it targets a **new product** meant to go to market later, not a purely internal tool with no novelty.
+The 2025 CIR guide starts from a problem for which no obvious and available solution exists in the state of the art, handled with a documented scientific approach.
 
-For an SME building an AI agent or product to sell (or a differentiating module), CII can sit next to CIR, as long as you do not double-count the same spend. Your tax adviser decides.
+| Counts for CIR | Not enough on its own |
+|---|---|
+| The innovative application of recent concepts, such as artificial intelligence, in a new or constrained context, with rigorous validation | Developing software, an application or a feature alone, without an explicit research approach |
+| A prototype that serves as a tool to validate R&D concepts | A software prototype in itself |
+| Integrating a recent technology that forces you to solve scientific or technical problems | Acquiring skills on IT tools |
+| Collecting training data directly useful to an eligible operation, with no equivalent free source | Agile iterations that fix defects or meet specifications |
 
-## Diag Data IA: frame before you spend
+The guide also settles a common belief: "The complexity of an IT project is not an eligibility criterion" (translated from the French). It expects documentation with the hypotheses, the development steps, the evaluation methods, the data collected, the analysis of results and the conclusions. Plugging a model into an API therefore does not, on its own, create a barrier in the guide's sense: a reading to be validated by a chartered accountant.
 
-Bpifrance’s [Diag Data IA](https://www.bpifrance.fr/catalogue-offres/diag-data-ia) is a data / AI diagnostic, not a build budget. Per Bpifrance and [diag.bpifrance.fr](https://diag.bpifrance.fr/diag-data-ia):
+## CII: a new product for the market, SaaS included
 
-- max quote **€10,000 excl. VAT**;
-- **40%** subsidy (funded under France 2030 / Osez l'IA);
-- **€6,000 excl. VAT** left for eligible SMEs and mid-caps under 2,000 FTEs;
-- about **8 expert days** to assess data/AI maturity and prioritise use cases.
+The CGI defines a new product as a good, tangible or intangible, not yet made available on the market and superior to existing products in technical terms, eco-design, ergonomics or features. Service-Public cites a SaaS platform as a possible example and excludes the mere improvement of an existing service. The prototype serves as a model and does not go to market, and the production phase of the prototype falls outside CII. Subcontracting enters the base only if the company entrusts it to accredited companies or engineering and design firms. An expense already counted in CIR does not count a second time in CII. An internal tool, which does not target the market, therefore does not meet this definition: to be validated by a chartered accountant.
 
-[France Num](https://www.francenum.gouv.fr/guides-et-conseils/intelligence-artificielle/comprendre-et-adopter-lia/diag-data-ia-beneficiez-dun) states that 2,000 Diag Data IA slots are co-funded for 2026–2027, subject to availability. Typical eligibility cited: SMEs / mid-caps (often from 10 employees). Apply via the Bpifrance platform.
+## Cash flow and rulings: when CIR arrives
 
-What the Diag does not do: code your agent, wire your APIs, or guarantee ROI. It helps you avoid starting the wrong project. After that, you still have to build: in-house, with an agency, or both.
+As a general rule, CIR offsets the tax of the year and of the 3 following years, then the company collects the remainder. SMEs under EU law, JEIs, new companies and companies in difficulty can request an [immediate refund](https://bofip.impots.gouv.fr/bofip/4669-PGP.html). The BOFiP gives the example of an SME whose claim for year N becomes refundable in N+1, after settlement of the corporate income tax. The return goes through form 2069-A-SD, at the latest on the 15th of the 4th month after the end of the financial year for a company subject to corporate income tax. When in doubt, the [CIR ruling](https://bofip.impots.gouv.fr/bofip/620-PGP.html) request goes out at least six months before the deadline for that return. After this deadline, the administration deems it inadmissible, and within the deadline, three months of silence amount to tacit approval.
 
-## France 2030: from diagnostics to project calls
+## Scoping an AI project before you build
 
-The France 2030 [Osez l'IA](https://www.bpifrance.fr/catalogue-offres/osez-lia-france-2030) plan (Bpifrance, DGE, SGPI) bundles several offers for SMEs and mid-caps: self-assessment, use-case platform, Diag Data IA, AI accelerators, and more. It is not one counter with one cheque: each offer has its own rules.
+Watch out for old Diag Data IA figures. On November 12, 2026, the first Google result for "financer un projet ia", an economie.gouv.fr page written on 01/24/2025, still showed €13,000 excl. VAT and 50%. The Bpifrance page and the DGE page updated on 09/28/2026 give €10,000 excl. VAT and 40%. Once you have tested the use case, the [POC-to-production grid](/en/resources/articles/ai-agent-poc-to-production) helps you decide what comes next. If a provider builds the next stage, the [guide to choosing an AI agency, an IT services firm or a freelancer](/en/resources/articles/how-to-choose-an-ai-agency) lists the checks to run before you sign. To measure what the project returns afterward, the [5-metric method for AI project ROI](/en/resources/articles/measure-ai-project-roi) tracks usage, quality, full cost and business outcome.
 
-Separately, **France 2030 project calls** fund heavier R&D or consortia. We have a public example: [MediaGen](https://www.thevibecompany.co/en/case-studies/afp), led by AFP with Quivr / The Vibe Company, Kairntech and Dawex: a France 2030 generative-AI project for newsrooms, backed by Bpifrance, listed at **€4m** on our site. Goals: augmented monitoring, multimodal archive search, production assistance under editorial control, with some components open-sourced.
+## France 2030: two calls closed in 2026
 
-That kind of call is not the standard path for a mid-cap that wants a support agent in six weeks. It is selective, slow, often consortium-based. Worth knowing if your AI project has a breakthrough or public-interest angle (health, media, industry…). For a classic business deployment, look first at Diag + build + CIR/CII.
+Bpifrance closed the call "Transition numérique de la Culture et appropriation de l'IA" on October 20, 2026, after its funds ran out, and removed the cut-offs of 11/25/2026 and 06/16/2027, according to [its page](https://www.bpifrance.fr/nos-appels-a-projets-concours/appel-a-projets-transition-numerique-de-la-culture-et-appropriation-de-lintelligence-artificielle). That call required a minimum base of €400,000 of eligible expenses. The i-Démo 5 call, open to projects above €4M for a consortium or above €2M for a single partner, had its last cut-off on September 9, 2026 at noon. Before you build a file, check the open calls that same day on [Bpifrance's calls for projects page](https://www.bpifrance.fr/nos-appels-a-projets-concours) and on [the France 2030 calls for applications page](https://www.info.gouv.fr/france-2030/appels-a-candidatures).
 
-## How to choose for your project
+## The official CIR and CII figures
 
-**You do not yet know where AI creates value.** Start with framing (Diag Data IA or an internal audit). Prove one use case on your real data before buying a licence or launching a six-month build.
+In 2023, according to the ministry's provisional data published in December 2025, 29,720 companies declared €27 billion of CIR-eligible expenses, for €7.8 billion of credit. Under CII, 11,030 filers declared €1,659 million of expenses, for 10,688 beneficiaries and €500 million of claims. The "Conseil et assistance en informatique" sector accounts for 16% of CIR research claims. By calculation, the average CII claim comes to about €46,800 per beneficiary in 2023, at the 30% rate then in force. This calculation gives a past order of magnitude, which you should not carry over to the current 20% rate.
 
-**You have a clear case (support, ops, product) and need something that runs.** Fund the build and the run first. CIR / CII do not replace a product budget; they can lower the net cost *if* the work is eligible and well documented. See also our [checklist from AI agent POC to production](https://www.thevibecompany.co/en/resources/articles/ai-agent-poc-to-production).
+## JEI and JEII for a young AI company
 
-**You are an SME building a new AI product.** Review CII + CIR with your adviser. The official CII cap (€400,000 of expenses) and 20% mainland rate give an order of magnitude, not a recovery promise.
+An SME created less than 8 years ago, whose R&D reaches at least 20% of its costs, can take the young innovative company (JEI) status, according to Service-Public. JEIs created from January 1, 2024 no longer get the corporate profit tax exemption. A JEI created before December 31, 2028 gets an exemption from employer contributions, up to €8,401.58 of monthly pay and €240,300 per establishment and per calendar year. The JEII status, a subcategory of JEI, targets SMEs engaged in research with a strong social or environmental benefit. A JEI can also request the direct refund of its CIR.
 
-**You are aiming at a structuring France 2030 grant.** Expect a call calendar, partners, and real admin work. MediaGen / AFP shows it is possible; it is not the shortest path to a first agent in production.
+## Funding an AI project in France: the decision tree
 
-In every case: do not dress a non-R&D project as CIR. An audit costs more than an inflated file.
+![Decision tree in 4 questions: Diag Data IA or AI Accelerator, CIR, CII, France 2030, else Prêt Boost IA. Detailed below.](/images/resources/fund-ai-project-france-cir-cii/decision-tree-fund-ai-project-france.png){.diagram}
 
-## What we do (and what we do not)
+Four questions lead to the right scheme, in the order of a project.
 
-The Vibe Company was founded in 2024 by Stan Girard and Antoine Dewez (ex-Theodo, ex-Stockly), YC W24, $1.7M raised. We have shipped dozens of projects: [LocService](https://www.thevibecompany.co/en/case-studies/locservice) (support), [Monka](https://www.thevibecompany.co/en/case-studies/monka) (healthcare), MediaGen / [AFP](https://www.thevibecompany.co/en/case-studies/afp) (France 2030).
+1. You are still choosing the use case: Diag Data IA (10 to 2,000 FTEs, revenue of at least €1M, more than one year), AI Accelerator (revenue above €8M, more than 50 employees, at least 3 years) or, in Île-de-France, Pack IA.
+2. A documented scientific or technical barrier exists against the state of the art: CIR, with a ruling request when in doubt.
+3. Otherwise, an SME designs the prototype of a new product meant for the market, SaaS included: CII.
+4. The R&D project exceeds €2M, or €4M for a consortium: France 2030 calls such as i-Démo, to check that same day, since i-Démo 5 and the Culture and AI call are closed.
 
-We help **build** the agent or product, ship it to production, and document the technical work in a usable way. We ran CIR on **our own** activity. We are not a public-funding consultancy: for the tax filing, a ruling, or a project-call montage, work with the right professionals (accountant, CIR/CII adviser, Bpifrance).
+With neither a barrier nor a new product, as with an internal tool or the integration of an off-the-shelf tool, no tax credit applies, and the Prêt Boost IA can fund the build for companies with up to 49 employees. A young SME whose R&D reaches 20% of costs also looks at JEI. This tree remains a reading of the texts, to be validated by a chartered accountant.
 
-If you are still choosing between agency, IT services firm, or an in-house team, read our guide on [how to choose an AI agency](https://www.thevibecompany.co/en/resources/articles/how-to-choose-an-ai-agency).
+## Deadlines to watch in the texts
+
+- The CGI provides for CII until December 31, 2027.
+- France Num announces 2,000 co-funded Diag Data IA engagements for 2026-2027.
+- The JEI social exemption applies to companies created before December 31, 2028.
+- The Osez l'IA plan, launched in July 2025, targets AI in 100% of large companies, 80% of SMEs and mid-caps and 50% of very small businesses by 2030.
 
 ## FAQ
 
-**Does CIR fund any AI project?**
-No. CIR targets R&D. Many adoption projects (wiring an LLM to your CRM, automating tickets) are not, or not fully, research. Start from the official Service-Public text and your tax adviser.
+**Is an AI agent project eligible for CIR?**
+Only if it tackles a problem with no obvious solution in the state of the art, with a documented approach. The 2025 CIR guide places AI under the innovative application of recent concepts, but developing software alone does not qualify, and complexity does not count. A prototype must serve to validate R&D concepts.
 
-**Can Diag Data IA and CIR be combined?**
-Different logics: the Diag subsidises a diagnostic; CIR is a tax credit on R&D spend. Subsidies received for the same project can reduce the tax-credit base. Have your accountant confirm stacking rules.
+**Does a ChatGPT subscription count toward CIR?**
+Not as an extra line. The CGI's list of expenses does not mention software subscriptions, and other operating expenses go through a flat rate of 40% of research staff. A subscription therefore does not add to the base on top of that flat rate. This reading remains to be validated by a chartered accountant.
 
-**How much do you get back with CII?**
-In mainland France, Service-Public states 20% of eligible expenses, within a €400,000 expense cap. Outside eligible spend and above the cap, nothing. Cash recovery also depends on your tax position.
+**Does CII cover an internal tool?**
+As a general rule, no. The CGI targets a product not yet placed on the market and superior to existing products, and Service-Public excludes the mere improvement of an existing service. A SaaS sold to customers can, however, qualify for CII if it constitutes a new product. A point to be validated by a chartered accountant.
 
-**Should you wait for a France 2030 call before starting?**
-Rarely. If the business need is clear, ship a first deliverable. France 2030 calls are selective and calendar-bound; Diag Data IA and CIR/CII often fit a “classic” company project better.
+**Does a subsidy reduce CIR?**
+Yes. The CGI removes from the calculation bases the public subsidies received for the operations that give rise to the credit, acquired or repayable. In fictional example 1, €20,000 of subsidy brings CIR down from €63,000 to €57,000. This example amount remains to be validated by a chartered accountant.
 
-**Does The Vibe Company file CIR dossiers for clients?**
-We build the projects and document the technical work. Tax filing sits with your finance team / adviser. We published our experience on **our** CIR; that is not a tax-representation offer.
+**When is the credit paid?**
+CIR first comes off the tax due, over the year and the 3 following ones, and what is left then goes back to the company. An SME under EU law, a JEI or a new company can obtain an immediate refund, in N+1 for a claim from year N according to the BOFiP example.
 
-## Let’s talk about your project (and how to fund it)
+## Method and sources
 
-You have an AI use case in mind and want to know what actually gets funded: build, Diag, CIR/CII, or a France 2030-style call? Bring the scope, company size and timeline. We will say what we can build, what fits a Bpifrance diagnostic, and what to ask your accountant.
+Texts read on November 12, 2026: CGI, Article 244 quater B, version in force since January 1, 2026; BOFiP ACTU-2025-00105 of August 13, 2025; the ministry's 2025 CIR guide, published in October 2025; "Le CIR en 2023", provisional data. The Bpifrance, DGE, France Num and Service-Public pages serve with their update or check date. Service-Public, as support, shows a check date of February 20, 2026 for the CII page and February 21, 2025 for the CIR page.
 
-[Building AI for a newsroom?](/en/ai-for-media) Our AI for Media page covers what we build for newsrooms, with the MediaGen proof.
+## An AI project to fund
 
-[Book 30 minutes with Stan](https://cal.com/stangirard/30min).
+You have an AI project and want to know what share public funding can cover before work starts.
+
+[Book a call](https://cal.com/stangirard/thevibecompany)
