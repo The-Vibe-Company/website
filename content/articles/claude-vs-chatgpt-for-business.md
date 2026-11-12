@@ -16,8 +16,6 @@ ogImage: /images/resources/claude-vs-chatgpt-entreprise/cover-mascotte.webp
 
 Claude vs ChatGPT for business: as of November 12, 2026, price will not help you choose. Claude Team and ChatGPT Business list the same rate to the dollar, $20 per seat per month on annual billing and $25 on monthly billing. Microsoft 365 Copilot blurs the duel, because its Researcher agent lets people pick between GPT models and Claude models. Yet Microsoft keeps those Claude models outside the EU Data Boundary, the geographical area it defines in the European Union to store and process customer data. So the decision happens elsewhere: your daily tools, Europe, account administration and team size.
 
-Nobody bought or tested an account for this article. Prices and features come from the official Anthropic, OpenAI and Microsoft pages, read on November 12, 2026. One press article, published by The Register, completes them.
-
 ## The right first trial depends on your profile
 
 Take a 50-person company that runs on Microsoft 365 and wants an AI assistant for everyone. It will serve as the running example, and its first trial depends on what it needs most.
