@@ -14,7 +14,7 @@ coverAlt: "La mascotte de The Vibe Company, une liste à cocher en main, compare
 ogImage: /images/resources/claude-vs-chatgpt-entreprise/cover-mascotte.webp
 ---
 
-Claude vs ChatGPT en entreprise : au 12 novembre 2026, le prix ne vous aidera pas à choisir. Claude Team et ChatGPT Business affichent le même tarif au dollar près, 20 $ par siège et par mois en facturation annuelle, 25 $ en mensuel. Microsoft 365 Copilot complique le duel, puisque son agent Researcher laisse choisir entre des modèles GPT et des modèles Claude. Ces derniers sont pourtant exclus de l'EU Data Boundary, la zone géographique que Microsoft définit dans l'Union européenne pour stocker et traiter les données de ses clients. Le choix se fait donc ailleurs : vos outils de travail, l'Europe, l'administration des comptes et la taille de l'équipe.
+Claude vs ChatGPT en entreprise : au 12 novembre 2026, le prix ne vous aidera pas à choisir. Claude Team et ChatGPT Business affichent le même tarif au dollar près, 20 $ par siège et par mois en facturation annuelle, 25 $ en mensuel. Microsoft 365 Copilot complique le duel, puisque son agent Researcher laisse choisir entre des modèles GPT et des modèles Claude. Microsoft les exclut pourtant de l'EU Data Boundary, la zone géographique qu'il définit dans l'Union européenne pour stocker et traiter les données de ses clients. Le choix se fait donc ailleurs : vos outils de travail, l'Europe, l'administration des comptes et la taille de l'équipe.
 
 Pour cet article, personne n'a acheté ni testé de compte. Les prix et les fonctions viennent des pages officielles d'Anthropic, d'OpenAI et de Microsoft, lues le 12 novembre 2026. Un seul article de presse, publié par The Register, complète ces pages.
 
@@ -23,8 +23,10 @@ Pour cet article, personne n'a acheté ni testé de compte. Les prix et les fonc
 Prenons une entreprise de 50 personnes, équipée de Microsoft 365, qui veut un assistant IA pour tout le monde. Elle servira de fil rouge. Son premier test dépend de ce qu'elle exige d'abord.
 
 - **Vous voulez une administration avancée à prix affiché : testez Claude.** Claude Team couvre de 2 à 150 personnes, et Claude Enterprise ajoute la gestion automatisée des comptes et les journaux d'audit, à partir de 20 sièges, en libre-service.
-- **Vous devez garder stockage et inférence en Europe : testez ChatGPT.** L'offre Enterprise d'OpenAI documente les deux pour ses clients éligibles, mais son prix se négocie avec l'équipe commerciale.
+- **Vous devez garder stockage et inférence en Europe : testez ChatGPT Enterprise ou Copilot.** OpenAI documente les deux pour ses clients Enterprise éligibles, sur devis. Microsoft garde le trafic Copilot dans l'EU Data Boundary, sauf les modèles d'Anthropic et la recherche web.
 - **Vos équipes vivent dans Word, Excel, Outlook et Teams : testez Microsoft 365 Copilot.** Copilot Chat est déjà inclus sans frais supplémentaires avec un abonnement Microsoft 365 éligible, et la licence payante vient ensuite.
+
+L'ordre Claude, ChatGPT, Copilot suit la recherche « claude vs chatgpt », pas un classement.
 
 Reste à vérifier ce que disent exactement les pages des éditeurs.
 
@@ -34,7 +36,7 @@ Quand une page officielle ne dit rien, la case l'écrit. Ce silence devient une 
 
 | Critère, au 12 novembre 2026 | Claude | ChatGPT | Microsoft 365 Copilot |
 | --- | --- | --- | --- |
-| Taille d'équipe | Team : 2 à 150 personnes | Business : 2 à 200 employés | Non indiquée dans les pages lues |
+| Taille d'équipe | Team : 2 à 150 personnes | Business : 2 à 200 employés | Copilot Business : offres Business, que la page décrit pour 300 utilisateurs au maximum. Microsoft 365 Copilot : non indiquée |
 | Prix par siège et par mois, paiement annuel | Team : 20 $ (Standard), 100 $ (Premium) | Business : 20 $ (Standard), 100 $ (Premium) | Copilot Business : à partir de 18,20 € HT, 15,60 € HT en promotion. Microsoft 365 Copilot : 26,00 € HT |
 | Prix par siège et par mois, paiement mensuel | Team : 25 $ (Standard), 125 $ (Premium) | Business : 25 $ (Standard), 125 $ (Premium) | Copilot Business : 21,84 € HT. Microsoft 365 Copilot : 27,30 € HT, avec abonnement annuel |
 | Offre grands comptes et minimum | Enterprise : 20 $ par siège et par mois, facturé annuellement, 20 sièges minimum, plus l'usage aux tarifs API | Enterprise : prix sur mesure auprès de l'équipe commerciale, minimum non publié | Microsoft 365 Copilot, minimum non indiqué, licence Microsoft 365 éligible en plus |
@@ -43,7 +45,7 @@ Quand une page officielle ne dit rien, la case l'écrit. Ce silence devient une 
 | Entraînement sur vos données | Aucun par défaut | Non, Business comme Enterprise | Non, requêtes et réponses exclues |
 | Stockage et inférence en Europe | Application : rien dans les pages lues. Via AWS Bedrock et GCP Vertex : oui | Enterprise : stockage et inférence, clients éligibles. Business : stockage seul, en déploiement progressif | EU Data Boundary, modèles Anthropic exclus |
 | Intégration Microsoft 365 | Claude for Microsoft 365 et Claude for Microsoft Outlook | Connexion à Microsoft 365, extensions Excel, Word et PowerPoint | Intégré à Word, Excel, PowerPoint, Outlook et Teams |
-| Modèles listés | Fable, Opus, Sonnet, Haiku | GPT-6.1 Sol, GPT-6 Astra, GPT-6 Sol, GPT-6 Luna, entre autres | Modèles GPT d'OpenAI et modèles Claude d'Anthropic dans Researcher |
+| Modèles listés | Fable (sièges Premium), Opus, Sonnet, Haiku | GPT-6.1 Sol, GPT-6 Astra, GPT-6 Sol, GPT-6 Luna, entre autres | Modèles GPT d'OpenAI et modèles Claude d'Anthropic dans Researcher |
 
 Un mot sur les taxes. Anthropic indique que ses prix n'incluent pas les taxes applicables, et Microsoft affiche des montants hors TVA. Les pages d'OpenAI lues ne disent rien des taxes.
 
@@ -63,9 +65,9 @@ Vous êtes 50 : vous dépassez le minimum de 20 sièges et vous pouvez démarrer
 
 Côté Europe, la documentation de l'API Claude ne propose que deux valeurs pour le lieu d'inférence, `global` et `us`.
 
-## ChatGPT Business va jusqu'à 200 personnes, Enterprise se négocie
+## ChatGPT Business va jusqu'à 200 personnes, Enterprise passe par les ventes
 
-ChatGPT Business vise, selon [la page tarifs d'OpenAI](https://openai.com/business/pricing/), les équipes de 2 à 200 employés. Le [centre d'aide d'OpenAI](https://help.openai.com/en/articles/8792828-chatgpt-business-overview) donne les prix, et ce sont ceux de Claude Team au dollar près : 20 $ ou 25 $ le siège Standard, 100 $ ou 125 $ le siège Premium.
+ChatGPT Business vise, selon [la page tarifs d'OpenAI](https://openai.com/business/pricing/), les équipes de 2 à 200 employés. Le [centre d'aide d'OpenAI](https://help.openai.com/en/articles/8792828-chatgpt-business-overview) donne les prix, et ce sont ceux de Claude Team au dollar près : 20 $ ou 25 $ le siège Standard, 100 $ ou 125 $ le siège Premium. OpenAI précise que ce prix peut varier selon le pays et la devise. Vérifiez le montant affiché pour la France au moment de payer.
 
 ChatGPT Enterprise n'affiche aucun prix. La page renvoie vers l'équipe commerciale pour un tarif sur mesure. Le tableau d'OpenAI lui réserve le SCIM, les contrôles d'accès par rôle et la résidence des données. Le détail de ce choix occupe un article entier, le [guide pour choisir entre ChatGPT Business et Enterprise](/fr/resources/articles/chatgpt-entreprise).
 
@@ -79,11 +81,11 @@ Il reste le troisième candidat, celui que vous payez peut-être déjà.
 
 La page française de Microsoft décrit Copilot Chat comme « disponible sans frais supplémentaires » pour les utilisateurs de comptes Microsoft Entra qui détiennent un abonnement Microsoft 365 éligible. Si votre entreprise de 50 personnes a cet abonnement, le premier test ne coûte rien de plus.
 
-Côté Copilot entreprise, Microsoft vend ensuite deux licences. Microsoft 365 Copilot coûte 26,00 € HT par utilisateur et par mois en paiement annuel, et la page précise qu'une « licence distincte pour une offre Microsoft 365 éligible est nécessaire ». Microsoft 365 Copilot Business démarre à 18,20 € HT, ramenés à 15,60 € HT par une promotion. [Microsoft encadre cette remise](https://www.microsoft.com/en-us/microsoft-365/copilot/business), qui court du 1er juillet au 31 décembre 2026 et vaut pour la première année. Le complément lui-même est accessible uniquement aux clients Microsoft 365 existants qui disposent d'un abonnement Business éligible.
+Microsoft vend ensuite deux licences payantes. Microsoft 365 Copilot coûte 26,00 € HT par utilisateur et par mois en paiement annuel, et la page précise qu'une « licence distincte pour une offre Microsoft 365 éligible est nécessaire ». Microsoft 365 Copilot Business démarre à 18,20 € HT, ramenés à 15,60 € HT par une promotion. [Microsoft encadre cette remise](https://www.microsoft.com/fr-fr/microsoft-365/copilot/business), qui court du 1er juillet au 31 décembre 2026 et vaut pour la première année. Le complément lui-même est accessible uniquement aux clients Microsoft 365 existants qui disposent d'un abonnement Business éligible.
 
-La comparaison Copilot vs ChatGPT ne se résume pas à un duel de modèles. Researcher, l'un des agents de Copilot, prend en charge [des modèles GPT d'OpenAI et des modèles Claude d'Anthropic](https://support.microsoft.com/en-us/office/use-model-choice-in-the-researcher-agent). Claude devient donc accessible depuis Copilot, à condition que votre administrateur l'autorise.
+Copilot ne s'oppose pas tout à fait à ChatGPT. Researcher, l'un des agents de Copilot, prend en charge [des modèles GPT d'OpenAI et des modèles Claude d'Anthropic](https://support.microsoft.com/en-us/office/use-model-choice-in-the-researcher-agent). Claude devient donc accessible depuis Copilot, à condition que votre administrateur l'autorise.
 
-Ce choix se paie en Europe. [Microsoft Learn précise](https://learn.microsoft.com/en-gb/microsoft-365/copilot/connect-to-ai-subprocessor) que les modèles Claude déployés dans Copilot sont « currently excluded from the EU Data Boundary ». Pour les clients de l'Union européenne, de l'AELE et du Royaume-Uni, ils sont désactivés par défaut. Un administrateur doté du rôle AI Administrator ou Global Administrator doit les activer dans le centre d'administration, puis désigner les utilisateurs concernés.
+Ce choix se paie en Europe. [Microsoft Learn précise](https://learn.microsoft.com/en-gb/microsoft-365/copilot/connect-to-ai-subprocessor) que les modèles Claude déployés dans Copilot sont « currently excluded from the EU Data Boundary ». Pour les clients de l'Union européenne, de l'AELE et du Royaume-Uni, Microsoft les désactive par défaut. Un administrateur doté du rôle AI Administrator ou Global Administrator doit les activer dans le centre d'administration, puis désigner les utilisateurs concernés.
 
 Le réglage par défaut peut bouger. Le 10 novembre 2026, [The Register titrait](https://www.theregister.com/ai-and-ml/2026/11/10/microsoft-is-giving-claude-the-keys-to-uk-copilot-tenants-by-default/5308693) que Microsoft donne par défaut à Claude les clés des environnements Copilot britanniques. La page Microsoft Learn lue le 12 novembre indique toujours une désactivation par défaut au Royaume-Uni. Vérifiez donc ce réglage dans votre propre centre d'administration.
 
@@ -95,7 +97,7 @@ Votre responsable sécurité et votre délégué à la protection des données p
 
 **ChatGPT.** Le tableau d'OpenAI répond « No » à la ligne sur l'entraînement, pour Business et pour Enterprise. Pour le lieu, [le centre d'aide](https://help.openai.com/en/articles/9903489-data-residency-and-inference-residency-for-chatgpt) ouvre aux nouveaux clients Enterprise éligibles le stockage au repos dans une région choisie, dont l'Europe. L'inférence en Europe s'y ajoute pour les clients Enterprise éligibles qui ont activé la résidence des données. Business reste en retrait. Sa résidence, encore en déploiement, couvre le stockage, pas l'inférence. Pour une région hors des États-Unis, OpenAI garde aussi une copie de chaque requête et de chaque réponse aux États-Unis, pour une durée limitée.
 
-**Microsoft 365 Copilot.** [Microsoft écrit](https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-privacy) que les requêtes, les réponses et les données atteintes par Microsoft Graph ne servent pas à entraîner les modèles de fondation. Le trafic européen reste dans l'EU Data Boundary, à deux exceptions près : les modèles d'Anthropic et les requêtes de recherche web.
+**Microsoft 365 Copilot.** [Microsoft écrit](https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-privacy) que les requêtes, les réponses et les données atteintes par Microsoft Graph ne servent pas à entraîner les modèles de fondation. Le trafic européen reste dans l'EU Data Boundary, à deux exceptions près : les modèles d'Anthropic et [les requêtes de recherche web](https://learn.microsoft.com/en-us/copilot/microsoft-365/enterprise-data-protection).
 
 L'entraînement ne départage donc personne. L'Europe, si. Reste le budget.
 
@@ -118,7 +120,7 @@ Une facture ne dit rien du gain. Pour le chiffrer, lisez la méthode pour [mesur
 
 ## Quatre questions suffisent pour trancher
 
-Claude ou ChatGPT, ou plutôt Copilot : posez les questions dans cet ordre, car chacune élimine des options avant la suivante.
+Posez ces questions dans cet ordre : chacune élimine des options avant la suivante.
 
 ![Arbre de décision en quatre questions pour choisir entre Claude, ChatGPT et Microsoft 365 Copilot : usage de Microsoft 365, données en Europe, SCIM et journaux d'audit, nombre de personnes](/images/resources/claude-vs-chatgpt-entreprise/choisir-claude-chatgpt-copilot.png){.diagram}
 
@@ -149,7 +151,7 @@ Vos données ne servent pas à entraîner les modèles par défaut, selon les pa
 
 ### Pouvez-vous garder vos données en Europe ?
 
-Oui, avec des limites différentes pour Claude, ChatGPT et Microsoft 365 Copilot. Claude garde stockage et traitement en Europe par AWS Bedrock et GCP Vertex, deux plateformes cloud. ChatGPT Enterprise documente stockage et inférence en Europe pour ses clients éligibles, alors que ChatGPT Business se limite au stockage, en déploiement progressif. Microsoft 365 Copilot s'appuie sur l'EU Data Boundary, dont les modèles d'Anthropic sont exclus.
+Oui, avec des limites différentes pour Claude, ChatGPT et Microsoft 365 Copilot. Claude garde stockage et traitement en Europe par AWS Bedrock et GCP Vertex, deux plateformes cloud. ChatGPT Enterprise documente stockage et inférence en Europe pour ses clients éligibles, alors que ChatGPT Business se limite au stockage, en déploiement progressif. Microsoft 365 Copilot s'appuie sur l'EU Data Boundary, dont Microsoft exclut les modèles d'Anthropic.
 
 ### Combien coûte Claude, ChatGPT ou Copilot par utilisateur ?
 
