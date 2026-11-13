@@ -25,6 +25,15 @@ import { extractCoverImage, normalizeMarkdownBody } from '@/lib/markdown';
 import { estimateReadingTime } from '@/lib/reading-time';
 import { renderInlineMarkdown } from '@/lib/inline-markdown';
 import { resourcesTheme } from '@/lib/resources-theme';
+import {
+  authorAbsoluteUrl,
+  authorHref,
+  authorRole,
+  authorSitePath,
+  isExternalAuthorUrl,
+  resolveArticleAuthor,
+  type Author,
+} from '@/lib/authors';
 import { contentAlternates, localizedUrl, openGraphLocale, SITE_NAME, SITE_URL } from '@/lib/site';
 import { articleFaqPageSchema, articleSchema, breadcrumbList } from '@/lib/structured-data';
 import { getCoverImageDimensions, getOgImageDimensions } from '@/lib/og-image-dimensions';
@@ -111,6 +120,7 @@ export async function generateMetadata({
   // a second time (the SEO title already includes it). H1 and social titles
   // keep using `item.title`.
   const htmlTitle = item.seoTitle ? { absolute: item.seoTitle } : item.title;
+  const author = resolveArticleAuthor(item);
 
   return {
     title: htmlTitle,
@@ -124,6 +134,7 @@ export async function generateMetadata({
       title: socialTitle,
       description: socialDescription,
       publishedTime: item.publishedAt,
+      authors: [authorAbsoluteUrl(author, item.language) || author.name],
       tags: item.topics,
       images: imageUrl
         ? [
@@ -188,6 +199,7 @@ export default async function ContentDetailPage({
   const body = normalizeMarkdownBody(bodyWithoutCover);
   const readingTime = estimateReadingTime(item.body);
   const isVictorStory = item.series === 'victor-story';
+  const author = resolveArticleAuthor(item);
   const isFocus = item.focus === true;
   const isTool = item.tool === true;
   const categoryLabel = isVictorStory ? "Victor's Story" : 'Article';
@@ -209,6 +221,7 @@ export default async function ContentDetailPage({
     language: item.language,
     imageUrl: socialImageUrl(item),
     series: item.series,
+    author: item.author,
   });
   const faq = articleFaqPageSchema(item.body);
 
@@ -262,6 +275,14 @@ export default async function ContentDetailPage({
               {/* Phones: the essentials in one line (the sidebar holds them
                   on wide screens). */}
               <div className="mt-8 flex flex-wrap items-center gap-3 lg:hidden">
+                <AuthorByline
+                  author={author}
+                  locale={item.language}
+                  className="text-xs font-mono text-soft-foreground"
+                  nameClassName="text-foreground"
+                  avatarSize={40}
+                />
+                <span className="text-muted-foreground" aria-hidden="true">&bull;</span>
                 {item.publishedAt && (
                   <span className="text-xs font-mono text-soft-foreground">
                     {formatDate(item.publishedAt, locale)}
@@ -289,6 +310,19 @@ export default async function ContentDetailPage({
                 {/* Left Sidebar: Metadata */}
                 <aside className="lg:col-span-3 hidden lg:block">
                   <div className="sticky top-32 flex flex-col gap-6 border-t border-border pt-6">
+                    <div className="flex flex-col gap-1.5">
+                      <span className={metaLabel}>{t('author')}</span>
+                      <AuthorByline
+                        author={author}
+                        locale={item.language}
+                        className={`${metaValue} flex flex-col gap-1`}
+                        nameClassName=""
+                        roleClassName="text-xs text-muted-foreground"
+                        separator={false}
+                        avatarSize={44}
+                      />
+                    </div>
+
                     {item.publishedAt && (
                       <div className="flex flex-col gap-1.5">
                         <span className={metaLabel}>{t('published')}</span>
@@ -399,5 +433,70 @@ export default async function ContentDetailPage({
         </div>
       </main>
     </>
+  );
+}
+
+/**
+ * The article's byline, text only: the author's name, linking to their page
+ * (an external profile opens in a new tab), then their role.
+ */
+function AuthorByline({
+  author,
+  locale,
+  className,
+  nameClassName,
+  roleClassName = '',
+  separator = true,
+  avatarSize,
+}: {
+  author: Author;
+  locale: string;
+  className: string;
+  nameClassName: string;
+  roleClassName?: string;
+  separator?: boolean;
+  /** Rendered size of the round portrait, in CSS pixels. */
+  avatarSize: number;
+}) {
+  const sitePath = authorSitePath(author, locale);
+  const href = authorHref(author, locale);
+  const nameLink = `${nameClassName} underline decoration-border-strong underline-offset-4 transition-colors hover:decoration-brand`.trim();
+  const name = sitePath !== null ? (
+    <Link href={sitePath} locale={locale === 'en' ? 'en' : 'fr'} className={nameLink}>
+      {author.name}
+    </Link>
+  ) : href && isExternalAuthorUrl(href) ? (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={nameLink}>
+      {author.name}
+      <span className="sr-only">{locale === 'en' ? ' (opens in a new tab)' : ' (nouvel onglet)'}</span>
+    </a>
+  ) : (
+    <span className={nameClassName}>{author.name}</span>
+  );
+
+  const text = (
+    <span className={className}>
+      {name}
+      {separator ? ', ' : null}
+      <span className={roleClassName}>{authorRole(author, locale)}</span>
+    </span>
+  );
+  if (!author.image) return text;
+
+  // The 96px portrait is served as is: already small and sized for 2x screens.
+  return (
+    <span className="inline-flex items-center gap-3">
+      <Image
+        src={author.image.small}
+        alt={author.name}
+        width={avatarSize}
+        height={avatarSize}
+        loading="lazy"
+        unoptimized
+        className="shrink-0 rounded-full border border-border bg-card object-cover"
+        style={{ width: avatarSize, height: avatarSize }}
+      />
+      {text}
+    </span>
   );
 }

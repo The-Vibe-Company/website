@@ -59,6 +59,12 @@ export interface ContentEntry {
   complexity?: string
   series?: string
   seriesDay?: number
+  /**
+   * Article author, as an id from the author registry (`src/lib/authors.ts`).
+   * Optional: see `resolveArticleAuthor` for the default. Skills keep their
+   * own free-text author in `skill.author`.
+   */
+  author?: string
   focus?: boolean
   tool?: boolean
   topics?: string[]
@@ -137,6 +143,7 @@ function readDirectoryEntries(type: ContentTypeConfig): ContentEntry[] {
         complexity: data.complexity || undefined,
         series: data.series?.trim() || undefined,
         seriesDay: parseSeriesDay(data.seriesDay),
+        author: type.slug === 'skill' ? undefined : data.author?.trim() || undefined,
         focus: data.focus?.trim() === 'true',
         tool: data.tool?.trim() === 'true',
         topics,
