@@ -518,15 +518,40 @@ describe("articles", () => {
       if (article.series === "victor-story") {
         expect(schema.author).toEqual({
           "@type": "Person",
+          "@id": `${SITE}/#victor-nivault`,
           name: "Victor Nivault",
           jobTitle: "Builder",
+          url: "https://www.linkedin.com/in/victor-nivault-698a77217",
           worksFor: { "@type": "Organization", name: "The Vibe Company" },
           sameAs: ["https://www.linkedin.com/in/victor-nivault-698a77217"],
         });
       } else {
-        expect(schema.author).toMatchObject({ "@type": "Person", name: "Stan Girard" });
+        expect(schema.author).toEqual({
+          "@type": "Person",
+          "@id": `${SITE}/#stan-girard`,
+          name: "Stan Girard",
+          jobTitle: article.language === "en" ? "Co-founder" : "Cofondateur",
+          url: article.language === "en" ? `${SITE}/en/about` : `${SITE}/fr/a-propos`,
+          sameAs: [
+            "https://www.linkedin.com/in/stan-girard/",
+            "https://x.com/_stangirard",
+            "https://github.com/StanGirard",
+          ],
+        });
       }
     }
+  });
+
+  test("an explicit author wins over the series in the Article markup", () => {
+    const schema = articleSchema({
+      url: `${SITE}/fr/resources/articles/example`,
+      title: "Example",
+      publishedAt: "2026-11-13",
+      language: "fr",
+      series: "victor-story",
+      author: "stan-girard",
+    });
+    expect(schema.author).toMatchObject({ "@id": `${SITE}/#stan-girard`, name: "Stan Girard" });
   });
 
   test("an article without a FAQ section gets no FAQPage", () => {

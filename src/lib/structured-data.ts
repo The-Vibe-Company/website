@@ -1,3 +1,10 @@
+import {
+  AUTHORS,
+  authorAbsoluteUrl,
+  authorRole,
+  resolveArticleAuthor,
+  type Author,
+} from "@/lib/authors";
 import { CLIENTS } from "@/components/home/Clients";
 import { getCustomers } from "@/lib/customers";
 import { absoluteUrl, SITE_LOGO, SITE_NAME, SITE_URL } from "@/lib/site";
@@ -24,27 +31,24 @@ const SCHEMA_CONTEXT = "https://schema.org";
 const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 
-const STAN_GIRARD: JsonLdNode = {
-  "@type": "Person",
-  "@id": `${SITE_URL}/#stan-girard`,
-  name: "Stan Girard",
-  sameAs: [
-    "https://www.linkedin.com/in/stan-girard/",
-    "https://x.com/_stangirard",
-    "https://github.com/StanGirard",
-  ],
-};
-
-/** Author of the Victor's Story series, which he writes in the first person. */
-const VICTOR_NIVAULT: JsonLdNode = {
-  "@type": "Person",
-  name: "Victor Nivault",
-  jobTitle: "Builder",
-  worksFor: { "@type": "Organization", name: SITE_NAME },
-  sameAs: ["https://www.linkedin.com/in/victor-nivault-698a77217"],
-};
-
-const VICTOR_STORY_SERIES = "victor-story";
+/**
+ * An article author as a Person node, in the page's language. Stan's node is
+ * also the Organization's first founder, so it keeps the same `@id`.
+ */
+export function authorPersonNode(author: Author, locale: string): JsonLdNode {
+  const url = authorAbsoluteUrl(author, locale);
+  return {
+    "@type": "Person",
+    "@id": `${SITE_URL}/#${author.id}`,
+    name: author.name,
+    jobTitle: authorRole(author, locale),
+    ...(url ? { url } : {}),
+    ...(author.id === "victor-nivault"
+      ? { worksFor: { "@type": "Organization", name: SITE_NAME } }
+      : {}),
+    ...(author.sameAs.length > 0 ? { sameAs: author.sameAs } : {}),
+  };
+}
 
 const ANTOINE_DEWEZ: JsonLdNode = {
   "@type": "Person",
@@ -88,7 +92,7 @@ export function organizationNode(locale: string): JsonLdNode {
     "@type": ["Organization", "ProfessionalService"],
     description: locale === "fr" ? ORGANIZATION_DESCRIPTION.fr : ORGANIZATION_DESCRIPTION.en,
     image: LOGO.url,
-    founder: [STAN_GIRARD, ANTOINE_DEWEZ],
+    founder: [authorPersonNode(AUTHORS["stan-girard"], locale), ANTOINE_DEWEZ],
     foundingDate: "2024",
     address: {
       "@type": "PostalAddress",
@@ -258,6 +262,7 @@ export function articleSchema({
   language,
   imageUrl,
   series,
+  author,
 }: {
   url: string;
   title: string;
@@ -268,6 +273,8 @@ export function articleSchema({
   imageUrl?: string;
   /** Victor's Story articles are Victor's; every other article is Stan's. */
   series?: string;
+  /** The article's explicit `author` id, which wins over the series rule. */
+  author?: string;
 }): JsonLdNode {
   return {
     "@context": SCHEMA_CONTEXT,
@@ -280,7 +287,7 @@ export function articleSchema({
     dateModified: dateModified ?? publishedAt,
     ...(imageUrl ? { image: [imageUrl] } : {}),
     inLanguage: language,
-    author: series === VICTOR_STORY_SERIES ? VICTOR_NIVAULT : STAN_GIRARD,
+    author: authorPersonNode(resolveArticleAuthor({ author, series }), language),
     publisher: PUBLISHER,
   };
 }
