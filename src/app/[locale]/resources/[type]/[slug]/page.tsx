@@ -280,6 +280,7 @@ export default async function ContentDetailPage({
                   locale={item.language}
                   className="text-xs font-mono text-soft-foreground"
                   nameClassName="text-foreground"
+                  avatarSize={40}
                 />
                 <span className="text-muted-foreground" aria-hidden="true">&bull;</span>
                 {item.publishedAt && (
@@ -318,6 +319,7 @@ export default async function ContentDetailPage({
                         nameClassName=""
                         roleClassName="text-xs text-muted-foreground"
                         separator={false}
+                        avatarSize={44}
                       />
                     </div>
 
@@ -445,6 +447,7 @@ function AuthorByline({
   nameClassName,
   roleClassName = '',
   separator = true,
+  avatarSize,
 }: {
   author: Author;
   locale: string;
@@ -452,6 +455,8 @@ function AuthorByline({
   nameClassName: string;
   roleClassName?: string;
   separator?: boolean;
+  /** Rendered size of the round portrait, in CSS pixels. */
+  avatarSize: number;
 }) {
   const sitePath = authorSitePath(author, locale);
   const href = authorHref(author, locale);
@@ -469,11 +474,29 @@ function AuthorByline({
     <span className={nameClassName}>{author.name}</span>
   );
 
-  return (
+  const text = (
     <span className={className}>
       {name}
       {separator ? ', ' : null}
       <span className={roleClassName}>{authorRole(author, locale)}</span>
+    </span>
+  );
+  if (!author.image) return text;
+
+  // The 96px portrait is served as is: already small and sized for 2x screens.
+  return (
+    <span className="inline-flex items-center gap-3">
+      <Image
+        src={author.image.small}
+        alt={author.name}
+        width={avatarSize}
+        height={avatarSize}
+        loading="lazy"
+        unoptimized
+        className="shrink-0 rounded-full border border-border bg-card object-cover"
+        style={{ width: avatarSize, height: avatarSize }}
+      />
+      {text}
     </span>
   );
 }

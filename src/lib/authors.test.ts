@@ -1,9 +1,12 @@
 import { describe, expect, test } from "bun:test";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 
 import {
   AUTHORS,
   authorAbsoluteUrl,
   authorHref,
+  authorImageUrl,
   authorRole,
   authorSitePath,
   isAuthorId,
@@ -69,6 +72,26 @@ describe("author links and roles", () => {
     expect(authorRole(victor, "en")).toBe("Builder");
     expect(authorSitePath(victor, "fr")).toBeNull();
     expect(authorHref(victor, "fr")).toBe("https://www.linkedin.com/in/victor-nivault-698a77217");
+  });
+
+  test("every author has a 96px byline portrait and a 400px structured-data portrait on disk", () => {
+    for (const author of Object.values(AUTHORS)) {
+      expect(author.image).toBeDefined();
+      for (const [path, size] of [
+        [author.image!.small, 96],
+        [author.image!.large, 400],
+      ] as const) {
+        const file = join(process.cwd(), "public", path);
+        expect(existsSync(file)).toBe(true);
+        // VP8 webp: width and height sit at bytes 26-29 (14 bits each).
+        const bytes = readFileSync(file);
+        expect(bytes.subarray(12, 16).toString()).toBe("VP8 ");
+        expect(bytes.readUInt16LE(26) & 0x3fff).toBe(size);
+        expect(bytes.readUInt16LE(28) & 0x3fff).toBe(size);
+      }
+    }
+    expect(authorImageUrl(stan)).toBe(`${SITE}/images/authors/stan-400.webp`);
+    expect(authorImageUrl(victor)).toBe(`${SITE}/images/authors/victor-400.webp`);
   });
 
   test("no dashes in visible author text", () => {

@@ -522,6 +522,7 @@ describe("articles", () => {
           name: "Victor Nivault",
           jobTitle: "Builder",
           url: "https://www.linkedin.com/in/victor-nivault-698a77217",
+          image: `${SITE}/images/authors/victor-400.webp`,
           worksFor: { "@type": "Organization", name: "The Vibe Company" },
           sameAs: ["https://www.linkedin.com/in/victor-nivault-698a77217"],
         });
@@ -532,6 +533,7 @@ describe("articles", () => {
           name: "Stan Girard",
           jobTitle: article.language === "en" ? "Co-founder" : "Cofondateur",
           url: article.language === "en" ? `${SITE}/en/about` : `${SITE}/fr/a-propos`,
+          image: `${SITE}/images/authors/stan-400.webp`,
           sameAs: [
             "https://www.linkedin.com/in/stan-girard/",
             "https://x.com/_stangirard",

@@ -1,6 +1,7 @@
 import {
   AUTHORS,
   authorAbsoluteUrl,
+  authorImageUrl,
   authorRole,
   resolveArticleAuthor,
   type Author,
@@ -37,12 +38,14 @@ const WEBSITE_ID = `${SITE_URL}/#website`;
  */
 export function authorPersonNode(author: Author, locale: string): JsonLdNode {
   const url = authorAbsoluteUrl(author, locale);
+  const image = authorImageUrl(author);
   return {
     "@type": "Person",
     "@id": `${SITE_URL}/#${author.id}`,
     name: author.name,
     jobTitle: authorRole(author, locale),
     ...(url ? { url } : {}),
+    ...(image ? { image } : {}),
     ...(author.worksForCompany
       ? { worksFor: { "@type": "Organization", name: SITE_NAME } }
       : {}),

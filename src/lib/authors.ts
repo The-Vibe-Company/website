@@ -1,4 +1,4 @@
-import { ABOUT_PATHS, localizedPath, localizedUrl, splitPath } from "@/lib/site";
+import { ABOUT_PATHS, absoluteUrl, localizedPath, localizedUrl, splitPath } from "@/lib/site";
 
 /**
  * The people who sign articles. An article names its author with an optional
@@ -25,8 +25,11 @@ export interface Author {
   sameAs: string[];
   /** Restate The Vibe Company as `worksFor` in structured data. */
   worksForCompany?: boolean;
-  /** A portrait, for later. Unused for now. */
-  image?: string;
+  /**
+   * Square portraits under `public/`: `small` (96x96) for the byline,
+   * `large` (400x400) for the structured-data `image`.
+   */
+  image?: { small: string; large: string };
 }
 
 export const DEFAULT_AUTHOR_ID: AuthorId = "stan-girard";
@@ -43,6 +46,10 @@ export const AUTHORS: Record<AuthorId, Author> = {
       "https://x.com/_stangirard",
       "https://github.com/StanGirard",
     ],
+    image: {
+      small: "/images/authors/stan.webp",
+      large: "/images/authors/stan-400.webp",
+    },
   },
   "victor-nivault": {
     id: "victor-nivault",
@@ -51,6 +58,10 @@ export const AUTHORS: Record<AuthorId, Author> = {
     url: "https://www.linkedin.com/in/victor-nivault-698a77217",
     sameAs: ["https://www.linkedin.com/in/victor-nivault-698a77217"],
     worksForCompany: true,
+    image: {
+      small: "/images/authors/victor.webp",
+      large: "/images/authors/victor-400.webp",
+    },
   },
 };
 
@@ -102,4 +113,9 @@ export function authorAbsoluteUrl(author: Author, locale: string): string {
 
 export function isExternalAuthorUrl(href: string): boolean {
   return /^https?:\/\//.test(href);
+}
+
+/** The author's large portrait as an absolute URL, for structured data. */
+export function authorImageUrl(author: Author): string | undefined {
+  return author.image ? absoluteUrl(author.image.large) : undefined;
 }
