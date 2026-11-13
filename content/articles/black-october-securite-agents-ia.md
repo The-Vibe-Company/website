@@ -1,11 +1,13 @@
 ---
 title: "Black October : failles PHP, secrets volés, ce que ça change pour vos agents IA"
-seoTitle: "Black October : failles PHP, agents IA | The Vibe Company"
+seoTitle: "Sécurité des agents IA : les leçons de Black October (2026)"
+seoDescription: "PHP2Shell et l'incident Railway montrent les vrais risques pour un agent IA : runtime legacy et clés API SaaS. Voici la checklist 48 h pour les fermer."
 slug: black-october-securite-agents-ia
 translationKey: black-october-ai-agent-security
 language: fr
 summary: "PHP2Shell et l'incident Railway (octobre 2026) : ce que le cluster Black October change pour sécuriser un agent IA, ses secrets SaaS et un environnement HDS."
 publishedAt: 2026-10-24
+dateModified: 2026-11-13
 complexity: intermediate
 topics: AI Agents, Security, AI Operations
 coverImage: /images/resources/black-october-securite-agents-ia/cover-mascotte.webp
