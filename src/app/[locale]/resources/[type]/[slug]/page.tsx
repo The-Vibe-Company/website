@@ -463,6 +463,7 @@ function AuthorByline({
   ) : href && isExternalAuthorUrl(href) ? (
     <a href={href} target="_blank" rel="noopener noreferrer" className={nameLink}>
       {author.name}
+      <span className="sr-only">{locale === 'en' ? ' (opens in a new tab)' : ' (nouvel onglet)'}</span>
     </a>
   ) : (
     <span className={nameClassName}>{author.name}</span>

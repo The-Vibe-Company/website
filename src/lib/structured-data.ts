@@ -43,7 +43,7 @@ export function authorPersonNode(author: Author, locale: string): JsonLdNode {
     name: author.name,
     jobTitle: authorRole(author, locale),
     ...(url ? { url } : {}),
-    ...(author.id === "victor-nivault"
+    ...(author.worksForCompany
       ? { worksFor: { "@type": "Organization", name: SITE_NAME } }
       : {}),
     ...(author.sameAs.length > 0 ? { sameAs: author.sameAs } : {}),

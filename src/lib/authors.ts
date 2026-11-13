@@ -23,6 +23,8 @@ export interface Author {
   url: Localized | string;
   /** Profiles restated as `sameAs` in structured data. */
   sameAs: string[];
+  /** Restate The Vibe Company as `worksFor` in structured data. */
+  worksForCompany?: boolean;
   /** A portrait, for later. Unused for now. */
   image?: string;
 }
@@ -48,6 +50,7 @@ export const AUTHORS: Record<AuthorId, Author> = {
     role: { fr: "Builder", en: "Builder" },
     url: "https://www.linkedin.com/in/victor-nivault-698a77217",
     sameAs: ["https://www.linkedin.com/in/victor-nivault-698a77217"],
+    worksForCompany: true,
   },
 };
 
