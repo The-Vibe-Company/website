@@ -2274,12 +2274,17 @@
     }
   },
   "tools": {
-    "metaTitle": "Free AI tools | The Vibe Company",
-    "metaDescription": "Small, free, no-sign-up tools from The Vibe Company to help you work better with AI every day. The first checks if your website is ready for AI agents.",
+    "metaTitle": "Free AI tools, no sign-up | The Vibe Company",
+    "metaDescription": "Free AI tools built by The Vibe Company, no sign-up. The first checks whether ChatGPT, Claude and Perplexity can read your website, llms.txt included.",
     "breadcrumb": "Tools",
     "kicker": "Free tools",
-    "title": "Small free tools to get more out of AI",
-    "lede": "Simple, free tools with no sign-up, built by The Vibe Company to help you use AI day to day. The first one checks whether your website is ready for AI agents. More will follow.",
+    "title": "Free AI tools you can use without signing up",
+    "lede": "These are the free AI tools we build ourselves at The Vibe Company. There are only a few, none of them asks for an account or an email, and the first one is live: it tests your website and tells you whether ChatGPT, Claude or Perplexity can find it and read it. It is not a directory of fifty chatbots, and it does not try to be one.",
+    "intro": {
+      "title": "What you will find here",
+      "p1": "Every tool on this page is built by The Vibe Company, an <agencyLink>AI agency in Paris</agencyLink>. The rule is the same for all of them: free, no sign-up, and simple enough to give you a result straight away.",
+      "p2": "The collection is small. Today it is one tool, a checker that tells you whether your website is ready for AI agents. You give it your site's address and it hands back a score and a list of what to fix."
+    },
     "listTitle": "The tools",
     "free": "Free, no sign-up",
     "open": "Open the tool",
@@ -2289,7 +2294,62 @@
         "description": "Enter your website's address: 16 checks across discoverability, content, AI crawler access and agent protocols, a score out of 100 and the fixes to apply."
       }
     },
-    "moreSoon": "More tools are on the way. Got an idea for a tool that would save you time with AI? Write to us."
+    "agentReady": {
+      "title": "The first tool: is your website ready for AI agents?",
+      "p1": "Your customers increasingly ask ChatGPT, Claude or Perplexity to compare options, summarize a page or book something for them. To answer, those assistants go and visit the websites involved. If they cannot read yours, they cite your competitors.",
+      "p2": "We made the checker for whoever owns that problem in a small or mid-size company, whether they sit in marketing or in tech. You enter your website's address and the tool tests the root of the site. It runs 16 checks on your public pages: the home page, robots.txt, the sitemap, llms.txt and the standard files of agent protocols. The result comes back in under 30 seconds.",
+      "p3": "You leave with a score out of 100, a level from 0 to 5 for each category and an explanation in plain language. Every point to fix comes with instructions you can paste into a coding agent such as Claude Code, Cursor or Codex.",
+      "categoriesTitle": "Four categories, four plain questions",
+      "discovery": "The first category, Discoverability, asks the basic question: can agents find your pages? robots.txt is your site's house rules, the file search engines and AI assistants read before anything else. The sitemap gives them all your pages in a single request. And llms.txt sums up who you are and where your key pages live.",
+      "content": "The Content category picks up once they have arrived: can they read you without a browser? Many agents do not run JavaScript. If your home page only shows its text after a script has run, they see an empty page. The checker also looks at whether your site can serve its pages as Markdown, which agents prefer to HTML.",
+      "bots": "The AI crawlers category checks whether you let these visitors in, and on what terms. There is what your robots.txt says to the main AI crawlers, and there is what really happens. A crawler asking for your home page should get it, with no block and no \"are you human?\" challenge. A blocked crawler does not cite your site in its answers.",
+      "protocols": "Agent protocols, the last scored category, mostly matters for online services. It looks for the files that tell an agent it can take action on your site, such as the card of an <mcpLink>MCP server</mcpLink>. Checks that do not apply to your site do not count toward the score.",
+      "commerce": "A fifth section, Commerce, reports whether an agent can pay you through the x402 protocol. That one is still emerging, so it is shown for information and stays outside the score.",
+      "link": "Test my website with the agent-ready checker"
+    },
+    "llms": {
+      "title": "What is llms.txt, and does your site need one?",
+      "p1": "llms.txt is a summary of your website written for AI models. It is a Markdown file that lives at /llms.txt and is served as text/plain or text/markdown.",
+      "p2": "There is not much in it. It opens with a heading in the form \"# Name of your company\", followed by a one-line presentation and a list of your important pages with their links.",
+      "p3": "A sitemap lists every page you have. llms.txt says in a few lines who you are and which pages to read first, which makes it the simplest way in for an assistant.",
+      "p4": "The agent-ready checker looks for this file on your site. It is an llms.txt checker, not a generator. If the file is missing, the report explains what to put in it and gives you instructions to paste into your coding agent."
+    },
+    "score": {
+      "title": "How to read your score, and what to fix first",
+      "p1": "The score out of 100 combines the four scored categories. Checks do not all weigh the same. The essentials count for more: readable content, real AI crawler access, robots.txt and the sitemap. Each category also gets its own level, from 0 to 5.",
+      "p2": "Those weights give you the order of work. Start by making sure AI crawlers get in and that your text is present in the HTML. Then tidy up robots.txt and the sitemap, and add an llms.txt. Agent protocols come later, if you run an online service.",
+      "p3": "The basic fixes do not call for a technical team. Each point is explained simply, and a copy button prepares the instructions for your coding agent. They often take less than a day."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "free": {
+          "q": "Are these AI tools really free?",
+          "a": "Yes. They are free and work with no sign-up: no account to create, no email to leave."
+        },
+        "ready": {
+          "q": "What does \"ready for AI agents\" mean?",
+          "a": "It means AI assistants and agents can find, read and understand your website with no effort: a clear robots.txt, a sitemap, an llms.txt summary, text present in the HTML and open access for AI crawlers. For an online service it also covers protocols like MCP, so an agent can take action."
+        },
+        "llms": {
+          "q": "Does the tool generate my llms.txt file?",
+          "a": "No, it checks that the file is there. If it is missing, the report describes what it should contain (a heading, a one-line presentation, a list of your important pages) and provides instructions to paste into a coding agent."
+        },
+        "data": {
+          "q": "What does the test do on my site, and what do you keep?",
+          "a": "The test only reads public pages, as a visitor would, with no login and no form. The report stays in memory for a few minutes so the same test is not run twice, then it is forgotten. We only measure the tested domain name and the score, to improve the tool."
+        },
+        "dev": {
+          "q": "I have no developer. Can I fix things myself?",
+          "a": "Often, yes. Every point comes with a simple explanation and the fix to apply, and the instructions paste straight into Claude Code, Cursor or Codex. The basic fixes often take less than a day."
+        }
+      }
+    },
+    "more": {
+      "title": "More tools are on the way",
+      "p1": "More tools will join this page as they are ready, free and with no sign-up like the first.",
+      "p2": "Until then, two articles pick up where the checker stops: <aeoLink>getting cited by ChatGPT, six AEO myths checked against sources</aeoLink>, and <mcpLink>MCP servers at work</mcpLink>. The rest is in <resourcesLink>our resources</resourcesLink>."
+    }
   },
   "agentReady": {
     "metaTitle": "Is your website ready for AI agents? Free checker",
