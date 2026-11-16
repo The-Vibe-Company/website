@@ -1,0 +1,62 @@
+src/app/[locale]/portfolio/page.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 126
+src/components/media-ai/MediaAiPage.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 249,275,327,375
+src/components/healthcare-ai/HealthcareAiPage.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 271,328,390,468
+src/components/tools/AgentReadyScanner.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 293
+CLAUDE.md
+  s_b9b0dd4ac0dc14::t_924a74f3aad85c 46-47,51
+src/app/[locale]/portfolio/[slug]/page.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 279
+src/components/home/landing/Workbench.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 31
+src/components/quivr/QuivrSections.tsx
+  s_b9b0dd4ac0dc14::t_103d4769142cd4 85
+src/components/agents-production/AgentsProductionPage.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 298,367,426,488
+src/components/custom-ai-app/CustomAiAppPage.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 120,312,367
+src/components/hardening/HardeningPage.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 219,273,359
+src/app/[locale]/not-found.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 45
+src/components/home/landing/Offers.tsx
+  s_b9b0dd4ac0dc14::t_4a87f256abc101 31,47
+src/components/agency-paris/AgencyParisPage.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 179,280,324,359,389
+src/app/[locale]/case-studies/page.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 97
+src/components/tools/AgentReadyPage.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 131
+src/components/CaseCards.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 62
+DESIGN.md
+  s_b9b0dd4ac0dc14::t_924a74f3aad85c 474-475,508,530,544,578,585
+  s_b9b0dd4ac0dc14::t_9dc2c467962db0 229,231
+src/app/globals.css
+  s_b9b0dd4ac0dc14::t_9dc2c467962db0 273
+src/components/about/AboutPage.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 141,175,315
+src/components/quivr/QuivrBento.tsx
+  s_b9b0dd4ac0dc14::t_103d4769142cd4 155
+src/app/[locale]/case-studies/[slug]/page.tsx
+  s_b9b0dd4ac0dc14::t_2b7af1da7ee9f0 359,423
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "42aaabbf6964c0b75fb0f84076b6baaa6c4e26df",
+  "prompts": {},
+  "sessions": {
+    "s_b9b0dd4ac0dc14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e2890f4d-3310-4d71-a411-27de427c255d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
