@@ -27,7 +27,8 @@ export function FinalCTA({
 }: {
   /** The page's own content width, so the copy lines up with it. */
   rail?: "wide" | "narrow";
-  /** A landing can bring its own closing line; same keys as `finalCta`. */
+  /** A landing can bring its own closing line; same keys as `finalCta`,
+   *  plus an optional `text` set under the title. */
   namespace?: string;
 }) {
   const t = useTranslations(namespace);
@@ -62,6 +63,11 @@ export function FinalCTA({
           <br />
           {t("titleLine2")}
         </h2>
+        {t.has("text") ? (
+          <p className="m-0 mt-6 max-w-[34rem] text-[17px] leading-[1.6] text-soft-foreground drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)] md:text-[19px]">
+            {t("text")}
+          </p>
+        ) : null}
         <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5 lg:flex-row-reverse">
           <CaptureLink
             href={BOOKING_URL}

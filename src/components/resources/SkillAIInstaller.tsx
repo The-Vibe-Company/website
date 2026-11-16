@@ -7,7 +7,6 @@ import { useTranslations } from 'next-intl';
 import { BrandSquare } from '@/components/BrandSquare';
 import { CopyButton } from '@/components/resources/CopyButton';
 import { captureEvent } from '@/lib/posthog';
-import { resourcesTheme } from '@/lib/resources-theme';
 import {
   buildAIInstallPrompt,
   type SkillInstallContext,
@@ -35,7 +34,6 @@ export function SkillAIInstaller({ context }: SkillAIInstallerProps) {
       className="lamp-card relative overflow-hidden border border-border p-6 pt-8 sm:p-7 sm:pt-9"
       aria-labelledby="ai-installer-heading"
     >
-      <span aria-hidden="true" className={resourcesTheme.page.lamp} />
       <div className="relative flex items-start gap-4">
         <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center bg-foreground text-background">
           <Bot size={17} strokeWidth={1.9} aria-hidden="true" />

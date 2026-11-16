@@ -4,9 +4,6 @@ import { clientLogoSize } from "@/lib/client-logos";
 import type { Customer } from "@/lib/customers";
 import { cn } from "@/lib/design-system";
 
-/** The short orange bar a lamp card hangs from, with its glow. */
-const LAMP =
-  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 
 /**
  * The client cases as lamp cards, on the homepage and the case studies page
@@ -39,7 +36,6 @@ export function CaseCards({
                 href={`/case-studies/${c.slug}?from=${from}`}
                 className="lamp-card group relative flex w-full flex-col overflow-hidden border border-border p-7 no-underline transition-colors hover:border-border-strong md:p-9"
               >
-                <span aria-hidden="true" className={LAMP} />
                 <div className="relative flex min-h-8 items-start justify-between gap-4">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -63,7 +59,7 @@ export function CaseCards({
                 >
                   <div>
                     <p className="m-0 font-bold leading-[0.95] tracking-[-0.05em] [container-type:inline-size]">
-                      <FitText max={88} trackingEm={-0.05} className="text-lit transition-none">
+                      <FitText max={88} trackingEm={-0.05} className="text-foreground transition-none">
                         {c.metric ?? ""}
                       </FitText>
                     </p>

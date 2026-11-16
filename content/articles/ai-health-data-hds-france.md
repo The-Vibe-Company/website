@@ -1,11 +1,11 @@
 ---
 title: "AI and health data in France: what HDS really means for your project"
-seoTitle: "AI and health data in France: HDS rules"
+seoTitle: "HDS certification in France: who needs it for an AI project"
 slug: ai-health-data-hds-france
 language: en
 translationKey: hds-health-data
 summary: "AI and health data in France: who needs certification, the 6 HDS activities, the 2024 framework, GDPR and the CNIL. What to check before production."
-seoDescription: "AI on French health data: the 6 HDS activities, a certified host, models and logs, GDPR/CNIL. A practical guide before production."
+seoDescription: "AI on French health data: who needs HDS certification, the 6 HDS activities, the 2024 framework, GDPR and CNIL. A 9-point checklist before production."
 publishedAt: 2026-10-12
 complexity: intermediate
 topics: AI Agents, Health Data, Security

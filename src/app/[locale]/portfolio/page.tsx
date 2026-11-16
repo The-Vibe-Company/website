@@ -37,9 +37,6 @@ const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 const BAND = `${SECTION} py-20 md:py-28 lg:py-32`;
 const H2 =
   "m-0 font-bold text-foreground text-[clamp(2.5rem,5.6vw,5.25rem)] leading-[0.92] tracking-[-0.045em]";
-/** The short orange bar a lamp card hangs from, with its glow. */
-const LAMP =
-  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 
 /**
  * The products put forward, in this order: Quivr and Skillpack on the wide
@@ -126,7 +123,7 @@ export default async function PortfolioPage({
             <h1 className="m-0 mt-8 text-[clamp(3rem,7.4vw,7.75rem)] font-bold leading-[0.9] tracking-[-0.05em] text-foreground lg:mt-10">
               {t("titleLine1")}
               <br />
-              <span className="text-lit">{t("titleLine2")}</span>
+              <span className="text-foreground">{t("titleLine2")}</span>
             </h1>
             <p className="m-0 mt-10 max-w-[680px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
               {t("subtitle")}
@@ -145,7 +142,6 @@ export default async function PortfolioPage({
                     href={`/portfolio/${p.slug}`}
                     className="lamp-card group flex h-full min-h-[20rem] flex-col overflow-hidden border border-border p-7 no-underline transition-colors hover:border-brand/50 md:p-9"
                   >
-                    <span aria-hidden="true" className={LAMP} />
                     <div className="relative flex items-start justify-between gap-4">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img

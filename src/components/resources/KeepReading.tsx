@@ -65,7 +65,6 @@ export async function KeepReading({ items }: { items: ContentEntry[] }) {
             {/* The next read hangs under its lamp, like the landing's
                 highlighted cards. */}
             <div className="lamp-card relative flex flex-1 flex-col justify-center p-7 pt-10 md:p-10">
-              <span aria-hidden="true" className={resourcesTheme.page.lamp} />
               <div className="relative mb-4 flex items-center gap-3">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
                   <BrandSquare />

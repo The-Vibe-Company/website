@@ -31,9 +31,11 @@ export function ServiceHero({
   display: string;
   /** The page's full title, the one search engines see. */
   title: string;
-  lede: string;
-  /** The booking call, already wired to its location. */
-  cta: ReactNode;
+  /** The pitch: one paragraph, or a few short ones. */
+  lede: string | readonly string[];
+  /** The booking call, already wired to its location. Left out when the
+   *  page places its call after the value instead. */
+  cta?: ReactNode;
   /** The response time, set in mono beside the backers, when the call does
    *  not already carry it. */
   response?: string;
@@ -71,7 +73,14 @@ export function ServiceHero({
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)]">
           <div className="relative z-20 pb-10 lg:pb-[72px]">
-            <p className="m-0 mt-6 max-w-[33rem] text-[17px] leading-[1.6] text-muted-foreground md:text-[19px]">{lede}</p>
+            {(typeof lede === "string" ? [lede] : lede).map((paragraph) => (
+              <p
+                key={paragraph}
+                className="m-0 mt-6 max-w-[33rem] text-[17px] leading-[1.6] text-muted-foreground md:text-[19px]"
+              >
+                {paragraph}
+              </p>
+            ))}
             {cta}
             <div className="mt-12 flex flex-wrap items-center justify-between gap-x-10 gap-y-5 border-t border-border pt-7">
               <Backers className="flex-wrap gap-x-10" />

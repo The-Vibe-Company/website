@@ -27,9 +27,6 @@ const KICKER = "mb-6 block font-mono text-[12px] uppercase tracking-[0.2em] text
 const H2 =
   "m-0 max-w-[18ch] font-bold text-foreground text-[clamp(2.5rem,5.6vw,5.25rem)] leading-[0.92] tracking-[-0.045em]";
 const PROSE = "m-0 max-w-[620px] text-[15px] leading-[1.6] text-muted-foreground md:text-base";
-/** The short orange bar a lamp card hangs from, with its glow. */
-const LAMP =
-  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 
 export async function QuivrSections({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "quivr" });
@@ -85,8 +82,7 @@ export async function QuivrSections({ locale }: { locale: string }) {
           <ol className="m-0 mt-12 grid list-none grid-cols-1 gap-4 p-0 md:mt-16 md:grid-cols-3">
             {QUIVR_SERVICE_KEYS.map((key, i) => (
               <li key={key} className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9">
-                <span aria-hidden="true" className={LAMP} />
-                <span className="relative text-lit text-[56px] font-bold leading-none tracking-[-0.05em]">
+                <span className="relative text-[56px] text-foreground font-bold leading-none tracking-[-0.05em]">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="relative m-0 mt-10 text-[clamp(1.5rem,2vw,1.9rem)] font-bold leading-[1.05] tracking-[-0.03em] text-foreground">

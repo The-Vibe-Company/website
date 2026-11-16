@@ -28,7 +28,7 @@ export function Offers() {
         >
           {t("titleLine1")}
           <br />
-          <span className="text-lit">{t("titleLine2")}</span>
+          {t("titleLine2")}
         </h2>
 
         <ol className="m-0 mt-14 grid list-none grid-cols-1 gap-4 p-0 lg:grid-cols-3">
@@ -43,9 +43,8 @@ export function Offers() {
                 // rule and list below its neighbours'.
                 className="relative flex flex-col overflow-hidden border border-border p-7 md:p-9 lg:row-span-4 lg:grid lg:grid-rows-subgrid lg:gap-y-0 lamp-card"
               >
-                <span aria-hidden="true" className="absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]" />
                 <div className="relative flex items-baseline justify-between gap-4">
-                  <span className="text-[56px] font-bold leading-none tracking-[-0.05em] text-lit">0{i + 1}</span>
+                  <span className="text-[56px] font-bold leading-none tracking-[-0.05em] text-foreground">0{i + 1}</span>
                   <span className="text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                     {t(`items.${k}.tag`)}
                   </span>

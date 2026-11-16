@@ -68,9 +68,6 @@ const MONO =
 const PROSE = "m-0 text-[15px] leading-[1.6] text-muted-foreground md:text-base";
 const LINK =
   "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
-/** The short orange bar a lamp card hangs from, with its glow. */
-const LAMP =
-  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 
 export async function AboutPage({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "about" });
@@ -140,9 +137,8 @@ export async function AboutPage({ locale }: { locale: string }) {
                   key={key}
                   className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
                 >
-                  <span aria-hidden="true" className={LAMP} />
                   <div className="relative mb-10 flex items-baseline justify-between gap-3">
-                    <span className="text-lit text-[56px] font-bold leading-none tracking-[-0.05em]">
+                    <span className="text-foreground text-[56px] font-bold leading-none tracking-[-0.05em]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
@@ -176,7 +172,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                   className="grid grid-cols-1 gap-5 py-9 md:grid-cols-[minmax(0,380px)_1fr] md:gap-12 md:py-12"
                 >
                   <div>
-                    <div className="text-lit text-[clamp(2.75rem,5vw,4.5rem)] font-bold leading-[0.95] tracking-[-0.05em]">
+                    <div className="text-foreground text-[clamp(2.75rem,5vw,4.5rem)] font-bold leading-[0.95] tracking-[-0.05em]">
                       {t(`edge.items.${key}.figure`)}
                     </div>
                     <div className="mt-3 text-sm leading-[1.5] text-muted-foreground">
@@ -316,7 +312,7 @@ export async function AboutPage({ locale }: { locale: string }) {
                   className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
-                    <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
+                    <span className="text-foreground text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
                       {step.n}
                     </span>
                     <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">

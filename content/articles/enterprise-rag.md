@@ -1,10 +1,11 @@
 ---
 title: "Enterprise RAG: connect generative AI to your documents"
-seoTitle: "Enterprise RAG: connect generative AI to your documents"
+seoTitle: "Enterprise RAG: answers from your documents, with sources"
 slug: enterprise-rag
 translationKey: enterprise-rag
 language: en
 summary: "Enterprise RAG explained: how to make generative AI answer from your own documents, with real sources, the right access rights, and the LocService case."
+seoDescription: "Enterprise RAG explained: how generative AI answers from your own documents, cites the passage it used and respects access rights. With the LocService case."
 publishedAt: 2026-10-27
 complexity: intermediate
 topics: AI Infrastructure, Knowledge Systems, Security
