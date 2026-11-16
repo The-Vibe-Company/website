@@ -29,9 +29,6 @@ import s from "./quivr.module.css";
  */
 
 const MONO = "font-mono text-[10px] uppercase tracking-[0.16em]";
-/** The short orange bar a lamp card hangs from, with its glow. */
-const LAMP =
-  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 const SOURCES: SourceKind[] = ["feed", "mail", "x", "app"];
 
 function Tile({
@@ -55,7 +52,6 @@ function Tile({
       className={`${s.tile} ${area} ${lit ? "lamp-card" : "bg-card"} text-foreground`}
       style={{ "--i": index } as CSSProperties}
     >
-      {lit ? <span aria-hidden="true" className={LAMP} /> : null}
       <div className="relative z-[1] max-w-[440px] px-6 pt-6 text-[19px] leading-[1.35] tracking-[-0.015em] md:px-7 md:pt-7 md:text-[20px]">
         <h3 className="m-0 inline text-[length:inherit] font-semibold">{title}</h3>{" "}
         <p className="m-0 inline text-muted-foreground">{body}</p>
@@ -156,7 +152,7 @@ export async function QuivrBento({ locale }: { locale: string }) {
           <span className={`text-muted-foreground ${MONO}`}>{t("license.label")}</span>
           {/* Sized to the tile (cqi), so it never runs past the gutter. */}
           <span
-            className="text-lit mt-1 font-bold leading-[0.85] tracking-[-0.05em]"
+            className="mt-1 font-bold text-foreground leading-[0.85] tracking-[-0.05em]"
             style={{ fontSize: "min(168px, calc((100cqi - 64px) / 1.7))" }}
           >
             {t("license.value")}

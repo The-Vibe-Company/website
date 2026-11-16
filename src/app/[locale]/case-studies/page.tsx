@@ -94,7 +94,7 @@ export default async function CaseStudiesPage({
             <h1 className="m-0 mt-8 max-w-[18ch] text-[clamp(2.75rem,7vw,7rem)] font-bold leading-[0.92] tracking-[-0.05em] text-foreground lg:mt-10">
               {t("titleLine1")}
               <br />
-              <span className="text-lit">{t("titleLine2")}</span>
+              <span className="text-foreground">{t("titleLine2")}</span>
             </h1>
             <p className="m-0 mt-10 max-w-[680px] border-l border-border-strong pl-5 text-lg leading-[1.5] text-foreground md:pl-6 md:text-[19px]">
               {t("subtitle")}

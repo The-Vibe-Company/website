@@ -42,7 +42,7 @@ export default async function NotFound() {
         />
         <div className="relative mx-auto grid w-full max-w-[90rem] grid-cols-1 items-center gap-12 px-6 py-20 md:px-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:px-16 lg:py-28">
           <div>
-            <span className="text-lit block text-[clamp(6rem,16vw,13rem)] font-bold leading-[0.85] tracking-[-0.06em]">
+            <span className="text-foreground block text-[clamp(6rem,16vw,13rem)] font-bold leading-[0.85] tracking-[-0.06em]">
               404
             </span>
             <h1 className="m-0 mt-8 text-[clamp(2.5rem,5.6vw,5.25rem)] font-bold leading-[0.92] tracking-[-0.045em] text-foreground">

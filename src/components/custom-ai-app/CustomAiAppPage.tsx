@@ -82,9 +82,6 @@ const MONO_LINK =
 /** The soft orange light an emphasis ink band sits in. */
 const GLOW =
   "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
-/** The short orange bar a lamp card hangs from, with its glow. */
-const LAMP =
-  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 
 /** The FAQ answers' link tags, kept as plain text for the JSON-LD. */
 const FAQ_PLAIN_TAGS = {
@@ -120,8 +117,7 @@ function CardSection({
             key={card.key}
             className="lamp-card relative flex flex-col overflow-hidden border border-border p-7 md:p-9"
           >
-            <span aria-hidden="true" className={LAMP} />
-            <span className="text-lit relative mb-10 self-start text-[56px] font-bold leading-none tracking-[-0.05em]">
+            <span className="text-foreground relative mb-10 self-start text-[56px] font-bold leading-none tracking-[-0.05em]">
               {String(i + 1).padStart(2, "0")}
             </span>
             <h3 className="relative m-0 mb-4 text-[clamp(1.5rem,2.2vw,2rem)] font-bold leading-[1.05] tracking-[-0.03em] text-foreground">
@@ -313,7 +309,7 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
                         >
                           <dt className={MONO}>{t(`cases.${key}.stats.${stat}.label`)}</dt>
                           <dd className="m-0 text-[30px] font-bold leading-[1.05] tracking-[-0.04em] md:text-[40px]">
-                            <span className="text-lit box-decoration-clone">
+                            <span className="text-foreground">
                               {t(`cases.${key}.stats.${stat}.value`)}
                             </span>
                           </dd>
@@ -368,7 +364,7 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
                   key={step.n}
                   className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
-                  <span className="text-lit self-start text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
+                  <span className="text-foreground self-start text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
                     {step.n}
                   </span>
                   <div className="flex flex-col gap-3">

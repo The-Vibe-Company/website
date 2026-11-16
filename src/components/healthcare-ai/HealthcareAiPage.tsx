@@ -86,9 +86,6 @@ const MONO_LINK =
 /** The soft orange light an emphasis ink band sits in. */
 const GLOW =
   "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
-/** The short orange bar a lamp card hangs from, with its glow. */
-const LAMP =
-  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 
 /** The FAQ answers' link tags, kept as plain text for the JSON-LD. */
 const FAQ_PLAIN_TAGS = {
@@ -270,9 +267,8 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                     i === 0 ? "md:col-span-2" : ""
                   }`}
                 >
-                  <span aria-hidden="true" className={LAMP} />
                   <div className="relative mb-10 flex items-baseline justify-between gap-3">
-                    <span className="text-lit text-[56px] font-bold leading-none tracking-[-0.05em]">
+                    <span className="text-foreground text-[56px] font-bold leading-none tracking-[-0.05em]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
@@ -301,7 +297,6 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
               <figure className="m-0 self-start border border-dashed border-border-strong p-5 md:p-7">
                 <figcaption className={MONO}>{t("hds.scope.label")}</figcaption>
                 <div className="lamp-card relative mt-5 overflow-hidden border border-border p-6 md:p-7">
-                  <span aria-hidden="true" className={LAMP} />
                   <span className="relative font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                     01
                   </span>
@@ -330,7 +325,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                       key={key}
                       className="grid grid-cols-1 gap-3 py-7 md:grid-cols-[80px_minmax(0,1fr)] md:gap-6 md:py-8"
                     >
-                      <span className="text-lit self-start text-[36px] font-bold leading-none tracking-[-0.05em] md:text-[44px]">
+                      <span className="text-foreground self-start text-[36px] font-bold leading-none tracking-[-0.05em] md:text-[44px]">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <div>
@@ -392,7 +387,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                       >
                         <dt className="text-sm leading-[1.4] text-muted-foreground">{stat.label}</dt>
                         <dd className="m-0 text-[36px] font-bold leading-none tracking-[-0.05em] md:text-[48px]">
-                          <span className="text-lit box-decoration-clone">{stat.value}</span>
+                          <span className="text-foreground">{stat.value}</span>
                         </dd>
                       </div>
                     ))}
@@ -470,7 +465,7 @@ export async function HealthcareAiPage({ locale }: { locale: string }) {
                   className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
-                    <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
+                    <span className="text-foreground text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
                       {step.n}
                     </span>
                     <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">

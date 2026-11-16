@@ -43,12 +43,12 @@ The site shares **one visual identity** across every page, set by the homepage (
 
 - **Paper bands**: wrap sections in `<div data-surface="paper">`. `globals.css` turns every token over to paper inside it (and the resources `--res-*` ones), so contents keep using `bg-background`, `bg-card`, `text-foreground`, `text-muted-foreground`, `border-border`… unchanged.
 - **Ink bands of emphasis** (a quote, a process): plain ink sections with a soft orange radial glow (see `src/components/home/landing/LitQuote.tsx`, the About page's process). **Inverse bands** (`data-surface="inverse"` on a `bg-foreground text-background` element) still swap `--foreground`/`--background` into raised ink panels; never nest one inside a paper band (it renders as a white panel).
-- **Lamp cards**: `lamp-card relative overflow-hidden border border-border p-7 md:p-9` plus the lamp bar `<span aria-hidden="true" className="absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]" />`; card content gets `relative`. Secondary cards: `border border-border bg-card`.
-- **Lit text**: `text-lit` (paper→orange on ink, ink→orange on paper) for a headline's second line, an offer or step numeral, a case figure. Sparingly.
+- **Lamp cards**: `lamp-card relative overflow-hidden border border-border p-7 md:p-9` (the warm light from the top edge, no orange bar); card content gets `relative`. Secondary cards: `border border-border bg-card`.
+- **No gradient on type**: headlines, numerals and figures stay flat `text-foreground`. There is no `text-lit` utility anymore.
 - **Logos**: `logo-tone` draws client logos in the band's ink (paper on ink, ink on paper); product icons keep their colours.
 - **Closing scene**: `<FinalCTA />` (`src/components/home/FinalCTA.tsx`) is the full-width scene of the mascot pointing at the road ahead, with the call to action over the landscape; every page that ends on a call to action ends on it.
 
-One accent, `--brand` (`#f27313`, Tailwind `text-brand` / `bg-brand`): status squares, the active nav underline, the lamp bar, the blooms and glows, and the end of the lit gradient. Never use Tailwind's `orange-*` palette.
+One accent, `--brand` (`#f27313`, Tailwind `text-brand` / `bg-brand`): status squares, the active nav underline, the lamp light, the blooms and glows. Never use Tailwind's `orange-*` palette.
 
 Kickers render the square with `<BrandSquare />` (`src/components/BrandSquare.tsx`); never type a `//` prefix into copy. The wing glyph is `<BrandGlyph />` (paper arcs in `currentColor`); the YC + France 2030 credentials are `<Backers />` (`src/components/home/Backers.tsx`).
 

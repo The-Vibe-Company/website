@@ -29,8 +29,6 @@ export const resourcesTheme = {
     /** The orange light behind an ink header, as on the About page. */
     bloom:
       'radial-gradient(closest-side, rgb(242 115 19 / 0.2), rgb(242 115 19 / 0.06) 55%, transparent)',
-    /** The short orange bar a lamp card hangs from, with its glow. */
-    lamp: 'absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]',
   },
 
   card: {

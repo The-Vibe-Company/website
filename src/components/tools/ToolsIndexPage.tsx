@@ -39,8 +39,6 @@ export async function toolsMetadata(locale: string): Promise<Metadata> {
 
 const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 const MONO = "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
-const LAMP =
-  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 
 export async function ToolsIndexPage({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "tools" });
@@ -110,7 +108,6 @@ export async function ToolsIndexPage({ locale }: { locale: string }) {
                       index === 0 ? "lamp-card relative overflow-hidden" : "bg-card"
                     }`}
                   >
-                    {index === 0 && <span aria-hidden="true" className={LAMP} />}
                     <span className={`relative ${MONO}`}>
                       <BrandSquare />
                       {t("free")}

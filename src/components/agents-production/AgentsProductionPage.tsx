@@ -93,9 +93,6 @@ const TEXT_LINK =
   "text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
 const MONO_LINK =
   "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
-/** The short orange bar a lamp card hangs from, with its glow. */
-const LAMP =
-  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 /** The light an ink band sits in, as on the homepage's client quote. */
 const INK_GLOW =
   "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
@@ -297,9 +294,8 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                     key={key}
                     className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
                   >
-                    <span aria-hidden="true" className={LAMP} />
                     <div className="relative mb-10 flex items-baseline justify-between gap-3">
-                      <span className="text-lit text-[56px] font-bold leading-none tracking-[-0.05em]">
+                      <span className="text-foreground text-[56px] font-bold leading-none tracking-[-0.05em]">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span className="text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
@@ -368,7 +364,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                   className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
-                    <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
+                    <span className="text-foreground text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
                       {step.n}
                     </span>
                     <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
@@ -420,7 +416,6 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
 
             {featured ? (
               <article className="lamp-card mt-12 grid grid-cols-1 overflow-hidden border border-border md:mt-16 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-                <span aria-hidden="true" className={LAMP} />
                 {/* One bench under one lamp: no rule between the halves on
                     a wide screen, so the light falls on the whole card. */}
                 <div className="relative flex flex-col justify-between gap-6 border-b border-border p-7 md:border-b-0 md:p-10 md:pr-6">
@@ -428,7 +423,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                     {featured.sector}
                   </span>
                   <div>
-                    <span className="text-lit block pb-2 text-[clamp(4.5rem,11vw,10rem)] font-bold leading-none tracking-[-0.06em]">
+                    <span className="text-foreground block pb-2 text-[clamp(4.5rem,11vw,10rem)] font-bold leading-none tracking-[-0.06em]">
                       {featured.metric}
                     </span>
                     <span className="mt-3 block max-w-[30ch] text-[15px] leading-[1.45] text-foreground md:text-base">
@@ -460,7 +455,6 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                   key={customer.slug}
                   className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
                 >
-                  <span aria-hidden="true" className={LAMP} />
                   <span className="relative font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-muted-foreground">
                     {customer.sector}
                   </span>
@@ -491,7 +485,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
                   key={key}
                   className="flex flex-col border-b border-r border-border bg-card p-7 md:p-8"
                 >
-                  <span className="text-lit text-[40px] font-bold leading-none tracking-[-0.05em]">
+                  <span className="text-foreground text-[40px] font-bold leading-none tracking-[-0.05em]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="m-0 mt-6 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[22px]">
