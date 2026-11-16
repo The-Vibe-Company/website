@@ -25,6 +25,9 @@ try {
   // Request-scoped injection prevents sending the bypass header to analytics, CDNs or auth redirects.
   await page.setRequestInterception(true);
   page.on('request', request => {
+    // Production samples from .github/workflows/performance.yml counted as PostHog visitors (UA "moto g power (2022)").
+    // Accept the small measurement bias of blocking one third-party request via the same-origin proxy.
+    if (new URL(request.url()).pathname.startsWith('/ingest')) return void request.abort();
     const headers = { ...request.headers(), ...bypassHeaders(request.url(), target.origin, secret) };
     if (new URL(request.url()).origin !== target.origin) delete headers['x-vercel-protection-bypass'];
     void request.continue({ headers }).catch(() => {});
