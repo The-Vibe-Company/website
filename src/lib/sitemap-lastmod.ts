@@ -28,11 +28,12 @@ export const CASE_STUDIES_INDEX_LASTMOD = "2026-10-15";
  * and the French team role ("Cofondateur") changed on 2026-11-03.
  *
  * AI agency in Paris (`/agence-ia-paris` + `/ai-agency-paris`): its "Build"
- * offer card links to the custom AI app landing since 2026-11-04.
+ * offer card links to the custom AI app landing since 2026-11-04, and the
+ * page was rewritten for PME and ETI on 2026-11-16 (THE-2137).
  */
 export const SPLIT_PATH_LASTMOD: Record<string, string> = {
   "/a-propos": "2026-11-03",
-  "/agence-ia-paris": "2026-11-04",
+  "/agence-ia-paris": "2026-11-16",
   "/agents-ia-securite-produit": "2026-10-24",
   "/agents-ia-production": "2026-10-24",
   "/ia-sante-hds": "2026-10-24",
