@@ -8,7 +8,7 @@ import {
 } from "@/lib/authors";
 import { CLIENTS } from "@/components/home/Clients";
 import { getCustomers } from "@/lib/customers";
-import { absoluteUrl, SITE_LOGO, SITE_NAME, SITE_URL } from "@/lib/site";
+import { absoluteUrl, OFFICE_ADDRESS, SITE_LOGO, SITE_NAME, SITE_URL } from "@/lib/site";
 
 /**
  * Schema.org JSON-LD for the site. The Organization and WebSite nodes are
@@ -86,8 +86,9 @@ const ORGANIZATION_DESCRIPTION = {
 
 /**
  * The company as an AI agency: an Organization that is also a
- * ProfessionalService. It only states facts we can source: no contact
- * details, commercial terms, ratings or certifications.
+ * ProfessionalService. It only states facts we can source: the office
+ * address, but no phone, opening hours, commercial terms, ratings or
+ * certifications.
  */
 export function organizationNode(locale: string): JsonLdNode {
   return {
@@ -99,9 +100,12 @@ export function organizationNode(locale: string): JsonLdNode {
     foundingDate: "2024",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Paris",
-      addressCountry: "FR",
+      streetAddress: OFFICE_ADDRESS.streetAddress,
+      postalCode: OFFICE_ADDRESS.postalCode,
+      addressLocality: OFFICE_ADDRESS.addressLocality,
+      addressCountry: OFFICE_ADDRESS.addressCountry,
     },
+    knowsLanguage: ["fr", "en"],
     areaServed: [{ "@type": "Country", name: "France" }],
     knowsAbout: [
       "Artificial intelligence",
