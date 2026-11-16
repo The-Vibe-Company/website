@@ -2204,12 +2204,17 @@
     }
   },
   "tools": {
-    "metaTitle": "Outils IA gratuits | The Vibe Company",
-    "metaDescription": "Des petits outils gratuits et sans inscription pour mieux travailler avec l'IA au quotidien. Le premier vérifie si votre site est prêt pour les agents IA.",
+    "metaTitle": "Outils IA gratuits et sans inscription | The Vibe Company",
+    "metaDescription": "Des outils IA gratuits et sans inscription, construits par The Vibe Company. Le premier teste si ChatGPT, Claude et Perplexity peuvent lire votre site.",
     "breadcrumb": "Outils",
     "kicker": "Outils gratuits",
-    "title": "Des petits outils gratuits pour mieux travailler avec l'IA",
-    "lede": "Des outils simples, gratuits et sans inscription, que The Vibe Company construit pour vous aider à utiliser l'IA au quotidien. Le premier vérifie si votre site est prêt pour les agents IA. D'autres suivront.",
+    "title": "Des outils IA gratuits, utilisables sans inscription",
+    "lede": "The Vibe Company publie ici ses propres outils IA gratuits. Il y en a peu, ils fonctionnent sans compte ni e-mail, et le premier est déjà en ligne : il teste votre site et vous dit si ChatGPT, Claude ou Perplexity peuvent le trouver et le lire. Ce n'est pas un annuaire de cinquante chatbots, et la page ne cherche pas à en devenir un.",
+    "intro": {
+      "title": "Ce que vous trouverez ici",
+      "p1": "Tous les outils de cette page sont construits par The Vibe Company, <agencyLink>agence IA à Paris</agencyLink>. Ils suivent la même règle : gratuits, sans inscription, et assez simples pour donner un résultat tout de suite.",
+      "p2": "La collection est petite. Aujourd'hui, elle tient en un seul outil : un test qui vérifie si votre site est prêt pour les agents IA. Vous lui donnez l'adresse de votre site, il vous rend un score et la liste de ce qu'il faut corriger."
+    },
     "listTitle": "Les outils",
     "free": "Gratuit, sans inscription",
     "open": "Ouvrir l'outil",
@@ -2219,7 +2224,62 @@
         "description": "Entrez l'adresse de votre site : 16 vérifications sur la découverte, le contenu, l'accès des robots IA et les protocoles agents, un score sur 100 et les correctifs à appliquer."
       }
     },
-    "moreSoon": "D'autres outils arrivent. Une idée d'outil qui vous ferait gagner du temps avec l'IA ? Écrivez-nous."
+    "agentReady": {
+      "title": "Le premier outil : votre site est-il prêt pour les agents IA ?",
+      "p1": "Vos clients demandent de plus en plus à ChatGPT, Claude ou Perplexity de comparer des offres, de résumer une page ou de réserver à leur place. Pour répondre, ces assistants visitent les sites concernés. S'ils ne peuvent pas lire le vôtre, ils citent vos concurrents.",
+      "p2": "Le test est fait pour la personne qui porte ce sujet dans une PME ou une ETI, au marketing comme à la technique. Vous entrez l'adresse de votre site et l'outil en teste la racine. Il lance 16 vérifications sur vos pages publiques : la page d'accueil, le robots.txt, le sitemap, le fichier llms.txt et les fichiers standards des protocoles agents. Le résultat arrive en moins de 30 secondes.",
+      "p3": "Vous repartez avec un score sur 100, un niveau de 0 à 5 par catégorie et une explication en clair. Chaque point à corriger vient avec des instructions prêtes à coller dans un agent de code comme Claude Code, Cursor ou Codex.",
+      "categoriesTitle": "Quatre catégories, quatre questions simples",
+      "discovery": "La première catégorie s'appelle Découverte et pose la question de base : les agents trouvent-ils vos pages ? Le robots.txt est le règlement intérieur de votre site, celui que les moteurs et les assistants lisent en premier. Le sitemap leur donne la liste de vos pages en une seule requête. Le fichier llms.txt, lui, résume qui vous êtes et où sont vos pages clés.",
+      "content": "Vient ensuite le Contenu : une fois arrivés, les agents peuvent-ils vous lire sans navigateur ? Beaucoup d'entre eux n'exécutent pas JavaScript. Si votre page d'accueil n'affiche son texte qu'après le lancement d'un script, ils voient une page vide. Le test regarde aussi si votre site sait servir ses pages en Markdown, un format que les agents préfèrent au HTML.",
+      "bots": "La catégorie Robots IA vérifie que vous laissez entrer ces visiteurs, et à quelles conditions. Il y a les règles écrites dans votre robots.txt pour les principaux robots IA, et il y a ce qui se passe vraiment : un robot qui demande votre page d'accueil doit la recevoir, sans blocage ni page « êtes-vous humain ? ». Un robot bloqué ne cite pas votre site dans ses réponses.",
+      "protocols": "La dernière catégorie notée, Protocoles agents, concerne surtout les services en ligne. Elle cherche les fichiers qui disent à un agent qu'il peut agir chez vous, par exemple la carte d'un <mcpLink>serveur MCP</mcpLink>. Les points qui ne s'appliquent pas à votre site ne comptent pas dans le score.",
+      "commerce": "Une cinquième rubrique, Commerce, signale si un agent peut payer chez vous avec le protocole x402. Le sujet est encore émergent : il est affiché pour information et reste hors score.",
+      "link": "Tester mon site avec l'outil agent-ready"
+    },
+    "llms": {
+      "title": "llms.txt : à quoi sert ce fichier ?",
+      "p1": "Le fichier llms.txt est un résumé de votre site écrit pour les modèles d'IA. C'est un fichier Markdown, placé à l'adresse /llms.txt et servi en text/plain ou en text/markdown.",
+      "p2": "Son contenu est court. Il commence par un titre de la forme « # Nom de votre entreprise », suivi d'une présentation en une ligne, puis de la liste de vos pages importantes avec leurs liens.",
+      "p3": "Là où le sitemap liste toutes vos pages, le llms.txt dit en quelques lignes qui vous êtes et lesquelles lire d'abord. C'est la porte d'entrée la plus simple pour un assistant.",
+      "p4": "Le test agent-ready cherche ce fichier sur votre site. Il le vérifie, il ne l'écrit pas à votre place. S'il manque, le rapport vous explique quoi y mettre et vous donne des instructions à coller dans votre agent de code."
+    },
+    "score": {
+      "title": "Lire votre score, et savoir quoi corriger d'abord",
+      "p1": "Le score sur 100 combine les quatre catégories notées. Toutes les vérifications n'ont pas le même poids : l'essentiel pèse plus lourd, c'est-à-dire un contenu lisible, l'accès réel des robots IA, le robots.txt et le sitemap. Chaque catégorie reçoit en plus son propre niveau, de 0 à 5.",
+      "p2": "Cette pondération donne l'ordre des travaux. Assurez-vous d'abord que les robots IA entrent et que votre texte est bien présent dans le HTML. Mettez ensuite au propre le robots.txt et le sitemap, puis ajoutez un llms.txt. Les protocoles agents viennent après, si vous proposez un service en ligne.",
+      "p3": "Pour les corrections de base, pas besoin d'une équipe technique. Chaque point est expliqué simplement, et un bouton de copie prépare les instructions pour votre agent de code. Elles prennent souvent moins d'une journée."
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "free": {
+          "q": "Ces outils IA sont-ils vraiment gratuits ?",
+          "a": "Oui. Ils sont gratuits et fonctionnent sans inscription : pas de compte à créer, pas d'e-mail à laisser."
+        },
+        "ready": {
+          "q": "Qu'est-ce qu'un site prêt pour les agents IA ?",
+          "a": "C'est un site que les assistants et les agents IA trouvent, lisent et comprennent sans effort : un robots.txt clair, un sitemap, un résumé llms.txt, du texte présent dans le HTML et un accès ouvert aux robots IA. Pour un service en ligne, cela inclut aussi des protocoles comme MCP, pour qu'un agent puisse agir."
+        },
+        "llms": {
+          "q": "L'outil génère-t-il mon fichier llms.txt ?",
+          "a": "Non, il vérifie que le fichier existe. S'il manque, le rapport décrit ce qu'il doit contenir (un titre, une présentation en une ligne, la liste de vos pages importantes) et fournit des instructions à coller dans un agent de code."
+        },
+        "data": {
+          "q": "Que fait le test sur mon site, et que gardez-vous ?",
+          "a": "Le test lit uniquement des pages publiques, comme un visiteur, sans connexion ni formulaire. Le rapport reste quelques minutes en mémoire pour éviter de relancer le même test, puis il est oublié. The Vibe Company mesure seulement le nom de domaine testé et le score, pour améliorer l'outil."
+        },
+        "dev": {
+          "q": "Je n'ai pas de développeur, puis-je corriger moi-même ?",
+          "a": "Oui, dans bien des cas. Chaque point vient avec une explication simple et le correctif à appliquer, et les instructions se collent telles quelles dans Claude Code, Cursor ou Codex. Les corrections de base prennent souvent moins d'une journée."
+        }
+      }
+    },
+    "more": {
+      "title": "D'autres outils arrivent",
+      "p1": "D'autres outils rejoindront cette page quand ils seront prêts, gratuits et sans inscription eux aussi.",
+      "p2": "En attendant, deux lectures prolongent le test : <aeoLink>être cité par ChatGPT, six mythes AEO vérifiés aux sources</aeoLink>, et <mcpLink>le serveur MCP en entreprise</mcpLink>. Le reste est dans <resourcesLink>nos ressources</resourcesLink>."
+    }
   },
   "agentReady": {
     "metaTitle": "Votre site est-il prêt pour les agents IA ? Test gratuit",
