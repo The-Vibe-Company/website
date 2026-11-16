@@ -1,6 +1,6 @@
 ---
 title: "IA et données de santé : ce que l'HDS impose vraiment à votre projet"
-seoTitle: "IA et données de santé : qui doit être certifié HDS"
+seoTitle: "IA et données de santé : règles HDS en France"
 slug: ia-donnees-de-sante-hds
 language: fr
 translationKey: hds-health-data

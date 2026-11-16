@@ -1,11 +1,10 @@
 ---
 title: "Agence IA native : la thèse YC démontée en 4 tests"
-seoTitle: "Agence IA native : définition et 4 tests avant de signer"
+seoTitle: "Agence IA native : thèse YC, ratio Sequoia et 4 tests"
 slug: agence-ia-native
 translationKey: ai-native-agency
 language: fr
 summary: "Agence IA native : ce que disent Y Combinator (Aaron Epstein, 2026) et Sequoia, ce qui la distingue d'une entreprise AI-native, et 4 tests acheteur."
-seoDescription: "Une agence IA native s'appuie sur ses logiciels internes pour livrer un travail fini. Ce que dit Y Combinator (Aaron Epstein, 2026) et 4 tests avant de signer."
 publishedAt: 2026-10-13
 dateModified: 2026-11-10
 complexity: beginner
