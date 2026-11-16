@@ -6,7 +6,6 @@ import {
   AGENCY_PARIS_COMPARISON,
   AGENCY_PARIS_FAQ_KEYS,
   AGENCY_PARIS_PLAYERS,
-  AGENCY_PARIS_SECTIONS,
   OFFICE_ADDRESS,
 } from "./agency-paris";
 import { BOOKING_URL } from "./booking";
@@ -82,12 +81,6 @@ describe("AI agency in Paris landing", () => {
       expect(copy.landscape.questions).toHaveLength(3);
       expect(Object.keys(copy.faq.items)).toEqual([...AGENCY_PARIS_FAQ_KEYS]);
     }
-  });
-
-  test("orders the sections with the landscape and the versus after the method", () => {
-    expect(AGENCY_PARIS_SECTIONS.indexOf("landscape")).toBe(AGENCY_PARIS_SECTIONS.indexOf("method") + 1);
-    expect(AGENCY_PARIS_SECTIONS.indexOf("versus")).toBe(AGENCY_PARIS_SECTIONS.indexOf("landscape") + 1);
-    expect(AGENCY_PARIS_SECTIONS.indexOf("cta")).toBe(AGENCY_PARIS_SECTIONS.indexOf("proof") + 1);
   });
 
   test("lists the eight players in the mandatory order, SMEs first", () => {

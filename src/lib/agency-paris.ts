@@ -14,7 +14,10 @@ import { OFFICE_ADDRESS } from "./site";
 
 export { OFFICE_ADDRESS };
 
-/** The sections of the page, top to bottom. */
+/**
+ * The sections of the page, top to bottom, as AgencyParisPage lays them out
+ * (each section's comment there carries its number in this list).
+ */
 export const AGENCY_PARIS_SECTIONS = [
   "hero",
   "facts",

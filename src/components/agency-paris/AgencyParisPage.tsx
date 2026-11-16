@@ -97,6 +97,9 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
   const tFooter = await getTranslations({ locale, namespace: "footer" });
   // French sets a space before ":" and "?": keep the mark on the word's line.
   const d = (text: string) => (contentLocale === "fr" ? keepPunctuationAttached(text) : text);
+  // The same for rich text: only its plain-text runs are touched.
+  const attach = (node: ReactNode): ReactNode =>
+    typeof node === "string" ? d(node) : Array.isArray(node) ? node.map(attach) : node;
 
   const pageUrl = localizedUrl(locale, splitPath(AGENCY_PARIS_PATHS, locale));
   // The CTA's PostHog `page` property: the landing's own URL segment.
@@ -162,7 +165,6 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
           display={t("displayTitle")}
           title={t("title")}
           lede={(t.raw("lede") as string[]).map(d)}
-          response={t("response")}
         />
 
         <div data-surface="paper">
@@ -570,7 +572,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                 >
                   <h3 className={H3}>{d(t(`faq.items.${key}.q`))}</h3>
                   <p className={`${PROSE} max-w-[70ch]`}>
-                    {t.rich(`faq.items.${key}.a`, { link: comparisonLink })}
+                    {attach(t.rich(`faq.items.${key}.a`, { link: comparisonLink }))}
                   </p>
                 </article>
               ))}
