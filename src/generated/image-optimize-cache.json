@@ -146,6 +146,21 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/chatbot-vs-agent-ia/chatbot-vs-agent-ia.png": {
+      "sourceHash": "d00209e1980c2afb0933a0f8d8d3c83083f28ab5b3d7ff37d8c947f34d86016d",
+      "targetUrl": "/images/_optimized/resources/chatbot-vs-agent-ia/chatbot-vs-agent-ia.webp",
+      "targetHash": "6dc9b6d4a0a2324db701cf139b6b92f26781bdbb21debc6fa07e196e8305ccea"
+    },
+    "content:/images/resources/chatbot-vs-agent-ia/chatbot-vs-ai-agent.png": {
+      "sourceHash": "4b9a43af839fd02a54b64face5d24481a97898a4257896134d2d520bd47d0228",
+      "targetUrl": "/images/_optimized/resources/chatbot-vs-agent-ia/chatbot-vs-ai-agent.webp",
+      "targetHash": "03ba88fae94859bc7e226faf8ebbe6c43eaf42b5c76fe0bf3173bbf20b8b47fc"
+    },
+    "content:/images/resources/chatbot-vs-agent-ia/cover-mascotte.webp": {
+      "sourceHash": "770b6d39a88c6a7ccb11f59af83637beb67fc36a003b6ea4d81491f81d34938c",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/chatgpt-entreprise/cover-mascotte.webp": {
       "sourceHash": "21ae0f378c16906e1fbb5c0c78650609935e61f3df4434d0531e5cd6cfa64009",
       "targetUrl": null,
@@ -638,6 +653,11 @@
     },
     "og:/images/resources/black-october-securite-agents-ia/cover-mascotte.webp": {
       "sourceHash": "d14bdeb2461eb44b19359dd12d38f9b611494e82f44c10230890c3a1cf3f039a",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/chatbot-vs-agent-ia/cover-mascotte.webp": {
+      "sourceHash": "770b6d39a88c6a7ccb11f59af83637beb67fc36a003b6ea4d81491f81d34938c",
       "targetUrl": null,
       "targetHash": null
     },
