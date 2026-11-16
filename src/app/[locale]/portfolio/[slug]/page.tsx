@@ -276,7 +276,7 @@ export default async function PortfolioProjectPage({
                     >
                       <span
                         aria-hidden="true"
-                        className="text-lit text-[32px] font-bold leading-none tracking-[-0.05em] md:text-[40px]"
+                        className="text-foreground text-[32px] font-bold leading-none tracking-[-0.05em] md:text-[40px]"
                       >
                         {String(i + 1).padStart(2, "0")}
                       </span>

@@ -28,7 +28,7 @@ export function Workbench() {
             >
               {t("titleLine1")}
               <br />
-              <span className="text-lit">{t("titleLine2")}</span>
+              <span className="text-foreground">{t("titleLine2")}</span>
             </h2>
           </div>
           <Link

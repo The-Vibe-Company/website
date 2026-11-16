@@ -287,14 +287,10 @@ function ReportView({
 
       <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,360px)_1fr]">
         <div className="lamp-card relative overflow-hidden border border-border p-7 md:p-9">
-          <span
-            aria-hidden="true"
-            className="absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]"
-          />
           <div className="relative">
             <span className={MONO}>{copy.report.scoreLabel}</span>
             <p className="m-0 mt-4 flex items-baseline gap-2">
-              <span className="text-lit text-[clamp(4rem,9vw,6.5rem)] font-bold leading-[0.9] tracking-[-0.05em]">
+              <span className="text-foreground text-[clamp(4rem,9vw,6.5rem)] font-bold leading-[0.9] tracking-[-0.05em]">
                 {report.score.percentage}
               </span>
               <span className="text-xl font-semibold text-muted-foreground">/100</span>

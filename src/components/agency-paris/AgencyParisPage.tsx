@@ -76,9 +76,6 @@ const TEXT_LINK =
   "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
 // List marker drawn as a short rule rather than a dash character.
 const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
-/** The short orange bar a lamp card hangs from, with its glow. */
-const LAMP =
-  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 /** The light an ink band sits in, as on the homepage's client quote. */
 const INK_GLOW =
   "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
@@ -178,9 +175,8 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                   key={key}
                   className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
                 >
-                  <span aria-hidden="true" className={LAMP} />
                   <div className="relative mb-10 flex items-baseline justify-between gap-3">
-                    <span className="text-lit text-[56px] font-bold leading-none tracking-[-0.05em]">
+                    <span className="text-foreground text-[56px] font-bold leading-none tracking-[-0.05em]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
@@ -281,7 +277,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                   className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
                 >
                   <div className="flex flex-row items-baseline gap-4 md:flex-col md:items-start md:gap-3">
-                    <span className="text-lit text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
+                    <span className="text-foreground text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
                       {step.n}
                     </span>
                     <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
@@ -317,7 +313,6 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
 
             {featured ? (
               <article className="lamp-card mt-12 grid grid-cols-1 overflow-hidden border border-border md:mt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
-                <span aria-hidden="true" className={LAMP} />
                 {/* One bench under one lamp: no rule between the halves on
                     a wide screen, so the light falls on the whole card. */}
                 <div className="relative flex flex-col border-b border-border p-7 md:p-9 lg:border-b-0 lg:pr-6">
@@ -326,7 +321,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                     client={featured.client}
                     sector={t(`proof.cases.${featured.slug}.sector`)}
                   />
-                  <div className="text-lit mt-10 pb-1 text-[clamp(3.5rem,7vw,6rem)] font-bold leading-none tracking-[-0.05em]">
+                  <div className="text-foreground mt-10 pb-1 text-[clamp(3.5rem,7vw,6rem)] font-bold leading-none tracking-[-0.05em]">
                     {t(`proof.cases.${featured.slug}.figure`)}
                   </div>
                   <div className="mt-3 text-sm leading-[1.5] text-muted-foreground">
@@ -354,7 +349,6 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                   key={customer.slug}
                   className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
                 >
-                  <span aria-hidden="true" className={LAMP} />
                   <div className="relative">
                     <CaseHeader
                       logo={customer.logo}
@@ -362,7 +356,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                       sector={t(`proof.cases.${customer.slug}.sector`)}
                     />
                   </div>
-                  <div className="text-lit relative mt-8 pb-1 text-[clamp(2.75rem,4.6vw,4rem)] font-bold leading-none tracking-[-0.05em]">
+                  <div className="text-foreground relative mt-8 pb-1 text-[clamp(2.75rem,4.6vw,4rem)] font-bold leading-none tracking-[-0.05em]">
                     {t(`proof.cases.${customer.slug}.figure`)}
                   </div>
                   <div className="relative mt-3 text-sm leading-[1.5] text-muted-foreground">
@@ -392,7 +386,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                   key={key}
                   className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[96px_minmax(0,420px)_1fr] md:gap-12 md:py-10"
                 >
-                  <span className="text-lit text-[40px] font-bold leading-none tracking-[-0.05em]">
+                  <span className="text-foreground text-[40px] font-bold leading-none tracking-[-0.05em]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">

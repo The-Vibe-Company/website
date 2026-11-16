@@ -128,7 +128,7 @@ export async function AgentReadyPage({ locale }: { locale: string }) {
             <ol className="m-0 mt-12 grid list-none grid-cols-1 gap-4 p-0 md:mt-14 md:grid-cols-3">
               {STEP_KEYS.map((key, index) => (
                 <li key={key} className="flex flex-col border border-border bg-card p-7 md:p-9">
-                  <span className="text-lit text-[44px] font-bold leading-none tracking-[-0.04em]">
+                  <span className="text-foreground text-[44px] font-bold leading-none tracking-[-0.04em]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <h3 className="m-0 mt-6 text-[22px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground">

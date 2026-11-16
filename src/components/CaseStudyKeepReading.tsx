@@ -5,9 +5,6 @@ import type { Customer } from "@/lib/customers";
 import { clientLogoSize } from "@/lib/client-logos";
 import { BrandSquare } from "@/components/BrandSquare";
 
-/** The short orange bar a lamp card hangs from, with its glow. */
-const LAMP =
-  "absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 bg-brand shadow-[0_0_40px_12px_rgba(242,115,19,0.45)]";
 
 /**
  * "Keep reading" block for case studies — same editorial format as the
@@ -44,7 +41,6 @@ export async function CaseStudyKeepReading({
         <article className="flex flex-col overflow-hidden border border-border bg-card transition-colors hover:border-border-strong md:flex-row">
           {/* The client's logo hangs under the lamp. */}
           <div className="lamp-card relative flex aspect-[16/10] shrink-0 items-center justify-center overflow-hidden border-b border-border p-10 md:aspect-auto md:w-[44%] md:border-b-0 md:border-r">
-            <span aria-hidden="true" className={LAMP} />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={featured.logo}

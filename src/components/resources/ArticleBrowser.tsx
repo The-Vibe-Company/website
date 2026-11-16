@@ -180,7 +180,6 @@ function Section({ name, count, secondary = false, lamp = false, children, foote
   if (lamp) {
     return (
       <div className="lamp-card relative overflow-hidden border border-border p-4 pt-8 md:p-8 md:pt-10">
-        <span aria-hidden="true" className={resourcesTheme.page.lamp} />
         {header}
         {cards}
       </div>

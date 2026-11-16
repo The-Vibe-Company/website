@@ -269,21 +269,8 @@
     -webkit-text-stroke: 1px var(--foreground);
   }
 
-  /* A word lit from below: paper running into the orange on ink, ink running
-     into it on a paper band. For the second line of a headline, a numeral. */
-  .text-lit {
-    background-image: linear-gradient(180deg, #f4f3ef 10%, #ffc488 62%, #f27313 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  [data-surface="paper"] .text-lit {
-    background-image: linear-gradient(180deg, #0c0c0d 15%, #8a3a06 72%, #f27313 100%);
-  }
-
   /* A card under a lamp: warm light thrown down from its top edge, brighter
-     on hover or focus. Pair it with a short orange bar at the top centre. */
+     on hover or focus. */
   .lamp-card {
     position: relative;
     background:

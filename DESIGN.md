@@ -43,8 +43,6 @@ colors:
   paper-muted: "#5D5A54"
   paper-border: "#DCD7CC"
   paper-border-strong: "#B8B1A4"
-  lit-glow: "#FFC488"
-  lit-ember: "#8A3A06"
 typography:
   display-xl:
     fontFamily: Geist
@@ -228,13 +226,9 @@ components:
     backgroundColor: "{colors.paper-surface}"
     textColor: "{colors.paper-soft}"
     typography: "{typography.body-sm}"
-  lit-figure:
+  lamp-card-figure:
     backgroundColor: "{colors.paper-surface}"
-    textColor: "{colors.lit-ember}"
-    typography: "{typography.headline-lg}"
-  lit-figure-on-ink:
-    backgroundColor: "{colors.background}"
-    textColor: "{colors.lit-glow}"
+    textColor: "{colors.paper-ink}"
     typography: "{typography.headline-lg}"
   paper-muted-copy:
     backgroundColor: "{colors.paper}"
@@ -477,8 +471,8 @@ The palette is intentionally restrained. Ink and warm paper carry almost everyth
 - **Muted (#9C9A94 / #807E7A):** Ledes, captions, mono metadata and secondary labels. Both stay above 4.5:1 on ink.
 - **Raised Ink (#141415 / #1A1A1B):** Inverse bands, the footer, popovers, card hover states and reading panels. A raised surface is how this system says "inverted"; it never turns a band into a paper slab.
 - **Hairline (#2C2C2D):** Every routine rule: under the nav, around cards, between rows, at the hero floor. **Strong Rule (#4A4946)** is the one step up, for tag chips, outline buttons and hovered cards.
-- **Signal Orange (#F27313):** The status square, the active nav underline, the lamp bar over a card, the blooms, and the end of the lit gradient.
-- **Lit gradient:** A word or a figure lit from below. On ink it runs from paper through a pale glow (#FFC488) into the orange; on paper from ink through an ember (#8A3A06) into the orange. It is reserved for the second line of a section headline, the numerals of an offer or a step, and a case's headline figure. Y Combinator's square keeps YC's own orange (#F26522) because it is their mark. Green, yellow and mint identify product status or portfolio accents. Domain colours, lifted to stay legible on ink, are reserved for resource taxonomy and stay small.
+- **Signal Orange (#F27313):** The status square, the active nav underline, the lamp light over a card, and the blooms. Type is never coloured or graded in orange: headlines, numerals and figures stay in the band's flat ink or paper.
+- **Other colours:** Y Combinator's square keeps YC's own orange (#F26522) because it is their mark. Green, yellow and mint identify product status or portfolio accents. Domain colours, lifted to stay legible on ink, are reserved for resource taxonomy and stay small.
 - **Per-world art direction (game canvas only):** Inside a runner, each world repaints the canvas with its own tint. These palettes are scoped to the game canvas and never change the chrome around it.
 
 Avoid large coloured areas. The site should remain ink, paper, and linework, with orange as light rather than paint. Client logos are drawn in the band's own ink: paper on ink, ink on paper (their own colours would vanish or clash); product icons keep their colours because they are app icons.
@@ -511,7 +505,7 @@ Depth is mostly flat. Hierarchy comes from contrast, raised bands, hairlines, wh
 
 Interactive cards do not lift or throw offset shadows. On hover their hairline steps up to the strong rule and their surface steps up one shade; nothing moves. A product card hovers to its own accent colour instead. Primary slabs dim slightly from paper to soft paper, and their arrow nudges right. The one static exception is a product shot drawn in code, whose window may keep a fixed offset shadow in hairline grey to read as an object set on the stage; it never lifts on hover.
 
-Light, not shadow, makes depth, and it is always orange and always comes from somewhere: a low bloom behind the hero mascot or headline, a soft radial glow in an ink band of emphasis, and the lamp over a card, a short orange bar on the card's top edge throwing a warm cone down onto it that brightens on hover. Blooms and glows stay wide and dim (around 20% orange at their centre). A lit word or figure is the only light that touches type, and the hero's booking slab the only button lit from below. Never add glows anywhere else.
+Light, not shadow, makes depth, and it is always orange and always comes from somewhere: a low bloom behind the hero mascot or headline, a soft radial glow in an ink band of emphasis, and the lamp over a card, a warm cone of light thrown down from the card's top edge that brightens on hover. Blooms and glows stay wide and dim (around 20% orange at their centre). Light never touches type, and the hero's booking slab is the only button lit from below. Never add glows anywhere else.
 
 Navigation and overlays use translucent ink with backdrop blur and stay crisp. Popovers sit on raised ink with a strong rule and a deep, soft black shadow, the only ambient shadow in the system, because a menu must separate from ink.
 
@@ -533,7 +527,7 @@ Primary CTAs are paper slabs on ink: dark Geist text at medium weight, 52px tall
 
 Cards are hairline rectangles, not soft containers. Service cards, case cards and project cards use the hairline, square corners, tight internal hierarchy, mono metadata in strong-ruled tag chips, and the hover step described above. On the homepage, our own products sit in a single-row loop carousel with the same orange arrows as the case studies; each product card borrows that product's own accent as a quiet signature: a 3px rule across the top, a small dot beside the mono category, the product logo next to its name, and on hover its border turns the accent. The accent never fills the card or colours its text. Resource cards use the same hairlines on a slightly raised surface.
 
-A lamp card is the house card on paper: a hairline rectangle on the slightly lighter card surface, a short orange bar centred on its top edge with its glow, and a warm cone of light thrown down from it that brightens on hover or focus. Offers, cases and the main steps of a service use it; secondary cards stay plain hairline rectangles on the card surface. A lamp card's numeral (01, 02, 03) or headline figure is set in the lit gradient; a case's figure is fitted to the card's width so it always sits on one line, whatever its length.
+A lamp card is the house card on paper: a hairline rectangle on the slightly lighter card surface, with a warm cone of light thrown down from the centre of its top edge that brightens on hover or focus; no bar or rule marks where the light comes from. Offers, cases and the main steps of a service use it; secondary cards stay plain hairline rectangles on the card surface. A lamp card's numeral (01, 02, 03) or headline figure is set large in the band's flat ink; a case's figure is fitted to the card's width so it always sits on one line, whatever its length.
 
 The client logos run as one slow loop across a paper band, drawn in ink, with no heading: the names speak for themselves. The row fades in and out at the band's edges, stops while hovered, and never moves when reduced motion is requested.
 
@@ -547,7 +541,7 @@ On a phone the homepage keeps the same sequence in one column: the hero's text, 
 
 A service landing (the agency in Paris, agents in production, hardening, media, custom apps, healthcare) opens exactly like the homepage: the mono kicker, a short headline of a few words set to fill the content width ("Agence IA Paris."), the page's full title beneath it in the hero's medium weight as its promise (the two together are the page's heading, the short one hidden from screen readers so the name is read once), the pitch, the booking slab and the credentials on the left, and the mascot on the right in its orange light, cut at the chest by the paper band. The paper opens on the client logo loop (except where a page deliberately names one client only, as the healthcare page does) and a short strip of sourced facts in three or four columns, then the page's own sections.
 
-A page that cannot be found keeps the ink and the mascot: a giant lit "404", the headline, one line of explanation and a slab back home, with the mascot standing in its light on the right.
+A page that cannot be found keeps the ink and the mascot: a giant "404" in paper, the headline, one line of explanation and a slab back home, with the mascot standing in its light on the right.
 
 The mark itself is published once, under `public/brand`, so anything outside the site (an email signature, a deck, a partner page) links to the same file instead of carrying its own copy. Three variants, each as a transparent PNG at 192px and 512px wide: the rounded black square with white arcs for light backgrounds, the arcs alone in black for light backgrounds without the square, and the arcs alone in white for ink backgrounds. `public/favicon.svg` stays the in-product mark and the vector source both derive from; the site draws the arcs alone, in the colour of the text beside them, from that same path. When the logo changes, they all move together. These URLs are linked to, never surfaced by the site, and are served `noindex, noimageindex`.
 
@@ -581,14 +575,14 @@ Rules and dividers are part of the visual language. Use the hairline for routine
 - Do open every page on ink and show the work on warm paper bands, switching with a clean cut, never a fade.
 - Do let the homepage headline fill the content width on one line, and keep every rule inside the gutters.
 - Do make section hierarchy with raised bands, rules, scale, and contrast before adding effects.
-- Do keep orange small and meaningful: the status square, an active underline, the lamp bar, the blooms, and the lit gradient on a few chosen words and figures.
+- Do keep orange small and meaningful: the status square, an active underline, the lamps' light, and the blooms.
 - Do reserve Geist Mono for metadata and operational UI, not long-form prose.
 - Do use square corners for content surfaces and 2px corners for slab CTAs.
 - Do keep page changes short and vertical: the old page lifts away, the new one rises, the nav stays put.
 - Do draw client logos in the band's own ink (paper on ink, ink on paper), and preserve partner-logo and product-screenshot aspect ratios at every breakpoint.
 - Don't turn an inverse band into a paper slab; inverse means raised ink. Don't nest a raised-ink panel inside a paper band: emphasis on paper is a lamp card, and emphasis between paper bands is an ink band.
 - Don't bring back offset "brutal" hover shadows or hover translations on cards and buttons.
-- Don't add glows, gradients or colour washes beyond the blooms, the ink bands' glow, the lamps and the lit gradient.
+- Don't add glows, gradients or colour washes beyond the blooms, the ink bands' glow and the lamps. Never put a gradient on type, and never hang an orange bar on a card's top edge.
 - Don't put more than one rendered scene on a page: the hero has the mascot alone, and the closing scene is the only illustration.
 - Don't turn pages into nested card layouts. Use full-width bands and unframed layouts first.
 - Don't over-round cards, inputs, or buttons. Pills are for status only.

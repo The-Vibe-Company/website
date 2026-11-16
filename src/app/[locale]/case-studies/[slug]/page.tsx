@@ -356,7 +356,7 @@ export default async function CaseStudyPage({
             {customer.metric && (
               <div className="mt-12 border-t border-border pt-10 md:mt-14">
                 <p className="m-0 max-w-[14ch] text-[clamp(3.25rem,8.4vw,8rem)] font-bold leading-[0.92] tracking-[-0.05em]">
-                  <span className="text-lit box-decoration-clone">{customer.metric}</span>
+                  <span className="text-foreground">{customer.metric}</span>
                 </p>
                 <p className="m-0 mt-5 max-w-[640px] text-lg leading-[1.45] text-soft-foreground md:text-xl">
                   {customer.metricLabel}
@@ -420,7 +420,7 @@ export default async function CaseStudyPage({
                             : "md:border-l md:border-border md:pl-8"
                       } ${index >= 2 ? "border-t border-border md:border-t-0" : ""}`}
                     >
-                      <div className="text-lit text-[40px] font-bold leading-none tracking-[-0.045em] md:text-[52px]">
+                      <div className="text-foreground text-[40px] font-bold leading-none tracking-[-0.045em] md:text-[52px]">
                         {stat.value}
                       </div>
                       <div className="mt-2 text-sm leading-snug text-muted-foreground">
