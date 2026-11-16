@@ -77,7 +77,7 @@ describe("plain-text article metadata", () => {
     const item = getContentByType('article').find((entry) => entry.slug === 'how-i-finally-started-my-game-using-scenario');
     expect(item?.seoDescription).toBe('I needed a consistent visual identity to start my game. A custom Scenario.com model trained on 25 images, refined with Claude, finally got me there.');
     expect(item?.summary).toContain('**Scenario.com**');
-    const untouched = getContentByType('article').find((entry) => entry.slug === 'enterprise-rag');
+    const untouched = getContentByType('article').find((entry) => entry.slug === 'rag-entreprise');
     expect(untouched?.seoDescription).toBeUndefined();
     expect(toPlainText(untouched!.summary)).toBe(untouched!.summary);
   });
