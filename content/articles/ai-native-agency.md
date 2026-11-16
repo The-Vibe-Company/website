@@ -1,10 +1,11 @@
 ---
 title: "AI-native agency: the YC thesis, taken apart in 4 tests"
-seoTitle: "AI-native agency: YC thesis, Sequoia ratio, and 4 tests"
+seoTitle: "AI-native agency: what it is and 4 tests before you sign"
 slug: ai-native-agency
 translationKey: ai-native-agency
 language: en
 summary: "AI-native agency: what Y Combinator (Aaron Epstein, 2026) and Sequoia say, how it differs from an AI-native company, and 4 buyer tests."
+seoDescription: "An AI-native agency uses software in-house to deliver finished work. What Y Combinator (Aaron Epstein, 2026) says, and 4 tests to vet one before you sign."
 publishedAt: 2026-10-13
 dateModified: 2026-11-10
 complexity: beginner
