@@ -1,11 +1,13 @@
 ---
-title: "AI agents for customer support: automate without hurting service"
-seoTitle: "AI agents for customer support: a guide | The Vibe Company"
+title: "AI customer service agent: automate without hurting service"
+seoTitle: "AI customer service agent: 2026 guide | The Vibe Company"
+seoDescription: "How to deploy an AI customer service agent without hurting service: LocService drafts used on 87% of tickets, plus Klarna and Air Canada lessons."
 slug: ai-customer-support-agent
 translationKey: ai-customer-support-agent
 language: en
 summary: "Automate customer support with AI without losing quality: LocService (87% of tickets), plus Klarna and Air Canada lessons."
 publishedAt: 2026-10-15
+dateModified: 2026-11-16
 complexity: intermediate
 topics: AI Agents, AI Adoption, AI Operations
 coverImage: /images/resources/agent-ia-support-client/cover-mascotte-v3.webp
@@ -88,6 +90,9 @@ For the big picture (tools, memory, authority, measurement), read our [practical
 For the document side of this (retrieval, cited sources, access rights), see [Enterprise RAG: connect generative AI to your documents](/en/resources/articles/enterprise-rag).
 
 ## FAQ
+
+**What is an AI customer service agent?**
+It's software that reads an incoming ticket, pulls the customer's context and either answers the customer directly (an autonomous chatbot) or drafts a reply that a human reviews and sends. At LocService we built the second kind: its drafts are used on 87% of tickets.
 
 **Can an AI agent replace my support team?**
 Not on cases that depend on the customer's file or need judgment. On those tickets, AI saves your team time. Klarna, which bet on full automation, ended up hiring humans again.
