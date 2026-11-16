@@ -2,6 +2,20 @@ import type { Metadata } from "next";
 
 export const SITE_NAME = "The Vibe Company";
 export const SITE_URL = "https://www.thevibecompany.co";
+
+/**
+ * The office, the one postal address the site states: the Organization
+ * JSON-LD and the AI agency in Paris landing both read it from here. No
+ * phone number, anywhere.
+ */
+export const OFFICE_ADDRESS = {
+  streetAddress: "10 rue La Vacquerie",
+  postalCode: "75011",
+  addressLocality: "Paris",
+  addressCountry: "FR",
+  /** As it is written on the page. */
+  display: "10 rue La Vacquerie, 75011 Paris, France",
+} as const;
 export const SITE_DESCRIPTION =
   "An AI-native agency. Everything 10 to 20× faster with AI: products, ops, training. Our agency runs on AI too.";
 

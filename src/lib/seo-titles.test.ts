@@ -29,7 +29,24 @@ const TRUST_PAGES = {
   "en /privacy": en.privacy.metaTitle,
 } as const;
 
+// The tools hub title is absolute and carries the brand itself.
+const TOOLS_PAGES = {
+  "fr /tools": fr.tools.metaTitle,
+  "en /tools": en.tools.metaTitle,
+} as const;
+
 describe("SEO page titles", () => {
+  test.each(Object.entries(TOOLS_PAGES))("%s fits in 60 characters and names the brand", (_, title) => {
+    expect([...title].length).toBeLessThanOrEqual(60);
+    expect(title.endsWith(` | ${SITE_NAME}`)).toBe(true);
+  });
+
+  test("tools hub descriptions fit in 160 characters", () => {
+    for (const messages of [fr, en]) {
+      expect([...messages.tools.metaDescription].length).toBeLessThanOrEqual(160);
+    }
+  });
+
   test.each(Object.entries(TRUST_PAGES))("%s fits in 60 characters and names the brand", (_, title) => {
     expect([...title].length).toBeLessThanOrEqual(60);
     expect(title).toContain(SITE_NAME);

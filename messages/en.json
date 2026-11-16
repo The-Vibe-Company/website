@@ -844,210 +844,281 @@
     }
   },
   "agencyParis": {
-    "metaTitle": "AI Agency in Paris: products & agents | The Vibe Company",
-    "metaDescription": "Paris AI agency (YC W24): AI products, agents and training shipped to production. Monka, AFP, LocService cases. Reply within 24h.",
+    "metaTitle": "AI Agency in Paris for SMEs and Mid-Caps | The Vibe Company",
+    "metaDescription": "Paris AI agency for SMEs and mid-caps. We take AI products and agents to production: Monka live in 2 months, 87% of LocService tickets handled with AI drafts.",
     "breadcrumb": "AI agency in Paris",
     "serviceName": "AI agency in Paris",
     "kicker": "AI AGENCY · PARIS",
     "displayTitle": "Paris AI agency.",
-    "title": "AI agency in Paris: we build your AI products and agents, all the way to production",
-    "lede": "The Vibe Company is an AI-first agency based in Paris. We design AI products, deploy agents inside your tools and train your teams, for mid-size and large companies.",
+    "title": "AI agency in Paris: your products and agents in production",
+    "lede": [
+      "Plenty of agencies in Paris will show you an AI demo. We build the product or the agent, and we stay until it runs in production. Monka went live in 2 months. At LocService, 87% of support tickets are handled thanks to our AI drafts.",
+      "We work with SMEs and mid-caps (PME and ETI, in French terms). The team has been in Paris since 2024, at 10 rue La Vacquerie in the 11th arrondissement."
+    ],
     "factsLabel": "At a glance",
     "facts": [
-      "Backed by Y Combinator (W24) with Quivr, which became The Vibe Company.",
-      "France 2030 with AFP on MediaGen.",
-      "Used to sensitive data: we work to GDPR and HDS requirements."
+      {
+        "label": "Where",
+        "value": "10 rue La Vacquerie, 75011 Paris, France. Team in Paris since 2024."
+      },
+      {
+        "label": "Who for",
+        "value": "SMEs and mid-caps with a concrete problem to put into production."
+      },
+      {
+        "label": "Monka (health)",
+        "value": "in production in 2 months, inside the client's existing HDS environment."
+      },
+      {
+        "label": "LocService (rentals)",
+        "value": "87% of support tickets handled thanks to our AI drafts."
+      },
+      {
+        "label": "AFP (media)",
+        "value": "MediaGen, a €4M France 2030 project supported by Bpifrance."
+      },
+      {
+        "label": "Background",
+        "value": "Y Combinator W24 with Quivr, a product with more than 100,000 users in 2024-2025."
+      },
+      {
+        "label": "To start",
+        "value": "a 30-minute call, a reply within 24 hours, then a written fixed-scope proposal."
+      }
     ],
-    "bookCall": "Book 30 minutes",
+    "bookCall": "Book a 30-minute call",
     "response": "Reply within 24h",
     "backedBy": "Backed by",
     "clientsLabel": "They trust us with their products",
+    "audience": {
+      "title": "Who we work with: SMEs and mid-caps that need a tool in production",
+      "intro": "Our best projects start with a company that already knows where it hurts. A support team facing hundreds of tickets a day. Documents that someone checks one by one. An internal tool nobody has time to build.",
+      "signalsLabel": "We are a good fit if",
+      "signals": [
+        "you have a specific use case, and someone on your side who owns it;",
+        "the tool has to plug into your systems: CRM, support, documents, internal APIs;",
+        "your data is sensitive (health, customer data) and you want it handled with care;",
+        "you want to be able to take the product over at the end, with the documentation and training to do it."
+      ],
+      "notFitLabel": "We are probably not the right call if",
+      "notFit": [
+        "you need a demo for a steering committee, with no plan to put it in production;",
+        "you are a large group and want a full integrated team: look at Theodo instead. We reinforce their teams on some projects, so you should know that."
+      ]
+    },
+    "proof": {
+      "title": "What we have put into production",
+      "intro": "Five published cases you can read in full.",
+      "readCase": "Read the {name} case",
+      "linkLabel": "Read the case studies",
+      "cases": {
+        "monka": {
+          "sector": "Health",
+          "figure": "2 months",
+          "points": [
+            "In production in 2 months, inside the client's existing HDS environment, without ever leaving it.",
+            "A 165-question caregiver assessment that leads to an action plan.",
+            "Lifeline, the CRM used by coordination nurses.",
+            "A versioned clinical engine: 12 versions of the guidelines, without breaking the app.",
+            "A partner API with signed webhooks, for insurers.",
+            "Health data encrypted and GDPR-compliant."
+          ]
+        },
+        "locservice": {
+          "sector": "Rentals, customer support",
+          "figure": "87%",
+          "points": [
+            "87% of tickets handled thanks to our AI drafts, out of hundreds of support tickets a day.",
+            "The tool is connected to their internal APIs, so it works with real customer context.",
+            "A human stays on everything that goes out to customers."
+          ]
+        },
+        "afp": {
+          "sector": "Media",
+          "figure": "€4M",
+          "points": [
+            "France 2030 with AFP on MediaGen, a €4M project supported by Bpifrance.",
+            "We sit in the technical consortium with Kairntech and Dawex.",
+            "Three tools for newsrooms: augmented monitoring, multimodal search, production assistance."
+          ]
+        },
+        "coup-de-pates": {
+          "sector": "Food, CSR and quality",
+          "figure": "2 projects",
+          "points": [
+            "2 projects: a CSR app for iOS and Android, and AI skills that check product documents and flag each gap."
+          ]
+        },
+        "theodo": {
+          "sector": "An agency we reinforce",
+          "figure": "Hundreds",
+          "points": [
+            "We work as a technical expert embedded in Theodo teams, on projects that are critical for their clients.",
+            "Hundreds of developers equipped by Software Factories."
+          ]
+        }
+      }
+    },
+    "cta": {
+      "title": "Got a specific problem in mind?",
+      "text": "Tell us about it in 30 minutes. We reply within 24 hours."
+    },
     "offers": {
-      "title": "Three ways to work together",
-      "intro": "A complete product, agents on your workflows, or the strategy and training your teams need to actually use AI.",
+      "title": "Three ways to work with us",
       "items": {
         "build": {
           "label": "Build",
-          "title": "AI products",
-          "desc": "Products and internal tools, end to end: scoping, architecture, short cycles, frontend, DevOps, observability, documentation and handover to your teams.",
+          "title": "AI products and internal tools",
+          "desc": "We take the whole product: scoping, architecture, short cycles, frontend, DevOps, observability, documentation and handover.",
           "link": "Custom AI app development"
         },
         "operate": {
           "label": "Operate",
-          "title": "Agents & automation",
-          "desc": "An audit of your workflows, the skills built, your tools connected (CRM, support, docs, APIs), agents deployed securely, and the time saved measured.",
+          "title": "Agents and automation",
+          "desc": "We audit your workflows, write the skills, connect the agent to your CRM, support desk, documents and APIs, then deploy it securely. The goal: time saved for your teams.",
           "link": "AI agents in production"
         },
         "advise": {
           "label": "Advise",
-          "title": "Strategy & training",
-          "desc": "Prioritizing use cases, deciding what to build or buy, an adoption roadmap, and hands-on training on your own cases."
+          "title": "Strategy and training",
+          "desc": "We help you prioritize use cases, decide between build and buy, and draw an adoption roadmap. Training is hands-on and uses your own cases."
         }
-      }
-    },
-    "audience": {
-      "title": "Who we work with",
-      "intro": "Mid-size and large companies with a concrete problem that needs a result in production, not a demo.",
-      "signalsLabel": "The signals we see",
-      "signals": [
-        "Repetitive tasks eating your teams’ time.",
-        "A product that needs to ship fast.",
-        "Sensitive data: health, personal data.",
-        "The need for your teams to really adopt AI."
-      ],
-      "sectorsLabel": "Sectors we have shipped for",
-      "sectors": {
-        "monka": "Healthcare",
-        "afp": "News",
-        "locservice": "Rentals",
-        "coup-de-pates": "Food",
-        "theodo": "Tech · Software Factories"
       }
     },
     "method": {
-      "title": "How it works",
-      "intro": "No generic timeline: the schedule depends on the scope, which we set together during scoping.",
-      "stepsLabel": "From the call to production",
+      "title": "How it works, in 5 steps",
       "steps": {
         "call": {
-          "label": "CALL",
-          "title": "A 30-minute call",
-          "desc": "Your problem, your tools, your constraints. We tell you honestly whether AI is the right answer. Reply within 24h."
+          "title": "The call",
+          "desc": "30 minutes, usually on video. You describe the problem, we tell you whether we can help. We reply within 24 hours."
         },
         "scope": {
-          "label": "SCOPING",
-          "title": "How the work really gets done",
-          "desc": "We look at the work as it is actually done, and for an automation, we measure the time spent. If it’s a fit, we send a fixed-scope proposal."
+          "title": "Scoping",
+          "desc": "We define the scope with you, then send a written fixed-scope proposal. Price, IP and maintenance are spelled out in it."
         },
         "cycles": {
-          "label": "SHORT CYCLES",
-          "title": "Testable versions, early and often",
-          "desc": "You see working software early and regularly. At Monka, we ship a new version roughly every two days."
+          "title": "Short cycles",
+          "desc": "You watch the product move, not a slide deck. At Monka, a new version shipped about every two days."
         },
         "production": {
-          "label": "PRODUCTION",
-          "title": "Secure production",
-          "desc": "Access rights, observability and documentation, to GDPR and HDS requirements when the context calls for it. At Monka, the HDS environment was already in place: the app, the CRM and the clinical engine went into production in two months without ever leaving it."
+          "title": "Production",
+          "desc": "The product serves real users, with the observability needed to keep an eye on it."
         },
         "handover": {
-          "label": "HANDOVER",
-          "title": "Measure and hand over",
-          "desc": "We measure the gains, write the runbooks and train your team to take the product over. Or we keep running it."
+          "title": "Handover",
+          "desc": "Documentation, runbooks and training, so your team can take the product over. Or we keep running it. Your choice."
         }
       }
     },
-    "proof": {
-      "title": "What we have shipped",
-      "intro": "Public projects only, with the figures already published in our case studies.",
-      "readCase": "Read the {name} case",
-      "cases": {
-        "monka": {
-          "sector": "Healthcare",
-          "figure": "2 months",
-          "figureLabel": "to go into production",
-          "points": [
-            "A 165-question caregiver assessment that leads to an action plan.",
-            "Lifeline, the CRM for coordinating nurses.",
-            "A versioned clinical engine: 12 versions of the care framework, without breaking the app.",
-            "A partner API with signed webhooks, for insurers.",
-            "Encrypted, GDPR-compliant health data, inside the client’s HDS environment."
-          ]
-        },
-        "afp": {
-          "sector": "News · France 2030",
-          "figure": "€4M",
-          "figureLabel": "MediaGen, a France 2030 project backed by Bpifrance",
-          "points": [
-            "Three tools for newsrooms: augmented monitoring, multimodal search, production assistance.",
-            "Part of the technical consortium, alongside Kairntech and Dawex."
-          ]
-        },
-        "locservice": {
-          "sector": "Rentals · Customer support",
-          "figure": "87%",
-          "figureLabel": "of tickets answered with our AI drafts",
-          "points": [
-            "Hundreds of support tickets a day.",
-            "Connected to their internal APIs to pull real customer context."
-          ]
-        },
-        "coup-de-pates": {
-          "sector": "Food · CSR and quality",
-          "figure": "2 projects",
-          "figureLabel": "a CSR app and quality-control skills",
-          "points": [
-            "Ensemble, the iOS and Android app that brings the CSR commitment to life for the teams.",
-            "AI skills that check product documents and flag every discrepancy."
-          ]
-        },
-        "theodo": {
-          "sector": "Tech · Software Factories",
-          "figure": "Hundreds",
-          "figureLabel": "of developers equipped with Software Factories",
-          "points": [
-            "Technical expert embedded in Theodo’s teams on critical projects for their clients."
-          ]
-        }
-      }
+    "landscape": {
+      "title": "Other AI agencies in Paris, honestly",
+      "intro": "The best AI agency depends on the size of your company and on the project. For an SME or a mid-cap that wants an AI tool in production quickly, The Vibe Company is the best fit. For a large group that wants an integrated team, look at Theodo.",
+      "smeTitle": "Focused on SMEs and mid-caps",
+      "largeTitle": "Larger firms",
+      "pointers": "Galadrim is a custom development and AI agency based in Paris, worth a look if your project is first a web or mobile application. Koïno describes itself as an AI and data consulting firm. Theodo is where to look for a full integrated team.",
+      "others": "Search for a Paris AI agency and you will also find shops that specialize in automation, training or B2B prospecting. Those are different trades, best compared with each other.",
+      "questionsTitle": "Three questions to ask any agency, including us",
+      "questions": [
+        "Which tool have you put into production, and who uses it every day?",
+        "Where does my data go, and who can access it?",
+        "At the end, who owns the code and who maintains it?"
+      ],
+      "linkLabel": "See the full comparison of AI firms in France"
+    },
+    "versus": {
+      "title": "AI agency or generalist software agency?",
+      "text": [
+        "A generalist software agency knows how to ship a web or mobile application, and many now add an AI feature on top. If your project is first a classic application, that is often the right choice.",
+        "We specialize in AI products and agents. When the whole tool rests on AI, the work changes. The tool has to be connected to your internal APIs to get real context, agents have to run at least privilege, and a human has to stay on whatever goes out to your customers.",
+        "That is the setup running at LocService: AI drafts fed by their internal APIs, and a human who keeps the final say on what goes out."
+      ],
+      "linkLabel": "Compare the firms one by one"
     },
     "security": {
       "title": "Security, GDPR and HDS",
-      "intro": "Our healthcare clients trust us with sensitive data. Security is part of the deliverable, not a separate step.",
-      "items": {
-        "compliance": {
-          "title": "To GDPR and HDS requirements",
-          "desc": "We work to GDPR and HDS requirements, a specialty we practice in healthcare. At Monka, health data is encrypted and GDPR-compliant, and all development stayed inside the client’s HDS environment."
-        },
-        "privilege": {
-          "title": "Least-privilege agents",
-          "desc": "An agent only reaches what its task needs, with limited, visible and revocable rights."
-        },
-        "human": {
-          "title": "A human on what goes out",
-          "desc": "What goes out to your customers goes through a person. At LocService, the agent writes drafts and the support team stays in charge of the reply."
-        }
-      },
-      "readLabel": "Further reading",
-      "articles": {
-        "hds": "AI and health data in France: what HDS really means for your project",
-        "blackOctober": "Black October: what it means for AI agents"
-      }
+      "text": [
+        "We work according to GDPR and HDS requirements (HDS is the French framework for hosting health data). We apply that practice in health: at Monka, the product runs inside the HDS environment the client already had, without leaving it, with health data encrypted.",
+        "Stan Girard personally built Theodo's HDS practice.",
+        "Two rules hold on every project. Agents run at least privilege. A human stays on anything that goes out to your customers."
+      ]
     },
     "team": {
-      "title": "Who is behind it",
-      "desc": "The Vibe Company was founded in Paris in 2024 by Stan Girard and Antoine Dewez, both formerly at Theodo and Stockly. Before that, they built Quivr, an open-source RAG engine that passed 39,500 stars on GitHub, went through Y Combinator (W24) and raised $1.7M. Quivr became The Vibe Company.",
-      "notToConfuse": "Not affiliated with thevibe.company, VIBE Company (Zurich) or Vibe.co.",
+      "title": "A Paris team since 2024",
+      "desc": [
+        "The Vibe Company was founded in Paris in 2024 by Stan Girard and Antoine Dewez, both formerly at Theodo and Stockly.",
+        "We went through Y Combinator (W24) with Quivr, which then became The Vibe Company. Quivr is one of our products, with more than 100,000 users in 2024-2025."
+      ],
+      "addressTitle": "Where to find us",
+      "addressNote": "The first call is usually on video. We also work with teams outside Île-de-France, in English and in French.",
+      "notToConfuse": "No link with thevibe.company, VIBE Company (Zurich) or Vibe.co.",
       "aboutLink": "About us",
       "originLink": "Read “We are stopping Quivr. We are building The Vibe Company.”"
     },
     "faq": {
       "title": "Frequently asked questions",
       "items": {
+        "paris": {
+          "q": "Where is your AI agency in Paris?",
+          "a": "At 10 rue La Vacquerie, 75011 Paris, France. The team has been in Paris since 2024. The first call is usually on video, and we also work with teams outside Île-de-France, in English and in French."
+        },
+        "clients": {
+          "q": "What kind of companies do you work with?",
+          "a": "Mostly SMEs and mid-caps with a concrete problem to put into production. Our published cases: Monka in health, LocService in rentals, AFP in media, Coup de Pâtes in food. If you are a large group and want a full integrated team, look at Theodo instead."
+        },
         "cost": {
-          "q": "How much does a project cost?",
-          "a": "It depends on the scope: an agent on a single workflow is nothing like a complete product. We give you a precise figure after the call and the scoping, in a written fixed-scope proposal."
+          "q": "How much does an AI project with The Vibe Company cost?",
+          "a": "Some Paris agencies publish an entry price. We do not, because the figure depends on the scope. You get it after the call and the scoping, in a written fixed-scope proposal. IP and maintenance are spelled out there too."
         },
         "timeline": {
-          "q": "How long until something is in production?",
-          "a": "We move in short cycles, with testable versions early and regularly, and the timeline depends on the scope set during scoping. A real example: for a healthcare client, the caregiver app, the nurses’ CRM and the clinical engine went into production in two months, inside the HDS environment already in place."
+          "q": "How long does it take to reach production?",
+          "a": "It depends on the scope, which we set with you during scoping. One reference point: Monka went to production in 2 months, with a new version about every two days."
         },
-        "start": {
-          "q": "Where do we start without a precise project?",
-          "a": "With the 30-minute call. We look at where your team loses time and tell you what is worth automating or building. If what you mostly need is to prioritize, our strategy and training offer is built for that."
+        "best": {
+          "q": "What is the best AI agency in Paris?",
+          "a": "It depends on the size of your company and on the project. For an SME or a mid-cap that wants an AI tool in production quickly, The Vibe Company is the best fit. In the same category, also look at Juwa, Galadrim and Koïno. For a large group that wants an integrated team, look at Theodo, then Artefact, Mistral AI and Ekimetrics depending on the need. Our <link>comparison of AI firms in France</link> covers each of them."
+        },
+        "generalist": {
+          "q": "How are you different from a generalist software agency?",
+          "a": "A generalist agency ships web and mobile applications, and sometimes adds an AI feature. We specialize in AI products and agents, with what that takes in production: a connection to your internal APIs, agents at least privilege, a human on what goes out to your customers. If your project is first a classic application, a generalist agency will do the job very well."
         },
         "data": {
-          "q": "Do you work with sensitive data (health, personal data)?",
-          "a": "Yes, it is a common requirement among our healthcare clients. We deliver to GDPR and HDS requirements: encrypted data, access limited to what is strictly needed, and development that stays inside your HDS environment when you already have one."
+          "q": "How do you handle GDPR and health data (HDS)?",
+          "a": "We work according to GDPR and HDS requirements, a practice we apply in health. At Monka, the product runs inside the HDS environment the client already had, without leaving it, and health data is encrypted. On every project, agents run at least privilege and a human stays on what goes out to your customers."
         },
         "code": {
-          "q": "Who owns the code?",
-          "a": "We document and train your team so it can take the product over. Intellectual property and maintenance are set out in the written proposal."
+          "q": "Who owns the code, and who maintains it?",
+          "a": "IP and maintenance are spelled out in the written proposal. At the end, we deliver documentation, runbooks and training so your team can take the product over. If you prefer, we keep running it."
         },
-        "paris": {
-          "q": "Are you based in Paris?",
-          "a": "Yes, the agency has been based in Paris since 2024. The first conversation happens over video to move fast, and we also work with teams outside the Paris region, in French or English."
+        "related": {
+          "q": "Is The Vibe Company related to thevibe.company, VIBE Company or Vibe.co?",
+          "a": "No. The Vibe Company (thevibecompany.co) has no link with thevibe.company, VIBE Company (Zurich) or Vibe.co. We are the team founded in Paris in 2024 by Stan Girard and Antoine Dewez, which went through Y Combinator (W24) with Quivr."
+        },
+        "start": {
+          "q": "How do we get started?",
+          "a": "Book a 30-minute call with the button at the bottom of the page. We reply within 24 hours. After scoping, you receive a written fixed-scope proposal."
         }
       }
+    },
+    "links": {
+      "title": "Further reading",
+      "comparison": "Comparison: the best AI consulting firms in France, one by one",
+      "cases": {
+        "monka": "Monka case study",
+        "afp": "AFP case study",
+        "locservice": "LocService case study",
+        "coup-de-pates": "Coup de Pâtes case study",
+        "theodo": "Theodo case study"
+      }
+    },
+    "finalCta": {
+      "kicker": "NOW BOARDING",
+      "titleLine1": "Shall we talk",
+      "titleLine2": "for 30 minutes?",
+      "text": "You describe the problem. We tell you whether we can help, and how.",
+      "bookCall": "Book a 30-minute call",
+      "responseLabel": "RESPONSE",
+      "responseValue": "WITHIN 24H",
+      "emailLabel": "EMAIL"
     },
     "homeLink": "See our AI agency in Paris page",
     "caseLink": "The Vibe Company is an <link>AI agency in Paris</link>: AI products, agents and training, all the way to production.",
@@ -2203,12 +2274,17 @@
     }
   },
   "tools": {
-    "metaTitle": "Free AI tools | The Vibe Company",
-    "metaDescription": "Small, free, no-sign-up tools from The Vibe Company to help you work better with AI every day. The first checks if your website is ready for AI agents.",
+    "metaTitle": "Free AI tools, no sign-up | The Vibe Company",
+    "metaDescription": "Free AI tools built by The Vibe Company, no sign-up. The first checks whether ChatGPT, Claude and Perplexity can read your website, llms.txt included.",
     "breadcrumb": "Tools",
     "kicker": "Free tools",
-    "title": "Small free tools to get more out of AI",
-    "lede": "Simple, free tools with no sign-up, built by The Vibe Company to help you use AI day to day. The first one checks whether your website is ready for AI agents. More will follow.",
+    "title": "Free AI tools you can use without signing up",
+    "lede": "These are the free AI tools we build ourselves at The Vibe Company. There are only a few, none of them asks for an account or an email, and the first one is live: it tests your website and tells you whether ChatGPT, Claude or Perplexity can find it and read it. It is not a directory of fifty chatbots, and it does not try to be one.",
+    "intro": {
+      "title": "What you will find here",
+      "p1": "Every tool on this page is built by The Vibe Company, an <agencyLink>AI agency in Paris</agencyLink>. The rule is the same for all of them: free, no sign-up, and simple enough to give you a result straight away.",
+      "p2": "The collection is small. Today it is one tool, a checker that tells you whether your website is ready for AI agents. You give it your site's address and it hands back a score and a list of what to fix."
+    },
     "listTitle": "The tools",
     "free": "Free, no sign-up",
     "open": "Open the tool",
@@ -2218,7 +2294,62 @@
         "description": "Enter your website's address: 16 checks across discoverability, content, AI crawler access and agent protocols, a score out of 100 and the fixes to apply."
       }
     },
-    "moreSoon": "More tools are on the way. Got an idea for a tool that would save you time with AI? Write to us."
+    "agentReady": {
+      "title": "The first tool: is your website ready for AI agents?",
+      "p1": "Your customers increasingly ask ChatGPT, Claude or Perplexity to compare options, summarize a page or book something for them. To answer, those assistants go and visit the websites involved. If they cannot read yours, they cite your competitors.",
+      "p2": "We made the checker for whoever owns that problem in a small or mid-size company, whether they sit in marketing or in tech. You enter your website's address and the tool tests the root of the site. It runs 16 checks on your public pages: the home page, robots.txt, the sitemap, llms.txt and the standard files of agent protocols. The result comes back in under 30 seconds.",
+      "p3": "You leave with a score out of 100, a level from 0 to 5 for each category and an explanation in plain language. Every point to fix comes with instructions you can paste into a coding agent such as Claude Code, Cursor or Codex.",
+      "categoriesTitle": "Four categories, four plain questions",
+      "discovery": "The first category, Discoverability, asks the basic question: can agents find your pages? robots.txt is your site's house rules, the file search engines and AI assistants read before anything else. The sitemap gives them all your pages in a single request. And llms.txt sums up who you are and where your key pages live.",
+      "content": "The Content category picks up once they have arrived: can they read you without a browser? Many agents do not run JavaScript. If your home page only shows its text after a script has run, they see an empty page. The checker also looks at whether your site can serve its pages as Markdown, which agents prefer to HTML.",
+      "bots": "The AI crawlers category checks whether you let these visitors in, and on what terms. There is what your robots.txt says to the main AI crawlers, and there is what really happens. A crawler asking for your home page should get it, with no block and no \"are you human?\" challenge. A blocked crawler does not cite your site in its answers.",
+      "protocols": "Agent protocols, the last scored category, mostly matters for online services. It looks for the files that tell an agent it can take action on your site, such as the card of an <mcpLink>MCP server</mcpLink>. Checks that do not apply to your site do not count toward the score.",
+      "commerce": "A fifth section, Commerce, reports whether an agent can pay you through the x402 protocol. That one is still emerging, so it is shown for information and stays outside the score.",
+      "link": "Test my website with the agent-ready checker"
+    },
+    "llms": {
+      "title": "What is llms.txt, and does your site need one?",
+      "p1": "llms.txt is a summary of your website written for AI models. It is a Markdown file that lives at /llms.txt and is served as text/plain or text/markdown.",
+      "p2": "There is not much in it. It opens with a heading in the form \"# Name of your company\", followed by a one-line presentation and a list of your important pages with their links.",
+      "p3": "A sitemap lists every page you have. llms.txt says in a few lines who you are and which pages to read first, which makes it the simplest way in for an assistant.",
+      "p4": "The agent-ready checker looks for this file on your site. It is an llms.txt checker, not a generator. If the file is missing, the report explains what to put in it and gives you instructions to paste into your coding agent."
+    },
+    "score": {
+      "title": "How to read your score, and what to fix first",
+      "p1": "The score out of 100 combines the four scored categories. Checks do not all weigh the same. The essentials count for more: readable content, real AI crawler access, robots.txt and the sitemap. Each category also gets its own level, from 0 to 5.",
+      "p2": "Those weights give you the order of work. Start by making sure AI crawlers get in and that your text is present in the HTML. Then tidy up robots.txt and the sitemap, and add an llms.txt. Agent protocols come later, if you run an online service.",
+      "p3": "The basic fixes do not call for a technical team. Each point is explained simply, and a copy button prepares the instructions for your coding agent. They often take less than a day."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "free": {
+          "q": "Are these AI tools really free?",
+          "a": "Yes. They are free and work with no sign-up: no account to create, no email to leave."
+        },
+        "ready": {
+          "q": "What does \"ready for AI agents\" mean?",
+          "a": "It means AI assistants and agents can find, read and understand your website with no effort: a clear robots.txt, a sitemap, an llms.txt summary, text present in the HTML and open access for AI crawlers. For an online service it also covers protocols like MCP, so an agent can take action."
+        },
+        "llms": {
+          "q": "Does the tool generate my llms.txt file?",
+          "a": "No, it checks that the file is there. If it is missing, the report describes what it should contain (a heading, a one-line presentation, a list of your important pages) and provides instructions to paste into a coding agent."
+        },
+        "data": {
+          "q": "What does the test do on my site, and what do you keep?",
+          "a": "The test only reads public pages, as a visitor would, with no login and no form. The report stays in memory for a few minutes so the same test is not run twice, then it is forgotten. We only measure the tested domain name and the score, to improve the tool."
+        },
+        "dev": {
+          "q": "I have no developer. Can I fix things myself?",
+          "a": "Often, yes. Every point comes with a simple explanation and the fix to apply, and the instructions paste straight into Claude Code, Cursor or Codex. The basic fixes often take less than a day."
+        }
+      }
+    },
+    "more": {
+      "title": "More tools are on the way",
+      "p1": "More tools will join this page as they are ready, free and with no sign-up like the first.",
+      "p2": "Until then, two articles pick up where the checker stops: <aeoLink>getting cited by ChatGPT, six AEO myths checked against sources</aeoLink>, and <mcpLink>MCP servers at work</mcpLink>. The rest is in <resourcesLink>our resources</resourcesLink>."
+    }
   },
   "agentReady": {
     "metaTitle": "Is your website ready for AI agents? Free checker",

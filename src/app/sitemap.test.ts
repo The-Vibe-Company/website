@@ -172,8 +172,8 @@ describe("sitemap", () => {
     // The /resources listing itself carries `latestContentDate` (sitemap.ts),
     // so it inherits that same exemption and the match must not require a
     // trailing slash.
-    setSystemTime(new Date("2026-11-11T00:00:00.000Z"));
-    const today = new Date("2026-11-11T23:59:59.999Z");
+    setSystemTime(new Date("2026-11-16T00:00:00.000Z"));
+    const today = new Date("2026-11-16T23:59:59.999Z");
     const futures = sitemap().filter(
       (entry) =>
         !/\/resources(\/|$)/.test(entry.url) &&

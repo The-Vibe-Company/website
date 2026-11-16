@@ -844,211 +844,281 @@
     }
   },
   "agencyParis": {
-    "metaTitle": "Agence IA à Paris : produits & agents | The Vibe Company",
-    "metaDescription": "Agence IA à Paris (YC W24) : produits IA, agents et formation jusqu'en production. Cas Monka, AFP, LocService. RDV sous 24 h.",
+    "metaTitle": "Agence IA à Paris pour PME et ETI | The Vibe Company",
+    "metaDescription": "Agence IA à Paris 11e pour PME et ETI. On construit vos produits et agents IA jusqu'en production : Monka en 2 mois, 87 % des tickets traités chez LocService.",
     "breadcrumb": "Agence IA à Paris",
     "serviceName": "Agence IA à Paris",
     "kicker": "AGENCE IA · PARIS",
     "displayTitle": "Agence IA Paris.",
-    "title": "Agence IA à Paris : on construit vos produits et agents IA jusqu'en production",
-    "lede": "The Vibe Company est une agence IA-first basée à Paris. On conçoit des produits IA, on déploie des agents dans vos outils et on forme vos équipes, pour les entreprises de taille moyenne à grande.",
+    "title": "Agence IA à Paris : vos produits et agents IA en production",
+    "lede": [
+      "Votre PME ou votre ETI a un problème précis à régler. Une démo de plus ne le réglera pas. Nous, on construit des produits et des agents IA, et on les amène jusqu'en production. Monka y est passé en 2 mois. Chez LocService, 87 % des tickets de support sont traités grâce à nos brouillons IA.",
+      "L'équipe est à Paris depuis 2024, au 10 rue La Vacquerie, dans le 11e."
+    ],
     "factsLabel": "En bref",
     "facts": [
-      "Passés par Y Combinator (W24) avec Quivr, devenue The Vibe Company.",
-      "France 2030 avec l’AFP sur MediaGen.",
-      "Habitués aux données sensibles : on travaille selon les exigences RGPD et HDS."
+      {
+        "label": "Où",
+        "value": "10 rue La Vacquerie, 75011 Paris, France. Équipe à Paris depuis 2024."
+      },
+      {
+        "label": "Pour qui",
+        "value": "les PME et les ETI qui ont un problème concret à mettre en production."
+      },
+      {
+        "label": "Monka (santé)",
+        "value": "en production en 2 mois, dans l'environnement HDS existant du client."
+      },
+      {
+        "label": "LocService (location)",
+        "value": "87 % des tickets de support traités grâce à nos brouillons IA."
+      },
+      {
+        "label": "AFP (médias)",
+        "value": "MediaGen, un projet France 2030 de 4 M€ soutenu par Bpifrance."
+      },
+      {
+        "label": "D'où on vient",
+        "value": "Y Combinator W24 avec Quivr, un produit à plus de 100 000 utilisateurs en 2024-2025."
+      },
+      {
+        "label": "Pour démarrer",
+        "value": "un appel de 30 minutes, une réponse sous 24 heures, puis une proposition écrite à périmètre fixe."
+      }
     ],
-    "bookCall": "Prendre 30 minutes",
+    "bookCall": "Réserver un appel de 30 minutes",
     "response": "Réponse sous 24 h",
     "backedBy": "Soutenus par",
     "clientsLabel": "Ils nous confient leurs produits",
-    "offers": {
-      "title": "Trois façons de travailler ensemble",
-      "intro": "Un produit complet, des agents sur vos workflows, ou la stratégie et la formation pour que vos équipes s’en servent vraiment.",
-      "items": {
-        "build": {
-          "label": "Construire",
-          "title": "Produits IA",
-          "desc": "Des produits et des outils internes, de bout en bout : cadrage, architecture, cycles courts, frontend, DevOps, observabilité, documentation et passation à vos équipes.",
-          "link": "Développement d'application IA sur mesure"
-        },
-        "operate": {
-          "label": "Piloter",
-          "title": "Agents & automatisation",
-          "desc": "Audit de vos workflows, création des skills, connexion à vos outils (CRM, support, docs, API), déploiement sécurisé des agents et mesure du temps gagné.",
-          "link": "Agents IA en production"
-        },
-        "advise": {
-          "label": "Conseiller",
-          "title": "Stratégie & formation",
-          "desc": "Priorisation des usages, choix entre développer et acheter, feuille de route d’adoption, et formations pratiques sur vos propres cas."
-        }
-      }
-    },
     "audience": {
-      "title": "Pour qui on travaille",
-      "intro": "Des entreprises de taille moyenne à grande, avec un problème concret et un besoin de résultat en production, pas d’une démo.",
-      "signalsLabel": "Les signaux qui reviennent",
+      "title": "Pour qui : les PME et les ETI qui ont un problème concret à régler",
+      "intro": "On travaille le mieux avec une entreprise qui sait déjà où ça coince. Un support qui reçoit des centaines de tickets par jour. Des documents à contrôler un par un. Un outil interne que personne n'a le temps de construire.",
+      "signalsLabel": "C'est pour vous si",
       "signals": [
-        "Des tâches répétitives qui prennent le temps de vos équipes.",
-        "Un produit à sortir vite.",
-        "Des données sensibles : santé, données personnelles.",
-        "Le besoin que vos équipes adoptent vraiment l’IA."
+        "vous avez un cas d'usage précis, et quelqu'un chez vous pour le porter ;",
+        "l'outil doit se brancher sur vos systèmes : CRM, support, documents, API internes ;",
+        "vos données sont sensibles (santé, données clients) et vous voulez que ce soit traité sérieusement ;",
+        "vous voulez pouvoir reprendre le produit à la fin, avec la documentation et la formation qui vont avec."
       ],
-      "sectorsLabel": "Secteurs déjà livrés",
-      "sectors": {
-        "monka": "Santé",
-        "afp": "Presse",
-        "locservice": "Location",
-        "coup-de-pates": "Agroalimentaire",
-        "theodo": "Tech · Software Factories"
-      }
-    },
-    "method": {
-      "title": "Comment ça se passe",
-      "intro": "Pas de délai générique : le calendrier dépend du périmètre, qu’on fixe ensemble au cadrage.",
-      "stepsLabel": "De l’appel à la production",
-      "steps": {
-        "call": {
-          "label": "APPEL",
-          "title": "Un appel de 30 minutes",
-          "desc": "Votre problème, vos outils, vos contraintes. On vous dit franchement si l’IA est la bonne réponse. Réponse sous 24 h."
-        },
-        "scope": {
-          "label": "CADRAGE",
-          "title": "Comment le travail se fait vraiment",
-          "desc": "On regarde le travail tel qu’il se fait, et pour une automatisation, on mesure le temps passé. Si ça matche, on envoie une proposition à périmètre fixe."
-        },
-        "cycles": {
-          "label": "CYCLES COURTS",
-          "title": "Des versions testables tôt et souvent",
-          "desc": "Vous voyez du logiciel qui marche tôt et régulièrement. Chez Monka, on livre une nouvelle version tous les deux jours environ."
-        },
-        "production": {
-          "label": "PRODUCTION",
-          "title": "Une production sécurisée",
-          "desc": "Droits d’accès, observabilité et documentation, selon les exigences RGPD et HDS quand le contexte l’exige. Chez Monka, l’environnement HDS était déjà en place : l’app, le CRM et le moteur clinique sont partis en production en deux mois sans en sortir."
-        },
-        "handover": {
-          "label": "PASSATION",
-          "title": "Mesure et passation",
-          "desc": "On mesure les gains, on écrit les runbooks et on forme votre équipe pour qu’elle reprenne le produit. Ou on continue de le faire tourner."
-        }
-      }
+      "notFitLabel": "Ce n'est sans doute pas pour nous si",
+      "notFit": [
+        "vous cherchez une démo pour un comité, sans intention de la mettre en production ;",
+        "vous êtes un grand groupe et vous voulez une équipe intégrée complète : regardez plutôt Theodo. On renforce leurs équipes sur certains projets, autant que vous le sachiez."
+      ]
     },
     "proof": {
-      "title": "Ce qu’on a livré",
-      "intro": "Des projets publics, avec les chiffres déjà publiés dans nos cas clients.",
+      "title": "Ce qu'on a mis en production",
+      "intro": "Cinq cas publiés, à lire en détail.",
       "readCase": "Lire le cas {name}",
+      "linkLabel": "Lire les études de cas",
       "cases": {
         "monka": {
           "sector": "Santé",
           "figure": "2 mois",
-          "figureLabel": "pour passer en production",
           "points": [
-            "Un bilan aidant de 165 questions qui débouche sur un plan d’action.",
+            "En production en 2 mois, dans l'environnement HDS existant du client, sans en sortir.",
+            "Une évaluation des aidants en 165 questions, qui débouche sur un plan d'action.",
             "Lifeline, le CRM des infirmières de coordination.",
-            "Un moteur clinique versionné : 12 versions du référentiel, sans casser l’app.",
-            "Une API partenaire avec webhooks signés, pour les assureurs.",
-            "Des données de santé chiffrées et conformes au RGPD, dans l’environnement HDS du client."
-          ]
-        },
-        "afp": {
-          "sector": "Presse · France 2030",
-          "figure": "4 M€",
-          "figureLabel": "MediaGen, projet France 2030 soutenu par Bpifrance",
-          "points": [
-            "Trois outils pour les rédactions : veille augmentée, recherche multimodale, aide à la production.",
-            "Dans le consortium technique, aux côtés de Kairntech et Dawex."
+            "Un moteur clinique versionné : 12 versions des recommandations, sans casser l'application.",
+            "Une API partenaires avec webhooks signés, pour les assureurs.",
+            "Des données de santé chiffrées et conformes au RGPD."
           ]
         },
         "locservice": {
-          "sector": "Location · Support client",
+          "sector": "Location, support client",
           "figure": "87 %",
-          "figureLabel": "des tickets traités grâce à nos brouillons IA",
           "points": [
-            "Des centaines de tickets support par jour.",
-            "Connecté à leurs API internes pour récupérer le vrai contexte client."
+            "87 % des tickets traités grâce à nos brouillons IA, sur des centaines de tickets de support par jour.",
+            "L'outil est connecté à leurs API internes pour avoir le vrai contexte client.",
+            "Un humain garde la main sur ce qui part chez les clients."
+          ]
+        },
+        "afp": {
+          "sector": "Médias",
+          "figure": "4 M€",
+          "points": [
+            "France 2030 avec l'AFP sur MediaGen, un projet de 4 M€ soutenu par Bpifrance.",
+            "On fait partie du consortium technique, avec Kairntech et Dawex.",
+            "Trois outils pour les rédactions : veille augmentée, recherche multimodale, aide à la production."
           ]
         },
         "coup-de-pates": {
-          "sector": "Agroalimentaire · RSE et qualité",
+          "sector": "Alimentaire, RSE et qualité",
           "figure": "2 projets",
-          "figureLabel": "une app RSE et des skills de contrôle qualité",
           "points": [
-            "Ensemble, l’app iOS et Android qui fait vivre l’engagement RSE auprès des équipes.",
-            "Des skills IA qui contrôlent les documents produit et relèvent chaque écart."
+            "2 projets : une application RSE pour iOS et Android, et des skills IA qui contrôlent les documents produits et signalent chaque écart."
           ]
         },
         "theodo": {
-          "sector": "Tech · Software Factories",
+          "sector": "Agence qu'on renforce",
           "figure": "Des centaines",
-          "figureLabel": "de développeurs outillés par des Software Factories",
           "points": [
-            "Expert technique intégré aux équipes de Theodo sur des projets critiques pour leurs clients."
+            "On intervient comme expert technique intégré aux équipes Theodo, sur des projets critiques pour leurs clients.",
+            "Des centaines de développeurs outillés par des Software Factories."
           ]
         }
       }
     },
-    "security": {
-      "title": "Sécurité, RGPD et HDS",
-      "intro": "Nos clients en santé nous confient des données sensibles. La sécurité fait partie du livrable, pas d’une étape à part.",
+    "cta": {
+      "title": "Un problème précis en tête ?",
+      "text": "Racontez-le-nous en 30 minutes. On répond sous 24 heures."
+    },
+    "offers": {
+      "title": "Trois façons de travailler avec nous",
       "items": {
-        "compliance": {
-          "title": "Selon les exigences RGPD et HDS",
-          "desc": "On travaille selon les exigences RGPD et HDS, une spécialité qu’on pratique en santé. Chez Monka, les données de santé sont chiffrées et conformes au RGPD, et tout le développement est resté dans l’environnement HDS du client."
+        "build": {
+          "label": "Construire",
+          "title": "Produits IA et outils internes",
+          "desc": "On prend le produit en entier : cadrage, architecture, cycles courts, frontend, DevOps, observabilité, documentation et passation.",
+          "link": "Développement d'application IA sur mesure"
         },
-        "privilege": {
-          "title": "Des agents au moindre privilège",
-          "desc": "Un agent n’accède qu’à ce dont sa tâche a besoin, avec des droits limités, visibles et révocables."
+        "operate": {
+          "label": "Opérer",
+          "title": "Agents et automatisation",
+          "desc": "On audite vos workflows, on écrit les skills, on connecte l'agent à votre CRM, à votre support, à vos documents et à vos API, puis on le déploie de façon sécurisée. L'objectif : du temps gagné pour vos équipes.",
+          "link": "Agents IA en production"
         },
-        "human": {
-          "title": "Un humain sur ce qui part",
-          "desc": "Ce qui sort vers vos clients passe par une personne. Chez LocService, l’agent rédige des brouillons et l’équipe support garde la main sur la réponse."
+        "advise": {
+          "label": "Conseiller",
+          "title": "Stratégie et formation",
+          "desc": "On vous aide à prioriser les usages, à trancher entre construire et acheter, et à tracer une feuille de route d'adoption. La formation est pratique et porte sur vos propres cas."
         }
-      },
-      "readLabel": "À lire",
-      "articles": {
-        "hds": "IA et données de santé : ce que l’HDS impose vraiment à votre projet",
-        "authority": "Le vrai risque des agents IA, c’est l’autorité",
-        "blackOctober": "Black October : ce que ça change pour vos agents IA"
       }
     },
+    "method": {
+      "title": "Comment ça se passe, en 5 étapes",
+      "steps": {
+        "call": {
+          "title": "L'appel",
+          "desc": "30 minutes, en général en visio. Vous nous racontez le problème, on vous dit si on peut aider. On répond sous 24 heures."
+        },
+        "scope": {
+          "title": "Le cadrage",
+          "desc": "On délimite le périmètre avec vous, puis on vous envoie une proposition écrite à périmètre fixe. Le prix, la propriété intellectuelle et la maintenance y sont écrits noir sur blanc."
+        },
+        "cycles": {
+          "title": "Les cycles courts",
+          "desc": "Vous voyez le produit avancer, pas des slides. Chez Monka, une nouvelle version sortait environ tous les deux jours."
+        },
+        "production": {
+          "title": "La production",
+          "desc": "Le produit sert de vrais utilisateurs, avec l'observabilité nécessaire pour le suivre."
+        },
+        "handover": {
+          "title": "La passation",
+          "desc": "Documentation, runbooks et formation, pour que votre équipe reprenne le produit. Ou bien on continue à l'opérer : c'est vous qui choisissez."
+        }
+      }
+    },
+    "landscape": {
+      "title": "Les autres agences IA à Paris, honnêtement",
+      "intro": "La meilleure agence IA dépend de la taille de votre entreprise et de votre projet. Pour une PME ou une ETI qui veut un outil IA en production rapidement, The Vibe Company est le choix le plus adapté. Pour un grand groupe qui veut une équipe intégrée, regardez Theodo.",
+      "smeTitle": "Côté PME et ETI",
+      "largeTitle": "Côté grandes structures",
+      "pointers": "Galadrim est une agence de développement sur mesure et d'IA basée à Paris : à regarder si votre projet est d'abord une application web ou mobile. Koïno se présente comme un cabinet de conseil IA et data. Theodo, c'est la piste à suivre pour une équipe intégrée complète.",
+      "others": "Dans les résultats parisiens, vous croiserez aussi des agences spécialisées en automatisation, en formation ou en prospection B2B. Ce sont d'autres métiers, à comparer entre eux.",
+      "questionsTitle": "Trois questions à poser à n'importe quelle agence, nous compris",
+      "questions": [
+        "Quel outil avez-vous mis en production, et qui s'en sert tous les jours ?",
+        "Où vont mes données, et qui y a accès ?",
+        "À la fin, qui possède le code et qui assure la maintenance ?"
+      ],
+      "linkLabel": "Voir le comparatif complet des agences IA"
+    },
+    "versus": {
+      "title": "Agence IA ou agence de développement généraliste ?",
+      "text": [
+        "Une agence de développement généraliste sait livrer une application web ou mobile, et beaucoup y ajoutent aujourd'hui une brique d'IA. Si votre projet est d'abord une application classique, c'est souvent le bon choix.",
+        "Nous, on est spécialisés dans les produits et les agents IA. Quand tout l'outil repose sur l'IA, le travail change. Il faut le connecter à vos API internes pour qu'il ait le vrai contexte, donner aux agents le moindre privilège, et garder un humain sur ce qui part chez vos clients.",
+        "C'est le montage en place chez LocService : des brouillons IA nourris par leurs API internes, et un humain qui garde la main sur ce qui part."
+      ],
+      "linkLabel": "Comparer les agences une par une"
+    },
+    "security": {
+      "title": "Sécurité, RGPD et HDS",
+      "text": [
+        "On travaille selon les exigences du RGPD et de l'HDS. C'est une pratique qu'on applique en santé : chez Monka, le produit tourne dans l'environnement HDS que le client avait déjà, sans en sortir, avec des données de santé chiffrées.",
+        "Stan Girard a lui-même monté la pratique HDS de Theodo.",
+        "Deux règles ne bougent pas, quel que soit le projet. Les agents ont le moindre privilège. Un humain reste sur tout ce qui part chez vos clients."
+      ]
+    },
     "team": {
-      "title": "Qui est derrière",
-      "desc": "The Vibe Company a été fondée à Paris en 2024 par Stan Girard et Antoine Dewez, tous deux passés par Theodo et Stockly. Avant, ils ont construit Quivr, un moteur RAG open source qui a dépassé 39 500 étoiles sur GitHub, sont passés par Y Combinator (W24) et ont levé 1,7 M$. Quivr est devenue The Vibe Company.",
-      "notToConfuse": "Aucun lien avec thevibe.company, VIBE Company (Zurich) ni Vibe.co.",
+      "title": "Une équipe à Paris depuis 2024",
+      "desc": [
+        "The Vibe Company a été fondée à Paris en 2024 par Stan Girard et Antoine Dewez, tous deux passés par Theodo et Stockly.",
+        "On a fait Y Combinator (W24) avec Quivr, qui est ensuite devenu The Vibe Company. Quivr est l'un de nos produits : plus de 100 000 utilisateurs en 2024-2025."
+      ],
+      "addressTitle": "Où nous trouver",
+      "addressNote": "Le premier appel se fait en général en visio. On travaille aussi avec des équipes hors Île-de-France, en français comme en anglais.",
+      "notToConfuse": "Aucun lien avec thevibe.company, VIBE Company (Zurich) ou Vibe.co.",
       "aboutLink": "Qui sommes-nous",
       "originLink": "Lire « We are stopping Quivr. We are building The Vibe Company. »"
     },
     "faq": {
       "title": "Questions fréquentes",
       "items": {
+        "paris": {
+          "q": "Où se trouve votre agence IA à Paris ?",
+          "a": "Au 10 rue La Vacquerie, 75011 Paris, France. L'équipe est à Paris depuis 2024. Le premier appel se fait en général en visio, et on travaille aussi avec des équipes hors Île-de-France, en français comme en anglais."
+        },
+        "clients": {
+          "q": "Avec quelles entreprises travaillez-vous ?",
+          "a": "Surtout des PME et des ETI qui ont un problème concret à mettre en production. Nos cas publiés : Monka en santé, LocService dans la location, l'AFP dans les médias, Coup de Pâtes dans l'alimentaire. Si vous êtes un grand groupe et que vous voulez une équipe intégrée complète, regardez plutôt Theodo."
+        },
         "cost": {
-          "q": "Combien coûte un projet ?",
-          "a": "Ça dépend du périmètre : un agent sur un seul workflow n’a rien à voir avec un produit complet. On donne un chiffre précis après l’appel et le cadrage, dans une proposition écrite à périmètre fixe."
+          "q": "Combien coûte un projet IA avec The Vibe Company ?",
+          "a": "Certaines agences parisiennes affichent un prix d'entrée. Nous non, parce que le chiffre dépend du périmètre. Vous l'obtenez après l'appel et le cadrage, dans une proposition écrite à périmètre fixe. La propriété intellectuelle et la maintenance y sont précisées aussi."
         },
         "timeline": {
-          "q": "En combien de temps quelque chose est en production ?",
-          "a": "On avance par cycles courts, avec des versions testables tôt et régulièrement, et le délai dépend du périmètre fixé au cadrage. Exemple réel : chez un client santé, l’app des aidants, le CRM des infirmières et le moteur clinique sont partis en production en deux mois, dans l’environnement HDS déjà en place."
+          "q": "En combien de temps peut-on être en production ?",
+          "a": "Ça dépend du périmètre, qu'on fixe avec vous au cadrage. Un repère : Monka est passé en production en 2 mois, avec une nouvelle version environ tous les deux jours."
         },
-        "start": {
-          "q": "Par où commencer sans projet précis ?",
-          "a": "Par l’appel de 30 minutes. On regarde où votre équipe perd du temps et on vous dit ce qui vaut la peine d’être automatisé ou construit. Si le besoin est surtout de prioriser, notre offre stratégie et formation est faite pour ça."
+        "best": {
+          "q": "Quelle est la meilleure agence IA à Paris ?",
+          "a": "Ça dépend de la taille de votre entreprise et de votre projet. Pour une PME ou une ETI qui veut un outil IA en production rapidement, The Vibe Company est le choix le plus adapté. Dans la même catégorie, regardez aussi Juwa, Galadrim et Koïno. Pour un grand groupe qui veut une équipe intégrée, regardez Theodo, puis Artefact, Mistral AI et Ekimetrics selon le besoin. Notre <link>comparatif des agences IA</link> détaille chaque acteur."
+        },
+        "generalist": {
+          "q": "Quelle différence avec une agence de développement généraliste ?",
+          "a": "Une agence généraliste livre des applications web et mobiles, et y ajoute parfois une brique d'IA. Nous, on est spécialisés dans les produits et les agents IA, avec ce que ça demande en production : connexion à vos API internes, agents au moindre privilège, humain sur ce qui part chez vos clients. Si votre projet est d'abord une application classique, une agence généraliste fera très bien l'affaire."
         },
         "data": {
-          "q": "Travaillez-vous sur des données sensibles (santé, données personnelles) ?",
-          "a": "Oui, c’est une exigence courante chez nos clients en santé. On livre selon les exigences RGPD et HDS : données chiffrées, accès limités au strict nécessaire, et un développement qui reste dans votre environnement HDS quand il existe déjà."
+          "q": "Comment gérez-vous le RGPD et les données de santé (HDS) ?",
+          "a": "On travaille selon les exigences du RGPD et de l'HDS, une pratique qu'on applique en santé. Chez Monka, le produit tourne dans l'environnement HDS que le client avait déjà, sans en sortir, et les données de santé sont chiffrées. Sur tous les projets, les agents ont le moindre privilège et un humain reste sur ce qui part chez vos clients."
         },
         "code": {
-          "q": "À qui appartient le code ?",
-          "a": "On documente et on forme votre équipe pour qu’elle puisse reprendre le produit. La propriété intellectuelle et la maintenance sont détaillées dans la proposition écrite."
+          "q": "À qui appartient le code, et qui assure la maintenance ?",
+          "a": "La propriété intellectuelle et la maintenance sont précisées dans la proposition écrite. À la fin, on livre la documentation, les runbooks et la formation pour que votre équipe reprenne le produit. Si vous préférez, on continue à l'opérer."
         },
-        "paris": {
-          "q": "Vous êtes à Paris ?",
-          "a": "Oui, l’agence est basée à Paris depuis 2024. Le premier échange se fait en visio pour aller vite, et on travaille aussi avec des équipes hors Île-de-France, en français comme en anglais."
+        "related": {
+          "q": "The Vibe Company a-t-elle un lien avec thevibe.company, VIBE Company ou Vibe.co ?",
+          "a": "Non. The Vibe Company (thevibecompany.co) n'a aucun lien avec thevibe.company, VIBE Company (Zurich) ou Vibe.co. On est l'équipe fondée à Paris en 2024 par Stan Girard et Antoine Dewez, passée par Y Combinator (W24) avec Quivr."
+        },
+        "start": {
+          "q": "Comment démarrer ?",
+          "a": "Réservez un appel de 30 minutes avec le bouton en bas de page. On répond sous 24 heures. Après le cadrage, vous recevez une proposition écrite à périmètre fixe."
         }
       }
+    },
+    "links": {
+      "title": "Pour aller plus loin",
+      "comparison": "Comparatif : les meilleures agences IA, acteur par acteur",
+      "cases": {
+        "monka": "Étude de cas Monka",
+        "afp": "Étude de cas AFP",
+        "locservice": "Étude de cas LocService",
+        "coup-de-pates": "Étude de cas Coup de Pâtes",
+        "theodo": "Étude de cas Theodo"
+      }
+    },
+    "finalCta": {
+      "kicker": "EMBARQUEMENT",
+      "titleLine1": "On en parle",
+      "titleLine2": "30 minutes ?",
+      "text": "Vous nous racontez le problème. On vous dit si on peut aider, et comment.",
+      "bookCall": "Réserver un appel de 30 minutes",
+      "responseLabel": "RÉPONSE",
+      "responseValue": "24H",
+      "emailLabel": "EMAIL"
     },
     "homeLink": "Voir notre page Agence IA à Paris",
     "caseLink": "The Vibe Company est une <link>agence IA à Paris</link> : produits IA, agents et formation, jusqu’en production.",
@@ -2204,12 +2274,17 @@
     }
   },
   "tools": {
-    "metaTitle": "Outils IA gratuits | The Vibe Company",
-    "metaDescription": "Des petits outils gratuits et sans inscription pour mieux travailler avec l'IA au quotidien. Le premier vérifie si votre site est prêt pour les agents IA.",
+    "metaTitle": "Outils IA gratuits et sans inscription | The Vibe Company",
+    "metaDescription": "Des outils IA gratuits et sans inscription, construits par The Vibe Company. Le premier teste si ChatGPT, Claude et Perplexity peuvent lire votre site.",
     "breadcrumb": "Outils",
     "kicker": "Outils gratuits",
-    "title": "Des petits outils gratuits pour mieux travailler avec l'IA",
-    "lede": "Des outils simples, gratuits et sans inscription, que The Vibe Company construit pour vous aider à utiliser l'IA au quotidien. Le premier vérifie si votre site est prêt pour les agents IA. D'autres suivront.",
+    "title": "Des outils IA gratuits, utilisables sans inscription",
+    "lede": "The Vibe Company publie ici ses propres outils IA gratuits. Il y en a peu, ils fonctionnent sans compte ni e-mail, et le premier est déjà en ligne : il teste votre site et vous dit si ChatGPT, Claude ou Perplexity peuvent le trouver et le lire. Ce n'est pas un annuaire de cinquante chatbots, et la page ne cherche pas à en devenir un.",
+    "intro": {
+      "title": "Ce que vous trouverez ici",
+      "p1": "Tous les outils de cette page sont construits par The Vibe Company, <agencyLink>agence IA à Paris</agencyLink>. Ils suivent la même règle : gratuits, sans inscription, et assez simples pour donner un résultat tout de suite.",
+      "p2": "La collection est petite. Aujourd'hui, elle tient en un seul outil : un test qui vérifie si votre site est prêt pour les agents IA. Vous lui donnez l'adresse de votre site, il vous rend un score et la liste de ce qu'il faut corriger."
+    },
     "listTitle": "Les outils",
     "free": "Gratuit, sans inscription",
     "open": "Ouvrir l'outil",
@@ -2219,7 +2294,62 @@
         "description": "Entrez l'adresse de votre site : 16 vérifications sur la découverte, le contenu, l'accès des robots IA et les protocoles agents, un score sur 100 et les correctifs à appliquer."
       }
     },
-    "moreSoon": "D'autres outils arrivent. Une idée d'outil qui vous ferait gagner du temps avec l'IA ? Écrivez-nous."
+    "agentReady": {
+      "title": "Le premier outil : votre site est-il prêt pour les agents IA ?",
+      "p1": "Vos clients demandent de plus en plus à ChatGPT, Claude ou Perplexity de comparer des offres, de résumer une page ou de réserver à leur place. Pour répondre, ces assistants visitent les sites concernés. S'ils ne peuvent pas lire le vôtre, ils citent vos concurrents.",
+      "p2": "Le test est fait pour la personne qui porte ce sujet dans une PME ou une ETI, au marketing comme à la technique. Vous entrez l'adresse de votre site et l'outil en teste la racine. Il lance 16 vérifications sur vos pages publiques : la page d'accueil, le robots.txt, le sitemap, le fichier llms.txt et les fichiers standards des protocoles agents. Le résultat arrive en moins de 30 secondes.",
+      "p3": "Vous repartez avec un score sur 100, un niveau de 0 à 5 par catégorie et une explication en clair. Chaque point à corriger vient avec des instructions prêtes à coller dans un agent de code comme Claude Code, Cursor ou Codex.",
+      "categoriesTitle": "Quatre catégories, quatre questions simples",
+      "discovery": "La première catégorie s'appelle Découverte et pose la question de base : les agents trouvent-ils vos pages ? Le robots.txt est le règlement intérieur de votre site, celui que les moteurs et les assistants lisent en premier. Le sitemap leur donne la liste de vos pages en une seule requête. Le fichier llms.txt, lui, résume qui vous êtes et où sont vos pages clés.",
+      "content": "Vient ensuite le Contenu : une fois arrivés, les agents peuvent-ils vous lire sans navigateur ? Beaucoup d'entre eux n'exécutent pas JavaScript. Si votre page d'accueil n'affiche son texte qu'après le lancement d'un script, ils voient une page vide. Le test regarde aussi si votre site sait servir ses pages en Markdown, un format que les agents préfèrent au HTML.",
+      "bots": "La catégorie Robots IA vérifie que vous laissez entrer ces visiteurs, et à quelles conditions. Il y a les règles écrites dans votre robots.txt pour les principaux robots IA, et il y a ce qui se passe vraiment : un robot qui demande votre page d'accueil doit la recevoir, sans blocage ni page « êtes-vous humain ? ». Un robot bloqué ne cite pas votre site dans ses réponses.",
+      "protocols": "La dernière catégorie notée, Protocoles agents, concerne surtout les services en ligne. Elle cherche les fichiers qui disent à un agent qu'il peut agir chez vous, par exemple la carte d'un <mcpLink>serveur MCP</mcpLink>. Les points qui ne s'appliquent pas à votre site ne comptent pas dans le score.",
+      "commerce": "Une cinquième rubrique, Commerce, signale si un agent peut payer chez vous avec le protocole x402. Le sujet est encore émergent : il est affiché pour information et reste hors score.",
+      "link": "Tester mon site avec l'outil agent-ready"
+    },
+    "llms": {
+      "title": "llms.txt : à quoi sert ce fichier ?",
+      "p1": "Le fichier llms.txt est un résumé de votre site écrit pour les modèles d'IA. C'est un fichier Markdown, placé à l'adresse /llms.txt et servi en text/plain ou en text/markdown.",
+      "p2": "Son contenu est court. Il commence par un titre de la forme « # Nom de votre entreprise », suivi d'une présentation en une ligne, puis de la liste de vos pages importantes avec leurs liens.",
+      "p3": "Là où le sitemap liste toutes vos pages, le llms.txt dit en quelques lignes qui vous êtes et lesquelles lire d'abord. C'est la porte d'entrée la plus simple pour un assistant.",
+      "p4": "Le test agent-ready cherche ce fichier sur votre site. Il le vérifie, il ne l'écrit pas à votre place. S'il manque, le rapport vous explique quoi y mettre et vous donne des instructions à coller dans votre agent de code."
+    },
+    "score": {
+      "title": "Lire votre score, et savoir quoi corriger d'abord",
+      "p1": "Le score sur 100 combine les quatre catégories notées. Toutes les vérifications n'ont pas le même poids : l'essentiel pèse plus lourd, c'est-à-dire un contenu lisible, l'accès réel des robots IA, le robots.txt et le sitemap. Chaque catégorie reçoit en plus son propre niveau, de 0 à 5.",
+      "p2": "Cette pondération donne l'ordre des travaux. Assurez-vous d'abord que les robots IA entrent et que votre texte est bien présent dans le HTML. Mettez ensuite au propre le robots.txt et le sitemap, puis ajoutez un llms.txt. Les protocoles agents viennent après, si vous proposez un service en ligne.",
+      "p3": "Pour les corrections de base, pas besoin d'une équipe technique. Chaque point est expliqué simplement, et un bouton de copie prépare les instructions pour votre agent de code. Elles prennent souvent moins d'une journée."
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "items": {
+        "free": {
+          "q": "Ces outils IA sont-ils vraiment gratuits ?",
+          "a": "Oui. Ils sont gratuits et fonctionnent sans inscription : pas de compte à créer, pas d'e-mail à laisser."
+        },
+        "ready": {
+          "q": "Qu'est-ce qu'un site prêt pour les agents IA ?",
+          "a": "C'est un site que les assistants et les agents IA trouvent, lisent et comprennent sans effort : un robots.txt clair, un sitemap, un résumé llms.txt, du texte présent dans le HTML et un accès ouvert aux robots IA. Pour un service en ligne, cela inclut aussi des protocoles comme MCP, pour qu'un agent puisse agir."
+        },
+        "llms": {
+          "q": "L'outil génère-t-il mon fichier llms.txt ?",
+          "a": "Non, il vérifie que le fichier existe. S'il manque, le rapport décrit ce qu'il doit contenir (un titre, une présentation en une ligne, la liste de vos pages importantes) et fournit des instructions à coller dans un agent de code."
+        },
+        "data": {
+          "q": "Que fait le test sur mon site, et que gardez-vous ?",
+          "a": "Le test lit uniquement des pages publiques, comme un visiteur, sans connexion ni formulaire. Le rapport reste quelques minutes en mémoire pour éviter de relancer le même test, puis il est oublié. The Vibe Company mesure seulement le nom de domaine testé et le score, pour améliorer l'outil."
+        },
+        "dev": {
+          "q": "Je n'ai pas de développeur, puis-je corriger moi-même ?",
+          "a": "Oui, dans bien des cas. Chaque point vient avec une explication simple et le correctif à appliquer, et les instructions se collent telles quelles dans Claude Code, Cursor ou Codex. Les corrections de base prennent souvent moins d'une journée."
+        }
+      }
+    },
+    "more": {
+      "title": "D'autres outils arrivent",
+      "p1": "D'autres outils rejoindront cette page quand ils seront prêts, gratuits et sans inscription eux aussi.",
+      "p2": "En attendant, deux lectures prolongent le test : <aeoLink>être cité par ChatGPT, six mythes AEO vérifiés aux sources</aeoLink>, et <mcpLink>le serveur MCP en entreprise</mcpLink>. Le reste est dans <resourcesLink>nos ressources</resourcesLink>."
+    }
   },
   "agentReady": {
     "metaTitle": "Votre site est-il prêt pour les agents IA ? Test gratuit",

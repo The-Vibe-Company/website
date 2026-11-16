@@ -50,7 +50,14 @@ describe("site graph", () => {
       image: `${SITE}/icon.png`,
       logo: { url: `${SITE}/icon.png`, width: 512, height: 512 },
       foundingDate: "2024",
-      address: { "@type": "PostalAddress", addressLocality: "Paris", addressCountry: "FR" },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "10 rue La Vacquerie",
+        postalCode: "75011",
+        addressLocality: "Paris",
+        addressCountry: "FR",
+      },
+      knowsLanguage: ["fr", "en"],
       areaServed: [{ "@type": "Country", name: "France" }],
       knowsAbout: [
         "Artificial intelligence",
