@@ -6,7 +6,7 @@ slug: vos-skills-ia-en-prod-au-doigt-mouille
 translationKey: claude-code-skills-ship-on-gut-feel
 language: fr
 summary: "Une nouvelle version de skill n'est pas meilleure parce que vous venez de la retoucher. Récit d'un test terrain et méthode pour mesurer avant de diffuser."
-publishedAt: 2026-11-18
+publishedAt: 2026-11-17
 complexity: intermediate
 topics: Skills, Evaluation, Claude Code, AI Adoption
 author: stan-girard

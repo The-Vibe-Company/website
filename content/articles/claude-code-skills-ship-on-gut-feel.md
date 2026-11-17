@@ -6,7 +6,7 @@ slug: claude-code-skills-ship-on-gut-feel
 translationKey: claude-code-skills-ship-on-gut-feel
 language: en
 summary: "A new skill version is not better just because you edited it. The story of one field test, and the method for measuring a skill before it ships."
-publishedAt: 2026-11-18
+publishedAt: 2026-11-17
 complexity: intermediate
 topics: Skills, Evaluation, Claude Code, AI Adoption
 author: stan-girard
