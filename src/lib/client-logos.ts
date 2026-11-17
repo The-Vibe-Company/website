@@ -19,6 +19,6 @@ export const CLIENT_LOGO_SIZES: Record<string, { width: number; height: number }
 };
 
 /** `width`/`height` attributes for a client logo, to spread on its `<img>`. */
-export function clientLogoSize(src: string): { width?: number; height?: number } {
-  return CLIENT_LOGO_SIZES[src] ?? {};
+export function clientLogoSize(src: string | undefined): { width?: number; height?: number } {
+  return (src && CLIENT_LOGO_SIZES[src]) || {};
 }

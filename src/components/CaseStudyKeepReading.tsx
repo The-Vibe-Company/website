@@ -2,7 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 
 import type { Customer } from "@/lib/customers";
-import { clientLogoSize } from "@/lib/client-logos";
+import { ClientMark } from "@/components/ClientMark";
 import { BrandSquare } from "@/components/BrandSquare";
 
 
@@ -41,14 +41,12 @@ export async function CaseStudyKeepReading({
         <article className="flex flex-col overflow-hidden border border-border bg-card transition-colors hover:border-border-strong md:flex-row">
           {/* The client's logo hangs under the lamp. */}
           <div className="lamp-card relative flex aspect-[16/10] shrink-0 items-center justify-center overflow-hidden border-b border-border p-10 md:aspect-auto md:w-[44%] md:border-b-0 md:border-r">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={featured.logo}
-              alt={featured.client}
-              {...clientLogoSize(featured.logo)}
-              className="logo-tone relative h-10 w-auto max-w-[70%] object-contain md:h-12"
-              loading="lazy"
-              decoding="async"
+            <ClientMark
+              logo={featured.logo}
+              client={featured.client}
+              className="relative h-10 w-auto max-w-[70%] object-contain md:h-12"
+              wrap
+              textClassName="relative text-center text-[32px] md:text-[40px]"
             />
           </div>
           <div className="flex flex-1 flex-col justify-center p-7 md:p-9">
@@ -88,14 +86,12 @@ export async function CaseStudyKeepReading({
               className="group flex gap-5 border border-border bg-card p-5 no-underline transition-colors hover:border-border-strong md:p-6"
             >
               <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden border border-border p-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={c.logo}
-                  alt={c.client}
-                  {...clientLogoSize(c.logo)}
-                  className="logo-tone max-h-full max-w-full object-contain"
-                  loading="lazy"
-                  decoding="async"
+                <ClientMark
+                  logo={c.logo}
+                  client={c.client}
+                  className="max-h-full max-w-full object-contain"
+                  wrap
+                  textClassName="text-center text-[11px]"
                 />
               </div>
               <div className="min-w-0 flex-1">
