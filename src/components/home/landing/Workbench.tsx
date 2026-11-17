@@ -11,7 +11,7 @@ import { CaseCards } from "@/components/CaseCards";
 export function Workbench() {
   const t = useTranslations("caseStudy");
   const locale = useLocale() === "en" ? "en" : "fr";
-  const cases = getCustomers(locale).slice(0, 5);
+  const cases = getCustomers(locale).slice(0, 6);
 
   return (
     <section aria-labelledby="cas-clients-title" className="bg-background">

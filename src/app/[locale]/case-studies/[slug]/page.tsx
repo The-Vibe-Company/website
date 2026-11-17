@@ -28,7 +28,7 @@ import {
   isPublishableInCaseStudyFaq,
   webPageNode,
 } from "@/lib/structured-data";
-import { clientLogoSize } from "@/lib/client-logos";
+import { ClientMark } from "@/components/ClientMark";
 import { BrandSquare } from "@/components/BrandSquare";
 
 /** The case pages keep their narrower reading rail. */
@@ -340,12 +340,12 @@ export default async function CaseStudyPage({
             </Suspense>
 
             <div className="mt-12 flex flex-col items-start gap-5 md:mt-16 md:flex-row md:items-center md:justify-between">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={customer.logo}
-                alt={customer.client}
-                {...clientLogoSize(customer.logo)}
-                className="logo-tone h-10 w-auto object-contain md:h-12"
+              <ClientMark
+                logo={customer.logo}
+                client={customer.client}
+                className="h-10 w-auto object-contain md:h-12"
+                textClassName="text-[32px] md:text-[40px]"
+                lazy={false}
               />
               <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-soft-foreground">
                 <BrandSquare />
@@ -460,15 +460,12 @@ export default async function CaseStudyPage({
                   {customer.quote.text}
                 </blockquote>
                 <figcaption className="mt-10 flex flex-wrap items-center gap-4 font-mono text-[11px] uppercase tracking-[0.2em] text-soft-foreground">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={customer.logo}
-                    alt=""
-                    aria-hidden="true"
-                    {...clientLogoSize(customer.logo)}
-                    className="logo-tone h-6 w-auto"
-                    loading="lazy"
-                    decoding="async"
+                  <ClientMark
+                    logo={customer.logo}
+                    client={customer.client}
+                    decorative
+                    className="h-6 w-auto"
+                    textClassName="text-[18px]"
                   />
                   {customer.quote.author}
                 </figcaption>

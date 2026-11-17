@@ -26,8 +26,9 @@ describe("client logos", () => {
   test("every logo the site renders has a declared size", () => {
     const rendered = [
       ...CLIENTS.map((client) => client.src),
-      ...getCustomers("fr").map((customer) => customer.logo),
-      ...getCustomers("en").map((customer) => customer.logo),
+      // A customer without a logo shows its name instead: nothing to size.
+      ...getCustomers("fr").flatMap((customer) => (customer.logo ? [customer.logo] : [])),
+      ...getCustomers("en").flatMap((customer) => (customer.logo ? [customer.logo] : [])),
     ];
     expect(rendered.filter((src) => !CLIENT_LOGO_SIZES[src])).toEqual([]);
   });
