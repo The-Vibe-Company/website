@@ -551,6 +551,21 @@
       "targetUrl": "/images/_optimized/resources/veille-ia-automatique/cover.webp",
       "targetHash": "97c2c5904d42549115d977b5648112249e26869cff74513346fb5c0464bfad1f"
     },
+    "content:/images/resources/vos-skills-ia-en-prod-au-doigt-mouille/cover-mascotte.webp": {
+      "sourceHash": "eea7eebf0f3726fd2501f43cf5cd8bed8fd8dc3d301eaaacd6262b7efeb97ab1",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/vos-skills-ia-en-prod-au-doigt-mouille/eval-loop-480.png": {
+      "sourceHash": "7359fb33304218c51dce745e829bd5c34860fdc03f1671e313bbdd3cdb011af3",
+      "targetUrl": "/images/_optimized/resources/vos-skills-ia-en-prod-au-doigt-mouille/eval-loop-480.webp",
+      "targetHash": "15e1ef918d2e8557791408b38118da663c80fca27bdbdd3c20abee4a294127c5"
+    },
+    "content:/images/resources/vos-skills-ia-en-prod-au-doigt-mouille/eval-loop-en-480.png": {
+      "sourceHash": "6f8f9a2b79d115eb27a93bcb9fb57583efa9621439d9329cd218c835b7cdca15",
+      "targetUrl": "/images/_optimized/resources/vos-skills-ia-en-prod-au-doigt-mouille/eval-loop-en-480.webp",
+      "targetHash": "617f8141fb1ee9c6622e6317ea0ada29a3ccdbe36b1d4e3afee254e1b22f15b5"
+    },
     "content:/images/resources/what-an-ai-agency-does/ai-agency-mission-3-steps.png": {
       "sourceHash": "90dd503ae2e687bceac2e06577bb5782eaeeb59d4c2e0f996d27bb257c3b15f9",
       "targetUrl": "/images/_optimized/resources/what-an-ai-agency-does/ai-agency-mission-3-steps.webp",
@@ -838,6 +853,11 @@
     },
     "og:/images/resources/veille-ia-automatique/cover.png": {
       "sourceHash": "7d124c15b66d7e6f3ca3b0223abbde550c44416889545c37b2a192461b427d8e",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/vos-skills-ia-en-prod-au-doigt-mouille/cover-mascotte.webp": {
+      "sourceHash": "eea7eebf0f3726fd2501f43cf5cd8bed8fd8dc3d301eaaacd6262b7efeb97ab1",
       "targetUrl": null,
       "targetHash": null
     },
