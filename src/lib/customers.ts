@@ -646,10 +646,11 @@ const CUSTOMERS_RAW: RawCustomer[] = [
     ],
   },
   {
-    // Engagement through Theodo: no figure, result, quote, or logo. The name
-    // stands in for the logo on the cards.
+    // Engagement through Theodo: no figure, result, or quote. Official logo
+    // from the Groupe Softway Medical media kit (groupesoftwaymedical.com/kit-media/).
     slug: "softway-medical",
     client: "Softway Medical",
+    logo: "/images/clients/softway-medical.svg",
     url: "https://www.groupesoftwaymedical.com/",
     visuals: [],
     sector: { en: "Healthcare · Software Factory", fr: "Santé · Software Factory" },

@@ -13,6 +13,7 @@ export const CLIENT_LOGO_SIZES: Record<string, { width: number; height: number }
   "/images/clients/locservice.png": { width: 256, height: 43 },
   "/images/clients/monka.webp": { width: 600, height: 210 },
   "/images/clients/monka-color.webp": { width: 600, height: 210 },
+  "/images/clients/softway-medical.svg": { width: 259, height: 88 },
   "/images/clients/theodo.svg": { width: 111, height: 24 },
   "/images/clients/trusk.svg": { width: 147, height: 44 },
   "/images/clients/zapa.svg": { width: 71, height: 20 },
