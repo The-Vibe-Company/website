@@ -55,7 +55,7 @@ Elle tient en quelques gestes, dans cet ordre.
 
 Le dernier geste est celui qui fait mal. Dans SkillOpt, une égalité vaut refus, et un texte qui fait plus propre ne suffit pas non plus. J'en ai détaillé la mécanique dans [un article en anglais sur la façon d'utiliser SkillOpt pour entraîner ses skills](/en/resources/articles/how-to-use-skillopt-to-train-agent-skills).
 
-Pour que cette méthode soit là dès le premier jour, j'ai créé Skill Creator, un skill qui installe l'évaluation au moment où vous créez le vôtre. Un second, Refine Skill, la réutilise à chaque itération.
+Pour que cette méthode soit là dès le premier jour, j'ai créé [Skill Creator](https://github.com/The-Vibe-Company/companion-skills/blob/main/skills/create-skill-tools/SKILL.md), un skill qui installe l'évaluation au moment où vous créez le vôtre. Un second, [Refine Skill](https://github.com/The-Vibe-Company/companion-skills/blob/main/skills/refine-skill-tools/SKILL.md), la réutilise à chaque itération.
 
 Ce protocole a un effet secondaire que j'aime bien : il vous oblige à écrire, avant de lancer le test, ce que « gagner » veut dire. Reprenez la nouvelle version du skill de QA. Match nul sur les défauts attrapés, victoire sur la clarté des procédures. Selon le critère choisi au départ, c'est un refus ou une diffusion. Au doigt mouillé, c'était seulement « mieux », et chacun mettait ce qu'il voulait derrière le mot.
 
@@ -91,4 +91,4 @@ Cette comparaison a du sens au moment où vous créez le skill. Une fois le skil
 
 ### Qu'est-ce que SkillOpt ?
 
-SkillOpt est une méthodologie publiée par Microsoft pour évaluer la qualité des skills et encadrer leurs itérations. Le modèle cible est figé, et une modification du skill n'est acceptée que si elle améliore un score sur un jeu de cas mis de côté. Les égalités sont refusées. Skill Creator, le skill que j'ai créé pour installer cette évaluation dès la création, s'appuie sur SkillOpt.
+SkillOpt est une méthodologie publiée par Microsoft pour évaluer la qualité des skills et encadrer leurs itérations. Le modèle cible est figé, et une modification du skill n'est acceptée que si elle améliore un score sur un jeu de cas mis de côté. Les égalités sont refusées. [Skill Creator](https://github.com/The-Vibe-Company/companion-skills/blob/main/skills/create-skill-tools/SKILL.md), le skill que j'ai créé pour installer cette évaluation dès la création, s'appuie sur SkillOpt.

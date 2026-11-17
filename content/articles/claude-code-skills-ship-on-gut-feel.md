@@ -55,7 +55,7 @@ It comes down to a few moves, in this order.
 
 The last move is the one that hurts. In SkillOpt a tie is a rejection, and a text that merely looks cleaner doesn't make the cut either. I went through the mechanics in [an earlier article on how to use SkillOpt to train your agent skills](/en/resources/articles/how-to-use-skillopt-to-train-agent-skills).
 
-To have this method there from day one, I created Skill Creator, a skill that sets up the evaluation at the moment you create yours. A second one, Refine Skill, reuses it at every iteration.
+To have this method there from day one, I created [Skill Creator](https://github.com/The-Vibe-Company/companion-skills/blob/main/skills/create-skill-tools/SKILL.md), a skill that sets up the evaluation at the moment you create yours. A second one, [Refine Skill](https://github.com/The-Vibe-Company/companion-skills/blob/main/skills/refine-skill-tools/SKILL.md), reuses it at every iteration.
 
 This protocol has a side effect I like: it forces you to write down, before the test runs, what "winning" means. Take the new version of the QA skill again. A draw on defects caught, a win on how clear the procedures are. Depending on the criterion you picked at the start, that is a rejection or a release. By gut feel it was just "better", and everyone heard what they wanted in the word.
 
@@ -91,4 +91,4 @@ That comparison makes sense when you create the skill. Once the skill is in plac
 
 ### What is SkillOpt?
 
-SkillOpt is a methodology published by Microsoft for evaluating the quality of skills and guiding their iterations. The target model stays frozen, and an edit to the skill is accepted only if it improves a score on a held-out set of cases. Ties are rejected. Skill Creator, the skill I created to set up that evaluation when a skill is created, builds on SkillOpt.
+SkillOpt is a methodology published by Microsoft for evaluating the quality of skills and guiding their iterations. The target model stays frozen, and an edit to the skill is accepted only if it improves a score on a held-out set of cases. Ties are rejected. [Skill Creator](https://github.com/The-Vibe-Company/companion-skills/blob/main/skills/create-skill-tools/SKILL.md), the skill I created to set up that evaluation when a skill is created, builds on SkillOpt.
