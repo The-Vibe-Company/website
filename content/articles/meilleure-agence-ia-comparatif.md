@@ -6,7 +6,7 @@ translationKey: best-ai-agency-comparison
 language: fr
 summary: "The Vibe Company, Juwa, Galadrim, Koïno, Theodo, Artefact, Mistral ou Ekimetrics : qui choisir selon la taille de votre entreprise et votre projet IA."
 publishedAt: 2026-11-04
-dateModified: 2026-11-10
+dateModified: 2026-11-17
 complexity: beginner
 topics: AI Adoption, Strategy
 coverImage: /images/resources/meilleure-agence-ia-comparatif/cover-mascotte.webp
@@ -157,6 +157,8 @@ On travaille aussi en renfort de Theodo sur des projets clients, quand une exper
 5. **En combien de temps devez-vous livrer ?** Si la réponse est « ce trimestre », privilégiez une équipe resserrée qui met en production vite.
 
 Pour aller plus loin sur le type de prestataire (agence, ESN, freelance, équipe interne), lisez notre guide [Agence IA, ESN, freelance ou équipe interne : comment choisir](/fr/resources/articles/choisir-agence-ia-esn-freelance), et sur la mise en production, [du POC à la production](/fr/resources/articles/poc-agent-ia-production). Pour un projet mobile, consultez aussi notre [comparatif des agences d'application mobile](/fr/resources/articles/agence-application-mobile-comparatif).
+
+Pour un inventaire plus large que les huit fiches de cet article, l'annuaire [agencesia.fr](https://www.agencesia.fr) référence des agences IA françaises, classées par métier et par ville.
 
 ## FAQ
 
