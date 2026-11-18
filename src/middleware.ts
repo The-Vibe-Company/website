@@ -3,10 +3,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
 import { ENSEMBLE_PATH } from "@/lib/coup-de-pates-ensemble";
 import { hasMarkdownRepresentation, prefersMarkdown } from "@/lib/agent-discovery";
+import { parseArticleTranslations, translatedArticlePath } from "@/lib/article-translations";
 import { legacyBareTarget } from "@/lib/legacy-redirects";
 import { translatedSplitPath } from "@/lib/site";
 
 const intlMiddleware = createMiddleware(routing);
+
+// Inlined at build time from next.config.ts `env` (a literal property access,
+// so the bundler can replace it).
+const ARTICLE_TRANSLATIONS = parseArticleTranslations(process.env.ARTICLE_TRANSLATIONS);
 
 // Pages that exist in French only. Every other variant of the URL (prefix-less
 // or /en) resolves to the French one, whatever the visitor's cookie or country
@@ -92,8 +97,12 @@ export function middleware(request: NextRequest) {
     // not through a second redirect. The target still depends on the cookie
     // and the country, so nobody may store it: browsers cache a 308 for good
     // unless told otherwise.
+    // A translated article goes straight to the slug of the version in that
+    // language. Articles in one language only never get here: their
+    // prefix-less URL is a config redirect to their own language.
     const url = request.nextUrl.clone();
-    url.pathname = `/${locale}${translatedSplitPath(pathname, locale)}`;
+    const localizedPath = translatedArticlePath(pathname, locale, ARTICLE_TRANSLATIONS);
+    url.pathname = `/${locale}${translatedSplitPath(localizedPath, locale)}`;
     const response = NextResponse.redirect(url, 308);
     response.headers.set("Cache-Control", "private, no-store");
     response.headers.set("Vary", "Cookie");
