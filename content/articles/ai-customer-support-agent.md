@@ -1,108 +1,116 @@
 ---
-title: "AI agents for customer support: automate without hurting service"
-seoTitle: "AI agents for customer support: a guide | The Vibe Company"
+title: "AI customer service agent: automate without hurting service"
+seoTitle: "AI customer service agent: drafts a human can send"
+seoDescription: "An AI customer service agent can send replies alone or draft them for a human. LocService's team reviews those drafts before they go out to customers."
 slug: ai-customer-support-agent
 translationKey: ai-customer-support-agent
 language: en
-summary: "Automate customer support with AI without losing quality: LocService (87% of tickets), plus Klarna and Air Canada lessons."
+summary: "What an AI customer service agent is, why to start with drafts a human reviews, and how LocService uses those drafts on real tickets."
 publishedAt: 2026-10-15
+dateModified: 2026-11-16
 complexity: intermediate
 topics: AI Agents, AI Adoption, AI Operations
+author: stan-girard
 coverImage: /images/resources/agent-ia-support-client/cover-mascotte-v3.webp
 coverAlt: "The mascot drafts a reply that a human support agent approves before it goes out through a pneumatic tube"
 ogImage: /images/resources/agent-ia-support-client/cover-mascotte-v3.webp
 ---
 
-Customer support is often the first place a company wants to use AI. The volume is there, the questions repeat, and the cost shows up every time growth means hiring more people.
+An AI customer service agent can answer your customers by itself, or it can write the reply and leave the send button to a person. The assistant The Vibe Company built for LocService is the second kind. The support team uses its drafts on [87% of tickets](/en/case-studies/locservice), and it has never sent a single reply.
 
-It's also where an AI mistake is visible right away. It lands in a customer's inbox, with your name on it.
+That was a choice. LocService is a peer-to-peer property rental platform that handles several hundred support tickets a day, and on its desk the right answer depends on each customer's file. An AI mistake there shows right away, and it goes out with LocService's name on it.
 
-At [The Vibe Company](https://www.thevibecompany.co/en), an AI-native agency founded in Paris in 2024 and backed by Y Combinator (W24), we built an assistant that drafts support replies for [LocService](https://www.thevibecompany.co/en/case-studies/locservice). Its drafts are used on 87% of tickets. Here's what we learned, and the approach we recommend before you automate your own support.
+An AI customer service agent, then, is software that reads an incoming request, pulls the context it needs and writes a reply. What shapes everything else is who presses send. To automate without hurting service, start with drafts a person reviews and count how many your team actually uses. Then hand over the send button one kind of ticket at a time.
 
-## Two ways to automate support with AI
+## An AI customer service agent either sends the reply or hands it to a person
 
-"AI customer support agent" covers two very different things.
+Type the term into Google and the definition at the top calls it "an autonomous software program". That is half of what the name covers.
 
-**1. The autonomous chatbot.** The AI answers the customer directly, with no review. That's what most vendors at the top of Google sell. It works well for simple, closed questions (order tracking, opening hours, password resets).
+The autonomous kind reads the customer's message and answers directly, with nobody in between. The drafting kind reads the ticket, pulls the customer's history, writes the reply, and stops. A support agent reads the draft, fixes it if needed, then sends it.
 
-**2. The agent drafts, a human sends.** The AI reads the ticket, pulls the context and writes a reply. A support agent reviews it, fixes it if needed, then sends it. That's what we built for LocService.
+On a good day, either kind gets the customer a right answer. The difference shows on the day the agent is wrong.
 
-| | Autonomous chatbot | Reviewed drafts |
+| | Autonomous agent | Reviewed drafts |
 | --- | --- | --- |
-| Who sends the reply | the AI | a support agent |
-| Risk of an error the customer sees | high | low: errors are fixed before sending |
-| What you measure | tickets closed without a human | time saved per ticket, share of drafts used |
-| Good starting point for | simple, repetitive questions | questions that depend on the customer's account |
-| What you must plan for | an easy path to a human | a fast review interface |
+| Who sends the reply | The AI | A support agent |
+| Who sees a mistake first | The customer | The agent reviewing the draft |
+| What you measure | Requests closed without a person | Share of drafts the team uses |
+| What you have to build around it | An easy way to reach a person | A review step fast enough to be worth using |
 
-The two can coexist. But order matters. Starting with reviewed drafts lets you measure the AI's quality on your real tickets before you let it talk to customers on its own.
+Say a customer asks why a payment was refused. An agent that has only read your help pages answers in general. If it sends that answer by itself, the customer gets a confident paragraph that has nothing to do with their account. In draft mode, the same weak answer lands in front of a colleague who knows better. It dies there.
 
-## What the public numbers actually say
+Draft mode has a side effect worth knowing if a trial makes you nervous. Customers never see it. A draft nobody sends is invisible outside your team, so you can run the agent on live tickets for as long as you need, and its bad days stay internal.
 
-**AI helps your least experienced agents first.** One of the most cited studies on the topic followed 5,179 support agents at a software company ([Brynjolfsson, Li and Raymond, NBER](https://www.nber.org/papers/w31161)). With a generative AI assistant suggesting replies, they resolved 14% more issues per hour on average, and 34% more for novice agents. The most experienced agents gained little. That's the "draft plus human" model: the AI passes the team's know-how to the people who just joined.
+Both kinds can live on the same support desk. An autonomous agent can be enough for simple, closed questions. Drafts fit the tickets where the answer depends on the account. (Chatbot versus background agent is another line again, drawn in this [comparison of chatbots and AI agents](/en/resources/articles/chatbot-vs-ai-agent).)
 
-**Customers want to be able to reach a person.** In a [Gartner](https://www.gartner.com/en/newsroom/press-releases/2024-07-09-gartner-survey-finds-64-percent-of-customers-would-prefer-that-companies-didnt-use-ai-for-customer-service) survey of 5,728 customers run in late 2023, 64% said they would prefer companies didn't use AI in customer service. Their top worry: that it would make it harder to reach a human.
+The order matters. Drafts let you measure the AI on your real tickets before it talks to anyone alone. The public evidence points the same way.
 
-**Full automation has limits.** In February 2024, [Klarna](https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/) said its assistant was handling two-thirds of its customer service chats, the work of 700 agents. In May 2025, the company was hiring humans again so customers could always talk to a person ([CX Dive](https://www.customerexperiencedive.com/news/klarna-reinvests-human-talent-customer-service-AI-chatbot/747586/), citing the CEO's interview with Bloomberg).
+## Public evidence backs the assisted model, and LocService shows what makes it work
 
-**You're responsible for what your AI says.** In 2024, a Canadian tribunal ruled against Air Canada after its chatbot gave a customer wrong information about a fare ([Business Law Today](https://businesslawtoday.org/2024/02/bc-tribunal-confirms-companies-remain-liable-for-information-provided-by-ai-chatbot/)). "The chatbot got it wrong" was not a defense.
+The study to know is [Generative AI at Work](https://www.nber.org/papers/w31161), by Brynjolfsson, Li and Raymond, published by the NBER. It tracked the rollout of a generative AI assistant to 5,179 customer support agents. With the assistant, agents resolved 14% more issues per hour on average. Novice and low-skilled workers improved by 34%. Experienced, highly skilled ones barely moved.
 
-**In the EU, you have to say it's AI.** Since August 2, 2026, [Article 50 of the AI Act](https://artificialintelligenceact.eu/article/50/) requires AI systems that interact directly with people to tell them they're talking to an AI, unless it's obvious. An autonomous chatbot is in scope. Drafts reviewed and sent by your agents raise this question less, but have your lawyer confirm your case.
+Notice the setup. The assistant worked beside human agents, and people still did the answering. That's the draft model.
 
-## The LocService case: 87% of tickets with an AI draft
+For full autonomy, the headline numbers come from a company describing its own launch. On February 27, 2024, [Klarna announced](https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/) that its AI assistant had handled two-thirds of its customer service chats in its first month, the equivalent work of 700 full-time agents. The same announcement said customers could still choose a live agent.
 
-LocService is a peer-to-peer property rental platform. Its support team handles several hundred tickets a day.
+Thirteen days earlier, a tribunal in British Columbia had [found Air Canada liable](https://businesslawtoday.org/2024/02/bc-tribunal-confirms-companies-remain-liable-for-information-provided-by-ai-chatbot/) for wrong information its chatbot gave a customer about a bereavement fare. It's one ruling in one province. Plan around it anyway: your company answers for what its agent says.
 
-We built an assistant that reads all their past tickets and internal documentation, then drafts the reply to each new ticket. The reply is tailored to the customer's profile and history. Three choices made the difference.
+The EU adds a transparency rule. [Article 50 of the AI Act](https://artificialintelligenceact.eu/article/50/) covers AI systems meant to interact directly with people. They must be designed so those people know they are dealing with an AI, unless that is obvious from the context. A draft that a support agent reviews and sends may be a different case, and that one is for your lawyer to confirm.
 
-**Real customer context, not just an FAQ.** The assistant is connected to LocService's internal APIs. It doesn't answer "in general": it knows who the customer is and where their file stands. Most bad AI answers come from missing context, not from a bad model.
+None of this tells you how to make drafts good enough that a busy support agent wants them. LocService does.
 
-**Classification rules.** The same question doesn't get the same answer for every type of customer. We wrote rules so the assistant recognizes the case before it drafts. It's less exciting than a magic prompt, but it's what makes the answers right.
+The assistant reads all of LocService's past tickets and internal documentation, then drafts the answer to each new ticket, tailored to the customer's profile and history. It does the research and the writing. The team keeps the decision.
 
-**One simple metric: is the draft used?** We don't judge the assistant on a hand-picked test set. We look at what the team does every day. Today, our drafts are used on 87% of tickets.
+Two unglamorous pieces of engineering make that worth the team's time. The first is context: the assistant is connected to LocService's internal APIs, so it works from the customer's real situation. The second is classification rules. On this desk the same question has a different right answer depending on the type of customer, so the rules recognize the case before the assistant drafts anything.
 
-## The approach we recommend
+What made the drafts right was not a clever prompt. It was the customer's actual file, and rules that know which case they are looking at.
 
-1. **Start from your tickets, not from a tool.** Export a few hundred recent tickets and sort them: simple questions, questions that depend on the customer's file, sensitive cases (disputes, payments, personal data). Now you know what can be automated, and what shouldn't be.
-2. **Connect the context.** Customer history, account status, up-to-date internal docs. Without them, the AI makes things up or stays vague.
-3. **Start with drafts.** A support agent reviews every reply. You measure the share of drafts sent as is, edited or thrown away.
-4. **Write the business rules down.** Which customer types, which exceptions, when to escalate. The rules serve the AI and your new hires.
-5. **Expand only with numbers.** A ticket category where almost every draft goes out unchanged may be ready for automatic replies. Always keep an easy path to a human, and tell customers when they're talking to an AI.
+The measurement is just as plain. Nobody scores the assistant on a test set chosen in advance. The team checks one thing, day to day: is the draft used? That's the figure from the opening. Used doesn't mean untouched, since the agent fixes the draft when it needs fixing. But it's a number the support team produces by doing its job, one reply at a time.
 
-For more on going live, read our [checklist from AI agent POC to production](https://www.thevibecompany.co/en/resources/articles/ai-agent-poc-to-production).
+## Start with drafts, and let your own numbers decide what the agent sends alone
 
-## Buy a tool or have it built?
+The LocService work suggests an order, and it starts before you choose a tool.
 
-If your questions are simple and your data fits in a knowledge base, an off-the-shelf tool (Zendesk, Intercom, HubSpot and others) may be enough. Test it on your real tickets before you sign.
+1. Export a recent batch of tickets and sort it into three piles: simple questions with one answer, questions that depend on the customer's file, and sensitive cases you want a person on regardless.
+2. Connect the context for the second pile, meaning past tickets, internal documentation and access to the customer's account.
+3. Turn on drafts only. A support agent reviews every reply, and you track whether the drafts get used.
+4. Write the rules down: which type of customer gets which answer, and which tickets go straight to a person.
+5. Widen the agent's authority one category at a time, and only when the usage figures support it.
 
-Building makes sense when the right answer depends on your internal systems, on business rules specific to your company, or when you want to keep control of the data and the rules. That's the LocService case. To compare options, read our guide on [how to choose an AI agency](https://www.thevibecompany.co/en/resources/articles/how-to-choose-an-ai-agency).
+The sorting comes first because it tells you how much of your volume an autonomous agent could ever handle, and how much needs the customer's file. Without it you are choosing a product for tickets you haven't looked at.
 
-## Why The Vibe Company
+The fair objection to step three is that a person still touches every ticket. True. It's the price of the first phase. It is also the setup the NBER study measured, where agents resolved more issues per hour with the assistant beside them. Reviewing a good draft beats starting from a blank reply. Reviewing a bad one doesn't, which sends you back to context and rules.
 
-The Vibe Company was founded in 2024 by Stan Girard and Antoine Dewez (ex-Theodo, ex-Stockly), backed by Y Combinator (W24), with $1.7M raised. We've shipped dozens of projects, including LocService in customer support, [Monka](https://www.thevibecompany.co/en/case-studies/monka) in healthcare, and MediaGen with [AFP](https://www.thevibecompany.co/en/case-studies/afp) as part of France 2030.
+The rules in step four need writing down for a plain reason. If the right answer for each type of customer lives only in your senior agents' heads, neither an assistant nor a new hire can apply it.
 
-How we work: start from your real data, ship something your team actually uses, quickly, and measure usage rather than the demo.
+Step five runs on the usage figure. A category where your team sends nearly every draft as written is a candidate for automatic replies. A category where drafts keep getting rewritten is telling you the context or the rules are missing something. When you do let the agent answer alone, keep an obvious route to a person and tell customers they're talking to an AI.
 
-For the big picture (tools, memory, authority, measurement), read our [practical guide to AI agents for business](https://www.thevibecompany.co/en/resources/articles/ai-agents-for-business).
+Buying or building comes out of the same sorting. If your tickets are mostly simple questions and your knowledge fits in a help center, an off-the-shelf helpdesk tool can be enough. Test it on your tickets first. Building makes sense when the right answer lives in your internal systems and in rules specific to your business, which was LocService's situation. Cost depends on that choice and on the integrations, so be wary of any figure quoted before someone has looked at your tickets.
 
-For the document side of this (retrieval, cited sources, access rights), see [Enterprise RAG: connect generative AI to your documents](/en/resources/articles/enterprise-rag).
+If you build, two guides help: [how to choose an AI agency](/en/resources/articles/how-to-choose-an-ai-agency), and [taking an AI agent from POC to production](/en/resources/articles/ai-agent-poc-to-production). For agents beyond the support desk, there is a wider [guide to AI agents for business](/en/resources/articles/ai-agents-for-business).
+
+Now go back to the ticket from the top, the one that leaves with your company's name on it. Open this week's queue, pick the category your team answers most often, and ask who should press send on it today. If the answer is a person, you know which kind of agent to start with.
 
 ## FAQ
 
-**Can an AI agent replace my support team?**
-Not on cases that depend on the customer's file or need judgment. On those tickets, AI saves your team time. Klarna, which bet on full automation, ended up hiring humans again.
+### What is an AI customer service agent?
 
-**How many tickets do I need to start?**
-There's no official threshold. What matters is a history of tickets and replies the AI can learn from, and up-to-date documentation. At LocService, the assistant reads all past tickets.
+An AI customer service agent is software that reads a customer's request, pulls the context it needs and writes a reply. Some agents send that reply themselves. Others draft it for a support agent, who reviews it and sends it. The assistant The Vibe Company built for LocService is the second kind: a person sends every reply.
 
-**How do I measure whether it works?**
-Track the share of drafts sent unchanged, edited or rejected, average time per ticket, and customer satisfaction. A single accuracy score on a test set isn't enough.
+### Can an AI customer service agent replace a support team?
 
-**Do I have to tell customers an AI wrote the reply?**
-If the AI interacts directly with the customer, Article 50 of the EU AI Act requires it since August 2, 2026, unless it's obvious. If a human reviews and sends the reply, the situation is different. Check your case with your lawyer.
+An AI customer service agent can take on simple, closed questions, but replacing the whole team is a much bigger bet. In the NBER study Generative AI at Work, people still answered the customers, and the largest gains went to novice and low-skilled workers. At LocService, a support agent reviews and sends every reply. A tribunal has also held Air Canada liable for wrong information from its chatbot, so your company still answers for what the agent says.
 
-## Let's talk about your support
+### Can I use ChatGPT for customer service?
 
-You get hundreds of tickets and want to know what AI can really take on? Bring a ticket export and your constraints. We'll tell you what fits AI drafts, what can be automated, and what should stay human.
+You can use a general-purpose assistant such as ChatGPT to help write customer service replies, as long as a person reads each one before it goes out. At LocService, what made the drafts right was the real customer context pulled from internal systems, plus rules that recognize the case before drafting. Whatever tool you use, check that it can see the customer's file and follow your rules.
 
-[Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).
+### Do I have to tell customers they are talking to an AI?
+
+In the EU, customers have to be told when an AI system interacts with them directly. Article 50 of the AI Act has applied since August 2, 2026. It requires that people be informed they are interacting with an AI system unless that is obvious, and the [European Commission](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) names chatbots as an example. A reply drafted by AI but reviewed and sent by a support agent may be a different case, so confirm yours with a lawyer.
+
+## A ticket export is enough to start the conversation
+
+If you would rather not do that first sorting alone, bring a ticket export. The Vibe Company, the Paris agency Stan Girard and Antoine Dewez founded in 2024 after Quivr went through Y Combinator (W24), built the LocService assistant. [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany) to go through which tickets suit drafts, which could be automated, and which should stay with a person.
+
+*Sources were read on November 16, 2026, and the LocService figure comes from The Vibe Company's own case study.*

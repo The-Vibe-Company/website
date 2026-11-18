@@ -39,7 +39,7 @@ import {
   serviceNode,
   webPageNode,
 } from "@/lib/structured-data";
-import { clientLogoSize } from "@/lib/client-logos";
+import { ClientMark } from "@/components/ClientMark";
 import { BrandSquare } from "@/components/BrandSquare";
 
 /**
@@ -623,19 +623,16 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
   );
 }
 
-function CaseHeader({ logo, client, sector }: { logo: string; client: string; sector: string }) {
+function CaseHeader({ logo, client, sector }: { logo?: string; client: string; sector: string }) {
   return (
     <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
       <h3 className="m-0">
         {/* The logo is the card's title: its alt carries the client name. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={logo}
-          alt={client}
-          {...clientLogoSize(logo)}
-          className="logo-tone h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
-          loading="lazy"
-          decoding="async"
+        <ClientMark
+          logo={logo}
+          client={client}
+          className="h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
+          textClassName="text-[24px] md:text-[28px]"
         />
       </h3>
       <span className="max-w-[16rem] text-right font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-muted-foreground">
