@@ -5,7 +5,7 @@ seoDescription: "Une software factory IA commence par des tests qui tournent en 
 slug: software-factory-ia-tests-rapides
 translationKey: ai-software-factory-fast-tests
 language: fr
-summary: "Avant de multiplier les agents, rendez vos tests rapides sur la machine. Le récit d'une CI de nuit et d'une application mobile testée par ses propres agents."
+summary: "Avant de multiplier les agents, rendez vos tests rapides sur la machine. Ce que des agents ont changé dans une CI de nuit, puis le cas d'une app mobile."
 publishedAt: 2026-11-18
 complexity: intermediate
 topics: Software Factory, AI Agents, Testing, Claude Code
@@ -23,7 +23,21 @@ Je le dis aussi nettement à cause de ce que j'ai vu chez un client. Leur CI, la
 
 J'ai lancé des agents dessus pour essayer d'optimiser tout ça. Sur ma machine, j'ai réussi à faire passer ces tests d'intégration de 4h27 à 4 min 30. Relisez les unités : des heures d'un côté, des minutes de l'autre.
 
-Ce chiffre est mesuré sur ma machine, et je n'affirme rien ici sur la CI de nuit du client. Le comment est une autre histoire. Ce que ça permet tient en peu de mots : une boucle agentique très rapide. L'agent écrit, lance les tests, lit ce qui casse, corrige et recommence, sans attendre personne.
+Ce chiffre est mesuré sur ma machine, et je n'affirme rien ici sur la CI de nuit du client. Ce que je peux raconter, c'est ce que les agents ont changé pour y arriver.
+
+## Les agents ont commencé par les bases de données que personne n'avait envie de regarder
+
+Au départ, il y a une CI qui n'était pas optimisée. Les tests d'intégration tournaient contre des bases de données hébergées, et il y en avait huit. L'application sert elle-même beaucoup de clients différents, alors chaque base représentait un parcours différent, un état différent de l'application. Chacune pesait entre 100 et 150 Go.
+
+Pour lancer les tests sur un poste, il fallait d'abord y faire tenir ces bases. Elles tournaient sur Oracle, et l'édition gratuite d'Oracle, [Oracle Database Free](https://www.oracle.com/database/free/), tourne dans un conteneur Docker en local, avec une limite de 12 Go de données. Tout le problème était de passer sous cette limite.
+
+Ces bases, personne n'avait envie de les regarder, justement parce qu'elles étaient trop grosses. C'est sur cette question que j'ai lancé les agents : comment réduire leur taille jusqu'à pouvoir les faire tourner en local.
+
+Ça a marché, pour une raison toute bête : la majorité des données n'étaient pas nécessaires aux tests. Une base de 150 Go est parfois tombée à 4 Go. À ce poids, elle tourne sur Oracle en local.
+
+D'autres optimisations ont suivi. Dans certains tests d'intégration, l'application démarrait 70 fois alors qu'il n'y en avait pas besoin, et une dizaine de fois suffisait. Puis est venue la parallélisation. Oracle permet de créer des copies à partir de la base existante, et ces copies se lancent très rapidement.
+
+Ce travail de fouille, personne ne voulait s'y coller, et ce sont les agents qui l'ont fait. Ce que ça permet tient en peu de mots : une boucle agentique très rapide, sur la machine. L'agent écrit, lance les tests, lit ce qui casse, corrige et recommence, sans attendre personne.
 
 ## Un humain peut attendre demain matin, un agent non
 
@@ -49,11 +63,11 @@ Restait à tester pour de vrai, dans un simulateur. Des serveurs MCP s'en charge
 
 C'était la clé pour tester efficacement. Avec cinq agents qui tournent, chacun peut valider lui-même son travail avant de vous le rendre.
 
-Vous avez une objection en tête, et c'est la bonne : le poste ne tiendra pas. C'est vrai. Le goulot quitte la CI et s'installe sur votre machine. Dès que vous lancez cinq simulateurs Xcode en même temps, ça consomme à fond les ressources, et les tests end-to-end tirent dessus au même moment.
+Vous avez une objection en tête, et c'est la bonne : le poste ne tiendra pas. Le goulot quitte la CI et s'installe sur votre machine. Dès que vous lancez cinq simulateurs Xcode en même temps, ça consomme à fond les ressources, et les tests end-to-end tirent dessus au même moment.
 
 Il y a aussi un problème moins noble. Tous ces lancements de tests en local génèrent des artefacts, et tous les trois jours il fallait supprimer environ 100 Go de données. C'était pénible.
 
-L'objection est juste. Elle montre aussi où se trouve le plafond du poste, donc ce qu'il faut construire ensuite.
+L'objection est juste, et elle montre où se trouve le plafond du poste, donc ce qu'il faut construire ensuite.
 
 ## Les sandboxes viennent après, quand votre software factory sait déjà se tester vite
 

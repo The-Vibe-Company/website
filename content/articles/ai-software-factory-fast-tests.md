@@ -5,7 +5,7 @@ seoDescription: "An AI software factory starts with tests that run in minutes. O
 slug: ai-software-factory-fast-tests
 translationKey: ai-software-factory-fast-tests
 language: en
-summary: "Before you add more agents, make your tests fast on the machine. Field notes from a nightly CI and from a mobile app tested by its own agents."
+summary: "Before you add more agents, make your tests fast on the machine. What agents changed in a nightly CI, then a mobile app tested by its own agents."
 publishedAt: 2026-11-18
 complexity: intermediate
 topics: Software Factory, AI Agents, Testing, Claude Code
@@ -23,7 +23,21 @@ I say it that bluntly because of what I saw at a client. Their CI, the pipeline 
 
 I pointed agents at it to try to optimize the whole thing. On my machine, I got those integration tests from 4h27 down to 4 min 30. Read the units again: hours on the left, minutes on the right.
 
-That figure was measured on my machine, and I'm claiming nothing here about the client's nightly CI. The how is another story. What it makes possible fits in a few words: a very fast agentic loop. The agent writes, runs the tests, reads what broke, fixes it and goes again, without waiting for anybody.
+That figure was measured on my machine, and I'm claiming nothing here about the client's nightly CI. What I can tell you is what the agents changed to get there.
+
+## The agents started with the databases nobody wanted to look at
+
+It starts with a CI that hadn't been optimized. The integration tests ran against hosted databases, and there were eight of them. The application itself serves a lot of different customers, so each database stood for a different journey, a different state of the application. Each one weighed between 100 and 150 GB.
+
+To run the tests on a machine, those databases had to fit on it first. They ran on Oracle, and Oracle's free edition, [Oracle Database Free](https://www.oracle.com/database/free/), runs locally in a Docker container, with a limit of 12 GB of data. The whole problem was getting under that limit.
+
+Nobody wanted to look at those databases, precisely because they were too big. That's the question I put the agents on: how to shrink them until they could run locally.
+
+It worked, for a very plain reason: most of the data wasn't needed by the tests. A 150 GB database sometimes came down to 4 GB. At that weight, it runs on Oracle locally.
+
+Other optimizations followed. In some integration tests the application booted 70 times when it didn't need to, and about ten was enough. Then came parallelization. Oracle can create copies from the existing database, and those copies start very quickly.
+
+Nobody wanted to do that digging, and the agents are the ones who did it. What it makes possible fits in a few words: a very fast agentic loop, on the machine. The agent writes, runs the tests, reads what broke, fixes it and goes again, without waiting for anybody.
 
 ## A human can wait until tomorrow morning, an agent can't
 
@@ -49,11 +63,11 @@ That left testing for real, in a simulator. MCP servers handled it, notably [Xco
 
 That was the key to testing efficiently. With five agents running, each can validate its own work before handing it back to you.
 
-You have an objection in mind, and it's the right one: the machine won't cope. True. The bottleneck leaves the CI and moves onto your machine. As soon as you launch five Xcode simulators at once, they eat every resource you have, and the end-to-end tests are pulling on the same resources at the same moment.
+You have an objection in mind, and it's the right one: the machine won't cope. The bottleneck leaves the CI and moves onto your machine. As soon as you launch five Xcode simulators at once, they eat every resource you have, and the end-to-end tests are pulling on the same resources at the same moment.
 
 There's a less glamorous problem too. All those local test runs generate artifacts, and every three days about 100 GB of data had to be deleted. It was a pain.
 
-The objection is fair. It also shows where the machine's ceiling is, and so what to build next.
+The objection is fair, and it shows where the machine's ceiling is, and so what to build next.
 
 ## Sandboxes come later, once your AI software factory already tests itself fast
 
