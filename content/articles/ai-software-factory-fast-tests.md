@@ -1,7 +1,7 @@
 ---
 title: "Your AI software factory is waiting on a four-hour CI"
 seoTitle: "AI software factory: start with tests that run in minutes"
-seoDescription: "An AI software factory starts with tests that run in minutes on the machine. Field notes: a nightly CI brought from 4h27 down to 4 min 30, then sandboxes."
+seoDescription: "An AI software factory starts with tests that run in minutes. On my own machine, a nightly integration suite went from 4h27 down to 4 min 30."
 slug: ai-software-factory-fast-tests
 translationKey: ai-software-factory-fast-tests
 language: en
@@ -11,7 +11,7 @@ complexity: intermediate
 topics: Software Factory, AI Agents, Testing, Claude Code
 author: stan-girard
 coverImage: /images/resources/software-factory-ia-tests-rapides/cover-mascotte.webp
-coverAlt: "The Vibe Company mascot in front of a test bench running fast"
+coverAlt: "The Vibe Company mascot holds a stopwatch beside five small agents under glass bells, an old hourglass pushed aside"
 ogImage: /images/resources/software-factory-ia-tests-rapides/cover-mascotte.webp
 ---
 

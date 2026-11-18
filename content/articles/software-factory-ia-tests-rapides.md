@@ -1,7 +1,7 @@
 ---
 title: "Software Factory IA : vos agents attendent une CI de quatre heures"
 seoTitle: "Software factory IA : d'abord des tests en quelques minutes"
-seoDescription: "Une software factory IA commence par des tests qui tournent en minutes sur la machine. Retour de terrain : une CI de nuit ramenée de 4h27 à 4 min 30."
+seoDescription: "Une software factory IA commence par des tests qui tournent en minutes. Sur ma machine, des tests d'intégration de nuit sont passés de 4h27 à 4 min 30."
 slug: software-factory-ia-tests-rapides
 translationKey: ai-software-factory-fast-tests
 language: fr
@@ -11,7 +11,7 @@ complexity: intermediate
 topics: Software Factory, AI Agents, Testing, Claude Code
 author: stan-girard
 coverImage: /images/resources/software-factory-ia-tests-rapides/cover-mascotte.webp
-coverAlt: "La mascotte The Vibe Company devant un banc de tests qui tourne vite"
+coverAlt: "La mascotte The Vibe Company tient un chronomètre près de cinq petits agents sous cloche, un vieux sablier relégué au fond"
 ogImage: /images/resources/software-factory-ia-tests-rapides/cover-mascotte.webp
 ---
 
