@@ -73,6 +73,7 @@ export const CUSTOMER_LASTMOD: Record<string, string> = {
   locservice: "2026-10-24",
   "coup-de-pates": "2026-10-24",
   theodo: "2026-10-24",
+  "softway-medical": "2026-11-17",
 };
 
 /**

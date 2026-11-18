@@ -1,6 +1,6 @@
 import { FitText, FitTextGroup } from "@/components/home/FitText";
 import { Link } from "@/i18n/navigation";
-import { clientLogoSize } from "@/lib/client-logos";
+import { ClientMark } from "@/components/ClientMark";
 import type { Customer } from "@/lib/customers";
 import { cn } from "@/lib/design-system";
 
@@ -37,14 +37,11 @@ export function CaseCards({
                 className="lamp-card group relative flex w-full flex-col overflow-hidden border border-border p-7 no-underline transition-colors hover:border-border-strong md:p-9"
               >
                 <div className="relative flex min-h-8 items-start justify-between gap-4">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={c.logo}
-                    alt={c.client}
-                    {...clientLogoSize(c.logo)}
-                    className="logo-tone h-7 w-auto object-contain md:h-8"
-                    loading="lazy"
-                    decoding="async"
+                  <ClientMark
+                    logo={c.logo}
+                    client={c.client}
+                    className="h-7 w-auto object-contain md:h-8"
+                    textClassName="text-[22px] md:text-[26px]"
                   />
                   <span className="line-clamp-2 max-w-[16rem] text-right font-mono text-[10px] uppercase leading-[1.6] tracking-[0.16em] text-muted-foreground">
                     {c.sector}
