@@ -1,9 +1,11 @@
 ---
 title: "How to use SkillOpt: train your agent skills, not your model"
 seoTitle: "How to use SkillOpt to train agent skills | The Vibe Company"
+seoDescription: "How to use SkillOpt on agent skills: freeze the model, score real runs, keep only edits that beat a held-out validation set. A loop to start this week."
 slug: how-to-use-skillopt-to-train-agent-skills
 summary: "The new SkillOpt paper is easy to misread as prompt optimization. The useful lesson is more operational: treat skill files as trainable, validated artifacts."
 publishedAt: 2026-05-27
+dateModified: 2026-11-18
 language: en
 complexity: advanced
 topics: Agent Design, AI Infrastructure, Skills, Evaluation
@@ -138,6 +140,8 @@ For company workflows, it means checking the invisible parts of good work: order
 This is the same argument we made in [MCP is how agents learn your company's taste](/en/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done). Tool access is not enough. The method around the tool is where quality lives.
 
 SkillOpt adds the missing training discipline to that method.
+
+We saw the same gap on a client mission: skills shipped to a whole team, with each new version judged on gut feel. The field notes are in [Your Claude Code skills go to prod on gut feel](/en/resources/articles/claude-code-skills-ship-on-gut-feel).
 
 ## where it breaks
 

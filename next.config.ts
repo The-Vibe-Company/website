@@ -2,6 +2,14 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 import { AGENT_LINK_HEADER } from "./src/lib/agent-discovery";
 import { INDEXNOW_KEY_PATH } from "./src/lib/indexnow";
+import { ARTICLE_TRANSLATIONS_ENV } from "./src/lib/article-translations";
+import {
+  articleTranslationMap,
+  bareArticleRedirects,
+  readArticleLanguages,
+} from "./src/lib/bare-article-redirects";
+
+const articleLanguages = readArticleLanguages();
 
 const nextConfig: NextConfig = {
   env: {
@@ -9,6 +17,9 @@ const nextConfig: NextConfig = {
     // "development"), inlined for the client. PostHog only initializes when it
     // is "production"; it is empty locally and in CI.
     NEXT_PUBLIC_VERCEL_ENV: process.env.VERCEL_ENV ?? "",
+    // Translated article slugs, inlined for the middleware so a prefix-less
+    // article URL reaches the visitor's language version in one redirect.
+    [ARTICLE_TRANSLATIONS_ENV]: JSON.stringify(articleTranslationMap(articleLanguages)),
   },
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -120,6 +131,9 @@ const nextConfig: NextConfig = {
         destination: "/en/privacy",
         statusCode: 301,
       },
+      // A prefix-less article URL goes straight to the language the article
+      // is published in when it exists in one language only (THE-2364).
+      ...bareArticleRedirects(articleLanguages),
     ];
   },
   async rewrites() {

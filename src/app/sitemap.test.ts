@@ -172,8 +172,8 @@ describe("sitemap", () => {
     // The /resources listing itself carries `latestContentDate` (sitemap.ts),
     // so it inherits that same exemption and the match must not require a
     // trailing slash.
-    setSystemTime(new Date("2026-11-16T00:00:00.000Z"));
-    const today = new Date("2026-11-16T23:59:59.999Z");
+    setSystemTime(new Date("2026-11-17T00:00:00.000Z"));
+    const today = new Date("2026-11-17T23:59:59.999Z");
     const futures = sitemap().filter(
       (entry) =>
         !/\/resources(\/|$)/.test(entry.url) &&
@@ -184,9 +184,9 @@ describe("sitemap", () => {
     expect(futures).toEqual([]);
   });
 
-  test("the sitemap keeps its 140 URLs and every entry still declares x-default", () => {
+  test("the sitemap keeps its 144 URLs and every entry still declares x-default", () => {
     const entries = sitemap();
-    expect(entries).toHaveLength(140);
+    expect(entries).toHaveLength(144);
     for (const entry of entries) {
       const keys = Object.keys(entry.alternates!.languages!);
       expect(keys).toContain("x-default");
