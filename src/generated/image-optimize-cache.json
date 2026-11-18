@@ -536,6 +536,21 @@
       "targetUrl": "/images/_optimized/resources/site-devient-produit/decouverte.webp",
       "targetHash": "d714a024379982de0807f70bae3543678c31d7e1b9ccbb10d18c8476509fc3fb"
     },
+    "content:/images/resources/software-factory-ia-tests-rapides/cover-mascotte.webp": {
+      "sourceHash": "07875081d784ceeb1c9e3ea8d6b264ea1cc091f0df1dad98ff9bbc51b71e9e26",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/software-factory-ia-tests-rapides/etapes-480.png": {
+      "sourceHash": "6918f1aafb5e3095d2d392ee6507c83c7d5cfa723074ec07513194e12108ca69",
+      "targetUrl": "/images/_optimized/resources/software-factory-ia-tests-rapides/etapes-480.webp",
+      "targetHash": "336423756629c61819b2d50ff05deefac57c8b9aa9c742d1b6721623b7b7b25c"
+    },
+    "content:/images/resources/software-factory-ia-tests-rapides/etapes-en-480.png": {
+      "sourceHash": "4fd2a2b504774c35f850599b49af410a463c59482d42952b125b58cb8a45e1b6",
+      "targetUrl": "/images/_optimized/resources/software-factory-ia-tests-rapides/etapes-en-480.webp",
+      "targetHash": "beec04c53124bc3f95a1491ca282f5c0cc0e88478c1b9a6704fcf9f2b83bd678"
+    },
     "content:/images/resources/travailler-prestataire-ia/5-etapes-4-moments-prestataire-ia.png": {
       "sourceHash": "2ab3db2b856543865bf11676d9001a5768f36e6b0e5c847af83f778783530c48",
       "targetUrl": "/images/_optimized/resources/travailler-prestataire-ia/5-etapes-4-moments-prestataire-ia.webp",
@@ -843,6 +858,11 @@
     },
     "og:/images/resources/site-devient-produit/cover.png": {
       "sourceHash": "ff8f389b1a1b95411a5a18f63e0daad30265fb2e7836e9d74dd3f06dd89f6aef",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/software-factory-ia-tests-rapides/cover-mascotte.webp": {
+      "sourceHash": "07875081d784ceeb1c9e3ea8d6b264ea1cc091f0df1dad98ff9bbc51b71e9e26",
       "targetUrl": null,
       "targetHash": null
     },
