@@ -1,0 +1,25 @@
+messages/fr.json
+  s_b44e55f234c57c::t_7348117a6459c5 251
+  s_b44e55f234c57c::t_5bef259da911c7 252
+  s_b44e55f234c57c::t_0bc0e42a70c01a 253-254
+messages/en.json
+  s_b44e55f234c57c::t_0bc0e42a70c01a 253-254
+  s_b44e55f234c57c::t_5bef259da911c7 252
+  s_b44e55f234c57c::t_7348117a6459c5 251
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0d8c0b5fa3093a6ea515c487166c2814be8233c4",
+  "prompts": {},
+  "sessions": {
+    "s_b44e55f234c57c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "404d1d83-a3ab-4fc9-8e24-ef41c9496cf5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
