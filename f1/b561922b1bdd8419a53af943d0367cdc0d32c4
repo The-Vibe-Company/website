@@ -1,0 +1,21 @@
+src/app/sitemap.test.ts
+  s_b344cc1a729459::t_880dfcf35c04e4 187,189
+next.config.ts
+  s_b344cc1a729459::t_51f2752e9ca835 49-60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f1b561922b1bdd8419a53af943d0367cdc0d32c4",
+  "prompts": {},
+  "sessions": {
+    "s_b344cc1a729459": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "888c98de-64ac-4028-a5d5-ad29b1207d3b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
