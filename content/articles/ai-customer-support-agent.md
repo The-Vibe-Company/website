@@ -111,6 +111,6 @@ In the EU, customers have to be told when an AI system interacts with them direc
 
 ## A ticket export is enough to start the conversation
 
-If you would rather not do that first sorting alone, bring a ticket export. The Vibe Company, the Paris agency Stan Girard and Antoine Dewez founded in 2024 after Quivr went through Y Combinator (W24), built the LocService assistant. [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany) to go through which tickets suit drafts, which could be automated, and which should stay with a person.
+If you would rather not do that first sorting alone, bring a ticket export. The Vibe Company, the Paris agency Stan Girard and Antoine Dewez founded in 2024 after [Quivr](/en/resources/articles/quivr-to-the-vibe-company) went through Y Combinator (W24), built the LocService assistant. [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany) to go through which tickets suit drafts, which could be automated, and which should stay with a person.
 
 *Sources were read on November 16, 2026, and the LocService figure comes from The Vibe Company's own case study.*

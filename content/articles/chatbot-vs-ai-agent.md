@@ -39,7 +39,7 @@ That choice still runs in production at LocService, a platform for property rent
 
 The full method is in [the article on AI customer support agents](/en/resources/articles/ai-customer-support-agent). What interests me here is the shape: a single task in the background, and one measure.
 
-RAG, the technique behind Quivr, taught me the same thing from the other end. When a chatbot isn't properly boxed in, users are often disappointed by the result. A chatbot that does a single task very well, which is what I call an AI agent, is much better.
+[RAG](/en/resources/articles/enterprise-rag), the technique behind Quivr, taught me the same thing from the other end. When a chatbot isn't properly boxed in, users are often disappointed by the result. A chatbot that does a single task very well, which is what I call an AI agent, is much better.
 
 I apply it to myself. The general-purpose assistant I use is a chat, and I specialised it by creating several agents, each on one task. An agent multiplexes easily: you run several, and each one's task is easier to measure and optimise than an open conversation.
 

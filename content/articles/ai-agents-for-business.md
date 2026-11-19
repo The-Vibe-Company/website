@@ -103,7 +103,7 @@ The first is who builds it. Your own team knows the process better than any outs
 
 A partner should bring the experience of having put agents into production before. Ask to see one that's running, and ask what you will own when the engagement ends. The guide on [how to choose an AI agency](/en/resources/articles/how-to-choose-an-ai-agency) lists what else to check.
 
-For context on who is writing: The Vibe Company built the LocService and Coup de Pates systems described here. Stan Girard and Antoine Dewez founded it in Paris in 2024, after its product Quivr went through Y Combinator (W24).
+For context on who is writing: The Vibe Company built the LocService and Coup de Pates systems described here. Stan Girard and Antoine Dewez founded it in Paris in 2024, after its product [Quivr](/en/resources/articles/quivr-to-the-vibe-company) went through Y Combinator (W24).
 
 The second is the rules. If your agent interacts directly with people in the European Union, the transparency obligation in [Article 50 of the EU AI Act](https://artificialintelligenceact.eu/article/50/) has applied since August 2, 2026. Such systems have to be designed so that people are informed they're dealing with an AI, unless that's obvious from the context.
 

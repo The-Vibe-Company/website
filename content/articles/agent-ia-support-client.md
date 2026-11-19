@@ -17,7 +17,7 @@ Le support client est souvent le premier endroit où une entreprise veut mettre 
 
 C'est aussi l'endroit où une erreur de l'IA se voit tout de suite. Elle part chez un client, avec votre nom dessus.
 
-Chez [The Vibe Company](https://www.thevibecompany.co/fr), agence IA native fondée à Paris en 2024 et passée par Y Combinator (W24), on a construit pour [LocService](https://www.thevibecompany.co/fr/case-studies/locservice) un assistant qui rédige les réponses du support. Les brouillons sont utilisés sur 87 % des tickets. Voici ce qu'on a appris, et la méthode qu'on recommande avant d'automatiser votre support.
+Chez [The Vibe Company](https://www.thevibecompany.co/fr), [agence IA native](/fr/resources/articles/agence-ia-native) fondée à Paris en 2024 et passée par Y Combinator (W24), on a construit pour [LocService](https://www.thevibecompany.co/fr/case-studies/locservice) un assistant qui rédige les réponses du support. Les brouillons sont utilisés sur 87 % des tickets. Voici ce qu'on a appris, et la méthode qu'on recommande avant d'automatiser votre support.
 
 ## Deux façons d'automatiser le support avec l'IA
 
