@@ -15,7 +15,7 @@ coverAlt: "La mascotte The Vibe Company écrit sur un ticket vierge, entourée d
 ogImage: /images/resources/claude-code-mode-plan/cover-mascotte.webp
 ---
 
-Le mode plan de Claude Code rassure plus qu'il ne protège. Vous demandez un plan à l'agent, vous le lisez, vous l'approuvez, et vous avez le sentiment d'avoir gardé la main. Je l'ai fait pendant longtemps. J'ai d'abord relu, puis écrit des skills pour payer les plans moins cher, avant de remonter sur le ticket avec Grill Me. Aujourd'hui je ne regarde plus les plans du tout, et le travail qui compte se passe avant : sur le ticket.
+Le mode plan de Claude Code rassure plus qu'il ne protège. Vous demandez un plan à l'agent, vous le lisez, vous l'approuvez, et vous avez le sentiment d'avoir gardé la main. Je l'ai fait pendant longtemps. J'ai d'abord relu, puis écrit des skills pour payer les plans moins cher, avant de remonter sur le ticket avec Grill Me. Aujourd'hui je ne regarde plus les plans du tout, et le travail qui compte se passe avant le code.
 
 ## Ce que fait le mode plan de Claude Code
 
@@ -59,7 +59,7 @@ Tout tient dans le sens de la question. Avec le mode plan, l'agent propose et vo
 
 | | Mode plan | Grill Me |
 | --- | --- | --- |
-| Qui pose les questions | Vous, si vous y pensez | L'agent, par vagues |
+| Qui pose les questions | L'agent, en cours de route, puis il propose son plan | L'agent, par vagues, jusqu'à ce que vous ayez tout décidé |
 | Qui décide | Vous, en approuvant le plan | Vous, question après question |
 | Quand | Avant que l'agent touche au code | Avant même le plan, sur le ticket |
 | Ce qui reste | Un plan écrit à relire | Des décisions dans votre tête, puis dans le ticket |

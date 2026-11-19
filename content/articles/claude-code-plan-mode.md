@@ -15,7 +15,7 @@ coverAlt: "The Vibe Company mascot writes on a blank ticket surrounded by questi
 ogImage: /images/resources/claude-code-mode-plan/cover-mascotte.webp
 ---
 
-Claude Code plan mode reassures more than it protects. You ask the agent for a plan, you read it, you approve it, and you feel like you stayed in control. I did that for a long time. I first reread the plans, then wrote skills to make them cheaper, before moving up to the ticket with Grill Me. Today I don't look at plans at all, and the work that matters happens earlier: on the ticket.
+Claude Code plan mode reassures more than it protects. You ask the agent for a plan, you read it, you approve it, and you feel like you stayed in control. I did that for a long time. I first reread the plans, then wrote skills to make them cheaper, before moving up to the ticket with Grill Me. Today I don't look at plans at all, and the work that matters happens before the code.
 
 ## What Claude Code plan mode does
 
@@ -59,7 +59,7 @@ It all comes down to which way the question points. In plan mode, the agent prop
 
 | | Plan mode | Grill Me |
 | --- | --- | --- |
-| Who asks the questions | You, if you think of it | The agent, in rounds |
+| Who asks the questions | The agent, along the way, then it proposes its plan | The agent, in rounds, until you have made every decision |
 | Who decides | You, by approving the plan | You, question after question |
 | When | Before the agent touches the code | Before any plan, on the ticket |
 | What remains | A written plan to reread | Decisions in your head, then in the ticket |
