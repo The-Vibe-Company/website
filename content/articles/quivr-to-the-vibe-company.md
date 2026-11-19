@@ -25,7 +25,7 @@ Quivr brought us here. The Vibe Company is the logical next chapter.
 
 In 2025, we wrote about [how we pivoted using the YC playbook](https://www.quivr.com/blog/how-we-pivoted-using-the-yc-playbook).
 
-At the time, Quivr was coming out of a very intense period. We had an open-source product that had taken off, a large community, YC, customers, a team, and a lot of technical conviction around RAG.
+At the time, Quivr was coming out of a very intense period. We had an open-source product that had taken off, a large community, YC, customers, a team, and a lot of technical conviction around [RAG](/en/resources/articles/enterprise-rag).
 
 But we also had a classic problem: too many use cases, too many different requests, not enough repetition. One customer wanted to analyze thousands of PDFs. Another wanted web search. Another wanted charts from CSV files. Every contract pulled us in a different direction.
 

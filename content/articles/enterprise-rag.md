@@ -103,7 +103,7 @@ In production, track one simple number: the share of answers people actually use
 
 If your documents live in Microsoft 365 or Google Workspace and the questions are general, a ready-made assistant with connectors may be enough. We compare the plans in our [ChatGPT Enterprise rollout guide](/en/resources/articles/chatgpt-enterprise-rollout).
 
-Custom work pays off when the right answer depends on internal systems, business rules or fine-grained permissions. Or when the data can't leave your infrastructure. In France, health data has to sit with an HDS-certified host, which we cover in [AI and health data: what HDS really requires](/en/resources/articles/ai-health-data-hds-france).
+Custom work pays off when the right answer depends on internal systems, business rules or fine-grained permissions. Or when the data can't leave your infrastructure. In France, health data has to sit with an [HDS-certified host](/en/resources/articles/hds-hosting-for-ai), which we cover in [AI and health data: what HDS really requires](/en/resources/articles/ai-health-data-hds-france).
 
 If you want to self-host, our open-source search engine [Quivr](/en/portfolio/quivr) combines keyword and vector search, shows the exact passage, and plugs into agents through MCP. It runs on your own servers. It's still in evaluation, with an API that may change.
 

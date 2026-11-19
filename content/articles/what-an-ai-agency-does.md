@@ -29,7 +29,7 @@ At [Monka](/en/case-studies/monka), the caregiver app went into production on Ma
 
 ## What is an AI agency: it designs, builds, and deploys for other companies
 
-An **artificial intelligence agency** (or AI agency) is a team that takes a business need and turns it into a usable AI system: an agent, RAG over documents, automation wired into your tools, a full product. It works for other companies.
+An **artificial intelligence agency** (or AI agency) is a team that takes a business need and turns it into a usable AI system: an agent, [RAG over documents](/en/resources/articles/enterprise-rag), automation wired into your tools, a full product. It works for other companies.
 
 | | What it does |
 |---|---|
