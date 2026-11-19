@@ -248,10 +248,10 @@
     "faqTitle": "Frequently asked questions",
     "about": {
       "kicker": "HOW WE WORK",
-      "title": "From the first call to production.",
-      "p1": "Every project starts with a 30-minute call: you explain the problem, we explain how we would build it. If it fits, we send a fixed-scope proposal, then a clickable prototype before a single line of production code.",
-      "p2": "During the build, you see working software early and often, and we measure the result by real usage rather than by the demo. At Monka, the caregiver app, the nurses' CRM and the clinical engine went live in two months, and a new version has shipped roughly every two days since. At LocService, the assistant's drafts are used on 87% of tickets.",
-      "p3": "Then there are two options: we hand the code over to your team with the documentation and runbooks, or we keep running it. With Theodo, training the teams is part of the job, so they adopt these practices themselves and move faster."
+      "title": "Judge us on working software.",
+      "p1": "We start from your problem, not from a process. We build fast, so you see a first working version very early, often before we have even pinned down the scope together. You decide on what works, not on slides.",
+      "p2": "And we take it all the way to production. At Monka, the caregiver app, the nurses' CRM and the clinical engine went live in two months, and a new version has shipped roughly every two days since. With Theodo, we build Software Factories for hundreds of developers, including the AI Factory of Softway Medical, a healthcare software publisher. Every delivery is reviewed by a senior person who answers for it.",
+      "p3": "Then the choice is yours: we hand the code over to your team with the documentation and runbooks, or we keep running it. And if your teams want to work the way we do, we train them on your own cases."
     }
   },
   "resources": {
