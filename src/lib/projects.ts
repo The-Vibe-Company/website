@@ -34,6 +34,11 @@ interface RawProject {
   tag: L;
   date: L;
   status: L;
+  /**
+   * Full search title (≤60 chars, brand included), rendered as an absolute
+   * <title>. Without one, the page title is "<name> · <section>".
+   */
+  seoTitle?: L;
   /** Search snippet (≤155 chars); falls back to the description. */
   metaDescription?: L;
   description: L;
@@ -54,6 +59,7 @@ export interface Project {
   tag: string;
   date: string;
   status: string;
+  seoTitle?: string;
   metaDescription: string;
   description: string;
   story?: ProjectStory;
@@ -169,6 +175,14 @@ const PROJECTS_RAW: RawProject[] = [
     tag: { en: "Dev analytics", fr: "Analytics développeur" },
     date: { en: "Feb 2026", fr: "févr. 2026" },
     status: { en: "Live", fr: "En ligne" },
+    seoTitle: {
+      en: "VibeDrift: Claude Code drift tracker | The Vibe Company",
+      fr: "VibeDrift : mesurer la dérive Claude Code | The Vibe Company",
+    },
+    metaDescription: {
+      en: "VibeDrift is a VS Code extension that counts your Claude Code prompts, crosses them with git metadata and scores session drift live, commit by commit.",
+      fr: "VibeDrift, extension VS Code : compte vos prompts Claude Code, les croise avec git et calcule un score de dérive en direct, remis à zéro à chaque commit.",
+    },
     description: {
       en: "VibeDrift tracks real developer activity and turns it into useful metrics to understand flow and friction.",
       fr: "VibeDrift suit l’activité réelle des développeurs et la transforme en métriques utiles pour comprendre le flow et les frictions.",
@@ -502,6 +516,7 @@ function localize(raw: RawProject, locale: ContentLocale): Project {
     tag: pick(raw.tag, locale),
     date: pick(raw.date, locale),
     status: pick(raw.status, locale),
+    seoTitle: raw.seoTitle ? pick(raw.seoTitle, locale) : undefined,
     metaDescription: pick(raw.metaDescription ?? raw.description, locale),
     description: pick(raw.description, locale),
     story: raw.story
