@@ -181,6 +181,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/claude-code-mode-plan/cover-mascotte.webp": {
+      "sourceHash": "1c380760e3bc74a51055f80b8c1c50c431ccf6eaaca19eb6f031ade99e2c1af6",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/claude-vs-chatgpt-entreprise/choisir-claude-chatgpt-copilot.png": {
       "sourceHash": "17983995f70eb5993671109dcadaf331134feaca683ea9c09319fff3ddca3604",
       "targetUrl": "/images/_optimized/resources/claude-vs-chatgpt-entreprise/choisir-claude-chatgpt-copilot.webp",
@@ -698,6 +703,11 @@
     },
     "og:/images/resources/choisir-agence-ia-esn-freelance/cover-mascotte.webp": {
       "sourceHash": "4e6943e70dccf101685b31b975bde6d126ae5cd2fb7f5c5a22ed07642c070c3e",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/claude-code-mode-plan/cover-mascotte.webp": {
+      "sourceHash": "1c380760e3bc74a51055f80b8c1c50c431ccf6eaaca19eb6f031ade99e2c1af6",
       "targetUrl": null,
       "targetHash": null
     },
