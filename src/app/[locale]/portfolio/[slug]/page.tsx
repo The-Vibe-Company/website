@@ -36,10 +36,12 @@ export async function generateMetadata({
     slug === QUIVR_SLUG
       ? await getTranslations({ locale, namespace: "quivr" })
       : null;
-  const title = tQuivr ? tQuivr("metaTitle") : `${project.name} · ${t("back")}`;
+  // A project with its own SEO title gets the same treatment.
+  const absoluteTitle = tQuivr ? tQuivr("metaTitle") : project.seoTitle;
+  const title = absoluteTitle ?? `${project.name} · ${t("back")}`;
   const description = tQuivr ? tQuivr("metaDescription") : project.metaDescription;
   return {
-    title: tQuivr ? { absolute: title } : title,
+    title: absoluteTitle ? { absolute: absoluteTitle } : title,
     description,
     alternates: localizedAlternates(locale, `/portfolio/${slug}`),
     ...localizedSocialMetadata({
