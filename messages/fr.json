@@ -248,10 +248,10 @@
     "faqTitle": "Questions fréquentes",
     "about": {
       "kicker": "COMMENT ON TRAVAILLE",
-      "title": "Du premier appel à la production.",
-      "p1": "Chaque projet commence par un appel de 30 minutes : vous expliquez le problème, on explique comment on le construirait. Si ça colle, on envoie une proposition à périmètre fixe, puis un prototype cliquable avant la moindre ligne de code de production.",
-      "p2": "Pendant le build, vous voyez du logiciel qui marche tôt et souvent, et on mesure le résultat à l’usage réel plutôt qu’à la démo. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique sont passés en production en deux mois, avec depuis une nouvelle version tous les deux jours environ. Chez LocService, les brouillons de l’assistant sont utilisés sur 87 % des tickets.",
-      "p3": "Ensuite, deux options : on confie le code à votre équipe avec la documentation et les runbooks, ou on continue de le faire tourner. Avec Theodo, la formation des équipes fait partie du travail, pour qu’elles adoptent elles-mêmes ces pratiques et avancent plus vite."
+      "title": "Jugez-nous sur pièces.",
+      "p1": "On part de votre problème, pas d’un process. On construit vite, alors vous voyez très tôt une première version qui tourne, souvent avant même qu’on ait fixé le périmètre ensemble. Vous décidez sur ce qui marche, pas sur des slides.",
+      "p2": "Et on va jusqu’en production. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique sont passés en production en deux mois, avec depuis une nouvelle version tous les deux jours environ. Avec Theodo, on construit des Software Factories pour des centaines de développeurs, dont l’AI Factory de Softway Medical, éditeur de logiciels de santé. Chaque livraison est relue par une personne senior qui en répond.",
+      "p3": "Ensuite, c’est vous qui choisissez : on confie le code à votre équipe avec la documentation et les runbooks, ou on continue de le faire tourner. Et si vos équipes veulent travailler comme nous, on les forme, sur vos propres cas."
     }
   },
   "resources": {
