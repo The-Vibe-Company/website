@@ -15,7 +15,7 @@ coverAlt: "La mascotte The Vibe Company écrit sur un ticket vierge, entourée d
 ogImage: /images/resources/claude-code-mode-plan/cover-mascotte.webp
 ---
 
-Le mode plan de Claude Code rassure plus qu'il ne protège. Vous demandez un plan à l'agent, vous le lisez, vous l'approuvez, et vous avez le sentiment d'avoir gardé la main. Je l'ai fait pendant longtemps. Aujourd'hui je ne regarde plus les plans du tout, et le travail qui compte se passe avant : sur le ticket.
+Le mode plan de Claude Code rassure plus qu'il ne protège. Vous demandez un plan à l'agent, vous le lisez, vous l'approuvez, et vous avez le sentiment d'avoir gardé la main. Je l'ai fait pendant longtemps. J'ai d'abord relu, puis écrit des skills pour payer les plans moins cher, avant de remonter sur le ticket avec Grill Me. Aujourd'hui je ne regarde plus les plans du tout, et le travail qui compte se passe avant : sur le ticket.
 
 ## Ce que fait le mode plan de Claude Code
 
@@ -59,16 +59,16 @@ Tout tient dans le sens de la question. Avec le mode plan, l'agent propose et vo
 
 | | Mode plan | Grill Me |
 | --- | --- | --- |
-| Qui propose | L'agent | Vous, par vos réponses |
+| Qui pose les questions | Vous, si vous y pensez | L'agent, par vagues |
 | Qui décide | Vous, en approuvant le plan | Vous, question après question |
 | Quand | Avant que l'agent touche au code | Avant même le plan, sur le ticket |
 | Ce qui reste | Un plan écrit à relire | Des décisions dans votre tête, puis dans le ticket |
 
 ## Anthropic dit de lire le plan, et de vous faire interroger
 
-L'objection la plus juste vient d'Anthropic. Dans [Claude Academy](https://academy.claude.com/fr/courses/claude-code-101/your-first-prompt), la leçon sur votre première requête insiste pour que vous examiniez vraiment le plan : avant d'accepter, vérifiez-le, et regardez s'il nomme les fichiers auxquels vous vous attendiez. Pas un survol. Une vraie lecture.
+L'objection la plus juste vient d'Anthropic. Dans [Claude Academy](https://academy.claude.com/fr/courses/claude-code-in-action/steering-long-sessions), la leçon sur les sessions longues dit : « Lorsque vous recevez ce plan, lisez-le réellement. Ne le survolez pas. »
 
-Je suis d'accord avec l'intention. Un plan que personne ne lit ne sert à rien. Mon point, c'est autre chose : même une lecture honnête arrive trop tard si les décisions n'ont pas été prises avant.
+Je suis d'accord avec l'intention. Un plan que personne ne lit ne sert à rien. Mon point, c'est autre chose : même une lecture honnête arrive trop tard si vous n'avez rien décidé avant.
 
 Et Anthropic le dit aussi, dans ses [best practices Claude Code](https://code.claude.com/docs/en/best-practices) : « Ask Claude to interview you instead. » Quand vous ne savez pas encore exactement ce que vous voulez, faites-vous interroger. C'est exactement le mouvement que Grill Me force, et la raison pour laquelle le temps que je passais à relire des plans est remonté sur le ticket.
 

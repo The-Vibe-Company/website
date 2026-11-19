@@ -15,7 +15,7 @@ coverAlt: "The Vibe Company mascot writes on a blank ticket surrounded by questi
 ogImage: /images/resources/claude-code-mode-plan/cover-mascotte.webp
 ---
 
-Claude Code plan mode reassures more than it protects. You ask the agent for a plan, you read it, you approve it, and you feel like you stayed in control. I did that for a long time. Today I don't look at plans at all, and the work that matters happens earlier: on the ticket.
+Claude Code plan mode reassures more than it protects. You ask the agent for a plan, you read it, you approve it, and you feel like you stayed in control. I did that for a long time. I first reread the plans, then wrote skills to make them cheaper, before moving up to the ticket with Grill Me. Today I don't look at plans at all, and the work that matters happens earlier: on the ticket.
 
 ## What Claude Code plan mode does
 
@@ -59,16 +59,16 @@ It all comes down to which way the question points. In plan mode, the agent prop
 
 | | Plan mode | Grill Me |
 | --- | --- | --- |
-| Who proposes | The agent | You, through your answers |
+| Who asks the questions | You, if you think of it | The agent, in rounds |
 | Who decides | You, by approving the plan | You, question after question |
 | When | Before the agent touches the code | Before any plan, on the ticket |
 | What remains | A written plan to reread | Decisions in your head, then in the ticket |
 
 ## Anthropic says read the plan, and get yourself interviewed
 
-The fairest objection comes from Anthropic. In [Claude Academy](https://academy.claude.com/courses/claude-code-101/your-first-prompt), the lesson on your first prompt insists that you really examine the plan: before you accept it, check it, and look whether it names the files you expected. Not a skim. A real read.
+The fairest objection comes from Anthropic. In [Claude Academy](https://academy.claude.com/courses/claude-code-in-action/steering-long-sessions), the lesson on long sessions says: "When you get that plan, actually read it. Don't skim it."
 
-I agree with the intention. A plan nobody reads is useless. My point is something else: even an honest read comes too late if the decisions weren't made beforehand.
+I agree with the intention. A plan nobody reads is useless. My point is something else: even an honest read comes too late if you hadn't made the decisions beforehand.
 
 And Anthropic says that too, in its [Claude Code best practices](https://code.claude.com/docs/en/best-practices): "Ask Claude to interview you instead." When you don't know exactly what you want yet, get yourself interviewed. That is exactly the move Grill Me forces, and the reason the time I spent rereading plans moved up to the ticket.
 
