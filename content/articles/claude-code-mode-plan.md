@@ -15,7 +15,7 @@ coverAlt: "La mascotte The Vibe Company écrit sur un ticket vierge, entourée d
 ogImage: /images/resources/claude-code-mode-plan/cover-mascotte.webp
 ---
 
-Le mode plan de Claude Code rassure plus qu'il ne protège. On demande un plan à l'agent, on le lit, on l'approuve, et on a le sentiment d'avoir gardé la main. Je l'ai fait pendant longtemps. Aujourd'hui je ne regarde plus les plans du tout, et le travail qui compte se passe avant : sur le ticket.
+Le mode plan de Claude Code rassure plus qu'il ne protège. Vous demandez un plan à l'agent, vous le lisez, vous l'approuvez, et vous avez le sentiment d'avoir gardé la main. Je l'ai fait pendant longtemps. Aujourd'hui je ne regarde plus les plans du tout, et le travail qui compte se passe avant : sur le ticket.
 
 ## Ce que fait le mode plan de Claude Code
 
@@ -29,13 +29,13 @@ L'idée est saine. Avant que l'agent touche au disque, vous voyez ce qu'il compt
 
 À une époque, je demandais toujours un plan à l'IA avant qu'elle code. Puis je le relisais. Au début, ligne par ligne. Ensuite en diagonale. À la fin, je cherchais deux ou trois mots qui m'auraient inquiété, et je validais.
 
-Un plan bien formaté a l'air sérieux. Il a ses étapes numérotées, il cite vos fichiers, il parle le vocabulaire de votre code. Au vingtième, on n'a plus l'attention qu'il faudrait pour y trouver l'erreur. Et l'erreur, quand elle existe, se cache rarement dans les étapes. Elle se cache dans ce que personne n'a décidé avant.
+Un plan bien formaté a l'air sérieux. Il a ses étapes numérotées, il cite vos fichiers, il parle le vocabulaire de votre code. À force, je n'avais plus l'attention qu'il faudrait pour y trouver l'erreur. Et l'erreur, quand elle existe, se cache rarement dans les étapes. Elle se cache dans ce que personne n'a décidé avant.
 
-C'est là que le rituel prend le dessus. On approuve parce qu'on a lu, pas parce qu'on a vérifié.
+C'est là que le rituel prend le dessus. J'approuvais parce que j'avais lu, pas parce que j'avais vérifié.
 
 ## Puis j'ai essayé de rendre les plans moins chers
 
-Ma réponse suivante a été d'outiller. J'ai écrit des skills pour aider l'agent à produire ses plans et pour en réduire le coût. C'est le réflexe que je défends dans [l'article sur les skills](/fr/resources/articles/les-skills) : quand une tâche revient, on l'encode plutôt que de réécrire le prompt.
+Ma réponse suivante a été d'outiller. J'ai écrit des skills pour aider l'agent à produire ses plans et pour en réduire le coût. C'est le réflexe que je défends dans [l'article sur les skills](/fr/resources/articles/les-skills) : quand une tâche revient, je l'encode plutôt que de réécrire le prompt.
 
 Les plans sortaient plus vite et coûtaient moins. Mais j'optimisais une étape que je ne lisais déjà plus vraiment. Un plan moins cher que je survole reste un plan que je survole.
 
@@ -43,35 +43,42 @@ Les plans sortaient plus vite et coûtaient moins. Mais j'optimisais une étape 
 
 Alors je suis remonté d'un cran dans la chaîne. Aujourd'hui, je passe mon temps sur le ticket. Je réfléchis fort au sujet et je le structure, et pour ça j'utilise [Grill Me](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me), un skill de Matt Pocock.
 
-Grill Me fait une chose simple : il vous interroge. Vous le lancez vous-même avec `/grill-me`, l'agent ne le déclenche jamais seul. Il pose ses questions par vagues, jusqu'à ce que chaque décision soit prise. Il n'écrit aucun fichier. Ce qui en sort, c'est une idée plus claire, que je range ensuite dans le ticket.
+Grill Me fait une chose simple : il vous interroge. Vous le lancez vous-même avec `/grill-me`, l'agent ne le déclenche jamais seul. Il pose ses questions par vagues, jusqu'à ce que vous ayez pris chaque décision. Il n'écrit aucun fichier. Ce qui en sort, c'est une idée plus claire, que je range ensuite dans le ticket.
 
 Une fois le ticket posé comme ça, l'IA est assez intelligente pour implémenter le sujet presque à chaque fois. Le plan qu'elle produirait ne m'apprendrait rien que je n'aie déjà tranché pendant l'interrogatoire.
 
-Sans ce travail, une session dérive. On ouvre Claude Code avec un objectif flou, et des dizaines de prompts plus tard on a refait la moitié du module. On a construit [VibeDrift](/fr/portfolio/vibedrift) pour voir ce moment arriver, commit par commit. Un ticket bien interrogé avant de commencer reste la façon la plus simple de ne pas en arriver là.
+Sans ce travail, une session dérive. Vous ouvrez Claude Code avec un objectif flou, et des dizaines de prompts plus tard l'agent a refait la moitié du module. Un ticket bien interrogé avant de commencer reste la façon la plus simple de ne pas en arriver là.
 
-## Matt Pocock conseille d'éteindre le mode plan
+## Matt Pocock éteint le mode plan pour interroger
 
-Ce qui m'a frappé, c'est que [la documentation de Grill Me](https://github.com/mattpocock/skills/blob/main/docs/productivity/grill-me.md) le dit noir sur blanc. Matt Pocock y recommande de laisser le mode plan désactivé : il pousse l'agent à se dépêcher de produire un plan, alors qu'on veut qu'il continue à poser des questions.
+Ce qui m'a frappé, c'est que [la documentation de Grill Me](https://github.com/mattpocock/skills/blob/main/docs/productivity/grill-me.md) le dit noir sur blanc. Matt Pocock y recommande de laisser le mode plan désactivé pendant l'interrogatoire : il pousse l'agent à se dépêcher de produire un plan, alors que vous voulez qu'il continue à poser des questions.
 
 La même page décrit le piège où je tombais. Répondez « d'accord » quarante fois de suite et vous ressortez avec un plan que l'agent a écrit et que vous avez seulement approuvé d'un hochement de tête. Ça a l'air productif parce que c'était long. Vous n'avez rien décidé. C'est exactement ce que je faisais en relisant mes plans de moins en moins bien.
 
 Tout tient dans le sens de la question. Avec le mode plan, l'agent propose et vous validez. Avec Grill Me, l'agent demande et vous décidez. Le premier vous laisse passif devant un texte convaincant, le second vous oblige à vous mouiller.
 
-## Ce qui protège, c'est une porte après le code
+| | Mode plan | Grill Me |
+| --- | --- | --- |
+| Qui propose | L'agent | Vous, par vos réponses |
+| Qui décide | Vous, en approuvant le plan | Vous, question après question |
+| Quand | Avant que l'agent touche au code | Avant même le plan, sur le ticket |
+| Ce qui reste | Un plan écrit à relire | Des décisions dans votre tête, puis dans le ticket |
 
-Si le plan ne protège pas, qu'est-ce qui protège ? Pas un document qu'on lit avant. Un contrôle qui s'applique après, sur ce qui a vraiment été livré.
+## Anthropic dit de lire le plan, et de vous faire interroger
 
-Dans une AI Factory que The Vibe Company fait tourner pour un client, cette protection se trouve à l'étape « Ready for QA ». Un juge IA y vérifie chaque critère d'acceptation du ticket et signale le code qui sort du périmètre. Il propose, il n'écrit rien dans l'outil de tickets.
+L'objection la plus juste vient d'Anthropic. Dans [Claude Academy](https://academy.claude.com/fr/courses/claude-code-101/your-first-prompt), la leçon sur votre première requête insiste pour que vous examiniez vraiment le plan : avant d'accepter, vérifiez-le, et regardez s'il nomme les fichiers auxquels vous vous attendiez. Pas un survol. Une vraie lecture.
 
-Ce juge ne vérifie que les critères qu'on a écrits. Le temps passé dans Grill Me n'est donc pas perdu : c'est lui qui produit ces critères. Même logique qu'avec [des tests qui tournent en quelques minutes](/fr/resources/articles/software-factory-ia-tests-rapides) : ce qui protège, c'est ce qui vérifie, pas ce qui rassure. J'ai décrit ce qui entoure l'agent une fois le ticket écrit dans l'article sur [le harnais d'agents en entreprise](/fr/resources/articles/agent-harness-entreprise).
+Je suis d'accord avec l'intention. Un plan que personne ne lit ne sert à rien. Mon point, c'est autre chose : même une lecture honnête arrive trop tard si les décisions n'ont pas été prises avant.
+
+Et Anthropic le dit aussi, dans ses [best practices Claude Code](https://code.claude.com/docs/en/best-practices) : « Ask Claude to interview you instead. » Quand vous ne savez pas encore exactement ce que vous voulez, faites-vous interroger. C'est exactement le mouvement que Grill Me force, et la raison pour laquelle le temps que je passais à relire des plans est remonté sur le ticket.
 
 ## Alors, faut-il utiliser le mode plan ?
 
-Le plan, c'est ce qu'on garde quand on veut un contrôle humain à cet endroit précis. Si vous [déployez Claude Code dans une équipe](/fr/resources/articles/deployer-claude-code-entreprise) qui découvre les agents, voir le plan avant les modifications peut aider à prendre confiance. Ne le confondez simplement pas avec une protection.
+Le plan, c'est ce que vous gardez quand vous voulez un contrôle humain à cet endroit précis. Si vous [déployez Claude Code dans une équipe](/fr/resources/articles/deployer-claude-code-entreprise) qui découvre les agents, voir le plan avant les modifications peut aider à prendre confiance. Ne le confondez simplement pas avec une protection.
 
 En pratique, je m'en fiche complètement. Aujourd'hui je ne regarde plus les plans du tout. Je passe beaucoup de temps dans Grill Me sur le ticket, et c'est tout.
 
-Si vous voulez qu'on regarde ensemble vos tickets plutôt que vos plans, [prenez rendez-vous](https://cal.com/stangirard/thevibecompany).
+Si vous voulez que je regarde vos tickets avec vous plutôt que vos plans, [prenez rendez-vous](https://cal.com/stangirard/thevibecompany).
 
 ## FAQ
 
@@ -85,8 +92,8 @@ Lancez `claude --permission-mode plan`, ou appuyez sur `Shift+Tab` en cours de s
 
 ### Faut-il utiliser le mode plan ?
 
-Oui si vous voulez un contrôle humain avant chaque modification. Mais relire un plan protège peu. Le temps est mieux placé sur le ticket, par exemple avec Grill Me, puis sur un contrôle du code livré contre ses critères d'acceptation.
+Oui si vous voulez un contrôle humain avant chaque modification. Mais relire un plan protège peu. Le temps est mieux placé sur le ticket, par exemple avec Grill Me.
 
 ### Grill Me remplace-t-il le mode plan ?
 
-Ils ne font pas la même chose. Le mode plan fait proposer un plan par l'agent. Grill Me vous interroge jusqu'à ce que chaque décision soit prise, et sa documentation conseille de laisser le mode plan désactivé pendant la session.
+Ils ne font pas la même chose. Le mode plan fait proposer un plan par l'agent. Grill Me vous interroge jusqu'à ce que vous ayez pris chaque décision, et sa documentation conseille de laisser le mode plan désactivé pendant la session.

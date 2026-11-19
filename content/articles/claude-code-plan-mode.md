@@ -29,13 +29,13 @@ The idea is sound. Before the agent touches the disk, you see what it intends to
 
 At one point I always asked the AI for a plan before it wrote any code. Then I read it. At first, line by line. Then skimming. By the end, I was scanning for the two or three words that would have worried me, and approving.
 
-A well-formatted plan looks serious. It has numbered steps, it names your files, it speaks the vocabulary of your codebase. By the twentieth one, you no longer have the attention it takes to find the mistake. And the mistake, when there is one, rarely hides in the steps. It hides in what nobody decided beforehand.
+A well-formatted plan looks serious. It has numbered steps, it names your files, it speaks the vocabulary of your codebase. After a while, I no longer had the attention it takes to find the mistake. And the mistake, when there is one, rarely hides in the steps. It hides in what nobody decided beforehand.
 
-That's where the ritual takes over. You approve because you read it, not because you checked it.
+That's where the ritual takes over. I approved because I had read it, not because I had checked it.
 
 ## Then I tried to make plans cheaper
 
-My next move was tooling. I wrote skills to help the agent produce its plans and to cut what they cost. It's the reflex I argue for in [why I replaced prompts with skills](/en/resources/articles/why-i-replaced-prompts-with-skills): when a task keeps coming back, you encode it instead of rewriting the prompt.
+My next move was tooling. I wrote skills to help the agent produce its plans and to cut what they cost. It's the reflex I argue for in [why I replaced prompts with skills](/en/resources/articles/why-i-replaced-prompts-with-skills): when a task keeps coming back, I encode it instead of rewriting the prompt.
 
 The plans came out faster and cost less. But I was optimizing a step I had already stopped really reading. A cheaper plan that I skim is still a plan that I skim.
 
@@ -43,27 +43,34 @@ The plans came out faster and cost less. But I was optimizing a step I had alrea
 
 So I moved one step up the chain. These days I spend my time on the ticket. I think hard about the subject and give it structure, and for that I use [Grill Me](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me), a skill by Matt Pocock.
 
-Grill Me does one simple thing: it interviews you. You start it yourself with `/grill-me`, the agent never reaches for it on its own. It asks its questions in rounds until every decision has been made. It writes no files. What comes out is a clearer idea, which I then put into the ticket.
+Grill Me does one simple thing: it interviews you. You start it yourself with `/grill-me`, the agent never reaches for it on its own. It asks its questions in rounds until you have made every decision. It writes no files. What comes out is a clearer idea, which I then put into the ticket.
 
 Once the ticket is set up like that, the AI is smart enough to implement the subject almost every time. The plan it would produce wouldn't tell me anything I hadn't already settled during the grilling.
 
-Skip that work and a session drifts. You open Claude Code with a fuzzy goal, and dozens of prompts later half the module has been rewritten. We built [VibeDrift](/en/portfolio/vibedrift) to see that moment coming, commit by commit. A well-grilled ticket before you start is still the simplest way not to get there.
+Skip that work and a session drifts. You open Claude Code with a fuzzy goal, and dozens of prompts later the agent has rewritten half the module. A well-grilled ticket before you start is still the simplest way not to get there.
 
-## Matt Pocock says to leave plan mode off
+## Matt Pocock turns plan mode off to interrogate
 
-What struck me is that [the Grill Me documentation](https://github.com/mattpocock/skills/blob/main/docs/productivity/grill-me.md) says it in plain words: "Leave plan mode off. Plan mode makes the agent hurry to produce a plan, when you want it to keep asking questions."
+What struck me is that [the Grill Me documentation](https://github.com/mattpocock/skills/blob/main/docs/productivity/grill-me.md) says it in plain words: "Leave plan mode off. Plan mode makes the agent hurry to produce a plan, when you want it to keep asking questions." That advice is for the grilling session itself.
 
 The same page describes the trap I kept falling into. Answer "agreed" forty times in a row and you come out with a plan the agent wrote and you nodded at. It feels productive because it was long. You decided nothing. That's exactly what I was doing as I read my plans less and less carefully.
 
 It all comes down to which way the question points. In plan mode, the agent proposes and you approve. In Grill Me, the agent asks and you decide. The first leaves you passive in front of a convincing text. The second makes you commit.
 
-## What protects you is a gate after the code
+| | Plan mode | Grill Me |
+| --- | --- | --- |
+| Who proposes | The agent | You, through your answers |
+| Who decides | You, by approving the plan | You, question after question |
+| When | Before the agent touches the code | Before any plan, on the ticket |
+| What remains | A written plan to reread | Decisions in your head, then in the ticket |
 
-If the plan doesn't protect you, what does? Not a document you read beforehand. A check that runs afterwards, on what was actually delivered.
+## Anthropic says read the plan, and get yourself interviewed
 
-In an AI Factory The Vibe Company runs for a client, that protection sits at a "Ready for QA" gate. An AI judge checks each acceptance criterion on the ticket and flags code that falls out of scope. It proposes, and writes nothing into the ticket tool.
+The fairest objection comes from Anthropic. In [Claude Academy](https://academy.claude.com/courses/claude-code-101/your-first-prompt), the lesson on your first prompt insists that you really examine the plan: before you accept it, check it, and look whether it names the files you expected. Not a skim. A real read.
 
-That judge can only check the criteria somebody wrote down. So the time spent in Grill Me isn't wasted: it's what produces those criteria. Same logic as [tests that run in minutes](/en/resources/articles/ai-software-factory-fast-tests): what protects you is what checks, not what reassures. I wrote about what surrounds the agent once the ticket exists in the piece on [the enterprise agent harness](/en/resources/articles/enterprise-agent-harness).
+I agree with the intention. A plan nobody reads is useless. My point is something else: even an honest read comes too late if the decisions weren't made beforehand.
+
+And Anthropic says that too, in its [Claude Code best practices](https://code.claude.com/docs/en/best-practices): "Ask Claude to interview you instead." When you don't know exactly what you want yet, get yourself interviewed. That is exactly the move Grill Me forces, and the reason the time I spent rereading plans moved up to the ticket.
 
 ## So, should you use plan mode?
 
@@ -71,7 +78,7 @@ The plan is what you keep when you want human control at that exact point. If yo
 
 In practice, I don't care about it at all. Today I don't look at plans anymore. I spend a lot of time in Grill Me on the ticket, and that's it.
 
-If you'd like us to look at your tickets rather than your plans, [book a call](https://cal.com/stangirard/thevibecompany).
+If you'd like me to look at your tickets with you rather than your plans, [book a call](https://cal.com/stangirard/thevibecompany).
 
 ## FAQ
 
@@ -85,8 +92,8 @@ Run `claude --permission-mode plan`, or press `Shift+Tab` mid-session until the 
 
 ### Should you use plan mode?
 
-Yes, if you want human control before every edit. But reading a plan protects you very little. Your time is better spent on the ticket, for example with Grill Me, and then on checking the delivered code against its acceptance criteria.
+Yes, if you want human control before every edit. But reading a plan protects you very little. Your time is better spent on the ticket, for example with Grill Me.
 
 ### Does Grill Me replace plan mode?
 
-They don't do the same job. Plan mode has the agent propose a plan. Grill Me interviews you until every decision is made, and its documentation advises leaving plan mode off during the session.
+They don't do the same job. Plan mode has the agent propose a plan. Grill Me interviews you until you have made every decision, and its documentation advises leaving plan mode off during the session.
