@@ -46,6 +46,18 @@ const nextConfig: NextConfig = {
         destination: "/portfolio/skillpack",
         permanent: true,
       },
+      // The Softway Medical case page was taken down in Nov 2026. It had been
+      // in the sitemap, so its URL lands on the case studies index.
+      {
+        source: "/:locale(fr|en)/case-studies/softway-medical",
+        destination: "/:locale/case-studies",
+        permanent: true,
+      },
+      {
+        source: "/case-studies/softway-medical",
+        destination: "/case-studies",
+        permanent: true,
+      },
       // Quivr is presented as one of our projects. /quivr is the short URL
       // the quivr.com redirects and shared links point to.
       {
