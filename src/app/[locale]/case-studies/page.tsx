@@ -122,7 +122,6 @@ export default async function CaseStudiesPage({
               <div className="flex max-w-[720px] flex-col gap-6 text-lg leading-[1.6] text-soft-foreground md:pt-10">
                 <p className="m-0">{t("about.p1")}</p>
                 <p className="m-0">{t("about.p2")}</p>
-                <p className="m-0">{t("about.p3")}</p>
               </div>
             </div>
           </section>

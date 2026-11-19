@@ -250,8 +250,7 @@
       "kicker": "COMMENT ON TRAVAILLE",
       "title": "Du premier essai à la production.",
       "p1": "Nous adaptons notre façon de faire à chaque projet, selon ce que vous avez déjà et ce qui presse. Nous construisons vite, ce qui nous permet de vous montrer tôt une première version qui fonctionne, souvent avant même d’avoir arrêté le périmètre avec vous. Les décisions se prennent ensuite à partir de ce que vous avez pu essayer.",
-      "p2": "Nous menons le travail jusqu’en production. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique ont été mis en production en deux mois, et une nouvelle version sort depuis tous les deux jours environ. Avec Theodo, nous construisons des Software Factories pour des centaines de développeurs, dont l’AI Factory de Softway Medical, éditeur de logiciels de santé. Chaque livraison est relue par une personne senior, qui en répond.",
-      "p3": "Une fois le produit en place, deux suites sont possibles : nous confions le code à votre équipe avec la documentation et les runbooks, ou nous continuons à le faire tourner. Si vos équipes souhaitent travailler de la même façon, nous les formons sur vos propres cas."
+      "p2": "Nous menons le travail jusqu’en production. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique ont été mis en production en deux mois, et une nouvelle version sort depuis tous les deux jours environ. Avec Theodo, nous construisons des Software Factories pour des centaines de développeurs, dont l’AI Factory de Softway Medical, éditeur de logiciels de santé."
     }
   },
   "resources": {
