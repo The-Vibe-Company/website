@@ -248,10 +248,9 @@
     "faqTitle": "Questions fréquentes",
     "about": {
       "kicker": "COMMENT ON TRAVAILLE",
-      "title": "Jugez-nous sur pièces.",
-      "p1": "On part de votre problème, pas d’un process. On construit vite, alors vous voyez très tôt une première version qui tourne, souvent avant même qu’on ait fixé le périmètre ensemble. Vous décidez sur ce qui marche, pas sur des slides.",
-      "p2": "Et on va jusqu’en production. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique sont passés en production en deux mois, avec depuis une nouvelle version tous les deux jours environ. Avec Theodo, on construit des Software Factories pour des centaines de développeurs, dont l’AI Factory de Softway Medical, éditeur de logiciels de santé. Chaque livraison est relue par une personne senior qui en répond.",
-      "p3": "Ensuite, c’est vous qui choisissez : on confie le code à votre équipe avec la documentation et les runbooks, ou on continue de le faire tourner. Et si vos équipes veulent travailler comme nous, on les forme, sur vos propres cas."
+      "title": "Du premier essai à la production.",
+      "p1": "Nous adaptons notre façon de faire à chaque projet, selon ce que vous avez déjà et ce qui presse. Nous construisons vite, ce qui nous permet de vous montrer tôt une première version qui fonctionne, souvent avant même d’avoir arrêté le périmètre avec vous. Les décisions se prennent ensuite à partir de ce que vous avez pu essayer.",
+      "p2": "Nous menons le travail jusqu’en production. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique ont été mis en production en deux mois, et une nouvelle version sort depuis tous les deux jours environ. Avec Theodo, nous construisons des Software Factories pour des centaines de développeurs, dont l’AI Factory de Softway Medical, éditeur de logiciels de santé."
     }
   },
   "resources": {
