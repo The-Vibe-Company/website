@@ -1,0 +1,92 @@
+---
+title: "Claude Code plan mode is a ritual that reassures, not a tool that protects"
+seoTitle: "Claude Code plan mode reassures you. It doesn't protect you"
+seoDescription: "Claude Code plan mode reassures more than it protects. Why I stopped reading plans and now spend my time on the ticket, grilled with Matt Pocock's Grill Me."
+slug: claude-code-plan-mode
+translationKey: claude-code-plan-mode
+language: en
+summary: "For a long time I asked the AI for a plan before every line of code. Today I don't look at plans at all: I spend my time on the ticket, with Grill Me."
+publishedAt: 2026-11-19
+complexity: intermediate
+topics: Claude Code, AI Agents, Engineering
+author: stan-girard
+coverImage: /images/resources/claude-code-mode-plan/cover-mascotte.webp
+coverAlt: "The Vibe Company mascot writes on a blank ticket surrounded by question bubbles, while a rolled, sealed plan gathers dust beside it"
+ogImage: /images/resources/claude-code-mode-plan/cover-mascotte.webp
+---
+
+Claude Code plan mode reassures more than it protects. You ask the agent for a plan, you read it, you approve it, and you feel like you stayed in control. I did that for a long time. Today I don't look at plans at all, and the work that matters happens earlier: on the ticket.
+
+## What Claude Code plan mode does
+
+Plan mode is one of Claude Code's permission modes. According to [the official documentation](https://code.claude.com/docs/en/common-workflows), Claude reads files and proposes a plan, but makes no edits until you approve.
+
+To turn it on, start Claude with `claude --permission-mode plan`. Mid-session, press `Shift+Tab` until the status bar shows "plan mode on".
+
+The idea is sound. Before the agent touches the disk, you see what it intends to do and you can correct course. On paper, it's a gate between the agent and your code.
+
+## I read plans, less and less carefully
+
+At one point I always asked the AI for a plan before it wrote any code. Then I read it. At first, line by line. Then skimming. By the end, I was scanning for the two or three words that would have worried me, and approving.
+
+A well-formatted plan looks serious. It has numbered steps, it names your files, it speaks the vocabulary of your codebase. By the twentieth one, you no longer have the attention it takes to find the mistake. And the mistake, when there is one, rarely hides in the steps. It hides in what nobody decided beforehand.
+
+That's where the ritual takes over. You approve because you read it, not because you checked it.
+
+## Then I tried to make plans cheaper
+
+My next move was tooling. I wrote skills to help the agent produce its plans and to cut what they cost. It's the reflex I argue for in [why I replaced prompts with skills](/en/resources/articles/why-i-replaced-prompts-with-skills): when a task keeps coming back, you encode it instead of rewriting the prompt.
+
+The plans came out faster and cost less. But I was optimizing a step I had already stopped really reading. A cheaper plan that I skim is still a plan that I skim.
+
+## The real work moved up to the ticket
+
+So I moved one step up the chain. These days I spend my time on the ticket. I think hard about the subject and give it structure, and for that I use [Grill Me](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me), a skill by Matt Pocock.
+
+Grill Me does one simple thing: it interviews you. You start it yourself with `/grill-me`, the agent never reaches for it on its own. It asks its questions in rounds until every decision has been made. It writes no files. What comes out is a clearer idea, which I then put into the ticket.
+
+Once the ticket is set up like that, the AI is smart enough to implement the subject almost every time. The plan it would produce wouldn't tell me anything I hadn't already settled during the grilling.
+
+Skip that work and a session drifts. You open Claude Code with a fuzzy goal, and dozens of prompts later half the module has been rewritten. We built [VibeDrift](/en/portfolio/vibedrift) to see that moment coming, commit by commit. A well-grilled ticket before you start is still the simplest way not to get there.
+
+## Matt Pocock says to leave plan mode off
+
+What struck me is that [the Grill Me documentation](https://github.com/mattpocock/skills/blob/main/docs/productivity/grill-me.md) says it in plain words: "Leave plan mode off. Plan mode makes the agent hurry to produce a plan, when you want it to keep asking questions."
+
+The same page describes the trap I kept falling into. Answer "agreed" forty times in a row and you come out with a plan the agent wrote and you nodded at. It feels productive because it was long. You decided nothing. That's exactly what I was doing as I read my plans less and less carefully.
+
+It all comes down to which way the question points. In plan mode, the agent proposes and you approve. In Grill Me, the agent asks and you decide. The first leaves you passive in front of a convincing text. The second makes you commit.
+
+## What protects you is a gate after the code
+
+If the plan doesn't protect you, what does? Not a document you read beforehand. A check that runs afterwards, on what was actually delivered.
+
+In an AI Factory The Vibe Company runs for a client, that protection sits at a "Ready for QA" gate. An AI judge checks each acceptance criterion on the ticket and flags code that falls out of scope. It proposes, and writes nothing into the ticket tool.
+
+That judge can only check the criteria somebody wrote down. So the time spent in Grill Me isn't wasted: it's what produces those criteria. Same logic as [tests that run in minutes](/en/resources/articles/ai-software-factory-fast-tests): what protects you is what checks, not what reassures. I wrote about what surrounds the agent once the ticket exists in the piece on [the enterprise agent harness](/en/resources/articles/enterprise-agent-harness).
+
+## So, should you use plan mode?
+
+The plan is what you keep when you want human control at that exact point. If you're [rolling Claude Code out to a team](/en/resources/articles/claude-code-enterprise-rollout) that is new to agents, seeing the plan before the edits can help people build trust. Just don't mistake it for protection.
+
+In practice, I don't care about it at all. Today I don't look at plans anymore. I spend a lot of time in Grill Me on the ticket, and that's it.
+
+If you'd like us to look at your tickets rather than your plans, [book a call](https://cal.com/stangirard/thevibecompany).
+
+## FAQ
+
+### What is Claude Code plan mode?
+
+It's a permission mode in which Claude reads files and proposes a plan, without making any edits until you approve it.
+
+### How do you turn on plan mode in Claude Code?
+
+Run `claude --permission-mode plan`, or press `Shift+Tab` mid-session until the status bar shows "plan mode on".
+
+### Should you use plan mode?
+
+Yes, if you want human control before every edit. But reading a plan protects you very little. Your time is better spent on the ticket, for example with Grill Me, and then on checking the delivered code against its acceptance criteria.
+
+### Does Grill Me replace plan mode?
+
+They don't do the same job. Plan mode has the agent propose a plan. Grill Me interviews you until every decision is made, and its documentation advises leaving plan mode off during the session.
