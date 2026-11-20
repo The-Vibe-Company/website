@@ -15,17 +15,15 @@ coverAlt: "The Vibe Company mascot inspects, at night and with a magnifying glas
 ogImage: /images/resources/audit-securite-informatique-agents-ia/cover-mascotte.webp
 ---
 
-A pre-launch security audit can start before the contract is even signed. Before signing a client, I had an agent download their Android app and decompile it. I didn't have access to their code yet.
+A pre-launch security audit can start before the first contract. With a prospect, before anything was signed and with their permission, I had an agent download their Android app and decompile it. That is what a pre-launch audit looks like today: "you launch an army of agents".
 
-It took 30 seconds. Once the app was decompiled, secrets were sitting in clear text in the environment variables, the database password for example.
+It took 30 seconds. I didn't have access to their code yet, and secrets were already sitting in clear text in the environment variables, a database password for example.
 
-I launched a lot of sub-agents, and in about an hour they had identified the problems. That let me report it to the prospect as a major flaw in the app.
+I launched a lot of sub-agents, and in about an hour they had identified the problems. I was able to report a major flaw in their app to the prospect.
 
 Finding this was no feat. OWASP rates hardcoded credentials in a mobile app as [easy to exploit and easy to detect](https://owasp.org/www-project-mobile-top-10/2023-risks/m1-improper-credential-usage), with a severe impact.
 
-This is what a security audit before a launch looks like today. I put it simply: "The goal of a security audit is very simple, really. Today, what you do is launch an army of agents."
-
-They find fast, and they find deep. The scope, the validation of findings, the penetration test, the order of the fixes and the disclosure are still a human's job.
+Agents find fast, and they find deep. The scope, the validation of findings, the penetration test, the order of the fixes and the disclosure are still a human's job.
 
 ## A security audit run by AI agents starts from a list of recurring flaws
 
@@ -100,11 +98,11 @@ It does not make the call either. Agents surface candidates and sub-agents confi
 
 The order of the fixes is yours too. Agents propose quick fixes, but choosing what gets fixed before launch and what waits is still your decision.
 
-That leaves disclosure. When an agent finds an exposed secret in an application that is not yours, the responsible next step is to tell its owner. That is what I did with the app from the opening.
+That leaves disclosure. When an agent finds an exposed secret in an application that is not yours, even with its owner's permission, the responsible next step is to tell them. That is what I did with the app from the opening.
 
 An audit is a point in time, while your code keeps changing. The next step is continuous control, with [a security agent in CI/CD that works PR by PR](/en/resources/articles/ci-security-agent). If you would rather hand over the job, The Vibe Company offers to [harden your product with a fleet of AI agents](/en/ai-agents-product-hardening). And if a client or a tender requires a provider qualified by ANSSI, the official list is published on [MesServicesCyber](https://messervices.cyber.gouv.fr/prestataires-labellises), ANSSI's own platform.
 
-Go back to the app from the opening. It took no access to the code, only a public app and the time to decompile it. What an agent found for me before a signature, an attacker can look for in yours.
+Go back to the app from the opening. It took no access to the code, only the app and the time to decompile it. I had the prospect's permission. An attacker will not ask for your permission before looking for the same thing in your app.
 
 So do it before they do. Download your own APK or open your own repository, hand your list of flaws to an agent, and run the first pass before launch.
 
@@ -114,7 +112,7 @@ A word on method to finish: the case told here is a single, anonymized case, and
 
 ### How long does a security audit with AI agents take?
 
-In the case told here, sub-agents needed about an hour to identify the problems in a prospect's Android app, and decompiling it took 30 seconds. That duration holds for that case alone. A full audit depends on the scope you set and on the time a human spends validating each candidate.
+In the case told here, sub-agents needed about an hour to identify the problems in a prospect's Android app, with their permission, and decompiling it took 30 seconds. That duration holds for that case alone. A full audit depends on the scope you set and on the time a human spends validating each candidate.
 
 ### Does an agent audit replace a penetration test?
 

@@ -15,17 +15,15 @@ coverAlt: "La mascotte The Vibe Company inspecte de nuit, à la loupe, une porte
 ogImage: /images/resources/audit-securite-informatique-agents-ia/cover-mascotte.webp
 ---
 
-Un audit de sécurité informatique peut commencer avant même la signature du contrat. Avant de signer avec un client, j'ai demandé à un agent de télécharger son application Android et de la décompiler. Je n'avais pas encore accès à son code.
+Un audit de sécurité informatique peut commencer avant même le premier contrat. Chez un prospect, avant toute signature et avec son accord, j'ai demandé à un agent de télécharger son application Android et de la décompiler. Un audit avant une mise en prod, aujourd'hui, c'est ça : « tu lances une armée d'agents ».
 
-Il a suffi de 30 secondes. Une fois l'application décompilée, des secrets apparaissaient en clair dans les variables d'environnement, « par exemple le mot de passe de la base de données ».
+Il a suffi de 30 secondes. Je n'avais pas encore accès à son code, et des secrets apparaissaient déjà en clair dans les variables d'environnement, par exemple un mot de passe de base de données.
 
-J'ai lancé plein de sous-agents, et en une heure environ ils avaient identifié les problèmes. J'ai pu le signaler au prospect : « on a trouvé une faille majeure dans l'application ».
+J'ai lancé plein de sous-agents, et en une heure environ ils avaient identifié les problèmes. J'ai pu signaler au prospect une faille majeure dans son application.
 
 Trouver ça n'a rien d'un exploit. L'OWASP classe les identifiants en dur dans une application mobile parmi les failles [faciles à exploiter et faciles à détecter](https://owasp.org/www-project-mobile-top-10/2023-risks/m1-improper-credential-usage), avec un impact sévère.
 
-C'est à ça que ressemble un audit de sécurité avant une mise en prod aujourd'hui. Je le résume simplement : « L'objectif de faire un audit de sécurité, c'est très simple en fait. Aujourd'hui, ce que tu fais, c'est que tu lances une armée d'agents. »
-
-Ils trouvent vite, et en profondeur. Le périmètre, la validation des résultats, le test d'intrusion, l'ordre des corrections et le signalement restent un travail d'humain.
+Les agents trouvent vite, et en profondeur. Le périmètre, la validation des résultats, le test d'intrusion, l'ordre des corrections et le signalement restent un travail d'humain.
 
 ## Un audit de sécurité informatique par agents part d'une liste de failles récurrentes
 
@@ -100,11 +98,11 @@ Elle ne tranche pas non plus. Les agents remontent des cas candidats et les sous
 
 L'ordre des corrections vous revient aussi. Les agents proposent des quick fixes, mais choisir ce qui se corrige avant la mise en prod et ce qui attend reste votre décision.
 
-Reste le signalement. Quand un agent trouve un secret exposé dans une application qui n'est pas la vôtre, la suite responsable est de prévenir son propriétaire. C'est ce que j'ai fait avec l'application du début.
+Reste le signalement. Quand un agent trouve un secret exposé dans une application qui n'est pas la vôtre, même avec l'accord de son propriétaire, la suite responsable est de le prévenir. C'est ce que j'ai fait avec l'application du début.
 
 Un audit reste ponctuel, alors que votre code continue de changer. La suite est le contrôle continu, avec [un agent de sécurité dans la CI/CD, qui travaille PR par PR](/fr/resources/articles/agent-securite-ci). Si vous préférez confier le chantier, The Vibe Company propose de [faire durcir son produit par une flotte d'agents](/fr/agents-ia-securite-produit). Et si un client ou un marché exige un prestataire qualifié par l'ANSSI, la liste officielle est publiée sur [MesServicesCyber](https://messervices.cyber.gouv.fr/prestataires-labellises).
 
-Revenez à l'application du début. Il n'a pas fallu d'accès au code, seulement une application publique et le temps d'une décompilation. Ce qu'un agent a trouvé pour moi avant une signature, un attaquant peut le chercher dans la vôtre.
+Revenez à l'application du début. Il n'a fallu aucun accès au code, seulement l'application et le temps d'une décompilation. J'avais l'accord du prospect. Un attaquant, lui, ne vous demandera pas votre accord avant de chercher la même chose dans votre application.
 
 Faites-le donc avant lui. Téléchargez votre propre APK ou ouvrez votre propre dépôt, donnez votre liste de failles à un agent, et lancez la première passe avant la mise en prod.
 
@@ -114,7 +112,7 @@ Un mot de méthode pour finir : le cas raconté ici est unique et anonymisé, et
 
 ### Combien de temps prend un audit de sécurité informatique mené avec des agents ?
 
-Dans le cas raconté ici, il a fallu environ une heure à des sous-agents pour identifier les problèmes dans l'application Android d'un prospect, et 30 secondes pour la décompiler. Cette durée ne vaut que pour ce cas. Un audit complet dépend du périmètre que vous fixez et du temps qu'un humain passe à valider chaque cas remonté.
+Dans le cas raconté ici, il a fallu environ une heure à des sous-agents pour identifier les problèmes dans l'application Android d'un prospect, avec son accord, et 30 secondes pour la décompiler. Cette durée ne vaut que pour ce cas. Un audit complet dépend du périmètre que vous fixez et du temps qu'un humain passe à valider chaque cas remonté.
 
 ### Un audit par agents remplace-t-il un test d'intrusion ?
 
