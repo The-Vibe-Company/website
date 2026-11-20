@@ -136,6 +136,21 @@
       "targetUrl": "/images/_optimized/resources/ai-native-agency/classic-vs-ai-native-agency.webp",
       "targetHash": "18e3f42961bbf940c0e5d292d405f759f73f98244c1dc013188ff2591c95202f"
     },
+    "content:/images/resources/audit-securite-informatique-agents-ia/cover-mascotte.webp": {
+      "sourceHash": "38a794411aa0be97ba75a9d36feb5cc275ecc01c7c388c32abdac3c9410b4c68",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "content:/images/resources/audit-securite-informatique-agents-ia/methode-480.png": {
+      "sourceHash": "5c3ebac2dfa91b10f0abd72914845613fbad09427b3d4f9ff6b65274aa6cb7b5",
+      "targetUrl": "/images/_optimized/resources/audit-securite-informatique-agents-ia/methode-480.webp",
+      "targetHash": "bdcc5ba5bbb0d7dff2ec58cf8a0dcbb10b10402de20deb1699263ad3d080f3e2"
+    },
+    "content:/images/resources/audit-securite-informatique-agents-ia/methode-en-480.png": {
+      "sourceHash": "686d4458efd6a3e15262fad152c77b25a69b91ceadcd4d0540c1731753367f0e",
+      "targetUrl": "/images/_optimized/resources/audit-securite-informatique-agents-ia/methode-en-480.webp",
+      "targetHash": "f93ca036a29b99af8e5651dffa68a0cabb58e68b1ca869a49b675051b5e8f749"
+    },
     "content:/images/resources/automatisation-ia-entreprise/cover-mascotte.webp": {
       "sourceHash": "f62cc1a50de1de3b1dcba623070c52f1ec52c95116f45d4db2cd43d2977147cb",
       "targetUrl": null,
@@ -678,6 +693,11 @@
     },
     "og:/images/resources/ai-music-with-an-artist/cover-mascotte.webp": {
       "sourceHash": "8254e9d216efea3dcbc7cb885483882b5f225370b4f23fe1cf2b4d849ad620ae",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/audit-securite-informatique-agents-ia/cover-mascotte.webp": {
+      "sourceHash": "38a794411aa0be97ba75a9d36feb5cc275ecc01c7c388c32abdac3c9410b4c68",
       "targetUrl": null,
       "targetHash": null
     },
