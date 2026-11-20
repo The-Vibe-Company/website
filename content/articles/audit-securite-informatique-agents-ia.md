@@ -1,5 +1,5 @@
 ---
-title: "Audit de sécurité informatique avant la mise en prod : ce que des agents trouvent en une heure, et ce qui reste humain"
+title: "Audit de sécurité informatique avant la mise en prod : une faille trouvée par des agents en une heure environ, et ce qui reste humain"
 seoTitle: "Audit de sécurité informatique : ce que trouvent les agents"
 seoDescription: "Audit de sécurité informatique avec des agents IA : une liste de failles connues, un sous-agent par cas, un vrai cas trouvé en une heure, et la part humaine."
 slug: audit-securite-informatique-agents-ia
@@ -23,13 +23,17 @@ J'ai lancé plein de sous-agents, et en une heure environ ils avaient identifié
 
 Trouver ça n'a rien d'un exploit. L'OWASP classe les identifiants en dur dans une application mobile parmi les failles [faciles à exploiter et faciles à détecter](https://owasp.org/www-project-mobile-top-10/2023-risks/m1-improper-credential-usage), avec un impact sévère.
 
-C'est à ça que ressemble un audit de sécurité avant une mise en prod aujourd'hui. Je le résume toujours de la même façon : « L'objectif de faire un audit de sécurité, c'est très simple en fait. Aujourd'hui, ce que tu fais, c'est que tu lances une armée d'agents. »
+C'est à ça que ressemble un audit de sécurité avant une mise en prod aujourd'hui. Je le résume simplement : « L'objectif de faire un audit de sécurité, c'est très simple en fait. Aujourd'hui, ce que tu fais, c'est que tu lances une armée d'agents. »
 
 Ils trouvent vite, et en profondeur. Le périmètre, la validation des résultats, le test d'intrusion, l'ordre des corrections et le signalement restent un travail d'humain.
 
 ## Un audit de sécurité informatique par agents part d'une liste de failles récurrentes
 
-Tout commence par une liste. Vous y mettez les problèmes de sécurité connus, ceux qui reviennent d'une application à l'autre.
+Tout commence par une liste.
+
+![Méthode d'audit de sécurité par agents : une liste de failles récurrentes, un agent qui cartographie l'application et remonte 10 à 30 cas, un sous-agent par cas, puis un audit ou des quick fixes, avec un humain sur le périmètre, la validation et les priorités. Détaillé ci-dessous.](/images/resources/audit-securite-informatique-agents-ia/methode-480.png "Les agents trouvent et confirment, l'humain cadre et décide.")
+
+Vous y mettez les problèmes de sécurité connus, ceux qui reviennent d'une application à l'autre.
 
 Pour une première passe, trois familles suffisent à remplir le haut de la liste, toutes documentées par l'OWASP : les routes d'API mal protégées, les frameworks et packages dont la version a une CVE connue, et les secrets écrits en dur.
 
@@ -52,8 +56,6 @@ Un cas candidat n'est pas encore une faille confirmée. Pour chacun, vous lancez
 
 Les checks statiques que des humains lançaient avant n'ont pas disparu. « Ça, c'est toujours le cas », et un outil fait pour ça s'en charge. Ce qui est nouveau, ce sont des agents capables d'analyser votre code en profondeur et d'y identifier les problèmes.
 
-![Méthode d'audit de sécurité par agents : une liste de failles récurrentes, un agent qui cartographie l'application et remonte 10 à 30 cas, un sous-agent par cas, puis un audit ou des quick fixes, avec un humain sur le périmètre, la validation et les priorités](/images/resources/audit-securite-informatique-agents-ia/methode-480.png "Les agents trouvent et confirment, l'humain cadre et décide.")
-
 ## Ce que les agents remontent le plus, c'est un utilisateur qui lit les données d'un autre
 
 Le cas le plus fréquent, « en général, c'est lié aux routes qui sont pas protégées sur l'API ou des routes qui sont mal protégées. » Un utilisateur connecté obtient les informations d'un autre, parce que personne ne vérifie que la ressource demandée lui appartient.
@@ -70,13 +72,13 @@ Tenir cette règle sur toute une API est un travail de relecture. C'est là qu'u
 
 Une fois les trous bouchés, il reste à empêcher qu'ils reviennent. L'OWASP recommande d'écrire des tests qui évaluent le mécanisme d'autorisation, et de ne pas déployer un changement qui les fait échouer.
 
-Ensuite, il faut regarder les versions des frameworks et des packages que vous utilisez, et vérifier si elles ont des CVE. L'OWASP en a fait une catégorie de son classement, [les défaillances de la chaîne d'approvisionnement logicielle](https://owasp.org/Top10/2025/A03_2025-Software_Supply_Chain_Failures/). Vous êtes probablement vulnérable, écrit-il, si vous ne suivez pas les versions de tous vos composants, dépendances transitives comprises, et si vous ne scannez pas régulièrement.
+Ensuite, il faut regarder les versions des frameworks et des packages que vous utilisez, et vérifier si elles ont des CVE. L'OWASP en a fait une catégorie de son classement, [les défaillances de la chaîne d'approvisionnement logicielle](https://owasp.org/Top10/2025/A03_2025-Software_Supply_Chain_Failures/). Vous êtes probablement vulnérable, écrit-il, si vous ne suivez pas les versions de tous vos composants, dépendances transitives comprises, ou si vous ne scannez pas régulièrement.
 
 Sur un SaaS, les dépendances et les secrets à sortir du dépôt ont leur propre article, sur [la façon dont des agents durcissent un SaaS au-delà de la CI](/fr/resources/articles/agents-ia-durcir-saas). Pour la sécurité informatique d'une PME, la veille CVE est décrite dans celui qui explique [comment durcir son SI avec une flotte d'agents](/fr/resources/articles/ia-et-cybersecurite-durcir-si).
 
 ## Le pentest par agent existe, et il lui faut un cadre écrit
 
-Vous pouvez aller un cran plus loin que la lecture du code, avec ce que j'appelle le « white hacking ». Vous dites à un modèle que vous faites un audit, vous lui demandez d'essayer de pénétrer votre application, et vous le lancez dessus, en local.
+Vous pouvez aller un cran plus loin que la lecture du code, avec le « white hacking ». Vous dites à un modèle que vous faites un audit, vous lui demandez d'essayer de pénétrer votre application, et vous le lancez dessus, en local.
 
 Cette étape est plus difficile que les précédentes : « de plus en plus, les grands modèles, OpenAI, Anthropic, etc., mettent en place des règles pour éviter que ça se passe, parce que c'est un gros problème. »
 

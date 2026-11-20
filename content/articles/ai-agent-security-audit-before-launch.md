@@ -1,5 +1,5 @@
 ---
-title: "Pre-launch security audit with AI agents: what they find in an hour, and what still needs a human"
+title: "Pre-launch security audit with AI agents: a flaw found in about an hour, and what still needs a human"
 seoTitle: "Pre-launch security audit with AI agents: what they find"
 seoDescription: "A pre-launch security audit with AI agents: a list of known flaws, one sub-agent per candidate, a real case found in an hour, and the part a human still owns."
 slug: ai-agent-security-audit-before-launch
@@ -23,13 +23,17 @@ I launched a lot of sub-agents, and in about an hour they had identified the pro
 
 Finding this was no feat. OWASP rates hardcoded credentials in a mobile app as [easy to exploit and easy to detect](https://owasp.org/www-project-mobile-top-10/2023-risks/m1-improper-credential-usage), with a severe impact.
 
-This is what a security audit before a launch looks like today. I always put it the same way: "The goal of a security audit is very simple, really. Today, what you do is launch an army of agents."
+This is what a security audit before a launch looks like today. I put it simply: "The goal of a security audit is very simple, really. Today, what you do is launch an army of agents."
 
 They find fast, and they find deep. The scope, the validation of findings, the penetration test, the order of the fixes and the disclosure are still a human's job.
 
 ## A security audit run by AI agents starts from a list of recurring flaws
 
-It all starts with a list. You fill it with known security problems, the ones that keep coming back from app to app.
+It all starts with a list.
+
+![Security audit method with AI agents: a list of recurring flaws, one agent maps the app and surfaces 10 to 30 candidates, one sub-agent per candidate, then an audit or quick fixes, with a human on scope, validation and priorities. Detailed below.](/images/resources/audit-securite-informatique-agents-ia/methode-en-480.png "Agents find and confirm, a human scopes and decides.")
+
+You fill it with known security problems, the ones that keep coming back from app to app.
 
 For a first pass, three families are enough to fill the top of the list, all documented by OWASP: badly protected API routes, frameworks and packages whose version has a known CVE, and hardcoded secrets.
 
@@ -52,8 +56,6 @@ At the end, you choose: turn the result into an audit, or ask for quick fixes, w
 
 The static checks humans used to run have not gone away. That is still the case, and a tool built for it does the job. What's new is that you now have agents that can go and analyze your code in depth and identify the problems.
 
-![Security audit method with AI agents: a list of recurring flaws, one agent maps the app and surfaces 10 to 30 candidates, one sub-agent per candidate, then an audit or quick fixes, with a human on scope, validation and priorities](/images/resources/audit-securite-informatique-agents-ia/methode-en-480.png "Agents find and confirm, a human scopes and decides.")
-
 ## What agents surface most is a user reading someone else's data
 
 The most frequent case is an API route that is not protected, or badly protected. A logged-in user gets another user's information, because nobody checks that the requested resource belongs to them.
@@ -70,13 +72,13 @@ Holding that rule across a whole API is review work. That is where an agent is g
 
 Once the holes are closed, you still have to keep them from coming back. OWASP recommends writing tests that evaluate the authorization mechanism, and its instruction is short: "Do not deploy changes that make the tests fail."
 
-Next, you have to look at the versions of the frameworks and packages you use, and check whether they have CVEs. OWASP made it a category of its ranking, [software supply chain failures](https://owasp.org/Top10/2025/A03_2025-Software_Supply_Chain_Failures/). You are probably vulnerable, it says, if you do not track the versions of all your components, transitive dependencies included, and if you do not scan regularly.
+Next, you have to look at the versions of the frameworks and packages you use, and check whether they have CVEs. OWASP made it a category of its ranking, [software supply chain failures](https://owasp.org/Top10/2025/A03_2025-Software_Supply_Chain_Failures/). You are probably vulnerable, it says, if you do not track the versions of all your components, transitive dependencies included, or if you do not scan regularly.
 
 For a SaaS, dependencies and getting secrets out of the repository have their own article, on [how AI security agents harden a SaaS beyond CI](/en/resources/articles/ai-security-agents-harden-saas). For a small or mid-sized company, CVE monitoring is described in the piece on [hardening your IT with a fleet of agents](/en/resources/articles/ai-cybersecurity-harden-it-agents).
 
 ## Agent pentesting exists, and it needs written permission
 
-You can go a step further than reading code, with what I call "white hacking". You tell a model you are running an audit, you ask it to try to break into your application, and you run it against that application, locally.
+You can go a step further than reading code, with "white hacking". You tell a model you are running an audit, you ask it to try to break into your application, and you run it against that application, locally.
 
 This step is harder than the previous ones: more and more, the big models, OpenAI, Anthropic and others, are putting rules in place to keep this from happening, because it is a big problem.
 
