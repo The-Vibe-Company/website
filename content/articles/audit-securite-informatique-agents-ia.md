@@ -1,5 +1,5 @@
 ---
-title: "Audit de sécurité informatique avant la mise en prod : une faille trouvée par des agents en une heure environ, et ce qui reste humain"
+title: "Audit de sécurité avant la mise en prod : ce que trouvent les agents"
 seoTitle: "Audit de sécurité informatique : ce que trouvent les agents"
 seoDescription: "Audit de sécurité informatique avec des agents IA : une liste de failles connues, un sous-agent par cas, un vrai cas trouvé en une heure, et la part humaine."
 slug: audit-securite-informatique-agents-ia

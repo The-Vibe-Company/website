@@ -1,6 +1,6 @@
 ---
-title: "Pre-launch security audit with AI agents: a flaw found in about an hour, and what still needs a human"
-seoTitle: "Pre-launch security audit with AI agents: what they find"
+title: "Pre-launch security audit: what AI agents find"
+seoTitle: "Pre-launch security audit: what AI agents find"
 seoDescription: "A pre-launch security audit with AI agents: a list of known flaws, one sub-agent per candidate, a real case found in an hour, and the part a human still owns."
 slug: ai-agent-security-audit-before-launch
 translationKey: ai-agent-security-audit-before-launch
