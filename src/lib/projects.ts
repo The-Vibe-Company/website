@@ -285,9 +285,13 @@ const PROJECTS_RAW: RawProject[] = [
     tag: { en: "Local dashboard", fr: "Dashboard local" },
     date: { en: "Jul 2026", fr: "juil. 2026" },
     status: { en: "Open source", fr: "Open source" },
+    seoTitle: {
+      en: "VibeDeck: local news monitoring dashboard | The Vibe Company",
+      fr: "VibeDeck : dashboard de veille local | The Vibe Company",
+    },
     metaDescription: {
-      en: "VibeDeck: a dashboard of sites, feeds and media panels. Everything stays on your machine, no account, no tracking.",
-      fr: "VibeDeck : dashboard de sites, flux et médias en panneaux. Tout reste sur votre machine, sans compte ni tracking.",
+      en: "VibeDeck is a free, open source dashboard for macOS and Windows: sites, feeds and media in panels. Everything stays local, no account, no tracking.",
+      fr: "VibeDeck, dashboard de veille gratuit et open source pour macOS et Windows : sites, flux et médias en panneaux. Tout reste local, sans compte ni tracking.",
     },
     description: {
       en: "VibeDeck gathers your favorite sites, feeds and media into a dashboard of panels you compose freely. Everything stays on your machine: no account, no server, no tracking.",

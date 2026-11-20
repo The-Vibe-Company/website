@@ -18,6 +18,26 @@ describe("project SEO overrides", () => {
     );
   });
 
+  test("VibeDeck carries its own search title and snippet in both languages", () => {
+    const en = getProject("vibedeck", "en");
+    const fr = getProject("vibedeck", "fr");
+    expect(en?.seoTitle).toBe("VibeDeck: local news monitoring dashboard | The Vibe Company");
+    expect(en?.metaDescription).toBe(
+      "VibeDeck is a free, open source dashboard for macOS and Windows: sites, feeds and media in panels. Everything stays local, no account, no tracking.",
+    );
+    expect(fr?.seoTitle).toBe("VibeDeck : dashboard de veille local | The Vibe Company");
+    expect(fr?.metaDescription).toBe(
+      "VibeDeck, dashboard de veille gratuit et open source pour macOS et Windows : sites, flux et médias en panneaux. Tout reste local, sans compte ni tracking.",
+    );
+    for (const project of [en!, fr!]) {
+      expect(project.seoTitle!.startsWith("VibeDeck")).toBe(true);
+      expect(project.seoTitle!.length).toBeLessThanOrEqual(60);
+      expect(project.metaDescription.length).toBeGreaterThanOrEqual(140);
+      expect(project.metaDescription.length).toBeLessThanOrEqual(155);
+      expect(project.seoTitle!.includes("\u2014") || project.metaDescription.includes("\u2014")).toBe(false);
+    }
+  });
+
   test("projects with an SEO title keep title and snippet within search limits", () => {
     for (const locale of LOCALES) {
       for (const slug of PROJECT_SLUGS) {
