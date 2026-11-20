@@ -31,7 +31,20 @@ Ils trouvent vite, et en profondeur. Le périmètre, la validation des résultat
 
 Tout commence par une liste. Vous y mettez les problèmes de sécurité connus, ceux qui reviennent d'une application à l'autre.
 
+Pour une première passe, trois familles suffisent à remplir le haut de la liste, toutes documentées par l'OWASP : les routes d'API mal protégées, les frameworks et packages dont la version a une CVE connue, et les secrets écrits en dur.
+
 Vous donnez cette liste à un agent et vous lui demandez d'analyser votre application, le back, les microservices et le reste, pour y identifier ces problèmes. Il cartographie, puis il remonte des cas candidats. « Ça va t'identifier 10, 20, 30 cas ».
+
+Pour fixer les idées, voici un exemple de consigne pour cette première passe, à adapter à votre dépôt :
+
+```text
+Analyse ce dépôt (back et microservices) face à cette liste :
+1. routes d'API sans contrôle d'accès, ou sans vérification que la ressource appartient à l'utilisateur connecté ;
+2. frameworks et packages dont la version a une CVE connue ;
+3. secrets écrits en dur dans le code ou la configuration.
+Pour chaque cas candidat, donne le fichier, la route ou le package, et la raison du soupçon.
+Ne modifie rien et ne lance aucune requête vers un système en production.
+```
 
 Un cas candidat n'est pas encore une faille confirmée. Pour chacun, vous lancez donc un sous-agent, dont le travail est de creuser le code autour de ce cas pour confirmer le problème.
 

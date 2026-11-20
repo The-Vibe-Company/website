@@ -31,7 +31,20 @@ They find fast, and they find deep. The scope, the validation of findings, the p
 
 It all starts with a list. You fill it with known security problems, the ones that keep coming back from app to app.
 
+For a first pass, three families are enough to fill the top of the list, all documented by OWASP: badly protected API routes, frameworks and packages whose version has a known CVE, and hardcoded secrets.
+
 You hand that list to an agent and ask it to analyze your application, the back end, the microservices and the rest, and identify those problems. It maps the app, then it surfaces candidates: 10, 20, 30 of them.
+
+To make it concrete, here is an example instruction for that first pass, to adapt to your repository:
+
+```text
+Analyze this repository (back end and microservices) against this list:
+1. API routes with no access control, or no check that the resource belongs to the logged-in user;
+2. frameworks and packages whose version has a known CVE;
+3. secrets hardcoded in the code or configuration.
+For each candidate, give the file, the route or package, and why you suspect it.
+Change nothing and send no request to any production system.
+```
 
 A candidate is not a confirmed flaw yet. So for each one you launch a sub-agent, whose job is to dig into the code around it and confirm the problem.
 
