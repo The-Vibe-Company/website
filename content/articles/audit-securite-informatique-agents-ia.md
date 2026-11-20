@@ -17,7 +17,7 @@ ogImage: /images/resources/audit-securite-informatique-agents-ia/cover-mascotte.
 
 Un audit de sécurité informatique peut commencer avant même le premier contrat. Chez un prospect, avant toute signature et avec son accord, j'ai demandé à un agent de télécharger son application Android et de la décompiler. Un audit avant une mise en prod, aujourd'hui, c'est ça : « tu lances une armée d'agents ».
 
-Il a suffi de 30 secondes. Je n'avais pas encore accès à son code, et des secrets apparaissaient déjà en clair dans les variables d'environnement, par exemple un mot de passe de base de données.
+Il a suffi de 30 secondes pour la décompiler. Je n'avais pas encore accès à son code, et des secrets apparaissaient déjà en clair dans les variables d'environnement, par exemple un mot de passe de base de données.
 
 J'ai lancé plein de sous-agents, et en une heure environ ils avaient identifié les problèmes. J'ai pu signaler au prospect une faille majeure dans son application.
 
@@ -102,7 +102,7 @@ Reste le signalement. Quand un agent trouve un secret exposé dans une applicati
 
 Un audit reste ponctuel, alors que votre code continue de changer. La suite est le contrôle continu, avec [un agent de sécurité dans la CI/CD, qui travaille PR par PR](/fr/resources/articles/agent-securite-ci). Si vous préférez confier le chantier, The Vibe Company propose de [faire durcir son produit par une flotte d'agents](/fr/agents-ia-securite-produit). Et si un client ou un marché exige un prestataire qualifié par l'ANSSI, la liste officielle est publiée sur [MesServicesCyber](https://messervices.cyber.gouv.fr/prestataires-labellises).
 
-Revenez à l'application du début. Il n'a fallu aucun accès au code, seulement l'application et le temps d'une décompilation. J'avais l'accord du prospect. Un attaquant, lui, ne vous demandera pas votre accord avant de chercher la même chose dans votre application.
+Revenez à l'application du début. Il n'a fallu aucun accès au code, seulement l'application et le temps d'une décompilation. Un attaquant, lui, ne vous demandera pas votre accord avant de chercher la même chose dans votre application.
 
 Faites-le donc avant lui. Téléchargez votre propre APK ou ouvrez votre propre dépôt, donnez votre liste de failles à un agent, et lancez la première passe avant la mise en prod.
 

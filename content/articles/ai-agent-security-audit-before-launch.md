@@ -17,7 +17,7 @@ ogImage: /images/resources/audit-securite-informatique-agents-ia/cover-mascotte.
 
 A pre-launch security audit can start before the first contract. With a prospect, before anything was signed and with their permission, I had an agent download their Android app and decompile it. That is what a pre-launch audit looks like today: "you launch an army of agents".
 
-It took 30 seconds. I didn't have access to their code yet, and secrets were already sitting in clear text in the environment variables, a database password for example.
+Decompiling it took 30 seconds. I didn't have access to their code yet, and secrets were already sitting in clear text in the environment variables, a database password for example.
 
 I launched a lot of sub-agents, and in about an hour they had identified the problems. I was able to report a major flaw in their app to the prospect.
 
@@ -102,7 +102,7 @@ That leaves disclosure. When an agent finds an exposed secret in an application 
 
 An audit is a point in time, while your code keeps changing. The next step is continuous control, with [a security agent in CI/CD that works PR by PR](/en/resources/articles/ci-security-agent). If you would rather hand over the job, The Vibe Company offers to [harden your product with a fleet of AI agents](/en/ai-agents-product-hardening). And if a client or a tender requires a provider qualified by ANSSI, the official list is published on [MesServicesCyber](https://messervices.cyber.gouv.fr/prestataires-labellises), ANSSI's own platform.
 
-Go back to the app from the opening. It took no access to the code, only the app and the time to decompile it. I had the prospect's permission. An attacker will not ask for your permission before looking for the same thing in your app.
+Go back to the app from the opening. It took no access to the code, only the app and the time to decompile it. An attacker will not ask for your permission before looking for the same thing in your app.
 
 So do it before they do. Download your own APK or open your own repository, hand your list of flaws to an agent, and run the first pass before launch.
 
