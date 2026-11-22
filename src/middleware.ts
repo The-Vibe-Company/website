@@ -85,10 +85,17 @@ export function middleware(request: NextRequest) {
       return response;
     }
 
+    // The bare homepage: a permanent redirect too, so crawlers consolidate the
+    // root onto the language home. The target still depends on the cookie and
+    // the country, so nobody may store it (same headers as below). Accept
+    // stays in Vary: the root also negotiates Markdown (see above).
     if (pathname === "/") {
       const url = request.nextUrl.clone();
       url.pathname = `/${locale}`;
-      return NextResponse.redirect(url);
+      const response = NextResponse.redirect(url, 308);
+      response.headers.set("Cache-Control", "private, no-store");
+      response.headers.set("Vary", "Accept, Cookie");
+      return response;
     }
 
     // Any other page: a permanent redirect, so crawlers carry the bare URL

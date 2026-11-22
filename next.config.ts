@@ -8,6 +8,7 @@ import {
   bareArticleRedirects,
   readArticleLanguages,
 } from "./src/lib/bare-article-redirects";
+import { mergedArticleRedirects } from "./src/lib/merged-article-redirects";
 
 const articleLanguages = readArticleLanguages();
 
@@ -146,6 +147,9 @@ const nextConfig: NextConfig = {
       // A prefix-less article URL goes straight to the language the article
       // is published in when it exists in one language only (THE-2364).
       ...bareArticleRedirects(articleLanguages),
+      // Articles merged into another one: every form of the old URL lands on
+      // the surviving article in one 308.
+      ...mergedArticleRedirects(),
     ];
   },
   async rewrites() {

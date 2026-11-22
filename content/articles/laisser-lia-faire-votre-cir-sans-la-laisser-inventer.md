@@ -1,11 +1,12 @@
 ---
-title: "Playbook : préparer votre dossier CIR avec Claude Code en 10 étapes"
-seoTitle: "Dossier CIR avec Claude Code en 10 étapes | The Vibe Company"
+title: "Comment on a écrit notre CIR avec l'IA : 150 000 euros et le playbook en 10 étapes"
+seoTitle: "CIR avec l'IA : 150 000 € et le playbook | The Vibe Company"
 slug: laisser-lia-faire-votre-cir-sans-la-laisser-inventer
 language: fr
-summary: "Le mode opératoire pour transformer Linear, GitHub, Notion, Drive et vos exports en dossier CIR/CII vérifiable : repo atelier, matrice de preuves, agents spécialisés, LaTeX et validation humaine."
-seoDescription: "Transformer Linear, GitHub, Notion, Drive et vos exports en dossier CIR/CII vérifiable : repo atelier, matrice de preuves, agents et validation humaine."
+summary: "Comment on a transformé Linear, GitHub, Notion, Drive et nos exports en dossier CIR/CII de 100 pages pour récupérer environ 150 000 euros, puis le playbook en 10 étapes pour refaire la même chose : repo atelier, matrice de preuves, agents spécialisés, LaTeX et validation humaine."
+seoDescription: "Notre dossier CIR/CII de 100 pages (environ 150 000 euros) compilé avec l'IA depuis Linear, GitHub et Notion, et le playbook en 10 étapes pour le refaire."
 publishedAt: 2026-04-23
+dateModified: 2026-11-22
 complexity: advanced
 topics: AI Operations, Research Tax Credit, Agent Workflows
 coverImage: /images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-mascotte.webp
@@ -13,23 +14,75 @@ coverAlt: "Un playbook opérationnel relie sources, preuves, validations et doss
 ogImage: /images/resources/laisser-lia-faire-votre-cir-sans-la-laisser-inventer/cover-mascotte.webp
 ---
 
-Cet article n'est pas [l'histoire de notre dossier CIR](/fr/resources/articles/comment-on-a-ecrit-notre-cir-pour-recuperer-150-000-euros-grace-a-lia).
+Le CIR, c'est un sujet assez bête au fond : le travail a déjà été fait, mais il faut réussir à le prouver.
 
-C'est le playbook.
+Dans notre cas, il y avait environ 150 000 euros à récupérer. Donc on ne pouvait pas se contenter d'un joli document écrit à la va-vite avec ChatGPT. À ce niveau, un dossier faible ne coûte pas seulement du temps. Il peut coûter toute la créance.
 
 Le CIR n'est pas un problème de rédaction. C'est un problème de preuves.
 
-On s'en est rendu compte en construisant notre dossier CIR/CII avec des agents. Au départ, le sujet ressemblait à un exercice administratif classique : relire les travaux de l'année, écrire un dossier technique, compiler quelques annexes, espérer que tout tienne debout.
+Cet article raconte d'abord comment on a construit notre dossier CIR/CII avec des agents, puis donne le playbook complet, en 10 étapes, pour refaire la même chose chez vous.
 
-En réalité, presque toutes les preuves existaient déjà. Elles étaient juste éparpillées dans Linear, GitHub, Notion, Google Drive, des exports comptables, des comptes rendus et la mémoire des personnes qui avaient vraiment fait le travail.
+![Une chaîne de preuve transforme les outils de travail en dossier CIR/CII](/images/resources/le-cir-ne-secrit-pas-il-se-compile/evidence-pipeline.svg "Le PDF arrive à la fin. Le vrai système est la chaîne de preuve.")
 
-Le déclic a été là : il ne fallait pas demander à l'IA "d'écrire notre CIR". Il fallait lui demander de reconstruire la mémoire de l'entreprise, puis de rédiger uniquement à partir de cette mémoire.
+## Notre histoire : 150 000 euros, 100 pages, une chaîne de preuve
 
-On a donc construit un repo atelier. Dedans : un `CLAUDE.md`, des agents spécialisés, des accès Linear et GitHub, des documents de contexte, une matrice de preuves, des fichiers de travail, puis une sortie LaTeX structurée lot par lot.
+### Le point de départ
 
-Le résultat : un dossier de plus de 100 pages, beaucoup plus poussé que ce qu'on aurait pu produire à la main dans le même temps, parce que l'agent ne partait pas d'une page blanche. Il partait des traces réelles de l'entreprise.
+Il fallait un dossier qui tienne debout : les bons lots, les bonnes dates, les bonnes personnes, les bons tickets, les bons commits, et une explication claire de ce qui relevait du CIR ou du CII.
 
-Ce playbook explique comment reproduire cette méthode.
+On partait avec un avantage : Quivr (YC W24) était un produit RAG open source utilisé par de vraies équipes. La matière existait déjà. Il y avait des mois de tickets Linear, des PRs GitHub, des specs Notion, des exports, des documents Drive, des traces clients, des décisions d'architecture.
+
+Au départ, le sujet ressemblait pourtant à un exercice administratif classique : relire les travaux de l'année, écrire un dossier technique, compiler quelques annexes, espérer que tout tienne debout.
+
+En réalité, presque toutes les preuves existaient déjà. Elles étaient juste éparpillées dans Linear, GitHub, Notion, Google Drive, des exports comptables, des comptes rendus et la mémoire des personnes qui avaient vraiment fait le travail. Et rien de tout ça ne ressemble spontanément à un dossier fiscal.
+
+Le déclic a été là : il ne fallait pas demander à l'IA "d'écrire notre CIR". Il fallait brancher des agents aux traces réelles de l'entreprise pour reconstruire sa mémoire, puis rédiger uniquement à partir de cette mémoire.
+
+### Ce qu'on a branché
+
+La vraie valeur du système venait des accès. Pas d'un prompt magique.
+
+| Source | Ce que ça apportait |
+| --- | --- |
+| Linear (API ou MCP) | les projets, les tickets, les statuts, les dates, les personnes |
+| GitHub | les PRs, les commits, les fichiers modifiés, la réalité du code |
+| Notion | les specs, les décisions, les notes de cadrage, les arbitrages |
+| Google Drive et Sheets | les exports, les documents, les temps, les fichiers partagés |
+| Traces produit et clients | les contraintes réelles, les intégrations, les usages |
+
+Chaque outil disait un truc différent. Linear disait ce qu'on avait essayé de construire. GitHub disait ce qui avait vraiment changé. Notion expliquait pourquoi certaines décisions avaient été prises. Les exports donnaient les périodes et les coûts. Drive ramenait les pièces qu'on oublie presque toujours quand on écrit un dossier à la main.
+
+Et quand plusieurs sources racontent la même chose, là ça devient intéressant. Ce n'est plus une affirmation. C'est une preuve qui se recoupe.
+
+On a mis tout ça dans un repo atelier, pas dans un Google Doc géant ni dans une conversation qui finit par partir dans tous les sens. Dedans : un `CLAUDE.md`, des agents spécialisés, des accès Linear et GitHub, des documents de contexte, une matrice de preuves, des fichiers de travail, puis une sortie LaTeX structurée lot par lot.
+
+### Un exemple concret : l'autosend
+
+Un des lots portait sur l'autosend : comment savoir, avant même de générer une réponse, si un ticket support peut être traité automatiquement sans prendre un risque absurde.
+
+Dit comme ça, ça ressemble à une feature produit.
+
+Mais quand on reconstruit la preuve, on voit autre chose. Linear montrait le besoin opérationnel : automatiser seulement les zones stables. Notion gardait les hypothèses et les essais : embeddings, transformers, modèles decoder-only, puis feature engineering. GitHub montrait les changements réels. Et les résultats montraient pourquoi on avait fini par converger vers une approche plus classique, de type XGBoost, avec un objectif de précision plus adapté au support.
+
+Dans le dossier, ce lot ne devient pas "on a fait de l'IA pour le support". Il devient : comment prédire ex ante la fiabilité d'une réponse LLM dans des contextes clients hétérogènes, avec assez de confiance pour automatiser seulement certains segments.
+
+C'est ça, la différence entre raconter une innovation et documenter une incertitude technique.
+
+### Là où les agents ont été forts
+
+Dans notre extraction, les agents ont passé en revue des dizaines de projets Linear. On avait une base d'environ 70 projets analysés, des tickets CII déjà classés, d'autres tickets à requalifier, et toute la matière GitHub et Notion à remettre en face.
+
+C'est exactement le genre de boulot où un humain se fatigue vite. L'agent, lui, peut faire les passes larges : retrouver les projets liés à la R&D, relier un ticket Linear à une PR GitHub, extraire les décisions importantes d'une spec, classer les lots par thème, repérer les phrases non sourcées, et dire "là, il manque une preuve".
+
+Par contre, l'agent ne décide pas à notre place. La qualification finale reste humaine. Est-ce vraiment du CIR ? Plutôt du CII ? Est-ce que le raisonnement est défendable ? Est-ce qu'on peut exposer ce détail ? Est-ce que le temps valorisé est cohérent ? C'est là qu'on doit garder la main.
+
+### Le résultat
+
+Un dossier de plus de 100 pages, beaucoup plus poussé que ce qu'on aurait pu produire à la main dans le même temps. Pas parce que l'IA a rempli du vide, mais parce qu'elle ne partait pas d'une page blanche : elle partait des traces réelles de l'entreprise, et elle a aidé à remettre en ordre une année de travail.
+
+Le point important, c'est l'ordre. Si on rédige d'abord, on fait du storytelling. Si on extrait d'abord, on construit un dossier.
+
+La suite de cet article est le playbook qui explique comment reproduire cette méthode.
 
 ## La version courte
 
@@ -60,7 +113,7 @@ Le mauvais prompt, c'est :
 Écris-moi mon dossier CIR.
 ```
 
-Ça produit souvent un texte fluide, mais dangereux. L'agent va combler les trous. Il va lisser les incertitudes. Il va transformer des hypothèses en faits. Et dans un dossier CIR/CII, c'est exactement ce qu'on ne veut pas.
+Ça produit souvent un texte fluide, mais dangereux. L'agent va combler les trous. Il va lisser les incertitudes. Il va transformer des hypothèses en faits. Et dans un dossier CIR/CII, c'est exactement ce qu'on ne veut pas : si quelqu'un lit une phrase dans six mois et demande "où est la preuve ?", il faut pouvoir répondre autre chose que "l'IA l'a formulé comme ça".
 
 Le bon système commence plutôt par cette règle :
 
@@ -119,6 +172,8 @@ cir-cii/
   .claude/skills/ ou .agents/skills/
 ```
 
+Notre propre repo était plus minimaliste (`context/`, `dossier/`, `latex_output/`, `TODO.md`, `AGENTS.md`) : `context/` gardait les éléments de départ, `dossier/` contenait les explorations (Linear, GitHub, état de l'art, lots candidats, valorisation), `latex_output/` ne recevait que les sections prêtes pour le document final, et `TODO.md` listait les trous. La structure ci-dessus en est la version généralisée.
+
 Le repo sert à rendre le travail observable. Chaque exploration laisse une trace. Chaque décision est versionnée. Chaque sortie intermédiaire peut être relue, corrigée, enrichie.
 
 Dans notre cas, le `CLAUDE.md` a joué le rôle de contrat permanent avec l'agent. Il ne contenait pas seulement "fais un CIR". Il contenait les règles du projet, les dossiers à utiliser, les skills disponibles, la séparation CIR/CII, le style de sortie et la consigne de travailler section par section pour ne pas exploser le contexte.
@@ -158,13 +213,9 @@ Le point important : ce fichier doit apprendre à l'agent la méthode, pas seule
 
 ## Étape 2 : brancher les sources de preuve
 
-Le dossier a marché parce qu'on n'a pas nourri l'agent uniquement avec des documents finis. On l'a branché aux systèmes où le travail avait eu lieu.
+Le dossier a marché parce qu'on n'a pas nourri l'agent uniquement avec des documents finis. On l'a branché aux systèmes où le travail avait eu lieu (le tableau des sources plus haut).
 
-Linear était central. Pas parce que Linear serait magique, mais parce qu'il donne une chronologie produit : projets, tickets, owners, statuts, périodes, commentaires, priorités, abandons, relances. C'est souvent là qu'on voit la différence entre une feature banale et un vrai chantier de R&D ou d'innovation.
-
-GitHub était l'autre pilier. Les commits et les PRs sont des preuves contemporaines. Ils disent quand le travail a été fait, par qui, dans quelle partie du système, avec quels changements.
-
-Notion et Google Drive ont servi à récupérer les specs, les décisions, les notes de contexte, les anciens dossiers et les documents de cadrage. Les exports comptables et financiers ont servi à relier les travaux aux personnes, aux périodes et aux coûts.
+Linear est central parce qu'il donne une chronologie produit : projets, tickets, owners, statuts, périodes, commentaires, priorités, abandons, relances. C'est souvent là qu'on voit la différence entre une feature banale et un vrai chantier de R&D ou d'innovation. GitHub est l'autre pilier : les commits et les PRs sont des preuves contemporaines, qui disent quand le travail a été fait, par qui, dans quelle partie du système. Notion, Drive et les exports comptables relient ensuite les travaux aux décisions, aux personnes, aux périodes et aux coûts.
 
 On peut faire ça avec des [MCP](/en/resources/articles/mcp-servers-dont-just-expose-tools-they-encode-how-work-gets-done), avec les APIs natives ou avec des exports propres. Le MCP rend juste l'exploration plus fluide, parce que l'agent peut interroger les outils au lieu d'attendre qu'on lui colle des fichiers dans un chat.
 
@@ -325,6 +376,8 @@ Une ligne fictive peut ressembler à ça :
 | Lot 01 - Automatisation d'un workflow métier | À valider CIR/CII | Réduire un traitement manuel complexe | Les règles changent selon le client et les données disponibles sont hétérogènes | Règles déterministes, modèle LLM seul, orchestration règles + LLM | Le modèle seul produit des sorties instables ; les règles seules ne couvrent pas assez de cas | Workflow hybride avec garde-fous et validation humaine | Linear PROJ-123, PR #456, spec Drive "workflow v2", métriques avril | Temps exact par personne, validation fiscaliste | Produit + backend | T2 2025 | moyen | Est-ce un verrou R&D, une innovation produit ou une industrialisation ? |
 ```
 
+Cette grille est pénible à remplir. Mais elle nettoie tout. Elle empêche de prendre une feature longue à développer et de l'appeler "R&D" juste parce qu'elle a coûté cher. Elle oblige aussi à parler des échecs, et dans un dossier CIR, les échecs sont souvent de très bonnes preuves, parce qu'ils montrent que le problème n'était pas trivial.
+
 Cette table évite deux erreurs.
 
 Première erreur : rédiger des sections faibles parce qu'elles sonnent bien. Deuxième erreur : jeter des sujets intéressants parce que les preuves sont dispersées.
@@ -354,6 +407,8 @@ Pour le CII, on cherche plutôt :
 - une intégration nouvelle ;
 - une ergonomie ou un usage inédit ;
 - des preuves que ce n'est pas seulement du développement standard.
+
+Sur Quivr, les deux existaient. Certains sujets touchaient à l'évaluation automatique des réponses, à la prédiction de confiance, à l'orchestration de workflows complexes ou à la fiabilité d'un système RAG en contexte réel. D'autres étaient plus proches du produit : self-serve, connecteurs, interface admin, routing par intention, intégrations clients. Tout mettre dans le même sac aurait affaibli le dossier.
 
 Dans notre repo, on a explicitement relancé l'agent après la partie CIR pour chercher la partie CII dans Linear et Notion. C'était important, parce qu'un agent a tendance à recycler les mêmes lots si on ne lui demande pas de changer de grille de lecture.
 
@@ -451,7 +506,7 @@ Sépare faits, citations, hypothèses et questions.
 
 C'est souvent là que le dossier devient bon. Les échecs, les arbitrages et les raisons profondes ne sont pas toujours dans les tickets. Pourtant, ce sont exactement ces éléments qui font passer un dossier de "liste de features" à "démarche de R&D".
 
-## Étape 10 : rédiger lot par lot
+## Étape 10 : rédiger lot par lot, puis compiler en LaTeX
 
 Il ne faut pas demander le dossier final d'un coup.
 
@@ -497,9 +552,7 @@ Utilise un style académique, clair et concis.
 
 La rédaction finale ne doit jamais ajouter de substance. Elle doit rendre lisible ce qui a déjà été prouvé.
 
-## Étape 11 : produire un dossier LaTeX propre
-
-On peut livrer en Word, Google Doc ou PDF. Mais pour un dossier long, LaTeX a un avantage : il force la structure.
+Pour l'assemblage, on peut livrer en Word, Google Doc ou PDF. Mais pour un dossier long, LaTeX a un avantage : il force la structure.
 
 Dans notre cas, le dossier final était découpé en sections :
 
@@ -615,6 +668,10 @@ alors que les preuves étaient déjà dans nos outils.
 
 Une fois qu'on a vu ça, on ne revient pas en arrière.
 
+Nos 150 000 euros ne dépendaient pas d'une belle formulation. Ils dépendaient de notre capacité à transformer une année de travail dispersé en preuve défendable. Ce n'est pas l'IA qui a inventé le dossier : le travail existait déjà, les preuves existaient déjà. Ce qu'on a construit, c'est la machine qui les rend lisibles.
+
+C'est moins spectaculaire qu'une démo où l'IA génère cent pages en une minute. Mais c'est beaucoup plus proche de là où les agents vont vraiment créer de la valeur : transformer le travail réel en livrables qu'on peut assumer.
+
 ## Le template complet à copier
 
 Pour démarrer, on peut donner ce prompt à l'agent :
@@ -663,6 +720,8 @@ Pour chaque lot validé :
 ```
 
 Ce n'est pas une checklist administrative. C'est un système de production documentaire.
+
+Si vous en êtes encore à vous demander à quels dispositifs votre projet peut prétendre, commencez par notre guide pour [financer un projet IA avec le CIR, le CII et France 2030](/fr/resources/articles/financer-projet-ia-cir-cii-france-2030).
 
 Et ce système ne sert pas qu'au CIR. Il sert partout où l'entreprise doit transformer sa mémoire en livrable sérieux : audit, due diligence, conformité, dossier BPI, réponse à appel d'offres, documentation technique, rapport client.
 

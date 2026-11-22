@@ -43,7 +43,7 @@ try {
   for (const path of ["/", "/fr", "/en", "/fr/resources/articles/je-mappelle-victor"]) {
     const html = await curl(path, ["Accept: text/html"]);
     const md = await curl(path, ["Accept: text/markdown"]);
-    check(html.status === (path === "/" ? 307 : 200), `${path} preserves HTML status`);
+    check(html.status === (path === "/" ? 308 : 200), `${path} preserves HTML status`);
     if (path !== "/") check(html.headers.get("content-type")?.includes("text/html") === true, `${path} HTML content type`);
     if (path !== "/") check(/<link[^>]+rel="ai-catalog"[^>]+href="\/.well-known\/ai-catalog.json"/.test(html.body), `${path} HTML advertises ARD catalog`);
     for (const response of [html, md]) {

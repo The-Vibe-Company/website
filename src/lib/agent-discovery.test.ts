@@ -120,9 +120,17 @@ describe("prefix-less page redirects", () => {
     expect(unstable_doesMiddlewareMatch({ config, url: "/_next/static/chunk.js" })).toBe(false);
   });
 
-  test("the bare homepage keeps its temporary language redirect", () => {
-    const response = bare("/", { country: "US" });
-    expect(response.status).toBe(307);
-    expect(response.headers.get("location")).toBe("https://www.thevibecompany.co/en");
+  test.each([
+    [{}, "/fr"],
+    [{ country: "FR" }, "/fr"],
+    [{ country: "US" }, "/en"],
+    [{ country: "FR", locale: "en" }, "/en"],
+    [{ country: "US", locale: "fr" }, "/fr"],
+  ] as const)("the bare homepage %o -> %s in one permanent, uncached hop", (init, target) => {
+    const response = bare("/", init);
+    expect(response.status).toBe(308);
+    expect(response.headers.get("location")).toBe(`https://www.thevibecompany.co${target}`);
+    expect(response.headers.get("cache-control")).toBe("private, no-store");
+    expect(response.headers.get("vary")).toBe("Accept, Cookie");
   });
 });
