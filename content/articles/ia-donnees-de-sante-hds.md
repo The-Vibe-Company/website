@@ -5,8 +5,9 @@ slug: ia-donnees-de-sante-hds
 language: fr
 translationKey: hds-health-data
 summary: "IA et données de santé en France : qui doit être certifié, les 6 activités HDS, le référentiel 2024, le RGPD et la CNIL. Ce qu'il faut vérifier avant la prod."
-seoDescription: "IA et données de santé : qui doit être certifié, ce qu'impose le référentiel HDS 2024, l'AIPD et les formalités CNIL. Le cadre avant la mise en prod."
+seoDescription: "IA et données de santé : qui doit être certifié HDS, le référentiel 2024, l'entrepôt de données (EDS), l'EHDS et les formalités CNIL avant la mise en prod."
 publishedAt: 2026-10-12
+dateModified: 2026-11-23
 complexity: intermediate
 topics: AI Agents, Health Data, Security
 coverImage: /images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp
@@ -24,13 +25,13 @@ On l'a vécu avec [Monka](/fr/case-studies/monka). Dans leur environnement HDS e
 
 > Cet article n'est pas un avis juridique. Pour votre cas précis, voyez votre DPO ou un juriste spécialisé.
 
-## HDS en deux phrases
+## Qu'est-ce que la certification HDS ?
 
 La certification HDS (hébergeur de données de santé) garantit qu'un hébergeur applique un niveau de sécurité adapté aux données de santé à caractère personnel. Elle est délivrée par un organisme certificateur indépendant accrédité, sur la base d'un référentiel publié par l'Agence du Numérique en Santé ([esante.gouv.fr](https://esante.gouv.fr/produits-services/hds)).
 
 L'obligation vient de l'article L.1111-8 du code de la santé publique : toute personne qui héberge des données de santé recueillies lors d'activités de prévention, de diagnostic, de soins ou de suivi médico-social, pour le compte d'un tiers ou du patient, doit être certifiée.
 
-## Qui doit être certifié HDS (et qui ne l'est pas forcément)
+## Qui doit être certifié HDS, et qui ne l'est pas forcément ?
 
 Tout tient dans « pour le compte de ». La certification vise celui qui héberge ou exploite les données pour quelqu'un d'autre.
 
@@ -64,7 +65,7 @@ Un point qu'on oublie souvent : la certification HDS s'appuie sur la norme ISO 2
 
 Concrètement, vérifiez que le certificat de votre hébergeur couvre les activités que vous lui confiez. Le mot « HDS » sur sa page d'accueil ne suffit pas. Un cloud certifié sur les activités 1 à 4 ne couvre pas l'administration de votre application si c'est vous qui la faites.
 
-## Ce qui a changé avec le référentiel 2024
+## Qu'est-ce qui a changé avec le référentiel HDS 2024 ?
 
 Le référentiel révisé a été publié au Journal officiel le 16 mai 2024 ([ANS](https://esante.gouv.fr/espace-presse/publication-au-journal-officiel-du-referentiel-de-certification-hds-souverainete-des-donnees-et-ameliorations-du-referentiel)) :
 
@@ -78,9 +79,9 @@ Le référentiel révisé a été publié au Journal officiel le 16 mai 2024 ([A
 
 Ces règles imposent la transparence. Elles ne protègent pas un hébergeur des lois extraterritoriales. Le niveau de risque acceptable, à vous de le fixer.
 
-Donc, en octobre 2026, un certificat HDS selon l'ancien référentiel ne devrait plus être valable. Demandez le certificat à jour, avec ses dates et ses activités.
+Depuis le 16 mai 2026, un certificat HDS délivré selon l'ancien référentiel ne devrait donc plus être valable. Demandez le certificat à jour, avec ses dates et ses activités.
 
-## Où l'IA complique les choses : modèles, API et logs
+## Où l'IA complique-t-elle l'HDS : modèles, API et logs ?
 
 Un projet IA crée des chemins de données qu'une application classique n'a pas. Ce sont eux qu'il faut cartographier :
 
@@ -90,7 +91,7 @@ Un projet IA crée des chemins de données qu'une application classique n'a pas.
 - **Les environnements de test.** Pas de vraies données patients dans un environnement de démo non certifié.
 - **Les droits de l'agent.** Un agent qui peut lire un dossier n'a pas forcément besoin de pouvoir le modifier. On en parle dans [« Le vrai risque des agents IA, c'est l'autorité »](/fr/resources/articles/agents-ia-formation-autorite).
 
-## RGPD et CNIL : les obligations ne s'arrêtent pas à l'hébergement
+## Quelles obligations RGPD et CNIL s'ajoutent à l'hébergement ?
 
 L'HDS couvre l'hébergement. Le RGPD couvre tout le traitement. Les données de santé sont des données sensibles, et la CNIL a publié des recommandations pour le développement des systèmes d'IA ([cnil.fr](https://www.cnil.fr/fr/ia-finalisation-recommandations-developpement-des-systemes-ia)) :
 
@@ -103,6 +104,41 @@ L'HDS couvre l'hébergement. Le RGPD couvre tout le traitement. Les données de 
 La CNIL rappelle aussi qu'un modèle entraîné sur des données personnelles peut lui-même rester soumis au RGPD. Vous comptez entraîner ou affiner un modèle sur des données patients ? Réglez ce point avant la première ligne de code.
 
 En mars 2026, la CNIL a publié une fiche dédiée à l'IA en santé ([cnil.fr](https://www.cnil.fr/fr/ia-et-sante-developper-et-evaluer-des-systemes-ia-conformes)). Elle assimile le développement d'un système d'IA destiné à la santé à une recherche, étude ou évaluation dans le domaine de la santé. Dans la majorité des cas, il faut donc une formalité préalable : une déclaration de conformité à une méthodologie de référence (MR-001, MR-003 ou MR-004), ou une demande d'autorisation si le projet sort de ce cadre. La fiche couvre la constitution des bases, le développement et l'évaluation. Le simple déploiement d'un outil déjà fourni n'y est pas traité.
+
+## Entraîner un modèle sur un entrepôt de données de santé : quelles règles ?
+
+Un entrepôt de données de santé (EDS) a son propre cadre CNIL, et son hébergement reste HDS. C'est souvent par là que commence un projet IA en santé : une base qui réunit des dossiers pour la recherche.
+
+- **Le référentiel EDS de la CNIL**, adopté en octobre 2021 ([cnil.fr](https://www.cnil.fr/fr/la-cnil-adopte-un-referentiel-sur-les-entrepots-de-donnees-de-sante)), permet de déclarer sa conformité au lieu de demander une autorisation préalable. Il ne couvre que les entrepôts fondés sur une mission d'intérêt public. Une entreprise privée qui constitue un entrepôt pour sa propre recherche, sur la base de l'intérêt légitime, n'en relève pas : elle demande une autorisation individuelle à la CNIL.
+- **L'hébergement reste HDS.** Le référentiel EDS exige que le sous-traitant qui héberge, stocke ou conserve les données soit un hébergeur certifié HDS ([CNIL, cartographie des EDS](https://cartoeds.beta.cnil.fr/a-propos)).
+- **Constituer l'entrepôt et l'utiliser sont deux formalités distinctes.** La déclaration couvre la constitution de l'entrepôt. Entraîner ou évaluer un modèle sur ses données passe par une formalité à part : méthodologie de référence ou autorisation recherche.
+
+Pour un projet IA, la question à poser au départ est donc double : où sont hébergées les données, et sous quel régime l'entrepôt a été constitué.
+
+## Et l'EHDS, le règlement européen, change quoi pour un projet IA ?
+
+L'espace européen des données de santé (EHDS) est le règlement (UE) 2025/327. Il a été publié au Journal officiel de l'UE le 5 mars 2025 et il est entré en vigueur le 26 mars 2025 ([Commission européenne](https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_fr)). Entré en vigueur ne veut pas dire applicable : ses obligations arrivent par étapes, à partir de 2027.
+
+| Date | Ce qui s'applique |
+|---|---|
+| 26 mars 2025 | Entrée en vigueur, début de la transition. Aucune obligation opérationnelle. |
+| 26 mars 2027 | Application générale du règlement, avec les premiers actes d'exécution de la Commission. |
+| 26 mars 2029 | Échange du premier groupe de données (résumé patient, ordonnance et dispensation électroniques) et règles d'utilisation secondaire pour la plupart des données. |
+| 26 mars 2031 | Deuxième groupe (imagerie, résultats de laboratoire, comptes rendus de sortie) et utilisation secondaire d'autres catégories, comme les données génomiques. |
+
+L'utilisation secondaire, c'est ce qui concerne l'IA : réutiliser des données de santé pour la recherche, l'innovation ou l'entraînement de modèles, via des organismes d'accès aux données. En novembre 2026, rien de cela ne remplace l'HDS ni les formalités CNIL. Un projet lancé aujourd'hui suit le cadre français, et prévoit simplement que l'accès secondaire aux données évoluera à partir de 2029.
+
+## Quel texte encadre quoi ?
+
+Cinq textes se superposent, et l'HDS ne couvre que l'hébergement.
+
+| Texte | Ce qu'il encadre | Quand il touche un projet IA |
+|---|---|---|
+| HDS (art. L.1111-8 du code de la santé publique) | L'hébergement des données de santé pour le compte d'un tiers | Dès qu'un prestataire héberge ou administre les données |
+| RGPD | Tout le traitement : finalité, base légale, conservation, droits | Toujours, dès la conception |
+| Formalités CNIL santé (MR-001, MR-003, MR-004 ou autorisation) | La recherche, l'étude ou l'évaluation en santé | Pour entraîner ou évaluer un modèle sur ces données |
+| Référentiel EDS de la CNIL | La constitution d'un entrepôt d'intérêt public | Si le projet s'appuie sur un entrepôt de données |
+| EHDS (règlement (UE) 2025/327) | L'échange et la réutilisation des données de santé dans l'UE | Progressivement, à partir de 2027 |
 
 ## Check-list avant de lancer un projet IA sur des données de santé
 
@@ -118,7 +154,7 @@ En mars 2026, la CNIL a publié une fiche dédiée à l'IA en santé ([cnil.fr](
 
 Pour la suite, du prototype à la production, voyez notre [check-list POC → prod pour un agent IA](/fr/resources/articles/poc-agent-ia-production).
 
-## Hébergement concret : où aller ensuite
+## Où aller ensuite pour l'hébergement concret ?
 
 Ce guide pose le cadre : qui doit être certifié, ce que disent le référentiel 2024 et la CNIL, et la check-list avant de lancer. Le choix concret de l'hébergement (cloud certifié, activités à couvrir, où vivent les appels au modèle, les logs et les sauvegardes) est détaillé dans [Hébergement HDS et IA](/fr/resources/articles/hebergement-hds-ia). Celui-ci couvre le « pourquoi » réglementaire, l'autre le « comment » côté infra.
 
@@ -155,6 +191,10 @@ Pour entraîner ou évaluer un modèle sur des données de santé, le plus souve
 ### Une base vectorielle construite sur des dossiers patients doit-elle rester en HDS ?
 
 Oui. Les embeddings, les index et les textes sources issus de dossiers patients contiennent des données de santé. Ils se traitent comme la base principale : chez un hébergeur certifié pour les activités concernées, avec les mêmes droits d'accès.
+
+### Un agent vocal IA pour la santé doit-il être hébergé en HDS ?
+
+Oui, dès qu'il traite des données de santé recueillies dans le cadre de soins ou de suivi et qu'un prestataire les héberge pour le compte de l'établissement. Les enregistrements audio, les transcriptions et les résumés générés par l'agent sont des données de santé. Ils suivent la même règle que le dossier patient, comme les logs de l'agent.
 
 ### HDS et RGPD, c'est la même chose ?
 
