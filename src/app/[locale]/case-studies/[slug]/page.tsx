@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
-import { BackLink } from "@/components/BackLink";
 import { CaseStudyBackLink } from "@/components/CaseStudyBackLink";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { CaseStudyKeepReading } from "@/components/CaseStudyKeepReading";
@@ -335,9 +333,7 @@ export default async function CaseStudyPage({
           />
           <div className={`relative ${SECTION} pb-20 pt-10 md:pb-28 md:pt-12`}>
             <h1 className="sr-only">{customer.client} · {t("back")}</h1>
-            <Suspense fallback={<BackLink href="/case-studies" label={t("back")} />}>
-              <CaseStudyBackLink />
-            </Suspense>
+            <CaseStudyBackLink />
 
             <div className="mt-12 flex flex-col items-start gap-5 md:mt-16 md:flex-row md:items-center md:justify-between">
               <ClientMark
