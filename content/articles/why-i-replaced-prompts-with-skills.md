@@ -89,7 +89,7 @@ When a prompt fails, you often patch it emotionally. Add one more line. Make a w
 
 With a skill, you can treat the previous version as a baseline.
 
-Snapshot it. Run the old and new versions on the same task. Compare outputs. Tighten the trigger. Move brittle shell commands into a script. Add an output contract. Add a review gate. Rerun.
+Snapshot it. Run the old and new versions on the same task. Compare outputs. [Tighten the trigger](/en/resources/skills/improve-agent-skills). Move brittle shell commands into a script. Add an output contract. Add a review gate. Rerun.
 
 That loop changes the standard. The question is no longer "does this prompt sound good?" It becomes "does this skill produce better behavior than the version we had yesterday?"
 

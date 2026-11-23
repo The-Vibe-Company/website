@@ -40,7 +40,7 @@ export function Workbench() {
         </div>
 
         <div className="mt-14">
-          <CaseCards cases={cases} from="home" readLabel={t("readCase")} />
+          <CaseCards cases={cases} readLabel={t("readCase")} />
         </div>
       </div>
     </section>

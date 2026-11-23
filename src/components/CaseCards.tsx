@@ -1,6 +1,7 @@
 import { FitText, FitTextGroup } from "@/components/home/FitText";
-import { Link } from "@/i18n/navigation";
+import { CaseCardLink } from "@/components/CaseCardLink";
 import { ClientMark } from "@/components/ClientMark";
+import { caseStudyHref } from "@/lib/case-study-links";
 import type { Customer } from "@/lib/customers";
 import { cn } from "@/lib/design-system";
 
@@ -17,12 +18,9 @@ import { cn } from "@/lib/design-system";
  */
 export function CaseCards({
   cases,
-  from,
   readLabel,
 }: {
   cases: Customer[];
-  /** Where the case is opened from, for its back link. */
-  from: "home" | "case-studies";
   readLabel: string;
 }) {
   return (
@@ -32,8 +30,8 @@ export function CaseCards({
           const wide = i === 0 && cases.length % 2 === 1;
           return (
             <li key={c.slug} className={cn("flex", wide && "md:col-span-2")}>
-              <Link
-                href={`/case-studies/${c.slug}?from=${from}`}
+              <CaseCardLink
+                href={caseStudyHref(c.slug)}
                 className="lamp-card group relative flex w-full flex-col overflow-hidden border border-border p-7 no-underline transition-colors hover:border-border-strong md:p-9"
               >
                 <div className="relative flex min-h-8 items-start justify-between gap-4">
@@ -80,7 +78,7 @@ export function CaseCards({
                     </span>
                   </div>
                 </div>
-              </Link>
+              </CaseCardLink>
             </li>
           );
         })}

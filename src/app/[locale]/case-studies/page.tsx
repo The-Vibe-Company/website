@@ -106,7 +106,7 @@ export default async function CaseStudiesPage({
           {/* 2 — The cases, each under its own lamp like the homepage's
               workbench: the client, the figure lit, the story in a line. */}
           <section className={BAND}>
-            <CaseCards cases={customers} from="case-studies" readLabel={t("readCase")} />
+            <CaseCards cases={customers} readLabel={t("readCase")} />
           </section>
 
           {/* 3 — How the work goes, read on the paper. */}
