@@ -73,7 +73,7 @@ The objection is fair, and it shows where the machine's ceiling is, and so what 
 
 The logical next step is ephemeral environments, or sandboxes. After round after round of disk cleanup, I can very much see the appeal of an environment that disappears when the work is done.
 
-Above all, sandboxes let you scale out. An orchestrator launches five or six agents on the tickets and, at the end, merges if everything is good. That's the subject of the article on [the enterprise agent harness](/en/resources/articles/enterprise-agent-harness), which covers loops, sandboxes and skills.
+Above all, sandboxes let you scale out. An [orchestrator](/en/resources/articles/ai-agent-orchestration) launches five or six agents on the tickets and, at the end, merges if everything is good. That's the subject of the article on [the enterprise agent harness](/en/resources/articles/enterprise-agent-harness), which covers loops, sandboxes and skills.
 
 But the order matters. "Everything is good" means the tests pass. They give the green light for the merge, and the orchestrator goes no faster than they do. Put sandboxes in front of a suite that takes hours and you've multiplied the waiting, nothing else.
 
