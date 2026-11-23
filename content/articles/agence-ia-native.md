@@ -110,4 +110,4 @@ Par un appel de 30 minutes avec Stan, pour comprendre votre besoin et voir ce qu
 
 Vous voulez voir ce qu'une agence IA native peut livrer pour vos équipes ? Venez avec votre besoin. [Réservez 30 minutes avec Stan](https://cal.com/stangirard/thevibecompany).
 
-*The Vibe Company a été fondée en 2024 à [Paris](/fr/agence-ia-paris) par Stan Girard et Antoine Dewez (ex-Theodo, ex-Stockly). Passée par Y Combinator (W24), elle a levé 1,7 M$, est soutenue par France 2030 via MediaGen et a mené des dizaines de projets.*
+*The Vibe Company a été fondée en 2024 à [Paris](/fr/agence-ia-paris) par Stan Girard et Antoine Dewez (ex-Theodo, ex-Stockly). Passée par Y Combinator (W24), elle a levé 1,7 M$, est soutenue par France 2030 via [MediaGen](/fr/resources/articles/ia-generative-medias) et a mené des dizaines de projets.*
