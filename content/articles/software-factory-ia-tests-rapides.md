@@ -73,7 +73,7 @@ L'objection est juste, et elle montre où se trouve le plafond du poste, donc ce
 
 La suite logique, ce sont des environnements éphémères, ou des sandboxes. Après des séances de ménage de disque à répétition, un environnement qui disparaît une fois le travail fini, je vois très bien l'intérêt.
 
-Surtout, ça permet de démultiplier. Un orchestrateur lance cinq ou six agents sur les tickets et, à la fin, il merge si tout est bon. C'est le sujet de l'article sur [le harnais d'agents en entreprise](/fr/resources/articles/agent-harness-entreprise), qui couvre les boucles, les sandboxes et les skills.
+Surtout, ça permet de démultiplier. Un [orchestrateur IA](/fr/resources/articles/orchestrateur-ia-agents) lance cinq ou six agents sur les tickets et, à la fin, il merge si tout est bon. C'est le sujet de l'article sur [le harnais d'agents en entreprise](/fr/resources/articles/agent-harness-entreprise), qui couvre les boucles, les sandboxes et les skills.
 
 Seulement, l'ordre compte. « Si tout est bon », ça veut dire si les tests passent. Ce sont eux qui donnent le feu vert au merge, et l'orchestrateur ne va pas plus vite qu'eux. Installez des sandboxes devant une suite qui dure des heures et vous aurez multiplié l'attente, rien d'autre.
 

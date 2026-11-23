@@ -486,6 +486,11 @@
       "targetUrl": "/images/_optimized/resources/my-personal-os-lives-in-a-folder/granite-constellation.webp",
       "targetHash": "07032bc3da7e7238e2c8c9d829d2b32aa91d1b994dee6fd716997f02b8f0ac59"
     },
+    "content:/images/resources/orchestrateur-ia-agents/cover-mascotte.webp": {
+      "sourceHash": "6578e462a620c73fd9f1a3491304c56f4d0e82a240a730616a6ae10831df5321",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/poc-agent-ia-production/cover-mascotte-v3.webp": {
       "sourceHash": "6fee3582119108fa852c4a7542beb1bfec31a99859dea38136d035dcf0327d04",
       "targetUrl": null,
@@ -838,6 +843,11 @@
     },
     "og:/images/resources/my-personal-os-lives-in-a-folder/cover-mascotte.webp": {
       "sourceHash": "e1652b16857a4f48d3476c2a87d5133edbb057496b665ad173b5ab1cfc4b4b7d",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/orchestrateur-ia-agents/cover-mascotte.webp": {
+      "sourceHash": "6578e462a620c73fd9f1a3491304c56f4d0e82a240a730616a6ae10831df5321",
       "targetUrl": null,
       "targetHash": null
     },
