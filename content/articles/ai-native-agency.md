@@ -111,4 +111,4 @@ With a 30-minute call with Stan, to understand your need and see what can be sho
 
 Want to see what an AI-native agency can deliver for your teams? Bring your need. [Book 30 minutes with Stan](https://cal.com/stangirard/thevibecompany).
 
-*The Vibe Company was founded in [Paris](/en/ai-agency-paris) in 2024 by Stan Girard and Antoine Dewez (ex-Theodo, ex-Stockly). After going through Y Combinator (W24), it raised $1.7M, is backed by France 2030 through MediaGen, and has run dozens of projects.*
+*The Vibe Company was founded in [Paris](/en/ai-agency-paris) in 2024 by Stan Girard and Antoine Dewez (ex-Theodo, ex-Stockly). After going through Y Combinator (W24), it raised $1.7M, is backed by France 2030 through [MediaGen](/en/resources/articles/generative-ai-media-newsrooms), and has run dozens of projects.*

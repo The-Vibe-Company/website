@@ -58,7 +58,7 @@ In sandboxes, isolated environments that run off your machine. Launch ten agents
 
 Sandboxes have one drawback: they cost money. There are plenty of providers. I like [Boat](https://boat.dev), and there is also [Modal](https://modal.com). Depending on the job I need one or the other, or a machine I host myself.
 
-Armada handles that. According to its README, it is an open source project under the MIT licence that gives every coding task its own machine:
+[Armada](/en/portfolio/armada) handles that. According to its README, it is an open source project under the MIT licence that gives every coding task its own machine:
 
 - **Several providers.** Sandboxes run on a connected Boat or Modal account, or on a Docker host you register yourself.
 - **One agent, one model.** You launch Claude Code, Codex or OpenCode with the model and reasoning effort you pick. Armada never swaps in another model.
