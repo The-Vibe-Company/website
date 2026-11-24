@@ -7,7 +7,7 @@ language: en
 summary: "AI-native agency: what Y Combinator (Aaron Epstein, 2026) and Sequoia say, how it differs from an AI-native company, and 4 buyer tests."
 seoDescription: "An AI-native agency uses software in-house to deliver finished work. What Y Combinator (Aaron Epstein, 2026) says, and 4 tests to vet one before you sign."
 publishedAt: 2026-10-13
-dateModified: 2026-11-10
+dateModified: 2026-11-24
 complexity: beginner
 topics: AI Adoption, AI Agents, Engineering
 coverImage: /images/resources/agence-ia-native/cover-mascotte.webp
@@ -25,8 +25,6 @@ Search Google in French for "agence ia native" and the top results mostly discus
 - According to Sequoia, every dollar of software comes with six dollars of services.
 - 4 observable tests let you vet an agency before you sign.
 :::
-
-**How this was checked.** This teardown draws on Y Combinator's official post and video, YC's April 2026 post, Sequoia's essay, and a CNBC interview, all reread on November 9, 2026. The Vibe Company describes itself as an AI-native agency and went through Y Combinator (W24), so the author has a stake in the subject.
 
 ## AI-native agency vs AI-native company: two different buying questions
 
@@ -66,6 +64,19 @@ A classic agency grows by hiring, with low margins. With a [classic agency or an
 
 For an AI-native agency, producing costs less. It bills for what gets delivered: a product that runs. So it can show something concrete very early, often before the scope is locked.
 
+## How does an AI-native agency work in practice?
+
+An AI-native agency organizes its production around agents, not around billable hours. The work follows four steps:
+
+1. **Scope before coding.** The need is written down in detail, enough for an agent to move forward without coming back to you with every question.
+2. **Split it into tickets.** Each ticket is a task an agent can deliver on its own.
+3. **Orchestrate.** An [orchestrator](/en/resources/articles/ai-agent-orchestration) hands the tickets to sub-agents that work in parallel.
+4. **Review.** A person on the team reviews and approves every delivery before it goes to the client.
+
+An example at The Vibe Company: for Quivr V2, Stan Girard first answered about 200 scoping questions, using Matt Pocock's Grill Me method. Those answers became tickets, which an orchestrator assigns to sub-agents. Every 10 PRs, a judge agent gives its opinion on the direction taken. It only gives an opinion: the decision stays with the team.
+
+What carries over from one project to the next (instructions, skills, tests) lowers the cost of the next one. That is where the "software margins" YC talks about come from.
+
 ## 4 tests to vet an AI-native agency before you sign
 
 ![4 tests to verify an AI-native agency: question, positive signal, weak signal. Detailed below.](/images/resources/ai-native-agency/4-tests-ai-native-agency.png){.diagram}
@@ -87,16 +98,21 @@ The third test protects quality. Moving fast does not mean shipping unchecked. S
 
 This teardown is written by an AI-native agency, and therefore by an interested party. A mid-size company (an ETI, in French) or a large enterprise can put the 4 tests to The Vibe Company, as to any other provider.
 
-## Limits: investor theses, with no measure of the agency market
+## Are AI-native agencies a real business model or hype?
 
 The sources of this teardown are theses. YC publishes a request for startups, Sequoia an investor essay. Neither counts AI-native agencies or measures their margins.
 
 The CNBC figures cover YC startups from winter 2025. They say nothing about agencies. So go back to the opening question: a buyer judges an AI-native agency on what it delivers, using the 4 tests.
 
+The model breaks in two places, which tests 3 and 4 target: when nobody reviews what the agents produce, and when the client owns neither the code nor the instructions at the end of the project.
+
 ## FAQ
 
 **Is an AI-native agency just an agency that uses ChatGPT?**
 No. At an AI-native agency, AI is at the core of production. Coding agents produce every day, and the team is organized around them to scope, review and sign off. Test 1 in the grid is to ask for a demo of the tool or agent that produces the deliverable, on a real case.
+
+**How do you make an agency AI-native?**
+By putting agents at the core of production: scope every need in writing, split it into tickets, hand those tickets to orchestrated agents, and keep a named human review before every delivery. Then bill for the deliverable.
 
 **Who is accountable for what's delivered?**
 The team. Agents produce, but every delivery is reviewed and approved by a senior person who answers for it. Ask who signs off on the delivery and what that person regularly rejects. A named answer, with examples of rejections, is a good sign. "The AI delivers, it ships" is a weak signal.

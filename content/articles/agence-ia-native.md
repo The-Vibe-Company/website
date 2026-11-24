@@ -1,12 +1,13 @@
 ---
 title: "Agence IA native : la thèse YC démontée en 4 tests"
-seoTitle: "Agence IA native : thèse YC, ratio Sequoia et 4 tests"
+seoTitle: "Agence IA native (AI-native) : définition et 4 tests"
 slug: agence-ia-native
 translationKey: ai-native-agency
 language: fr
 summary: "Agence IA native : ce que disent Y Combinator (Aaron Epstein, 2026) et Sequoia, ce qui la distingue d'une entreprise AI-native, et 4 tests acheteur."
+seoDescription: "Agence IA native ou AI-native : ce que dit Y Combinator, comment elle travaille au quotidien avec ses agents, et 4 tests pour la vérifier avant de signer."
 publishedAt: 2026-10-13
-dateModified: 2026-11-10
+dateModified: 2026-11-24
 complexity: beginner
 topics: AI Adoption, AI Agents, Engineering
 coverImage: /images/resources/agence-ia-native/cover-mascotte.webp
@@ -24,8 +25,6 @@ Tapez « agence ia native » dans Google : le haut des résultats parle surtout 
 - Selon Sequoia, chaque dollar de logiciel s'accompagne de six dollars de services.
 - 4 tests observables permettent de vérifier une agence avant de signer.
 :::
-
-**Comment on sait.** Ce démontage s'appuie sur le post et la vidéo officiels de Y Combinator, le post YC d'avril 2026, l'essai de Sequoia et une interview de CNBC, tous relus le 9 novembre 2026. The Vibe Company se présente elle-même comme une agence IA native et est passée par Y Combinator (W24) : l'auteur a donc un intérêt dans le sujet.
 
 ## Agence IA native et entreprise AI-native : deux questions d'achat différentes
 
@@ -65,6 +64,19 @@ Une agence classique grandit en embauchant, avec des marges faibles. Avec une [a
 
 Pour une agence IA native, produire coûte moins cher. Elle facture ce qui est livré : un produit qui tourne. Elle peut donc montrer quelque chose de concret très tôt, souvent avant de figer le périmètre.
 
+## Comment fonctionne une agence IA native, concrètement ?
+
+Une agence IA native organise sa production autour d'agents, pas autour d'heures facturées. Le travail suit quatre étapes :
+
+1. **Cadrer avant de coder.** Le besoin est écrit en détail, assez pour qu'un agent puisse avancer sans revenir vers vous à chaque question.
+2. **Découper en tickets.** Chaque ticket est une tâche qu'un agent peut livrer seul.
+3. **Orchestrer.** Un [orchestrateur](/fr/resources/articles/orchestrateur-ia-agents) distribue les tickets à des sous-agents qui travaillent en parallèle.
+4. **Relire.** Une personne de l'équipe relit et valide chaque livraison avant qu'elle parte chez le client.
+
+Un exemple chez The Vibe Company : pour Quivr V2, Stan Girard a d'abord répondu à environ 200 questions de cadrage, avec la méthode Grill Me de Matt Pocock. Ces réponses sont devenues des tickets, qu'un orchestrateur confie à des sous-agents. Toutes les 10 PR, un agent juge donne son avis sur la direction prise. Il donne seulement son avis : la décision reste à l'équipe.
+
+Ce qui se réutilise d'un projet à l'autre (consignes, skills, tests) fait baisser le coût du suivant. C'est là que se joue la « marge logicielle » dont parle YC.
+
 ## 4 tests pour vérifier une agence IA native avant de signer
 
 ![4 tests pour vérifier une agence IA native : question, signal positif, signal faible. Détaillé ci-dessous.](/images/resources/agence-ia-native/grille-4-tests-agence-ia-native.png){.diagram}
@@ -86,16 +98,24 @@ Le troisième test protège la qualité. Aller vite ne veut pas dire livrer sans
 
 Ce démontage est écrit par une agence IA native, donc par une partie intéressée. Une ETI ou un grand compte peut poser les 4 tests à The Vibe Company comme à n'importe quel prestataire.
 
-## Limites : des thèses d'investisseurs, sans mesure du marché des agences
+## Agence IA native : vrai modèle économique ou effet de mode ?
 
 Les sources de ce démontage sont des thèses. YC publie un appel à projets, Sequoia un essai d'investisseur. Aucune ne compte les agences IA natives ni ne mesure leurs marges.
 
 Les chiffres de CNBC portent sur les startups YC de l'hiver 2025. Ils ne disent rien des agences. Revenez donc à la question du début : un acheteur juge une agence IA native sur ce qu'elle livre, avec les 4 tests.
 
+Le modèle casse à deux endroits, que les tests 3 et 4 visent : quand personne ne relit ce que les agents produisent, et quand le client ne possède ni le code ni les consignes à la fin du projet.
+
 ## FAQ
 
 **Une agence IA native, c'est juste une agence qui utilise ChatGPT ?**
 Non. Chez une agence IA native, l'IA est au cœur de la production. Des agents de code produisent chaque jour, et l'équipe s'organise autour d'eux pour cadrer, relire et valider. Le test 1 de la grille consiste à demander une démo de l'outil ou de l'agent qui produit le livrable, sur un cas réel.
+
+**Agence IA native ou agence AI-native : quelle différence ?**
+Aucune. AI-native est le terme anglais, repris tel quel par Y Combinator. Les deux désignent un prestataire qui utilise l'IA en interne pour livrer le travail fini.
+
+**Comment rendre son agence AI-native ?**
+En mettant les agents au cœur de la production : cadrer chaque besoin par écrit, le découper en tickets, confier ces tickets à des agents orchestrés, et garder une relecture humaine nommée avant chaque livraison. Ensuite, facturez le livrable.
 
 **Qui est responsable de ce qui est livré ?**
 L'équipe. Les agents produisent, mais chaque livraison est relue et validée par une personne senior qui en répond. Demandez qui signe la livraison et ce que cette personne refuse régulièrement. Une réponse nommée, avec des exemples de refus, est un bon signal. « L'IA livre, on envoie » est un signal faible.
