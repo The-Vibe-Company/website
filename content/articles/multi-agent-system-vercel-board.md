@@ -1,11 +1,11 @@
 ---
-title: "Multi-agent system: why I am rebuilding Vercel Board"
-seoTitle: "Multi-agent system: why I am rebuilding Vercel Board"
-seoDescription: "Multi-agent system for coding agents: run several agents on one shared board. Leases, dependencies, threads, tools to pick and mistakes to avoid."
+title: "Multi-agent system: coordinate your coding agents on a board"
+seoTitle: "Multi-agent system: coordinate your coding agents on a board"
+seoDescription: "Multi-agent system: coordinate your coding agents on a shared board. Leases, dependencies, threads, tested commands and mistakes to avoid."
 slug: multi-agent-system-vercel-board
 translationKey: multi-agent-system-vercel-board
 language: en
-summary: "Several coding agents on one project need a shared board: a task held for a limited time, dependencies, one thread per task. The guide, the tools you can use, and why I built an open source version."
+summary: "A guide to coordinating several coding agents on a shared board: a task held for a limited time, dependencies, one thread per task. Rules, a cycle tested on a real local board, the tools you can use and the mistakes to avoid."
 publishedAt: 2026-11-24
 complexity: intermediate
 topics: AI Agents, Multi-Agent Systems, Vercel Board, Open Board
@@ -17,7 +17,7 @@ ogImage: /images/resources/systeme-multi-agent-vercel-board/cover-mascotte.webp
 
 A multi-agent system of coding agents runs on a shared board. Each agent holds a task for a limited time, a task waits for its prerequisites, and its thread keeps all the work. Launching several agents in parallel is easy. Coordinating them is the hard part. Two agents grab the same ticket, or a crashed agent blocks a task.
 
-On November 18, 2026, Vercel shipped [Vercel Board](https://vercel.com/blog/introducing-vercel-board), a board built for this. This guide pulls out its rules, compares the tools you can use (Vercel Board, Open Board, Linear, GitHub Issues), lists the mistakes to avoid and gives a starting plan.
+On November 18, 2026, Vercel shipped [Vercel Board](https://vercel.com/blog/introducing-vercel-board), a board built for this. This guide pulls out its rules, tests them on a real local board, compares the tools you can use (Vercel Board, Open Board, Linear, GitHub Issues), lists the mistakes to avoid and gives a starting plan.
 
 ## What is a multi-agent system for coding agents?
 
@@ -31,7 +31,7 @@ The agents do not have to come from one vendor. Vercel names Claude Code, Codex,
 
 Four rules are enough to start. A hold that expires, dependencies, one thread per task, and a way for a human to stop a task. The [Vercel Board tasks docs](https://vercel.com/docs/board/concepts/tasks) describe each one command by command.
 
-**1. The hold expires.** Taking a task means signing a [lease of 5 minutes at most](https://vercel.com/docs/board/concepts/tasks#how-a-claim%27s-lease-works). The agent renews it while it works. If it crashes, the task frees up. Another agent takes it. And when two agents claim the same task, one gets it and the other receives `task_claimed`.
+**1. The hold expires.** Taking a task means signing a lease, of [5 minutes at most per the docs](https://vercel.com/docs/board/concepts/tasks#how-a-claim%27s-lease-works) (the local board gives more, see the test). The agent renews it while it works. If it crashes, the task frees up. Another agent takes it. And when two agents claim the same task, one gets it and the other receives `task_claimed`.
 
 **2. A task waits for its prerequisites.** With `--needs`, the review of a fix stays waiting until the fix is done. A failed prerequisite unlocks nothing.
 
@@ -39,7 +39,7 @@ Four rules are enough to start. A hold that expires, dependencies, one thread pe
 
 **4. A human can stop the task.** `tasks block` puts a task on hold for a person, for example to approve a production deploy.
 
-Here is the full cycle, as the docs show it:
+Here is the full cycle, adapted from the docs:
 
 ```bash
 export BOARD_PROFILE=fx
@@ -59,6 +59,55 @@ Each task goes through seven states, which the board itself keeps as a label (`b
 | `completed` | It is done, with its result |
 | `failed` | An agent gave up, with a reason |
 | `canceled` | Its owner canceled it |
+
+## What does this cycle look like on a real local board?
+
+It behaves as the docs describe, with two gaps: the default lease and the error on a second try. Tested on 11/24/2026 with @vercel/board 0.56.1, on a local board started with `npx vb serve`: SQLite in `.board/`, no Vercel account. The npm package installs the CLI as `vb`. Each agent is simulated with `--as`.
+
+**Two agents on one task.** Both claims start at the same time. Only one wins:
+
+```text
+$ vb tasks claim 2 --as agent-b
+#2  yours for 15m  fix the failing login test
+$ vb tasks claim 2 --as agent-a
+error: Can't claim task #2. Someone holds it.
+  #2 is claimed until 2026-11-24T07:49:29.072Z
+```
+
+With `--json`, the loser does get `"reason":"task_claimed"` and a 409 status.
+
+**A lease that runs out.** agent-a takes a task for 30 seconds, then does nothing. 33 seconds later, the task is `ready` again and agent-b takes it. When agent-a tries to close it:
+
+```text
+$ vb tasks complete 9 "done" --as agent-a --json
+{"status":"error","reason":"claim_lost","message":"Lost the claim on task #9. Its lease ran out, or the task moved on." ...}
+$ vb tasks complete 9 "done" --as agent-a
+error: You hold no claim on task #9 as agent-a.
+```
+
+The first try returns `claim_lost`. The second no longer mentions a lost lease: the agent simply holds no claim. Your agent should handle both errors the same way, by reading the task again.
+
+**A dependency.** The JSON plan creates the review waiting on the fix. A reviewer who claims it too early leaves empty-handed:
+
+```text
+#15  ready      fix the login bug               step=fix
+#17  waiting    review the login fix            step=review  needs #15
+$ vb tasks claim --ready q --label step=review --as reviewer
+error: Nothing is ready in q.
+```
+
+**`tasks run`.** A passing `npm test` completes the fix, and the review turns `ready` right away. A command that exits with 3 fails the task, and the list shows `exited 3`:
+
+```text
+$ vb tasks run --ready q --label step=fix --as fixer -- npm test
+1 test passed
+completed 15
+$ vb tasks run 23 --as tester -- node -e "console.error('1 test failed');process.exit(3)"
+1 test failed
+failed 23
+```
+
+**The gaps.** The docs announce a lease of 5 minutes at most. The local board gives 15 minutes by default, and `--lease` takes 30 seconds to 1 hour: the CLI help says "default: 15m, or what the board gives". Another trap from the test: task IDs are shared with messages. The first test aimed at `#3` while the new task was `#6`. Use the ID that `tasks create` prints instead of guessing it.
 
 ## Linear, GitHub Issues, Vercel Board or Open Board: which one?
 
@@ -81,7 +130,7 @@ Open Board runs the board on your own server. It speaks the Vercel Board HTTP pr
 
 In practice, Open Board carries the messages (channels, threads, labels, search), the tasks (leases, dependencies, holds, assignment) and a live event stream. It adds its own accounts and organizations, signed webhooks, an MCP endpoint, a web UI, a CLI (`ob`) and a skill. It runs in one command with SQLite on a laptop, or on Postgres with several instances. The `@vercel/board` conformance suite runs against it on every pull request.
 
-The choice comes down to one question. Should your agents depend on a Vercel account? If your code already runs on Vercel, Vercel Board needs nothing deployed. If your agents run elsewhere, on your own machines or another cloud, a self-hosted board removes that tie.
+The choice depends on where your agents run. Agents on one machine: Vercel Board's [local board](https://github.com/vercel/board/blob/main/packages/board/docs/01-board/10-local.md) is enough, in SQLite, offline, with no account. Code already on Vercel: Vercel Board needs nothing deployed. Several machines or teams outside Vercel: a self-hosted server like Open Board, with its own accounts and Postgres.
 
 > **Why I built Open Board.** In my words (translated from French), Vercel Board "forces you to use their system, which is very good, but it forces you to use Vercel." I want to run my code wherever I want, without necessarily having a Vercel account. And building it costs little: "it costs about a hundred euros, let's say, in compute or subscriptions." Agents launched with [Armada](/en/portfolio/armada) built it, one small ticket per PR: 243 merged PRs between the first one, on 11/23 at 15:39, and 11/24 at 08:06 (Paris time), per a [GitHub search](https://github.com/The-Vibe-Company/openboard/pulls?q=is%3Apr+is%3Amerged) on 11/24/2026. For my own agents, I moved from Linear to GitHub Issues. But really, as I said it: "I need an open board."
 
@@ -91,7 +140,7 @@ Most share one cause. The state of the work lives in free text, not in the board
 
 1. **Assigning without a lease.** Nothing then frees the task of a crashed agent. Vercel gives the reason for the lease: "a worker that crashes or stalls doesn't keep the task forever". The old agent can no longer close it (`claim_lost`).
 2. **Forgetting dependencies.** Without `--needs`, the review starts before the fix. With it, the review stays in `waiting`.
-3. **Writing state in a comment.** A free-text status cannot be sorted. The board keeps state in the `board.task` label, and refuses to let an agent set it by hand (`reserved_label`).
+3. **Writing state in a comment.** A free-text status cannot be sorted. The board keeps state in the `board.task` label, and refuses to let an agent set it by hand. On the local board, the answer reads "Labels under board. are the board's own."
 4. **Opening too wide.** A `claim --ready` that spans too many channels fails with `claim_too_wide` beyond 200 places. One channel per workflow stays readable.
 5. **Putting everything in one tool.** An agent launcher that also becomes a board, then an orchestrator, grows without end. I built an orchestrator, Otto, inside Armada, then deleted it on November 14, 2026. Armada now only launches sandboxes, and the board lives apart.
 
@@ -133,7 +182,7 @@ A multi-agent system in AI is a set of autonomous agents working in a shared env
 
 ### What is Vercel Board?
 
-Vercel Board is a message and task board for agents, launched by Vercel on November 18, 2026, as an experimental feature on all plans. Agents take tasks with a lease of 5 minutes at most, post progress in threads, and sync with Slack and GitHub. They reach it through the Vercel CLI or the JavaScript SDK.
+Vercel Board is a message and task board for agents, launched by Vercel on November 18, 2026, as an experimental feature on all plans. Agents take tasks with a lease (5 minutes at most per the docs, 15 minutes by default on the local board tested), post progress in threads, and sync with Slack and GitHub. They reach it through the Vercel CLI or the JavaScript SDK.
 
 ### What is the difference between Vercel Board and Open Board?
 
