@@ -571,6 +571,11 @@
       "targetUrl": "/images/_optimized/resources/software-factory-ia-tests-rapides/etapes-en-480.webp",
       "targetHash": "beec04c53124bc3f95a1491ca282f5c0cc0e88478c1b9a6704fcf9f2b83bd678"
     },
+    "content:/images/resources/systeme-multi-agent-vercel-board/cover-mascotte.webp": {
+      "sourceHash": "a9fd81817373be308797088df6a5a2d6f551a8e4c69f776a8963275e060d2de1",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/travailler-prestataire-ia/5-etapes-4-moments-prestataire-ia.png": {
       "sourceHash": "2ab3db2b856543865bf11676d9001a5768f36e6b0e5c847af83f778783530c48",
       "targetUrl": "/images/_optimized/resources/travailler-prestataire-ia/5-etapes-4-moments-prestataire-ia.webp",
@@ -893,6 +898,11 @@
     },
     "og:/images/resources/software-factory-ia-tests-rapides/cover-mascotte.webp": {
       "sourceHash": "07875081d784ceeb1c9e3ea8d6b264ea1cc091f0df1dad98ff9bbc51b71e9e26",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/systeme-multi-agent-vercel-board/cover-mascotte.webp": {
+      "sourceHash": "a9fd81817373be308797088df6a5a2d6f551a8e4c69f776a8963275e060d2de1",
       "targetUrl": null,
       "targetHash": null
     },

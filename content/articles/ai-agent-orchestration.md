@@ -37,7 +37,7 @@ An interrogation, tickets, then an orchestrator that hands out the work. The fir
 
 **1. Get grilled.** I ran [Grill Me](https://github.com/mattpocock/skills/blob/main/docs/productivity/grill-me.md), a skill by Matt Pocock. The agent questions you, round after round, until no decision is left implicit. I answered about 200 questions.
 
-**2. Turn the answers into tickets.** Another skill by Matt Pocock then helped me turn those answers into tickets. Each ticket carried a decision already made, so the agents did not have to guess it.
+**2. Turn the answers into tickets.** Another skill by Matt Pocock then helped me turn those answers into tickets. Each ticket carried a decision already made, so the agents did not have to guess it. For agents to split those tickets, a shared board does the job better than Linear, as I explain in [the piece on multi-agent systems and Vercel Board](/en/resources/articles/multi-agent-system-vercel-board).
 
 **3. Let an orchestrator hand out the work.** I told an agent, running Fable at the time, to spawn lots of subagents and do all the tickets. A first version of Armada drove those agents inside Conductor.
 

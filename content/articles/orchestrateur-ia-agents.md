@@ -37,7 +37,7 @@ Un interrogatoire, des tickets, puis un orchestrateur qui distribue. La premièr
 
 **1. Se faire cuisiner.** J'ai lancé [Grill Me](https://github.com/mattpocock/skills/blob/main/docs/productivity/grill-me.md), un skill de Matt Pocock. L'agent vous interroge, round après round, jusqu'à ce qu'aucune décision ne reste implicite. J'ai répondu à environ 200 questions.
 
-**2. Transformer les réponses en tickets.** Un autre skill de Matt Pocock m'a ensuite aidé à transformer ces réponses en tickets. Chaque ticket portait une décision déjà prise. Les agents n'avaient plus à la deviner.
+**2. Transformer les réponses en tickets.** Un autre skill de Matt Pocock m'a ensuite aidé à transformer ces réponses en tickets. Chaque ticket portait une décision déjà prise. Les agents n'avaient plus à la deviner. Pour que des agents se répartissent ces tickets, un tableau partagé fait mieux l'affaire que Linear : je l'explique dans [l'article sur le système multi-agent et Vercel Board](/fr/resources/articles/systeme-multi-agent-vercel-board).
 
 **3. Laisser un orchestrateur distribuer.** J'ai dit à un agent, sur Fable à l'époque, de lancer plein de sous-agents et de faire tous les tickets. Une première version d'Armada pilotait alors ces agents dans Conductor.
 
