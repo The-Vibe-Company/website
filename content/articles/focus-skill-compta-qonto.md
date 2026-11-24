@@ -52,7 +52,7 @@ J'ai aussi ajouté une zone de recherche, juste sous ce récapitulatif : on y ch
 Par contre, on a fait le choix de garder une étape humaine : la relecture mensuelle. Tout le but de ce tableau, c'est de balayer nos dépenses ligne par ligne et de repérer les paiements inhabituels, du genre l'abonnement oublié qui tourne encore. Pour que cette passe soit efficace, j'ai demandé à l'IA d'ajouter une colonne de « Flags » au tableau des dépenses. Voilà comment le fichier de consignes la définit :
 
 ```
-Flag column — an action tag. Blank = rien a signaler
+Flag column: an action tag. Blank = rien a signaler
 (the default the user never touches).
 ```
 

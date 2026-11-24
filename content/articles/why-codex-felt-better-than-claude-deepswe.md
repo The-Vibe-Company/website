@@ -13,7 +13,7 @@ coverAlt: "A premium operating table showing coding-agent workstreams, benchmark
 ogImage: /images/resources/why-codex-felt-better-than-claude-deepswe/cover-mascotte.webp
 ---
 
-DeepSWE finally gives a measurable answer: Codex with GPT-5.5 outperforms Claude Opus 4.7 on long, multi-file software engineering tasks because it closes the loop—explore, edit, verify, recover—without dropping constraints.
+DeepSWE finally gives a measurable answer: Codex with GPT-5.5 outperforms Claude Opus 4.7 on long, multi-file software engineering tasks because it closes the loop (explore, edit, verify, recover) without dropping constraints.
 
 For the past few months, I had a very clear feeling in my day-to-day work: when I needed to actually move code forward, Codex with GPT-5.5 felt more reliable than Claude Opus 4.7.
 
