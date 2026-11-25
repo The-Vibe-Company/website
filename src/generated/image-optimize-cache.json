@@ -311,6 +311,11 @@
       "targetUrl": "/images/_optimized/resources/get-cited-chatgpt-gemini-aeo/3-openai-bots-chatgpt-search.webp",
       "targetHash": "7d3d971accf684d992b50811577e94313bec80112f176b0e858c7049b0e0d15a"
     },
+    "content:/images/resources/gouvernance-skills-claude-code/cover-mascotte.webp": {
+      "sourceHash": "641cba91509bf318f677313644c5fed43cadbdbb461536f03cccebdf4056ad39",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/hebergement-hds-ia/cover-mascotte.webp": {
       "sourceHash": "45996223f4c39e669e2fa8f6d0f3dc552b8d3b84715d4a643d2cad0563c0edf6",
       "targetUrl": null,
@@ -773,6 +778,11 @@
     },
     "og:/images/resources/focus-skill-logo-svg/cover.png": {
       "sourceHash": "b1694317fee204d685d06b90d6510fcaf1e9546093262e6e77830df3a71a0154",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/gouvernance-skills-claude-code/cover-mascotte.webp": {
+      "sourceHash": "641cba91509bf318f677313644c5fed43cadbdbb461536f03cccebdf4056ad39",
       "targetUrl": null,
       "targetHash": null
     },

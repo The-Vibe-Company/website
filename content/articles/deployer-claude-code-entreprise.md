@@ -65,7 +65,7 @@ L'agent envoie au modèle le contexte dont il a besoin : morceaux de code, sorti
 N'ouvrez pas l'accès à tout le monde le même jour. Un pilote qui tient la route :
 
 1. **Choisir une ou deux équipes volontaires**, sur des dépôts représentatifs mais non critiques.
-2. **Écrire un fichier `CLAUDE.md` par dépôt** : conventions, commandes de test, pièges connus. Claude Code le lit au démarrage ([doc Memory](https://code.claude.com/docs/en/memory)). Souvent, c'est ce qui sépare un agent utile d'un agent qui improvise.
+2. **Écrire un fichier `CLAUDE.md` par dépôt** : conventions, commandes de test, pièges connus. Claude Code le lit au démarrage ([doc Memory](https://code.claude.com/docs/en/memory)). Souvent, c'est ce qui sépare un agent utile d'un agent qui improvise. Quand une section devient une procédure, passez-la en skill, et [décidez qui valide les skills avant de les diffuser](/fr/resources/articles/gouvernance-skills-claude-code).
 3. **Fixer deux ou trois indicateurs avant de commencer** : délai entre ticket et PR, part des PR qui passent la revue sans retouche majeure, temps passé sur les tâches répétitives (migrations, tests).
 4. **Faire un point chaque semaine** sur ce qui a bloqué : permissions trop strictes, contexte manquant, tâches mal choisies.
 5. **Décider à la fin** : élargir, ajuster, ou arrêter.

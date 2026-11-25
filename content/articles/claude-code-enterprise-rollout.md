@@ -65,7 +65,7 @@ The agent sends the model the context it needs: code snippets, command output, f
 Don't switch everyone on the same day. A pilot that holds up:
 
 1. **Pick one or two volunteer teams**, on representative but non-critical repos.
-2. **Write a `CLAUDE.md` per repo**: conventions, test commands, known pitfalls. Claude Code reads it at startup ([Memory docs](https://code.claude.com/docs/en/memory)). It's often what separates a useful agent from one that improvises.
+2. **Write a `CLAUDE.md` per repo**: conventions, test commands, known pitfalls. Claude Code reads it at startup ([Memory docs](https://code.claude.com/docs/en/memory)). It's often what separates a useful agent from one that improvises. When a section grows into a procedure, turn it into a skill, and [decide who approves skills before they ship](/en/resources/articles/claude-code-skills-governance).
 3. **Set two or three metrics before starting**: ticket-to-PR time, share of PRs passing review without major rework, time spent on repetitive tasks (migrations, tests).
 4. **Review weekly** what got in the way: permissions too strict, missing context, poorly chosen tasks.
 5. **Decide at the end**: expand, adjust, or stop.
