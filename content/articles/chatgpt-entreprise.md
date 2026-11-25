@@ -4,9 +4,9 @@ seoTitle: "ChatGPT Business ou Enterprise | The Vibe Company"
 slug: chatgpt-entreprise
 translationKey: chatgpt-business-rollout-guide
 language: fr
-summary: "ChatGPT Business ou Enterprise : 16 fonctions sur 84 réservées à Enterprise au 11 novembre 2026, et six situations pour décider en PME ou en ETI."
+summary: "ChatGPT Business ou Enterprise en 2026 : 20 ou 25 $ par siège pour Business, 16 fonctions sur 84 réservées à Enterprise, six situations pour choisir."
 publishedAt: 2026-10-22
-dateModified: 2026-11-11
+dateModified: 2026-11-25
 complexity: intermediate
 topics: AI Agents, AI Operations, Security
 coverImage: /images/resources/chatgpt-entreprise/cover-mascotte.webp
@@ -123,5 +123,22 @@ Chaque situation renvoie à une page officielle relevée le 11 novembre 2026.
 6. Votre client ou votre RSSI exige les certifications ISO 27001, 27017, 27018 ou 27701.
 
 Si aucune de ces six situations n'est la vôtre, ChatGPT Business suffit. Une seule suffit à justifier Enterprise. Dans ce cas, contactez l'équipe commerciale d'OpenAI. Cette grille est une synthèse des pages officielles ; OpenAI ne la publie pas.
+
+## FAQ
+
+**Quelle différence entre ChatGPT Business et ChatGPT Enterprise ?**
+Le 11 novembre 2026, le tableau comparatif d'OpenAI comptait 84 lignes : 55 identiques, 29 différentes, et 16 fonctions réservées à Enterprise. Pour une ETI, les plus lourdes sont le SCIM, le contrôle d'accès basé sur des rôles, la résidence des données en Europe, le journal d'audit des conversations via la Compliance API et l'achat sur facture via l'équipe commerciale. Business reste en libre-service, payé par carte, pour des équipes de 2 à 200 personnes.
+
+**Combien coûte ChatGPT Business par siège en 2026 ?**
+Au 11 novembre 2026, le siège Standard coûte 20 $ par mois en facturation annuelle ou 25 $ en mensuel, hors taxes. Le siège Premium coûte 100 $ en annuel ou 125 $ en mensuel. Au prix catalogue, 50 sièges Standard en annuel reviennent à 12 000 $ par an. Le prix d'Enterprise n'est pas public et passe par l'équipe commerciale d'OpenAI.
+
+**ChatGPT Enterprise est-il le meilleur choix pour déployer l'IA dans toute l'entreprise ?**
+Pas toujours. Si aucune des six situations ci-dessus n'est la vôtre, ChatGPT Business suffit. Pour une tâche précise et répétitive dans un outil interne, un agent sur mesure branché sur cet outil fait mieux qu'un assistant généraliste. Et si votre entreprise vit déjà dans Microsoft 365, Copilot reste une option sensée.
+
+**OpenAI entraîne-t-il ses modèles sur les données de ChatGPT Business ou Enterprise ?**
+Pas par défaut. OpenAI n'entraîne pas ses modèles sur les données de Business ou d'Enterprise sans accord exprès, et peut signer un DPA, l'avenant RGPD, pour les deux offres. Les pages d'OpenAI divergent sur qui règle la durée de conservation : demandez la réponse par écrit avant d'acheter.
+
+**ChatGPT peut-il stocker nos données en Europe ?**
+Oui, avec Enterprise. Le centre d'aide réserve le stockage en Europe (EEE et Suisse) aux clients API éligibles et aux « nouveaux » clients ChatGPT Enterprise ou Edu. Business n'est pas sur la liste. Comme aucune migration d'un espace existant n'est décrite, choisissez la résidence à la création de l'espace Enterprise.
 
 Vous déployez ChatGPT et voulez savoir où un agent sur mesure ferait la différence ? [Prenez rendez-vous](https://cal.com/stangirard/thevibecompany).
