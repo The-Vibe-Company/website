@@ -45,7 +45,7 @@ So I moved one step up the chain. These days I spend my time on the ticket. I th
 
 Grill Me does one simple thing: it interviews you. You start it yourself with `/grill-me`, the agent never reaches for it on its own. It asks its questions in rounds until you have made every decision. It writes no files. What comes out is a clearer idea, which I then put into the ticket.
 
-Once the ticket is set up like that, the AI is smart enough to implement the subject almost every time. The plan it would produce wouldn't tell me anything I hadn't already settled during the grilling.
+Once the ticket is set up like that, the AI is smart enough to implement the subject almost every time. The plan it would produce wouldn't tell me anything I hadn't already settled during the grilling. It only needs tests that answer while it works, on the machine, as I explain in [the piece on the AI software factory](/en/resources/articles/ai-software-factory-fast-tests).
 
 Skip that work and a session drifts. You open Claude Code with a fuzzy goal, and dozens of prompts later the agent has rewritten half the module. A well-grilled ticket before you start is still the simplest way not to get there.
 

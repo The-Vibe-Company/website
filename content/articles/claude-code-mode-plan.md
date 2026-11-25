@@ -45,7 +45,7 @@ Alors je suis remonté d'un cran dans la chaîne. Aujourd'hui, je passe mon temp
 
 Grill Me fait une chose simple : il vous interroge. Vous le lancez vous-même avec `/grill-me`, l'agent ne le déclenche jamais seul. Il pose ses questions par vagues, jusqu'à ce que vous ayez pris chaque décision. Il n'écrit aucun fichier. Ce qui en sort, c'est une idée plus claire, que je range ensuite dans le ticket.
 
-Une fois le ticket posé comme ça, l'IA est assez intelligente pour implémenter le sujet presque à chaque fois. Le plan qu'elle produirait ne m'apprendrait rien que je n'aie déjà tranché pendant l'interrogatoire.
+Une fois le ticket posé comme ça, l'IA est assez intelligente pour implémenter le sujet presque à chaque fois. Le plan qu'elle produirait ne m'apprendrait rien que je n'aie déjà tranché pendant l'interrogatoire. Il lui faut seulement des tests qui répondent pendant qu'elle travaille, sur la machine, comme je l'explique dans [l'article sur la software factory IA](/fr/resources/articles/software-factory-ia-tests-rapides).
 
 Sans ce travail, une session dérive. Vous ouvrez Claude Code avec un objectif flou, et des dizaines de prompts plus tard l'agent a refait la moitié du module. Un ticket bien interrogé avant de commencer reste la façon la plus simple de ne pas en arriver là.
 

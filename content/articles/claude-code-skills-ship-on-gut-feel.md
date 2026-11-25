@@ -55,7 +55,7 @@ It comes down to a few moves, in this order.
 
 The last move is the one that hurts. In SkillOpt a tie is a rejection, and a text that merely looks cleaner doesn't make the cut either. I went through the mechanics in [an earlier article on how to use SkillOpt to train your agent skills](/en/resources/articles/how-to-use-skillopt-to-train-agent-skills).
 
-To have this method there from day one, I created [Skill Creator](https://github.com/The-Vibe-Company/companion-skills/blob/main/skills/create-skill-tools/SKILL.md), a skill that sets up the evaluation at the moment you create yours. A second one, [Refine Skill](https://github.com/The-Vibe-Company/companion-skills/blob/main/skills/refine-skill-tools/SKILL.md), reuses it at every iteration.
+To have this method there from day one, I created [Skill Creator](https://github.com/The-Vibe-Company/companion-skills/blob/main/skills/create-skill-tools/SKILL.md), a skill that sets up the evaluation at the moment you create yours. A second one, [Refine Skill](https://github.com/The-Vibe-Company/companion-skills/blob/main/skills/refine-skill-tools/SKILL.md), reuses it at every iteration. [AEOM](/en/portfolio/aeom), our Claude Code skill that redoes the frontend of a product coded by agents, follows the same rule: it keeps a change only if fewer things fail than before.
 
 This protocol has a side effect I like: it forces you to write down, before the test runs, what "winning" means. Take the new version of the QA skill again. A draw on defects caught, a win on how clear the procedures are. Depending on the criterion you picked at the start, that is a rejection or a release. By gut feel it was just "better", and everyone heard what they wanted in the word.
 
