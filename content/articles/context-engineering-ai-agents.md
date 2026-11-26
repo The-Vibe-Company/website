@@ -19,7 +19,7 @@ Context engineering means choosing what an AI agent has in front of it while it 
 
 You already hand tickets to Claude Code or Codex. The PR comes back clean, tests green. The result still misses what you wanted. Before you blame the model, read the ticket again. Whatever was missing from it, the agent decided for you.
 
-The test fits in one question: would the PO still have a question after reading this ticket?
+The test: would the PO still have a question after reading this ticket?
 
 My rule fits in one sentence: if you want to give tasks to agents today, you have to take the time.
 
@@ -114,7 +114,7 @@ The skill publishes nothing without your approval. You first get its breakdown a
 
 What every session needs, and as little as possible beyond that. The rest goes in the ticket.
 
-The reason is a cost. According to the [writing-for-agents documentation](https://github.com/mattpocock/skills/blob/main/docs/productivity/writing-for-agents.md), `CLAUDE.md` loads into every session. Anything that applies in one session out of ten costs context in the other nine.
+The reason is a cost. According to the [writing-for-agents documentation](https://github.com/mattpocock/skills/blob/main/docs/productivity/writing-for-agents.md#the-two-loads), `CLAUDE.md` loads into every session. Anything that applies in one session out of ten costs context in the other nine.
 
 Keep in `CLAUDE.md` the rules that hold for the whole repo. A detail that concerns one task belongs in that task's ticket. Same logic as the complete ticket, seen from the repo.
 
@@ -124,13 +124,17 @@ Team-level settings are in [the Claude Code enterprise rollout guide](/en/resour
 
 A shared board, which agents and humans read in the same place. With complete, well-split tickets, you can launch several agents. You then need to know who holds what and what is done.
 
-On tracking, I moved too. For my own agents, I went from Linear to GitHub Issues. Then Vercel released Vercel Board, on November 18, 2026. I like the idea, with one reservation (translated from French): it "forces you to use their system, which is very good, but it forces you to use Vercel." I want to run my code wherever I want.
+On tracking, I moved too. For my own agents, I went from Linear to GitHub Issues. Then Vercel released Vercel Board, on [November 18, 2026](https://vercel.com/blog/introducing-vercel-board). I like the idea, with one reservation (translated from French): it "forces you to use their system, which is very good, but it forces you to use Vercel." I want to run my code wherever I want.
 
 I built Open Board for that: agents and humans follow the agents' work there, on a board that runs on your side. The code is public at [github.com/The-Vibe-Company/openboard](https://github.com/The-Vibe-Company/openboard), under the Apache-2.0 license. Open Board speaks Vercel Board's HTTP protocol and handles messages, tasks (lease, dependencies, waiting, assignment) and an event stream. On top come its own accounts, signed webhooks, an MCP endpoint, a web UI, a CLI (`ob`) and a skill. All of it runs on SQLite or on Postgres.
 
 The details are in [my guide to coordinating your agents on a board](/en/resources/articles/multi-agent-system-vercel-board). A complete ticket tells the agent what to do. The board tells you what it did with it.
 
 *Updated November 26, 2026. The benchmarks on Grill Me, to-tickets, to-spec and writing-for-agents come from the mattpocock/skills documentation, read on November 26, 2026.*
+
+Start small. Take your next ticket and run it through the table above. Launch the agent when the PO would have no question left.
+
+To bring your tickets and your [AI agents in production](/en/ai-agents-in-production) up to this level, [book a call](https://cal.com/stangirard/thevibecompany).
 
 ## FAQ
 
@@ -153,7 +157,3 @@ The Grill Me documentation says to count rounds rather than questions: 46 questi
 ### Do you need one ticket per agent session?
 
 Yes, that is the to-tickets rule: each ticket is sized for one fresh context window and declares its dependencies. If the whole change fits in a single context window, you don't need to split it.
-
-Start small. Take your next ticket and run it through the table above. Launch the agent when the PO would have no question left.
-
-To bring your tickets and your [AI agents in production](/en/ai-agents-in-production) up to this level, [book a call](https://cal.com/stangirard/thevibecompany).

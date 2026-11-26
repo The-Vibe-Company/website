@@ -19,7 +19,7 @@ Le context engineering consiste à choisir ce qu'un agent IA a sous les yeux qua
 
 Vous confiez déjà des tickets à Claude Code ou à Codex. La PR revient propre, tests au vert. Le résultat, lui, tombe à côté de ce que vous vouliez. Avant d'accuser le modèle, relisez le ticket. Ce qui manque dedans, l'agent l'a décidé à votre place.
 
-Le test tient en une question : le PO aurait-il encore une question en lisant ce ticket ?
+Le test : le PO aurait-il encore une question en lisant ce ticket ?
 
 Ma règle tient en une phrase : « Aujourd'hui, si tu veux donner des tâches aux agents, il faut prendre le temps. »
 
@@ -114,7 +114,7 @@ Le skill ne publie rien sans votre accord. Vous recevez d'abord son découpage, 
 
 Ce qui sert à chaque session, et le moins possible au-delà. Le reste va dans le ticket.
 
-La raison est un coût. D'après la [documentation writing-for-agents](https://github.com/mattpocock/skills/blob/main/docs/productivity/writing-for-agents.md), `CLAUDE.md` se charge à chaque session. Ce qui sert une session sur dix coûte du contexte dans les neuf autres.
+La raison est un coût. D'après la [documentation writing-for-agents](https://github.com/mattpocock/skills/blob/main/docs/productivity/writing-for-agents.md#the-two-loads), `CLAUDE.md` se charge à chaque session. Ce qui sert une session sur dix coûte du contexte dans les neuf autres.
 
 Gardez dans `CLAUDE.md` les règles valables pour tout le dépôt. Une précision qui ne concerne qu'une tâche a sa place dans le ticket de cette tâche. C'est la logique du ticket complet, vue depuis le dépôt.
 
@@ -124,13 +124,17 @@ Les réglages d'équipe sont dans [le guide pour déployer Claude Code en entrep
 
 Un board partagé, que les agents et les humains lisent au même endroit. Avec des tickets complets et bien découpés, vous lancez plusieurs agents. Il faut alors savoir qui tient quoi et ce qui est fini.
 
-Côté suivi, j'ai bougé moi aussi. Pour mes agents, je suis passé de Linear à GitHub Issues. Puis Vercel a sorti Vercel Board, le 18 novembre 2026. L'idée me plaît, avec une réserve : « ça te force à utiliser leur système qui est très bien, mais ça te force à utiliser Vercel ». Je veux faire tourner mon code où je veux.
+Côté suivi, j'ai bougé moi aussi. Pour mes agents, je suis passé de Linear à GitHub Issues. Puis Vercel a sorti Vercel Board, le [18 novembre 2026](https://vercel.com/blog/introducing-vercel-board). L'idée me plaît, avec une réserve : « ça te force à utiliser leur système qui est très bien, mais ça te force à utiliser Vercel ». Je veux faire tourner mon code où je veux.
 
 J'ai construit Open Board pour ça : les agents et les humains y suivent le travail des agents, sur un board qui tourne chez vous. Le code est public sur [github.com/The-Vibe-Company/openboard](https://github.com/The-Vibe-Company/openboard), sous licence Apache-2.0. Open Board parle le protocole HTTP de Vercel Board et gère des messages, des tâches (bail, dépendances, attente, assignation) et un flux d'événements. S'y ajoutent ses comptes, des webhooks signés, un point d'accès MCP, une interface web, un CLI (`ob`) et un skill. Le tout tourne sur SQLite ou sur Postgres.
 
 Le détail est dans [mon guide pour coordonner vos agents sur un board](/fr/resources/articles/systeme-multi-agent-vercel-board). Un ticket complet dit à l'agent quoi faire. Le board vous dit ce qu'il en a fait.
 
 *Mis à jour le 26 novembre 2026. Les repères sur Grill Me, to-tickets, to-spec et writing-for-agents viennent de la documentation de mattpocock/skills, lue le 26 novembre 2026.*
+
+Commencez petit. Prenez votre prochain ticket et passez-le au tableau plus haut. Lancez l'agent quand le PO n'aurait plus aucune question.
+
+Pour mettre vos tickets et vos [agents IA en production](/fr/agents-ia-production) à ce niveau, [prenons rendez-vous](https://cal.com/stangirard/thevibecompany).
 
 ## FAQ
 
@@ -153,7 +157,3 @@ La documentation de Grill Me conseille de compter les rounds plutôt que les que
 ### Faut-il un ticket par session d'agent ?
 
 Oui, c'est la règle de to-tickets : chaque ticket est dimensionné pour une fenêtre de contexte neuve et déclare ses dépendances. Si tout le changement tient dans une seule fenêtre de contexte, vous n'avez pas besoin de le découper.
-
-Commencez petit. Prenez votre prochain ticket et passez-le au tableau plus haut. Lancez l'agent quand le PO n'aurait plus aucune question.
-
-Pour mettre vos tickets et vos [agents IA en production](/fr/agents-ia-production) à ce niveau, [prenons rendez-vous](https://cal.com/stangirard/thevibecompany).
