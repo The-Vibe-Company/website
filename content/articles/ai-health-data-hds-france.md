@@ -5,8 +5,9 @@ slug: ai-health-data-hds-france
 language: en
 translationKey: hds-health-data
 summary: "AI and health data in France: who needs certification, the 6 HDS activities, the 2024 framework, GDPR and the CNIL. What to check before production."
-seoDescription: "AI on French health data: who needs HDS certification, the 6 HDS activities, the 2024 framework, GDPR and CNIL. A 9-point checklist before production."
+seoDescription: "HDS certification in France for AI projects: who needs it, the 2024 framework, health data warehouses, the EHDS and CNIL formalities before production."
 publishedAt: 2026-10-12
+dateModified: 2026-11-26
 complexity: intermediate
 topics: AI Agents, Health Data, Security
 coverImage: /images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp
@@ -16,6 +17,8 @@ ogImage: /images/resources/ia-donnees-de-sante-hds/cover-mascotte.webp
 
 AI projects in healthcare rarely stall on the model. They stall the day someone asks: "So where does the data live?"
 
+**HDS certification in France, in brief.** HDS is the certification French law requires from anyone who hosts personal health data on behalf of a third party or the patient (article L.1111-8 of the Public Health Code). An AI project needs a certified host once a provider hosts, administers or backs up its health data, model calls, logs and indexes included.
+
 **The short answer.** Running an AI project on health data in France takes five things. Map the data flows (app, model, logs, backups). Pick a host with an HDS certificate under the 2024 framework, covering the activities you need. Keep model calls, logs and indexes inside that scope, or pseudonymize first. Sort out GDPR with your DPO: legal basis, impact assessment, CNIL formalities. And test without real data. The rest of this guide covers the framework. For the concrete hosting choice (activities, cloud, model calls), see [HDS hosting for AI](/en/resources/articles/hds-hosting-for-ai).
 
 At that point the notebook demo isn't enough. You need to know who hosts, who administers, who backs up, and where the data goes when the app calls a model. In France, most of those answers come down to three letters: HDS.
@@ -24,13 +27,13 @@ We went through this with [Monka](/en/case-studies/monka). Inside their existing
 
 > This is not legal advice. For your specific case, talk to your DPO or a specialized lawyer.
 
-## HDS in two sentences
+## What is HDS certification in France?
 
 HDS (Hébergeur de Données de Santé, health data host) certification guarantees that a host applies a security level suited to personal health data. It's issued by an accredited independent certification body, based on a framework published by France's Agence du Numérique en Santé ([esante.gouv.fr](https://esante.gouv.fr/produits-services/hds)).
 
 The obligation comes from article L.1111-8 of the French Public Health Code: anyone hosting health data collected during prevention, diagnosis, care or social-medical follow-up, on behalf of a third party or the patient, must be certified.
 
-## Who needs HDS certification (and who doesn't necessarily)
+## Who needs HDS certification, and who doesn't necessarily?
 
 It all hinges on "on behalf of". Certification targets whoever hosts or operates the data for someone else.
 
@@ -40,7 +43,7 @@ It all hinges on "on behalf of". Certification targets whoever hosts or operates
 
 The question to ask at kickoff: who will actually have access to the servers and databases?
 
-## The 6 HDS activities
+## The 6 activities of the HDS framework
 
 The framework splits hosting into six activities, and hosts are certified activity by activity ([framework, esante.gouv.fr](https://esante.gouv.fr/produits-services/hds)):
 
@@ -58,13 +61,13 @@ A simple reading, which Stan Girard laid out in ["Comprendre la certification HD
 - **activities 1 and 2: physical infrastructure host**, for those owning and running their own servers and data centers;
 - **activities 3 to 6: managed-services host**, covering the application environment: platform, operations, day-to-day security and backups.
 
-A big cloud provider can be certified on all six activities while not every one of its services is usable for health data, and without offering managed operations (activity 5) itself. You then need a certified managed-services provider, or to get your own operations certified.
+An example from the same article: a big cloud provider can be certified on all six activities while not every one of its services is usable for health data, and without offering managed operations (activity 5) itself. You then need a certified managed-services provider, or to get your own operations certified.
 
 HDS also builds on ISO 27001, adding health-specific (largely contractual) requirements. For a host, compliance typically takes one to two years.
 
-Check that your host's certificate covers the activities you hand over. The word "HDS" on its homepage isn't enough.
+In practice, check that your host's certificate covers the activities you hand over. The word "HDS" on its homepage isn't enough. A cloud certified on activities 1 to 4 doesn't cover administration of your application if your own team runs it.
 
-## What changed with the 2024 framework
+## What changed with the 2024 HDS framework?
 
 The revised framework was published in the French Official Journal on May 16, 2024 ([ANS](https://esante.gouv.fr/espace-presse/publication-au-journal-officiel-du-referentiel-de-certification-hds-souverainete-des-donnees-et-ameliorations-du-referentiel)):
 
@@ -76,11 +79,13 @@ The revised framework was published in the French Official Journal on May 16, 20
   - if the host or a subcontractor is subject to a non-EU law without adequate protection under GDPR, it must tell the client and explain the risk of unauthorized access;
   - the host must publish a map of possible data transfers outside the EEA.
 
-These rules enforce transparency. They don't make a host immune to extraterritorial laws.
+These rules enforce transparency. They don't make a host immune to extraterritorial laws. How much risk is acceptable is your call.
 
-So in October 2026, ask for an up-to-date certificate, with its dates and activities.
+Since May 16, 2026, an HDS certificate issued under the old framework should therefore no longer be valid. Ask for the current certificate, with its dates and activities.
 
-## Where AI complicates things: models, APIs and logs
+## Where does AI complicate HDS: models, APIs and logs?
+
+An AI project opens data paths that a classic application doesn't have. Those are the ones to map:
 
 - **The model call.** Sending a patient record to an LLM API means the data leaves your host. You need to know where the call is processed, whether requests are retained, and whether the provider is covered for health data. If not, pseudonymize before the call or run the model in an HDS environment.
 - **Logs and observability.** Prompt and response traces often contain health data in clear text. Keep them at the same security level as the main database.
@@ -88,11 +93,54 @@ So in October 2026, ask for an up-to-date certificate, with its dates and activi
 - **Test environments.** No real patient data in an uncertified demo environment.
 - **Agent permissions.** An agent that can read a record doesn't necessarily need to edit it.
 
-## GDPR and CNIL: obligations don't stop at hosting
+## Which GDPR and CNIL obligations come on top of hosting?
 
-HDS covers hosting. GDPR covers the whole processing. Health data is sensitive data, and the CNIL has published recommendations for developing AI systems ([cnil.fr](https://www.cnil.fr/fr/ia-finalisation-recommandations-developpement-des-systemes-ia)): check you may use the data for this purpose, minimize it, set a retention period, assess risks to individuals (often through a DPIA), and plan security measures such as encryption. The CNIL also notes that a model trained on personal data may itself remain subject to GDPR.
+HDS covers hosting. GDPR covers the whole processing. Health data is sensitive data, and the CNIL has published recommendations for developing AI systems ([cnil.fr](https://www.cnil.fr/fr/ia-finalisation-recommandations-developpement-des-systemes-ia)):
+
+- check that you may use the data for this purpose;
+- limit the data to what is necessary;
+- set a retention period;
+- assess the risks to individuals, often through a data protection impact assessment (DPIA) when health data is processed at scale;
+- plan security measures such as encryption.
+
+The CNIL also notes that a model trained on personal data may itself remain subject to GDPR. Planning to train or fine-tune a model on patient data? Settle that point before the first line of code.
 
 In March 2026, the CNIL published a guidance sheet on AI in healthcare ([cnil.fr](https://www.cnil.fr/fr/ia-et-sante-developper-et-evaluer-des-systemes-ia-conformes)). It treats developing an AI system for healthcare as research, a study or an evaluation in the health field. In most cases that means a prior formality: a declaration of conformity with a reference methodology (MR-001, MR-003 or MR-004), or an authorization request if the project falls outside it. The sheet covers building datasets, development and evaluation. Simply deploying a tool someone else built is not covered there.
+
+## Training a model on a health data warehouse: what are the rules?
+
+A health data warehouse (entrepôt de données de santé, or EDS) has its own CNIL framework, and its hosting still falls under HDS. Many healthcare AI projects start there, with a database that pools records for research.
+
+- **The CNIL's EDS framework**, adopted in October 2021 ([cnil.fr](https://www.cnil.fr/fr/la-cnil-adopte-un-referentiel-sur-les-entrepots-de-donnees-de-sante)), lets a warehouse declare conformity instead of requesting prior authorization. It only covers warehouses based on a public interest mission. A private company building a warehouse for its own research on the basis of legitimate interest is outside it and needs an individual authorization from the CNIL.
+- **Hosting stays HDS.** The EDS framework requires the processor that hosts, stores or keeps the data to be an HDS-certified host ([CNIL, map of health data warehouses](https://cartoeds.beta.cnil.fr/a-propos)).
+- **Building the warehouse and using it are separate formalities.** The declaration covers building the warehouse. Training or evaluating a model on its data goes through its own formality, either a reference methodology or a research authorization.
+
+So an AI project starts with two questions: where is the data hosted, and under which regime was the warehouse built?
+
+## What does the EHDS, the EU regulation, change for an AI project?
+
+The European Health Data Space (EHDS) is Regulation (EU) 2025/327. It was published in the Official Journal of the EU on March 5, 2025 and entered into force on March 26, 2025 ([European Commission](https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_en)). Its obligations apply in stages, starting in 2027.
+
+| Date | What applies |
+|---|---|
+| March 26, 2025 | Entry into force and start of the transition. No operational obligations yet. |
+| March 26, 2027 | General application of the regulation, with the Commission's first implementing acts. |
+| March 26, 2029 | Exchange of the first group of data (patient summary, ePrescription and eDispensation) and secondary use rules for most data. |
+| March 26, 2031 | Second group (medical imaging, lab results, discharge reports) and secondary use of further categories such as genomic data. |
+
+Secondary use is the part that concerns AI: reusing health data for research, innovation or model training through health data access bodies. As of November 2026, none of it replaces HDS or the CNIL formalities. A project launched today follows the French framework and plans for secondary data access to change from 2029.
+
+## Which text governs what?
+
+Five texts overlap, and HDS only covers hosting.
+
+| Text | What it governs | When it affects an AI project |
+|---|---|---|
+| HDS (article L.1111-8 of the Public Health Code) | Hosting health data on behalf of a third party | As soon as a provider hosts or administers the data |
+| GDPR | The whole processing: purpose, legal basis, retention, rights | Always, from the design stage |
+| CNIL health formalities (MR-001, MR-003, MR-004 or authorization) | Research, studies and evaluations in the health field | To train or evaluate a model on this data |
+| CNIL EDS framework | Building a public interest health data warehouse | If the project relies on a data warehouse |
+| EHDS (Regulation (EU) 2025/327) | Exchange and reuse of health data across the EU | Gradually, from 2027 |
 
 ## Checklist before starting an AI project on health data
 
@@ -108,7 +156,7 @@ In March 2026, the CNIL published a guidance sheet on AI in healthcare ([cnil.fr
 
 For the next step, from prototype to production, see our [AI agent POC to production checklist](/en/resources/articles/ai-agent-poc-to-production).
 
-## Concrete hosting: where to go next
+## Where to go next for concrete hosting?
 
 This guide covers the framework: who needs certification, what the 2024 framework and the CNIL require, and the checklist before you start. The concrete hosting choice (certified cloud, activities to cover, where model calls, logs and backups live) is detailed in [HDS hosting for AI](/en/resources/articles/hds-hosting-for-ai). This one covers the regulatory "why", the other the infrastructure "how".
 
@@ -132,7 +180,7 @@ Not the consumer versions. You need an environment whose hosting and contract co
 
 ### Is the 2024 HDS framework already mandatory?
 
-Yes. New applicants since November 16, 2024; existing hosts had to migrate by May 16, 2026.
+Yes. New applicants have been assessed against it since November 16, 2024, and hosts that were already certified had to migrate by May 16, 2026 at the latest.
 
 ### Do you need a DPIA for an AI project on health data?
 
@@ -146,9 +194,13 @@ To train or evaluate a model on health data, usually yes. Under the CNIL's March
 
 Yes. Embeddings, indexes and source text taken from patient records contain health data. Treat them like the main database: hosted by a host certified for the relevant activities, with the same access rules.
 
+### Does a healthcare AI voice agent need HDS hosting?
+
+Yes, once it processes health data collected during care or follow-up and a provider hosts that data on behalf of the healthcare organization. Audio recordings, transcripts and the summaries the agent generates are health data. They follow the same rule as the patient record, and so do the agent's logs.
+
 ### Are HDS and GDPR the same thing?
 
-No. HDS is about hosting health data. GDPR covers the whole processing.
+No. HDS is about hosting health data. GDPR covers the whole processing: purpose, legal basis, data minimization, retention period and the rights of individuals.
 
 ### How do you choose an HDS host for an AI project?
 
