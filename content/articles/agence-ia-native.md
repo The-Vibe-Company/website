@@ -17,7 +17,7 @@ ogImage: /images/resources/agence-ia-native/cover-mascotte.webp
 
 Une agence IA native est un [prestataire de services](/fr/resources/articles/agence-intelligence-artificielle) qui utilise le logiciel en interne pour livrer le travail fini à ses clients. C'est la thèse que [Y Combinator](https://x.com/ycombinator/status/2018414131720958094) publie le 2 février 2026 sous le titre « AI-Native Agencies », portée par [Aaron Epstein](https://www.ycombinator.com/people/aaron-epstein). Une entreprise AI-native, elle, désigne un produit ou une organisation conçus autour de l'IA.
 
-Tapez « agence ia native » dans Google : le haut des résultats parle surtout d'**entreprises** AI-native. L'aperçu IA de Google, au 9 novembre 2026, ne cite pas Y Combinator. Un acheteur qui cherche un [prestataire](/fr/resources/articles/meilleure-agence-ia-comparatif) tombe donc sur la mauvaise question.
+Tapez « agence ia native » dans Google : le haut des résultats parle surtout d'**entreprises** AI-native. L'aperçu IA de Google, au 9 novembre 2026, [ne cite pas Y Combinator](/fr/resources/articles/etre-cite-chatgpt-gemini-aeo). Un acheteur qui cherche un [prestataire](/fr/resources/articles/meilleure-agence-ia-comparatif) tombe donc sur la mauvaise question.
 
 :::summary{title="En bref"}
 - Pour Y Combinator, une agence IA native se sert elle-même du logiciel et vend le produit fini.

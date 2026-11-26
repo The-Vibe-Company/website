@@ -14,7 +14,7 @@ coverAlt: "Mascotte The Vibe Company inspectant à la loupe des caisses de code 
 ogImage: /images/resources/agents-ia-durcir-saas/cover-mascotte.webp
 ---
 
-Pour durcir un SaaS avec des agents IA de sécurité, partez de ce que leurs éditeurs ont publié : des failles trouvées et corrigées en volume, sur des périmètres précis, et parfois des limites écrites noir sur blanc. Le second gain est hors CI. En août 2025, des jetons OAuth compromis de l'intégration Salesloft Drift ont servi à exporter des données de nombreuses instances Salesforce, loin de tout dépôt Git.
+Pour durcir un SaaS avec des agents IA de sécurité, partez de ce que leurs éditeurs ont publié : [des failles trouvées et corrigées en volume](/fr/resources/articles/audit-securite-informatique-agents-ia), sur des périmètres précis, et parfois des limites écrites noir sur blanc. Le second gain est hors CI. En août 2025, des jetons OAuth compromis de l'intégration Salesloft Drift ont servi à exporter des données de nombreuses instances Salesforce, loin de tout dépôt Git.
 
 Cet article parle des agents qui sécurisent votre produit. Sécuriser l'agent lui-même, ses clés, ses droits et ce qu'il exécute, fait l'objet de [Black October : failles PHP, secrets volés, ce que ça change pour vos agents IA](/fr/resources/articles/black-october-securite-agents-ia). Le pipeline à chaque pull request, les règles écrites en skills versionnés et les chiffres GitGuardian d'ouverture sont dans [l'agent de sécurité en CI](/fr/resources/articles/agent-securite-ci).
 

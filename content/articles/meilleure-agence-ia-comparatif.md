@@ -69,7 +69,7 @@ On ne reprend que des faits publiés par les acteurs eux-mêmes, avec le lien. L
 :::agency{name="The Vibe Company" logo="/images/resources/meilleure-agence-ia-comparatif/logos/the-vibe-company.webp" tagline="PME, ETI, et renfort technique pour les grands groupes" choose="Choisir si" avoid="Limites : ne pas choisir si"}
 - **Pour qui** : Les PME et ETI qui veulent un outil IA en production en quelques semaines, les grands groupes qui cherchent des ingénieurs IA seniors ou un conseil technique exigeant (choix d'architecture, RAG, agents, évaluation), et les agences qui ont besoin d'une expertise IA pointue sur un projet client, comme on le fait avec Theodo.
 - **Points forts** : Une petite équipe très technique qui livre des outils IA en production : [RAG](/fr/resources/articles/rag-entreprise), agents, automatisations. Exemple : [Monka](/fr/case-studies/monka).
-- **Taille annoncée** : Petite équipe basée à Montreuil, fondée en 2024 par Stan Girard et Antoine Dewez. Les fondateurs viennent de Quivr, une startup passée par Y Combinator.
+- **Taille annoncée** : [Petite équipe basée à Montreuil](/fr/a-propos), fondée en 2024 par Stan Girard et Antoine Dewez. Les fondateurs viennent de Quivr, une startup passée par Y Combinator.
 - **Choisir si** : Vous voulez un outil IA en production en quelques semaines, sans comité de pilotage à rallonge, ou des ingénieurs IA seniors intégrés à vos équipes.
 - **Limites : ne pas choisir si** : Vous lancez un programme de transformation sur plusieurs pays (Artefact ou Theodo seront mieux armés), ou si vous devez entraîner ou aligner un modèle (allez voir Mistral AI).
 :::

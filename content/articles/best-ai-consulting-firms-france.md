@@ -68,7 +68,7 @@ We only use facts the companies published themselves, with links. Self-reported 
 
 :::agency{name="The Vibe Company" logo="/images/resources/meilleure-agence-ia-comparatif/logos/the-vibe-company.webp" tagline="SMEs, mid-sized companies, and technical reinforcement for large groups" choose="Choose if" avoid="Limits: skip if"}
 - **Who it's for**: SMEs and mid-sized companies that want an AI tool in production within weeks, large groups looking for senior AI engineers or demanding technical advice (architecture choices, RAG, agents, evaluation), and agencies that need sharp AI expertise on a client project, as we do with Theodo.
-- **Strengths**: A small, highly technical team that ships AI tools to production: [RAG](/en/resources/articles/enterprise-rag), agents, automations. Example: [Monka](/en/case-studies/monka).
+- **Strengths**: A small, highly technical team that [ships AI tools to production](/en/resources/articles/ai-native-agency): [RAG](/en/resources/articles/enterprise-rag), agents, automations. Example: [Monka](/en/case-studies/monka).
 - **Reported size**: A small team based in Montreuil, near Paris, founded in 2024 by Stan Girard and Antoine Dewez. The founders come from Quivr, a Y Combinator startup.
 - **Choose if**: You want an AI tool in production within weeks, without a long steering committee, or senior AI engineers embedded in your teams.
 - **Limits: skip if**: You are launching a multi-country transformation program (Artefact or Theodo will be better equipped), or you need to train or align a model (talk to Mistral AI).

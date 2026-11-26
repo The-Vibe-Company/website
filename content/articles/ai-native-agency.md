@@ -17,7 +17,7 @@ ogImage: /images/resources/agence-ia-native/cover-mascotte.webp
 
 An AI-native agency is a [services provider](/en/resources/articles/what-an-ai-agency-does) that uses software in-house to deliver finished work to its clients. That is the thesis [Y Combinator](https://x.com/ycombinator/status/2018414131720958094) published on February 2, 2026, under the title "AI-Native Agencies" and championed by [Aaron Epstein](https://www.ycombinator.com/people/aaron-epstein). An AI-native company means a product or an organization designed around AI.
 
-Search Google in French for "agence ia native" and the top results mostly discuss AI-native **companies**. Google's AI Overview, as of November 9, 2026, does not cite Y Combinator. A buyer looking for a [provider](/en/resources/articles/best-ai-consulting-firms-france) therefore lands on the wrong question.
+Search Google in French for "agence ia native" and the top results mostly discuss AI-native **companies**. Google's AI Overview, as of November 9, 2026, [does not cite Y Combinator](/en/resources/articles/get-cited-chatgpt-gemini-aeo). A buyer looking for a [provider](/en/resources/articles/best-ai-consulting-firms-france) therefore lands on the wrong question.
 
 :::summary{title="In short"}
 - For Y Combinator, an AI-native agency uses the software itself and sells the finished product.

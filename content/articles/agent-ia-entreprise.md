@@ -84,11 +84,11 @@ Un bon test : si vous pouvez dessiner le parcours sur un tableau blanc et qu'il 
 
 ## Quatre briques font tenir un agent IA en production
 
-Le modèle (Claude, GPT, Mistral…) pèse moins qu'il n'y paraît. Les quatre briques autour de lui font la différence entre une démo et un agent utilisé tous les jours.
+Le modèle ([Claude, GPT, Mistral](/fr/resources/articles/claude-vs-chatgpt-entreprise)…) pèse moins qu'il n'y paraît. Les quatre briques autour de lui font la différence entre une démo et un agent utilisé tous les jours.
 
 ### 1. Les outils : brancher l'agent sur vos vrais systèmes
 
-Un agent ne vaut que par ce qu'il peut lire et faire. Branché sur un export figé, il répond à côté. Branché sur vos API, vos bases et vos outils métier, il travaille avec le vrai contexte.
+Un agent ne vaut que par ce qu'il peut lire et faire. Branché sur un export figé, il répond à côté. Branché sur vos API, vos bases et vos outils métier, il travaille avec [le vrai contexte](/fr/resources/articles/context-engineering-agents-ia).
 
 Chez [LocService](/fr/case-studies/locservice), plateforme de location entre particuliers qui reçoit plusieurs centaines de tickets par jour, l'assistant de support est connecté aux API internes. Il voit le vrai dossier du client avant de rédiger. C'est en partie pour ça que ses brouillons sont utilisés sur 87 % des tickets. L'article sur [l'agent IA pour le support client](/fr/resources/articles/agent-ia-support-client) raconte le projet en détail.
 
