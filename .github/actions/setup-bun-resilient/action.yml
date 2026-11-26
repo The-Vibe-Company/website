@@ -1,0 +1,79 @@
+name: Setup Bun resiliently
+description: Retry cached setup-bun downloads, then fall back to the npm registry.
+runs:
+  using: composite
+  steps:
+    - name: Resolve Bun version
+      id: version
+      shell: bash
+      run: |
+        # Honor an exact packageManager pin when present; otherwise keep latest.
+        node <<'NODE' >> "$GITHUB_OUTPUT"
+        const { packageManager } = require(process.cwd() + '/package.json');
+        const pin = packageManager?.match(/^bun@(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)(?:\+.*)?$/);
+        if (packageManager?.startsWith('bun@') && !pin) {
+          throw new Error('packageManager must pin an exact Bun version');
+        }
+        console.log('version=' + (pin?.[1] ?? 'latest'));
+        NODE
+
+    - name: Setup Bun (attempt 1)
+      id: first
+      continue-on-error: true
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: ${{ steps.version.outputs.version }}
+
+    - name: Back off before attempt 2
+      if: steps.first.outcome == 'failure'
+      shell: bash
+      run: sleep 5
+
+    - name: Setup Bun (attempt 2)
+      id: second
+      if: steps.first.outcome == 'failure'
+      continue-on-error: true
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: ${{ steps.version.outputs.version }}
+
+    - name: Back off before attempt 3
+      if: steps.second.outcome == 'failure'
+      shell: bash
+      run: sleep 10
+
+    - name: Setup Bun (attempt 3)
+      id: third
+      if: steps.second.outcome == 'failure'
+      continue-on-error: true
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: ${{ steps.version.outputs.version }}
+
+    - name: Install Bun from npm registry
+      if: steps.third.outcome == 'failure'
+      shell: bash
+      env:
+        BUN_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        echo "::warning::setup-bun failed three times; installing Bun from the npm registry."
+        # Use a separate prefix so a partial setup-bun install cannot shadow the fallback.
+        # npm's platform packages avoid the failing GitHub Releases download endpoint.
+        export BUN_INSTALL="$RUNNER_TEMP/bun-fallback"
+        npm install --global --prefix "$BUN_INSTALL" --registry=https://registry.npmjs.org "bun@$BUN_VERSION"
+        export PATH="$BUN_INSTALL/bin:$PATH"
+        bun --version
+        echo "BUN_INSTALL=$BUN_INSTALL" >> "$GITHUB_ENV"
+        echo "$BUN_INSTALL/bin" >> "$GITHUB_PATH"
+
+    - name: Verify Bun
+      shell: bash
+      env:
+        BUN_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        installed="$(bun --version)"
+        echo "Bun $installed"
+        if [[ "$BUN_VERSION" != latest && "$installed" != "$BUN_VERSION" ]]; then
+          echo "::error::Expected Bun $BUN_VERSION, got $installed"
+          exit 1
+        fi
