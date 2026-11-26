@@ -221,6 +221,11 @@
       "targetUrl": "/images/_optimized/resources/comment-j-ecris-ces-articles/cover.webp",
       "targetHash": "d804c6c29dd965277d380fcad1d67cb9aac9151f2e70045a57ff0cc0b1d3a001"
     },
+    "content:/images/resources/context-engineering-agents-ia/cover.webp": {
+      "sourceHash": "bd83b731c478ecddf9cb85c44c2f1e63a5cf483e2257b0543791d904ee95654e",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/deployer-claude-code-entreprise/cover-mascotte-v3.webp": {
       "sourceHash": "e5a4c2b263f576bc8bf3e6e9bc6a8976a98edba0f5430652a6443c53fc514dbd",
       "targetUrl": null,
@@ -748,6 +753,11 @@
     },
     "og:/images/resources/comment-j-ecris-ces-articles/cover.png": {
       "sourceHash": "f8cf897038259e1aa30f21f147e8b42293bbebfd5f245a28e903e1f9a38dddd7",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/context-engineering-agents-ia/cover.webp": {
+      "sourceHash": "bd83b731c478ecddf9cb85c44c2f1e63a5cf483e2257b0543791d904ee95654e",
       "targetUrl": null,
       "targetHash": null
     },
