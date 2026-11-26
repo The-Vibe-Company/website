@@ -43,7 +43,7 @@ What does a ticket with no gaps look like, then?
 
 A ticket ready for an agent holds the whole need and leaves no open question for the PO. Two tests, to pass before you hand it over.
 
-The idea comes from the field. In my words: "At a client, Ready for Agent just measures whether the whole need has been written down in a ticket, and whether there is no question left for the PO."
+The idea comes from the field, at a client. There, in my words, "Ready for Agent just measures whether the whole need has been written down in a ticket, and whether there is no question left for the PO."
 
 That check also makes a finer comparison. "Ready for Agent measures the divergence between what you wrote in the plan and what actually gets done, against what it would have done with a human's context." It looks at the gap between what the plan says and what an agent would have done knowing everything a human on the team knows.
 

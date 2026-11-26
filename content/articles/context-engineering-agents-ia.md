@@ -43,7 +43,7 @@ Reste à savoir à quoi ressemble un ticket sans trou.
 
 Un ticket prêt pour un agent contient tout le besoin et ne laisse aucune question ouverte pour le PO. Deux tests, à passer avant de le confier.
 
-L'idée vient du terrain : « Chez un client, Ready for Agent mesure juste si tout le besoin a bien été retranscrit dans un ticket, et s'il n'y a pas de question pour le PO. »
+L'idée vient du terrain, chez un client. Là-bas, « Ready for Agent mesure juste si tout le besoin a bien été retranscrit dans un ticket, et s'il n'y a pas de question pour le PO ».
 
 Ce contrôle fait aussi une comparaison plus fine. « Ready for Agent mesure la divergence entre ce que tu as écrit dans le plan et ce qui est fait vraiment, avec ce qu'il aurait fait s'il avait eu le contexte d'un humain. » Il regarde l'écart entre ce que le plan dit et ce qu'un agent aurait fait en sachant tout ce qu'un humain de l'équipe sait.
 
