@@ -114,7 +114,7 @@ The skill publishes nothing without your approval. You first get its breakdown a
 
 What every session needs, and as little as possible beyond that. The rest goes in the ticket.
 
-The reason is a cost. According to the [writing-for-agents documentation](https://github.com/mattpocock/skills/blob/main/docs/productivity/writing-for-agents.md#the-two-loads), `CLAUDE.md` loads into every session. Anything that applies in one session out of ten costs context in the other nine.
+The reason is a cost. According to the [writing-for-agents documentation](https://github.com/mattpocock/skills/blob/main/docs/productivity/writing-for-agents.md#common-questions), `CLAUDE.md` loads into every session. Anything that applies in one session out of ten costs context in the other nine.
 
 Keep in `CLAUDE.md` the rules that hold for the whole repo. A detail that concerns one task belongs in that task's ticket. Same logic as the complete ticket, seen from the repo.
 

@@ -114,7 +114,7 @@ Le skill ne publie rien sans votre accord. Vous recevez d'abord son découpage, 
 
 Ce qui sert à chaque session, et le moins possible au-delà. Le reste va dans le ticket.
 
-La raison est un coût. D'après la [documentation writing-for-agents](https://github.com/mattpocock/skills/blob/main/docs/productivity/writing-for-agents.md#the-two-loads), `CLAUDE.md` se charge à chaque session. Ce qui sert une session sur dix coûte du contexte dans les neuf autres.
+La raison est un coût. D'après la [documentation writing-for-agents](https://github.com/mattpocock/skills/blob/main/docs/productivity/writing-for-agents.md#common-questions), `CLAUDE.md` se charge à chaque session. Ce qui sert une session sur dix coûte du contexte dans les neuf autres.
 
 Gardez dans `CLAUDE.md` les règles valables pour tout le dépôt. Une précision qui ne concerne qu'une tâche a sa place dans le ticket de cette tâche. C'est la logique du ticket complet, vue depuis le dépôt.
 
