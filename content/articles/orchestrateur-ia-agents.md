@@ -29,7 +29,7 @@ Puis les modèles sont devenus bien meilleurs pour manager d'autres agents. Ma l
 
 D'où ma conviction actuelle : « la problématique n'est plus combien d'agents tu peux lancer à la fois, mais c'est plutôt comment est-ce que tu orchestres bien ces agents ».
 
-Concrètement, orchestrer, c'est répondre à quatre questions. Qui découpe le travail ? Quel modèle fait quoi ? Qui vérifie la direction ? Où tournent les agents ? C'est exactement ce qu'il faut régler pour passer d'une démo à des [agents IA en production](/fr/agents-ia-production).
+Concrètement, orchestrer, c'est répondre à quatre questions. Qui découpe le travail ? Quel modèle fait quoi ? Qui vérifie la direction ? Où tournent les agents ? C'est exactement ce qu'il faut régler pour [passer d'une démo à des agents IA en production](/fr/agents-ia-production).
 
 ## Quivr V2 : de Grill Me aux tickets, en trois temps
 

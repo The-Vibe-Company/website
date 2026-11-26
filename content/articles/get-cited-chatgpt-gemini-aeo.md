@@ -161,7 +161,7 @@ Nobody can. OpenAI itself writes “Placement is not guaranteed”. You can aim 
 
 ## Map your citable pages
 
-The Vibe Company is an [AI agency in Paris](/en/ai-agency-paris) (YC W24). It builds products, agents, and software factories that run in production. If you want to map which pages to make citable and how AI bots crawl your site, The Vibe Company can do that mapping with your team.
+[The Vibe Company is an AI agency in Paris](/en/ai-agency-paris) (YC W24). It builds products, agents, and software factories that run in production. If you want to map which pages to make citable and how AI bots crawl your site, The Vibe Company can do that mapping with your team.
 
 [Book a call about your AI visibility →](https://cal.com/stangirard/thevibecompany)
 

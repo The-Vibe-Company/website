@@ -167,7 +167,7 @@ Un freelance suffit pour un projet court et peu complexe. Dès qu'il faut du des
 Aucune des agences de ce comparatif ne publie de grille tarifaire : le prix dépend du périmètre, des intégrations et du suivi. Demandez un cadrage chiffré et ce qu'il couvre après la mise en ligne.
 
 ### Une agence IA peut-elle développer une application mobile ?
-Oui, quand l'app est la porte d'entrée d'un système IA ou métier. Pour choisir entre agences IA, voyez notre page [agence IA à Paris](/fr/agence-ia-paris).
+Oui, quand l'app est la porte d'entrée d'un système IA ou métier. Pour choisir entre agences IA, voyez [notre page agence IA à Paris](/fr/agence-ia-paris).
 
 ## Vous ne savez pas encore qui choisir ?
 
