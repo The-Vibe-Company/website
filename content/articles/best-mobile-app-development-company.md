@@ -167,7 +167,7 @@ A freelancer is enough for a short, simple project. As soon as you need design, 
 None of the agencies in this comparison publishes a price list: the price depends on scope, integrations and support. Ask for a priced scope and what it covers after launch.
 
 ### Can an AI agency build a mobile app?
-Yes, when the app is the entry point to an AI or business system. To choose between AI agencies, see our [AI agency in Paris](/en/ai-agency-paris) page.
+Yes, when the app is the entry point to an AI or business system. To choose between AI agencies, see [our AI agency in Paris page](/en/ai-agency-paris).
 
 ## Not sure who to pick yet?
 
