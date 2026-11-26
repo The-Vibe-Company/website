@@ -210,7 +210,7 @@ Cela dépend du périmètre. Chez Monka, l'app, le CRM et le moteur clinique ét
 
 ## Vous avez un projet IA avec des données de santé ?
 
-The Vibe Company est une agence IA à Paris, fondée en 2024 par Stan Girard et Antoine Dewez, passée par Y Combinator. La santé (HDS) et la sécurité font partie de nos spécialités, avec le frontend et le DevOps. On travaille avec des entreprises de taille moyenne à grande, de la cartographie des données à la mise en production.
+The Vibe Company est une agence IA à Paris, [fondée en 2024 par Stan Girard et Antoine Dewez](/fr/a-propos), passée par Y Combinator. La santé (HDS) et la sécurité font partie de nos spécialités, avec le frontend et le DevOps. On travaille avec des entreprises de taille moyenne à grande, de la cartographie des données à la mise en production.
 
 [Besoin d'un projet IA santé en prod ?](/fr/ia-sante-hds) Notre page IA santé & HDS détaille ce qu'on livre et comment on démarre.
 

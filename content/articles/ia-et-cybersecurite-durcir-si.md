@@ -18,7 +18,7 @@ Quand un dirigeant me lance sur le sujet IA et cybersécurité, je réponds par 
 
 Je n'ai aucune intention d'essayer, et je n'ai rien d'un spécialiste de l'attaque. Mais si je peux l'envisager sans compétence particulière, quelqu'un qui vous en veut vraiment le peut aussi.
 
-Donc quand un dirigeant de PME me demande s'il doit lancer des agents pour durcir son SI, je réponds go. « De toute façon il faut le faire, y'a pas le choix. » Lancez une flotte d'agents qui renforce votre système d'information et surveille les CVE, ces failles publiées qui portent chacune un identifiant. Je ne connais pas de meilleur moyen de corriger aussi vite que d'autres attaquent. À une condition, dont on vous parle rarement. J'y viens.
+Donc quand un dirigeant de PME me demande s'il doit [lancer des agents pour durcir son SI](/fr/agents-ia-securite-produit), je réponds go. « De toute façon il faut le faire, y'a pas le choix. » Lancez une flotte d'agents qui renforce votre système d'information et surveille les CVE, ces failles publiées qui portent chacune un identifiant. Je ne connais pas de meilleur moyen de corriger aussi vite que d'autres attaquent. À une condition, dont on vous parle rarement. J'y viens.
 
 ## Attaquer ne coûte presque plus rien, et corriger doit aller aussi vite
 

@@ -127,7 +127,7 @@ AI agents for business are software that takes a goal, decides the steps, and us
 
 ### Is ChatGPT an AI agent?
 
-It depends on how ChatGPT is used. If you ask a question in a browser tab and carry the answer into your own tools yourself, ChatGPT is working as an assistant, because you do the acting. A language model becomes part of an AI agent when it is connected to a company's systems, given a goal, and bound by written rules about what it may do.
+It depends on how ChatGPT is used. If you ask a question in a browser tab and carry the answer into your own tools yourself, [ChatGPT](/en/resources/articles/claude-vs-chatgpt-for-business) is working as an assistant, because you do the acting. A language model becomes part of an AI agent when it is connected to a company's systems, given a goal, and bound by written rules about what it may do.
 
 ### How are businesses using AI agents?
 

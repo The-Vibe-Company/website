@@ -18,7 +18,7 @@ En France, selon l'[Insee](https://www.insee.fr/fr/statistiques/9025878), en 202
 
 Une agence d'intelligence artificielle (ou agence IA) conçoit, construit et met en production des outils d'IA pour une entreprise. Elle identifie les cas d'usage, prototype, intègre l'outil au système existant, puis mesure sa qualité dans le temps.
 
-Chez [Monka](/fr/case-studies/monka), l'app des aidants est partie en production le 10 mai, deux mois après le démarrage. Et pourtant on a dû ralentir, parce qu'on allait trop vite pour eux. C'est tout le travail d'une agence IA : savoir livrer vite, et savoir quand freiner.
+Chez [Monka](/fr/case-studies/monka), l'app des aidants est partie en production le 10 mai, deux mois après le démarrage. Et pourtant on a dû ralentir, parce qu'on allait trop vite pour eux. C'est tout le travail d'une agence IA : [savoir livrer vite](/fr/resources/articles/agence-ia-native), et savoir quand freiner.
 
 :::summary{title="En bref"}
 - Trois étapes, dans l'ordre : audit et cadrage, prototype, mise en production.

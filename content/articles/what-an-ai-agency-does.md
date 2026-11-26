@@ -18,7 +18,7 @@ In France, 15% of companies with 10 to 49 employees used at least one AI technol
 
 An artificial intelligence agency (or AI agency) designs, builds, and puts AI tools into production for a company. It identifies use cases, prototypes, integrates the tool into the existing system, then measures its quality over time.
 
-At [Monka](/en/case-studies/monka), the caregiver app went into production on May 10, two months after kickoff. Even so, The Vibe Company had to slow down, because it was moving too fast for them. That is the whole job of an AI agency: knowing how to ship fast, and knowing when to brake.
+At [Monka](/en/case-studies/monka), the caregiver app went into production on May 10, two months after kickoff. Even so, The Vibe Company had to slow down, because it was moving too fast for them. That is the whole job of an AI agency: [knowing how to ship fast](/en/resources/articles/ai-native-agency), and knowing when to brake.
 
 :::summary{title="In short"}
 - Three steps, in order: audit and scoping, prototype, production.

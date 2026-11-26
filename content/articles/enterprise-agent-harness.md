@@ -13,7 +13,7 @@ coverAlt: "The mascot turns a wrench on the base of a glass dome protecting a gl
 ogImage: /images/resources/agent-harness-entreprise/cover-mascotte.webp
 ---
 
-An agent harness is everything around the model: the loop that calls it, the tools and skills it can use, the sandbox where it runs code, the context it gets and the checks that decide whether its work is accepted. In a company, that's where an AI agent's reliability and security get decided. Switching models takes one line of config. Building the harness around it takes weeks, and that's the part that holds up, or doesn't, in production.
+An agent harness is everything around the model: the loop that calls it, the tools and skills it can use, the sandbox where it runs code, [the context it gets](/en/resources/articles/context-engineering-ai-agents) and the checks that decide whether its work is accepted. In a company, that's where an AI agent's reliability and security get decided. Switching models takes one line of config. Building the harness around it takes weeks, and that's the part that holds up, or doesn't, in production.
 
 We wrote this for CTOs and engineering leads who want to move from demo agents to agents that run on real systems. We'll cover the six building blocks of a harness, why you should start with a single agent, and what Anthropic's October 27, 2026 research on Chrome exploit chains changes for your sandbox and your patch cycle.
 

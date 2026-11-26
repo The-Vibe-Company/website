@@ -13,7 +13,7 @@ coverAlt: "La mascotte serre une clé sur le socle d’un dôme de verre qui pro
 ogImage: /images/resources/agent-harness-entreprise/cover-mascotte.webp
 ---
 
-Un agent harness, c'est tout ce qui entoure le modèle : la boucle qui l'appelle, les outils et les skills qu'il peut utiliser, le sandbox où il exécute du code, le contexte qu'on lui donne et les contrôles qui décident si son travail est accepté. En entreprise, c'est là que se jouent la fiabilité et la sécurité d'un agent IA. Changer de modèle prend une ligne de config. Construire le harness autour prend des semaines, et c'est lui qui tient, ou pas, en production.
+Un agent harness, c'est tout ce qui entoure le modèle : la boucle qui l'appelle, les outils et les skills qu'il peut utiliser, le sandbox où il exécute du code, [le contexte qu'on lui donne](/fr/resources/articles/context-engineering-agents-ia) et les contrôles qui décident si son travail est accepté. En entreprise, c'est là que se jouent la fiabilité et la sécurité d'un agent IA. Changer de modèle prend une ligne de config. Construire le harness autour prend des semaines, et c'est lui qui tient, ou pas, en production.
 
 On écrit ici pour les CTO et responsables techniques qui veulent passer d'agents en démo à des agents qui tournent sur de vrais systèmes. Au programme : les six briques d'un harness, pourquoi commencer avec un seul agent, et ce que la recherche publiée par Anthropic le 27 octobre 2026 sur les chaînes d'exploits Chrome change pour votre sandbox et votre cycle de patch.
 
