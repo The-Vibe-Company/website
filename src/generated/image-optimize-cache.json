@@ -91,6 +91,11 @@
       "targetUrl": null,
       "targetHash": null
     },
+    "content:/images/resources/agentic-engineering-equipe-agents/cover.webp": {
+      "sourceHash": "e50e495d30fd38bd98cacddc1eb055514ec67fd660c18c60bc441d45ece5c094",
+      "targetUrl": null,
+      "targetHash": null
+    },
     "content:/images/resources/agents-dont-lack-tools-they-lack-company-memory/cover-mascotte.webp": {
       "sourceHash": "f148fe053ae1e59135bbc63e8408eb56b1c8daaf4f342d4e18c4f5054c1a4e7c",
       "targetUrl": null,
@@ -688,6 +693,11 @@
     },
     "og:/images/resources/agent-securite-ci/cover-mascotte.webp": {
       "sourceHash": "04a58218a8c988400f63d4c3518501df8750ce636b2d51c64902c1f9e7073a6c",
+      "targetUrl": null,
+      "targetHash": null
+    },
+    "og:/images/resources/agentic-engineering-equipe-agents/cover.webp": {
+      "sourceHash": "e50e495d30fd38bd98cacddc1eb055514ec67fd660c18c60bc441d45ece5c094",
       "targetUrl": null,
       "targetHash": null
     },
