@@ -3,6 +3,8 @@ import fr from "../../../messages/fr.json";
 import en from "../../../messages/en.json";
 import { getAllContent } from "@/lib/content-source";
 import { getCustomers } from "@/lib/customers";
+import { PROJECT_SLUGS } from "@/lib/projects";
+import sitemap from "../sitemap";
 import { INDEXABLE_SPLIT_PATH_ROUTES, INDEXABLE_STATIC_ROUTES, localizedUrl, splitPath } from "@/lib/site";
 import { GET } from "./route";
 
@@ -60,5 +62,26 @@ describe("llms.txt localized discovery", () => {
       expect(other).not.toContain(`/resources/skills/${skill.slug}`);
     }
     expect(text).not.toContain("https://thevibecompany.co/");
+  });
+
+  test.each(["fr", "en"] as const)("%s lists every portfolio project once, only in its own language", (locale) => {
+    const own = locale === "fr" ? french : english;
+    const other = locale === "fr" ? english : french;
+    expect(own).toContain(`### ${locale === "fr" ? "Produits" : "Products"}`);
+    for (const slug of PROJECT_SLUGS) {
+      const url = localizedUrl(locale, `/portfolio/${slug}`);
+      expect(own.split(`(${url})`)).toHaveLength(2);
+      expect(other).not.toContain(`(${url})`);
+    }
+  });
+
+  test("every sitemap URL is listed in llms.txt", () => {
+    // Sitemap URLs intentionally left out of llms.txt. Add one here only with a
+    // comment explaining why it should not be offered to AI crawlers.
+    const excluded: string[] = [];
+    const missing = sitemap()
+      .map((entry) => entry.url)
+      .filter((url) => !excluded.includes(url) && !text.includes(`(${url})`));
+    expect(missing).toEqual([]);
   });
 });
