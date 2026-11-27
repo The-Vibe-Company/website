@@ -2,6 +2,8 @@ import fr from "../../messages/fr.json";
 import en from "../../messages/en.json";
 import { getCustomers } from "@/lib/customers";
 import { getAllContent } from "@/lib/content-source";
+import { getProjects } from "@/lib/projects";
+import { QUIVR_SLUG } from "@/lib/quivr";
 import { getNavContentTypes, getUrlSlugForDbType } from "@/lib/content-types";
 import {
   absoluteUrl,
@@ -69,6 +71,23 @@ export function buildLlmsTxt(): string {
     });
 
     const messages = locale === "fr" ? fr : en;
+    // Same title and description as /[locale]/portfolio/[slug] generateMetadata:
+    // Quivr uses its own search title, every other project "<name> · <back>".
+    const projects = [
+      `### ${locale === "fr" ? "Produits" : "Products"}`,
+      ...getProjects(locale).map((project) =>
+        routeListItem(
+          project.slug === QUIVR_SLUG
+            ? messages.quivr.metaTitle
+            : `${project.name} · ${messages.portfolio.back}`,
+          localizedUrl(locale, `/portfolio/${project.slug}`),
+          project.slug === QUIVR_SLUG
+            ? messages.quivr.metaDescription
+            : project.metaDescription,
+        ),
+      ),
+    ].join("\n\n");
+
     const caseStudies = [
       `### ${locale === "fr" ? "Cas clients" : "Case studies"}`,
       routeListItem(
@@ -117,6 +136,7 @@ export function buildLlmsTxt(): string {
       `## ${locale === "fr" ? "French" : "English"} canonical URLs`,
       "### Core Pages",
       ...corePages,
+      projects,
       caseStudies,
       ...contentSections,
     ].join("\n\n");
