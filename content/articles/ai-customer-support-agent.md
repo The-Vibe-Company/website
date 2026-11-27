@@ -1,5 +1,5 @@
 ---
-title: "AI customer service agent: automate without hurting service"
+title: "AI customer service agent: drafts a human can send"
 seoTitle: "AI customer service agent: drafts a human can send"
 seoDescription: "An AI customer service agent can send replies alone or draft them for a human. LocService's team reviews those drafts before they go out to customers."
 slug: ai-customer-support-agent
@@ -7,7 +7,7 @@ translationKey: ai-customer-support-agent
 language: en
 summary: "What an AI customer service agent is, why to start with drafts a human reviews, and how LocService uses those drafts on real tickets."
 publishedAt: 2026-10-15
-dateModified: 2026-11-16
+dateModified: 2026-11-27
 complexity: intermediate
 topics: AI Agents, AI Adoption, AI Operations
 author: stan-girard
@@ -16,7 +16,7 @@ coverAlt: "The mascot drafts a reply that a human support agent approves before 
 ogImage: /images/resources/agent-ia-support-client/cover-mascotte-v3.webp
 ---
 
-An AI customer service agent can answer your customers by itself, or it can write the reply and leave the send button to a person. The assistant The Vibe Company built for LocService is the second kind. The support team uses its drafts on [87% of tickets](/en/case-studies/locservice), and it has never sent a single reply.
+An AI customer service agent can answer your customers by itself, or it can write the reply and leave the send button to a person. AI agents for customer service come in both kinds, and the assistant The Vibe Company built for LocService is the second. The support team uses its drafts on [87% of tickets](/en/case-studies/locservice), and it has never sent a single reply.
 
 That was a choice. LocService is a peer-to-peer property rental platform that handles several hundred support tickets a day, and on its desk the right answer depends on each customer's file. An AI mistake there shows right away, and it goes out with LocService's name on it.
 
@@ -108,6 +108,10 @@ You can use a general-purpose assistant such as ChatGPT to help write customer s
 ### Do I have to tell customers they are talking to an AI?
 
 In the EU, customers have to be told when an AI system interacts with them directly. Article 50 of the AI Act has applied since August 2, 2026. It requires that people be informed they are interacting with an AI system unless that is obvious, and the [European Commission](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) names chatbots as an example. A reply drafted by AI but reviewed and sent by a support agent may be a different case, so confirm yours with a lawyer.
+
+### Can I test an AI support agent without customers seeing it?
+
+Yes. In draft mode, an AI support agent writes replies that customers never see unless a person sends them. A draft nobody sends stays invisible outside your team, so you can trial the agent on live tickets for as long as you need, and its bad days stay internal.
 
 ## A ticket export is enough to start the conversation
 
