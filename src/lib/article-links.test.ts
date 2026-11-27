@@ -16,7 +16,7 @@ test('article body links use a locale and the target article canonical URL', () 
     for (const [, href] of links) {
       if (href.startsWith('//')) continue
       // Downloadable templates are public assets shared across locale routes.
-      if (/^\/downloads\/[a-z0-9-]+\.(?:csv|xlsx)$/.test(href)) {
+      if (/^\/downloads\/(?:[a-z0-9-]+\/)*[a-z0-9-]+\.(?:csv|xlsx|sh)$/.test(href)) {
         if (!existsSync(path.join(process.cwd(), 'public', href.slice(1)))) {
           invalid.push(`${article.slug}: ${href} is missing`)
         }
