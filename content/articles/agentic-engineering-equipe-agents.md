@@ -11,7 +11,7 @@ complexity: intermediate
 topics: Agentic Engineering, AI Agents, Claude Code, Armada
 author: stan-girard
 coverImage: /images/resources/agentic-engineering-equipe-agents/cover.webp
-coverAlt: "La mascotte The Vibe Company, en capitaine sur un quai, donne un cap à une flotte de petits bateaux, chacun dans son couloir"
+coverAlt: "La mascotte The Vibe Company, sur un quai au coucher du soleil, montre du doigt une flotte de petits voiliers"
 ogImage: /images/resources/agentic-engineering-equipe-agents/cover.webp
 ---
 

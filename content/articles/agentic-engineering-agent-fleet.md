@@ -11,7 +11,7 @@ complexity: intermediate
 topics: Agentic Engineering, AI Agents, Claude Code, Armada
 author: stan-girard
 coverImage: /images/resources/agentic-engineering-equipe-agents/cover.webp
-coverAlt: "The Vibe Company mascot, dressed as a captain on a dock, gives a heading to a fleet of small boats, each in its own lane"
+coverAlt: "The Vibe Company mascot, on a dock at sunset, points at a fleet of small sailboats"
 ogImage: /images/resources/agentic-engineering-equipe-agents/cover.webp
 ---
 
