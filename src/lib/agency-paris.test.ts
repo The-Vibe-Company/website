@@ -32,6 +32,7 @@ describe("AI agency in Paris landing", () => {
 
   test("fits titles (51-60), descriptions (140-160) and H1s in their limits, keyword first", () => {
     for (const copy of Object.values(LOCALES)) {
+      expect(copy.metaTitle).toBe(`${copy.title} | The Vibe Company`);
       expect([...copy.metaTitle].length).toBeGreaterThanOrEqual(51);
       expect([...copy.metaTitle].length).toBeLessThanOrEqual(60);
       expect([...copy.metaDescription].length).toBeGreaterThanOrEqual(140);

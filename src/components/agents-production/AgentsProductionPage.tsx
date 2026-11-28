@@ -209,7 +209,6 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
       <main id="main-content" tabIndex={-1} className="flex-1">
         <ServiceHero
           kicker={t("kicker")}
-          display={t("displayTitle")}
           title={t("title")}
           lede={t("lede")}
           cta={
@@ -223,7 +222,7 @@ export async function AgentsProductionPage({ locale }: { locale: string }) {
         />
 
         <div data-surface="paper">
-          <Clientele exclude={["Softway Medical"]} />
+          <Clientele />
 
           <OfferFactsStrip kicker={t("factsLabel")} items={facts} />
 

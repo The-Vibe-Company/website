@@ -72,6 +72,7 @@ describe("custom AI app landing", () => {
     expect(MESSAGES.en.metaTitle).toBe("Custom AI App Development to Production | The Vibe Company");
     expect(MESSAGES.en.title).toBe("Custom AI App Development to Production");
     for (const messages of Object.values(MESSAGES)) {
+      expect(messages.metaTitle).toBe(`${messages.title} | The Vibe Company`);
       expect([...messages.metaTitle].length).toBeGreaterThanOrEqual(51);
       expect([...messages.metaTitle].length).toBeLessThanOrEqual(60);
       expect([...messages.metaDescription].length).toBeGreaterThanOrEqual(140);

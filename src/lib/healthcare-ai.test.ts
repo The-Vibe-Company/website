@@ -37,13 +37,14 @@ describe("healthcare AI landing", () => {
   });
 
   test("keeps the SEO-optimised title (51-60), meta description (140-160) and H1", () => {
-    expect(MESSAGES.fr.metaTitle).toBe("IA santé HDS : projets sur données santé | The Vibe Company");
-    expect(MESSAGES.fr.title).toBe("IA santé HDS : projets sur données de santé");
+    expect(MESSAGES.fr.metaTitle).toBe("IA santé HDS : projets données de santé | The Vibe Company");
+    expect(MESSAGES.fr.title).toBe("IA santé HDS : projets données de santé");
     expect(MESSAGES.en.metaTitle).toBe("Healthcare AI HDS: Products Built Safely | The Vibe Company");
     expect(MESSAGES.en.title).toBe("Healthcare AI HDS: Products Built Safely");
     expect(MESSAGES.fr.bookCall).toBe("Prendre 30 minutes");
     expect(MESSAGES.en.bookCall).toBe("Book 30 minutes");
     for (const messages of Object.values(MESSAGES)) {
+      expect(messages.metaTitle).toBe(`${messages.title} | The Vibe Company`);
       expect([...messages.metaTitle].length).toBeGreaterThanOrEqual(51);
       expect([...messages.metaTitle].length).toBeLessThanOrEqual(60);
       expect([...messages.metaDescription].length).toBeGreaterThanOrEqual(140);

@@ -162,14 +162,13 @@ export async function HardeningPage({ locale }: { locale: string }) {
       <main id="main-content" tabIndex={-1} className="flex-1">
         <ServiceHero
           kicker={t("kicker")}
-          display={t("displayTitle")}
           title={t("title")}
           lede={t("lede")}
           cta={<AboutBookingCta page={hardeningPageId(locale)} location="cta_hardening" lit />}
         />
 
         <div data-surface="paper">
-          <Clientele exclude={["Softway Medical"]} />
+          <Clientele />
 
           <OfferFactsStrip kicker={t("factsLabel")} items={facts} />
 

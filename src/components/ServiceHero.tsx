@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { BrandSquare } from "@/components/BrandSquare";
 import { Backers } from "@/components/home/Backers";
-import { FitText } from "@/components/home/FitText";
 import { MascotCutout } from "@/components/home/MascotCutout";
 import { keepPunctuationAttached } from "@/lib/french-spacing";
 
@@ -9,27 +8,19 @@ const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
 
 /**
  * The opening of a service landing, cut like the homepage's hero: a mono
- * kicker, a short headline set to fill the content width, the page's full
- * title beneath it as the promise, then the pitch, the call and the backers
- * on the left, and the mascot standing on the right in its orange light,
- * cut at the chest by the paper band that follows.
- *
- * The short headline sits just before the h1, outside it and hidden from
- * assistive technology; the h1 holds only the page's full title, so the
- * heading search engines and screen readers see is that title alone.
+ * kicker, the page's full H1 set directly in giant display type, then the
+ * pitch, the call and the backers on the left, and the mascot standing on the
+ * right in its orange light, cut at the chest by the paper band that follows.
  */
 export function ServiceHero({
   kicker,
-  display,
   title,
   lede,
   cta,
   response,
 }: {
   kicker: string;
-  /** A few words, set width-filling: "Agence IA Paris." */
-  display: string;
-  /** The page's full title, the one search engines see. */
+  /** The page's full title and sole H1, matching metaTitle without the brand suffix. */
   title: string;
   /** The pitch: one paragraph, or a few short ones. */
   lede: string | readonly string[];
@@ -57,21 +48,11 @@ export function ServiceHero({
           {kicker}
         </p>
 
-        <p
-          aria-hidden="true"
-          className="mt-8 block font-bold leading-[0.86] text-foreground [container-type:inline-size] lg:mt-10"
-        >
-          <FitText trackingEm={-0.055} className="-ml-[0.04em] transition-none">
-            {display}
-          </FitText>
-        </p>
-        <h1 className="m-0 font-bold text-foreground">
-          <span className="relative z-20 mt-10 block max-w-[28ch] text-balance text-[clamp(1.6rem,2.6vw,2.35rem)] font-medium leading-[1.12] tracking-[-0.03em] lg:mt-[54px]">
-            {keepPunctuationAttached(title)}
-          </span>
+        <h1 className="relative z-20 m-0 mt-7 text-balance text-[clamp(2.35rem,5.8vw,5.5rem)] font-bold leading-[0.94] tracking-[-0.048em] text-foreground lg:mt-9">
+          {keepPunctuationAttached(title)}
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,36rem)_minmax(0,1fr)]">
+        <div className="mt-4 grid grid-cols-1 lg:mt-6 lg:grid-cols-[minmax(0,36rem)_minmax(0,1fr)]">
           <div className="relative z-20 pb-10 lg:pb-[72px]">
             {(typeof lede === "string" ? [lede] : lede).map((paragraph) => (
               <p
@@ -98,7 +79,7 @@ export function ServiceHero({
           {/* Desktop: the mascot in the right column, running out of the
               section, cut at the chest by the paper. */}
           <div aria-hidden="true" className="relative hidden lg:block">
-            <div className="absolute -top-28 left-1/2 w-[min(470px,36vw)] -translate-x-[24%] xl:-top-[132px]">
+            <div className="absolute left-1/2 top-0 w-[min(440px,34vw)] -translate-x-[28%] xl:top-2">
               <MascotCutout variant="desktop" />
             </div>
           </div>
