@@ -38,14 +38,13 @@ export const MEDIA_METHOD_STEPS = [
   { n: "04", key: "production" },
 ] as const;
 
-/** Order of the FAQ entries, mirrored in the FAQPage JSON-LD. */
+/** Order of the 6 FAQ entries, mirrored in the FAQPage JSON-LD. */
 export const MEDIA_FAQ_KEYS = [
   "replace",
   "mediagen",
   "funding",
-  "timeline",
   "hallucinations",
-  "otherPages",
+  "timeline",
   "cost",
 ] as const;
 
@@ -58,8 +57,28 @@ export const MEDIA_FUNDING_ARTICLE_PATHS = {
   en: "/resources/articles/fund-ai-project-france-cir-cii",
 } as const;
 
+/** Generative AI in media: 7 practical newsroom use cases. */
+export const MEDIA_NEWSROOMS_ARTICLE_PATHS = {
+  fr: "/resources/articles/ia-generative-medias",
+  en: "/resources/articles/generative-ai-media-newsrooms",
+} as const;
+
+/** Enterprise RAG article, for archive search and multimodal retrieval. */
+export const MEDIA_RAG_ARTICLE_PATHS = {
+  fr: "/resources/articles/rag-entreprise",
+  en: "/resources/articles/enterprise-rag",
+} as const;
+
 export function mediaFundingArticle(locale: string): string {
   return locale === "en" ? MEDIA_FUNDING_ARTICLE_PATHS.en : MEDIA_FUNDING_ARTICLE_PATHS.fr;
+}
+
+export function mediaNewsroomsArticle(locale: string): string {
+  return locale === "en" ? MEDIA_NEWSROOMS_ARTICLE_PATHS.en : MEDIA_NEWSROOMS_ARTICLE_PATHS.fr;
+}
+
+export function mediaRagArticle(locale: string): string {
+  return locale === "en" ? MEDIA_RAG_ARTICLE_PATHS.en : MEDIA_RAG_ARTICLE_PATHS.fr;
 }
 
 /** PostHog `page` property of the landing's booking CTA, one per language. */

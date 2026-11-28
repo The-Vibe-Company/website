@@ -9,6 +9,7 @@ import {
   HEALTHCARE_CASE_SLUG,
   HEALTHCARE_FAQ_KEYS,
   HEALTHCARE_HDS_ARTICLE_PATHS,
+  HEALTHCARE_HOSTING_ARTICLE_PATHS,
   HEALTHCARE_SECONDARY_CASE_SLUG,
   healthcarePageId,
 } from "./healthcare-ai";
@@ -35,24 +36,18 @@ describe("healthcare AI landing", () => {
     expect(healthcarePageId("en")).toBe("healthcare-ai-hds");
   });
 
-  test("keeps the briefed title, meta description and H1", () => {
-    expect(MESSAGES.fr.metaTitle).toBe("IA santé et HDS : projets en production | The Vibe Company");
-    expect(MESSAGES.fr.metaDescription).toBe(
-      "Projets IA sur données de santé, livrés selon les exigences RGPD et HDS. Cas Monka (prod en 2 mois). Agence IA Paris, YC W24. RDV sous 24 h.",
-    );
-    expect(MESSAGES.fr.title).toBe("IA santé et HDS : on construit vos produits jusqu'en production");
-    expect(MESSAGES.en.metaTitle).toBe("Healthcare AI & HDS: ship to production | The Vibe Company");
-    expect(MESSAGES.en.metaDescription).toBe(
-      "AI projects on French health data, built to GDPR and HDS requirements. Monka case (2 months to prod). Paris AI agency, YC W24. Reply within 24h.",
-    );
-    expect(MESSAGES.en.title).toBe(
-      "Healthcare AI and HDS: we build your products all the way to production",
-    );
+  test("keeps the SEO-optimised title (51-60), meta description (140-160) and H1", () => {
+    expect(MESSAGES.fr.metaTitle).toBe("IA santé HDS : projets sur données santé | The Vibe Company");
+    expect(MESSAGES.fr.title).toBe("IA santé HDS : projets sur données de santé");
+    expect(MESSAGES.en.metaTitle).toBe("Healthcare AI HDS: Products Built Safely | The Vibe Company");
+    expect(MESSAGES.en.title).toBe("Healthcare AI HDS: Products Built Safely");
     expect(MESSAGES.fr.bookCall).toBe("Prendre 30 minutes");
     expect(MESSAGES.en.bookCall).toBe("Book 30 minutes");
     for (const messages of Object.values(MESSAGES)) {
-      expect(messages.metaTitle.length).toBeLessThanOrEqual(60);
-      expect(messages.metaDescription.length).toBeLessThanOrEqual(160);
+      expect([...messages.metaTitle].length).toBeGreaterThanOrEqual(51);
+      expect([...messages.metaTitle].length).toBeLessThanOrEqual(60);
+      expect([...messages.metaDescription].length).toBeGreaterThanOrEqual(140);
+      expect([...messages.metaDescription].length).toBeLessThanOrEqual(160);
       expect(messages.metaTitle).not.toBe(messages.title);
     }
   });
@@ -66,12 +61,13 @@ describe("healthcare AI landing", () => {
     }
   });
 
-  test("never claims to be certified, a host, or anything priced", () => {
+  test("never claims to be certified, a host, dashes, Softway or anything priced", () => {
     const forbidden = [
+      /[—–]/,
       /\bSOC\s?2\b/i,
       /\bISO\b/,
+      /Softway/i,
       /hasCredential/,
-      // A positive claim; the page only ever says it is not certified.
       /(The Vibe Company|TVC|\bon|\bnous)\s+(est|sommes)\s+(certifi|un hébergeur|hébergeur)/i,
       /(The Vibe Company|TVC|\bwe)\s+(is|are)\s+(HDS[- ]certified|certified|an? (HDS )?host)/i,
       /certifiée HDS(?! \?)/i,
@@ -89,8 +85,10 @@ describe("healthcare AI landing", () => {
 
   test("links only to articles and case studies that exist in the linked language", () => {
     for (const locale of ["fr", "en"] as const) {
-      const slug = HEALTHCARE_HDS_ARTICLE_PATHS[locale].split("/").pop()!;
-      expect(getContentItem("article", slug)?.language).toBe(locale);
+      for (const paths of [HEALTHCARE_HDS_ARTICLE_PATHS, HEALTHCARE_HOSTING_ARTICLE_PATHS]) {
+        const slug = paths[locale].split("/").pop()!;
+        expect(getContentItem("article", slug)?.language).toBe(locale);
+      }
       expect(getCustomer(HEALTHCARE_CASE_SLUG, locale)).toBeDefined();
       expect(getCustomer(HEALTHCARE_SECONDARY_CASE_SLUG, locale)).toBeDefined();
     }
@@ -114,15 +112,15 @@ describe("healthcare AI landing", () => {
     );
   });
 
-  test("the whole FAQ goes into the FAQPage markup, without its link tags", () => {
+  test("the whole FAQ goes into the FAQPage markup, without link tags or Comment/How openers", () => {
     for (const messages of Object.values(MESSAGES)) {
       const items = HEALTHCARE_FAQ_KEYS.map((key) => ({
         question: messages.faq.items[key].q,
-        // What `t.markup` returns with pass-through tags.
         answer: messages.faq.items[key].a.replace(/<\/?(hds|agency|hardening)>/g, ""),
       }));
-      for (const item of items) expect(item.answer).not.toMatch(/[<>]/);
       for (const item of items) {
+        expect(item.answer).not.toMatch(/[<>]/);
+        expect(item.question).not.toMatch(/^(Comment|How)\b/i);
         expect(isPublishable(item.question)).toBe(true);
         expect(isPublishable(item.answer)).toBe(true);
       }

@@ -2,17 +2,36 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 
+import { BrandSquare } from "@/components/BrandSquare";
+import { ClientMark } from "@/components/ClientMark";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
+import { ServiceHero } from "@/components/ServiceHero";
 import { TopNav } from "@/components/TopNav";
 import { AboutBookingCta } from "@/components/about/AboutBookingCta";
-import { Clientele } from "@/components/home/landing/Clientele";
-import { ServiceHero } from "@/components/ServiceHero";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { Clientele } from "@/components/home/landing/Clientele";
+import { OfferEditorialQuote } from "@/components/offer/OfferEditorialQuote";
+import { OfferFactsStrip, type OfferFactItem } from "@/components/offer/OfferFactsStrip";
+import { OfferFaqSection } from "@/components/offer/OfferFaqSection";
+import { OfferFurtherReading } from "@/components/offer/OfferFurtherReading";
+import { OfferMethodBand } from "@/components/offer/OfferMethodBand";
+import {
+  OFFER_BAND,
+  OFFER_H2,
+  OFFER_H2_SPLIT,
+  OFFER_H3,
+  OFFER_INLINE_LINK,
+  OFFER_LIST_RULE,
+  OFFER_MONO,
+  OFFER_MONO_LINK,
+  OFFER_PROSE,
+  OFFER_PROSE_LEAD,
+} from "@/components/offer/offer-styles";
 import { Link } from "@/i18n/navigation";
 import { ABOUT_ORIGIN_ARTICLE_LOCALE, ABOUT_ORIGIN_ARTICLE_PATH } from "@/lib/about";
 import {
-  AGENCY_PARIS_CASE_SLUGS,
+  AGENCY_PARIS_ARTICLES,
   AGENCY_PARIS_COMPARISON,
   AGENCY_PARIS_FAQ_KEYS,
   AGENCY_PARIS_OFFER_KEYS,
@@ -21,13 +40,14 @@ import {
   AGENCY_PARIS_STEPS,
   OFFICE_ADDRESS,
 } from "@/lib/agency-paris";
-import { keepPunctuationAttached } from "@/lib/french-spacing";
 import { getCustomer, type ContentLocale } from "@/lib/customers";
+import { keepPunctuationAttached } from "@/lib/french-spacing";
 import {
   ABOUT_PATHS,
   AGENCY_PARIS_PATHS,
   AGENTS_PRODUCTION_PATHS,
   CUSTOM_AI_APP_PATHS,
+  HARDENING_PATHS,
   localizedSocialMetadata,
   localizedUrl,
   splitPath,
@@ -39,21 +59,17 @@ import {
   serviceNode,
   webPageNode,
 } from "@/lib/structured-data";
-import { ClientMark } from "@/components/ClientMark";
-import { BrandSquare } from "@/components/BrandSquare";
 
 /**
- * The commercial "AI agency in Paris" landing page, served at
- * /fr/agence-ia-paris and /en/ai-agency-paris. Both routes render this
- * component; each declares the other through hreflang.
+ * Commercial "AI agency in Paris" offer page (/fr/agence-ia-paris,
+ * /en/ai-agency-paris).
  *
- * Dressed like the homepage landing and the About page: the hero on the ink
- * in its orange bloom, then warm paper (facts, audience, the cases under
- * their lamps), the first call as an ink band in the orange light, the
- * offers on paper, the method on ink, paper again for the landscape of
- * Paris AI firms, security, team, FAQ and further reading, and the closing
- * scene. Sections follow AGENCY_PARIS_SECTIONS; every figure comes from a
- * published case study, see src/lib/agency-paris.ts.
+ * Visual arc: Ink hero with answer block and booking slab, warm paper with
+ * logo marquee, 4-column sourced proof ledger, published cases under warm
+ * lamps, Monka CEO quote on ink in orange light, audience fit and three offers
+ * on paper, 5-step method on ink, honest Paris agency landscape, AI vs
+ * generalist + GDPR/HDS and Paris team on paper, 6-question FAQ, further
+ * reading and sibling offers, and the closing scene.
  */
 
 export async function agencyParisMetadata(locale: string): Promise<Metadata> {
@@ -63,7 +79,6 @@ export async function agencyParisMetadata(locale: string): Promise<Metadata> {
   const path = splitPath(AGENCY_PARIS_PATHS, locale);
 
   return {
-    // Absolute: the brand is already in the title.
     title: { absolute: title },
     description,
     alternates: splitPathAlternates(locale, AGENCY_PARIS_PATHS),
@@ -71,38 +86,17 @@ export async function agencyParisMetadata(locale: string): Promise<Metadata> {
   };
 }
 
-const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
-const BAND = `${SECTION} py-20 md:py-28 lg:py-32`;
-const H2 =
-  "m-0 font-bold text-foreground text-[clamp(2.5rem,5.6vw,5.25rem)] leading-[0.92] tracking-[-0.045em]";
-const MONO =
-  "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
-const PROSE = "m-0 text-[15px] leading-[1.6] text-muted-foreground md:text-base";
-const TEXT_LINK =
-  "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
-const H3 =
-  "m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]";
-const INLINE_LINK =
-  "text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
-// List marker drawn as a short rule rather than a dash character.
-const DASH = "mt-[0.72em] h-px w-[0.6em] shrink-0 bg-muted-foreground";
-/** The light an ink band sits in, as on the homepage's client quote. */
-const INK_GLOW =
-  "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
-
 export async function AgencyParisPage({ locale }: { locale: string }) {
   const contentLocale: ContentLocale = locale === "en" ? "en" : "fr";
   const t = await getTranslations({ locale, namespace: "agencyParis" });
   const tServices = await getTranslations({ locale, namespace: "services" });
   const tFooter = await getTranslations({ locale, namespace: "footer" });
-  // French sets a space before ":" and "?": keep the mark on the word's line.
+
   const d = (text: string) => (contentLocale === "fr" ? keepPunctuationAttached(text) : text);
-  // The same for rich text: only its plain-text runs are touched.
   const attach = (node: ReactNode): ReactNode =>
     typeof node === "string" ? d(node) : Array.isArray(node) ? node.map(attach) : node;
 
   const pageUrl = localizedUrl(locale, splitPath(AGENCY_PARIS_PATHS, locale));
-  // The CTA's PostHog `page` property: the landing's own URL segment.
   const page = splitPath(AGENCY_PARIS_PATHS, locale).slice(1);
   const comparison = AGENCY_PARIS_COMPARISON[contentLocale];
 
@@ -110,13 +104,10 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
     (customer) => customer !== undefined,
   );
   const [featured, ...others] = proofCases;
-  const linkCases = AGENCY_PARIS_CASE_SLUGS.map((slug) => getCustomer(slug, contentLocale)).filter(
-    (customer) => customer !== undefined,
-  );
   const players = AGENCY_PARIS_PLAYERS.map((player, i) => ({ ...player, n: i + 1 }));
 
   const comparisonLink = (chunks: ReactNode) => (
-    <Link href={comparison.path} locale={comparison.locale} className={INLINE_LINK}>
+    <Link href={comparison.path} locale={comparison.locale} className={OFFER_INLINE_LINK}>
       {chunks}
     </Link>
   );
@@ -132,7 +123,6 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
       { name: tFooter("home"), url: localizedUrl(locale) },
       { name: t("breadcrumb"), url: pageUrl },
     ]),
-    // Word for word the visible answers, the link markup dropped.
     faqPageSchema(
       AGENCY_PARIS_FAQ_KEYS.map((key) => ({
         question: t(`faq.items.${key}.q`),
@@ -147,6 +137,60 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
     }),
   ];
 
+  const facts = (t.raw("facts") as OfferFactItem[]).map((item) => ({
+    ...item,
+    figure: d(item.figure),
+    detail: d(item.detail),
+  }));
+
+  const articles = [
+    {
+      key: "comparison",
+      label: d(t("links.comparison")),
+      href: comparison.path,
+      locale: comparison.locale,
+    },
+    {
+      key: "choose",
+      label: d(t("links.choose")),
+      href: AGENCY_PARIS_ARTICLES.choose[contentLocale],
+      locale: contentLocale,
+    },
+    {
+      key: "steps",
+      label: d(t("links.steps")),
+      href: AGENCY_PARIS_ARTICLES.steps[contentLocale],
+      locale: contentLocale,
+    },
+    {
+      key: "versus",
+      label: d(t("links.versus")),
+      href: AGENCY_PARIS_ARTICLES.versus[contentLocale],
+      locale: contentLocale,
+    },
+  ];
+
+  const siblingOffers = [
+    {
+      key: "agentsProduction",
+      title: d(t("links.offers.agentsProduction.title")),
+      desc: d(t("links.offers.agentsProduction.desc")),
+      href: splitPath(AGENTS_PRODUCTION_PATHS, locale),
+    },
+    {
+      key: "customAiApp",
+      title: d(t("links.offers.customAiApp.title")),
+      desc: d(t("links.offers.customAiApp.desc")),
+      href: splitPath(CUSTOM_AI_APP_PATHS, locale),
+    },
+    {
+      key: "hardening",
+      title: d(t("links.offers.hardening.title")),
+      desc: d(t("links.offers.hardening.desc")),
+      href: splitPath(HARDENING_PATHS, locale),
+    },
+  ];
+
   return (
     <div
       data-variant="hybrid"
@@ -157,103 +201,68 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
       ))}
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        {/* 1. On the ink, cut like the homepage's hero: the short headline,
-            the full title as the H1's promise and the pitch, the mascot in
-            its light. The call comes after the value. */}
         <ServiceHero
           kicker={t("kicker")}
           display={t("displayTitle")}
           title={t("title")}
           lede={(t.raw("lede") as string[]).map(d)}
+          cta={
+            <AboutBookingCta
+              page={page}
+              location="cta_agency_paris_hero"
+              namespace="agencyParis"
+              lit
+            />
+          }
         />
 
         <div data-surface="paper">
-          {/* The client logos running along the top of the paper, as on the
-              homepage. */}
-          <Clientele />
+          <Clientele exclude={["Softway Medical"]} />
 
-          {/* 2. The facts, in short: where, for whom, and the proof figures. */}
-          <section className={`${SECTION} border-b border-border py-12 md:py-14`}>
-            <h2 className={`m-0 font-normal ${MONO}`}>
-              <BrandSquare />
-              {t("factsLabel")}
-            </h2>
-            <dl className="m-0 mt-6 grid grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-2 lg:grid-cols-3">
-              {(t.raw("facts") as { label: string; value: string }[]).map((fact) => (
-                <div key={fact.label} className="flex gap-3 text-[16px] leading-[1.5]">
-                  <span aria-hidden="true" className="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-brand" />
-                  <div>
-                    <dt className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                      {fact.label}
-                    </dt>
-                    <dd className="m-0 mt-1 text-soft-foreground">{d(fact.value)}</dd>
-                  </div>
-                </div>
-              ))}
-            </dl>
-          </section>
+          <OfferFactsStrip kicker={t("factsLabel")} items={facts} />
 
-          {/* 3. Who it is for, and who it is not for. */}
-          <section className={BAND}>
-            <h2 className={H2}>{d(t("audience.title"))}</h2>
-            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("audience.intro")}</p>
-
-            <div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-2 md:gap-16">
-              {(
-                [
-                  ["audience.signalsLabel", "audience.signals"],
-                  ["audience.notFitLabel", "audience.notFit"],
-                ] as const
-              ).map(([label, items]) => (
-                <div key={label}>
-                  <h3 className={`m-0 font-normal ${MONO}`}>{t(label)}</h3>
-                  <ul className="m-0 mt-4 flex list-none flex-col p-0">
-                    {(t.raw(items) as string[]).map((item) => (
-                      <li
-                        key={item}
-                        className="flex gap-3 border-b border-border py-4 text-[17px] leading-[1.45] text-foreground"
-                      >
-                        <span aria-hidden="true" className={DASH} />
-                        <span>{d(item)}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+          {/* Proof first: placed right where a skeptical buyer asks what actually shipped. */}
+          <section className={OFFER_BAND}>
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <p className={`m-0 mb-5 inline-flex items-center ${OFFER_MONO}`}>
+                  <BrandSquare />
+                  {t("proof.kicker")}
+                </p>
+                <h2 className={`${OFFER_H2} max-w-[20ch]`}>{d(t("proof.title"))}</h2>
+                <p className={`${OFFER_PROSE_LEAD} mt-5 max-w-[60ch]`}>{d(t("proof.intro"))}</p>
+              </div>
+              <Link href="/case-studies" className={`shrink-0 ${OFFER_MONO_LINK}`}>
+                {t("proof.linkLabel")}
+                <span aria-hidden="true">→</span>
+              </Link>
             </div>
-          </section>
-
-          {/* 4. Proof: published cases only, each under its lamp with the
-              figure it backs. */}
-          <section className={`${BAND} border-t border-border`}>
-            <h2 className={H2}>{d(t("proof.title"))}</h2>
-            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("proof.intro")}</p>
 
             {featured ? (
-              <article className="lamp-card mt-12 grid grid-cols-1 overflow-hidden border border-border md:mt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
-                {/* One bench under one lamp: no rule between the halves on
-                    a wide screen, so the light falls on the whole card. */}
-                <div className="relative flex flex-col border-b border-border p-7 md:p-9 lg:border-b-0 lg:pr-6">
+              <article className="lamp-card mt-12 grid grid-cols-1 overflow-hidden border border-border md:mt-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+                <div className="relative flex flex-col justify-between border-b border-border p-7 md:p-10 lg:border-b-0 lg:border-r">
                   <CaseHeader
                     logo={featured.logo}
                     client={featured.client}
                     sector={t(`proof.cases.${featured.slug}.sector`)}
                   />
-                  <div className="text-foreground mt-10 pb-1 text-[clamp(3.5rem,7vw,6rem)] font-bold leading-none tracking-[-0.05em]">
-                    {t(`proof.cases.${featured.slug}.figure`)}
+                  <div className="mt-10 lg:mt-14">
+                    <div className="text-foreground text-[clamp(3.25rem,6.5vw,5.5rem)] font-bold leading-none tracking-[-0.055em]">
+                      {t(`proof.cases.${featured.slug}.figure`)}
+                    </div>
+                    <p className="m-0 mt-3 max-w-[34ch] text-[15px] leading-[1.5] text-soft-foreground">
+                      {d(t(`proof.cases.${featured.slug}.caption`))}
+                    </p>
                   </div>
-                  {featured.quote ? (
-                    <figure className="m-0 mt-8 border-l border-border-strong pl-5 lg:mt-auto lg:pt-8">
-                      <blockquote className="m-0 text-[15px] leading-[1.6] text-foreground">
-                        {locale === "fr" ? `« ${featured.quote.text} »` : `“${featured.quote.text}”`}
-                      </blockquote>
-                      <figcaption className={`mt-3 ${MONO}`}>{featured.quote.author}</figcaption>
-                    </figure>
-                  ) : null}
                 </div>
-                <div className="relative flex flex-col p-7 md:p-9 lg:pl-6">
-                  <CasePoints points={(t.raw(`proof.cases.${featured.slug}.points`) as string[]).map(d)} />
-                  <CaseLink slug={featured.slug} label={t("proof.readCase", { name: featured.client })} />
+                <div className="relative flex flex-col p-7 md:p-10">
+                  <CasePoints
+                    points={(t.raw(`proof.cases.${featured.slug}.points`) as string[]).map(d)}
+                  />
+                  <CaseLink
+                    slug={featured.slug}
+                    label={t("proof.readCase", { name: featured.client })}
+                  />
                 </div>
               </article>
             ) : null}
@@ -271,11 +280,13 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                       sector={t(`proof.cases.${customer.slug}.sector`)}
                     />
                   </div>
-                  <div className="text-foreground relative mt-8 pb-1 text-[clamp(2.75rem,4.6vw,4rem)] font-bold leading-none tracking-[-0.05em]">
+                  <div className="text-foreground relative mt-8 text-[clamp(2.5rem,4.2vw,3.75rem)] font-bold leading-none tracking-[-0.05em]">
                     {t(`proof.cases.${customer.slug}.figure`)}
                   </div>
-                  <div className="relative mt-6 flex flex-1 flex-col">
-                    <CasePoints points={(t.raw(`proof.cases.${customer.slug}.points`) as string[]).map(d)} />
+                  <div className="relative mt-6 flex flex-1 flex-col border-t border-border pt-5">
+                    <CasePoints
+                      points={(t.raw(`proof.cases.${customer.slug}.points`) as string[]).map(d)}
+                    />
                     <CaseLink
                       slug={customer.slug}
                       label={t("proof.readCase", { name: customer.client })}
@@ -284,56 +295,98 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                 </article>
               ))}
             </div>
-
-            <Link href="/case-studies" className={`${TEXT_LINK} mt-10`}>
-              {t("proof.linkLabel")}
-              <span aria-hidden="true">→</span>
-            </Link>
           </section>
         </div>
 
-        {/* 5. The first call, once the value is on the table: an ink band in
-            the orange light, like the homepage's client quote. */}
-        <section className="relative overflow-hidden">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-            style={{ background: INK_GLOW }}
+        {/* Ink emphasis band: Monka CEO quote verbatim from src/lib/customers.ts. */}
+        {featured?.quote ? (
+          <OfferEditorialQuote
+            quote={featured.quote.text}
+            author={featured.quote.author}
+            locale={locale}
+            logoSrc="/images/clients/monka.webp"
           />
-          <div className={`relative ${BAND}`}>
-            <h2 className={H2}>{d(t("cta.title"))}</h2>
-            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("cta.text")}</p>
-            <AboutBookingCta page={page} location="cta_agency_paris_proof" namespace="agencyParis" />
-          </div>
-        </section>
+        ) : null}
 
         <div data-surface="paper">
-          {/* 6. The three offers, the homepage services, each under its
-              lamp. */}
-          <section className={BAND}>
-            <h2 className={H2}>{t("offers.title")}</h2>
+          {/* Audience fit: asymmetric editorial split, unboxed typography. */}
+          <section className={OFFER_BAND}>
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+              <div className="lg:sticky lg:top-28 lg:self-start">
+                <p className={`m-0 mb-5 inline-flex items-center ${OFFER_MONO}`}>
+                  <BrandSquare />
+                  {t("audience.kicker")}
+                </p>
+                <h2 className={OFFER_H2_SPLIT}>{d(t("audience.title"))}</h2>
+                <p className={`${OFFER_PROSE_LEAD} mt-6 max-w-[44ch]`}>{d(t("audience.intro"))}</p>
+              </div>
 
-            <div className="mt-12 grid grid-cols-1 gap-4 md:mt-16 md:grid-cols-3">
+              <div className="flex flex-col gap-12">
+                <div>
+                  <h3 className={`m-0 font-normal ${OFFER_MONO}`}>{t("audience.signalsLabel")}</h3>
+                  <ul className="m-0 mt-5 flex list-none flex-col border-t border-border p-0">
+                    {(t.raw("audience.signals") as string[]).map((item) => (
+                      <li
+                        key={item}
+                        className="flex gap-3.5 border-b border-border py-4 text-[16px] leading-[1.5] text-foreground md:text-[17px]"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-brand"
+                        />
+                        <span>{d(item)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className={`m-0 font-normal ${OFFER_MONO}`}>{t("audience.notFitLabel")}</h3>
+                  <ul className="m-0 mt-5 flex list-none flex-col border-t border-border p-0">
+                    {(t.raw("audience.notFit") as string[]).map((item) => (
+                      <li
+                        key={item}
+                        className="flex gap-3.5 border-b border-border py-4 text-[16px] leading-[1.5] text-muted-foreground md:text-[17px]"
+                      >
+                        <span aria-hidden="true" className={OFFER_LIST_RULE} />
+                        <span>{d(item)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Three ways to work together: 3 lamp cards with aligned row tracks. */}
+          <section className={`${OFFER_BAND} border-t border-border`}>
+            <p className={`m-0 mb-5 inline-flex items-center ${OFFER_MONO}`}>
+              <BrandSquare />
+              {t("offers.kicker")}
+            </p>
+            <h2 className={`${OFFER_H2} max-w-[20ch]`}>{d(t("offers.title"))}</h2>
+
+            <div className="mt-12 grid grid-cols-1 gap-4 md:mt-16 lg:grid-cols-3">
               {AGENCY_PARIS_OFFER_KEYS.map((key, i) => (
                 <article
                   key={key}
                   className="lamp-card flex flex-col overflow-hidden border border-border p-7 md:p-9"
                 >
                   <div className="relative mb-10 flex items-baseline justify-between gap-3">
-                    <span className="text-foreground text-[56px] font-bold leading-none tracking-[-0.05em]">
+                    <span className="text-foreground text-[52px] font-bold leading-none tracking-[-0.05em]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                       {tServices(`items.${key}.tag`)}
                     </span>
                   </div>
-                  <h3 className="relative m-0 mb-4 text-[clamp(1.6rem,2.2vw,2.1rem)] font-bold leading-[1.05] tracking-[-0.03em] text-foreground">
+                  <h3 className="relative m-0 mb-4 text-[clamp(1.5rem,2.1vw,2rem)] font-bold leading-[1.06] tracking-[-0.03em] text-foreground">
                     {t(`offers.items.${key}.label`)}
-                    <span className="block text-muted-foreground">
+                    <span className="mt-1 block text-muted-foreground">
                       {t(`offers.items.${key}.title`)}
                     </span>
                   </h3>
-                  <p className={`relative ${PROSE} text-soft-foreground`}>
+                  <p className={`relative flex-1 ${OFFER_PROSE} text-soft-foreground`}>
                     {d(t(`offers.items.${key}.desc`))}
                   </p>
                   {key === "build" || key === "operate" ? (
@@ -342,7 +395,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                         key === "build" ? CUSTOM_AI_APP_PATHS : AGENTS_PRODUCTION_PATHS,
                         locale,
                       )}
-                      className={`relative ${TEXT_LINK} mt-6 self-start`}
+                      className={`relative ${OFFER_MONO_LINK} mt-7 self-start`}
                     >
                       {t(`offers.items.${key}.link`)}
                       <span aria-hidden="true">→</span>
@@ -354,47 +407,40 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
           </section>
         </div>
 
-        {/* 7. How it goes, in five steps: an ink band in the orange light. */}
-        <section className="relative overflow-hidden">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-            style={{ background: INK_GLOW }}
-          />
-          <div className={`relative ${BAND}`}>
-            <h2 className={H2}>{t("method.title")}</h2>
-
-            <ol className="m-0 mt-12 flex list-none flex-col border-t border-border p-0 md:mt-16">
-              {AGENCY_PARIS_STEPS.map((step) => (
-                <li
-                  key={step.n}
-                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
-                >
-                  <span className="text-foreground text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
-                    {step.n}
-                  </span>
-                  <div className="flex flex-col gap-3">
-                    <h3 className="m-0 max-w-[620px] text-[22px] font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-[30px]">
-                      {t(`method.steps.${step.key}.title`)}
-                    </h3>
-                    <p className={`${PROSE} max-w-[620px]`}>
-                      {d(t(`method.steps.${step.key}.desc`))}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
+        {/* 5-step delivery method on ink in warm orange light. */}
+        <OfferMethodBand
+          kicker={t("method.kicker")}
+          title={d(t("method.title"))}
+          intro={d(t("method.intro"))}
+          steps={AGENCY_PARIS_STEPS.map((step) => ({
+            n: step.n,
+            title: d(t(`method.steps.${step.key}.title`)),
+            desc: d(t(`method.steps.${step.key}.desc`)),
+          }))}
+          footer={
+            <div>
+              <p className="m-0 max-w-[46ch] text-[18px] leading-[1.45] text-foreground md:text-[21px]">
+                {d(t("cta.text"))}
+              </p>
+              <AboutBookingCta
+                page={page}
+                location="cta_agency_paris_method"
+                namespace="agencyParis"
+                lit
+              />
+            </div>
+          }
+        />
 
         <div data-surface="paper">
-          {/* 8. Who else in Paris: the same eight names, in the same order,
-              as the comparison article, which carries the detail. */}
-          <section className={BAND}>
-            <h2 className={H2}>{t("landscape.title")}</h2>
-            <p className="m-0 mt-6 max-w-[760px] text-[17px] leading-[1.6] text-foreground md:text-lg">
-              {t("landscape.intro")}
+          {/* Honest Paris AI landscape: the 8 firms in mandatory order + 3 buyer questions. */}
+          <section className={OFFER_BAND}>
+            <p className={`m-0 mb-5 inline-flex items-center ${OFFER_MONO}`}>
+              <BrandSquare />
+              {t("landscape.kicker")}
             </p>
+            <h2 className={`${OFFER_H2} max-w-[20ch]`}>{d(t("landscape.title"))}</h2>
+            <p className={`${OFFER_PROSE_LEAD} mt-6 max-w-[66ch]`}>{d(t("landscape.intro"))}</p>
 
             <div className="mt-12 grid grid-cols-1 gap-4 md:mt-16 md:grid-cols-2">
               {(
@@ -402,13 +448,12 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                   ["sme", "landscape.smeTitle"],
                   ["large", "landscape.largeTitle"],
                 ] as const
-              ).map(([group, title]) => {
+              ).map(([group, titleKey]) => {
                 const members = players.filter((player) => player.group === group);
                 return (
                   <div key={group} className="border border-border bg-card p-7 md:p-9">
-                    <h3 className={`m-0 font-normal ${MONO}`}>{t(title)}</h3>
-                    {/* One numbering across both lists: 1 to 4, then 5 to 8. */}
-                    <ol start={members[0]?.n} className="m-0 mt-4 flex list-none flex-col p-0">
+                    <h3 className={`m-0 font-normal ${OFFER_MONO}`}>{t(titleKey)}</h3>
+                    <ol start={members[0]?.n} className="m-0 mt-5 flex list-none flex-col p-0">
                       {members.map((player) => (
                         <li
                           key={player.name}
@@ -420,7 +465,7 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                           >
                             {String(player.n).padStart(2, "0")}
                           </span>
-                          <span className="text-[22px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground md:text-[26px]">
+                          <span className="text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
                             {player.name}
                           </span>
                         </li>
@@ -431,20 +476,31 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
               })}
             </div>
 
-            <div className="mt-12 grid grid-cols-1 gap-10 md:mt-16 md:grid-cols-2 md:gap-16">
+            <div className="mt-12 grid grid-cols-1 gap-10 md:mt-14 md:grid-cols-2 md:gap-16">
               <div className="flex flex-col gap-4">
-                <p className={PROSE}>{d(t("landscape.pointers"))}</p>
-                <p className={PROSE}>{t("landscape.others")}</p>
+                <p className={OFFER_PROSE}>{d(t("landscape.pointers"))}</p>
+                <p className={OFFER_PROSE}>{d(t("landscape.others"))}</p>
+                <Link
+                  href={comparison.path}
+                  locale={comparison.locale}
+                  className={`${OFFER_MONO_LINK} mt-3 self-start`}
+                >
+                  {t("landscape.linkLabel")}
+                  <span aria-hidden="true">→</span>
+                </Link>
               </div>
               <div>
-                <h3 className={H3}>{d(t("landscape.questionsTitle"))}</h3>
-                <ol className="m-0 mt-4 flex list-none flex-col p-0">
+                <h3 className={OFFER_H3}>{d(t("landscape.questionsTitle"))}</h3>
+                <ol className="m-0 mt-5 flex list-none flex-col border-t border-border p-0">
                   {(t.raw("landscape.questions") as string[]).map((question, i) => (
                     <li
                       key={question}
-                      className="flex gap-4 border-b border-border py-4 text-[17px] leading-[1.45] text-foreground"
+                      className="flex gap-4 border-b border-border py-4 text-[16px] leading-[1.45] text-foreground"
                     >
-                      <span aria-hidden="true" className="font-mono text-[12px] leading-[2.1] text-brand">
+                      <span
+                        aria-hidden="true"
+                        className="font-mono text-[12px] leading-[2] text-brand"
+                      >
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span>{d(question)}</span>
@@ -453,169 +509,104 @@ export async function AgencyParisPage({ locale }: { locale: string }) {
                 </ol>
               </div>
             </div>
-
-            <Link href={comparison.path} locale={comparison.locale} className={`${TEXT_LINK} mt-12`}>
-              {t("landscape.linkLabel")}
-              <span aria-hidden="true">→</span>
-            </Link>
           </section>
 
-          {/* 9. AI agency or generalist software agency. */}
-          <section className={`${BAND} border-t border-border`}>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16">
-              <h2 className={H2}>{d(t("versus.title"))}</h2>
-              <div className="flex flex-col gap-4">
+          {/* AI agency vs generalist + Security (GDPR / HDS) + Paris office in one crisp editorial section. */}
+          <section className={`${OFFER_BAND} border-t border-border`}>
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+              <div className="flex flex-col gap-5">
+                <p className={`m-0 inline-flex items-center ${OFFER_MONO}`}>
+                  <BrandSquare />
+                  {t("versus.kicker")}
+                </p>
+                <h2 className={OFFER_H2_SPLIT}>{d(t("versus.title"))}</h2>
                 {(t.raw("versus.text") as string[]).map((paragraph, i) => (
-                  <p
-                    key={paragraph}
-                    className={
-                      i === 0
-                        ? "m-0 text-[17px] leading-[1.6] text-foreground md:text-lg"
-                        : PROSE
-                    }
-                  >
+                  <p key={paragraph} className={i === 0 ? OFFER_PROSE_LEAD : OFFER_PROSE}>
                     {d(paragraph)}
                   </p>
                 ))}
                 <Link
                   href={comparison.path}
                   locale={comparison.locale}
-                  className={`${TEXT_LINK} mt-4 self-start`}
+                  className={`${OFFER_MONO_LINK} mt-2 self-start`}
                 >
                   {t("versus.linkLabel")}
                   <span aria-hidden="true">→</span>
                 </Link>
               </div>
-            </div>
-          </section>
 
-          {/* 10. Security and compliance: what we work to, never a
-              certification. */}
-          <section className={`${BAND} border-t border-border`}>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16">
-              <h2 className={H2}>{t("security.title")}</h2>
-              <div className="flex flex-col gap-4">
-                {(t.raw("security.text") as string[]).map((paragraph, i) => (
-                  <p
-                    key={paragraph}
-                    className={
-                      i === 0
-                        ? "m-0 text-[17px] leading-[1.6] text-foreground md:text-lg"
-                        : PROSE
-                    }
-                  >
-                    {d(paragraph)}
+              <div className="flex flex-col gap-8 border-t border-border pt-10 lg:border-l lg:border-t-0 lg:pl-16 lg:pt-0">
+                <div className="flex flex-col gap-4">
+                  <p className={`m-0 inline-flex items-center ${OFFER_MONO}`}>
+                    <BrandSquare />
+                    {t("security.kicker")}
                   </p>
-                ))}
-              </div>
-            </div>
-          </section>
+                  <h3 className="m-0 text-[24px] font-bold leading-[1.1] tracking-[-0.03em] text-foreground md:text-[30px]">
+                    {d(t("security.title"))}
+                  </h3>
+                  {(t.raw("security.text") as string[]).map((paragraph) => (
+                    <p key={paragraph} className={OFFER_PROSE}>
+                      {d(paragraph)}
+                    </p>
+                  ))}
+                </div>
 
-          {/* 11. Who is behind it, and where the office is. */}
-          <section className={`${BAND} border-t border-border`}>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16">
-              <h2 className={H2}>{t("team.title")}</h2>
-              <div>
-                {(t.raw("team.desc") as string[]).map((paragraph, i) => (
-                  <p
-                    key={paragraph}
-                    className={
-                      i === 0
-                        ? "m-0 text-[17px] leading-[1.6] text-foreground md:text-lg"
-                        : `${PROSE} mt-4`
-                    }
-                  >
-                    {d(paragraph)}
-                  </p>
-                ))}
-
-                <div className="mt-10 border border-border bg-card p-7 md:p-9">
-                  <h3 className={`m-0 font-normal ${MONO}`}>
+                <div className="border border-border bg-card p-7 md:p-8">
+                  <p className={`m-0 inline-flex items-center ${OFFER_MONO}`}>
                     <BrandSquare />
                     {t("team.addressTitle")}
-                  </h3>
-                  <address className="mt-4 text-[22px] font-bold not-italic leading-[1.2] tracking-[-0.03em] text-foreground md:text-[26px]">
+                  </p>
+                  <address className="mt-3 text-[20px] font-bold not-italic leading-[1.2] tracking-[-0.03em] text-foreground md:text-[24px]">
                     {OFFICE_ADDRESS.display}
                   </address>
-                  <p className={`${PROSE} mt-4`}>{t("team.addressNote")}</p>
-                </div>
-
-                <p className={`${PROSE} mt-6`}>{t("team.notToConfuse")}</p>
-                <div className="mt-8 flex flex-col items-start gap-3">
-                  <Link href={splitPath(ABOUT_PATHS, locale)} className={TEXT_LINK}>
-                    {t("team.aboutLink")}
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                  <Link
-                    href={ABOUT_ORIGIN_ARTICLE_PATH}
-                    locale={ABOUT_ORIGIN_ARTICLE_LOCALE}
-                    className={TEXT_LINK}
-                  >
-                    {t("team.originLink")}
-                    <span aria-hidden="true">→</span>
-                  </Link>
+                  {(t.raw("team.desc") as string[]).map((paragraph) => (
+                    <p key={paragraph} className={`${OFFER_PROSE} mt-3`}>
+                      {d(paragraph)}
+                    </p>
+                  ))}
+                  <p className={`${OFFER_PROSE} mt-3`}>{d(t("team.addressNote"))}</p>
+                  <p className="m-0 mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                    {t("team.notToConfuse")}
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 border-t border-border pt-5">
+                    <Link href={splitPath(ABOUT_PATHS, locale)} className={OFFER_MONO_LINK}>
+                      {t("team.aboutLink")}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                    <Link
+                      href={ABOUT_ORIGIN_ARTICLE_PATH}
+                      locale={ABOUT_ORIGIN_ARTICLE_LOCALE}
+                      className={OFFER_MONO_LINK}
+                    >
+                      {t("team.originLink")}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* 12. Buyer questions, mirrored word for word in the FAQPage
-              JSON-LD above. */}
-          <section className={`${BAND} border-t border-border`}>
-            <h2 className={H2}>{t("faq.title")}</h2>
+          <OfferFaqSection
+            kicker={t("faq.kicker")}
+            title={d(t("faq.title"))}
+            items={AGENCY_PARIS_FAQ_KEYS.map((key) => ({
+              key,
+              question: d(t(`faq.items.${key}.q`)),
+              answer: attach(t.rich(`faq.items.${key}.a`, { link: comparisonLink })),
+            }))}
+          />
 
-            <div className="mt-12 md:mt-16">
-              {AGENCY_PARIS_FAQ_KEYS.map((key) => (
-                <article
-                  key={key}
-                  className="grid grid-cols-1 gap-3 border-b border-border py-8 last:border-b-0 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
-                >
-                  <h3 className={H3}>{d(t(`faq.items.${key}.q`))}</h3>
-                  <p className={`${PROSE} max-w-[70ch]`}>
-                    {attach(t.rich(`faq.items.${key}.a`, { link: comparisonLink }))}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          {/* 13. Further reading: the comparison, then the case studies. */}
-          <section className={`${SECTION} border-t border-border py-16 md:py-20`}>
-            <h2 className={`m-0 font-normal ${MONO}`}>
-              <BrandSquare />
-              {t("links.title")}
-            </h2>
-            <ul className="m-0 mt-6 grid list-none grid-cols-1 gap-x-10 p-0 md:grid-cols-2">
-              <li className="border-b border-border">
-                <Link
-                  href={comparison.path}
-                  locale={comparison.locale}
-                  className="group flex items-baseline justify-between gap-4 py-4 text-[17px] leading-[1.45] text-foreground"
-                >
-                  <span className="underline decoration-1 underline-offset-4 transition-colors group-hover:text-brand">
-                    {d(t("links.comparison"))}
-                  </span>
-                  <span aria-hidden="true">→</span>
-                </Link>
-              </li>
-              {linkCases.map((customer) => (
-                <li key={customer.slug} className="border-b border-border">
-                  <Link
-                    href={`/case-studies/${customer.slug}`}
-                    className="group flex items-baseline justify-between gap-4 py-4 text-[17px] leading-[1.45] text-foreground"
-                  >
-                    <span className="underline decoration-1 underline-offset-4 transition-colors group-hover:text-brand">
-                      {t(`links.cases.${customer.slug}`)}
-                    </span>
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
+          <OfferFurtherReading
+            kicker={t("links.kicker")}
+            title={d(t("links.title"))}
+            articlesLabel={t("links.articlesLabel")}
+            articles={articles}
+            offersLabel={t("links.offersLabel")}
+            offers={siblingOffers}
+          />
         </div>
 
-        {/* 14. The closing scene, with this page's own closing line. */}
         <FinalCTA namespace="agencyParis.finalCta" />
       </main>
       <Footer />
@@ -627,7 +618,6 @@ function CaseHeader({ logo, client, sector }: { logo?: string; client: string; s
   return (
     <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
       <h3 className="m-0">
-        {/* The logo is the card's title: its alt carries the client name. */}
         <ClientMark
           logo={logo}
           client={client}
@@ -646,10 +636,7 @@ function CasePoints({ points }: { points: string[] }) {
   return (
     <ul className="m-0 flex list-none flex-col p-0">
       {points.map((point) => (
-        <li
-          key={point}
-          className="flex gap-3 py-3 text-[15px] leading-[1.5] text-foreground"
-        >
+        <li key={point} className="flex gap-3 py-2.5 text-[15px] leading-[1.55] text-foreground">
           <span aria-hidden="true" className="font-mono text-brand">
             →
           </span>
@@ -662,7 +649,7 @@ function CasePoints({ points }: { points: string[] }) {
 
 function CaseLink({ slug, label }: { slug: string; label: string }) {
   return (
-    <Link href={`/case-studies/${slug}`} className={`mt-auto pt-6 ${TEXT_LINK} self-start`}>
+    <Link href={`/case-studies/${slug}`} className={`mt-auto pt-6 ${OFFER_MONO_LINK} self-start`}>
       {label}
       <span aria-hidden="true">→</span>
     </Link>

@@ -4,10 +4,10 @@
  * namespace; this file only orders it and points at the pages it links to.
  *
  * Every figure on the page is already published in a case study or an
- * article, and the same figures come back in the lede, the facts strip and
- * the proof (2 months, 87%, €4M, 165 questions, 12 versions, 2 projects,
- * more than 100,000 users). No pricing, no generic timeline, no
- * certification: the team works according to RGPD and HDS requirements.
+ * article, and the same figures come back in the answer block, the facts strip
+ * and the proof (2 months, 87%, €4M, 165 questions, 12 versions, 2 projects,
+ * more than 100,000 users). No pricing, no generic timeline, no certification:
+ * the team works according to GDPR (RGPD) and HDS requirements.
  */
 
 import { OFFICE_ADDRESS } from "./site";
@@ -15,20 +15,18 @@ import { OFFICE_ADDRESS } from "./site";
 export { OFFICE_ADDRESS };
 
 /**
- * The sections of the page, top to bottom, as AgencyParisPage lays them out
- * (each section's comment there carries its number in this list).
+ * The sections of the page, top to bottom, as AgencyParisPage lays them out.
  */
 export const AGENCY_PARIS_SECTIONS = [
   "hero",
   "facts",
-  "audience",
   "proof",
-  "cta",
+  "quote",
+  "audience",
   "offers",
   "method",
   "landscape",
   "versus",
-  "security",
   "team",
   "faq",
   "links",
@@ -47,7 +45,7 @@ export const AGENCY_PARIS_STEPS = [
   { n: "05", key: "handover" },
 ] as const;
 
-/** The published case studies, in the order of the "further reading" links. */
+/** The published case studies, in reading order. */
 export const AGENCY_PARIS_CASE_SLUGS = [
   "monka",
   "afp",
@@ -82,22 +80,34 @@ export const AGENCY_PARIS_PLAYERS = [
   { name: "Ekimetrics", group: "large" },
 ] as const satisfies readonly { name: string; group: "sme" | "large" }[];
 
-/** The comparison of AI firms (article #11), per language. */
+/** The comparison of AI firms, per language. */
 export const AGENCY_PARIS_COMPARISON: Record<"fr" | "en", { path: string; locale: "fr" | "en" }> = {
   fr: { path: "/resources/articles/meilleure-agence-ia-comparatif", locale: "fr" },
   en: { path: "/resources/articles/best-ai-consulting-firms-france", locale: "en" },
 };
 
-/** Order of the FAQ entries, mirrored in the FAQPage JSON-LD. */
+/** Relevant articles linked from the Paris agency landing, one per language. */
+export const AGENCY_PARIS_ARTICLES = {
+  choose: {
+    fr: "/resources/articles/choisir-agence-ia-esn-freelance",
+    en: "/resources/articles/how-to-choose-an-ai-agency",
+  },
+  steps: {
+    fr: "/resources/articles/agence-intelligence-artificielle",
+    en: "/resources/articles/what-an-ai-agency-does",
+  },
+  versus: {
+    fr: "/resources/articles/agence-ia-vs-freelance-esn",
+    en: "/resources/articles/ai-agency-vs-freelancer-vs-it-services",
+  },
+} as const;
+
+/** Order of the 6 FAQ entries, mirrored in the FAQPage JSON-LD. */
 export const AGENCY_PARIS_FAQ_KEYS = [
   "paris",
-  "clients",
+  "best",
   "cost",
   "timeline",
-  "best",
-  "generalist",
   "data",
-  "code",
   "related",
-  "start",
 ] as const;

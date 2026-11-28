@@ -8,6 +8,8 @@ import { getCustomer } from "./customers";
 import {
   AGENT_AUTHORITY_PATH,
   BLACK_OCTOBER_PATHS,
+  CI_SECURITY_PATHS,
+  CYBER_FLEET_PATHS,
   HARDENING_CASE_SLUGS,
   HARDENING_FAQ_KEYS,
   HDS_GUIDE_PATHS,
@@ -34,27 +36,25 @@ describe("hardening landing", () => {
     );
   });
 
-  test("keeps the briefed title, meta description and H1", () => {
-    expect(MESSAGES.fr.metaTitle).toBe("Agents IA pour durcir produit et SI | The Vibe Company");
-    expect(MESSAGES.fr.title).toBe("Utiliser des agents IA pour durcir votre produit et votre SI");
-    expect(MESSAGES.en.metaTitle).toBe("AI Agents to Harden Your Product & Stack | The Vibe Company");
-    expect(MESSAGES.en.title).toBe("Use AI agents to harden your product and your infrastructure");
-    expect(MESSAGES.fr.metaDescription).toBe(
-      "Déployez une flotte d'agents IA pour durcir produit et SI : secrets, deps, IAM, configs, review PR. Exigences RGPD et HDS. Agence à Paris.",
-    );
-    expect(MESSAGES.en.metaDescription).toBe(
-      "Deploy AI agents to harden product and infrastructure: secrets, deps, IAM, configs, PR review. Built to GDPR and HDS requirements. Paris agency.",
-    );
+  test("keeps the SEO-optimised title (51-60), meta description (140-160) and H1", () => {
+    expect(MESSAGES.fr.metaTitle).toBe("Agents IA cybersécurité : durcir produit | The Vibe Company");
+    expect(MESSAGES.fr.title).toBe("Agents IA cybersécurité : durcir produit et SI");
+    expect(MESSAGES.en.metaTitle).toBe("AI Agents for Security Hardening & CI | The Vibe Company");
+    expect(MESSAGES.en.title).toBe("AI Agents for Security Hardening & CI");
     for (const messages of Object.values(MESSAGES)) {
-      expect(messages.metaTitle.length).toBeLessThanOrEqual(60);
-      expect(messages.metaDescription.length).toBeLessThanOrEqual(160);
+      expect([...messages.metaTitle].length).toBeGreaterThanOrEqual(51);
+      expect([...messages.metaTitle].length).toBeLessThanOrEqual(60);
+      expect([...messages.metaDescription].length).toBeGreaterThanOrEqual(140);
+      expect([...messages.metaDescription].length).toBeLessThanOrEqual(160);
     }
   });
 
-  test("never claims a certification, a price or a guarantee", () => {
+  test("never claims a certification, a price, dashes or a guarantee", () => {
     const forbidden = [
+      /[—–]/,
       /\bSOC\s?2\b/i,
       /\bISO\b/,
+      /Softway/i,
       /certifi(é|e)e?s?\s+HDS/i,
       /HDS[- ]certified/i,
       /zero[- ]breach/i,
@@ -71,7 +71,13 @@ describe("hardening landing", () => {
 
   test("links only to articles and case studies that exist in the linked language", () => {
     for (const locale of ["fr", "en"] as const) {
-      for (const paths of [BLACK_OCTOBER_PATHS, MCP_GUIDE_PATHS, HDS_GUIDE_PATHS]) {
+      for (const paths of [
+        CYBER_FLEET_PATHS,
+        CI_SECURITY_PATHS,
+        BLACK_OCTOBER_PATHS,
+        MCP_GUIDE_PATHS,
+        HDS_GUIDE_PATHS,
+      ]) {
         const slug = paths[locale].split("/").pop()!;
         expect(getContentItem("article", slug)?.language).toBe(locale);
       }
@@ -83,12 +89,15 @@ describe("hardening landing", () => {
     expect(getContentItem("article", authority)?.language).toBe("fr");
   });
 
-  test("the whole FAQ goes into the FAQPage markup", () => {
+  test("the whole FAQ goes into the FAQPage markup without Comment/How openers", () => {
     for (const messages of Object.values(MESSAGES)) {
       const items = HARDENING_FAQ_KEYS.map((key) => ({
         question: messages.faq.items[key].q,
         answer: messages.faq.items[key].a,
       }));
+      for (const item of items) {
+        expect(item.question).not.toMatch(/^(Comment|How)\b/i);
+      }
       const schema = faqPageSchema(items) as { mainEntity: unknown[] };
       expect(schema.mainEntity).toHaveLength(HARDENING_FAQ_KEYS.length);
     }
@@ -106,7 +115,7 @@ describe("hardening landing", () => {
     expect(service).toMatchObject({
       "@type": "Service",
       url,
-      name: "Agents IA pour durcir produit et SI",
+      name: MESSAGES.fr.service.name,
       serviceType: "AI agents for product and infrastructure hardening",
       provider: { "@id": `${SITE}/#organization` },
     });

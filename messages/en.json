@@ -491,185 +491,207 @@
     }
   },
   "hardening": {
-    "kicker": "AGENTS · HARDEN PRODUCT & STACK",
-    "displayTitle": "Agent-led security.",
-    "metaTitle": "AI Agents to Harden Your Product & Stack | The Vibe Company",
-    "metaDescription": "Deploy AI agents to harden product and infrastructure: secrets, deps, IAM, configs, PR review. Built to GDPR and HDS requirements. Paris agency.",
-    "title": "Use AI agents to harden your product and your infrastructure",
-    "lede": "At The Vibe Company, we deploy agents that watch secrets, dependencies, IAM, configs and pull requests, continuously, inside your CI/CD and your infrastructure, to shrink the attack surface before anything reaches production.",
-    "hero": {
-      "label": "What you get",
-      "items": {
-        "fleet": "A fleet of agents and versioned skills, not a one-shot audit delivered as a PDF.",
-        "stack": "Plugged into your stack (CI, repos, cloud, SaaS) with least privilege.",
-        "compliance": "Delivered to GDPR and HDS requirements when the context calls for it.",
-        "team": "The same YC W24 team that ships AI products to production (Monka, LocService, AFP…)."
+    "kicker": "AI AGENTS · SECURITY HARDENING",
+    "displayTitle": "Security hardening.",
+    "metaTitle": "AI Agents for Security Hardening & CI | The Vibe Company",
+    "metaDescription": "Deploy AI agents for security hardening across repos, CI/CD, IAM and cloud configs. Human sign-off on critical changes. Built to GDPR and HDS rules. YC W24.",
+    "title": "AI Agents for Security Hardening & CI",
+    "lede": "The Vibe Company deploys AI agents for security hardening for CTOs, CISOs and platform teams. Plugged into your CI/CD, repositories and cloud stack under least privilege, the fleet continuously watches secrets, dependencies, IAM permissions, infrastructure configs and sensitive pull requests, with a human approving every critical change. Paris YC W24 team (Theodo, Monka, LocService).",
+    "factsLabel": "What you deploy",
+    "facts": [
+      {
+        "label": "Cadence",
+        "figure": "Continuous",
+        "detail": "A fleet of agents and versioned skills running on every pull request and infrastructure change."
+      },
+      {
+        "label": "Perimeter",
+        "figure": "Your stack",
+        "detail": "Wired into your repositories, CI/CD, cloud accounts and SaaS tools under least privilege."
+      },
+      {
+        "label": "Control",
+        "figure": "Human sign-off",
+        "detail": "Agents detect issues and draft fixes. Your team approves every critical change."
+      },
+      {
+        "label": "Compliance",
+        "figure": "GDPR & HDS",
+        "detail": "Delivered to GDPR and HDS requirements, running inside your covered environment when needed."
       }
-    },
-    "breadcrumb": "AI agents for product hardening",
+    ],
+    "breadcrumb": "AI agents for security hardening",
     "service": {
-      "name": "AI agents to harden your product and infrastructure",
-      "description": "A fleet of AI agents and versioned skills that continuously hardens the product and the infrastructure: secrets, dependencies, IAM and SaaS permissions, configs and infrastructure as code, security review of pull requests. Critical decisions stay with humans."
+      "name": "AI agents for product and infrastructure hardening",
+      "description": "A fleet of AI agents and versioned skills that continuously hardens the product and infrastructure: secrets, dependencies, IAM and SaaS permissions, configs and infrastructure as code, security review of pull requests. Critical decisions stay with humans."
     },
     "problem": {
-      "title": "Classic security tools are no longer enough on their own",
-      "p1": "The surface to protect has changed: dozens of SaaS tools wired into your data, coding agents opening pull requests, years of accumulated configs and permissions. Each tool sees its own slice; nobody sees the whole.",
-      "p2": "A one-off audit or a quarterly scan captures a state that drifts the very next day: a role widened “temporarily”, a dependency bumped, a bucket opened for a test. CTOs, CISOs and platform leads need a continuous loop, not one more report.",
-      "p3": "Recent incidents are a reminder: exposed secrets and legacy runtimes are still open doors. We broke them down in <link>Black October: what it means for AI agents</link>."
+      "kicker": "Why surfaces drift",
+      "title": "Why do point-in-time scanners miss security drift?",
+      "p1": "Your attack surface shifts every week: dozens of SaaS tools tied to company data, coding agents opening pull requests, years of accumulated roles and configs. Each standalone tool sees only its narrow slice.",
+      "p2": "An annual audit or quarterly scan captures a snapshot that drifts the next morning. A temporary role widened for a release, a dependency bump, an open storage bucket: CTOs and CISOs need a continuous loop.",
+      "p3": "Exposed secrets and legacy runtimes stay the easiest open doors. We analyzed those exact patterns in <link>Black October: what it means for AI agents</link>."
     },
     "offer": {
-      "title": "What the agent fleet covers",
-      "intro": "Six workstreams, plugged into the tools you already run. Each agent has a clear scope, minimal permissions and skills versioned like code.",
+      "kicker": "Six security tracks",
+      "title": "Six security tracks monitored continuously",
+      "intro": "Six workstreams wired into the tools you already run. Each agent has a bounded scope, minimal permissions and versioned skills.",
       "items": {
         "secrets": {
           "tag": "Repos · CI",
-          "title": "Secrets & credentials",
-          "desc": "Detects keys and tokens in repos, CI, tickets and logs. The agents raise the alert and prepare the rotation; a human approves it."
+          "title": "Secrets and credentials",
+          "desc": "Finds leaked keys and tokens across repos, CI logs and tickets. Agents alert and prepare rotation; a human executes it."
         },
         "dependencies": {
           "tag": "Supply chain",
-          "title": "Dependencies & supply chain",
-          "desc": "Tracks CVEs, lockfiles and risky packages, with merge policies enforced right in the CI."
+          "title": "Dependencies and packages",
+          "desc": "Monitors CVEs, lockfiles and risky packages continuously, enforcing merge checks right inside CI."
         },
         "iam": {
           "tag": "Cloud · SaaS",
-          "title": "IAM & SaaS permissions",
-          "desc": "Role drift, dormant accounts, overly broad OAuth scopes: the agents spot the gap and propose the way back to least privilege."
+          "title": "IAM and SaaS permissions",
+          "desc": "Flags role drift, dormant accounts and overly wide OAuth scopes, proposing concrete least-privilege tightening."
         },
         "configs": {
-          "tag": "IaC",
-          "title": "Configs & infrastructure as code",
-          "desc": "Drift in security groups, buckets and policies between what your code declares and what actually runs."
+          "tag": "Infra as code",
+          "title": "Configs and infrastructure",
+          "desc": "Detects drift across security groups, storage buckets and policies between declared code and live state."
         },
         "review": {
           "tag": "Pull requests",
-          "title": "Security PR review",
-          "desc": "Review skills dedicated to sensitive diffs (authentication, crypto, input validation) that comment on the pull request before it merges."
+          "title": "Security pull request review",
+          "desc": "Dedicated review skills inspect sensitive diffs (auth, crypto, input validation) and comment before merge."
         },
         "agents": {
           "tag": "Agents · MCP",
-          "title": "Agent & MCP perimeter",
-          "desc": "Before agents plug into your systems: tool allowlists, server-side secret injection, sandboxed execution.",
-          "link": "What is an MCP server?"
+          "title": "Agent and MCP perimeter",
+          "desc": "Before wiring agents into internal systems: tool allowlists, server-side secret injection and sandboxed execution.",
+          "link": "MCP servers at work"
         }
       },
-      "guardrails": "The agents propose and automate behind guardrails. Critical decisions (rotating a production secret, changing permissions, a sensitive merge) stay with humans."
+      "guardrails": "The agents inspect, correlate and draft remediations behind strict guardrails. Critical actions (production secret rotation, permission edits, sensitive merges) remain human-approved."
     },
     "method": {
-      "title": "How we roll it out with you",
-      "intro": "Not a scanner you plug in and forget: a fleet of agents running in your environment, with your tools and your teams.",
-      "stepsLabel": "Six steps",
+      "title": "Rolling out the fleet in six steps",
+      "intro": "A security fleet running inside your own environment, wired into the channels your engineers already use.",
+      "stepsLabel": "Six steps · Rollout",
       "steps": {
         "map": {
           "label": "Mapping",
-          "title": "Map the surface",
-          "desc": "Repos, CI, cloud, critical SaaS and the agents already in place: we start from what actually exists."
+          "title": "Map the real attack surface",
+          "desc": "Repositories, CI/CD, cloud accounts, critical SaaS and active agents: we start from your actual stack."
         },
         "prioritize": {
           "label": "Prioritizing",
           "title": "Prioritize by risk and effort",
-          "desc": "We start with what exposes the most for the least effort. No endless scanner, no backlog of a thousand alerts."
+          "desc": "We tackle the highest exposure for the lowest effort first, avoiding a noisy backlog of ignored alerts."
         },
         "deploy": {
           "label": "Deploying",
-          "title": "Deploy skills and agents in your environment",
-          "desc": "The agents run on your side, with minimal permissions and skills versioned like the rest of your code."
+          "title": "Deploy agents and skills in your environment",
+          "desc": "Agents run on your side with minimal permissions and skills versioned alongside your codebase."
         },
         "integrate": {
           "label": "Integrating",
-          "title": "Wire in CI/CD and your alert channels",
-          "desc": "Findings land in the pull requests, tickets and channels your teams already use."
+          "title": "Connect CI/CD and alert channels",
+          "desc": "Findings arrive directly in pull requests, issue trackers and team channels where engineers already work."
         },
         "measure": {
           "label": "Measuring",
-          "title": "Measure the useful signal",
-          "desc": "We track true positives handled, not vanity dashboards."
+          "title": "Track real signal over noise",
+          "desc": "We measure verified fixes merged and false positives removed, skipping vanity dashboards."
         },
         "handover": {
           "label": "Handover",
-          "title": "Hand over, or operate with you",
-          "desc": "Documentation, runbooks and training for your teams. Or we keep running the fleet alongside you."
+          "title": "Hand over or co-operate",
+          "desc": "Documentation, runbooks and team training for full autonomy. Or we keep evolving the fleet alongside you."
         }
       }
     },
     "proof": {
-      "title": "Why The Vibe Company",
+      "kicker": "Production track record",
+      "title": "Why trust The Vibe Company with product hardening?",
       "points": {
-        "production": "We already run agents and products in production, for clients with real constraints: the case studies below give the details.",
-        "public": "We write about it in public: <black>Black October</black>, <authority>agent authority</authority> (in French), and an upcoming series on hardening products and infrastructure.",
-        "agency": "AI agency in Paris, YC W24. We work to GDPR and HDS requirements."
+        "production": "We already run products and agents in production for clients operating under strict business and regulatory constraints.",
+        "public": "We publish our security engineering openly: <black>Black October</black>, <authority>agent authority</authority> (in French) and CI/CD security agent workflows.",
+        "agency": "Paris AI agency, Y Combinator W24. Engineering practices aligned with GDPR and French HDS requirements."
       },
-      "casesLabel": "Case studies",
+      "casesLabel": "Published case studies",
       "cases": {
-        "theodo": "Technical expert embedded in Theodo's teams: Software Factories for hundreds of developers, with standardized tools, agents and skills.",
-        "monka": "Shipped to production in two months inside Monka's existing HDS environment, building on the API and CRM already in place.",
-        "locservice": "An agent drafts the reply to every ticket, connected to internal APIs; a human reviews and decides. Drafts used on 87% of tickets."
+        "theodo": "Technical expertise embedded inside Theodo teams: Software Factories for hundreds of developers with standardized agents and skills.",
+        "monka": "Shipped to production in two months inside Monka's existing HDS environment with encrypted health data and signed partner APIs.",
+        "locservice": "Support agent wired into internal APIs with mandatory human review: drafts used on 87% of daily tickets."
       },
       "readCase": "Read the case"
     },
     "not": {
-      "title": "What this is not",
+      "kicker": "Exact scope",
+      "title": "What falls outside this offer?",
       "items": {
         "ciso": {
-          "title": "Not a replacement for your CISO or a pentest",
-          "desc": "The agents equip your security team, they do not replace it. A penetration test by a qualified provider remains a separate exercise."
+          "title": "Complementary to your CISO and pentests",
+          "desc": "The fleet equips your security team every day. Independent penetration testing remains a separate exercise."
         },
         "compliance": {
-          "title": "Not a compliance promise",
-          "desc": "We sell no label and no certification. We work to the GDPR and HDS requirements of your context, and document what was done."
+          "title": "No label or certification guarantee",
+          "desc": "We engineer to GDPR and HDS requirements and document our work, without claiming certifications we do not hold."
         },
         "prompt": {
-          "title": "Not just “securing the prompt”",
-          "desc": "Securing the agents themselves matters, but here the hardening targets your product and your infrastructure."
+          "title": "Full product and stack hardening",
+          "desc": "Securing prompts matters, yet this offer protects your repositories, cloud configs, secrets and permissions end to end."
         }
       }
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "kicker": "FAQ",
+      "title": "Frequently asked questions about security hardening agents",
       "items": {
         "scanners": {
-          "q": "How do agents differ from a classic SAST/DAST scanner?",
-          "a": "They complement each other. Scanners stay useful in the CI. Agents chain context across several tools (code, tickets, configs, permissions), connect the signals and prepare the fix."
+          "q": "What separates security hardening agents from SAST/DAST scanners?",
+          "a": "They complement each other. Scanners stay valuable inside CI. Agents connect context across code, tickets, cloud configs and permissions to correlate signals and draft fixes."
         },
         "production": {
-          "q": "Do you touch production?",
-          "a": "With minimal permissions. Every sensitive change is a proposal that a human on your team approves before it is applied."
+          "q": "Do the agents modify production directly?",
+          "a": "No. Every agent runs under minimal permissions. Sensitive changes arrive as proposals that a human on your team approves before execution."
         },
         "data": {
-          "q": "What about data, health data (HDS) in particular?",
-          "a": "We work to GDPR and HDS requirements. When health data is involved, the agents run inside the client's covered environment. We claim no certification we do not hold."
+          "q": "What rules apply to health data (HDS) and GDPR?",
+          "a": "We work to GDPR and HDS requirements. When health data is involved, agents run inside the client's covered environment. We never claim a certification we do not hold."
         },
         "agentSecurity": {
-          "q": "How does this relate to securing the agents themselves?",
-          "a": "The two reinforce each other. To secure an agent (authority, secrets, execution), read our Black October article and our article on agent authority. For agents that harden your product and your infrastructure, this is the page."
+          "q": "Where does securing the AI agents themselves fit in?",
+          "a": "Both efforts reinforce each other. For securing agent authority, secrets and execution, read our Black October breakdown and authority guide. For hardening your product and stack with agents, this page is the offer."
         },
         "start": {
-          "q": "Where do we start?",
-          "a": "With a 30-minute call: your current surface, your CI and your critical SaaS. We will tell you straight whether a fleet of agents makes sense for you."
+          "q": "Where should a security hardening rollout start?",
+          "a": "With a 30-minute call reviewing your current repositories, CI/CD and critical SaaS stack. We tell you straight whether an agent fleet delivers real value."
         }
       }
     },
     "further": {
+      "kicker": "Reading & offers",
       "title": "Going further",
-      "readingLabel": "Read next",
+      "readingLabel": "Reference articles",
       "reading": {
+        "cyberFleet": "AI and cybersecurity: harden IT with a fleet of agents",
+        "ciSecurity": "AI security agent in CI/CD: a tested workflow, PR by PR",
         "blackOctober": "Black October: PHP flaws, stolen secrets, and what it means for AI agents",
+        "mcp": "MCP servers at work: security principles and requirements",
         "authority": "The real risk of AI agents is authority (in French)",
-        "mcp": "What is an MCP server? Connecting AI agents to your tools",
         "hds": "AI and health data in France: what HDS really means"
       },
-      "alsoLabel": "Also at The Vibe Company",
-      "agency": {
-        "title": "AI agency in Paris",
-        "desc": "AI products, agents and training, from scoping to production."
-      },
-      "about": {
-        "title": "About us",
-        "desc": "The team, the founders and the key facts about the agency."
-      },
+      "alsoLabel": "Other offers",
       "agentsProduction": {
         "title": "AI agents in production",
-        "desc": "Business agents wired into your tools, from POC to the daily run."
+        "desc": "Business agents wired into your tools, from internal POC to daily run."
+      },
+      "agency": {
+        "title": "AI agency Paris",
+        "desc": "AI products, agents and training for SMEs and mid-caps, shipped to production."
+      },
+      "health": {
+        "title": "Healthcare AI HDS",
+        "desc": "Healthcare AI products built inside your certified HDS environment."
       }
     }
   },
@@ -843,264 +865,266 @@
     }
   },
   "agencyParis": {
-    "metaTitle": "AI Agency in Paris for SMEs and Mid-Caps | The Vibe Company",
-    "metaDescription": "Paris AI agency for SMEs and mid-caps. We take AI products and agents to production: Monka live in 2 months, 87% of LocService tickets handled with AI drafts.",
+    "metaTitle": "AI Agency Paris: AI Products and Agents | The Vibe Company",
+    "metaDescription": "AI agency in Paris 11th for SMEs and mid-caps. Design and engineering for AI products in production: Monka live in 2 months, 87% of LocService tickets.",
     "breadcrumb": "AI agency in Paris",
     "serviceName": "AI agency in Paris",
-    "kicker": "AI AGENCY · PARIS",
-    "displayTitle": "Paris AI agency.",
-    "title": "AI agency in Paris: your products and agents in production",
+    "kicker": "AI AGENCY · PARIS 11TH",
+    "displayTitle": "AI Agency Paris.",
+    "title": "AI Agency Paris: AI Products and Agents",
     "lede": [
-      "Plenty of agencies in Paris will show you an AI demo. We build the product or the agent, and we stay until it runs in production. Monka went live in 2 months. At LocService, 87% of support tickets are handled thanks to our AI drafts.",
-      "We work with SMEs and mid-caps (PME and ETI, in French terms). The team has been in Paris since 2024, at 10 rue La Vacquerie in the 11th arrondissement."
+      "The Vibe Company is an AI agency in Paris (11th arrondissement), founded in 2024 by Stan Girard and Antoine Dewez (Y Combinator W24). As a design and engineering agency for AI products and agents, we ship to production for SMEs and mid-caps: Monka went live in 2 months, and LocService uses our drafts on 87% of tickets."
     ],
-    "factsLabel": "At a glance",
+    "factsLabel": "Published proof",
     "facts": [
       {
-        "label": "Where",
-        "value": "10 rue La Vacquerie, 75011 Paris, France. Team in Paris since 2024."
+        "label": "Monka (healthcare)",
+        "figure": "2 months",
+        "detail": "Caregiver app, Lifeline nurse CRM and clinical engine shipped inside the client's HDS environment."
       },
       {
-        "label": "Who for",
-        "value": "SMEs and mid-caps with a concrete problem to put into production."
-      },
-      {
-        "label": "Monka (health)",
-        "value": "in production in 2 months, inside the client's existing HDS environment."
-      },
-      {
-        "label": "LocService (rentals)",
-        "value": "87% of support tickets handled thanks to our AI drafts."
+        "label": "LocService (support)",
+        "figure": "87%",
+        "detail": "Share of daily support tickets answered with our AI drafts, reviewed by support agents before sending."
       },
       {
         "label": "AFP (media)",
-        "value": "MediaGen, a €4M France 2030 project supported by Bpifrance."
+        "figure": "€4M",
+        "detail": "MediaGen, a France 2030 project backed by Bpifrance, built in the consortium with Kairntech and Dawex."
       },
       {
-        "label": "Background",
-        "value": "Y Combinator W24 with Quivr, a product with more than 100,000 users in 2024-2025."
-      },
-      {
-        "label": "To start",
-        "value": "a 30-minute call, a reply within 24 hours, then a written fixed-scope proposal."
+        "label": "Paris office",
+        "figure": "Paris 11th",
+        "detail": "On-site engineering team in the 11th arrondissement since 2024, backed by Y Combinator W24."
       }
     ],
     "bookCall": "Book a 30-minute call",
     "response": "Reply within 24h",
     "backedBy": "Backed by",
     "clientsLabel": "They trust us with their products",
-    "audience": {
-      "title": "Who we work with: SMEs and mid-caps that need a tool in production",
-      "intro": "Our best projects start with a company that already knows where it hurts. A support team facing hundreds of tickets a day. Documents that someone checks one by one. An internal tool nobody has time to build.",
-      "signalsLabel": "We are a good fit if",
-      "signals": [
-        "you have a specific use case, and someone on your side who owns it;",
-        "the tool has to plug into your systems: CRM, support, documents, internal APIs;",
-        "your data is sensitive (health, customer data) and you want it handled with care;",
-        "you want to be able to take the product over at the end, with the documentation and training to do it."
-      ],
-      "notFitLabel": "We are probably not the right call if",
-      "notFit": [
-        "you need a demo for a steering committee, with no plan to put it in production;",
-        "you are a large group and want a full integrated team: look at Theodo instead. We reinforce their teams on some projects, so you should know that."
-      ]
-    },
     "proof": {
-      "title": "What we have put into production",
-      "intro": "Five published cases you can read in full.",
+      "kicker": "In production",
+      "title": "Which AI products and agents already run in production?",
+      "intro": "Five published client cases on this site. Every figure comes from live software.",
       "readCase": "Read the {name} case",
-      "linkLabel": "Read the case studies",
+      "linkLabel": "All case studies",
       "cases": {
         "monka": {
-          "sector": "Health",
+          "sector": "Healthcare · Caregiver support",
           "figure": "2 months",
+          "caption": "Kickoff on March 9, live in production on May 10, inside the client's HDS perimeter.",
           "points": [
-            "In production in 2 months, inside the client's existing HDS environment, without ever leaving it.",
-            "A 165-question caregiver assessment that leads to an action plan.",
-            "Lifeline, the CRM used by coordination nurses.",
-            "A versioned clinical engine: 12 versions of the guidelines, without breaking the app.",
-            "A partner API with signed webhooks, for insurers.",
-            "Health data encrypted and GDPR-compliant."
+            "Caregiver mobile app: a 165-question assessment leading to a personalized action plan.",
+            "Lifeline, the daily CRM used by coordinating nurses.",
+            "Versioned clinical engine: 12 versions of the guidelines shipped without breaking the app.",
+            "Partner API with signed webhooks for insurers, encrypted GDPR-compliant health data."
           ]
         },
         "locservice": {
-          "sector": "Rentals, customer support",
+          "sector": "Rentals · Customer support",
           "figure": "87%",
           "points": [
-            "87% of tickets handled thanks to our AI drafts, out of hundreds of support tickets a day.",
-            "The tool is connected to their internal APIs, so it works with real customer context.",
-            "A human stays on everything that goes out to customers."
+            "Hundreds of support tickets every day, with our AI drafts used on 87% of them.",
+            "Direct connection to internal APIs to pull real customer history before drafting.",
+            "A support agent reviews and sends every message going out to customers."
           ]
         },
         "afp": {
-          "sector": "Media",
+          "sector": "News · France 2030",
           "figure": "€4M",
           "points": [
-            "France 2030 with AFP on MediaGen, a €4M project supported by Bpifrance.",
-            "We sit in the technical consortium with Kairntech and Dawex.",
-            "Three tools for newsrooms: augmented monitoring, multimodal search, production assistance."
+            "MediaGen, a France 2030 project backed by Bpifrance alongside Kairntech and Dawex.",
+            "Three newsroom tools: augmented monitoring, multimodal search and production assistance."
           ]
         },
         "coup-de-pates": {
-          "sector": "Food, CSR and quality",
+          "sector": "Food · CSR and quality",
           "figure": "2 projects",
           "points": [
-            "2 projects: a CSR app for iOS and Android, and AI skills that check product documents and flag each gap."
+            "Ensemble, an iOS and Android employee app supporting internal life and CSR events.",
+            "Three AI quality-control skills checking product specs, flagging 72 changes on one document."
           ]
         },
         "theodo": {
-          "sector": "An agency we reinforce",
+          "sector": "Partner · Software Factories",
           "figure": "Hundreds",
           "points": [
-            "We work as a technical expert embedded in Theodo teams, on projects that are critical for their clients.",
-            "Hundreds of developers equipped by Software Factories."
+            "Technical experts embedded inside Theodo teams on critical client engagements.",
+            "AI Software Factories built to equip hundreds of developers with standardized agents and skills."
           ]
         }
       }
     },
-    "cta": {
-      "title": "Got a specific problem in mind?",
-      "text": "Tell us about it in 30 minutes. We reply within 24 hours."
+    "audience": {
+      "kicker": "Who we serve",
+      "title": "Which companies is our Paris AI agency built for?",
+      "intro": "We work best with SMEs and mid-caps that already know where friction lives. A crowded support desk. Manual document checks. An internal product stuck in the backlog.",
+      "signalsLabel": "We are a strong fit if",
+      "signals": [
+        "you have a clear use case and an internal owner ready to drive it;",
+        "the software must plug into real systems: CRM, support desk, documents and internal APIs;",
+        "your data requires discipline across GDPR and HDS healthcare requirements;",
+        "you want clean documentation and training so your team can take ownership."
+      ],
+      "notFitLabel": "Another option fits better if",
+      "notFit": [
+        "you only want a slide-deck prototype with no plan to deploy to production;",
+        "you are a large enterprise seeking a full embedded squad: look at Theodo instead, where we reinforce selected teams."
+      ]
     },
     "offers": {
-      "title": "Three ways to work with us",
+      "kicker": "Three offers",
+      "title": "Three offers: products, agents and training",
       "items": {
         "build": {
           "label": "Build",
           "title": "AI products and internal tools",
-          "desc": "We take the whole product: scoping, architecture, short cycles, frontend, DevOps, observability, documentation and handover.",
+          "desc": "We own design and engineering end to end: scoping, architecture, short release cycles, frontend, observability and handover.",
           "link": "Custom AI app development"
         },
         "operate": {
           "label": "Operate",
-          "title": "Agents and automation",
-          "desc": "We audit your workflows, write the skills, connect the agent to your CRM, support desk, documents and APIs, then deploy it securely. The goal: time saved for your teams.",
+          "title": "AI agents and automation",
+          "desc": "We audit workflows, author versioned skills, connect agents to your CRM, support desk and APIs, and measure time saved.",
           "link": "AI agents in production"
         },
         "advise": {
           "label": "Advise",
-          "title": "Strategy and training",
-          "desc": "We help you prioritize use cases, decide between build and buy, and draw an adoption roadmap. Training is hands-on and uses your own cases."
+          "title": "Strategy and practical training",
+          "desc": "We help prioritize high-return use cases, settle build-versus-buy calls and train your teams directly on your own workflows."
         }
       }
     },
     "method": {
-      "title": "How it works, in 5 steps",
+      "kicker": "Delivery · 5 steps",
+      "title": "Five steps from the first call to production",
+      "intro": "Clear milestones from day one. Every step leaves a tangible deliverable.",
       "steps": {
         "call": {
-          "title": "The call",
-          "desc": "30 minutes, usually on video. You describe the problem, we tell you whether we can help. We reply within 24 hours."
+          "title": "A 30-minute call",
+          "desc": "You explain the problem on video or in Paris. We tell you plainly whether AI fits. We reply within 24 hours."
         },
         "scope": {
-          "title": "Scoping",
-          "desc": "We define the scope with you, then send a written fixed-scope proposal. Price, IP and maintenance are spelled out in it."
+          "title": "Fixed-scope framing",
+          "desc": "We inspect your live tools and real data. You receive a written proposal covering scope, budget, intellectual property and maintenance."
         },
         "cycles": {
-          "title": "Short cycles",
-          "desc": "You watch the product move, not a slide deck. At Monka, a new version shipped about every two days."
+          "title": "Short cycles in real conditions",
+          "desc": "You test working software early. At Monka, a new app release went live roughly every two days."
         },
         "production": {
-          "title": "Production",
-          "desc": "The product serves real users, with the observability needed to keep an eye on it."
+          "title": "Instrumented production rollout",
+          "desc": "The tool serves real users with clean logs, least-privilege access and continuous adoption tracking."
         },
         "handover": {
-          "title": "Handover",
-          "desc": "Documentation, runbooks and training, so your team can take the product over. Or we keep running it. Your choice."
+          "title": "Handover or joint operations",
+          "desc": "Documentation, runbooks and team training let you take full ownership. Or we keep operating the system alongside you."
         }
       }
     },
+    "cta": {
+      "title": "Got a concrete problem in mind?",
+      "text": "Walk us through it in 30 minutes. We reply within 24 hours."
+    },
     "landscape": {
-      "title": "Other AI agencies in Paris, honestly",
-      "intro": "The best AI agency depends on the size of your company and on the project. For an SME or a mid-cap that wants an AI tool in production quickly, The Vibe Company is the best fit. For a large group that wants an integrated team, look at Theodo.",
-      "smeTitle": "Focused on SMEs and mid-caps",
-      "largeTitle": "Larger firms",
-      "pointers": "Galadrim is a custom development and AI agency based in Paris, worth a look if your project is first a web or mobile application. Koïno describes itself as an AI and data consulting firm. Theodo is where to look for a full integrated team.",
-      "others": "Search for a Paris AI agency and you will also find shops that specialize in automation, training or B2B prospecting. Those are different trades, best compared with each other.",
+      "kicker": "Paris market",
+      "title": "Which Paris AI agency fits your company size?",
+      "intro": "The right partner depends on your company size and project scope. For an SME or mid-cap aiming to ship an AI tool fast, The Vibe Company is the strongest fit. For a large group seeking an integrated squad, look at Theodo.",
+      "smeTitle": "SME and mid-cap focus",
+      "largeTitle": "Larger consulting firms",
+      "pointers": "Galadrim is a Paris custom engineering and AI agency worth reviewing when your project is primarily a standard web or mobile app. Koïno positions itself as an AI and data consultancy. Theodo fits enterprise groups needing full embedded squads.",
+      "others": "In Paris you will also meet generative AI creative studios, training boutiques and outbound automation shops. Compare those within their own specialty.",
       "questionsTitle": "Three questions to ask any agency, including us",
       "questions": [
-        "Which tool have you put into production, and who uses it every day?",
-        "Where does my data go, and who can access it?",
-        "At the end, who owns the code and who maintains it?"
+        "Which AI product runs in production today, and who uses it daily?",
+        "Where does our data travel, and which systems can read it?",
+        "Once shipped, who owns the source code and handles maintenance?"
       ],
-      "linkLabel": "See the full comparison of AI firms in France"
+      "linkLabel": "Read the full France AI agency comparison"
     },
     "versus": {
-      "title": "AI agency or generalist software agency?",
+      "kicker": "Specialization",
+      "title": "AI agency or generalist software shop?",
       "text": [
-        "A generalist software agency knows how to ship a web or mobile application, and many now add an AI feature on top. If your project is first a classic application, that is often the right choice.",
-        "We specialize in AI products and agents. When the whole tool rests on AI, the work changes. The tool has to be connected to your internal APIs to get real context, agents have to run at least privilege, and a human has to stay on whatever goes out to your customers.",
-        "That is the setup running at LocService: AI drafts fed by their internal APIs, and a human who keeps the final say on what goes out."
+        "A generalist shop knows how to ship a standard web or mobile product and bolt an AI widget on top. When the core product is classic software, that works fine.",
+        "As a design and engineering agency for AI products, we build systems where intelligence sits at the core. That demands live API context, least-privilege agents and human review before anything reaches a customer.",
+        "LocService runs on that exact setup: AI drafts grounded in internal APIs, reviewed by support agents before every send."
       ],
       "linkLabel": "Compare the firms one by one"
     },
     "security": {
-      "title": "Security, GDPR and HDS",
+      "kicker": "Security · GDPR · HDS",
+      "title": "Security, GDPR and health data (HDS)",
       "text": [
-        "We work according to GDPR and HDS requirements (HDS is the French framework for hosting health data). We apply that practice in health: at Monka, the product runs inside the HDS environment the client already had, without leaving it, with health data encrypted.",
-        "Stan Girard personally built Theodo's HDS practice.",
-        "Two rules hold on every project. Agents run at least privilege. A human stays on anything that goes out to your customers."
+        "We engineer to GDPR and French HDS requirements. At Monka, the entire stack runs inside the client's existing HDS host with encrypted health data.",
+        "Stan Girard personally built Theodo's HDS practice. Two rules hold on every engagement: least privilege for every agent, and a human approving every customer-facing output."
       ]
     },
     "team": {
       "title": "A Paris team since 2024",
       "desc": [
-        "The Vibe Company was founded in Paris in 2024 by Stan Girard and Antoine Dewez, both formerly at Theodo and Stockly.",
-        "We went through Y Combinator (W24) with Quivr, which then became The Vibe Company. Quivr is one of our products, with more than 100,000 users in 2024-2025."
+        "Founded in Paris in 2024 by Stan Girard and Antoine Dewez, both formerly at Theodo and Stockly.",
+        "Backed by Y Combinator (W24) through Quivr, which reached more than 100,000 users in 2024-2025."
       ],
-      "addressTitle": "Where to find us",
-      "addressNote": "The first call is usually on video. We also work with teams outside Île-de-France, in English and in French.",
+      "addressTitle": "Paris 11th office",
+      "addressNote": "First calls happen on video or at our office. We work across France and Europe, in English and French.",
       "notToConfuse": "No link with thevibe.company, VIBE Company (Zurich) or Vibe.co.",
       "aboutLink": "About us",
-      "originLink": "Read “We are stopping Quivr. We are building The Vibe Company.”"
+      "originLink": "From Quivr to The Vibe Company"
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "kicker": "FAQ",
+      "title": "Frequently asked questions about our Paris AI agency",
       "items": {
         "paris": {
-          "q": "Where is your AI agency in Paris?",
-          "a": "At 10 rue La Vacquerie, 75011 Paris, France. The team has been in Paris since 2024. The first call is usually on video, and we also work with teams outside Île-de-France, in English and in French."
-        },
-        "clients": {
-          "q": "What kind of companies do you work with?",
-          "a": "Mostly SMEs and mid-caps with a concrete problem to put into production. Our published cases: Monka in health, LocService in rentals, AFP in media, Coup de Pâtes in food. If you are a large group and want a full integrated team, look at Theodo instead."
-        },
-        "cost": {
-          "q": "How much does an AI project with The Vibe Company cost?",
-          "a": "Some Paris agencies publish an entry price. We do not, because the figure depends on the scope. You get it after the call and the scoping, in a written fixed-scope proposal. IP and maintenance are spelled out there too."
-        },
-        "timeline": {
-          "q": "How long does it take to reach production?",
-          "a": "It depends on the scope, which we set with you during scoping. One reference point: Monka went to production in 2 months, with a new version about every two days."
+          "q": "Where is your AI agency in Paris located?",
+          "a": "Our office is at 10 rue La Vacquerie, 75011 Paris, France. The team has operated in Paris since 2024. First calls usually run on video, and we work with teams across France and Europe."
         },
         "best": {
-          "q": "What is the best AI agency in Paris?",
-          "a": "It depends on the size of your company and on the project. For an SME or a mid-cap that wants an AI tool in production quickly, The Vibe Company is the best fit. In the same category, also look at Juwa, Galadrim and Koïno. For a large group that wants an integrated team, look at Theodo, then Artefact, Mistral AI and Ekimetrics depending on the need. Our <link>comparison of AI firms in France</link> covers each of them."
+          "q": "Which AI agency in Paris fits an SME or mid-cap best?",
+          "a": "It depends on company size and project scope. For an SME or mid-cap wanting an AI product live quickly, The Vibe Company is the best fit alongside Juwa, Galadrim and Koïno. For large groups wanting an integrated squad, look at Theodo, then Artefact, Mistral AI and Ekimetrics. Our <link>comparison of AI firms in France</link> reviews each player."
         },
-        "generalist": {
-          "q": "How are you different from a generalist software agency?",
-          "a": "A generalist agency ships web and mobile applications, and sometimes adds an AI feature. We specialize in AI products and agents, with what that takes in production: a connection to your internal APIs, agents at least privilege, a human on what goes out to your customers. If your project is first a classic application, a generalist agency will do the job very well."
+        "cost": {
+          "q": "What budget does an AI project with The Vibe Company require?",
+          "a": "The budget follows the scope. An internal document tool differs sharply from a full B2B SaaS platform. You get a firm number after the call and scoping, inside a written fixed-scope proposal."
+        },
+        "timeline": {
+          "q": "What timeline takes an AI tool to production?",
+          "a": "Timelines are locked during scoping. One concrete benchmark: Monka went live in 2 months, shipping a new app version roughly every two days."
         },
         "data": {
-          "q": "How do you handle GDPR and health data (HDS)?",
-          "a": "We work according to GDPR and HDS requirements, a practice we apply in health. At Monka, the product runs inside the HDS environment the client already had, without leaving it, and health data is encrypted. On every project, agents run at least privilege and a human stays on what goes out to your customers."
-        },
-        "code": {
-          "q": "Who owns the code, and who maintains it?",
-          "a": "IP and maintenance are spelled out in the written proposal. At the end, we deliver documentation, runbooks and training so your team can take the product over. If you prefer, we keep running it."
+          "q": "What guarantees apply to GDPR, HDS and code ownership?",
+          "a": "We work to GDPR and HDS requirements, building inside your covered environment when health data is involved. Intellectual property and maintenance sit in the written proposal, backed by documentation, runbooks and handover training."
         },
         "related": {
-          "q": "Is The Vibe Company related to thevibe.company, VIBE Company or Vibe.co?",
-          "a": "No. The Vibe Company (thevibecompany.co) has no link with thevibe.company, VIBE Company (Zurich) or Vibe.co. We are the team founded in Paris in 2024 by Stan Girard and Antoine Dewez, which went through Y Combinator (W24) with Quivr."
-        },
-        "start": {
-          "q": "How do we get started?",
-          "a": "Book a 30-minute call with the button at the bottom of the page. We reply within 24 hours. After scoping, you receive a written fixed-scope proposal."
+          "q": "Is The Vibe Company related to Vibe.co or VIBE Company?",
+          "a": "No. The Vibe Company (thevibecompany.co, Paris 11th) has no link with Vibe.co, thevibe.company or VIBE Company (Zurich). We are the agency founded in Paris in 2024 by Stan Girard and Antoine Dewez, backed by Y Combinator W24 via Quivr."
         }
       }
     },
     "links": {
+      "kicker": "Reading & offers",
       "title": "Further reading",
-      "comparison": "Comparison: the best AI consulting firms in France, one by one",
+      "articlesLabel": "Reference articles",
+      "offersLabel": "Other offers",
+      "comparison": "Best AI Agency in 2026: Which Agency for Which Project?",
+      "choose": "How to choose an AI agency: 8 checks before you sign",
+      "steps": "What an AI agency does: 3 steps of an engagement",
+      "versus": "AI agency vs freelancer vs IT services firm (ESN): which to choose",
+      "offers": {
+        "agentsProduction": {
+          "title": "AI agents in production",
+          "desc": "Take an internal AI agent POC all the way to daily production with guardrails."
+        },
+        "customAiApp": {
+          "title": "Custom AI app development",
+          "desc": "Bespoke AI applications, B2B SaaS, RAG architecture and business integrations."
+        },
+        "hardening": {
+          "title": "AI agents for security hardening",
+          "desc": "Continuous agent fleet watching secrets, dependencies, IAM, configs and pull requests."
+        }
+      },
       "cases": {
         "monka": "Monka case study",
         "afp": "AFP case study",
@@ -1113,7 +1137,7 @@
       "kicker": "NOW BOARDING",
       "titleLine1": "Shall we talk",
       "titleLine2": "for 30 minutes?",
-      "text": "You describe the problem. We tell you whether we can help, and how.",
+      "text": "Describe your problem. Within 24 hours we tell you if we can help.",
       "bookCall": "Book a 30-minute call",
       "responseLabel": "RESPONSE",
       "responseValue": "WITHIN 24H",
@@ -1125,226 +1149,263 @@
   },
   "healthcareAi": {
     "kicker": "HEALTHCARE AI · HDS REQUIREMENTS",
-    "displayTitle": "Healthcare AI.",
-    "metaTitle": "Healthcare AI & HDS: ship to production | The Vibe Company",
-    "metaDescription": "AI projects on French health data, built to GDPR and HDS requirements. Monka case (2 months to prod). Paris AI agency, YC W24. Reply within 24h.",
-    "title": "Healthcare AI and HDS: we build your products all the way to production",
-    "lede": "The Vibe Company builds AI products and agents for healthcare: apps, CRMs, clinical engines, partner APIs, inside our clients' HDS environment and GDPR framework. We are not an HDS-certified host: we ship fast and cleanly where your health data has to stay.",
+    "displayTitle": "Healthcare AI HDS.",
+    "metaTitle": "Healthcare AI HDS: Products Built Safely | The Vibe Company",
+    "metaDescription": "An agency that builds AI products for healthcare companies to GDPR and HDS requirements. Monka live in 2 months inside its HDS host. Paris team, YC W24.",
+    "title": "Healthcare AI HDS: Products Built Safely",
+    "lede": "The Vibe Company is an agency that builds AI products for healthcare companies, digital health publishers and insurers under GDPR and HDS requirements. We are not an HDS-certified host: we engineer inside your existing certified environment so health data stays put. At Monka, the caregiver app and nurse CRM went live in two months.",
+    "factsLabel": "Healthcare proof · Monka",
+    "facts": [
+      {
+        "label": "Time to production",
+        "figure": "2 months",
+        "detail": "Caregiver app, Lifeline CRM and clinical engine shipped inside Monka's existing HDS host."
+      },
+      {
+        "label": "Clinical assessment",
+        "figure": "165 questions",
+        "detail": "Caregiver questionnaire converted into a personal action plan linked to coordinating nurses."
+      },
+      {
+        "label": "Release cadence",
+        "figure": "90 releases",
+        "detail": "App versions shipped in six months, roughly one new release every two days."
+      },
+      {
+        "label": "Clinical engine",
+        "figure": "12 versions",
+        "detail": "Care framework updates deployed cleanly without disrupting the live application."
+      }
+    ],
     "bookCall": "Book 30 minutes",
     "response": "Reply within 24h",
     "breadcrumb": "Healthcare AI & HDS",
     "hero": {
-      "label": "The facts",
-      "items": {
-        "monka": "Public Monka case: caregiver app, Lifeline and clinical engine, in production in 2 months, inside the HDS environment the client already had.",
-        "cadence": "Short cycles: at Monka, a new app release roughly every two days.",
-        "agency": "AI agency in Paris, YC W24 (Quivr became The Vibe Company).",
-        "framework": "We work to GDPR and HDS requirements, without claiming a certification we do not hold."
-      },
-      "caseLabel": "Healthcare case study",
+      "caseLabel": "Published healthcare case",
       "caseLink": "Read the Monka case"
     },
     "service": {
       "name": "Healthcare AI projects to HDS requirements",
       "description": "Design and development of AI products and agents on health data (apps, care-coordination CRMs, versioned clinical engines, partner APIs), to GDPR and HDS requirements, inside the client's environment."
     },
-    "audience": {
-      "title": "Who this page is for",
-      "intro": "For teams that have, or will soon have, an HDS host and a concrete AI product need.",
-      "typesLabel": "Who",
-      "types": {
-        "startups": "Health startups",
-        "publishers": "Digital health software publishers",
-        "insurers": "Insurers and mutual health funds",
-        "coordination": "Care-coordination organisations",
-        "scaleups": "Scale-ups growing on health data"
-      },
-      "signalsLabel": "The signals",
-      "signals": [
-        "An assessment or clinical questionnaire to turn into a care pathway.",
-        "A CRM for clinicians or coordinating nurses.",
-        "APIs to open to partners, insurers or mutual funds.",
-        "An LLM to connect to health data.",
-        "The fear of stepping outside the HDS perimeter by moving fast."
-      ]
-    },
-    "offer": {
-      "title": "What we deliver in a healthcare AI project",
-      "intro": "Five building blocks, from the product your users open every day to the framework that keeps it running in production.",
-      "items": {
-        "products": {
-          "tag": "Product",
-          "title": "Business products",
-          "desc": "Apps for patients, caregivers or clinicians, care-coordination CRMs, action plans generated from an assessment."
-        },
-        "engines": {
-          "tag": "Clinical",
-          "title": "Versioned engines and frameworks",
-          "desc": "A clinical framework that evolves without breaking the app: 12 versions at Monka so far."
-        },
-        "integrations": {
-          "tag": "API",
-          "title": "Integrations",
-          "desc": "Partner APIs, signed webhooks and connections to the internal tools you already run."
-        },
-        "agents": {
-          "tag": "Agents",
-          "title": "Agents under control",
-          "desc": "Drafts, suggestions and repetitive tasks. Anything that goes to a patient or a partner goes through a human."
-        },
-        "production": {
-          "tag": "Prod",
-          "title": "Production framework",
-          "desc": "Access rights, observability, logs and tests inside your environment, then documentation and handover."
-        }
-      }
-    },
     "hds": {
-      "title": "HDS: who is certified, and where we work",
-      "intro": "The question is often framed the wrong way. Here is the split, as we practise it.",
+      "kicker": "Role split",
+      "title": "HDS: who holds the certification and where do we build?",
+      "intro": "HDS responsibilities are often blurred. Here is the exact split we follow, grounded in the HDS practice Stan Girard built at Theodo.",
       "scope": {
-        "label": "Your perimeter",
+        "label": "Your HDS perimeter",
         "host": {
           "label": "HDS host",
-          "desc": "Cloud or managed-service provider, certified for the activities of the framework it performs."
+          "desc": "Cloud or managed-service provider certified for the framework activities it performs."
         },
         "us": {
           "label": "The Vibe Company",
-          "desc": "Development partner: we build inside, without taking the data out."
+          "desc": "Engineering partner: we build inside your perimeter without moving health data out."
         }
       },
       "items": {
         "host": {
-          "title": "The certification is the host's",
-          "desc": "HDS certification covers the host and the activities of the French Digital Health Agency's framework that it performs. It does not automatically extend to the software publisher, or to the agency that builds the product."
+          "title": "Certification covers the host",
+          "desc": "HDS certification applies to the host and the specific French Digital Health Agency activities it runs. It does not automatically cover the software publisher or development partner."
         },
         "environment": {
-          "title": "We build inside your environment",
-          "desc": "Your HDS host is often already chosen. We develop inside it, with the access you grant us, and the code, logs and test environments stay there."
+          "title": "We develop inside your environment",
+          "desc": "Most healthcare teams already have an HDS host. We build inside it using the access you grant so code, logs and staging data remain contained."
         },
         "ai": {
-          "title": "AI pitfalls, handled at design time",
-          "desc": "Model calls, logs, test environments, transfers outside the EEA: that is where an AI project leaves the perimeter without noticing. We settle them before the first line of code."
+          "title": "AI data flows locked at design time",
+          "desc": "Model calls, logging, test data and transfers outside the EEA are where AI builds accidentally leave scope. We settle all four before coding."
         },
         "gdpr": {
-          "title": "HDS does not replace GDPR",
-          "desc": "HDS covers hosting. GDPR covers the whole processing: purpose, minimisation, retention, data subject rights."
+          "title": "HDS works alongside GDPR",
+          "desc": "HDS governs hosting security. GDPR governs the full processing lifecycle: purpose, minimization, retention and patient rights."
         }
       },
-      "articleLink": "What HDS really requires"
+      "articleLink": "Read: what HDS really requires for your AI project"
     },
     "proof": {
-      "title": "What we shipped at Monka",
-      "intro": "Monka supports people who care for a loved one, with coordinating nurses and partner insurers. We took over their existing API and CRM, and built inside their HDS environment.",
+      "kicker": "Healthcare case study",
+      "title": "What did we ship at Monka in two months?",
+      "intro": "Monka supports family caregivers alongside coordinating nurses and partner insurers. We took over their existing API and CRM and shipped inside their HDS host.",
       "points": [
-        "A caregiver app: a 165-question assessment that leads to an action plan, the circle of close ones, a chat with the nurse, and appointment booking.",
-        "Lifeline, the CRM for coordinating nurses.",
-        "A versioned clinical engine: 12 versions of the framework, without breaking the app.",
-        "A partner API with signed webhooks, so insurers can follow the people they cover.",
-        "In production in two months, then 90 app releases in six months: one roughly every two days.",
-        "Encrypted, GDPR-compliant health data, inside the HDS environment Monka already had. We never stepped outside it."
+        "A caregiver app: a 165-question assessment leading to an action plan, close circle, nurse chat and appointment booking.",
+        "Lifeline, the daily CRM for coordinating nurses.",
+        "A versioned clinical engine: 12 versions of the framework shipped without breaking the app.",
+        "A partner API with signed webhooks so insurers can follow their beneficiaries.",
+        "In production in two months, followed by 90 app releases in six months: one roughly every two days.",
+        "Encrypted, GDPR-compliant health data kept inside Monka's existing HDS environment."
       ],
-      "readCase": "Monka case",
-      "otherLabel": "Outside healthcare, also in production",
-      "other": "LocService: an agent drafts the reply to every ticket, connected to internal APIs; a human reviews and decides. Drafts used on 87% of tickets.",
+      "readCase": "Read the Monka case",
+      "otherLabel": "Shipping cadence · Outside health",
+      "other": "At LocService, our AI drafts wired to internal APIs handle 87% of daily support tickets with human review.",
       "otherLink": "Read the LocService case",
       "quoteAttribution": "{author}"
     },
+    "offer": {
+      "kicker": "What we ship",
+      "title": "Five deliverables for healthcare companies under HDS",
+      "intro": "Five concrete components engineered to hold up in production inside your HDS environment.",
+      "items": {
+        "products": {
+          "tag": "Product",
+          "title": "Patient, caregiver and clinician apps",
+          "desc": "Mobile or web journeys, care-coordination CRMs and action plans driven by clinical assessments."
+        },
+        "engines": {
+          "tag": "Clinical",
+          "title": "Versioned clinical engines",
+          "desc": "Care frameworks that evolve alongside clinical guidelines without breaking live apps: 12 versions at Monka."
+        },
+        "integrations": {
+          "tag": "API",
+          "title": "Partner APIs and signed webhooks",
+          "desc": "Secure integrations connecting insurers, mutual health funds and your internal clinical tools."
+        },
+        "agents": {
+          "tag": "Agents",
+          "title": "Agents under human supervision",
+          "desc": "Drafts, summaries and repetitive coordination prep. Anything reaching a patient or partner gets human approval."
+        },
+        "production": {
+          "tag": "Production",
+          "title": "Observability, access and handover",
+          "desc": "Permissions, compliant logs and tests inside your environment, followed by documentation and team handover."
+        }
+      }
+    },
+    "audience": {
+      "kicker": "Who we serve",
+      "title": "Which healthcare teams is this offer built for?",
+      "intro": "Teams that already run on an HDS host, or are selecting one, and need a reliable AI product in production.",
+      "typesLabel": "Organizations",
+      "types": {
+        "startups": "Digital health startups",
+        "publishers": "Healthcare software publishers",
+        "insurers": "Insurers and mutual health funds",
+        "coordination": "Care-coordination organizations",
+        "scaleups": "Scale-ups growing on health data"
+      },
+      "signalsLabel": "Common challenges",
+      "signals": [
+        "Turning a clinical assessment into a tailored care pathway",
+        "Equipping clinicians or coordinating nurses with a dedicated CRM",
+        "Opening secure partner APIs for insurers and mutual funds",
+        "Connecting an LLM to health data without leaking outside HDS scope",
+        "Shipping quickly while keeping strict GDPR and HDS discipline"
+      ]
+    },
     "method": {
-      "title": "How we start a healthcare AI project",
-      "intro": "Four steps, with the data question asked in the first one.",
-      "stepsLabel": "Four steps",
+      "title": "Four steps to scope a healthcare AI project",
+      "intro": "Data boundaries and hosting responsibilities come first, right in the initial call.",
+      "stepsLabel": "Four steps · Healthcare & HDS",
       "steps": {
         "call": {
           "label": "Call",
           "title": "A 30-minute call",
-          "desc": "Your data, your host, who administers what, and the product goal."
+          "desc": "We cover your data categories, your HDS host, administration boundaries and the product goal."
         },
         "scope": {
           "label": "Scoping",
-          "title": "Scope the flows and the perimeter",
-          "desc": "We map the data flows and the HDS and GDPR perimeter, then hand you a fixed-scope proposal."
+          "title": "Map HDS and GDPR flows",
+          "desc": "We map every data flow and confirm technical boundaries inside a written fixed-scope proposal."
         },
         "cycles": {
           "label": "Short cycles",
-          "title": "Ship in short cycles, on your side",
-          "desc": "Testable releases early and often, built inside your environment."
+          "title": "Ship early inside your host",
+          "desc": "Testable versions land early and often, deployed directly inside your covered environment."
         },
         "production": {
           "label": "Production",
-          "title": "Go live, measure, hand over",
-          "desc": "Go-live, measurement of what matters, then runbooks and training for your teams."
+          "title": "Go live, measure and hand over",
+          "desc": "Production launch, real usage measurement, runbooks and training so your team owns the stack."
         }
       }
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "kicker": "FAQ",
+      "title": "Frequently asked questions about healthcare AI and HDS",
       "items": {
         "certified": {
           "q": "Is The Vibe Company HDS-certified?",
-          "a": "No. We are not a health data host. We build to GDPR and HDS requirements, usually inside the HDS environment the client already has, as in the case shown on this page."
+          "a": "No. We are not a health data host. We build to GDPR and HDS requirements inside the HDS environment the client already holds, as shown in the case on this page."
         },
         "needCertification": {
-          "q": "Do you need HDS certification to launch a healthcare AI product?",
-          "a": "Often it is the host (and sometimes the software publisher, depending on who has access) that falls within the scope. We clarify the split of activities during scoping. The details are in our HDS article."
-        },
-        "timeline": {
-          "q": "How long until production?",
-          "a": "It depends on the foundation. A real example: at a healthcare client whose HDS environment was already in place, the app, the CRM and the clinical engine went live in two months. We do not quote a generic timeline."
+          "q": "Does a healthcare AI product require HDS certification?",
+          "a": "Usually the host (and sometimes the software publisher depending on operational access) falls inside certification scope. We clarify that split during scoping. Details sit in <hds>our HDS article</hds>."
         },
         "llm": {
-          "q": "Do you send patient records to LLMs?",
-          "a": "We design so that health data never leaves the agreed framework: a model inside the perimeter, pseudonymisation before the call, or no external call at all. No magic promises."
+          "q": "Can an LLM process patient records inside an HDS setup?",
+          "a": "Yes, provided health data stays inside the approved boundary: a model hosted inside the perimeter, pseudonymization before calling out, or zero external calls."
+        },
+        "timeline": {
+          "q": "What timeline takes a healthcare AI product to production?",
+          "a": "Timelines depend on your existing stack. Real benchmark: at a healthcare client with an HDS host already live, the app, CRM and clinical engine reached production in two months."
         },
         "cost": {
-          "q": "How much does a project cost?",
-          "a": "We set the scope after the call and the scoping, in a written proposal. There is no public rate card."
+          "q": "What budget applies to a healthcare AI project?",
+          "a": "We confirm the exact budget after the call and data-flow scoping inside a written fixed-scope proposal. There is no public rate card."
         },
         "otherPages": {
-          "q": "How does this relate to your AI agency in Paris and hardening agents pages?",
-          "a": "The AI agency in Paris page covers our general offer. The hardening page is about agents that harden a product and its infrastructure. This page is about the healthcare sector and the HDS framework."
+          "q": "Where does this offer fit alongside your Paris agency and hardening pages?",
+          "a": "<agency>The AI agency Paris page</agency> covers our general offer. <hardening>The security hardening page</hardening> covers agents protecting your product and stack. This page focuses on healthcare and HDS."
         }
       }
     },
     "further": {
+      "kicker": "Reading & offers",
       "title": "Further reading",
-      "readingLabel": "Read",
+      "readingLabel": "Articles & case",
+      "offersLabel": "Other offers",
       "reading": {
-        "hds": "What HDS really requires for an AI project",
+        "hds": "AI and health data in France: what HDS really means for your project",
+        "hosting": "HDS hosting for AI: what you need to process health data",
         "monka": "Monka case: caregiver app, Lifeline and clinical engine"
       },
-      "alsoLabel": "Also at The Vibe Company",
       "agency": {
-        "title": "AI agency in Paris",
-        "desc": "Our general offer: AI products, agents and training, all the way to production."
-      },
-      "about": {
-        "title": "Who The Vibe Company is",
-        "desc": "The team, the founders and the key facts about the agency."
+        "title": "AI agency Paris",
+        "desc": "Our general offer: AI products, agents and training shipped to production."
       },
       "hardening": {
-        "title": "AI agents to harden your product & stack",
-        "desc": "Also: harden. Agents that watch secrets, dependencies, IAM and configs, continuously."
+        "title": "AI agents for security hardening",
+        "desc": "Continuous agent fleet watching secrets, dependencies, IAM and cloud configs."
+      },
+      "custom": {
+        "title": "Custom AI app development",
+        "desc": "Bespoke AI applications, B2B SaaS, RAG architecture and API integrations."
       }
     },
     "caseLink": "Working with health data? See our <link>Healthcare AI & HDS</link> page."
   },
   "agentsProduction": {
-    "kicker": "AGENTS · POC → PRODUCTION",
+    "kicker": "AI AGENTS · POC → PRODUCTION",
     "displayTitle": "Agents in production.",
-    "metaTitle": "AI Agents in Production: from POC to run | The Vibe Company",
-    "metaDescription": "Deploy AI agents in your company to production: tools, guardrails, measurement, handoff. LocService case (87% of tickets). Paris agency, YC W24.",
-    "title": "AI agents at work: we take them all the way to production",
-    "lede": "Many AI agents never get past the demo. At The Vibe Company, we wire them into your tools, put the guardrails in place (authority, permissions, a human in the loop) and take them all the way to the daily run, with a clear measure of the time saved.",
-    "hero": {
-      "label": "What we put in place",
-      "items": {
-        "tools": "An audit of your workflows, then skills wired into your tools: CRM, support, docs, APIs.",
-        "guardrails": "Guardrails: least privilege, and a human on everything that goes out (at LocService, the agent writes drafts).",
-        "measure": "A before/after measurement, then documentation and handoff. Or we keep operating it with you.",
-        "team": "The same YC W24 team that ships AI products to production (LocService, Monka, Coup de Pates…)."
+    "metaTitle": "AI Agents in Production: From POC to Run | The Vibe Company",
+    "metaDescription": "Take business AI agents from POC to daily production: tool wiring, guardrails, observability and handoff. LocService case (87% of tickets). Paris, YC W24.",
+    "title": "AI Agents in Production: From POC to Run",
+    "lede": "The Vibe Company takes business AI agents from an internal POC to daily production for SMEs and mid-caps. We connect each agent to your real systems (CRM, support desk, internal APIs), set clear permissions and human sign-off, and measure daily adoption. At LocService, our AI drafts handle 87% of support tickets.",
+    "factsLabel": "Live proof",
+    "facts": [
+      {
+        "label": "LocService (support)",
+        "figure": "87%",
+        "detail": "Support tickets answered daily with our AI drafts, reviewed by a person before sending."
+      },
+      {
+        "label": "Coup de Pates (quality)",
+        "figure": "3 skills",
+        "detail": "Document verification skills that flagged 72 changes between two versions of one specification."
+      },
+      {
+        "label": "Governance",
+        "figure": "Least privilege",
+        "detail": "Scoped tool access, full action logs and human sign-off on every sensitive step."
+      },
+      {
+        "label": "Operations",
+        "figure": "Full handoff",
+        "detail": "Runbooks, team training or joint operations from the day the agent goes live."
       }
-    },
+    ],
     "bookCall": "Book 30 minutes",
     "response": "Answer within 24h",
     "breadcrumb": "AI agents in production",
@@ -1353,270 +1414,227 @@
       "description": "Deploying business AI agents inside a company, from POC to the daily run: scoping the first workflow, skills connected to existing tools, authority and guardrails, memory and context, observability, run and handoff. Sensitive actions stay approved by a human."
     },
     "problem": {
-      "title": "A POC doesn't die for lack of a model. It dies for lack of production",
-      "p1": "The demo works. Then the real questions arrive: which permissions the agent gets, on which tools (whose APIs change or go down), who owns it when it gets things wrong, and which metric says it is useful. With no answers, nobody dares let it act, and the pilot stays a pilot.",
-      "p2": "COOs, heads of support and product CTOs are not waiting for one more slide. They want a first agent that is useful in real conditions, wired into their systems, that their teams use every day.",
-      "p3": "New to the topic? Start with our <link>guide to AI agents for business</link>. This page is about deploying one with you."
+      "kicker": "Where pilots stall",
+      "title": "Why do enterprise AI agent POCs stall before production?",
+      "p1": "The demo works fast. Then operational questions hit: which permissions the agent holds, which internal APIs can break, who owns mistakes and which number proves daily value.",
+      "p2": "Without clear answers, nobody opens production access. COOs, support leads and product CTOs want one reliable agent wired into their systems and used every day.",
+      "p3": "New to agents? Start with our <link>guide to AI agents for business</link>. This page covers deploying one all the way to daily operations."
+    },
+    "proof": {
+      "kicker": "Published cases",
+      "title": "Which AI agents already run in real conditions?",
+      "intro": "Three published engagements on this site. Every result reflects live usage.",
+      "cases": {
+        "locservice": "An agent drafts the reply to every support ticket using internal APIs across hundreds of tickets daily. A human reviews and sends: drafts are used on 87% of tickets.",
+        "coup-de-pates": "Three AI skills check product labels and specifications against annotations, flagging 72 changes on a single specification.",
+        "theodo": "Technical expertise embedded inside Theodo teams to build AI Software Factories with standardized agents and skills for hundreds of developers."
+      },
+      "readCase": "Read the {client} case"
     },
     "offer": {
-      "title": "What an agent deployment at your company includes",
-      "intro": "Six building blocks, delivered in your environment and on your tools. Not one more chat silo: an agent that works where your teams already work.",
+      "kicker": "Architecture & scope",
+      "title": "Six building blocks for production AI agents",
+      "intro": "Six concrete building blocks deployed inside your environment on your existing tools.",
       "items": {
         "scope": {
           "tag": "Scoping",
-          "title": "Scoping the first workflow",
-          "desc": "We find where the time really goes, with a simple grid: volume × repetitiveness × risk. We pick one workflow, not ten.",
+          "title": "Picking the first workflow",
+          "desc": "We locate real time drains using three criteria: volume, repetition and risk. We start with one workflow.",
           "link": "Which processes to automate first"
         },
         "skills": {
           "tag": "Skills · Tools",
-          "title": "Skills and tools",
-          "desc": "Versioned skills and connections to the systems you already run: CRM, support tool, knowledge base, internal APIs."
+          "title": "Versioned skills and connectors",
+          "desc": "Skills maintained like code and connected directly to your CRM, support desk, knowledge base and internal APIs."
         },
         "authority": {
           "tag": "Authority",
-          "title": "Authority and guardrails",
-          "desc": "What the agent may read, propose and do, written down in black and white. Sensitive actions go through human approval.",
+          "title": "Permissions and guardrails",
+          "desc": "What the agent reads, drafts and executes is written down explicitly. Sensitive actions require human approval.",
           "link": "Agent authority (in French)"
         },
         "memory": {
           "tag": "Context",
-          "title": "Memory and context",
-          "desc": "Tickets, documentation, customer history: the agent works from your real context, within the scope agreed together, and no further."
+          "title": "Company memory and context",
+          "desc": "Past tickets, internal docs and customer history ground every run within the exact scope agreed together."
         },
         "observability": {
-          "tag": "Observability",
-          "title": "Observability",
-          "desc": "Logs of every action, acceptance rate of its proposals, escalations to a human: you see what the agent does and what it is worth."
+          "tag": "Measurement",
+          "title": "Observability and adoption",
+          "desc": "Action logs, draft acceptance rates and human escalations show exactly what the agent delivers."
         },
         "run": {
           "tag": "Run",
-          "title": "Run and handoff",
-          "desc": "Runbooks, training for your teams, or joint operation: the agent has an owner the day it goes to production."
+          "title": "Runbooks and handoff",
+          "desc": "Documentation, training or joint operations ensure the agent has a clear owner on launch day."
         }
       },
-      "complement": "Complementary to our <hardening>AI agents to harden your product and stack</hardening> (the security of your infrastructure) and to our article on <authority>agent authority</authority> (in French; what an agent is allowed to do)."
+      "complement": "Complementary to our <hardening>AI agents for security hardening</hardening> and our write-up on <authority>agent authority</authority> (in French)."
     },
     "method": {
-      "title": "From the demo to the daily run",
-      "intro": "You don't go from POC to production in one leap. We widen the scope as trust builds, with the numbers to back it.",
-      "stepsLabel": "Six steps",
+      "title": "From internal POC to daily run in six steps",
+      "intro": "We expand agent autonomy step by step, backed by real acceptance numbers.",
+      "stepsLabel": "Six steps · POC → Run",
       "steps": {
         "call": {
           "label": "Call",
           "title": "A 30-minute call",
-          "desc": "The candidate process, the tools in place, the level of risk. By the end of the call, you know whether a first agent holds up at your company."
+          "desc": "We review the target workflow, existing tools and risk boundaries. You leave knowing if a first agent makes sense."
         },
         "scope": {
           "label": "Scoping",
           "title": "Fixed-scope framing",
-          "desc": "A single workflow, and measurable success criteria set before the first line is written."
+          "desc": "One workflow, measurable success criteria and a written proposal before any code is written."
         },
         "pilot": {
           "label": "Pilot",
-          "title": "An instrumented pilot",
-          "desc": "The agent runs in near-real conditions, often as drafts first: it proposes, your team decides."
+          "title": "An instrumented draft pilot",
+          "desc": "The agent runs in near-real conditions in draft mode: it prepares the output, your team decides."
         },
         "scale": {
           "label": "Scaling",
-          "title": "Widen once the numbers hold",
-          "desc": "We widen the scope only when human acceptance and the metrics hold up. Not before."
+          "title": "Expand once metrics hold",
+          "desc": "We widen scope only after human acceptance and output quality stay consistent."
         },
         "production": {
           "label": "Production",
-          "title": "Secure production",
-          "desc": "Permissions reviewed, documentation up to date, and GDPR and HDS requirements met when the context calls for it."
+          "title": "Secure production launch",
+          "desc": "Permissions reviewed, documentation complete, and GDPR or HDS requirements met whenever your data requires them."
         },
         "handover": {
           "label": "Handoff",
           "title": "Handoff or joint run",
-          "desc": "Your team takes the agent over with runbooks and training, or we keep operating it alongside you."
+          "desc": "Your team takes full ownership with runbooks and training, or we keep operating the agent alongside you."
         }
       },
-      "ctaTitle": "A POC gathering dust? We start from what exists and take it all the way to the daily run, with your teams.",
-      "checklist": "The full checklist before going to production"
-    },
-    "proof": {
-      "title": "Agents already running in real conditions",
-      "intro": "Case studies published on this site, with their numbers. Nothing else.",
-      "cases": {
-        "locservice": "An agent drafts the reply to every ticket, connected to internal APIs, on hundreds of tickets a day. A human reviews and decides: the drafts are used on 87% of tickets.",
-        "coup-de-pates": "Quality-control AI skills that check product documents (labels, specifications) and flag every discrepancy, alongside Ensemble, the employee CSR app.",
-        "theodo": "Technical expert embedded in Theodo's teams: Software Factories for hundreds of developers, with standardized agents and skills."
-      },
-      "readCase": "Read the case"
+      "ctaTitle": "Got a POC sitting on the shelf? We start from what exists and carry it to daily production.",
+      "checklist": "Full go/no-go checklist before going to production"
     },
     "not": {
-      "title": "What this is not",
+      "kicker": "Clear boundaries",
+      "title": "What falls outside this offer?",
       "items": {
         "chatbot": {
-          "title": "Not a generic chatbot",
-          "desc": "A chat with no tools and no context does not change how your teams work. Here, the agent is wired into your systems and has a precise role."
+          "title": "No disconnected generic chatbot",
+          "desc": "A standalone chat window detached from your tools changes little. Our agents plug straight into your systems."
         },
         "replace": {
-          "title": "Not “we replace your support team”",
-          "desc": "The agent takes the repetitive part. Your teams keep the decisions, the customer relationship and the hard cases."
+          "title": "No claim to replace your support team",
+          "desc": "The agent handles repetitive preparation. Your team keeps judgment, hard cases and customer relationships."
         },
         "hardening": {
-          "title": "Not our hardening offer",
-          "desc": "Hardening secrets, IAM or CI with a fleet of agents is a different page.",
-          "link": "AI agents to harden your product and stack"
+          "title": "Separate from our <hardening>security hardening offer</hardening>",
+          "desc": "Securing secrets, IAM and CI pipelines with agents lives on our dedicated hardening page.",
+          "link": "AI agents for security hardening"
         },
         "promise": {
-          "title": "Not a compliance or zero-error promise",
-          "desc": "An agent sometimes gets things wrong. We design it so the error shows, reaches a human and gets fixed, and we document what was done."
+          "title": "No zero-error guarantee",
+          "desc": "Agents make mistakes. We engineer visibility and human checkpoints so errors surface fast and get fixed."
         }
       }
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "kicker": "FAQ",
+      "title": "Frequently asked questions about AI agents in production",
       "items": {
+        "existing": {
+          "q": "Can we start from an in-house AI agent POC?",
+          "a": "Yes. We start from your existing tools, prompts and accumulated permissions. We industrialize what works instead of rewriting from scratch."
+        },
         "start": {
-          "q": "Which process should we start with?",
-          "a": "A high-volume process, with fairly stable rules, where an agent's mistake stays contained. Often the agent starts by writing a draft rather than sending directly."
+          "q": "Which business process should get the first AI agent?",
+          "a": "Pick a high-volume workflow with fairly stable rules where a mistake stays easy to catch. Draft mode gives a safe starting point. See our guide on <automation>which processes to automate first</automation>."
         },
         "timeline": {
-          "q": "How long until an agent is useful?",
-          "a": "We work in short cycles, and we won't give you a generic timeline before we have seen the process. On our published customer support case, the agent's drafts are used on 87% of tickets, out of several hundred tickets a day."
-        },
-        "existing": {
-          "q": "What if we already have an in-house POC?",
-          "a": "We start from what exists: tools, prompts, and the authority debt that has piled up (what the agent can do without anyone having decided it). We industrialize rather than rewrite everything."
+          "q": "What timeline leads to a useful production agent?",
+          "a": "We ship in short cycles and avoid generic timelines before inspecting your stack. On our published support case, AI drafts handle 87% of daily tickets."
         },
         "data": {
-          "q": "What about sensitive data?",
-          "a": "We work to GDPR and HDS requirements. When health data is involved, the agent runs inside the client's covered environment. We claim no certification we do not hold."
+          "q": "What rules protect sensitive and health data?",
+          "a": "We build to GDPR and HDS requirements. When health data is involved, the agent runs inside the client's covered environment. See <health>Healthcare AI HDS</health> and <hds>our HDS guide</hds>."
         },
         "article": {
-          "q": "How is this different from your “AI agents for business” article?",
-          "a": "The article explains what an agent is and how to get started. This page is the offer: we deploy the agent with you, all the way to production."
+          "q": "What sets this page apart from the business AI agents guide?",
+          "a": "The <guide>business AI agents guide</guide> explains concepts and starting points. This page is the service offer: we deploy the agent with you to production."
         },
         "hardening": {
-          "q": "How does this relate to your AI agents for hardening?",
-          "a": "Hardening is a fleet of agents that secures your product and your infrastructure. Here, these are business agents in production. The two often go together."
+          "q": "Where do security hardening agents fit alongside business agents?",
+          "a": "Our <hardening>security hardening offer</hardening> deploys agents to protect your product and infrastructure. Here we deploy business workflow agents. Many clients run both."
         }
-      },
-      "links": {
-        "automation": "Which processes to automate first",
-        "locservice": "Read the LocService case",
-        "health": "Healthcare AI (HDS)",
-        "hds": "What HDS really means",
-        "guide": "Read the guide",
-        "hardening": "AI agents to harden your product and stack"
       }
     },
     "further": {
+      "kicker": "Reading & offers",
       "title": "Going further",
-      "readingLabel": "Read next",
+      "readingLabel": "Reference articles",
       "reading": {
-        "guide": "AI agents for business: a practical guide to getting started",
-        "checklist": "From AI agent POC to production: the checklist that holds up",
+        "checklist": "AI agent from POC to production: a go/no-go checklist",
+        "guide": "AI agents for business: what they do and where to start",
         "automation": "AI automation for companies: which processes to automate first",
         "authority": "The real risk of AI agents is authority (in French)",
-        "hds": "AI and health data in France: what HDS really means",
-        "rag": "Enterprise RAG: connect generative AI to your documents"
+        "rag": "Enterprise RAG: connect generative AI to your documents",
+        "hds": "AI and health data in France: what HDS really means"
       },
-      "alsoLabel": "Also at The Vibe Company",
-      "agency": {
-        "title": "AI agency in Paris",
-        "desc": "AI products, agents and training, from scoping to production."
-      },
+      "alsoLabel": "Other offers",
       "hardening": {
-        "title": "AI agents to harden your product & stack",
-        "desc": "A fleet of agents watching secrets, dependencies, IAM, configs and pull requests."
+        "title": "AI agents for security hardening",
+        "desc": "A continuous fleet watching secrets, dependencies, IAM, configs and pull requests."
+      },
+      "agency": {
+        "title": "AI agency Paris",
+        "desc": "AI products, agents and training for SMEs and mid-caps, shipped to production."
       },
       "health": {
-        "title": "Healthcare AI",
+        "title": "Healthcare AI HDS",
         "desc": "AI products and agents on health data, built to GDPR and HDS requirements."
       },
       "media": {
-        "title": "AI for media",
-        "desc": "AI tools for newsrooms and media groups, from scoping to production."
+        "title": "AI for media newsrooms",
+        "desc": "Newsroom AI tools under journalist control, backed by our AFP MediaGen work."
       }
     }
   },
   "mediaAi": {
     "kicker": "AI FOR MEDIA · NEWSROOMS",
     "displayTitle": "AI for media.",
-    "metaTitle": "AI for Media: tools for newsrooms | The Vibe Company",
-    "metaDescription": "AI tools for newsrooms and media orgs, shipped to production. AFP / MediaGen proof (France 2030). Paris AI agency, YC W24. Reply within 24h.",
-    "title": "AI for media: we build newsroom tools all the way to production",
-    "lede": "The Vibe Company builds generative AI tools for newsrooms and media organizations: monitoring, archives, production assist, under journalist control. Public proof: MediaGen, AFP's France 2030 generative AI project, where we are a technical consortium member.",
+    "metaTitle": "AI for Media Newsrooms: Tools Shipped | The Vibe Company",
+    "metaDescription": "AI tools and agents for media newsrooms, built to production under journalist control. AFP MediaGen proof (€4M, France 2030). Paris AI agency, YC W24.",
+    "title": "AI for Media Newsrooms: Tools Shipped",
+    "lede": "The Vibe Company builds AI tools and agents for media newsrooms, press groups and news agencies: augmented monitoring, multimodal archive search and production assistance, always under journalist control. Our public proof: MediaGen, AFP's €4M France 2030 project backed by Bpifrance, built within the technical consortium alongside Kairntech and Dawex.",
+    "factsLabel": "Public proof · AFP MediaGen",
+    "facts": [
+      {
+        "label": "MediaGen project",
+        "figure": "€4M",
+        "detail": "France 2030 program led by AFP and backed by Bpifrance for trustworthy newsroom generative AI."
+      },
+      {
+        "label": "Searchable archives",
+        "figure": "90M",
+        "detail": "Text, photo and video archive documents made searchable through multimodal retrieval."
+      },
+      {
+        "label": "Newsroom tools",
+        "figure": "3 tools",
+        "detail": "Augmented monitoring, multimodal search and production assistance, under journalist control."
+      },
+      {
+        "label": "Technical consortium",
+        "figure": "24 months",
+        "detail": "Quivr/The Vibe Company alongside Kairntech and Dawex, with planned open-source components."
+      }
+    ],
     "bookCall": "Book 30 minutes",
     "response": "Reply within 24h",
     "breadcrumb": "AI for Media",
-    "hero": {
-      "label": "The facts",
-      "items": {
-        "mediagen": "MediaGen (AFP): 3 newsroom tools, augmented monitoring, multimodal search, production assist.",
-        "france2030": "France 2030 project, €4M, supported by Bpifrance. Consortium Quivr/The Vibe Company, Kairntech, Dawex. 24-month horizon.",
-        "openSource": "Some components planned as open source.",
-        "agency": "Paris AI agency, YC W24 (Quivr became The Vibe Company)."
-      }
-    },
     "service": {
       "name": "AI projects for media and newsrooms",
       "description": "Design and development of generative AI tools for newsrooms and media organizations (monitoring, multimodal archive search, production assist), under journalist control, all the way to production."
     },
-    "audience": {
-      "title": "Who this page is for",
-      "intro": "For press groups, newsrooms, news agencies, broadcasters, pure players and content or documentation organizations that want AI tools in real conditions, not a ChatGPT demo.",
-      "typesLabel": "Who",
-      "types": {
-        "press": "Press groups and newsrooms",
-        "agencies": "News agencies",
-        "broadcast": "Broadcast media",
-        "pureplayers": "Pure players and content / documentation orgs"
-      },
-      "signalsLabel": "The signals",
-      "signals": [
-        "A saturated monitoring feed",
-        "Text, photo or video archives that go underused",
-        "Multi-format versions that cost too much",
-        "Fear of hallucinations or bias in published news",
-        "The need to keep the journalist in the loop"
-      ]
-    },
-    "offer": {
-      "title": "What we deliver on a media AI project",
-      "intro": "Five building blocks, from monitoring to a framework that holds in production.",
-      "items": {
-        "monitoring": {
-          "title": "News monitoring",
-          "desc": "Gather and analyze media, social networks and press releases. The MediaGen angle: augmented monitoring."
-        },
-        "archives": {
-          "title": "Archives and multimodal search",
-          "desc": "Explore and make the most of a text, photo and video collection."
-        },
-        "production": {
-          "title": "Production assist",
-          "desc": "Turn one story into several formats. Help spotting bias or quality risks. A human publishes."
-        },
-        "agents": {
-          "title": "Agents under editorial control",
-          "desc": "Drafts, suggestions and repetitive tasks. Nothing is sent or published without sign-off."
-        },
-        "framework": {
-          "title": "Production framework",
-          "desc": "Access rights, observability, logs and tests, then documentation and handoff. Or joint operation."
-        }
-      }
-    },
-    "proof": {
-      "title": "MediaGen: what it proves (and what it doesn't)",
-      "intro": "MediaGen is one of the few France 2030 projects dedicated to the media. Led by AFP, supported by Bpifrance.",
-      "items": {
-        "member": "The Vibe Company (via Quivr / The Vibe Company) is a member of the technical consortium. We build the tools. We are not AFP.",
-        "ships": "It proves we can ship generative AI under media constraints: reliability, editorial control, partial open source.",
-        "notDossier": "What it does not mean: we do not put together your France 2030 or Bpifrance application."
-      },
-      "funding": "For an overview of French funding schemes (CIR, CII, Diag…): <link>How to fund an AI project in France: CIR, CII, France 2030</link>",
-      "case": "Detailed proof: <link>AFP / MediaGen case</link>"
-    },
     "afp": {
-      "title": "What we are building with AFP in MediaGen",
-      "intro": "With AFP, we are building MediaGen: generative AI tools for newsrooms, always under journalists' control.",
+      "kicker": "AFP Case · MediaGen",
+      "title": "What is The Vibe Company building with AFP in MediaGen?",
+      "intro": "MediaGen unites AFP, Quivr/The Vibe Company, Kairntech and Dawex to build trustworthy generative AI tools for working newsrooms.",
       "stats": {
         "budget": {
           "label": "Project budget",
@@ -1636,70 +1654,148 @@
         }
       },
       "points": [
-        "Augmented monitoring: gather and analyze media, social networks and press releases in real time.",
+        "Augmented news monitoring: gather and analyze media, social networks and press releases in real time.",
         "Multimodal search: explore and make the most of text, photo and video archives.",
-        "Production assist: turn one story into several formats, and spot biases that could hurt its quality.",
-        "Consortium: Quivr/The Vibe Company, Kairntech, Dawex.",
-        "Some components will be released under an open license.",
-        "Reliable information, under journalists' control."
+        "Production assist: turn one story into several formats and spot biases that could hurt its quality.",
+        "French technical consortium: Quivr/The Vibe Company, Kairntech and Dawex.",
+        "Selected components planned under an open license, always under journalists' control."
       ],
       "readCase": "Read the AFP case"
     },
+    "proof": {
+      "title": "What MediaGen proves, and where we draw the line",
+      "intro": "MediaGen is one of the few France 2030 programs dedicated to the media sector. Here is our exact role.",
+      "items": {
+        "member": "The Vibe Company (via Quivr/The Vibe Company) is a technical consortium member. We build the tools. We are not AFP.",
+        "ships": "This engagement proves we engineer generative AI under strict editorial rules: reliability, traceability and partial open source.",
+        "notDossier": "Clear boundary on grants: we do not put together your France 2030 or Bpifrance application. We build your software."
+      },
+      "funding": "Overview of French AI grants (CIR, CII, France 2030): <link>AI funding in France 2026</link>",
+      "case": "Full details: <link>AFP / MediaGen case study</link>"
+    },
+    "audience": {
+      "kicker": "Who we serve",
+      "title": "Which newsrooms and media organizations do we build for?",
+      "intro": "Press groups, news agencies, broadcasters and digital publishers looking for production newsroom tools under editorial oversight.",
+      "typesLabel": "Organizations",
+      "types": {
+        "press": "Press groups and newsrooms",
+        "agencies": "News agencies",
+        "broadcast": "Broadcast media",
+        "pureplayers": "Digital publishers and archive desks"
+      },
+      "signalsLabel": "Common bottlenecks",
+      "signals": [
+        "Monitoring feeds overflowing across wires and social channels",
+        "Text, photo and video archives sitting underused",
+        "Multi-format story adaptation costing too much desk time",
+        "Strict standards against hallucinations and editorial bias",
+        "Editorial commitment to keep journalists in charge of publishing"
+      ]
+    },
+    "offer": {
+      "kicker": "Newsroom deliverables",
+      "title": "Five deliverables for working newsrooms",
+      "intro": "Five concrete building blocks from real-time monitoring to production operations.",
+      "items": {
+        "monitoring": {
+          "title": "Augmented news monitoring",
+          "desc": "Centralize and analyze wires, social feeds and press releases in real time so desks spot relevant stories faster."
+        },
+        "archives": {
+          "title": "Multimodal archive search",
+          "desc": "Search across text, photo and video holdings to surface verified background, quotes and historical footage."
+        },
+        "production": {
+          "title": "Editorial production assistance",
+          "desc": "Adapt a verified story across formats and flag potential bias or quality risks. A journalist always publishes."
+        },
+        "agents": {
+          "title": "Agents under editorial control",
+          "desc": "Drafts, summaries and repetitive desk prep wired into your tools. Nothing publishes without human sign-off."
+        },
+        "framework": {
+          "title": "Production framework and handoff",
+          "desc": "Access rights, audit logs, quality evaluations, documentation and training for your engineering and editorial teams."
+        }
+      }
+    },
     "method": {
-      "title": "How we start a media AI project",
+      "kicker": "Kickoff · 4 steps",
+      "title": "Four steps to launch a newsroom AI project",
       "steps": {
         "call": {
           "title": "A 30-minute call",
-          "desc": "Editorial workflows, sources, archives, editorial risk, who publishes."
+          "desc": "We review your editorial workflows, archive formats, CMS/DAM stack and publishing risk boundaries."
         },
         "scope": {
-          "title": "Scope a first tool",
-          "desc": "One fixed-scope workflow, with success criteria: time, volume, human acceptance rate."
+          "title": "Scope one high-impact tool",
+          "desc": "One fixed-scope workflow with concrete success metrics: time saved, throughput and journalist adoption."
         },
         "cycles": {
-          "title": "Short cycles",
-          "desc": "Often as drafts or suggestions first. Never auto-publishing without guardrails."
+          "title": "Ship short cycles in draft mode",
+          "desc": "Journalists test early with suggestions and drafts. Automated publishing stays off without explicit guardrails."
         },
         "production": {
-          "title": "Ship, measure, hand over",
-          "desc": "Runbooks, training, or joint operation."
+          "title": "Launch, measure and hand over",
+          "desc": "Production rollout inside your stack, runbooks and team training, or joint operations alongside your staff."
         }
       }
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "kicker": "FAQ",
+      "title": "Frequently asked questions about AI for media newsrooms",
       "items": {
         "replace": {
-          "q": "Do you replace journalists?",
-          "a": "No. We build tools under editorial control: drafts, monitoring, search, multi-format versions. The decision to publish stays human."
+          "q": "Do these newsroom AI tools replace journalists?",
+          "a": "No. We build tools under strict editorial control: monitoring, archive search, drafts and format adaptations. Publishing decisions stay human."
         },
         "mediagen": {
-          "q": "What is MediaGen?",
-          "a": "AFP's France 2030 generative AI project. We are in the technical consortium with Kairntech and Dawex. Details: <case>the AFP case</case>."
+          "q": "What is our exact role in MediaGen with AFP?",
+          "a": "MediaGen is AFP's France 2030 generative AI project. We sit inside the technical consortium with Kairntech and Dawex to engineer the tools. Details: <case>the AFP case</case>."
         },
         "funding": {
-          "q": "Can you get our project funded through France 2030?",
-          "a": "No. MediaGen proves we ship in that frame. It is not a Bpifrance application service. See <funding>our article on CIR, CII and France 2030</funding> for an overview of funding schemes."
-        },
-        "timeline": {
-          "q": "How long until production?",
-          "a": "It depends on your stack (CMS, DAM, APIs, rights). MediaGen: built over 24 months on the France 2030 project side. That is a project timeline, not a generic delay for every client."
+          "q": "Do you file France 2030 or Bpifrance grant applications?",
+          "a": "No. MediaGen shows we ship inside that program, while grant filing stays outside our service. Read <funding>our guide to CIR, CII and France 2030</funding> for an overview."
         },
         "hallucinations": {
-          "q": "What about hallucinations and bias?",
-          "a": "We design to limit the risk: guardrails, human validation, traceability. No “zero error” promise."
+          "q": "What guardrails limit hallucinations and editorial bias?",
+          "a": "Source grounding in your archives, mandatory human sign-off and full traceability of every output. We make no zero-error promises."
         },
-        "otherPages": {
-          "q": "How is this different from your Paris agency and agents in production pages?",
-          "a": "<agency>The AI agency in Paris page</agency> presents the general offer. <agents>AI agents in production</agents> covers deploying cross-functional business agents. This page covers the media and newsroom sector, with the AFP proof."
+        "timeline": {
+          "q": "What timeline takes a newsroom tool to production?",
+          "a": "Timelines depend on your CMS, DAM, APIs and rights setup. MediaGen spans 24 months for three full tools; every client build is scoped to its own stack."
         },
         "cost": {
-          "q": "How much does a project cost?",
-          "a": "We set the scope after the call and the framing, in a written proposal. There is no public rate card."
+          "q": "What budget applies and where does this fit among your offers?",
+          "a": "We confirm budget after scoping inside a written fixed-scope proposal. For cross-industry offers, see <agency>AI agency Paris</agency> or <agents>AI agents in production</agents>."
         }
       }
     },
-    "about": "Who The Vibe Company is: <link>About</link>",
+    "further": {
+      "kicker": "Reading & offers",
+      "title": "Going further",
+      "readingLabel": "Reference articles",
+      "offersLabel": "Other offers",
+      "reading": {
+        "newsrooms": "Generative AI in media: 7 practical newsroom use cases",
+        "funding": "AI funding in France 2026: grants, CIR, CII and amounts",
+        "rag": "Enterprise RAG: connect generative AI to your documents"
+      },
+      "agency": {
+        "title": "AI agency Paris",
+        "desc": "Our general offer for SMEs and mid-caps: AI products, agents and training."
+      },
+      "agents": {
+        "title": "AI agents in production",
+        "desc": "Deploy business workflow agents connected to your systems all the way to run."
+      },
+      "custom": {
+        "title": "Custom AI app development",
+        "desc": "Bespoke AI applications, RAG architecture and internal tool integrations."
+      }
+    },
+    "about": "Meet the team behind MediaGen and The Vibe Company: <link>About us</link>.",
     "caseLink": "Building AI for a newsroom? See our <link>AI for Media</link> page.",
     "finalCta": {
       "kicker": "AI FOR MEDIA",
@@ -2053,97 +2149,68 @@
     }
   },
   "customAiApp": {
-    "metaTitle": "Custom AI App Development | The Vibe Company",
-    "metaDescription": "Custom AI applications and SaaS, from idea to production: RAG, agents, GDPR and business integrations. Monka, LocService and AFP cases. YC W24.",
+    "metaTitle": "Custom AI App Development to Production | The Vibe Company",
+    "metaDescription": "Custom AI app development and B2B SaaS shipped to production: RAG, agents, GDPR and API integrations. Monka live in 2 months, LocService 87% drafts. YC W24.",
     "breadcrumb": "Custom AI app development",
-    "kicker": "AI APPLICATION · CUSTOM BUILT",
+    "kicker": "CUSTOM AI · APPLICATION DEVELOPMENT",
     "displayTitle": "Custom AI apps.",
-    "title": "Build a custom AI application, from idea to production",
-    "lede": "We design, build and ship your AI application to production: the product, the RAG architecture and the agents, the security and the integrations with your tools. Then we hand it over to your team, or we keep running it.",
-    "hero": {
-      "label": "What you get",
-      "items": {
-        "product": "A complete product: interface, backend, AI, deployment and observability.",
-        "data": "Data kept in bounds: GDPR requirements, least-privilege access, a person on what goes out.",
-        "handover": "Documented code and a trained team that can take the product over.",
-        "cases": "Published cases: Monka and LocService in production, AFP / MediaGen being built."
+    "title": "Custom AI App Development to Production",
+    "lede": "The Vibe Company handles custom AI app development from scoping to production for SMEs and mid-caps: web or mobile interfaces, backend, RAG architecture, tool-connected agents and GDPR-compliant rollout. At Monka, the caregiver app, coordinating nurse CRM and clinical engine went from kickoff on March 9 to production on May 10.",
+    "factsLabel": "Live proof",
+    "facts": [
+      {
+        "label": "Monka (healthcare)",
+        "figure": "Mar 9 → May 10",
+        "detail": "Caregiver app, Lifeline CRM and versioned clinical engine taken to production in two months."
+      },
+      {
+        "label": "LocService (support)",
+        "figure": "87%",
+        "detail": "Support tickets answered with Quivr autodraft suggestions, approved by human agents."
+      },
+      {
+        "label": "AFP / MediaGen",
+        "figure": "3 tools",
+        "detail": "France 2030 project being built over 24 months with Kairntech, Dawex and Bpifrance."
+      },
+      {
+        "label": "Ownership",
+        "figure": "Full handover",
+        "detail": "Documented codebase, runbooks and team training so you own and run the product."
       }
-    },
+    ],
     "bookCall": "Book 30 minutes",
     "response": "Reply within 24h",
     "apps": {
-      "title": "AI applications and SaaS",
-      "intro": "An AI application is an application first: screens, accounts, data, an API. AI goes where it saves time, not in the shop window.",
+      "kicker": "What we build",
+      "title": "Which custom AI applications and SaaS do we build?",
+      "intro": "Every AI application starts as reliable software: screens, user accounts, clean data and solid APIs. AI belongs where it saves measurable time.",
       "items": {
         "internal": {
-          "title": "Internal tools",
-          "desc": "The app your team opens every day: process a file, prepare a reply, find information in your documents."
+          "title": "Internal business tools",
+          "desc": "The daily workspace your team opens first: reviewing files, drafting replies or retrieving exact clauses across company records."
         },
         "saas": {
-          "title": "B2B SaaS",
-          "desc": "A product sold to your customers, with AI at the heart of the journey: accounts, roles, permissions and usage tracking included."
+          "title": "AI-native B2B SaaS",
+          "desc": "Commercial products built for your customers, complete with accounts, roles, permissions and real usage tracking."
         },
         "customer": {
           "title": "Web and mobile apps",
-          "desc": "An app for your end users, like the caregiver app we put into production at Monka."
+          "desc": "End-user interfaces engineered for daily reliability, like the caregiver app we shipped into production at Monka."
         },
         "backoffice": {
-          "title": "Back offices and CRMs",
-          "desc": "The screens of the people who run the service, like Lifeline, the CRM for Monka's coordinating nurses, and the API that ties it all together."
-        }
-      }
-    },
-    "rag": {
-      "title": "RAG architecture and agents",
-      "intro": "The model matters less than the context you give it. We connect AI to your documents and systems, and we measure whether what it produces is actually used.",
-      "items": {
-        "rag": {
-          "title": "RAG on your documents",
-          "desc": "Your documents, tickets and databases indexed, search suited to their shape, and answers built on what the user is allowed to see."
-        },
-        "agents": {
-          "title": "Agents with real tools",
-          "desc": "Agents that call your APIs, read the customer context and prepare the work, with limited, visible and revocable permissions."
-        },
-        "measure": {
-          "title": "One simple measure",
-          "desc": "A useful measure, checked day to day. At LocService: is the draft used? Not a score on a test set chosen in advance."
-        },
-        "models": {
-          "title": "The right model for the task",
-          "desc": "We pick the model for the task, the running cost and the sensitivity of the data, with an architecture that lets you switch."
-        }
-      },
-      "article": "Read: <link>Enterprise RAG, connect generative AI to your documents</link>",
-      "agents": "Agents on your existing workflows: <link>AI agents in production</link>"
-    },
-    "security": {
-      "title": "Security, GDPR and business integrations",
-      "intro": "Security is part of the deliverable, not a separate step. And an AI application is only as useful as the tools it connects to.",
-      "items": {
-        "gdpr": {
-          "title": "To GDPR requirements",
-          "desc": "Encrypted data, access limited to what is strictly needed. At Monka, health data is encrypted and GDPR-compliant."
-        },
-        "privilege": {
-          "title": "Least-privilege agents",
-          "desc": "An agent only reaches what its task needs, with limited, visible and revocable permissions."
-        },
-        "human": {
-          "title": "A person on what goes out",
-          "desc": "What goes out to your customers goes through a person. The AI prepares, a person sends."
-        },
-        "integrations": {
-          "title": "Wired into your tools",
-          "desc": "CRM, support desk, documentation, internal APIs: the application reads and writes where your team already works."
+          "title": "Back offices, CRMs and APIs",
+          "desc": "Operational software for the teams running your service, like Lifeline for Monka's coordinating nurses and its partner API."
         }
       }
     },
     "cases": {
-      "label": "Customer case",
+      "label": "Client cases",
+      "title": "Three client builds, from scoping to production",
+      "intro": "Monka and LocService live in production, AFP / MediaGen being built. Every figure matches the published case study.",
       "monka": {
         "title": "Monka: from kickoff to production",
-        "intro": "Monka supports people who care for a loved one, with coordinating nurses. We took over their existing API and CRM, then put the service's applications into production.",
+        "intro": "Monka supports family caregivers with coordinating nurses. We took over their existing API and CRM to ship the core applications live.",
         "stats": {
           "start": {
             "label": "Kickoff",
@@ -2155,16 +2222,16 @@
           }
         },
         "points": [
-          "The caregiver app.",
-          "Lifeline, the CRM for the coordinating nurses.",
-          "The clinical engine that turns each assessment into an action plan.",
+          "The caregiver mobile app.",
+          "Lifeline, the CRM for coordinating nurses.",
+          "The clinical engine turning each assessment into an action plan.",
           "Encrypted, GDPR-compliant health data."
         ],
         "readCase": "Read the Monka case"
       },
       "locservice": {
         "title": "LocService: the support team keeps the draft",
-        "intro": "LocService is a peer-to-peer property rental platform. Quivr's autodraft reads past tickets and internal documentation, then drafts the answer to each new ticket, tailored to the customer's profile and history.",
+        "intro": "LocService operates a peer-to-peer rental platform. Quivr's autodraft reads past tickets and internal docs to draft each reply tailored to the customer's profile.",
         "stats": {
           "drafts": {
             "label": "Drafts kept",
@@ -2173,15 +2240,15 @@
         },
         "statNote": "The support team keeps the Quivr autodraft's draft on 87% of tickets.",
         "points": [
-          "A person sends every reply: a support agent reviews the draft, fixes it if needed, then sends it.",
-          "Customer context comes from internal APIs, with rules that recognize the case before drafting.",
-          "One measure, checked day to day: is the draft used?"
+          "A person reviews, edits if needed and sends every customer reply.",
+          "Customer context pulls directly from internal APIs with case classification rules.",
+          "One daily metric guides iteration: is the draft actually used?"
         ],
         "readCase": "Read the LocService case"
       },
       "afp": {
         "title": "AFP / MediaGen: AI tools for newsrooms",
-        "intro": "MediaGen is a France 2030 project led by AFP and backed by Bpifrance. We are part of the technical consortium, alongside Kairntech and Dawex, building trustworthy generative AI tools, always under journalists' control.",
+        "intro": "MediaGen is a France 2030 project led by AFP and backed by Bpifrance. We sit in the technical consortium alongside Kairntech and Dawex, building trustworthy newsroom tools under journalists' control.",
         "stats": {
           "frame": {
             "label": "Frame",
@@ -2205,68 +2272,127 @@
         "readCase": "Read the AFP case"
       }
     },
+    "rag": {
+      "kicker": "Under the hood",
+      "title": "RAG architecture, agents and GDPR security underneath",
+      "intro": "Output quality depends on the context reaching the model. We wire AI to your real documents and APIs inside a secure architecture from day one.",
+      "groupLabel": "RAG architecture and agents",
+      "items": {
+        "rag": {
+          "title": "RAG grounded in your documents",
+          "desc": "Indexing for documents, tickets and internal databases, returning answers strictly scoped to what each user may see."
+        },
+        "agents": {
+          "title": "Agents connected to your APIs",
+          "desc": "Agents that fetch live customer context and prepare actions under limited, visible and revocable permissions."
+        },
+        "measure": {
+          "title": "Daily real-world measurement",
+          "desc": "We track real adoption over synthetic lab scores. At LocService, one metric decides everything: is the draft used?"
+        },
+        "models": {
+          "title": "Switchable model architecture",
+          "desc": "We match models to task complexity, running cost and data sensitivity so you can swap providers cleanly later."
+        }
+      },
+      "article": "Deep dive on indexing and retrieval: <link>our enterprise RAG guide</link>.",
+      "agents": "Adding agents to existing workflows: <link>AI agents in production</link>"
+    },
+    "security": {
+      "title": "Security, GDPR and business integrations",
+      "intro": "Security ships inside the product itself, alongside clean integrations into the tools your teams already open.",
+      "items": {
+        "gdpr": {
+          "title": "GDPR requirements from day one",
+          "desc": "Encrypted storage and access limited to strict need. At Monka, health data stays encrypted and GDPR-compliant."
+        },
+        "privilege": {
+          "title": "Least-privilege agents",
+          "desc": "Every agent accesses only the endpoints required for its task, with full audit logging."
+        },
+        "human": {
+          "title": "Human approval on external output",
+          "desc": "Anything sent to customers passes through a person first. AI prepares; your team decides and sends."
+        },
+        "integrations": {
+          "title": "CRM, support and API integrations",
+          "desc": "Your custom app reads and writes directly inside your business stack so teams skip manual re-entry."
+        }
+      }
+    },
     "method": {
-      "title": "Method and process",
-      "intro": "No generic timeline: the schedule depends on the scope, which we set together during scoping.",
+      "kicker": "Method · 5 steps",
+      "title": "Five steps from scoping to team handover",
+      "intro": "No generic schedule. We set scope together, then ship in short cycles backed by disciplined engineering.",
       "steps": {
         "call": {
           "title": "A 30-minute call",
-          "desc": "Your idea, your users, your data, your constraints. We tell you honestly whether AI is the right answer."
+          "desc": "You walk through your users, data and constraints. We tell you honestly whether a custom AI app fits."
         },
         "scope": {
-          "title": "Scoping",
-          "desc": "We look at the work as it is actually done and at the data available. If it's a fit, we send a written, fixed-scope proposal."
+          "title": "Fixed-scope framing",
+          "desc": "We review real workflows and available data. You get a written proposal spelling out scope, budget and intellectual property."
         },
         "cycles": {
-          "title": "Testable versions, early and often",
-          "desc": "You use working software from the first cycles, and your feedback shapes the next one."
+          "title": "Testable software early and often",
+          "desc": "Working releases reach your hands in the first cycles so real feedback shapes every iteration."
         },
         "production": {
-          "title": "Secure production",
-          "desc": "Access rights, observability, documentation and GDPR requirements, built into the product rather than added at the end."
+          "title": "Secure, observable production",
+          "desc": "Access controls, observability, tests and GDPR safeguards are engineered in during the build."
         },
         "handover": {
-          "title": "Measure and hand over",
-          "desc": "We measure the gains, write the runbooks and train your team to take the product over. Or we keep running it."
+          "title": "Measurement and team handover",
+          "desc": "We measure real gains, write runbooks and train your team to own the product. Or we keep operating it with you."
         }
       }
     },
     "faq": {
-      "title": "FAQ",
+      "kicker": "FAQ",
+      "title": "Frequently asked questions about custom AI app development",
       "items": {
         "cost": {
-          "q": "How much does a custom AI application cost?",
-          "a": "It depends on the scope: an internal tool connected to your documents is nothing like a full SaaS product. We give a precise figure after the call and the scoping, in a written, fixed-scope proposal."
+          "q": "What budget does a custom AI application require?",
+          "a": "Budget depends on scope: an internal document tool differs greatly from a full B2B SaaS platform. You receive a firm figure after the call and scoping inside a written fixed-scope proposal."
         },
         "timeline": {
-          "q": "How long until the application is in production?",
-          "a": "The timeline depends on the scope set during scoping, and we ship in short cycles. A real example: at Monka, the project kicked off on March 9 and was in production on May 10. <case>Read the Monka case</case>."
+          "q": "What timeline takes a custom AI app to production?",
+          "a": "Timelines follow the scope agreed during framing, delivered in short cycles. Real benchmark: at Monka, kickoff was March 9 and production launch was May 10. <case>Read the Monka case</case>."
         },
         "rag": {
-          "q": "Do I need RAG or agents?",
-          "a": "Not necessarily. We start from the problem: sometimes good search over your documents is enough, sometimes you need an agent that acts in your tools, and sometimes AI is not the right answer, and we tell you so. <rag>Our enterprise RAG article</rag> walks through these choices."
+          "q": "Does every custom AI app need RAG or agents?",
+          "a": "No. We start from the business bottleneck: sometimes clean search suffices, sometimes tool-connected agents pay off. <rag>Our enterprise RAG guide</rag> covers these choices."
         },
         "data": {
-          "q": "Do you work with sensitive data?",
-          "a": "Yes. We deliver to GDPR requirements: encrypted data, access limited to what is strictly needed, and a person on what goes out to your customers."
+          "q": "What GDPR safeguards protect sensitive data?",
+          "a": "We deliver to GDPR requirements: encrypted data, strict least-privilege access and human sign-off on everything sent to customers."
         },
         "code": {
-          "q": "Who owns the code?",
-          "a": "We document and train your team so it can take the product over. Intellectual property and maintenance are set out in the written proposal."
+          "q": "Who owns the source code and handles maintenance?",
+          "a": "Intellectual property and maintenance terms sit in the written proposal. We deliver documentation and training so your team can own the codebase."
         },
         "otherPages": {
-          "q": "How is this different from your other pages?",
-          "a": "This page is about building an application. For an overview of what we do, see <agency>our AI agency in Paris</agency>. For agents on your existing workflows, see <agents>AI agents in production</agents>."
+          "q": "Where does this offer fit among your other AI services?",
+          "a": "This page covers building a dedicated AI application. For our full studio overview, see <agency>our AI agency in Paris</agency>. For agents wired into existing tools, see <agents>AI agents in production</agents>."
         }
       }
     },
     "seeAlso": {
+      "kicker": "Reading & offers",
       "title": "Keep reading",
-      "agency": "AI agency in Paris: AI products and agents shipped to production",
-      "agents": "AI agents in production",
-      "rag": "Enterprise RAG: connect generative AI to your documents"
+      "articlesLabel": "Reference articles",
+      "offersLabel": "Other offers",
+      "rag": "Enterprise RAG: connect generative AI to your documents",
+      "roi": "Measure the ROI of an AI project: 5 metrics and a calculation template",
+      "steps": "Working with an AI agency: project steps and clauses",
+      "agencyTitle": "AI agency Paris",
+      "agencyDesc": "AI products, agents and training for SMEs and mid-caps, shipped to production.",
+      "agentsTitle": "AI agents in production",
+      "agentsDesc": "Take an internal AI agent POC all the way to daily production.",
+      "hardeningTitle": "AI agents for security hardening",
+      "hardeningDesc": "Continuously harden secrets, dependencies, IAM, configs and pull requests."
     },
-    "about": "Who The Vibe Company is: <link>About</link>",
+    "about": "Meet the team and founders: <link>About The Vibe Company</link>.",
     "service": {
       "name": "Custom AI application development",
       "description": "Design, development and production rollout of custom AI applications and SaaS: RAG architecture, agents, security, GDPR requirements and integrations with business tools."

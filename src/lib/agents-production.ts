@@ -48,9 +48,9 @@ export const AGENTS_PRODUCTION_NOT_KEYS = ["chatbot", "replace", "hardening", "p
 
 /** Order of the FAQ entries, restated as plain text in the FAQPage JSON-LD. */
 export const AGENTS_PRODUCTION_FAQ_KEYS = [
+  "existing",
   "start",
   "timeline",
-  "existing",
   "data",
   "article",
   "hardening",

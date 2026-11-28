@@ -9,6 +9,8 @@ import {
   MEDIA_CASE_SLUG,
   MEDIA_FAQ_KEYS,
   MEDIA_FUNDING_ARTICLE_PATHS,
+  MEDIA_NEWSROOMS_ARTICLE_PATHS,
+  MEDIA_RAG_ARTICLE_PATHS,
   mediaPageId,
 } from "./media-ai";
 import { MEDIA_AI_PATHS, splitPathAlternates } from "./site";
@@ -37,19 +39,11 @@ describe("media AI landing", () => {
     expect(mediaPageId("en")).toBe("ai-for-media");
   });
 
-  test("keeps the briefed title, meta description, H1 and calls", () => {
+  test("keeps the SEO-optimised title (51-60), meta description (140-160), H1 and calls", () => {
     expect(MESSAGES.fr.metaTitle).toBe("IA médias : outils pour les rédactions | The Vibe Company");
-    expect(MESSAGES.fr.metaDescription).toBe(
-      "Outils IA pour rédactions et médias, jusqu'en production. Preuve AFP / MediaGen (France 2030). Agence IA Paris, YC W24. RDV sous 24 h.",
-    );
-    expect(MESSAGES.fr.title).toBe(
-      "IA pour les médias : on construit les outils des rédactions jusqu'en production",
-    );
-    expect(MESSAGES.en.metaTitle).toBe("AI for Media: tools for newsrooms | The Vibe Company");
-    expect(MESSAGES.en.metaDescription).toBe(
-      "AI tools for newsrooms and media orgs, shipped to production. AFP / MediaGen proof (France 2030). Paris AI agency, YC W24. Reply within 24h.",
-    );
-    expect(MESSAGES.en.title).toBe("AI for media: we build newsroom tools all the way to production");
+    expect(MESSAGES.fr.title).toBe("IA médias : outils pour les rédactions");
+    expect(MESSAGES.en.metaTitle).toBe("AI for Media Newsrooms: Tools Shipped | The Vibe Company");
+    expect(MESSAGES.en.title).toBe("AI for Media Newsrooms: Tools Shipped");
     expect(MESSAGES.fr.kicker).toBe("IA MÉDIAS · RÉDACTIONS");
     expect(MESSAGES.en.kicker).toBe("AI FOR MEDIA · NEWSROOMS");
     expect(MESSAGES.fr.bookCall).toBe("Prendre 30 minutes");
@@ -57,8 +51,10 @@ describe("media AI landing", () => {
     expect(MESSAGES.en.bookCall).toBe("Book 30 minutes");
     expect(MESSAGES.en.response).toBe("Reply within 24h");
     for (const messages of Object.values(MESSAGES)) {
-      expect(messages.metaTitle.length).toBeLessThanOrEqual(60);
-      expect(messages.metaDescription.length).toBeLessThanOrEqual(160);
+      expect([...messages.metaTitle].length).toBeGreaterThanOrEqual(51);
+      expect([...messages.metaTitle].length).toBeLessThanOrEqual(60);
+      expect([...messages.metaDescription].length).toBeGreaterThanOrEqual(140);
+      expect([...messages.metaDescription].length).toBeLessThanOrEqual(160);
       expect(messages.metaTitle).not.toBe(messages.title);
     }
   });
@@ -72,19 +68,19 @@ describe("media AI landing", () => {
     }
   });
 
-  test("never claims a certification, a price, a funding service or AI replacing journalists", () => {
+  test("never claims a certification, a price, dashes, a funding service or AI replacing journalists", () => {
     const forbidden = [
+      /[—–]/,
       /\bSOC\s?2\b/i,
       /\bISO\b/,
       /\bHDS\b/,
+      /Softway/i,
       /hasCredential/,
       /certifi/i,
-      // The only amount on the page is MediaGen's published budget, removed below.
       /[€$£]/,
       /\b(TJM|tarif|à partir de|starting at|per day|par jour)\b/i,
       /\/30min/,
       /À CONFIRMER/i,
-      // We build the tools; we do not put together a France 2030 / Bpifrance application.
       /\bon monte (votre|vos) dossier/i,
       /\bwe (put together|file|prepare|handle) your\b/i,
       /\b(l'IA|IA|AI) (remplace|replaces)\b/i,
@@ -118,21 +114,29 @@ describe("media AI landing", () => {
 
   test("links only to articles and case studies that exist in the linked language", () => {
     for (const locale of ["fr", "en"] as const) {
-      const slug = MEDIA_FUNDING_ARTICLE_PATHS[locale].split("/").pop()!;
-      expect(getContentItem("article", slug)?.language).toBe(locale);
+      for (const paths of [
+        MEDIA_FUNDING_ARTICLE_PATHS,
+        MEDIA_NEWSROOMS_ARTICLE_PATHS,
+        MEDIA_RAG_ARTICLE_PATHS,
+      ]) {
+        const slug = paths[locale].split("/").pop()!;
+        expect(getContentItem("article", slug)?.language).toBe(locale);
+      }
       expect(getCustomer(MEDIA_CASE_SLUG, locale)).toBeDefined();
     }
   });
 
-  test("the FAQPage carries the publishable answers word for word, without link tags", () => {
+  test("the FAQPage carries the publishable answers word for word, without link tags or Comment/How openers", () => {
     for (const messages of Object.values(MESSAGES)) {
       const items = MEDIA_FAQ_KEYS.map((key) => ({
         key,
         question: messages.faq.items[key].q,
         answer: plainAnswer(messages.faq.items[key].a),
       }));
-      for (const item of items) expect(item.answer).not.toMatch(/[<>]/);
-      // Answers naming AFP or MediaGen stay out of the markup, as site-wide.
+      for (const item of items) {
+        expect(item.answer).not.toMatch(/[<>]/);
+        expect(item.question).not.toMatch(/^(Comment|How)\b/i);
+      }
       expect(
         items
           .filter((item) => isPublishable(item.question) && isPublishable(item.answer))
