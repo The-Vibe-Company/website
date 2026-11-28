@@ -38,10 +38,11 @@ describe("hardening landing", () => {
 
   test("keeps the SEO-optimised title (51-60), meta description (140-160) and H1", () => {
     expect(MESSAGES.fr.metaTitle).toBe("Agents IA cybersécurité : durcir produit | The Vibe Company");
-    expect(MESSAGES.fr.title).toBe("Agents IA cybersécurité : durcir produit et SI");
+    expect(MESSAGES.fr.title).toBe("Agents IA cybersécurité : durcir produit");
     expect(MESSAGES.en.metaTitle).toBe("AI Agents for Security Hardening & CI | The Vibe Company");
     expect(MESSAGES.en.title).toBe("AI Agents for Security Hardening & CI");
     for (const messages of Object.values(MESSAGES)) {
+      expect(messages.metaTitle).toBe(`${messages.title} | The Vibe Company`);
       expect([...messages.metaTitle].length).toBeGreaterThanOrEqual(51);
       expect([...messages.metaTitle].length).toBeLessThanOrEqual(60);
       expect([...messages.metaDescription].length).toBeGreaterThanOrEqual(140);

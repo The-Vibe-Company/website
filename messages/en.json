@@ -250,7 +250,7 @@
       "kicker": "HOW WE WORK",
       "title": "From the first version to production.",
       "p1": "We adapt the way we work to each project, depending on what you already have and what is most pressing. We build fast, which lets us show you a first working version early, often before the scope has even been settled with you. Decisions are then made from what you have been able to try.",
-      "p2": "We carry the work through to production. At Monka, the caregiver app, the nurses' CRM and the clinical engine went live in two months, and a new version has shipped roughly every two days since. With Theodo, we build Software Factories for hundreds of developers, including the AI Factory of Softway Medical, a healthcare software publisher."
+      "p2": "We carry the work through to production. At Monka, the caregiver app, the nurses' CRM and the clinical engine went live in two months, and a new version has shipped roughly every two days since. With Theodo, we build Software Factories for hundreds of developers, including the AI Factory of a client, a healthcare software publisher."
     }
   },
   "resources": {
@@ -492,7 +492,6 @@
   },
   "hardening": {
     "kicker": "AI AGENTS · SECURITY HARDENING",
-    "displayTitle": "Security hardening.",
     "metaTitle": "AI Agents for Security Hardening & CI | The Vibe Company",
     "metaDescription": "Deploy AI agents for security hardening across repos, CI/CD, IAM and cloud configs. Human sign-off on critical changes. Built to GDPR and HDS rules. YC W24.",
     "title": "AI Agents for Security Hardening & CI",
@@ -870,7 +869,6 @@
     "breadcrumb": "AI agency in Paris",
     "serviceName": "AI agency in Paris",
     "kicker": "AI AGENCY · PARIS 11TH",
-    "displayTitle": "AI Agency Paris.",
     "title": "AI Agency Paris: AI Products and Agents",
     "lede": [
       "The Vibe Company is an AI agency in Paris (11th arrondissement), founded in 2024 by Stan Girard and Antoine Dewez (Y Combinator W24). As a design and engineering agency for AI products and agents, we ship to production for SMEs and mid-caps: Monka went live in 2 months, and LocService uses our drafts on 87% of tickets."
@@ -1149,7 +1147,6 @@
   },
   "healthcareAi": {
     "kicker": "HEALTHCARE AI · HDS REQUIREMENTS",
-    "displayTitle": "Healthcare AI HDS.",
     "metaTitle": "Healthcare AI HDS: Products Built Safely | The Vibe Company",
     "metaDescription": "An agency that builds AI products for healthcare companies to GDPR and HDS requirements. Monka live in 2 months inside its HDS host. Paris team, YC W24.",
     "title": "Healthcare AI HDS: Products Built Safely",
@@ -1378,7 +1375,6 @@
   },
   "agentsProduction": {
     "kicker": "AI AGENTS · POC → PRODUCTION",
-    "displayTitle": "Agents in production.",
     "metaTitle": "AI Agents in Production: From POC to Run | The Vibe Company",
     "metaDescription": "Take business AI agents from POC to daily production: tool wiring, guardrails, observability and handoff. LocService case (87% of tickets). Paris, YC W24.",
     "title": "AI Agents in Production: From POC to Run",
@@ -1596,7 +1592,6 @@
   },
   "mediaAi": {
     "kicker": "AI FOR MEDIA · NEWSROOMS",
-    "displayTitle": "AI for media.",
     "metaTitle": "AI for Media Newsrooms: Tools Shipped | The Vibe Company",
     "metaDescription": "AI tools and agents for media newsrooms, built to production under journalist control. AFP MediaGen proof (€4M, France 2030). Paris AI agency, YC W24.",
     "title": "AI for Media Newsrooms: Tools Shipped",
@@ -2153,7 +2148,6 @@
     "metaDescription": "Custom AI app development and B2B SaaS shipped to production: RAG, agents, GDPR and API integrations. Monka live in 2 months, LocService 87% drafts. YC W24.",
     "breadcrumb": "Custom AI app development",
     "kicker": "CUSTOM AI · APPLICATION DEVELOPMENT",
-    "displayTitle": "Custom AI apps.",
     "title": "Custom AI App Development to Production",
     "lede": "The Vibe Company handles custom AI app development from scoping to production for SMEs and mid-caps: web or mobile interfaces, backend, RAG architecture, tool-connected agents and GDPR-compliant rollout. At Monka, the caregiver app, coordinating nurse CRM and clinical engine went from kickoff on March 9 to production on May 10.",
     "factsLabel": "Live proof",

@@ -250,7 +250,7 @@
       "kicker": "COMMENT ON TRAVAILLE",
       "title": "Du premier essai à la production.",
       "p1": "Nous adaptons notre façon de faire à chaque projet, selon ce que vous avez déjà et ce qui presse. Nous construisons vite, ce qui nous permet de vous montrer tôt une première version qui fonctionne, souvent avant même d’avoir arrêté le périmètre avec vous. Les décisions se prennent ensuite à partir de ce que vous avez pu essayer.",
-      "p2": "Nous menons le travail jusqu’en production. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique ont été mis en production en deux mois, et une nouvelle version sort depuis tous les deux jours environ. Avec Theodo, nous construisons des Software Factories pour des centaines de développeurs, dont l’AI Factory de Softway Medical, éditeur de logiciels de santé."
+      "p2": "Nous menons le travail jusqu’en production. Chez Monka, l’app des aidants, le CRM des infirmières et le moteur clinique ont été mis en production en deux mois, et une nouvelle version sort depuis tous les deux jours environ. Avec Theodo, nous construisons des Software Factories pour des centaines de développeurs, dont l’AI Factory d’un client, éditeur de logiciels de santé."
     }
   },
   "resources": {
@@ -492,10 +492,9 @@
   },
   "hardening": {
     "kicker": "AGENTS IA · CYBERSÉCURITÉ PRODUIT & SI",
-    "displayTitle": "Sécurité par agents.",
     "metaTitle": "Agents IA cybersécurité : durcir produit | The Vibe Company",
     "metaDescription": "Flotte d'agents IA cybersécurité pour durcir votre produit et SI : secrets, dépendances, IAM, configs et revues PR. Exigences RGPD et HDS. Paris, YC W24.",
-    "title": "Agents IA cybersécurité : durcir produit et SI",
+    "title": "Agents IA cybersécurité : durcir produit",
     "lede": "The Vibe Company déploie pour les CTO, RSSI et équipes plateforme une flotte d'agents IA cybersécurité branchée sur votre CI/CD, vos dépôts et votre cloud. Ces agents surveillent secrets, dépendances, IAM, configurations et pull requests en continu, avec validation humaine sur chaque action critique. Équipe parisienne YC W24 (Theodo, Monka, LocService).",
     "factsLabel": "Ce que vous déployez",
     "facts": [
@@ -870,7 +869,6 @@
     "breadcrumb": "Agence IA à Paris",
     "serviceName": "Agence IA à Paris",
     "kicker": "AGENCE IA · PARIS 11E",
-    "displayTitle": "Agence IA Paris.",
     "title": "Agence IA Paris : produits et agents IA",
     "lede": [
       "The Vibe Company est une agence IA et agence d'agents IA basée à Paris 11e, fondée en 2024 par Stan Girard et Antoine Dewez (Y Combinator W24). Pour les PME et ETI, on construit des produits IA et des agents métier jusqu'en production : Monka en 2 mois, 87 % des tickets traités chez LocService."
@@ -1149,10 +1147,9 @@
   },
   "healthcareAi": {
     "kicker": "IA SANTÉ · EXIGENCES HDS",
-    "displayTitle": "IA santé & HDS.",
-    "metaTitle": "IA santé HDS : projets sur données santé | The Vibe Company",
+    "metaTitle": "IA santé HDS : projets données de santé | The Vibe Company",
     "metaDescription": "Projet IA sur données de santé livré selon les exigences RGPD et HDS, dans votre environnement. Cas Monka en production en 2 mois. Agence Paris, YC W24.",
-    "title": "IA santé HDS : projets sur données de santé",
+    "title": "IA santé HDS : projets données de santé",
     "lede": "The Vibe Company construit pour les éditeurs e-santé, startups santé et mutuelles des produits et agents IA sur données de santé, selon les exigences RGPD et HDS. On n'est pas hébergeur certifié HDS : on développe dans votre environnement existant. Chez Monka, l'application aidants et le CRM sont passés en production en deux mois.",
     "factsLabel": "Preuve santé · Cas Monka",
     "facts": [
@@ -1387,7 +1384,6 @@
   },
   "agentsProduction": {
     "kicker": "AGENTS IA · POC → PRODUCTION",
-    "displayTitle": "Agents en production.",
     "metaTitle": "Agents IA en production : du POC au run | The Vibe Company",
     "metaDescription": "Déployez vos agents IA en production : passage du POC agent IA en entreprise au run, garde-fous et mesure. Cas LocService (87 % des tickets). YC W24.",
     "title": "Agents IA en production : du POC au run",
@@ -1614,7 +1610,6 @@
   },
   "mediaAi": {
     "kicker": "IA MÉDIAS · RÉDACTIONS",
-    "displayTitle": "IA pour les médias.",
     "metaTitle": "IA médias : outils pour les rédactions | The Vibe Company",
     "metaDescription": "Outils et agents IA médias pour les rédactions, du cadrage à la production. Preuve AFP MediaGen (4 M€, France 2030). Agence IA à Paris, YC W24.",
     "title": "IA médias : outils pour les rédactions",
@@ -2171,7 +2166,6 @@
     "metaDescription": "Développement d'application IA sur mesure et SaaS en production : RAG, agents, RGPD et API métier. Cas Monka (2 mois), LocService (87 %) et AFP. YC W24.",
     "breadcrumb": "Application IA sur mesure",
     "kicker": "APPLICATION IA · SUR MESURE",
-    "displayTitle": "Apps IA sur mesure.",
     "title": "Développement d'application IA sur mesure",
     "lede": "The Vibe Company conçoit et développe votre application IA sur mesure pour PME et ETI : interface web ou mobile, backend, architecture RAG, agents reliés à vos API et déploiement conforme au RGPD. Chez Monka, l'application aidants et le CRM sont passés en production en deux mois (du 9 mars au 10 mai).",
     "factsLabel": "Preuves en production",

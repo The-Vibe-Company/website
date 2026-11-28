@@ -51,6 +51,7 @@ describe("media AI landing", () => {
     expect(MESSAGES.en.bookCall).toBe("Book 30 minutes");
     expect(MESSAGES.en.response).toBe("Reply within 24h");
     for (const messages of Object.values(MESSAGES)) {
+      expect(messages.metaTitle).toBe(`${messages.title} | The Vibe Company`);
       expect([...messages.metaTitle].length).toBeGreaterThanOrEqual(51);
       expect([...messages.metaTitle].length).toBeLessThanOrEqual(60);
       expect([...messages.metaDescription].length).toBeGreaterThanOrEqual(140);
