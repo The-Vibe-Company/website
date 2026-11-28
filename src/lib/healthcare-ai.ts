@@ -45,8 +45,8 @@ export const HEALTHCARE_METHOD_STEPS = [
 export const HEALTHCARE_FAQ_KEYS = [
   "certified",
   "needCertification",
-  "timeline",
   "llm",
+  "timeline",
   "cost",
   "otherPages",
 ] as const;
@@ -63,8 +63,18 @@ export const HEALTHCARE_HDS_ARTICLE_PATHS = {
   en: "/resources/articles/ai-health-data-hds-france",
 } as const;
 
+/** HDS hosting for AI article, one per language. */
+export const HEALTHCARE_HOSTING_ARTICLE_PATHS = {
+  fr: "/resources/articles/hebergement-hds-ia",
+  en: "/resources/articles/hds-hosting-for-ai",
+} as const;
+
 export function healthcareHdsArticle(locale: string): string {
   return locale === "en" ? HEALTHCARE_HDS_ARTICLE_PATHS.en : HEALTHCARE_HDS_ARTICLE_PATHS.fr;
+}
+
+export function healthcareHostingArticle(locale: string): string {
+  return locale === "en" ? HEALTHCARE_HOSTING_ARTICLE_PATHS.en : HEALTHCARE_HOSTING_ARTICLE_PATHS.fr;
 }
 
 /** PostHog `page` property of the landing's booking CTA, one per language. */

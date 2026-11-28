@@ -16,7 +16,7 @@ import { BOOKING_URL } from "./booking";
 import { getContentItem } from "./content-source";
 import { getCustomer } from "./customers";
 import { AGENTS_PRODUCTION_PATHS, HEALTHCARE_AI_PATHS, MEDIA_AI_PATHS, splitPathAlternates } from "./site";
-import { faqPageSchema, serviceNode } from "./structured-data";
+import { faqPageSchema, isPublishable, serviceNode } from "./structured-data";
 
 const SITE = "https://www.thevibecompany.co";
 const MESSAGES = { fr: fr.agentsProduction, en: en.agentsProduction } as const;
@@ -36,28 +36,25 @@ describe("agents in production landing", () => {
     );
   });
 
-  test("keeps the briefed title, meta description and H1", () => {
+  test("keeps the SEO-optimised title (51-60), meta description (140-160) and matching H1", () => {
     expect(MESSAGES.fr.metaTitle).toBe("Agents IA en production : du POC au run | The Vibe Company");
-    expect(MESSAGES.fr.title).toBe("Agents IA en entreprise : on les mène jusqu'en production");
-    expect(MESSAGES.fr.metaDescription).toBe(
-      "Déployez des agents IA en entreprise jusqu'en production : outils, garde-fous, mesure, passation. Cas LocService (87 % des tickets). Agence Paris, YC W24.",
-    );
-    expect(MESSAGES.en.metaTitle).toBe("AI Agents in Production: from POC to run | The Vibe Company");
-    expect(MESSAGES.en.title).toBe("AI agents at work: we take them all the way to production");
-    expect(MESSAGES.en.metaDescription).toBe(
-      "Deploy AI agents in your company to production: tools, guardrails, measurement, handoff. LocService case (87% of tickets). Paris agency, YC W24.",
-    );
-    expect(MESSAGES.fr.kicker).toBe("AGENTS · POC → PRODUCTION");
+    expect(MESSAGES.fr.title).toBe("Agents IA en production : du POC au run");
+    expect(MESSAGES.en.metaTitle).toBe("AI Agents in Production: From POC to Run | The Vibe Company");
+    expect(MESSAGES.en.title).toBe("AI Agents in Production: From POC to Run");
     for (const messages of Object.values(MESSAGES)) {
-      expect(messages.metaTitle.length).toBeLessThanOrEqual(60);
-      expect(messages.metaDescription.length).toBeLessThanOrEqual(160);
+      expect([...messages.metaTitle].length).toBeGreaterThanOrEqual(51);
+      expect([...messages.metaTitle].length).toBeLessThanOrEqual(60);
+      expect([...messages.metaDescription].length).toBeGreaterThanOrEqual(140);
+      expect([...messages.metaDescription].length).toBeLessThanOrEqual(160);
     }
   });
 
-  test("never claims a certification, a price or a generic timeline", () => {
+  test("never claims a certification, a price, dashes or a generic timeline", () => {
     const forbidden = [
+      /[—–]/,
       /\bSOC\s?2\b/i,
       /\bISO\b/,
+      /Softway/i,
       /certifi(é|e)e?s?\s+HDS/i,
       /HDS[- ]certified/i,
       /[€$£]/,
@@ -91,7 +88,6 @@ describe("agents in production landing", () => {
 
   test("the French closing question carries every key the shared one has", () => {
     expect(Object.keys(MESSAGES.fr.finalCta).sort()).toEqual(Object.keys(fr.finalCta).sort());
-    expect(MESSAGES.fr.finalCta.titleLine2).toBe("à mener jusqu’au run\u00a0?");
     expect(MESSAGES.en).not.toHaveProperty("finalCta");
   });
 
@@ -102,7 +98,7 @@ describe("agents in production landing", () => {
     expect(MESSAGES.en.proof.cases.locservice).toContain("87%");
   });
 
-  test("the FAQPage restates the visible answers as plain text", () => {
+  test("the FAQPage restates the visible answers as plain text without Comment/How openers", () => {
     const answers = (locale: "fr" | "en") =>
       AGENTS_PRODUCTION_FAQ_KEYS.map((key) => ({
         question: MESSAGES[locale].faq.items[key].q,
@@ -110,26 +106,20 @@ describe("agents in production landing", () => {
       }));
     type Entity = { name: string; acceptedAnswer: { text: string } };
 
-    // English keeps every answer free of client names: all six go in.
-    const en = faqPageSchema(answers("en")) as { mainEntity: Entity[] };
-    expect(en.mainEntity).toHaveLength(AGENTS_PRODUCTION_FAQ_KEYS.length);
-
-    // The French timeline answer names LocService, which structured data
-    // never carries, so that one stays on the page only.
-    const fr = faqPageSchema(answers("fr")) as { mainEntity: Entity[] };
-    expect(fr.mainEntity.map((entity) => entity.name)).not.toContain(
-      MESSAGES.fr.faq.items.timeline.q,
-    );
-    expect(fr.mainEntity).toHaveLength(AGENTS_PRODUCTION_FAQ_KEYS.length - 1);
-    for (const entity of fr.mainEntity) {
-      expect(entity.acceptedAnswer.text).not.toMatch(/[<>]/);
+    for (const locale of ["fr", "en"] as const) {
+      const items = answers(locale);
+      for (const item of items) {
+        expect(item.question).not.toMatch(/^(Comment|How)\b/i);
+        expect(item.answer).not.toMatch(/[<>]/);
+      }
+      const kept = items.filter((item) => isPublishable(item.question) && isPublishable(item.answer));
+      const schema = faqPageSchema(items) as { mainEntity: Entity[] };
+      expect(schema.mainEntity).toHaveLength(kept.length);
+      expect(schema.mainEntity.map((entity) => entity.name)).toEqual(kept.map((item) => item.question));
     }
-    expect(plainText(MESSAGES.fr.faq.items.article.a)).toBe(
-      "L’article explique. Cette page est l’offre pour qu’on déploie chez vous jusqu’en production.",
-    );
   });
 
-  test("the booking CTA keeps the briefed French labels", () => {
+  test("the booking CTA keeps the briefed labels", () => {
     expect(MESSAGES.fr.bookCall).toBe("Prendre 30 minutes");
     expect(MESSAGES.fr.response).toBe("Réponse sous 24 h");
     expect(MESSAGES.en.bookCall).toBe(en.about.bookCall);

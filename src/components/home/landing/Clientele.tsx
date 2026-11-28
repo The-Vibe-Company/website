@@ -9,8 +9,12 @@ import { cn } from "@/lib/design-system";
  * loop is seamless; the copy is hidden from assistive technology, and the
  * band stops when hovered (and never moves with reduced motion).
  */
-export function Clientele() {
+export function Clientele({ exclude = [] }: { exclude?: readonly string[] } = {}) {
   const t = useTranslations("clients");
+  const excluded = new Set(exclude.map((name) => name.toLowerCase()));
+  const clients = excluded.size > 0
+    ? CLIENTS.filter((client) => !excluded.has(client.name.toLowerCase()))
+    : CLIENTS;
   return (
     <section aria-label={t("trustedBy")} className="border-b border-border bg-background">
       <div className={cn("group relative overflow-hidden py-10 md:py-12", "landing-edges")}>
@@ -21,7 +25,7 @@ export function Clientele() {
               aria-hidden={copy === 1 || undefined}
               className="m-0 flex shrink-0 list-none items-center gap-16 p-0 pr-16 md:gap-24 md:pr-24"
             >
-              {CLIENTS.map((client) => (
+              {clients.map((client) => (
                 <li key={client.name} className="shrink-0">
                   <a
                     href={client.url}

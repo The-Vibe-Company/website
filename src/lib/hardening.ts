@@ -72,6 +72,18 @@ export const HDS_GUIDE_PATHS: LocalizedPath = {
   en: "/resources/articles/ai-health-data-hds-france",
 };
 
+/** Cybersecurity guide on hardening IT with a fleet of AI agents. */
+export const CYBER_FLEET_PATHS: LocalizedPath = {
+  fr: "/resources/articles/ia-et-cybersecurite-durcir-si",
+  en: "/resources/articles/ai-cybersecurity-harden-it-agents",
+};
+
+/** Tested CI/CD security review agent workflow, PR by PR. */
+export const CI_SECURITY_PATHS: LocalizedPath = {
+  fr: "/resources/articles/agent-securite-ci",
+  en: "/resources/articles/ci-security-agent",
+};
+
 export function localizedArticle(paths: LocalizedPath, locale: string): string {
   return locale === "en" ? paths.en : paths.fr;
 }

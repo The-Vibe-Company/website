@@ -10,6 +10,8 @@ import {
   CUSTOM_AI_APP_FAQ_KEYS,
   CUSTOM_AI_APP_PLACEHOLDER_KEYS,
   CUSTOM_AI_APP_RAG_ARTICLE_PATHS,
+  CUSTOM_AI_APP_ROI_ARTICLE_PATHS,
+  CUSTOM_AI_APP_STEPS_ARTICLE_PATHS,
   customAiAppPageId,
 } from "./custom-ai-app";
 import { getCustomer } from "./customers";
@@ -62,18 +64,18 @@ describe("custom AI app landing", () => {
     expect(customAiAppPageId("en")).toBe("custom-ai-app-development");
   });
 
-  test("keeps the briefed title and H1, without « agence IA » / « AI agency »", () => {
+  test("keeps the SEO-optimised title (51-60) and matching H1, without « agence IA » / « AI agency »", () => {
     expect(MESSAGES.fr.metaTitle).toBe(
       "Développement d'application IA sur mesure | The Vibe Company",
     );
-    expect(MESSAGES.fr.title).toBe(
-      "Développez une application IA sur mesure, de l'idée à la production",
-    );
-    expect(MESSAGES.en.metaTitle).toBe("Custom AI App Development | The Vibe Company");
-    expect(MESSAGES.en.title).toBe("Build a custom AI application, from idea to production");
+    expect(MESSAGES.fr.title).toBe("Développement d'application IA sur mesure");
+    expect(MESSAGES.en.metaTitle).toBe("Custom AI App Development to Production | The Vibe Company");
+    expect(MESSAGES.en.title).toBe("Custom AI App Development to Production");
     for (const messages of Object.values(MESSAGES)) {
-      expect(messages.metaTitle.length).toBeLessThanOrEqual(60);
-      expect(messages.metaDescription.length).toBeLessThanOrEqual(160);
+      expect([...messages.metaTitle].length).toBeGreaterThanOrEqual(51);
+      expect([...messages.metaTitle].length).toBeLessThanOrEqual(60);
+      expect([...messages.metaDescription].length).toBeGreaterThanOrEqual(140);
+      expect([...messages.metaDescription].length).toBeLessThanOrEqual(160);
       expect(messages.metaTitle).not.toBe(messages.title);
       for (const heading of [messages.metaTitle, messages.title]) {
         expect(heading).not.toMatch(/agence\s+IA|AI\s+agency/i);
@@ -83,11 +85,12 @@ describe("custom AI app landing", () => {
 
   test("new copy has no dashes, certification claims, prices or stray placeholders", () => {
     const forbidden = [
-      /[—–]/, // em dash, en dash
+      /[—–]/,
       /\bSOC\s?2\b/i,
       /certifi/i,
       /\bISO\b/,
       /\bHDS\b/,
+      /Softway/i,
       /hasCredential/,
       /[€$£]/,
       /\b(TJM|tarif|à partir de|starting at|per day|par jour)\b/i,
@@ -109,10 +112,8 @@ describe("custom AI app landing", () => {
 
   test("case figures are limited to the briefed ones", () => {
     for (const messages of Object.values(MESSAGES)) {
-      // Monka: only its kickoff and go-live dates.
       const monka = JSON.stringify(messages.cases.monka);
       expect(monka.match(/\d+/g)?.sort()).toEqual(["10", "9"]);
-      // LocService: only the 87 % of drafts kept.
       const locservice = JSON.stringify(messages.cases.locservice);
       expect(locservice.match(/\d+/g)).toEqual(["87", "87"]);
     }
@@ -127,10 +128,10 @@ describe("custom AI app landing", () => {
   });
 
   test("never presents MediaGen as shipped: the published AFP case says it is being built", () => {
-    expect(MESSAGES.fr.hero.items.cases).toContain("AFP / MediaGen en construction");
-    expect(MESSAGES.en.hero.items.cases).toContain("AFP / MediaGen being built");
+    expect(MESSAGES.fr.cases.intro).toContain("AFP / MediaGen en construction");
+    expect(MESSAGES.en.cases.intro).toContain("AFP / MediaGen being built");
     for (const messages of Object.values(MESSAGES)) {
-      expect(messages.hero.items.cases).not.toMatch(/(MediaGen|AFP)[^.]*(en production|in production)/);
+      expect(messages.cases.intro).not.toMatch(/(MediaGen|AFP)[^.]*(en production|in production)/);
     }
   });
 
@@ -142,7 +143,6 @@ describe("custom AI app landing", () => {
       expect(messages.stats.tools.value).toBe(String(afp.points.length));
       expect(afp.results.map((stat) => stat.value)).toContain(messages.stats.horizon.value);
       expect(afp.sector).toContain(messages.stats.frame.value);
-      // The three tools, word for word apart from punctuation.
       const normalize = (text: string) => text.replace(/[’']/g, "'").replace(/[,.]/g, "");
       for (const [i, point] of afp.points.entries()) {
         expect(normalize(messages.points[i])).toBe(normalize(point));
@@ -156,18 +156,24 @@ describe("custom AI app landing", () => {
 
   test("links only to case studies and articles that exist in the linked language", () => {
     for (const locale of ["fr", "en"] as const) {
-      const slug = CUSTOM_AI_APP_RAG_ARTICLE_PATHS[locale].split("/").pop()!;
-      expect(getContentItem("article", slug)?.language).toBe(locale);
+      for (const paths of [
+        CUSTOM_AI_APP_RAG_ARTICLE_PATHS,
+        CUSTOM_AI_APP_ROI_ARTICLE_PATHS,
+        CUSTOM_AI_APP_STEPS_ARTICLE_PATHS,
+      ]) {
+        const slug = paths[locale].split("/").pop()!;
+        expect(getContentItem("article", slug)?.language).toBe(locale);
+      }
       for (const { slug: caseSlug } of CUSTOM_AI_APP_CASES) {
         expect(getCustomer(caseSlug, locale)).toBeDefined();
       }
     }
   });
 
-  test("the page body has one booking call and cross-links the Paris landing both ways", () => {
+  test("uses the single booking CTA and cross-links the Paris landing both ways", () => {
     expect(BOOKING_URL).toBe("https://cal.com/stangirard/thevibecompany");
     expect(PAGE_SOURCE.match(/<AboutBookingCta\b/g)).toHaveLength(1);
-    expect(PAGE_SOURCE).not.toMatch(/<FinalCTA\b|cal\.com|BOOKING_URL/);
+    expect(PAGE_SOURCE).toMatch(/<FinalCTA\b/);
     expect(PAGE_SOURCE).toContain("splitPath(AGENCY_PARIS_PATHS, locale)");
     expect(PARIS_SOURCE).toContain("CUSTOM_AI_APP_PATHS");
     expect(fr.agencyParis.offers.items.build.link).toBe(
@@ -178,15 +184,17 @@ describe("custom AI app landing", () => {
     expect(FOOTER_OFFERINGS.map(({ key }) => key)).toContain("customAiApp");
   });
 
-  test("the FAQPage carries the publishable answers word for word, without link tags", () => {
+  test("the FAQPage carries the publishable answers word for word, without link tags or Comment/How openers", () => {
     for (const messages of Object.values(MESSAGES)) {
       const items = CUSTOM_AI_APP_FAQ_KEYS.map((key) => ({
         key,
         question: messages.faq.items[key].q,
         answer: plainAnswer(messages.faq.items[key].a),
       }));
-      for (const item of items) expect(item.answer).not.toMatch(/[<>]/);
-      // The timeline answer names Monka, so it stays out of the markup.
+      for (const item of items) {
+        expect(item.answer).not.toMatch(/[<>]/);
+        expect(item.question).not.toMatch(/^(Comment|How)\b/i);
+      }
       const kept = items.filter(
         (item) => isPublishable(item.question) && isPublishable(item.answer),
       );

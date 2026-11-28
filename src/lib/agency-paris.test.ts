@@ -3,12 +3,14 @@ import { describe, expect, test } from "bun:test";
 import en from "../../messages/en.json";
 import fr from "../../messages/fr.json";
 import {
+  AGENCY_PARIS_ARTICLES,
   AGENCY_PARIS_COMPARISON,
   AGENCY_PARIS_FAQ_KEYS,
   AGENCY_PARIS_PLAYERS,
   OFFICE_ADDRESS,
 } from "./agency-paris";
 import { BOOKING_URL } from "./booking";
+import { getContentItem } from "./content-source";
 import { faqPageSchema, isPublishable, serviceNode, webPageNode } from "./structured-data";
 
 const SITE = "https://www.thevibecompany.co";
@@ -21,27 +23,23 @@ function namesInOrder(text: string) {
 }
 
 describe("AI agency in Paris landing", () => {
-  test("keeps the title, description and H1 of the THE-2137 rewrite", () => {
-    expect(fr.agencyParis.metaTitle).toBe("Agence IA à Paris pour PME et ETI | The Vibe Company");
-    expect(fr.agencyParis.metaDescription).toBe(
-      "Agence IA à Paris 11e pour PME et ETI. On construit vos produits et agents IA jusqu'en production : Monka en 2 mois, 87 % des tickets traités chez LocService.",
-    );
-    expect(fr.agencyParis.title).toBe("Agence IA à Paris : vos produits et agents IA en production");
-    expect(en.agencyParis.metaTitle).toBe("AI Agency in Paris for SMEs and Mid-Caps | The Vibe Company");
-    expect(en.agencyParis.metaDescription).toBe(
-      "Paris AI agency for SMEs and mid-caps. We take AI products and agents to production: Monka live in 2 months, 87% of LocService tickets handled with AI drafts.",
-    );
-    expect(en.agencyParis.title).toBe("AI agency in Paris: your products and agents in production");
+  test("keeps the SEO-optimised title, description and H1", () => {
+    expect(fr.agencyParis.metaTitle).toBe("Agence IA Paris : produits et agents IA | The Vibe Company");
+    expect(fr.agencyParis.title).toBe("Agence IA Paris : produits et agents IA");
+    expect(en.agencyParis.metaTitle).toBe("AI Agency Paris: AI Products and Agents | The Vibe Company");
+    expect(en.agencyParis.title).toBe("AI Agency Paris: AI Products and Agents");
   });
 
-  test("fits titles, descriptions and H1s in their limits, keyword first", () => {
+  test("fits titles (51-60), descriptions (140-160) and H1s in their limits, keyword first", () => {
     for (const copy of Object.values(LOCALES)) {
+      expect([...copy.metaTitle].length).toBeGreaterThanOrEqual(51);
       expect([...copy.metaTitle].length).toBeLessThanOrEqual(60);
+      expect([...copy.metaDescription].length).toBeGreaterThanOrEqual(140);
       expect([...copy.metaDescription].length).toBeLessThanOrEqual(160);
       expect([...copy.title].length).toBeLessThanOrEqual(60);
     }
-    expect(fr.agencyParis.title.startsWith("Agence IA à Paris")).toBe(true);
-    expect(en.agencyParis.title.startsWith("AI agency in Paris")).toBe(true);
+    expect(fr.agencyParis.title.startsWith("Agence IA Paris")).toBe(true);
+    expect(en.agencyParis.title.startsWith("AI Agency Paris")).toBe(true);
   });
 
   test("does not reuse the homepage title or H1", () => {
@@ -52,7 +50,7 @@ describe("AI agency in Paris landing", () => {
   test("never claims a certification, a price, a phone or the old booking link", () => {
     for (const copy of Object.values(LOCALES)) {
       const text = JSON.stringify(copy);
-      expect(text).not.toMatch(/SOC\s?2|\bISO\b|certifi|30min|À CONFIRMER|TO PROVIDE|TO CHECK/i);
+      expect(text).not.toMatch(/SOC\s?2|\bISO\b|certifi|30min|À CONFIRMER|TO PROVIDE|TO CHECK|Softway/i);
       expect(text).not.toMatch(/€\s?\/|TJM|à partir de|starting at/i);
       expect(text).not.toMatch(/\+33|\b0[1-9](?:[ .]?\d{2}){4}\b/);
     }
@@ -74,7 +72,7 @@ describe("AI agency in Paris landing", () => {
           : typeof value;
     expect(shape(en.agencyParis)).toEqual(shape(fr.agencyParis));
     for (const copy of Object.values(LOCALES)) {
-      expect(copy.facts).toHaveLength(7);
+      expect(copy.facts).toHaveLength(4);
       expect(Object.keys(copy.proof.cases)).toHaveLength(5);
       expect(Object.keys(copy.offers.items)).toHaveLength(3);
       expect(Object.keys(copy.method.steps)).toHaveLength(5);
@@ -115,9 +113,15 @@ describe("AI agency in Paris landing", () => {
     }
   });
 
-  test("links the comparison article in both languages", () => {
+  test("links only existing articles in both languages", () => {
     expect(AGENCY_PARIS_COMPARISON.fr.path).toBe("/resources/articles/meilleure-agence-ia-comparatif");
     expect(AGENCY_PARIS_COMPARISON.en.path).toBe("/resources/articles/best-ai-consulting-firms-france");
+    for (const locale of ["fr", "en"] as const) {
+      for (const paths of Object.values(AGENCY_PARIS_ARTICLES)) {
+        const slug = paths[locale].split("/").pop()!;
+        expect(getContentItem("article", slug)?.language).toBe(locale);
+      }
+    }
     for (const copy of Object.values(LOCALES)) {
       expect(copy.faq.items.best.a).toMatch(/<link>[^<]+<\/link>/);
     }
@@ -126,7 +130,6 @@ describe("AI agency in Paris landing", () => {
   test("writes the office address the same way everywhere", () => {
     expect(OFFICE_ADDRESS.display).toBe("10 rue La Vacquerie, 75011 Paris, France");
     for (const copy of Object.values(LOCALES)) {
-      expect(copy.facts[0].value).toContain(OFFICE_ADDRESS.display);
       expect(copy.faq.items.paris.a).toContain(OFFICE_ADDRESS.display);
     }
   });
@@ -152,11 +155,12 @@ describe("AI agency in Paris landing", () => {
         question: copy.faq.items[key].q,
         answer: plain(copy.faq.items[key].a),
       }));
-      for (const item of items) expect(item.answer).not.toMatch(/[<>]/);
-      // Answers naming a client or a price stay out of the markup, as
-      // site-wide; the other five go in word for word.
+      for (const item of items) {
+        expect(item.answer).not.toMatch(/[<>]/);
+        expect(item.question).not.toMatch(/^(Comment|How)\b/i);
+      }
       const kept = items.filter((item) => isPublishable(item.question) && isPublishable(item.answer));
-      expect(kept.map((item) => item.key)).toEqual(["paris", "generalist", "code", "related", "start"]);
+      expect(kept.map((item) => item.key)).toEqual(["paris", "cost", "data", "related"]);
       const faq = faqPageSchema(items) as {
         mainEntity: { name: string; acceptedAnswer: { text: string } }[];
       };

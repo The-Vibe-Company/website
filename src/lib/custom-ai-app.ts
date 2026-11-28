@@ -63,8 +63,28 @@ export const CUSTOM_AI_APP_RAG_ARTICLE_PATHS = {
   en: "/resources/articles/enterprise-rag",
 } as const;
 
+/** Measuring AI project ROI, one per language. */
+export const CUSTOM_AI_APP_ROI_ARTICLE_PATHS = {
+  fr: "/resources/articles/roi-ia",
+  en: "/resources/articles/measure-ai-project-roi",
+} as const;
+
+/** Project steps and contract clauses when working with an AI agency. */
+export const CUSTOM_AI_APP_STEPS_ARTICLE_PATHS = {
+  fr: "/resources/articles/travailler-prestataire-ia",
+  en: "/resources/articles/working-with-an-ai-development-agency",
+} as const;
+
 export function customAiAppRagArticle(locale: string): string {
   return locale === "en" ? CUSTOM_AI_APP_RAG_ARTICLE_PATHS.en : CUSTOM_AI_APP_RAG_ARTICLE_PATHS.fr;
+}
+
+export function customAiAppRoiArticle(locale: string): string {
+  return locale === "en" ? CUSTOM_AI_APP_ROI_ARTICLE_PATHS.en : CUSTOM_AI_APP_ROI_ARTICLE_PATHS.fr;
+}
+
+export function customAiAppStepsArticle(locale: string): string {
+  return locale === "en" ? CUSTOM_AI_APP_STEPS_ARTICLE_PATHS.en : CUSTOM_AI_APP_STEPS_ARTICLE_PATHS.fr;
 }
 
 /** PostHog `page` property of the landing's booking CTA, one per language. */

@@ -19,29 +19,35 @@ export function AboutBookingCta({
   location = "cta_about",
   namespace = "about",
   inverse = false,
+  lit = false,
 }: {
   page?: string;
   location?: string;
   namespace?: string;
   inverse?: boolean;
+  /** Warm orange underside glow used for the hero booking slab on ink. */
+  lit?: boolean;
 }) {
   const t = useTranslations(namespace);
 
   return (
-    <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 md:mt-10">
+    <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 md:mt-10">
       <CaptureLink
         href={BOOKING_URL}
         {...bookingLocation(location)}
         event="cta_booking_click"
         properties={{ page }}
-        className={`inline-flex items-center gap-3 rounded-[2px] border px-6 py-4 text-[15px] font-semibold transition-colors duration-300 md:px-7 md:py-5 md:text-[17px] ${
+        className={`group inline-flex h-[52px] items-center gap-3 rounded-[2px] border px-6 text-[15px] font-medium transition-colors duration-300 md:px-7 md:text-[16px] ${
           inverse
             ? "border-background bg-background text-foreground hover:bg-transparent hover:text-background"
             : "border-foreground bg-foreground text-background hover:border-soft-foreground hover:bg-soft-foreground"
-        }`}
+        } ${lit ? "shadow-[0_18px_60px_-18px_rgba(242,115,19,0.6)]" : ""}`}
       >
         {t("bookCall")}
-        <span aria-hidden="true" className="text-lg leading-none">
+        <span
+          aria-hidden="true"
+          className="text-lg leading-none transition-transform duration-300 group-hover:translate-x-1"
+        >
           →
         </span>
       </CaptureLink>

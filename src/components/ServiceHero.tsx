@@ -66,17 +66,17 @@ export function ServiceHero({
           </FitText>
         </p>
         <h1 className="m-0 font-bold text-foreground">
-          <span className="relative z-20 mt-10 block max-w-[24ch] text-[clamp(1.6rem,2.5vw,2.25rem)] font-medium leading-[1.12] tracking-[-0.03em] lg:mt-[58px]">
+          <span className="relative z-20 mt-10 block max-w-[28ch] text-balance text-[clamp(1.6rem,2.6vw,2.35rem)] font-medium leading-[1.12] tracking-[-0.03em] lg:mt-[54px]">
             {keepPunctuationAttached(title)}
           </span>
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,36rem)_minmax(0,1fr)]">
           <div className="relative z-20 pb-10 lg:pb-[72px]">
             {(typeof lede === "string" ? [lede] : lede).map((paragraph) => (
               <p
                 key={paragraph}
-                className="m-0 mt-6 max-w-[33rem] text-[17px] leading-[1.6] text-muted-foreground md:text-[19px]"
+                className="m-0 mt-6 max-w-[35rem] text-[17px] leading-[1.6] text-soft-foreground md:text-[19px]"
               >
                 {paragraph}
               </p>

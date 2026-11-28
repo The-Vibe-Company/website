@@ -1,25 +1,43 @@
 import type { Metadata } from "next";
-import { ServiceHero } from "@/components/ServiceHero";
-import { Clientele } from "@/components/home/landing/Clientele";
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 
+import { BrandSquare } from "@/components/BrandSquare";
+import { ClientMark } from "@/components/ClientMark";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
+import { ServiceHero } from "@/components/ServiceHero";
 import { TopNav } from "@/components/TopNav";
 import { AboutBookingCta } from "@/components/about/AboutBookingCta";
+import { FinalCTA } from "@/components/home/FinalCTA";
+import { Clientele } from "@/components/home/landing/Clientele";
+import { OfferFactsStrip, type OfferFactItem } from "@/components/offer/OfferFactsStrip";
+import { OfferFaqSection } from "@/components/offer/OfferFaqSection";
+import { OfferFurtherReading } from "@/components/offer/OfferFurtherReading";
+import { OfferMethodBand } from "@/components/offer/OfferMethodBand";
+import {
+  OFFER_BAND,
+  OFFER_H2,
+  OFFER_H2_SPLIT,
+  OFFER_INLINE_LINK,
+  OFFER_MONO,
+  OFFER_MONO_LINK,
+  OFFER_PROSE,
+  OFFER_PROSE_LEAD,
+} from "@/components/offer/offer-styles";
 import { Link } from "@/i18n/navigation";
-import { clientLogoSize } from "@/lib/client-logos";
+import type { Locale } from "@/i18n/routing";
 import {
   CUSTOM_AI_APP_APPS_KEYS,
   CUSTOM_AI_APP_CASES,
   CUSTOM_AI_APP_FAQ_KEYS,
-  CUSTOM_AI_APP_HERO_KEYS,
   CUSTOM_AI_APP_METHOD_STEPS,
   CUSTOM_AI_APP_RAG_KEYS,
   CUSTOM_AI_APP_SECURITY_KEYS,
   customAiAppPageId,
   customAiAppRagArticle,
+  customAiAppRoiArticle,
+  customAiAppStepsArticle,
 } from "@/lib/custom-ai-app";
 import { getCustomer, type ContentLocale } from "@/lib/customers";
 import {
@@ -27,6 +45,7 @@ import {
   AGENCY_PARIS_PATHS,
   AGENTS_PRODUCTION_PATHS,
   CUSTOM_AI_APP_PATHS,
+  HARDENING_PATHS,
   localizedSocialMetadata,
   localizedUrl,
   splitPath,
@@ -38,19 +57,15 @@ import {
   serviceNode,
   webPageNode,
 } from "@/lib/structured-data";
-import { BrandSquare } from "@/components/BrandSquare";
 
 /**
- * The custom AI application landing, served at
- * /fr/developpement-application-ia-sur-mesure and
- * /en/custom-ai-app-development. Both routes render this component; each
- * declares the other through hreflang.
+ * Custom AI application development landing
+ * (/fr/developpement-application-ia-sur-mesure, /en/custom-ai-app-development).
  *
- * Drawn in the landing's theme, like the About page: the hero on the ink in
- * an orange bloom, then warm paper (lamp cards with lit numerals, the three
- * cases with lit figures), the method as an ink band in the orange light,
- * and the FAQ on paper. The page body carries exactly one booking call, in
- * the hero: no mid-page call and no FinalCTA.
+ * Breaks up the previous wall of 3x4 identical cards into distinct visual
+ * rhythms: 2x2 lamp cards for app types, one unified proof band (Monka wide
+ * bench + LocService & AFP), an asymmetric ruled architecture ledger for RAG
+ * and GDPR security, 5-step method on ink, FAQ, further reading and FinalCTA.
  */
 
 export async function customAiAppMetadata(locale: string): Promise<Metadata> {
@@ -60,7 +75,6 @@ export async function customAiAppMetadata(locale: string): Promise<Metadata> {
   const path = splitPath(CUSTOM_AI_APP_PATHS, locale);
 
   return {
-    // Absolute, not the layout template: the brand is already in the title.
     title: { absolute: title },
     description,
     alternates: splitPathAlternates(locale, CUSTOM_AI_APP_PATHS),
@@ -68,22 +82,6 @@ export async function customAiAppMetadata(locale: string): Promise<Metadata> {
   };
 }
 
-const SECTION = "mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16";
-const BAND = `${SECTION} py-20 md:py-28 lg:py-32`;
-const H2 =
-  "m-0 text-balance font-bold text-foreground text-[clamp(2.5rem,5.6vw,5.25rem)] leading-[0.92] tracking-[-0.045em]";
-const MONO =
-  "font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground";
-const PROSE = "m-0 text-[15px] leading-[1.6] text-muted-foreground md:text-base";
-const TEXT_LINK =
-  "text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
-const MONO_LINK =
-  "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground underline decoration-1 underline-offset-4 transition-colors hover:text-brand";
-/** The soft orange light an emphasis ink band sits in. */
-const GLOW =
-  "radial-gradient(55% 70% at 12% 100%, rgb(242 115 19 / 0.18), rgb(242 115 19 / 0.05) 55%, transparent 80%)";
-
-/** The FAQ answers' link tags, kept as plain text for the JSON-LD. */
 const FAQ_PLAIN_TAGS = {
   case: (chunks: string) => chunks,
   rag: (chunks: string) => chunks,
@@ -91,61 +89,24 @@ const FAQ_PLAIN_TAGS = {
   agents: (chunks: string) => chunks,
 };
 
-/** A titled grid of lamp cards: sections 1 to 3 share the same shape. */
-function CardSection({
-  title,
-  intro,
-  cards,
-  first = false,
-  children,
-}: {
-  title: string;
-  intro: string;
-  cards: { key: string; title: string; desc: string }[];
-  /** The first section of a paper band carries no top rule. */
-  first?: boolean;
-  children?: ReactNode;
-}) {
-  return (
-    <section className={first ? BAND : `${BAND} border-t border-border`}>
-      <h2 className={`${H2} max-w-[20ch]`}>{title}</h2>
-      <p className={`${PROSE} mt-6 max-w-[680px]`}>{intro}</p>
-
-      <div className="mt-12 grid grid-cols-1 gap-4 md:mt-16 md:grid-cols-2">
-        {cards.map((card, i) => (
-          <article
-            key={card.key}
-            className="lamp-card relative flex flex-col overflow-hidden border border-border p-7 md:p-9"
-          >
-            <span className="text-foreground relative mb-10 self-start text-[56px] font-bold leading-none tracking-[-0.05em]">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <h3 className="relative m-0 mb-4 text-[clamp(1.5rem,2.2vw,2rem)] font-bold leading-[1.05] tracking-[-0.03em] text-foreground">
-              {card.title}
-            </h3>
-            <p className={`relative ${PROSE} max-w-[60ch] text-soft-foreground`}>{card.desc}</p>
-          </article>
-        ))}
-      </div>
-
-      {children}
-    </section>
-  );
-}
-
 export async function CustomAiAppPage({ locale }: { locale: string }) {
   const contentLocale: ContentLocale = locale === "en" ? "en" : "fr";
+  const pageLocale = contentLocale as Locale;
   const t = await getTranslations({ locale, namespace: "customAiApp" });
   const tFooter = await getTranslations({ locale, namespace: "footer" });
 
   const pageUrl = localizedUrl(locale, splitPath(CUSTOM_AI_APP_PATHS, locale));
   const ragArticle = customAiAppRagArticle(locale);
+  const roiArticle = customAiAppRoiArticle(locale);
+  const stepsArticle = customAiAppStepsArticle(locale);
   const agencyPath = splitPath(AGENCY_PARIS_PATHS, locale);
   const agentsPath = splitPath(AGENTS_PRODUCTION_PATHS, locale);
+  const hardeningPath = splitPath(HARDENING_PATHS, locale);
+
   const link = (href: string) =>
     function InlineLink(chunks: ReactNode) {
       return (
-        <Link href={href} className={TEXT_LINK}>
+        <Link href={href} className={OFFER_INLINE_LINK}>
           {chunks}
         </Link>
       );
@@ -168,12 +129,9 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
       { name: tFooter("home"), url: localizedUrl(locale) },
       { name: t("breadcrumb"), url: pageUrl },
     ]),
-    // Answers that name a client are left out by `isPublishable`, like
-    // everywhere else on the site.
     faqPageSchema(
       CUSTOM_AI_APP_FAQ_KEYS.map((key) => ({
         question: t(`faq.items.${key}.q`),
-        // The answers' inline links, dropped to the text the reader sees.
         answer: t.markup(`faq.items.${key}.a`, FAQ_PLAIN_TAGS),
       })),
     ),
@@ -185,12 +143,36 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
     }),
   ];
 
-  const cards = (section: string, keys: readonly string[]) =>
-    keys.map((key) => ({
-      key,
-      title: t(`${section}.items.${key}.title`),
-      desc: t(`${section}.items.${key}.desc`),
-    }));
+  const [monkaSpec, ...otherCaseSpecs] = CUSTOM_AI_APP_CASES;
+  const monkaCustomer = getCustomer(monkaSpec.slug, contentLocale);
+  const facts = t.raw("facts") as OfferFactItem[];
+
+  const articles = [
+    { key: "rag", label: t("seeAlso.rag"), href: ragArticle, locale: pageLocale },
+    { key: "roi", label: t("seeAlso.roi"), href: roiArticle, locale: pageLocale },
+    { key: "steps", label: t("seeAlso.steps"), href: stepsArticle, locale: pageLocale },
+  ];
+
+  const siblingOffers = [
+    {
+      key: "agency",
+      title: t("seeAlso.agencyTitle"),
+      desc: t("seeAlso.agencyDesc"),
+      href: agencyPath,
+    },
+    {
+      key: "agents",
+      title: t("seeAlso.agentsTitle"),
+      desc: t("seeAlso.agentsDesc"),
+      href: agentsPath,
+    },
+    {
+      key: "hardening",
+      title: t("seeAlso.hardeningTitle"),
+      desc: t("seeAlso.hardeningDesc"),
+      href: hardeningPath,
+    },
+  ];
 
   return (
     <div
@@ -202,130 +184,170 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
       ))}
       <TopNav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        {/* 1 — On the ink, cut like the homepage's hero: the short headline,
-            the full title as the H1's promise, the pitch and the call, the
-            mascot standing in its light. */}
         <ServiceHero
           kicker={t("kicker")}
           display={t("displayTitle")}
           title={t("title")}
           lede={t("lede")}
-          cta={<AboutBookingCta page={customAiAppPageId(locale)} location="cta_custom_ai_app_hero" namespace="customAiApp" />}
+          cta={
+            <AboutBookingCta
+              page={customAiAppPageId(locale)}
+              location="cta_custom_ai_app_hero"
+              namespace="customAiApp"
+              lit
+            />
+          }
         />
 
         <div data-surface="paper">
-          {/* The client logos running along the top of the paper, as on the
-              homepage. */}
-          <Clientele />
+          <Clientele exclude={["Softway Medical"]} />
 
-          {/* What the hero used to list, in short, at the top of the paper. */}
-          <section className={`${SECTION} border-b border-border py-12 md:py-14`}>
-            <span className={MONO}>
+          <OfferFactsStrip kicker={t("factsLabel")} items={facts} />
+
+          {/* 1. What we build: 2x2 lamp cards (the one feature card grid on the page). */}
+          <section className={OFFER_BAND}>
+            <p className={`m-0 mb-5 inline-flex items-center ${OFFER_MONO}`}>
               <BrandSquare />
-              {t("hero.label")}
-            </span>
-            <ul className="m-0 mt-6 grid list-none grid-cols-1 gap-x-10 gap-y-5 p-0 md:grid-cols-2">
-              {CUSTOM_AI_APP_HERO_KEYS.map((key) => (
-                <li
+              {t("apps.kicker")}
+            </p>
+            <h2 className={`${OFFER_H2} max-w-[20ch]`}>{t("apps.title")}</h2>
+            <p className={`${OFFER_PROSE_LEAD} mt-5 max-w-[62ch]`}>{t("apps.intro")}</p>
+
+            <div className="mt-12 grid grid-cols-1 gap-4 md:mt-16 md:grid-cols-2">
+              {CUSTOM_AI_APP_APPS_KEYS.map((key, i) => (
+                <article
                   key={key}
-                  className="flex gap-3 text-[16px] leading-[1.5] text-soft-foreground"
+                  className="lamp-card relative flex flex-col overflow-hidden border border-border p-7 md:p-9"
                 >
-                  <span aria-hidden="true" className="mt-[0.6em] h-1.5 w-1.5 shrink-0 bg-brand" />
-                  {t(`hero.items.${key}`)}
-                </li>
+                  <span className="text-foreground relative mb-8 self-start text-[48px] font-bold leading-none tracking-[-0.05em]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="relative m-0 mb-3 text-[clamp(1.45rem,2.1vw,1.9rem)] font-bold leading-[1.08] tracking-[-0.03em] text-foreground">
+                    {t(`apps.items.${key}.title`)}
+                  </h3>
+                  <p className={`relative ${OFFER_PROSE} max-w-[56ch] text-soft-foreground`}>
+                    {t(`apps.items.${key}.desc`)}
+                  </p>
+                </article>
               ))}
-            </ul>
+            </div>
           </section>
 
-          {/* 1. AI applications and SaaS. */}
-          <CardSection
-            first
-            title={t("apps.title")}
-            intro={t("apps.intro")}
-            cards={cards("apps", CUSTOM_AI_APP_APPS_KEYS)}
-          />
+          {/* 2. Unified proof band: Monka featured wide bench + LocService & AFP below. */}
+          <section className={`${OFFER_BAND} border-t border-border`}>
+            <p className={`m-0 mb-5 inline-flex items-center ${OFFER_MONO}`}>
+              <BrandSquare />
+              {t("cases.label")}
+            </p>
+            <h2 className={`${OFFER_H2} max-w-[20ch]`}>{t("cases.title")}</h2>
+            <p className={`${OFFER_PROSE_LEAD} mt-5 max-w-[64ch]`}>{t("cases.intro")}</p>
 
-          {/* 2. RAG architecture and agents, with the RAG article and the
-              agents landing. */}
-          <CardSection
-            title={t("rag.title")}
-            intro={t("rag.intro")}
-            cards={cards("rag", CUSTOM_AI_APP_RAG_KEYS)}
-          >
-            <div className="mt-10 flex max-w-[760px] flex-col gap-3">
-              <p className={PROSE}>{t.rich("rag.article", { link: link(ragArticle) })}</p>
-              <p className={PROSE}>{t.rich("rag.agents", { link: link(agentsPath) })}</p>
-            </div>
-          </CardSection>
+            {/* Featured: Monka */}
+            <article className="lamp-card mt-12 grid grid-cols-1 overflow-hidden border border-border md:mt-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+              <div className="relative flex flex-col border-b border-border p-7 md:p-10 lg:border-b-0 lg:border-r">
+                {monkaCustomer ? (
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <h3 className="m-0">
+                      <ClientMark
+                        logo={monkaCustomer.logo}
+                        client={monkaCustomer.client}
+                        className="h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
+                        textClassName="text-[24px]"
+                      />
+                    </h3>
+                    <span className="text-right font-mono text-[10px] uppercase leading-relaxed tracking-[0.18em] text-muted-foreground">
+                      {monkaCustomer.sector}
+                    </span>
+                  </div>
+                ) : null}
 
-          {/* 3. Security, GDPR and business integrations. */}
-          <CardSection
-            title={t("security.title")}
-            intro={t("security.intro")}
-            cards={cards("security", CUSTOM_AI_APP_SECURITY_KEYS)}
-          />
+                <dl className="m-0 mt-10 border-t border-border">
+                  {monkaSpec.stats.map((stat) => (
+                    <div
+                      key={stat}
+                      className="grid grid-cols-[minmax(0,130px)_minmax(0,1fr)] items-baseline gap-4 border-b border-border py-5"
+                    >
+                      <dt className={OFFER_MONO}>{t(`cases.monka.stats.${stat}.label`)}</dt>
+                      <dd className="m-0 text-[30px] font-bold leading-[1.05] tracking-[-0.04em] text-foreground md:text-[38px]">
+                        {t(`cases.monka.stats.${stat}.value`)}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+                <p className={`${OFFER_PROSE} mt-5`}>{t("cases.monka.intro")}</p>
+              </div>
+              <div className="relative flex flex-col p-7 md:p-10">
+                <ul className="m-0 flex list-none flex-col p-0">
+                  {(t.raw("cases.monka.points") as string[]).map((point) => (
+                    <li
+                      key={point}
+                      className="flex gap-3 py-3 text-[15px] leading-[1.55] text-foreground md:text-base"
+                    >
+                      <span aria-hidden="true" className="font-mono text-brand">
+                        →
+                      </span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={`/case-studies/${monkaSpec.slug}`}
+                  className={`${OFFER_MONO_LINK} mt-auto self-start pt-6`}
+                >
+                  {t("cases.monka.readCase")}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </article>
 
-          {/* 4 to 6. The three cases: Monka, LocService, AFP / MediaGen. Every
-              figure is either given in the brief or published on the case
-              page, and lit like the homepage's. */}
-          {CUSTOM_AI_APP_CASES.map(({ key, slug, stats }) => {
-            const customer = getCustomer(slug, contentLocale);
-            return (
-              <section key={key} className={`${BAND} border-t border-border`}>
-                <span className="block font-mono text-[12px] uppercase tracking-[0.2em] text-muted-foreground">
-                  <BrandSquare />
-                  {t("cases.label")}
-                </span>
-                <h2 className={`${H2} mt-6 max-w-[20ch]`}>{t(`cases.${key}.title`)}</h2>
-                <p className={`${PROSE} mt-6 max-w-[720px]`}>{t(`cases.${key}.intro`)}</p>
-
-                <article className="mt-12 grid grid-cols-1 border border-border bg-card transition-colors duration-300 hover:border-border-strong md:mt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
-                  <div className="flex flex-col border-b border-border p-7 md:p-9 lg:border-b-0 lg:border-r">
+            {/* Secondary cases: LocService + AFP / MediaGen */}
+            <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+              {otherCaseSpecs.map(({ key, slug, stats }) => {
+                const customer = getCustomer(slug, contentLocale);
+                return (
+                  <article
+                    key={key}
+                    className="flex flex-col border border-border bg-card p-7 transition-colors duration-300 hover:border-border-strong md:p-9"
+                  >
                     {customer ? (
-                      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
+                      <div className="flex flex-wrap items-start justify-between gap-4">
                         <h3 className="m-0">
-                          {/* The logo is the card's title: its alt carries the client name. */}
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={customer.logo}
-                            alt={customer.client}
-                            {...clientLogoSize(customer.logo)}
-                            className="logo-tone h-8 w-auto max-w-[180px] object-contain object-left md:h-9"
-                            loading="lazy"
-                            decoding="async"
+                          <ClientMark
+                            logo={customer.logo}
+                            client={customer.client}
+                            className="h-7 w-auto max-w-[170px] object-contain object-left md:h-8"
+                            textClassName="text-[22px]"
                           />
                         </h3>
-                        <span className="text-right font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
+                        <span className="text-right font-mono text-[10px] uppercase leading-relaxed tracking-[0.18em] text-muted-foreground">
                           {customer.sector}
                         </span>
                       </div>
                     ) : null}
 
-                    <dl className="m-0 mt-10 border-t border-border">
+                    <dl className="m-0 mt-7 flex flex-wrap gap-x-8 gap-y-4 border-y border-border py-5">
                       {stats.map((stat) => (
-                        <div
-                          key={stat}
-                          className="grid grid-cols-[minmax(0,120px)_minmax(0,1fr)] items-baseline gap-4 border-b border-border py-5 md:grid-cols-[minmax(0,140px)_minmax(0,1fr)]"
-                        >
-                          <dt className={MONO}>{t(`cases.${key}.stats.${stat}.label`)}</dt>
-                          <dd className="m-0 text-[30px] font-bold leading-[1.05] tracking-[-0.04em] md:text-[40px]">
-                            <span className="text-foreground">
-                              {t(`cases.${key}.stats.${stat}.value`)}
-                            </span>
+                        <div key={stat}>
+                          <dt className={OFFER_MONO}>{t(`cases.${key}.stats.${stat}.label`)}</dt>
+                          <dd className="m-0 mt-1 text-[26px] font-bold leading-[1.05] tracking-[-0.04em] text-foreground md:text-[32px]">
+                            {t(`cases.${key}.stats.${stat}.value`)}
                           </dd>
                         </div>
                       ))}
                     </dl>
+
+                    <p className={`${OFFER_PROSE} mt-5`}>{t(`cases.${key}.intro`)}</p>
                     {t.has(`cases.${key}.statNote`) ? (
-                      <p className={`${PROSE} mt-5`}>{t(`cases.${key}.statNote`)}</p>
+                      <p className="m-0 mt-3 text-[15px] font-medium leading-[1.55] text-foreground">
+                        {t(`cases.${key}.statNote`)}
+                      </p>
                     ) : null}
-                  </div>
-                  <div className="flex flex-col p-7 md:p-9">
-                    <ul className="m-0 flex list-none flex-col p-0">
+
+                    <ul className="m-0 mt-4 flex list-none flex-col p-0">
                       {(t.raw(`cases.${key}.points`) as string[]).map((point) => (
                         <li
                           key={point}
-                          className="flex gap-3 py-4 text-[15px] leading-[1.55] text-foreground md:text-base"
+                          className="flex gap-3 py-2 text-[14px] leading-[1.55] text-soft-foreground md:text-[15px]"
                         >
                           <span aria-hidden="true" className="font-mono text-brand">
                             →
@@ -334,105 +356,124 @@ export async function CustomAiAppPage({ locale }: { locale: string }) {
                         </li>
                       ))}
                     </ul>
-                    <Link href={`/case-studies/${slug}`} className={`${MONO_LINK} mt-auto self-start pt-6`}>
+
+                    <Link
+                      href={`/case-studies/${slug}`}
+                      className={`${OFFER_MONO_LINK} mt-auto self-start pt-6`}
+                    >
                       {t(`cases.${key}.readCase`)}
                       <span aria-hidden="true">→</span>
                     </Link>
-                  </div>
-                </article>
-              </section>
-            );
-          })}
-        </div>
-
-        {/* 7. Method and process: an ink band in the orange light, like the
-            About process section. No booking call here: the page keeps a
-            single one, in the hero. */}
-        <section className="relative overflow-hidden">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-            style={{ background: GLOW }}
-          />
-          <div className={`relative ${BAND}`}>
-            <h2 className={H2}>{t("method.title")}</h2>
-            <p className={`${PROSE} mt-6 max-w-[680px]`}>{t("method.intro")}</p>
-
-            <ol className="m-0 mt-14 flex list-none flex-col p-0 md:mt-16">
-              {CUSTOM_AI_APP_METHOD_STEPS.map((step) => (
-                <li
-                  key={step.n}
-                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-[220px_1fr] md:gap-12 md:py-10"
-                >
-                  <span className="text-foreground self-start text-5xl font-bold leading-none tracking-[-0.05em] md:text-[72px]">
-                    {step.n}
-                  </span>
-                  <div className="flex flex-col gap-3">
-                    <h3 className="m-0 max-w-[560px] text-[22px] font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-[30px]">
-                      {t(`method.steps.${step.key}.title`)}
-                    </h3>
-                    <p className={`${PROSE} max-w-[560px]`}>
-                      {t(`method.steps.${step.key}.desc`)}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <div data-surface="paper">
-          {/* 8. FAQ; the publishable answers are restated in the FAQPage
-              JSON-LD above. Then the cross-links to the sibling landings. */}
-          <section className={BAND}>
-            <h2 className={H2}>{t("faq.title")}</h2>
-
-            <div className="mt-12 md:mt-16">
-              {CUSTOM_AI_APP_FAQ_KEYS.map((key) => (
-                <article
-                  key={key}
-                  className="grid grid-cols-1 gap-3 py-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-12 md:py-10"
-                >
-                  <h3 className="m-0 text-[20px] font-bold leading-[1.15] tracking-[-0.03em] text-foreground md:text-[24px]">
-                    {t(`faq.items.${key}.q`)}
-                  </h3>
-                  <p className={`${PROSE} max-w-[70ch]`}>{t.rich(`faq.items.${key}.a`, faqLinks)}</p>
-                </article>
-              ))}
+                  </article>
+                );
+              })}
             </div>
+          </section>
 
-            <nav aria-labelledby="custom-ai-app-see-also" className="mt-16">
-              <span id="custom-ai-app-see-also" className={MONO}>
-                {t("seeAlso.title")}
-              </span>
-              <ul className="m-0 mt-4 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-3">
-                {[
-                  { key: "agency", href: agencyPath },
-                  { key: "agents", href: agentsPath },
-                  { key: "rag", href: ragArticle },
-                ].map((item) => (
-                  <li key={item.key} className="flex">
-                    <Link
-                      href={item.href}
-                      className="group flex w-full items-baseline justify-between gap-4 border border-border bg-card p-6 text-[19px] font-bold leading-[1.2] tracking-[-0.02em] text-foreground transition-colors duration-300 hover:border-border-strong md:p-7 md:text-[21px]"
-                    >
-                      <span className="underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground">
-                        {t(`seeAlso.${item.key}`)}
-                      </span>
-                      <span aria-hidden="true" className="shrink-0 text-brand">
-                        →
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+          {/* 3. Architecture, RAG, agents & GDPR security as an asymmetric ruled ledger (no card wall). */}
+          <section className={`${OFFER_BAND} border-t border-border`}>
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+              <div className="lg:sticky lg:top-28 lg:self-start">
+                <p className={`m-0 mb-5 inline-flex items-center ${OFFER_MONO}`}>
+                  <BrandSquare />
+                  {t("rag.kicker")}
+                </p>
+                <h2 className={OFFER_H2_SPLIT}>{t("rag.title")}</h2>
+                <p className={`${OFFER_PROSE_LEAD} mt-5 max-w-[44ch]`}>{t("rag.intro")}</p>
+                <div className="mt-7 flex flex-col gap-3 border-t border-border pt-6">
+                  <p className={OFFER_PROSE}>{t.rich("rag.article", { link: link(ragArticle) })}</p>
+                  <p className={OFFER_PROSE}>{t.rich("rag.agents", { link: link(agentsPath) })}</p>
+                </div>
+              </div>
 
-            <p className={`${PROSE} mt-12 max-w-[760px] border-l border-border-strong pl-5`}>
-              {t.rich("about", { link: link(splitPath(ABOUT_PATHS, locale)) })}
-            </p>
+              <div className="flex flex-col gap-12">
+                <div>
+                  <h3 className={`m-0 font-normal ${OFFER_MONO}`}>{t("rag.groupLabel")}</h3>
+                  <dl className="m-0 mt-5 border-t border-border">
+                    {CUSTOM_AI_APP_RAG_KEYS.map((key, i) => (
+                      <div
+                        key={key}
+                        className="grid grid-cols-1 gap-2 border-b border-border py-5 sm:grid-cols-[36px_minmax(0,1fr)] sm:gap-5"
+                      >
+                        <span className="font-mono text-[12px] tracking-[0.16em] text-brand">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <div>
+                          <dt className="text-[19px] font-bold leading-[1.2] tracking-[-0.025em] text-foreground">
+                            {t(`rag.items.${key}.title`)}
+                          </dt>
+                          <dd className={`${OFFER_PROSE} mt-2`}>{t(`rag.items.${key}.desc`)}</dd>
+                        </div>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+
+                <div>
+                  <h3 className={`m-0 font-normal ${OFFER_MONO}`}>{t("security.title")}</h3>
+                  <p className={`${OFFER_PROSE} mt-3 max-w-[58ch]`}>{t("security.intro")}</p>
+                  <dl className="m-0 mt-5 border-t border-border">
+                    {CUSTOM_AI_APP_SECURITY_KEYS.map((key, i) => (
+                      <div
+                        key={key}
+                        className="grid grid-cols-1 gap-2 border-b border-border py-5 sm:grid-cols-[36px_minmax(0,1fr)] sm:gap-5"
+                      >
+                        <span className="font-mono text-[12px] tracking-[0.16em] text-muted-foreground">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <div>
+                          <dt className="text-[19px] font-bold leading-[1.2] tracking-[-0.025em] text-foreground">
+                            {t(`security.items.${key}.title`)}
+                          </dt>
+                          <dd className={`${OFFER_PROSE} mt-2`}>
+                            {t(`security.items.${key}.desc`)}
+                          </dd>
+                        </div>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
+
+        {/* 4. 5-step method on ink. */}
+        <OfferMethodBand
+          kicker={t("method.kicker")}
+          title={t("method.title")}
+          intro={t("method.intro")}
+          steps={CUSTOM_AI_APP_METHOD_STEPS.map((step) => ({
+            n: step.n,
+            title: t(`method.steps.${step.key}.title`),
+            desc: t(`method.steps.${step.key}.desc`),
+          }))}
+        />
+
+        <div data-surface="paper">
+          <OfferFaqSection
+            kicker={t("faq.kicker")}
+            title={t("faq.title")}
+            borderTop={false}
+            items={CUSTOM_AI_APP_FAQ_KEYS.map((key) => ({
+              key,
+              question: t(`faq.items.${key}.q`),
+              answer: t.rich(`faq.items.${key}.a`, faqLinks),
+            }))}
+          />
+
+          <OfferFurtherReading
+            kicker={t("seeAlso.kicker")}
+            title={t("seeAlso.title")}
+            articlesLabel={t("seeAlso.articlesLabel")}
+            articles={articles}
+            offersLabel={t("seeAlso.offersLabel")}
+            offers={siblingOffers}
+            note={t.rich("about", { link: link(splitPath(ABOUT_PATHS, locale)) })}
+          />
+        </div>
+
+        <FinalCTA />
       </main>
       <Footer />
     </div>
